@@ -306,17 +306,21 @@ class Device360(Device360WebElements):
             self.utils.print_info("Using device MAC: ", device_mac.upper())
             self.navigator.navigate_to_device360_page_with_mac(device_mac.upper())
 
-        if device_name:
+        elif device_name:
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
-
+        else:
+            kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 Configure button")
         self.auto_actions.click_reference(self.get_device360_configure_button)
-
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
         self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
-
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI Run Time: ", run_time)
         if run_time == 5:
             self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_5min_radio)
@@ -337,13 +341,14 @@ class Device360(Device360WebElements):
             self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
-        sleep(5)
+        sleep(10)
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI Enable SSH button...")
         self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_enable_button)
         self.screen.save_screen_shot()
 
         sleep(time_interval)
-
+        self.screen.save_screen_shot()
         if self.get_device_ssh_ui_tip_error() != None:
             self.screen.save_screen_shot()
             self.auto_actions.click(self.get_device_ssh_ui_tip_close())
@@ -351,7 +356,6 @@ class Device360(Device360WebElements):
             self.close_device360_window()
             self.common_validation.failed(**kwargs)
             return -1
-
 
         retry_count = 0
         while retry_count <= retry_time:
@@ -413,6 +417,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 Configure button")
         self.auto_actions.click_reference(self.get_device360_configure_button)
         self.screen.save_screen_shot()
@@ -893,14 +898,14 @@ class Device360(Device360WebElements):
         close_btn = self.dev360.get_close_dialog()
         if close_btn:
             self.utils.print_info("Closing device360 Dialog Window.")
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return 1
         else:
             self.utils.print_info("Could not obtain Device360 close button - make sure Device360 window is open")
             self.screen.save_screen_shot()
             return -1
 
-    def device360_disable_ssh_connectivity(self, device_mac='', device_name=''):
+    def device360_disable_ssh_connectivity(self, device_mac='', device_name='', **kwargs):
         """
         - This keyword disables SSH Connectivity for the specified device
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname) -> Click Disable SSH button
@@ -912,25 +917,33 @@ class Device360(Device360WebElements):
         if device_mac:
             self.utils.print_info("Using device MAC: ", device_mac)
             self.navigator.navigate_to_device360_page_with_mac(device_mac)
-
-        if device_name:
+        elif device_name:
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
+        else:
+            kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+            self.common_validation.failed(**kwargs)
+            return -1
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 Configure button")
         self.auto_actions.click_reference(self.get_device360_configure_button)
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 SSH Disable SSH button...")
         disable_ssh_btn = self.get_device360_configure_ssh_disable_button()
         if disable_ssh_btn:
             self.auto_actions.click(disable_ssh_btn)
         else:
-            self.utils.print_info("Disable SSH button not present - SSH may already be disabled")
+            self.utils.print_info("SSH has been disabled")
 
+        kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def device360_disable_ssh_web_connectivity(self, device_mac='', device_name=''):
@@ -6105,6 +6118,12 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_storm_control)
                 return 1
 
+        elif "MACLOCKINGSettingsPage" in element:
+            get_mac_locking = self.get_select_element_port_type("MACLOCKINGSettings")
+            if get_mac_locking:
+                self.auto_actions.click(get_mac_locking)
+                return 1
+
         elif "ELRPSettingsPage" in element:
             sleep(5)
             get_elrp = self.get_select_element_port_type("ELRPSettingsPage")
@@ -6389,7 +6408,46 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(get_rate_limit_val_el, value)
                 return 1
 
-        # page ELRP (ONLY FOR EXOS)
+        # page MAC LOCKING
+        elif element == "mac locking":
+            get_maclocking = self.get_select_element_port_type(element, value)
+            if get_maclocking:
+                sleep(3)
+                self.auto_actions.click(get_maclocking)
+                return 1
+
+        elif element == "max first arrival":
+            get_max_first_arrival_el = self.get_select_element_port_type(element)
+            if get_max_first_arrival_el:
+                self.auto_actions.send_keys(get_max_first_arrival_el, value)
+                return 1
+
+        elif element == "disable port":
+            get_maclocking_disable_port = self.get_select_element_port_type(element, value)
+            if get_maclocking_disable_port:
+                self.auto_actions.click(get_maclocking_disable_port)
+                return 1
+
+        elif element == "link down clear":
+            get_maclocking_link_down_clear = self.get_select_element_port_type(element, value)
+            if get_maclocking_link_down_clear:
+                self.auto_actions.click(get_maclocking_link_down_clear)
+                return 1
+
+        elif element == "link down retain":
+            get_maclocking_link_down_retain = self.get_select_element_port_type(element, value)
+            if get_maclocking_link_down_retain:
+                self.auto_actions.click(get_maclocking_link_down_retain)
+                return 1
+
+        elif element == "remove aged MACs":
+            get_maclocking_remove_aged_MACs = self.get_select_element_port_type(element, value)
+            if get_maclocking_remove_aged_MACs:
+                self.auto_actions.click(get_maclocking_remove_aged_MACs)
+                return 1
+
+        #page ELRP (ONLY FOR EXOS)
+
         elif element == "elrp status":
             sleep(5)
             get_elrp_status = self.get_select_element_port_type(element, value)
@@ -7076,11 +7134,11 @@ class Device360(Device360WebElements):
 
     def is_device360_relaunch_digital_twin_button_visible(self):
         """
-        - This keyword checks if the ACTIONS > Relaunch Digital Twin menu option is visible
+        - This keyword checks if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Is Device360 Relaunch Digital Twin Button Visible``
-        :return: 1 if the menu item is displayed, else -1
+        :return: True if visible, False if not visible, else -1
         """
         relaunch_link = self.dev360.get_device360_digital_twin_relaunch_button()
         if relaunch_link:
@@ -7089,10 +7147,11 @@ class Device360(Device360WebElements):
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is not displayed.")
                 self.screen.save_screen_shot()
+                return False
             else:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is displayed.")
                 self.screen.save_screen_shot()
-                return 1
+                return True
         else:
             self.utils.print_info("Could not find the 'Relaunch Digital Twin' button.")
 
@@ -7100,7 +7159,7 @@ class Device360(Device360WebElements):
 
     def device360_relaunch_digital_twin_device(self, confirm="yes"):
         """
-        - This keyword clicks on the ACTIONS > Relaunch Digital Twin
+        - This keyword clicks the 'Relaunch Digital Twin' button in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Device360 Relaunch Digital Twin Device   confirm="no"``
@@ -7116,17 +7175,15 @@ class Device360(Device360WebElements):
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Relaunch Digital Twin' button.")
-                # self.screen.save_screen_shot()
                 self.auto_actions.click(relaunch_button)
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
                     self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
                     self.utils.print_info("Confirming the relaunch.")
-                    # self.screen.save_screen_shot()
-                    tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
-                    if tool_tp_text_error:
-                        self.utils.print_info(tool_tp_text_error.text)
+                    banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
+                    if banner_text_error:
+                        self.utils.print_info(banner_text_error.text)
                         return -1
                     return 1
                 else:
@@ -7139,11 +7196,11 @@ class Device360(Device360WebElements):
 
     def is_device360_shutdown_digital_twin_button_visible(self):
         """
-        - This keyword checks if the ACTIONS > Shutdown Digital Twin menu option is visible
+        - This keyword checks if the 'Shutdown Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Is Device360 Shutdown Digital Twin Button Visible``
-        :return: 1 if the menu item is displayed, else -1
+        :return: True if visible, False if not visible, else -1
         """
         shutdown_link = self.dev360.get_device360_digital_twin_shutdown_button()
         if shutdown_link:
@@ -7152,10 +7209,11 @@ class Device360(Device360WebElements):
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is not displayed.")
                 self.screen.save_screen_shot()
+                return False
             else:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is displayed.")
                 self.screen.save_screen_shot()
-                return 1
+                return True
         else:
             self.utils.print_info("Could not find the 'Shutdown Digital Twin' button.")
 
@@ -7163,7 +7221,7 @@ class Device360(Device360WebElements):
 
     def device360_shutdown_digital_twin_device(self, confirm="yes"):
         """
-        - This keyword clicks on the ACTIONS > Shutdown Digital Twin
+        - This keyword clicks the 'Shutdown Digital Twin' button in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Device360 Shutdown Digital Twin Device   confirm="no"``
@@ -7179,17 +7237,15 @@ class Device360(Device360WebElements):
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Shutdown Digital Twin' button.")
-                # self.screen.save_screen_shot()
                 self.auto_actions.click(shutdown_button)
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
                     self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
                     self.utils.print_info("Confirming the shutdown.")
-                    # self.screen.save_screen_shot()
-                    tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
-                    if tool_tp_text_error:
-                        self.utils.print_info(tool_tp_text_error.text)
+                    banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
+                    if banner_text_error:
+                        self.utils.print_info(banner_text_error.text)
                         return -1
                     return 1
                 else:
@@ -7202,7 +7258,7 @@ class Device360(Device360WebElements):
 
     def get_device360_digital_twin_device_status(self):
         """
-        - This keyword obtains the Digital Twin status icon within the D360 view.
+        - This keyword obtains the Digital Twin status icon within the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Get Device360 Digital Twin Device Status``
@@ -7215,6 +7271,7 @@ class Device360(Device360WebElements):
         status_icon = self.get_device360_digital_twin_status_icon().get_attribute("class")
         if status_icon:
             self.utils.print_info(f"Status Icon class value: {status_icon}")
+            self.screen.save_screen_shot()
             if "dt-icon" in status_icon:
                 #  vv 22R5 Device360 UI Issue, not seen in 22R6
                 if "hive-status-true hive-status-false" in status_icon:
@@ -7238,7 +7295,7 @@ class Device360(Device360WebElements):
 
     def device360_wait_until_device_online(self, retry_duration=30, retry_count=20, **kwargs):
         """
-        - This keyword waits till the device status updates to connected in the XIQ Device360 view.
+        - This keyword waits till the device status updates to connected in the XIQ Device 360 view.
         - This keyword by default loops every 30 seconds for 20 times to check the device status.
         - It is assumed that the Device 360 window is already opened for the Device.
         - Keyword Usage:
@@ -7267,7 +7324,6 @@ class Device360(Device360WebElements):
                             self.utils.print_info(
                                 f"Device status is disconnected. Waiting for {retry_duration} seconds")
                         elif "Connected" in connected_text:
-                            # self.utils.print_info("Device status is Connected")
                             kwargs['pass_msg'] = "Device status is connected!"
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -7287,7 +7343,7 @@ class Device360(Device360WebElements):
 
     def device360_wait_until_device_offline(self, retry_duration=30, retry_count=20, **kwargs):
         """
-        - This keyword waits till the device status updates to disconnected in the XIQ Device360 view.
+        - This keyword waits till the device status updates to disconnected in the XIQ Device 360 view.
         - This keyword by default loops every 30 seconds for 20 times to check the device status.
         - It is assumed that the Device 360 window is already opened for the Device.
         - Keyword Usage:
@@ -7315,7 +7371,6 @@ class Device360(Device360WebElements):
                         if "Connected" in connected_text:
                             self.utils.print_info(f"Device status is connected. Waiting for {retry_duration} seconds")
                         elif "Disconnected" in connected_text:
-                            # self.utils.print_info("Device status is disconnected")
                             kwargs['pass_msg'] = "Device status is disconnected!"
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -7332,3 +7387,874 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
         self.common_validation.failed(**kwargs)
         return -1
+
+    def create_port_type_with_stp_settings(self, switch_port, port_type_name, path_cost, description=None, status=None,
+                                           port_usage="access", priority=None, bpdu_protection=None, stp_enabled=None,
+                                           edge_port=None, device_360=False, save=True):
+        """ This function creates a port type with custom STP settings at device or template level.
+
+        The only mandatory arguments are switch_port, port_type_name and path_cost. All the other arguments are optional.
+
+        The function will return a tuple that contains the status of the function and the summary of the newly created port type.
+
+        args:
+            :switch_port:        str  - the name of the port
+            :port_type_name:     str  - the name of the port type
+            :path_cost:          int  - the value of path cost
+
+        kwargs:
+            :description:        str  - the description|None for no action
+            :status:             bool - True for enabled|False for disabled|None for no action
+            :port_usage:         str  - "access"|"trunk"|None for no action
+            :priority:           int  - 0, 16, 32, ...|None for no action
+            :bpdu_protection:    str  - "Disabled"|"Guard"|None for no action
+            :stp_enabled:        bool - True for enabled|False for disabled|None for no action
+            :edge_port:          bool - True for enabled|False for disabled|None for no action
+            :device_360:         bool - True for device level|False for template level
+            :save:               bool - True for saving the port type at the end|False for not saving
+
+        return: if the function succeeds it will return (1, {...})
+                if the function fails it will return (-1, {})
+
+        usage:
+
+            status, summary = self.xiq.xflowsmanageDevice360.create_port_type_with_stp_settings(
+                1, "testing_port_type_1", 1111, description="description", status=True,
+                port_usage="access", priority=64, bpdu_protection="Disabled", stp_enabled=True, edge_port=True)
+            >>> status
+            1
+            >>> summary
+            {'STP': 'Enabled', 'Edge Port': 'Enabled', 'BPDU Protection': 'Disabled', 'Priority': '64', 'Path Cost': '1111'}
+            >>>
+        """
+        if not device_360:
+            rows = self.get_policy_configure_port_rows()
+            if not rows:
+                self.utils.print_info("Could not obtain list of port rows")
+                return -1, {}
+            else:
+                for row in rows:
+                    if re.search(f'{switch_port}\n', row.text):
+                        d360_create_port_type = self.get_d360_create_port_type(row)
+
+                        if d360_create_port_type:
+                            self.utils.print_info("The button d360_create_port_type from policy was found")
+                            self.auto_actions.click(d360_create_port_type)
+                            sleep(10)
+                            break
+                        else:
+                            self.utils.print_info("The button d360_create_port_type from policy was not found")
+                            return -1, {}
+                else:
+                    self.utils.print_info("The button d360_create_port_type from policy was not found")
+                    return -1, {}
+        else:
+            port_conf_content = self.get_device360_port_configuration_content()
+            if port_conf_content:
+                port_row = self.device360_get_port_row(switch_port)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+
+                    d360_create_port_type = self.get_d360_create_port_type(port_row)
+                    if d360_create_port_type:
+                        self.utils.print_info("The button d360_create_port_type was found")
+                        self.auto_actions.click(d360_create_port_type)
+                        sleep(2)
+                    else:
+                        self.utils.print_info("The button d360_create_port_type was not found")
+                        self.screen.save_screen_shot()
+                        return -1, {}
+                else:
+                    self.utils.print_info("Port was not found ")
+                    return -1, {}
+            else:
+                return -1, {}
+
+        name_element = self.get_select_element_port_type("name")
+        if not name_element:
+            self.utils.print_info("Port name element was not found")
+            return -1, {}
+
+        if self.auto_actions.send_keys(name_element, port_type_name) == 1:
+            self.utils.print_info("Successfully configured the name field")
+            sleep(2)
+        else:
+            self.utils.print_info("Failed to configure the name field")
+            return -1, {}
+
+        if description is not None:
+            description_element = self.get_select_element_port_type("description")
+            if not description_element:
+                self.utils.print_info("Port description element was not found")
+                return -1, {}
+
+            if self.auto_actions.send_keys(description_element, description) == 1:
+                self.utils.print_info("Successfully configured the description field")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to configure the description field")
+                return -1, {}
+
+        if status is not None:
+            status_element = self.get_select_element_port_type("status")
+            if not status_element:
+                self.utils.print_info("Port status element was not found")
+                return -1, {}
+
+            if (not status_element.is_selected() and status) or (
+                    status_element.is_selected() and not status):
+
+                if self.auto_actions.click(status_element) == 1:
+                    self.utils.print_info("Successfully clicked on the status element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the status element")
+                    return -1, {}
+
+        auto_sense = self.dev360.get_select_element_port_type("auto-sense")
+        if auto_sense:
+            if auto_sense.is_selected():
+                if self.auto_actions.click(auto_sense) == 1:
+                    self.utils.print_info("Successfully disabled the auto sense on chosen port")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to disable the auto sense on chosen port")
+                    return -1, {}
+
+        port_element = self.dev360.get_select_element_port_type("port usage", f"{port_usage} port")
+        if not port_element:
+            self.utils.print_info(f"{port_usage} port type element was not found")
+            return -1, {}
+
+        if self.auto_actions.click(port_element) == 1:
+            self.utils.print_info("Successfully chose the port usage field")
+            sleep(2)
+        else:
+            self.utils.print_info("Failed to chose the port usage field")
+            return -1, {}
+
+        self.utils.print_info("Go to the STP settings page")
+        for _ in range(5):
+            if "active" in self.get_select_element_port_type("stpPage").get_attribute("class"):
+                break
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                if get_next_button.is_enabled():
+                    self.auto_actions.click(get_next_button)
+                    sleep(2)
+                else:
+                    break
+            else:
+                self.utils.print_info("get_next_button not found")
+                return -1, {}
+
+        if stp_enabled is not None:
+            stp_enabled_element = self.get_select_element_port_type("stp enable")
+
+            if not stp_enabled_element:
+                self.utils.print_info("STP Enabled element was not found")
+                return -1, {}
+
+            if (not stp_enabled_element.is_selected() and stp_enabled) or (
+                stp_enabled_element.is_selected() and not stp_enabled):
+
+                if self.auto_actions.click(stp_enabled_element) == 1:
+                    self.utils.print_info("Successfully clicked on the STP enabled element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the STP Enabled element")
+                    return -1, {}
+
+        if edge_port is not None:
+            edge_port_element = self.get_select_element_port_type("edge port")
+
+            if not edge_port_element:
+                self.utils.print_info("Edge Port element was not found")
+                return -1, {}
+
+            if (not edge_port_element.is_selected() and edge_port) or (
+                edge_port_element.is_selected() and not edge_port):
+
+                if self.auto_actions.click(edge_port_element) == 1:
+                    self.utils.print_info("Successfully clicked on the Edge Port element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the Edge Port element")
+                    return -1, {}
+
+        if bpdu_protection is not None:
+            bpdu_protection_element = self.get_select_element_port_type("bpdu protection")
+
+            if not bpdu_protection_element:
+                self.utils.print_info("BPDU Protection element was not found")
+                return -1, {}
+
+            if self.auto_actions.click(bpdu_protection_element) == 1:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                sleep(5)
+            else:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                return -1, {}
+
+            get_bpdu_protection_items = self.get_select_element_port_type("bpdu_protection_items")
+
+            if not get_bpdu_protection_items:
+                self.utils.print_info("BPDU Protection list elements not found")
+                return -1, {}
+
+            if self.auto_actions.select_drop_down_options(get_bpdu_protection_items, bpdu_protection):
+                self.utils.print_info("Selected into dropdown value : ", bpdu_protection)
+            else:
+                self.utils.print_info("Failed to select from BPDU Protection dropdown")
+                return -1, {}
+
+        if path_cost is not None:
+            path_cost_element = self.get_select_element_port_type("path cost")
+
+            if not path_cost_element:
+                self.utils.print_info("Path Cost element was not found")
+                return -1, {}
+
+            if self.auto_actions.send_keys(path_cost_element, str(path_cost)) == 1:
+                self.utils.print_info("Successfully configured the path cost field")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to configure the path cost field")
+                return -1, {}
+
+        if priority:
+            priority_element = self.get_select_element_port_type("priority")
+
+            if not priority_element:
+                self.utils.print_info("Priority element was not found")
+                return -1, {}
+
+            if self.auto_actions.click(priority_element) == 1:
+                self.utils.print_info("Successfully clicked on the priority element")
+                sleep(5)
+            else:
+                self.utils.print_info("Failed to click on the priority element")
+                return -1, {}
+
+            get_priority_items = self.get_select_element_port_type("priority_items")
+            if not get_priority_items:
+                self.utils.print_info("Priority dropdown elements not found")
+                return -1, {}
+
+            if self.auto_actions.select_drop_down_options(get_priority_items, str(priority)):
+                self.utils.print_info("Selected into dropdown value : ", priority)
+            else:
+                self.utils.print_info("Failed to select item from priority dropdown")
+                return -1, {}
+
+        self.utils.print_info("Go to the last page")
+        for _ in range(5):
+            if "active" in self.get_select_element_port_type("summaryPage").get_attribute("class"):
+                break
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                if get_next_button.is_enabled():
+                    self.auto_actions.click(get_next_button)
+                    sleep(2)
+                else:
+                    break
+            else:
+                self.utils.print_info("get_next_button not found")
+                return -1, {}
+
+        summary = {}
+
+        for row_name, row_value in zip(
+            ["STP", "Edge Port", "BPDU Protection", "Priority", "Path Cost"],
+            ["stp", "edge port", "bpdu protection", "priority", "path cost"]
+        ):
+            try:
+                summary[row_name] = self.dev360.get_select_element_port_type_summary(row_value).text
+            except:
+                summary[row_name] = ""
+
+        if save:
+            save_button = self.dev360.get_close_port_type_box()
+
+            if not save_button:
+                self.utils.print_info("save button not found")
+                return -1, {}
+
+            if self.auto_actions.click(save_button) == 1:
+                self.utils.print_info("Successfully clicked on the Save element")
+            else:
+                self.utils.print_info("Failed to click on the Save element")
+                return -1, {}
+
+        return 1, summary
+
+    def edit_stp_settings_in_honeycomb_port_editor(self, switch_port, port_type_name, status=None, stp_enabled=None,
+                                                   edge_port=None, bpdu_protection=None, priority=None,
+                                                   path_cost=None, save=True):
+        """ This function edits a port type with custom STP settings at template level.
+
+        The only mandatory arguments are switch_port, port_type_name and path_cost. All the other arguments are optional.
+
+        The function will return a tuple that contains the status of the function and the summary of the newly created port type.
+
+        args:
+            :switch_port:        str   -   the name of the port
+            :port_type_name:     str   -   the name of the port type
+
+        kwargs:
+            :description:        str   -   the description
+            :status:             bool  -   True for enabled|False for disabled|None for no action
+            :port_usage:         str   -   "access"|"trunk"|None for no action
+            :priority:           int   -   0, 16, 32, ...|None for no action
+            :bpdu_protection:    str   -   "Disabled"|"Guard"|None for no action
+            :stp_enabled:        bool  -   True for enabled|False for disabled|None for no action
+            :edge_port:          bool  -   True for enabled|False for disabled|None for no action
+            :device_360:         bool  -   True for device level|False for template level
+            :path_cost:          int   -   the value of path cost|None for no action
+            :save:               bool  -   True for saving the port type at the end|False for not saving|None for no action
+
+        return: if the function succeeds it will return (1, {...})
+                if the function fails it will return (-1, {})
+
+        return: if the function succeeds it will return (1, {...})
+                if the function fails it will return (-1, {})
+
+        usage:
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", path_cost=2222, bpdu_protection="Guard"
+            )
+
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", bpdu_protection="Disabled"
+            )
+
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", priority=80, edge_port=False, stp_enabled=False
+            )
+
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", status=False, edge_port=True, stp_enabled=True
+            )
+
+            status, summary = self.xiq.xflowsmanageDevice360.edit_stp_settings_in_honeycomb_port_editor(
+                "1/1", "testing_port_10", status=True
+            )
+
+        """
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return -1, {}
+        else:
+            for row in rows:
+                if re.search(rf'{switch_port}\n{port_type_name}\n', row.text):
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info("The button policy_edit_port_type from policy was found")
+                        self.auto_actions.click(policy_edit_port_type)
+                        sleep(10)
+                        break
+                    else:
+                        self.utils.print_info("The button policy_edit_port_type from policy was not found")
+                        return -1, {}
+            else:
+                self.utils.print_info("The button policy_edit_port_type from policy was not found")
+                return -1, {}
+
+        if status is not None:
+
+            usage_tab = self.get_select_element_port_type("usagePage")
+            if not usage_tab:
+                self.utils.print_info("Failed to click the usage tab")
+                return -1, {}
+
+            if self.auto_actions.click(usage_tab) == 1:
+                self.utils.print_info("Successfully clicked the usage tab")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to click on the usage tab")
+                return -1, {}
+
+            status_element = self.get_select_element_port_type("status")
+            if not status_element:
+                self.utils.print_info("Port status element was not found")
+                return -1, {}
+
+            if (not status_element.is_selected() and status) or (
+                    status_element.is_selected() and not status):
+
+                if self.auto_actions.click(status_element) == 1:
+                    self.utils.print_info("Successfully clicked on the status element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the status element")
+                    return -1, {}
+
+        stp_tab = self.get_select_element_port_type("stpPage")
+        if not stp_tab:
+            self.utils.print_info("Failed to click the stp tab")
+            return -1, {}
+
+        if self.auto_actions.click(stp_tab) == 1:
+            self.utils.print_info("Successfully clicked the stp tab")
+            sleep(2)
+        else:
+            self.utils.print_info("Failed to click on the stp tab")
+            return -1, {}
+
+        if stp_enabled is not None:
+            stp_enabled_element = self.get_select_element_port_type("stp enable")
+
+            if not stp_enabled_element:
+                self.utils.print_info("STP Enabled element was not found")
+                return -1, {}
+
+            if (not stp_enabled_element.is_selected() and stp_enabled) or (
+                stp_enabled_element.is_selected() and not stp_enabled):
+
+                if self.auto_actions.click(stp_enabled_element) == 1:
+                    self.utils.print_info("Successfully clicked on the STP enabled element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the STP Enabled element")
+                    return -1, {}
+
+        if edge_port is not None:
+            edge_port_element = self.get_select_element_port_type("edge port")
+
+            if not edge_port_element:
+                self.utils.print_info("Edge Port element was not found")
+                return -1, {}
+
+            if (not edge_port_element.is_selected() and edge_port) or (
+                edge_port_element.is_selected() and not edge_port):
+
+                if self.auto_actions.click(edge_port_element) == 1:
+                    self.utils.print_info("Successfully clicked on the Edge Port element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the Edge Port element")
+                    return -1, {}
+
+        if bpdu_protection is not None:
+            bpdu_protection_element = self.get_select_element_port_type("bpdu protection")
+
+            if not bpdu_protection_element:
+                self.utils.print_info("BPDU Protection element was not found")
+                return -1, {}
+
+            if self.auto_actions.click(bpdu_protection_element) == 1:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                sleep(5)
+            else:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                return -1, {}
+
+            get_bpdu_protection_items = self.get_select_element_port_type("bpdu_protection_items")
+
+            if not get_bpdu_protection_items:
+                self.utils.print_info("BPDU Protection list elements not found")
+                return -1, {}
+
+            if self.auto_actions.select_drop_down_options(get_bpdu_protection_items, bpdu_protection):
+                self.utils.print_info("Selected into dropdown value : ", bpdu_protection)
+            else:
+                self.utils.print_info("Failed to select from BPDU Protection dropdown")
+                return -1, {}
+
+        if path_cost is not None:
+            path_cost_element = self.get_select_element_port_type("path cost")
+
+            if not path_cost_element:
+                self.utils.print_info("Path Cost element was not found")
+                return -1, {}
+
+            if self.auto_actions.send_keys(path_cost_element, str(path_cost)) == 1:
+                self.utils.print_info("Successfully configured the path cost field")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to configure the path cost field")
+                return -1, {}
+
+        if priority:
+            priority_element = self.get_select_element_port_type("priority")
+
+            if not priority_element:
+                self.utils.print_info("Priority element was not found")
+                return -1, {}
+
+            if self.auto_actions.click(priority_element) == 1:
+                self.utils.print_info("Successfully clicked on the priority element")
+                sleep(5)
+            else:
+                self.utils.print_info("Failed to click on the priority element")
+                return -1, {}
+
+            get_priority_items = self.get_select_element_port_type("priority_items")
+            if not get_priority_items:
+                self.utils.print_info("Priority dropdown elements not found")
+                return -1, {}
+
+            if self.auto_actions.select_drop_down_options(get_priority_items, str(priority)):
+                self.utils.print_info("Selected into dropdown value : ", priority)
+            else:
+                self.utils.print_info("Failed to select item from priority dropdown")
+                return -1, {}
+
+        summary_tab = self.get_select_element_port_type("summaryPage")
+        if not summary_tab:
+            self.utils.print_info("Failed to get the summary tab element")
+            return -1
+
+        if self.auto_actions.click(summary_tab) == 1:
+            self.utils.print_info("Successfully clicked on the summary tab")
+            sleep(5)
+        else:
+            self.utils.print_info("Failed to click on the summary tab")
+            return -1, {}
+
+        summary = {}
+
+        for row_name, row_value in zip(
+            ["STP", "Edge Port", "BPDU Protection", "Priority", "Path Cost"],
+            ["stp", "edge port", "bpdu protection", "priority", "path cost"]
+        ):
+            try:
+                summary[row_name] = self.dev360.get_select_element_port_type_summary(row_value).text
+            except:
+                summary[row_name] = ""
+
+        if save:
+            save_button = self.dev360.get_close_port_type_box()
+
+            if not save_button:
+                self.utils.print_info("save button not found")
+                return -1, {}
+
+            if self.auto_actions.click(save_button) == 1:
+                self.utils.print_info("Successfully clicked on the Save element")
+            else:
+                self.utils.print_info("Failed to click on the Save element")
+                return -1, {}
+
+        return 1, summary
+
+    def get_all_ports_from_each_asic(self):
+        """
+            This method returns all the ASICS and their ports from the Device360 Overview port groups.
+
+            returns: a list which contains lists of ports (List[List[str]])
+
+        Output e.g.:
+            SR:
+            >>> self.get_all_ports_from_each_asic()
+            [
+                ['1/0/1', '1/0/2', '1/0/3', '1/0/4', '1/0/5', '1/0/6', '1/0/7', '1/0/8'],
+                ['1/0/9', '1/0/10', '1/0/11', '1/0/12', '1/0/13', '1/0/14', '1/0/15', '1/0/16'],
+                ['1/0/17', '1/0/18', '1/0/19','1/0/20', '1/0/21', '1/0/22', '1/0/23', '1/0/24']
+            ]
+
+            EXOS:
+            >>> self.get_all_ports_from_each_asic()
+            [
+                ['1/1', '1/2', '1/3', '1/4', '1/5', '1/6', '1/7', '1/8', '1/9', '1/10', '1/11', '1/12'],
+                ['1/13', '1/14', '1/15', '1/16', '1/17', '1/18', '1/19', '1/20', '1/21', '1/22', '1/23', '1/24']
+            ]
+            VOSS:
+            >>> self.get_all_ports_from_each_asic()
+            [
+                ['1/1', '1/2', '1/3', '1/4', '1/5', '1/6', '1/7', '1/8', '1/9', '1/10', '1/11', '1/12'],
+                ['1/13', '1/14', '1/15', '1/16', '1/17', '1/18', '1/19', '1/20', '1/21', '1/22', '1/23', '1/24']
+            ]
+        """
+        port_asics = self.dev360.get_device360_asic_port_groups()
+        ret = []
+        for asic in port_asics:
+            temp = []
+            ports_of_asic = self.dev360.get_device360_ports_each_asic_port_group(asic)
+            if ports_of_asic:
+                for p in ports_of_asic:
+                    data_automation_tag = p.get_attribute("data-automation-tag")
+                    if data_automation_tag:
+                        port = data_automation_tag.split("automation-port-")[1]
+                        if port not in ["mgmt", "console"]:
+                            temp.append(port)
+                if temp:
+                    ret.append(temp)
+        return [asic for asic in ret if len(asic) == len(max(ret, key=len))]
+
+    def get_one_port_from_each_asic(self, order):
+        """
+            This method returns the ports on specific position from all the available ASICs.
+
+            args:
+                :order: int value that specifies which port of the ASIC to get
+
+            returns: a list of strings (List[str])
+
+        Output e.g.:
+            SR:
+            >>> self.get_one_port_from_each_asic(order=1)
+            ['1/0/1', '1/0/9', '1/0/17']
+            >>> self.get_one_port_from_each_asic(order=5)
+            ['1/0/5', '1/0/13', '1/0/21']
+            >>> self.get_one_port_from_each_asic(order=8)
+            ['1/0/8', '1/0/16', '1/0/24']
+            >>> self.get_one_port_from_each_asic(order=20)
+            ['1/0/8', '1/0/16', '1/0/24']
+
+
+            EXOS:
+            >>> self.get_one_port_from_each_asic(order=1)
+            ['1', '13']
+            >>> self.get_one_port_from_each_asic(order=5)
+            ['5', '17']
+            >>> self.get_one_port_from_each_asic(order=12)
+            ['12', '24']
+            >>> self.get_one_port_from_each_asic(order=20)
+            ['12', '24']
+
+            VOSS:
+            >>> self.get_one_port_from_each_asic(order=1)
+            ['1/1', '1/13']
+            >>> self.get_one_port_from_each_asic(order=5)
+            ['1/5', '1/17']
+            >>> self.get_one_port_from_each_asic(order=12)
+            ['1/12', '1/24']
+            >>> self.get_one_port_from_each_asic(order=20)
+            ['1/12', '1/24']
+        """
+        ret = []
+        port_asics = self.get_all_ports_from_each_asic()
+        for asic in port_asics:
+            if asic:
+                try:
+                    ret.append(asic[order-1])
+                except IndexError:
+                    ret.append(asic[-1])
+        return ret
+
+    def get_all_ports_from_each_asic_stack(self, slot):
+        """
+            This method returns all the ASICS and their ports from the Device360 Overview port groups.
+
+            returns: a list which contains lists of ports (List[List[str]])
+
+        Output e.g.:
+            SR:
+            >>> self.get_all_ports_from_each_asic()
+            [
+                ['1/0/1', '1/0/2', '1/0/3', '1/0/4', '1/0/5', '1/0/6', '1/0/7', '1/0/8'],
+                ['1/0/9', '1/0/10', '1/0/11', '1/0/12', '1/0/13', '1/0/14', '1/0/15', '1/0/16'],
+                ['1/0/17', '1/0/18', '1/0/19','1/0/20', '1/0/21', '1/0/22', '1/0/23', '1/0/24']
+                ['2/0/1', '2/0/2', '2/0/3', '2/0/4', '2/0/5', '2/0/6', '2/0/7', '2/0/8'],
+                ['2/0/9', '2/0/10', '2/0/11', '2/0/12', '2/0/13', '2/0/14', '2/0/15', '2/0/16'],
+                ['2/0/17', '2/0/18', '2/0/19','2/0/20', '2/0/21', '2/0/22', '2/0/23', '2/0/24']
+            ]
+
+            EXOS:
+            >>> self.get_all_ports_from_each_asic()
+            [
+                ['1/1', '1/2', '1/3', '1/4', '1/5', '1/6', '1/7', '1/8', '1/9', '1/10', '1/11', '1/12'],
+                ['1/13', '1/14', '1/15', '1/16', '1/17', '1/18', '1/19', '1/20', '1/21', '1/22', '1/23', '1/24']
+                ['2/1', '2/2', '2/3', '2/4', '2/5', '2/6', '2/7', '2/8', '2/9', '2/10', '2/11', '2/12'],
+                ['2/13', '2/14', '2/15', '2/16', 2/17', '2/18', '2/19', '2/20', '2/21', '2/22', '2/23', '2/24']
+            ]
+            VOSS:
+            >>> self.get_all_ports_from_each_asic()
+            [
+                ['1/1', '1/2', '1/3', '1/4', '1/5', '1/6', '1/7', '1/8', '1/9', '1/10', '1/11', '1/12'],
+                ['1/13', '1/14', '1/15', '1/16', '1/17', '1/18', '1/19', '1/20', '1/21', '1/22', '1/23', '1/24']
+                ['2/1', '2/2', '2/3', '2/4', '2/5', '2/6', '2/7', '2/8', '2/9', '2/10', '2/11', '2/12'],
+                ['2/13', '2/14', '2/15', '2/16', '2/17', '2/18', '2/19', '2/20', '2/21', '2/22', '2/23', '2/24']
+            ]
+        """
+        port_asics = self.dev360.get_device360_asic_port_groups_stack()
+        ret = []
+        for asic in port_asics:
+            temp = []
+            ports_of_asic = self.dev360.get_device360_ports_each_asic_port_group_stack(asic, slot=slot)
+            if ports_of_asic:
+                for p in ports_of_asic:
+                    data_automation_tag = p.get_attribute("data-automation-tag")
+                    if data_automation_tag:
+                        port = data_automation_tag.split("automation-port-")[1]
+                        if port not in ["mgmt", "console"]:
+                            temp.append(port)
+                if temp:
+                    ret.append(temp)
+        return [asic for asic in ret if len(asic) == len(max(ret, key=len))]
+
+    def get_one_port_from_each_asic_stack(self, order, slot):
+        """
+            This method returns the ports on specific position from all the available ASICs.
+
+            args:
+                :order: int value that specifies which port of the ASIC to get
+
+            returns: a list of strings (List[str])
+
+        Output e.g.:
+            SR:
+            >>> self.get_one_port_from_each_asic(order=1)
+            ['1/0/1', '1/0/9', '1/0/17']
+            ['2/0/1', '2/0/9', '2/0/17']
+            >>> self.get_one_port_from_each_asic(order=5)
+            ['1/0/5', '1/0/13', '1/0/21']
+            ['2/0/5', '2/0/13', '2/0/21']
+            >>> self.get_one_port_from_each_asic(order=8)
+            ['1/0/8', '1/0/16', '1/0/24']
+            ['2/0/8', '2/0/16', '2/0/24']
+            >>> self.get_one_port_from_each_asic(order=20)
+            ['1/0/8', '1/0/16', '1/0/24']
+            ['2/0/8', '2/0/16', '2/0/24']
+
+
+            EXOS:
+            >>> self.get_one_port_from_each_asic(order=1)
+            ['1:1', '1:13']
+            ['2:1', '2:13']
+            >>> self.get_one_port_from_each_asic(order=5)
+            ['1:5', '1:17']
+            ['2:5', '2:17']
+            >>> self.get_one_port_from_each_asic(order=12)
+            ['1:12', '1:24']
+            ['2:12', '2:24']
+            >>> self.get_one_port_from_each_asic(order=20)
+            ['1:12', '1:24']
+            ['1:12', '1:24']
+
+            VOSS:
+            >>> self.get_one_port_from_each_asic(order=1)
+            ['1/1', '1/13']
+            ['2/1', '2/13']
+            >>> self.get_one_port_from_each_asic(order=5)
+            ['1/5', '1/17']
+            ['2/5', '2/17']
+            >>> self.get_one_port_from_each_asic(order=12)
+            ['1/12', '1/24']
+            ['2/12', '2/24']
+            >>> self.get_one_port_from_each_asic(order=20)
+            ['1/12', '1/24']
+            ['2/12', '2/24']
+        """
+        ret = []
+        port_asics = self.get_all_ports_from_each_asic_stack(slot=slot)
+        for asic in port_asics:
+            if asic:
+                try:
+                    ret.append(asic[order - 1])
+                except IndexError:
+                    ret.append(asic[-1])
+        return ret
+
+    def port_info_bounce_port(self, port, **kwargs):
+        """
+        - This keyword will bounce a port in D360
+        - Assume that already in D360
+        - Flow: D360 -> Monitor -> Overview -> Click on a port with 'connected' status ->
+        :param port: A port in connected status ;
+                     Usage Ex: voss(1/1) , exos(1), stack(1:1)
+        :return: 1 if 'Bounce Port' button has been successfully pressed; -1 if otherwise
+        """
+        def _check_port_is_loaded():
+            if self.get_device360_overview_port(port):
+                self.utils.print_info("Port has been loaded.")
+                return True
+            self.utils.print_info("Port hasn't been loaded yet... Saving screenshot...")
+            self.screen.save_screen_shot()
+            return False
+        self.utils.wait_till(_check_port_is_loaded, silent_failure=True, timeout=5, delay=3,
+                             msg='Waiting for the port to load...')
+
+        port_search = self.get_device360_overview_port(port)
+        if port_search:
+            self.auto_actions.click(port_search)
+        else:
+            self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
+            kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Searching for the 'Bounce Port' button...")
+        bounce_port_button = self.get_device360_overview_port_info_bounce_port()
+        if bounce_port_button:
+            self.utils.print_info("Found 'Bounce Port' button. Clicking...")
+            self.auto_actions.click(bounce_port_button)
+            self.utils.print_info("'Bounce Port' clicked!")
+
+            def _check_successful_message():
+                for tool_tp in tool_tip.tool_tip_text:
+                    if f'Bounce Port {port} successful' in tool_tp:
+                        self.utils.print_info(f"Found Bounce Port successful message: {tool_tp}")
+                        return True
+                self.utils.print_info("Did not find Bounce port successful message yet. Retrying...")
+                return False
+            message = self.utils.wait_till(_check_successful_message, timeout=10, delay=1, silent_failure=True,
+                                           msg="Looking for Bounce Port successful message...")
+            if message[0]:
+                kwargs['pass_msg'] = "'Bounce Port' clicked! Successful message found!"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = f"'Bounce Port' successful message not found!\nGot this instead: " \
+                                     f"{tool_tip.tool_tip_text}"
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1
+
+    def port_info_bounce_poe(self, port, **kwargs):
+        """
+        - This keyword will bounce PoE on a port in D360
+        - Assume that already in D360
+        - Flow: D360 -> Monitor -> Overview -> Click on a port with 'connected' status ->
+        :param port: A port in connected status ;
+                     Usage Ex: voss(1/1) , exos(1), stack(1:1)
+        :return: 1 if 'Bounce PoE' button has been successfully pressed; -1 if otherwise
+        """
+        def _check_port_is_loaded():
+            if self.get_device360_overview_port(port):
+                self.utils.print_info("Port has been loaded.")
+                return True
+            self.utils.print_info("Port hasn't been loaded yet... Saving screenshot...")
+            self.screen.save_screen_shot()
+            return False
+        self.utils.wait_till(_check_port_is_loaded, silent_failure=True, timeout=5, delay=3,
+                             msg='Waiting for the port to load...')
+
+        port_search = self.get_device360_overview_port(port)
+        if port_search:
+            self.auto_actions.click(port_search)
+        else:
+            self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
+            kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Searching for the 'Bounce PoE' button...")
+        bounce_poe_button = self.get_device360_overview_port_info_bounce_poe()
+        if bounce_poe_button:
+            self.utils.print_info("Found 'Bounce PoE' button. Clicking...")
+            self.auto_actions.click(bounce_poe_button)
+            self.utils.print_info("'Bounce PoE' clicked!")
+
+            def _check_successful_message():
+                for tool_tp in tool_tip.tool_tip_text:
+                    if f'Bounce PoE Port {port} successful' in tool_tp:
+                        self.utils.print_info(f"Found Bounce PoE successful message: {tool_tp}")
+                        return True
+                self.utils.print_info("Did not find Bounce PoE successful message yet. Retrying...")
+                print(tool_tip.tool_tip_text)
+                return False
+            message = self.utils.wait_till(_check_successful_message, timeout=10, delay=1, silent_failure=True,
+                                           msg="Looking for Bounce PoE successful message...")
+            if message[0]:
+                kwargs['pass_msg'] = "'Bounce PoE' clicked! Successful message found!"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = f"'Bounce PoE' successful message not found!\nGot this instead: " \
+                                     f"{tool_tip.tool_tip_text}"
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1

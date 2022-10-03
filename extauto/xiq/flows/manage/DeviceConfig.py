@@ -16,6 +16,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
+from extauto.xiq.flows.manage.Devices import Devices
 
 class DeviceConfig(DeviceConfigElements):
     def __init__(self):
@@ -30,6 +31,8 @@ class DeviceConfig(DeviceConfigElements):
         self.cobj_web_elements = CommonObjectsWebElements()
         self.common_validation = CommonValidation()
         self.tools = Tools()
+        self.devices = Devices()
+        self.cloud_driver = CloudDriver()
 
     def _override_wifi0_psk_ssid_settings(self, **override_args):
         """
@@ -1532,6 +1535,73 @@ class DeviceConfig(DeviceConfigElements):
         self.get_close_device360_dialog_window().click()
         return 1
 
+    def override_ap_config_wireless_channel(self, device_mac='', interface='WiFi0', override_channel='6'):
+        """
+        - - This keyword will Configure the WiFi2 interface power status of AP4000 or AP4000U
+        - Flow : Manage --> Device --> Click AP MAC Link --> Configure--> Interface Setttings --> Wireless Interface
+        - Keyword Usage:
+        - ``Override AP Config Wireless Channel   device_serial=${AP1_SERIAL}   interface='WiFi0'  override_channel='6' ``
+
+        :param device_mac:  device_mac address
+        :param interface: device interface i.e WiFi0/WiFi1/WIFI2
+        :param override_channel:  override channel
+        :return: returns 1 if successful or otherwise -1
+        """
+        try:
+            self.utils.print_info("Navigating to device page")
+            if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                return -1
+            self.utils.print_info("click on configuration tab")
+            self.auto_actions.click(self.get_configuration_tab())
+            self.utils.print_info("Click on interface settings tab")
+            self.auto_actions.click(self.get_interface_settings_tab())
+            self._go_to_wireless_interface_settings_page()
+            sleep(3)
+            self.auto_actions.click(self.get_wifi0_interface_tab())
+            self.auto_actions.click(self.get_override_client_access_wifi0_checked())
+            self.auto_actions.click(self.get_override_client_access_wifi0_checked())
+            self.auto_actions.click(self.get_interface_settings_save_button())
+            sleep(3)
+            self._go_to_wireless_interface_settings_page()
+
+            if interface.lower() == 'wifi0':
+                self.utils.print_info("Click on WiFi0 interface tab")
+                self.auto_actions.click(self.get_wifi0_interface_tab())
+                self.utils.print_info(f"select the channel: {override_channel}")
+                self.auto_actions.click(self.get_wireless_wifi0_channel_dropdown())
+                self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi0_channel_options(), override_channel)
+            elif interface.lower() == 'wifi1':
+                self.utils.print_info("Click on WiFi1 interface tab")
+                self.auto_actions.click(self.get_wifi1_interface_tab())
+                self.utils.print_info(f"select the channel: {override_channel}")
+                self.auto_actions.click(self.get_wireless_wifi1_channel_dropdown())
+                self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi1_channel_options(), override_channel)
+            elif interface.lower() == 'wifi2':
+                self.utils.print_info("Click on WiFi2 interface tab")
+                self.auto_actions.click(self.get_wifi2_interface_tab())
+                self.utils.print_info(f"select the channel: {override_channel}")
+                self.auto_actions.click(self.get_wireless_wifi2_channel_dropdown())
+                self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi2_channel_options(), override_channel)
+            else:
+                self.utils.print_info(f"Can you specify interface(wifi0, wifi1, or wifi1)?")
+
+            self.utils.print_info("Click on interface settings save button")
+            self.auto_actions.click(self.get_interface_settings_save_button())
+            sleep(3)
+            self.screen.save_screen_shot()
+            tool_tp_text = tool_tip.tool_tip_text
+            self.utils.print_info(tool_tp_text)
+            self.utils.print_info("Close the override device page dialog window")
+            self.auto_actions.click(self.get_close_device360_dialog_window())
+
+            if 'Interface Settings were updated successfully.' in tool_tp_text:
+                return 1
+            else:
+                return -1
+        except:
+            self.utils.print_info("Not able to navigate/set to the page")
+            return -1
 
     def override_wifi2_channel(self, channel_input='default'):
         """
@@ -2631,3 +2701,80 @@ class DeviceConfig(DeviceConfigElements):
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
+
+    def configure_device_function(self, ap_serial, device_function='AP'):
+        """
+        - This keyword will configure device function as AP or Router
+        :param ap_serial:   The serial of the device
+        :param device_function: AP or ApAsRouter, default is AP
+        :return: success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        self.utils.print_info(f"Select AP serial {ap_serial} ...")
+        ap_selected = False
+        while not ap_selected:
+            try_cnt = 0
+            if self.devices.select_ap(ap_serial):
+                self.utils.print_info(f"Edit AP serial {ap_serial} to go AP page...")
+                self.auto_actions.click(self.get_edit_button())
+                device_360_page = self.get_device_360_page()
+                if not device_360_page:
+                    wait_times = 0
+                    while wait_times <= 30:
+                        self.utils.print_info("The device 360 page is still not loaded, sleep 2 seconds")
+                        sleep(2)
+                        wait_times += 1
+                        if device_360_page:
+                            self.utils.print_info("Device 360 page is already loaded, move to next step")
+                            break
+                        else:
+                            continue
+                self.utils.print_info("Click Configure tab...")
+                self.auto_actions.click(self.get_devices_edit_config_button())
+                self.utils.print_info("Click Device Configuration...")
+                self.auto_actions.click(self.get_device_configuration_tab())
+                device_config_node_not_load = True
+                while device_config_node_not_load:
+                    if not self.get_device_configuration_node():
+                        self.utils.print_info("Device config node page is still loading ...")
+                        sleep(2)
+                    else:
+                        device_config_node_not_load = False
+                        self.utils.print_info("Device config node page is loaded successfully ...")
+                        sleep(6)
+                if self.get_devices_device_config_device_function_set_ap():
+                    self.utils.print_info("Click Device Function dropdown button...")
+                    self.auto_actions.click(self.get_devices_device_config_device_function_set_ap())
+                    device_function_options = self.get_devices_device_config_device_function()
+                    for opt in device_function_options:
+                        self.utils.print_info(f"Option is {opt}")
+                        if device_function.upper() == opt.text.upper():
+                            self.utils.print_info(f"Select {device_function} as Device Function")
+                            self.auto_actions.click(opt)
+                            break
+                elif self.get_devices_device_config_device_function_set_router:
+                    self.utils.print_info("Device function already is set as router mode...")
+                    pass
+                else:
+                    self.utils.print_info("No valid device function found!!!")
+                    return -1
+                sleep(3)
+                self.utils.print_info("Click Save Device Configuration button...")
+                self.auto_actions.click(self.get_devices_device_config_page_save_button())
+                sleep(3)
+                self.utils.print_info("Close device config windows...")
+                self.auto_actions.click(self.get_close_dialog())
+                return 1
+            else:
+                self.utils.wait_till(self.cloud_driver.refresh_page, timeout=60, delay=1, is_logging_enabled=True)
+                self.utils.print_info("Refresh page and try to select AP again")
+                try_cnt += 1
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt} to select device is reached")
+                    return -1
