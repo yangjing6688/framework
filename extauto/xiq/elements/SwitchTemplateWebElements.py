@@ -497,6 +497,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_save_button_bottom(self):
         return self.weh.get_elements(self.sw_template_save_btn_bottom)
 
+
     def get_sw_template_stp_tab(self):
         return self.weh.get_element(self.sw_template_stp_tab)
     
@@ -511,3 +512,15 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_template_slot(self, slot):
         return self.weh.get_template_element(self.template_slot, slot=slot)
+
+
+    def get_sw_template_hyperlink(self):
+        return self.weh.get_element(self.sw_template_hyperlink)
+
+    def get_sw_template_enable_mac_locking(self):
+        return self.weh.get_element(self.sw_template_enable_mac_locking)
+
+
+    def get_sw_template_enable_mac_locking_confirm_message_yes_button(self):
+        return self.weh.get_element(self.sw_template_enable_mac_locking_confirm_message_yes_button)
+

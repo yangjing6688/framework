@@ -1,6 +1,8 @@
 import os
+import copy
 from time import sleep
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.xiq.flows.manage.Client import Client
@@ -18,6 +20,7 @@ class Network360Plan:
         self.navigator = Navigator()
         self.auto_actions = AutoActions()
         self.n360_elements = Network360PlanElements()
+        self.commonValidation = CommonValidation()
 
         """
             Need to build a string that represents the location of the map files
@@ -63,7 +66,7 @@ class Network360Plan:
             self.utils.print_info("No search matches found: ")
             return -1
 
-    def get_aps_from_network360plan_floor(self, floor_name='default', device_type='default'):
+    def get_aps_from_network360plan_floor(self, floor_name='default', device_type='default', retries=0, **kwargs):
         """
         - This keyword gets devices name from Network360 Plan page
         - Keyword Usage:
@@ -81,46 +84,82 @@ class Network360Plan:
         sleep(5)
 
         self.utils.print_info("Getting all matching floors")
-        matches = self.n360_elements.get_n360_plan_search_matches()
-        if matches:
-            search_matches = []
-            for match in matches:
-                self.utils.print_info("Search Results: ", match.text)
-                if floor_name == match.text:
-                    self.utils.print_info("Clicking on the match: ", floor_name)
-                    self.auto_actions.click(match)
 
-                    ap_list = self.n360_elements.get_n360_plan_aps_on_floor()
-                    ap_count_label = self.n360_elements.get_n360_plan_ap_count_on_floor()
 
-                    aps_on_floor = []
+        try:
+            items = self.n360_elements.get_n360_plan_search_matches()
+            matches = copy.copy(items)
+            if matches:
+                search_matches = []
+                for match in matches:
+                    self.utils.print_info("Search Results: ", match.text)
+                    if floor_name == match.text:
+                        self.utils.print_info("Clicking on the match: ", floor_name)
+                        self.auto_actions.click(match)
+                        sleep(10)
+                        ap_list = self.n360_elements.get_n360_plan_aps_on_floor()
+                        ap_count_label = self.n360_elements.get_n360_plan_ap_count_on_floor()
 
-                    if not ap_list:
-                        self.utils.print_info("AP Count: 0")
-                        return 0
+                        aps_on_floor = []
 
-                    for ap in ap_list:
-                        aps_on_floor.append(ap.text)
-                    self.utils.print_info("APs on floor: ", aps_on_floor)
+                        if not ap_list:
+                            self.utils.print_info("AP Count: 0")
+                            retries = 0
+                            while retries < 5:
+                                # let's wait and try it again
+                                self.print_info(f"Let's try that again after 10 seconds retrires {retries}")
+                                retries += 1
+                                sleep(10)
+                                ap_list = self.n360_elements.get_n360_plan_aps_on_floor()
+                                ap_count_label = self.n360_elements.get_n360_plan_ap_count_on_floor()
+                                if ap_list:
+                                    break
+                        if not ap_list:
+                            self.utils.print_info("AP Count: 0")
+                            kwargs['fail_msg'] = "AP Count: 0"
+                            self.commonValidation.failed(**kwargs)
+                            return 0
 
-                    if ap_count_label:
-                        ap_count = ap_count_label.text.split(" ")[0]
-                        self.utils.print_info("AP Count: ", ap_count)
+                        for ap in ap_list:
+                            aps_on_floor.append(ap.text)
+                        self.utils.print_info("APs on floor: ", aps_on_floor)
 
-                        if len(ap_list) == int(ap_count):
-                            self.utils.print_info("Number of APs on the floor is equal to the AP Count")
+                        if ap_count_label:
+                            ap_count = ap_count_label.text.split(" ")[0]
+                            self.utils.print_info("AP Count: ", ap_count)
+
+                            if len(ap_list) == int(ap_count):
+                                self.utils.print_info("Number of APs on the floor is equal to the AP Count")
+                            else:
+                                self.utils.print_info("Number of APs on the floor is NOT equal to the AP Count")
+
                         else:
-                            self.utils.print_info("Number of APs on the floor is NOT equal to the AP Count")
+                            self.utils.print_info("Unable to find AP Count")
 
+                        kwargs['pass_msg'] = f"AP was Found {aps_on_floor}"
+                        self.commonValidation.passed(**kwargs)
+                        return aps_on_floor
                     else:
-                        self.utils.print_info("Unable to find AP Count")
+                        self.utils.print_info("No search matches found: ")
+            else:
+                kwargs['fail_msg'] = f"No search matches found"
+                self.commonValidation.failed(**kwargs)
+                self.utils.print_info("No search matches found: ")
+                return -1
 
-                    return aps_on_floor
-                else:
-                    self.utils.print_info("No search matches found: ")
-        else:
-            self.utils.print_info("No search matches found: ")
-            return -1
+        except Exception as e:
+            if retries < 5:
+                retries += 1
+                self.utils.print_info("Click Close Button")
+                self.auto_actions.click(self.n360_elements.get_tooltip_close_button())
+                self.utils.print_info(f"Exception Caught: {e}, tring again ({retries})")
+                return self.get_aps_from_network360plan_floor(floor_name, device_type, retries, **kwargs)
+            else:
+                self.utils.print_info(f"Exception Caught: {e}, max retries reached {retries}")
+                kwargs['fail_msg'] = f"Exception Caught: {e}, max retries reached {retries}"
+                self.commonValidation.failed(**kwargs)
+                return -1
+
 
     def import_map_in_network360plan(self, map_file_name):
         """

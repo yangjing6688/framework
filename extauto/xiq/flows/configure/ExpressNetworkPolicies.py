@@ -81,6 +81,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         if new_express_btn and new_express_btn.is_displayed():
             self.auto_actions.click(new_express_btn)
         else:
+            sleep(1)
             if self._search_network_policy_in_card_view(policy_name):
                 kwargs['pass_msg'] = f"Network policy:{policy_name} already exists in the network polices list"
                 self.common_validation.passed(**kwargs)
