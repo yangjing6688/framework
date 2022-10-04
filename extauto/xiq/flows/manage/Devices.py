@@ -1701,6 +1701,11 @@ class Devices:
             self.utils.print_info("Device Latest Version: ", latest_version)
             sleep(5)
 
+            if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
+                self.utils.print_info("Click on Upgrade even if the versions are the same button")
+                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_are_same_button())
+                sleep(5)
+
             self.utils.print_info("Selecting Activate After radio button")
             self.auto_actions.click(self.device_update.get_activate_after_radio())
 
