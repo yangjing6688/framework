@@ -132,7 +132,7 @@ class Navigator(NavigatorWebElements):
         else:
             if self.navigate_to_manage_tab() == 1:
                 self.utils.print_info("Manage page is present")
-                if self.auto_actions.click(self.get_devices_nav()) == 1:
+                if self.auto_actions.click_reference(self.get_devices_nav) == 1:
                     self.utils.print_info("Clicking Devices Tab...")
                     sleep(5)
                     self.enable_page_size(page_size='100')
@@ -3168,15 +3168,28 @@ class Navigator(NavigatorWebElements):
 
                 :return: 1 if enabling page size successfully else returns -1
         """
-        if self.get_network_policy_page_size() != None:
-            self.utils.print_info("Clicking on page size...")
-            if self.auto_actions.click(self.get_network_policy_page_size(page_size)) == 1:
-                self.screen.save_screen_shot()
-                kwargs['pass_msg'] = " Clicking on page size "
-                self.common_validation.passed(**kwargs)
-                return 1
-            else:
-                self.screen.save_screen_shot()
-                kwargs['fail_msg'] = " Not able to click on page size "
-                self.common_validation.failed(**kwargs)
-                return -1
+        try_again = True
+        counter = 0
+        while try_again:
+            try:
+                if self.get_network_policy_page_size() != None:
+                    self.utils.print_info("Clicking on page size...")
+                    if self.auto_actions.click(self.get_network_policy_page_size(page_size)) == 1:
+                        self.screen.save_screen_shot()
+                        kwargs['pass_msg'] = " Clicking on page size "
+                        self.common_validation.passed(**kwargs)
+                        return 1
+                    else:
+                        self.screen.save_screen_shot()
+                        kwargs['fail_msg'] = " Not able to click on page size "
+                        self.common_validation.failed(**kwargs)
+                        return -1
+            except Exception as e:
+                if counter == 5:
+                    kwargs['fail_msg'] = f"Not able to click on page size with excption: {e}, counter: {counter}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                else:
+                    self.utils.print_info(f"enable_page_size, got exception: {e}, with counter: {counter}, trying again...")
+                counter = + 1
+                sleep(5)
