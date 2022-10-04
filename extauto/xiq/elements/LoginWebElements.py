@@ -111,6 +111,12 @@ class LoginWebElements(LoginWebElementsDefinitions):
     def get_drawer_content(self):
         return self.weh.get_element(self.drawer_content)
 
+    def get_right_arrow(self):
+        return self.weh.get_element(self.right_arrow_displayed)
+
+    def click_right_arrow(self):
+        return self.weh.get_element(self.click_right_arrow_button)
+
     def get_wips_dialog_message(self):
         try:
             errors = self.weh.get_elements(self.wips_dialog_message)
@@ -373,3 +379,6 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_cancel_button(self):
         return self.weh.get_element(self.cancel_button)
+
+    def get_page_loading(self):
+        return self.weh.get_element(self.page_loading)

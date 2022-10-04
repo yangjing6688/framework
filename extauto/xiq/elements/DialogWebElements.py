@@ -25,6 +25,9 @@ class DialogWebElements(DialogWebElementsDefinitions):
             if element.is_displayed():
                 return element.text
 
+    def get_confirm_message_dialog_box(self):
+        return self.weh.get_element(self.confirm_message_dialog_box)
+
     def get_confirm_yes_button(self):
         elements = self.weh.get_elements(self.confirm_yes_button)
         if elements:

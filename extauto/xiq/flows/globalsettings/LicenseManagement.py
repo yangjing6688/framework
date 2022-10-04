@@ -10,6 +10,7 @@ from extauto.xiq.flows.common.Login import Login
 from extauto.xiq.elements.LicenseManagementWebElements import LicenseManagementWebElements
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class LicenseManagement(LicenseManagementWebElements):
@@ -24,6 +25,7 @@ class LicenseManagement(LicenseManagementWebElements):
         self.login_web_elements = LoginWebElements()
         self.nav_web_elements = NavigatorWebElements()
         # self.driver = extauto.common.CloudDriver.cloud_driver
+        self.common_validation = CommonValidation()
 
     def open_license_management_page(self):
         """
@@ -232,6 +234,48 @@ class LicenseManagement(LicenseManagementWebElements):
         else:
             self.utils.print_info("Unlink button is not visible.")
             return -1
+
+    def link_to_extreme_portal(self,portal_username, portal_password, **kwargs):
+        """
+         - Links to Extreme Portal
+         - Assumes the License Management Link to Portal button has already been pushed
+         - Keyword Usage
+          - ``Link To Extreme Portal``
+
+        :return: 1 if Successful, else -1
+        """
+        sleep(5)
+        self.utils.print_info("Attempting to locate Extreme Portal user email field")
+        portal_username_field = self.get_extreme_portal_login()
+        if not portal_username_field:
+            kwargs['fail_msg'] = "Unable to locate Extreme Portal user email field"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        self.utils.print_info("Setting Extreme Portal user email field to " + portal_username)
+        self.auto_actions.send_keys(portal_username_field, portal_username)
+
+        self.utils.print_info("Attempting to locate Extreme Portal password field")
+        portal_password_field = self.get_extreme_portal_password()
+        if not portal_password_field:
+            kwargs['fail_msg'] = "Unable to locate Extreme Portal  password field"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+        self.utils.print_info("Setting Extreme Portal password field to " + portal_password)
+        self.auto_actions.send_keys(portal_password_field, portal_password)
+
+        self.utils.print_info("Attempting to locate Extreme Portal login button")
+        portal_login_button = self.get_extreme_portal_login_button()
+        if not portal_login_button:
+            kwargs['fail_msg'] = "Unable to locate Extreme Portal login button"
+            self.common_validation.validate(-1, 1, **kwargs)
+            return -1
+
+        self.auto_actions.click(portal_login_button)
+
+        pass_msg = "Successfully linked to Extreme Portal"
+        kwargs['pass_msg'] = pass_msg
+        self.common_validation.validate(1, 1, **kwargs)
+        return 1
 
     def initiate_link_xiq_to_extr_portal_from_lic_mgt(self, sfdc_user_type=None, sfdc_email=None, sfdc_pwd=None, shared_cuid=None):
         """

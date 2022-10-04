@@ -2,30 +2,25 @@ class GlobalSettingWebElementDefinitions:
     backup_logs_grid_rows = \
         {
             'XPATH': '//*[@id="blacklistTbl"]',
-            #'CSS_SELECTOR': '#blacklistTbl > div:nth-child(2)',
-            
+            'wait_for': 10,
         }
 
     audit_logs_grid_rows = \
         {
             'XPATH': '//table',
-            # 'CSS_SELECTOR': '#blacklistTbl > div:nth-child(2)',
-            
+            'wait_for': 10
          }
 
     clients_search_rows = \
         {
             'XPATH': '//table',
-            # 'CSS_SELECTOR': '#blacklistTbl > div:nth-child(2)',
+            'wait_for': 10
+        }
             
-         }
-
     logs_grid_rows = \
         {
-            #'XPATH': '///div[@class="table-responsive"]//table[@class="table b-table table-striped table-hover"]',
             'XPATH': '//*[@role="table"]',
-            #'CSS_SELECTOR': '#blacklistTbl > div:nth-child(2)',
-            
+            'wait_for': 10,
         }
 
     log_rows = \

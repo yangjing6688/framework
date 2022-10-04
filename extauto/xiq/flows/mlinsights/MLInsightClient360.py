@@ -109,7 +109,9 @@ class MLInsightClient360(MLInsightsClients360WebElements):
                     client360_status['CHANNEL'] = self.get_client_360_status_channel().text
                     self.utils.print_info("Client 360 current connection status: \n", client360_status)
                     self.screen.save_screen_shot()
-                    sleep(3)
+                    sleep(2)
+                    self.utils.print_info("Close dialog current connection status,")
+                    self.auto_actions.click(self.client_360_close_current_connection_status())
                     return client360_status
         else:
             self.utils.print_info(f"Device not found in the grid with: {search_string}")
