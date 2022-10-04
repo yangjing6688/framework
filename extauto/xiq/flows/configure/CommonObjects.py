@@ -202,6 +202,7 @@ class CommonObjects(object):
         pages = self.cobj_web_elements.get_page_numbers()
         last_page = int(pages.text[-1])
         page_counter = 0
+        self.utils.print_info(f"There are {last_page} page(s) to check")
         while page_counter < last_page:
             select_ssid_flag = None
             for ssid in ssids:
@@ -211,12 +212,14 @@ class CommonObjects(object):
                     break
                 else:
                     self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
-            page_counter += 1
+
             if select_ssid_flag:
                 # we found what we were looking for, so exit
                 break
 
             # goto the next page
+            page_counter += 1
+            self.utils.print_info(f"Move to next page {page_counter}")
             self.auto_actions.click_reference(self.cobj_web_elements.get_next_page_element)
 
         if not select_ssid_flag:
