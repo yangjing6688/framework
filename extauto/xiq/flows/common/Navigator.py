@@ -3185,7 +3185,7 @@ class Navigator(NavigatorWebElements):
                         self.common_validation.failed(**kwargs)
                         return -1
             except Exception as e:
-                self.utils.print_info(f"enable_page_size, got exception: {e}, with counter: {counter})
+                self.utils.print_info(f"enable_page_size, got exception: {e}, with counter: {counter}")
                 if counter == 5:
                     kwargs['fail_msg'] = f"Not able to click on page size with excption: {e}, counter: {counter}"
                     self.common_validation.failed(**kwargs)
