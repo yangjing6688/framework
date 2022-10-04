@@ -39,6 +39,11 @@ class LicenseManagementWebElementsDefs:
             'wait_for': 3
         }
 
+    account_successfully_linked = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="accountLinkSuccess"]'
+        }
+
     extreme_licensing_portal_btn = \
         {
             'DESC': 'LINK MY EXTREME PORTAL ACCOUNT',
@@ -195,4 +200,19 @@ class LicenseManagementWebElementsDefs:
     ekey_del_confirm_msg_ok_btn = \
         {
             'XPATH': '//button[contains(@class, "ant-btn modal-foot-antd-button-licenseInfoCtl")]'
+        }
+
+    extreme_portal_login = \
+        {
+            'XPATH': '//input[@type="text"]'
+        }
+
+    extreme_portal_password = \
+        {
+            'XPATH': '//input[@type="password"]'
+        }
+
+    extreme_portal_login_button = \
+        {
+            'XPATH': '//input[@type="submit"]'
         }

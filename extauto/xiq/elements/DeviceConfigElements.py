@@ -26,8 +26,59 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_wifi2_interface_tab(self):
         return self.weh.get_element(self.wifi2_interface_tab)
 
-    def get_close_D360_popup(self):
-        return self.weh.get_element(self.close_D360_popup)
+    def get_override_client_mode_wifi0_checked(self):
+        return self.weh.get_element(self.override_client_mode_wifi0_checked)
+
+    def get_override_client_mode_wifi1_checked(self):
+        return self.weh.get_element(self.override_client_mode_wifi1_checked)
+
+    def get_override_client_access_wifi0_checked(self):
+        return self.weh.get_element(self.override_client_access_wifi0_checked)
+
+    def get_override_client_access_wifi1_checked(self):
+        return self.weh.get_element(self.override_client_access_wifi1_checked)
+
+    def get_override_add_client_mode_wifi0_profile(self):
+        return self.weh.get_element(self.override_add_client_mode_wifi0_profile)
+
+    def get_override_add_client_mode_wifi1_profile(self):
+        return self.weh.get_element(self.override_add_client_mode_wifi1_profile)
+
+    def get_override_wifi0_1_client_mode_profile_name(self):
+        return self.weh.get_element(self.override_wifi0_1_client_mode_profile_name)
+
+    def get_override_wifi0_1_cm_local_web_page_checkbox(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_checkbox)
+
+    def get_override_wifi0_1_cm_local_web_page_add(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_add)
+
+    def get_override_wifi0_1_cm_local_web_page_ssid_textbox(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_ssid_textbox)
+
+    def get_override_wifi0_1_cm_local_web_page_password_textbox(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_password_textbox)
+
+    def get_override_wifi0_1_cm_local_web_page_auth_dropdown(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_auth_dropdown)
+
+    def get_override_wifi0_1_cm_local_web_page_auth_dropdown_option(self):
+        return self.weh.get_elements(self.override_wifi0_1_cm_local_web_page_auth_dropdown_option)
+
+    def get_override_wifi0_1_cm_local_web_key_type_dropdown(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_key_type_dropdown)
+
+    def get_override_wifi0_1_cm_local_web_key_type_dropdown_option(self):
+        return self.weh.get_elements(self.override_wifi0_1_cm_local_web_key_type_dropdown_option)
+
+    def get_override_wifi0_1_cm_local_web_page_add_button(self):
+        return self.weh.get_element(self.override_wifi0_1_cm_local_web_page_add_button)
+
+    def get_override_wifi0_1_client_mode_profile_dhcp_server_scope(self):
+        return self.weh.get_element(self.override_wifi0_1_client_mode_profile_dhcp_server_scope)
+
+    def get_override_wifi0_1_client_mode_profile_save(self):
+        return self.weh.get_element(self.override_wifi0_1_client_mode_profile_save)
 
     def get_override_wifi0_ssid_broadcast_ssid_field(self):
         return self.weh.get_element(self.override_wifi0_ssid_broadcast_ssid_field)
@@ -36,13 +87,19 @@ class DeviceConfigElements(DeviceConfigDefs):
         return self.weh.get_element(self.override_wifi0_psk_password)
 
     def get_interface_settings_save_button(self):
-        return self.weh.get_element(self.interface_settings_save_btuuton)
+        return self.weh.get_element(self.interface_settings_save_button)
 
     def get_configuration_tab(self):
         return self.weh.get_element(self.configuration_tab)
 
+    def get_device_360_page(self):
+        return self.weh.get_element(self.device_360_page)
+
     def get_device_configuration_tab(self):
         return self.weh.get_element(self.device_configuration_tab)
+
+    def get_device_configuration_node(self):
+        return self.weh.get_element(self.device_configuration_node)
 
     def get_device_configuration_dhcp_checkbox(self):
         return self.weh.get_element(self.device_configuration_dhcp_checkbox)
@@ -61,6 +118,9 @@ class DeviceConfigElements(DeviceConfigDefs):
 
     def get_wireless_interface_wifi1_channel_options(self):
         return self.weh.get_elements(self.wireless_interface_wifi1_channel_options)
+
+    def get_wireless_interface_wifi2_channel_options(self):
+        return self.weh.get_elements(self.wireless_interface_wifi2_channel_options)
 
     def get_wireless_wifi0_radio_profile_drop_down(self):
         return self.weh.get_element(self.wireless_wifi0_radio_profile_drop_down)
@@ -638,8 +698,28 @@ class DeviceConfigElements(DeviceConfigDefs):
         else:
             return False
 
+    def get_devices_device_config_device_function_set_ap(self):
+        return self.weh.get_element(self.devices_device_config_device_function_set_ap)
+
+    def get_devices_device_config_device_function_set_router(self):
+        return self.weh.get_element(self.devices_device_config_device_function_set_apasrouter)
+
+    def get_devices_device_config_device_function(self):
+        return self.weh.get_elements(self.devices_device_config_device_function)
+
+    def get_devices_device_config_page_save_button(self):
+        return self.weh.get_element(self.devices_device_config_page_save_button)
+
     def get_config_audit_content(self):
         return self.weh.get_element(self.config_audit_content)
 
     def get_config_audit_delta_view_button_yellow(self, row):
         return self.weh.get_element(self.config_audit_delta_view_button_yellow, parent=row)
+
+    def get_stack_edit_template_drop_down(self):
+        return self.weh.get_element(self.stack_edit_template_drop_down)
+
+    def get_device_edit_template_drop_down_options_stack(self):
+        return self.weh.get_elements(self.device_edit_template_drop_down_options_stack)
+
+

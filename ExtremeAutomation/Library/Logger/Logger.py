@@ -108,6 +108,8 @@ class Logger(object, metaclass=Singleton):
         handler.setFormatter(self.log_formatter)
         handler.addFilter(self.console_filter)
         self.logger.addHandler(handler)
+        # Console Support
+        self.logger.addHandler(logging.StreamHandler(sys.stdout))
 
         # Add 3 custom logging levels, CLI_SEND, CLI_READ, and TRACE.
         logging.addLevelName(self.CLI_SEND, "CLI_SEND")

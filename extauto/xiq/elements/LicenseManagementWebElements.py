@@ -166,3 +166,19 @@ class LicenseManagementWebElements(LicenseManagementWebElementsDefs):
 
     def get_ekey_del_confirm_msg_ok_btn(self):
         return self.weh.get_element(self.ekey_del_confirm_msg_ok_btn)
+
+    def get_extreme_portal_login(self):
+        return self.weh.get_element(self.extreme_portal_login)
+
+    def get_extreme_portal_password(self):
+        return self.weh.get_element(self.extreme_portal_password)
+
+    def get_extreme_portal_login_button(self):
+        return self.weh.get_element(self.extreme_portal_login_button)
+
+    def get_account_successfully_linked(self):
+        return self.weh.get_element(self.account_successfully_linked)
+
+
+
+

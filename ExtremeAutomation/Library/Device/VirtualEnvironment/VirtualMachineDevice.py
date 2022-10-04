@@ -28,9 +28,9 @@ class VirtualMachineDevice(ManagedDeviceObject):
         self.instance_id = None
         self.current_agent = None
         self.connection_method = None
-        self.login_prompt = ""
-        self.pass_prompt = ""
-        self.main_prompt = ""
+        self.login_prompt = []
+        self.pass_prompt = []
+        self.main_prompt = ''
         self.end_of_line = b'\n'
         self.logger = Logger()
         self.STATUS_PREFIX = vm_type + " Status: "
@@ -59,8 +59,8 @@ class VirtualMachineDevice(ManagedDeviceObject):
                 self.logger.log_debug("Initializing current agent with type " + agent_type)
                 self.logger.log_debug("    Username: " + self.username)
                 self.logger.log_debug("    Password: " + self.password)
-                self.logger.log_debug("    Login Prompt: " + self.login_prompt)
-                self.logger.log_debug("    Password Prompt: " + self.pass_prompt)
+                self.logger.log_debug("    Login Prompt: " + ','.join(self.login_prompt))
+                self.logger.log_debug("    Password Prompt: " + ','.join(self.pass_prompt))
                 self.logger.log_debug("    Main Prompt: " + self.main_prompt)
                 self.logger.log_debug("    Hostname: " + self.hostname)
                 self.logger.log_debug("    Port: " + str(self.port))

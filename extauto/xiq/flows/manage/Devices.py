@@ -27,7 +27,9 @@ from extauto.common.Cli import Cli
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.defs.DevicesWebElementsDefinitions import *
 from extauto.common.WebElementController import WebElementController
-
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.common.Xapi import Xapi
 
 class Devices:
     def __init__(self):
@@ -50,9 +52,11 @@ class Devices:
         self.login = Login()
         self.cli = Cli()
         self.web_element_ctrl = WebElementController()
+        self.web_elements_handler = WebElementHandler()
+        self.cloud_driver = CloudDriver()
+        self.xapi = Xapi()
 
-
-    def onboard_ap(self, ap_serial, device_make, location, device_os=False):
+    def onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
         - Keyword Usage:
@@ -102,6 +106,15 @@ class Devices:
         self.utils.print_info("Clicking on ADD DEVICES button...")
         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
 
+        quick_add_ongoing = True
+        while quick_add_ongoing:
+            if self.devices_web_elements.get_devices_quick_add_block_show():
+                self.utils.print_info("Still in adding device process, wait for finishing ...")
+                sleep(2)
+            else:
+                quick_add_ongoing = False
+                self.utils.print_info("Finish device adding process ...")
+
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
 
@@ -110,13 +123,19 @@ class Devices:
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                kwargs['fail_msg'] = f"Error: {dialog_message}"
+                self.common_validation.failed(**kwargs)
                 return -1
             if "A stake record of the device was found in the redirector." in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                kwargs['fail_msg'] = f"Error: {dialog_message}"
+                self.common_validation.failed(**kwargs)
                 return -2
         else:
             self.utils.print_info("No Errors while onboarding")
+            kwargs['pass_msg'] = "No Errors while onboarding"
+            self.common_validation.passed(**kwargs)
 
         serials = ap_serial.split(",")
         self.utils.print_info("Device Serials Numbers: ", serials)
@@ -124,8 +143,12 @@ class Devices:
         for serial in serials:
             if self.search_ap_serial(serial):
                 self.utils.print_info("Successfully Onboarded AP(s): ", serials)
+                kwargs['pass_msg'] = f"Successfully Onboarded AP(s): {serials}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
+                kwargs['fail_msg'] = f"The AP(s) couldn't be onboarded"
+                self.common_validation.failed(**kwargs)
                 return -1
 
     def _goto_devices(self):
@@ -641,6 +664,7 @@ class Devices:
         :param ap_mac: ap Mac address
         :return: 1 if deleted else -1
         """
+        self.navigator.enable_page_size()
         if ap_serial:
             self.utils.print_info("Deleting AP: ", ap_serial)
             search_result = self.search_ap(ap_serial=ap_serial)
@@ -858,6 +882,7 @@ class Devices:
             try:
                 device_detail_dict = {}
                 device_row = self.get_manage_device_row(search_string)
+                device_row = copy.copy(device_row)
                 if device_row:
                     cells = self.devices_web_elements.get_device_row_cells(device_row)
                     for cell in cells:
@@ -963,12 +988,12 @@ class Devices:
 
     def onboard_multiple_devices(self, serials, device_make):
         """
-        - This Keyword will Onboard Multiple Devices with Serial Numbers and AP type
+        - This Keyword will Onboard Multiple Devices with Serial Numbers and Device Make
         - Keyword Usage:
-         - `Onboard Multiple Devices  ${SERIALS}  {AP_TYPE}``
+         - `Onboard Multiple Devices  ${SERIALS}  ${DEVICE_MAKE}``
 
-        :param serials: Serial Numbers seperated by comma
-        :param ap_type: AP Type ie aerohive,wing
+        :param serials: Serial Numbers separated by comma
+        :param device_make: Device Make ie aerohive,wing
         :return: 1 if on boarded else -1
         """
         if "aerohive" in device_make.lower():
@@ -991,6 +1016,7 @@ class Devices:
         :return: 1 if deleted else -1
         """
         aps = -1
+        self.navigator.enable_page_size()
         try:
             aps = ap_serials.split(",")
             result = -1
@@ -1050,7 +1076,7 @@ class Devices:
             for option in options:
                 if device_model in option.text:
                     self.utils.print_info("Simulated device option: ", option.text)
-                    self.auto_actions.click(option)
+                    self.auto_actions.click_with_js(option)
 
             self.utils.print_info(f"Entering Device Count: {count}")
             self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), count)
@@ -1181,39 +1207,47 @@ class Devices:
         self.utils.print_info("Click on actions button")
         self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
         sleep(3)
+        if self.device_actions.get_device_actions_dropdown():
+            self.utils.print_info("Move to Assign Network policy action")
+            self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
+            self.utils.print_info("Click on Assign Network policy action")
+            self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo())
+            sleep(4)
+            select_is_shown = self.devices_web_elements.get_nw_policy_drop()
+            if select_is_shown:
+                self.utils.print_info("Click on network policy drop down")
+                self.auto_actions.click(select_is_shown)
+                sleep(3)
+                network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
+                if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
+                    self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
+                else:
+                    self.utils.print_info("Network policy is not present in drop down")
+                    self.screen.save_screen_shot()
+                    return False
 
-        self.utils.print_info("Click on Assign Network policy action")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo())
-        sleep(4)
-
-        self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
-
-        network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
-        sleep(2)
-        if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
-            self.utils.print_info(f"Selected Network policy from drop down:{policy_name}")
-        else:
-            self.utils.print_info("Network policy is not present in drop down")
-            return False
-
-        self.screen.save_screen_shot()
-        sleep(5)
-
-        self.utils.print_info("Click on network policy assign button")
-        self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
-        sleep(10)
-
-        tooltip_text = self.dialogue_web_elements.get_tooltip_text()
-        sleep(2)
-
-        self.utils.print_info("tooltip_text: ", tooltip_text)
-        if tooltip_text:
-            if "Your account does not have permission to perform that action" in tooltip_text:
-                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
                 sleep(5)
+                self.utils.print_info("Click on network policy assign button")
+                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
+                sleep(10)
+
+                tooltip_text = self.dialogue_web_elements.get_tooltip_text()
+                sleep(2)
+
+                self.utils.print_info("tooltip_text: ", tooltip_text)
+                if tooltip_text:
+                    if "Your account does not have permission to perform that action" in tooltip_text:
+                        self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
+                        sleep(5)
+                        return False
+                return True
+            else:
+                self.utils.print_info("Nothing is shown in network policy drop list")
                 return False
-        return True
+        else:
+            self.screen.save_screen_shot()
+            self.utils.print_info(f"Actions dropdown is NOT shown")
+            return False
 
     def _update_network_policy(self, update_method="Delta"):
         """
@@ -1228,33 +1262,33 @@ class Devices:
 
         if update_method == "Delta":
             self.utils.print_info("click on delta config radio button")
-            self.auto_actions.click(self.devices_web_elements.get_delta_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_delta_config_update_button)
             sleep(2)
             self.utils.print_info("click on perform update button")
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
-            sleep(2)
-            tool_tp_text = tool_tip.tool_tip_text
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
+            sleep(30)
+            tool_tip = self.devices_web_elements.get_device_update_error_message()
+            tool_tp_text = tool_tip.text
             self.utils.print_info(tool_tp_text)
-            for value in tool_tp_text:
-                update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
-                update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
-                                      "you must select a Complete Configuration Update."
-                if update_tooltip_msg2 in value or update_tooltip_msg1 in value:
-                    self.utils.print_info(value)
-                    update_method = "Complete"
+            update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
+            update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
+                                  "you must select a Complete Configuration Update."
+            if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
+                self.utils.print_info('Convert to Complete. Delta not supported')
+                update_method = "Complete"
 
         if update_method == "Complete":
             self.utils.print_info("click on complete config radio button")
-            self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_full_config_update_button)
             sleep(2)
             self.utils.print_info("click on perform update button")
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
-    def _check_update_network_policy_status(self, policy_name, device_serial):
+    def _check_update_network_policy_status(self, policy_name, device_serial, **kwargs):
         """
         - This keyword is used to check the network policy applied status to the device
         - It will poll the "update status" every 30 seconds to get the status of the network policy applied
@@ -1264,16 +1298,30 @@ class Devices:
         :return: 1 if config push success else -1
         """
         retry_count = 0
+        update_time = 0
         max_config_push_wait = self.robot_built_in.get_variable_value("${MAX_CONFIG_PUSH_TIME}")
         while True:
-            self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
+            self.utils.print_info(f"Time elapsed for device update: {update_time} seconds")
             device_update_status = self.get_device_updated_status(device_serial)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
+            elif 'Certification' in device_update_status or 'Application' in device_update_status:
+                # Some other random push to the device is blocking my policy update!
+                self.utils.print_info("Non-update text in status :{}".format(device_update_status))
+                self.screen.save_screen_shot()
+                sleep(30)
+                update_time += 30
+                if update_time >= 300:
+                    self.utils.print_info(f"Config push to AP BLOCKED for more than 300 seconds")
+                    kwargs['fail_msg'] = "Config push to AP BLOCKED for more than 300 seconds"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                continue
             elif retry_count >= int(max_config_push_wait):
                 self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
                 return -1
             sleep(30)
+            update_time += 30
             retry_count += 30
 
         policy_applied = self.get_ap_network_policy(ap_serial=device_serial)
@@ -1316,7 +1364,7 @@ class Devices:
     def update_network_policy_to_exos(self, serial=None, update_method="PolicyAndConfig"):
         """
         - Update the network policy to the selected devices
-        - Based on the update method, update the devices
+        - Based on the update method, update the device
         - Keyword Usage:
         - ``Update Network Policy To Exos      serial=${SW1_SERIAL}     update_method="PolicyAndConfig"``
         :param update_method:
@@ -1380,6 +1428,17 @@ class Devices:
                 return UpdateStatus, ConfigErrorToolTip
         return UpdateStatus
 
+    def update_network_policy_to_ap_if_needed(self, policy_name=None, ap_serial=None, update_method="Delta"):
+        dev_policy = self.get_device_details(ap_serial, 'POLICY')
+        if dev_policy == policy_name:
+            dev_status = self.get_device_status(device_serial=ap_serial)
+            if dev_status == 'green':
+                return 1
+            else:
+                return self.update_network_policy_to_ap(policy_name, ap_serial, update_method)
+        else:
+            return self.update_network_policy_to_ap(policy_name, ap_serial, update_method)
+
     def update_network_policy_to_ap(self, policy_name=None, ap_serial=None, update_method="Delta"):
         """
         - By default this keyword do delta config push
@@ -1398,23 +1457,33 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         sleep(5)
+        network_policy_assigned = False
+        try_cnt = 0
+        while not network_policy_assigned:
+            self.utils.print_info("Select ap row for network policy assignment")
+            if not self.select_ap(ap_serial):
+                self.utils.print_info(f"AP {ap_serial} is not present in the grid")
+                return -1
+            sleep(2)
 
-        self.utils.print_info("Select ap row")
-        if not self.select_ap(ap_serial):
-            self.utils.print_info(f"AP {ap_serial} is not present in the grid")
-            return -1
-        sleep(2)
-
-        if not self._assign_network_policy(policy_name):
-            return -1
-
+            if self._assign_network_policy(policy_name):
+                network_policy_assigned = True
+            else:
+                try_cnt += 1
+                self.utils.print_info(f"{try_cnt} attempts to select device --> click action --> click assign network policy --> select the policy and assign it to device")
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt} attempts are reached, return -1")
+                    return -1
+                self.utils.print_info("Cancel Network Policy assignment dialog")
+                self.auto_actions.click(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button())
+                sleep(2)
         self.utils.print_info("Select ap row")
         self.select_ap(ap_serial)
 
         self._update_network_policy(update_method)
         return self._check_update_network_policy_status(policy_name, ap_serial)
 
-    def update_network_policy_to_multiple_ap(self, policy_name='', ap_serial='', update_method="Delta"):
+    def update_network_policy_to_multiple_ap(self, policy_name='', ap_serial='', update_method="Delta", **kwargs):
         """
         - This keyword is used to update/config push the network policy to the multiple AP's
         - By default this keyword do delta config push
@@ -1442,6 +1511,8 @@ class Devices:
             self.select_device(ap_sr)
 
         if not self._assign_network_policy(policy_name):
+            kwargs['fail_msg'] = f"Can not assign network policy {policy_name}"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Selecting the device rows")
@@ -1589,15 +1660,15 @@ class Devices:
 
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
 
             self.utils.print_info("Selecting Reboot menu item")
-            self.auto_actions.click(self.device_actions.get_device_actions_reboot_menu_item())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_reboot_menu_item)
             sleep(2)
 
             self.utils.print_info("Confirming...")
-            self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+            self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
 
             return 1
 
@@ -1708,34 +1779,37 @@ class Devices:
         :return: 1 if success
         """
         specific_version = -1
-
         if self.select_ap(device_serial):
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click(self.device_update.get_update_devices_button())
             sleep(5)
-
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
             sleep(5)
-
             self.utils.print_info("Selecting upgrade to specific version checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
             sleep(2)
-
+            self.utils.print_info("Click specific version Dropdown")
+            self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_dropdown())
+            while not self.device_update.get_is_specific_version_dropdown_open():
+                self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_dropdown())
+            self.utils.print_info(f"Selected specific upgrade version as '{version}' from drop down")
+            options = self.device_update.get_upgrade_to_specific_version_dropdown_list()
+            for option in options:
+                self.utils.print_info(option.get_attribute('data-automation-tag'))
+                if version in option.get_attribute('data-automation-tag'):
+                    self.utils.print_info(option.get_attribute('data-automation-tag'))
+                    self.auto_actions.click(option)
             specific_version = self.device_update.get_specific_version()
-            sleep(2)
-
             self.utils.print_info("Device Specific Version: ", specific_version)
-
+            self.utils.print_info("Selecting Perform upgrade if the versions are the same")
+            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
             self.utils.print_info("Selecting Activate After radio button")
             self.auto_actions.click(self.device_update.get_activate_after_radio())
-
             self.utils.print_info("Setting Activate time to 60 seconds")
             self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), '60')
-
             self.utils.print_info("Selecting Perform Update button...")
             self.auto_actions.click(self.device_update.get_perform_update_button())
-
         return specific_version
 
     def xiq_upgrade_device_to_specific_version(self, device_serial, version=None):
@@ -1794,7 +1868,6 @@ class Devices:
 
         :return: 1 if device page refreshed successfully else -1
         """
-
         try:
             self.utils.print_info("Refreshing devices page...")
             self.auto_actions.scroll_up()
@@ -1816,7 +1889,7 @@ class Devices:
             self.common_validation.failed(**kwargs)
             return -1
 
-    def edit_ap_description(self, ap_desc, ap_serial=None, ap_name=None, ap_mac=None):
+    def edit_ap_description(self, ap_desc, ap_serial=None, ap_name=None, ap_mac=None, **kwargs):
         """
         - Edits AP matching either any of either one of serial, name, MAC
         - Keyword Usage:
@@ -1845,12 +1918,409 @@ class Devices:
                 self.auto_actions.click(self.devices_web_elements.get_save_device_config())
                 sleep(2)
                 return 1
+
+        kwargs['fail_msg'] = "Unable to edit AP's description"
+        self.common_validation.failed(**kwargs)
         return -1
 
-# EJL update the defaults
+
+    def onboard_device_quick(self, *device_dict, **kwargs):
+        """
+        - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
+        - Keyword Usage:
+         - ``Onboard Device  ${ap1}``
+                {ap1} - dictionary from .yaml file of the testbed ( 'ap1' is only an example )
+                Exemple:
+                {'name': 'bui-flo-1996',
+                'connection_method': 'telnet',
+                'ip': '10.16.171.71',
+                'port': 22,
+                'username': 'admin',
+                'password': 'Aerohive123',
+                'serial': '01301506171996',
+                'type': 'Real',
+                'entry_type': 'Manual',
+                'csv_file_name': '',
+                'os': 'Cloud IQ Engine',
+                'service_tag': False,
+                'model': 'AP130',
+                'mac': '885BDD3E0280',
+                'cli_type': 'AH-AP',
+                'platform': 'aerohive',
+                'template': 'AP130-default-template',
+                'make': 'Extreme - Aerohive',
+                'mgmt_vlan': 10,
+                'country': 'United States',
+                'location': 'Santa Jose, building_01, floor001',
+                'power_strip':
+                    {'ip': None, '
+                    port': None,
+                    'username': None,
+                    'password': None,
+                    'plug':
+                        {'plug_a': None,
+                        'plug_b': None},
+                    'type': None},
+                'extra': {'country': 'United Kingdom',
+                          'network_policy': 'Test_np',
+                          'ssid': 'AP130_01',
+                          'version': 6.5,
+                          'neighbour_serial': '06301908310556',
+                          'neighbour_mac': '7C95B1005700'}
+                }
+
+        :return:  1 if onboarding success
+        :return: -1 for errors
+        """
+        device_dict = device_dict[0]
+        device_type = device_dict.get("onboard_device_type")
+
+        # Arguments for device_type == "Real"
+        device_serial = device_dict.get("serial")
+        device_make = device_dict.get("make")
+        device_mac = device_dict.get("mac")
+        location = device_dict.get("location")
+        service_tag = device_dict.get("service_tag")  # argument for Real device ---> Dell
+        csv_location = device_dict.get("csv_location")
+
+        # Arguments for device_type == "Simulated" and device_type == "Digital Twin"
+        device_model = device_dict.get("model")
+        device_count = device_dict.get("simulated_count")
+        device_os = device_dict.get("os")
+        os_persona = device_dict.get("os_persona")
+
+        if "csv_location" in device_dict:
+            return self.quick_onboarding_cloud_csv(device_make=device_dict.get("device_make"), csv_location=device_dict.get("csv_location"))
+        else:
+            entry_type = "Manual"
+
+        if self.check_onboard_device_quick_parameters(device_type, entry_type, device_serial, device_make, location,
+                                                      csv_location, device_model, device_os, os_persona, **kwargs) == -1:
+            return -1
+
+        self.utils.print_info("Onboarding: ", device_make)
+
+        self.navigator.navigate_to_devices()
+
+        self.utils.print_info("Clicking on ADD button...")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+
+        self.utils.print_info("Selecting Quick Add Devices menu")
+        quick_add_devices_button = ''
+        attempt_count = 3
+        while attempt_count > 0:
+            if attempt_count != 3:
+                self.utils.print_info("Menu selection failed. Making another attempt...")
+                self.utils.print_info("Clicking on ADD button...")
+                self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+                self.utils.print_info("Selecting Quick Add Devices menu")
+                sleep(4)
+            try:
+                quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
+                self.auto_actions.move_to_element(quick_add_devices_button)
+                break
+            except:
+                attempt_count = attempt_count - 1
+        if attempt_count == 0:
+            kwargs['fail_msg'] = "Unable to get / click the menu option"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
+        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+
+        if device_type.lower() == "real":
+            if self.set_onboard_values_for_real(device_serial, device_make, entry_type, device_os) != 1:
+                return -1
+
+        elif device_type.lower() == "simulated":
+            if self.set_onboard_values_for_simulated(device_model, device_count) !=1:
+                return -1
+
+        elif device_type.lower() == "digital twin":
+            if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) !=1:
+                return -1
+
+        if location:
+            self.auto_actions.click(self.devices_web_elements.get_location_button())
+            self._select_location(location)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Clicking on ADD DEVICES button...")
+        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.utils.print_info("Checking for Errors...")
+        dialog_message = self.dialogue_web_elements.get_dialog_message()
+
+        if dialog_message:
+            self.utils.print_info("Dialog Message: ", dialog_message)
+            if "Device already onboarded" in dialog_message:
+                self.utils.print_info("Error: ", dialog_message)
+                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+
+            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            self.utils.print_info("No Dialog box")
+
+        if device_type.lower() == "real":
+            if entry_type.lower() == "manual":
+                serials = device_serial.split(",")
+                self.utils.print_info("Serials: ", serials)
+                for serial in serials:
+                    if self.search_device(device_serial=serial) == 1:
+                        kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
+                        self.common_validation.passed(**kwargs)
+                        return 1
+                    else:
+                        kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+        elif device_type.lower() == "simulated" or device_type.lower() == "digital twin":
+            models = device_model.split(",")
+            self.utils.print_info("Models: ", models)
+            for model in models:
+                if self.search_device(device_serial=model) == 1:
+                    kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {models}"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                else:
+                    kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {models}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+    def check_onboard_device_quick_parameters(self, device_type, entry_type, device_serial, device_make, location,
+                                              csv_location, device_model, device_os, os_persona, **kwargs):
+        """
+        This methods is created for validate the Mandatory arguments for onboard device quick method
+        :param device_serial: serial number of Device
+        :param device_make: Model of the Device ex:aerohive
+        :param device_type: Real/Simulated
+        :param entry_type: Manual/CSV
+        :param csv_location: CSV File Name
+        :param device_os: verifies the Device OS automatically selected after entering device serial
+        :param location: device location
+        :param os_persona: for Digital Twin
+        :return:  1 if validate success
+        :return: -1 for error : one or more arguments are missing
+        """
+        if device_type.lower() == "real":
+            if entry_type.lower() == "manual":
+                if device_serial == None or device_make == None or location == None:
+                    kwargs['fail_msg'] = f"The 'serial': [{device_serial}], 'make': [{device_make}] and 'location': [{location}] are required when onboarding 'Real' devices without using a CSV file. One or more of the required values are missing."
+                    self.common_validation.failed(**kwargs)
+                    return -1
+            elif entry_type.lower() == "csv":
+                if device_make == None or csv_location == None:
+                    kwargs['fail_msg'] = f"The 'make': [{device_make}] and 'CSV file': [{csv_location}] are required when onboarding 'Real' devices with using a CSV file. One or more of the required values are missing."
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+        elif device_type.lower() == "simulated":
+            if device_model == None or location == None:
+                kwargs['fail_msg'] = f"The 'model': [{device_model}] and 'location': [{location}] are required when onboarding 'Simulated' devices. One or more of the required values are missing."
+                self.common_validation.failed(**kwargs)
+                return -1
+
+        elif device_type.lower() == "digital twin":
+            if device_model == None or device_os == None or os_persona == None:
+                kwargs['fail_msg'] = f"The 'model': [{device_model}], 'OS version': [{device_os}] and 'OS persona': [{os_persona}] are required when onboarding 'Digital Twin' devices. One or more of the required values are missing."
+                self.common_validation.failed(**kwargs)
+                return -1
+        return 1
+
+    def set_onboard_values_for_real(self, device_serial, device_make, entry_type, device_os):
+        """
+        This method is create for onboard device with device_type == Real
+        """
+
+        self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
+
+        self.utils.print_info("Entering Serial Number...", device_serial)
+        self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+        sleep(5)
+
+        if 'Extreme - Aerohive' in device_make:
+            if entry_type:
+                if 'Manual' in entry_type:
+                    self.auto_actions.click(self.devices_web_elements.get_entry_type_manual_radio_button())
+
+            self.utils.print_info("Entering Serial Number...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+
+            if self.devices_web_elements.get_device_os_radio():
+                self.utils.print_info("Verify Cloud IQ Engine Device OS Radio Button Status")
+                device_os = self.devices_web_elements.get_device_os_radio().text
+                self.utils.print_info("Device OS: ", device_os)
+                if 'Cloud IQ Engine' in device_os:
+                    self.utils.print_info("Device OS matched")
+                else:
+                    self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
+                    self.auto_actions.click(self.devices_web_elements.get_device_os_radio())
+
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
+        # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
+        elif "VOSS" in device_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : VOSS/Fabric Engine")
+            if self.switch_web_elements.get_switch_make_drop_down():
+                self.utils.print_info("Selecting Switch Type : VOSS")
+                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                self.screen.save_screen_shot()
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
+                                                           , "VOSS")
+                self.screen.save_screen_shot()
+
+            if self.devices_web_elements.get_device_os_voss_radio():
+                self.utils.print_info("Selecting Device OS : Fabric Engine")
+                self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
+                self.screen.save_screen_shot()
+
+        elif "EXOS" in device_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : EXOS")
+            try:
+                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                sleep(2)
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(),
+                                                           "EXOS")
+            except Exception as e:
+                self.utils.print_debug("Exception: ", e)
+                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
+
+        elif 'Dell' in device_make:
+            self.utils.print_info("Entering Serial Number...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
+
+            self.utils.print_info("Entering Service Tag...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
+
+        elif 'Universal Appliance' in device_make:
+            self.utils.print_info("Entering Serial Number...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
+
+        elif 'XMC' in device_make.upper():
+            self.utils.print_info("Entering Serial Number...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
+
+        elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
+            return self.onboard_wing_ap(device_serial, device_mac, device_make, location)
+
+        if 'DUAL BOOT' in device_make.upper():
+            return self.onboard_ap(device_serial, device_make, location, device_os)
+
+        if device_make:
+            sleep(5)
+            self.utils.print_info("Verifying Device Make...")
+            ui_device_make = self.devices_web_elements.get_device_make_dropdownoption().text
+            self.utils.print_info("Device Make from UI: ", ui_device_make)
+            if device_make in ui_device_make:
+                self.utils.print_info("Device Make matched")
+            else:
+                self.utils.print_info("Device Make NOT matched")
+        return 1
+
+    def set_onboard_values_for_simulated(self, device_model, device_count):
+        """
+        This method is create for onboard device with device_type == Simulated
+        """
+
+        # Code copied from 'onboard_simulated_device'
+        self.utils.print_info("Selecting 'Simulated' Device Type radio button")
+        self.auto_actions.click(self.devices_web_elements.get_quick_onboard_simulated())
+        self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
+
+        table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
+
+        options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
+        for option in options:
+            if device_model in option.text:
+                self.utils.print_info("Simulated device option: ", option.text)
+                self.auto_actions.click(option)
+
+        self.utils.print_info(f"Entering Device Count: {device_count}")
+        self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(),
+                                    device_count)
+
+        return 1
+
+    def set_onboard_values_for_digital_twin(self, os_persona, device_model, os_version, **kwargs):
+        """
+        This method is create for onboard device with device_type == Digital Twin
+        """
+
+        # Code specific to Digital Twin devices - Code copied from 'omboard_device_dt'
+        add_device_button = "Launch Digital Twin"
+        attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+        if "fn-hidden" not in attribute:
+            self.utils.print_info("Selecting 'Digital Twin' radio button")
+            self.auto_actions.click(self.devices_web_elements.get_device_type_digital_twin_radio_button())
+
+            self.utils.print_debug(f"Selecting OS Persona: {os_persona}")
+            self.auto_actions.click(self.devices_web_elements.get_digital_twin_os_persona_dropdown())
+            sleep(2)
+            if self.auto_actions.select_drop_down_options(
+                    self.devices_web_elements.get_digital_twin_os_persona_dropdown_items(), os_persona):
+                self.utils.print_info(f"OS Persona set to: {os_persona}")
+            else:
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"Could not select OS Persona: {os_persona}"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_debug(f"Selecting Device Model: {device_model}")
+            self.auto_actions.click(self.devices_web_elements.get_digital_twin_device_model_dropdown())
+            sleep(2)
+            if self.auto_actions.select_drop_down_options(
+                    self.devices_web_elements.get_digital_twin_device_model_dropdown_items(), device_model):
+                self.utils.print_info(f"Device Model set to: {device_model}")
+            else:
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"Could not select Device Model: {device_model}"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_debug(f"Selecting OS Version: {os_version}")
+            self.auto_actions.click(self.devices_web_elements.get_digital_twin_os_version_dropdown())
+            sleep(2)
+            if self.auto_actions.select_drop_down_options(
+                    self.devices_web_elements.get_digital_twin_os_version_dropdown_items(), os_version):
+                self.utils.print_info(f"OS Version set to: {os_version}")
+            else:
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"Could not select OS Version: {os_version}"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+        else:
+            kwargs['fail_msg'] = "Digital Twin option is not available..."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        return 1
+
+    # EJL update the defaults
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
-                       csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False,
-                       **kwargs):
+                       csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False, **kwargs):
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
         - Keyword Usage:
@@ -2095,15 +2565,24 @@ class Devices:
         serials = device_serial.split(",")
         self.utils.print_info("Serials: ", serials)
 
-        for serial in serials:
-            if self.search_device(device_serial=serial) == 1:
-                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
-                self.common_validation.passed(**kwargs)
-                return 1
-            else:
-                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
-                self.common_validation.failed(**kwargs)
-                return -1
+        max_retries = 3
+        count = 0
+        ret_value = -1
+        while max_retries != count:
+            for serial in serials:
+                if self.search_device(device_serial=serial) == 1:
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                else:
+                    kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                    if count != max_retries:
+                        self.utils.print_info(f"The {serial} was not found, sleeping for 10 seconds")
+                        sleep(10)
+                        count += 1
+                        self.utils.print_info(f"new count value {count} of max reties {max_retries}")
+
+        self.common_validation.failed(**kwargs)
+        return -1
 
     def onboard_device_dt(self, device_serial=None, device_make=None, device_mac=None, device_type="Real", entry_type="Manual",
                            csv_file_name=None, csv_location=None, device_os=None, location=None, service_tag=None,
@@ -2187,12 +2666,12 @@ class Devices:
                     else:
                         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                         kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
                 else:
                     self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
                     kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
-                    self.common_validation.validate(-1, 1, **kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
 
             else:  # Manually onboard device
@@ -2252,6 +2731,7 @@ class Devices:
         # Code specific to Digital Twin devices
         elif device_type.lower() == "digital_twin":
             add_device_button = "Launch Digital Twin"
+            sleep(3)
             attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
             if "fn-hidden" not in attribute:
                 self.utils.print_info("Selecting 'Digital Twin' radio button")
@@ -2341,15 +2821,24 @@ class Devices:
         dialog_message = self.dialogue_web_elements.get_dialog_message()
 
         if dialog_message:
-            self.utils.print_info("Dialog Message: ", dialog_message)
+            self.screen.save_screen_shot()
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
 
-            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
-            self.common_validation.validate(-1, 1, **kwargs)
+            elif "failed to onboard Digital Twin device" in dialog_message:
+                self.utils.print_info(f"Dialog Message: {dialog_message}")
+                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                kwargs['fail_msg'] = f"failed to onboard Digital Twin device"
+
+            else:
+                self.utils.print_info(f"Dialog Message: {dialog_message}")
+                kwargs['fail_msg'] = f"{dialog_message}"
+
+            self.common_validation.failed(**kwargs)
             return -1
         else:
             self.utils.print_info("No Dialog box")
@@ -2375,12 +2864,13 @@ class Devices:
         for serial in serials:
             if self.search_device(device_serial=serial) == 1:
                 kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
-                self.common_validation.validate(-1, 1, **kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
+
 
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
                             csv_location='', policy_name=None, loc_name=None):
@@ -2778,9 +3268,12 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
+
         num_device_params = 0
         search_device = None
         search_type = None
+
+        self.navigator.enable_page_size()
 
         if device_serial:
             num_device_params += 1
@@ -2848,7 +3341,7 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-    def delete_devices(self, *device_list):
+    def delete_devices(self, *device_list, **kwargs):
         """
         - Deletes the list of devices denoted by serial numbers
         - Keyword Usage:
@@ -2858,6 +3351,10 @@ class Devices:
         :return: 1 if devices deleted successfully or are already deleted/do not exist, else -1
         """
         ret_val = 1
+        deleted_devices = []
+        not_deleted_devices = []
+
+        self.navigator.enable_page_size()
 
         # Select all the specified devices
         self.utils.print_info("Deleting devices: ", device_list)
@@ -2885,10 +3382,20 @@ class Devices:
             search_result = self.search_device(device_serial=device_)
             if search_result == 1:
                 self.utils.print_info(f"Device {device_} was not deleted")
+                not_deleted_devices.append(device_)
                 ret_val = -1
             else:
                 self.utils.print_info(f"Device {device_} was deleted")
+                deleted_devices.append(device_)
 
+        if ret_val != 1:
+            self.utils.print_info(f"Devices were not deleted: {not_deleted_devices}")
+            kwargs['fail_msg'] = f"Devices were not deleted: {not_deleted_devices}"
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.print_info(f"Devices were deleted: {deleted_devices}")
+            kwargs['pass_msg'] = f"Devices were deleted: {deleted_devices}"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
     def search_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
@@ -2900,6 +3407,9 @@ class Devices:
         :param device_mac: device MAC
         :return: 1 if device found else -1
         """
+
+        # navigate to devices page
+        self.navigator.navigate_to_devices()
         self.refresh_devices_page()
 
         if not device_serial and device_mac and device_name:
@@ -3019,13 +3529,24 @@ class Devices:
 
         return False
 
+    def _get_row(self, key, value):
+        device_row = ''
+        if key == "device_serial":
+            device_row = self.get_device_row(device_serial=value)
+        elif key == "device_mac":
+            device_row = self.get_device_row(device_mac=value)
+        elif key == "device_name":
+            device_row = self.get_device_row(device_name=value)
+        return device_row
+
     def get_device_status(self, device_serial='default', device_name='default', device_mac='default', **kwargs):
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
          - ``Get Device Status   device_serial=${DEVICE_SERIAL}``
-         - ``Get Device Status   device_name=${DEVICE_NAme}``
+         - ``Get Device Status   device_name=${DEVICE_NAME}``
          - ``Get Device Status   device_mac=${DEVICE_MAC}``
+         - ``Get Device Status   device_serial=${DEVICE_SERIAL}  device_mac=${DEVICE_MAC}``
 
         :param device_serial: device Serial
         :param device_name: device host name
@@ -3037,86 +3558,102 @@ class Devices:
         - 'unknown' if device connection status is 'Unknown'
 
         """
-        device_row = -1
-        self.refresh_devices_page()
-
-        self.utils.print_info('Getting device Status using')
-        if device_serial != 'default':
-            self.utils.print_info("Getting status of device with serial: ", device_serial)
-            device_row = self.get_device_row(device_serial)
-
-        if device_name != 'default':
-            self.utils.print_info("Getting status of device with name: ", device_name)
-            device_row = self.get_device_row(device_name)
-
+        device_row = ''
+        device_keys = {}
+        device_status = ''
+        audit_config_status = ''
         if device_mac != 'default':
-            self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            device_keys['device_mac'] = device_mac
+        if device_serial != 'default':
+            device_keys['device_serial'] = device_serial
+        if device_name != 'default':
+            device_keys['device_name'] = device_name
+        if len(device_keys.keys()) == 0:
+            kwargs['fail_msg'] = "No valid args passed.  Must be device_serial, device_name, device_mac!"
+            self.common_validation.failed(**kwargs)
+            return -1
 
-        if device_row:
-            sleep(5)
-            device_status = ''
-            attempt_count = 3
-            while attempt_count > 0:
-                if attempt_count == 3:
-                    self.utils.print_info("Getting status from cell")
-                else:
-                    self.utils.print_info("Getting status from cell failed...Attempting to get status again")
-                    self.screen.save_screen_shot()
-                    self.utils.print_info("Value of device row : ", self.format_row(device_row.text))
-                attempt_count = attempt_count - 1
-                device_status = self.devices_web_elements.get_status_cell(device_row)
-                sleep(5)
-                if device_status:
-                    break
-            audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
-            self.screen.save_screen_shot()
-            sleep(2)
+        # Printing all the rows in the table for troubleshooting
+        rows = self.devices_web_elements.get_grid_rows()
+        if rows:
+            for row in rows:
+                self.utils.print_info("row data: ", self.format_row(row.text))
+        else:
+            self.utils.print_info("No rows present")
+
+        for key, value in device_keys.items():
+            self.utils.print_info(f"Getting device status using {key} : {value}")
+            self.refresh_devices_page()
+            device_row = self._get_row(key, value)
+            device_row = copy.copy(device_row)
+
+            if device_row != -1:
+                device_status = ''
+                attempt_count = 1
+                while attempt_count <= 3:
+                    self.utils.print_info(f"Trying to get status from cell. Attempt {attempt_count} of 3 attempts")
+                    try:
+                        device_status = self.devices_web_elements.get_status_cell(device_row)
+                    except:
+                        self.utils.print_info(
+                            "Getting status from cell failed with Exception.Attempting to get status again")
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                    if device_status:
+                        break
+                    attempt_count += 1
+                audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
+                self.screen.save_screen_shot()
+                sleep(2)
 
             if device_status:
-                if "hive-status-true" in device_status:
-                    if audit_config_status:
-                        if "ui-icon-sprite-match" in audit_config_status:
-                            kwargs['pass_msg'] = "Device Status: Connected, audit status matched"
-                            self.common_validation.passed(**kwargs)
-                            return 'green'
-                        if "ui-icon-sprite-mismatch" in audit_config_status:
-                            kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
-                            self.common_validation.passed(**kwargs)
-                            return "config audit mismatch"
-                    else:
-                        kwargs['pass_msg'] = "Unable to obtain audit config status for the row - returning connection " \
-                                             "status 'green'"
+                self.utils.print_info(f"Device status is: {device_status}")
+                break
+
+        if device_status:
+            if "hive-status-true" in device_status:
+                if audit_config_status:
+                    if "ui-icon-sprite-match" in audit_config_status:
+                        kwargs['pass_msg'] = "Device Status: Connected, audit status matched"
                         self.common_validation.passed(**kwargs)
                         return 'green'
-
-                if "local-managed-icon" in device_status:
-                    kwargs['pass_msg'] = "Device Status: Connected, locally managed"
+                    if "ui-icon-sprite-mismatch" in audit_config_status:
+                        kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
+                        self.common_validation.passed(**kwargs)
+                        return "config audit mismatch"
+                else:
+                    kwargs['pass_msg'] = "Unable to obtain audit config status for the row - returning connection " \
+                                         "status 'green'"
                     self.common_validation.passed(**kwargs)
                     return 'green'
 
-                if "hive-status-false" in device_status:
-                    if self.devices_web_elements.get_device_conn_status_after_ten_min(device_row):
-                        kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
-                        self.common_validation.passed(**kwargs)
-                        return "disconnected"
-                    kwargs['pass_msg'] = "Device is disconnected!"
+            if "local-managed-icon" in device_status:
+                kwargs['pass_msg'] = "Device Status: Connected, locally managed"
+                self.common_validation.passed(**kwargs)
+                return 'green'
+
+            if "hive-status-false" in device_status:
+                if self.devices_web_elements.get_device_conn_status_after_ten_min(device_row):
+                    kwargs['pass_msg'] = "Device has not yet established connection after 10 minutes"
                     self.common_validation.passed(**kwargs)
                     return "disconnected"
+                kwargs['pass_msg'] = "Device is disconnected!"
+                self.common_validation.passed(**kwargs)
+                return "disconnected"
 
-                if "local-icon" in device_status:
-                    kwargs['pass_msg'] = "Device Status: Disconnected, locally managed"
-                    self.common_validation.passed(**kwargs)
-                    return 'disconnected'
+            if "local-icon" in device_status:
+                kwargs['pass_msg'] = "Device Status: Disconnected, locally managed"
+                self.common_validation.passed(**kwargs)
+                return 'disconnected'
 
-                if "device-status-unknown" in device_status:
-                    kwargs['pass_msg'] = "Device Status: Unknown"
-                    self.common_validation.passed(**kwargs)
-                    return 'unknown'
-            else:
-                kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
-                self.common_validation.failed(**kwargs)
-                return -1
+            if "device-status-unknown" in device_status:
+                kwargs['pass_msg'] = "Device Status: Unknown"
+                self.common_validation.passed(**kwargs)
+                return 'unknown'
+        else:
+            kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
+            self.common_validation.failed(**kwargs)
+            return -1
 
         kwargs['fail_msg'] = "Unable to obtain device status!"
         self.common_validation.failed(**kwargs)
@@ -3303,7 +3840,7 @@ class Devices:
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
             count = 5
-            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             if tool_tp_text_error:
@@ -3320,7 +3857,7 @@ class Devices:
             self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
             sleep(2)
             self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
-            tool_tp_text_error = self.devices_web_elements.get_perform_update_tooltip()
+            tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             if tool_tp_text_error:
@@ -3378,8 +3915,8 @@ class Devices:
         """
         device_row = -1
 
-        self.refresh_devices_page()
-
+        # self.refresh_devices_page()
+        self.utils.wait_till(self.refresh_devices_page)
         self.utils.print_info('Getting device Updated Status using')
         if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
@@ -3392,9 +3929,11 @@ class Devices:
         if device_mac:
             self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac)
+        # get a snap shot of the object at this instant, so values can't change or become undefined.
+        device_row = copy.copy(device_row)
 
         if device_row:
-            sleep(5)
+            self.utils.print_info(f"Device row debugging: {self.devices_web_elements.get_updated_status_cell(device_row)}")
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             self.utils.print_info("Device Updated Status is :", device_updated_status)
             if "Querying" in device_updated_status:
@@ -3426,7 +3965,7 @@ class Devices:
             else:
                 return device_updated_status
 
-    def column_picker_select(self, *columns):
+    def column_picker_select(self, *columns, **kwargs):
         """
         - This keyword checks the device column picker if it is not checked
         -  Keyword Usage:
@@ -3437,6 +3976,8 @@ class Devices:
         :return: returns 1 if successful
         """
         ret_val = 1
+        selected_columns = []
+        unselected_columns = []
 
         # To extract the list of columns if 'columns' arg vaule is ist or tuple 
         if isinstance(columns, tuple) and (isinstance(columns[0], list) or isinstance(columns[0], tuple)):
@@ -3462,13 +4003,15 @@ class Devices:
                         if ans == "true":
                             self.utils.print_info(f"Column Picker Filter {filter_} is already checked")
                             self.screen.save_screen_shot()
+                            selected_columns.append(filter_)
                         else:
                             self.auto_actions.click(filter_row)
                             self.screen.save_screen_shot()
                             self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
-                        break
+                            selected_columns.append(filter_)
             else:
                 self.utils.print_info("Unable to select the Column Picker Filter ", filter_)
+                unselected_columns.append(filter_)
                 ret_val = -1
 
         self.utils.print_info("Closing Column Picker")
@@ -3478,9 +4021,17 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
 
+        if ret_val != 1:
+            self.utils.print_info(f"Column Picker Filter is not selected: {unselected_columns}")
+            kwargs['fail_msg'] = f"Column Picker Filter is not selected: {unselected_columns}"
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.print_info(f"Column Picker Filter is selected: {selected_columns}")
+            kwargs['pass_msg'] = f"Column Picker Filter is selected: {selected_columns}"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
-    def column_picker_unselect(self, *columns):
+    def column_picker_unselect(self, *columns, **kwargs):
         """
         - This keyword unchecks the device column picker if it is checked
         -  Keyword Usage:
@@ -3491,7 +4042,9 @@ class Devices:
         :return: returns 1 if successful
         """
         ret_val = 1
-        
+        selected_columns = []
+        unselected_columns = []
+
         # To extract the list of columns if 'columns' arg vaule is ist or tuple 
         if isinstance(columns, tuple) and (isinstance(columns[0], list) or isinstance(columns[0], tuple)):
             columns = columns[0]
@@ -3515,11 +4068,13 @@ class Devices:
                             self.auto_actions.click(filter_row)
                             self.utils.print_info(f"Column Picker Filter {filter_} is not already unchecked "
                                                   f"- unchecking")
+                            unselected_columns.append(filter_)
                         else:
                             self.utils.print_info(f"Column Picker Filter {filter_} is already unchecked")
-                        break
+                            unselected_columns.append(filter_)
             else:
                 self.utils.print_info("Unable to unselect the Column Picker Filter ", filter_)
+                selected_columns.append(filter_)
                 ret_val = -1
 
         self.utils.print_info("Closing Column Picker")
@@ -3528,6 +4083,14 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
         sleep(2)
 
+        if ret_val != 1:
+            self.utils.print_info(f"Column Picker Filter is selected: {selected_columns}")
+            kwargs['fail_msg'] = f"Column Picker Filter is selected: {selected_columns}"
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.print_info(f"Column Picker Filter is not selected: {unselected_columns}")
+            kwargs['pass_msg'] = f"Column Picker Filter is not selected: {unselected_columns}"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
     def _get_column_picker_filter_exact(self, column):
@@ -3572,6 +4135,7 @@ class Devices:
         :return: 1 if Devices Deleted Successfully else -1
         """
 
+        self.navigator.enable_page_size()
         check_page = self.devices_web_elements.get_delete_button()
         if check_page:
             if check_page.is_displayed():
@@ -3619,7 +4183,7 @@ class Devices:
                 self.utils.print_info("Unable to delete devices")
                 return -1
 
-    def update_network_policy_to_all_devices(self, policy_name=None, update_method="Delta"):
+    def update_network_policy_to_all_devices(self, policy_name=None, update_method="Delta", **kwargs):
         """
         - By default this keyword do delta config push
         - Flow: MANAGE-->Devices-->Select All Devices to apply the network policy
@@ -3641,6 +4205,8 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
 
         if not self._assign_network_policy(policy_name):
+            kwargs['fail_msg'] = f"Can not assign network policy {policy_name}"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Select All Devices Checkbox")
@@ -4269,61 +4835,109 @@ class Devices:
         - Keyword Usage:
          - ``Wait Until Device Online       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
          - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
+         - ``Wait Until Device Online       device_serial=${DEVICE_SERIAL}    access_token=${ACCESS_TOKEN}``
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
         :param retry_duration: duration between each retry
         :param retry_count: retry count
+        :param kwargs: keyword arguments ie access_token etc
         :return: 1 if device connected within time else -1
         """
 
-        self.utils.print_info("Navigate to Manage-->Devices")
-        self.navigator.navigate_to_devices()
+        access_token = self.common_validation.get_kwarg(kwargs, "access_token", False)
+        if access_token:
+            device_specific_url = f"/devices?sns={device_serial}"
+            device_info = self.xapi.rest_api_get(device_specific_url)
+            self.utils.print_info("Device Specific information is: ", device_info)
 
-        count = 1
+            if device_info:
+                self.utils.print_info("Getting Device ID Information")
+                device_data_list = self.xapi.get_json_value(device_info, 'data')
+                device_id = self.xapi.get_json_value_from_list(device_data_list, 'id')
+                self.utils.print_info("Device ID is: ", device_id)
 
-        stale_retry = 1
-        while stale_retry <= 10:
-            try:
-                while count <= retry_count:
-                    self.utils.print_info(f"Device Online Status Check - Loop: ", count)
-                    self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
-                    self.refresh_devices_page()
+                count = 1
+                stale_retry = 1
+                while stale_retry <= 10:
+                    try:
+                        while count <= retry_count:
+                            self.utils.print_info(f"Device Online Status Check - Loop: ", count)
+                            self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
 
-                    device_row = None
-                    if device_serial:
-                        device_row = self.get_device_row(device_serial=device_serial)
-                    elif device_mac:
-                        device_row = self.get_device_row(device_mac=device_mac)
+                            self.utils.print_info("Getting Device Connected Status Information")
+                            device_connected_status_url = f"/devices/{device_id}?fields=CONNECTED"
+                            device_connected_response = self.xapi.rest_api_get(device_connected_status_url)
+                            self.utils.print_info("Device Connected Status Response is: ", device_connected_response)
+                            device_connected_status = self.xapi.get_json_value(device_connected_response, 'connected')
+                            self.utils.print_info("Device Connected Status Value is: ", device_connected_status)
 
-                    if device_row and device_row != -1:
-                        if "hive-status-true" in self.devices_web_elements.get_status_cell(device_row):
-                            # self.utils.print_info("Device status is connected")
-                            kwargs['pass_msg'] = "Device status is connected!"
-                            self.common_validation.passed(**kwargs)
-                            return 1
-                        elif "local-managed-icon" in self.devices_web_elements.get_status_cell(device_row):
-                            # self.utils.print_info("Device status is connected - locally managed")
-                            kwargs['pass_msg'] = "Device status is connected - locally managed"
-                            self.common_validation.passed(**kwargs)
-                            return 1
+                            if device_connected_status:
+                                kwargs['pass_msg'] = "Device status is connected!"
+                                self.common_validation.passed(**kwargs)
+                                return 1
+                            else:
+                                self.utils.print_info(
+                                    f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
+                                sleep(retry_duration)
+                                count += 1
+                            break
+                    except StaleElementReferenceException:
+                        self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                        stale_retry = stale_retry + 1
+
+            kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            self.utils.print_info("Navigate to Manage-->Devices")
+            self.navigator.navigate_to_devices()
+
+            count = 1
+            stale_retry = 1
+            while stale_retry <= 10:
+                try:
+                    while count <= retry_count:
+                        self.utils.print_info(f"Device Online Status Check - Loop: ", count)
+                        self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
+                        self.refresh_devices_page()
+
+                        device_row = None
+                        if device_serial:
+                            self.utils.print_info(f"Looking for Device by Serial: {device_serial}")
+                            device_row = self.get_device_row(device_serial=device_serial)
+                        elif device_mac:
+                            self.utils.print_info(f"Looking for Device by MAC: {device_mac}")
+                            device_row = self.get_device_row(device_mac=device_mac)
+
+                        if device_row and device_row != -1:
+                            status = self.devices_web_elements.get_status_cell(device_row)
+                            self.utils.print_info(f"Found Device status: {status}")
+                            if "hive-status-true" in status:
+                                kwargs['pass_msg'] = "Device status is connected!"
+                                self.common_validation.passed(**kwargs)
+                                return 1
+                            elif "local-managed-icon" in status:
+                                kwargs['pass_msg'] = "Device status is connected - locally managed"
+                                self.common_validation.passed(**kwargs)
+                                return 1
+                            else:
+                                self.utils.print_info(
+                                    f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
+                                sleep(retry_duration)
                         else:
-                            self.utils.print_info(
-                                f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
+                            self.utils.print_info(f"Did not find device row. Waiting for {retry_duration} seconds...")
                             sleep(retry_duration)
-                    else:
-                        self.utils.print_info(f"Did not find device row. Waiting for {retry_duration} seconds...")
-                        sleep(retry_duration)
-                    count += 1
-                break
-            except StaleElementReferenceException:
-                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
-                stale_retry = stale_retry + 1
+                        count += 1
+                    break
+                except StaleElementReferenceException:
+                    self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                    stale_retry = stale_retry + 1
 
-        kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
-        self.screen.save_screen_shot()
-        self.common_validation.failed(**kwargs)
-        return -1
+            kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
+            self.common_validation.failed(**kwargs)
+            self.screen.save_screen_shot()
+            return -1
 
     def wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10):
         """
@@ -4335,7 +4949,7 @@ class Devices:
          - check the device status for a device based on passed device serial
         - Keyword Usage:
          - ``Wait Until Device Offline       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
-         - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
+         - ``Wait Until Device Offline       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
@@ -4944,7 +5558,7 @@ class Devices:
             self.utils.print_info("Could not select device with serial ", device_serial)
             return -1
 
-    def confirm_column_picker_contains_column(self, *columns):
+    def confirm_column_picker_contains_column(self, *columns, **kwargs):
         """
         - This keyword confirms the list of columns are all present in the column picker
         - Keyword Usage:
@@ -4954,6 +5568,8 @@ class Devices:
         :return: returns 1 if all columns are present in the column picker; else, -1
         """
         ret_val = 1
+        present_filter = []
+        not_present_filter = []
 
         self.utils.print_info("Clicking on Column Picker")
         sleep(10)
@@ -4966,10 +5582,11 @@ class Devices:
             filter_row, row_num = self._get_column_picker_filter_exact(filter_)
             if filter_row != "":
                 self.utils.print_info(f"Column Picker Filter '{filter_}' is present")
+                present_filter.append(filter_)
             else:
                 self.utils.print_info(f"Column Picker Filter '{filter_}' is not present")
+                not_present_filter.append(filter_)
                 ret_val = -1
-                break
 
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
@@ -4977,9 +5594,17 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
         sleep(2)
 
+        if ret_val != 1:
+            self.utils.print_info(f"Column Picker Filter is not present: {not_present_filter}")
+            kwargs['fail_msg'] = f"Column Picker Filter is not present: {not_present_filter}"
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.print_info(f"Column Picker Filter is present: {present_filter}")
+            kwargs['pass_msg'] = f"Column Picker Filter is present: {present_filter}"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
-    def confirm_column_picker_does_not_contain_column(self, *columns):
+    def confirm_column_picker_does_not_contain_column(self, *columns, **kwargs):
         """
         - This keyword confirms the list of columns are NOT present in the column picker
         - Keyword Usage:
@@ -4989,6 +5614,8 @@ class Devices:
         :return: returns 1 if none of the columns are present in the column picker; else, -1
         """
         ret_val = 1
+        present_filter = []
+        not_present_filter = []
 
         self.utils.print_info("Clicking on Column Picker")
         sleep(10)
@@ -5001,10 +5628,11 @@ class Devices:
             filter_row, row_num = self._get_column_picker_filter_exact(filter_)
             if filter_row != "":
                 self.utils.print_info(f"Column Picker Filter '{filter_}' is present")
+                present_filter.append(filter_)
                 ret_val = -1
-                break
             else:
                 self.utils.print_info(f"Column Picker Filter '{filter_}' is not present")
+                not_present_filter.append(filter_)
 
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
@@ -5012,9 +5640,17 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
         sleep(2)
 
+        if ret_val != 1:
+            self.utils.print_info(f"Column Picker Filter is present: {present_filter}")
+            kwargs['fail_msg'] = f"Column Picker Filter is present: {present_filter}"
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.print_info(f"Column Picker Filter is not present: {not_present_filter}")
+            kwargs['pass_msg'] = f"Column Picker Filter is not present: {not_present_filter}"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
-    def confirm_column_picker_column_selected(self, *columns):
+    def confirm_column_picker_column_selected(self, *columns, **kwargs):
         """
         - This keyword confirms the list of columns are all selected in the column picker
         - Keyword Usage:
@@ -5024,6 +5660,8 @@ class Devices:
         :return: returns 1 if all columns are selected in the column picker; else, -1
         """
         ret_val = 1
+        selected_columns = []
+        unselected_columns = []
 
         self.utils.print_info("Clicking on Column Picker")
         sleep(10)
@@ -5034,7 +5672,7 @@ class Devices:
         self.utils.print_info("Column list to check for selected items: ", columns)
         for filter_ in columns:
             filter_row, row_num = self._get_column_picker_filter_exact(filter_)
-            if filter_row != "":
+            try:
                 row_inputs = self.devices_web_elements.get_column_picker_row_input()
                 row_input_count = 0
                 for row_inp in row_inputs:
@@ -5043,16 +5681,17 @@ class Devices:
                         ans = row_inp.get_attribute("checked")
                         if ans == "true":
                             self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
+                            selected_columns.append(filter_)
                         else:
                             self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
+                            unselected_columns.append(filter_)
                             ret_val = -1
-                        break
-                if ret_val == -1:
-                    break
-            else:
-                self.utils.print_info("Unable to obtain status of the column ", filter_)
-                ret_val = -1
-                break
+            except Exception as e:
+                self.utils.print_info(e)
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "Unable to obtain status of the column "
+                self.common_validation.failed(**kwargs)
+                return -1
 
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
@@ -5060,9 +5699,17 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
         sleep(2)
 
+        if ret_val != 1:
+            self.utils.print_info(f"Column Picker Filter is not selected: {unselected_columns}")
+            kwargs['fail_msg'] = f"Column Picker Filter is not selected: {unselected_columns}"
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.print_info(f"Column Picker Filter is selected: {selected_columns}")
+            kwargs['pass_msg'] = f"Column Picker Filter is selected: {selected_columns}"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
-    def confirm_column_picker_column_unselected(self, *columns):
+    def confirm_column_picker_column_unselected(self, *columns, **kwargs):
         """
         - This keyword confirms the list of columns are all unselected in the column picker
         - Keyword Usage:
@@ -5072,6 +5719,8 @@ class Devices:
         :return: returns 1 if all columns are selected in the column picker; else, -1
         """
         ret_val = 1
+        selected_columns = []
+        unselected_columns = []
 
         self.utils.print_info("Clicking on Column Picker")
         sleep(10)
@@ -5082,7 +5731,7 @@ class Devices:
         self.utils.print_info("Column list to check for unselected items: ", columns)
         for filter_ in columns:
             filter_row, row_num = self._get_column_picker_filter_exact(filter_)
-            if filter_row != "":
+            try:
                 row_inputs = self.devices_web_elements.get_column_picker_row_input()
                 row_input_count = 0
                 for row_inp in row_inputs:
@@ -5091,16 +5740,17 @@ class Devices:
                         ans = row_inp.get_attribute("checked")
                         if ans == "true":
                             self.utils.print_info(f"Column Picker Filter '{filter_}' is selected")
+                            selected_columns.append(filter_)
                             ret_val = -1
                         else:
                             self.utils.print_info(f"Column Picker Filter '{filter_}' is not selected")
-                        break
-                if ret_val == -1:
-                    break
-            else:
-                self.utils.print_info("Unable to obtain status of the column ", filter_)
-                ret_val = -1
-                break
+                            unselected_columns.append(filter_)
+            except Exception as e:
+                self.utils.print_info(e)
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "Unable to obtain status of the column"
+                self.common_validation.failed(**kwargs)
+                return -1
 
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
@@ -5108,6 +5758,14 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
         sleep(2)
 
+        if ret_val != 1:
+            self.utils.print_info(f"Column Picker Filter is selected: {selected_columns}")
+            kwargs['fail_msg'] = f"Column Picker Filter is selected: {selected_columns}"
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.print_info(f"Column Picker Filter is not selected: {unselected_columns}")
+            kwargs['pass_msg'] = f"Column Picker Filter is not selected: {unselected_columns}"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
     def select_table_view_type(self, view_type="Default View"):
@@ -5276,7 +5934,7 @@ class Devices:
                 self.utils.print_info("Unable to deselect all devices")
                 return -1
 
-    def confirm_devices_selected(self, *device_list):
+    def confirm_devices_selected(self, *device_list, **kwargs):
         """
         - This keyword confirms the list of devices are all selected in the table
         - Keyword Usage:
@@ -5286,6 +5944,9 @@ class Devices:
         :return: returns 1 if all specified devices are selected; else, -1
         """
         ret_val = 1
+        selected_device = []
+        unselected_device = []
+        unknown_state = []
 
         self.utils.print_info("Device list to check for selection: ", device_list)
         for device_ in device_list:
@@ -5293,16 +5954,32 @@ class Devices:
             if device_row:
                 if self.devices_web_elements.get_device_row_selection_checkbox_selected(device_row):
                     self.utils.print_info(f"DEVICE {device_} IS SELECTED")
+                    selected_device.append(device_)
                 else:
                     self.utils.print_info(f"DEVICE {device_} IS NOT SELECTED")
+                    unselected_device.append(device_)
                     ret_val = -1
             else:
                 self.utils.print_info(f"Unable to obtain selection state for device {device_}")
+                unknown_state.append(device_)
                 ret_val = -1
 
+        if ret_val != 1:
+            if unknown_state != '':
+                self.utils.print_info(f"Device state is unknown: {unknown_state}")
+                kwargs['fail_msg'] = f"Device state is unknown: {unknown_state}"
+                self.common_validation.failed(**kwargs)
+            elif unselected_device != '':
+                self.utils.print_info(f"Device is not selected: {unselected_device}")
+                kwargs['fail_msg'] = f"Device is not selected: {unselected_device}"
+                self.common_validation.failed(**kwargs)
+        else:
+            self.utils.print_info(f"Device is selected: {selected_device}")
+            kwargs['pass_msg'] = f"Device is selected: {selected_device}"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
-    def confirm_devices_deselected(self, *device_list):
+    def confirm_devices_deselected(self, *device_list, **kwargs):
         """
         - This keyword confirms the list of devices are all deselected in the table
         - Keyword Usage:
@@ -5312,6 +5989,9 @@ class Devices:
         :return: returns 1 if all specified devices are deselected; else, -1
         """
         ret_val = 1
+        selected_device = []
+        unselected_device = []
+        unknown_state = []
 
         self.utils.print_info("Device list to check for deselection: ", device_list)
         for device_ in device_list:
@@ -5319,13 +5999,29 @@ class Devices:
             if device_row:
                 if self.devices_web_elements.get_device_row_selection_checkbox_deselected(device_row):
                     self.utils.print_info(f"DEVICE {device_} IS DESELECTED")
+                    unselected_device.append(device_)
                 else:
                     self.utils.print_info(f"DEVICE {device_} IS NOT DESELECTED")
+                    selected_device.append(device_)
                     ret_val = -1
             else:
                 self.utils.print_info(f"Unable to obtain selection state for device {device_}")
+                unknown_state.append(device_)
                 ret_val = -1
 
+        if ret_val != 1:
+            if unknown_state != '':
+                self.utils.print_info(f"Device state is unknown: {unknown_state}")
+                kwargs['fail_msg'] = f"Device state is unknown: {unknown_state}"
+                self.common_validation.failed(**kwargs)
+            elif unselected_device != '':
+                self.utils.print_info(f"Device is selected: {selected_device}")
+                kwargs['fail_msg'] = f"Device is selected: {selected_device}"
+                self.common_validation.failed(**kwargs)
+        else:
+            self.utils.print_info(f"Device is not selected: {unselected_device}")
+            kwargs['pass_msg'] = f"Device is not selected: {unselected_device}"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
     def confirm_all_devices_selected(self):
@@ -6422,6 +7118,7 @@ class Devices:
         :param version: version to which device(s) should get upgraded. This string should be contains into image name . e.g : 5520.8.3.0.0
         :return: 1 if success else -1
         """
+
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click(self.device_update.get_update_devices_button())
@@ -6454,6 +7151,8 @@ class Devices:
                 for opt in update_version_items:
                     self.utils.print_info("Image: {} is in drop down ".format(opt.text))
                     if version in opt.text:
+                        if "patch" not in version and "patch" in opt.text:
+                            continue
                         self.utils.print_info(
                             "Image version {} match the image {} from drop down".format(version, opt.text))
                         cont_images_found += 1
@@ -8473,7 +9172,7 @@ class Devices:
                     warning_xiq_text = self.device_actions.get_warning_xiq_text()
                     if warning_xiq_text:
                         self.utils.print_info("Expected message is  :", warning_msg)
-                        self.utils.print_info("Message from XIQ is :",warning_xiq_text.text)
+                        self.utils.print_info("Message from XIQ is :", warning_xiq_text.text)
                         if warning_msg in warning_xiq_text.text:
                             self.utils.print_info("Message match")
                             confirm_msg_yes = self.device_actions.get_confirm_msg_yes()
@@ -8526,7 +9225,7 @@ class Devices:
             return -1
         return 1
 
-    def revoke_device_license(self, device_serial,license_type, username=None, password=None, shared_cuid=None,
+    def revoke_device_license(self, device_serial, license_type, username=None, password=None, shared_cuid=None,
                               warning_msg=None, skip_warning_check=False):
         """
         This function revoke premier or macsec license on a device
@@ -9570,7 +10269,7 @@ class Devices:
         except Exception as e:
             return -1
 
-    def update_network_device_firmware(self,device_mac='default',version='default',forceDownloadImage="true",performUpgrade="true",saveDefault="false",updateTo="latest",updatefromD360Page="false",retry_duration=30,retry_count=1200):
+    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true", performUpgrade="true", saveDefault="false", updateTo="latest", updatefromD360Page="false", retry_duration=30,retry_count=1200):
         """
         - This method update device to latest version or to a specific version from the dropdown
         - This method needs import datetime as dt
@@ -9958,7 +10657,7 @@ class Devices:
                 if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (device_updated_status == "Device Update Failed."):
                     count = 0
                     while True:
-                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
+                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
                         if latest_timestamp > initial_timestamp:
                             self.utils.print_info(f"Device update is finished by just updating the timestamp to : ", str(dt.datetime.fromtimestamp(latest_timestamp)))
                             self.screen.save_screen_shot()
@@ -10060,14 +10759,14 @@ class Devices:
             self.utils.print_info(f"updated status...," + str(device_serial) + " " + str(update_status))
             if (update_status == '') or (re.match(date_regex, update_status)):
                 kwargs['pass_msg'] = "Device has finshed updating "
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 complete = True
                 break
             sleep(15)
 
         if not complete:
             kwargs['fail_msg'] = "Device has not finished updating "
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         return 1
@@ -10597,6 +11296,60 @@ class Devices:
             self.screen.save_screen_shot()
             return -1
 
+    def get_device_updated_status_percentage(self, device_serial='default', device_name='default',
+                                             device_mac='default'):
+        """
+        - This keyword returns the device updated status in percentage by searching device row using serial, name or mac address
+        - Assumes that already navigated to the manage-->device page
+        - Keyword Usage:
+         - ``Get Device Updated Status   device_serial=${DEVICE_SERIAL}``
+         - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
+         - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
+
+        :param device_serial: device Serial
+        :param device_name: device Name
+        :param device_mac: device MAC
+        :return: 'device_update_status_strip' status number without '%'
+        """
+        device_row = -1
+
+        self.utils.print_info('Getting device Updated Status using')
+        if device_serial != 'default':
+            self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
+            device_row = self.get_device_row(device_serial)
+
+        if device_name != 'default':
+            self.utils.print_info("Getting Updated status of device with name: ", device_name)
+            device_row = self.get_device_row(device_name)
+
+        if device_mac != 'default':
+            self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
+            device_row = self.get_device_row(device_mac)
+
+        if device_row:
+            sleep(5)
+            device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+            if re.search(r'\d+-\d+-\d+\s\d+:\d+:\d+', device_updated_status):
+                device_updated_status_replace_100 = re.sub(r'\d+-\d+-\d+\s\d+:\d+:\d+', "100", device_updated_status)
+                # self.utils.print_info(f"Device Updated Status is: {device_updated_status_replace_100} % ")
+                return device_updated_status_replace_100
+            elif "Device Update Failed" in device_updated_status:
+                self.utils.print_info("Device updating status is: Device Update Failed")
+                return 'Device Update Failed'
+            else:
+                device_update_status_replace = device_updated_status.replace("%", "")
+                if 'Configuration Updating' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Updating")
+                elif 'Waiting Switch Execution Result' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nWaiting Switch Execution Result")
+                elif 'Configuration Audit Clear' in device_update_status_replace:
+                    device_update_status_strip = device_update_status_replace.strip("\nConfiguration Audit Clear")
+                self.utils.print_info(f"Device Updated Status is: {device_update_status_strip}%")
+                return device_update_status_strip
+        else:
+            self.utils.print_info(f"Device row not found")
+            return -1
+
         yes_confirmation = self.device_actions.get_yes_confirmation()
         if yes_confirmation:
             self.utils.print_info("yes confirmation button was found ")
@@ -11052,6 +11805,79 @@ class Devices:
 
         return self._check_device_update_status(device_serial_mac_or_name)
 
+    def enable_device_wan_access(self, device_serial):
+        """
+        - This keyword will enable WAN access for XR or AP as Router mode
+        :param device_serial:   The serial of the device
+        :return: success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        else:
+            self.utils.print_info("enable_device_wan_access: Already in Devices page, go to next step")
+        actions_disabled = False
+        try_cnt = 0
+        while not actions_disabled:
+            if self.select_device(device_serial):
+                self.utils.print_info("Check if Actions buttion is enable")
+                if self.device_actions.get_device_actions_button_disable():
+                    try_cnt += 1
+                    self.utils.print_info(f"Actions button is grayed, can NOT click it, {try_cnt} attempts to try")
+                    self.utils.wait_till(self.cloud_driver.refresh_page(), is_logging_enabled=True)
+                    actions_disabled = True
+                    if try_cnt == 10:
+                        self.utils.print_info(f"Max {try_cnt} attempts reach for active Action button")
+                        return -1
+                else:
+                    cli_access_none = True
+                    try_cnt1 = 0
+                    while cli_access_none:
+                        self.utils.print_info("Click Actions button ...")
+                        self.auto_actions.click(self.device_actions.get_device_actions_button())
+                        action_dropdown = self.device_actions.get_device_actions_dropdown()
+                        if action_dropdown:
+                            self.utils.print_info("Move to Advance button ...")
+                            self.auto_actions.move_to_element(self.device_actions.get_device_actions_advance())
+                            cli_access = self.device_actions.get_device_actions_advance_cli_access()
+                            self.utils.print_info(f"CLI access element: {cli_access}")
+                            if cli_access:
+                                cli_access_none = False
+                                self.utils.print_info(f"Move to CLI Access button {cli_access}...")
+                                self.auto_actions.move_to_element(cli_access)
+                                self.utils.print_info("Click CLI Access button ...")
+                                self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
+                                if self.device_actions.get_device_actions_cli_windows():
+                                    self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
+                                    self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
+                                    self.utils.print_info("Click Apply button to send CLI to AP ...")
+                                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
+                                    self.utils.print_info("Close CLI windows ...")
+                                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
+                                    return 1
+                                else:
+                                    self.utils.print_info("There is no CLI window popup ...")
+                                    return -1
+                            else:
+                                self.utils.print_info(f"Cli access buttion is got: {cli_access}, refresh page and try again")
+                                try_cnt1 += 1
+                                self.utils.wait_till(self.cloud_driver.refresh_page(), is_logging_enabled=True)
+                                if try_cnt1 == 10:
+                                    self.utils.print_info(f"Max {try_cnt1} attempts reach for going to cli_access")
+                                    return -1
+
+                        else:
+                            self.utils.print_info(f"Actions dropdown is NOT shown: {action_dropdown}")
+                            self.screen.save_screen_shot()
+                            return -1
+            else:
+                self.utils.print_info("No device is selected ...")
+                return -1
+
     def wait_for_policy_config_push_to_complete(self, device_serial, boot_wait_time=60, **kwargs):
         """
         - This method waits until the device is online & managed with status green after a config push
@@ -11102,14 +11928,49 @@ class Devices:
         self.common_validation.passed(**kwargs)
         return 1
 
+    def assign_network_policy_to_a_device(self, device_serial, policy_name):
+        """
+        - This keyword will assign the network policy to single device
+        - flow:
+            -- If Not in devices page, go to it
+            -- Select the device
+            -- Actions
+            -- Assign Network Policy
+            -- Select the network policy from drop-down window
+            -- Assign
+        - Keyword Usage:
+         - ``Assign Network Policy To A Device  ${device_serial}   ${policy_name}``
+        :param policy_name: policy name to be applied
+        :param device_serial: serial number of the device
+        :return: Success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, Navigating to devices page now")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("Navigated to the devices page successfully")
+            else:
+                self.utils.print_info("Failed to navigate to the Devices page ...")
+                return -1
+        if self.select_device(device_serial):
+            self.utils.print_info("Device is selected ...")
+        else:
+            self.utils.print_info("Failed to Select the device ...")
+            return -1
+        if self._assign_network_policy(policy_name):
+            self.utils.print_info("Network Policy is assigned to selected device ...")
+            return 1
+        else:
+            self.utils.print_info("Failed to assign Network Policy to the device...")
+
     def is_digital_twin_option_visible(self):
         """
         - This Keyword checks if the Digital Twin option is visible within the 'Quick Add Devices' panel.
         - The 'Quick Add Devices' panel will be closed.
         - Keyword Usage:
          - ``Is Digital Twin Option Visible``
-        :return: 1 if visible, -1 if not
+        :return: True if visible, False if not visible, else -1
         """
+        ret_val = -1
         self.utils.print_info("Clicking on ADD button...")
         self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
 
@@ -11118,18 +11979,24 @@ class Devices:
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud")
         self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
-        self.screen.save_screen_shot()
+        sleep(3)
 
-        attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
-        self.utils.print_info(f"Class Attribute Value: {attribute}")
+        if self.devices_web_elements.get_digital_twin_container_feature():
+            attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+            self.utils.print_info(f"Class Attribute Value: {attribute}")
+            if "fn-hidden" in attribute:
+                self.screen.save_screen_shot()
+                ret_val = False
+            else:
+                self.screen.save_screen_shot()
+                ret_val = True
+        else:
+            self.utils.print_info("Digital Twin option not found in Quick Add Devices panel.")
+            self.screen.save_screen_shot()
 
         self.utils.print_info("Click the Quick Add Devices > Cancel button")
         self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
-
-        if attribute == "":
-            return 1
-
-        return -1
+        return ret_val
 
     def get_device_status_icon(self, device_serial=None):
         """
@@ -11335,10 +12202,38 @@ class Devices:
             self.screen.save_screen_shot()
             return -1
 
+    def confirm_not_enough_copilot_licenses_message_displayed(self):
+        """
+         - This keyword confirms if the "Not enough CoPilot licenses" banner message is displayed or not
+         - Keyword Usage
+          - ``Confirm Not Enough CoPilot Licenses Message Displayed``
 
+        :return: true if banner is displayed and return false if banner is not displayed
+        """
 
+        if self.devices_web_elements.get_ui_banner_warning_message():
+            tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
+            if "Not enough CoPilot licenses" in tool_tp_text_warning.text:
+                self.utils.print_info(tool_tp_text_warning.text)
+                self.screen.save_screen_shot()
+                return True
+        else:
+            self.utils.print_info("Not enough CoPilot licenses warning message not displayed")
+            self.screen.save_screen_shot()
+            return False
 
-
-
-
-
+    def check_100_rows_per_page_button(self):
+        """
+        - This keyword check if 100 rows per page button is present in Devices
+        - If the button is present, it will be clicked
+        - If the button is not present, it will ignore
+        - It is assumed that 'Devices' page is open
+        :return:
+        """
+        self.utils.print_info("Searching for 100 rows per page button")
+        one_hundred_devices_per_page = self.devices_web_elements.get_100_rows_per_page_button()
+        if one_hundred_devices_per_page:
+            self.utils.print_info("Found 100 rows per page button")
+            self.auto_actions.click(one_hundred_devices_per_page)
+        else:
+            self.utils.print_info("Didn't find 100 rows per page button... Continuing run...")
