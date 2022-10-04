@@ -25,9 +25,15 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Monitor Tab else return -1
         """
         self.utils.print_info("Selecting Manage Tab...")
-        if self.auto_actions.click(self.get_manage_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_manage_tab) == 1:
             sleep(2)
-            return 1
+            if self.get_subtab_head_img_nav():
+                self.utils.print_info("Subtab nav is already shown")
+                return 1
+            else:
+                self.screen.save_screen_shot()
+                self.utils.print_info("Even though already click manage tab, but can NOT go to subtab nav, stop NOT go to next step")
+                return -1
         else:
             self.utils.print_info("Unable to navigate to Manage tab")
             self.screen.save_screen_shot()
@@ -42,7 +48,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to ML Insight tab else return -1
         """
         self.utils.print_info("Selecting ML Insight Tab....")
-        if self.auto_actions.click(self.get_ml_insight_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_ml_insight_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -59,7 +65,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to configure tab else return -1
         """
         self.utils.print_info("Selecting Configure tab")
-        if self.auto_actions.click(self.get_configure_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_configure_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -76,7 +82,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Tools Sub tab on Monitor Tab else return -1
         """
         self.utils.print_info("Selecting Tools tab...")
-        if self.auto_actions.click(self.get_manage_tools_menu_item()) == 1:
+        if self.auto_actions.click_reference(self.get_manage_tools_menu_item) == 1:
             sleep(2)
             return 1
         else:
@@ -96,21 +102,21 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(2)
 
         if self.get_auto_provisioning_option() is None:
             self.utils.print_info("Auto Provisioning is Not visible. Clicking Policy...")
-            self.auto_actions.click(self.get_policy_toggle())
+            self.auto_actions.click_reference(self.get_policy_toggle)
             sleep(2)
 
         self.utils.print_info("Auto Provision menu is visible. Selecting...")
-        self.auto_actions.click(self.get_auto_provisioning_option())
+        self.auto_actions.click_reference(self.get_auto_provisioning_option)
         sleep(2)
 
         return 1
 
-    def navigate_to_devices(self):
+    def navigate_to_devices(self, **kwargs):
         """
          - This keyword Navigates to Devices on Manage Menu
          - Flow Manage--> Devices
@@ -119,17 +125,24 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Devices Sub tab on Monitor Tab else return -1
         """
-        if self.navigate_to_manage_tab() == 1:
-            self.utils.print_info("Clicking Devices Tab...")
-            if self.auto_actions.click(self.get_devices_nav()) == 1:
-                sleep(2)
-                return 1
-            else:
-                self.utils.print_info("Unable to navigate to Devices tab")
-                self.screen.save_screen_shot()
-                return -1
+        if self.get_devices_page():
+            self.utils.print_info("Already in Devices page")
+            self.enable_page_size(page_size='100')
+            return 1
         else:
-            return -1
+            if self.navigate_to_manage_tab() == 1:
+                self.utils.print_info("Manage page is present")
+                if self.auto_actions.click(self.get_devices_nav()) == 1:
+                    self.utils.print_info("Clicking Devices Tab...")
+                    sleep(5)
+                    self.enable_page_size(page_size='100')
+                    return 1
+                else:
+                    self.utils.print_info("Unable to navigate to Devices tab")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                return -1
 
     def navigate_to_ssids(self):
         """
@@ -143,15 +156,15 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(2)
 
         if self.get_ssid_option() is None:
             self.utils.print_info("SSID menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click(self.get_policy_toggle())
+            self.auto_actions.click_reference(self.get_policy_toggle)
             sleep(2)
         self.utils.print_info("SSID menu is visible. Selecting...")
-        self.auto_actions.click(self.get_ssid_option())
+        self.auto_actions.click_reference(self.get_ssid_option)
         sleep(2)
 
         return 1
@@ -199,10 +212,10 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(5)
 
-    def navigate_to_network_policies_tab(self):
+    def navigate_to_network_policies_tab(self, **kwargs):
         """
          - This keyword Navigates to Network Policies
          - Keyword Usage
@@ -210,16 +223,30 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
         """
-        self.utils.print_info("Selecting Network Policies Tab...")
-        if self.auto_actions.click(self.get_network_policies_sub_tab()) == 1:
-            sleep(2)
+        network_policy_tab_display = False
+        try_cnt = 0
+        while not network_policy_tab_display:
+            self.utils.print_info("Navigate to Configure Tab first")
+            self.navigate_to_configure_tab()
+            if self.get_subtab_head_img_nav():
+                self.utils.print_info("Selecting Network Policies Tab...")
+                self.auto_actions.click(self.get_network_policies_sub_tab())
+                sleep(2)
+                network_policy_tab_display = True
+            else:
+                sleep(2)
+                self.utils.print_info("Network Policy tab is NOT displayed, try to navigate to the tab again")
+                self.screen.save_screen_shot()
+                try_cnt += 1
+                if try_cnt == 10:
+                    self.utils.print_info(f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
+                    return False
+        if network_policy_tab_display:
             return 1
         else:
-            self.utils.print_info("Unable to navigate to Network Policies tab")
-            self.screen.save_screen_shot()
             return -1
 
-    def navigate_to_clients_tab(self):
+    def navigate_to_clients_tab(self, **kwargs):
         """
          - This keyword Navigates to Client 360 Tab on Manage Menu
          - Keyword Usage
@@ -228,12 +255,15 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Clients On Manage Menu else return -1
         """
         self.utils.print_info("Selecting Client 360 Tab...")
-        if self.auto_actions.click(self.get_clients_sub_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_clients_sub_tab) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigated to Client 360 tab"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to Client 360 tab")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Client 360 tab"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def navigate_to_clients(self):
@@ -248,7 +278,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_manage_tab() == 1:
             self.utils.print_info("Clicking Client 360 Tab...")
-            if self.auto_actions.click(self.get_clients_sub_tab()) == 1:
+            if self.auto_actions.click_reference(self.get_clients_sub_tab) == 1:
                 sleep(2)
                 return 1
             else:
@@ -270,10 +300,10 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Basic tab")
         self.navigate_to_common_object_basic_tab()
         self.utils.print_info("Click on Client Mode Profiles...")
-        self.auto_actions.click(self.get_common_object_basic_client_mode_profiles())
+        self.auto_actions.click_reference(self.get_common_object_basic_client_mode_profiles)
         return 1
 
-    def navigate_to_user_account(self):
+    def navigate_to_user_account(self, **kwargs):
         """
         - This keyword Navigates to User Account Menu
         - Keyword Usage
@@ -282,28 +312,31 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to User Account Menu else return -1
         """
         self.utils.print_info("Selecting user account...")
-        def _wait_for_account():
-            return self.get_user_account_nav()
-        self.utils.wait_till(_wait_for_account, timeout = 10, delay= 1)
-        if self.auto_actions.click(self.get_user_account_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_user_account_nav) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigated to user account"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to user account")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Failed: Unable to navigate to user account"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def _navigate_to_global_settings(self):
+    def _navigate_to_global_settings(self, **kwargs):
         """
         - This method is used to click on the global setting button
         """
         self.utils.print_info("Selecting global settings...")
-        if self.auto_actions.click(self.get_global_settings_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_global_settings_nav) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigated to global settings"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to global settings")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to global settings"
+            self.common_validation.passed(**kwargs)
             return -1
 
     def navigate_to_configure_user_sub_tab(self):
@@ -315,7 +348,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Global Settings on User Account Menu else return -1
         """
         self.utils.print_info("Clicking on the Users Sub tab")
-        if self.auto_actions.click(self.get_configure_users_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_configure_users_nav) == 1:
             sleep(2)
             return 1
         else:
@@ -350,11 +383,11 @@ class Navigator(NavigatorWebElements):
         sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
-            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
             sleep(5)
 
         self.utils.print_info("Click on users group sub menu")
-        self.auto_actions.click(self.get_configure_user_group_side_nav_item())
+        self.auto_actions.click_reference(self.get_configure_user_group_side_nav_item)
         sleep(2)
 
         return 1
@@ -370,7 +403,7 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Selecting Authentication Logs...")
 
-        if self.auto_actions.click(self.get_global_settings_authentication_logs_slider()) == 1:
+        if self.auto_actions.click_reference(self.get_global_settings_authentication_logs_slider) == 1:
             sleep(2)
             return 1
         else:
@@ -388,7 +421,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Accounting Logs Slider
         """
         self.utils.print_info("Selecting Accounting Logs...")
-        if self.auto_actions.click(self.get_global_settings_accounting_logs_slider()) == 1:
+        if self.auto_actions.click_reference(self.get_global_settings_accounting_logs_slider) == 1:
             sleep(2)
             return 1
         else:
@@ -431,7 +464,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful
         """
         if not self.get_common_object_authentication_tab().is_selected():
-            self.auto_actions.click(self.get_common_object_authentication_tab())
+            self.auto_actions.click_reference(self.get_common_object_authentication_tab)
             sleep(2)
             return 1
 
@@ -448,7 +481,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on captive web portal tab...")
-        self.auto_actions.click(self.get_common_object_authentication_captive_portal())
+        self.auto_actions.click_reference(self.get_common_object_authentication_captive_portal)
         sleep(5)
 
         return 1
@@ -466,7 +499,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on AAA server Settings...")
-        self.auto_actions.click(self.get_common_object_authentication_aaa_server_settings())
+        self.auto_actions.click_reference(self.get_common_object_authentication_aaa_server_settings)
         sleep(5)
 
         return 1
@@ -484,7 +517,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on AAA server Settings...")
-        self.auto_actions.click(self.get_common_object_authentication_ad_servers())
+        self.auto_actions.click_reference(self.get_common_object_authentication_ad_servers)
         sleep(5)
 
         return 1
@@ -502,7 +535,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on  external radius server...")
-        self.auto_actions.click(self.get_common_object_authentication_external_radius_server())
+        self.auto_actions.click_reference(self.get_common_object_authentication_external_radius_server)
         sleep(5)
 
         return 1
@@ -515,7 +548,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful
         """
         self.utils.print_info("Clicking on A3 Icon")
-        self.auto_actions.click(self.get_a3_tab())
+        self.auto_actions.click_reference(self.get_a3_tab)
         sleep(2)
         return 1
 
@@ -532,7 +565,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on External network A3...")
-        self.auto_actions.click(self.get_common_object_authentication_extreme_networks_a3())
+        self.auto_actions.click_reference(self.get_common_object_authentication_extreme_networks_a3)
         sleep(5)
 
         return 1
@@ -550,7 +583,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on servers tab...")
-        self.auto_actions.click(self.get_common_object_authentication_servers())
+        self.auto_actions.click_reference(self.get_common_object_authentication_servers)
         sleep(5)
 
         return 1
@@ -568,7 +601,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on servers tab...")
-        self.auto_actions.click(self.get_common_object_authentication_ldap_servers())
+        self.auto_actions.click_reference(self.get_common_object_authentication_ldap_servers)
         sleep(5)
 
         return 1
@@ -583,7 +616,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Security tab on Monitor Menu else return -1
         """
         self.utils.print_info("Selecting Security on Monitor Page...")
-        if self.auto_actions.click(self.get_manage_security_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_manage_security_nav) == 1:
             sleep(2)
             return 1
         else:
@@ -617,7 +650,7 @@ class Navigator(NavigatorWebElements):
         :return:
         """
         if not self.get_common_object_security_tab().is_selected():
-            self.auto_actions.click(self.get_common_object_security_tab())
+            self.auto_actions.click_reference(self.get_common_object_security_tab)
             sleep(2)
 
     def navigate_to_security_wips_policies(self):
@@ -634,7 +667,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common Security tab")
         self.navigate_to_common_object_security_tab()
         self.utils.print_info("Click on WIPS Policies tab...")
-        self.auto_actions.click(self.get_common_object_security_wips_policies())
+        self.auto_actions.click_reference(self.get_common_object_security_wips_policies)
         sleep(5)
 
         return 1
@@ -650,7 +683,7 @@ class Navigator(NavigatorWebElements):
         """
 
         if not self.get_subtab_common_object():
-            self.auto_actions.click(self.get_common_object_policy_tab())
+            self.auto_actions.click_reference(self.get_common_object_policy_tab)
             sleep(2)
             return 1
 
@@ -668,7 +701,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common Policy tab")
         self.navigate_to_common_object_policy_tab()
         self.utils.print_info("Click on Ap Template tab...")
-        self.auto_actions.click(self.get_common_object_policy_ap_template())
+        self.auto_actions.click_reference(self.get_common_object_policy_ap_template)
         sleep(5)
 
         return 1
@@ -684,7 +717,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_manage_tab()
         self.utils.print_info("Click on reports tab....")
-        self.auto_actions.click(self.get_manage_reports_nav())
+        self.auto_actions.click_reference(self.get_manage_reports_nav)
         sleep(2)
 
         return 1
@@ -725,7 +758,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful
         """
         if not self.get_common_object_network_tab().is_selected():
-            self.auto_actions.click(self.get_common_object_network_tab())
+            self.auto_actions.click_reference(self.get_common_object_network_tab)
             sleep(2)
             return 1
 
@@ -743,7 +776,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common object Network tab")
         self.navigate_to_common_object_network_tab()
         self.utils.print_info("Click on Subnetwork Space tab...")
-        self.auto_actions.click(self.get_common_object_network_sub_network_space())
+        self.auto_actions.click_reference(self.get_common_object_network_sub_network_space)
         sleep(5)
 
         return 1
@@ -759,7 +792,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful
         """
         if not self.get_common_object_basic_tab().is_selected():
-            self.auto_actions.click(self.get_common_object_basic_tab())
+            self.auto_actions.click_reference(self.get_common_object_basic_tab)
             sleep(2)
             return 1
 
@@ -777,7 +810,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common object Basic tab")
         self.navigate_to_common_object_basic_tab()
         self.utils.print_info("Click on Vlan tab...")
-        self.auto_actions.click(self.get_common_object_basic_vlans())
+        self.auto_actions.click_reference(self.get_common_object_basic_vlans)
         sleep(5)
         return 1
 
@@ -811,7 +844,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_manage_tab()
         sleep(5)
         self.utils.print_info("Click on Alarms tab..")
-        self.auto_actions.click(self.get_manage_alarms_nav())
+        self.auto_actions.click_reference(self.get_manage_alarms_nav)
         sleep(5)
         return 1
 
@@ -826,7 +859,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_ml_insight_tab()
         self.utils.print_info("Click on Client 360 tab..")
-        self.auto_actions.click(self.get_ml_insight_client360())
+        self.auto_actions.click_reference(self.get_ml_insight_client360)
         sleep(5)
         return 1
 
@@ -841,7 +874,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_manage_tab()
         self.utils.print_info("Click on Network 360 tab..")
-        self.auto_actions.click(self.get_ml_insight_network360plan())
+        self.auto_actions.click_reference(self.get_ml_insight_network360plan)
         sleep(5)
         return 1
 
@@ -856,7 +889,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_ml_insight_tab()
         self.utils.print_info("Click on Network 360 Monitor tab..")
-        self.auto_actions.click(self.get_ml_insight_network360monitor())
+        self.auto_actions.click_reference(self.get_ml_insight_network360monitor)
         sleep(5)
         return 1
 
@@ -871,7 +904,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_ml_insight_tab()
         self.utils.print_info("Click on Network Scorecard tab..")
-        self.auto_actions.click(self.get_ml_insight_network_scorecard())
+        self.auto_actions.click_reference(self.get_ml_insight_network_scorecard)
         sleep(5)
         return 1
 
@@ -886,7 +919,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_ml_insight_tab()
         self.utils.print_info("Click on Retail Dashboard tab..")
-        self.auto_actions.click(self.get_ml_insight_retail())
+        self.auto_actions.click_reference(self.get_ml_insight_retail)
         sleep(5)
         return 1
 
@@ -901,10 +934,10 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_configure_network_policies()
         self.utils.print_info("click on list view button")
-        self.auto_actions.click(self.get_network_policy_list_view())
+        self.auto_actions.click_reference(self.get_network_policy_list_view)
         self.utils.print_info("Click on network policy full size page")
         if self.get_network_policy_page_size():
-            self.auto_actions.click(self.get_network_policy_page_size())
+            self.auto_actions.click_reference(self.get_network_policy_page_size)
             sleep(2)
         return 1
 
@@ -918,7 +951,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_configure_network_policies()
         self.utils.print_info("click on card view button")
-        if self.auto_actions.click(self.get_network_policy_card_view()) == 1:
+        if self.auto_actions.click_reference(self.get_network_policy_card_view) == 1:
             return 1
 
     def navigate_to_multiple_device_configuration_page(self, device_serials=''):
@@ -951,7 +984,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if navigated else -1
         """
         self.navigate_to_devices()
-        sleep(6)
+        sleep(10)
         return self.device_common.go_to_device360_window(device_mac=device_mac)
 
     def navigate_to_device360_page_with_host_name(self, device_host):
@@ -1000,7 +1033,7 @@ class Navigator(NavigatorWebElements):
             return -1
 
         self.utils.print_info("Click on Device Actions Button")
-        self.auto_actions.click(self.get_device_actions_button())
+        self.auto_actions.click_reference(self.get_device_actions_button)
 
         self.utils.print_info("Hovering over Advanced button")
         self.auto_actions.move_to_element(self.weh.get_element(self.device_actions_advanced))
@@ -1008,10 +1041,10 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Cli Access")
         if self.get_device_actions_advanced_cli_ap_access().is_displayed():
-            self.auto_actions.click(self.get_device_actions_advanced_cli_ap_access())
+            self.auto_actions.click_reference(self.get_device_actions_advanced_cli_ap_access)
             sleep(5)
         else:
-            self.auto_actions.click(self.get_device_actions_advanced_cli_router_access())
+            self.auto_actions.click_reference(self.get_device_actions_advanced_cli_router_access)
             sleep(5)
         return 1
 
@@ -1026,7 +1059,7 @@ class Navigator(NavigatorWebElements):
         if not self.get_device_utilities_status_menu_item().is_displayed():
             self.utils.print_info("Clicking on Utilities Button")
             if self.get_device_utilities_button().is_enabled():
-                self.auto_actions.click(self.get_device_utilities_button())
+                self.auto_actions.click_reference(self.get_device_utilities_button)
                 sleep(2)
             else:
                 self.utils.print_info("Unable to click on Utilities Button due to being disabled")
@@ -1125,15 +1158,15 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(2)
 
         if self.get_switch_template_option() is None:
             self.utils.print_info("Switch Template menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click(self.get_policy_toggle())
+            self.auto_actions.click_reference(self.get_policy_toggle)
             sleep(2)
         self.utils.print_info("Switch Template menu is visible. Selecting...")
-        self.auto_actions.click(self.get_switch_template_option())
+        self.auto_actions.click_reference(self.get_switch_template_option)
         sleep(5)
         return 1
 
@@ -1148,7 +1181,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_global_settings_page()
         self.utils.print_info("Click on api token management tab")
-        self.auto_actions.click(self.get_api_token_mgmt_tab())
+        self.auto_actions.click_reference(self.get_api_token_mgmt_tab())
         sleep(5)
         return 1
 
@@ -1163,7 +1196,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_a3_menu()
         self.utils.print_info("Selecting Inventory on A3 Page...")
-        self.auto_actions.click(self.get_a3_inventory_tab())
+        self.auto_actions.click_reference(self.get_a3_inventory_tab)
         sleep(2)
         return 1
 
@@ -1178,7 +1211,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_a3_menu()
         self.utils.print_info("Selecting Reporting on A3 Page...")
-        self.auto_actions.click(self.get_a3_reporting_tab())
+        self.auto_actions.click_reference(self.get_a3_reporting_tab)
         sleep(2)
         return 1
 
@@ -1190,7 +1223,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Essentials Menu
         """
         self.utils.print_info("Clicking on Essentials Icon")
-        self.auto_actions.click(self.get_essentials_menu())
+        self.auto_actions.click_reference(self.get_essentials_menu)
         sleep(2)
         return 1
 
@@ -1205,7 +1238,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_essentials_menu()
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
-        self.auto_actions.click(self.get_air_defence_menu())
+        self.auto_actions.click_reference(self.get_air_defence_menu)
         sleep(5)
         return 1
 
@@ -1218,7 +1251,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to onboard Tab else return -1
         """
         self.utils.print_info("Selecting Onboard Tab...")
-        if self.auto_actions.click(self.get_onboard_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_onboard_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -1262,7 +1295,7 @@ class Navigator(NavigatorWebElements):
         sleep(2)
 
         self.utils.print_info("Navigating to communications page...")
-        self.auto_actions.click(self.get_communications_nav())
+        self.auto_actions.click_reference(self.get_communications_nav)
         return 1
 
     def navigate_to_extreme_iot_menu(self):
@@ -1275,7 +1308,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_essentials_menu()
         self.utils.print_info("Clicking Extreme IOT Essentials...")
-        self.auto_actions.click(self.get_extreme_iot_essentials_menu())
+        self.auto_actions.click_reference(self.get_extreme_iot_essentials_menu)
         sleep(2)
 
         return 1
@@ -1292,19 +1325,19 @@ class Navigator(NavigatorWebElements):
 
         if self.get_extreme_iot_essentials_clients_submenu():
             self.utils.print_info("Extreme IOT Already Subscribed .Clicking Clients Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_clients_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_clients_submenu)
             sleep(2)
 
         else:
             self.utils.print_info("Clicking Extreme IOT Subscribe button for New User Account")
-            self.auto_actions.click(self.get_extreme_iot_essentials_subscribe_button())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_subscribe_button)
             sleep(3)
 
             self.navigate_to_extreme_iot_menu()
             sleep(2)
 
             self.utils.print_info("Clicking Clients Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_clients_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_clients_submenu)
             sleep(2)
         return 1
 
@@ -1320,19 +1353,19 @@ class Navigator(NavigatorWebElements):
 
         if self.get_extreme_iot_essentials_devices_submenu():
             self.utils.print_info("Extreme IOT Already Subscribed .Clicking Devices Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_devices_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_devices_submenu)
             sleep(2)
 
         else:
             self.utils.print_info("Clicking Extreme IOT Subscribe button for New User Account")
-            self.auto_actions.click(self.get_extreme_iot_essentials_subscribe_button())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_subscribe_button)
             sleep(3)
 
             self.navigate_to_extreme_iot_menu()
             sleep(2)
 
             self.utils.print_info("Clicking Devices Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_devices_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_devices_submenu)
             sleep(2)
         return 1
 
@@ -1348,19 +1381,19 @@ class Navigator(NavigatorWebElements):
 
         if self.get_extreme_iot_essentials_user_profiles_submenu():
             self.utils.print_info("Extreme IOT Already Subscribed .Clicking User Profiles Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_user_profiles_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_user_profiles_submenu)
             sleep(2)
 
         else:
             self.utils.print_info("Clicking Extreme IOT Subscribe button for New User Account")
-            self.auto_actions.click(self.get_extreme_iot_essentials_subscribe_button())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_subscribe_button)
             sleep(3)
 
             self.navigate_to_extreme_iot_menu()
             sleep(2)
 
             self.utils.print_info("Clicking User Profiles Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_user_profiles_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_user_profiles_submenu)
             sleep(2)
         return 1
 
@@ -1376,19 +1409,19 @@ class Navigator(NavigatorWebElements):
 
         if self.get_extreme_iot_essentials_policy_groups_submenu():
             self.utils.print_info("Extreme IOT Already Subscribed .Clicking Policy Groups Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_policy_groups_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_policy_groups_submenu)
             sleep(2)
 
         else:
             self.utils.print_info("Clicking Extreme IOT Subscribe button for New User Account")
-            self.auto_actions.click(self.get_extreme_iot_essentials_subscribe_button())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_subscribe_button)
             sleep(3)
 
             self.navigate_to_extreme_iot_menu()
             sleep(2)
 
             self.utils.print_info("Clicking Policy Groups Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_policy_groups_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_policy_groups_submenu)
             sleep(2)
         return 1
 
@@ -1404,19 +1437,19 @@ class Navigator(NavigatorWebElements):
 
         if self.get_extreme_iot_essentials_dashboard_submenu():
             self.utils.print_info("Extreme IOT Already Subscribed .Clicking Dashboard Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_dashboard_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_dashboard_submenu)
             sleep(2)
 
         else:
             self.utils.print_info("Clicking Extreme IOT Subscribe button for New User Account")
-            self.auto_actions.click(self.get_extreme_iot_essentials_subscribe_button())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_subscribe_button)
             sleep(3)
 
             self.navigate_to_extreme_iot_menu()
             sleep(2)
 
             self.utils.print_info("Clicking Dashboard Menu on Extreme IOT...")
-            self.auto_actions.click(self.get_extreme_iot_essentials_policy_groups_submenu())
+            self.auto_actions.click_reference(self.get_extreme_iot_essentials_policy_groups_submenu)
             sleep(2)
         return 1
 
@@ -1430,7 +1463,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_essentials_menu()
         self.utils.print_info("Clicking Extreme Guest  Menu...")
-        self.auto_actions.click(self.get_extreme_guest_menu())
+        self.auto_actions.click_reference(self.get_extreme_guest_menu)
         sleep(2)
 
         return 1
@@ -1445,7 +1478,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_essentials_menu()
         self.utils.print_info("Clicking on Extreme location")
-        self.auto_actions.click(self.get_extreme_location_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_menu)
         sleep(2)
 
         return 1
@@ -1459,7 +1492,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Dashboard Menu on Extreme Location
         """
         self.utils.print_info("Clicking Dashboard Menu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_dashboard_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_dashboard_menu)
         return 1
 
     def navigate_to_extreme_location_sites_menu(self):
@@ -1471,7 +1504,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Sites Menu on Extreme Location
         """
         self.utils.print_info("Clicking Sites Menu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_sites_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_sites_menu)
         return 1
 
     def navigate_to_extreme_location_category_menu(self):
@@ -1483,7 +1516,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Category Menu on Extreme Location
         """
         self.utils.print_info("Clicking Category Menu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_category_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_category_menu)
         return 1
 
     def navigate_to_extreme_location_access_points_menu(self):
@@ -1495,7 +1528,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Access Points Menu on Extreme Location
         """
         self.utils.print_info("Clicking Access Points Menu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_access_points_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_access_points_menu)
         return 1
 
     def navigate_to_extreme_location_beacons_menu(self):
@@ -1507,7 +1540,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Beacons Menu on Extreme Location
         """
         self.utils.print_info("Clicking Beacons Menu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_beacons_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_beacons_menu)
         return 1
 
     def navigate_to_extreme_location_asset_management_menu(self):
@@ -1519,7 +1552,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Asset Management Menu on Extreme Location
         """
         self.utils.print_info("Clicking Asset Management Menu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_asset_management_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_asset_management_menu)
         return 1
 
     def navigate_to_extreme_location_assets_submenu(self):
@@ -1531,7 +1564,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Assets SubMenu on Extreme Location
         """
         self.utils.print_info("Clicking Assets SubMenu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_asset_management_assets_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_asset_management_assets_menu)
         return 1
 
     def navigate_to_extreme_location_alarms_submenu(self):
@@ -1543,7 +1576,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Alarms SubMenu on Extreme Location
         """
         self.utils.print_info("Clicking Alarms SubMenu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_asset_management_alarms_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_asset_management_alarms_menu)
         return 1
 
     def navigate_to_extreme_location_devices_menu(self):
@@ -1555,7 +1588,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Devices Menu on Extreme Location
         """
         self.utils.print_info("Clicking Devices Menu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_devices_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_devices_menu)
         return 1
 
     def navigate_to_extreme_location_wireless_devices_submenu(self):
@@ -1567,7 +1600,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Wireless Devices SubMenu on Extreme Location
         """
         self.utils.print_info("Clicking Wireless Devices SubMenu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_devices_wireless_devices_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_devices_wireless_devices_menu)
         return 1
 
     def navigate_to_extreme_location_bss_devices_submenu(self):
@@ -1579,7 +1612,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to BSS Devices SubMenu on Extreme Location
         """
         self.utils.print_info("Clicking BSS Devices SubMenu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_devices_bss_devices_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_devices_bss_devices_menu)
         return 1
 
     def navigate_to_extreme_location_settings_menu(self):
@@ -1591,7 +1624,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Settings Menu on Extreme Location
         """
         self.utils.print_info("Clicking Settings Menu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_settings_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_settings_menu)
         return 1
 
     def navigate_to_extreme_location_device_classification_submenu(self):
@@ -1603,7 +1636,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Device Classification SubMenu on Extreme Location
         """
         self.utils.print_info("Clicking Device Classification SubMenu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_settings_device_classification_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_settings_device_classification_menu)
         return 1
 
     def navigate_to_extreme_location_threshold_submenu(self):
@@ -1615,7 +1648,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Threshold SubMenu on Extreme Location
         """
         self.utils.print_info("Clicking Threshold SubMenu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_settings_threshold_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_settings_threshold_menu)
         return 1
 
     def navigate_to_extreme_location_third_party_config_submenu(self):
@@ -1627,7 +1660,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Third Party Config SubMenu on Extreme Location
         """
         self.utils.print_info("Clicking Third Party Configuration SubMenu on Extreme Location")
-        self.auto_actions.click(self.get_extreme_location_settings_third_party_config_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_settings_third_party_config_menu)
         return 1
 
     def navigate_to_extreme_location_settings_alarms_submenu(self):
@@ -1639,7 +1672,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Settings Alarms SubMenu on Extreme Location
         """
         self.utils.print_info("Clicking Alarms SubMenu on Extreme Location Settings")
-        self.auto_actions.click(self.get_extreme_location_settings_alarms_menu())
+        self.auto_actions.click_reference(self.get_extreme_location_settings_alarms_menu)
         return 1
 
     def navigate_to_cloud_config_groups(self):
@@ -1654,15 +1687,15 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(2)
 
         if self.get_ccg_option() is None:
             self.utils.print_info("CCG menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click(self.get_policy_toggle())
+            self.auto_actions.click_reference(self.get_policy_toggle)
             sleep(2)
         self.utils.print_info("CCG menu is visible. Selecting...")
-        self.auto_actions.click(self.get_ccg_option())
+        self.auto_actions.click_reference(self.get_ccg_option)
         sleep(2)
 
         return 1
@@ -1679,15 +1712,15 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(2)
 
         if self.get_classification_option() is None:
             self.utils.print_info("Classification rule menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click(self.get_policy_toggle())
+            self.auto_actions.click_reference(self.get_policy_toggle)
             sleep(2)
         self.utils.print_info("Classification Rule menu is visible. Selecting...")
-        self.auto_actions.click(self.get_classification_option())
+        self.auto_actions.click_reference(self.get_classification_option)
         sleep(2)
 
         return 1
@@ -1706,11 +1739,11 @@ class Navigator(NavigatorWebElements):
         sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
-            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
             sleep(5)
 
         self.utils.print_info("Click on ppsk classification sub menu")
-        self.auto_actions.click(self.get_configure_ppsk_classification_side_nav_item())
+        self.auto_actions.click_reference(self.get_configure_ppsk_classification_side_nav_item)
         sleep(2)
 
         return 1
@@ -1727,7 +1760,7 @@ class Navigator(NavigatorWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking VIQ Management Button")
-        self.auto_actions.click(self.get_viq_management_menu())
+        self.auto_actions.click_reference(self.get_viq_management_menu)
         sleep(2)
 
         return 1
@@ -1743,12 +1776,12 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Clicking Manage Tab...")
         try:
             if self.get_manage_tab().is_displayed():
-                self.auto_actions.click(self.get_manage_tab())
+                self.auto_actions.click_reference(self.get_manage_tab)
             else:
                 return -2
 
             self.utils.print_info("Clicking on Application Tab..")
-            self.auto_actions.click(self.get_manage_applications_menu_item())
+            self.auto_actions.click_reference(self.get_manage_applications_menu_item)
             sleep(2)
             return 1
         except Exception as e:
@@ -1767,12 +1800,12 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Clicking Manage Tab...")
         try:
             if self.get_manage_tab().is_displayed():
-                self.auto_actions.click(self.get_manage_tab())
+                self.auto_actions.click_reference(self.get_manage_tab)
             else:
                 return -2
 
             self.utils.print_info("Clicking on Events Tab..")
-            self.auto_actions.click(self.get_manage_events_menu_item())
+            self.auto_actions.click_reference(self.get_manage_events_menu_item)
             sleep(2)
             return 1
 
@@ -1969,15 +2002,15 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(2)
 
         if self.get_radio_profile() is None:
             self.utils.print_info("Radio Profile menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click(self.get_policy_toggle())
+            self.auto_actions.click_reference(self.get_policy_toggle)
             sleep(2)
         self.utils.print_info("Radio profile  menu is visible. Selecting...")
-        self.auto_actions.click(self.get_radio_profile())
+        self.auto_actions.click_reference(self.get_radio_profile)
         sleep(2)
 
         return 1
@@ -1998,7 +2031,7 @@ class Navigator(NavigatorWebElements):
         self.device_common.select_device_row(device_serial)
 
         self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
+        self.auto_actions.click_reference(self.get_device_utilities)
         sleep(2)
 
     def navigate_to_audit_logs_menu(self):
@@ -2014,7 +2047,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_global_settings_page()
         sleep(2)
         self.utils.print_info("Selecting Audit Logs...")
-        if self.auto_actions.click(self.get_global_settings_audit_logs_slider()) == 1:
+        if self.auto_actions.click_reference(self.get_global_settings_audit_logs_slider) == 1:
             sleep(2)
             return 1
         else:
@@ -2030,7 +2063,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful
         """
         self.utils.print_info("selecting and clicking on Copilot Menu...")
-        self.auto_actions.click(self.get_copilot_tab())
+        self.auto_actions.click_reference(self.get_copilot_tab)
         sleep(5)
         self.screen.save_screen_shot()
         return 1
@@ -2058,7 +2091,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation is not Successful to Extreme AirDefence Menu
         """
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
-        if self.auto_actions.click(self.get_essentials_menu()):
+        if self.auto_actions.click_reference(self.get_essentials_menu):
             self.utils.print_info("Clicked Extreme Airdefense Menu")
             return -1
         else:
@@ -2080,11 +2113,11 @@ class Navigator(NavigatorWebElements):
         sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
-            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
             sleep(5)
 
         self.utils.print_info("Click on Users sub menu")
-        self.auto_actions.click(self.get_configure_users_subtab_users_side_nav_item())
+        self.auto_actions.click_reference(self.get_configure_users_subtab_users_side_nav_item)
         sleep(2)
 
         return 1
@@ -2103,7 +2136,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common Policy tab")
         self.navigate_to_common_object_policy_tab()
         self.utils.print_info("Click on Imago Tag Profile tab...")
-        self.auto_actions.click(self.get_common_object_policy_imago_tag_profile())
+        self.auto_actions.click_reference(self.get_common_object_policy_imago_tag_profile)
         sleep(5)
 
         return 1
@@ -2121,14 +2154,14 @@ class Navigator(NavigatorWebElements):
         sleep(3)
         self.utils.print_info("Click on IP Firewall Policies tab...")
         if self.get_common_object_security_ip_firewall_policies():
-            self.auto_actions.click(self.get_common_object_security_ip_firewall_policies())
+            self.auto_actions.click_reference(self.get_common_object_security_ip_firewall_policies)
             sleep(5)
         else:
             self.utils.print_info("Click Security button")
-            self.auto_actions.click(self.get_common_object_security_tab())
+            self.auto_actions.click_reference(self.get_common_object_security_tab)
             sleep(2)
             self.utils.print_info("Click  IP Firewall Policies button")
-            self.auto_actions.click(self.get_common_object_security_ip_firewall_policies())
+            self.auto_actions.click_reference(self.get_common_object_security_ip_firewall_policies)
 
         sleep(5)
 
@@ -2145,7 +2178,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common Policy tab")
         self.navigate_to_common_object_policy_tab()
         self.utils.print_info("Click on User Profiles tab...")
-        self.auto_actions.click(self.get_common_object_policy_user_profiles())
+        self.auto_actions.click_reference(self.get_common_object_policy_user_profiles)
         sleep(5)
 
         return 1
@@ -2162,7 +2195,7 @@ class Navigator(NavigatorWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Device Management Settings Button")
-        self.auto_actions.click(self.get_navigate_to_device_management_settings_menu())
+        self.auto_actions.click_reference(self.get_navigate_to_device_management_settings_menu)
         sleep(2)
         return 1
 
@@ -2180,11 +2213,11 @@ class Navigator(NavigatorWebElements):
         sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
-            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
             sleep(5)
 
         self.utils.print_info("Click on private client group menu")
-        self.auto_actions.click(self.get_nav_configure_users_management_private_client_group())
+        self.auto_actions.click_reference(self.get_nav_configure_users_management_private_client_group)
         sleep(2)
 
     def navigate_to_common_objects_management_options(self):
@@ -2200,7 +2233,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common object Network tab")
         self.navigate_to_common_object_network_tab()
         self.utils.print_info("Click on Management Options tab...")
-        self.auto_actions.click(self.get_common_object_network_management_options())
+        self.auto_actions.click_reference(self.get_common_object_network_management_options)
         sleep(5)
 
         return 1
@@ -2216,7 +2249,7 @@ class Navigator(NavigatorWebElements):
         if not self.get_device_tools_menu_item().is_displayed():
             self.utils.print_info("Clicking on Utilities Button")
             if self.get_device_utilities_button().is_enabled():
-                self.auto_actions.click(self.get_device_utilities_button())
+                self.auto_actions.click_reference(self.get_device_utilities_button)
                 sleep(2)
             else:
                 self.utils.print_info("Unable to click on Utilities Button due to being disabled")
@@ -2245,7 +2278,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Client Information Menu Item")
         if self.get_device_tools_client_information_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_tools_client_information_menu_item())
+            self.auto_actions.click_reference(self.get_device_tools_client_information_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Client Information Menu Item due to not being displayed")
@@ -2266,7 +2299,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Get Tech Data Menu Item")
         if self.get_device_tools_get_tech_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_tools_get_tech_menu_item())
+            self.auto_actions.click_reference(self.get_device_tools_get_tech_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Get Tech Data Menu Item due to not being displayed")
@@ -2287,7 +2320,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Locate Device Menu Item")
         if self.get_device_tools_locate_device_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_tools_locate_device_menu_item())
+            self.auto_actions.click_reference(self.get_device_tools_locate_device_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Locate Device Menu Item due to not being displayed")
@@ -2308,7 +2341,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on L2 Neighbor Info Menu Item")
         if self.get_device_tools_layer_neighbor_info_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_tools_layer_neighbor_info_menu_item())
+            self.auto_actions.click_reference(self.get_device_tools_layer_neighbor_info_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on L2 Neighbor Info Menu Item due to not being displayed")
@@ -2329,7 +2362,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Packet Capture Menu Item")
         if self.get_device_tools_packet_capture_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_tools_packet_capture_menu_item())
+            self.auto_actions.click_reference(self.get_device_tools_packet_capture_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Packet Capture Menu Item due to not being displayed")
@@ -2350,7 +2383,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on VLAN Probe Menu Item")
         if self.get_device_tools_vlan_probe_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_tools_vlan_probe_menu_item())
+            self.auto_actions.click_reference(self.get_device_tools_vlan_probe_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on VLAN Probe Menu Item due to not being displayed")
@@ -2368,7 +2401,7 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking on Utilities Button")
         if self.get_device_utilities_button().is_enabled():
-            self.auto_actions.click(self.get_device_utilities_button())
+            self.auto_actions.click_reference(self.get_device_utilities_button)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Utilities Button due to being disabled")
@@ -2397,7 +2430,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show Ping Menu Item")
         if self.get_device_diagnostics_show_ping_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_ping_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_ping_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Ping Menu Item due to not being displayed")
@@ -2418,7 +2451,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show Log Menu Item")
         if self.get_device_diagnostics_show_log_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_log_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_log_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Log Menu Item due to not being displayed")
@@ -2439,7 +2472,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show MAC Table Menu Item")
         if self.get_device_diagnostics_show_mac_table_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_mac_table_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_mac_table_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show MAC Table Menu Item due to not being displayed")
@@ -2460,7 +2493,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show Version Menu Item")
         if self.get_device_diagnostics_show_version_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_version_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_version_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Version Menu Item due to not being displayed")
@@ -2481,7 +2514,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show Running Config Menu Item")
         if self.get_device_diagnostics_show_running_config_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_running_config_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_running_config_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Running Config Menu Item due to not being displayed")
@@ -2502,7 +2535,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show Startup Config Menu Item")
         if self.get_device_diagnostics_show_startup_config_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_startup_config_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_startup_config_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Startup Config Menu Item due to not being displayed")
@@ -2523,7 +2556,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show IP Routes Menu Item")
         if self.get_device_diagnostics_show_ip_routes_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_ip_routes_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_ip_routes_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IP Routes Menu Item due to not being displayed")
@@ -2544,7 +2577,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show MAC Routes Menu Item")
         if self.get_device_diagnostics_show_mac_routes_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_mac_routes_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_mac_routes_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show MAC Routes Menu Item due to not being displayed")
@@ -2565,7 +2598,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show ARP Cache Menu Item")
         if self.get_device_diagnostics_show_arp_cache_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_arp_cache_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_arp_cache_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show ARP Cache Menu Item due to not being displayed")
@@ -2586,7 +2619,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show Roaming Cache Menu Item")
         if self.get_device_diagnostics_show_roaming_cache_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_roaming_cache_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_roaming_cache_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Roaming Cache Menu Item due to not being displayed")
@@ -2607,7 +2640,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show DNXP Neighbors Menu Item")
         if self.get_device_diagnostics_show_dnxp_neighbors_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_dnxp_neighbors_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_dnxp_neighbors_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show DNXP Neighbors Menu Item due to not being displayed")
@@ -2628,7 +2661,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show DNXP Cache Menu Item")
         if self.get_device_diagnostics_show_dnxp_cache_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_dnxp_cache_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_dnxp_cache_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show DNXP Cache Menu Item due to not being displayed")
@@ -2649,7 +2682,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show AMRP Tunnel Menu Item")
         if self.get_device_diagnostics_show_amrp_tunnel_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_amrp_tunnel_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_amrp_tunnel_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show AMRP Tunnel Menu Item due to not being displayed")
@@ -2670,7 +2703,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show GRE Tunnel Menu Item")
         if self.get_device_diagnostics_show_gre_tunnel_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_gre_tunnel_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_gre_tunnel_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show GRE Tunnel Menu Item due to not being displayed")
@@ -2691,7 +2724,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show IKE Event Menu Item")
         if self.get_device_diagnostics_show_ike_event_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_ike_event_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_ike_event_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IKE Event Menu Item due to not being displayed")
@@ -2712,7 +2745,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show IKE SA Menu Item")
         if self.get_device_diagnostics_show_ike_sa_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_ike_sa_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_ike_sa_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IKE SA Menu Item due to not being displayed")
@@ -2733,7 +2766,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show IPSec SA Menu Item")
         if self.get_device_diagnostics_show_ipsec_sa_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_ipsec_sa_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_ipsec_sa_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IPSec SA Menu Item due to not being displayed")
@@ -2754,7 +2787,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show IPSec Tunnel Menu Item")
         if self.get_device_diagnostics_show_ipsec_tunnel_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_ipsec_tunnel_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_ipsec_tunnel_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IPSec Tunnel Menu Item due to not being displayed")
@@ -2775,7 +2808,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show VPN Tunnel Menu Item")
         if self.get_device_diagnostics_show_vpn_tunnel_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_vpn_tunnel_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_vpn_tunnel_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show VPN Tunnel Menu Item due to not being displayed")
@@ -2796,7 +2829,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show CPU Menu Item")
         if self.get_device_diagnostics_show_cpu_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_cpu_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_cpu_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show CPU Menu Item due to not being displayed")
@@ -2817,7 +2850,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show Memory Menu Item")
         if self.get_device_diagnostics_show_memory_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_memory_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_memory_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Memory Menu Item due to not being displayed")
@@ -2838,7 +2871,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Clicking on Show PSE Menu Item")
         if self.get_device_diagnostics_show_pse_menu_item().is_displayed():
-            self.auto_actions.click(self.get_device_diagnostics_show_pse_menu_item())
+            self.auto_actions.click_reference(self.get_device_diagnostics_show_pse_menu_item)
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show PSE Menu Item due to not being displayed")
@@ -2859,7 +2892,7 @@ class Navigator(NavigatorWebElements):
         sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
-            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
             sleep(5)
 
         self.utils.print_info("Click on Locked Users sub menu")
@@ -2885,7 +2918,7 @@ class Navigator(NavigatorWebElements):
         sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
-            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
             sleep(5)
 
         self.utils.print_info("Click on Unbind Device sub menu")
@@ -2931,12 +2964,12 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Clicking Manage Tab...")
         try:
             if self.get_manage_tab().is_displayed():
-                self.auto_actions.click(self.get_manage_tab())
+                self.auto_actions.click_reference(self.get_manage_tab)
             else:
                 return -1
 
             self.utils.print_info("Clicking on Alerts Tab..")
-            self.auto_actions.click(self.get_manage_alerts_menu_item())
+            self.auto_actions.click_reference(self.get_manage_alerts_menu_item)
             sleep(2)
             return 1
 
@@ -2976,7 +3009,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_manage_tab() == 1:
             self.utils.print_info("Clicking Summary Tab...")
-            if self.auto_actions.click(self.get_manage_summary_menu_item()) == 1:
+            if self.auto_actions.click_reference(self.get_manage_summary_menu_item) == 1:
                 sleep(2)
                 return 1
             else:
@@ -2997,7 +3030,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_manage_tab() == 1:
             self.utils.print_info("Clicking Users Tab...")
-            if self.auto_actions.click(self.get_manage_users_menu_item()) == 1:
+            if self.auto_actions.click_reference(self.get_manage_users_menu_item) == 1:
                 sleep(2)
                 return 1
             else:
@@ -3018,7 +3051,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_configure_tab() == 1:
             self.utils.print_info("Clicking Guest Essentials Users Tab...")
-            if self.auto_actions.click(self.get_configure_guest_essentials_users_menu_item()) == 1:
+            if self.auto_actions.click_reference(self.get_configure_guest_essentials_users_menu_item) == 1:
                 sleep(2)
                 return 1
             else:
@@ -3041,7 +3074,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Click on VPN Management Tab")
         if self.get_vpn_management_tab().is_displayed():
-            self.auto_actions.click(self.get_vpn_management_tab())
+            self.auto_actions.click_reference(self.get_vpn_management_tab)
             return 1
         else:
             self.utils.print_info("Unable to navigate to VPN Management Page")
@@ -3059,7 +3092,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Click on Clients Hyperlink")
         if self.get_clients_hyperlink().is_displayed():
-            self.auto_actions.click(self.get_clients_hyperlink())
+            self.auto_actions.click_reference(self.get_clients_hyperlink)
             return 1
         else:
             self.utils.print_info("Unable to open clients hyperlink page")
@@ -3078,7 +3111,7 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Click on VPN Services Tab")
         if self.get_vpn_services_tab().is_displayed():
-            self.auto_actions.click(self.get_vpn_services_tab())
+            self.auto_actions.click_reference(self.get_vpn_services_tab)
             return 1
         else:
             self.utils.print_info("Unable to navigate to VPN Services Page")
@@ -3095,7 +3128,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_manage_tab() == 1:
             self.utils.print_info("Clicking Events Tab...")
-            if self.auto_actions.click(self.get_devices_nav()) == 1:
+            if self.auto_actions.click_reference(self.get_devices_nav) == 1:
                 sleep(2)
                 return 1
             else:
@@ -3143,3 +3176,25 @@ class Navigator(NavigatorWebElements):
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
+
+    def enable_page_size(self, page_size='100', **kwargs):
+        """
+            - This keyword clicks the page size of that page
+                 - Flow Manage--> Common --> Navigator
+                 - Keyword Usage
+                  - ``enable_page_size  page_size=20``
+
+                :return: 1 if enabling page size successfully else returns -1
+        """
+        if self.get_network_policy_page_size() != None:
+            self.utils.print_info("Clicking on page size...")
+            if self.auto_actions.click(self.get_network_policy_page_size(page_size)) == 1:
+                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = " Clicking on page size "
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = " Not able to click on page size "
+                self.common_validation.failed(**kwargs)
+                return -1

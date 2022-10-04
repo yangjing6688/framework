@@ -45,6 +45,7 @@ class NetworkPolicy(object):
         self.common_validation = CommonValidation()
         self.user_group = UserGroups()
         self.user_group_elements = UserGroupsWebElements()
+        self.use_existing_policy = False
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def select_network_policy_row(self, policy):
@@ -112,7 +113,22 @@ class NetworkPolicy(object):
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirmation Yes button")
             self.auto_actions.click(confirm_delete_btn)
+            confirm_dialog_box_display = True
+            confirm_dialog_box = self.dialogue_web_elements.get_confirm_message_dialog_box()
+            while confirm_dialog_box_display:
+                if confirm_dialog_box.is_displayed():
+                    self.utils.print_info("Network policy is deleting, still need some time")
+                    sleep(1)
+                else:
+                    self.utils.print_info("Network policy is deleted successfully")
+                    confirm_dialog_box_display = False
+            self.screen.save_screen_shot()
             sleep(3)
+
+    def create_network_policy_if_does_not_exist(self, policy, **wireless_profile):
+        self.use_existing_policy = True
+        out = self.create_network_policy(policy, wireless_profile)
+        return out
 
     def create_network_policy(self, policy, **wireless_profile):
         """
@@ -132,6 +148,9 @@ class NetworkPolicy(object):
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             return -2
 
+        self.screen.save_screen_shot()
+        sleep(2)
+
         self.utils.print_info("Checking for network policy add button")
         if self.np_web_elements.check_np_add_button() == -2:
             self.utils.print_info("Add button is not enabled for the user")
@@ -139,7 +158,7 @@ class NetworkPolicy(object):
 
         if self._search_network_policy_in_list_view(policy) == 1:
             self.utils.print_info(f"Network policy {policy} already exists in the network polices list")
-            return 1
+            return -1
 
         self.utils.print_info("Click on network policy add button")
         self.auto_actions.click(self.np_web_elements.get_np_add_button())
@@ -158,10 +177,10 @@ class NetworkPolicy(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        for tip_text in tool_tp_text:
+        for tip_text in reversed(tool_tp_text):
             if "The Network Policy cannot be saved because" in tip_text:
                 self.utils.print_info(f"{tip_text}")
-                return 1
+                return -1
             if "Your account does not have permission to perform that action" in tip_text:
                 self.utils.print_info(f"{tip_text}")
                 return -2
@@ -200,7 +219,7 @@ class NetworkPolicy(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        for value in tool_tp_text:
+        for value in reversed(tool_tp_text):
             if "Network policy was deleted successfully" in value:
                 kwargs['pass_msg'] = "Network policy was deleted successfully!"
                 self.common_validation.passed(**kwargs)
@@ -215,11 +234,17 @@ class NetworkPolicy(object):
                 return -2
 
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
-        # if it's gone assume success.
-        if self._search_network_policy_in_list_view(policy) == 1:
-            kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
-            self.common_validation.failed(**kwargs)
-            return -1
+        # if it's gone assume success. Retry if it still appears b/c apparrently policy still appears after delete
+        #    for a few moments.
+        for chk in range(2):
+            if chk == 2:
+                kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if self._search_network_policy_in_list_view(policy) == 1:
+                self.utils.print_info("Network policy still visible. Wait 5 seconds and try again")
+                sleep(5)
+
 
         kwargs['pass_msg'] = f"Successfully deleted Network Policy {policy}!"
         self.common_validation.passed(**kwargs)
@@ -260,7 +285,7 @@ class NetworkPolicy(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        for value in tool_tp_text:
+        for value in reversed(tool_tp_text):
             if "Network policy was deleted successfully" in value:
                 kwargs['pass_msg'] = "Network policy was deleted successfully"
                 self.common_validation.passed(**kwargs)
@@ -452,6 +477,8 @@ class NetworkPolicy(object):
         self.utils.print_info("Click on eligible device button")
         self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
         sleep(5)
+
+        self.navigator.enable_page_size()
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
@@ -904,13 +931,26 @@ class NetworkPolicy(object):
         self.navigate_to_np_edit_tab(policy)
 
         self.utils.print_info(" Click on the wireless network tab")
-        self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
-        self.tools.wait_til_elements_avail(self.wireless_element.wireless_nw_add_button, 60, False)
+        try_cnt = 0
+        wireless_networks_page = self.wireless_element.get_wireless_nw_tab_page()
+        while try_cnt < 10:
+            self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
+            self.utils.print_info(f" The value of wireless networks page {wireless_networks_page}")
+            if wireless_networks_page:
+                self.utils.print_info("Go to Wireless Networks tab successfully")
+                break
+            else:
+                try_cnt += 1
+                self.utils.print_info(f"Failed to go to Wireless Networks tab, try {try_cnt} times")
+                sleep(1)
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt}  times to switch to Wireless Networks tab, but still failed, need figure out issue manually")
+                    return -1
         self.utils.print_info(" Get all ssids in the policy")
         ssids = self.wireless_element.get_ssid_list()
+        self.utils.print_info(f"The SSIDs in the policy: {ssids}")
         if not ssids:
             self.utils.print_info(" There are no SSIDs configured on policy  " + str(policy))
-            return 1
         else:
             self.utils.print_info(" Select all SSIDs to be deleted")
             for ssid in ssids:
@@ -929,58 +969,57 @@ class NetworkPolicy(object):
                 confirm_yes = self.wireless_element.get_confirm_dialog_yes_button()
                 if confirm_yes:
                     self.auto_actions.click(confirm_yes)
+                    self.screen.save_screen_shot()
                     sleep(5)
-                    reuse_button = self.wireless_element.get_wireless_re_use_button()
-                    if reuse_button:
-                        self.auto_actions.click(reuse_button)
-                        sleep(5)
-                        all_reusable_rows = self.wireless_element.get_wireless_ssid_select_window_rows()
-                        if all_reusable_rows:
-                            for ssid_row in all_reusable_rows:
-                                if ssid_row.text != 'ssid0' and ssid_row.text != 'Name':
-                                    self.utils.print_info(" Selecting  ssid : " + ssid_row.text + " from SSID list")
-                                    check_box_reusable = self.wireless_element.get_wireless_select_ssid_row_check_box(ssid_row)
-                                    if check_box_reusable:
-                                        self.auto_actions.click(check_box_reusable)
-                                    else:
-                                        self.utils.print_info(" Unable to select SSID ")
-                                        return -1
-                            self.utils.print_info(" Clicking  delete button ")
-                            re_use_delete_button = self.wireless_element.get_wireless_re_use_delete_button()
-                            if re_use_delete_button:
-                                self.auto_actions.click(re_use_delete_button)
-                                sleep(5)
-                                confirm_yes_re_usable = self.wireless_element.get_confirm_dialog_yes_button()
-                                if confirm_yes_re_usable:
-                                    self.auto_actions.click(confirm_yes_re_usable)
-                                    tool_tp_text = tool_tip.tool_tip_text
-                                    self.utils.print_info(tool_tp_text)
-                                    self.utils.print_info(" Closing SSID pop-up window ")
-                                    self.auto_actions.click(self.wireless_element.get_wireless_re_use_cancel_button())
-                                    if "deleted successfully" in str(tool_tp_text):
-                                        self.utils.print_info(" SSIDs were successfully deleted ")
-                                        return 1
-                                    else:
-                                        self.utils.print_info(" SSIDs were NOT successfully deleted ")
-                                        return -1
-                                else:
-                                    self.utils.print_info(" Unable to click on confirm yes button ")
-                                    return -1
-                            else:
-                                self.utils.print_info(" Unable to click the delete button ")
-                                return -1
-                        else:
-                            self.utils.print_info(" Unable to gather SSID rows ")
-                            return -1
-                    else:
-                        self.utils.print_info(" Unable click the reusable [select] button")
-                        return -1
                 else:
                     self.utils.print_info(" Unable click the corfirm Yes button")
                     return -1
             else:
                  self.utils.print_info(" Unable to click the Delete button")
                  return -1
+        reuse_button = self.wireless_element.get_wireless_re_use_button()
+        if reuse_button:
+            self.auto_actions.click(reuse_button)
+            sleep(5)
+            all_reusable_rows = self.wireless_element.get_wireless_ssid_select_window_rows()
+            if all_reusable_rows:
+                for ssid_row in all_reusable_rows:
+                    if ssid_row.text != 'ssid0' and ssid_row.text != 'Name':
+                        self.utils.print_info(" Selecting  ssid : " + ssid_row.text + " from SSID list")
+                        check_box_reusable = self.wireless_element.get_wireless_select_ssid_row_check_box(ssid_row)
+                        if check_box_reusable:
+                            self.auto_actions.click(check_box_reusable)
+                        else:
+                            self.utils.print_info(" Unable to select SSID ")
+                            return -1
+                self.utils.print_info(" Clicking  delete button ")
+                re_use_delete_button = self.wireless_element.get_wireless_re_use_delete_button()
+                if re_use_delete_button:
+                    self.auto_actions.click(re_use_delete_button)
+                    sleep(5)
+                    confirm_yes_re_usable = self.wireless_element.get_confirm_dialog_yes_button()
+                    if confirm_yes_re_usable:
+                        self.auto_actions.click(confirm_yes_re_usable)
+                        tool_tp_text = tool_tip.tool_tip_text
+                        self.utils.print_info(tool_tp_text)
+                        self.utils.print_info(" Closing SSID pop-up window ")
+                        self.auto_actions.click(self.wireless_element.get_wireless_re_use_cancel_button())
+                        if "deleted successfully" in str(tool_tp_text):
+                            self.utils.print_info(" SSIDs were successfully deleted ")
+                            return 1
+                        else:
+                            self.screen.save_screen_shot()
+                            self.utils.print_info(" SSIDs were NOT successfully deleted ")
+                            return -1
+                    else:
+                        self.utils.print_info(" Unable to click on confirm yes button ")
+                        return -1
+                else:
+                    self.utils.print_info(" Unable to click the delete button ")
+                    return -1
+            else:
+                self.utils.print_info(" Unable to gather SSID rows ")
+                return -1
         self.utils.print_info(" Error : Unable to delete all SSIDs")
         return -1
 

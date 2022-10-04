@@ -48,6 +48,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_manage_tools_menu_item(self):
         return self.weh.get_element(self.manage_tools_menu_item)
 
+    def get_subtab_head_img_nav(self):
+        return self.weh.get_element(self.subtab_head_img_nav)
+
     def get_network_policies_sub_tab(self):
         return self.weh.get_element(self.configure_network_policy_nav)
 
@@ -673,6 +676,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_vpn_management_tab(self):
         return self.weh.get_element(self.vpn_management_tab)
+
+    def get_vpn_services_tab(self):
+        return self.weh.get_element(self.vpn_services_tab)
 
     def get_clients_hyperlink(self):
         return self.weh.get_element(self.clients_hyperlink)

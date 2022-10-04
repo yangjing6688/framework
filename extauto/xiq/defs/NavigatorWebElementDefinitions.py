@@ -11,6 +11,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
+    subtab_head_img_nav = \
+        {
+            'CSS_SELECTOR': '.subTab-head.img-nav',
+            'wait_for': 5
+        }
+
     configure_network_policy_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-policy"]',
@@ -49,7 +55,7 @@ class NavigatorWebElementDefinitions:
 
     manage_device_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     manage_clients_menu_item = \
@@ -60,7 +66,7 @@ class NavigatorWebElementDefinitions:
 
     manage_clients_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     manage_devices_menu_item = \
@@ -71,7 +77,7 @@ class NavigatorWebElementDefinitions:
 
     manage_devices_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     configure_users_nav = \
@@ -165,7 +171,7 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
-    dashboard  = \
+    dashboard = \
         {
             'XPATH': "//*[@data-dojo-attach-point='appLogo']",
             'wait_for': 5
@@ -185,7 +191,7 @@ class NavigatorWebElementDefinitions:
 
     manage_tools_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     network_policy_additional_settings_tab = \
@@ -256,7 +262,7 @@ class NavigatorWebElementDefinitions:
 
     manage_alarms_nav = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-nav-alarms"]//a',
+            'XPATH': '//div[@data-automation-tag="automation-header-nav-alerts"]//a',
             
         }
 
@@ -286,7 +292,7 @@ class NavigatorWebElementDefinitions:
 
     device_nav = \
         {
-            'XPATH': ' //*[@data-automation-tag="automation-header-nav-devices"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-devices"]',
             
         }
 
@@ -1220,7 +1226,6 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
-
     configure_alert_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-alert"]',
@@ -1284,6 +1289,12 @@ class NavigatorWebElementDefinitions:
     vpn_management_tab = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-vpnMgmt"]',
+            'wait_for': 5
+        }
+
+    vpn_services_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-vpnServices"]',
             'wait_for': 5
         }
 

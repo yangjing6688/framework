@@ -76,6 +76,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_close_dialog(self):
         return self.weh.get_element(self.close_dialog)
 
+    def get_select_100_elements_display_on_page(self):
+        return self.weh.get_element(self.select_100_elements_display_on_page)
+
     def get_actions_adv_cli_access_cmd_input(self):
         return self.weh.get_element(self.actions_adv_cli_access_cmd_input)
 
@@ -1357,6 +1360,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_close_port_type_box(self):
         return self.weh.get_element(self.close_port_type_box)
 
+    def get_cancel_port_type_box(self):
+        return self.weh.get_element(self.cancel_port_type_box)
+
     def get_select_element_port_type(self, element, value=None):
         if element == "tab_vlan":
             return self.weh.get_element(self.select_element_port_type_tab_vlan)
@@ -1374,7 +1380,9 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_tab_summary)
         elif element == "elrdp":
             return self.weh.get_element(self.select_element_port_type_name)
-        # page Port Name
+        elif element == "MACLOCKINGSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_maclocking)
+        #page Port Name
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
         elif element == "description":
@@ -1478,6 +1486,19 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
+        #maclocking page
+        elif element == "mac locking":
+            return self.weh.get_element(self.select_element_port_type_macLock_status)
+        elif element == "max first arrival":
+            return self.weh.get_element(self.select_element_port_type_macLock_max_first_arrival)
+        elif element == "disable port":
+            return self.weh.get_element(self.select_element_port_type_macLock_disable_port)
+        elif element == "link down clear":
+            return self.weh.get_element(self.select_element_port_type_macLock_link_down_clear)
+        elif element == "link down retain":
+            return self.weh.get_element(self.select_element_port_type_macLock_link_down_retain)
+        elif element == "remove aged MACs":
+            return self.weh.get_element(self.select_element_port_type_macLock_remove_aged_MACs)
         return -1
 
     def get_select_element_port_type_summary(self, element):
@@ -1531,6 +1552,18 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_pse_profile_summary)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status_summary)
+        elif element == "mac locking":
+            return self.weh.get_element(self.select_mac_locking_summary)
+        elif element == "max first arrival":
+            return self.weh.get_element(self.select_mac_locking_first_arrival_summary)
+        elif element == "disable port":
+            return self.weh.get_element(self.select_mac_locking_port_disable_summary)
+        elif element == "link down clear":
+            return self.weh.get_element(self.select_mac_locking_link_down_action_clear_summary)
+        elif element == "link down retain":
+            return self.weh.get_element(self.select_mac_locking_link_down_action_retain_summary)
+        elif element == "remove aged MACs":
+            return self.weh.get_element(self.select_mac_locking_remove_aged_macs_summary)
         return None
 
     def get_device_d360_save_port_configuration(self):
@@ -1658,7 +1691,7 @@ class Device360WebElements(Device360WebElementDefs):
         return {th.text.strip(): th for th in ths if th.text.strip()}
 
     def get_device360_ports_table(self):
-        
+
         header_row = self.get_device360_ports_description_table_row()
         ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
 
@@ -1684,6 +1717,156 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_ports_table_current_pagin_number(self):
         return self.weh.get_element(self.device360_ports_table_current_pagin_number)
+
+    def get_device360_digital_twin_status_icon(self):
+        return self.weh.get_element(self.device360_digital_twin_status_icon)
+
+    def get_device360_digital_twin_relaunch_button(self):
+        return self.weh.get_element(self.device360_digital_twin_relaunch_button)
+
+    def get_device360_digital_twin_shutdown_button(self):
+        return self.weh.get_element(self.device360_digital_twin_shutdown_button)
+
+    def get_device_ssh_ui_tip_close(self):
+        return self.weh.get_element(self.device_ssh_ui_tip_close)
+
+    def get_device_ssh_ui_tip_error(self):
+        return self.weh.get_element(self.device_ssh_ui_tip_error)
+
+    def get_device360_port_configuration_path_cost_stp(self, row):
+        return self.weh.get_element(self.device360_port_configuration_path_cost_stp, parent=row)
+
+    def get_device360_asic_port_groups(self):
+        return self.weh.get_elements(self.device360_asic_port_groups)
+
+    def get_device360_ports_each_asic_port_group(self, port_asic):
+        return self.weh.get_elements(self.device360_ports_each_asic_port_group, parent=port_asic)
+
+    def get_device360_asic_port_groups_stack(self):
+        return self.weh.get_elements(self.device360_asic_port_groups_stack)
+
+    def get_device360_ports_each_asic_port_group_stack(self, port_asic, slot):
+        return self.weh.get_template_elements(self.device360_ports_each_asic_port_group_stack, parent=port_asic, slot=slot)
+
+    def get_device360_overview_port(self, port):
+        """
+        :param port: -voss: x/y (Ex: 1/2)
+                     -exos: x (Ex: 1)
+                     -stack: slot:port (Ex: 1:2)
+                     -management: mgmt
+                     -console: console
+        """
+        return self.weh.get_template_element(self.device360_overview_select_port, index=port)
+
+    def get_device360_overview_port_info_bounce_port(self):
+        return self.weh.get_element(self.device360_overview_port_info_bounce_port)
+
+    def get_device360_overview_port_info_bounce_poe(self):
+        return self.weh.get_element(self.device360_overview_port_info_bounce_poe)
+
+    def get_device360_ports_description_table_header(self):
+        header_element = self.weh.get_element(self.device360_ports_description_table_header)
+        return [h.strip() for h in header_element.text.split("\n")]
+
+    def get_device360_ports_description_table_row(self):
+        return self.weh.get_element(self.device360_ports_description_table_header)
+
+    def get_device360_all_checkboxes(self):
+        checkboxes = self.get_device360_coluns_toggle_checkboxes()
+        results = {}
+        for checkbox in checkboxes:
+            label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
+            label = self.weh.get_element({"XPATH": label_xpath}).text
+            results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
+        return results
+
+    def get_device360_all_marked_checkboxes(self):
+        checkboxes = self.get_device360_coluns_toggle_checkboxes()
+        results = {}
+        for checkbox in checkboxes:
+            label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
+            label = self.weh.get_element({"XPATH": label_xpath}).text
+            if checkbox.is_selected():
+                results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
+        return results
+
+    def get_device360_port_table_rows(self):
+        return self.weh.get_elements(self.device360_ports_table_rows)
+
+    def get_device360_ports_table_pagination_sizes(self):
+        return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
+
+    def get_device360_ports_table_current_pagination_size(self):
+        return self.weh.get_element(self.device360_ports_table_current_pagination_size)
+
+    def get_device360_ports_table_th_columns(self):
+        header_row = self.get_device360_ports_description_table_row()
+        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+        return {th.text.strip(): th for th in ths if th.text.strip()}
+
+    def get_device360_ports_table(self):
+        header_row = self.get_device360_ports_description_table_row()
+        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+
+        table_rows = self.get_device360_port_table_rows()
+        results = []
+        for row in table_rows:
+            result = {}
+            tds = self.weh.get_elements(self.device360_ports_table_td_gridcell, parent=row)
+            for th, td in zip(ths, tds):
+                if th.text.strip():
+                    result[th.text.strip()] = td.text.strip()
+            results.append(result)
+        return results
+
+    def get_device360_pagination_page_buttons(self):
+        return self.weh.get_elements(self.d360_pagination_page_button)
+
+    def get_device360_pagination_current_page(self):
+        return self.weh.get_element(self.d360_pagination_current_page)
+
+    def get_d360_configure_port_mac_locking_tab_button(self):
+        return self.weh.get_element(self.d360_configure_port_mac_locking_tab_button)
+
+    def get_d360_monitor_mac_locking_checkbox_interface(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_checkbox_interface, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_on_off(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_on_off, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_max_first_arrival_limit(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_max_first_arrival_limit, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_disable_port(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_disable_port, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_remove_aged_macs(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_remove_aged_macs, port_number=port_number)
+
+    def get_d360_save_port_configuration(self):
+        return self.weh.get_element(self.d360_save_port_configuration)
+
+    def get_d360_monitor_mac_locking_interface_edit_button(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_interface_edit_button)
+
+    def get_d360_monitor_mac_locking_multi_edit_max_first_arrival_limit_checkbox(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_max_first_arrival_limit_checkbox)
+
+    def get_d360_monitor_mac_locking_input_max_first_arrival_limit_value(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_input_max_first_arrival_limit_value)
+
+    def get_d360_monitor_mac_locking_multi_edit_save_button(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_save_button)
+
+    def get_d360_monitor_mac_locking_multi_edit_warning_max_limit_arrival(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_warning_max_limit_arrival)
+
+    def get_d360_monitor_mac_locking_multi_edit_close_button(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_close_button)
+
+    def get_d360_monitor_mac_locking_header(self):
+        return self.weh.get_element(self.d360_monitor_mac_locking_header)
+
 
     def get_device360_event_expand_more(self, row):
         """

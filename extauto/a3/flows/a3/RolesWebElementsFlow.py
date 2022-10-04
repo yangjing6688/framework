@@ -1,21 +1,17 @@
-
 from common.AutoActions import *
 from a3.elements.RolesWebElements import RolesWebElements
 from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
-#from common.CloudDriver import *
 
 
 class RolesWebElementsFlow(RolesWebElements):
     def __init__(self):
         super().__init__()
-        #self.driver1 = None
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.roles_web_elements = RolesWebElements()
-        #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
 
     def create_roles(self):

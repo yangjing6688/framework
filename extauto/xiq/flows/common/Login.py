@@ -197,10 +197,24 @@ class Login:
         self.utils.print_info("Check for wrong credentials..")
         credential_warnings = self.login_web_elements.get_credentials_error_message()
         self.utils.print_info("Wrong Credential Message: ", credential_warnings)
-        if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
-            # self.utils.print_info("Wrong Credentials. Try Again")
-            kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            return -1
+        if credential_warnings is None:
+            pass
+        else:
+            if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
+                # self.utils.print_info("Wrong Credentials. Try Again")
+                kwargs['fail_msg'] = "Wrong Credentials. Try Again"
+                return -1
+
+        page_still_loading = True
+        while page_still_loading:
+            page_loading = self.login_web_elements.get_page_loading()
+            self.utils.print_info(f"Page loading element: {page_loading}")
+            if page_loading:
+                self.utils.print_info("Page is still loading")
+                sleep(3)
+            else:
+                page_still_loading = False
+                self.utils.print_info("Page is loaded successfully")
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid) == -1:
@@ -236,6 +250,10 @@ class Login:
                     self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
             except Exception as e:
                 pass
+        # if self.login_web_elements.get_devices_list_check().is_displayed():
+        #     self.utils.print_info("webelement exists in the mainpage")
+
+        #self.get_version()
         if co_pilot_status:
             url = BuiltIn().get_variable_value("${TEST_URL}")
             copilot_url = f"{url}/hm-webapp/?copilotBeta=true"
@@ -247,6 +265,14 @@ class Login:
         if capture_version:
             self._capture_xiq_version()
         kwargs['pass_msg'] = "User has been logged in"
+        
+        try:
+            if self.login_web_elements.get_right_arrow().is_displayed():
+                self.utils.print_info("Clicking welcome popup")
+                self.auto_actions.click(self.login_web_elements.click_right_arrow())
+        except Exception as er:
+            pass
+
         return 1
 
     def logout_user(self):
@@ -937,7 +963,7 @@ class Login:
         self.utils.print_info("Redirected to SFDC to complete oauth...")
         sfdc_url = self.get_base_url_of_current_page()
         self.utils.print_info("Completing OAuth...", sfdc_url)
-        if "force.com" in sfdc_url:
+        if "extreme" in sfdc_url:
             self.utils.print_info("Extreme SFDC URL", sfdc_url)
             self.auto_actions.send_keys(self.login_web_elements.get_sfdc_login_username(), sfdc_email)
             self.auto_actions.send_keys(self.login_web_elements.get_sfdc_login_pwd(), sfdc_pwd)
@@ -1077,7 +1103,9 @@ class Login:
 
     def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
                             salesforce_password=False, saleforce_shared_cuid=False):
-        if self.login_web_elements.get_welcome_wizard_heading():
+        welcome_wizard_page = self.login_web_elements.get_welcome_wizard_heading()
+        self.utils.print_info(f"Welcome wizard page: {welcome_wizard_page}")
+        if welcome_wizard_page:
             self.utils.print_info("Welcome page wizard found. Looks like you are logging in for the first time!")
             self.utils.print_info("Selecting login option: ", login_option)
             self.screen.save_screen_shot()
@@ -1682,3 +1710,21 @@ class Login:
         CloudDriver().cloud_driver.get(url)
         sleep(5)
         return 1
+
+    def switch_to_extreme_guest_window(self, win_index=1):
+        """
+        - Switches to the specified window
+
+        :param:  win_index - Index of the window to switch to
+        :return: None
+        """
+        CloudDriver().switch_to_window(win_index)
+
+    def close_extreme_guest_window(self, win_index=1):
+        """
+        - Closes the specified window
+
+        :param:  win_index - Index of the window to close
+        :return: None
+        """
+        CloudDriver().close_window(win_index)

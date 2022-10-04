@@ -778,6 +778,18 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+    common_object_wifi2_client_access = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage6GHzClientAccess"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi2_mesh_link = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage6GHzMeshLink"]',
+            'wait_for': 3
+        }
+
     common_object_ap_template_enable_sdr = \
         {
             'XPATH': '//input[@data-dojo-attach-point="enableSdrProfile"]',

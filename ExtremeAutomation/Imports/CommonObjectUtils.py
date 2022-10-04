@@ -4,7 +4,7 @@ class CommonObjectUtils:
     def __init__(self):
         self.builtin = BuiltIn()
 
-    def check_cli_type_and_skip(self, accepted_list, cli_type, skip_msg="Test is not support for device type"):
+    def check_cli_type_and_skip(self, accepted_list, cli_type, skip_msg="Not Executed: This test is not support for device type"):
         """
        - Will check the device (cli_type) against the supported device type (list).
          # Device type:
@@ -72,7 +72,6 @@ class CommonObjectUtils:
                 self.builtin.fail("Can't set the generic Device OBJECT in the variables.")
         else:
             self.builtin.fail("Can't set the generic Device OBJECT in the variables. The following types were not found in the yaml file: " + ' '.join(generic_device_types))
-
 
     def setExecutionVariable(self, value, index):
         if self.executionModePytest():

@@ -13,6 +13,30 @@ class DeviceActions(DeviceActionsDefs):
         """
         return self.weh.get_element(self.device_actions_button)
 
+    def get_device_actions_button_disable(self):
+        return self.weh.get_element(self.device_actions_button_disable)
+
+    def get_device_actions_dropdown(self):
+        return self.weh.get_element(self.device_actions_dropdown)
+
+    def get_device_actions_advance(self):
+        return self.weh.get_element(self.device_actions_advance)
+
+    def get_device_actions_advance_cli_access(self):
+        return self.weh.get_element(self.device_actions_advance_cli_access)
+
+    def get_device_actions_cli_windows(self):
+        return self.weh.get_element(self.device_actions_cli_windows)
+
+    def get_device_actions_cli_windows_input(self):
+        return self.weh.get_element(self.device_actions_cli_windows_input)
+
+    def get_device_actions_cli_windows_input_apply(self):
+        return self.weh.get_element(self.device_actions_cli_windows_input_apply)
+
+    def get_device_actions_cli_windows_close(self):
+        return self.weh.get_element(self.device_actions_cli_windows_close)
+
     def get_device_actions_reboot_menu_item(self):
         """
         :return: Reboot Menu Option
@@ -155,9 +179,6 @@ class DeviceActions(DeviceActionsDefs):
 
     def get_warning_rvk_xiq_text(self):
         return self.weh.get_element(self.warning_rvk_xiq_text)
-
-    def get_confirm_msg_no(self):
-        return self.weh.get_element(self.confirm_msg_no)
 
     def get_confirm_msg_yes(self):
         return self.weh.get_element(self.confirm_msg_yes)
