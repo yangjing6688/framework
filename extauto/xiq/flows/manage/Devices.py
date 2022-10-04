@@ -1687,7 +1687,7 @@ class Devices:
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click(self.device_update.get_update_devices_button())
             sleep(5)
-
+            self.screen.save_screen_shot()
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
             sleep(5)
@@ -1695,7 +1695,7 @@ class Devices:
             self.utils.print_info("Selecting upgrade to latest version checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
             sleep(2)
-
+            self.screen.save_screen_shot()
             latest_version = self.device_update.get_latest_version()
 
             self.utils.print_info("Device Latest Version: ", latest_version)
@@ -1706,12 +1706,13 @@ class Devices:
                 self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_are_same_button())
                 sleep(5)
 
+            self.screen.save_screen_shot()
             self.utils.print_info("Selecting Activate After radio button")
             self.auto_actions.click(self.device_update.get_activate_after_radio())
 
             self.utils.print_info("Setting Activate time to 60 seconds")
             self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), '60')
-
+            self.screen.save_screen_shot()
             self.utils.print_info("Selecting Perform Update button...")
             self.auto_actions.click(self.device_update.get_perform_update_button())
 
