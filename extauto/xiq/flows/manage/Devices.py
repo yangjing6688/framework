@@ -12063,7 +12063,14 @@ class Devices:
             return -1
 
     def select_clone_device(self, device_serial, replacement_device_type, replacement_serial, option="disable"):
-
+        """
+        - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device level config to another same type SKU switch.
+        :param device_serial: Select the device (first device) that you want to clone the configuration for the replacement device (second device)
+        :param replacement_device_type: Select the type option for replacement device in Cloning process ('Onboarded')
+        :param replacement_serial: Select the serial number for replacement device
+        :param option: 'enable'/'disable' the checkbox for reboot and rollback the configuration if the IQagent loses connectivity during updating the configuration
+        :return: 1 if the cloning process is done else -1
+        """
         self.utils.print_info("Navigate to Manage-->Devices")
         def _navigate_to_devices():
             return self.navigator.navigate_to_devices()
