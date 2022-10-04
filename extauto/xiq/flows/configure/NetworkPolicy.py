@@ -292,6 +292,7 @@ class NetworkPolicy(object):
             page_counter += 1
             self.utils.print_info(f"Move to next page {page_counter}")
             self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
+            sleep(5)
 
         if not select_flag:
             kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"

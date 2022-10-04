@@ -221,6 +221,7 @@ class CommonObjects(object):
             page_counter += 1
             self.utils.print_info(f"Move to next page {page_counter}")
             self.auto_actions.click_reference(self.cobj_web_elements.get_next_page_element)
+            sleep(5)
 
         if not select_ssid_flag:
             kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"
