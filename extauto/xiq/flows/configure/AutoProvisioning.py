@@ -225,7 +225,7 @@ class AutoProvisioning:
         # policy_name = autoprov_profile.get('policy_name')
 
         self.utils.print_info("Clicking On Save Button")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_save_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_save_button)
         self.screen.save_screen_shot()
         sleep(5)
         self.auto_provision_enable_policy_row(policy_name)
@@ -298,21 +298,27 @@ class AutoProvisioning:
 
         if "AP" in device_function:
             self.utils.print_info("Verifying device type AP")
+            self.utils.print_info(f"Looking for {network_policy} in {row.text}")
             # if network_policy in row.text and country_code in row.text:
             if network_policy in row.text:
-                self.screen.save_screen_shot()
+                auto_provision_policy['pass_msg'] = f"Found {network_policy} in {row.text}"
+                self.common_validation.passed(**auto_provision_policy)
                 return 1
             else:
-                self.screen.save_screen_shot()
+                auto_provision_policy['fail_msg'] = f"Did not find {network_policy} in {row.text}"
+                self.common_validation.failed(**auto_provision_policy)
                 return -1
 
         if "Extreme Networks SR22xx / SR23xx Switches" in device_function:
             self.utils.print_info("Verifying device type Switch")
+            self.utils.print_info(f"Looking for {network_policy} in {row.text}")
             if network_policy in row.text:
-                self.screen.save_screen_shot()
+                auto_provision_policy['pass_msg'] = f"Found {network_policy} in {row.text}"
+                self.common_validation.passed(**auto_provision_policy)
                 return 1
             else:
-                self.screen.save_screen_shot()
+                auto_provision_policy['fail_msg'] = f"Did not find {network_policy} in {row.text}"
+                self.common_validation.failed(**auto_provision_policy)
                 return -1
 
     def enter_auto_provision_policy_name(self, policy_name):
