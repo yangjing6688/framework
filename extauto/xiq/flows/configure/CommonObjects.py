@@ -2968,11 +2968,13 @@ class CommonObjects(object):
 
     def delete_switch_templates(self, template_name, **kwargs):
         """
+        This keyword will delete the multiple switch templates from common objects.
         - Flow: Configure --> Common Objects --> Policy -->Switch Template
         - Delete specified switch template from the Switch Templates grid
         - Keyword Usage:
          - ``Delete Switch Template  ${TEMPLATE_NAME}``
-        :param template_name: Name of the switch template
+         - ``Delete Switch Template  template_1,template_2`
+        :param template_name: A list of templates which will be deleted. Or a string with templates names separated by comma
         :return: 1 if deleted else -1
         """
         if isinstance(template_name, list):
@@ -2991,9 +2993,7 @@ class CommonObjects(object):
         else:
             self.utils.print_info("100 rows per page button not present! Continue running...")
 
-
-
-        self.utils.print_info("lista_este:",sw_template_name_list)
+        self.utils.print_info("Template name list:",sw_template_name_list)
         for template_name in sw_template_name_list:
             page_number = self.cobj_web_elements.get_common_object_policy_max_page_number()
             if page_number:
@@ -3047,36 +3047,35 @@ class CommonObjects(object):
                 if not found_template:
                     self.utils.print_info('len', len(page_number), cnt_page )
                     if len(page_number) == cnt_page:
-                        self.utils.print_info(f"Template Name: {template_name} is not present on all pages. Last page is: ")
+                        self.utils.print_info(f"Template Name: {template_name} is not present on all pages. Last page is: ",cnt_page)
                         return -1
                     self.utils.print_info(f"Template Name: {template_name} is not present on page: ")
                     next_button = self.cobj_web_elements.get_next_page_element()
                         #self.cobj_web_elements.get_common_object_policy_next_page_number()
                     if next_button:
-                        self.utils.print_info(f"dau pe click next")
+                        self.utils.print_info(f"Select next page")
                         self.auto_actions.click(next_button)
-                        self.utils.print_info(f"am dat click pe  click next")
                     else:
-                        self.utils.print_info(f"nu am gasit next")
+                        self.utils.print_info(f"Next button not found ")
                         return -1
                 else:
                     self.utils.print_info("")
                     break
                 cnt_page = cnt_page + 1
-        self.utils.print_info(f"Am iesit din functie ")
         return 1
 
     def delete_port_type_profiles(self, port_type_name, **kwargs):
         """
+        This keyword will delete the multiple port type profiles from common objects.
         - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
         - Delete Port Type from the grid
         - Keyword Usage:
          - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
-
-        :param port_type_name: Name of Port Tye
+         ``Delete Port Type Profile  ${PORT_TYPE_NAME1},${PORT_TYPE_NAME2}``
+        :param port_type_name: A list of port type profiles which will be deleted. Or a string with profiles names separated by comma
         :return: 1 if Port Type deleted successfully, else returns -1
         """
-        if isinstance(port_type_name,list):
+        if isinstance(port_type_name, list):
             port_type_name_list = port_type_name.copy()
         else:
             port_type_name_list = port_type_name.split(',')
