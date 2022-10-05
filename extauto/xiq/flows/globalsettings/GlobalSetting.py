@@ -949,13 +949,15 @@ class GlobalSetting(GlobalSettingWebElements):
                 sleep(1)
             else:
                 self.utils.print_info("Option already enabled...")
-        if option.lower() == "disable":
+        elif option.lower() == "disable":
             if not self.get_supplemental_cli_option_status().is_selected():
                 self.utils.print_info("Option already disabled")
             else:
                 self.utils.print_info("Disabling...")
                 self.auto_actions.click(self.get_supplemental_cli_option_status())
                 sleep(1)
+        else:
+            return -1
         return 1
 
     def change_exos_device_management_settings(self, option, platform):

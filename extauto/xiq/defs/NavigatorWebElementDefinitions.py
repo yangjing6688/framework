@@ -422,6 +422,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    common_object_basic_supplemental_cli = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-sider-list-supplementalCLIObjects"]',
+            'wait_for': 5
+        }
+
     ml_insight_client360 = \
         {
             'XPATH': '//div[@data-automation-tag="automation-header-nav-clientsoverview"]',
