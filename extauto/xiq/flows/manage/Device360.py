@@ -5037,35 +5037,45 @@ class Device360(Device360WebElements):
         :param device_name: Device Name
         :return: list with power supply details
         """
+        rez = -1
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
-
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
-        sleep(5)
 
+        self.utils.wait_till(self.dev360.get_device360_thunderbold_icon, timeout=30, is_logging_enabled=True, delay=5)
         power_el = self.dev360.get_device360_thunderbold_icon()
         if power_el:
             self.utils.print_info("Power Details")
             self.auto_actions.click_and_hold_element(power_el)
             self.auto_actions.move_to_element(power_el)
+            self.screen.save_screen_shot()
         else:
             self.utils.print_info("Power details not found")
-        sleep(5)
-        power_details = self.dev360.get_device360_power_details().text
-        self.utils.print_info(f"", power_details)
-        self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
-        return power_details
+            self.screen.save_screen_shot()
+
+        self.utils.wait_till(self.dev360.get_device360_power_details, timeout=30, is_logging_enabled=True, delay=5)
+        power_details = self.dev360.get_device360_power_details()
+        if power_details:
+            self.utils.print_info(f"Power details from XIQ are : ", power_details.text)
+            # self.utils.print_info("Close Dialogue Window")
+            # self.auto_actions.click(self.get_close_dialog())
+            # self.screen.save_screen_shot()
+            rez = power_details.text
+            self.auto_actions.click(self.get_close_dialog())
+        else:
+            self.utils.print_info("Power details not found")
+            self.auto_actions.click(self.get_close_dialog())
+            self.screen.save_screen_shot()
+            return -1
+        return str(rez)
 
     def device360_configure_poe_threshold_value(self, threshold_value, device_mac="", device_name=""):
         """
@@ -7143,6 +7153,7 @@ class Device360(Device360WebElements):
         :param device_name: Device Name
         :return: list with power supply details; else -1
         """
+        rez = None
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
@@ -7156,16 +7167,20 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
         slot_index = 1
         slot_found = False
+        self.utils.wait_till(self.get_device360_stack_overview_slot_details_rows, timeout=120, is_logging_enabled=True,
+                             delay=5)
+        self.screen.save_screen_shot()
         slot_details_overview = self.get_device360_stack_overview_slot_details_rows()
         if slot_details_overview:
             power_elements = self.dev360.get_device360_thunderbold_icon_stack(slot_details_overview)
             for power_item in power_elements:
                 if slot_index == int(slot):
                     self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.screen.save_screen_shot()
                     self.auto_actions.click_and_hold_element(power_item)
                     sleep(2)
                     self.auto_actions.move_to_element(power_item)
-                    sleep(2)
+                    self.screen.save_screen_shot()
                     slot_found = True
                     break
                 slot_index = slot_index + 1
@@ -7176,15 +7191,16 @@ class Device360(Device360WebElements):
             self.utils.print_info("Power details not found")
             return -1
         sleep(2)
-        power_details = self.dev360.get_device360_power_details().text
+        power_details = self.dev360.get_device360_power_details()
         if power_details:
-            self.utils.print_info(f"", power_details)
+            self.utils.print_info(f"", power_details.text)
+            rez = power_details.text
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click(self.get_close_dialog())
-            return power_details
         else:
             self.utils.print_info("Power details not found")
             return -1
+        return rez
 
     def is_device360_relaunch_digital_twin_button_visible(self):
         """
