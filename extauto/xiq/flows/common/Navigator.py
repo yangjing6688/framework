@@ -127,15 +127,15 @@ class Navigator(NavigatorWebElements):
         """
         if self.get_devices_page():
             self.utils.print_info("Already in Devices page")
-            self.enable_page_size(page_size='100')
+            self.enable_device_page_size(page_size='100')
             return 1
         else:
             if self.navigate_to_manage_tab() == 1:
                 self.utils.print_info("Manage page is present")
                 if self.auto_actions.click_reference(self.get_devices_nav) == 1:
                     self.utils.print_info("Clicking Devices Tab...")
-                    sleep(5)
-                    self.enable_page_size(page_size='100')
+                    sleep(10)
+                    self.enable_device_page_size(page_size='100')
                     return 1
                 else:
                     self.utils.print_info("Unable to navigate to Devices tab")
@@ -3159,12 +3159,12 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def enable_page_size(self, page_size='50', **kwargs):
+    def enable_device_page_size(self, page_size='50', **kwargs):
         """
             - This keyword clicks the page size of that page
                  - Flow Manage--> Common --> Navigator
                  - Keyword Usage
-                  - ``enable_page_size  page_size=20``
+                  - ``enable_device_page_size  page_size=20``
 
                 :return: 1 if enabling page size successfully else returns -1
         """
@@ -3172,9 +3172,10 @@ class Navigator(NavigatorWebElements):
         counter = 0
         while try_again:
             try:
-                if self.get_network_policy_page_size() != None:
+                page_size_element = self.get_devices_page_size()
+                if page_size_element != None:
                     self.utils.print_info("Clicking on page size...")
-                    if self.auto_actions.click(self.get_network_policy_page_size(page_size)) == 1:
+                    if self.auto_actions.click(page_size_element) == 1:
                         self.screen.save_screen_shot()
                         kwargs['pass_msg'] = " Clicked on page size "
                         self.common_validation.passed(**kwargs)
@@ -3185,7 +3186,7 @@ class Navigator(NavigatorWebElements):
                         self.common_validation.failed(**kwargs)
                         return -1
             except Exception as e:
-                self.utils.print_info(f"enable_page_size, got exception: {e}, with counter: {counter}")
+                self.utils.print_info(f"enable_device_page_size, got exception: {e}, with counter: {counter}")
                 if counter == 5:
                     kwargs['fail_msg'] = f"Not able to click on page size with excption: {e}, counter: {counter}"
                     self.common_validation.failed(**kwargs)

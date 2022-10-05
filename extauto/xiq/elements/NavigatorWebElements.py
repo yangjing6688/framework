@@ -688,3 +688,15 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_port_rows_d360(self):
         return self.weh.get_elements(self.port_rows_d360)
+
+    def get_devices_page_size(self, page_size='100'):
+        try:
+            if els := self.weh.get_elements(self.devices_page_size):
+                for el in els:
+                    if str(page_size) in el.text:
+                        return el
+            # Nothing was found
+            return None
+        except:
+            # An error occured
+            return None
