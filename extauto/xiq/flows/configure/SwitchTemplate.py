@@ -2168,12 +2168,12 @@ class SwitchTemplate(object):
 
     def delete_switch_templates_from_policy(self, nw_policy, sw_templates_name, **kwargs):
         """
-        - This keyword will delete the switch multiple templates from a newtwork policy
+        - This keyword will delete the multiple switch templates from a newtwork policy
         - Flow: Network Policies -> Edit nw_policy -> Device Templates -> Select Template -> Delete Template
         :param nw_policy: The name of the network policy
-        :param sw_template_name: The name of the template
-        :return: Returns 1 if template is succesfully deleted,
-                 Returns -1 if network policy not found
+        :param sw_template_name: A list of templates which will be deleted. Or a string with templates names separated by comma
+        :return: Returns 1 if templates are succesfully deleted; else -1
+
         """
         if isinstance(sw_templates_name, list):
             sw_template_name_list = sw_templates_name.copy()
