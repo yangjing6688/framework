@@ -3007,6 +3007,7 @@ class CommonObjects(object):
                 self.utils.print_info("Go to first page :  ")
                 self.auto_actions.click(first_page)
                 cnt_page = 1
+                sleep(5)
             else:
                 self.utils.print_info("Can not navigate to first page")
             for page in page_number:
