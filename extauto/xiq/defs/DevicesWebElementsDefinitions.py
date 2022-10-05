@@ -28,6 +28,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 2
         }
 
+    devices_page_number_one = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="pagesWrap"]//a[@data-page="0"]',
+            'wait_for': 5
+        }
+
     devices_page_grid_ap_name_cells = \
         {
             'CSS_SELECTOR': '.field-hostname',

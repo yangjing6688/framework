@@ -22,6 +22,7 @@ from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElemen
 from extauto.xiq.elements.FilterManageDeviceWebElements import FilterManageDeviceWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.flows.configure.UserGroups import UserGroups
+from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 
 
@@ -32,6 +33,7 @@ class NetworkPolicy(object):
         self.wireless_nw = WirelessNetworks()
         self.auto_actions = AutoActions()
         self.navigator = Navigator()
+        self.common_objects = CommonObjects()
         self.np_web_elements = NetworkPolicyWebElements()
         self.device = Devices()
         self.device_update_web_elements = DeviceUpdate()
@@ -265,15 +267,32 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -2
 
-        select_flag = None
-        for policy in policies:
-            if self._search_network_policy_in_list_view(policy) == 1:
-                self.utils.print_info("Select Network policy row")
-                self.select_network_policy_row(policy)
-                select_flag = True
-                sleep(1)
-            else:
-                self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
+        # Get the total pages
+        pages = self.common_objects.cobj_web_elements.get_page_numbers()
+        last_page = int(pages.text[-1])
+        page_counter = 0
+        self.utils.print_info(f"There are {last_page} page(s) to check")
+        while page_counter < last_page:
+            select_flag = None
+            for policy in policies:
+                if self._search_network_policy_in_list_view(policy) == 1:
+                    self.utils.print_info("Select Network policy row")
+                    self.select_network_policy_row(policy)
+                    select_flag = True
+                    sleep(1)
+                    break
+                else:
+                    self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
+
+            if select_flag:
+                # we found what we were looking for, so exit
+                break
+
+            # goto the next page
+            page_counter += 1
+            self.utils.print_info(f"Move to next page {page_counter}")
+            self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
+            sleep(5)
 
         if not select_flag:
             kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"

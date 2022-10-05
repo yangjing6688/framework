@@ -198,13 +198,30 @@ class CommonObjects(object):
             self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
             sleep(5)
 
-        select_ssid_flag = None
-        for ssid in ssids:
-            if self._search_common_object(ssid):
-                self._select_common_object_row(ssid)
-                select_ssid_flag = True
-            else:
-                self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
+        # Get the total pages
+        pages = self.cobj_web_elements.get_page_numbers()
+        last_page = int(pages.text[-1])
+        page_counter = 0
+        self.utils.print_info(f"There are {last_page} page(s) to check")
+        while page_counter < last_page:
+            select_ssid_flag = None
+            for ssid in ssids:
+                if self._search_common_object(ssid):
+                    self._select_common_object_row(ssid)
+                    select_ssid_flag = True
+                    break
+                else:
+                    self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
+
+            if select_ssid_flag:
+                # we found what we were looking for, so exit
+                break
+
+            # goto the next page
+            page_counter += 1
+            self.utils.print_info(f"Move to next page {page_counter}")
+            self.auto_actions.click_reference(self.cobj_web_elements.get_next_page_element)
+            sleep(5)
 
         if not select_ssid_flag:
             kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"

@@ -3302,12 +3302,10 @@ class Devices:
                                                          device_mac=device_mac):
                     if self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac):
                         self.utils.print_info("Click delete button")
-                        self.web_element_ctrl.action_method(self.auto_actions.click,
-                                                            self.devices_web_elements.get_delete_button)
+                        self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
 
                         self.utils.print_info("Click confirmation Yes Button")
-                        self.web_element_ctrl.action_method(self.auto_actions.click,
-                                                            self.dialogue_web_elements.get_confirm_yes_button)
+                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
                         self.screen.save_screen_shot()
 
                         # Wait until 'loading' mask is cleared
@@ -3411,6 +3409,11 @@ class Devices:
         # navigate to devices page
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
+
+        # reset the page number to 1
+        pageOne = self.devices_web_elements.get_devices_page_number_one()
+        self.utils.print_info("Clicking on Page 1 in devices page.")
+        self.auto_actions.click(pageOne)
 
         if not device_serial and device_mac and device_name:
             kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
