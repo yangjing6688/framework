@@ -1319,7 +1319,7 @@ class NavigatorWebElementDefinitions:
             'CSS_SELECTOR': '.port-details-entry'
         }
 
-    devices_page_size = \
+    page_size = \
         {
             'CSS_SELECTOR': '.J-page-size.ui-page-size',
             'wait_for': 5

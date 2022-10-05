@@ -127,7 +127,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.get_devices_page():
             self.utils.print_info("Already in Devices page")
-            self.enable_device_page_size(page_size='100')
+            self.enable_page_size(page_size='100')
             return 1
         else:
             if self.navigate_to_manage_tab() == 1:
@@ -135,7 +135,7 @@ class Navigator(NavigatorWebElements):
                 if self.auto_actions.click_reference(self.get_devices_nav) == 1:
                     self.utils.print_info("Clicking Devices Tab...")
                     sleep(10)
-                    self.enable_device_page_size(page_size='100')
+                    self.enable_page_size(page_size='100')
                     return 1
                 else:
                     self.utils.print_info("Unable to navigate to Devices tab")
@@ -3159,12 +3159,12 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def enable_device_page_size(self, page_size='50', **kwargs):
+    def enable_page_size(self, page_size='50', **kwargs):
         """
             - This keyword clicks the page size of that page
                  - Flow Manage--> Common --> Navigator
                  - Keyword Usage
-                  - ``enable_device_page_size  page_size=20``
+                  - ``enable_page_size  page_size=20``
 
                 :return: 1 if enabling page size successfully else returns -1
         """
@@ -3172,7 +3172,7 @@ class Navigator(NavigatorWebElements):
         counter = 0
         while try_again:
             try:
-                page_size_element = self.get_devices_page_size()
+                page_size_element = self.get_page_size()
                 if page_size_element != None:
                     self.utils.print_info("Clicking on page size...")
                     if self.auto_actions.click(page_size_element) == 1:
