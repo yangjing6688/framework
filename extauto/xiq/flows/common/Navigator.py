@@ -3159,7 +3159,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def enable_page_size(self, page_size='100', **kwargs):
+    def enable_page_size(self, page_size='50', **kwargs):
         """
             - This keyword clicks the page size of that page
                  - Flow Manage--> Common --> Navigator
@@ -3176,7 +3176,7 @@ class Navigator(NavigatorWebElements):
                     self.utils.print_info("Clicking on page size...")
                     if self.auto_actions.click(self.get_network_policy_page_size(page_size)) == 1:
                         self.screen.save_screen_shot()
-                        kwargs['pass_msg'] = " Clicking on page size "
+                        kwargs['pass_msg'] = " Clicked on page size "
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
