@@ -982,6 +982,107 @@ class CommonObjects(object):
                     self.common_validation.passed(**kwargs)
                     return 1
 
+    def delete_supplemental_cli_profile(self, supplemental_cli_name, **kwargs):
+        """
+        - Flow: Configure --> Common Objects --> Basic --> Supplemental CLI Objects
+        - Delete specified supplemental cli profile from the Supplemental CLI Objects grid
+        - Keyword Usage:
+         - ``Delete Supplemental Cli Profile  ${SUPPLEMENTAL_CLI_NAME}``
+        :param supplemental_cli_name: Name of the supplemental cli profile
+        :return: 1 if deleted else -1
+        """
+
+        self.navigator.navigate_to_supplemental_cli_objects()
+        self.utils.wait_till(self.cobj_web_elements.get_common_object_supp_cli_grid_rows)
+
+        self.utils.print_info("Searching for 500 rows per page button...")
+        view_all_pages = self.cobj_web_elements.get_common_object_basic_supp_cli_view_all_pages()
+        if view_all_pages:
+            self.utils.print_info("Found 500 rows per page button. Clicking...")
+            self.auto_actions.click(view_all_pages)
+        else:
+            self.utils.print_info("500 rows per page button not present! Continue running...")
+
+        self.utils.print_info(f"Searching Supplemental Cli Profile: {supplemental_cli_name} on all pages...")
+        current_page = 1
+        found_scli = 0
+
+        while True:
+            rows = self.cobj_web_elements.get_common_object_supp_cli_grid_rows()
+            self.utils.print_info(f"Searching SCLI Profile: {supplemental_cli_name} on page: {current_page}...")
+            for row in rows:
+                if supplemental_cli_name in row.text:
+                    self.utils.print_info(f"Found SCLI Profile: {supplemental_cli_name} on row: ", row.text)
+                    found_scli = 1
+
+                    self.utils.print_info("Clicking the row's checkbox...")
+                    check_box = self.cobj_web_elements.get_common_object_supp_cli_grid_row_cells(row, '0')
+                    if check_box:
+                        self.auto_actions.click(check_box)
+                    else:
+                        kwargs['fail_msg'] = "Did not find row's check box!"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    self.utils.print_info("Clicking on delete button")
+                    delete_button = self.cobj_web_elements.get_common_objects_delete_button()
+                    if delete_button:
+                        self.auto_actions.click(delete_button)
+
+                        confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
+                        if confirm_delete_btn:
+                            self.utils.print_info("Clicking on confirm Yes button")
+                            self.auto_actions.click(confirm_delete_btn)
+                            kwargs['pass_msg'] = f"YES button has been clicked! Supplemental Cli Profile: " \
+                                                 f"{supplemental_cli_name} has been deleted!"
+                            self.common_validation.validate(1, 1, **kwargs)
+                            return 1
+
+                        kwargs['pass_msg'] = f"Delete button has been clicked! Supplemental Cli Profile: " \
+                                             f"{supplemental_cli_name} has been deleted!"
+                        self.common_validation.validate(1, 1, **kwargs)
+                        return 1
+                    else:
+                        self.utils.print_info("Didn't find the delete button!")
+                        kwargs['fail_msg'] = "Didn't find the delete button!"
+                        self.screen.save_screen_shot()
+                        self.common_validation.validate(-1, 1, **kwargs)
+                        return -1
+
+            if not found_scli:
+                self.utils.print_info(f"Supplemental Cli Profile: {supplemental_cli_name} is not present on page: "
+                                      f"{str(current_page)}")
+                if not self.cobj_web_elements.get_next_page_element_disabled():
+                    self.utils.print_info("Checking the next page: ", str(current_page + 1) + ' ...')
+                    self.utils.print_info("Clicking next page...")
+                    next_page_button = self.cobj_web_elements.get_next_page_element()
+                    if self.cobj_web_elements.get_next_page_element():
+                        if next_page_button:
+                            self.auto_actions.click(next_page_button)
+                            current_page += 1
+                        else:
+                            self.utils.print_info("Did not manage to find the next page button")
+                            kwargs['fail_msg'] = "Did not manage to find the next page button"
+                            self.screen.save_screen_shot()
+                            self.common_validation.validate(-1, 1, **kwargs)
+                            return -1
+                    else:
+                        self.utils.print_info("Did not find next page button!")
+                        kwargs['fail_msg'] = "Did not find next page button!"
+                        self.screen.save_screen_shot()
+                        self.common_validation.validate(-1, 1, **kwargs)
+                        return -1
+                else:
+                    self.utils.print_info("This is the last page: ", str(current_page))
+                    self.utils.print_info(f"Checked all {current_page} pages for Supplemental Cli Profile: "
+                                          f"{supplemental_cli_name} ;"
+                                          f"It was already deleted or it hasn't been created yet!")
+                    kwargs['pass_msg'] = f"Checked all {current_page} pages for Supplemental Cli Profile: " \
+                                         f"{supplemental_cli_name} ;" \
+                                         f"It was already deleted or it hasn't been created yet!"
+                    self.common_validation.validate(1, 1, **kwargs)
+                    return 1
+
     def _get_switch_template_row(self, search_string):
         """
         Gets the row in Switch Template grid;  this is different from common as it uses a different field name to find the Template

@@ -2877,7 +2877,7 @@ class Device360WebElementDefs:
             'XPATH': './/input[contains(@data-automation-tag, "automation-port-stp-port-path-cost")]',
             'wait_for': 5
         }
-        
+
     device360_overview_select_port = \
         {
             'XPATH': '//div[@data-automation-tag="automation-port-$index"]'
@@ -2964,7 +2964,7 @@ class Device360WebElementDefs:
             "XPATH": "//div[@data-automation-tag='automation-port-list-grid']//div[@role='row' and contains(@class, 'dgrid-row')]",
             'wait_for': 5
         }
-		
+
     d360_pagination_current_page = \
         {
             'XPATH': '//span[@class="pagination-page current-pagination"]',
@@ -3055,11 +3055,29 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_event_expand_more = \
+        {
+            "XPATH": 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-description")]//span[@class = "more"]',
+            'wait_for': 5
+        }
+
+    device360_event_more_expand_value = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="msgContainer"]/p[@data-dojo-attach-point="desEl"]',
+            'wait_for': 5
+        }
+
+    device360_event_more_close_btn = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-notification-no-btn"]',
+            'wait_for': 5
+        }
+    
     select_element_port_type_pse_profile_power_limit = \
-	    {
-	        'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
-	        'wait_for': 5
-	    }
+        {
+	'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+	'wait_for': 5
+        }
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
         {
@@ -3076,4 +3094,4 @@ class Device360WebElementDefs:
         {       
             'CSS_SELECTOR': '.J-ip-more'
         }
-        
+    

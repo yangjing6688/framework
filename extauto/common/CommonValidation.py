@@ -38,7 +38,7 @@ class CommonValidation():
         """
         test_result = False
         ivr_flag = self.get_kwarg(kwargs, "IRV", True)
-        xapi_flag = self.get_kwarg(kwargs, "XAPI", True)
+        
         if ivr_flag:
             self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             self.logger.info("Internal Result Verification is Enabled")
@@ -86,14 +86,12 @@ class CommonValidation():
             else:
                 # Print the error message
                 full_error_msg = fail_msg + " Expected Value: " + str(expectedValue) + " Value: " + str(value)
+                # Added screen capture in case of errors or problems
+                self.screen.save_screen_shot()
                 pytest.fail(full_error_msg, pytrace=False)
                 assert value == expectedValue, full_error_msg
         else:
             test_result = True
-
-        # Added screen capture in case of errors or problems
-        if not xapi_flag:
-            self.screen.save_screen_shot()
 
         return test_result
 

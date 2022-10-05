@@ -12086,7 +12086,29 @@ class Devices:
             self.auto_actions.click(one_hundred_devices_per_page)
         else:
             self.utils.print_info("Didn't find 100 rows per page button... Continuing run...")
-            
+
+    def get_device_updated_fail_message_after_reboot(self, device_serial=None, device_mac=None):
+        """
+        This keyword gets information of the update failed status in XIQ for a device after reboot/rollback
+        configuration
+        :param device_serial: Gets the information of the update failed status based on serial number
+        :param device_mac:  Gets the information of the update failed status based on address MAC
+        :return: status if the information was found else -1
+        """
+        if device_serial:
+            self.select_device(device_serial)
+        if device_mac:
+            self.select_device(device_mac)
+        self.utils.print_info("Checking the update the status")
+        sleep(5)
+        status = self.devices_web_elements.get_status_update_failed_after_reboot()
+        if status is not None and "The device was rebooted and reverted to previous configuration" in status:
+            self.utils.print_info("Update status: ", status)
+            return status
+        else:
+            self.utils.print_info("Update status not found")
+            return -1
+
     def get_device_model(self, mac, **kwargs):
         """
         - This keyword will get the device model string from a device row using the mac
@@ -12129,3 +12151,4 @@ class Devices:
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
+            
