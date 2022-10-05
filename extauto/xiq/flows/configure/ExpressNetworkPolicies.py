@@ -81,6 +81,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         if new_express_btn and new_express_btn.is_displayed():
             self.auto_actions.click(new_express_btn)
         else:
+            sleep(1)
             if self._search_network_policy_in_card_view(policy_name):
                 kwargs['pass_msg'] = f"Network policy:{policy_name} already exists in the network polices list"
                 self.common_validation.passed(**kwargs)
@@ -198,6 +199,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.screen.save_screen_shot()
             return -1
 
+        sleep(5)
         # Verify popup is closed by searching for the Done button again.  Race condition has done visible while
         #    not selectible.
         self.utils.print_info("Check express policy popup closed")

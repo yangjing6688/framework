@@ -436,37 +436,43 @@ class MLInsightsPlanDefinitions:
 
     n360_select_floor_more = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="3"]//span[contains(@class, "more")]',
+            # 'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="3"]//span[contains(@class, "more")]',
+            'CSS_SELECTOR': '.map-tree .level3 .actions .more',
             'wait_for': 2
         }
 
     n360_delete_floor = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="3"]//span[contains(@class, "delete")]',
+            # 'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="3"]//span[contains(@class, "delete")]',
+            'CSS_SELECTOR': '.map-tree .level3 .actions.actions-expand .delete',
             'wait_for': 5
         }
 
     n360_select_building_more = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="2"]//span[contains(@class, "more")]',
+            # 'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="2"]//span[contains(@class, "more")]',
+            'CSS_SELECTOR': '.map-tree .level2 .actions .more',
             'wait_for': 2
         }
 
     n360_delete_building = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="2"]//span[contains(@class, "delete")]',
+            # 'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="2"]//span[contains(@class, "delete")]',
+            'CSS_SELECTOR': '.map-tree .level2 .actions.actions-expand .delete',
             'wait_for': 5
         }
 
     n360_select_location_more = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="1"]//span[contains(@class, "more")]',
+            # 'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="1"]//span[contains(@class, "more")]',
+            'CSS_SELECTOR': '.map-tree .level1 .actions .more',
             'wait_for': 2
         }
 
     n360_delete_location = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="1"]//span[contains(@class, "delete")]',
+            # 'XPATH': '//div[@data-dojo-attach-point="mapTree"]//dd[@data-level="1"]//span[contains(@class, "delete")]',
+            'CSS_SELECTOR': '.map-tree .level1 .actions.actions-expand .delete',
             'wait_for': 5
         }
 
@@ -474,6 +480,12 @@ class MLInsightsPlanDefinitions:
         {
             'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
             'wait_for': 5
+        }
+
+    n360_more_actions = \
+        {
+            'CSS_SELECTOR': '.map-tree .actions-expand',
+            'wait_for': 2
         }
 
     n360_country_list_click = \
@@ -524,6 +536,12 @@ class MLInsightsPlanDefinitions:
     n360_save_button_floor = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnChoose"]',
+            'wait_for': 5
+        }
+
+    n360_scale_floor_plan_windows = \
+        {
+            'CSS_SELECTOR': '.scale-floor-plan',
             'wait_for': 5
         }
 

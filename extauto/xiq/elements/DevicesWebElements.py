@@ -37,6 +37,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return False
 
+    def get_devices_page_number_one(self):
+        return self.weh.get_elements(self.devices_page_number_one)
+
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)
         return refresh_icon
@@ -163,6 +166,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.device_os_change_error_message)
 
+    def get_device_update_error_message(self):
+        """
+        :return error message
+        """
+        return self.weh.get_element(self.device_update_error_message)
+
     def get_device_delete_confirm_ok_button(self):
         """
         :return: device delete button triggers confirmation dialog
@@ -271,8 +280,29 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_device_actions_button(self):
         return self.weh.get_element(self.manage_device_actions_button)
 
+    def get_manage_device_actions_change_management_status(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status)
+
+    def get_manage_device_actions_change_management_status_manage(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_manage)
+
+    def get_manage_device_actions_change_management_status_unmanage(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_unmanage)
+
+    def get_manage_device_actions_change_management_status_yes_button(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_yes_button)
+
+    def get_manage_device_actions_change_management_status_no_button(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_no_button)
+
+    def get_manage_device_actions_change_management_status_close_dialog(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_close_dialog)
+
     def get_manage_device_utilities_button(self):
         return self.weh.get_element(self.manage_device_utilities_button)
+
+    def get_manage_device_utilities_wan_access(self):
+        return self.weh.get_element(self.manage_device_utilities_wan_access())
 
     def get_actions_assign_network_policy_combo(self):
         elements = self.weh.get_elements(self.actions_assign_network_policy)
@@ -280,13 +310,20 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_action_assign_network_policy_dialog(self):
         return self.weh.get_element(self.action_assign_network_policy_dialog)
-    
+
+    def get_action_assign_network_policy_dialog_cancel_button(self):
+        return self.weh.get_element(self.action_assign_network_policy_dialog_cancel_button)
+
     def get_nw_policy_drop(self):
         return self.weh.get_element(self.nw_policy_drop)
 
     def get_actions_assign_network_policy_drop_down(self):
         dialog = self.get_action_assign_network_policy_dialog()
         return self.weh.get_element(self.actions_assign_network_policy_drop_down, parent=dialog)
+
+    def get_actions_assign_network_policy_drop_down2(self):
+        dialog = self.get_action_assign_network_policy_dialog()
+        return self.weh.get_element(self.actions_assign_network_policy_drop_down2, parent=dialog)
 
     def get_actions_assign_network_policy_drop_down_router(self):
         dialog = self.get_action_assign_network_policy_dialog()
@@ -300,6 +337,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_ui_banner_error_message(self):
         return self.weh.get_element(self.ui_banner_error_message)
+
+    def get_ui_banner_warning_message(self):
+        return self.weh.get_element(self.ui_banner_warning_message)
 
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)
@@ -519,6 +559,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: advanced add device make drop down to select the make of device (aerohive, voss, etc.)
         """
         return self.weh.get_element(self.devices_advanced_add_device_make_drop_down)
+
+    def get_devices_quick_add_block_show(self):
+        return self.weh.get_element(self.devices_quick_add_block_show)
 
     def get_devices_quick_add_device_make_aerohive_choice(self):
         """
@@ -1275,3 +1318,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         parent = self.get_digital_twin_os_version_dropdown()
         return self.weh.get_elements(self.digital_twin_os_version_dropdown_items, parent)
+
+    def get_100_rows_per_page_button(self):
+        """
+        :return: Devices > 100 rows per page button
+        """
+        return self.weh.get_element(self.one_hundred_rows_per_page_button)

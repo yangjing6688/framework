@@ -289,6 +289,18 @@ class MacMuConnect(object):
         cmd = 'ping ' + str(destination) + ' -c ' + str(count)
         process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
 
+    def kill_native_captive(self):
+        """
+        :send killall 'Captive Network Assistant'
+        """
+        cmd1 = "killall -HUP mDNSResponder"
+        cmd2 = "killall 'Captive Network Assistant'"
+        out1 = self._execute_commands(cmd1)
+        out2 = self._execute_commands(cmd2)
+        sleep(2)
+        out2 = self._execute_commands(cmd2)
+        print(f"{out1}\n{out2}")
+
     @staticmethod
     def _execute_commands(cmd):
         """

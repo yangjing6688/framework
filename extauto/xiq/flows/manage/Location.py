@@ -345,10 +345,25 @@ class Location:
         sleep(0.5)
         self.utils.print_info("Deleting floor ....")
         if self.ml_insights_plan_web_elements.get_n360_select_floor_more():
-            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_select_floor_more())
-            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_floor())
-            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_yes())
-            sleep(3)
+            more_actions_expand = False
+            try_cn = 0
+            while not more_actions_expand:
+                self.utils.print_info("Click floor more....")
+                self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_select_floor_more())
+                if self.ml_insights_plan_web_elements.get_n360_more_actions():
+                    more_actions_expand = True
+                    self.utils.print_info("Click floor delete button....")
+                    self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_floor())
+                    self.utils.print_info("Click floor delete confirm button....")
+                    self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_yes())
+                    sleep(3)
+                else:
+                    try_cn += 1
+                    self.utils.print_info('Try click n360 more action again...')
+                    if try_cn == 5:
+                        self.utils.print_info(f"Max {try_cn} attempts reach....")
+                        return -1
+
         else:
             self.utils.print_info("The floor doesn't exist ")
             return 1
@@ -358,10 +373,24 @@ class Location:
         sleep(0.5)
         self.utils.print_info("Deleting Building ....")
         if self.ml_insights_plan_web_elements.get_n360_select_building_more():
-            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_select_building_more())
-            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_building())
-            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_yes())
-            sleep(3)
+            more_actions_expand = False
+            try_cn = 0
+            while not more_actions_expand:
+                self.utils.print_info("Click building more....")
+                self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_select_building_more())
+                if self.ml_insights_plan_web_elements.get_n360_more_actions():
+                    more_actions_expand = True
+                    self.utils.print_info("Click building delete button....")
+                    self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_building())
+                    self.utils.print_info("Click building delete confirm button....")
+                    self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_yes())
+                    sleep(3)
+                else:
+                    try_cn += 1
+                    self.utils.print_info('Try click n360 more action again...')
+                    if try_cn == 5:
+                        self.utils.print_info(f"Max {try_cn} attempts reach....")
+                        return -1
         else:
             self.utils.print_info("The build doesn't exist ")
             return 1
@@ -371,9 +400,23 @@ class Location:
         sleep(0.5)
         self.utils.print_info("Deleting Location ....")
         if self.ml_insights_plan_web_elements.get_n360_select_location_more():
-            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_select_location_more())
-            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_location())
-            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_yes())
+            more_actions_expand = False
+            try_cn = 0
+            while not more_actions_expand:
+                self.utils.print_info("Click location more....")
+                self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_select_location_more())
+                if self.ml_insights_plan_web_elements.get_n360_more_actions():
+                    more_actions_expand = True
+                    self.utils.print_info("Click location delete button....")
+                    self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_location())
+                    self.utils.print_info("Click location delete confirm button....")
+                    self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_delete_yes())
+                else:
+                    try_cn += 1
+                    self.utils.print_info('Try click n360 more action again...')
+                    if try_cn == 5:
+                        self.utils.print_info(f"Max {try_cn} attempts reach....")
+                        return -1
         else:
             self.utils.print_info("The Location doesn't exist ")
             return 1
@@ -471,7 +514,7 @@ class Location:
         :param street: name of street
         :param city: name of city
         :param country: select the country
-        :return: return 1 if the organization was created successfully, else -1
+        :return: return 1 if the organization was created successfully, 2 if organization already exists, else -1
         '''
 
         self.utils.print_info("Clicking on Devices Planning")
@@ -492,13 +535,13 @@ class Location:
             self.utils.print_info("New map button found")
         else:
             self.utils.print_info("Organisation already existed")
-            return 1
+            return 2
         if self.ml_insights_plan_web_elements.get_n360_plan_map_organization_text():
             self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_plan_map_organization_text())
             sleep(3)
         else:
             self.utils.print_info("Organisation already existed")
-            return 1
+            return 2
 
         self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_plan_map_organization_text(),organization)
         sleep(3)
@@ -548,16 +591,32 @@ class Location:
         self.utils.print_info("Choose from Library")
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_choose_from_library())
         sleep(3)
+        self.utils.print_info("Choose image")
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_choose_image())
         sleep(3)
+        self.utils.print_info("Click choose button")
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_save_button_floor())
         sleep(3)
-        self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_size_floor_plan())
+        n360_scale_floor_plan_windows_display = False
+        try_cnt = 0
+        while not n360_scale_floor_plan_windows_display:
+            self.utils.print_info("Click n360 size floor plan")
+            self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_size_floor_plan())
+            if self.ml_insights_plan_web_elements.get_n360_scale_floor_plan_windows():
+                n360_scale_floor_plan_windows_display = True
+            else:
+                try_cnt += 1
+                self.utils.print_info(f"{try_cnt} attempts to try to click size floor plan")
+                if try_cnt == 10:
+                    self.utils.print_info(f"The Max {try_cnt} attempts, still failed")
+                sleep(2)
         sleep(3)
+        self.utils.print_info("Fill in width")
         self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_width_floor(), width)
         sleep(3)
         #Comment below lines until XIQ-8469 will be resolved
         #self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_height_floor(), height)
         #sleep(3)
+        self.utils.print_info("Click n360 apply button")
         self.auto_actions.click(self.ml_insights_plan_web_elements.get_n360_apply_button())
         return 1

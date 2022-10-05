@@ -6,6 +6,60 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    device_actions_button_disable = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-manage-device-actions"] //button[contains(@class, "btn-disable")]',
+            'wait_for': 2
+        }
+
+    device_actions_dropdown = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions"] //*[@class="ui-menu-list" and contains(@style, "display: block")]',
+            'wait_for': 2
+        }
+
+    device_actions_advance = \
+        {
+            'XPATH': '//ul[contains(@class,"ui-menu-list") and contains(@style,"display: block")] //*[@data-automation-tag="automation-manage-device-actions-advanced"]',
+            'wait_for': 2
+        }
+
+    device_actions_advance_cli_access = \
+        {
+            'XPATH': '//ul[contains(@class,"ui-menu-list") and contains(@style,"display: block")] //a[@data-automation-tag="automation-manage-device-actions-router-cli-access"]',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_input = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli .cli-command-input',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_input_apply = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli .btn.btn-small.btn-dim',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_cli_result_windows = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli .cli-pane-resut',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_close = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeDialogTop"]',
+            'wait_for': 2
+        }
+
     device_actions_reboot_menu_item = \
         {
             'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag, "-reboot")]',

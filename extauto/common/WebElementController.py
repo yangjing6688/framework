@@ -20,11 +20,11 @@ class WebElementController:
         self.utils.print_info("Web Element is not present")
         return -1
 
-    def action_method(self, action_method, get_web_element_method, retry_times=3, **kwargs):
+    def action_method(self, action_method, get_web_element_method, retry_times=10, **kwargs):
         """
             - This keyword is used to do a certain action using a web element
             - In case of Stale Reference Exception, try to get the web element again
-            - Retry times = 3
+            - Retry times = 10
         :param action_method: The action method - e.g. click, move_to_element, etc
         :param get_web_element_method: The method used to get the web element
                                         - e.g. devices_web_elements.get_refresh_devices_page
@@ -42,7 +42,7 @@ class WebElementController:
             except Exception as e:
                 self.utils.print_info(f"Excption on action for an element {e}")
                 self.utils.print_info(f"Retry the action on element {web_element} for {retry_count} times")
-                sleep(1)
+                sleep(5)
 
         kwargs['fail_msg'] = "FAIL - Unable to complete the action"
         self.common_validation.validate(-1, 1, **kwargs)
