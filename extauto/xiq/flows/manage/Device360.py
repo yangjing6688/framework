@@ -8315,8 +8315,8 @@ class Device360(Device360WebElements):
 
     def add_new_pse_profile_from_port_type_page_button(self):
         '''
-
-        :return:
+        This keyword click on new pse profile button from pse tab from port type page
+        :return: 1 if button has been found; else -1
         '''
 
         get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
@@ -8330,6 +8330,7 @@ class Device360(Device360WebElements):
 
     def create_new_pse_profile_from_port_type_page(self, value):
         '''
+        This keyword create new pse profile from port type page
 
         :param value:
         'value': {'pse_profile_name': pse_profile_name,
@@ -8338,7 +8339,7 @@ class Device360(Device360WebElements):
                  'pse_profile_priority': pse_profile_priority,
                  'pse_profile_description': pse_profile_description
                  }
-        :return:
+        :return: 1 if profile has been created ; else -1
         '''
 
         if not self.add_new_pse_profile_from_port_type_page_button() == 1:
@@ -8349,6 +8350,7 @@ class Device360(Device360WebElements):
 
     def fill_in_pse_profile_fields(self, value):
         '''
+        This keyword fill in all fields when pse profile is created and save the profile
 
         :param value:
         'value': {'pse_profile_name': pse_profile_name,
@@ -8357,7 +8359,7 @@ class Device360(Device360WebElements):
                  'pse_profile_priority': pse_profile_priority,
                  'pse_profile_description': pse_profile_description
                  }
-        :return:
+        :return: 1 if successfully ; else -1
         '''
 
         get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
@@ -8421,11 +8423,12 @@ class Device360(Device360WebElements):
 
     def device360_edit_select_or_add_new_pse_profile(self, mode, port_number, poe_profile=None):
         '''
+        This keyword edit,select or add new pse profile from port configuration page
 
-        :param mode:
-        :param port_number:
-        :param poe_profile:
-        :return:
+        :param mode: Specify the modes : edit, select or add
+        :param port_number: port
+        :param poe_profile: pse profile name
+        :return: 1 if successfully ; else -1
         '''
         port_rows = self.get_device360_configure_port_pse_rows()
         if port_rows:
@@ -8487,6 +8490,10 @@ class Device360(Device360WebElements):
         return -1
 
     def port_type_nav_to_summary_page_and_save(self):
+        '''
+        This keyword navigate to summary page into port type page and save it .
+        :return: 1 if successfully ; else -1
+        '''
 
         summary_tab = self.get_select_element_port_type("summaryPage")
         if summary_tab:
@@ -8499,10 +8506,11 @@ class Device360(Device360WebElements):
             self.utils.print_info("Summary tab not found")
             return -1
 
-    def template_banner_message_after_save_config(self):
+    def banner_message_after_save_config(self):
         '''
-
-        :return:
+            This keyword return the message displayed after a config is saved.
+            It can be use after save a template, policy or device360 page
+        :return: messages which are displayed ; None if no message is displayed
         '''
 
         message = self.sw_template_web_elements.get_sw_template_error_message()
@@ -8513,20 +8521,32 @@ class Device360(Device360WebElements):
 
     def device360_navigate_to_pse_tab(self):
         '''
-
-        :return:
+        This keyword navigate to pse tab from device360 page
+        :return: 1 if successfully ; else -1
         '''
 
-        self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        port_conf_btn = self.get_device360_configure_port_configuration_button()
+        if port_conf_btn:
+            self.utils.print_info("Click PortConfiguration Button")
+            self.auto_actions.click(port_conf_btn)
+        else:
+            self.utils.print_info("PortConfiguration Button was not found ")
+            return -1
 
-        self.utils.print_info("Click PSE Tab")
-        self.auto_actions.click(self.get_device360_port_configuration_pse_tab())
-
+        pse_tab_button = self.get_device360_port_configuration_pse_tab()
+        if pse_tab_button:
+            self.utils.print_info("Click PSE Tab")
+            self.auto_actions.click(pse_tab_button)
+        else:
+            self.utils.print_info("PSE Tab was not found ")
+            return -1
         return 1
 
     def common_cancel_button(self):
-
+        '''
+        This keyword push the cancel button. It can be use in all pages where cancel button is displayed
+        :return: 1 if succesfully ; else -1
+        '''
         cancel_button = self.get_common_cancel_button()
         if cancel_button:
             self.utils.print_info("Click cancel button")
@@ -8537,6 +8557,11 @@ class Device360(Device360WebElements):
             return -1
 
     def poe_pse_profiles_elements(self, element):
+        '''
+        This keyword returns the web elements returned by get_select_element_port_type function from Device360WebElements.py
+        :param element: Specify the element. See get_select_element_port_type function
+        :return: web element if it has been found; None if element was not found 
+        '''
         return self.get_select_element_port_type(element)
 
 
