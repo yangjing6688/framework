@@ -127,6 +127,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.get_devices_page():
             self.utils.print_info("Already in Devices page")
+            sleep(10)
             self.enable_page_size(page_size='100')
             return 1
         else:
