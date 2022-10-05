@@ -372,13 +372,13 @@ class Device360(Device360WebElements):
                 self.utils.print_info(f"****************** IP/Port Information ************************")
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
-                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
 
                 if retry_counter != 0:
-                    kwargs['fail_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
+                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
                     # we could fail here because it took many times
                     self.common_validation.passed(**kwargs)
                 else:
+                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
                     self.common_validation.passed(**kwargs)
                 self.close_device360_window()
                 return ip_port_info
