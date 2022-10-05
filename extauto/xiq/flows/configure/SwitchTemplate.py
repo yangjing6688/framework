@@ -2127,9 +2127,10 @@ class SwitchTemplate(object):
 
     def nav_to_template_tab(self, nw_policy):
         '''
+        This keyword navigate to template tab from policy
 
-        :param nw_policy:
-        :return:
+        :param nw_policy: name of policy
+        :return: 1 if navigated with success; else -1
         '''
 
         self.utils.print_info("Navigate to devices")
@@ -2148,13 +2149,14 @@ class SwitchTemplate(object):
         if tab.is_displayed():
             self.utils.print_info("Click on Switch Templates tab")
             self.auto_actions.click(tab)
-        return True
+        return 1
 
     def open_template_from_policy(self, sw_template):
         '''
+        This keyword open a template from template tab from policy
 
-        :param template:
-        :return:
+        :param template: template name
+        :return: 1 template is opened with success; else -1
         '''
         row = self.get_sw_template_row(sw_template)
         if row:
