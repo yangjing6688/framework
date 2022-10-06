@@ -63,7 +63,7 @@ class AutoActions:
                         sleep(2)
                     elif count == 1:
                         self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view [arguments[0].scrollIntoView({block:'nearest'})]")
-                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView({block:'nearest'});", element
+                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView({block:'nearest'});", element)
                         sleep(2)
                     elif count == 2:
                         self.utils.print_info("'Element Click Intercepted Exception': Scroll down to page")
