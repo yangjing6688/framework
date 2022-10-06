@@ -36,8 +36,9 @@ class AutoActions:
 
         if element is None:
             self.screen.save_screen_shot()
-            self.builtin.fail(msg="Unable to Click the Element..No WebElement Handler Present for the Element."
+            self.builtin.fail(msg="Unable to Click the Element. The element is None. No WebElement Handler Present for the Element."
                                   "So Exiting the Testcase")
+            return -1
 
         else:
             self.utils.print_debug("Clicking Element: ", element)
@@ -59,7 +60,8 @@ class AutoActions:
                     # If scroll the el into view is not working will scroll down to the end of the page.
                     if count < 2:
                         self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view")
-                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView(true); ", element)
+                        CloudDriver().cloud_driver.execute_script(" arguments[0].scrollIntoView({block:'nearest'})", element)
+                        # CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView(true); ", element)
                         sleep(2)
                     elif 2 < count < 4:
                         self.utils.print_info("'Element Click Intercepted Exception': Scroll down to page")
@@ -89,6 +91,7 @@ class AutoActions:
                     if count == self.retries:
                         self.utils.print_warning("Unable to click the element. Saving Screenshot...")
                         self.screen.save_screen_shot()
+        return -1
 
     def click_with_js(self, element):
         CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)

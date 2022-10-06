@@ -351,7 +351,7 @@ class Device360(Device360WebElements):
 
         sleep(time_interval)
         self.screen.save_screen_shot()
-        if self.get_device_ssh_ui_tip_error() != None:
+        if self.get_device_ssh_ui_tip_error() is not None:
             self.screen.save_screen_shot()
             self.auto_actions.click(self.get_device_ssh_ui_tip_close())
             kwargs['fail_msg'] = f"Encountered an error. Clicking to exit the error window. Please see the screenshot"
@@ -374,12 +374,13 @@ class Device360(Device360WebElements):
                 self.utils.print_info(f"****************** IP/Port Information ************************")
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
-                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
 
                 if retry_counter != 0:
-                    kwargs['fail_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
-                    self.common_validation.failed(**kwargs)
+                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
+                    # we could fail here because it took many times
+                    self.common_validation.passed(**kwargs)
                 else:
+                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
                     self.common_validation.passed(**kwargs)
                 self.close_device360_window()
                 return ip_port_info
@@ -387,10 +388,10 @@ class Device360(Device360WebElements):
                 self.utils.print_info(
                     f"****************** IP/Port Information is not available after {time_interval} seconds ************************")
                 sleep(time_interval)
-                retry_count += 30
+                retry_count += 1
 
         # we got here, so let's try this again
-        if (retry_counter == 5):
+        if retry_counter == 5:
             kwargs['fail_msg'] = f"Failed to get the SSH and port information"
             self.common_validation.failed(**kwargs)
             return -1
@@ -944,7 +945,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("SSH has been disabled")
 
-        kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+        kwargs['pass_msg'] = f"SSH has been disabled successfully!"
         self.common_validation.passed(**kwargs)
         return 1
 
