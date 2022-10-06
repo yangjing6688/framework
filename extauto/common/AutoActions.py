@@ -29,7 +29,6 @@ class AutoActions:
         """
         - This Keyword Uses to Click the Mentioned Web Element
         - If the Element is not visible into view it Scroll element into view and Scroll down into page to click Element
-
         :param element: Web Element to Click on Web Page
         :return: None
         """
@@ -42,12 +41,8 @@ class AutoActions:
 
         else:
             self.utils.print_debug("Clicking Element: ", element)
-            # Create seprate counter for the types of exceptions that could occur to ensure we walk through all of the possiable solutions
-            countElementClickInterceptedException = 0
-            countStaleElementReferenceException = 0
-            countElementNotInteractableException = 0
-            counterException = 0
-            while True: # count < self.retries:
+            count = 0
+            while count < self.retries:
                 try:
                     if type(element) is tuple:
                         self.click_image(element)
@@ -62,74 +57,46 @@ class AutoActions:
                     # To Overcome the Click Intercepted Exception we need to wait either explicit or implicit wait
                     # due to Xiq Application limitation we need to scroll the el into view, which is not visible on the page
                     # If scroll the el into view is not working will scroll down to the end of the page.
-                    if countElementClickInterceptedException == 0:
-                        # Let's try the javascript click method
-                        self.utils.print_info("Attempt 0 -> 'Element Click Intercepted Exception': trying javascript:  arguments[0].click();")
-                        CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
-                        sleep(2)
-                    elif countElementClickInterceptedException == 1:
-                        # Let's try scrolling into view
-                        self.utils.print_info("Attempt 1 -> 'Element Click Intercepted Exception': Scroll element into view: arguments[0].scrollIntoView(true)")
+                    if count == 0:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view [arguments[0].scrollIntoView(true)]")
                         CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView(true); ", element)
                         sleep(2)
-                    elif countElementClickInterceptedException == 2:
-                        # Let's try scrolling into view to the nearest block
-                        self.utils.print_info("Attempt 2 -> 'Element Click Intercepted Exception': Scroll element into view: arguments[0].scrollIntoView({block:'nearest'})")
-                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView({block:'nearest'})", element)
-                    elif countElementClickInterceptedException == 3:
-                        # Let's try scrolling down on the page
-                        self.utils.print_info("Attempt 3 -> 'Element Click Intercepted Exception': Scroll down on the page")
+                    elif count == 1:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view [arguments[0].scrollIntoView({block:'nearest'})]")
+                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView({block:'nearest'});", element
+                        sleep(2)
+                    elif count == 2:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll down to page")
                         self.scroll_down()
                         sleep(2)
-                    elif countElementClickInterceptedException == 4:
-                        # Let's try scrolling up on the page
-                        self.utils.print_info("Attempt 4 -> 'Element Click Intercepted Exception': Scroll up on the page")
+                    elif count == 3:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll up to page")
                         self.scroll_up()
                         sleep(2)
-                    else:
-                        self.utils.print_warning("Unable to click the element. Saving Screenshot...")
-                        self.screen.save_screen_shot()
-                        return -1
-
-                    countElementClickInterceptedException += 1
+                    elif count == 4:
+                        self.utils.print_info("'Element Click Intercepted Exception': trying javascript click().")
+                        CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
+                        sleep(2)
+                    count += 1
 
                 except StaleElementReferenceException:
-                    if countStaleElementReferenceException == self.retries:
-                        self.utils.print_warning("StaleElementReferenceException was retried 5 times, Unable to click the element. Saving Screenshot...")
-                        self.screen.save_screen_shot()
-                        return -1
-                    else:
-                        # reset this exception counter so we will do all of the actions
-                        countElementClickInterceptedException = 0
-                        self.utils.print_debug("Error: StaleElementReferenceException. Retrying after 5 seconds...")
-                        countStaleElementReferenceException += 1
-                        sleep(5)
+                    self.utils.print_debug("Error: StaleElementReferenceException. Retrying after 5 seconds...")
+                    count += 1
+                    sleep(5)
 
                 except ElementNotInteractableException:
-                    if countStaleElementReferenceException == self.retries:
-                        self.utils.print_warning("ElementNotInteractableException was retried 5 times, Unable to click the element. Saving Screenshot...")
-                        self.screen.save_screen_shot()
-                        return -1
-                    else:
-                        # reset this exception counter so we will do all of the actions
-                        countElementClickInterceptedException = 0
-                        self.utils.print_debug("Error: ElementNotInteractableException. Retrying after 5 seconds...")
-                        countElementNotInteractableException += 1
-                        sleep(5)
+                    self.utils.print_debug("Error: ElementNotInteractableException. Retrying after 5 seconds...")
+                    count += 1
+                    sleep(5)
 
                 except Exception as e:
-                    if counterException == self.retries:
+                    self.utils.print_info("Exception while click: ", e)
+                    self.utils.print_info("Retrying after 5 seconds...")
+                    sleep(5)
+                    count += 1
+                    if count == self.retries:
                         self.utils.print_warning("Unable to click the element. Saving Screenshot...")
                         self.screen.save_screen_shot()
-                        return -1
-                    else:
-                        # reset this exception counter so we will do all of the actions
-                        countElementClickInterceptedException = 0
-                        self.utils.print_info(f"Exception while click: {e}")
-                        self.utils.print_info("Retrying after 5 seconds...")
-                        sleep(5)
-                        counterException += 1
-
         return -1
 
     def click_with_js(self, element):
