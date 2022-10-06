@@ -7212,33 +7212,28 @@ class Devices:
 
         return ret_val
 
-    def actions_xiqse_maximum_site_engine_message(self):
+    def is_xiqse_maximum_site_engine_message_displayed(self, **kwargs):
         """
         - This keyword checks if the 'Maximum 5 Site Engine > Device View' message banner is displayed.
         - The message banner will be closed, if displayed.
         - Keyword Usage
-         - ``Actions XIQSE Maximum Site Engine Message``
-        :return: 1 if the menu option is displayed, else -1
+         - ``Is XIQSE Maximum Site Engine Message Displayed``
+        :return: True if the message banner is displayed, else False
         """
-        ret_val = -1
-
         self.utils.print_info("Checking for the 'Maximum 5 Site Engine > Device View...` message")
-        max_ose_msg = self.devices_web_elements.get_actions_maximum_site_engine_message()
-        if max_ose_msg:
-            self.utils.print_info("`Maximum 5 Site Engine > Device view...' message is displayed")
-            self.screen.save_screen_shot()
-            sleep(2)
-            max_ose_msg_btn = self.devices_web_elements.get_actions_maximum_site_engine_message_box()
-            ret_val = 1
-            if max_ose_msg_btn:
-                self.utils.print_info("Closing the `Maximum 5 Site Engine > Device view...' message")
-                self.auto_actions.click(max_ose_msg_btn)
-                self.screen.save_screen_shot()
-        else:
-            self.utils.print_info("Could not find the 'Maximum 5 Site Engine > Device View...' message")
-            self.screen.save_screen_shot()
+        self.screen.save_screen_shot()
+        if self.devices_web_elements.get_ui_banner_warning_message():
+            banner_warning_text = self.devices_web_elements.get_ui_banner_warning_message().text
+            if "Maximum 5 Site Engine" in banner_warning_text:
+                self.utils.print_info(f"Warning Message: {banner_warning_text}")
+                self.auto_actions.click_reference(self.devices_web_elements.get_ui_banner_warning_close_button)
+                kwargs['pass_msg'] = f"{banner_warning_text}"
+                self.common_validation.passed(**kwargs)
+                return True
 
-        return ret_val
+        kwargs['fail_msg'] = "Expected Warning Message Banner not found."
+        self.common_validation.failed(**kwargs)
+        return False
 
     def actions_menu_disabled(self):
         """
