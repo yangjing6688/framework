@@ -287,7 +287,7 @@ class Device360(Device360WebElements):
         return ret_val
 
     def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30,
-                                              retry_time=15, retry_counter=0, **kwargs):
+                                              retry_time=15, **kwargs):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -389,18 +389,6 @@ class Device360(Device360WebElements):
                     f"****************** IP/Port Information is not available after {time_interval} seconds ************************")
                 sleep(time_interval)
                 retry_count += 1
-
-        # we got here, so let's try this again
-        if retry_counter == 5:
-            kwargs['fail_msg'] = f"Failed to get the SSH and port information"
-            self.common_validation.failed(**kwargs)
-            return -1
-        else:
-            retry_counter += 1
-            self.close_device360_window()
-            self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
-            return self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
-                                                              retry_time, retry_counter, **kwargs)
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
         """
