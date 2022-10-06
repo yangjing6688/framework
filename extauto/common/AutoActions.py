@@ -47,7 +47,7 @@ class AutoActions:
             countStaleElementReferenceException = 0
             countElementNotInteractableException = 0
             counterException = 0
-            while count < self.retries:
+            while True: # count < self.retries:
                 try:
                     if type(element) is tuple:
                         self.click_image(element)
