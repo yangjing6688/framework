@@ -299,8 +299,7 @@ class Device360(Device360WebElements):
         :param device_name: The device Name
         :param run_time: The run time value to keep the ssh open (5, 30, 60, 120, 240)
         :param time_interval: sleep time to read in the new ssh port / ip values
-        :param retry_time: The number of times to try and read in the new ssh port / ip values
-        :param retry_counter: retry counter value, do not override (default=0)
+        :param retry_time: The number of times to try and read in the new ssh port / ip value
 
         :return: SSH String
         """
@@ -375,13 +374,8 @@ class Device360(Device360WebElements):
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
 
-                if retry_counter != 0:
-                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
-                    # we could fail here because it took many times
-                    self.common_validation.passed(**kwargs)
-                else:
-                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
-                    self.common_validation.passed(**kwargs)
+                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
+                self.common_validation.passed(**kwargs)
                 self.close_device360_window()
                 return ip_port_info
             else:
