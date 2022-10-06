@@ -597,6 +597,8 @@ class NetworkPolicy(object):
                 break
             elif retry_count >= int(max_config_push_wait):
                 self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
+                kwargs['fail_msg'] = f"Config push to AP taking more than {max_config_push_wait}seconds"
+                self.common_validation.failed(**kwargs)
                 return -1
             sleep(30)
             retry_count += 30
@@ -604,9 +606,13 @@ class NetworkPolicy(object):
         network_policy = self.device.get_ap_network_policy(devices)
         if network_policy == policy_name:
             self.utils.print_info("Network Policy in Devices grid matches...")
+            kwargs['pass_msg'] = "Network Policy in Devices grid matches..."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Network Policy in Devices grid does not matches with the deployed one...")
+            kwargs['fail_msg'] = "Network Policy in Devices grid does not matches with the deployed one..."
+            self.common_validation.failed(**kwargs)
             return -1
 
     def navigate_to_np_edit_tab(self, policy_name, **kwargs):
