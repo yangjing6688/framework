@@ -13,6 +13,7 @@ from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
+from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.common.CommonValidation import CommonValidation
@@ -29,6 +30,7 @@ class Device360(Device360WebElements):
         self.navigator = Navigator()
         self.dev360 = Device360WebElements()
         self.deviceConfig = DeviceConfig()
+        self.deviceCommon = DeviceCommon()
         self.devices_web_elements = DevicesWebElements()
         self.dialog_web_elements = DialogWebElements()
         self.wireless_web_elements = WirelessWebElements()
@@ -349,7 +351,7 @@ class Device360(Device360WebElements):
 
         sleep(time_interval)
         self.screen.save_screen_shot()
-        if self.get_device_ssh_ui_tip_error() != None:
+        if self.get_device_ssh_ui_tip_error() is not None:
             self.screen.save_screen_shot()
             self.auto_actions.click(self.get_device_ssh_ui_tip_close())
             kwargs['fail_msg'] = f"Encountered an error. Clicking to exit the error window. Please see the screenshot"
@@ -372,12 +374,13 @@ class Device360(Device360WebElements):
                 self.utils.print_info(f"****************** IP/Port Information ************************")
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
-                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
 
                 if retry_counter != 0:
-                    kwargs['fail_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
-                    self.common_validation.failed(**kwargs)
+                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
+                    # we could fail here because it took many times
+                    self.common_validation.passed(**kwargs)
                 else:
+                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
                     self.common_validation.passed(**kwargs)
                 self.close_device360_window()
                 return ip_port_info
@@ -385,10 +388,10 @@ class Device360(Device360WebElements):
                 self.utils.print_info(
                     f"****************** IP/Port Information is not available after {time_interval} seconds ************************")
                 sleep(time_interval)
-                retry_count += 30
+                retry_count += 1
 
         # we got here, so let's try this again
-        if (retry_counter == 5):
+        if retry_counter == 5:
             kwargs['fail_msg'] = f"Failed to get the SSH and port information"
             self.common_validation.failed(**kwargs)
             return -1
@@ -942,7 +945,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("SSH has been disabled")
 
-        kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+        kwargs['pass_msg'] = f"SSH has been disabled successfully!"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -3190,24 +3193,50 @@ class Device360(Device360WebElements):
                 for row in event_rows:
                     self.utils.print_info(str(i))
                     i += 1
-                    desc_val = self.get_device360_event_description_cell_value(row)
-                    self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
-                    # Check if the event description value for this row contains what we are looking for
-                    if event_str in desc_val:
-                        # If a time was specified, make sure the timestamp for the event is more recent
-                        if after_time:
-                            time_val = self.get_device360_event_timestamp_cell_value(row)
-                            if time_val > after_time:
-                                self.utils.print_debug(
-                                    "Found a match for '" + event_str + ''" after "'' + after_time + "'")
-                                cont_rows_match += 1
+                    expand_more = self.dev360.get_device360_event_expand_more(row)
+                    if expand_more:
+                        self.utils.print_info("Clicking on ...more to expand event details.")
+                        self.auto_actions.click(expand_more)
+                        sleep(5)
+                        desc_val = self.get_device360_event_more_expand_value().text
+                        self.auto_actions.click(self.get_device360_event_more_close_btn())
+                        self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
+                        # Check if the event description value for this row contains what we are looking for
+                        if event_str in desc_val:
+                            # If a time was specified, make sure the timestamp for the event is more recent
+                            if after_time:
+                                time_val = self.get_device360_event_timestamp_cell_value(row)
+                                if time_val > after_time:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + ''" after "'' + after_time + "'")
+                                    cont_rows_match += 1
+                                else:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
+                                        + "' (" + time_val + ") - looking at next row...")
                             else:
-                                self.utils.print_debug(
-                                    "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
-                                    + "' (" + time_val + ") - looking at next row...")
-                        else:
-                            self.utils.print_debug("Found a match for '" + event_str + "'")
-                            cont_rows_match += 1
+                                self.utils.print_debug("Found a match for '" + event_str + "'")
+                                cont_rows_match += 1
+
+                    else:
+                        desc_val = self.get_device360_event_description_cell_value(row)
+                        self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
+                        # Check if the event description value for this row contains what we are looking for
+                        if event_str in desc_val:
+                            # If a time was specified, make sure the timestamp for the event is more recent
+                            if after_time:
+                                time_val = self.get_device360_event_timestamp_cell_value(row)
+                                if time_val > after_time:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + ''" after "'' + after_time + "'")
+                                    cont_rows_match += 1
+                                else:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
+                                        + "' (" + time_val + ") - looking at next row...")
+                            else:
+                                self.utils.print_debug("Found a match for '" + event_str + "'")
+                                cont_rows_match += 1
                 if cont_rows_match == 0:
                     self.utils.print_info("Not found a match for '" + event_str + "'")
                     return -1
@@ -8258,3 +8287,39 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.common_validation.failed(**kwargs)
                 return -1
+
+    def get_event_from_device360(self, dut, event, close_360_window=True, **kwargs):
+        """
+        This function is used to search for an event given as parameter in Events view from Device360 window
+        :param dut: the instance of the device
+        :param event: the event that is being looking for
+        :param close_360_window: True - if Device360 to be close; False - if not
+        :return: 1 - if the event was found successfully ; -1 - if not
+        """
+        if self.navigator.navigate_to_devices() != 1:
+            self.utils.print_info("Failed to navigate to Devices tab")
+            kwargs['fail_msg'] = "Failed to navigate to Devices tab"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        if self.deviceCommon.go_to_device360_window(device_mac=dut.mac) != 1:
+            self.utils.print_info("Failed to go to Device360 window")
+            kwargs['fail_msg'] = "Failed to go to Device360 window"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        if self.device360_select_events_view() != 1:
+            self.utils.print_info("Failed to select Events view")
+            kwargs['fail_msg'] = "Failed to select Events view"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        sleep(3)
+
+        count = -1
+        if self.device360_search_event_and_confirm_event_description_contains(event) != -1:
+            count = 1
+
+        if close_360_window:
+            self.close_device360_window()
+        return count

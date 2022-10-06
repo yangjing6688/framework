@@ -1874,6 +1874,21 @@ class Device360WebElements(Device360WebElementDefs):
         return self.weh.get_element(self.d360_monitor_mac_locking_header)
 
 
+    def get_device360_event_expand_more(self, row):
+        """
+        :return: Events more expand link for showing detail description of the event.
+        """
+        return self.weh.get_element(self.device360_event_expand_more, parent = row)
+
+    def get_device360_event_more_expand_value(self):
+        """
+        :return: value of the expand more in the Device360 Events grid for the specified row
+        """
+        return self.weh.get_element(self.device360_event_more_expand_value)
+
+    def get_device360_event_more_close_btn(self):
+        return self.weh.get_element(self.device360_event_more_close_btn)
+
     def get_device360_configure_port_access_vlan_textfield_VOSS(self, row):
         return self.weh.get_element(self.device360_configure_port_access_vlan_textfield_VOSS, row)
 

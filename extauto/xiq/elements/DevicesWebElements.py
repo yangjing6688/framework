@@ -37,6 +37,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return False
 
+    def get_devices_page_number_one(self):
+        return self.weh.get_elements(self.devices_page_number_one)
+
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)
         return refresh_icon
@@ -335,8 +338,20 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_ui_banner_error_message(self):
         return self.weh.get_element(self.ui_banner_error_message)
 
+    def get_ui_banner_error_close_button(self):
+        return self.weh.get_element(self.ui_banner_error_close_button)
+
     def get_ui_banner_warning_message(self):
         return self.weh.get_element(self.ui_banner_warning_message)
+
+    def get_ui_banner_warning_close_button(self):
+        return self.weh.get_element(self.ui_banner_warning_close_button)
+
+    def get_ui_banner_notice_message(self):
+        return self.weh.get_element(self.ui_banner_notice_message)
+
+    def get_ui_banner_notice_close_button(self):
+        return self.weh.get_element(self.ui_banner_notice_close_button)
 
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)
@@ -832,12 +847,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_actions_open_site_engine_menu_option(self):
         return self.weh.get_element(self.actions_open_site_engine_menu_option)
-
-    def get_actions_maximum_site_engine_message(self):
-        return self.weh.get_element(self.actions_maximum_site_engine_message)
-
-    def get_actions_maximum_site_engine_message_box(self):
-        return self.weh.get_element(self.actions_maximum_site_engine_message_close_btn)
 
     def get_devices_service_tag_textbox(self):
         return self.weh.get_element(self.device_service_tag_textbox)

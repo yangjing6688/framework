@@ -199,6 +199,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.screen.save_screen_shot()
             return -1
 
+        sleep(5)
         # Verify popup is closed by searching for the Done button again.  Race condition has done visible while
         #    not selectible.
         self.utils.print_info("Check express policy popup closed")
