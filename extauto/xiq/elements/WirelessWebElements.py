@@ -6,6 +6,9 @@ class WirelessWebElements(WirelessNetworksDefinitions):
     def __init__(self):
         self.weh = WebElementHandler()
 
+    def get_wireless_nw_tab_page(self):
+        return self.weh.get_element(self.wireless_nw_tab_page)
+
     def get_wireless_networks_tab(self):
         """
         :return: Get Wireless networks Tab on Network Policy

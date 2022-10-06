@@ -77,6 +77,9 @@ class SwitchTemplate(object):
         :return: 1 if Switch Template Configured Successfully else -1
         """
         self.navigator.navigate_to_switch_templates()
+        def _wait_pagination():
+            return self.common_objects.cobj_web_elements.get_paze_size_element(page_size='100')
+        self.utils.wait_till(_wait_pagination, timeout=30, delay=2, msg='Waiting pagination')
         self.utils.print_info("Click on full page view for switch template")
         page_size_el = self.common_objects.cobj_web_elements.get_paze_size_element(page_size='100')
         if page_size_el:
@@ -2045,3 +2048,27 @@ class SwitchTemplate(object):
             kwargs['fail_msg'] = "Unable to gather the list of the devices in the stack"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
+
+    def get_sw_template_row_hyperlink(self, sw_template):
+        """
+        - Get the switch template row element hyperlink on Network Policy's Switch Templates Grid
+        - Keyword Usage
+         - ``Get SW Template Row  ${SW_TEMPLATE_NAME}``
+
+        :param sw_template: name of the sw_template
+        :return: Switch Template Cell present on row
+        """
+        self.utils.print_info("Getting the switch template rows")
+
+        rows = self.sw_template_web_elements.get_sw_template_rows()
+        if not rows:
+            self.utils.print_info("Switch templates not exists in switch device template page")
+            return False
+        for row in rows:
+            cells = self.sw_template_web_elements.get_sw_template_row_table_cells(row)
+            template_cell = cells[2]
+            if sw_template in template_cell.text:
+                hyperlink = self.sw_template_web_elements.get_sw_template_row_cells_hyperlink(template_cell)
+                return hyperlink
+        return False
+    

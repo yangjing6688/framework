@@ -366,6 +366,18 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 10
         }
 
+    common_object_supp_cli_grid_rows = \
+        {
+            'CSS_SELECTOR': '.dojoxGridRow',
+            'wait_for': 2
+        }
+
+    common_object_supp_cli_grid_row_cells = \
+        {
+            'CSS_SELECTOR': '.dojoxGridCell',
+            'wait_for': 2
+        }
+
     common_object_edit_button = \
         {
             'CSS_SELECTOR': '.table-action-icons.table-edit',
@@ -433,6 +445,12 @@ class CommonObjectsWebElementsDefinitions:
     common_object_policy_port_types_view_all_pages = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
+            'wait_for': 3
+        }
+
+    common_object_basic_supp_cli_view_all_pages = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="500"]',
             'wait_for': 3
         }
 

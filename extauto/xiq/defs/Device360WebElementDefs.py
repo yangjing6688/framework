@@ -138,6 +138,12 @@ class Device360WebElementDefs:
             'wait_for': 10
         }
 
+    select_100_elements_display_on_page = \
+        {
+            'XPATH': '//a[@data-size="100"]',
+            'wait_for': 5
+        }
+
     actions_adv_cli_access_cmd_input = \
         {
             'XPATH': '//*[@data-dojo-attach-point="cli"]',
@@ -1266,7 +1272,6 @@ class Device360WebElementDefs:
     sw_template_stack_add_items = \
         {
             'XPATH': '//div[@id="switchesMenu"]//ul/li/a',
-
             'wait_for': 5
         }
 
@@ -2659,7 +2664,7 @@ class Device360WebElementDefs:
 
     device_d360_save_port_configuration = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
             'wait_for': 5
         }
 
@@ -2677,7 +2682,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_stack_units_dropdown = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="stackMemberChooserArea"]'
+            'XPATH': '//div[@class="port-configuration-view"]'
                      '//div[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
@@ -2776,6 +2781,7 @@ class Device360WebElementDefs:
         {
             'XPATH': '//input[contains(@id, "hcgrid_") and @type="checkbox"]',
             'wait_for': 5
+
         }
 
     device360_ports_description_table_header = \
@@ -2783,6 +2789,7 @@ class Device360WebElementDefs:
             'XPATH': "//div[@data-automation-tag='automation-port-list-grid']//div[@role='row' and contains(@class, 'dgrid-header')]",
             'wait_for': 5
         }
+
 
     device360_ports_table_pagination_sizes = \
         {
@@ -2825,6 +2832,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_event = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-events"]',
+            'wait_for': 5
+        }
+
     device360_digital_twin_status_icon = \
         {
             'DESC': 'D360 > Digital Twin Status Icon',
@@ -2857,5 +2870,200 @@ class Device360WebElementDefs:
     device360_port_configuration_path_cost_stp = \
         {
             'XPATH': './/input[contains(@data-automation-tag, "automation-port-stp-port-path-cost")]',
+            'wait_for': 5
+        }
+
+    device360_overview_select_port = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-$index"]'
+        }
+
+    device360_overview_port_info_bounce_port = \
+        {
+            'XPATH': '//div[@class="port-action action-bounce-port "]'
+        }
+
+    device360_overview_port_info_bounce_poe = \
+        {
+            'XPATH': '//div[@class="port-action action-bounce-poe "]'
+        }
+
+    select_element_port_type_macLock_status = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableMacLocking"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_max_first_arrival = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-maxfa"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_disable_port = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-shutdown"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_link_down_clear = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-clear"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_link_down_retain = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-retain"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_remove_aged_MACs = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-remove-aged"]',
+            'wait_for': 5
+        }
+
+    select_mac_locking_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-enable"]'
+        }
+
+    select_mac_locking_first_arrival_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-max-fa-limit"]'
+        }
+
+    select_mac_locking_port_disable_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-disable-port"]'
+        }
+
+    select_mac_locking_link_down_action_clear_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-link-down-action"][@title="Clear"]'
+        }
+
+    select_mac_locking_link_down_action_retain_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-link-down-action"][@title="Retain"]'
+        }
+
+    select_mac_locking_remove_aged_macs_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-remove-aged-macs"]'
+		}
+
+    device360_ports_table_rows = \
+        {
+            "XPATH": "//div[@data-automation-tag='automation-port-list-grid']//div[@role='row' and contains(@class, 'dgrid-row')]",
+            'wait_for': 5
+        }
+
+    d360_pagination_current_page = \
+        {
+            'XPATH': '//span[@class="pagination-page current-pagination"]',
+            'wait_for': 3
+        }
+
+    d360_configure_port_mac_locking_tab_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ahTabContainer"]//a[contains(text(), "MAC Locking")]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_checkbox_interface = \
+        {
+            'XPATH': "//div[@class='port-mac-locking']//label/input[@type='checkbox'][@value='${port_number}']",
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_on_off = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-status"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_max_first_arrival_limit = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-first-arrival-limit"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_disable_port = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-disable-port"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_remove_aged_macs = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-remove-aged-macs"]',
+            'wait_for': 5
+        }
+
+    d360_save_port_configuration = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_interface_edit_button = \
+        {
+            'XPATH': '//div[@class="mac-locking-global-controls"]//button[@class="btn btn-primary multi-edit-btn"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_multi_edit_max_first_arrival_limit_checkbox = \
+        {
+            'XPATH': '//input[@data-automation-tag="medit-maclock-max-fa-cb"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_input_max_first_arrival_limit_value = \
+        {
+            'XPATH': '//div[@class="field port-max-learn-limit"]//input[@data-automation-tag="medit-maclock-max-fa"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_multi_edit_save_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="medit-maclock-save"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_multi_edit_warning_max_limit_arrival = \
+        {
+            'XPATH': '//div[@role="dialog"]//div[@data-dojo-attach-point="containerNode"]//div[@class="ui-tipbox ui-tipbox-error"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_multi_edit_close_button = \
+        {
+            'XPATH': '//div[@id="dijit_Dialog_0"]//span[@data-automation-tag="automation-dialog-close-button"]',
+            'wait_for': 5
+        }
+
+    d360_monitor_mac_locking_header = \
+        {
+            'XPATH': '//th[contains(@class, "field-macLock")]',
+            'wait_for': 5
+        }
+
+    device360_event_expand_more = \
+        {
+            "XPATH": 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-description")]//span[@class = "more"]',
+            'wait_for': 5
+        }
+
+    device360_event_more_expand_value = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="msgContainer"]/p[@data-dojo-attach-point="desEl"]',
+            'wait_for': 5
+        }
+
+    device360_event_more_close_btn = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-notification-no-btn"]',
             'wait_for': 5
         }

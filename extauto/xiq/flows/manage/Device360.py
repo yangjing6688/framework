@@ -13,6 +13,7 @@ from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
+from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.common.CommonValidation import CommonValidation
@@ -29,6 +30,7 @@ class Device360(Device360WebElements):
         self.navigator = Navigator()
         self.dev360 = Device360WebElements()
         self.deviceConfig = DeviceConfig()
+        self.deviceCommon = DeviceCommon()
         self.devices_web_elements = DevicesWebElements()
         self.dialog_web_elements = DialogWebElements()
         self.wireless_web_elements = WirelessWebElements()
@@ -302,9 +304,6 @@ class Device360(Device360WebElements):
 
         :return: SSH String
         """
-
-
-
         if device_mac:
             self.utils.print_info("Using device MAC: ", device_mac.upper())
             self.navigator.navigate_to_device360_page_with_mac(device_mac.upper())
@@ -360,7 +359,6 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-
         retry_count = 0
         while retry_count <= retry_time:
             self.utils.print_info(f"Checking SSH IP and Port Details after: {time_interval} seconds")
@@ -376,12 +374,13 @@ class Device360(Device360WebElements):
                 self.utils.print_info(f"****************** IP/Port Information ************************")
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
-                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
 
                 if retry_counter != 0:
-                    kwargs['fail_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
-                    self.common_validation.failed(**kwargs)
+                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
+                    # we could fail here because it took many times
+                    self.common_validation.passed(**kwargs)
                 else:
+                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
                     self.common_validation.passed(**kwargs)
                 self.close_device360_window()
                 return ip_port_info
@@ -389,7 +388,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info(
                     f"****************** IP/Port Information is not available after {time_interval} seconds ************************")
                 sleep(time_interval)
-                retry_count += 30
+                retry_count += 1
 
         # we got here, so let's try this again
         if (retry_counter == 5):
@@ -3194,24 +3193,50 @@ class Device360(Device360WebElements):
                 for row in event_rows:
                     self.utils.print_info(str(i))
                     i += 1
-                    desc_val = self.get_device360_event_description_cell_value(row)
-                    self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
-                    # Check if the event description value for this row contains what we are looking for
-                    if event_str in desc_val:
-                        # If a time was specified, make sure the timestamp for the event is more recent
-                        if after_time:
-                            time_val = self.get_device360_event_timestamp_cell_value(row)
-                            if time_val > after_time:
-                                self.utils.print_debug(
-                                    "Found a match for '" + event_str + ''" after "'' + after_time + "'")
-                                cont_rows_match += 1
+                    expand_more = self.dev360.get_device360_event_expand_more(row)
+                    if expand_more:
+                        self.utils.print_info("Clicking on ...more to expand event details.")
+                        self.auto_actions.click(expand_more)
+                        sleep(5)
+                        desc_val = self.get_device360_event_more_expand_value().text
+                        self.auto_actions.click(self.get_device360_event_more_close_btn())
+                        self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
+                        # Check if the event description value for this row contains what we are looking for
+                        if event_str in desc_val:
+                            # If a time was specified, make sure the timestamp for the event is more recent
+                            if after_time:
+                                time_val = self.get_device360_event_timestamp_cell_value(row)
+                                if time_val > after_time:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + ''" after "'' + after_time + "'")
+                                    cont_rows_match += 1
+                                else:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
+                                        + "' (" + time_val + ") - looking at next row...")
                             else:
-                                self.utils.print_debug(
-                                    "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
-                                    + "' (" + time_val + ") - looking at next row...")
-                        else:
-                            self.utils.print_debug("Found a match for '" + event_str + "'")
-                            cont_rows_match += 1
+                                self.utils.print_debug("Found a match for '" + event_str + "'")
+                                cont_rows_match += 1
+
+                    else:
+                        desc_val = self.get_device360_event_description_cell_value(row)
+                        self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
+                        # Check if the event description value for this row contains what we are looking for
+                        if event_str in desc_val:
+                            # If a time was specified, make sure the timestamp for the event is more recent
+                            if after_time:
+                                time_val = self.get_device360_event_timestamp_cell_value(row)
+                                if time_val > after_time:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + ''" after "'' + after_time + "'")
+                                    cont_rows_match += 1
+                                else:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
+                                        + "' (" + time_val + ") - looking at next row...")
+                            else:
+                                self.utils.print_debug("Found a match for '" + event_str + "'")
+                                cont_rows_match += 1
                 if cont_rows_match == 0:
                     self.utils.print_info("Not found a match for '" + event_str + "'")
                     return -1
@@ -6122,6 +6147,12 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_storm_control)
                 return 1
 
+        elif "MACLOCKINGSettingsPage" in element:
+            get_mac_locking = self.get_select_element_port_type("MACLOCKINGSettings")
+            if get_mac_locking:
+                self.auto_actions.click(get_mac_locking)
+                return 1
+
         elif "ELRPSettingsPage" in element:
             sleep(5)
             get_elrp = self.get_select_element_port_type("ELRPSettingsPage")
@@ -6406,7 +6437,46 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(get_rate_limit_val_el, value)
                 return 1
 
-        # page ELRP (ONLY FOR EXOS)
+        # page MAC LOCKING
+        elif element == "mac locking":
+            get_maclocking = self.get_select_element_port_type(element, value)
+            if get_maclocking:
+                sleep(3)
+                self.auto_actions.click(get_maclocking)
+                return 1
+
+        elif element == "max first arrival":
+            get_max_first_arrival_el = self.get_select_element_port_type(element)
+            if get_max_first_arrival_el:
+                self.auto_actions.send_keys(get_max_first_arrival_el, value)
+                return 1
+
+        elif element == "disable port":
+            get_maclocking_disable_port = self.get_select_element_port_type(element, value)
+            if get_maclocking_disable_port:
+                self.auto_actions.click(get_maclocking_disable_port)
+                return 1
+
+        elif element == "link down clear":
+            get_maclocking_link_down_clear = self.get_select_element_port_type(element, value)
+            if get_maclocking_link_down_clear:
+                self.auto_actions.click(get_maclocking_link_down_clear)
+                return 1
+
+        elif element == "link down retain":
+            get_maclocking_link_down_retain = self.get_select_element_port_type(element, value)
+            if get_maclocking_link_down_retain:
+                self.auto_actions.click(get_maclocking_link_down_retain)
+                return 1
+
+        elif element == "remove aged MACs":
+            get_maclocking_remove_aged_MACs = self.get_select_element_port_type(element, value)
+            if get_maclocking_remove_aged_MACs:
+                self.auto_actions.click(get_maclocking_remove_aged_MACs)
+                return 1
+
+        #page ELRP (ONLY FOR EXOS)
+
         elif element == "elrp status":
             sleep(5)
             get_elrp_status = self.get_select_element_port_type(element, value)
@@ -7093,11 +7163,11 @@ class Device360(Device360WebElements):
 
     def is_device360_relaunch_digital_twin_button_visible(self):
         """
-        - This keyword checks if the ACTIONS > Relaunch Digital Twin menu option is visible
+        - This keyword checks if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Is Device360 Relaunch Digital Twin Button Visible``
-        :return: 1 if the menu item is displayed, else -1
+        :return: True if visible, False if not visible, else -1
         """
         relaunch_link = self.dev360.get_device360_digital_twin_relaunch_button()
         if relaunch_link:
@@ -7106,10 +7176,11 @@ class Device360(Device360WebElements):
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is not displayed.")
                 self.screen.save_screen_shot()
+                return False
             else:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is displayed.")
                 self.screen.save_screen_shot()
-                return 1
+                return True
         else:
             self.utils.print_info("Could not find the 'Relaunch Digital Twin' button.")
 
@@ -7117,7 +7188,7 @@ class Device360(Device360WebElements):
 
     def device360_relaunch_digital_twin_device(self, confirm="yes"):
         """
-        - This keyword clicks on the ACTIONS > Relaunch Digital Twin
+        - This keyword clicks the 'Relaunch Digital Twin' button in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Device360 Relaunch Digital Twin Device   confirm="no"``
@@ -7133,17 +7204,15 @@ class Device360(Device360WebElements):
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Relaunch Digital Twin' button.")
-                # self.screen.save_screen_shot()
                 self.auto_actions.click(relaunch_button)
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
                     self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
                     self.utils.print_info("Confirming the relaunch.")
-                    # self.screen.save_screen_shot()
-                    tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
-                    if tool_tp_text_error:
-                        self.utils.print_info(tool_tp_text_error.text)
+                    banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
+                    if banner_text_error:
+                        self.utils.print_info(banner_text_error.text)
                         return -1
                     return 1
                 else:
@@ -7156,11 +7225,11 @@ class Device360(Device360WebElements):
 
     def is_device360_shutdown_digital_twin_button_visible(self):
         """
-        - This keyword checks if the ACTIONS > Shutdown Digital Twin menu option is visible
+        - This keyword checks if the 'Shutdown Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Is Device360 Shutdown Digital Twin Button Visible``
-        :return: 1 if the menu item is displayed, else -1
+        :return: True if visible, False if not visible, else -1
         """
         shutdown_link = self.dev360.get_device360_digital_twin_shutdown_button()
         if shutdown_link:
@@ -7169,10 +7238,11 @@ class Device360(Device360WebElements):
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is not displayed.")
                 self.screen.save_screen_shot()
+                return False
             else:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is displayed.")
                 self.screen.save_screen_shot()
-                return 1
+                return True
         else:
             self.utils.print_info("Could not find the 'Shutdown Digital Twin' button.")
 
@@ -7180,7 +7250,7 @@ class Device360(Device360WebElements):
 
     def device360_shutdown_digital_twin_device(self, confirm="yes"):
         """
-        - This keyword clicks on the ACTIONS > Shutdown Digital Twin
+        - This keyword clicks the 'Shutdown Digital Twin' button in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Device360 Shutdown Digital Twin Device   confirm="no"``
@@ -7196,17 +7266,15 @@ class Device360(Device360WebElements):
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Shutdown Digital Twin' button.")
-                # self.screen.save_screen_shot()
                 self.auto_actions.click(shutdown_button)
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
                     self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
                     self.utils.print_info("Confirming the shutdown.")
-                    # self.screen.save_screen_shot()
-                    tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
-                    if tool_tp_text_error:
-                        self.utils.print_info(tool_tp_text_error.text)
+                    banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
+                    if banner_text_error:
+                        self.utils.print_info(banner_text_error.text)
                         return -1
                     return 1
                 else:
@@ -7219,7 +7287,7 @@ class Device360(Device360WebElements):
 
     def get_device360_digital_twin_device_status(self):
         """
-        - This keyword obtains the Digital Twin status icon within the D360 view.
+        - This keyword obtains the Digital Twin status icon within the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
          - ``Get Device360 Digital Twin Device Status``
@@ -7232,6 +7300,7 @@ class Device360(Device360WebElements):
         status_icon = self.get_device360_digital_twin_status_icon().get_attribute("class")
         if status_icon:
             self.utils.print_info(f"Status Icon class value: {status_icon}")
+            self.screen.save_screen_shot()
             if "dt-icon" in status_icon:
                 #  vv 22R5 Device360 UI Issue, not seen in 22R6
                 if "hive-status-true hive-status-false" in status_icon:
@@ -7255,7 +7324,7 @@ class Device360(Device360WebElements):
 
     def device360_wait_until_device_online(self, retry_duration=30, retry_count=20, **kwargs):
         """
-        - This keyword waits till the device status updates to connected in the XIQ Device360 view.
+        - This keyword waits till the device status updates to connected in the XIQ Device 360 view.
         - This keyword by default loops every 30 seconds for 20 times to check the device status.
         - It is assumed that the Device 360 window is already opened for the Device.
         - Keyword Usage:
@@ -7284,7 +7353,6 @@ class Device360(Device360WebElements):
                             self.utils.print_info(
                                 f"Device status is disconnected. Waiting for {retry_duration} seconds")
                         elif "Connected" in connected_text:
-                            # self.utils.print_info("Device status is Connected")
                             kwargs['pass_msg'] = "Device status is connected!"
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -7304,7 +7372,7 @@ class Device360(Device360WebElements):
 
     def device360_wait_until_device_offline(self, retry_duration=30, retry_count=20, **kwargs):
         """
-        - This keyword waits till the device status updates to disconnected in the XIQ Device360 view.
+        - This keyword waits till the device status updates to disconnected in the XIQ Device 360 view.
         - This keyword by default loops every 30 seconds for 20 times to check the device status.
         - It is assumed that the Device 360 window is already opened for the Device.
         - Keyword Usage:
@@ -7332,7 +7400,6 @@ class Device360(Device360WebElements):
                         if "Connected" in connected_text:
                             self.utils.print_info(f"Device status is connected. Waiting for {retry_duration} seconds")
                         elif "Disconnected" in connected_text:
-                            # self.utils.print_info("Device status is disconnected")
                             kwargs['pass_msg'] = "Device status is disconnected!"
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -8109,3 +8176,150 @@ class Device360(Device360WebElements):
                 except IndexError:
                     ret.append(asic[-1])
         return ret
+
+    def port_info_bounce_port(self, port, **kwargs):
+        """
+        - This keyword will bounce a port in D360
+        - Assume that already in D360
+        - Flow: D360 -> Monitor -> Overview -> Click on a port with 'connected' status ->
+        :param port: A port in connected status ;
+                     Usage Ex: voss(1/1) , exos(1), stack(1:1)
+        :return: 1 if 'Bounce Port' button has been successfully pressed; -1 if otherwise
+        """
+        def _check_port_is_loaded():
+            if self.get_device360_overview_port(port):
+                self.utils.print_info("Port has been loaded.")
+                return True
+            self.utils.print_info("Port hasn't been loaded yet... Saving screenshot...")
+            self.screen.save_screen_shot()
+            return False
+        self.utils.wait_till(_check_port_is_loaded, silent_failure=True, timeout=5, delay=3,
+                             msg='Waiting for the port to load...')
+
+        port_search = self.get_device360_overview_port(port)
+        if port_search:
+            self.auto_actions.click(port_search)
+        else:
+            self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
+            kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Searching for the 'Bounce Port' button...")
+        bounce_port_button = self.get_device360_overview_port_info_bounce_port()
+        if bounce_port_button:
+            self.utils.print_info("Found 'Bounce Port' button. Clicking...")
+            self.auto_actions.click(bounce_port_button)
+            self.utils.print_info("'Bounce Port' clicked!")
+
+            def _check_successful_message():
+                for tool_tp in tool_tip.tool_tip_text:
+                    if f'Bounce Port {port} successful' in tool_tp:
+                        self.utils.print_info(f"Found Bounce Port successful message: {tool_tp}")
+                        return True
+                self.utils.print_info("Did not find Bounce port successful message yet. Retrying...")
+                return False
+            message = self.utils.wait_till(_check_successful_message, timeout=10, delay=1, silent_failure=True,
+                                           msg="Looking for Bounce Port successful message...")
+            if message[0]:
+                kwargs['pass_msg'] = "'Bounce Port' clicked! Successful message found!"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = f"'Bounce Port' successful message not found!\nGot this instead: " \
+                                     f"{tool_tip.tool_tip_text}"
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1
+
+    def port_info_bounce_poe(self, port, **kwargs):
+        """
+        - This keyword will bounce PoE on a port in D360
+        - Assume that already in D360
+        - Flow: D360 -> Monitor -> Overview -> Click on a port with 'connected' status ->
+        :param port: A port in connected status ;
+                     Usage Ex: voss(1/1) , exos(1), stack(1:1)
+        :return: 1 if 'Bounce PoE' button has been successfully pressed; -1 if otherwise
+        """
+        def _check_port_is_loaded():
+            if self.get_device360_overview_port(port):
+                self.utils.print_info("Port has been loaded.")
+                return True
+            self.utils.print_info("Port hasn't been loaded yet... Saving screenshot...")
+            self.screen.save_screen_shot()
+            return False
+        self.utils.wait_till(_check_port_is_loaded, silent_failure=True, timeout=5, delay=3,
+                             msg='Waiting for the port to load...')
+
+        port_search = self.get_device360_overview_port(port)
+        if port_search:
+            self.auto_actions.click(port_search)
+        else:
+            self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
+            kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Searching for the 'Bounce PoE' button...")
+        bounce_poe_button = self.get_device360_overview_port_info_bounce_poe()
+        if bounce_poe_button:
+            self.utils.print_info("Found 'Bounce PoE' button. Clicking...")
+            self.auto_actions.click(bounce_poe_button)
+            self.utils.print_info("'Bounce PoE' clicked!")
+
+            def _check_successful_message():
+                for tool_tp in tool_tip.tool_tip_text:
+                    if f'Bounce PoE Port {port} successful' in tool_tp:
+                        self.utils.print_info(f"Found Bounce PoE successful message: {tool_tp}")
+                        return True
+                self.utils.print_info("Did not find Bounce PoE successful message yet. Retrying...")
+                print(tool_tip.tool_tip_text)
+                return False
+            message = self.utils.wait_till(_check_successful_message, timeout=10, delay=1, silent_failure=True,
+                                           msg="Looking for Bounce PoE successful message...")
+            if message[0]:
+                kwargs['pass_msg'] = "'Bounce PoE' clicked! Successful message found!"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = f"'Bounce PoE' successful message not found!\nGot this instead: " \
+                                     f"{tool_tip.tool_tip_text}"
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1
+
+    def get_event_from_device360(self, dut, event, close_360_window=True, **kwargs):
+        """
+        This function is used to search for an event given as parameter in Events view from Device360 window
+        :param dut: the instance of the device
+        :param event: the event that is being looking for
+        :param close_360_window: True - if Device360 to be close; False - if not
+        :return: 1 - if the event was found successfully ; -1 - if not
+        """
+        if self.navigator.navigate_to_devices() != 1:
+            self.utils.print_info("Failed to navigate to Devices tab")
+            kwargs['fail_msg'] = "Failed to navigate to Devices tab"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        if self.deviceCommon.go_to_device360_window(device_mac=dut.mac) != 1:
+            self.utils.print_info("Failed to go to Device360 window")
+            kwargs['fail_msg'] = "Failed to go to Device360 window"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        if self.device360_select_events_view() != 1:
+            self.utils.print_info("Failed to select Events view")
+            kwargs['fail_msg'] = "Failed to select Events view"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        sleep(3)
+
+        count = -1
+        if self.device360_search_event_and_confirm_event_description_contains(event) != -1:
+            count = 1
+
+        if close_360_window:
+            self.close_device360_window()
+        return count

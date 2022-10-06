@@ -88,7 +88,10 @@ class TelnetAgent(CliAgent):
         if found_login_prompt:
             for i in range(0, retries):
                 if output.strip().endswith(tuple(self.device.pass_prompt)):
-                    self.write_encode_ln(self.device.password)
+                    adjusted_password = self.cmd_encode(self.device.password)
+                    if self.get_enable_default_password_mode():
+                        adjusted_password = self.cmd_encode(self.default_password)
+                    self.write_encode_ln(adjusted_password)
                     break
                 else:
                     output += self.wait_no_parse(250, 1)
@@ -250,8 +253,7 @@ class TelnetAgent(CliAgent):
             self.debug_print(self.send_command("terminal more disable"))
         elif self.device.oper_sys == NetworkElementConstants.OS_AHAP:
             self.debug_print(self.send_command("console page 0"))
-        elif self.device.oper_sys in [NetworkElementConstants.OS_AHFASTPATH,
-                                      NetworkElementConstants.OS_AHXR]:
+        elif self.device.oper_sys in [NetworkElementConstants.OS_AHXR]:
             self.debug_print(self.send_command("enable"))
             self.debug_print(self.send_command("configure"))
             self.debug_print(self.send_command("do terminal length 0"))
