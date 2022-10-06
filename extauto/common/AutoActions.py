@@ -125,7 +125,7 @@ class AutoActions:
                     else:
                         # reset this exception counter so we will do all of the actions
                         countElementClickInterceptedException = 0
-                        self.utils.print_info(f"Exception while click: {e})
+                        self.utils.print_info(f"Exception while click: {e}")
                         self.utils.print_info("Retrying after 5 seconds...")
                         sleep(5)
                         counterException += 1
