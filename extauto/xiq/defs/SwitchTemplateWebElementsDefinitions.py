@@ -26,7 +26,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_save_btn = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='saveButton']",
+            'XPATH': "//fixed-bar[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
         }
 

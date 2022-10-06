@@ -3161,7 +3161,11 @@ class Navigator(NavigatorWebElements):
                 self.auto_actions.scroll_by_horizontal(port_configuration_button)
                 self.auto_actions.click(port_configuration_button)
                 self.utils.print_info("Waiting for port rows to load in d360 Port Configuration page...")
-                self.utils.wait_till(self.get_port_rows_d360)
+                self.utils.wait_till(self.get_port_rows_d360, delay=3, timeout=120, is_logging_enabled=True,
+                                     silent_failure=True)
+                self.utils.print_info("SAVING SCREENSHOT FOR D360 PORT CONFIGURATION PAGE...")
+                self.screen.save_screen_shot()
+                self.utils.print_info("Rows have been loaded! 'Port Configuration' button clicked!")
                 kwargs['pass_msg'] = " 'Port Configuration' button clicked!"
                 self.common_validation.passed(**kwargs)
                 return 1
