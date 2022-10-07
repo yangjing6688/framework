@@ -12106,3 +12106,47 @@ class Devices:
         else:
             self.utils.print_info("Update status not found")
             return -1
+
+    def get_device_model(self, mac, **kwargs):
+        """
+        - This keyword will get the device model string from a device row using the mac
+        - This string returned can be used to create a template for the device
+        - It is assumed that 'Devices' page is already open
+        :param mac: The mac address of the device
+        :return: a string containing the name of the model [Ex: Fabric Engine 5520-24T]; -1 if getting the string fails
+        """
+
+        if self.navigator.navigate_to_devices() != 1:
+            self.utils.print_info("Failed on navigating to the Devices page.")
+            kwargs['fail_msg'] = "Failed on navigating to the Devices page."
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info(f"Searching for the device row with mac address: {mac}")
+        device_row = self.get_device_row(device_mac=mac)
+        if device_row:
+            self.utils.print_info(f'Found the device row with mac address: {mac}')
+            device_model = self.devices_web_elements.get_device_model(device_row)
+            print("Device model: ", device_model)
+            if device_model:
+                self.utils.print_info(f"Found the device model: {device_model.text} for the device with "
+                                      f"MAC address: {mac}")
+                kwargs['pass_msg'] = f"Found the device model: {device_model.text} for the device with " \
+                                     f"MAC address: {mac}"
+                self.common_validation.passed(**kwargs)
+                return device_model.text
+            else:
+                self.utils.print_info(f"Failed on getting the device model from the device with mac: {mac} ")
+
+                kwargs['fail_msg'] = f"Failed on getting the device model from the device with mac: {mac} "
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1
+        else:
+            self.utils.print_info(f"Did not find any rows with mac address: {mac}")
+            kwargs['fail_msg'] = f"Did not find any rows with mac address: {mac}"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+            
