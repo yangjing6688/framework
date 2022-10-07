@@ -1330,3 +1330,10 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: Devices > 100 rows per page button
         """
         return self.weh.get_element(self.one_hundred_rows_per_page_button)
+
+    def get_device_model(self, device_row):
+        """
+        :param device_row: the device parent row
+        :return: Devices -> Device Row -> Device's 'Model' column -> Device model element
+        """
+        return self.weh.get_element(self.device_model, parent=device_row)
