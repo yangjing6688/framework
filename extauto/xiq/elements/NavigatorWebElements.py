@@ -703,3 +703,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
         except:
             # An error occured
             return None
+
+    def get_100_devices_per_page(self):
+        return self.weh.get_element(self.no_100_devices_per_page)

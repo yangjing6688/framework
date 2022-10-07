@@ -1330,3 +1330,8 @@ class NavigatorWebElementDefinitions:
             'CSS_SELECTOR': '.J-page-size.ui-page-size',
             'wait_for': 5
         }
+        
+    no_100_devices_per_page = \
+        {
+        "XPATH": '//a[@data-size="100"]'
+        }
