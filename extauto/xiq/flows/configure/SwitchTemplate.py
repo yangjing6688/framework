@@ -142,8 +142,6 @@ class SwitchTemplate(object):
                         continue
                     if el.text == "":
                         continue
-                    #self.utils.print_info("Switch template names: ", el.text.upper())
-                    #self.utils.print_info("Looking for: ", sw_model.upper())
                     if sw_model.upper() in el.text.upper():
                         self.utils.print_info("    -switch template match")
                         model_found = True

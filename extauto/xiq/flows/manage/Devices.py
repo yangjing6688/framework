@@ -6444,11 +6444,7 @@ class Devices:
                 if re.search(r'field-\w*', cell.get_attribute("class")):
                     label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
                     for label_str in col_labels:
-                        # Will print all labels
-                        # self.utils.print_debug(f"Getting Data For Column {label_str}")
                         map_value = label_map.get(label_str)
-                        # Will print all labels
-                        # self.utils.print_debug(f"Comparing label {label} with map value {map_value}")
                         if label == map_value:
                             if label == "productType":
                                 if cell.text:
