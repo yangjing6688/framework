@@ -386,7 +386,7 @@ class CommonObjectsWebElementsDefinitions:
 
     common_object_delete_button = \
         {
-            'CSS_SELECTOR': '.hc-delete-action',
+            'CSS_SELECTOR': '.table-action-icons.table-remove',
             'wait_for': 10
         }
 
