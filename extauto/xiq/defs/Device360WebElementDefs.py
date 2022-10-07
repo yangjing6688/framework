@@ -565,7 +565,8 @@ class Device360WebElementDefs:
 
     device360_configure_port_rows = \
         {
-            'XPATH': '//div[contains(@class, "port-details-entry")]',
+            # 'XPATH': '//div[contains(@class, "port-details-entry")]',
+            'CSS_SELECTOR': '.port-details-entry',
             'wait_for': 5
         }
 
@@ -2168,6 +2169,11 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    close_port_type_dialog_box = \
+        {
+            'XPATH': '//div[@id="dijit_Dialog_1"]//span[@data-automation-tag="automation-dialog-close-button"]'
+        }
+        
     cancel_port_type_box = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
@@ -2477,7 +2483,7 @@ class Device360WebElementDefs:
 
     select_element_port_type_pse_profile_power_mode_items = \
         {
-            'XPATH': '.J-ip-item',
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-powermode"]//li',
             'wait_for': 5
         }
 
@@ -2866,7 +2872,6 @@ class Device360WebElementDefs:
             'XPATH': '//div[@class="ui-tipbox ui-tipbox-error"]//div[@class="ui-tipbox-icon"]'
         }
 
-
     device360_port_configuration_path_cost_stp = \
         {
             'XPATH': './/input[contains(@data-automation-tag, "automation-port-stp-port-path-cost")]',
@@ -3067,3 +3072,26 @@ class Device360WebElementDefs:
             'XPATH': '//button[@data-automation-tag="automation-notification-no-btn"]',
             'wait_for': 5
         }
+    
+    select_element_port_type_pse_profile_power_limit = \
+        {
+	'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+	'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_mode_dropdown = \
+        {
+            'XPATH': '//div[@class="column last"]//a[@class="chzn-single"]',
+            'index': 0
+        }
+
+    select_element_port_type_pse_edit = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-port-type-editor-pse-profile-edit-btn"]'
+        }
+
+    select_more_button_pse_profile = \
+        {       
+            'CSS_SELECTOR': '.J-ip-more'
+        }
+    
