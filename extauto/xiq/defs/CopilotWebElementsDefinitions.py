@@ -948,3 +948,14 @@ class CopilotDefs:
         {
             'CSS_SELECTOR': '.as-list-item-body'
         }
+
+    enable_copilot_menu_feature_button = \
+        {
+#            'XPATH': '//button[contains(@class, "enableCoPilot")]'
+            'XPATH': '//span[contains(text(), "Enable CoPilot")]'
+        }
+
+    copilot_menu_alert_message_banner = \
+        {
+            'XPATH': '//div[@role="alert"]//span[contains(text(), "CoPilot deactivated due to lack of licenses")]'
+        }
