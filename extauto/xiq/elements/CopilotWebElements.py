@@ -1,4 +1,4 @@
-from extauto.xiq.defs.CopilotDefs import *
+from extauto.xiq.defs.CopilotWebElementsDefinitions import *
 from extauto.common.WebElementHandler import *
 
 
@@ -535,3 +535,8 @@ class CopilotWebElements(CopilotDefs):
     def get_wifi_capacity_widget_location_ap_overall_discription(self):
         return self.weh.get_element(self.wifi_capacity_widget_location_ap_overall_discription)
 
+    def get_enable_copilot_menu_feature_button(self):
+        return self.weh.get_element(self.enable_copilot_menu_feature_button)
+
+    def get_copilot_menu_alert_message_banner(self):
+        return self.weh.get_element(self.copilot_menu_alert_message_banner)
