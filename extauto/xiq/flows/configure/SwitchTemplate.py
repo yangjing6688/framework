@@ -2102,8 +2102,15 @@ class SwitchTemplate(object):
                     break
                 print(el.text)
             self.utils.print_info("Enter the switch Template Name: ", sw_template_name)
-            self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
-                                        sw_template_name)
+            sw_name_field = self.sw_template_web_elements.get_sw_template_name_textfield()
+            if sw_name_field:
+                self.utils.print_info("Enter the template name : ")
+                self.auto_actions.send_keys(sw_name_field, sw_template_name)
+            else:
+                self.utils.print_info("The web element for name field has not been found")
+                return -1
+
+
         if save_template:
             save_btns = self.sw_template_web_elements.get_sw_template_save_button()
             for save_btn in save_btns:

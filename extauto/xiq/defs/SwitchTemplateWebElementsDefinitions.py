@@ -20,7 +20,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_name_textfield = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='tplName']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-name']",
             'wait_for': 5
         }
 
