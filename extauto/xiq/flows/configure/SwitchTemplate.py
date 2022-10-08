@@ -2101,6 +2101,7 @@ class SwitchTemplate(object):
                     self.auto_actions.click(el)
                     break
                 print(el.text)
+            self.utils.wait_till(self.sw_template_web_elements.get_sw_template_name_textfield, timeout=20, delay=1, is_logging_enabled=True)
             self.utils.print_info("Enter the switch Template Name: ", sw_template_name)
             sw_name_field = self.sw_template_web_elements.get_sw_template_name_textfield()
             if sw_name_field:
