@@ -5,6 +5,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.CopilotWebElements import CopilotWebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 import re
 from extauto.common.CommonValidation import CommonValidation
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
@@ -21,6 +22,7 @@ class Copilot(CopilotWebElements):
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
         self.tools = Tools()
+        self.devices_web_elements = DevicesWebElements()
 
     def enable_copilot_menu_feature(self):
         """
@@ -72,6 +74,10 @@ class Copilot(CopilotWebElements):
 
         if self.devices_web_elements.get_ui_banner_warning_message():
             tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
+        # if self.get_ui_banner_warning_message():
+        #     tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
+        # if self.get_ui_banner_warning_message():
+        #     tool_tp_text_warning = self.get_ui_banner_warning_message()
             if "CoPilot deactivated due to lack of licenses" in tool_tp_text_warning.text:
                 self.utils.print_info(tool_tp_text_warning.text)
                 self.screen.save_screen_shot()
