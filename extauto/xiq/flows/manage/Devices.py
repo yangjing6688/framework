@@ -3268,12 +3268,12 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-
         num_device_params = 0
         search_device = None
         search_type = None
 
-        self.navigator.enable_page_size()
+        # self.navigator.enable_page_size()
+        # print("Deleting devicesssss.. waitiess")
 
         if device_serial:
             num_device_params += 1
@@ -12105,4 +12105,76 @@ class Devices:
             return status
         else:
             self.utils.print_info("Update status not found")
+            return -1
+        
+    def revert_device_to_template_but_donot_update(self, device_mac):
+        """
+        - Assumes already navigated to Manage --> Devices
+        - This method accesses the "Revert Device to Template" action but it will not deploy for a device matching the specified serial
+        - Keyword Usage:
+         - ``Revert Device to Template  ${DEVICE_SERIAL}``
+        :param device_serial: serial number of the device to perform the action on
+        :return: 1 if action succeeds, else -1
+        """
+        self.utils.print_info("Reverting Device to Template for device with serial: ", device_mac)
+
+        if self.device_common.select_device_row(device_mac=device_mac):
+            self.utils.print_info("Selecting 'Actions' button")
+            actions_btn = self.device_actions.get_device_actions_button()
+            if actions_btn:
+                self.auto_actions.click(actions_btn)
+                # sleep(2)
+            else:
+                self.utils.print_info("Could not click 'Actions' button")
+                return -1
+
+            self.utils.print_info("Selecting 'Revert Device to Template' menu item")
+            revert_menu = self.device_actions.get_device_actions_revert_device_to_template_menu_item()
+            if revert_menu:
+                self.auto_actions.click(revert_menu)
+                # sleep(4)
+                self.utils.wait_till(4)
+            else:
+                self.utils.print_info("Could not click 'Revert Device to Template' menu item")
+                return -1
+
+            self.utils.print_info("Clicking 'Save' button")
+            save_btn = self.dialogue_web_elements.get_confirm_yes_button()
+            if save_btn:
+                self.auto_actions.click(save_btn)
+                self.utils.wait_till(2)
+            else:
+                self.utils.print_info("Could not click 'Save' button")
+                return -1
+            self.utils.print_info("Clicking 'cancel' button")
+            cancel_btn = self.devices_web_elements.get_more_row_description_close()
+
+
+            self.utils.print_info("Cancel Button==> ",cancel_btn)
+            if type(cancel_btn) != list:
+                if cancel_btn:
+                    self.auto_actions.click(cancel_btn)
+                    # sleep(3)
+                    def check_revert_box_available():
+                        return not bool(self.self.dialogue_web_elements.get_confirm_yes_button())
+
+                    self.utils.wait_till(check_revert_box_available, timeout=3, delay=1,
+                                         is_logging_enabled=True)
+                else:
+                    self.utils.print_info("Could not click 'Cancel' button")
+                    return -1
+            else:
+                for eachbutton in cancel_btn:
+                    try:
+                        if eachbutton.is_enabled() and eachbutton.is_displayed():
+                            eachbuttonclick =  self.auto_actions.click(eachbutton)
+                            self.utils.print_info("Trying to click the button ",eachbuttonclick)
+                            if eachbuttonclick:
+                                return 1
+                    except:
+                        self.utils.print_info("Cannot click the button")
+
+            return 1
+        else:
+            self.utils.print_info("Could not select device with serial ", device_mac)
             return -1

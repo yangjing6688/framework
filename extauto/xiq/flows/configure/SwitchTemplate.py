@@ -20,6 +20,7 @@ from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.flows.configure.CommonObjects import CommonObjects
+import re
 
 class SwitchTemplate(object):
 
@@ -678,7 +679,7 @@ class SwitchTemplate(object):
             return -1
         return 1
 
-    def save_stack_template(self):
+    def save_stack_template(self,sw_template_name):
         """
         Flow: First page from stack template
         This function save the template after the configuration was made
@@ -690,6 +691,7 @@ class SwitchTemplate(object):
             self.utils.print_info("The first page of template configuration is not displayed")
             return -1
         save_btns = self.sw_template_web_elements.get_sw_template_save_button()
+        rc=-1
         for save_btn in save_btns:
             if save_btn.is_displayed():
                 self.utils.print_info("Click on the save template button")
@@ -697,15 +699,15 @@ class SwitchTemplate(object):
                 sleep(10)
                 tool_tip_text = tool_tip.tool_tip_text
                 self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                for cnt3 in tool_tip_text:
-                    if 'Stack template has been saved successfully.' in cnt3:
-                        self.utils.print_info("Found successfully message")
-                        return 1
-                    else:
-                        self.utils.print_info("Not found successfully message yet ")
+                def _is_sw_template_available():
+                    return self.get_sw_template_row(sw_template_name)
+
+                if self.utils.wait_till(_is_sw_template_available, delay=1, is_logging_enabled=True, silent_failure=False):
+                    self.screen.save_screen_shot()
+                    rc = 1
             else:
                 self.utils.print_info("Not found 'Save template' button ")
-        return -1
+        return rc
 
     def delete_stack_units_device_template(self, nw_policy, sw_template_name):
         """
@@ -2072,3 +2074,72 @@ class SwitchTemplate(object):
                 return hyperlink
         return False
     
+    def generate_template_name(self,platform,serial,model, slots = ""):
+        """
+        This method is to generate template name based on the testbed file given
+        :param platform: platform exos/voss
+        :param serial: serial number
+        :param model: Model number
+        :return: template name for searching in list of templates
+        """
+        print(platform,serial,model)
+
+        if (platform.lower() == 'stack'):
+            if not slots:
+                self.utils.print_error("Provide information of Slots..")
+                return -1
+            model_list = []
+            sw_model = ""
+            for eachslot in slots:
+
+                if "SwitchEngine" in eachslot:
+                    mat = re.match('(.*)(Engine)(\d+)(.*)', eachslot)
+                    model_md = mat.group(1) + ' ' + mat.group(2) + ' ' + mat.group(3) + mat.group(4).replace('_', '-')
+                    sw_model = 'Switch Engine ' + mat.group(3).split('_')[0] + '-Series-Stack'
+                else:
+                    model_act = eachslot.replace('10_G4', '10G4')
+                    m = re.match(r'(X\d+)(G2)(\d+)(.*)', model_act)
+                    model_md = mat.group(1) + ' ' + mat.group(2) + ' ' + mat.group(3) + mat.group(4).replace('_', '-')
+                    sw_model = m.group(1) + '-' + m.group(2) + '-Series-Stack'
+                model_list.append(model_md)
+            model_units = ','.join(model_list)
+            return sw_model,model_units
+        elif "Engine" in model:
+            mat = re.match('(.*)(Engine)(.*)', model)
+            sw_model = mat.group(1) + ' ' + mat.group(2) + ' ' + mat.group(3).replace('_', '-')
+
+        elif "G2" in model:
+            model_act = model.replace('10_G4', '10G4')
+            m = re.match(r'(X\d+)(G2)(.*)', model_act)
+            sw_model = m.group(1) + '-' + m.group(2) + m.group(3).replace('_', '-')
+        else:
+            sw_model = model.replace('_', '-')
+        return  sw_model,-1
+
+    def sw_template_stack_select_slot(self, slot):
+        """
+        - Assume that already in Device Template Port Configuration
+        :param slot: "The slot number that needs to be selected"
+        :return: Returns 1 if slot found and clicked
+                 Returns -1 if otherwise
+        """
+        self.utils.print_info("Gather the list of the devices in the stack")
+        slot_index = 1
+        slot_found = False
+        complete_stack = self.sw_template_web_elements.get_complete_stack_list()
+        if complete_stack:
+            slots_in_stack = self.sw_template_web_elements.get_complete_stack_all_rows(complete_stack)
+            for stack_item in slots_in_stack:
+                if slot_index == int(slot):
+                    self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.auto_actions.click(stack_item)
+                    slot_found = True
+                    break
+                slot_index = slot_index + 1
+            if not slot_found:
+                self.utils.print_info("Unable to locate the correct slot")
+                return -1
+            return -1
+        else:
+            self.utils.print_info("Unable to gather the list of the devices in the stack")
+            return -1
