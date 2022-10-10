@@ -5337,7 +5337,9 @@ class Devices:
         if not self.select_device(serial) == 1:
             return -1
 
-        self._update_switch(update_method="Complete")
+        if not self._update_switch(update_method="Complete") == 1:
+            self.utils.print_info("Update device failed")
+            return -1
 
         self.screen.save_screen_shot()
 
@@ -5404,8 +5406,15 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the Update Device button
         self.close_last_refreshed_tooltip()
 
-        self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+
+        update_button = self.devices_web_elements.get_update_device_button()
+        if update_button:
+            self.utils.print_info("Click on device update button")
+            self.auto_actions.click(update_button)
+        else:
+            self.utils.print_info("update button not found")
+            return -1
+
         sleep(2)
 
         pol_config_cb = self.devices_web_elements.get_switch_update_policy_and_config_check_button()
@@ -5450,8 +5459,13 @@ class Devices:
         #     return -1
 
         # Perform the update
-        self.utils.print_info("Click on perform update button")
-        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        perform_update_button = self.devices_web_elements.get_perform_update_button()
+        if perform_update_button:
+            self.utils.print_info("Click on perform update button")
+            self.auto_actions.click(perform_update_button)
+        else:
+            self.utils.print_info("Not able to click on perform update button")
+            return -1
 
         # In case the warning dialog is displayed about the reboot and revert option being selected, click Yes to close it
         self._handle_reboot_and_revert_warning()
@@ -6519,7 +6533,10 @@ class Devices:
             if refresh_tt.is_displayed():
                 self.utils.print_info("'Last Refreshed at:' tooltip is displayed")
                 self.utils.print_info("  -- moving mouse to 'Last Refreshed at:' tooltip element to hide it")
-                self.auto_actions.move_to_element(refresh_tt)
+                self.utils.print_info("Move mouse over ADD button...")
+                add_button = self.devices_web_elements.get_devices_add_button()
+                if add_button:
+                    self.auto_actions.move_to_element(add_button)
             else:
                 self.utils.print_debug("'Last Refreshed at:' tooltip is not displayed")
         else:

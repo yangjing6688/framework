@@ -1899,7 +1899,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_pse_tab = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-port-config-pse"]',
+            'XPATH': '//div[@data-automation-tag="automation-port-config-pse" or @data-automation-tag="automation-port-configuration-pse"]',
             'wait_for': 5
         }
 
@@ -3088,13 +3088,19 @@ class Device360WebElementDefs:
 
     device360_configure_port_pse_rows = \
         {
-            'XPATH': '//div[@class="port-pse-entry "]',
+            'XPATH': '//div[@class="port-pse-entry " or @class="clearfix entry-in-line"]',
             'wait_for': 5
         }
 
     device360_port_configuration_pse_profile_port_interface = \
         {
             'CSS_SELECTOR': '.port-interface',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_pse_profile_port_interface_voss = \
+        {
+            'CSS_SELECTOR': '.portInterface',
             'wait_for': 5
         }
 

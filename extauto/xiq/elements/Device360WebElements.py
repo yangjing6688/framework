@@ -1888,7 +1888,14 @@ class Device360WebElements(Device360WebElementDefs):
         return self.weh.get_elements(self.device360_configure_port_pse_rows)
 
     def get_device360_port_configuration_pse_profile_port_interface(self, row):
-        return self.weh.get_element(self.device360_port_configuration_pse_profile_port_interface, row)
+        el_exos = self.weh.get_element(self.device360_port_configuration_pse_profile_port_interface, row)
+        el_voss = self.weh.get_element(self.device360_port_configuration_pse_profile_port_interface_voss, row)
+        if el_exos:
+            return el_exos
+        elif el_voss:
+            return el_voss
+        else:
+            return None
 
     def get_common_save_button(self):
         return self.weh.get_element(self.common_save_button)
