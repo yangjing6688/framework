@@ -13,6 +13,7 @@ from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
+from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.common.CommonValidation import CommonValidation
@@ -29,6 +30,7 @@ class Device360(Device360WebElements):
         self.navigator = Navigator()
         self.dev360 = Device360WebElements()
         self.deviceConfig = DeviceConfig()
+        self.deviceCommon = DeviceCommon()
         self.devices_web_elements = DevicesWebElements()
         self.dialog_web_elements = DialogWebElements()
         self.wireless_web_elements = WirelessWebElements()
@@ -285,7 +287,7 @@ class Device360(Device360WebElements):
         return ret_val
 
     def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30,
-                                              retry_time=15, retry_counter=0, **kwargs):
+                                              retry_time=15, **kwargs):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -297,8 +299,7 @@ class Device360(Device360WebElements):
         :param device_name: The device Name
         :param run_time: The run time value to keep the ssh open (5, 30, 60, 120, 240)
         :param time_interval: sleep time to read in the new ssh port / ip values
-        :param retry_time: The number of times to try and read in the new ssh port / ip values
-        :param retry_counter: retry counter value, do not override (default=0)
+        :param retry_time: The number of times to try and read in the new ssh port / ip value
 
         :return: SSH String
         """
@@ -349,7 +350,7 @@ class Device360(Device360WebElements):
 
         sleep(time_interval)
         self.screen.save_screen_shot()
-        if self.get_device_ssh_ui_tip_error() != None:
+        if self.get_device_ssh_ui_tip_error() is not None:
             self.screen.save_screen_shot()
             self.auto_actions.click(self.get_device_ssh_ui_tip_close())
             kwargs['fail_msg'] = f"Encountered an error. Clicking to exit the error window. Please see the screenshot"
@@ -372,32 +373,16 @@ class Device360(Device360WebElements):
                 self.utils.print_info(f"****************** IP/Port Information ************************")
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
-                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
 
-                if retry_counter != 0:
-                    kwargs['fail_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
-                    self.common_validation.failed(**kwargs)
-                else:
-                    self.common_validation.passed(**kwargs)
+                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
+                self.common_validation.passed(**kwargs)
                 self.close_device360_window()
                 return ip_port_info
             else:
                 self.utils.print_info(
                     f"****************** IP/Port Information is not available after {time_interval} seconds ************************")
                 sleep(time_interval)
-                retry_count += 30
-
-        # we got here, so let's try this again
-        if (retry_counter == 5):
-            kwargs['fail_msg'] = f"Failed to get the SSH and port information"
-            self.common_validation.failed(**kwargs)
-            return -1
-        else:
-            retry_counter += 1
-            self.close_device360_window()
-            self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
-            return self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
-                                                              retry_time, retry_counter, **kwargs)
+                retry_count += 1
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
         """
@@ -942,7 +927,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("SSH has been disabled")
 
-        kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
+        kwargs['pass_msg'] = f"SSH has been disabled successfully!"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -3190,24 +3175,50 @@ class Device360(Device360WebElements):
                 for row in event_rows:
                     self.utils.print_info(str(i))
                     i += 1
-                    desc_val = self.get_device360_event_description_cell_value(row)
-                    self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
-                    # Check if the event description value for this row contains what we are looking for
-                    if event_str in desc_val:
-                        # If a time was specified, make sure the timestamp for the event is more recent
-                        if after_time:
-                            time_val = self.get_device360_event_timestamp_cell_value(row)
-                            if time_val > after_time:
-                                self.utils.print_debug(
-                                    "Found a match for '" + event_str + ''" after "'' + after_time + "'")
-                                cont_rows_match += 1
+                    expand_more = self.dev360.get_device360_event_expand_more(row)
+                    if expand_more:
+                        self.utils.print_info("Clicking on ...more to expand event details.")
+                        self.auto_actions.click(expand_more)
+                        sleep(5)
+                        desc_val = self.get_device360_event_more_expand_value().text
+                        self.auto_actions.click(self.get_device360_event_more_close_btn())
+                        self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
+                        # Check if the event description value for this row contains what we are looking for
+                        if event_str in desc_val:
+                            # If a time was specified, make sure the timestamp for the event is more recent
+                            if after_time:
+                                time_val = self.get_device360_event_timestamp_cell_value(row)
+                                if time_val > after_time:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + ''" after "'' + after_time + "'")
+                                    cont_rows_match += 1
+                                else:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
+                                        + "' (" + time_val + ") - looking at next row...")
                             else:
-                                self.utils.print_debug(
-                                    "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
-                                    + "' (" + time_val + ") - looking at next row...")
-                        else:
-                            self.utils.print_debug("Found a match for '" + event_str + "'")
-                            cont_rows_match += 1
+                                self.utils.print_debug("Found a match for '" + event_str + "'")
+                                cont_rows_match += 1
+
+                    else:
+                        desc_val = self.get_device360_event_description_cell_value(row)
+                        self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
+                        # Check if the event description value for this row contains what we are looking for
+                        if event_str in desc_val:
+                            # If a time was specified, make sure the timestamp for the event is more recent
+                            if after_time:
+                                time_val = self.get_device360_event_timestamp_cell_value(row)
+                                if time_val > after_time:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + ''" after "'' + after_time + "'")
+                                    cont_rows_match += 1
+                                else:
+                                    self.utils.print_debug(
+                                        "Found a match for '" + event_str + "' but it has a timestamp before '" + after_time
+                                        + "' (" + time_val + ") - looking at next row...")
+                            else:
+                                self.utils.print_debug("Found a match for '" + event_str + "'")
+                                cont_rows_match += 1
                 if cont_rows_match == 0:
                     self.utils.print_info("Not found a match for '" + event_str + "'")
                     return -1
@@ -5789,7 +5800,16 @@ class Device360(Device360WebElements):
                                         #for VOSS
                                         'page6 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
-                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                                ## To select an already existing pse profile:
+                                                # [{'pse_profile_name': 'default-pse-vsp'}/'None' , 'default-pse-vsp'/'None'],
+
+                                                ## To create a new profile
+                                                # [{'pse_profile_name': 'PSE_123',
+                                                    'pse_profile_power_mode': '802.3at',
+                                                    'pse_profile_power_limit': '20000',
+                                                    'pse_profile_priority': 'high',
+                                                    'pse_profile_description': 'Testing PSE'
+                                                   }, 'PSE_123'/None],
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page7 summaryPage': ["next_page", None]
@@ -5801,7 +5821,17 @@ class Device360(Device360WebElements):
 
                                         'page7 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
-                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                                ## To select an already existing pse profile:
+                                                # [{'pse_profile_name': 'default-pse-vsp'}/'None' , 'default-pse-vsp'/'None'],
+
+                                                ## To create a new profile
+                                                # [{'pse_profile_name': 'PSE_123',
+                                                    'pse_profile_power_mode': '802.3at',
+                                                    'pse_profile_power_limit': '20000',
+                                                    'pse_profile_priority': 'high',
+                                                    'pse_profile_description': 'Testing PSE'
+                                                   }, 'PSE_123'/None],
+
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page8 summaryPage': ["next_page", None]
@@ -5874,6 +5904,15 @@ class Device360(Device360WebElements):
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
+
+            def _check_that_port_type_is_closed():
+                if not self.get_close_port_type_box():
+                    self.utils.print_info("Port type profile dialog has been closed")
+                    return True
+                else:
+                    self.utils.print_info("Port type profile dialog box hasn't closed yet... Retrying...")
+                    return False
+
             sleep(5)
             close_port_type_box = self.get_close_port_type_box()
             sleep(5)
@@ -5881,6 +5920,9 @@ class Device360(Device360WebElements):
             if close_port_type_box:
                 self.utils.print_info(" The button close_port_type_box from policy  was found")
                 self.auto_actions.click(close_port_type_box)
+                self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
+                                     silent_failure=True, msg="Checking that create new port type profile has been"
+                                                              "dialog box has been closed...")
                 sleep(2)
             else:
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
@@ -5949,7 +5991,14 @@ class Device360(Device360WebElements):
                                         #for VOSS
                                         'page6 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
-                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                                ## To edit and existing PSE profile, add: 'pse_profile_edit_flag': True
+                                                # [{'pse_profile_name': 'PSE_123'
+                                                #   'pse_profile_power_mode': '802.3bt',
+                                                #   'pse_profile_power_limit': '30000',
+                                                #   'pse_profile_priority': 'low',
+                                                #   'pse_profile_description': 'Testing PSE EDIT',
+                                                #   'pse_profile_edit_flag': True
+                                                #  }, 'PSE_123'/None],
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page7 summaryPage': ["next_page", None]
@@ -5961,7 +6010,14 @@ class Device360(Device360WebElements):
 
                                         'page7 pseSettingsPage': ["next_page", None],
                                         'PSE profile':[None,None],
-                                                #['default-pse-vsp'/'None', 'default-pse-vsp'/'None']
+                                                ## To edit and existing PSE profile, add: 'pse_profile_edit_flag': True
+                                                # [{'pse_profile_name': 'PSE_123'
+                                                #   'pse_profile_power_mode': '802.3bt',
+                                                #   'pse_profile_power_limit': '30000',
+                                                #   'pse_profile_priority': 'low',
+                                                #   'pse_profile_description': 'Testing PSE EDIT',
+                                                #   'pse_profile_edit_flag': True
+                                                #  }, 'PSE_123'/None],
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page8 summaryPage': ["next_page", None]
@@ -5971,7 +6027,8 @@ class Device360(Device360WebElements):
         page will be skipped
         :return: 1 if new port type was successfully edited and summary page displays correct values  ; else -1
         """
-
+        self.utils.print_info("Waiting for the policy rows to load...")
+        self.utils.wait_till(self.get_policy_configure_port_rows, delay=5)
         rows = self.get_policy_configure_port_rows()
         if not rows:
             self.utils.print_info("Could not obtain list of port rows")
@@ -5979,6 +6036,17 @@ class Device360(Device360WebElements):
         else:
             for row in rows:
                 if port in row.text:
+
+                    def _wait_for_edit_button_to_load():
+                        if self.get_policy_edit_port_type(row):
+                            self.utils.print_info("Edit port type profile button has been found")
+                            return True
+                        else:
+                            self.utils.print_info("Edit port type profile hasn't been found yet... Retrying...")
+                            return False
+
+                    self.utils.wait_till(_wait_for_edit_button_to_load, timeout=40, delay=3, is_logging_enabled=True,
+                                         silent_failure=True, msg="Waiting for edit port type profile button to show..")
                     policy_edit_port_type = self.get_policy_edit_port_type(row)
                     if policy_edit_port_type:
                         self.utils.print_info(" The button policy_edit_port_type from policy  was found")
@@ -6014,10 +6082,22 @@ class Device360(Device360WebElements):
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
+
+            def _check_that_port_type_is_closed():
+                if not self.get_close_port_type_box():
+                    self.utils.print_info("Port type profile dialog box has been closed")
+                    return True
+                else:
+                    self.utils.print_info("Port type profile dialog box hasn't closed yet... Retrying...")
+                    return False
+
             close_port_type_box = self.get_close_port_type_box()
             if close_port_type_box:
                 self.utils.print_info(" The button close_port_type_box from policy  was found")
                 self.auto_actions.click(close_port_type_box)
+                self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
+                                     silent_failure=True, msg="Checking that create new port type profile has been"
+                                                              "dialog box has been closed...")
                 sleep(2)
             else:
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
@@ -6036,7 +6116,7 @@ class Device360(Device360WebElements):
             cnt = cnt + 1
             if not template_values[key][1] == None:
                 sleep(5)
-                conf_element = self.get_select_element_port_type_summary(key)
+                conf_element = self.get_select_element_port_type_summary(key.lower())
                 print("For ", key, "we have ", conf_element)
                 if conf_element.text.lower() == template_values[key][1].lower():
                     self.utils.print_info(f"The element is correct into summary. Key: {key}  Value: "
@@ -6047,10 +6127,22 @@ class Device360(Device360WebElements):
                     return -1
             else:
                 pass
+
+        def _check_that_port_type_is_closed():
+            if not self.get_close_port_type_box():
+                self.utils.print_info("Port type profile dialog box has been closed")
+                return True
+            else:
+                self.utils.print_info("Port type profile dialog box hasn't closed yet... Retrying...")
+                return False
+
         close_port_type_box = self.get_close_port_type_box()
         if close_port_type_box:
             self.utils.print_info(" The button close_port_type_box from policy  was found")
             self.auto_actions.click(close_port_type_box)
+            self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
+                                 silent_failure=True, msg="Checking that create new port type profile has been"
+                                                          "dialog box has been closed...")
             sleep(2)
         else:
             self.utils.print_info(" The button close_port_type_box from policy was not found")
@@ -6069,6 +6161,18 @@ class Device360(Device360WebElements):
         sleep(2)
         if "next_page" in value:
             sleep(5)
+
+            def _check_next_button():
+                if self.get_select_element_port_type("next_button"):
+                    self.utils.print_info("Found 'next' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find next button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_next_button, timeout=30, delay=1, silent_failure=True, is_logging_enabled=True,
+                                 msg="Waiting for 'next' button to load...")
+
             get_next_button = self.get_select_element_port_type("next_button")
             if get_next_button:
                 sleep(5)
@@ -6080,6 +6184,18 @@ class Device360(Device360WebElements):
 
         elif "usagePage" in element:
             sleep(5)
+
+            def _check_usage_page():
+                if self.get_select_element_port_type("usagePage"):
+                    self.utils.print_info("Found 'usagePage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'usagePage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_usage_page, timeout=30, delay=1, silent_failure=True, is_logging_enabled=True,
+                                 msg="Waiting for 'usagePage' button to load...")
+
             get_tab_usagePage = self.get_select_element_port_type("usagePage")
             if get_tab_usagePage:
                 sleep(5)
@@ -6088,6 +6204,18 @@ class Device360(Device360WebElements):
 
         elif "trunkVlanPage" in element or "accessVlanPage" in element:
             sleep(5)
+
+            def _check_vlan_page():
+                if self.get_select_element_port_type("tab_vlan"):
+                    self.utils.print_info("Found 'tab_vlan' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'tab_vlan' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_vlan_page, timeout=30, delay=1, silent_failure=True, is_logging_enabled=True,
+                                 msg="Waiting for 'vlanPage' to load...")
+
             get_tab_vlan = self.get_select_element_port_type("tab_vlan")
             if get_tab_vlan:
                 sleep(5)
@@ -6096,6 +6224,18 @@ class Device360(Device360WebElements):
 
         elif "transmissionSettingsPage" in element:
             sleep(5)
+
+            def _check_transmission_settings_page():
+                if self.get_select_element_port_type("transmissionSettingsPage"):
+                    self.utils.print_info("Found 'transmissionSettingsPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'transmissionSettingsPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_transmission_settings_page, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'transmissionSettingsPage' to load...")
+
             get_tab_transmission = self.get_select_element_port_type("transmissionSettingsPage")
             if get_tab_transmission:
                 sleep(5)
@@ -6104,6 +6244,18 @@ class Device360(Device360WebElements):
 
         elif "stpPage" in element:
             sleep(5)
+
+            def _check_stp_page():
+                if self.get_select_element_port_type("stpPage"):
+                    self.utils.print_info("Found 'stpPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'stpPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_stp_page, timeout=30, delay=1, silent_failure=True, is_logging_enabled=True,
+                                 msg="Waiting for 'stpPage' to load...")
+
             get_tab_stp = self.get_select_element_port_type("stpPage")
             if get_tab_stp:
                 sleep(5)
@@ -6112,6 +6264,18 @@ class Device360(Device360WebElements):
 
         elif "stormControlSettingsPage" in element:
             sleep(5)
+
+            def _check_stormControlSettingsPage():
+                if self.get_select_element_port_type("stormControlSettingsPage"):
+                    self.utils.print_info("Found 'stormControlSettingsPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'stormControlSettingsPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+            self.utils.wait_till(_check_stormControlSettingsPage, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'stormControlSettingsPage' to load...")
+
             get_storm_control = self.get_select_element_port_type("stormControlSettingsPage")
             if get_storm_control:
                 sleep(5)
@@ -6126,6 +6290,19 @@ class Device360(Device360WebElements):
 
         elif "ELRPSettingsPage" in element:
             sleep(5)
+
+            def _check_stormControlSettingsPage():
+                if self.get_select_element_port_type("ELRPSettingsPage"):
+                    self.utils.print_info("Found 'ELRPSettingsPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'ELRPSettingsPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+
+            self.utils.wait_till(_check_stormControlSettingsPage, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'ELRPSettingsPage' to load...")
+
             get_elrp = self.get_select_element_port_type("ELRPSettingsPage")
             if get_elrp:
                 sleep(5)
@@ -6134,6 +6311,19 @@ class Device360(Device360WebElements):
 
         elif "pseSettingsPage" in element:
             sleep(5)
+
+            def _check_pse_settings_page():
+                if self.get_select_element_port_type("pseSettingsPage"):
+                    self.utils.print_info("Found 'pseSettingsPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'pseSettingsPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+
+            self.utils.wait_till(_check_pse_settings_page, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'pseSettingsPage' to load...")
+
             get_tab_pse_settings = self.get_select_element_port_type("pseSettingsPage")
             if get_tab_pse_settings:
                 sleep(5)
@@ -6142,6 +6332,19 @@ class Device360(Device360WebElements):
 
         elif "summaryPage" in element:
             sleep(5)
+
+            def _check_pse_settings_page():
+                if self.get_select_element_port_type("summaryPage"):
+                    self.utils.print_info("Found 'summaryPage' button")
+                    return True
+                else:
+                    self.utils.print_info("Did not find 'summaryPage' button. Retrying...")
+                    self.screen.save_screen_shot()
+                    return False
+
+            self.utils.wait_till(_check_pse_settings_page, timeout=30, delay=1, silent_failure=True,
+                                 is_logging_enabled=True, msg="Waiting for 'summaryPage' to load...")
+
             get_tab_summary = self.get_select_element_port_type("summaryPage")
             if get_tab_summary:
                 sleep(5)
@@ -6459,55 +6662,196 @@ class Device360(Device360WebElements):
         # page PSE
         elif element.lower() == "pse profile":
             sleep(5)
+
+            try:
+                edit_flag = value['pse_profile_edit_flag']
+            except KeyError:
+                print("'pse_profile_edit_flag' key not found in pse dictionary.")
+                edit_flag = False
+
             get_pse_profile = self.get_select_element_port_type(element)
             if get_pse_profile:
                 self.auto_actions.click(get_pse_profile)
+                more_button_times_found = 0
+                while self.get_select_element_port_type('pse_more_button'):
+                    more_button_times_found += 1
+                    self.utils.print_info(f"'More' button present {more_button_times_found} times in PSE dropdown. "
+                                          f"Scrolling down...")
+                    try:
+                        def _check_stale_element_exception_more_button():
+                            try:
+                                self.auto_actions.move_to_element(self.get_select_element_port_type('pse_more_button'))
+                                return True
+                            except StaleElementReferenceException as e:
+                                self.utils.print_info(f"Scrolling to 'More' button failed. Stale element exception "
+                                                      f"error detected {e} ; Retrying...")
+                                return False
+
+                        self.utils.wait_till(_check_stale_element_exception_more_button,
+                                             msg="Waiting for StaleElementException to dissapear...")
+                        self.utils.print_info("Clicking 'More' button...")
+                        self.auto_actions.click(self.get_select_element_port_type('pse_more_button'))
+                    except ElementNotInteractableException as e:
+                        self.utils.print_info(f"Element not interactable error: {e} ; Element is inactive! "
+                                              f"Breaking loop. \n\nNOTE: If 'More' button is visible and active, but "
+                                              f"still getting: ElementNotInteractable error ; "
+                                              f"check that the CSS_SELECTOR is correct.")
+                        break
+
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
-                if self.auto_actions.select_drop_down_options(get_pse_profile_items, value):
-                    self.utils.print_info(" Selected into dropdown value : ", value)
+                pse_profile_name = value['pse_profile_name']
+
+                if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
+                    self.utils.print_info(" Selected into dropdown value : ", pse_profile_name)
+
+                    if edit_flag:
+                        self.utils.print_info(f"Editing PSE profile {value['pse_profile_name']}")
+                        get_pse_profile_edit_button = self.get_select_element_port_type("pse_profile_edit")
+                        if get_pse_profile_edit_button:
+                            self.utils.print_info("Found pse profile edit button!")
+                            self.auto_actions.click(get_pse_profile_edit_button)
+
+                        get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
+                        if get_pse_profile_name:
+                            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_pse_profile_name not found ")
+                        sleep(5)
+
+                        get_pse_profile_power_mode_dropdown = self.get_select_element_port_type(
+                            'pse_profile_power_mode_dropdown')
+                        if get_pse_profile_power_mode_dropdown:
+                            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
+                            get_pse_profile_power_mode_items = self.get_select_element_port_type(
+                                "pse_profile_power_mode_items")
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items,
+                                                                          value['pse_profile_power_mode']):
+                                self.utils.print_info(" Selected into dropdown value : ",
+                                                      value['pse_profile_power_mode'])
+
+                        get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
+                        if get_pse_profile_power_limit:
+                            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
+                        else:
+                            self.utils.print_info("Power Limit textbox not found!")
+
+                        sleep(2)
+                        get_pse_profile_priority_dropdown = self.get_select_element_port_type("pse_profile_priority")
+                        if get_pse_profile_priority_dropdown:
+                            self.auto_actions.click(get_pse_profile_priority_dropdown)
+                            sleep(2)
+                            get_pse_profile_priority_items = self.get_select_element_port_type(
+                                "pse_profile_priority_items")
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
+                                                                          value['pse_profile_priority']):
+                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+
+                        sleep(2)
+                        get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
+                        if get_pse_profile_description:
+                            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
+                            sleep(2)
+                        else:
+                            self.utils.print_info("get_pse_profile_description not found ")
+                        sleep(5)
+
+                        def _check_save_pse_profile_closure():
+                            if not self.get_select_element_port_type("pse_profile_save"):
+                                self.utils.print_info("PSE profile save button not present anymore.")
+                                return True
+                            else:
+                                self.utils.print_info("PSE profile save button is still present. Retrying...")
+                                return False
+
+                        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
+                        if get_pse_profile_save:
+                            self.auto_actions.click(get_pse_profile_save)
+                            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
+                                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
+                                                                                   "save...")
+                            return 1
+                        else:
+                            self.utils.print_info("get_pse_profile_save not found ")
+
                     return 1
+
+                elif edit_flag:
+                    self.utils.print_info(f"Edit flag is: {edit_flag}")
+                    self.utils.print_info(f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
+                                          f"Cannot edit non-exisiting PSE profile. Make sure 'More' button is clicked."
+                                          f"Closing dialog box...")
+                    close_dialog_box = self.get_close_port_type_dialog_box()
+                    if close_dialog_box:
+                        self.utils.print_info("Found 'close dialog' button. Clicking...")
+                        self.auto_actions.click(close_dialog_box)
+                    else:
+                        self.utils.print_info("Cannot find 'close dialog' button...")
+                    return -1
+
                 else:
                     sleep(5)
+                    self.utils.print_info(f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
+                                          f"Closing dropdown...")
+                    self.auto_actions.click(get_pse_profile)
+                    
                     get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
                     if get_pse_profile_add:
                         self.auto_actions.click(get_pse_profile_add)
                         sleep(2)
                         get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
                         if get_pse_profile_name:
-                            self.auto_actions.send_keys(get_pse_profile_name, value)
+                            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
                             sleep(2)
                         else:
                             self.utils.print_info("get_pse_profile_name not found ")
                         sleep(5)
-                        get_pse_profile_power_mode = self.get_select_element_port_type(element)
-                        if get_pse_profile_power_mode:
-                            self.auto_actions.click(get_pse_profile_power_mode)
-                            sleep(2)
-                            get_pse_profile_power_mode_items = self.get_select_element_port_type(
-                                "pse_profile_power_mode_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items, value):
-                                self.utils.print_info(" Selected into dropdown value : ", value)
+                        get_pse_profile_power_mode_dropdown = self.get_select_element_port_type('pse_profile_power_mode_dropdown')
+                        if get_pse_profile_power_mode_dropdown:
+                            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
+                            get_pse_profile_power_mode_items = self.get_select_element_port_type("pse_profile_power_mode_items")
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items, value['pse_profile_power_mode']):
+                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_power_mode'])
+
+                        get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
+                        if get_pse_profile_power_limit:
+                            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
+                        else:
+                            self.utils.print_info("Power Limit textbox not found!")
+
                         sleep(2)
-                        get_pse_profile_priority = self.get_select_element_port_type(element)
-                        if get_pse_profile_priority:
-                            self.auto_actions.click(get_pse_profile_priority)
+                        get_pse_profile_priority_dropdown = self.get_select_element_port_type("pse_profile_priority")
+                        if get_pse_profile_priority_dropdown:
+                            self.auto_actions.click(get_pse_profile_priority_dropdown)
                             sleep(2)
-                            get_pse_profile_priority_items = self.get_select_element_port_type(
-                                "pse_profile_priority_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items, value):
-                                self.utils.print_info(" Selected into dropdown value : ", value)
+                            get_pse_profile_priority_items = self.get_select_element_port_type("pse_profile_priority_items")
+                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items, value['pse_profile_priority']):
+                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+
                         sleep(2)
                         get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
                         if get_pse_profile_description:
-                            self.auto_actions.send_keys(get_pse_profile_description, value)
+                            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
                             sleep(2)
                         else:
                             self.utils.print_info("get_pse_profile_description not found ")
                         sleep(5)
+
+                        def _check_save_pse_profile_closure():
+                            if not self.get_select_element_port_type("pse_profile_save"):
+                                self.utils.print_info("PSE profile save button not present anymore.")
+                                return True
+                            else:
+                                self.utils.print_info("PSE profile save button is still present. Retrying...")
+                                return False
+
                         get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
                         if get_pse_profile_save:
                             self.auto_actions.click(get_pse_profile_save)
+                            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
+                                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
+                                                                                   "save...")
                             return 1
                         else:
                             self.utils.print_info("get_pse_profile_save not found ")
@@ -6516,8 +6860,8 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info("get_pse_profile not found ")
         elif element.lower() == "poe status":
-            sleep(5)
-            get_poe_status = self.get_select_element_port_type(element, value)
+            sleep(10)
+            get_poe_status = self.get_select_element_port_type('poe status')
             print('Found POE_Status button: ', get_poe_status)
             sleep(5)
             if get_poe_status:
@@ -8258,3 +8602,39 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.common_validation.failed(**kwargs)
                 return -1
+
+    def get_event_from_device360(self, dut, event, close_360_window=True, **kwargs):
+        """
+        This function is used to search for an event given as parameter in Events view from Device360 window
+        :param dut: the instance of the device
+        :param event: the event that is being looking for
+        :param close_360_window: True - if Device360 to be close; False - if not
+        :return: 1 - if the event was found successfully ; -1 - if not
+        """
+        if self.navigator.navigate_to_devices() != 1:
+            self.utils.print_info("Failed to navigate to Devices tab")
+            kwargs['fail_msg'] = "Failed to navigate to Devices tab"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        if self.deviceCommon.go_to_device360_window(device_mac=dut.mac) != 1:
+            self.utils.print_info("Failed to go to Device360 window")
+            kwargs['fail_msg'] = "Failed to go to Device360 window"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        if self.device360_select_events_view() != 1:
+            self.utils.print_info("Failed to select Events view")
+            kwargs['fail_msg'] = "Failed to select Events view"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
+        sleep(3)
+
+        count = -1
+        if self.device360_search_event_and_confirm_event_description_contains(event) != -1:
+            count = 1
+
+        if close_360_window:
+            self.close_device360_window()
+        return count
