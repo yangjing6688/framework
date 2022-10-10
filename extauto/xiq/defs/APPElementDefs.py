@@ -108,6 +108,7 @@ class APPElementDefs:
         {
             'XPATH': '//*[@data-automation-tag="automation-chzn-drop-ctn"]'
                      '//*[@class="chzn-results qa-chzn-results-devicefunc,sync-func"]//li',
+
             'wait_for': 5
         }
 
@@ -126,10 +127,18 @@ class APPElementDefs:
             'wait_for': 5
         }
 
-    auto_provisioning_device_model_dropdown_switch_SR22_23 = \
+    auto_provisioning_device_model_dropdown_list_SR22_23 = \
         {
             'XPATH': '//div[@data-dojo-attach-point="SwitchType,ctn-Switch"]'
                      '//*[@data-automation-tag="automation-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    auto_provisioning_device_model_dropdown_switch_SR22_23 = \
+        {
+            # 'XPATH': '//div[@data-dojo-attach-point="SwitchType,ctn-Switch"]'
+            #          '//*[@data-automation-tag="automation-chzn-results-ctn"]//li',
+            'XPATH': '//span[contains(text(),"All Extreme Networks SR22xx / SR23xx Switches")]',
             'wait_for': 5
         }
 
