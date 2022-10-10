@@ -186,6 +186,7 @@ class Network360Plan:
 
         self.utils.print_info(f"Importing Map File : {map_file_name}")
         map_file_location = self.custom_file_dir + map_file_name
+        map_file_location = map_file_location.replace(":", ":\\")
         upload_button = self.n360_elements.get_import_map_upload_button()
         self.auto_actions.send_keys(upload_button, map_file_location)
 
@@ -212,5 +213,3 @@ class Network360Plan:
                     sleep(2)
                     return 1
         return -1
-
-
