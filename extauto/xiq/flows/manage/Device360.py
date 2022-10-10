@@ -8548,7 +8548,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("PortConfiguration Button was not found ")
             return -1
-
+        self.utils.wait_till(self.get_device360_port_configuration_pse_tab, timeout=20, delay=1, is_logging_enabled=True )
         pse_tab_button = self.get_device360_port_configuration_pse_tab()
         if pse_tab_button:
             self.utils.print_info("Click PSE Tab")
