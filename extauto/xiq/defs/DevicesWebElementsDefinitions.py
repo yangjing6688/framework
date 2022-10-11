@@ -241,7 +241,7 @@ class DevicesWebElementsDefinitions:
 
     device_update_error_message = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'XPATH': '//*[@class="ui-tipbox ui-tipbox-error"]//*[@data-dojo-attach-point="textEl"]',
             'index': 0,
             'wait_for': 5
         }
@@ -496,7 +496,7 @@ class DevicesWebElementsDefinitions:
         }
     action_assign_network_policy_dialog_cancel_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="closeDialog"]',
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 2
         }
 
