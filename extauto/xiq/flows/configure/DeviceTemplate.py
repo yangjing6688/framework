@@ -116,7 +116,7 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Checking the Save profile message...")
-        observed_profile_message = self.wips_web_elements.get_wips_profile_save_tool_tip().text
+        observed_profile_message = self.device_template_web_elements.get_ap_template_save_tool_tip().text
         self.utils.print_info("Observed Message: ", observed_profile_message)
         self.screen.save_screen_shot()
         sleep(2)
