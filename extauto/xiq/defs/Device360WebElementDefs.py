@@ -1841,6 +1841,18 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_configure_onboarding_port_vlan_textfield = \
+        {
+            'CSS_SELECTOR': '.portUsageVLANfield.onboardingVLAN',
+            'wait_for': 5
+        }
+
+    device360_configure_disabled_port_vlan_textfield = \
+        {
+            'CSS_SELECTOR': '.portUsageVLANfield.disabledVLAN',
+            'wait_for': 5
+        }
+
     device360_configure_port_trunk_native_vlan_textfield = \
         {
             'CSS_SELECTOR': '.native-vlan',
@@ -2173,7 +2185,7 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@id="dijit_Dialog_1"]//span[@data-automation-tag="automation-dialog-close-button"]'
         }
-        
+
     cancel_port_type_box = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
@@ -3132,7 +3144,7 @@ class Device360WebElementDefs:
             'XPATH': '//button[@data-automation-tag="automation-notification-no-btn"]',
             'wait_for': 5
         }
-    
+
     select_element_port_type_pse_profile_power_limit = \
         {
 	'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
@@ -3151,7 +3163,29 @@ class Device360WebElementDefs:
         }
 
     select_more_button_pse_profile = \
-        {       
+        {
             'CSS_SELECTOR': '.J-ip-more'
         }
-    
+
+
+
+    device360_configure_port_access_vlan_textfield_VOSS = \
+        {
+            'CSS_SELECTOR': '.accessVLAN',
+            'index': 1,
+            'wait_for': 5
+        }
+
+    device360_configure_port_trunk_native_vlan_textfield_VOSS = \
+        {
+            'CSS_SELECTOR': '.trunkNativeVLAN',
+            'index': 2,
+            'wait_for': 5
+        }
+
+    device360_configure_port_trunk_vlan_textfield_VOSS = \
+        {
+            'CSS_SELECTOR': '.trunkAllowedVLAN',
+            'index': 2,
+            'wait_for': 5
+        }

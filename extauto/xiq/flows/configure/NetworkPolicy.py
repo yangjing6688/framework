@@ -461,7 +461,7 @@ class NetworkPolicy(object):
                 return row
 
     def deploy_network_policy(self, policy_name, devices, update_type='delta', next_reboot=False, _date=None,
-                              _time=None):
+                              _time=None, **kwargs):
         """
         - Deploy the network policy to the particular device
         - By default it will do delta config push
@@ -509,6 +509,8 @@ class NetworkPolicy(object):
 
         if not self._select_device_row(devices):
             self.utils.print_info("Device is not available in the deploy policy page")
+            kwargs['fail_msg'] = f"Device is not available in the deploy policy page"
+            self.common_validation.failed(**kwargs)
             return -1
         self.screen.save_screen_shot()
         sleep(5)
