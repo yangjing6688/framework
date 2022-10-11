@@ -937,7 +937,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("click on list view button")
         self.auto_actions.click_reference(self.get_network_policy_list_view)
         self.utils.print_info("Click on network policy full size page")
-        if self.get_network_policy_page_size().is_displayed():
+        if self.get_network_policy_page_size():
             self.auto_actions.click_reference(self.get_network_policy_page_size)
             sleep(2)
         return 1
