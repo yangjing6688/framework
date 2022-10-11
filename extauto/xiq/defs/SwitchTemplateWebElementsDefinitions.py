@@ -777,3 +777,8 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//*[@data-automation-tag="automation-notification-yes-btn"]',
             'wait_for': 5
         }
+
+    sw_template_assign_existing_trunk_choice_second_dialog_box_save_button = \
+        {
+            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]'
+        }
