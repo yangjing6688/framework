@@ -269,11 +269,32 @@ class NetworkPolicy(object):
 
         # Get the total pages
         pages = self.common_objects.cobj_web_elements.get_page_numbers()
-        last_page = int(pages.text[-1])
-        page_counter = 0
-        self.utils.print_info(f"There are {last_page} page(s) to check")
-        while page_counter < last_page:
-            select_flag = None
+        select_flag = None
+        if pages.is_displayed():
+            last_page = int(pages.text[-1])
+            page_counter = 0
+            self.utils.print_info(f"There are {last_page} page(s) to check")
+            while page_counter < last_page:
+                for policy in policies:
+                    if self._search_network_policy_in_list_view(policy) == 1:
+                        self.utils.print_info("Select Network policy row")
+                        self.select_network_policy_row(policy)
+                        select_flag = True
+                        sleep(1)
+                        break
+                    else:
+                        self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
+
+                if select_flag:
+                    # we found what we were looking for, so exit
+                    break
+
+                # goto the next page
+                page_counter += 1
+                self.utils.print_info(f"Move to next page {page_counter}")
+                self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
+                sleep(5)
+        else:
             for policy in policies:
                 if self._search_network_policy_in_list_view(policy) == 1:
                     self.utils.print_info("Select Network policy row")
@@ -283,16 +304,6 @@ class NetworkPolicy(object):
                     break
                 else:
                     self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
-
-            if select_flag:
-                # we found what we were looking for, so exit
-                break
-
-            # goto the next page
-            page_counter += 1
-            self.utils.print_info(f"Move to next page {page_counter}")
-            self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
-            sleep(5)
 
         if not select_flag:
             kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
