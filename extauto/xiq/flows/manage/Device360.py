@@ -287,7 +287,7 @@ class Device360(Device360WebElements):
         return ret_val
 
     def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30,
-                                              retry_time=15, retry_counter=0, **kwargs):
+                                              retry_time=15, **kwargs):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -299,8 +299,7 @@ class Device360(Device360WebElements):
         :param device_name: The device Name
         :param run_time: The run time value to keep the ssh open (5, 30, 60, 120, 240)
         :param time_interval: sleep time to read in the new ssh port / ip values
-        :param retry_time: The number of times to try and read in the new ssh port / ip values
-        :param retry_counter: retry counter value, do not override (default=0)
+        :param retry_time: The number of times to try and read in the new ssh port / ip value
 
         :return: SSH String
         """
@@ -375,13 +374,8 @@ class Device360(Device360WebElements):
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
 
-                if retry_counter != 0:
-                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
-                    # we could fail here because it took many times
-                    self.common_validation.passed(**kwargs)
-                else:
-                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
-                    self.common_validation.passed(**kwargs)
+                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
+                self.common_validation.passed(**kwargs)
                 self.close_device360_window()
                 return ip_port_info
             else:
@@ -389,18 +383,6 @@ class Device360(Device360WebElements):
                     f"****************** IP/Port Information is not available after {time_interval} seconds ************************")
                 sleep(time_interval)
                 retry_count += 1
-
-        # we got here, so let's try this again
-        if retry_counter == 5:
-            kwargs['fail_msg'] = f"Failed to get the SSH and port information"
-            self.common_validation.failed(**kwargs)
-            return -1
-        else:
-            retry_counter += 1
-            self.close_device360_window()
-            self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
-            return self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
-                                                              retry_time, retry_counter, **kwargs)
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
         """

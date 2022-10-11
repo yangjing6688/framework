@@ -101,6 +101,7 @@ class Alarms(AlarmsWebElements):
 
         self.utils.print_info("Clicking View Legacy Alarm Button")
         self.auto_actions.click(self.get_alarms_grid_legacy_alarm_button())
+        CloudDriver().refresh_page()
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Alarm Refresh Button")
