@@ -168,10 +168,14 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
         return self.weh.get_element(self.card_view)
 
     def get_network_policy_page_size(self, page_size='100'):
-        if els := self.weh.get_elements(self.network_policy_page_size):
-            for el in els:
-                if str(page_size) in el.text:
-                    return el
+        try:
+            if els := self.weh.get_elements(self.network_policy_page_size):
+                for el in els:
+                    if str(page_size) in el.text:
+                        return el
+        except:
+            pass
+        return None
 
     def get_device_actions_button(self):
         return self.weh.get_element(self.device_actions_button)
