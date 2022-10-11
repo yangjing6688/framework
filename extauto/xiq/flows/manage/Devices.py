@@ -1,6 +1,6 @@
 import re
 import os
-
+import pdb
 import copy
 from time import sleep
 from datetime import datetime
@@ -3268,12 +3268,11 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
+
         num_device_params = 0
         search_device = None
         search_type = None
-
-        # self.navigator.enable_page_size()
-        # print("Deleting devicesssss.. waitiess")
+        self.navigator.enable_page_size()
 
         if device_serial:
             num_device_params += 1
@@ -3409,11 +3408,12 @@ class Devices:
         # navigate to devices page
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
-
+        self.utils.print_info("inside serial number procedure")
         # reset the page number to 1
         pageOne = self.devices_web_elements.get_devices_page_number_one()
-        self.utils.print_info("Clicking on Page 1 in devices page.")
-        self.auto_actions.click(pageOne)
+        if pageOne:
+            self.utils.print_info("Clicking on Page 1 in devices page.")
+            self.auto_actions.click(pageOne)
 
         if not device_serial and device_mac and device_name:
             kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
@@ -12133,7 +12133,7 @@ class Devices:
             if revert_menu:
                 self.auto_actions.click(revert_menu)
                 # sleep(4)
-                self.utils.wait_till(4)
+                self.utils.wait_till(delay=2,timeout=4)
             else:
                 self.utils.print_info("Could not click 'Revert Device to Template' menu item")
                 return -1
@@ -12142,7 +12142,7 @@ class Devices:
             save_btn = self.dialogue_web_elements.get_confirm_yes_button()
             if save_btn:
                 self.auto_actions.click(save_btn)
-                self.utils.wait_till(2)
+                self.utils.wait_till(delay=2,timeout=4)
             else:
                 self.utils.print_info("Could not click 'Save' button")
                 return -1
