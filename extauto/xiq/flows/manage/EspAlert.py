@@ -18,11 +18,14 @@ class EspAlert(EspAlertWebElements):
     def create_alert_policy_dynamic(self,policy,when):
         """
         - This can be used in Alert Policy page
+        - Keyword Usage
+         - ``Create Alert Policy Dynamic  ${policy}  ${when}``
+        :return: returns 1 if successfully show configred policies and not configured policies tab else -1
         - policy attribute
         -   policy_type: event/metric
         -   source_parent:
         -   source:
-        -   trigger_type: immediate(deferred/repeated)
+        -   trigger_type: immediate
         -   threshold_operator: GE(>=)/GT(>)/LE(<=)/LT(<)/EQ(=)/NE(!=)
         -   threshold_input:
         """
