@@ -26,7 +26,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_save_btn = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='saveButton']",
+            'XPATH': "//fixed-bar[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
         }
 
@@ -776,4 +776,9 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': '//*[@data-automation-tag="automation-notification-yes-btn"]',
             'wait_for': 5
+        }
+
+    sw_template_assign_existing_trunk_choice_second_dialog_box_save_button = \
+        {
+            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]'
         }

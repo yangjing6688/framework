@@ -1193,6 +1193,12 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_configure_port_access_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_access_vlan_textfield, row)
 
+    def get_device360_configure_onboarding_port_vlan_textfield(self, row):
+        return self.weh.get_element(self.device360_configure_onboarding_port_vlan_textfield, row)
+
+    def get_device360_configure_disabled_port_vlan_textfield(self, row):
+        return self.weh.get_element(self.device360_configure_disabled_port_vlan_textfield, row)
+
     def get_device360_configure_port_trunk_native_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_trunk_native_vlan_textfield, row)
 
@@ -1474,18 +1480,26 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_pse_profile_add)
         elif element == "pse_profile_name":
             return self.weh.get_element(self.select_element_port_type_pse_profile_name)
+        elif element == "pse_profile_power_mode_dropdown":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_power_mode_dropdown)
         elif element == "pse_profile_power_mode_items":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_power_mode_items)
+        elif element == 'pse_profile_power_limit':
+            return self.weh.get_element(self.select_element_port_type_pse_profile_power_limit)
         elif element == "pse_profile_priority":
             return self.weh.get_element(self.select_element_port_type_pse_profile_priority)
         elif element == "pse_profile_priority_items":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_priority_items)
         elif element == "pse_profile_description":
-            return self.weh.get_elements(self.select_element_port_type_pse_profile_description)
+            return self.weh.get_element(self.select_element_port_type_pse_profile_description)
         elif element == "pse_profile_save":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
+        elif element == "pse_profile_edit":
+            return self.weh.get_element(self.select_element_port_type_pse_edit)
+        elif element == "pse_more_button":
+            return self.weh.get_element(self.select_more_button_pse_profile)
         #maclocking page
         elif element == "mac locking":
             return self.weh.get_element(self.select_element_port_type_macLock_status)
@@ -1867,7 +1881,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_monitor_mac_locking_header(self):
         return self.weh.get_element(self.d360_monitor_mac_locking_header)
 
-
     def get_device360_event_expand_more(self, row):
         """
         :return: Events more expand link for showing detail description of the event.
@@ -1882,3 +1895,16 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_event_more_close_btn(self):
         return self.weh.get_element(self.device360_event_more_close_btn)
+
+    def get_close_port_type_dialog_box(self):
+        return self.weh.get_element(self.close_port_type_dialog_box)
+
+
+    def get_device360_configure_port_access_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_access_vlan_textfield_VOSS, row)
+
+    def get_device360_configure_port_trunk_native_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_trunk_native_vlan_textfield_VOSS, row)
+
+    def get_device360_configure_port_trunk_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_trunk_vlan_textfield_VOSS, row)

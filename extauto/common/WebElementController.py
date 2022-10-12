@@ -40,7 +40,7 @@ class WebElementController:
                     self.common_validation.validate(1, 1, **kwargs)
                     return 1
             except Exception as e:
-                self.utils.print_info(f"Excption on action for an element {e}")
+                self.utils.print_info(f"Exception on action for an element {e}")
                 self.utils.print_info(f"Retry the action on element {web_element} for {retry_count} times")
                 sleep(5)
 

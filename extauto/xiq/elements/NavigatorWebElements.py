@@ -168,14 +168,11 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
         return self.weh.get_element(self.card_view)
 
     def get_network_policy_page_size(self, page_size='100'):
-        try:
-            if els := self.weh.get_elements(self.network_policy_page_size):
+        if els := self.weh.get_elements(self.network_policy_page_size):
+            if els:
                 for el in els:
                     if str(page_size) in el.text:
                         return el
-        except:
-            pass
-        return None
 
     def get_device_actions_button(self):
         return self.weh.get_element(self.device_actions_button)
@@ -707,3 +704,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
         except:
             # An error occured
             return None
+
+    def get_100_devices_per_page(self):
+        return self.weh.get_element(self.no_100_devices_per_page)
