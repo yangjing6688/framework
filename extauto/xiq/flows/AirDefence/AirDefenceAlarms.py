@@ -41,7 +41,7 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(15)
 
         self.utils.print_info("Click More Insights button")
-        self.auto_actions.click(self.get_adsp_more_insights_button())
+        self.auto_actions.click_reference(self.get_adsp_more_insights_button)
         sleep(5)
 
         self.utils.print_info("Switch to new ADSP tab")
@@ -54,7 +54,7 @@ class AirDefenceAlarms(AdspWebElements):
         if alarm_page_label := self.get_adsp_alarm_page_size_label():
             if alarm_page_label.is_displayed():
                 self.utils.print_info("click on after time period drop down")
-                self.auto_actions.click(self.get_adsp_alarm_page_size_drop_down())
+                self.auto_actions.click_reference(self.get_adsp_alarm_page_size_drop_down)
                 sleep(2)
                 self.utils.print_info("Selecting Page Size to View")
                 self.auto_actions.select_drop_down_options(self.get_adsp_alarm_page_size_options(), str(page_size))
@@ -86,7 +86,7 @@ class AirDefenceAlarms(AdspWebElements):
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.utils.print_info("Click More Insights button")
-        self.auto_actions.click(self.get_adsp_more_insights_button())
+        self.auto_actions.click_reference(self.get_adsp_more_insights_button)
 
         self.utils.print_info("Switch to new ADSP tab")
         CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
@@ -94,10 +94,10 @@ class AirDefenceAlarms(AdspWebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Navigating to ADSP Sensor page")
-        self.auto_actions.click(self.go_to_adsp_sensor_page())
+        self.auto_actions.click_reference(self.go_to_adsp_sensor_page)
 
         self.utils.print_info("Clicking search button on adsp sensor page")
-        self.auto_actions.click(self.get_search_adsp_sensor_page())
+        self.auto_actions.click_reference(self.get_search_adsp_sensor_page)
 
         self.utils.print_info("Seraching serial number in ADSP Sensor page")
         self.auto_actions.send_keys(self.get_serial_to_adsp_sensor_page(), device_serial)
@@ -177,7 +177,7 @@ class AirDefenceAlarms(AdspWebElements):
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.utils.print_info("Click More Insights button")
-        self.auto_actions.click(self.get_adsp_more_insights_button())
+        self.auto_actions.click_reference(self.get_adsp_more_insights_button)
 
         self.utils.print_info("Switch to new ADSP tab")
         CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[1])
@@ -185,10 +185,10 @@ class AirDefenceAlarms(AdspWebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Navigating to ADSP Sensor page")
-        self.auto_actions.click(self.go_to_adsp_sensor_page())
+        self.auto_actions.click_reference(self.go_to_adsp_sensor_page)
 
         self.utils.print_info("Clicking search button on adsp sensor page")
-        self.auto_actions.click(self.get_search_adsp_sensor_page())
+        self.auto_actions.click_reference(self.get_search_adsp_sensor_page)
 
         self.utils.print_info("Seraching serial number in ADSP Sensor page")
         self.auto_actions.send_keys(self.get_serial_to_adsp_sensor_page(), device_serial)
@@ -220,14 +220,14 @@ class AirDefenceAlarms(AdspWebElements):
 
         if self.get_adsp_subscribe_page().is_displayed():
             self.utils.print_info("Click ADSP Subscribe button")
-            self.auto_actions.click(self.get_adsp_subscribe_button())
+            self.auto_actions.click_reference(self.get_adsp_subscribe_button)
             sleep(3)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Click ADSP Subscribe Apply button")
-            self.auto_actions.click(self.get_adsp_subscribe_apply_button())
+            self.auto_actions.click_reference(self.get_adsp_subscribe_apply_button)
             sleep(3)
 
             self.screen.save_screen_shot()
@@ -239,7 +239,7 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(15)
 
         self.utils.print_info("Click More Insights button")
-        self.auto_actions.click(self.get_adsp_more_insights_button())
+        self.auto_actions.click_reference(self.get_adsp_more_insights_button)
         sleep(6)
 
         self.utils.print_info("Switch to new ADSP Tab")
@@ -265,7 +265,7 @@ class AirDefenceAlarms(AdspWebElements):
 
         if search_filter:
             self.utils.print_info("Search grid based on search_filter in Auth logs")
-            self.auto_actions.click(self.get_adsp_alarm_search_button())
+            self.auto_actions.click_reference(self.get_adsp_alarm_search_button)
             sleep(2)
             self.utils.print_info("Entering search_string  ", search_filter)
             self.auto_actions.send_keys(self.get_adsp_alarm_search_text_field(),
@@ -277,28 +277,28 @@ class AirDefenceAlarms(AdspWebElements):
         if page_label := self.get_adsp_alarm_page_size_label():
             if page_label.is_displayed():
                 self.utils.print_info("click on after time period drop down")
-                self.auto_actions.click(self.get_adsp_alarm_page_size_drop_down())
+                self.auto_actions.click_reference(self.get_adsp_alarm_page_size_drop_down)
                 sleep(2)
                 self.utils.print_info("Selecting page size to view")
                 self.auto_actions.select_drop_down_options(self.get_adsp_alarm_page_size_options(), str(page_size))
 
         if self.get_adsp_alarm_grid_rows():
             self.utils.print_info("Select All ADSP Alarm checkboxes")
-            self.auto_actions.click(self.get_all_adsp_alarm_grid_check_boxes())
+            self.auto_actions.click_reference(self.get_all_adsp_alarm_grid_check_boxes)
             sleep(2)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Click clear ADSP alarms")
-            self.auto_actions.click(self.get_adsp_alarm_clear_button())
+            self.auto_actions.click_reference(self.get_adsp_alarm_clear_button)
             sleep(2)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Click confirmation to delete ADSP alarms")
-            self.auto_actions.click(self.get_adsp_alarm_clear_confirm_yes_button())
+            self.auto_actions.click_reference(self.get_adsp_alarm_clear_confirm_yes_button)
 
             self.utils.print_info("Switch to parent ADSP tab")
             CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
@@ -323,11 +323,11 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(8)
 
         self.utils.print_info("Click alarm page Refresh button")
-        self.auto_actions.click(self.get_adsp_alarm_refresh_button())
+        self.auto_actions.click_reference(self.get_adsp_alarm_refresh_button)
         sleep(2)
 
         self.utils.print_info("Click alarm page Refresh button")
-        self.auto_actions.click(self.get_adsp_alarm_refresh_button())
+        self.auto_actions.click_reference(self.get_adsp_alarm_refresh_button)
         sleep(2)
 
         alarm_count = self.get_total_adsp_alarm_count_on_grid().text
@@ -354,7 +354,7 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(2)
 
         self.utils.print_info("Click widget refresh button")
-        self.auto_actions.click(self.get_adsp_widget_refresh_button())
+        self.auto_actions.click_reference(self.get_adsp_widget_refresh_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -385,7 +385,7 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(5)
 
         self.utils.print_info("Click Widget Refresh button")
-        self.auto_actions.click(self.get_adsp_widget_refresh_button())
+        self.auto_actions.click_reference(self.get_adsp_widget_refresh_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -411,7 +411,7 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(5)
 
         self.utils.print_info("Click Settings Button")
-        self.auto_actions.click(self.get_adsp_settings_button())
+        self.auto_actions.click_reference(self.get_adsp_settings_button)
         sleep(2)
         return True
 
@@ -455,11 +455,11 @@ class AirDefenceAlarms(AdspWebElements):
                     sleep(2)
 
                 self.utils.print_info("Click Apply button")
-                self.auto_actions.click(self.get_adsp_wireless_thread_detection_apply_button())
+                self.auto_actions.click_reference(self.get_adsp_wireless_thread_detection_apply_button)
                 sleep(2)
 
                 self.utils.print_info("Click Ok button to confirm")
-                self.auto_actions.click(self.get_adsp_wireless_thread_detection_ok_button())
+                self.auto_actions.click_reference(self.get_adsp_wireless_thread_detection_ok_button)
                 sleep(2)
                 return 1
         return False
@@ -548,14 +548,14 @@ class AirDefenceAlarms(AdspWebElements):
 
         if self.get_adsp_subscribe_page().is_displayed():
             self.utils.print_info("Click ADESS Subscribe button")
-            self.auto_actions.click(self.get_adsp_subscribe_button())
+            self.auto_actions.click_reference(self.get_adsp_subscribe_button)
             sleep(3)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Click ADESS Subscribe Apply button")
-            self.auto_actions.click(self.get_adsp_subscribe_apply_button())
+            self.auto_actions.click_reference(self.get_adsp_subscribe_apply_button)
             sleep(3)
 
             self.screen.save_screen_shot()

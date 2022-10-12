@@ -35,7 +35,7 @@ class GlobalSearch:
         """
 
         self.utils.print_info("Clicking on the search icon")
-        self.auto_actions.click(self.global_web_elements.get_search_icon())
+        self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
 
         self.utils.print_info("Entering info to search : ", search_value)
         sleep(10)
@@ -43,7 +43,7 @@ class GlobalSearch:
         sleep(10)
 
         self.utils.print_info("Clicking on search")
-        self.auto_actions.click(self.global_web_elements.get_global_search_textbox())
+        self.auto_actions.click_reference(self.global_web_elements.get_global_search_textbox)
         sleep(10)
 
         self.utils.print_info("Search result :")
@@ -73,7 +73,7 @@ class GlobalSearch:
         if matched_val == "":
             self.screen.save_screen_shot()
             sleep(2)
-            self.auto_actions.click(self.global_web_elements.get_search_icon())
+            self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
             return -1
         return matched_val
 
@@ -101,7 +101,7 @@ class GlobalSearch:
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.global_web_elements.get_close_dialog())
+        self.auto_actions.click_reference(self.global_web_elements.get_close_dialog)
         return client_name, client_mac, client_ip
 
     def get_ap_details(self, search_result):
@@ -118,7 +118,7 @@ class GlobalSearch:
         self.auto_actions.click(search_result)
         sleep(5)
 
-        self.auto_actions.click(self.global_web_elements.get_system_info())
+        self.auto_actions.click_reference(self.global_web_elements.get_system_info)
         sleep(5)
 
         self.utils.print_info("Getting AP Details")
@@ -136,7 +136,7 @@ class GlobalSearch:
         sleep(2)
 
         self.utils.print_info("Closing ap Details Page")
-        self.auto_actions.click(self.global_web_elements.get_close_dialog())
+        self.auto_actions.click_reference(self.global_web_elements.get_close_dialog)
         return host_name, serial_number, ap_mac, ip
 
     def net_policy_details(self, search_result):
@@ -161,7 +161,7 @@ class GlobalSearch:
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.global_web_elements.get_close_dialog())
+        self.auto_actions.click_reference(self.global_web_elements.get_close_dialog)
         return net_name, ssid
 
     def view_all_organizations(self):
@@ -173,16 +173,16 @@ class GlobalSearch:
 
         :return: 1 if Viewing All organization Details Successfully
         """
-        self.auto_actions.click(self.global_web_elements.get_view_organization_button())
+        self.auto_actions.click_reference(self.global_web_elements.get_view_organization_button)
         sleep(5)
 
         value = self.global_web_elements.get_select_all_organizations().text
         if value == "Select All":
-            self.auto_actions.click(self.global_web_elements.get_select_all_organizations())
+            self.auto_actions.click_reference(self.global_web_elements.get_select_all_organizations)
             sleep(5)
             self.screen.save_screen_shot()
             sleep(2)
-        self.auto_actions.click(self.global_web_elements.get_view_org_close_button())
+        self.auto_actions.click_reference(self.global_web_elements.get_view_org_close_button)
 
         return 1
 
@@ -207,7 +207,7 @@ class GlobalSearch:
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.global_web_elements.get_close_dialog())
+        self.auto_actions.click_reference(self.global_web_elements.get_close_dialog)
         return app_name, app_cat
 
     def sim_ap_name(self):

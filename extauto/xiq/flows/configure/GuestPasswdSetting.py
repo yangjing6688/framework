@@ -54,14 +54,14 @@ class GuestPasswdSetting(GuestPasswdSettingElements):
 
         self.auto_actions.scroll_down()
         self.utils.print_info("enforce the use of :{}".format(enforce_use_of))
-        self.auto_actions.click(self.get_enforce_use_of_drop_down())
+        self.auto_actions.click_reference(self.get_enforce_use_of_drop_down)
         sleep(2)
 
         enforce_opts = self.get_enforce_use_of_options()
         self.auto_actions.select_drop_down_options(enforce_opts, enforce_use_of)
 
         self.utils.print_info("Generate Password length:{}".format(gen_passwd_len))
-        self.auto_actions.click(self.get_generate_password_length_drop_down())
+        self.auto_actions.click_reference(self.get_generate_password_length_drop_down)
         sleep(2)
 
         gen_passwd_len_opts = self.get_generate_password_length_options()

@@ -169,7 +169,7 @@ class Login:
             self.auto_actions.send_keys(self.login_web_elements.get_login_portal_page_password_text(), password)
             sleep(3)
             self.utils.print_info("Clicking on Sign In button")
-            self.auto_actions.click(self.login_web_elements.get_login_portal_page_login_button())
+            self.auto_actions.click_reference(self.login_web_elements.get_login_portal_page_login_button)
             sleep(2)
             self.screen.save_screen_shot()
             check_error = self.login_web_elements.get_login_portal_check_error()
@@ -188,7 +188,7 @@ class Login:
 
         self.utils.print_info("Clicking on Sign In button")
 
-        self.auto_actions.click(self.login_web_elements.get_login_page_login_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_login_page_login_button)
         if quick:
             sleep(2)
         else:
@@ -229,7 +229,7 @@ class Login:
             self.utils.print_info("Check for Warning Messages..")
             if self.login_web_elements.get_dialog_message():
                 self.utils.print_info("Clicking Close button")
-                self.auto_actions.click(self.login_web_elements.get_dialog_box_close_button())
+                self.auto_actions.click_reference(self.login_web_elements.get_dialog_box_close_button)
 
             self.utils.print_info("Check for WIPS Warning Messages..")
             wips_warnings = self.login_web_elements.get_wips_dialog_message()
@@ -237,17 +237,17 @@ class Login:
             if self.login_web_elements.get_wips_dialog_message():
                 if "Please update existing WIPS policies" in wips_warnings:
                     self.utils.print_info("Clicking Don't show again Checkbox")
-                    self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox())
+                    self.auto_actions.click_reference(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox)
                     sleep(2)
 
                     self.utils.print_info("Clicking Close button")
-                    self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_close_button())
+                    self.auto_actions.click_reference(self.login_web_elements.get_wips_popup_dialog_close_button)
                     sleep(2)
 
             self.utils.print_info("Check for Advance Onboard Popup page after login..")
             try:
                 if self.login_web_elements.get_drawer_content().is_displayed():
-                    self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+                    self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
             except Exception as e:
                 pass
         # if self.login_web_elements.get_devices_list_check().is_displayed():
@@ -269,7 +269,7 @@ class Login:
         try:
             if self.login_web_elements.get_right_arrow().is_displayed():
                 self.utils.print_info("Clicking welcome popup")
-                self.auto_actions.click(self.login_web_elements.click_right_arrow())
+                self.auto_actions.click_reference(self.login_web_elements.click_right_arrow)
         except Exception as er:
             pass
 
@@ -295,7 +295,7 @@ class Login:
             self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
             sleep(2)
 
-            self.auto_actions.click(self.login_web_elements.get_logout_link())
+            self.auto_actions.click_reference(self.login_web_elements.get_logout_link)
         except Exception as e:
             self.utils.print_debug("Error: ", e)
             return -1
@@ -426,7 +426,7 @@ class Login:
         sleep(2)
 
         self.utils.print_info("Clicking Saving the password button")
-        self.auto_actions.click(self.pw_web_elements.get_set_password_button())
+        self.auto_actions.click_reference(self.pw_web_elements.get_set_password_button)
         sleep(30)
 
         self.screen.save_screen_shot()
@@ -455,7 +455,7 @@ class Login:
         sleep(2)
 
         self.utils.print_info("Clicking Saving the password button")
-        self.auto_actions.click(self.pw_web_elements.get_reset_password_button())
+        self.auto_actions.click_reference(self.pw_web_elements.get_reset_password_button)
         sleep(2)
 
         return 1
@@ -476,7 +476,7 @@ class Login:
             self._init(url)
 
         self.utils.print_info("Clicking Forgot Password link...")
-        self.auto_actions.click(self.pw_web_elements.get_forgot_password_reset_it_here_link())
+        self.auto_actions.click_reference(self.pw_web_elements.get_forgot_password_reset_it_here_link)
         sleep(5)
 
         self.utils.print_info("Entering Tenant email id")
@@ -484,7 +484,7 @@ class Login:
         sleep(5)
 
         self.utils.print_info("Clicking reset password button")
-        self.auto_actions.click(self.pw_web_elements.get_forgot_password_reset_password_button())
+        self.auto_actions.click_reference(self.pw_web_elements.get_forgot_password_reset_password_button)
         sleep(5)
 
         self.utils.print_info("Confirm message: ", self.pw_web_elements.get_forgot_password_result_label())
@@ -507,7 +507,7 @@ class Login:
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)
-        self.auto_actions.click(self.login_web_elements.get_about_extreme_cloudiq_link())
+        self.auto_actions.click_reference(self.login_web_elements.get_about_extreme_cloudiq_link)
         sleep(2)
 
         data_center_name = self.login_web_elements.get_data_center_name()
@@ -518,7 +518,7 @@ class Login:
         sleep(2)
 
         self.utils.print_info("Close About ExtremecloudIQ Link Dialogue Page")
-        self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
+        self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
 
         return data_center_name
 
@@ -531,7 +531,7 @@ class Login:
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)
-        self.auto_actions.click(self.login_web_elements.get_about_extreme_cloudiq_link())
+        self.auto_actions.click_reference(self.login_web_elements.get_about_extreme_cloudiq_link)
         sleep(2)
 
         xiq_version = self.login_web_elements.get_build_version_details()
@@ -542,7 +542,7 @@ class Login:
         sleep(2)
 
         self.utils.print_info("Close About ExtremecloudIQ Link Dialogue Page")
-        self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
+        self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
 
         return xiq_version
 
@@ -571,7 +571,7 @@ class Login:
         self.auto_actions.send_keys(self.pw_web_elements.get_conf_password_texbox(), password)
         sleep(5)
         self.utils.print_info(" saving the password")
-        self.auto_actions.click(self.pw_web_elements.get_save_button())
+        self.auto_actions.click_reference(self.pw_web_elements.get_save_button)
 
         got_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title on Reset password Page: ", got_title)
@@ -589,7 +589,7 @@ class Login:
         self.utils.print_info("Clicking on About Extreme cloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)
-        self.auto_actions.click(self.login_web_elements.get_about_extreme_cloudiq_link())
+        self.auto_actions.click_reference(self.login_web_elements.get_about_extreme_cloudiq_link)
 
         sleep(5)
         viq_id = self.login_web_elements.get_viq_id_field().text
@@ -597,7 +597,7 @@ class Login:
 
         sleep(2)
         self.utils.print_info("Close About Extreme cloudIQ Link Dialogue Page")
-        self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
+        self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
 
         return viq_id
 
@@ -632,9 +632,9 @@ class Login:
         status = self.login_web_elements.get_30_days_trial_txt()
         try:
             if status != None:
-                self.auto_actions.click(self.login_web_elements.get_option_30_days_trial())
-                self.auto_actions.click(self.login_web_elements.get_get_started_button())
-                self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+                self.auto_actions.click_reference(self.login_web_elements.get_option_30_days_trial)
+                self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
+                self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
         except:
             return -1, "Could not select the option of 90 days trial "
         return str(1), None
@@ -783,7 +783,7 @@ class Login:
 
         self.utils.print_info("Clicking on Sign In button")
 
-        self.auto_actions.click(self.login_web_elements.get_login_page_login_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_login_page_login_button)
         sleep(10)
 
         self.utils.print_info("Check for wrong credentials..")
@@ -803,7 +803,7 @@ class Login:
         self.utils.print_info("Check for Warning Messages..")
         if self.login_web_elements.get_dialog_message():
             self.utils.print_info("Clicking Close button")
-            self.auto_actions.click(self.login_web_elements.get_dialog_box_close_button())
+            self.auto_actions.click_reference(self.login_web_elements.get_dialog_box_close_button)
 
         self.utils.print_info("Check for WIPS Warning Messages..")
         wips_warnings = self.login_web_elements.get_wips_dialog_message()
@@ -811,18 +811,18 @@ class Login:
         if self.login_web_elements.get_wips_dialog_message():
             if "Please update existing WIPS policies" in wips_warnings:
                 self.utils.print_info("Clicking Don't show again Checkbox")
-                self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox())
+                self.auto_actions.click_reference(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox)
                 sleep(2)
 
                 self.utils.print_info("Clicking Close button")
-                self.auto_actions.click(self.login_web_elements.get_wips_popup_dialog_close_button())
+                self.auto_actions.click_reference(self.login_web_elements.get_wips_popup_dialog_close_button)
                 sleep(2)
 
         self.utils.print_info("Check for Advance Onboard Popup page after login..")
         sleep(10)
         try:
             if self.login_web_elements.get_drawer_content().is_displayed():
-                self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+                self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
         except Exception as e:
             pass
 
@@ -842,14 +842,14 @@ class Login:
                 ekpopup = self.login_web_elements.get_legacy_ek_popup_hdr()
                 if ekpopup.is_displayed():
                     self.utils.print_info("Dismiss legacy ek popup...")
-                    self.auto_actions.click(self.login_web_elements.get_legacy_ek_popup_no_btn())
+                    self.auto_actions.click_reference(self.login_web_elements.get_legacy_ek_popup_no_btn)
             except Exception as e:
                 pass
             if login_option.lower() == 'trial':
                 to = self.login_web_elements.get_30_days_trial_txt()
                 if to.is_displayed():
                     self.utils.print_info("trial option is displayed")
-                    self.auto_actions.click(self.login_web_elements.get_option_30_days_trial())
+                    self.auto_actions.click_reference(self.login_web_elements.get_option_30_days_trial)
                     sleep(5)
                     self.utils.print_info("trial option is selected.")
                 else:
@@ -858,12 +858,12 @@ class Login:
             elif login_option.lower() == 'extremecloudiqlicense':
                 ec = self.login_web_elements.get_extr_license_txt()
                 if ec.is_displayed():
-                    self.auto_actions.click(self.login_web_elements.get_option_extr_cloudiq_license())
+                    self.auto_actions.click_reference(self.login_web_elements.get_option_extr_cloudiq_license)
                     sleep(5)
                     try:
                         ekpopup = self.login_web_elements.get_legacy_ek_popup_hdr()
                         if ekpopup.is_displayed():
-                            self.auto_actions.click(self.login_web_elements.get_legacy_ek_popup_no_btn())
+                            self.auto_actions.click_reference(self.login_web_elements.get_legacy_ek_popup_no_btn)
                     except Exception as e:
                         pass
                     tp = self.login_web_elements.get_extr_license_tooltip()
@@ -875,7 +875,7 @@ class Login:
             elif login_option.lower() == 'legacylicense':
                 ll = self.login_web_elements.get_legacy_license_txt()
                 if ll.is_displayed():
-                    self.auto_actions.click(self.login_web_elements.get_option_legacy_license())
+                    self.auto_actions.click_reference(self.login_web_elements.get_option_legacy_license)
                     sleep(2)
                     self.utils.print_info("Legacy License option is selected.")
                     # legacy_ek_in = self.login_web_elements.get_legacy_ek_input_box
@@ -888,7 +888,7 @@ class Login:
                 conn = self.login_web_elements.get_extr_connect_txt()
                 if conn.is_displayed():
                     self.utils.print_info("connect option is displayed...")
-                    self.auto_actions.click(self.login_web_elements.get_option_extr_connect())
+                    self.auto_actions.click_reference(self.login_web_elements.get_option_extr_connect)
                     self.utils.print_info("Extreme Connect option is selected.")
                     sleep(5)
                 else:
@@ -900,7 +900,7 @@ class Login:
             gs_btn = self.login_web_elements.get_get_started_button()
             if gs_btn is not None:
                 self.utils.print_info("Clicking on Get Started....")
-                self.auto_actions.click(self.login_web_elements.get_get_started_button())
+                self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
 
             if login_option.lower() == 'extremecloudiqlicense':
                 sleep(10)
@@ -922,14 +922,14 @@ class Login:
                 agchk = self.login_web_elements.get_cloud_tos_agree()
                 if agchk is not None:
                     self.utils.print_info("Click on I Agree and Submit on First TOS...")
-                    self.auto_actions.click(self.login_web_elements.get_cloud_tos_agree())
+                    self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_agree)
                     sleep(2)
-                    self.auto_actions.click(self.login_web_elements.get_cloud_tos_submit())
+                    self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_submit)
                     sleep(5)
                 if agchk is not None:
                     self.utils.print_info("Click on I Agree and Submit on Second TOS...")
-                    self.auto_actions.click(self.login_web_elements.get_cloud_tos_agree())
-                    self.auto_actions.click(self.login_web_elements.get_cloud_tos_submit())
+                    self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_agree)
+                    self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_submit)
                 return 1
             except Exception as e:
                 pass
@@ -951,7 +951,7 @@ class Login:
         if ug_btn.is_displayed():
             self.utils.print_info("Customer is logged in as a Connect Customer")
             self.auto_actions.move_to_element(ug_btn)
-            self.auto_actions.click(self.login_web_elements.get_upgrade_link())
+            self.auto_actions.click_reference(self.login_web_elements.get_upgrade_link)
             sleep(5)
             self.utils.print_info("Clicking on Upgrade btn, navigates user to license management.")
             return 1
@@ -967,7 +967,7 @@ class Login:
             self.utils.print_info("Extreme SFDC URL", sfdc_url)
             self.auto_actions.send_keys(self.login_web_elements.get_sfdc_login_username(), sfdc_email)
             self.auto_actions.send_keys(self.login_web_elements.get_sfdc_login_pwd(), sfdc_pwd)
-            self.auto_actions.click(self.login_web_elements.get_sfdc_login_btn())
+            self.auto_actions.click_reference(self.login_web_elements.get_sfdc_login_btn)
             try:
                 sfdc_login_err = self.login_web_elements.get_sfdc_login_err()
                 if sfdc_login_err.is_displayed():
@@ -993,7 +993,7 @@ class Login:
                 if shared_cuid_popup_hdr.is_displayed():
                     self.utils.print_info("Shared CUID: ", shared_cuid)
                     self.auto_actions.send_keys(self.login_web_elements.get_shared_cuid_input(), shared_cuid)
-                    self.auto_actions.click(self.login_web_elements.get_shared_cuid_submit_btn())
+                    self.auto_actions.click_reference(self.login_web_elements.get_shared_cuid_submit_btn)
                     sleep(10)
                     try:
                         sh_cuid_err_txt = self.login_web_elements.get_shared_cuid_err().text
@@ -1009,7 +1009,7 @@ class Login:
             sleep(5)
             try:
                 if self.login_web_elements.get_drawer_content().is_displayed():
-                    self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+                    self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
             except Exception as e:
                 pass
             self.utils.print_info("Navigate to license mgt..")
@@ -1041,14 +1041,14 @@ class Login:
         self.utils.print_info("Selecting option : ", login_option)
 
         if "30-day trial" in login_option:
-            self.auto_actions.click(self.login_web_elements.get_login_trail_30_days())
+            self.auto_actions.click_reference(self.login_web_elements.get_login_trail_30_days)
 
         elif "ExtremeCloud IQ license" in login_option:
-            # self.auto_actions.click(self.login_web_elements.get_login_license_option())
+            # self.auto_actions.click_reference(self.login_web_elements.get_login_license_option)
             self.utils.print_info("we are not supporting this option proceeding with default option")
 
         elif "entitlement key" in login_option:
-            self.auto_actions.click(self.login_web_elements.get_login_entitlement_radio())
+            self.auto_actions.click_reference(self.login_web_elements.get_login_entitlement_radio)
 
             entitlement_key = BuiltIn().get_variable_value("${ENTITLEMENT_KEY}")
 
@@ -1056,45 +1056,45 @@ class Login:
             self.auto_actions.send_keys(self.login_web_elements.get_login_entitlement_key(), entitlement_key)
 
         elif "1 year included Pilot license" in login_option:
-            self.auto_actions.click(self.login_web_elements.get_login_year_trail_option())
+            self.auto_actions.click_reference(self.login_web_elements.get_login_year_trail_option)
 
         elif "IQ Connect" in login_option:
-            self.auto_actions.click(self.login_web_elements.get_login_iq_connect())
+            self.auto_actions.click_reference(self.login_web_elements.get_login_iq_connect)
 
         else:
             self.utils.print_info("proceeding with default option of 30-days trail")
-            self.auto_actions.click(self.login_web_elements.get_login_trail_30_days())
+            self.auto_actions.click_reference(self.login_web_elements.get_login_trail_30_days)
 
         self.utils.print_info("Clicking on Get Started button...")
-        self.auto_actions.click(self.login_web_elements.get_started_login_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_started_login_button)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Accepting Terms of service...")
-        self.auto_actions.click(self.login_web_elements.get_accept_terms_of_service_wizard())
+        self.auto_actions.click_reference(self.login_web_elements.get_accept_terms_of_service_wizard)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Submitting Terms of service...")
-        self.auto_actions.click(self.login_web_elements.get_submit_terms_of_service_wizard())
+        self.auto_actions.click_reference(self.login_web_elements.get_submit_terms_of_service_wizard)
         sleep(1)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Accepting data privacy policy...")
-        self.auto_actions.click(self.login_web_elements.get_accept_data_privacy())
+        self.auto_actions.click_reference(self.login_web_elements.get_accept_data_privacy)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Submitting data privacy policy...")
-        self.auto_actions.click(self.login_web_elements.get_submit_data_privacy())
+        self.auto_actions.click_reference(self.login_web_elements.get_submit_data_privacy)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -1130,12 +1130,12 @@ class Login:
     def _30_day_trial(self):
         self.utils.print_info("Selecting Default Option: 30 Day Trial...")
         if self.login_web_elements.get_30_days_trial_txt().is_displayed():
-            self.auto_actions.click(self.login_web_elements.get_option_30_days_trial())
+            self.auto_actions.click_reference(self.login_web_elements.get_option_30_days_trial)
             sleep(2)
             self.screen.save_screen_shot()
 
             self.utils.print_info("Clicking on Get Started...")
-            self.auto_actions.click(self.login_web_elements.get_get_started_button())
+            self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
             sleep(10)
             self.screen.save_screen_shot()
 
@@ -1152,12 +1152,12 @@ class Login:
 
     def _extreme_cloud_iq_license(self, salesforce_username, salesforce_password, saleforce_shared_cuid):
         self.utils.print_info("Selecting ExtremeCloud IQ License...")
-        self.auto_actions.click(self.login_web_elements.get_option_extr_cloudiq_license())
+        self.auto_actions.click_reference(self.login_web_elements.get_option_extr_cloudiq_license)
         sleep(2)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking on Get Started...")
-        self.auto_actions.click(self.login_web_elements.get_get_started_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
         sleep(10)
         self.screen.save_screen_shot()
 
@@ -1172,7 +1172,7 @@ class Login:
         self.screen.save_screen_shot()
 
         self.utils.print_info("Submitting")
-        self.auto_actions.click(self.login_web_elements.get_salesforce_submit())
+        self.auto_actions.click_reference(self.login_web_elements.get_salesforce_submit)
         sleep(2)
         self.screen.save_screen_shot()
 
@@ -1210,7 +1210,7 @@ class Login:
         self.utils.print_info("Entering entitlement key: ", entitlement_key)
         sleep(5)
 
-        self.auto_actions.click(self.login_web_elements.get_option_legacy_license())
+        self.auto_actions.click_reference(self.login_web_elements.get_option_legacy_license)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -1219,7 +1219,7 @@ class Login:
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking on Get Started...")
-        self.auto_actions.click(self.login_web_elements.get_get_started_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -1232,12 +1232,12 @@ class Login:
 
     def _pilot_license(self):
         self.utils.print_info("Selecting Pilot License..")
-        self.auto_actions.click(self.login_web_elements.get_login_year_trail_option())
+        self.auto_actions.click_reference(self.login_web_elements.get_login_year_trail_option)
         sleep(5)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking on Next button...")
-        self.auto_actions.click(self.login_web_elements.get_next_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_next_button)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -1249,12 +1249,12 @@ class Login:
 
     def _extremecloud_iq_connect(self):
         self.utils.print_info("Selecting ExtremeCloud IQ Connect..")
-        self.auto_actions.click(self.login_web_elements.get_login_iq_connect())
+        self.auto_actions.click_reference(self.login_web_elements.get_login_iq_connect)
         sleep(5)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking on Get Started...")
-        self.auto_actions.click(self.login_web_elements.get_get_started_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -1270,11 +1270,11 @@ class Login:
         try:
             agree_checkbox = self.login_web_elements.get_agree_checkbox()
             if agree_checkbox is not None and agree_checkbox.is_displayed():
-                self.auto_actions.click(self.login_web_elements.get_cloud_tos_agree())
+                self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_agree)
                 sleep(2)
                 self.screen.save_screen_shot()
 
-                self.auto_actions.click(self.login_web_elements.get_cloud_tos_submit())
+                self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_submit)
                 sleep(2)
                 self.screen.save_screen_shot()
 
@@ -1294,7 +1294,7 @@ class Login:
                 sleep(2)
                 self.screen.save_screen_shot()
 
-                self.auto_actions.click(self.login_web_elements.get_cloud_tos_submit())
+                self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_submit)
                 sleep(2)
                 self.screen.save_screen_shot()
 
@@ -1340,7 +1340,7 @@ class Login:
         self.utils.print_info("Check for Advance Onboard Popup page after login..")
         try:
             if self.login_web_elements.get_drawer_content().is_displayed():
-                self.auto_actions.click(self.login_web_elements.get_drawer_trigger())
+                self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
         except Exception as e:
             pass
 

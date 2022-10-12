@@ -231,7 +231,7 @@ class Navigator(NavigatorWebElements):
             self.navigate_to_configure_tab()
             if self.get_subtab_head_img_nav():
                 self.utils.print_info("Selecting Network Policies Tab...")
-                self.auto_actions.click(self.get_network_policies_sub_tab())
+                self.auto_actions.click_reference(self.get_network_policies_sub_tab)
                 sleep(2)
                 network_policy_tab_display = True
             else:
@@ -829,7 +829,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common object Basic tab")
         self.navigate_to_common_object_basic_tab()
         self.utils.print_info("Click on Vlan tab...")
-        self.auto_actions.click(self.get_common_object_basic_supplemental_cli())
+        self.auto_actions.click_reference(self.get_common_object_basic_supplemental_cli)
         sleep(5)
         return 1
 
