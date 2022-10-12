@@ -539,3 +539,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_notification_yes_btn(self):
         return self.weh.get_element(self.sw_template_notification_yes_btn)
+
+    def get_sw_template_assign_existing_trunk_choice_second_dialog_box_save_button(self):
+        return self.weh.get_element(self.sw_template_assign_existing_trunk_choice_second_dialog_box_save_button)

@@ -26,6 +26,9 @@ class DeviceUpdate(DeviceUpdateDefs):
     def get_upgrade_to_latest_version_radio(self):
         return self.weh.get_element(self.upgrade_to_latest_version_radio)
 
+    def get_upgrade_even_if_versions_are_same_button(self):
+        return self.weh.get_element(self.upgrade_even_if_versions_are_same_button)
+
     def get_upgrade_to_specific_version_radio(self):
         return self.weh.get_element(self.upgrade_to_specific_version_radio)
 
