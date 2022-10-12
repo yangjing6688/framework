@@ -96,6 +96,7 @@ class NetworkPolicy(object):
         :return:
         """
         policy_row = self._get_network_policy_row(policy)
+        self.screen.save_screen_shot()
         if policy_row:
             self.utils.print_info(f"Network policy {policy} exists in the network policy list")
             return 1
@@ -310,6 +311,7 @@ class NetworkPolicy(object):
             self.common_validation.passed(**kwargs)
             return 1
 
+        self.screen.save_screen_shot()
         self._perform_np_delete()
         
         tool_tp_text = tool_tip.tool_tip_text
