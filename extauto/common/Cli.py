@@ -898,7 +898,7 @@ class Cli(object):
         """
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
-            self.send(connection, f'hivemanager address {server_name}')
+            self.send(connection, f'do hivemanager address {server_name}')
 
         elif  NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, f'do Hivemanager address {server_name}')
