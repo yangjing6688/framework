@@ -1296,6 +1296,21 @@ class Devices:
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(2)
 
+            tool_tip = self.devices_web_elements.get_device_update_error_message()
+            tool_tp_text = tool_tip.text
+            self.utils.print_info(tool_tp_text)
+            update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+
+            if update_tooltip_msg in tool_tp_text:
+                self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
+                self.screen.save_screen_shot()
+                self.utils.print_info("click on Device Update Cancel Button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+                self.common_validation.failed(**kwargs)
+                return -1
+
         self.screen.save_screen_shot()
         sleep(2)
 

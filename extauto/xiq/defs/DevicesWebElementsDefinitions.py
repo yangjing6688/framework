@@ -241,7 +241,7 @@ class DevicesWebElementsDefinitions:
 
     device_update_error_message = \
         {
-            'XPATH': '//*[@class="ui-tipbox ui-tipbox-error"]//*[@data-dojo-attach-point="textEl"]',
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]|//*[@class="ui-tipbox ui-tipbox-error"]//*[@data-dojo-attach-point="textEl"]',
             'index': 0,
             'wait_for': 5
         }
