@@ -21,6 +21,7 @@ class Network360Plan:
         self.auto_actions = AutoActions()
         self.n360_elements = Network360PlanElements()
         self.commonValidation = CommonValidation()
+        self.default_map = 'auto_location_01_1595321828282.tar.gz'
 
         """
             Need to build a string that represents the location of the map files
@@ -170,6 +171,9 @@ class Network360Plan:
         :param map_file_name: Map File Name to import from /testsuites/xiq/functional/import_map_files directory
         :return: 1 if map uploaded successfully on Network360 Plan else -1
         """
+
+        if not map_file_name:
+            map_file_name = self.default_map
 
         self.navigator.navigate_to_network360plan()
 

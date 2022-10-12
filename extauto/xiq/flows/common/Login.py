@@ -88,7 +88,7 @@ class Login:
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   max_retries=3, location=None, **kwargs):
+                   max_retries=3, recover_login=True, map_override=None, **kwargs):
         """
         - Login to Xiq account with username and password (we will try up to 3 times)
         - By default url will load from the topology file
@@ -110,7 +110,8 @@ class Login:
         :param saleforce_shared_cuid: Salesforce Shared CUID
         :param quick: Quick login without more sleep time while loading url
         :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
-        :param location: Allows to ability to set location after a VIQ Reset
+        :param recover_login: Allows an attempt to reload map and/or move to devices page if login not completed
+        :param map_override: Allows the ability to set (override) the map file used
         :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
@@ -119,8 +120,8 @@ class Login:
         expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
         result = self._login_user(username, password, capture_version, login_option, url,
                     incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                    salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,location,
-                    **kwargs)
+                    salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, recover_login,
+                    map_override, **kwargs)
 
         # Let's try again if we don't expect and error and the results were not good
         if not expect_error:
@@ -142,7 +143,7 @@ class Login:
     def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                    location=None, **kwargs):
+                   recover_login=True, map_override=None, **kwargs):
         if url == "default":
             self._init(incognito_mode=incognito_mode)
         else:
@@ -220,7 +221,8 @@ class Login:
                 self.utils.print_info("Page is loaded successfully")
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
-                                    salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid, location=location) == -1:
+                                    salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid,
+                                    recover_login=recover_login, map_override=map_override) == -1:
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
             return -1
 
@@ -281,13 +283,17 @@ class Login:
             return 1
         else:
             self.utils.print_info("Current page is not the Manage Devices Page...login process not completed")
-            if location:
-                self.utils.print_info("Attempting to load Map...")
-                network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
-                map_imported_status = network360Plan.import_map_in_network360plan(location)
+            if not recover_login:
+                return -1
+
+            self.utils.print_info("Attempting to load Map...")
+            network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
+            map_imported_status = network360Plan.import_map_in_network360plan(map_override)
+
             self.utils.print_info("Attempting to move to the Manage Device Page...")
             local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
             local_navigator.navigate_to_devices()
+
             device_page_found = self.nav_web_elements.get_devices_page()
             if device_page_found:
                 return 1
@@ -1123,7 +1129,8 @@ class Login:
         return 1
 
     def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
-                            salesforce_password=False, saleforce_shared_cuid=False,location=None):
+                            salesforce_password=False, saleforce_shared_cuid=False,
+                            recover_login=True, map_override=None):
         welcome_wizard_page = self.login_web_elements.get_welcome_wizard_heading()
         self.utils.print_info(f"Welcome wizard page: {welcome_wizard_page}")
         if welcome_wizard_page:
@@ -1132,7 +1139,7 @@ class Login:
             self.screen.save_screen_shot()
 
             if "30-day-trial" in login_option:
-                return self._30_day_trial(location)
+                return self._30_day_trial(recover_login, map_override)
 
             if "ExtremeCloud IQ License" in login_option:
                 return self._extreme_cloud_iq_license(salesforce_username, salesforce_password, saleforce_shared_cuid)
@@ -1148,7 +1155,7 @@ class Login:
 
             return 1
 
-    def _30_day_trial(self, location=None):
+    def _30_day_trial(self, recover_login=True, map_override=None):
         self.utils.print_info("Selecting Default Option: 30 Day Trial...")
         if self.login_web_elements.get_30_days_trial_txt().is_displayed():
             self.auto_actions.click(self.login_web_elements.get_option_30_days_trial())
@@ -1166,9 +1173,9 @@ class Login:
             self._agree_data_privacy_and_protection()
             sleep(5)
 
-            if location:
+            if recover_login:
                 network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
-                map_imported_status = network360Plan.import_map_in_network360plan(location)
+                map_imported_status = network360Plan.import_map_in_network360plan(map_override)
                 if map_imported_status == 1:
                     self.utils.print_info("Navigating to Devices Menu")
                     local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
