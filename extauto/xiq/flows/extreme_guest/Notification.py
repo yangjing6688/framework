@@ -31,7 +31,7 @@ class Notification(object):
         """
         self.ext_guest.go_to_configure_page()
         self.utils.print_info("Clicking on Extreme Guest Configure > Notification Policy tab")
-        self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_tab())
+        self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_tab)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -55,7 +55,7 @@ class Notification(object):
         """
         self.go_to_configure_notification_policy_tab()
         self.utils.print_info("Clicking the add policy icon ")
-        self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_policy())
+        self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_policy)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -70,16 +70,16 @@ class Notification(object):
 
         if policy_type == 'user':
             self.utils.print_info("Clicking the Policy type  ", policy_type)
-            self.auto_actions.click(
-                self.notification_web_elem.get_extreme_guest_notification_policy_add_policy_type_user())
+            self.auto_actions.click_reference(
+                self.notification_web_elem.get_extreme_guest_notification_policy_add_policy_type_user)
         else:
             self.utils.print_info("Clicking the Policy type  ", policy_type)
-            self.auto_actions.click(
-                self.notification_web_elem.get_extreme_guest_notification_policy_add_policy_type_sponsor())
+            self.auto_actions.click_reference(
+                self.notification_web_elem.get_extreme_guest_notification_policy_add_policy_type_sponsor)
 
         if sms == 'True':
             self.utils.print_info("Clicking Policy SMS enable:  ", sms)
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_enable())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_enable)
 
         if self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_sponsor_phone_number():
             self.utils.print_info("Entering the Sponsor Phone Number:  ", sponsor_number)
@@ -89,16 +89,16 @@ class Notification(object):
 
         if email == 'True':
             self.utils.print_info("Clicking Policy Email enable  ", email)
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_email_enable())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_email_enable)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Save button")
-        self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_button())
+        self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_button)
 
         self.utils.print_info("Clicking OK Button")
-        self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button())
+        self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -200,7 +200,7 @@ class Notification(object):
 
             if not(sms == 'null'):
                 self.utils.print_info("Clicking Policy SMS enable:  ", sms)
-                self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_enable())
+                self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_enable)
 
             if self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_sponsor_phone_number() and not(sponsor_number == 'null'):
                 self.utils.print_info("Entering the Sponsor Phone Number:  ", sponsor_number)
@@ -210,16 +210,16 @@ class Notification(object):
 
             if not(email == 'null'):
                 self.utils.print_info("Clicking Policy Email enable  ", email)
-                self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_email_enable())
+                self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_email_enable)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Clicking Save button")
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_button())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_button)
 
             self.utils.print_info("Clicking OK Button")
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button)
 
             self.screen.save_screen_shot()
             sleep(2)
@@ -249,10 +249,10 @@ class Notification(object):
             sleep(2)
             
             self.utils.print_info("Clicking Delete button")
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_delete_policy())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_delete_policy)
 
             self.utils.print_info("Clicking OK Button")
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button)
 
             return 1
         self.utils.print_info("Notification Policy Does not exists")
