@@ -1240,9 +1240,6 @@ class Cli(object):
         :param retry_count: Retry count to check device connection status with Cloud server
         :return: 1 id device successfully disconnected with cloud server else -1
         """
-
-        f'no capwap client server name'
-
         if NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, f'no capwap client server name')
             self.send(connection, f'no capwap client enable')
