@@ -2555,8 +2555,19 @@ class Devices:
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
 
-            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
+            elif "License limit exceeded for managed device" in dialog_message:
+                self.utils.print_info("Error: ", dialog_message)
+                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
+                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                kwargs['fail_msg'] = f"Fail Onboarded - License limit exceeded for managed device"
+
+            else:
+                self.utils.print_info(f"Dialog Message: {dialog_message}")
+                kwargs['fail_msg'] = f"{dialog_message}"
+
             self.common_validation.failed(**kwargs)
             return -1
         else:
