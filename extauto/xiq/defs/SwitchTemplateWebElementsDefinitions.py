@@ -26,7 +26,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_save_btn = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='saveButton']",
+            'XPATH': "//fixed-bar[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
         }
 
@@ -364,7 +364,7 @@ class SwitchTemplateWebElementDefinitions:
 
     switch_temp_save_button = \
         {
-            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@class="btn btn-primary"][@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -532,7 +532,8 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_supplemental_cli_on_button = \
         {
-            'XPATH': '//input[@data-dojo-attach-point="enabledControl"]',
+            'XPATH': '//section[@data-dojo-attach-point="advSettingsCtn"]'
+                     '//input[@data-dojo-attach-point="enabledControl"]',
             'wait_for': 1
         }
 
@@ -711,7 +712,7 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-stp"]',
             'wait_for': 5
         }
-    
+
     sw_template_port_details_tab = \
         {
             'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-details"]',
@@ -752,6 +753,35 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
             'wait_for': 5
         }
+
+    sw_template_auto_cfg = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="configPushAuto"]',
+            'wait_for': 5
+        }
+
+    sw_template_auto_revert_enabled = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableAutoRevert"]',
+            'wait_for': 5
+        }
+
+    sw_template_auto_revert_msg = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-upload-config-auto-enable-revert"]',
+            'wait_for': 5
+        }
+
+    sw_template_notification_yes_btn = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-notification-yes-btn"]',
+            'wait_for': 5
+        }
+
+    sw_template_assign_existing_trunk_choice_second_dialog_box_save_button = \
+        {
+            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]'
+
     pse_error_message = \
         {
             'XPATH': '//*[@data-dojo-attach-point="textEl"]',

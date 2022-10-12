@@ -565,7 +565,8 @@ class Device360WebElementDefs:
 
     device360_configure_port_rows = \
         {
-            'XPATH': '//div[contains(@class, "port-details-entry")]',
+            # 'XPATH': '//div[contains(@class, "port-details-entry")]',
+            'CSS_SELECTOR': '.port-details-entry',
             'wait_for': 5
         }
 
@@ -1840,6 +1841,18 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_configure_onboarding_port_vlan_textfield = \
+        {
+            'CSS_SELECTOR': '.portUsageVLANfield.onboardingVLAN',
+            'wait_for': 5
+        }
+
+    device360_configure_disabled_port_vlan_textfield = \
+        {
+            'CSS_SELECTOR': '.portUsageVLANfield.disabledVLAN',
+            'wait_for': 5
+        }
+
     device360_configure_port_trunk_native_vlan_textfield = \
         {
             'CSS_SELECTOR': '.native-vlan',
@@ -2166,6 +2179,11 @@ class Device360WebElementDefs:
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
             'wait_for': 5
+        }
+
+    close_port_type_dialog_box = \
+        {
+            'XPATH': '//div[@id="dijit_Dialog_1"]//span[@data-automation-tag="automation-dialog-close-button"]'
         }
 
     cancel_port_type_box = \
@@ -2890,13 +2908,12 @@ class Device360WebElementDefs:
             'XPATH': '//div[@class="ui-tipbox ui-tipbox-error"]//div[@class="ui-tipbox-icon"]'
         }
 
-
     device360_port_configuration_path_cost_stp = \
         {
             'XPATH': './/input[contains(@data-automation-tag, "automation-port-stp-port-path-cost")]',
             'wait_for': 5
         }
-        
+
     device360_overview_select_port = \
         {
             'XPATH': '//div[@data-automation-tag="automation-port-$index"]'
@@ -2983,7 +3000,7 @@ class Device360WebElementDefs:
             "XPATH": "//div[@data-automation-tag='automation-port-list-grid']//div[@role='row' and contains(@class, 'dgrid-row')]",
             'wait_for': 5
         }
-		
+
     d360_pagination_current_page = \
         {
             'XPATH': '//span[@class="pagination-page current-pagination"]',
@@ -3074,6 +3091,67 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_event_expand_more = \
+        {
+            "XPATH": 'table[@class="dgrid-row-table"]/tr/td[contains(@class, "field-description")]//span[@class = "more"]',
+            'wait_for': 5
+        }
+
+    device360_event_more_expand_value = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="msgContainer"]/p[@data-dojo-attach-point="desEl"]',
+            'wait_for': 5
+        }
+
+    device360_event_more_close_btn = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-notification-no-btn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_limit = \
+        {
+	          'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+	          'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_mode_dropdown = \
+        {
+            'XPATH': '//div[@class="column last"]//a[@class="chzn-single"]',
+            'index': 0
+        }
+
+    select_element_port_type_pse_edit = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-port-type-editor-pse-profile-edit-btn"]'
+        }
+
+    select_more_button_pse_profile = \
+        {
+            'CSS_SELECTOR': '.J-ip-more'
+        }
+
+    device360_configure_port_access_vlan_textfield_VOSS = \
+        {
+            'CSS_SELECTOR': '.accessVLAN',
+            'index': 1,
+            'wait_for': 5
+        }
+
+    device360_configure_port_trunk_native_vlan_textfield_VOSS = \
+        {
+            'CSS_SELECTOR': '.trunkNativeVLAN',
+            'index': 2,
+            'wait_for': 5
+        }
+
+    device360_configure_port_trunk_vlan_textfield_VOSS = \
+        {
+            'CSS_SELECTOR': '.trunkAllowedVLAN',
+            'index': 2,
+            'wait_for': 5
+        }
+        
     device360_port_configuration_pse_profile_add_button = \
         {
             'CSS_SELECTOR': '.ui-ip-save',
@@ -3119,4 +3197,3 @@ class Device360WebElementDefs:
     save_and_close_port_type_box = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
-        }

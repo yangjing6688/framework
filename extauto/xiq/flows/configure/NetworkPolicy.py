@@ -22,6 +22,7 @@ from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElemen
 from extauto.xiq.elements.FilterManageDeviceWebElements import FilterManageDeviceWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.flows.configure.UserGroups import UserGroups
+from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 
 
@@ -32,6 +33,7 @@ class NetworkPolicy(object):
         self.wireless_nw = WirelessNetworks()
         self.auto_actions = AutoActions()
         self.navigator = Navigator()
+        self.common_objects = CommonObjects()
         self.np_web_elements = NetworkPolicyWebElements()
         self.device = Devices()
         self.device_update_web_elements = DeviceUpdate()
@@ -215,7 +217,7 @@ class NetworkPolicy(object):
         self.select_network_policy_row(policy)
 
         self._perform_np_delete()
-
+        sleep(2)
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
@@ -265,15 +267,43 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -2
 
+        # Get the total pages
+        pages = self.common_objects.cobj_web_elements.get_page_numbers()
         select_flag = None
-        for policy in policies:
-            if self._search_network_policy_in_list_view(policy) == 1:
-                self.utils.print_info("Select Network policy row")
-                self.select_network_policy_row(policy)
-                select_flag = True
-                sleep(1)
-            else:
-                self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
+        if pages.is_displayed():
+            last_page = int(pages.text[-1])
+            page_counter = 0
+            self.utils.print_info(f"There are {last_page} page(s) to check")
+            while page_counter < last_page:
+                for policy in policies:
+                    if self._search_network_policy_in_list_view(policy) == 1:
+                        self.utils.print_info("Select Network policy row")
+                        self.select_network_policy_row(policy)
+                        select_flag = True
+                        sleep(1)
+                        break
+                    else:
+                        self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
+
+                if select_flag:
+                    # we found what we were looking for, so exit
+                    break
+
+                # goto the next page
+                page_counter += 1
+                self.utils.print_info(f"Move to next page {page_counter}")
+                self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
+                sleep(5)
+        else:
+            for policy in policies:
+                if self._search_network_policy_in_list_view(policy) == 1:
+                    self.utils.print_info("Select Network policy row")
+                    self.select_network_policy_row(policy)
+                    select_flag = True
+                    sleep(1)
+                    break
+                else:
+                    self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
 
         if not select_flag:
             kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
@@ -442,7 +472,7 @@ class NetworkPolicy(object):
                 return row
 
     def deploy_network_policy(self, policy_name, devices, update_type='delta', next_reboot=False, _date=None,
-                              _time=None):
+                              _time=None, **kwargs):
         """
         - Deploy the network policy to the particular device
         - By default it will do delta config push
@@ -490,6 +520,8 @@ class NetworkPolicy(object):
 
         if not self._select_device_row(devices):
             self.utils.print_info("Device is not available in the deploy policy page")
+            kwargs['fail_msg'] = f"Device is not available in the deploy policy page"
+            self.common_validation.failed(**kwargs)
             return -1
         self.screen.save_screen_shot()
         sleep(5)
@@ -578,6 +610,8 @@ class NetworkPolicy(object):
                 break
             elif retry_count >= int(max_config_push_wait):
                 self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
+                kwargs['fail_msg'] = f"Config push to AP taking more than {max_config_push_wait}seconds"
+                self.common_validation.failed(**kwargs)
                 return -1
             sleep(30)
             retry_count += 30
@@ -585,9 +619,13 @@ class NetworkPolicy(object):
         network_policy = self.device.get_ap_network_policy(devices)
         if network_policy == policy_name:
             self.utils.print_info("Network Policy in Devices grid matches...")
+            kwargs['pass_msg'] = "Network Policy in Devices grid matches..."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Network Policy in Devices grid does not matches with the deployed one...")
+            kwargs['fail_msg'] = "Network Policy in Devices grid does not matches with the deployed one..."
+            self.common_validation.failed(**kwargs)
             return -1
 
     def navigate_to_np_edit_tab(self, policy_name, **kwargs):

@@ -28,6 +28,12 @@ class DevicesWebElementsDefinitions:
             'wait_for': 2
         }
 
+    devices_page_number_one = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="pagesWrap"]//a[@data-page="0"]',
+            'wait_for': 5
+        }
+
     devices_page_grid_ap_name_cells = \
         {
             'CSS_SELECTOR': '.field-hostname',
@@ -235,7 +241,7 @@ class DevicesWebElementsDefinitions:
 
     device_update_error_message = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]|//*[@class="ui-tipbox ui-tipbox-error"]//*[@data-dojo-attach-point="textEl"]',
             'index': 0,
             'wait_for': 5
         }
@@ -490,7 +496,7 @@ class DevicesWebElementsDefinitions:
         }
     action_assign_network_policy_dialog_cancel_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="closeDialog"]',
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 2
         }
 
@@ -1154,20 +1160,6 @@ class DevicesWebElementsDefinitions:
             
         }
 
-    actions_maximum_site_engine_message = \
-        {
-            'DESC': 'Maximum Site Engine message displayed in the Manage > Devices view.',
-            'XPATH': '//h3[contains(text(),"Maximum 5 Site Engine")]',
-            
-        }
-
-    actions_maximum_site_engine_message_close_btn = \
-        {
-            'DESC': 'Close Maximum Site Engine message box displayed in the Manage > Devices view.',
-            'XPATH': '//div[@class="ui-tipbox ui-tipbox-warning"]//i[@class="ui-tipbox-close"]',
-            
-        }
-
     device_make_dropdown = \
         {
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-make-select"]',
@@ -1698,11 +1690,36 @@ class DevicesWebElementsDefinitions:
             'wait_for': 3
         }
 
+    ui_banner_error_close_button = \
+        {
+            'DESC': 'XIQ UI Error Banner close button',
+            'XPATH': '//div[@class="ui-tipbox ui-tipbox-error"]//i[@class="ui-tipbox-close"]'
+        }
+
     ui_banner_warning_message = \
         {
             'DESC': 'XIQ UI Banner containing a warning message.',
             'XPATH':  '//*[contains(@class, "ui-tipbox ui-tipbox-warning") and contains(@data-dojo-attach-point, "wrapEl")]',
             'wait_for': 3
+        }
+
+    ui_banner_warning_close_button = \
+        {
+            'DESC': 'XIQ UI Warning Banner close button',
+            'XPATH': '//div[@class="ui-tipbox ui-tipbox-warning"]//i[@class="ui-tipbox-close"]'
+        }
+
+    ui_banner_notice_message = \
+        {
+            'DESC': 'XIQ UI Banner containing a notice message.',
+            'XPATH':  '//*[contains(@class, "ui-tipbox ui-tipbox-notice") and contains(@data-dojo-attach-point, "wrapEl")]',
+            'wait_for': 3
+        }
+
+    ui_banner_notice_close_button = \
+        {
+            'DESC': 'XIQ UI Notice Banner close button',
+            'XPATH': '//div[@class="ui-tipbox ui-tipbox-notice"]//i[@class="ui-tipbox-close"]'
         }
 
     license_button = \
@@ -1926,3 +1943,9 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//a[@data-size="100"]'
         }
+   
+    device_model = \
+    {
+        'CSS_SELECTOR': '.field-productType'
+    }
+        

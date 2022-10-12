@@ -64,20 +64,20 @@ class CommonValidation():
 
             # First check if there was a cli error.
             if not test_result and ignore_cli:
-                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                self.logger.warning("kwarg - ignore_cli is Enabled return True")
-                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.info("kwarg - ignore_cli is Enabled return True")
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 test_result = True
 
             if expect_error and not test_result:
-                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                self.logger.warning("kwarg - expect_error is Enabled return True")
-                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.info("kwarg - expect_error is Enabled return True")
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 test_result = True
             elif expect_error and test_result:
-                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                self.logger.warning("kwarg - expect_error is Enabled return False")
-                self.logger.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.info("kwarg - expect_error is Enabled return False")
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 test_result = False
 
             # print the output
