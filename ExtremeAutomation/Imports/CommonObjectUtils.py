@@ -30,7 +30,7 @@ class CommonObjectUtils:
         if cli_type not in accepted_list:
             self.builtin.skip(skip_msg)
 
-    def convert_to_generic_device_object(self, new_name, index=1, look_for_device_type=None):
+    def convert_to_generic_device_object(self, new_name, index=1, look_for_device_type=None, set_to_index=1):
         value = None
         generic_device_types = ['ap', 'wing', 'netelem', 'router', 'aerohive_sw']
 
@@ -65,9 +65,9 @@ class CommonObjectUtils:
               # Let's not print an error here because the user may just want to create a generic device
               pass
 
-            new_value_key = self.setExecutionVariable(new_name, str(index))
+            new_value_key = self.setExecutionVariable(new_name, str(set_to_index))
             self.builtin.set_global_variable(new_value_key, value)
-            value = self.builtin.get_variable_value(self.setExecutionVariable(new_name, str(index)))
+            value = self.builtin.get_variable_value(self.setExecutionVariable(new_name, str(set_to_index)))
             if not value:
                 self.builtin.fail("Can't set the generic Device OBJECT in the variables.")
         else:
