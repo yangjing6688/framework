@@ -3129,7 +3129,7 @@ class Device360WebElementDefs:
             'index': 2,
             'wait_for': 5
         }
-   select_element_port_type_port_usage_phone = \
+    select_element_port_type_port_usage_phone = \
         {
             'XPATH': '//input[@data-dojo-attach-point="phoneType"]',
             'wait_for': 5
