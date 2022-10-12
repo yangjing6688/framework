@@ -3197,3 +3197,4 @@ class Device360WebElementDefs:
     save_and_close_port_type_box = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
+        }
