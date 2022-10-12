@@ -37,6 +37,12 @@ class DeviceUpdateDefs:
             'wait_for': 2
         }
 
+    upgrade_even_if_versions_are_same_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="forceDownloadImage"]',
+            'wait_for': 5
+        }
+
     upgrade_to_latest_version_label = \
         {
             'XPATH': '//*[@data-dojo-attach-point="downloadFirmwareOptionLatestDes"]',

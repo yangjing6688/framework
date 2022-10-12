@@ -32,7 +32,7 @@ class ToolsWebElementsFlow(ToolsWebElements):
         """
         self.utils.print_info("Selecting Connection Profile Test from Menu...")
 
-        if self.auto_actions.click(self.get_conn_profile_test_ui()) == 1:
+        if self.auto_actions.click_reference(self.get_conn_profile_test_ui) == 1:
             sleep(2)
             self.utils.print_info("Entering the MAC address ")
             element = self.weh.get_element(self.mac_input)
@@ -181,7 +181,7 @@ class ToolsWebElementsFlow(ToolsWebElements):
         :return: row element if row exists else return None
         """
         self.utils.print_info("Getting logs rows")
-        if self.auto_actions.click(self.get_log_ui()) == 1:
+        if self.auto_actions.click_reference(self.get_log_ui) == 1:
             sleep(2)
             rows = self.setting.get_logs_grid_rows()
 

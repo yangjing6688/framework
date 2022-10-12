@@ -1780,7 +1780,7 @@ class SwitchTemplate(object):
                                 self.utils.print_info("A trunk option was chosen. Saving the current allowed/native "
                                                       "configuration fields...")
                                 save_button_trunk_choice_dialog = self.sw_template_web_elements.\
-                                    get_switch_temp_save_button()
+                                    get_sw_template_assign_existing_trunk_choice_second_dialog_box_save_button()
                                 if save_button_trunk_choice_dialog:
                                     self.utils.print_info("Clicking on the 'Save' button...")
                                     self.auto_actions.click(save_button_trunk_choice_dialog)

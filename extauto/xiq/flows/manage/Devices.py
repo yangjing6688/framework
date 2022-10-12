@@ -1249,7 +1249,7 @@ class Devices:
             self.utils.print_info(f"Actions dropdown is NOT shown")
             return False
 
-    def _update_network_policy(self, update_method="Delta"):
+    def _update_network_policy(self, update_method="Delta", **kwargs):
         """
         - Update the network policy to the selected devices
         - Based on the update method, update the devices
@@ -1273,9 +1273,20 @@ class Devices:
             update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
             update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
                                   "you must select a Complete Configuration Update."
+            update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
             if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
                 self.utils.print_info('Convert to Complete. Delta not supported')
                 update_method = "Complete"
+
+            if update_tooltip_msg3 in tool_tp_text:
+                self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
+                self.screen.save_screen_shot()
+                self.utils.print_info("click on Device Update Cancel Button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+                self.common_validation.failed(**kwargs)
+                return -1
 
         if update_method == "Complete":
             self.utils.print_info("click on complete config radio button")
@@ -1285,8 +1296,27 @@ class Devices:
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(2)
 
+            tool_tip = self.devices_web_elements.get_device_update_error_message()
+            tool_tp_text = tool_tip.text
+            self.utils.print_info(tool_tp_text)
+            update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+
+            if update_tooltip_msg in tool_tp_text:
+                self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
+                self.screen.save_screen_shot()
+                self.utils.print_info("click on Device Update Cancel Button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+                self.common_validation.failed(**kwargs)
+                return -1
+
         self.screen.save_screen_shot()
         sleep(2)
+
+        kwargs['pass_msg'] = f"Device update Successfully Triggered"
+        self.common_validation.passed(**kwargs)
+        return 1
 
     def _check_update_network_policy_status(self, policy_name, device_serial, **kwargs):
         """
@@ -1672,7 +1702,7 @@ class Devices:
 
             return 1
 
-    def upgrade_device_to_latest_version(self, device_serial):
+    def upgrade_device_to_latest_version(self, device_serial, activate_time=60):
         """
         - This method update device(s) to latest version from the dropdown
         - Keyword Usage:
@@ -1686,10 +1716,12 @@ class Devices:
         if self.select_ap(device_serial):
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click(self.device_update.get_update_devices_button())
+            self.screen.save_screen_shot()
             sleep(5)
 
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
             self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+            self.screen.save_screen_shot()
             sleep(5)
 
             self.utils.print_info("Selecting upgrade to latest version checkbox")
@@ -1701,11 +1733,18 @@ class Devices:
             self.utils.print_info("Device Latest Version: ", latest_version)
             sleep(5)
 
+            if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
+                self.utils.print_info("Click on Upgrade even if the versions are the same button")
+                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_are_same_button())
+                sleep(5)
+
+            self.screen.save_screen_shot()
+
             self.utils.print_info("Selecting Activate After radio button")
             self.auto_actions.click(self.device_update.get_activate_after_radio())
 
             self.utils.print_info("Setting Activate time to 60 seconds")
-            self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), '60')
+            self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), activate_time)
 
             self.utils.print_info("Selecting Perform Update button...")
             self.auto_actions.click(self.device_update.get_perform_update_button())
