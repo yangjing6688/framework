@@ -8668,13 +8668,24 @@ class Device360(Device360WebElements):
             self.utils.print_info("get_pse_profile_description not found ")
             return -1
 
+        def _check_save_pse_profile_closure():
+            if not self.get_select_element_port_type("pse_profile_save"):
+                self.utils.print_info("PSE profile save button not present anymore.")
+                return True
+            else:
+                self.utils.print_info("PSE profile save button is still present. Retrying...")
+                return False
+
         get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
         if get_pse_profile_save:
             self.auto_actions.click(get_pse_profile_save)
+            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
+                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
+                                                                   "save...")
             return 1
         else:
             self.utils.print_info("get_pse_profile_save not found ")
-        return -1
+            return -1
 
     def device360_edit_select_or_add_new_pse_profile(self, mode, port_number, poe_profile=None):
         '''
