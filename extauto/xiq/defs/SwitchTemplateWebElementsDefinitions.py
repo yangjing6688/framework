@@ -781,6 +781,7 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_assign_existing_trunk_choice_second_dialog_box_save_button = \
         {
             'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]'
+        }
 
     pse_error_message = \
         {
