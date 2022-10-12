@@ -81,7 +81,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Client Information dialog")
-        self.auto_actions.click(self.get_client_info_dialog_close_button())
+        self.auto_actions.click_reference(self.get_client_info_dialog_close_button)
         sleep(2)
 
         if self.verify_device_tool_client_information_is_open() == 1:
@@ -137,7 +137,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Get Tech Data dialog")
-        self.auto_actions.click(self.get_tech_data_dialog_close_button())
+        self.auto_actions.click_reference(self.get_tech_data_dialog_close_button)
         sleep(2)
 
         if self.verify_device_tool_get_tech_data_is_open() == 1:
@@ -175,7 +175,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Clinking 'No' to Get Tech Data")
-        self.auto_actions.click(self.get_confirm_message_no_button())
+        self.auto_actions.click_reference(self.get_confirm_message_no_button)
         sleep(2)
 
         if self.verify_confirm_message_dialog_is_open() == 1:
@@ -193,7 +193,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if Get Tech Data window is displayed else -1
         """
         self.utils.print_info("Clinking 'Yes' to Get Tech Data")
-        self.auto_actions.click(self.get_confirm_message_yes_button())
+        self.auto_actions.click_reference(self.get_confirm_message_yes_button)
         sleep(3)
 
         if self.verify_confirm_message_dialog_is_open() == 1:
@@ -254,7 +254,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Neighbor Info dialog")
-        self.auto_actions.click(self.get_neighbor_info_dialog_close_button())
+        self.auto_actions.click_reference(self.get_neighbor_info_dialog_close_button)
         sleep(2)
 
         if self.verify_device_tool_neighbor_info_is_open() == 1:
@@ -310,7 +310,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Locate Device dialog")
-        self.auto_actions.click(self.get_locate_device_cancel_button())
+        self.auto_actions.click_reference(self.get_locate_device_cancel_button)
         sleep(2)
 
         if self.verify_device_tool_locate_device_is_open() == 1:
@@ -366,7 +366,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Packet Capture dialog")
-        self.auto_actions.click(self.get_packet_capture_cancel_button())
+        self.auto_actions.click_reference(self.get_packet_capture_cancel_button)
         sleep(2)
 
         if self.verify_device_tool_packet_capture_is_open() == 1:
@@ -420,7 +420,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
          - ``Close Device Tool Cli``
         :return: 1 if is not displayed else -1
         """
-        self.auto_actions.click(self.get_show_cli_dialog_close_button())
+        self.auto_actions.click_reference(self.get_show_cli_dialog_close_button)
         sleep(2)
 
         if self.verify_device_tool_cli_is_open() == 1:
@@ -905,7 +905,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Ping dialog")
-        self.auto_actions.click(self.get_show_ping_dialog_close_button())
+        self.auto_actions.click_reference(self.get_show_ping_dialog_close_button)
         sleep(2)
 
         if self.verify_device_tool_ping_is_open() == 1:
@@ -961,7 +961,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing VLAN Probe dialog")
-        self.auto_actions.click(self.get_vlan_probe_dialog_close_button())
+        self.auto_actions.click_reference(self.get_vlan_probe_dialog_close_button)
         sleep(2)
 
         if self.verify_device_tool_vlan_probe_is_open() == 1:
@@ -999,7 +999,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Select Stack Member dialog")
-        self.auto_actions.click(self.get_select_stack_member_cancel_button())
+        self.auto_actions.click_reference(self.get_select_stack_member_cancel_button)
         sleep(2)
 
         if self.verify_select_stack_member_is_open() == 1:

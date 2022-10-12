@@ -33,7 +33,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
         """
         sleep(5)
-        self.auto_actions.click(self.get_private_client_grp_default_network_policy())
+        self.auto_actions.click_reference(self.get_private_client_grp_default_network_policy)
         network_policy_drop_down_items = self.get_private_client_grp_network_policy_drop_down_list_items()
         if network_policy_drop_down_items:
             if self.auto_actions.select_drop_down_options(network_policy_drop_down_items, policy):
@@ -60,16 +60,16 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
             :return: 1 or -1
 
         """
-        self.auto_actions.click(self.get_private_client_grp_ap_based_groups_tab())
+        self.auto_actions.click_reference(self.get_private_client_grp_ap_based_groups_tab)
         status = self.get_based_grp_enabled_status('ap')
 
         if status == 'OFF' and mode.lower() in ['enable']:
             self.utils.print_info("Click on the enable ap-based group button ")
-            self.auto_actions.click(self.get_private_client_grp_enable_ap_based_on_off_button())
+            self.auto_actions.click_reference(self.get_private_client_grp_enable_ap_based_on_off_button)
 
         if status == 'ON' and mode.lower() in ['disable']:
             self.utils.print_info("Click on the enabled ap-based group button ")
-            self.auto_actions.click(self.get_private_client_grp_enable_ap_based_on_off_button())
+            self.auto_actions.click_reference(self.get_private_client_grp_enable_ap_based_on_off_button)
 
         elif not status:
             self.utils.print_info("Button does not exist ")
@@ -100,16 +100,16 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
             :return: 1 or -1
 
         """
-        self.auto_actions.click(self.get_private_client_grp_key_based_groups_tab())
+        self.auto_actions.click_reference(self.get_private_client_grp_key_based_groups_tab)
         status = self.get_based_grp_enabled_status('key')
 
         if status == 'OFF' and mode.lower() in ['enable']:
             self.utils.print_info("Click on the enable key-based group button ")
-            self.auto_actions.click(self.get_private_client_grp_enable_key_based_on_off_button())
+            self.auto_actions.click_reference(self.get_private_client_grp_enable_key_based_on_off_button)
 
         if status == 'ON' and mode.lower() in ['disable']:
             self.utils.print_info("Click on the enabled key-based group button ")
-            self.auto_actions.click(self.get_private_client_grp_enable_key_based_on_off_button())
+            self.auto_actions.click_reference(self.get_private_client_grp_enable_key_based_on_off_button)
 
         elif not status:
             self.utils.print_info("Button does not exist ")
@@ -144,12 +144,12 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         element = None
         if mode == 'ap':
             self.utils.print_info("Click on the AP based group tab ")
-            self.auto_actions.click(self.get_private_client_grp_ap_based_groups_tab())
+            self.auto_actions.click_reference(self.get_private_client_grp_ap_based_groups_tab)
             element = self.get_private_client_grp_enable_ap_based_on_off_button()
 
         elif mode == 'key':
             self.utils.print_info("Click On the key based group tab ")
-            self.auto_actions.click(self.get_private_client_grp_key_based_groups_tab())
+            self.auto_actions.click_reference(self.get_private_client_grp_key_based_groups_tab)
             element = self.get_private_client_grp_enable_key_based_on_off_button()
 
         if element == None:
@@ -178,20 +178,20 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         if not self.get_private_client_grp_all_rooms_checkbox().is_selected():
             if self.get_private_ap_based_room_table_cells() != None:
                 self.utils.print_info("Select all rooms ")
-                self.auto_actions.click(self.get_private_client_grp_all_rooms_checkbox())
+                self.auto_actions.click_reference(self.get_private_client_grp_all_rooms_checkbox)
             else:
                 self.utils.print_info("Table is already emtpty ")
                 return 1
 
         self.utils.print_info("Click on Delete button ")
-        self.auto_actions.click(self.get_private_delete_room_button())
+        self.auto_actions.click_reference(self.get_private_delete_room_button)
         self.wait_until_element_available(self.get_diag_confirm_yes_button())
         if self.get_diag_confirm_yes_button() != None:
             self.utils.print_info("Click on the confirmed Yes")
-            self.auto_actions.click(self.get_diag_confirm_yes_button())
+            self.auto_actions.click_reference(self.get_diag_confirm_yes_button)
 
         self.utils.print_info("Click on Save Setting button ")
-        self.auto_actions.click(self.get_private_client_grp_save_setting_button())
+        self.auto_actions.click_reference(self.get_private_client_grp_save_setting_button)
 
         sleep(5)
         if self.get_private_ap_based_room_table_cells() != None:
@@ -215,20 +215,20 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         if not self.get_private_key_based_delete_checkbox_all().is_selected():
             if self.get_private_key_based_all_cells() != None:
                 self.utils.print_info("Select all keys ")
-                self.auto_actions.click(self.get_private_key_based_delete_checkbox_all())
+                self.auto_actions.click_reference(self.get_private_key_based_delete_checkbox_all)
             else:
                 self.utils.print_info("Table is already emtpty ")
                 return 1
 
         self.utils.print_info("Click on Delete button ")
-        self.auto_actions.click(self.get_private_key_based_group_delete_button())
+        self.auto_actions.click_reference(self.get_private_key_based_group_delete_button)
         self.wait_until_element_available(self.get_diag_confirm_yes_button())
         if self.get_diag_confirm_yes_button() != None:
             self.utils.print_info("Click on the confirmed Yes")
-            self.auto_actions.click(self.get_diag_confirm_yes_button())
+            self.auto_actions.click_reference(self.get_diag_confirm_yes_button)
 
         self.utils.print_info("Click on Save Setting button ")
-        self.auto_actions.click(self.private_key_based_save_info_button())
+        self.auto_actions.click_reference(self.private_key_based_save_info_button)
 
         sleep(5)
         if self.get_private_key_based_all_cells() != None:
@@ -269,13 +269,13 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         self.auto_actions.scroll_up()
         self.utils.print_info(" Click on delete button ")
         self.wait_until_element_available(self.get_private_delete_room_button())
-        self.auto_actions.click(self.get_private_delete_room_button())
+        self.auto_actions.click_reference(self.get_private_delete_room_button)
 
         self.wait_until_element_available(self.get_diag_confirm_yes_button())
         diag_yes_button = self.get_diag_confirm_yes_button()
         if diag_yes_button:
             self.utils.print_info(" Click on Yes button ")
-            self.auto_actions.click(self.get_diag_confirm_yes_button())
+            self.auto_actions.click_reference(self.get_diag_confirm_yes_button)
 
         sleep(3)
         cells = self.get_private_ap_based_room_table_cells()
@@ -322,14 +322,14 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         self.auto_actions.scroll_up()
         self.utils.print_info(" Click on delete button ")
         self.wait_until_element_available(self.get_private_key_based_group_delete_button())
-        self.auto_actions.click(self.get_private_key_based_group_delete_button())
+        self.auto_actions.click_reference(self.get_private_key_based_group_delete_button)
 
         diag_yes_button = self.get_diag_confirm_yes_button()
         if diag_yes_button:
             self.utils.print_info(" Click on Yes button ")
-            self.auto_actions.click(self.get_diag_confirm_yes_button())
+            self.auto_actions.click_reference(self.get_diag_confirm_yes_button)
 
-        self.auto_actions.click(self.get_private_key_based_save_info_button())
+        self.auto_actions.click_reference(self.get_private_key_based_save_info_button)
         sleep(3)
 
         cells = self.get_private_key_based_all_cells()
@@ -362,7 +362,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
         if self.get_private_client_grp_add_room_button().is_displayed():
             self.utils.print_info("Click on add room button")
-            self.auto_actions.click(self.get_private_client_grp_add_room_button())
+            self.auto_actions.click_reference(self.get_private_client_grp_add_room_button)
             self.wait_until_element_available(self.get_ap_based_room_input())
             actual_list = len(self.get_private_ap_based_room_user_assigned_drop_down())
 
@@ -384,7 +384,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
                                                 user)
                     self.auto_actions.click(self.get_room_user_assigned_drop_down_items()[position])
 
-                self.auto_actions.click(self.get_private_client_grp_save_setting_button())
+                self.auto_actions.click_reference(self.get_private_client_grp_save_setting_button)
             else:
                 self.utils.print_info(" Not able to enter the room " + room)
 
@@ -419,7 +419,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
         if self.get_private_key_based_group_add_button().is_displayed():
             self.utils.print_info("Click on add room button")
-            self.auto_actions.click(self.get_private_key_based_group_add_button())
+            self.auto_actions.click_reference(self.get_private_key_based_group_add_button)
             user_select = self.get_private_user_select_dropdown()
 
             if user_select == None:
@@ -427,13 +427,13 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
                 return -1
 
             self.utils.print_info("Click on the select user drop down ")
-            self.auto_actions.click(self.get_private_user_select_dropdown())
+            self.auto_actions.click_reference(self.get_private_user_select_dropdown)
             self.utils.print_info(" Searching the user name " + user)
             self.auto_actions.send_keys(self.get_private_user_search_key_based_group_text(), user)
             self.utils.print_info(" Select the user " + user)
             self.auto_actions.send_enter(self.get_private_user_search_key_based_group_text())
             self.utils.print_info(" Click on Save Changes ")
-            self.auto_actions.click(self.get_private_key_based_save_info_button())
+            self.auto_actions.click_reference(self.get_private_key_based_save_info_button)
 
         sleep(5)
         header = self.get_private_key_based_table_header()
