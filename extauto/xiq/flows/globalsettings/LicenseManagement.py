@@ -801,6 +801,8 @@ class LicenseManagement(LicenseManagementWebElements):
         :return: 1 if Entitlements Table contains feature, else -1
         """
 
+        ret_val = -1
+
         self.utils.print_info("Navigate to License Management page")
         self.navigator.navigate_to_license_management()
         sleep(2)
@@ -824,7 +826,4 @@ class LicenseManagement(LicenseManagementWebElements):
                     ret_val = -1
         else:
             self.utils.print_info("Entitlements table is empty")
-
         return ret_val
-
-
