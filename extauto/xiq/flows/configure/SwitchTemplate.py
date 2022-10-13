@@ -52,7 +52,7 @@ class SwitchTemplate(object):
         :return: True if Switch Template Found on Grid else False
         """
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
         sw_template_rows_elements = self.sw_template_web_elements.get_sw_template_rows()
@@ -118,7 +118,7 @@ class SwitchTemplate(object):
         sleep(2)
 
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
         tab = self.sw_template_web_elements.get_sw_template_tab_button()
@@ -185,7 +185,7 @@ class SwitchTemplate(object):
                         break
 
                 self.utils.print_info("Click on network policy exit button")
-                self.auto_actions.click(self.np_web_elements.get_np_exit_button())
+                self.auto_actions.click_reference(self.np_web_elements.get_np_exit_button)
                 sleep(2)
 
                 return rc
@@ -227,7 +227,7 @@ class SwitchTemplate(object):
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
         tab = self.sw_template_web_elements.get_sw_template_tab_button()
@@ -260,7 +260,7 @@ class SwitchTemplate(object):
         sleep(2)
 
         self.utils.print_info("Click on Device Templates tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
         tab = self.sw_template_web_elements.get_sw_template_tab_button()
@@ -284,7 +284,7 @@ class SwitchTemplate(object):
             # Search for the item to be selected
             self.utils.print_info("Search for the switch template name: ", sw_template_name)
             self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_selection_search_textfield(), sw_template_name)
-            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_selection_search_button())
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_search_button)
             sleep(3)
 
             # Select the item
@@ -306,7 +306,7 @@ class SwitchTemplate(object):
 
                     # Click Select
                     self.utils.print_info("Click Select")
-                    self.auto_actions.click(self.sw_template_web_elements.get_sw_template_selection_select_button())
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_select_button)
                     sleep(2)
 
                     self.utils.print_info("Switch template successfully selected for policy")
@@ -314,7 +314,7 @@ class SwitchTemplate(object):
                 else:
                     self.utils.print_info("Could not select Switch Template row for ", sw_template_name)
                     self.utils.print_info("  -- Clicking Cancel to close Select Switch Template dialog")
-                    self.auto_actions.click(self.sw_template_web_elements.get_sw_template_selection_cancel_button())
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_cancel_button)
                     return -1
             else:
                 self.utils.print_info("Could not find Switch Template selection table")
@@ -330,6 +330,7 @@ class SwitchTemplate(object):
             return 1
         else:
             return -1
+
 
     def switch_template_save(self):
         save_btns = self.sw_template_web_elements.get_sw_template_save_button()
@@ -347,9 +348,9 @@ class SwitchTemplate(object):
 
     def select_assign_choose_existing_port_type(self, port_type_name):
         rc = 0
-        self.auto_actions.click(self.sw_template_web_elements.get_sw_template_assign_button())
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_assign_button)
         sleep(3)
-        self.auto_actions.click(self.sw_template_web_elements.get_sw_template_assign_choose_existing())
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_assign_choose_existing)
         sleep(3)
         radios = self.sw_template_web_elements.get_sw_template_all_port_type_list_radio()
         labels = self.sw_template_web_elements.get_sw_template_all_port_type_list_label()
@@ -360,15 +361,15 @@ class SwitchTemplate(object):
                 break
         sleep(3)
         if rc == 1:
-            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_port_type_list_save_button())
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_type_list_save_button)
         else:
-            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_port_type_list_cancel_button())
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_type_list_cancel_button)
         sleep(3)
 
     def select_assign_create_new_port_type(self, port_type):
-        self.auto_actions.click(self.sw_template_web_elements.get_sw_template_assign_button())
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_assign_button)
         sleep(3)
-        self.auto_actions.click(self.sw_template_web_elements.get_sw_template_assign_create_new())
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_assign_create_new)
         sleep(3)
         if (port_type.get('port_type_editor') == 'Legacy'):
             self.set_legacy_port_type_fields(port_type)
@@ -513,7 +514,7 @@ class SwitchTemplate(object):
         sleep(2)
 
         self.utils.print_debug("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
         if self.check_sw_template(sw_template_name):
@@ -563,7 +564,7 @@ class SwitchTemplate(object):
                 self.utils.print_info("The models from dropdown are : ")
                 for cnt in policy_unit_items:
                     self.utils.print_info(cnt.text)
-                self.auto_actions.click(self.sw_template_web_elements.get_sw_template_name_textfield())
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_name_textfield)
                 model_units_list = model_units.split(",")
                 self.utils.print_info("The models from CLI are : ", model_units_list)
                 model_units_list2 = []
@@ -589,10 +590,10 @@ class SwitchTemplate(object):
                         if self.auto_actions.select_drop_down_options(policy_unit_items, var_type + unit):
                             self.utils.print_info("Unit was added  :", var_type + unit)
                             sleep(20)
-                            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_name_textfield())
+                            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_name_textfield)
                         else:
                             self.utils.print_info("Unit was not added  :", var_type + unit)
-                            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_name_textfield())
+                            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_name_textfield)
                             return -1
                 else:
                     self.utils.print_info("Cannot read options from dropdown")
@@ -734,7 +735,7 @@ class SwitchTemplate(object):
 
         sleep(2)
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
         sel_btn = self.sw_template_web_elements.get_sw_template_select_button()
@@ -749,7 +750,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Search for the switch template name: ", sw_template_name)
             self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_selection_search_textfield(),
                                         sw_template_name)
-            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_selection_search_button())
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_search_button)
             sleep(3)
         else:
             self.utils.print_info("The select button was not found")
@@ -841,11 +842,11 @@ class SwitchTemplate(object):
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
         self.utils.print_info("Click on switch Template tab")
-        self.auto_actions.click(self.sw_template_web_elements.get_sw_template_tab_button())
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_tab_button)
         sleep(2)
         rows = self.sw_template_web_elements.get_sw_template_rows()
         if not rows:
@@ -1131,7 +1132,7 @@ class SwitchTemplate(object):
         self.nw_policy.select_network_policy_in_card_view(network_policy_name)
         sleep(2)
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
         tab = self.sw_template_web_elements.get_sw_template_tab_button()
         if tab.is_displayed():
@@ -1216,7 +1217,7 @@ class SwitchTemplate(object):
                         if priority:
                             sleep(3)
                             self.utils.print_info("Setting the priority value")
-                            self.auto_actions.click(self.sw_template_web_elements.priority_dropdown())
+                            self.auto_actions.click_reference(self.sw_template_web_elements.priority_dropdown)
                             sleep(3)
                             if priority == "low" or priority == "high" or priority == "critical":
                                 self.utils.print_info("Selecting {} value".format(priority))
@@ -1233,7 +1234,7 @@ class SwitchTemplate(object):
                         if power_mode:
                             self.utils.print_info("Setting the power mode value")
                             sleep(5)
-                            self.auto_actions.click(self.sw_template_web_elements.power_mode_dropdown())
+                            self.auto_actions.click_reference(self.sw_template_web_elements.power_mode_dropdown)
                             if power_mode == "802.3af" or power_mode == "802.3at" or power_mode == "802.3bt":
                                 self.utils.print_info("Selecting {} value".format(power_mode))
                                 sleep(3)
@@ -1321,7 +1322,7 @@ class SwitchTemplate(object):
         self.nw_policy.select_network_policy_in_card_view(network_policy_name)
         sleep(2)
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
         tab = self.sw_template_web_elements.get_sw_template_tab_button()
         if tab.is_displayed():
@@ -1459,7 +1460,7 @@ class SwitchTemplate(object):
         self.nw_policy.select_network_policy_in_card_view(network_policy_name)
         sleep(2)
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
         tab = self.sw_template_web_elements.get_sw_template_tab_button()
         if tab.is_displayed():
@@ -1644,7 +1645,7 @@ class SwitchTemplate(object):
                 return -1
 
             self.utils.print_info("Click on Advanced Settings tab")
-            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_adv_settings_tab())
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_tab)
         except Exception as exc:
             self.utils.print_info(exc)
             return -1
@@ -1893,7 +1894,7 @@ class SwitchTemplate(object):
         sleep(2)
 
         self.utils.print_debug("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
         tab = self.sw_template_web_elements.get_sw_template_tab_button()
@@ -1975,7 +1976,7 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         self.utils.print_info("Searching the template: ", sw_template_name)
         sw_templates_rows = self.sw_template_web_elements.get_sw_template_rows()
         if sw_templates_rows:

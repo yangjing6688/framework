@@ -38,7 +38,7 @@ class ExtremeGuest(object):
 
         if self.guest_web_elem.get_extreme_guest_subscription_page().is_displayed():
             self.utils.print_info("Click Extreme Guest Subscribe button")
-            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_subscribe_button())
+            self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_subscribe_button)
             sleep(3)
 
             self.screen.save_screen_shot()
@@ -68,7 +68,7 @@ class ExtremeGuest(object):
 
         if self.guest_web_elem.get_extreme_guest_subscription_page().is_displayed():
             self.utils.print_info("Click Extreme Guest Subscribe button")
-            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_subscribe_button())
+            self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_subscribe_button)
             sleep(3)
 
             self.screen.save_screen_shot()
@@ -76,13 +76,13 @@ class ExtremeGuest(object):
 
             if self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_checkbox().is_displayed():
                 self.utils.print_info("Select Extreme Guest Open SSID")
-                self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_checkbox())
+                self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_checkbox)
             else:
                 self.utils.print_info("Add SSID before continuing")
                 return 0
 
             self.utils.print_info("Click Extreme Guest Subscribe Apply button")
-            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button())
+            self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button)
             sleep(3)
 
             self.screen.save_screen_shot()
@@ -106,7 +106,7 @@ class ExtremeGuest(object):
         """
         self.go_to_extreme_guest_landing_page()
         self.utils.print_info("Click More Insights button")
-        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_more_insights_tab())
+        self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_more_insights_tab)
         sleep(10)
 
         self.utils.print_info("Switch to New Extreme Guest Window")
@@ -128,7 +128,7 @@ class ExtremeGuest(object):
         """
         # self.go_to_extreme_guest_page()
         self.utils.print_info("Clicking on Extreme Guest Monitor Page")
-        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_monitor_page())
+        self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_monitor_page)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -178,7 +178,7 @@ class ExtremeGuest(object):
         """
         # self.go_to_extreme_guest_page()
         self.utils.print_info("Clicking on Extreme Guest Configure Page")
-        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_page())
+        self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_configure_page)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -197,7 +197,7 @@ class ExtremeGuest(object):
         """
         self.go_to_configure_page()
         self.utils.print_info("Clicking on Extreme Guest Configure Users Page")
-        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_users_tab())
+        self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_configure_users_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -276,7 +276,7 @@ class ExtremeGuest(object):
         self.utils.print_info(f"Selecting {search_string} object grid row")
         if self._select_extreme_guest_subscription_page_open_ssid_row(search_string):
             self.utils.print_info("Click Extreme Guest Subscribe Apply button")
-            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button())
+            self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button)
             sleep(3)
             return 1
         return 0
@@ -348,7 +348,7 @@ class ExtremeGuest(object):
         """
         self.go_to_extreme_guest_page()
         self.utils.print_info("Clicking on Extreme Guest Analyze Page")
-        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_analyze_page())
+        self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_analyze_page)
         sleep(2)
 
         self.screen.save_screen_shot()
