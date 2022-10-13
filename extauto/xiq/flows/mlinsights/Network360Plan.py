@@ -5,8 +5,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.CommonValidation import CommonValidation
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from extauto.xiq.flows.manage.Client import Client
-from extauto.xiq.flows.manage.Devices import Devices
+
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.Network360PlanElements import Network360PlanElements
 
