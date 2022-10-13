@@ -7308,18 +7308,6 @@ class Devices:
                 location_buildings = self.device_actions.get_locations_building()
                 location_floors = self.device_actions.get_locations_floors()
 
-                for location_item in location_list:
-                    self.utils.print_info("Location items ", location_item)
-
-                for location_generic in location_generics:
-                    self.utils.print_info("Generic locations on UI:", location_generic.text)
-
-                for location_building in location_buildings:
-                    self.utils.print_info("Building locations on UI:", location_building.text)
-
-                for location_floor in location_floors:
-                    self.utils.print_info("Floor locations on UI:", location_floor.text)
-
                 generic_set = False
                 building_set = False
                 floor_set = False
