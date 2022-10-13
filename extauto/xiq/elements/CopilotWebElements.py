@@ -2,7 +2,7 @@ from extauto.xiq.defs.CopilotWebElementsDefinitions import *
 from extauto.common.WebElementHandler import *
 
 
-class CopilotWebElements(CopilotDefs):
+class CopilotWebElements(CopilotWebElementsDefinitions):
     def __init__(self):
         self.weh = WebElementHandler()
 
