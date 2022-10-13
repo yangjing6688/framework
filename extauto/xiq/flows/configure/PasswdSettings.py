@@ -23,7 +23,7 @@ class PasswdSettings(PasswdSettingsWebElements):
         :return: None
         """
         self.utils.print_info("PSK generation method:{}".format(psk_gen_method))
-        self.auto_actions.click(self.get_psk_generation_method_drop_down())
+        self.auto_actions.click_reference(self.get_psk_generation_method_drop_down)
         sleep(2)
 
         psk_gen_opts = self.get_psk_generation_method_options()
@@ -78,7 +78,7 @@ class PasswdSettings(PasswdSettingsWebElements):
             self.auto_actions.disable_check_box(self.get_special_character_check_box())
 
         self.utils.print_info("enforce the use of :{}".format(enforce_use_of))
-        self.auto_actions.click(self.get_enforce_use_of_drop_down())
+        self.auto_actions.click_reference(self.get_enforce_use_of_drop_down)
         sleep(2)
 
         enforce_opts = self.get_enforce_use_of_options()
@@ -88,7 +88,7 @@ class PasswdSettings(PasswdSettingsWebElements):
             self._config_psk_gen_method(psk_gen_method, concatenating_str)
 
         self.utils.print_info("Generate Password length:{}".format(gen_passwd_len))
-        self.auto_actions.click(self.get_generate_password_length_drop_down())
+        self.auto_actions.click_reference(self.get_generate_password_length_drop_down)
         sleep(2)
 
         gen_passwd_len_opts = self.get_generate_password_length_options()

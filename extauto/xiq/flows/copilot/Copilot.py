@@ -219,7 +219,7 @@ class Copilot(CopilotWebElements):
                     sleep(5)
 
                     self.utils.print_info("Clicking UnMute Button in the Location Name Matched Row")
-                    self.auto_actions.click(self.get_wifi_capacity_widget_location_more_options_unmute_button())
+                    self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_more_options_unmute_button)
                     sleep(5)
 
                     for row1 in self.get_wifi_capacity_widget_location_grid_rows():
@@ -282,7 +282,7 @@ class Copilot(CopilotWebElements):
                 self.screen.save_screen_shot()
                 self.auto_actions.move_to_element(self.get_wifi_capacity_dismiss_option())
                 self.utils.print_info("Clicking on Dismiss button in Wi-Fi capacity widget")
-                self.auto_actions.click(self.get_wifi_capacity_dismiss_option())
+                self.auto_actions.click_reference(self.get_wifi_capacity_dismiss_option)
                 sleep(1)
                 self.utils.print_info("Reading warning message...")
                 warning_msg = self.get_wifi_capacity_dismiss_warning().text
@@ -290,12 +290,12 @@ class Copilot(CopilotWebElements):
                 self.utils.print_info("warning message : ", warning_msg)
                 if option == 'no':
                     self.auto_actions.move_to_element(self.get_wifi_capacity_dismiss_no_option())
-                    self.auto_actions.click(self.get_wifi_capacity_dismiss_no_option())
+                    self.auto_actions.click_reference(self.get_wifi_capacity_dismiss_no_option)
                     sleep(1)
                     self.utils.print_info(f"Clicking on {option} option")
                 elif option == 'yes':
                     self.auto_actions.move_to_element(self.get_wifi_capacity_dismiss_yes_option())
-                    self.auto_actions.click(self.get_wifi_capacity_dismiss_yes_option())
+                    self.auto_actions.click_reference(self.get_wifi_capacity_dismiss_yes_option)
                     sleep(5)
                     self.utils.print_info(f"Clicking on {option} option")
                 return 1
@@ -336,7 +336,7 @@ class Copilot(CopilotWebElements):
 
                             self.screen.save_screen_shot()
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.print_info(f"Pinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
@@ -345,7 +345,7 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info(f"Already Pinned Anomaly for the AP : {ap_name} in Location "
                                                   f"{location_name}")
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.screen.save_screen_shot()
                             return 1
@@ -387,7 +387,7 @@ class Copilot(CopilotWebElements):
 
                             self.screen.save_screen_shot()
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.print_info(f"UnPinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
@@ -396,7 +396,7 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info(f"Already Unpinned Anomaly for the AP : {ap_name} in Location "
                                                   f"{location_name}")
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.screen.save_screen_shot()
                             return 1
@@ -416,7 +416,7 @@ class Copilot(CopilotWebElements):
         self.utils.print_info("Navigating to Copilot Anomaly notification icon")
         self.navigator.navigate_to_copilot_anomaly_notification_icon()
         self.utils.print_info("Clicking on View ALL button...")
-        self.auto_actions.click(self.get_anomalies_view_all_btn())
+        self.auto_actions.click_reference(self.get_anomalies_view_all_btn)
         sleep(5)
         self.utils.print_info("Checking whether we are in Copilot page or not")
         if self.get_copilot_branded_image():
@@ -471,7 +471,7 @@ class Copilot(CopilotWebElements):
         self.screen.save_screen_shot()
         if "HIDE MUTED" in button_text.upper():
             self.utils.print_info(f"Clicking Hide Muted Button")
-            self.auto_actions.click(self.get_show_or_hide_muted_button_in_wifi_capacity_widget())
+            self.auto_actions.click_reference(self.get_show_or_hide_muted_button_in_wifi_capacity_widget)
             sleep(5)
         else:
             self.utils.print_info(f"Already Clicked Hide Muted Button in WiFi Capacity Widget")
@@ -508,7 +508,7 @@ class Copilot(CopilotWebElements):
             sleep(5)
         else:
             self.utils.print_info(f"Clicking Show Muted Button")
-            self.auto_actions.click(self.get_show_or_hide_muted_button_in_wifi_capacity_widget())
+            self.auto_actions.click_reference(self.get_show_or_hide_muted_button_in_wifi_capacity_widget)
             sleep(5)
         self.utils.print_info(f"Checking for muted Rows in WiFi Capacity Widget")
         if self.get_wifi_capacity_widget_location_muted_grid_rows():
@@ -581,7 +581,7 @@ class Copilot(CopilotWebElements):
         sleep(15)
 
         self.utils.print_info(f"Clicking Video Help Icon")
-        self.auto_actions.click(self.get_wifi_capacity_video_help_icon())
+        self.auto_actions.click_reference(self.get_wifi_capacity_video_help_icon)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -606,7 +606,7 @@ class Copilot(CopilotWebElements):
             self.utils.print_info(f"Video Links Present In WiFi Capacity Additional Resources : {video_url_list}")
 
         self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
-        self.auto_actions.click(self.get_wifi_capacity_additional_resources_close_button())
+        self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
         return docs_url_list , video_url_list
 
@@ -624,7 +624,7 @@ class Copilot(CopilotWebElements):
         sleep(15)
 
         self.utils.print_info(f"Clicking Video Help Icon")
-        self.auto_actions.click(self.get_wifi_capacity_video_help_icon())
+        self.auto_actions.click_reference(self.get_wifi_capacity_video_help_icon)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -664,7 +664,7 @@ class Copilot(CopilotWebElements):
                         break
 
             self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
-            self.auto_actions.click(self.get_wifi_capacity_additional_resources_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
             if loaded_doc_title:
                 self.utils.print_info(f"All the Additional resources Documentation links loaded Successfully ")
@@ -687,7 +687,7 @@ class Copilot(CopilotWebElements):
         sleep(15)
 
         self.utils.print_info(f"Clicking Video Help Icon")
-        self.auto_actions.click(self.get_wifi_capacity_video_help_icon())
+        self.auto_actions.click_reference(self.get_wifi_capacity_video_help_icon)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -722,7 +722,7 @@ class Copilot(CopilotWebElements):
                         break
 
             self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
-            self.auto_actions.click(self.get_wifi_capacity_additional_resources_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
             if loaded_video_flag:
                 self.utils.print_info(f"All the Additional resources Video links loaded Successfully ")
@@ -745,7 +745,7 @@ class Copilot(CopilotWebElements):
         sleep(15)
         self.auto_actions.move_to_element(self.get_wifi_capacity_widget())
         self.utils.print_info("Clicking on sorting options.")
-        self.auto_actions.click(self.get_wifi_capacity_widget_sort())
+        self.auto_actions.click_reference(self.get_wifi_capacity_widget_sort)
         self.screen.save_screen_shot()
         sleep(2)
         sort_options = self.get_wifi_capacity_widget_sort_options()
@@ -1190,7 +1190,7 @@ class Copilot(CopilotWebElements):
         if 'HIDE MUTED' in self.get_dfs_recurrence_anomaly_muted().text:
             pass
         else:
-            self.auto_actions.click(self.get_dfs_recurrence_anomaly_muted())
+            self.auto_actions.click_reference(self.get_dfs_recurrence_anomaly_muted)
 
         status = self.get_dfs_recurrence_anomaly_muted().text
         sleep(1)
@@ -1227,7 +1227,7 @@ class Copilot(CopilotWebElements):
         if 'SHOW MUTED' in self.get_dfs_recurrence_anomaly_muted().text:
             pass
         else:
-            self.auto_actions.click(self.get_dfs_recurrence_anomaly_muted())
+            self.auto_actions.click_reference(self.get_dfs_recurrence_anomaly_muted)
 
         sleep(1)
         self.screen.save_screen_shot()
@@ -1454,7 +1454,7 @@ class Copilot(CopilotWebElements):
         self.screen.save_screen_shot()
 
         sleep(2)
-        self.auto_actions.click(self.get_devices_by_os_iqagent())
+        self.auto_actions.click_reference(self.get_devices_by_os_iqagent)
         parent_window = CloudDriver().cloud_driver.window_handles[0]
         child_window = CloudDriver().cloud_driver.window_handles[1]
 
@@ -1778,7 +1778,7 @@ class Copilot(CopilotWebElements):
                 self.screen.save_screen_shot()
                 self.auto_actions.move_to_element(self.get_dfs_recurrence_widget_location_dismiss_option())
                 self.utils.print_info("Clicking on Dismiss button in DFS Recurrence Widget")
-                self.auto_actions.click(self.get_dfs_recurrence_widget_location_dismiss_option())
+                self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_dismiss_option)
                 sleep(1)
                 self.utils.print_info("Reading warning message...")
                 warning_msg = self.get_dfs_recurrence_widget_location_dismiss_warning().text
@@ -1788,13 +1788,13 @@ class Copilot(CopilotWebElements):
                 if option == 'no':
                     self.utils.print_info(f"Clicking on {option} option")
                     self.auto_actions.move_to_element(self.get_dfs_recurrence_widget_location_dismiss_no_option())
-                    self.auto_actions.click(self.get_dfs_recurrence_widget_location_dismiss_no_option())
+                    self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_dismiss_no_option)
                     sleep(1)
 
                 elif option == 'yes':
                     self.utils.print_info(f"Clicking on {option} option")
                     self.auto_actions.move_to_element(self.get_dfs_recurrence_widget_location_dismiss_yes_option())
-                    self.auto_actions.click(self.get_dfs_recurrence_widget_location_dismiss_yes_option())
+                    self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_dismiss_yes_option)
                     sleep(5)
 
                     for row1 in self.get_dfs_recurrence_widget_location_grid_rows():
@@ -1853,7 +1853,7 @@ class Copilot(CopilotWebElements):
 
                             self.screen.save_screen_shot()
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.print_info(f"Pinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
@@ -1863,7 +1863,7 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info(f"Already Pinned Anomaly for the AP : {ap_name} in Location "
                                                   f"{location_name}")
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.screen.save_screen_shot()
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -1911,7 +1911,7 @@ class Copilot(CopilotWebElements):
 
                             self.screen.save_screen_shot()
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.print_info(f"UnPinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
@@ -1921,7 +1921,7 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info(f"Already Unpinned Anomaly for the AP : {ap_name} in Location "
                                                   f"{location_name}")
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.screen.save_screen_shot()
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -1953,7 +1953,7 @@ class Copilot(CopilotWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking on Manage link..")
-        self.auto_actions.click(self.get_copilot_license_mange_link())
+        self.auto_actions.click_reference(self.get_copilot_license_mange_link)
         sleep(10)
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -2100,7 +2100,7 @@ class Copilot(CopilotWebElements):
         if 'HIDE MUTED' in self.get_adverse_traffic_patterns_widget_anomaly_muted().text:
             pass
         else:
-            self.auto_actions.click(self.get_adverse_traffic_patterns_widget_anomaly_muted())
+            self.auto_actions.click_reference(self.get_adverse_traffic_patterns_widget_anomaly_muted)
 
         status = self.get_adverse_traffic_patterns_widget_anomaly_muted().text
         sleep(1)
@@ -2137,7 +2137,7 @@ class Copilot(CopilotWebElements):
         if 'SHOW MUTED' in self.get_adverse_traffic_patterns_widget_anomaly_muted().text:
             pass
         else:
-            self.auto_actions.click(self.get_adverse_traffic_patterns_widget_anomaly_muted())
+            self.auto_actions.click_reference(self.get_adverse_traffic_patterns_widget_anomaly_muted)
 
         sleep(1)
         self.screen.save_screen_shot()
@@ -2683,7 +2683,7 @@ class Copilot(CopilotWebElements):
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         self.screen.save_screen_shot()
         self.utils.print_info(f"Clicking like Button for the Location {location_name} and AP {ap_name}")
-        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_like())
+        self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_ap_like)
         self.screen.save_screen_shot()
 
         like_tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip()
@@ -2694,7 +2694,7 @@ class Copilot(CopilotWebElements):
                                   f"for the ap {ap_name}")
             kwargs['pass_msg'] = "successfully liked the Wi-Fi capacity widget location"        
             self.utils.print_info(f"Closing Detailed view")
-            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
             self.screen.save_screen_shot()
 
             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -2707,7 +2707,7 @@ class Copilot(CopilotWebElements):
                                   f"for the ap {ap_name}")
             kwargs['fail_msg'] = "Unable to click like button for the Wi-Fi capacity widget location"  
             self.utils.print_info(f"Closing Detailed view")
-            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             self.common_validation.failed(**kwargs)
@@ -2847,7 +2847,7 @@ class Copilot(CopilotWebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info(f"Clicking Dislike Button for the Location {location_name} and AP {ap_name}")
-        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_dislike())
+        self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_ap_dislike)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Entering feedback text")
@@ -2856,7 +2856,7 @@ class Copilot(CopilotWebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info(f"Clicking Dislike Feedback Button for the Location {location_name} and AP {ap_name}")
-        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_dislike_send_feedback_button())
+        self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_ap_dislike_send_feedback_button)
         self.screen.save_screen_shot()
 
         tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip().text
@@ -2872,7 +2872,7 @@ class Copilot(CopilotWebElements):
                 self.common_validation.passed(**kwargs)
 
                 self.utils.print_info(f"Closing Detailed view")
-                self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                 self.screen.save_screen_shot()
 
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -2883,7 +2883,7 @@ class Copilot(CopilotWebElements):
                 self.common_validation.failed(**kwargs)
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
                 self.utils.print_info(f"Closing Detailed view")
-                self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                 self.screen.save_screen_shot()
                 return -1
         else:
@@ -2893,7 +2893,7 @@ class Copilot(CopilotWebElements):
                                  f"{location_name} with ap {ap_name}"
             self.common_validation.failed(**kwargs)
             self.utils.print_info(f"Closing Detailed view")
-            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
