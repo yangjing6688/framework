@@ -74,16 +74,16 @@ class Copilot(CopilotWebElements):
 
         if self.devices_web_elements.get_ui_banner_warning_message():
             tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
-        # if self.get_ui_banner_warning_message():
-        #     tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
-        # if self.get_ui_banner_warning_message():
-        #     tool_tp_text_warning = self.get_ui_banner_warning_message()
             if "CoPilot deactivated due to lack of licenses" in tool_tp_text_warning.text:
                 self.utils.print_info(tool_tp_text_warning.text)
                 self.screen.save_screen_shot()
                 return True
+            else:
+                self.utils.print_info(f"Warning Message: {tool_tp_text_warning.text}")
+                self.screen.save_screen_shot()
+                return False
         else:
-            self.utils.print_info("CoPilot deactivated due to lack of licenses warning message not displayed")
+            self.utils.print_info("No warning message banner was found")
             self.screen.save_screen_shot()
             return False
 
