@@ -169,7 +169,7 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_network_policy_page_size(self, page_size='100'):
         if els := self.weh.get_elements(self.network_policy_page_size):
-            if els.is_displayed():
+            if els:
                 for el in els:
                     if str(page_size) in el.text:
                         return el

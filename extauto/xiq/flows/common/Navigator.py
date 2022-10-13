@@ -938,8 +938,10 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_configure_network_policies()
         self.utils.print_info("click on list view button")
+        self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.get_network_policy_list_view)
         self.utils.print_info("Click on network policy full size page")
+        self.screen.save_screen_shot()
         if self.get_network_policy_page_size():
             self.auto_actions.click_reference(self.get_network_policy_page_size)
             sleep(2)
@@ -3196,6 +3198,7 @@ class Navigator(NavigatorWebElements):
         """
         try_again = True
         counter = 0
+
         while try_again:
             try:
                 page_size_element = self.get_page_size()
