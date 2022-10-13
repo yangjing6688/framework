@@ -324,7 +324,13 @@ class SwitchTemplate(object):
             return -1
 
     def go_to_port_configuration(self):
-        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_configuration_tab)
+        nav_button = self.sw_template_web_elements.get_sw_template_port_configuration_tab()
+        if nav_button:
+            self.auto_actions.click(nav_button)
+            return 1
+        else:
+            return -1
+
 
     def switch_template_save(self):
         save_btns = self.sw_template_web_elements.get_sw_template_save_button()
@@ -2091,6 +2097,106 @@ class SwitchTemplate(object):
                 hyperlink = self.sw_template_web_elements.get_sw_template_row_cells_hyperlink(template_cell)
                 return hyperlink
         return False
+
+    def add_sw_template_from_policy_tab(self, sw_model, sw_template_name, save_template=True):
+        '''
+        This keyword add new template from policy tab
+        :param sw_model: model of template
+        :param sw_template_name: Name of template
+        :param save_template: True is template will be save; else False
+        :return: 1 if template has been created; else -1
+        '''
+
+        if self.check_sw_template(sw_template_name):
+            self.utils.print_info(
+                "Template with name {} already present in the template grid".format(sw_template_name))
+            return -1
+        add_btn = self.sw_template_web_elements.get_new_sw_template_add_button()
+        if add_btn:
+            self.utils.print_info("Click on sw Template Add button")
+            self.auto_actions.click(add_btn)
+            self.utils.print_info("select the sw: ", sw_model)
+            sw_list_items = self.sw_template_web_elements.get_sw_template_platform_from_drop_down()
+            for el in sw_list_items:
+                self.utils.print_debug("Switch template names: ", el.text.upper())
+                if not el:
+                    pass
+                if sw_model.upper() in el.text.upper():
+                    self.auto_actions.click(el)
+                    break
+                print(el.text)
+            self.utils.wait_till(self.sw_template_web_elements.get_sw_template_name_textfield, timeout=20, delay=1, is_logging_enabled=True)
+            self.utils.print_info("Enter the switch Template Name: ", sw_template_name)
+            sw_name_field = self.sw_template_web_elements.get_sw_template_name_textfield()
+            if sw_name_field:
+                self.utils.print_info("Enter the template name : ")
+                self.auto_actions.send_keys(sw_name_field, sw_template_name)
+            else:
+                self.utils.print_info("The web element for name field has not been found")
+                return -1
+
+
+        if save_template:
+            save_btns = self.sw_template_web_elements.get_sw_template_save_button()
+            for save_btn in save_btns:
+                if save_btn.is_displayed():
+                    self.utils.print_info("Click on the save template button")
+                    self.auto_actions.click(save_btn)
+                    tool_tip_text = tool_tip.tool_tip_text
+                    self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+                    sleep(3)
+                    for cnt3 in tool_tip_text:
+                        if 'successfully' in cnt3:
+                            self.utils.print_info("Found successfully message")
+                            return 1
+                        else:
+                            self.utils.print_info("Not found successfully message yet ")
+                else:
+                    self.utils.print_info("Not found 'Save template' button ")
+        else:
+            self.utils.print_info("User choose not to save the policy. More configs could be added")
+            return 1
+
+    def nav_to_template_tab(self, nw_policy):
+        '''
+        This keyword navigate to template tab from policy
+
+        :param nw_policy: name of policy
+        :return: 1 if navigated with success; else -1
+        '''
+
+        self.utils.print_info("Navigate to devices")
+        self.navigator.navigate_to_devices()
+        self.utils.print_info("Navigating Network Policies")
+        self.navigator.navigate_configure_network_policies()
+
+        if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
+            self.utils.print_info("Not found the network policy. Make sure that it was created before ")
+            return -1
+
+        self.utils.print_debug("Click on Device Template tab button")
+        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+
+        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        if tab.is_displayed():
+            self.utils.print_info("Click on Switch Templates tab")
+            self.auto_actions.click(tab)
+        return 1
+
+    def open_template_from_policy(self, sw_template):
+        '''
+        This keyword open a template from template tab from policy
+
+        :param template: template name
+        :return: 1 template is opened with success; else -1
+        '''
+        row = self.get_sw_template_row(sw_template)
+        if row:
+            self.auto_actions.click(row)
+            return 1
+        return -1
+
+
     
     def generate_template_name(self,platform,serial,model, slots = ""):
         """

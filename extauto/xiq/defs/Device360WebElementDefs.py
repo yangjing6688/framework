@@ -1912,7 +1912,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_pse_tab = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-port-config-pse"]',
+            'XPATH': '//div[@data-automation-tag="automation-port-config-pse" or @data-automation-tag="automation-port-configuration-pse"]',
             'wait_for': 5
         }
 
@@ -2499,6 +2499,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    select_element_port_type_pse_profile_power_limit = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+            'wait_for': 5
+        }
+
     select_element_port_type_pse_profile_priority = \
         {
             'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[contains(@class,"priority")]//div[@data-automation-tag="automation-chzn-container-ctn"]',
@@ -2509,6 +2515,12 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[contains(@class,"priority")]//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
             'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_mode_dropdown = \
+        {
+            'XPATH': '//div[@class="column last"]//a[@class="chzn-single"]',
+            'index': 0
         }
 
     select_element_port_type_pse_profile_description = \
@@ -2526,6 +2538,18 @@ class Device360WebElementDefs:
     select_element_port_type_poe_status = \
         {
             'XPATH': '//input[@data-automation-tag="port-type-editor-pse-enable"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_edit = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-port-type-editor-pse-profile-edit-btn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_error_text = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="powerLimitContainer"]//span',
             'wait_for': 5
         }
 
@@ -3087,8 +3111,8 @@ class Device360WebElementDefs:
  
     select_element_port_type_pse_profile_power_limit = \
         {
-	'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
-	'wait_for': 5
+	          'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+	          'wait_for': 5
         }
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
@@ -3106,8 +3130,6 @@ class Device360WebElementDefs:
         {
             'CSS_SELECTOR': '.J-ip-more'
         }
-
-
 
     device360_configure_port_access_vlan_textfield_VOSS = \
         {
@@ -3129,6 +3151,7 @@ class Device360WebElementDefs:
             'index': 2,
             'wait_for': 5
         }
+
     select_element_port_type_port_usage_phone = \
         {
             'XPATH': '//input[@data-dojo-attach-point="phoneType"]',
@@ -3434,4 +3457,51 @@ class Device360WebElementDefs:
         {
             'XPATH': '//*[contains(@class,"transmission-settings active")]',
             'wait_for': 5
+        }
+        
+    device360_port_configuration_pse_profile_add_button = \
+        {
+            'CSS_SELECTOR': '.ui-ip-save',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_pse_profile_edit_button = \
+        {
+            'CSS_SELECTOR': '.ui-ip-edit-active',
+            'wait_for': 5
+        }
+
+    device360_configure_port_pse_rows = \
+        {
+            'XPATH': '//div[@class="port-pse-entry " or @class="clearfix entry-in-line"]',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_pse_profile_port_interface = \
+        {
+            'CSS_SELECTOR': '.port-interface',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_pse_profile_port_interface_voss = \
+        {
+            'CSS_SELECTOR': '.portInterface',
+            'wait_for': 5
+        }
+
+    common_save_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
+            'wait_for': 5
+        }
+
+    common_cancel_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="cancelBtn"]',
+            'wait_for': 5
+        }
+
+    save_and_close_port_type_box = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
         }

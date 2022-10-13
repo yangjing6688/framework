@@ -3842,6 +3842,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(self.dev360.get_device360_device_configuration_exit_button())
         else:
             self.utils.print_info("The exit button was not found")
+            return -1
         return 1
 
     def device360_transmission_mode_overview(self, port_name):
@@ -5047,35 +5048,45 @@ class Device360(Device360WebElements):
         :param device_name: Device Name
         :return: list with power supply details
         """
+        rez = -1
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
-
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
-        sleep(5)
 
+        self.utils.wait_till(self.dev360.get_device360_thunderbold_icon, timeout=30, is_logging_enabled=True, delay=5)
         power_el = self.dev360.get_device360_thunderbold_icon()
         if power_el:
             self.utils.print_info("Power Details")
             self.auto_actions.click_and_hold_element(power_el)
             self.auto_actions.move_to_element(power_el)
+            self.screen.save_screen_shot()
         else:
             self.utils.print_info("Power details not found")
-        sleep(5)
-        power_details = self.dev360.get_device360_power_details().text
-        self.utils.print_info(f"", power_details)
-        self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
-        return power_details
+            self.screen.save_screen_shot()
+
+        self.utils.wait_till(self.dev360.get_device360_power_details, timeout=30, is_logging_enabled=True, delay=5)
+        power_details = self.dev360.get_device360_power_details()
+        if power_details:
+            self.utils.print_info(f"Power details from XIQ are : ", power_details.text)
+            # self.utils.print_info("Close Dialogue Window")
+            # self.auto_actions.click(self.get_close_dialog())
+            # self.screen.save_screen_shot()
+            rez = power_details.text
+            self.auto_actions.click(self.get_close_dialog())
+        else:
+            self.utils.print_info("Power details not found")
+            self.auto_actions.click(self.get_close_dialog())
+            self.screen.save_screen_shot()
+            return -1
+        return str(rez)
 
     def device360_configure_poe_threshold_value(self, threshold_value, device_mac="", device_name=""):
         """
@@ -5914,9 +5925,8 @@ class Device360(Device360WebElements):
                     return False
 
             sleep(5)
-            close_port_type_box = self.get_close_port_type_box()
+            close_port_type_box = self.get_save_and_close_port_type_box()
             sleep(5)
-
             if close_port_type_box:
                 self.utils.print_info(" The button close_port_type_box from policy  was found")
                 self.auto_actions.click(close_port_type_box)
@@ -6082,7 +6092,6 @@ class Device360(Device360WebElements):
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
-
             def _check_that_port_type_is_closed():
                 if not self.get_close_port_type_box():
                     self.utils.print_info("Port type profile dialog box has been closed")
@@ -6097,10 +6106,10 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(close_port_type_box)
                 self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
                                      silent_failure=True, msg="Checking that create new port type profile has been"
-                                                              "dialog box has been closed...")
-                sleep(2)
+                                                              "dialog box has been closed...")               
             else:
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
+                return -1
             return 1
 
     def port_type_verify_summary(self, template_values):
@@ -6181,6 +6190,30 @@ class Device360(Device360WebElements):
                 return 1
             else:
                 self.utils.print_info("get_next_button not found ")
+
+        elif "next_all_pages" in value:
+            sleep(5)
+            cnt = 0
+            flag_save_is_displayed = False
+            while not flag_save_is_displayed and cnt < 10:
+                summaryPage = self.get_select_element_port_type("summaryPage")
+                if summaryPage:
+                    self.utils.print_info("bgd", summaryPage.get_attribute("class"))
+                    if "active" in summaryPage.get_attribute("class"):
+                        flag_save_is_displayed = True
+                        break
+                    else:
+                        get_next_button = self.get_select_element_port_type("next_button")
+                        if get_next_button:
+                            sleep(2)
+                            self.auto_actions.click(get_next_button)
+                        else:
+                            self.utils.print_info("get_next_button not found ")
+                else:
+                    self.utils.print_info("save_and_close_port_type_box not found ")
+                cnt = cnt + 1
+            if flag_save_is_displayed:
+                return 1
 
         elif "usagePage" in element:
             sleep(5)
@@ -6818,6 +6851,7 @@ class Device360(Device360WebElements):
 
         # page PSE
         elif element.lower() == "pse profile":
+            self.utils.print_info("Pse Profile is :", value)
             sleep(5)
 
             try:
@@ -6861,77 +6895,18 @@ class Device360(Device360WebElements):
 
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
                     self.utils.print_info(" Selected into dropdown value : ", pse_profile_name)
-
+                    
                     if edit_flag:
                         self.utils.print_info(f"Editing PSE profile {value['pse_profile_name']}")
                         get_pse_profile_edit_button = self.get_select_element_port_type("pse_profile_edit")
                         if get_pse_profile_edit_button:
                             self.utils.print_info("Found pse profile edit button!")
                             self.auto_actions.click(get_pse_profile_edit_button)
-
-                        get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
-                        if get_pse_profile_name:
-                            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
-                            sleep(2)
                         else:
-                            self.utils.print_info("get_pse_profile_name not found ")
-                        sleep(5)
-
-                        get_pse_profile_power_mode_dropdown = self.get_select_element_port_type(
-                            'pse_profile_power_mode_dropdown')
-                        if get_pse_profile_power_mode_dropdown:
-                            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
-                            get_pse_profile_power_mode_items = self.get_select_element_port_type(
-                                "pse_profile_power_mode_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items,
-                                                                          value['pse_profile_power_mode']):
-                                self.utils.print_info(" Selected into dropdown value : ",
-                                                      value['pse_profile_power_mode'])
-
-                        get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
-                        if get_pse_profile_power_limit:
-                            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
-                        else:
-                            self.utils.print_info("Power Limit textbox not found!")
-
-                        sleep(2)
-                        get_pse_profile_priority_dropdown = self.get_select_element_port_type("pse_profile_priority")
-                        if get_pse_profile_priority_dropdown:
-                            self.auto_actions.click(get_pse_profile_priority_dropdown)
-                            sleep(2)
-                            get_pse_profile_priority_items = self.get_select_element_port_type(
-                                "pse_profile_priority_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
-                                                                          value['pse_profile_priority']):
-                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
-
-                        sleep(2)
-                        get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
-                        if get_pse_profile_description:
-                            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
-                            sleep(2)
-                        else:
-                            self.utils.print_info("get_pse_profile_description not found ")
-                        sleep(5)
-
-                        def _check_save_pse_profile_closure():
-                            if not self.get_select_element_port_type("pse_profile_save"):
-                                self.utils.print_info("PSE profile save button not present anymore.")
-                                return True
-                            else:
-                                self.utils.print_info("PSE profile save button is still present. Retrying...")
-                                return False
-
-                        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
-                        if get_pse_profile_save:
-                            self.auto_actions.click(get_pse_profile_save)
-                            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
-                                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
-                                                                                   "save...")
-                            return 1
-                        else:
-                            self.utils.print_info("get_pse_profile_save not found ")
-
+                            self.utils.print_info("get_pse_profile_edit_button not found ")
+                            return -1
+                        if not self.fill_in_pse_profile_fields(value) == 1:
+                            return -1
                     return 1
 
                 elif edit_flag:
@@ -6948,72 +6923,19 @@ class Device360(Device360WebElements):
                     return -1
 
                 else:
-                    sleep(5)
-                    self.utils.print_info(f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
-                                          f"Closing dropdown...")
+                    self.utils.print_info(
+                        f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
+                        f"Closing dropdown...")
+                  
                     self.auto_actions.click(get_pse_profile)
-                    
                     get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
                     if get_pse_profile_add:
                         self.auto_actions.click(get_pse_profile_add)
-                        sleep(2)
-                        get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
-                        if get_pse_profile_name:
-                            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
-                            sleep(2)
-                        else:
-                            self.utils.print_info("get_pse_profile_name not found ")
-                        sleep(5)
-                        get_pse_profile_power_mode_dropdown = self.get_select_element_port_type('pse_profile_power_mode_dropdown')
-                        if get_pse_profile_power_mode_dropdown:
-                            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
-                            get_pse_profile_power_mode_items = self.get_select_element_port_type("pse_profile_power_mode_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items, value['pse_profile_power_mode']):
-                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_power_mode'])
-
-                        get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
-                        if get_pse_profile_power_limit:
-                            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
-                        else:
-                            self.utils.print_info("Power Limit textbox not found!")
-
-                        sleep(2)
-                        get_pse_profile_priority_dropdown = self.get_select_element_port_type("pse_profile_priority")
-                        if get_pse_profile_priority_dropdown:
-                            self.auto_actions.click(get_pse_profile_priority_dropdown)
-                            sleep(2)
-                            get_pse_profile_priority_items = self.get_select_element_port_type("pse_profile_priority_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items, value['pse_profile_priority']):
-                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
-
-                        sleep(2)
-                        get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
-                        if get_pse_profile_description:
-                            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
-                            sleep(2)
-                        else:
-                            self.utils.print_info("get_pse_profile_description not found ")
-                        sleep(5)
-
-                        def _check_save_pse_profile_closure():
-                            if not self.get_select_element_port_type("pse_profile_save"):
-                                self.utils.print_info("PSE profile save button not present anymore.")
-                                return True
-                            else:
-                                self.utils.print_info("PSE profile save button is still present. Retrying...")
-                                return False
-
-                        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
-                        if get_pse_profile_save:
-                            self.auto_actions.click(get_pse_profile_save)
-                            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
-                                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
-                                                                                   "save...")
-                            return 1
-                        else:
-                            self.utils.print_info("get_pse_profile_save not found ")
+                        if not self.fill_in_pse_profile_fields(value) == 1:
+                            return -1
                     else:
                         self.utils.print_info("get_pse_profile_add not found ")
+                    return 1
             else:
                 self.utils.print_info("get_pse_profile not found ")
         elif element.lower() == "poe status":
@@ -7590,6 +7512,7 @@ class Device360(Device360WebElements):
         :param device_name: Device Name
         :return: list with power supply details; else -1
         """
+        rez = None
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
@@ -7603,16 +7526,20 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
         slot_index = 1
         slot_found = False
+        self.utils.wait_till(self.get_device360_stack_overview_slot_details_rows, timeout=120, is_logging_enabled=True,
+                             delay=5)
+        self.screen.save_screen_shot()
         slot_details_overview = self.get_device360_stack_overview_slot_details_rows()
         if slot_details_overview:
             power_elements = self.dev360.get_device360_thunderbold_icon_stack(slot_details_overview)
             for power_item in power_elements:
                 if slot_index == int(slot):
                     self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.screen.save_screen_shot()
                     self.auto_actions.click_and_hold_element(power_item)
                     sleep(2)
                     self.auto_actions.move_to_element(power_item)
-                    sleep(2)
+                    self.screen.save_screen_shot()
                     slot_found = True
                     break
                 slot_index = slot_index + 1
@@ -7623,15 +7550,16 @@ class Device360(Device360WebElements):
             self.utils.print_info("Power details not found")
             return -1
         sleep(2)
-        power_details = self.dev360.get_device360_power_details().text
+        power_details = self.dev360.get_device360_power_details()
         if power_details:
-            self.utils.print_info(f"", power_details)
+            self.utils.print_info(f"", power_details.text)
+            rez = power_details.text
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click(self.get_close_dialog())
-            return power_details
         else:
             self.utils.print_info("Power details not found")
             return -1
+        return rez
 
     def is_device360_relaunch_digital_twin_button_visible(self):
         """
@@ -8759,6 +8687,7 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 self.common_validation.failed(**kwargs)
                 return -1
+
 
     def get_event_from_device360(self, dut, event, close_360_window=True, **kwargs):
         """
@@ -10461,3 +10390,265 @@ class Device360(Device360WebElements):
                     else:
                         self.utils.print_info("Port usage drop down didnot present,")
                         return  -1
+
+    def add_new_pse_profile_from_port_type_page_button(self):
+        '''
+        This keyword click on new pse profile button from pse tab from port type page
+        :return: 1 if button has been found; else -1
+        '''
+
+        get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
+        if get_pse_profile_add:
+            self.utils.print_info("pse_profile_add has been found ")
+            self.auto_actions.click(get_pse_profile_add)
+        else:
+            self.utils.print_info("pse_profile_add not found ")
+            return -1
+        return 1
+
+    def create_new_pse_profile_from_port_type_page(self, value):
+        '''
+        This keyword create new pse profile from port type page
+
+        :param value:
+        'value': {'pse_profile_name': pse_profile_name,
+                 'pse_profile_power_mode': pse_profile_power_mode,
+                 'pse_profile_power_limit': pse_profile_power_limit,
+                 'pse_profile_priority': pse_profile_priority,
+                 'pse_profile_description': pse_profile_description
+                 }
+        :return: 1 if profile has been created ; else -1
+        '''
+
+        if not self.add_new_pse_profile_from_port_type_page_button() == 1:
+            return -1
+        if not self.fill_in_pse_profile_fields(value) == 1:
+            return -1
+        return 1
+
+    def fill_in_pse_profile_fields(self, value):
+        '''
+        This keyword fill in all fields when pse profile is created and save the profile
+
+        :param value:
+        'value': {'pse_profile_name': pse_profile_name,
+                 'pse_profile_power_mode': pse_profile_power_mode,
+                 'pse_profile_power_limit': pse_profile_power_limit,
+                 'pse_profile_priority': pse_profile_priority,
+                 'pse_profile_description': pse_profile_description
+                 }
+        :return: 1 if successfully ; else -1
+        '''
+
+        get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
+        if get_pse_profile_name:
+            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
+        else:
+            self.utils.print_info("get_pse_profile_name not found ")
+            return -1
+
+        get_pse_profile_power_mode_dropdown = self.get_select_element_port_type(
+            'pse_profile_power_mode_dropdown')
+        if get_pse_profile_power_mode_dropdown:
+            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
+            get_pse_profile_power_mode_items = self.get_select_element_port_type(
+                "pse_profile_power_mode_items")
+            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items,
+                                                          value['pse_profile_power_mode']):
+                self.utils.print_info(" Selected into dropdown value : ",
+                                      value['pse_profile_power_mode'])
+            else:
+                self.utils.print_info("Can not select into drop down")
+                return -1
+        else:
+            self.utils.print_info("Can not click on drop down")
+            return -1
+
+        get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
+        if get_pse_profile_power_limit:
+            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
+        else:
+            self.utils.print_info("Power Limit textbox not found!")
+            return -1
+
+        get_pse_profile_priority_dropdown = self.get_select_element_port_type("pse_profile_priority")
+        if get_pse_profile_priority_dropdown:
+            self.auto_actions.click(get_pse_profile_priority_dropdown)
+            get_pse_profile_priority_items = self.get_select_element_port_type(
+                "pse_profile_priority_items")
+            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
+                                                          value['pse_profile_priority']):
+                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+            else:
+                return -1
+        else:
+            return -1
+
+        get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
+        if get_pse_profile_description:
+            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
+        else:
+            self.utils.print_info("get_pse_profile_description not found ")
+            return -1
+
+        def _check_save_pse_profile_closure():
+            if not self.get_select_element_port_type("pse_profile_save"):
+                self.utils.print_info("PSE profile save button not present anymore.")
+                return True
+            else:
+                self.utils.print_info("PSE profile save button is still present. Retrying...")
+                return False
+
+        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
+        if get_pse_profile_save:
+            self.auto_actions.click(get_pse_profile_save)
+            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
+                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
+                                                                   "save...")
+            return 1
+        else:
+            self.utils.print_info("get_pse_profile_save not found ")
+            return -1
+
+    def device360_edit_select_or_add_new_pse_profile(self, mode, port_number, poe_profile=None):
+        '''
+        This keyword edit,select or add new pse profile from port configuration page
+
+        :param mode: Specify the modes : edit, select or add
+        :param port_number: port
+        :param poe_profile: pse profile name
+        :return: 1 if successfully ; else -1
+        '''
+        port_rows = self.get_device360_configure_port_pse_rows()
+        if port_rows:
+            for port_row in port_rows:
+                get_interface = self.get_device360_port_configuration_pse_profile_port_interface(port_row)
+                if port_number in get_interface.text:
+                    self.utils.print_info("Found row for port: ", port_row.text)
+                    if mode == 'select':
+                        if poe_profile:
+                            self.utils.print_info("clicking POE Profile Select Button")
+                            select_button = self.get_device360_port_configuration_pse_profile_select_button(port_row)
+                            if select_button:
+                                self.auto_actions.click(select_button)
+                            else:
+                                self.utils.print_info("select_button not found")
+                                return -1
+                            self.utils.print_info(f"Selecting POE Profile Option : {poe_profile}")
+                            if self.auto_actions.select_drop_down_options(
+                                    self.get_device360_port_configuration_pse_profile_select_options(), poe_profile):
+                                self.utils.print_info(f"Pse profile has been selected")
+                                return 1
+                    elif mode == 'add':
+                        self.utils.print_info("clicking POE Profile ADD Button")
+                        add_button = self.get_device360_port_configuration_pse_profile_add_button(port_row)
+                        if add_button:
+                            self.auto_actions.click(add_button)
+                            return 1
+                        else:
+                            self.utils.print_info("add_button not found")
+                            return -1
+                    elif mode == 'edit':
+                        if poe_profile:
+                            self.utils.print_info("clicking POE Profile Select Button")
+                            select_button = self.get_device360_port_configuration_pse_profile_select_button(port_row)
+                            if select_button:
+                                self.auto_actions.click(select_button)
+                            else:
+                                self.utils.print_info("select_button not found")
+                                return -1
+                            self.utils.print_info(f"Selecting POE Profile Option : {poe_profile}")
+                            if self.auto_actions.select_drop_down_options(self.get_device360_port_configuration_pse_profile_select_options(), poe_profile):
+                                self.utils.print_info(f"Pse profile has been selected")
+                        sleep(5)
+                        self.utils.print_info("clicking POE Profile EDIT Button")
+                        edit_button = self.get_device360_port_configuration_pse_profile_edit_button(port_row)
+                        if edit_button:
+                            self.auto_actions.click(edit_button)
+                            return 1
+                        else:
+                            self.utils.print_info("edit_button not found")
+                            return -1
+                    else:
+                        self.utils.print_info("The selected mode is not valid")
+                        return -1
+                else:
+                    pass
+        else:
+            self.utils.print_info("Can not get rows")
+        return -1
+
+    def port_type_nav_to_summary_page_and_save(self):
+        '''
+        This keyword navigate to summary page into port type page and save it .
+        :return: 1 if successfully ; else -1
+        '''
+
+        summary_tab = self.get_select_element_port_type("summaryPage")
+        if summary_tab:
+            self.auto_actions.click(summary_tab)
+            close_port_type_box = self.get_common_save_button()
+            if close_port_type_box:
+                self.utils.print_info(" The button close_port_type_box from policy  was found")
+                self.auto_actions.click(close_port_type_box)
+        else:
+            self.utils.print_info("Summary tab not found")
+            return -1
+
+    def banner_message_after_save_config(self):
+        '''
+            This keyword return the message displayed after a config is saved.
+            It can be use after save a template, policy or device360 page
+        :return: messages which are displayed ; None if no message is displayed
+        '''
+
+        message = self.sw_template_web_elements.get_sw_template_error_message()
+        if message:
+            return message
+        else:
+            return None
+
+    def device360_navigate_to_pse_tab(self):
+        '''
+        This keyword navigate to pse tab from device360 page
+        :return: 1 if successfully ; else -1
+        '''
+
+        port_conf_btn = self.get_device360_configure_port_configuration_button()
+        if port_conf_btn:
+            self.utils.print_info("Click PortConfiguration Button")
+            self.auto_actions.click(port_conf_btn)
+        else:
+            self.utils.print_info("PortConfiguration Button was not found ")
+            return -1
+        self.utils.wait_till(self.get_device360_port_configuration_pse_tab, timeout=20, delay=1, is_logging_enabled=True )
+        pse_tab_button = self.get_device360_port_configuration_pse_tab()
+        if pse_tab_button:
+            self.utils.print_info("Click PSE Tab")
+            self.auto_actions.click(pse_tab_button)
+        else:
+            self.utils.print_info("PSE Tab was not found ")
+            return -1
+        return 1
+
+    def common_cancel_button(self):
+        '''
+        This keyword push the cancel button. It can be use in all pages where cancel button is displayed
+        :return: 1 if succesfully ; else -1
+        '''
+        cancel_button = self.get_common_cancel_button()
+        if cancel_button:
+            self.utils.print_info("Click cancel button")
+            self.auto_actions.click(cancel_button)
+            return 1
+        else:
+            self.utils.print_info("cancel button not found")
+            return -1
+
+    def poe_pse_profiles_elements(self, element):
+        '''
+        This keyword returns the web elements returned by get_select_element_port_type function from Device360WebElements.py
+        :param element: Specify the element. See get_select_element_port_type function
+        :return: web element if it has been found; None if element was not found 
+        '''
+        return self.get_select_element_port_type(element)

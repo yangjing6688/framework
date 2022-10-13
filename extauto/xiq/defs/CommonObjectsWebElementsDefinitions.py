@@ -1184,3 +1184,15 @@ class CommonObjectsWebElementsDefinitions:
             'CSS_SELECTOR': '.J-page-next.ui-page-item-next.ui-page-item-disable',
             'index': 0
         }
+
+    common_object_policy_max_page_number = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="pagesWrap"]//a',
+            'index': 0
+        }
+
+    common_object_policy_go_to_first_page = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="pagePrev"]//a[@data-dojo-attach-point="prev-item1"]',
+            'index': 0
+        }

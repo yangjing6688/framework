@@ -25,7 +25,9 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Monitor Tab else return -1
         """
         self.utils.print_info("Selecting Manage Tab...")
-        if self.auto_actions.click_reference(self.get_manage_tab) == 1:
+        manage_tab = self.get_manage_tab()
+        if manage_tab:
+            self.auto_actions.click(manage_tab)
             sleep(2)
             if self.get_subtab_head_img_nav():
                 self.utils.print_info("Subtab nav is already shown")
@@ -34,6 +36,7 @@ class Navigator(NavigatorWebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Even though already click manage tab, but can NOT go to subtab nav, stop NOT go to next step")
                 return -1
+
         else:
             self.utils.print_info("Unable to navigate to Manage tab")
             self.screen.save_screen_shot()

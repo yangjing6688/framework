@@ -1493,13 +1493,18 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "pse_profile_description":
             return self.weh.get_element(self.select_element_port_type_pse_profile_description)
         elif element == "pse_profile_save":
-            return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
+            return self.weh.get_element(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
         elif element == "pse_profile_edit":
             return self.weh.get_element(self.select_element_port_type_pse_edit)
+        elif element == "pse_profile_error_text":
+            el = self.weh.get_element(self.select_element_port_type_pse_profile_error_text)
+            if el.is_displayed():
+                return el
         elif element == "pse_more_button":
             return self.weh.get_element(self.select_more_button_pse_profile)
+
         #maclocking page
         elif element == "mac locking":
             return self.weh.get_element(self.select_element_port_type_macLock_status)
@@ -1512,7 +1517,9 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "link down retain":
             return self.weh.get_element(self.select_element_port_type_macLock_link_down_retain)
         elif element == "remove aged MACs":
-            return self.weh.get_element(self.select_element_port_type_macLock_remove_aged_MACs)
+            return self.weh.get_element(self.select_element_port_type_macLock_remove_aged_MACs)     
+            
+        #Voice Vlan
         elif element == "port usage" and value == "phone port":
             return self.weh.get_element(self.select_element_port_type_port_usage_phone)
         elif element == "voice_vlan_add_vlan":
@@ -1559,7 +1566,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_voice_vlan_input)
         elif element == "data_vlan_input":
             return self.weh.get_element(self.select_element_data_vlan_input)
-        return -1
+        return None
 
     def get_select_element_port_type_summary(self, element):
         if element == "name":
@@ -1706,6 +1713,7 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_thunderbold_icon_stack(self,row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
+
     def get_device360_cpu_utilized_button(self):
         return self.weh.get_element(self.device360_cpu_utilized_button)
 
@@ -1756,7 +1764,7 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_port_table_rows(self):
         scroll_element = self.get_device360_ports_table_scroll()
         if scroll_element:
-            from common.AutoActions import AutoActions
+            from extauto.common.AutoActions import AutoActions
             auto_actions = AutoActions()
             auto_actions.click(scroll_element)
             for _ in range(10):
@@ -2033,3 +2041,31 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_d360_port_type_options(self,row):
         return self.weh.get_elements(self.d360_port_type_options,row)
+
+    def get_device360_port_configuration_pse_profile_add_button(self, row):
+        return self.weh.get_element(self.device360_port_configuration_pse_profile_add_button, row)
+
+    def get_device360_port_configuration_pse_profile_edit_button(self, row):
+        return self.weh.get_element(self.device360_port_configuration_pse_profile_edit_button, row)
+
+    def get_device360_configure_port_pse_rows(self):
+        return self.weh.get_elements(self.device360_configure_port_pse_rows)
+
+    def get_device360_port_configuration_pse_profile_port_interface(self, row):
+        el_exos = self.weh.get_element(self.device360_port_configuration_pse_profile_port_interface, row)
+        el_voss = self.weh.get_element(self.device360_port_configuration_pse_profile_port_interface_voss, row)
+        if el_exos:
+            return el_exos
+        elif el_voss:
+            return el_voss
+        else:
+            return None
+
+    def get_common_save_button(self):
+        return self.weh.get_element(self.common_save_button)
+
+    def get_save_and_close_port_type_box(self):
+        return self.weh.get_element(self.save_and_close_port_type_box)
+
+    def get_common_cancel_button(self):
+        return self.weh.get_element(self.common_cancel_button)

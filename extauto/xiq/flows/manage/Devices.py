@@ -927,6 +927,9 @@ class Devices:
         network_policy = self.get_device_details(search_string, 'POLICY')
         if network_policy:
             return network_policy
+        else:
+            self.utils.print_info("Can not get network policy")
+
 
     def check_device_reboot_message(self, device_serial, config_update_option, reboot_message):
         """
@@ -3545,17 +3548,23 @@ class Devices:
         :param device_mac: device MAC address
         :return: return 1 if device found else False
         """
+        self.utils.wait_till(self.devices_web_elements.get_grid_rows, timeout=20, delay=1, is_logging_enabled=True)
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             if device_serial:
                 self.utils.print_info("Selecting Device with serial: ", device_serial)
                 for row in rows:
+                    self.utils.print_info("All rows: ", self.format_row(row.text))
                     if device_serial in row.text:
-                        self.utils.print_debug("Found device Row: ", self.format_row(row.text))
-                        self.auto_actions.click(self.devices_web_elements.get_device_select_checkbox(row))
+                        self.utils.print_info("Found device Row: ", self.format_row(row.text))
+                        check_box = self.devices_web_elements.get_device_select_checkbox(row)
+                        if check_box:
+                            self.auto_actions.click(check_box)
+                            self.utils.print_info("checkbox selected ")
+                            return 1
+                        else:
+                            self.utils.print_info("checkbox not found ")
                         self.screen.save_screen_shot()
-                        sleep(2)
-                        return 1
 
             if device_name:
                 self.utils.print_info("Selecting Device with Name: ", device_name)
@@ -5380,9 +5389,12 @@ class Devices:
         :return: 1
         """
         self.utils.print_info("Select Switch row")
-        self.select_device(serial)
+        if not self.select_device(serial) == 1:
+            return -1
 
-        self._update_switch(update_method="Complete")
+        if not self._update_switch(update_method="Complete") == 1:
+            self.utils.print_info("Update device failed")
+            return -1
 
         self.screen.save_screen_shot()
 
@@ -5449,8 +5461,15 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the Update Device button
         self.close_last_refreshed_tooltip()
 
-        self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+
+        update_button = self.devices_web_elements.get_update_device_button()
+        if update_button:
+            self.utils.print_info("Click on device update button")
+            self.auto_actions.click(update_button)
+        else:
+            self.utils.print_info("update button not found")
+            return -1
+
         sleep(2)
 
         pol_config_cb = self.devices_web_elements.get_switch_update_policy_and_config_check_button()
@@ -5495,8 +5514,13 @@ class Devices:
         #     return -1
 
         # Perform the update
-        self.utils.print_info("Click on perform update button")
-        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        perform_update_button = self.devices_web_elements.get_perform_update_button()
+        if perform_update_button:
+            self.utils.print_info("Click on perform update button")
+            self.auto_actions.click(perform_update_button)
+        else:
+            self.utils.print_info("Not able to click on perform update button")
+            return -1
 
         # In case the warning dialog is displayed about the reboot and revert option being selected, click Yes to close it
         self._handle_reboot_and_revert_warning()
@@ -6564,7 +6588,10 @@ class Devices:
             if refresh_tt.is_displayed():
                 self.utils.print_info("'Last Refreshed at:' tooltip is displayed")
                 self.utils.print_info("  -- moving mouse to 'Last Refreshed at:' tooltip element to hide it")
-                self.auto_actions.move_to_element(refresh_tt)
+                self.utils.print_info("Move mouse over ADD button...")
+                add_button = self.devices_web_elements.get_devices_add_button()
+                if add_button:
+                    self.auto_actions.move_to_element(add_button)
             else:
                 self.utils.print_debug("'Last Refreshed at:' tooltip is not displayed")
         else:
@@ -8214,29 +8241,43 @@ class Devices:
         self.refresh_devices_page()
         device_row = -1
 
-        if device_mac != 'default':
-
-            if self.auto_actions.click(self.devices_web_elements.get_device_stack_template_click()) == -1:
-                self.utils.print_info("Unable to click on Template Column button")
-                return -1
+        rows = self.devices_web_elements.get_grid_rows()
+        if rows:
+            if device_mac != 'default':
+                self.utils.print_info("Selecting Device with mac: ", device_mac)
+                for row in rows:
+                    self.utils.print_info("ALL ROWS: ", self.format_row(row.text))
+                    if device_mac in row.text:
+                        self.utils.print_debug("Found device Row: ", self.format_row(row.text))
+                        assign_template = self.devices_web_elements.get_device_stack_template_click(row)
+                        if assign_template:
+                            self.utils.print_info("Click on Template Column button")
+                            self.auto_actions.click(assign_template)
+                            break
+                        else:
+                            self.screen.save_screen_shot()
+                            self.utils.print_info("Unable to click on Template Column button")
+                            return -1
+                    else:
+                        pass
             else:
-                self.utils.print_info("Click on Template Column button")
-
-            sleep(5)
-
-            if self.auto_actions.click(self.devices_web_elements.get_create_template_click()) == -1:
-                self.utils.print_info("Unable to click on Create template based on currently selected device button")
+                self.utils.print_info("device mac is default")
                 return -1
-            else:
-                self.utils.print_info("Click on Create template based on currently selected device button")
-
-            sleep(30)
-
-            self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
-            self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
-                                        name_stack_template)
-            self.auto_actions.send_enter(self.sw_template_web_elements.get_sw_template_name_textfield())
-            sleep(10)
+        else:
+            self.utils.print_info("rows were not found ")
+            return -1
+        if self.auto_actions.click(self.devices_web_elements.get_create_template_click()) == -1:
+            self.utils.print_info("Unable to click on Create template based on currently selected device button")
+            return -1
+        else:
+            self.utils.print_info("Click on Create template based on currently selected device button")
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_name_textfield,
+                             timeout=30, delay=5, is_logging_enabled=True)
+        self.utils.print_info("Enter the switch Template Name: ", name_stack_template)
+        self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
+                                    name_stack_template)
+        self.auto_actions.send_enter(self.sw_template_web_elements.get_sw_template_name_textfield())
+        sleep(10)
         return 1
 
     def assign_network_policy_to_switch_mac(self, policy_name, mac):
