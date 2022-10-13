@@ -1,4 +1,4 @@
-class CopilotDefs:
+class CopilotWebElementsDefinitions:
 
     wifi_capacity_content = \
         {
@@ -947,4 +947,14 @@ class CopilotDefs:
     wifi_capacity_widget_location_ap_overall_discription = \
         {
             'CSS_SELECTOR': '.as-list-item-body'
+        }
+
+    enable_copilot_menu_feature_button = \
+        {
+            'XPATH': '//span[contains(text(), "Enable CoPilot")]'
+        }
+
+    copilot_menu_alert_message_banner = \
+        {
+            'XPATH': '//div[@role="alert"]//span[contains(text(), "CoPilot deactivated due to lack of licenses")]'
         }

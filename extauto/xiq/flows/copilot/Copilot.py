@@ -5,6 +5,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.CopilotWebElements import CopilotWebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 import re
 from extauto.common.CommonValidation import CommonValidation
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
@@ -21,6 +22,70 @@ class Copilot(CopilotWebElements):
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
         self.tools = Tools()
+        self.devices_web_elements = DevicesWebElements()
+
+    def enable_copilot_menu_feature(self):
+        """
+        - Enables CoPilot Feature in CoPilot Menu Page
+        - Flow : CoPilot Menu Page
+        - Keyword Usage
+        - ``Enable CoPilot Menu Feature``
+        :return: True if successfully enabled CoPilot feature or False if unable to enable feature
+        """
+
+        if self.navigator.navigate_to_copilot_menu() == 1:
+            sleep(2)
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.utils.print_info("Checking for Copilot button..")
+        enable_copilot_button = self.get_enable_copilot_menu_feature_button()
+        self.utils.print_info(f"Enable CoPilot Button: {enable_copilot_button}")
+        alert_message = self.get_copilot_menu_alert_message_banner()
+        self.utils.print_info(f"Alert Message: {alert_message}")
+
+        if enable_copilot_button:
+            # check for alert message
+            if not self.get_copilot_menu_alert_message_banner():
+                self.utils.print_info("Enabling CoPilot feature..")
+                self.auto_actions.click_reference(self.get_enable_copilot_menu_feature_button)
+                sleep(1)
+                self.screen.save_screen_shot()
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                return True
+            elif self.get_copilot_menu_alert_message_banner():
+                self.utils.print_info("Unable to enable feature - CoPilot deactivated due to lack of licenses")
+                self.screen.save_screen_shot()
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                return False
+        else:
+            self.utils.print_info("CoPilot feature already enabled")
+            self.screen.save_screen_shot()
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return True
+
+    def confirm_copilot_deactivated_due_to_lack_of_licenses_banner_displayed(self):
+        """
+         - This keyword confirms if the "CoPilot deactivated due to lack of licenses" banner message is displayed or not
+         - Keyword Usage
+          - ``Confirm CoPilot Deactivated Due To Lack Of Licenses Banner Displayed``
+
+        :return: true if banner is displayed and return false if banner is not displayed
+        """
+
+        if self.devices_web_elements.get_ui_banner_warning_message():
+            tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
+            if "CoPilot deactivated due to lack of licenses" in tool_tp_text_warning.text:
+                self.utils.print_info(tool_tp_text_warning.text)
+                self.screen.save_screen_shot()
+                return True
+            else:
+                self.utils.print_info(f"Warning Message: {tool_tp_text_warning.text}")
+                self.screen.save_screen_shot()
+                return False
+        else:
+            self.utils.print_info("No warning message banner was found")
+            self.screen.save_screen_shot()
+            return False
 
     def get_wifi_capacity_widget_summary(self):
         """
