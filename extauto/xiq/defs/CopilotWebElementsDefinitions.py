@@ -1,4 +1,4 @@
-class CopilotDefs:
+class CopilotWebElementsDefinitions:
 
     wifi_capacity_content = \
         {
@@ -951,7 +951,6 @@ class CopilotDefs:
 
     enable_copilot_menu_feature_button = \
         {
-#            'XPATH': '//button[contains(@class, "enableCoPilot")]'
             'XPATH': '//span[contains(text(), "Enable CoPilot")]'
         }
 
