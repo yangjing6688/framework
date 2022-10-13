@@ -12112,7 +12112,7 @@ class Devices:
                 self.screen.save_screen_shot()
                 return -1
 
-            clone_button =  self.device_actions.get_clone_button()
+            clone_button = self.device_actions.get_clone_button()
             if clone_button:
                 self.utils.print_info("Select Clone button")
                 self.auto_actions.click(clone_button)
@@ -12130,8 +12130,8 @@ class Devices:
                 if loading_clone_configuration.is_displayed():
                     print("Still loading configuration")
                 else:
-                    return None
-            self.utils.wait_till(_loading_clone, exp_func_resp=None)
+                    return 1
+            self.utils.wait_till(_loading_clone, exp_func_resp=1)
 
             warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
             if 'disconnected or in the unmanaged state.' not in warning_message_disconnected.text:
