@@ -1193,6 +1193,12 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_configure_port_access_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_access_vlan_textfield, row)
 
+    def get_device360_configure_onboarding_port_vlan_textfield(self, row):
+        return self.weh.get_element(self.device360_configure_onboarding_port_vlan_textfield, row)
+
+    def get_device360_configure_disabled_port_vlan_textfield(self, row):
+        return self.weh.get_element(self.device360_configure_disabled_port_vlan_textfield, row)
+
     def get_device360_configure_port_trunk_native_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_trunk_native_vlan_textfield, row)
 
@@ -1892,4 +1898,13 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_close_port_type_dialog_box(self):
         return self.weh.get_element(self.close_port_type_dialog_box)
-        
+
+
+    def get_device360_configure_port_access_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_access_vlan_textfield_VOSS, row)
+
+    def get_device360_configure_port_trunk_native_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_trunk_native_vlan_textfield_VOSS, row)
+
+    def get_device360_configure_port_trunk_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_trunk_vlan_textfield_VOSS, row)

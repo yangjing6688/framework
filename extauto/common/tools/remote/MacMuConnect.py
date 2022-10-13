@@ -31,6 +31,7 @@ class MacMuConnect(object):
         retry_count = int(retry_count)
         while retry_count < 10:
             # Wi-Fi Connect command
+            sleep(2)
             cmd2 = f"networksetup -setairportnetwork {self.wifi_port}  {ssid}  {password}"
             print(f"Connection command:{cmd2}")
             con_out = self._execute_commands(cmd2)
