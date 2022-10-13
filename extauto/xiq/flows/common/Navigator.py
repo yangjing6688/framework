@@ -3195,6 +3195,7 @@ class Navigator(NavigatorWebElements):
         """
         try_again = True
         counter = 0
+
         while try_again:
             try:
                 page_size_element = self.get_page_size()

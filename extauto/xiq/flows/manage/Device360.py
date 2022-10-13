@@ -6202,7 +6202,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_tab_usagePage)
                 return 1
 
-        elif "trunkVlanPage" in element or "accessVlanPage" in element:
+        elif "trunkVlanPage" in element or "accessVlanPage" in element or 'phoneVlanPage' in element:
             sleep(5)
 
             def _check_vlan_page():
@@ -6390,6 +6390,12 @@ class Device360(Device360WebElements):
                 sleep(2)
                 self.auto_actions.click(get_trunk_el)
                 return 1
+        elif element == "port usage" and value == "phone port":
+            get_phone_el = self.get_select_element_port_type(element,value)
+            self.utils.print_info("phone element",get_phone_el)
+            if get_phone_el:
+                self.auto_actions.click(get_phone_el)
+                return 1
         # page Vlan
         elif element == "vlan":
             sleep(5)
@@ -6481,6 +6487,157 @@ class Device360(Device360WebElements):
                 self.utils.print_info("native vlan get_select_button not found ")
             self.utils.print_info(" Error when configure native vlan ")
             return -1
+
+        elif element == "voice vlan":
+            def _save_vlan_disappear():
+                return not bool(self.get_select_element_port_type("save_vlan"))
+
+            def _voice_vlan_appear():
+                return bool(self.get_select_element_port_type("voice_vlan_name_vlan"))
+
+            def _voice_vlan_dropdown():
+                return bool(self.get_select_element_port_type("voice_vlan_dropdown_items"))
+
+
+            get_select_button = self.get_select_element_port_type("voice_vlan_select_button")
+            if get_select_button:
+                self.auto_actions.click(get_select_button)
+
+                self.utils.wait_till(_voice_vlan_dropdown,is_logging_enabled=True)
+                get_dropdown_items = self.get_select_element_port_type("voice_vlan_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+                else:
+                    get_add_vlan = self.get_select_element_port_type("voice_vlan_add_vlan")
+                    if get_add_vlan:
+                        self.auto_actions.click(get_add_vlan)
+
+                        self.utils.wait_till(_voice_vlan_appear,is_logging_enabled=True)
+
+                        get_name_vlan = self.get_select_element_port_type("voice_vlan_name_vlan")
+                        if get_name_vlan:
+                            self.auto_actions.send_keys(get_name_vlan,value)
+                        else:
+                            self.utils.print_info("voice vlan get_id_vlan not found ")
+                        get_id_vlan = self.get_select_element_port_type("voice_vlan_id_vlan")
+                        if get_id_vlan:
+                            self.auto_actions.send_keys(get_id_vlan,value)
+                        else:
+                            self.utils.print_info("voice vlan get_id_vlan not found ")
+                        get_save_vlan = self.get_select_element_port_type("save_vlan")
+                        if get_save_vlan:
+                            self.auto_actions.click(get_save_vlan)
+
+                            self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+                            return 1
+                        else:
+                            self.utils.print_info("get_save_vlan not found ")
+                    else:
+                        self.utils.print_info("voice vlan get_add_vlan not found ")
+            else:
+                self.utils.print_info("voice vlan get_select_button not found ")
+            self.utils.print_info(" Error when configure voice vlan ")
+            return -1
+        elif element == "data vlan":
+
+            def _data_vlan_dropdown():
+                return bool(self.get_select_element_port_type("data_vlan_dropdown_items"))
+
+            def _data_vlan_appear():
+                return bool(self.get_select_element_port_type("data_vlan_name_vlan"))
+
+            def _save_vlan_disappear():
+                return not bool(self.get_select_element_port_type("save_vlan"))
+
+            get_select_button = self.get_select_element_port_type("data_vlan_select_button")
+            if get_select_button:
+                self.auto_actions.click(get_select_button)
+
+                self.utils.wait_till(_data_vlan_dropdown, is_logging_enabled=True)
+
+                get_dropdown_items = self.get_select_element_port_type("data_vlan_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+                else:
+                    get_add_vlan = self.get_select_element_port_type("data_vlan_add_vlan")
+                    if get_add_vlan:
+                        self.auto_actions.click(get_add_vlan)
+
+                        self.utils.wait_till(_data_vlan_appear,is_logging_enabled=True)
+                        get_name_vlan = self.get_select_element_port_type("data_vlan_name_vlan")
+                        if get_name_vlan:
+                            self.auto_actions.send_keys(get_name_vlan,value)
+                        else:
+                            self.utils.print_info("data vlan get_id_vlan not found ")
+                        get_id_vlan = self.get_select_element_port_type("data_vlan_id_vlan")
+                        if get_id_vlan:
+                            self.auto_actions.send_keys(get_id_vlan,value)
+                        else:
+                            self.utils.print_info("data vlan get_id_vlan not found ")
+                        get_save_vlan = self.get_select_element_port_type("save_vlan")
+                        if get_save_vlan:
+                            self.auto_actions.click(get_save_vlan)
+                            self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+                            return 1
+                        else:
+                            self.utils.print_info("get_save_vlan not found ")
+                    else:
+                        self.utils.print_info("data vlan get_add_vlan not found ")
+            else:
+                self.utils.print_info("data vlan get_select_button not found ")
+            self.utils.print_info(" Error when configure data vlan ")
+            return -1
+
+        elif element in ["lldp_voice_vlan_options", "cdp_voice_vlan_options"]:
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "enable_lldp_advertisment_of_dot1_vlan":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "enable_lldp_advertisment_of_med_voice_vlan":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "lldp_advertisment_of_med_voice_vlan_dscp_value":
+            get_value_el = self.get_select_element_port_type(element)
+            if get_value_el:
+                self.auto_actions.send_keys(get_value_el, value)
+                return 1
+
+        elif element == "enable_lldp_advertisment_of_med_voice_signaling_vlan":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "lldp_advertisment_of_med_voice_signaling_vlan_dscp_value":
+            get_value_el = self.get_select_element_port_type(element)
+            if get_value_el:
+                self.auto_actions.send_keys(get_value_el, value)
+                return 1
+
+        elif element == "enable_cdp_advertisment_of_voice_vlan":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "enable_cdp_advertisment_of_power_available":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
         elif element == "allowed vlans":
             sleep(5)
             get_allowed_vlans = self.get_select_element_port_type(element)
@@ -8638,3 +8795,1669 @@ class Device360(Device360WebElements):
         if close_360_window:
             self.close_device360_window()
         return count
+
+    def check_port_cdp_lldp(self, port_type_name, cdp_transmit_receive_should_be_editable=None,
+                            cdp_transmit_receive_should_be_enabled=None, lldp_transmit_should_be_editable=None,
+                            lldp_transmit_should_be_enabled=None, lldp_receive_should_be_editable=None,
+                            lldp_receive_should_be_enabled=None):
+        """
+        AIQ-1739
+        Keyword: In port type editor, in transmission settings - check CDP/LLDP options are enabled /disabled/editable
+                https://jira.extremenetworks.com/browse/AIQ-1739
+        This function verifies that the 'Enable CDP Transmit/Receive', 'Enable LLDP Transmit', 'Enabled LLDP Receive'
+         checkboxes are selected/not selected/editable/not editable.
+        It will also verify the status of the 'LLDP Voice VLAN Options', 'CDP Voice VLAN Options' options
+         of the VLAN page.
+        For the configurable voice port type fields that are a bool type value:
+            If kwarg == True then the function will verify the port type editor field that corresponds to the kwarg
+                is enabled/editable
+            If kwarg == False then the function will verify the port type editor field that corresponds to the kwarg
+                is not enabled/editable
+            If kwarg == None then the function will not verify the port type field that corresponds to the kwarg
+        The method should be called from 'Configure -> Network Policies -> Network Policy -> Device Template -> Port Configuration'.
+        args:
+            :port_type_name:                              <str>
+        kwargs:
+            :cdp_transmit_receive_should_be_editable:     <bool|None>
+            :cdp_transmit_receive_should_be_enabled:      <bool|None>
+            :lldp_transmit_should_be_editable:            <bool|None>
+            :lldp_transmit_should_be_enabled:             <bool|None>
+            :lldp_receive_should_be_editable:             <bool|None>
+            :lldp_receive_should_be_enabled:              <bool|None>
+        returns: 1 if the selected verifications are successful else -1
+        usage:
+          self.xiq.xflowsmanageDevice360.check_port_cdp_lldp(
+                port_type_name="testing_port", cdp_transmit_receive_should_be_editable=True,
+                lldp_receive_should_be_enabled=False)
+        # the check_port_cdp_lldp method will verify:
+        #   - the 'Enable CDP Transmit/Receive' checkbox is editable
+        #   - the 'Enable LLDP Transmit' checkbox is not selected
+        """
+        if not any(
+                [
+                    cdp_transmit_receive_should_be_editable is not None,
+                    cdp_transmit_receive_should_be_enabled is not None,
+                    lldp_transmit_should_be_editable is not None,
+                    lldp_transmit_should_be_enabled is not None,
+                    lldp_receive_should_be_editable is not None,
+                    lldp_receive_should_be_enabled is not None
+                ]
+        ):
+            self.utils.print_info("At least a checkbox should be verified (at least a kwarg should be True/False)")
+            return -1
+
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return -1
+        else:
+            for row in rows:
+                if re.search(rf'\d+\n{port_type_name}\n', row.text):
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was found")
+                        self.auto_actions.click(policy_edit_port_type)
+                        def _check_port_editor_window_present():
+                            return bool(self.get_select_element_port_type("tab_vlan"))
+
+                        self.utils.wait_till(_check_port_editor_window_present, timeout=10, delay=1,
+                                                       msg="Waiting for edit port type window to appear",
+                                                       is_logging_enabled=True)
+                        break
+                    else:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
+
+        lldp_voice_vlan_options_checkbox_name = "LLDP Voice VLAN Options"
+        cdp_voice_vlan_options_checkbox_name = "CDP Voice VLAN Options"
+
+        en_cdp_transmit_receive_checkbox_name = "Enable CDP Transmit/Receive"
+        en_lldp_transmit_checkbox_name = "Enable LLDP Transmit"
+        en_lldp_receive_checkbox_name = "Enabled LLDP Receive"
+
+        vlan_tab = self.get_select_element_port_type("tab_vlan")
+        if not vlan_tab:
+            self.utils.print_info("Failed to get the vlan page")
+            return -1
+        self.auto_actions.click(vlan_tab)
+
+        def _wait_for_vlan_tab_appear():
+            return bool(self.get_select_element_port_type("vlan_tab_confirmation")) \
+                   and bool(self.get_select_element_port_type("lldp_voice_vlan_options"))
+
+        self.utils.wait_till(_wait_for_vlan_tab_appear, timeout=4, delay=1,
+                             msg="Waiting for vlan window to appear",
+                             is_logging_enabled=True)
+
+        lldp_voice_options = self.get_select_element_port_type("lldp_voice_vlan_options")
+        if not lldp_voice_options:
+            self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' option not found")
+            return -1
+
+        lldp_options_enabled = lldp_voice_options.is_selected()
+        self.utils.print_info(
+            f"'{lldp_voice_vlan_options_checkbox_name}': {'enabled' if lldp_options_enabled else 'not enabled'}")
+
+        cdp_voice_options = self.get_select_element_port_type("cdp_voice_vlan_options")
+        if not cdp_voice_options:
+            self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' option not found")
+            return -1
+
+        cdp_options_enabled = cdp_voice_options.is_selected()
+        self.utils.print_info(
+            f"'{cdp_voice_vlan_options_checkbox_name}': {'enabled' if cdp_options_enabled else 'not enabled'}")
+
+        transmission_tab = self.get_select_element_port_type("transmissionSettingsPage")
+        if not transmission_tab:
+            self.utils.print_info("Failed to get transmission settings page")
+            return -1
+        self.auto_actions.click(transmission_tab)
+        def _wait_for_transmission_tab_appear():
+            return bool(self.get_select_element_port_type("transmission_tab_confirmation")) \
+                   and bool(self.get_select_element_port_type("cdp receive"))
+
+        self.utils.wait_till(_wait_for_transmission_tab_appear, timeout=4, delay=1,
+                             msg="Waiting for transmission tab window to appear",
+                             is_logging_enabled=True)
+
+        if (cdp_transmit_receive_should_be_editable is not None) or (
+                cdp_transmit_receive_should_be_enabled is not None):
+            cdp_transmit_receive = self.get_select_element_port_type("cdp receive")
+            if not cdp_transmit_receive:
+                self.utils.print_info(f"Failed to get '{en_cdp_transmit_receive_checkbox_name}' checkbox")
+                return -1
+
+        if cdp_transmit_receive_should_be_editable is not None:
+            # first check the transmission settings page
+            cdp_transmit_receive_is_editable = cdp_transmit_receive.is_enabled()
+
+            if cdp_transmit_receive_is_editable == cdp_transmit_receive_should_be_editable:
+                self.utils.print_info(
+                    f"Successfully found '{en_cdp_transmit_receive_checkbox_name}' checkbox in the expected state: "
+                    f"'{'editabled' if cdp_transmit_receive_is_editable else 'not editable'}'")
+            else:
+                self.utils.print_info(
+                    f"Failed to find '{en_cdp_transmit_receive_checkbox_name}' in the expected state. Found"
+                    f" '{'editabled' if cdp_transmit_receive_is_editable else 'not editable'}' but expected "
+                    f"'{'editabled' if cdp_transmit_receive_should_be_editable else 'not editable'}'")
+                return -1
+
+            # now check the vlan page
+
+            # CDP voice vlan options = OFF (VLAN PAGE) => enable CDP transmit/receive = not editable (TRANSMISSION SETTINGS page)
+            # LLDP voice vlan options = OFF (VLAN PAGE) => enable LLDP transmit = not editable (TRANSMISSION SETTINGS page)
+            # LLDP voice vlan options = OFF (VLAN PAGE) => enable LLDP receive = not editable (TRANSMISSION SETTINGS page)
+
+            # CDP voice vlan options = ON (VLAN PAGE) => enable CDP transmit/receive = editable (TRANSMISSION SETTINGS page)
+            # LLDP voice vlan options = ON (VLAN PAGE) => enable LLDP transmit = editable (TRANSMISSION SETTINGS page)
+            # LLDP voice vlan options = ON (VLAN PAGE) => enable LLDP receive = editable (TRANSMISSION SETTINGS page)
+
+            if cdp_transmit_receive_is_editable != cdp_options_enabled:
+                self.utils.print_info(
+                    f"Successfully found 'cdp_transmit_receive_is_enable'='{cdp_transmit_receive_is_editable}' "
+                    f"when cdp_options_enable='{cdp_options_enabled}' in the vlan page"
+                )
+            else:
+                self.utils.print_info(
+                    f"Failed! Found 'cdp_transmit_receive_is_enable'='{cdp_transmit_receive_is_editable}'"
+                    f" when 'cdp_options_enable'='{cdp_options_enabled}' in the vlan page"
+                )
+                return -1
+
+        if cdp_transmit_receive_should_be_enabled is not None:
+            cdp_transmit_receive_is_enabled = cdp_transmit_receive.is_selected()
+
+            if cdp_transmit_receive_is_enabled == cdp_transmit_receive_should_be_enabled:
+                self.utils.print_info(f"Successfully found that '{en_cdp_transmit_receive_checkbox_name}' checkbox is "
+                                      f"'{'enabled' if cdp_transmit_receive_should_be_enabled else 'disabled'}'")
+            else:
+                self.utils.print_info(f"Expected to find the '{en_cdp_transmit_receive_checkbox_name}' checkbox as "
+                                      f"'{'enabled' if cdp_transmit_receive_should_be_enabled else 'disabled'}' "
+                                      f"but found '{'enabled' if cdp_transmit_receive_is_enabled else 'disabled'}'")
+                return -1
+
+        if (lldp_transmit_should_be_editable is not None) or (lldp_transmit_should_be_enabled is not None):
+            lldp_transmit = self.get_select_element_port_type("lldp transmit")
+            if not lldp_transmit:
+                self.utils.print_info(f"Failed to get '{en_lldp_transmit_checkbox_name}' checkbox")
+                return -1
+
+        if lldp_transmit_should_be_editable is not None:
+            lldp_transmit_is_editable = lldp_transmit.is_enabled()
+
+            if lldp_transmit_is_editable == lldp_transmit_should_be_editable:
+                self.utils.print_info(
+                    f"Successfully found '{en_lldp_transmit_checkbox_name}' checkbox in the expected state: "
+                    f"'{'editable' if lldp_transmit_is_editable else 'not editable'}'")
+            else:
+                self.utils.print_info(
+                    f"Failed to find '{en_lldp_transmit_checkbox_name}' checkbox in the expected state. Found "
+                    f"'{'editable' if lldp_transmit_is_editable else 'not editable'}' but expected "
+                    f"'{'editable' if lldp_transmit_should_be_editable else 'not editable'}'")
+                return -1
+
+            if lldp_transmit_is_editable != lldp_options_enabled:
+                self.utils.print_info(
+                    f"Successfully found 'lldp_transmit_is_editable'='{lldp_transmit_is_editable}'"
+                    f"when 'cdp_options_enable'='{lldp_options_enabled}'"
+                )
+            else:
+                self.utils.print_info(
+                    f"Failed! Found 'lldp_transmit_is_editable'='{lldp_transmit_is_editable}'"
+                    f" when 'cdp_options_enable'='{lldp_options_enabled}'"
+                )
+                return -1
+
+        if lldp_transmit_should_be_enabled is not None:
+            lldp_transmit_is_enabled = lldp_transmit.is_selected()
+
+            if lldp_transmit_is_enabled == lldp_transmit_should_be_enabled:
+                self.utils.print_info(f"Successfully found that '{en_lldp_transmit_checkbox_name}' checkbox is "
+                                      f"'{'enabled' if lldp_transmit_should_be_enabled else 'disabled'}'")
+            else:
+                self.utils.print_info(f"Expected to find the '{en_lldp_transmit_checkbox_name}' checkbox as "
+                                      f"'{'enabled' if lldp_transmit_should_be_enabled else 'disabled'}' but found "
+                                      f"'{'enabled' if lldp_transmit_is_enabled else 'disabled'}'")
+                return -1
+
+        if (lldp_receive_should_be_editable is not None) or (lldp_receive_should_be_enabled is not None):
+            lldp_receive = self.get_select_element_port_type("lldp transmit")
+            if not lldp_receive:
+                self.utils.print_info(f"Failed to get '{en_lldp_receive_checkbox_name}' checkbox")
+                return -1
+
+        if lldp_receive_should_be_editable is not None:
+            lldp_receive_is_editable = lldp_receive.is_enabled()
+
+            if lldp_receive_is_editable == lldp_receive_should_be_editable:
+                self.utils.print_info(
+                    f"Successfully found '{en_lldp_receive_checkbox_name}' checkbox in the expected state:"
+                    f" '{'editable' if lldp_receive_is_editable else 'not editable'}'")
+            else:
+                self.utils.print_info(
+                    f"Failed to find '{en_lldp_receive_checkbox_name}' checkbox in the expected state. Found "
+                    f"'{'editable' if lldp_receive_is_editable else 'not editable'}' but expected "
+                    f"'{'editable' if lldp_receive_should_be_editable else 'not editable'}'")
+                return -1
+
+            if lldp_receive_is_editable != lldp_options_enabled:
+                self.utils.print_info(
+                    f"Successfully found 'lldp_receive_is_enable'='{lldp_receive_is_editable}'"
+                    f"when 'lldp_options_enable'='{lldp_options_enabled}'"
+                )
+            else:
+                self.utils.print_info(
+                    f"Failed! Found 'lldp_receive_is_enable'={lldp_receive_is_editable}"
+                    f" when 'lldp_options_enable'='{lldp_options_enabled}'"
+                )
+                return -1
+
+        if lldp_receive_should_be_enabled is not None:
+            lldp_receive_is_enabled = lldp_receive.is_selected()
+
+            if lldp_receive_is_enabled == lldp_receive_should_be_enabled:
+                self.utils.print_info(f"Successfully found that '{en_lldp_receive_checkbox_name}' checkbox is "
+                                      f"'{'enabled' if lldp_receive_should_be_enabled else 'disabled'}'")
+            else:
+                self.utils.print_info(f"Expected to find the '{en_lldp_receive_checkbox_name}' checkbox as "
+                                      f"'{'enabled' if lldp_receive_should_be_enabled else 'disabled'}' but found "
+                                      f"'{'enabled' if lldp_receive_is_enabled else 'disabled'}'")
+                return -1
+
+        summary_page = self.get_select_element_port_type("summaryPage")
+        if not summary_page:
+            self.utils.print_info("Failed to get summary page")
+            return -1
+        self.auto_actions.click(summary_page)
+        # self.utils.wait_till(3)
+        def _wait_for_summary_tab_appear():
+            return bool(self.get_select_element_port_type("summary_tab_confirmation")) \
+                   and bool(self.dev360.get_close_port_type_box())
+
+        self.utils.wait_till(_wait_for_summary_tab_appear, timeout=4, delay=1,
+                             msg="Waiting for summary tab window to appear",
+                             is_logging_enabled=True)
+
+        close_button = self.dev360.get_close_port_type_box()
+        if not close_button:
+            self.utils.print_info("save button not found")
+            return -1
+        self.auto_actions.click(close_button)
+        return 1
+
+    def create_voice_port(self, port, port_type_name="test_port", description="description_of_test_port", status=True,
+                          voice_vlan="1", data_vlan="2", lldp_voice_options_flag=True, cdp_voice_options_flag=True,
+                          dot1_vlan_id_flag=True, lldp_advertisment_of_med_voice_vlan_flag=True,
+                          lldp_voice_vlan_dscp=1, lldp_advertisment_of_med_signaling_vlan_flag=True,
+                          lldp_voice_signaling_dscp=2, cdp_advertisment_of_voice_vlan_flag=True,
+                          cdp_advertisment_of_power_available_flag=True, device_360=False):
+        """
+        AIQ-1736
+        Keyword: Create port type - phone with a data port in template level
+                https://jira.extremenetworks.com/browse/AIQ-1736
+        Method used to configure a new voice port type.
+        For the configurable voice port type fields that are a bool type value:
+            If kwarg == True then the function will enable the port type editor field that
+                corresponds to the given kwarg (if not already enabled).
+            If kwarg == False then the function will disable the port type editor field that
+                corresponds to the given kwarg (if not already disabled).
+        If the device_360 keyword is False then the method should be called from 'Configure -> Network Policies -> Network Policy -> Device Template -> Port Configuration'.
+        If the device_360 keyword is True then the method should be called from 'Manage -> Devices -> Device -> Configure -> Port Configuration'.
+        args:
+            :port:                                           <str>
+        kwargs:
+            :port_type_name:                                 <str>
+            :description:                                    <str>
+            :status:                                         <bool
+            :voice_vlan: the voice vlan                      <str>
+            :data_vlan: the data vlan                        <str>
+            :lldp_voice_options_flag:                        <bool>
+            :cdp_voice_options_flag:                         <bool>
+            :dot1_vlan_id_flag:                              <bool>
+            :lldp_advertisment_of_med_voice_vlan_flag:       <bool>
+            :lldp_voice_vlan_dscp:                           <int>
+            :lldp_advertisment_of_med_signaling_vlan_flag:   <bool>
+            :lldp_voice_signaling_dscp:                      <int>
+            :cdp_advertisment_of_voice_vlan_flag:            <bool>
+            :cdp_advertisment_of_power_available_flag:       <bool>
+            :device_360:                                     <bool>
+        returns: 1 if the configuration is successful else -1
+        usage:
+            self.xiq.xflowsmanageDevice360.create_voice_port(
+                port="2", port_type_name="testing")
+            # creates a port type with every phone port type option turned on
+            self.xiq.xflowsmanageDevice360.create_voice_port(
+                port="2", port_type_name="testing", lldp_voice_options_flag=False, cdp_voice_options_flag=False)
+            # creates a port type with 'LLDP Voice VLAN Options' and 'CDP Voice VLAN Options' disabled
+        """
+        if not device_360:
+            rows = self.get_policy_configure_port_rows()
+            if not rows:
+                self.utils.print_info("Could not obtain list of port rows")
+                return -1
+            else:
+                for row in rows:
+                    if re.search(f'{port}\n', row.text):
+                        d360_create_port_type = self.get_d360_create_port_type(row)
+                        if d360_create_port_type:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was found")
+                            self.auto_actions.click(d360_create_port_type)
+                            def _check_port_editor_window_present():
+                                return bool(self.get_select_element_port_type("tab_vlan"))
+
+                            self.utils.wait_till(_check_port_editor_window_present, timeout=10, delay=1,
+                                                 msg="Waiting for new port type window to appear",
+                                                 is_logging_enabled=True)
+                            break
+                        else:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was not found")
+                            self.screen.save_screen_shot()
+                            return -1
+        else:
+            port_conf_content = self.get_device360_port_configuration_content()
+            if port_conf_content:
+                port_row = self.device360_get_port_row(port)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+
+                    d360_create_port_type = self.get_d360_create_port_type(port_row)
+                    if d360_create_port_type:
+                        self.utils.print_info(" The button d360_create_port_type  was found")
+                        self.auto_actions.click(d360_create_port_type)
+
+                        def _check_port_editor_window_present():
+                            return bool(self.get_select_element_port_type("tab_vlan"))
+
+                        self.utils.wait_till(_check_port_editor_window_present, timeout=3, delay=1,
+                                             msg="Waiting for new port type window to appear",
+                                             is_logging_enabled=True)
+                    else:
+                        self.utils.print_info(" The button d360_create_port_type  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
+                else:
+                    self.utils.print_info("Port was not found ")
+                    return -1
+            else:
+                return -1
+
+        name_element = self.get_select_element_port_type("name")
+        if not name_element:
+            self.utils.print_info("Port name was not found ")
+            return -1
+        self.auto_actions.send_keys(name_element, port_type_name)
+
+        description_element = self.get_select_element_port_type("description")
+        if not description_element:
+            self.utils.print_info("Port description was not found ")
+            return -1
+        self.auto_actions.send_keys(description_element, description)
+
+        status_element = self.get_select_element_port_type("status")
+        if not status_element:
+            self.utils.print_info("Port status was not found ")
+            return -1
+
+        if (not status_element.is_selected() and status) or (
+                status_element.is_selected() and not status):
+            self.auto_actions.click(status_element)
+            self.utils.wait_till(delay=1,timeout=2,msg= "waiting for port status element")
+
+        phone_port_element = self.get_select_element_port_type("port usage", "phone port")
+        if not phone_port_element:
+            self.utils.print_info("phone port type was not found ")
+            return -1
+        self.auto_actions.click(phone_port_element)
+        self.utils.wait_till(delay=1,timeout=2)
+
+        get_next_button = self.get_select_element_port_type("next_button")
+        if get_next_button:
+            self.utils.print_info("go to the vlan configuration page")
+            self.auto_actions.click(get_next_button)
+            def _wait_for_vlan_tab_appear():
+                return bool(self.get_select_element_port_type("vlan_tab_confirmation")) \
+                       and bool(self.get_select_element_port_type("lldp_voice_vlan_options"))
+
+            self.utils.wait_till(_wait_for_vlan_tab_appear, timeout=4, delay=1,
+                                 msg="Waiting for vlan window to appear",
+                                 is_logging_enabled=True)
+        else:
+            self.utils.print_info("get_next_button not found ")
+            return -1
+
+        get_select_button = self.get_select_element_port_type("voice_vlan_select_button")
+        if get_select_button:
+            self.auto_actions.click(get_select_button)
+
+            self.utils.wait_till(delay=2, timeout=4)
+            get_dropdown_items = self.get_select_element_port_type("voice_vlan_dropdown_items")
+
+            if self.auto_actions.select_drop_down_options(get_dropdown_items, voice_vlan):
+                self.utils.print_info(" Selected into dropdown voice_vlan : ", voice_vlan)
+                self.utils.wait_till(delay=1,timeout=2,msg="Dropdown voice vlan selection")
+            else:
+                get_add_vlan = self.get_select_element_port_type("voice_vlan_add_vlan")
+                if get_add_vlan:
+                    self.auto_actions.click(get_add_vlan)
+
+                    def _voice_vlan_appear():
+                        return bool(self.get_select_element_port_type("voice_vlan_name_vlan"))
+
+                    self.utils.wait_till(_voice_vlan_appear,
+                                         is_logging_enabled=True,
+                                         msg= "Voice vlan appear on clicking")
+
+                    get_name_vlan = self.get_select_element_port_type("voice_vlan_name_vlan")
+                    if get_name_vlan:
+                        self.auto_actions.send_keys(get_name_vlan, voice_vlan)
+                    else:
+                        self.utils.print_info("voice vlan get_id_vlan not found ")
+                        return -1
+                    get_id_vlan = self.get_select_element_port_type("voice_vlan_id_vlan")
+                    if get_id_vlan:
+                        self.auto_actions.send_keys(get_id_vlan, voice_vlan)
+                    else:
+                        self.utils.print_info("voice vlan get_id_vlan not found ")
+                        return -1
+                    get_save_vlan = self.get_select_element_port_type("save_vlan")
+                    if get_save_vlan:
+                        self.auto_actions.click(get_save_vlan)
+
+                        def _save_vlan_disappear():
+                            return not bool(self.get_select_element_port_type("save_vlan"))
+
+                        self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+                    else:
+                        self.utils.print_info("get_save_vlan not found ")
+                        return -1
+                else:
+                    self.utils.print_info("voice vlan get_add_vlan not found ")
+                    return -1
+        else:
+            self.utils.print_info("voice vlan get_select_button not found ")
+            return -1
+
+        get_select_button = self.get_select_element_port_type("data_vlan_select_button")
+        if get_select_button:
+            self.auto_actions.click(get_select_button)
+            self.utils.wait_till(delay=2, timeout=4)
+
+            get_dropdown_items = self.get_select_element_port_type("data_vlan_dropdown_items")
+            if self.auto_actions.select_drop_down_options(get_dropdown_items, data_vlan):
+                self.utils.print_info(" Selected into dropdown value : ", data_vlan)
+                self.utils.wait_till(delay=1,timeout=2,msg="Dropdown data vlan selection")
+
+            else:
+                get_add_vlan = self.get_select_element_port_type("data_vlan_add_vlan")
+                if get_add_vlan:
+                    self.auto_actions.click(get_add_vlan)
+                    def _data_vlan_appear():
+                        return bool(self.get_select_element_port_type("data_vlan_name_vlan"))
+
+                    self.utils.wait_till(_data_vlan_appear, is_logging_enabled=True)
+
+                    get_name_vlan = self.get_select_element_port_type("data_vlan_name_vlan")
+                    if get_name_vlan:
+                        self.auto_actions.send_keys(get_name_vlan, data_vlan)
+                    else:
+                        self.utils.print_info("data vlan get_id_vlan not found ")
+                        return -1
+                    get_id_vlan = self.get_select_element_port_type("data_vlan_id_vlan")
+                    if get_id_vlan:
+                        self.auto_actions.send_keys(get_id_vlan, data_vlan)
+                    else:
+                        self.utils.print_info("data vlan get_id_vlan not found ")
+                        return -1
+                    get_save_vlan = self.get_select_element_port_type("save_vlan")
+                    if get_save_vlan:
+                        self.auto_actions.click(get_save_vlan)
+
+                        def _save_vlan_disappear():
+                            return not bool(self.get_select_element_port_type("save_vlan"))
+                        self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+
+                    else:
+                        self.utils.print_info("get_save_vlan not found ")
+                        return -1
+                else:
+                    self.utils.print_info("data vlan get_add_vlan not found ")
+                    return -1
+        else:
+            self.utils.print_info("data vlan get_select_button not found ")
+            return -1
+
+        lldp_voice_vlan_options_checkbox_name = "LLDP Voice VLAN Options"
+        cdp_voice_vlan_options_checkbox_name = "CDP Voice VLAN Options"
+
+        en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name = "Enable LLDP advertisement of 802.1 VLAN ID and port protocol of Voice VLAN"
+        en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice VLAN DSCP Value"
+        en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice Signaling VLAN DSCP Value"
+        en_cdp_adv_of_voice_vlan_checkbox_name = "Enable CDP advertisement of Voice VLAN"
+        en_cdp_adv_of_power_available_checkbox_name = "Enable CDP advertisement of power available"
+
+        lldp_voice_options = self.get_select_element_port_type("lldp_voice_vlan_options")
+        if not lldp_voice_options:
+            self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+            return -1
+        previous_state_1 = lldp_voice_options.is_selected()
+        if (not lldp_voice_options.is_selected() and lldp_voice_options_flag) or (
+                lldp_voice_options.is_selected() and not lldp_voice_options_flag):
+            self.auto_actions.click(lldp_voice_options)
+            def _lldp_voice_option():
+                return not (bool(lldp_voice_options.is_selected()) and previous_state_1)
+
+            self.utils.wait_till(_lldp_voice_option, is_logging_enabled=True)
+
+        cdp_voice_options = self.get_select_element_port_type("cdp_voice_vlan_options")
+        if not cdp_voice_options:
+            self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox not found")
+            return -1
+
+        previous_state_2 = cdp_voice_options.is_selected()
+
+        if (not cdp_voice_options.is_selected() and cdp_voice_options_flag) or (
+                cdp_voice_options.is_selected() and not cdp_voice_options_flag):
+            self.auto_actions.click(cdp_voice_options)
+            def _cdp_voice_option():
+                return not (bool(cdp_voice_options.is_selected()) and previous_state_2)
+
+            self.utils.wait_till(_cdp_voice_option, is_logging_enabled=True)
+
+        if lldp_voice_options_flag:
+
+            lldp_advertisment_of_med_voice_vlan = self.get_select_element_port_type(
+                "enable_lldp_advertisment_of_med_voice_vlan")
+
+            if not lldp_advertisment_of_med_voice_vlan:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox option not found")
+                return -1
+            previous_state_3 = lldp_advertisment_of_med_voice_vlan.is_selected()
+
+            if (not lldp_advertisment_of_med_voice_vlan.is_selected() and lldp_advertisment_of_med_voice_vlan_flag) or \
+                    (
+                            lldp_advertisment_of_med_voice_vlan.is_selected() and not lldp_advertisment_of_med_voice_vlan_flag):
+                self.auto_actions.click(lldp_advertisment_of_med_voice_vlan)
+                def _lldp_med_voice_option():
+                    return not (bool(lldp_advertisment_of_med_voice_vlan.is_selected()) and previous_state_3)
+
+                self.utils.wait_till(_lldp_med_voice_option, is_logging_enabled=True)
+
+            if lldp_advertisment_of_med_voice_vlan.is_selected():
+
+                lldp_advertisment_of_med_voice_vlan_dscp_value_element = self.get_select_element_port_type(
+                    "lldp_advertisment_of_med_voice_vlan_dscp_value")
+                if not lldp_advertisment_of_med_voice_vlan_dscp_value_element:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' input dscp value not found")
+                    return -1
+                else:
+                    self.auto_actions.send_keys(lldp_advertisment_of_med_voice_vlan_dscp_value_element,
+                                                lldp_voice_vlan_dscp)
+
+            lldp_advertisment_of_med_signaling_vlan = self.get_select_element_port_type(
+                "enable_lldp_advertisment_of_med_voice_signaling_vlan")
+            previous_state_4 = lldp_advertisment_of_med_signaling_vlan.is_selected()
+
+            if not lldp_advertisment_of_med_signaling_vlan:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' checkbox not found")
+                return -1
+
+            if (
+                    not lldp_advertisment_of_med_signaling_vlan.is_selected() and lldp_advertisment_of_med_signaling_vlan_flag) \
+                    or (lldp_advertisment_of_med_signaling_vlan.is_selected()
+                        and not lldp_advertisment_of_med_signaling_vlan_flag):
+                self.auto_actions.click(lldp_advertisment_of_med_signaling_vlan)
+                def _lldp_med_signalling_vlan():
+                    return not (bool(lldp_advertisment_of_med_signaling_vlan.is_selected()) and previous_state_4)
+
+                self.utils.wait_till(_lldp_med_signalling_vlan, is_logging_enabled=True)
+
+            if lldp_advertisment_of_med_signaling_vlan.is_selected():
+                lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element = self.get_select_element_port_type(
+                    "lldp_advertisment_of_med_voice_signaling_vlan_dscp_value")
+                if not lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' input dscp value not found")
+                    return -1
+                else:
+                    self.auto_actions.send_keys(lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element,
+                                                lldp_voice_signaling_dscp)
+            dot1_vlan_id_element = self.get_select_element_port_type("enable_lldp_advertisment_of_dot1_vlan")
+            previous_state_5 = dot1_vlan_id_element.is_selected()
+
+            if not dot1_vlan_id_element:
+                self.utils.print_info(
+                    f"{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name} option not found")
+                return -1
+
+            if (not dot1_vlan_id_element.is_selected() and dot1_vlan_id_flag) or (
+                    dot1_vlan_id_element.is_selected() and not dot1_vlan_id_flag):
+                self.auto_actions.click(dot1_vlan_id_element)
+                def _dot1_vlan_id_element_():
+                    return not (bool(dot1_vlan_id_element.is_selected()) and previous_state_5)
+
+                self.utils.wait_till(_dot1_vlan_id_element_, is_logging_enabled=True)
+
+        else:
+            self.utils.print_info(f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}',"
+                              "'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' and"
+                              "'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}'"
+                              "checkboxes cant be updated because '{lldp_voice_vlan_options_checkbox_name}' checkbox is disabled")
+
+        if cdp_voice_options_flag:
+            cdp_advertisment_of_power_available = self.get_select_element_port_type(
+                "enable_cdp_advertisment_of_power_available")
+            previous_state_6 = cdp_advertisment_of_power_available.is_selected()
+
+            if not cdp_advertisment_of_power_available:
+                self.utils.print_info(f"'{en_cdp_adv_of_power_available_checkbox_name}' checkbox not found")
+                if cdp_voice_options_flag:
+                    return -1
+
+            if (not cdp_advertisment_of_power_available.is_selected() and cdp_advertisment_of_power_available_flag) or \
+                    (cdp_advertisment_of_power_available.is_selected() and not cdp_advertisment_of_power_available_flag):
+                self.auto_actions.click(cdp_advertisment_of_power_available)
+                def _cdp_power_available_vlan():
+                    return (not bool(cdp_advertisment_of_power_available.is_selected())) and previous_state_6
+
+                self.utils.wait_till(_cdp_power_available_vlan, is_logging_enabled=True)
+
+            cdp_advertisment_of_voice_vlan = self.get_select_element_port_type("enable_cdp_advertisment_of_voice_vlan")
+            previous_state_7 = cdp_advertisment_of_voice_vlan.is_selected()
+
+            if not cdp_advertisment_of_voice_vlan:
+                self.utils.print_info(f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' checkbox not found")
+                return -1
+
+            if (not cdp_advertisment_of_voice_vlan.is_selected() and cdp_advertisment_of_voice_vlan_flag) or \
+                    (cdp_advertisment_of_voice_vlan.is_selected() and not cdp_advertisment_of_voice_vlan_flag):
+                self.auto_actions.click(cdp_advertisment_of_voice_vlan)
+                def _cdp_voice_vlan():
+                    return not (bool(cdp_advertisment_of_voice_vlan.is_selected()) and previous_state_7)
+
+                self.utils.wait_till(_cdp_voice_vlan, is_logging_enabled=True)
+        else:
+            self.utils.print_info(
+                f"'{en_cdp_adv_of_power_available_checkbox_name}' and '{en_cdp_adv_of_voice_vlan_checkbox_name}' checkboxes cant"
+                f"be updated because '{cdp_voice_vlan_options_checkbox_name}' checkbox is disabled'")
+
+        self.utils.print_info("Go to the last page and save the port type")
+        for _ in range(10):
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                if get_next_button.is_enabled():
+                    self.auto_actions.click(get_next_button)
+                    self.utils.wait_till(delay=1,timeout=2)
+                else:
+                    break
+            else:
+                self.utils.print_info("get_next_button not found")
+                return -1
+
+        save_button = self.dev360.get_close_port_type_box()
+        if not save_button:
+            self.utils.print_info("save button not found")
+            return -1
+        self.auto_actions.click(save_button)
+        return 1
+
+    def edit_voice_port_type(self, port_type_name, **kwargs):
+        """
+        AIQ-1849
+        Keyword: Edit port type - phone with a data port in template level
+                https://jira.extremenetworks.com/browse/AIQ-1849
+        Method used to enable or disable configurable fields of a voice port type.
+        If kwarg == True then the function will enable the port type editor field that
+            corresponds to the given kwarg (if not already enabled).
+        If kwarg == False then the function will disable the port type editor field that
+            corresponds to the given kwarg (if not already disabled).
+        If kwarg == None then the function will not change the port type editor field that
+            corrsponds to the given kwarg.
+        The method should be called from 'Configure -> Network Policies -> Network Policy -> Device Template -> Port Configuration'.
+        args:
+            :port_type_name:                                  <str>
+        kwargs:
+            :voice_vlan:                                      <str>
+            :data_vlan:                                       <str>
+            :lldp_voice_options_flag:                         <bool|None>
+            :cdp_voice_options_flag:                          <bool|None>
+            :dot1_vlan_id_flag:                               <bool|None>
+            :lldp_advertisment_of_med_voice_vlan_flag:        <bool|None>
+            :lldp_advertisment_of_med_signaling_vlan_flag:    <bool|None>
+            :cdp_advertisment_of_voice_vlan_flag:             <bool|None>
+            :cdp_advertisment_of_power_available_flag:        <bool|None>
+            :enable_cdp_transmit_receive_flag:                <bool|None>
+            :enable_lldp_transmit_flag:                       <bool|None>
+            :enable_lldp_receive_flag:                        <bool|None>
+            :lldp_voice_vlan_dscp:                            <int>
+            :lldp_voice_signaling_dscp:                       <int>
+        returns: 1 if the functions call is successfull else -1
+        usage:
+            self.xiq.xflowsmanageDevice360.edit_voice_port_type(
+                port_type_name="test", enable_lldp_receive_flag=True, cdp_voice_options_flag=True)
+            # enables 'Enable LLDP Receive', enables 'Enable CDP Voice VLAN Options'
+            self.xiq.xflowsmanageDevice360.edit_voice_port_type(
+                port_type_name="test", voice_vlan="31")
+            # updates Voice VLAN to "31"
+            self.xiq.xflowsmanageDevice360.edit_voice_port_type(
+                port_type_name="test", lldp_voice_vlan_dscp=12, lldp_voice_signaling_dscp=14)
+            # updates dscp values
+        """
+        if not kwargs:
+            self.utils.print_info("At least a field should be updated")
+            return -1
+
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return -1
+        else:
+            for row in rows:
+                if re.search(rf'\d+\n{port_type_name}\n', row.text):
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was found")
+                        self.auto_actions.click(policy_edit_port_type)
+                        def _check_port_editor_window_present():
+                            return bool(self.get_select_element_port_type("tab_vlan"))
+
+                        self.utils.wait_till(_check_port_editor_window_present, timeout=10, delay=1,
+                                             msg="Waiting for existing port type window to appear",
+                                             is_logging_enabled=True)
+                        break
+                    else:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
+
+        vlan_tab_flags = [
+            "voice_vlan", "data_vlan", "lldp_voice_options_flag", "cdp_voice_options_flag", "dot1_vlan_id_flag",
+            "lldp_advertisment_of_med_voice_vlan_flag", "lldp_advertisment_of_med_signaling_vlan_flag",
+            "cdp_advertisment_of_voice_vlan_flag", "cdp_advertisment_of_power_available_flag", "lldp_voice_vlan_dscp",
+            "lldp_voice_signaling_dscp"
+        ]
+
+        lldp_voice_vlan_options_checkbox_name = "LLDP Voice VLAN Options"
+        cdp_voice_vlan_options_checkbox_name = "CDP Voice VLAN Options"
+
+        en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name = "Enable LLDP advertisement of 802.1 VLAN ID and port protocol of Voice VLAN"
+        en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice VLAN DSCP Value"
+        en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice Signaling VLAN DSCP Value"
+        en_cdp_adv_of_voice_vlan_checkbox_name = "Enable CDP advertisement of Voice VLAN"
+        en_cdp_adv_of_power_available_checkbox_name = "Enable CDP advertisement of power available"
+        en_cdp_transmit_receive_checkbox_name = "Enable CDP Transmit/Receive"
+        en_lldp_transmit_checkbox_name = "Enable LLDP Transmit"
+        en_lldp_receive_checkbox_name = "Enabled LLDP Receive"
+
+        if any(k in vlan_tab_flags for k in kwargs):
+
+            vlan_tab = self.get_select_element_port_type("tab_vlan")
+            if not vlan_tab:
+                self.utils.print_info("Failed to get the vlan page")
+                return -1
+            self.auto_actions.click(vlan_tab)
+            def _check_vlan_editor_window_present():
+                return bool(self.get_select_element_port_type("vlan_tab_confirmation"))
+
+            self.utils.wait_till(_check_vlan_editor_window_present, timeout=3, delay=1,
+                                 msg="Waiting for vlan port type window to appear",
+                                 is_logging_enabled=True)
+            voice_vlan = kwargs.get("voice_vlan")
+
+            if isinstance(voice_vlan, (str, int)):
+                get_select_button = self.get_select_element_port_type("voice_vlan_select_button")
+                if get_select_button:
+                    self.auto_actions.click(get_select_button)
+                    self.utils.wait_till(delay=2,timeout=4)
+
+                    get_dropdown_items = self.get_select_element_port_type("voice_vlan_dropdown_items")
+
+                    if self.auto_actions.select_drop_down_options(get_dropdown_items, str(voice_vlan)):
+                        self.utils.print_info(" Selected into dropdown voice_vlan : ", str(voice_vlan))
+                    else:
+                        get_add_vlan = self.get_select_element_port_type("voice_vlan_add_vlan")
+                        if get_add_vlan:
+                            self.auto_actions.click(get_add_vlan)
+                            def _voice_vlan_appear():
+                                return bool(self.get_select_element_port_type("voice_vlan_name_vlan"))
+
+                            self.utils.wait_till(_voice_vlan_appear, is_logging_enabled=True)
+                            get_name_vlan = self.get_select_element_port_type("voice_vlan_name_vlan")
+                            if get_name_vlan:
+                                self.auto_actions.send_keys(get_name_vlan, str(voice_vlan))
+                            else:
+                                self.utils.print_info("voice vlan get_id_vlan not found ")
+                                return -1
+                            get_id_vlan = self.get_select_element_port_type("voice_vlan_id_vlan")
+                            if get_id_vlan:
+                                self.auto_actions.send_keys(get_id_vlan, str(voice_vlan))
+                            else:
+                                self.utils.print_info("voice vlan get_id_vlan not found ")
+                                return -1
+                            get_save_vlan = self.get_select_element_port_type("save_vlan")
+                            if get_save_vlan:
+                                self.auto_actions.click(get_save_vlan)
+                            else:
+                                self.utils.print_info("get_save_vlan not found ")
+                                return -1
+                        else:
+                            self.utils.print_info("voice vlan get_add_vlan not found ")
+                            return -1
+                else:
+                    self.utils.print_info("voice vlan get_select_button not found ")
+                    return -1
+            else:
+                self.utils.print_info("voice vlan won't be updated")
+
+            data_vlan = kwargs.get("data_vlan")
+
+            if isinstance(data_vlan, (str, int)):
+                get_select_button = self.get_select_element_port_type("data_vlan_select_button")
+                if get_select_button:
+                    self.auto_actions.click(get_select_button)
+
+                    self.utils.wait_till(delay=2, timeout=4)
+                    get_dropdown_items = self.get_select_element_port_type("data_vlan_dropdown_items")
+                    if self.auto_actions.select_drop_down_options(get_dropdown_items, str(data_vlan)):
+                        self.utils.print_info(" Selected into dropdown value : ", str(data_vlan))
+                    else:
+                        get_add_vlan = self.get_select_element_port_type("data_vlan_add_vlan")
+                        if get_add_vlan:
+                            self.auto_actions.click(get_add_vlan)
+                            def _data_vlan_appear():
+                                return bool(self.get_select_element_port_type("data_vlan_name_vlan"))
+
+                            self.utils.wait_till(_data_vlan_appear, is_logging_enabled=True)
+                            get_name_vlan = self.get_select_element_port_type("data_vlan_name_vlan")
+                            if get_name_vlan:
+                                self.auto_actions.send_keys(get_name_vlan, str(data_vlan))
+                            else:
+                                self.utils.print_info("data vlan get_id_vlan not found ")
+                                return -1
+                            get_id_vlan = self.get_select_element_port_type("data_vlan_id_vlan")
+                            if get_id_vlan:
+                                self.auto_actions.send_keys(get_id_vlan, data_vlan)
+                            else:
+                                self.utils.print_info("data vlan get_id_vlan not found ")
+                                return -1
+                            get_save_vlan = self.get_select_element_port_type("save_vlan")
+                            if get_save_vlan:
+                                self.auto_actions.click(get_save_vlan)
+
+                                def _save_vlan_disappear():
+                                    return not bool(self.get_select_element_port_type("save_vlan"))
+
+                                self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+                            else:
+                                self.utils.print_info("get_save_vlan not found ")
+                                return -1
+                        else:
+                            self.utils.print_info("data vlan get_add_vlan not found ")
+                            return -1
+                else:
+                    self.utils.print_info("data vlan get_select_button not found ")
+                    return -1
+            else:
+                self.utils.print_info("data vlan won't be updated")
+
+            lldp_voice_options_flag = kwargs.get("lldp_voice_options_flag")
+
+            if lldp_voice_options_flag is not None:
+                lldp_voice_options = self.get_select_element_port_type("lldp_voice_vlan_options")
+                if not lldp_voice_options:
+                    self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+                    return -1
+                previous_state_1 = lldp_voice_options.is_selected()
+                self.utils.print_info(previous_state_1)
+                if (not lldp_voice_options.is_selected() and lldp_voice_options_flag) or (
+                        lldp_voice_options.is_selected() and not lldp_voice_options_flag):
+                    self.auto_actions.click(lldp_voice_options)
+                    def _lldp_voice_option():
+                        return  not ((bool(lldp_voice_options.is_selected())) and previous_state_1)
+
+                    self.utils.wait_till(_lldp_voice_option, is_logging_enabled=True,
+                                         msg="lldp voice options toggled",delay =2, timeout=6)
+
+            else:
+                self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox won't be updated")
+
+            cdp_voice_options_flag = kwargs.get("cdp_voice_options_flag")
+
+            if cdp_voice_options_flag is not None:
+                cdp_voice_options = self.get_select_element_port_type("cdp_voice_vlan_options")
+                if not cdp_voice_options:
+                    self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox not found")
+                    return -1
+
+                if (not cdp_voice_options.is_selected() and cdp_voice_options_flag) or (
+                        cdp_voice_options.is_selected() and not cdp_voice_options_flag):
+                    self.auto_actions.click(cdp_voice_options)
+                    self.utils.wait_till(delay=2,timeout=6,msg="waiting for CDP options to get toggled")
+
+            else:
+                self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox won't be updated")
+
+            lldp_voice_options = self.get_select_element_port_type("lldp_voice_vlan_options")
+            if not lldp_voice_options:
+                self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+                return -1
+
+            lldp_voice_options_enabled = lldp_voice_options.is_selected()
+            self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is "
+                                  f"{'enabled' if lldp_voice_options_enabled else 'disabled'}")
+
+            dot1_vlan_id_flag = kwargs.get("dot1_vlan_id_flag")
+
+            if isinstance(dot1_vlan_id_flag, bool):
+                if not lldp_voice_options_enabled:
+                    if not dot1_vlan_id_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' is already disabled")
+                    else:
+                        self.utils.print_info(
+                            f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is not enabled so we cannot update "
+                            f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}'")
+                        return -1
+                else:
+                    dot1_vlan_id_element = self.get_select_element_port_type("enable_lldp_advertisment_of_dot1_vlan")
+                    previous_state_5 = dot1_vlan_id_element.is_selected()
+
+                    if not dot1_vlan_id_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' checkbox not found")
+                        return -1
+
+                    if (not dot1_vlan_id_element.is_selected() and dot1_vlan_id_flag) or (
+                            dot1_vlan_id_element.is_selected() and not dot1_vlan_id_flag):
+                        self.auto_actions.click(dot1_vlan_id_element)
+                        def _dot1_vlan_id_element_():
+                            return not (bool(dot1_vlan_id_element.is_selected()) and previous_state_5)
+
+                        self.utils.wait_till(_dot1_vlan_id_element_, is_logging_enabled=True)
+            else:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' checkbox won't be updated")
+
+            lldp_advertisment_of_med_voice_vlan_flag = kwargs.get("lldp_advertisment_of_med_voice_vlan_flag")
+            lldp_voice_vlan_dscp = kwargs.get("lldp_voice_vlan_dscp")
+
+            if isinstance(lldp_advertisment_of_med_voice_vlan_flag, bool):
+                if not lldp_voice_options_enabled:
+                    if not lldp_advertisment_of_med_voice_vlan_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' is already disabled")
+                    else:
+                        self.utils.print_info(
+                            f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is not enabled so "
+                            f"we cannot update '{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}'")
+                        return -1
+                else:
+                    lldp_advertisment_of_med_voice_vlan = self.get_select_element_port_type(
+                        "enable_lldp_advertisment_of_med_voice_vlan")
+
+                    if not lldp_advertisment_of_med_voice_vlan:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                        return -1
+
+                    if (
+                            not lldp_advertisment_of_med_voice_vlan.is_selected() and lldp_advertisment_of_med_voice_vlan_flag) or \
+                            (
+                                    lldp_advertisment_of_med_voice_vlan.is_selected() and not lldp_advertisment_of_med_voice_vlan_flag):
+                        self.auto_actions.click(lldp_advertisment_of_med_voice_vlan)
+                        self.utils.wait_till(delay=2, timeout=6, msg="waiting for lldp advertisement options to get toggled")
+
+                    if lldp_advertisment_of_med_voice_vlan.is_selected():
+                        lldp_advertisment_of_med_voice_vlan_dscp_value_element = self.get_select_element_port_type(
+                            "lldp_advertisment_of_med_voice_vlan_dscp_value")
+                        if not lldp_advertisment_of_med_voice_vlan_dscp_value_element:
+                            self.utils.print_info(
+                                f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                            return -1
+                        else:
+                            self.auto_actions.send_keys(lldp_advertisment_of_med_voice_vlan_dscp_value_element, 2)
+            else:
+                self.utils.print_info(f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' won't be updated")
+
+            if isinstance(lldp_voice_vlan_dscp, (str, int)):
+
+                lldp_advertisment_of_med_voice_vlan = self.get_select_element_port_type(
+                    "enable_lldp_advertisment_of_med_voice_vlan")
+
+                if not lldp_advertisment_of_med_voice_vlan:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                    return -1
+
+                if lldp_advertisment_of_med_voice_vlan.is_selected():
+                    lldp_advertisment_of_med_voice_vlan_dscp_value_element = self.get_select_element_port_type(
+                        "lldp_advertisment_of_med_voice_vlan_dscp_value")
+                    if not lldp_advertisment_of_med_voice_vlan_dscp_value_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                        return -1
+                    else:
+                        self.auto_actions.send_keys(lldp_advertisment_of_med_voice_vlan_dscp_value_element,
+                                                    lldp_voice_vlan_dscp)
+                else:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' is not enabled "
+                        f"so the dscp value cant be set")
+                    return -1
+            else:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' dscp value won't be updated")
+
+            lldp_advertisment_of_med_signaling_vlan_flag = kwargs.get("lldp_advertisment_of_med_signaling_vlan_flag")
+            lldp_voice_signaling_dscp = kwargs.get("lldp_voice_signaling_dscp")
+
+            if isinstance(lldp_advertisment_of_med_signaling_vlan_flag, bool):
+
+                if not lldp_voice_options_enabled:
+                    if not lldp_advertisment_of_med_signaling_vlan_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' is already disabled")
+                    else:
+                        self.utils.print_info(
+                            f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is not enabled so we cannot "
+                            f"update '{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' checkbox")
+                        return -1
+                else:
+                    lldp_advertisment_of_med_signaling_vlan = self.get_select_element_port_type(
+                        "enable_lldp_advertisment_of_med_voice_signaling_vlan")
+
+                    if not lldp_advertisment_of_med_signaling_vlan:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' option not found")
+                        return -1
+
+                    if (
+                            not lldp_advertisment_of_med_signaling_vlan.is_selected() and lldp_advertisment_of_med_signaling_vlan_flag) \
+                            or (lldp_advertisment_of_med_signaling_vlan.is_selected()
+                                and not lldp_advertisment_of_med_signaling_vlan_flag):
+                        self.auto_actions.click(lldp_advertisment_of_med_signaling_vlan)
+                        self.utils.wait_till(delay=2, timeout=6, msg="waiting for lldp advertisement medvoice  to get toggled")
+
+                    if lldp_advertisment_of_med_signaling_vlan.is_selected():
+                        lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element = self.get_select_element_port_type(
+                            "lldp_advertisment_of_med_voice_signaling_vlan_dscp_value")
+                        if not lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element:
+                            self.utils.print_info(
+                                f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' checkbox not found")
+                            return -1
+                        else:
+                            self.auto_actions.send_keys(
+                                lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element, 1)
+
+            else:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' won't be updated")
+
+            if isinstance(lldp_voice_signaling_dscp, (str, int)):
+
+                lldp_advertisment_of_med_signaling_vlan = self.get_select_element_port_type(
+                    "enable_lldp_advertisment_of_med_voice_signaling_vlan")
+
+                if not lldp_advertisment_of_med_signaling_vlan:
+                    self.utils.print_info("enable_lldp_advertisment_of_med_voice_signaling_vlan option not found")
+                    return -1
+
+                if lldp_advertisment_of_med_signaling_vlan.is_selected():
+                    lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element = self.get_select_element_port_type(
+                        "lldp_advertisment_of_med_voice_signaling_vlan_dscp_value")
+                    if not lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' option not found")
+                        return -1
+                    else:
+                        self.auto_actions.send_keys(lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element,
+                                                    lldp_voice_signaling_dscp)
+                else:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' dscp value can't be set "
+                        f"because the checkbox is not selected")
+                    return -1
+            else:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' dscp value won't be updated")
+
+            cdp_voice_options = self.get_select_element_port_type("cdp_voice_vlan_options")
+            if not cdp_voice_options:
+                self.utils.print_info("cdp_voice_options option not found")
+                return -1
+
+            cdp_voice_options_enabled = cdp_voice_options.is_selected()
+            self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' is "
+                                  f"{'enabled' if cdp_voice_options_enabled else 'not enabled'}")
+
+            cdp_advertisment_of_voice_vlan_flag = kwargs.get("cdp_advertisment_of_voice_vlan_flag")
+            cdp_advertisment_of_power_available_flag = kwargs.get("cdp_advertisment_of_power_available_flag")
+
+            if isinstance(cdp_advertisment_of_power_available_flag, bool):
+                if not cdp_voice_options_enabled:
+                    self.utils.print_info(
+                        f"'{en_cdp_adv_of_power_available_checkbox_name}' can't be updated because "
+                        f"'{cdp_voice_vlan_options_checkbox_name}' is not enabled")
+                    return -1
+
+                cdp_advertisment_of_power_available = self.get_select_element_port_type(
+                    "enable_cdp_advertisment_of_power_available")
+                if not cdp_advertisment_of_power_available:
+                    self.utils.print_info("'{en_cdp_adv_of_power_available_checkbox_name}' checkbox not found")
+                    return -1
+                previous_state_6 = cdp_advertisment_of_power_available.is_selected()
+
+                if (
+                        not cdp_advertisment_of_power_available.is_selected() and cdp_advertisment_of_power_available_flag) or \
+                        (
+                                cdp_advertisment_of_power_available.is_selected() and not cdp_advertisment_of_power_available_flag):
+                    self.auto_actions.click(cdp_advertisment_of_power_available)
+                    def _cdp_power_available_vlan():
+                        return not (bool(cdp_advertisment_of_power_available.is_selected()) and previous_state_6)
+
+                    self.utils.wait_till(_cdp_power_available_vlan, is_logging_enabled=True)
+            else:
+                self.utils.print_info(f"'{en_cdp_adv_of_power_available_checkbox_name}' won't be updated")
+
+            if isinstance(cdp_advertisment_of_voice_vlan_flag, bool):
+                if not cdp_voice_options_enabled:
+                    self.utils.print_info(
+                        f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' can't be updated because"
+                        f" '{cdp_voice_vlan_options_checkbox_name}' is not enabled")
+                    return -1
+
+                cdp_advertisment_of_voice_vlan = self.get_select_element_port_type(
+                    "enable_cdp_advertisment_of_voice_vlan")
+                previous_state_7 = cdp_advertisment_of_voice_vlan.is_selected()
+
+                if not cdp_advertisment_of_voice_vlan:
+                    self.utils.print_info(f"{en_cdp_adv_of_voice_vlan_checkbox_name} checkbox not found")
+                    return -1
+
+                if (not cdp_advertisment_of_voice_vlan.is_selected() and cdp_advertisment_of_voice_vlan_flag) or \
+                        (cdp_advertisment_of_voice_vlan.is_selected() and not cdp_advertisment_of_voice_vlan_flag):
+                    self.auto_actions.click(cdp_advertisment_of_voice_vlan)
+                    def _cdp_voice_vlan():
+                        return not (bool(cdp_advertisment_of_voice_vlan.is_selected()) and previous_state_7)
+
+                    self.utils.wait_till(_cdp_voice_vlan, is_logging_enabled=True)
+            else:
+                self.utils.print_info(f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' won't be updated")
+        else:
+            self.utils.print_info("No change needed in the VLAN tab of the port type editor")
+
+        transmission_tab_flags = [
+            "enable_cdp_transmit_receive_flag", "enable_lldp_transmit_flag", "enable_lldp_receive_flag"
+        ]
+
+        if any(k in transmission_tab_flags for k in kwargs):
+            transmission_tab = self.get_select_element_port_type("transmissionSettingsPage")
+            if not transmission_tab:
+                self.utils.print_info("Failed to get transmission settings page")
+                return -1
+            self.auto_actions.click(transmission_tab)
+            self.utils.wait_till(delay=2, timeout=6, msg="waiting for transmission tab")
+
+            enable_cdp_transmit_receive_flag = kwargs.get("enable_cdp_transmit_receive_flag")
+            enable_lldp_transmit_flag = kwargs.get("enable_lldp_transmit_flag")
+            enable_lldp_receive_flag = kwargs.get("enable_lldp_receive_flag")
+
+            if isinstance(enable_cdp_transmit_receive_flag, bool):
+
+                cdp_transmit_receive = self.get_select_element_port_type("cdp receive")
+                if not cdp_transmit_receive:
+                    self.utils.print_info(f"Failed to get '{en_cdp_transmit_receive_checkbox_name}' checkbox")
+                    return -1
+
+                if not cdp_transmit_receive.is_enabled():
+                    if cdp_transmit_receive.is_selected() == enable_cdp_transmit_receive_flag:
+                        self.utils.print_info(
+                            f"'{en_cdp_transmit_receive_checkbox_name}' is already '{'enabled' if enable_cdp_transmit_receive_flag else 'disabled'}' "
+                            f"so no need to be updated (the checkbox is not editable)")
+                    else:
+                        self.utils.print_info(
+                            f"'{en_cdp_transmit_receive_checkbox_name}' is not clickable so it won't be updated")
+                        return -1
+                else:
+                    if (not cdp_transmit_receive.is_selected() and enable_cdp_transmit_receive_flag) or \
+                            (cdp_transmit_receive and not enable_cdp_transmit_receive_flag):
+                        self.auto_actions.click(cdp_transmit_receive)
+                        self.utils.wait_till(delay=2,timeout=6,msg= "cdp transmit receive")
+            else:
+                self.utils.print_info(f"'{en_cdp_transmit_receive_checkbox_name}' won't be updated")
+
+            if isinstance(enable_lldp_transmit_flag, bool):
+
+                lldp_transmit = self.get_select_element_port_type("lldp transmit")
+                if not lldp_transmit:
+                    self.utils.print_info(f"Failed to get '{en_lldp_transmit_checkbox_name}' checkbox")
+                    return -1
+
+                if not lldp_transmit.is_enabled():
+                    if lldp_transmit.is_selected() == enable_lldp_transmit_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_transmit_checkbox_name}' is already '{'enabled' if enable_lldp_transmit_flag else 'disabled'}' "
+                            f"so no need to be updated (the checkbox is not editable)")
+                    else:
+                        self.utils.print_info(
+                            f"'{en_lldp_transmit_checkbox_name}' checkbox is not clickable so it won't be updated")
+                        return -1
+                else:
+                    if (not lldp_transmit.is_selected() and enable_lldp_transmit_flag) or \
+                            (lldp_transmit and not enable_lldp_transmit_flag):
+                        self.auto_actions.click(lldp_transmit)
+                        self.utils.wait_till(timeout=2,delay=2)
+            else:
+                self.utils.print_info(f"'{en_lldp_transmit_checkbox_name}' won't be updated")
+
+            if isinstance(enable_lldp_receive_flag, bool):
+                lldp_receive = self.get_select_element_port_type("lldp receive")
+                if not lldp_receive:
+                    self.utils.print_info(f"Failed to get {en_lldp_receive_checkbox_name} checkbox")
+                    return -1
+
+                if not lldp_receive.is_enabled():
+                    if lldp_receive.is_selected() == enable_lldp_receive_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_receive_checkbox_name}' is already '{'enabled' if enable_lldp_receive_flag else 'disabled'}' "
+                            f"so no need to be updated (the checkbox is not editable)")
+                    else:
+                        self.utils.print_info(
+                            f"'{en_lldp_receive_checkbox_name}' checkbox is not clickable so it won't be updated")
+                        return -1
+                else:
+                    if (not lldp_receive.is_selected() and enable_lldp_receive_flag) or \
+                            (lldp_receive and not enable_lldp_receive_flag):
+                        self.auto_actions.click(lldp_receive)
+                        self.utils.wait_till(timeout=2,delay=1)
+            else:
+                self.utils.print_info(f"'{en_lldp_receive_checkbox_name}' won't be updated")
+        else:
+            self.utils.print_info("No change needed in the Transmission Settings tab of the port type editor")
+
+        summary_page = self.get_select_element_port_type("summaryPage")
+        if not summary_page:
+            self.utils.print_info("Failed to get summary page")
+            return -1
+        self.auto_actions.click(summary_page)
+        def _wait_for_summary_tab_appear():
+            return bool(self.get_select_element_port_type("summary_tab_confirmation")) \
+                   and bool(self.dev360.get_close_port_type_box())
+
+        self.utils.wait_till(_wait_for_summary_tab_appear, timeout=4, delay=1,
+                             msg="Waiting for summary tab window to appear",
+                             is_logging_enabled=True)
+        close_button = self.dev360.get_close_port_type_box()
+        if not close_button:
+            self.utils.print_info("save button not found")
+            return -1
+        self.auto_actions.click(close_button)
+        return 1
+
+    def get_voice_port_summary(self, port_type_name):
+        """
+        Method used to get the summary of the voice port type related fields of the honeycomb summary tab at template level.
+        args:
+            :port_type_name:        <str>
+        The method should be called from 'Configure -> Network Policies -> Network Policy -> Device Template -> Port Configuration'.
+        returns: empty dict if the function fails or a dict which contains all the voice port type fields from the summary tab if the function does not fail.
+        usage:
+            >>> data = self.xiq.xflowsmanageDevice360.get_voice_port_summary("port_type_tcxm_19696")
+            ...
+            >>> print(json.dumps(data, indent=4))
+            {
+                "LLDP Advertisements": "ON",
+                "802.1 VLAN and port protocol": "ON",
+                "Med Voice VLAN DSCP Value": "OFF",
+                "Med Voice Signaling DSCP Value": "2",
+                "CDP Advertisement": "ON",
+                "CDP Voice VLAN": "ON",
+                "CDP Power Available": "OFF"
+            }
+        """
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return {}
+        else:
+            for row in rows:
+                if re.search(rf'\d+\n{port_type_name}\n', row.text):
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was found")
+                        self.auto_actions.click(policy_edit_port_type)
+
+                        def _check_port_editor_window_present():
+                            return bool(self.get_select_element_port_type("tab_vlan"))
+
+                        self.utils.wait_till(_check_port_editor_window_present, timeout=10, delay=1,
+                                             msg="Waiting for existing port type window to appear",
+                                             is_logging_enabled=True)
+                        break
+                    else:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was not found")
+                        self.screen.save_screen_shot()
+                        return {}
+
+        summary_page = self.get_select_element_port_type("summaryPage")
+        if not summary_page:
+            self.utils.print_info("Failed to get summary page")
+            return {}
+        self.auto_actions.click(summary_page)
+        self.utils.wait_till(delay=2, timeout=4, msg = "waiting at summary page..")
+        ret = {}
+        for row_name, row_value in zip(
+                [
+                    "LLDP Advertisements",
+                    "802.1 VLAN and port protocol",
+                    "Med Voice VLAN DSCP Value",
+                    "Med Voice Signaling DSCP Value",
+                    "CDP Advertisement",
+                    "CDP Voice VLAN",
+                    "CDP Power Available",
+                    "Voice VLAN",
+                    "Data VLAN"
+                ],
+                [
+                    "port_type_voice_lldp_advertisment_summary",
+                    "802_1_vlan_and_port_protocol_summary",
+                    "med_voice_vlan_dscp_value_summary",
+                    "med_voice_signaling_dscp_value_summary",
+                    "cdp_advertisment_summary",
+                    "cdp_voice_vlan_summary",
+                    "cdp_power_available_summary",
+                    "voice_vlan_summary",
+                    "data_vlan_summary"
+                ]
+        ):
+            ret[row_name] = self.get_select_element_port_type_summary(row_value).text
+
+        close_button = self.dev360.get_close_port_type_box()
+        if not close_button:
+            self.utils.print_info("save button not found")
+            return {}
+        self.auto_actions.click(close_button)
+
+        return ret
+    
+    def device360_voip_get_port_row(self, port_name):
+        """
+        - Get the port row object matching the specified port_name from Device360 --> Configure --> Port Configuration
+        :param port_name: name of the port to return the row for
+        :return: row element if row exists else return None
+        """
+        ret_val = None
+        self.utils.print_info("Getting the Port rows from the Device360 Port Configuration page")
+        rows = self.get_device360_voip_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+        else:
+            for row in rows:
+                self.utils.print_info("rowtext =>", row.text)
+                if port_name in row.text:
+                    ret_val = row
+                    self.utils.print_info("rowtext =>", row.text)
+                    break
+        return ret_val
+
+    def edit_voip_in_d360(self,port, **kwargs):
+        #Navigating to Voice tab
+        """
+        This method is to edit the VOIP in d360
+        :param port: name of the port to return
+       The method should be called from 'Configure -> D360 -> Port configuration -> VOIP tab'.
+        args:
+            :port:                                            <str>
+        kwargs:
+            :lldp_voice_options_flag:                         <bool|None>
+            :cdp_voice_options_flag:                          <bool|None>
+            :dot1_vlan_id_flag:                               <bool|None>
+            :lldp_advertisment_of_med_voice_vlan_flag:        <bool|None>
+            :lldp_advertisment_of_med_signaling_vlan_flag:    <bool|None>
+            :cdp_advertisment_of_voice_vlan_flag:             <bool|None>
+            :cdp_advertisment_of_power_available_flag:        <bool|None>
+            :enable_cdp_transmit_receive_flag:                <bool|None>
+            :enable_lldp_transmit_flag:                       <bool|None>
+            :enable_lldp_receive_flag:                        <bool|None>
+            :lldp_voice_vlan_dscp:                            <int>
+            :lldp_voice_signaling_dscp:                       <int>
+        returns: 1 if the functions call is successfull else -1
+        usage:
+            self.xiq.xflowsmanageDevice360.edit_voip_in_d360(
+                enable_lldp_receive_flag=True, cdp_voice_options_flag=True)
+            # enables 'Enable LLDP Receive', enables 'Enable CDP Voice VLAN Options'
+            self.xiq.xflowsmanageDevice360.edit_voip_in_d360( lldp_voice_vlan_dscp=12, lldp_voice_signaling_dscp=14)
+            # updates dscp values
+        :return:
+        """
+        voip_tab = self.dev360.get_device360_voip_tab()
+        if voip_tab:
+            self.auto_actions.click(voip_tab)
+        else:
+            return -1
+
+        self.utils.wait_till(delay=2,timeout=4)
+        port_voice_tab_content = self.dev360.get_device360_voip_tab_data()
+        if port_voice_tab_content:
+            port_row = self.device360_voip_get_port_row(port)
+            if port_row:
+                self.utils.print_info("Found port row")
+                self.utils.print_info(port_row)
+            else:
+                return -1
+            vlan_tab_flags = [
+                "voice_vlan", "data_vlan", "lldp_voice_options_flag", "cdp_voice_options_flag", "dot1_vlan_id_flag",
+                "lldp_advertisment_of_med_voice_vlan_flag", "lldp_advertisment_of_med_signaling_vlan_flag",
+                "cdp_advertisment_of_voice_vlan_flag", "cdp_advertisment_of_power_available_flag",
+                "lldp_voice_vlan_dscp",
+                "lldp_voice_signaling_dscp"
+            ]
+
+            lldp_voice_vlan_options_checkbox_name = "LLDP Voice VLAN Options"
+            cdp_voice_vlan_options_checkbox_name = "CDP Voice VLAN Options"
+
+            en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name = "Enable LLDP advertisement of 802.1 VLAN ID and port protocol of Voice VLAN"
+            en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice VLAN DSCP Value"
+            en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice Signaling VLAN DSCP Value"
+            en_cdp_adv_of_voice_vlan_checkbox_name = "Enable CDP advertisement of Voice VLAN"
+            en_cdp_adv_of_power_available_checkbox_name = "Enable CDP advertisement of power available"
+
+            lldp_voice_options_flag = kwargs.get("lldp_voice_options_flag")
+            if any(k in vlan_tab_flags for k in kwargs):
+
+                if lldp_voice_options_flag is not None:
+
+                    lldp_voice_options = self.dev360.get_device360_vlan_lldp_capabilities(port_row)
+                    if not lldp_voice_options:
+                        self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+                        return -1
+                    previous_state_1 = lldp_voice_options.is_selected()
+
+                    if (not lldp_voice_options.is_selected() and lldp_voice_options_flag) or (
+                            lldp_voice_options.is_selected() and not lldp_voice_options_flag):
+                        self.auto_actions.click(lldp_voice_options)
+                        self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' updated as true")
+                        def _lldp_voice_option():
+                            return not ((bool(lldp_voice_options.is_selected())) and previous_state_1)
+
+                        self.utils.wait_till(_lldp_voice_option, is_logging_enabled=True,
+                                             msg="lldp voice options toggled", delay=2, timeout=6)
+                else:
+                    self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox won't be updated")
+                cdp_voice_options_flag = kwargs.get("cdp_voice_options_flag")
+                cdp_voice_options = self.dev360.get_d360_port_voice_vlan_cdp_capabilities(port_row)
+
+                if cdp_voice_options_flag is not None:
+                    cdp_voice_options = self.dev360.get_d360_port_voice_vlan_cdp_capabilities(port_row)
+                    self.utils.print_info(cdp_voice_options,cdp_voice_options.is_selected())
+                    if not cdp_voice_options:
+                        self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox not found")
+                        return -1
+
+                    if (not cdp_voice_options.is_selected() and cdp_voice_options_flag) or (
+                            cdp_voice_options.is_selected() and not cdp_voice_options_flag):
+                        self.auto_actions.click(cdp_voice_options)
+                        self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox is updated")
+                        self.utils.wait_till(delay=2,timeout=6,msg="waiting for CDP options to get toggled")
+
+                    self.utils.print_info("Not doing anything==")
+                else:
+                    self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox won't be updated")
+
+                lldp_voice_options = self.dev360.get_device360_vlan_lldp_capabilities(port_row)
+                if not lldp_voice_options:
+                    self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+                    return -1
+
+                lldp_voice_options_enabled = lldp_voice_options.is_selected()
+                self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is "
+                                      f"{'enabled' if lldp_voice_options_enabled else 'disabled'}")
+                dot1_vlan_id_flag = kwargs.get("dot1_vlan_id_flag")
+
+                if isinstance(dot1_vlan_id_flag, bool):
+                    if not lldp_voice_options_enabled:
+                        if not dot1_vlan_id_flag:
+                            self.utils.print_info(
+                                f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' is already disabled")
+                        else:
+                            self.utils.print_info(
+                                f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is not enabled so we cannot update "
+                                f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}'")
+                            return -1
+                    else:
+                        dot1_vlan_id_element = self.dev360.get_device360_802_1_voice_vlan(port_row)
+                        previous_state_5 = dot1_vlan_id_element.is_selected()
+
+                        if not dot1_vlan_id_element:
+                            self.utils.print_info(
+                                f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' checkbox not found")
+                            return -1
+
+                        if (not dot1_vlan_id_element.is_selected() and dot1_vlan_id_flag) or (
+                                dot1_vlan_id_element.is_selected() and not dot1_vlan_id_flag):
+                            self.auto_actions.click(dot1_vlan_id_element)
+                            def _dot1_vlan_id_element_():
+                                return not (bool(dot1_vlan_id_element.is_selected()) and previous_state_5)
+
+                            self.utils.wait_till(_dot1_vlan_id_element_, is_logging_enabled=True)
+
+                else:
+                        self.utils.print_info(
+                        f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' checkbox won't be updated")
+                lldp_voice_vlan_dscp = kwargs.get("lldp_voice_vlan_dscp")
+
+                if isinstance(lldp_voice_vlan_dscp, (str, int)):
+
+                    lldp_advertisment_of_med_voice_vlan_dscp_value_element = self.dev360.get_d360_port_voice_vlan_med_dscp(port_row)
+                    if not lldp_advertisment_of_med_voice_vlan_dscp_value_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                        return -1
+                    else:
+                        self.auto_actions.send_keys(lldp_advertisment_of_med_voice_vlan_dscp_value_element,
+                                                    lldp_voice_vlan_dscp)
+
+                else:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' dscp value won't be updated")
+
+                lldp_voice_signaling_dscp = kwargs.get("lldp_voice_signaling_dscp")
+
+                if isinstance(lldp_voice_signaling_dscp, (str, int)):
+
+                    lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element = self.dev360.get_d360_port_voice_vlan_med_sig_dscp(port_row)
+
+                    if not lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' option not found")
+                        return -1
+                    else:
+                        self.auto_actions.send_keys(lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element,
+                                                    lldp_voice_signaling_dscp)
+                else:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' dscp value can't be set "
+                        f"because the checkbox is not selected")
+
+                cdp_voice_options_enabled = cdp_voice_options.is_selected()
+                self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' is "
+                                      f"{'enabled' if cdp_voice_options_enabled else 'not enabled'}")
+                cdp_advertisment_of_voice_vlan_flag = kwargs.get("cdp_advertisment_of_voice_vlan_flag")
+                cdp_advertisment_of_power_available_flag = kwargs.get("cdp_advertisment_of_power_available_flag")
+
+                if cdp_advertisment_of_power_available_flag is not None:
+
+                    if not cdp_voice_options_enabled:
+                        self.utils.print_info(
+                            f"'{en_cdp_adv_of_power_available_checkbox_name}' can't be updated because "
+                            f"'{cdp_voice_vlan_options_checkbox_name}' is not enabled")
+                        return -1
+
+                    cdp_advertisment_of_power_available = self.dev360.get_d360_advert_power_available(port_row)
+                    if not cdp_advertisment_of_power_available:
+                        self.utils.print_info("'{en_cdp_adv_of_power_available_checkbox_name}' checkbox not found")
+                        return -1
+                    previous_state_6 = cdp_advertisment_of_power_available.is_selected()
+
+                    if ( not cdp_advertisment_of_power_available.is_selected() and cdp_advertisment_of_power_available_flag) or \
+                            ( cdp_advertisment_of_power_available.is_selected() and not cdp_advertisment_of_power_available_flag):
+                        self.auto_actions.click(cdp_advertisment_of_power_available)
+                        def _cdp_power_available_vlan():
+                            return not (bool(cdp_advertisment_of_power_available.is_selected()) and previous_state_6)
+
+                        self.utils.wait_till(_cdp_power_available_vlan, is_logging_enabled=True)
+                else:
+                    self.utils.print_info(f"'{en_cdp_adv_of_power_available_checkbox_name}' won't be updated")
+
+                if cdp_advertisment_of_voice_vlan_flag is not None:
+
+                    if not cdp_voice_options_enabled:
+                        self.utils.print_info(
+                            f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' can't be updated because"
+                            f" '{cdp_voice_vlan_options_checkbox_name}' is not enabled")
+                        return -1
+
+                    cdp_advertisment_of_voice_vlan = self.dev360.get_d360_cdp_voice_vlan(port_row)
+                    previous_state_7 = cdp_advertisment_of_voice_vlan.is_selected()
+
+                    if not cdp_advertisment_of_voice_vlan:
+                        self.utils.print_info(f"{en_cdp_adv_of_voice_vlan_checkbox_name} checkbox not found")
+                        return -1
+
+                    if (not cdp_advertisment_of_voice_vlan.is_selected() and cdp_advertisment_of_voice_vlan_flag) or \
+                            (cdp_advertisment_of_voice_vlan.is_selected() and not cdp_advertisment_of_voice_vlan_flag):
+                        self.auto_actions.click(cdp_advertisment_of_voice_vlan)
+                        def _cdp_voice_vlan():
+                            return not (bool(cdp_advertisment_of_voice_vlan.is_selected()) and previous_state_7)
+
+                        self.utils.wait_till(_cdp_voice_vlan, is_logging_enabled=True)
+                else:
+                    self.utils.print_info(f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' won't be updated")
+            else:
+                self.utils.print_info("No change needed in the VLAN tab of the port type editor")
+
+
+    def d360_assign_port_type(self, port_type, port_numbers):
+        port_conf_content = self.dev360.get_device360_port_configuration_content()
+        if port_conf_content and port_conf_content.is_displayed():
+            for port_number in port_numbers.split(','):
+                port_row = self.device360_get_port_row(port_number)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+                    self.utils.print_info("click Port Usage drop down")
+                    self.utils.wait_till(delay=1, timeout=2)
+                    drop_down_button = self.dev360.get_device360_configure_port_usage_drop_down_button(port_row)
+                    self.auto_actions.click(drop_down_button)
+                    self.utils.wait_till(delay=1, timeout=2)
+                    if self.dev360.get_device360_configure_port_usage_drop_down_options_presence(port_row):
+                        options = self.dev360.get_d360_port_type_options(port_row)
+                        self.utils.wait_till(delay=1, timeout=2)
+                        self.utils.print_info("drop down options", options)
+                        self.auto_actions.select_drop_down_options(options, port_type)
+                        return 1
+                    else:
+                        self.utils.print_info("Port usage drop down didnot present,")
+                        return  -1
