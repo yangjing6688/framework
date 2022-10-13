@@ -76,6 +76,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_close_dialog(self):
         return self.weh.get_element(self.close_dialog)
 
+    def get_select_100_elements_display_on_page(self):
+        return self.weh.get_element(self.select_100_elements_display_on_page)
+
     def get_actions_adv_cli_access_cmd_input(self):
         return self.weh.get_element(self.actions_adv_cli_access_cmd_input)
 
@@ -1190,6 +1193,12 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_configure_port_access_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_access_vlan_textfield, row)
 
+    def get_device360_configure_onboarding_port_vlan_textfield(self, row):
+        return self.weh.get_element(self.device360_configure_onboarding_port_vlan_textfield, row)
+
+    def get_device360_configure_disabled_port_vlan_textfield(self, row):
+        return self.weh.get_element(self.device360_configure_disabled_port_vlan_textfield, row)
+
     def get_device360_configure_port_trunk_native_vlan_textfield(self, row):
         return self.weh.get_element(self.device360_configure_port_trunk_native_vlan_textfield, row)
 
@@ -1377,7 +1386,9 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_tab_summary)
         elif element == "elrdp":
             return self.weh.get_element(self.select_element_port_type_name)
-        # page Port Name
+        elif element == "MACLOCKINGSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_maclocking)
+        #page Port Name
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
         elif element == "description":
@@ -1469,18 +1480,85 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_pse_profile_add)
         elif element == "pse_profile_name":
             return self.weh.get_element(self.select_element_port_type_pse_profile_name)
+        elif element == "pse_profile_power_mode_dropdown":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_power_mode_dropdown)
         elif element == "pse_profile_power_mode_items":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_power_mode_items)
+        elif element == 'pse_profile_power_limit':
+            return self.weh.get_element(self.select_element_port_type_pse_profile_power_limit)
         elif element == "pse_profile_priority":
             return self.weh.get_element(self.select_element_port_type_pse_profile_priority)
         elif element == "pse_profile_priority_items":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_priority_items)
         elif element == "pse_profile_description":
-            return self.weh.get_elements(self.select_element_port_type_pse_profile_description)
+            return self.weh.get_element(self.select_element_port_type_pse_profile_description)
         elif element == "pse_profile_save":
             return self.weh.get_elements(self.select_element_port_type_pse_profile_save)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
+        elif element == "pse_profile_edit":
+            return self.weh.get_element(self.select_element_port_type_pse_edit)
+        elif element == "pse_more_button":
+            return self.weh.get_element(self.select_more_button_pse_profile)
+        #maclocking page
+        elif element == "mac locking":
+            return self.weh.get_element(self.select_element_port_type_macLock_status)
+        elif element == "max first arrival":
+            return self.weh.get_element(self.select_element_port_type_macLock_max_first_arrival)
+        elif element == "disable port":
+            return self.weh.get_element(self.select_element_port_type_macLock_disable_port)
+        elif element == "link down clear":
+            return self.weh.get_element(self.select_element_port_type_macLock_link_down_clear)
+        elif element == "link down retain":
+            return self.weh.get_element(self.select_element_port_type_macLock_link_down_retain)
+        elif element == "remove aged MACs":
+            return self.weh.get_element(self.select_element_port_type_macLock_remove_aged_MACs)
+        elif element == "port usage" and value == "phone port":
+            return self.weh.get_element(self.select_element_port_type_port_usage_phone)
+        elif element == "voice_vlan_add_vlan":
+            return self.weh.get_element(self.select_element_port_type_voice_vlan_add_vlan)
+        elif element == "voice_vlan_name_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_name_vlan)
+        elif element == "voice_vlan_id_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_id_vlan)
+        elif element == "voice_vlan_select_button":
+            return self.weh.get_element(self.select_element_port_type_voice_vlan_select_button)
+        elif element == "voice_vlan_dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_native_vlan_dropdown_items)
+        elif element == "data_vlan_add_vlan":
+            return self.weh.get_element(self.select_element_port_type_data_vlan_add_vlan)
+        elif element == "data_vlan_name_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_name_vlan)
+        elif element == "data_vlan_id_vlan":
+            return self.weh.get_element(self.select_element_port_type_native_vlan_id_vlan)
+        elif element == "data_vlan_select_button":
+            return self.weh.get_element(self.select_element_port_type_data_vlan_select_button)
+        elif element == "data_vlan_dropdown_items":
+            return self.weh.get_elements(self.select_element_port_type_native_vlan_dropdown_items)
+        elif element == "lldp_voice_vlan_options":
+            return self.weh.get_element(self.select_element_lldp_voice_vlan_options)
+        elif element == "form_errors":
+            return self.weh.get_elements(self.select_form_errors_elements)
+        elif element == "enable_lldp_advertisment_of_dot1_vlan":
+            return self.weh.get_element(self.select_element_enable_advertisment_of_dot1_vlan)
+        elif element == "enable_lldp_advertisment_of_med_voice_vlan":
+            return self.weh.get_element(self.select_element_enable_advertisment_of_med_voice_vlan)
+        elif element =="lldp_advertisment_of_med_voice_vlan_dscp_value":
+            return self.weh.get_element(self.select_element_med_voice_vlan_dscp)
+        elif element == "enable_lldp_advertisment_of_med_voice_signaling_vlan":
+            return self.weh.get_element(self.select_element_enable_advertisment_of_med_voice_signaling_vlan)
+        elif element == "lldp_advertisment_of_med_voice_signaling_vlan_dscp_value":
+            return self.weh.get_element(self.select_element_med_sig_voice_vlan_dscp)
+        elif element == "cdp_voice_vlan_options":
+            return self.weh.get_element(self.select_element_cdp_voice_vlan_options)
+        elif element == "enable_cdp_advertisment_of_voice_vlan":
+            return self.weh.get_element(self.select_element_enable_advertisment_of_voice_vlan)
+        elif element == "enable_cdp_advertisment_of_power_available":
+            return self.weh.get_element(self.select_element_enable_advertisment_of_power_available)
+        elif element == "voice_vlan_input":
+            return self.weh.get_element(self.select_element_voice_vlan_input)
+        elif element == "data_vlan_input":
+            return self.weh.get_element(self.select_element_data_vlan_input)
         return -1
 
     def get_select_element_port_type_summary(self, element):
@@ -1534,6 +1612,42 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_pse_profile_summary)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status_summary)
+        elif element == "mac locking":
+            return self.weh.get_element(self.select_mac_locking_summary)
+        elif element == "max first arrival":
+            return self.weh.get_element(self.select_mac_locking_first_arrival_summary)
+        elif element == "disable port":
+            return self.weh.get_element(self.select_mac_locking_port_disable_summary)
+        elif element == "link down clear":
+            return self.weh.get_element(self.select_mac_locking_link_down_action_clear_summary)
+        elif element == "link down retain":
+            return self.weh.get_element(self.select_mac_locking_link_down_action_retain_summary)
+        elif element == "remove aged MACs":
+            return self.weh.get_element(self.select_mac_locking_remove_aged_macs_summary)
+        elif element == "port_type_voice_lldp_advertisment_summary":
+            return self.weh.get_element(self.select_element_port_type_voice_lldp_advertisment_summary)
+        elif element == "802_1_vlan_and_port_protocol_summary":
+            return self.weh.get_element(self.select_802_1_vlan_and_port_protocol_summary)
+        elif element == "med_voice_vlan_dscp_value_summary":
+            return self.weh.get_element(self.select_med_voice_vlan_dscp_value_summary)
+        elif element == "med_voice_signaling_dscp_value_summary":
+            return self.weh.get_element(self.select_med_voice_signaling_dscp_value_summary)
+        elif element == "cdp_advertisment_summary":
+            return self.weh.get_element(self.select_cdp_advertisment_summary)
+        elif element == "cdp_voice_vlan_summary":
+            return self.weh.get_element(self.select_cdp_voice_vlan_summary)
+        elif element == "cdp_power_available_summary":
+            return self.weh.get_element(self.select_cdp_power_available_summary)
+        elif element == "voice_vlan_summary":
+            return self.weh.get_element(self.select_voice_vlan_summary)
+        elif element == "data_vlan_summary":
+            return self.weh.get_element(self.select_data_vlan_summary)
+        elif element == "summary_tab_confirmation":
+            return self.weh.get_element(self.summary_tab_confirmation)
+        elif element == "vlan_tab_confirmation":
+            return self.weh.get_element(self.vlan_tab_confirmation)
+        elif element == "transmission_tab_confirmation":
+            return self.weh.get_element(self.transmission_tab_confirmation)
         return None
 
     def get_device_d360_save_port_configuration(self):
@@ -1718,4 +1832,204 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_ports_each_asic_port_group_stack(self, port_asic, slot):
         return self.weh.get_template_elements(self.device360_ports_each_asic_port_group_stack, parent=port_asic, slot=slot)
 
+    def get_device360_overview_port(self, port):
+        """
+        :param port: -voss: x/y (Ex: 1/2)
+                     -exos: x (Ex: 1)
+                     -stack: slot:port (Ex: 1:2)
+                     -management: mgmt
+                     -console: console
+        """
+        return self.weh.get_template_element(self.device360_overview_select_port, index=port)
 
+    def get_device360_overview_port_info_bounce_port(self):
+        return self.weh.get_element(self.device360_overview_port_info_bounce_port)
+
+    def get_device360_overview_port_info_bounce_poe(self):
+        return self.weh.get_element(self.device360_overview_port_info_bounce_poe)
+
+    def get_device360_ports_description_table_header(self):
+        header_element = self.weh.get_element(self.device360_ports_description_table_header)
+        return [h.strip() for h in header_element.text.split("\n")]
+
+    def get_device360_ports_description_table_row(self):
+        return self.weh.get_element(self.device360_ports_description_table_header)
+
+    def get_device360_all_checkboxes(self):
+        checkboxes = self.get_device360_coluns_toggle_checkboxes()
+        results = {}
+        for checkbox in checkboxes:
+            label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
+            label = self.weh.get_element({"XPATH": label_xpath}).text
+            results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
+        return results
+
+    def get_device360_all_marked_checkboxes(self):
+        checkboxes = self.get_device360_coluns_toggle_checkboxes()
+        results = {}
+        for checkbox in checkboxes:
+            label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
+            label = self.weh.get_element({"XPATH": label_xpath}).text
+            if checkbox.is_selected():
+                results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
+        return results
+
+    def get_device360_port_table_rows(self):
+        return self.weh.get_elements(self.device360_ports_table_rows)
+
+    def get_device360_ports_table_pagination_sizes(self):
+        return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
+
+    def get_device360_ports_table_current_pagination_size(self):
+        return self.weh.get_element(self.device360_ports_table_current_pagination_size)
+
+    def get_device360_ports_table_th_columns(self):
+        header_row = self.get_device360_ports_description_table_row()
+        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+        return {th.text.strip(): th for th in ths if th.text.strip()}
+
+    def get_device360_ports_table(self):
+        header_row = self.get_device360_ports_description_table_row()
+        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+
+        table_rows = self.get_device360_port_table_rows()
+        results = []
+        for row in table_rows:
+            result = {}
+            tds = self.weh.get_elements(self.device360_ports_table_td_gridcell, parent=row)
+            for th, td in zip(ths, tds):
+                if th.text.strip():
+                    result[th.text.strip()] = td.text.strip()
+            results.append(result)
+        return results
+
+    def get_device360_pagination_page_buttons(self):
+        return self.weh.get_elements(self.d360_pagination_page_button)
+
+    def get_device360_pagination_current_page(self):
+        return self.weh.get_element(self.d360_pagination_current_page)
+
+    def get_d360_configure_port_mac_locking_tab_button(self):
+        return self.weh.get_element(self.d360_configure_port_mac_locking_tab_button)
+
+    def get_d360_monitor_mac_locking_checkbox_interface(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_checkbox_interface, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_on_off(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_on_off, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_max_first_arrival_limit(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_max_first_arrival_limit, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_disable_port(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_disable_port, port_number=port_number)
+
+    def get_d360_monitor_mac_locking_remove_aged_macs(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_mac_locking_remove_aged_macs, port_number=port_number)
+
+    def get_d360_save_port_configuration(self):
+        return self.weh.get_element(self.d360_save_port_configuration)
+
+    def get_d360_monitor_mac_locking_interface_edit_button(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_interface_edit_button)
+
+    def get_d360_monitor_mac_locking_multi_edit_max_first_arrival_limit_checkbox(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_max_first_arrival_limit_checkbox)
+
+    def get_d360_monitor_mac_locking_input_max_first_arrival_limit_value(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_input_max_first_arrival_limit_value)
+
+    def get_d360_monitor_mac_locking_multi_edit_save_button(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_save_button)
+
+    def get_d360_monitor_mac_locking_multi_edit_warning_max_limit_arrival(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_warning_max_limit_arrival)
+
+    def get_d360_monitor_mac_locking_multi_edit_close_button(self):
+        return self.weh.get_elements(self.d360_monitor_mac_locking_multi_edit_close_button)
+
+    def get_d360_monitor_mac_locking_header(self):
+        return self.weh.get_element(self.d360_monitor_mac_locking_header)
+
+    def get_device360_event_expand_more(self, row):
+        """
+        :return: Events more expand link for showing detail description of the event.
+        """
+        return self.weh.get_element(self.device360_event_expand_more, parent = row)
+
+    def get_device360_event_more_expand_value(self):
+        """
+        :return: value of the expand more in the Device360 Events grid for the specified row
+        """
+        return self.weh.get_element(self.device360_event_more_expand_value)
+
+    def get_device360_event_more_close_btn(self):
+        return self.weh.get_element(self.device360_event_more_close_btn)
+
+    def get_close_port_type_dialog_box(self):
+        return self.weh.get_element(self.close_port_type_dialog_box)
+
+
+    def get_device360_configure_port_access_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_access_vlan_textfield_VOSS, row)
+
+    def get_device360_configure_port_trunk_native_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_trunk_native_vlan_textfield_VOSS, row)
+
+    def get_device360_configure_port_trunk_vlan_textfield_VOSS(self, row):
+        return self.weh.get_element(self.device360_configure_port_trunk_vlan_textfield_VOSS, row)
+
+    def get_cancel_port_type_editor(self):
+        return self.weh.get_element(self.cancel_port_type_editor)
+
+    def get_phone_dscp_values_validation_errors(self, validation_message="Please enter a valid number between 0-63"):
+        return self.weh.get_template_elements(self.select_element_dscp_values_validation_span,
+                                              validation_message=validation_message)
+    def get_cancel_port_type_editor(self):
+        return self.weh.get_element(self.cancel_port_type_editor)
+
+    def get_phone_dscp_values_validation_errors(self, validation_message="Please enter a valid number between 0-63"):
+        return self.weh.get_template_elements(self.select_element_dscp_values_validation_span,
+                                              validation_message=validation_message)
+
+    def get_cancel_port_type_editor(self):
+        return self.weh.get_element(self.cancel_port_type_editor)
+
+    def get_phone_dscp_values_validation_errors(self, validation_message="Please enter a valid number between 0-63"):
+        return self.weh.get_template_elements(self.select_element_dscp_values_validation_span,
+                                              validation_message=validation_message)
+    def get_device360_voip_port_rows(self):
+        return self.weh.get_elements(self.device360_voip_port_rows)
+
+    def get_device360_voip_tab_data(self):
+        return self.weh.get_elements(self.device360_voip_tab_data)
+
+    def get_device360_voip_tab(self):
+        return self.weh.get_elements(self.device360_voip_tab)
+
+    def get_device360_vlan_lldp_capabilities(self,port_row):
+        return self.weh.get_element(self.device360_vlan_lldp_capabilities,port_row)
+
+    def get_device360_802_1_voice_vlan(self,port_row):
+        return self.weh.get_element(self.device360_802_1_voice_vlan,port_row)
+
+    def get_d360_port_voice_vlan_med_dscp(self,port_row):
+        return self.weh.get_element(self.d360_port_voice_vlan_med_dscp,port_row)
+
+    def get_d360_port_voice_vlan_med_sig_dscp(self,port_row):
+        return self.weh.get_element(self.d360_port_voice_vlan_med_sig_dscp,port_row)
+
+    def get_d360_port_voice_vlan_cdp_capabilities(self,port_row):
+        return self.weh.get_element(self.d360_port_voice_vlan_cdp_capabilities,port_row)
+
+    def get_d360_cdp_voice_vlan(self,port_row):
+        return self.weh.get_element(self.d360_cdp_voice_vlan,port_row)
+
+    def get_d360_advert_power_available(self,port_row):
+        return self.weh.get_element(self.d360_advert_power_available,port_row)
+
+    def get_d360_port_type_drop_down(self,port_row):
+        return self.weh.get_element(self.d360_port_type_dropdown,port_row)
+
+    def get_d360_port_type_options(self,row):
+        return self.weh.get_elements(self.d360_port_type_options,row)

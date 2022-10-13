@@ -113,14 +113,15 @@ class DeviceTemplate(object):
         self.utils.print_info("Click on the save template button")
         self.auto_actions.scroll_up()
         self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
-        sleep(5)
+        sleep(2)
 
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-        observed_temp_message = tool_tp_text[-1]
-        self.utils.print_info("Tooltip Message Displayed on UI is : ", observed_temp_message)
+        self.utils.print_info("Checking the Save profile message...")
+        observed_profile_message = self.device_template_web_elements.get_ap_template_save_tool_tip().text
+        self.utils.print_info("Observed Message: ", observed_profile_message)
+        self.screen.save_screen_shot()
+        sleep(2)
 
-        if "AP template was saved successfully" in observed_temp_message:
+        if "AP template was saved successfully" in observed_profile_message:
             return 1
         else:
             return -1

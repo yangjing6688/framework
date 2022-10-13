@@ -48,6 +48,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_manage_tools_menu_item(self):
         return self.weh.get_element(self.manage_tools_menu_item)
 
+    def get_subtab_head_img_nav(self):
+        return self.weh.get_element(self.subtab_head_img_nav)
+
     def get_network_policies_sub_tab(self):
         return self.weh.get_element(self.configure_network_policy_nav)
 
@@ -137,6 +140,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_common_object_basic_vlans(self):
         return self.weh.get_element(self.common_object_basic_vlans)
 
+    def get_common_object_basic_supplemental_cli(self):
+        return self.weh.get_element(self.common_object_basic_supplemental_cli)
+
     def get_manage_alarms_nav(self):
         return self.weh.get_element(self.manage_alarms_nav)
 
@@ -163,9 +169,10 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_network_policy_page_size(self, page_size='100'):
         if els := self.weh.get_elements(self.network_policy_page_size):
-            for el in els:
-                if str(page_size) in el.text:
-                    return el
+            if els:
+                for el in els:
+                    if str(page_size) in el.text:
+                        return el
 
     def get_device_actions_button(self):
         return self.weh.get_element(self.device_actions_button)
@@ -685,3 +692,18 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_port_rows_d360(self):
         return self.weh.get_elements(self.port_rows_d360)
+
+    def get_page_size(self, page_size='100'):
+        try:
+            if els := self.weh.get_elements(self.page_size):
+                for el in els:
+                    if str(page_size) in el.text:
+                        return el
+            # Nothing was found
+            return None
+        except:
+            # An error occured
+            return None
+
+    def get_100_devices_per_page(self):
+        return self.weh.get_element(self.no_100_devices_per_page)

@@ -22,7 +22,7 @@ class MuCPWebElement(MuCPWebElementDefinitions):
                         "CLASS_NAME": By.CLASS_NAME,
                         }
 
-    def open_cp_browser(self, mu_ip, url=None):
+    def open_cp_browser(self, mu_ip, url=None, incognito=False):
         """
         Open captive portal browser on the remote mu
         :param mu_ip: Ip of the remote mu
@@ -36,6 +36,8 @@ class MuCPWebElement(MuCPWebElementDefinitions):
             caps = webdriver.DesiredCapabilities.CHROME.copy()
             ops = Options()
             ops.add_argument('--disable-notifications')
+            if incognito:
+                ops.add_argument('--incognito')
             command_executor = "http://" + mu_ip + ":4444/wd/hub"
             self.utils.print_info(f"Command Executor:{command_executor}")
             self.driver = webdriver.Remote(desired_capabilities=caps, command_executor=command_executor, options=ops)
@@ -81,6 +83,13 @@ class MuCPWebElement(MuCPWebElementDefinitions):
         self.utils.print_info("Close Captive Portal Browser")
         sleep(2)
         self.driver.quit()
+
+    def refresh_cp_browser(self):
+        self.utils.print_info("Reload Captive Portal Browser")
+        self.driver.refresh
+        sleep(2)
+        self.get_page_screen_shot()
+        sleep(1)
 
     @property
     def get_page_title(self):
