@@ -1060,7 +1060,7 @@ class Devices:
                 prev_serials = []
 
             self.utils.print_info("Clicking on ADD button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
             self.utils.print_info("Selecting Quick Add Devices menu")
             self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
@@ -1212,14 +1212,14 @@ class Devices:
         sleep(3)
         if self.device_actions.get_device_actions_dropdown():
             self.utils.print_info("Move to Assign Network policy action")
-            self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo)
+            self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
             self.utils.print_info("Click on Assign Network policy action")
             self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_combo)
             sleep(4)
             select_is_shown = self.devices_web_elements.get_nw_policy_drop()
             if select_is_shown:
                 self.utils.print_info("Click on network policy drop down")
-                self.auto_actions.click_reference(select_is_shown)
+                self.auto_actions.click(select_is_shown)
                 sleep(3)
                 network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
                 if self.auto_actions.select_drop_down_options(network_policy_items, policy_name):
@@ -1744,7 +1744,7 @@ class Devices:
             self.screen.save_screen_shot()
 
             self.utils.print_info("Selecting Activate After radio button")
-            self.auto_actions.click_reference(self.device_update.get_activate_after_radio())
+            self.auto_actions.click_reference(self.device_update.get_activate_after_radio)
 
             self.utils.print_info("Setting Activate time to 60 seconds")
             self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), activate_time)

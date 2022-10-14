@@ -89,7 +89,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             sleep(1)
 
             self.utils.print_info("Save Floor")
-            self.auto_actions.click_reference(self.get_floor_button())
+            self.auto_actions.click_reference(self.get_floor_button)
             sleep(2)
 
         self.utils.print_info("Click Next:Onboard Devices Button ")
@@ -245,7 +245,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
 
         if self.get_drawer_content().is_displayed():
             self.utils.print_info("Closing Advance Onboard Dialogue PopUp window")
-            self.auto_actions.click_reference(self.get_drawer_trigger))
+            self.auto_actions.click_reference(self.get_drawer_trigger)
             sleep(4)
 
         self.navigator.navigate_to_devices()
