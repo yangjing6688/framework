@@ -2783,6 +2783,73 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    select_element_port_type_macLock_status = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableMacLocking"]',
+            'wait_for': 5
+
+        }
+
+    select_element_port_type_macLock_max_first_arrival = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-maxfa"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_disable_port = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-shutdown"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_link_down_clear = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-clear"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_link_down_retain = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-retain"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_remove_aged_MACs = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-remove-aged"]',
+            'wait_for': 5
+        }
+
+    select_mac_locking_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-enable"]'
+        }
+
+    select_mac_locking_first_arrival_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-max-fa-limit"]'
+        }
+
+    select_mac_locking_port_disable_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-disable-port"]'
+        }
+
+    select_mac_locking_link_down_action_clear_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-link-down-action"][@title="Clear"]'
+        }
+
+    select_mac_locking_link_down_action_retain_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-link-down-action"][@title="Retain"]'
+        }
+
+    select_mac_locking_remove_aged_macs_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-remove-aged-macs"]'
+        }
+
     device360_cpu_utilized_button = \
         {
             'XPATH': '//*[@class="timeline-legend-label" and text()="CPU UTILIZED"]',
@@ -2871,6 +2938,12 @@ class Device360WebElementDefs:
     device360_ports_table_current_pagin_number = \
         {
             "XPATH": "//div[@class='pagination-num-ctn']//span[@class='pagination-page current-pagination']",
+            'wait_for': 5
+        }
+
+    cancel_button_port_type = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
             'wait_for': 5
         }
 

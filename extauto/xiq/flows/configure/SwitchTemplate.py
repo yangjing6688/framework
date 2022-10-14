@@ -137,7 +137,7 @@ class SwitchTemplate(object):
                 self.auto_actions.click(add_btn)
                 sleep(2)
 
-                self.utils.print_info("select the sw: ", sw_model)
+                self.utils.print_info("Looking for: ", sw_model)
                 sw_list_items = self.sw_template_web_elements.get_sw_template_platform_from_drop_down()
                 sleep(2)
                 model_found = False
@@ -146,8 +146,6 @@ class SwitchTemplate(object):
                         continue
                     if el.text == "":
                         continue
-                    self.utils.print_info("Switch template names: ", el.text.upper())
-                    self.utils.print_info("Looking for: ", sw_model.upper())
                     if sw_model.upper() in el.text.upper():
                         self.utils.print_info("    -switch template match")
                         model_found = True

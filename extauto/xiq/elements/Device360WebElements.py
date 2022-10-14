@@ -1810,6 +1810,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_ports_table_current_pagin_number(self):
         return self.weh.get_element(self.device360_ports_table_current_pagin_number)
 
+    def get_cancel_button_port_type(self):
+        return self.weh.get_element(self.cancel_button_port_type)
+
     def get_device360_digital_twin_status_icon(self):
         return self.weh.get_element(self.device360_digital_twin_status_icon)
 
