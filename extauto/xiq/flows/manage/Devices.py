@@ -6547,9 +6547,7 @@ class Devices:
                 if re.search(r'field-\w*', cell.get_attribute("class")):
                     label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
                     for label_str in col_labels:
-                        self.utils.print_debug(f"Getting Data For Column {label_str}")
                         map_value = label_map.get(label_str)
-                        self.utils.print_debug(f"Comparing label {label} with map value {map_value}")
                         if label == map_value:
                             if label == "productType":
                                 if cell.text:
@@ -7411,18 +7409,6 @@ class Devices:
                 location_generics = self.device_actions.get_locations_generic()
                 location_buildings = self.device_actions.get_locations_building()
                 location_floors = self.device_actions.get_locations_floors()
-
-                for location_item in location_list:
-                    self.utils.print_info("Location items ", location_item)
-
-                for location_generic in location_generics:
-                    self.utils.print_info("Generic locations on UI:", location_generic.text)
-
-                for location_building in location_buildings:
-                    self.utils.print_info("Building locations on UI:", location_building.text)
-
-                for location_floor in location_floors:
-                    self.utils.print_info("Floor locations on UI:", location_floor.text)
 
                 generic_set = False
                 building_set = False
@@ -8321,6 +8307,7 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
+        self.refresh_devices_page()
         self.utils.print_info(f"Select switch row with serial {mac}")
         if not self.select_device(mac):
             self.utils.print_info(f"Switch {mac} is not present in the grid")
@@ -8629,24 +8616,34 @@ class Devices:
         :return: 1 if update configuration is pushed on the device with Reboot/Rollback option
         """
 
-        self.navigator.navigate_to_devices()
+        self.utils.print_info("Navigate to Manage-->Devices")
+
+        def _navigate_to_devices():
+            return self.navigator.navigate_to_devices()
+        self.utils.wait_till(_navigate_to_devices)
+
         self.utils.print_info("Check the Device is up")
         if device_serial:
             device_status = self.get_device_status(device_serial)
+            self.utils.print_info("Result is:", device_status)
+            if device_status == 'green' or device_status == 'config audit mismatch':
+                self.utils.print_info("Select the device")
+                if device_serial:
+                    self.select_device(device_serial)
+            else:
+                self.utils.print_info("Device is down")
+                return -1
         if device_mac:
             device_status = self.get_device_status(device_mac)
-
-        self.utils.print_info("Result is:", device_status)
-        if device_status == 'green' or device_status == 'config audit mismatch':
-            self.utils.print_info("Select the device")
-            if device_serial:
-                self.select_device(device_serial)
-            if device_mac:
-                self.select_device(device_mac)
-                sleep(10)
-        else:
-            self.utils.print_info("Device is down")
-            return -1
+            self.utils.print_info("Result is:", device_status)
+            if device_status == 'green' or device_status == 'config audit mismatch':
+                self.utils.print_info("Select the device")
+                if device_mac:
+                    self.select_device(device_mac)
+                    sleep(10)
+            else:
+                self.utils.print_info("Device is down")
+                return -1
 
         self.utils.print_info("Check if device has policy")
         if self.devices_web_elements.get_assign_policy_device_selected():
@@ -12164,6 +12161,153 @@ class Devices:
             return 1
         else:
             self.utils.print_info("The Quick Add Devices panel is not visible.")
+            return -1
+
+    def select_clone_device(self, device_serial, replacement_device_type, replacement_serial, option="disable"):
+        """
+        - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device level config to another same type SKU switch.
+        :param device_serial: Select the device (first device) that you want to clone the configuration for the replacement device (second device)
+        :param replacement_device_type: Select the type option for replacement device in Cloning process ('Onboarded')
+        :param replacement_serial: Select the serial number for replacement device
+        :param option: 'enable'/'disable' the checkbox for reboot and rollback the configuration if the IQagent loses connectivity during updating the configuration
+        :return: 1 if the cloning process is done else -1
+        """
+        self.utils.print_info("Navigate to Manage-->Devices")
+        def _navigate_to_devices():
+            return self.navigator.navigate_to_devices()
+        self.utils.wait_till(_navigate_to_devices)
+        select_flag = False
+        if device_serial:
+            self.select_device(device_serial)
+            select_flag = True
+        else:
+            self.utils.print_info("Device is not there")
+            self.screen.save_screen_shot()
+            return -1
+
+        if select_flag:
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.device_actions.get_device_actions_button())
+
+        clone_device = self.device_actions.get_clone_device_btn()
+
+        if clone_device:
+            self.utils.print_info("Select Clone device")
+            self.auto_actions.click(clone_device)
+            replacement_device_dropdown = self.device_actions.get_replacement_device_dropdown()
+            if replacement_device_dropdown:
+                self.utils.print_info("Select replacement device drop down")
+                self.auto_actions.click(replacement_device_dropdown)
+                replacement_device_items = self.device_actions.get_replacement_device_items()
+                self.utils.print_info(f"Select {replacement_device_type} option")
+                if self.auto_actions.select_drop_down_options(replacement_device_items, replacement_device_type):
+                    pass
+                else:
+                    self.utils.print_info(f"No {replacement_device_type} option selected")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                self.utils.print_info("No replacement device option found")
+                self.screen.save_screen_shot()
+                return -1
+
+            replacement_serial_number_dropdown = self.device_actions.get_replacement_serial_number_dropdown()
+            if replacement_serial_number_dropdown:
+                self.utils.print_info("Select Replacement serial number")
+                self.auto_actions.click(replacement_serial_number_dropdown)
+                replacement_serial_number_items = self.device_actions.get_replacement_serial_number_items()
+                self.utils.print_info(f"Select {replacement_serial} serial number")
+                if self.auto_actions.select_drop_down_options(replacement_serial_number_items, replacement_serial):
+                    pass
+                else:
+                    self.utils.print_info(f"No {replacement_serial} serial selected")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                self.utils.print_info("No replacement serial number option found")
+                self.screen.save_screen_shot()
+                return -1
+
+            clone_button = self.device_actions.get_clone_button()
+            if clone_button:
+                self.utils.print_info("Select Clone button")
+                self.auto_actions.click(clone_button)
+                yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
+                if yes_confirmation_button:
+                    self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
+                    self.auto_actions.click(yes_confirmation_button)
+                else:
+                    self.utils.print_info(f"No confirm message buttons found")
+                    self.screen.save_screen_shot()
+                    return -1
+
+            def _loading_clone():
+                loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
+                if loading_clone_configuration.is_displayed():
+                    print("Still loading configuration")
+                else:
+                    return 1
+            self.utils.wait_till(_loading_clone, exp_func_resp=1)
+
+            warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
+            if 'disconnected or in the unmanaged state.' not in warning_message_disconnected.text:
+                self.utils.print_info("Performing Update")
+                self.utils.print_info("Select the network policy and configuration checkbox")
+                update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
+                reboot_rollback_check = self.devices_web_elements.get_devices_switch_update_reboot_rollback()
+                sleep(3)
+                if update_cb:
+                    if update_cb.is_selected():
+                        self.utils.print_info("Network policy and configuration checkbox is already selected")
+                        sleep(2)
+                    else:
+                        self.utils.print_info("Clicking network policy and configuration checkbox")
+                        self.auto_actions.click(update_cb)
+                        sleep(2)
+                else:
+                    self.utils.print_info("Network policy and configuration checkbox not found")
+                    return -1
+
+                if reboot_rollback_check:
+                    if option.lower() == "enable":
+                        if not reboot_rollback_check.is_selected():
+                            self.utils.print_info("Check reboot and revert switch configuration option")
+                            self.auto_actions.click(reboot_rollback_check)
+                            sleep(2)
+                        else:
+                            self.utils.print_info("Reboot/revert already checked")
+                    if option.lower() == "disable":
+                        if not reboot_rollback_check.is_selected():
+                            self.utils.print_info("Reboot/revert option already unchecked")
+                            sleep(2)
+                        else:
+                            self.utils.print_info("Uncheck reboot and revert switch configuration option")
+                            self.auto_actions.click(reboot_rollback_check)
+                            sleep(2)
+                else:
+                    self.utils.print_info("Reboot and revert switch configuration checkbox not found")
+                    return -1
+
+                self.utils.print_info("Click on perform update button")
+                self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
+                sleep(3)
+                if option.lower() == "enable":
+                    self.utils.print_info("Proceed yes that user wants to continue with reboot/revert option")
+                    self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+                    sleep(2)
+                else:
+                    pass
+                return 1
+            else:
+                self.utils.print_info("The device clone has been successfully completed, but the device cannot be updated at this time as it's disconnected or in the unmanaged state.")
+                cancel_button = self.device_actions.get_cancel_button()
+                self.utils.print_info("Closing the Clone window")
+                self.screen.save_screen_shot()
+                self.auto_actions.click(cancel_button)
+                return -1
+        else:
+            self.utils.print_info("No clone device button from Actions found")
+            self.screen.save_screen_shot()
             return -1
 
     def confirm_not_enough_copilot_licenses_message_displayed(self):

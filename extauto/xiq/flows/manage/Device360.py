@@ -6133,6 +6133,9 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info("The element is not correct into summary. Current value in summary:" +
                                           conf_element.text + " Wanted value: " + template_values[key][1])
+                    cancel_button_port_type = self.get_cancel_button_port_type()
+                    self.utils.print_info("Canceling the port type profile")
+                    self.auto_actions.click(cancel_button_port_type)
                     return -1
             else:
                 pass
