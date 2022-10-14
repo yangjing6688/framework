@@ -240,7 +240,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         sleep(2)
 
         self.utils.print_info("Click Finish Button")
-        self.auto_actions.click_reference(self.get_advance_onboard_device_finish_button()
+        self.auto_actions.click_reference(self.get_advance_onboard_device_finish_button)
         sleep(2)
 
         if self.get_drawer_content().is_displayed():
