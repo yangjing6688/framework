@@ -40,13 +40,13 @@ class DeviceCliAccess(DeviceCliAccessElements):
         self.auto_actions.send_keys(self.get_cli_cmd_input_field(), cmd)
 
         self.utils.print_info("Click on the cli input apply button")
-        self.auto_actions.click(self.get_cli_cmd_input_apply_button())
+        self.auto_actions.click_reference(self.get_cli_cmd_input_apply_button)
 
         if self.get_cli_command_output_error_tool_tip():
             self.utils.print_info(f"check the command:{cmd} it seems invalid command")
             self.utils.print_info(self.get_cli_command_output_error_tool_tip().text)
             self.utils.print_info("closing the cli dialog window")
-            self.auto_actions.click(self.get_cli_dialog_window_close_button())
+            self.auto_actions.click_reference(self.get_cli_dialog_window_close_button)
             return -1
 
         cli_output = self.get_cli_cmd_output_field().text
@@ -54,7 +54,7 @@ class DeviceCliAccess(DeviceCliAccessElements):
         self.utils.print_info(f"{cli_output}")
 
         self.utils.print_info("closing the cli dialog window")
-        self.auto_actions.click(self.get_cli_dialog_window_close_button())
+        self.auto_actions.click_reference(self.get_cli_dialog_window_close_button)
         return cli_output
 
     def check_cli_output_of_previous_ap_in_current_ap_cli_output(self, device_host_names='', cmd='show hw-info'):
@@ -78,7 +78,7 @@ class DeviceCliAccess(DeviceCliAccessElements):
         self.auto_actions.send_keys(self.get_cli_cmd_input_field(), cmd)
 
         self.utils.print_info("Click on the cli input apply button")
-        self.auto_actions.click(self.get_cli_cmd_input_apply_button())
+        self.auto_actions.click_reference(self.get_cli_cmd_input_apply_button)
 
         self.utils.print_info("Select the second  device")
         self.auto_actions.select_drop_down_options(self.get_cli_device_access_list(), device_host_names.split(',')[1])
@@ -99,7 +99,7 @@ class DeviceCliAccess(DeviceCliAccessElements):
         if first_dev_cli_output:
             self.utils.print_info(f"first device cli output:{first_dev_cli_output}")
             self.utils.print_info("closing the cli dialog window")
-            self.auto_actions.click(self.get_cli_dialog_window_close_button())
+            self.auto_actions.click_reference(self.get_cli_dialog_window_close_button)
             return 1
         return -1
 

@@ -47,13 +47,13 @@ class Switch(SwitchWebElements):
             return 1
 
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
         self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
         self.utils.print_info("Entering Serial Number...")
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), switch_serial)
@@ -65,30 +65,30 @@ class Switch(SwitchWebElements):
         if "VOSS" in device_os.upper() or "VOSS" in switch_make.upper():
             if dropdown_make.is_displayed():
                 self.utils.print_info("Device Make dropdown selection is displayed, selecting VOSS")
-                self.auto_actions.click(self.get_switch_make_drop_down())
+                self.auto_actions.click_reference(self.get_switch_make_drop_down)
                 sleep(2)
                 self.select_drop_down_options(self.get_switch_make_drop_down_options(), "VOSS")
             else:
                 self.utils.print_info("Switch/Fabric Engine radio options are displayed, selecting Fabric Engine")
-                self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_voss_radio)
       
         if "EXOS" in device_os.upper() or "EXOS" in switch_make.upper():
             if dropdown_make.is_displayed():
                 self.utils.print_info("Device Make dropdown selection is displayed, selecting EXOS")
-                self.auto_actions.click(self.get_switch_make_drop_down())
+                self.auto_actions.click_reference(self.get_switch_make_drop_down)
                 sleep(2)
                 self.select_drop_down_options(self.get_switch_make_drop_down_options(), "EXOS")
             else:
                 self.utils.print_info("Switch/Fabric Engine radio options are displayed, selecting Switch Engine")
-                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())          
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_exos_radio)
 
         sleep(2)
         if location:
-            self.auto_actions.click(self.devices_web_elements.get_location_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self.devices._select_location(location)
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
@@ -96,7 +96,7 @@ class Switch(SwitchWebElements):
         if dialog_message:
             if switch_serial + BuiltIn().get_variable_value('${MSG_DUPLICATE_DEVICE}', default='Device already onboarded') in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-600'))
                 return -1
 
@@ -138,16 +138,16 @@ class Switch(SwitchWebElements):
         sleep(2)
         if 'aerohive' in switch_type:
             self.utils.print_info("Clicking on ADD button...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
             self.utils.print_info("Selecting Quick Add menu")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_menu_item())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_menu_item)
 
             self.utils.print_info("Entering Serial Number....:", switch_serial)
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), switch_serial)
 
             self.utils.print_info("Clicking on ADD DEVICES button...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
             tooltip_text = self.dialogue_web_elements.get_tooltip_text()
             sleep(5)
@@ -165,7 +165,7 @@ class Switch(SwitchWebElements):
                 self.utils.print_info("Dialog Message: ", dialog_message)
                 if "Device already onboarded" in dialog_message:
                     self.utils.print_info("Error: ", dialog_message)
-                    self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 return -1
             else:
                 self.utils.print_info("No Dialog box")
@@ -194,7 +194,7 @@ class Switch(SwitchWebElements):
         for row in rows:
             if sw_serial in row.text:
                 self.utils.print_info("Found Switch Row: ", row.text)
-                self.auto_actions.click(self.get_switch_name())
+                self.auto_actions.click_reference(self.get_switch_name)
                 sleep(2)
                 return 1
         return -1
@@ -339,8 +339,8 @@ class Switch(SwitchWebElements):
                 self.utils.print_info("Found switch Row: ", row.text)
                 self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
                 sleep(3)
-                self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
         for row in rows:
             if sw_serial in row.text:
                 self.utils.print_info("Unable to delete switch")
@@ -431,7 +431,7 @@ class Switch(SwitchWebElements):
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)
-        self.auto_actions.click(self.login_web_elements.get_about_extreme_cloudiq_link())
+        self.auto_actions.click_reference(self.login_web_elements.get_about_extreme_cloudiq_link)
         sleep(2)
 
         switch_connection_host = self.get_switch_connection_host_details()
@@ -439,7 +439,7 @@ class Switch(SwitchWebElements):
         sleep(4)
 
         self.utils.print_info("Close About ExtremecloudIQ Link Dialogue Page")
-        self.auto_actions.click(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue())
+        self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
         sleep(2)
 
         return switch_connection_host
