@@ -540,3 +540,27 @@ class CopilotWebElements(CopilotWebElementsDefinitions):
 
     def get_copilot_menu_alert_message_banner(self):
         return self.weh.get_element(self.copilot_menu_alert_message_banner)
+
+    def get_wireless_connectivity_experience_widget(self):
+        return self.weh.get_element(self.wireless_connectivity_experience_widget)
+
+    def get_wireless_client_experience_widget_location_grid_rows_from_widget(self, widget):
+        return self.weh.get_elements(self.wirless_client_experience_widget_location_grid_rows, widget)
+
+    def get_view_by_wireless_clientexp_option(self):
+        return self.weh.get_elements(self.wifi_clientexp_widget_viewby_option_handle)
+
+    def get_wireless_clientexp_widget_viewby_options(self):
+        return self.weh.get_elements(self.wifi_clientexp_widget_sort_viewby_options)
+
+    def get_wireless_client_experience_widget_duration_handle(self):
+        return self.weh.get_element(self.wifi_clientexp_widget_duration_handle)
+
+    def get_wireless_client_experience_widget_duration_option(self):
+        return self.weh.get_elements(self.wifi_clientexp_widget_duration_options)
+
+    def get_wireless_clientexp_quality_index(self):
+        return self.weh.get_element(self.wireless_clientexp_quality_index)
+
+    def get_wireless_client_experience_widget_ssid_grid_rows_from_widget(self, widget):
+        return self.weh.get_elements(self.wirless_client_experience_widget_ssid_grid_rows, widget)
