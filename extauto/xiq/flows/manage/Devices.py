@@ -1965,14 +1965,13 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-
     def onboard_device_quick(self, *device_dict, **kwargs):
         """
-        - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
+        - This keyword onboards: an aerohive device [AP or Switch], Exos Switch and Voss devices using Quick onboarding flow.
         - Keyword Usage:
          - ``Onboard Device  ${ap1}``
                 {ap1} - dictionary from .yaml file of the testbed ( 'ap1' is only an example )
-                Exemple:
+                Example:
                 {'name': 'bui-flo-1996',
                 'connection_method': 'telnet',
                 'ip': '10.16.171.71',
@@ -2024,12 +2023,15 @@ class Devices:
         location = device_dict.get("location")
         service_tag = device_dict.get("service_tag")  # argument for Real device ---> Dell
         csv_location = device_dict.get("csv_location")
+        device_os = device_dict.get("os")
 
-        # Arguments for device_type == "Simulated" and device_type == "Digital Twin"
+        # Arguments for device_type == "Simulated"
         device_model = device_dict.get("model")
         device_count = device_dict.get("simulated_count")
-        device_os = device_dict.get("os")
-        os_persona = device_dict.get("os_persona")
+
+        # Arguments for device_type == "Digital Twin"
+        os_version = device_dict.get("digital_twin_version")
+        os_persona = device_dict.get("digital_twin_persona")
 
         if "csv_location" in device_dict:
             return self.quick_onboarding_cloud_csv(device_make=device_dict.get("device_make"), csv_location=device_dict.get("csv_location"))
@@ -2041,7 +2043,6 @@ class Devices:
             return -1
 
         self.utils.print_info("Onboarding: ", device_make)
-
         self.navigator.navigate_to_devices()
 
         self.utils.print_info("Clicking on ADD button...")
@@ -2072,15 +2073,15 @@ class Devices:
         self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
 
         if device_type.lower() == "real":
-            if self.set_onboard_values_for_real(device_serial, device_make, entry_type, device_os) != 1:
+            if self.set_onboard_values_for_real(device_serial, device_make, entry_type, device_os, service_tag, device_mac, location) != 1:
                 return -1
 
         elif device_type.lower() == "simulated":
-            if self.set_onboard_values_for_simulated(device_model, device_count) !=1:
+            if self.set_onboard_values_for_simulated(device_model, device_count) != 1:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) !=1:
+            if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
         if location:
@@ -2104,12 +2105,27 @@ class Devices:
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
 
-            kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
-            self.common_validation.failed(**kwargs)
-            return -1
+                kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            elif "License limit exceeded for managed device" in dialog_message:
+                self.utils.print_info("Error: ", dialog_message)
+                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
+                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+
+                kwargs['fail_msg'] = f"Fail Onboarded - License limit exceeded for managed device"
+                self.common_validation.failed(**kwargs)
+                return -1
+            else:
+                self.utils.print_info(f"Dialog Message: {dialog_message}")
+                kwargs['fail_msg'] = f"{dialog_message}"
+                self.common_validation.failed(**kwargs)
+                return -1
         else:
             self.utils.print_info("No Dialog box")
 
@@ -2151,36 +2167,44 @@ class Devices:
         :param csv_location: CSV File Name
         :param device_os: verifies the Device OS automatically selected after entering device serial
         :param location: device location
+        :param device_model: device model ex: AP460S6C
         :param os_persona: for Digital Twin
         :return:  1 if validate success
         :return: -1 for error : one or more arguments are missing
         """
         if device_type.lower() == "real":
             if entry_type.lower() == "manual":
-                if device_serial == None or device_make == None or location == None:
-                    kwargs['fail_msg'] = f"The 'serial': [{device_serial}], 'make': [{device_make}] and 'location': [{location}] are required when onboarding 'Real' devices without using a CSV file. One or more of the required values are missing."
+                if device_serial is None or device_make is None or location is None:
+                    kwargs['fail_msg'] = f"The 'serial': [{device_serial}], 'make': [{device_make}] and 'location': " \
+                                         f"[{location}] are required when onboarding 'Real' devices without using a CSV" \
+                                         f" file. One or more of the required values are missing."
                     self.common_validation.failed(**kwargs)
                     return -1
             elif entry_type.lower() == "csv":
-                if device_make == None or csv_location == None:
-                    kwargs['fail_msg'] = f"The 'make': [{device_make}] and 'CSV file': [{csv_location}] are required when onboarding 'Real' devices with using a CSV file. One or more of the required values are missing."
+                if device_make is None or csv_location is None:
+                    kwargs['fail_msg'] = f"The 'make': [{device_make}] and 'CSV file': [{csv_location}] are required " \
+                                         f"when onboarding 'Real' devices with using a CSV file. One or more of the " \
+                                         f"required values are missing."
                     self.common_validation.failed(**kwargs)
                     return -1
 
         elif device_type.lower() == "simulated":
-            if device_model == None or location == None:
-                kwargs['fail_msg'] = f"The 'model': [{device_model}] and 'location': [{location}] are required when onboarding 'Simulated' devices. One or more of the required values are missing."
+            if device_model is None or location is None:
+                kwargs['fail_msg'] = f"The 'model': [{device_model}] and 'location': [{location}] are required when " \
+                                     f"onboarding 'Simulated' devices. One or more of the required values are missing."
                 self.common_validation.failed(**kwargs)
                 return -1
 
         elif device_type.lower() == "digital twin":
-            if device_model == None or device_os == None or os_persona == None:
-                kwargs['fail_msg'] = f"The 'model': [{device_model}], 'OS version': [{device_os}] and 'OS persona': [{os_persona}] are required when onboarding 'Digital Twin' devices. One or more of the required values are missing."
+            if device_model is None or device_os is None or os_persona is None:
+                kwargs['fail_msg'] = f"The 'model': [{device_model}], 'OS version': [{device_os}] and 'OS persona': " \
+                                     f"[{os_persona}] are required when onboarding 'Digital Twin' devices. " \
+                                     f"One or more of the required values are missing."
                 self.common_validation.failed(**kwargs)
                 return -1
         return 1
 
-    def set_onboard_values_for_real(self, device_serial, device_make, entry_type, device_os):
+    def set_onboard_values_for_real(self, device_serial, device_make, entry_type, device_os, service_tag, device_mac, location):
         """
         This method is create for onboard device with device_type == Real
         """
@@ -2265,10 +2289,10 @@ class Devices:
                 return _errors
 
         elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
-            return self.onboard_wing_ap(device_serial, device_mac, device_make, location)
+            return self.onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
 
         if 'DUAL BOOT' in device_make.upper():
-            return self.onboard_ap(device_serial, device_make, location, device_os)
+            return self.onboard_ap(device_serial=device_serial, device_make=device_make, location=location, device_os=device_os)
 
         if device_make:
             sleep(5)
