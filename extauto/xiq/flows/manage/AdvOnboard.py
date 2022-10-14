@@ -24,10 +24,10 @@ class AdvOnboard(AdvOnboardWebElements):
         """
         self.navigator.navigate_to_devices()
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.get_devices_add_button())
+        self.auto_actions.click_reference(self.get_devices_add_button)
 
         self.utils.print_info("Selecting Advanced On boarding Menu")
-        self.auto_actions.click(self.get_adv_onboard_add_menu_item())
+        self.auto_actions.click_reference(self.get_adv_onboard_add_menu_item)
 
     def _got_to_next_tab(self):
         """
@@ -35,7 +35,7 @@ class AdvOnboard(AdvOnboardWebElements):
         :return:
         """
         self.utils.print_info("Click on next button....")
-        self.auto_actions.click(self.get_onboard_next_button())
+        self.auto_actions.click_reference(self.get_onboard_next_button)
         sleep(5)
 
     def _do_skip_action(self):
@@ -44,7 +44,7 @@ class AdvOnboard(AdvOnboardWebElements):
         :return:
         """
         self.utils.print_info("Click on skip button....")
-        self.auto_actions.click(self.get_onboard_skip_button())
+        self.auto_actions.click_reference(self.get_onboard_skip_button)
         sleep(5)
 
     def _add_device(self, device_type=None, device_model=None, device_serials=None):
@@ -93,10 +93,10 @@ class AdvOnboard(AdvOnboardWebElements):
         :return: True if successfully added else False
         """
         self.utils.print_info("Click on simulated device radio button")
-        self.auto_actions.click(self.get_add_dev_dev_type_sim())
+        self.auto_actions.click_reference(self.get_add_dev_dev_type_sim)
 
         self.utils.print_info("Click on simulated device drop down")
-        self.auto_actions.click(self.get_simulated_device_drop_down())
+        self.auto_actions.click_reference(self.get_simulated_device_drop_down)
 
         self.utils.print_info(f"select device:{device_model}")
         self.auto_actions.select_drop_down_options(self.get_simulated_device_drop_down_opts(), device_model)
@@ -113,25 +113,25 @@ class AdvOnboard(AdvOnboardWebElements):
         """
 
         self.utils.print_info("Clicking on real device radio button")
-        self.auto_actions.click(self.get_real_devices_radio_button())
+        self.auto_actions.click_reference(self.get_real_devices_radio_button)
 
         if device_model.upper() == "EXTREME-AEROHIVE":
             self.utils.print_info("Click on Extreme-Aerohive device tab")
-            self.auto_actions.click(self.get_extreme_aerohive_device_tab())
+            self.auto_actions.click_reference(self.get_extreme_aerohive_device_tab)
 
             self.utils.print_info("Entering Extreme-Aerphive device serial numbers")
             self.auto_actions.send_keys(self.get_adv_onboard_serial_text_area(), device_serials)
 
         elif device_model.upper() == "EXOS":
             self.utils.print_info("Click on EXOS device tab")
-            self.auto_actions.click(self.get_exos_device_tab())
+            self.auto_actions.click_reference(self.get_exos_device_tab)
 
             self.utils.print_info("Entering Exos device serial numbers")
             self.auto_actions.send_keys(self.get_exos_serial_text_area(), device_serials)
 
         elif device_model.upper() == "VOSS":
             self.utils.print_info("Click on Voss device tab")
-            self.auto_actions.click(self.get_voss_device_tab())
+            self.auto_actions.click_reference(self.get_voss_device_tab)
 
             self.utils.print_info("Entering Voss device serial numbers")
             self.auto_actions.send_keys(self.get_add_dev_voss_sl_num_textarea(), device_serials)
@@ -162,9 +162,9 @@ class AdvOnboard(AdvOnboardWebElements):
         self.utils.print_info("Click on access points tab")
 
         if self.get_assign_loc_ap_button():
-            self.auto_actions.click(self.get_assign_loc_ap_button())
+            self.auto_actions.click_reference(self.get_assign_loc_ap_button)
         else:
-            self.auto_actions.click(self.get_assign_loc_ap_button1())
+            self.auto_actions.click_reference(self.get_assign_loc_ap_button1)
 
         if not self._select_ap_rows_in_location_grid(device_serial):
             self.utils.print_info(f"Ap with SN {device_serial} not present in location grid")
@@ -215,7 +215,7 @@ class AdvOnboard(AdvOnboardWebElements):
         floor_node = location_config.get('floor_node')
 
         self.utils.print_info("click on the assign location button")
-        self.auto_actions.click(self.get_assign_loc_button())
+        self.auto_actions.click_reference(self.get_assign_loc_button)
 
         self.utils.print_info("Click on country node open icon")
         country_nodes = self.get_location_nodes()
@@ -236,7 +236,7 @@ class AdvOnboard(AdvOnboardWebElements):
             return False
 
         self.utils.print_info("Click on location assign button")
-        self.auto_actions.click(self.get_assign_loc_assign_button())
+        self.auto_actions.click_reference(self.get_assign_loc_assign_button)
         sleep(2)
 
         return True
@@ -262,15 +262,15 @@ class AdvOnboard(AdvOnboardWebElements):
 
         elif device_type.upper() == "SWITCHES":
             self.utils.print_info("Click on switches tab")
-            self.auto_actions.click(self.get_assign_loc_switch_button())
+            self.auto_actions.click_reference(self.get_assign_loc_switch_button)
 
         elif device_type.upper() == "ROUTERS":
             self.utils.print_info("Click on routers tab")
-            self.auto_actions.click(self.get_assign_loc_router_button())
+            self.auto_actions.click_reference(self.get_assign_loc_router_button)
 
         elif device_type.upper() == "VPN GATEWAY":
             self.utils.print_info("Click on access points tab")
-            self.auto_actions.click(self.get_assign_loc_vpn_gateway())
+            self.auto_actions.click_reference(self.get_assign_loc_vpn_gateway)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -306,7 +306,7 @@ class AdvOnboard(AdvOnboardWebElements):
             self.auto_actions.select_radio_button(self.get_create_nw_policy_use_existing_policy())
             sleep(2)
             self.utils.print_info(f"Selecting existing network policy:{policy_name} from drop down")
-            self.auto_actions.click(self.get_create_nw_policy_use_existing_policy_dropdown())
+            self.auto_actions.click_reference(self.get_create_nw_policy_use_existing_policy_dropdown)
             sleep(2)
 
             if not self.auto_actions.select_drop_down_options(self.get_create_nw_policy_use_existing_policy_list(), policy_name):
@@ -566,5 +566,5 @@ class AdvOnboard(AdvOnboardWebElements):
         sleep(2)
 
         self.utils.print_info("Click on advance on board finish button")
-        self.auto_actions.click(self.get_onboard_finish_button())
+        self.auto_actions.click_reference(self.get_onboard_finish_button)
         return 1

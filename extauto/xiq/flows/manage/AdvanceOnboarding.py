@@ -45,16 +45,16 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         self._got_to_advanced_onboard_tab()
 
         self.utils.print_info("Click Location:Next Button")
-        self.auto_actions.click(self.get_deploy_devices_next_location_button())
+        self.auto_actions.click_reference(self.get_deploy_devices_next_location_button)
         sleep(3)
 
         if not create_location:
             self.utils.print_info("Click Next:Building Button ")
-            self.auto_actions.click(self.get_deploy_devices_next_location_button())
+            self.auto_actions.click_reference(self.get_deploy_devices_next_location_button)
             sleep(3)
 
             self.utils.print_info("Click Next:Floor Button ")
-            self.auto_actions.click(self.get_deploy_devices_next_location_button())
+            self.auto_actions.click_reference(self.get_deploy_devices_next_location_button)
             sleep(3)
 
         else:
@@ -64,11 +64,11 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             sleep(1)
 
             self.utils.print_info("Save Location")
-            self.auto_actions.click(self.get_onboard_devices_button())
+            self.auto_actions.click_reference(self.get_onboard_devices_button)
             sleep(2)
 
             self.utils.print_info("Click Next:Building Button ")
-            self.auto_actions.click(self.get_deploy_devices_next_location_button())
+            self.auto_actions.click_reference(self.get_deploy_devices_next_location_button)
             sleep(1)
 
             self.utils.print_info("Enter Building")
@@ -77,11 +77,11 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             self.auto_actions.send_keys(self.get_building_address(), location_list[2].strip())
 
             self.utils.print_info("Save Building")
-            self.auto_actions.click(self.get_onboard_devices_button())
+            self.auto_actions.click_reference(self.get_onboard_devices_button)
             sleep(1)
 
             self.utils.print_info("Click Next:Floor Button ")
-            self.auto_actions.click(self.get_deploy_devices_next_location_button())
+            self.auto_actions.click_reference(self.get_deploy_devices_next_location_button)
             sleep(1)
 
             self.utils.print_info("Add a Floor")
@@ -89,11 +89,11 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             sleep(1)
 
             self.utils.print_info("Save Floor")
-            self.auto_actions.click(self.get_floor_button())
+            self.auto_actions.click_reference(self.get_floor_button())
             sleep(2)
 
         self.utils.print_info("Click Next:Onboard Devices Button ")
-        self.auto_actions.click(self.get_deploy_devices_next_location_button())
+        self.auto_actions.click_reference(self.get_deploy_devices_next_location_button)
         sleep(3)
 
         self.screen.save_screen_shot()
@@ -101,14 +101,14 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
 
         if device_type == "Real":
             self.utils.print_info("Selecting Real Device type Radio Button")
-            self.auto_actions.click(self.get_devices_type_real_radio_button())
+            self.auto_actions.click_reference(self.get_devices_type_real_radio_button)
             sleep(2)
 
             self.screen.save_screen_shot()
             sleep(2)
         else:
             self.utils.print_info("Selecting Simulated Device type Radio Button")
-            self.auto_actions.click(self.get_devices_type_simulated_radio_button())
+            self.auto_actions.click_reference(self.get_devices_type_simulated_radio_button)
             sleep(2)
 
             self.screen.save_screen_shot()
@@ -116,7 +116,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
 
         if entry_type == "Manual":
             self.utils.print_info("Selecting Entry Type as Manual")
-            self.auto_actions.click(self.get_entry_type_manual_radio_button())
+            self.auto_actions.click_reference(self.get_entry_type_manual_radio_button)
             sleep(2)
 
             self.screen.save_screen_shot()
@@ -132,7 +132,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             if device_make:
                 self.utils.print_info(f"Clicking Device Make Type Drop Down")
                 if self.get_device_make_aerohive_dropdown().is_displayed():
-                    self.auto_actions.click(self.get_device_make_aerohive_dropdown())
+                    self.auto_actions.click_reference(self.get_device_make_aerohive_dropdown)
                     sleep(3)
 
                     self.utils.print_info(f"Selecting Device Make Type Option : {device_make}")
@@ -143,7 +143,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                     sleep(2)
 
                 if self.get_device_make_select_one_dropdown():
-                    self.auto_actions.click(self.get_device_make_select_one_dropdown())
+                    self.auto_actions.click_reference(self.get_device_make_select_one_dropdown)
                     sleep(3)
                     self.utils.print_info(f"Selecting Device Make Type Option : {device_make}")
                     self.auto_actions.select_drop_down_options(self.get_devices_make_drop_down_options(), device_make)
@@ -161,14 +161,14 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                     self.commonValidation.failed(**kwargs)
         else:
             self.utils.print_info("Selecting Entry Type as CSV")
-            self.auto_actions.click(self.get_entry_type_csv_radio_button())
+            self.auto_actions.click_reference(self.get_entry_type_csv_radio_button)
             sleep(2)
 
             # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
             if 'exos' in device_make.lower():
                 self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
-                self.auto_actions.click(self.devices_web_elements.get_devices_advanced_add_device_make_drop_down())
-                self.auto_actions.click(self.devices_web_elements.get_devices_advanced_add_device_make_voss_choice())
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_advanced_add_device_make_drop_down)
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_advanced_add_device_make_voss_choice)
                 sleep(1)
 
                 if entry_type == "CSV":
@@ -180,25 +180,25 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                         else:
                             kwargs['fail_msg'] = ">>> CSV file could not be specified - upload button not located\n"
                             kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
-                            self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                             self.commonValidation.failed(**kwargs)
                             return -1
                     else:
                         kwargs['fail_msg'] =">>> CSV file was not specified\n"
                         kwargs['fail_msg'] +=">>> Clicking Cancel and exiting - device NOT on-boarded"
-                        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                         self.commonValidation.failed(**kwargs)
                         return -1
 
             else:
                 kwargs['fail_msg'] =">>> Unsupported device type " + device_make + "\n"
                 kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
-                self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                 self.commonValidation.failed(**kwargs)
                 return -1
 
         self.utils.print_info("Click Onboard Devices Button")
-        self.auto_actions.click(self.get_onboard_devices_button())
+        self.auto_actions.click_reference(self.get_onboard_devices_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -211,13 +211,13 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             self.utils.print_info("Dialog Message: ", dialog_message)
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 kwargs['fail_msg'] = f"Error: {dialog_message}"
                 self.commonValidation.failed(**kwargs)
                 return -1
             if "A stake record of the device was found in the redirector." in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 kwargs['fail_msg'] = f"Error: {dialog_message}"
                 self.commonValidation.failed(**kwargs)
                 return -2
@@ -236,16 +236,16 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         sleep(3)
 
         self.utils.print_info("Click Next Topology Button")
-        self.auto_actions.click(self.get_deploy_devices_next_topology_button())
+        self.auto_actions.click_reference(self.get_deploy_devices_next_topology_button)
         sleep(2)
 
         self.utils.print_info("Click Finish Button")
-        self.auto_actions.click(self.get_advance_onboard_device_finish_button())
+        self.auto_actions.click_reference(self.get_advance_onboard_device_finish_button()
         sleep(2)
 
         if self.get_drawer_content().is_displayed():
             self.utils.print_info("Closing Advance Onboard Dialogue PopUp window")
-            self.auto_actions.click(self.get_drawer_trigger())
+            self.auto_actions.click_reference(self.get_drawer_trigger))
             sleep(4)
 
         self.navigator.navigate_to_devices()
@@ -284,11 +284,11 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         """
         self.navigator.navigate_to_onboard_tab()
         self.utils.print_info("Clicking Deploy devices directly to the cloud button...")
-        self.auto_actions.click(self.get_deploy_devices_to_cloud_radio_button())
+        self.auto_actions.click_reference(self.get_deploy_devices_to_cloud_radio_button)
         sleep(5)
 
         self.utils.print_info("Clicking Lets Get Started Menu")
-        self.auto_actions.click(self.get_deploy_devices_get_started_button())
+        self.auto_actions.click_reference(self.get_deploy_devices_get_started_button)
 
     def _assign_location(self, dev_location='default'):
         """
@@ -297,7 +297,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         :return: 1 if success else -1
         """
         self.utils.print_info("Click Select Location Button")
-        self.auto_actions.click(self.get_assign_location_select_button())
+        self.auto_actions.click_reference(self.get_assign_location_select_button)
 
         try:
             location_list = dev_location.split(',')
@@ -351,7 +351,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                             sleep(5)
 
             self.utils.print_info("Clicking Select Assign Location Button")
-            self.auto_actions.click(self.get_select_assign_location_button())
+            self.auto_actions.click_reference(self.get_select_assign_location_button)
             sleep(5)
             return 1
         except Exception as e:
