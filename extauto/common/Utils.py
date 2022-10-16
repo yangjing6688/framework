@@ -822,6 +822,11 @@ class Utils:
         self.print_info("Current time in milliseconds: ", timestamp)
         return timestamp
 
+    def get_time_in_milliseconds(self, diff=0):
+        time_millies = int(round(time.time() * 1000) - diff)
+
+        return time_millies
+
     def convert_time_to_milliseconds(self, time_str):
         """
         - This keyword converts given time to milliseconds.

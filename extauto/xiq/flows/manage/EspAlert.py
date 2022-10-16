@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.EspAlertWebElements import EspAlertWebElements
 import re
+import json
 
 
 class EspAlert(EspAlertWebElements):
@@ -316,6 +317,8 @@ class EspAlert(EspAlertWebElements):
         sleep(2)
     def go_out_alerts(self):
         self.utils.switch_to_default(CloudDriver().cloud_driver)
+    def get_json_from_string(self, json_string):
+        return json.loads(json_string)
     def check_alert_detail(self,summary):
         """
         - Go to policy page and check alert detail exist
@@ -330,3 +333,9 @@ class EspAlert(EspAlertWebElements):
                     return 1
         self.screen.save_screen_shot()
         return -1
+    def check_alert_detail_event(self, summary, serial_number, interface_name):
+        """
+        :param serial_number:
+        :param interface_name:
+        :return: 1 if
+        """
