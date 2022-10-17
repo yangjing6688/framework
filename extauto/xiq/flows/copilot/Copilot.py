@@ -3045,3 +3045,221 @@ class Copilot(CopilotWebElements):
                 kwargs['fail_msg'] = fail_message
                 self.common_validation.failed(**kwargs)
                 return -1
+
+    def navigate_wirless_clientexp_widget_by_location(self, location_name, parameter, **kwargs):
+
+        """
+        - This Keyword will navigate to wireless client experience and click on the location {building name}
+        - Flow: CoPilot--> Wireless Client Experience ---> Click the Location name
+        - Keyword Usage:
+         - ``Click wireless clientexp widget by location {$location_name}``
+
+        :param ap_name: Ap name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        sleep(2)
+
+        ### Move to Wireless client experience widget
+        self.auto_actions.move_to_element(self.get_wireless_connectivity_experience_widget())
+
+        ### Select the option of location/ssid/ostype from the dropdown
+        self.utils.print_info("Clicking view by options.")
+        self.auto_actions.click(self.get_view_by_wireless_clientexp_option())
+        self.screen.save_screen_shot()
+        sleep(2)
+        sort_options = self.get_wireless_clientexp_widget_viewby_options()
+        self.utils.print_info(f"Sorting with {parameter}")
+        self.auto_actions.select_drop_down_options(sort_options, parameter)
+        sleep(2)
+
+        wireless_clientexp_widget = self.get_wireless_connectivity_experience_widget()
+        if not wireless_clientexp_widget:
+            self.utils.print_info("Unable to get wireless client experience widget")
+            fail_message = "Unable to get wireless client experience  widget"
+            self.common_validation.failed(**kwargs)
+        else:
+            searching_for_location_row = 1
+            location_rows = self.get_wireless_client_experience_widget_location_grid_rows_from_widget(wireless_clientexp_widget)
+            if not location_rows:
+                self.utils.print_info("Unable to get rows from widget")
+                fail_message = "Unable to get rows from widget"
+                self.common_validation.failed(**kwargs)
+                return_value = -1
+            else:
+                return_value = -1
+                self.utils.print_info("Searching for location : " + location_name)
+                for row in location_rows:
+                    self.utils.print_info("Current location :" + row.text)
+                    if location_name in row.text:
+                        self.utils.print_info("Location : " + location_name + " found")
+                        self.utils.print_info("Clicking on row")
+                        self.auto_actions.click(row)
+                        sleep(4)
+                        return_value = 1
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        if return_value == -1:
+            if searching_for_location_row == 1:
+                fail_message = "Unable to find location : " + location_name
+                self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Location successfully clicked to display Quality Index"
+            self.common_validation.passed(**kwargs)
+
+        return return_value
+
+
+    def get_wirless_clientexp_quality_index_by_location(self, location_name, parameter="Location", durationType="Last 24 Hours", **kwargs):
+
+        """
+        - This Keyword will get the Quality index values from Wireless client experience by location and Duration Tupe
+        - Flow: CoPilot--> Wireless Client Experience ---> Click the Location name
+        - Keyword Usage:
+        - ``Click wireless clientexp widget by location {$location_name}``
+
+        :param location_name: location name
+        :param parameter: filter type Location, SSID, OSType
+        :param durationType: Last 1 hrs , Last 24 hrs
+        :return: Quality index values if sucessfully clicking the row else return NA
+        """
+        ### will navigate to wireless client experience widget and click on location
+        navigation_return = self.navigate_wirless_clientexp_widget_by_location(location_name, parameter, **kwargs)
+
+        if navigation_return == -1:
+            fail_message = "Unable to navigate to wireless client experience by location : " + location_name
+            self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+            self.utils.print_info("Clicking wireless client experience Duration option : " + durationType)
+            self.auto_actions.click(self.get_wireless_client_experience_widget_duration_handle())
+            self.utils.print_info("Searching for duration option : " + durationType)
+
+            duration_options = self.get_wireless_client_experience_widget_duration_option()
+            self.utils.print_info(f"Sorting with {durationType}")
+            self.auto_actions.select_drop_down_options(duration_options, durationType)
+            sleep(2)
+
+            quality_index = self.get_wireless_clientexp_quality_index().text
+            self.utils.print_info(f"Quality index {quality_index}")
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+
+            return quality_index.split("/")[0]
+
+    def navigate_wirless_clientexp_widget_by_ssid(self, ssid_name, parameter, **kwargs):
+
+        """
+        - This Keyword will navigate to wireless client experience and click on the ssid {ssid name}
+        - Flow: CoPilot--> Wireless Client Experience ---> Click the SSID
+        - Keyword Usage:
+         - ``Click wireless clientexp widget by location {$SSID_Name}``
+
+        :param ap_name: Ap name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        sleep(2)
+
+        ### Move to Wireless client experience widget
+        self.auto_actions.move_to_element(self.get_wireless_connectivity_experience_widget())
+
+        ### Select the option of location/ssid/ostype from the dropdown
+        self.utils.print_info("Clicking view by options.")
+        self.auto_actions.click(self.get_view_by_wireless_clientexp_option())
+        self.screen.save_screen_shot()
+        sleep(2)
+        sort_options = self.get_wireless_clientexp_widget_viewby_options()
+        self.utils.print_info(f"Sorting with {parameter}")
+        self.auto_actions.select_drop_down_options(sort_options, parameter)
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        wireless_clientexp_widget = self.get_wireless_connectivity_experience_widget()
+        if not wireless_clientexp_widget:
+            self.utils.print_info("Unable to get wireless client experience widget")
+            fail_message = "Unable to get wireless client experience  widget"
+            self.common_validation.failed(**kwargs)
+        else:
+            searching_for_ssid_row = 1
+            ssid_rows = self.get_wireless_client_experience_widget_ssid_grid_rows_from_widget(wireless_clientexp_widget)
+            if not ssid_rows:
+                self.utils.print_info("Unable to get rows from widget")
+                fail_message = "Unable to get rows from widget"
+                self.common_validation.failed(**kwargs)
+                return_value = -1
+            else:
+                return_value = -1
+                self.utils.print_info("Searching for ssid : " + ssid_name)
+                for row in ssid_rows:
+                    self.utils.print_info("Current ssid :" + row.text)
+                    if ssid_name in row.text:
+                        self.utils.print_info("SSID : " + ssid_name + " found")
+                        self.utils.print_info("Clicking on row")
+                        self.auto_actions.click(row)
+                        sleep(4)
+                        return_value = 1
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        if return_value == -1:
+            if searching_for_ssid_row == 1:
+                fail_message = "Unable to find location : " + ssid_name
+                self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "ssid successfully clicked to display Quality Index"
+            self.common_validation.passed(**kwargs)
+
+        return return_value
+
+    def get_wirless_clientexp_quality_index_by_ssid(self, ssid_name, parameter="SSID", durationType="Last 24 Hours", **kwargs):
+
+        """
+        - This Keyword will get the Quality index values from Wireless client experience by location and Duration Tupe
+        - Flow: CoPilot--> Wireless Client Experience ---> Click the ssid name
+        - Keyword Usage:
+        - ``Click wireless clientexp widget by location {$ssid_name}``
+
+        :param location_name: ssid name
+        :param parameter: filter type Location, SSID, OSType
+        :param durationType: Last 1 hrs , Last 24 hrs
+        :return: Quality index values if sucessfully clicking the row else return NA
+        """
+        ### will navigate to wireless client experience widget and click on location
+        navigation_return = self.navigate_wirless_clientexp_widget_by_ssid(ssid_name, parameter, **kwargs)
+
+        if navigation_return == -1:
+            fail_message = "Unable to navigate to wireless client experience by ssid : " + ssid_name
+            self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+            self.utils.print_info("Clicking wireless client experience Duration option : " + durationType)
+            self.auto_actions.click(self.get_wireless_client_experience_widget_duration_handle())
+            self.utils.print_info("Searching for duration option : " + durationType)
+
+            duration_options = self.get_wireless_client_experience_widget_duration_option()
+            self.utils.print_info(f"Sorting with {durationType}")
+            self.auto_actions.select_drop_down_options(duration_options, durationType)
+            sleep(2)
+
+            quality_index = self.get_wireless_clientexp_quality_index().text
+            self.utils.print_info(f"Quality index {quality_index}")
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+
+            return quality_index.split("/")[0]
