@@ -2841,6 +2841,7 @@ class Device360WebElementDefs:
         {
             'XPATH': '//li[@data-automation-tag="Unit_${unit}_-_${unit_role}"]',
             'wait_for': 5
+        }
 
     select_element_port_type_macLock_status = \
         {
@@ -2907,7 +2908,6 @@ class Device360WebElementDefs:
     select_mac_locking_remove_aged_macs_summary = \
         {
             'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-remove-aged-macs"]'
->>>>>>> origin/main
         }
 
     device360_cpu_utilized_button = \
