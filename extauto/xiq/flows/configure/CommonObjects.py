@@ -3086,3 +3086,175 @@ class CommonObjects(object):
         else:
             self.utils.print_info(f"The IP Object profile {ip_object_profile_name} is NOT found, can NOT list the items")
             return -1
+
+    def delete_switch_templates(self, template_name, **kwargs):
+        """
+        This keyword will delete the multiple switch templates from common objects.
+        - Flow: Configure --> Common Objects --> Policy -->Switch Template
+        - Delete specified switch template from the Switch Templates grid
+        - Keyword Usage:
+         - ``Delete Switch Template  ${TEMPLATE_NAME}``
+         - ``Delete Switch Template  template_1,template_2`
+        :param template_name: A list of templates which will be deleted. Or a string with templates names separated by comma
+        :return: 1 if deleted else -1
+        """
+        if isinstance(template_name, list):
+            sw_template_name_list = template_name.copy()
+        else:
+            sw_template_name_list = template_name.split(',')
+
+        self.navigator.navigate_to_switch_templates()
+        self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows)
+
+        self.utils.print_info("Searching for 100 rows per page button...")
+        view_all_pages = self.cobj_web_elements.get_common_object_policy_port_types_view_all_pages()
+        if view_all_pages:
+            self.utils.print_info("Found 100 rows per page button. Clicking...")
+            self.auto_actions.click(view_all_pages)
+        else:
+            self.utils.print_info("100 rows per page button not present! Continue running...")
+
+        self.utils.print_info("Template name list:",sw_template_name_list)
+        for template_name in sw_template_name_list:
+            page_number = self.cobj_web_elements.get_common_object_policy_max_page_number()
+            if page_number:
+                self.utils.print_info("There are pages:")
+                for el in page_number:
+                    self.utils.print_info("Page:", el.text)
+            else:
+                self.utils.print_info("Can not get the page number")
+            first_page = self.cobj_web_elements.get_common_object_policy_go_to_first_page()
+            if first_page:
+                self.utils.print_info("Go to first page :  ")
+                self.auto_actions.click(first_page)
+                cnt_page = 1
+                sleep(5)
+            else:
+                self.utils.print_info("Can not navigate to first page")
+            for page in page_number:
+                self.utils.print_info(f"Searching Template: {template_name} on page: ", cnt_page)
+                found_template = False
+                rows = self.cobj_web_elements.get_common_object_grid_rows()
+                if rows:
+                    for row in rows:
+                        if template_name in row.text:
+                            self.utils.print_info(f"Found template name: {template_name} on row: ", row.text)
+                            self.utils.print_info("Clicking the row's checkbox...")
+                            check_box = self.cobj_web_elements.get_common_object_grid_row_cells(row, 'dgrid-selector')
+                            if check_box:
+                                self.auto_actions.click(check_box)
+                            else:
+                                self.utils.print_info("Did not find row's check box!")
+                                return -1
+                            self.utils.print_info("Clicking on delete button")
+                            delete_button = self.cobj_web_elements.get_common_objects_delete_button()
+                            if delete_button:
+                                self.auto_actions.click(delete_button)
+                                kwargs['pass_msg'] = f"Delete button has been clicked! Switch Template: {template_name} " \
+                                                     f"has been deleted!"
+                                self.common_validation.passed(**kwargs)
+                                found_template = True
+                                break
+                            else:
+                                self.utils.print_info("Didn't find the delete button!")
+                                kwargs['fail_msg'] = "Didn't find the delete button!"
+                                self.screen.save_screen_shot()
+                                self.common_validation.failed(**kwargs)
+                                return -1
+                        else:
+                            pass
+                else:
+                    self.utils.print_info("Didn't find rows")
+                if not found_template:
+                    self.utils.print_info('len', len(page_number), cnt_page )
+                    if len(page_number) == cnt_page:
+                        self.utils.print_info(f"Template Name: {template_name} is not present on all pages. Last page is: ",cnt_page)
+                        return -1
+                    self.utils.print_info(f"Template Name: {template_name} is not present on page: ")
+                    next_button = self.cobj_web_elements.get_next_page_element()
+                        #self.cobj_web_elements.get_common_object_policy_next_page_number()
+                    if next_button:
+                        self.utils.print_info(f"Select next page")
+                        self.auto_actions.click(next_button)
+                    else:
+                        self.utils.print_info(f"Next button not found ")
+                        return -1
+                else:
+                    self.utils.print_info("")
+                    break
+                cnt_page = cnt_page + 1
+        return 1
+
+    def delete_port_type_profiles(self, port_type_name, **kwargs):
+        """
+        This keyword will delete the multiple port type profiles from common objects.
+        - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
+        - Delete Port Type from the grid
+        - Keyword Usage:
+         - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
+         ``Delete Port Type Profile  ${PORT_TYPE_NAME1},${PORT_TYPE_NAME2}``
+        :param port_type_name: A list of port type profiles which will be deleted. Or a string with profiles names separated by comma
+        :return: 1 if Port Type deleted successfully, else returns -1
+        """
+        if isinstance(port_type_name, list):
+            port_type_name_list = port_type_name.copy()
+        else:
+            port_type_name_list = port_type_name.split(',')
+        self.utils.print_info("Navigate to Port Types Settings")
+        self.navigator.navigate_to_policy_port_types()
+
+        self.utils.print_info("Searching for 100 rows per page button...")
+        view_all_pages = self.cobj_web_elements.get_common_object_policy_port_types_view_all_pages()
+        if view_all_pages:
+            self.utils.print_info("Found the 100 rows per page button! Clicking...")
+            self.auto_actions.click(view_all_pages)
+        else:
+            self.utils.print_info("100 rows per page button was not found. Continue running...")
+
+        self.utils.print_info("Waiting for the rows to load...")
+        self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows, delay=3)
+        for port_type_name in port_type_name_list:
+            self.utils.print_info(f"Searching {port_type_name} profile on all pages...")
+            current_page = 1
+            while True:
+                self.utils.print_info(f"Searching: {port_type_name} profile, on page: {current_page}...")
+                try:
+                    if not self._search_common_object(port_type_name):
+                        self.utils.print_info(f"Port Type Profile Name: {port_type_name} is not present on page: "
+                                              f"{str(current_page)}")
+                        self.utils.print_info("Checking the next page: ", str(current_page+1) + ' ...')
+                        self.utils.print_info("Clicking next page...")
+                        if not self.cobj_web_elements.get_next_page_element_disabled():
+                            if self.cobj_web_elements.get_next_page_element():
+                                self.auto_actions.click(self.cobj_web_elements.get_next_page_element())
+                                self.utils.print_info("Waiting for the rows to load...")
+                                self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows, delay=3)
+                                current_page += 1
+                            else:
+                                self.utils.print_info("Did not find next page button!")
+                                kwargs['fail_msg'] = "Did not find next page button!"
+                                self.screen.save_screen_shot()
+                                self.common_validation.failed(**kwargs)
+                                return -1
+                        else:
+                            self.utils.print_info("This is the last page: ", str(current_page))
+                            self.utils.print_info(f"Checked all {current_page} pages for Port Type profile: "
+                                                  f"{port_type_name} ; "
+                                                  f"It was already deleted or it hasn't been created yet!")
+                            kwargs['pass_msg'] = f"Checked all {current_page} pages for Port Type profile: " \
+                                                 f"{port_type_name} ; " \
+                                                 f"It was already deleted or it hasn't been created yet!"
+                            self.common_validation.passed(**kwargs)
+                            break
+                    else:
+                        self.utils.print_info(f"Found the port type profile {port_type_name}. Deleting...")
+                        self._select_delete_common_object(port_type_name)
+                        kwargs['pass_msg'] = "Port type profile deleted!"
+                        self.common_validation.passed(**kwargs)
+                        break
+
+                except (selenium.common.exceptions.StaleElementReferenceException, TypeError) as e:
+                    self.utils.print_info("Got the following error: ", e)
+                    self.utils.print_info("Trying to get the rows again on page: ", str(current_page))
+                    continue
+        return 1

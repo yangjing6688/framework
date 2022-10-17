@@ -5,6 +5,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.CopilotWebElements import CopilotWebElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 import re
 from extauto.common.CommonValidation import CommonValidation
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
@@ -21,6 +22,70 @@ class Copilot(CopilotWebElements):
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
         self.tools = Tools()
+        self.devices_web_elements = DevicesWebElements()
+
+    def enable_copilot_menu_feature(self):
+        """
+        - Enables CoPilot Feature in CoPilot Menu Page
+        - Flow : CoPilot Menu Page
+        - Keyword Usage
+        - ``Enable CoPilot Menu Feature``
+        :return: True if successfully enabled CoPilot feature or False if unable to enable feature
+        """
+
+        if self.navigator.navigate_to_copilot_menu() == 1:
+            sleep(2)
+
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        self.utils.print_info("Checking for Copilot button..")
+        enable_copilot_button = self.get_enable_copilot_menu_feature_button()
+        self.utils.print_info(f"Enable CoPilot Button: {enable_copilot_button}")
+        alert_message = self.get_copilot_menu_alert_message_banner()
+        self.utils.print_info(f"Alert Message: {alert_message}")
+
+        if enable_copilot_button:
+            # check for alert message
+            if not self.get_copilot_menu_alert_message_banner():
+                self.utils.print_info("Enabling CoPilot feature..")
+                self.auto_actions.click_reference(self.get_enable_copilot_menu_feature_button)
+                sleep(1)
+                self.screen.save_screen_shot()
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                return True
+            elif self.get_copilot_menu_alert_message_banner():
+                self.utils.print_info("Unable to enable feature - CoPilot deactivated due to lack of licenses")
+                self.screen.save_screen_shot()
+                self.utils.switch_to_default(CloudDriver().cloud_driver)
+                return False
+        else:
+            self.utils.print_info("CoPilot feature already enabled")
+            self.screen.save_screen_shot()
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return True
+
+    def confirm_copilot_deactivated_due_to_lack_of_licenses_banner_displayed(self):
+        """
+         - This keyword confirms if the "CoPilot deactivated due to lack of licenses" banner message is displayed or not
+         - Keyword Usage
+          - ``Confirm CoPilot Deactivated Due To Lack Of Licenses Banner Displayed``
+
+        :return: true if banner is displayed and return false if banner is not displayed
+        """
+
+        if self.devices_web_elements.get_ui_banner_warning_message():
+            tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
+            if "CoPilot deactivated due to lack of licenses" in tool_tp_text_warning.text:
+                self.utils.print_info(tool_tp_text_warning.text)
+                self.screen.save_screen_shot()
+                return True
+            else:
+                self.utils.print_info(f"Warning Message: {tool_tp_text_warning.text}")
+                self.screen.save_screen_shot()
+                return False
+        else:
+            self.utils.print_info("No warning message banner was found")
+            self.screen.save_screen_shot()
+            return False
 
     def get_wifi_capacity_widget_summary(self):
         """
@@ -219,7 +284,7 @@ class Copilot(CopilotWebElements):
                     sleep(5)
 
                     self.utils.print_info("Clicking UnMute Button in the Location Name Matched Row")
-                    self.auto_actions.click(self.get_wifi_capacity_widget_location_more_options_unmute_button())
+                    self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_more_options_unmute_button)
                     sleep(5)
 
                     for row1 in self.get_wifi_capacity_widget_location_grid_rows():
@@ -282,7 +347,7 @@ class Copilot(CopilotWebElements):
                 self.screen.save_screen_shot()
                 self.auto_actions.move_to_element(self.get_wifi_capacity_dismiss_option())
                 self.utils.print_info("Clicking on Dismiss button in Wi-Fi capacity widget")
-                self.auto_actions.click(self.get_wifi_capacity_dismiss_option())
+                self.auto_actions.click_reference(self.get_wifi_capacity_dismiss_option)
                 sleep(1)
                 self.utils.print_info("Reading warning message...")
                 warning_msg = self.get_wifi_capacity_dismiss_warning().text
@@ -290,12 +355,12 @@ class Copilot(CopilotWebElements):
                 self.utils.print_info("warning message : ", warning_msg)
                 if option == 'no':
                     self.auto_actions.move_to_element(self.get_wifi_capacity_dismiss_no_option())
-                    self.auto_actions.click(self.get_wifi_capacity_dismiss_no_option())
+                    self.auto_actions.click_reference(self.get_wifi_capacity_dismiss_no_option)
                     sleep(1)
                     self.utils.print_info(f"Clicking on {option} option")
                 elif option == 'yes':
                     self.auto_actions.move_to_element(self.get_wifi_capacity_dismiss_yes_option())
-                    self.auto_actions.click(self.get_wifi_capacity_dismiss_yes_option())
+                    self.auto_actions.click_reference(self.get_wifi_capacity_dismiss_yes_option)
                     sleep(5)
                     self.utils.print_info(f"Clicking on {option} option")
                 return 1
@@ -336,7 +401,7 @@ class Copilot(CopilotWebElements):
 
                             self.screen.save_screen_shot()
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.print_info(f"Pinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
@@ -345,7 +410,7 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info(f"Already Pinned Anomaly for the AP : {ap_name} in Location "
                                                   f"{location_name}")
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.screen.save_screen_shot()
                             return 1
@@ -387,7 +452,7 @@ class Copilot(CopilotWebElements):
 
                             self.screen.save_screen_shot()
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.print_info(f"UnPinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
@@ -396,7 +461,7 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info(f"Already Unpinned Anomaly for the AP : {ap_name} in Location "
                                                   f"{location_name}")
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.screen.save_screen_shot()
                             return 1
@@ -416,7 +481,7 @@ class Copilot(CopilotWebElements):
         self.utils.print_info("Navigating to Copilot Anomaly notification icon")
         self.navigator.navigate_to_copilot_anomaly_notification_icon()
         self.utils.print_info("Clicking on View ALL button...")
-        self.auto_actions.click(self.get_anomalies_view_all_btn())
+        self.auto_actions.click_reference(self.get_anomalies_view_all_btn)
         sleep(5)
         self.utils.print_info("Checking whether we are in Copilot page or not")
         if self.get_copilot_branded_image():
@@ -471,7 +536,7 @@ class Copilot(CopilotWebElements):
         self.screen.save_screen_shot()
         if "HIDE MUTED" in button_text.upper():
             self.utils.print_info(f"Clicking Hide Muted Button")
-            self.auto_actions.click(self.get_show_or_hide_muted_button_in_wifi_capacity_widget())
+            self.auto_actions.click_reference(self.get_show_or_hide_muted_button_in_wifi_capacity_widget)
             sleep(5)
         else:
             self.utils.print_info(f"Already Clicked Hide Muted Button in WiFi Capacity Widget")
@@ -508,7 +573,7 @@ class Copilot(CopilotWebElements):
             sleep(5)
         else:
             self.utils.print_info(f"Clicking Show Muted Button")
-            self.auto_actions.click(self.get_show_or_hide_muted_button_in_wifi_capacity_widget())
+            self.auto_actions.click_reference(self.get_show_or_hide_muted_button_in_wifi_capacity_widget)
             sleep(5)
         self.utils.print_info(f"Checking for muted Rows in WiFi Capacity Widget")
         if self.get_wifi_capacity_widget_location_muted_grid_rows():
@@ -581,7 +646,7 @@ class Copilot(CopilotWebElements):
         sleep(15)
 
         self.utils.print_info(f"Clicking Video Help Icon")
-        self.auto_actions.click(self.get_wifi_capacity_video_help_icon())
+        self.auto_actions.click_reference(self.get_wifi_capacity_video_help_icon)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -606,7 +671,7 @@ class Copilot(CopilotWebElements):
             self.utils.print_info(f"Video Links Present In WiFi Capacity Additional Resources : {video_url_list}")
 
         self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
-        self.auto_actions.click(self.get_wifi_capacity_additional_resources_close_button())
+        self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
         return docs_url_list , video_url_list
 
@@ -624,7 +689,7 @@ class Copilot(CopilotWebElements):
         sleep(15)
 
         self.utils.print_info(f"Clicking Video Help Icon")
-        self.auto_actions.click(self.get_wifi_capacity_video_help_icon())
+        self.auto_actions.click_reference(self.get_wifi_capacity_video_help_icon)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -664,7 +729,7 @@ class Copilot(CopilotWebElements):
                         break
 
             self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
-            self.auto_actions.click(self.get_wifi_capacity_additional_resources_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
             if loaded_doc_title:
                 self.utils.print_info(f"All the Additional resources Documentation links loaded Successfully ")
@@ -687,7 +752,7 @@ class Copilot(CopilotWebElements):
         sleep(15)
 
         self.utils.print_info(f"Clicking Video Help Icon")
-        self.auto_actions.click(self.get_wifi_capacity_video_help_icon())
+        self.auto_actions.click_reference(self.get_wifi_capacity_video_help_icon)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -722,7 +787,7 @@ class Copilot(CopilotWebElements):
                         break
 
             self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
-            self.auto_actions.click(self.get_wifi_capacity_additional_resources_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
             if loaded_video_flag:
                 self.utils.print_info(f"All the Additional resources Video links loaded Successfully ")
@@ -745,7 +810,7 @@ class Copilot(CopilotWebElements):
         sleep(15)
         self.auto_actions.move_to_element(self.get_wifi_capacity_widget())
         self.utils.print_info("Clicking on sorting options.")
-        self.auto_actions.click(self.get_wifi_capacity_widget_sort())
+        self.auto_actions.click_reference(self.get_wifi_capacity_widget_sort)
         self.screen.save_screen_shot()
         sleep(2)
         sort_options = self.get_wifi_capacity_widget_sort_options()
@@ -1190,7 +1255,7 @@ class Copilot(CopilotWebElements):
         if 'HIDE MUTED' in self.get_dfs_recurrence_anomaly_muted().text:
             pass
         else:
-            self.auto_actions.click(self.get_dfs_recurrence_anomaly_muted())
+            self.auto_actions.click_reference(self.get_dfs_recurrence_anomaly_muted)
 
         status = self.get_dfs_recurrence_anomaly_muted().text
         sleep(1)
@@ -1227,7 +1292,7 @@ class Copilot(CopilotWebElements):
         if 'SHOW MUTED' in self.get_dfs_recurrence_anomaly_muted().text:
             pass
         else:
-            self.auto_actions.click(self.get_dfs_recurrence_anomaly_muted())
+            self.auto_actions.click_reference(self.get_dfs_recurrence_anomaly_muted)
 
         sleep(1)
         self.screen.save_screen_shot()
@@ -1454,7 +1519,7 @@ class Copilot(CopilotWebElements):
         self.screen.save_screen_shot()
 
         sleep(2)
-        self.auto_actions.click(self.get_devices_by_os_iqagent())
+        self.auto_actions.click_reference(self.get_devices_by_os_iqagent)
         parent_window = CloudDriver().cloud_driver.window_handles[0]
         child_window = CloudDriver().cloud_driver.window_handles[1]
 
@@ -1778,7 +1843,7 @@ class Copilot(CopilotWebElements):
                 self.screen.save_screen_shot()
                 self.auto_actions.move_to_element(self.get_dfs_recurrence_widget_location_dismiss_option())
                 self.utils.print_info("Clicking on Dismiss button in DFS Recurrence Widget")
-                self.auto_actions.click(self.get_dfs_recurrence_widget_location_dismiss_option())
+                self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_dismiss_option)
                 sleep(1)
                 self.utils.print_info("Reading warning message...")
                 warning_msg = self.get_dfs_recurrence_widget_location_dismiss_warning().text
@@ -1788,13 +1853,13 @@ class Copilot(CopilotWebElements):
                 if option == 'no':
                     self.utils.print_info(f"Clicking on {option} option")
                     self.auto_actions.move_to_element(self.get_dfs_recurrence_widget_location_dismiss_no_option())
-                    self.auto_actions.click(self.get_dfs_recurrence_widget_location_dismiss_no_option())
+                    self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_dismiss_no_option)
                     sleep(1)
 
                 elif option == 'yes':
                     self.utils.print_info(f"Clicking on {option} option")
                     self.auto_actions.move_to_element(self.get_dfs_recurrence_widget_location_dismiss_yes_option())
-                    self.auto_actions.click(self.get_dfs_recurrence_widget_location_dismiss_yes_option())
+                    self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_dismiss_yes_option)
                     sleep(5)
 
                     for row1 in self.get_dfs_recurrence_widget_location_grid_rows():
@@ -1853,7 +1918,7 @@ class Copilot(CopilotWebElements):
 
                             self.screen.save_screen_shot()
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.print_info(f"Pinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
@@ -1863,7 +1928,7 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info(f"Already Pinned Anomaly for the AP : {ap_name} in Location "
                                                   f"{location_name}")
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.screen.save_screen_shot()
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -1911,7 +1976,7 @@ class Copilot(CopilotWebElements):
 
                             self.screen.save_screen_shot()
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.print_info(f"UnPinned Anomaly successfully for the AP : {ap_name} in Location "
                                                   f"{location_name}")
@@ -1921,7 +1986,7 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info(f"Already Unpinned Anomaly for the AP : {ap_name} in Location "
                                                   f"{location_name}")
                             self.utils.print_info(f"Closing Detailed view")
-                            self.auto_actions.click(self.get_dfs_recurrence_widget_location_detailed_view_close_button())
+                            self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.screen.save_screen_shot()
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -1953,7 +2018,7 @@ class Copilot(CopilotWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking on Manage link..")
-        self.auto_actions.click(self.get_copilot_license_mange_link())
+        self.auto_actions.click_reference(self.get_copilot_license_mange_link)
         sleep(10)
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -2100,7 +2165,7 @@ class Copilot(CopilotWebElements):
         if 'HIDE MUTED' in self.get_adverse_traffic_patterns_widget_anomaly_muted().text:
             pass
         else:
-            self.auto_actions.click(self.get_adverse_traffic_patterns_widget_anomaly_muted())
+            self.auto_actions.click_reference(self.get_adverse_traffic_patterns_widget_anomaly_muted)
 
         status = self.get_adverse_traffic_patterns_widget_anomaly_muted().text
         sleep(1)
@@ -2137,7 +2202,7 @@ class Copilot(CopilotWebElements):
         if 'SHOW MUTED' in self.get_adverse_traffic_patterns_widget_anomaly_muted().text:
             pass
         else:
-            self.auto_actions.click(self.get_adverse_traffic_patterns_widget_anomaly_muted())
+            self.auto_actions.click_reference(self.get_adverse_traffic_patterns_widget_anomaly_muted)
 
         sleep(1)
         self.screen.save_screen_shot()
@@ -2683,7 +2748,7 @@ class Copilot(CopilotWebElements):
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         self.screen.save_screen_shot()
         self.utils.print_info(f"Clicking like Button for the Location {location_name} and AP {ap_name}")
-        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_like())
+        self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_ap_like)
         self.screen.save_screen_shot()
 
         like_tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip()
@@ -2694,7 +2759,7 @@ class Copilot(CopilotWebElements):
                                   f"for the ap {ap_name}")
             kwargs['pass_msg'] = "successfully liked the Wi-Fi capacity widget location"        
             self.utils.print_info(f"Closing Detailed view")
-            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
             self.screen.save_screen_shot()
 
             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -2707,7 +2772,7 @@ class Copilot(CopilotWebElements):
                                   f"for the ap {ap_name}")
             kwargs['fail_msg'] = "Unable to click like button for the Wi-Fi capacity widget location"  
             self.utils.print_info(f"Closing Detailed view")
-            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             self.common_validation.failed(**kwargs)
@@ -2847,7 +2912,7 @@ class Copilot(CopilotWebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info(f"Clicking Dislike Button for the Location {location_name} and AP {ap_name}")
-        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_dislike())
+        self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_ap_dislike)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Entering feedback text")
@@ -2856,7 +2921,7 @@ class Copilot(CopilotWebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info(f"Clicking Dislike Feedback Button for the Location {location_name} and AP {ap_name}")
-        self.auto_actions.click(self.get_wifi_capacity_widget_location_ap_dislike_send_feedback_button())
+        self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_ap_dislike_send_feedback_button)
         self.screen.save_screen_shot()
 
         tooltip = self.get_wifi_capacity_widget_location_ap_like_tooltip().text
@@ -2872,7 +2937,7 @@ class Copilot(CopilotWebElements):
                 self.common_validation.passed(**kwargs)
 
                 self.utils.print_info(f"Closing Detailed view")
-                self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                 self.screen.save_screen_shot()
 
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -2883,7 +2948,7 @@ class Copilot(CopilotWebElements):
                 self.common_validation.failed(**kwargs)
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
                 self.utils.print_info(f"Closing Detailed view")
-                self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+                self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                 self.screen.save_screen_shot()
                 return -1
         else:
@@ -2893,7 +2958,7 @@ class Copilot(CopilotWebElements):
                                  f"{location_name} with ap {ap_name}"
             self.common_validation.failed(**kwargs)
             self.utils.print_info(f"Closing Detailed view")
-            self.auto_actions.click(self.get_wifi_capacity_widget_location_detailed_view_close_button())
+            self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return -1
@@ -2980,3 +3045,221 @@ class Copilot(CopilotWebElements):
                 kwargs['fail_msg'] = fail_message
                 self.common_validation.failed(**kwargs)
                 return -1
+
+    def navigate_wirless_clientexp_widget_by_location(self, location_name, parameter, **kwargs):
+
+        """
+        - This Keyword will navigate to wireless client experience and click on the location {building name}
+        - Flow: CoPilot--> Wireless Client Experience ---> Click the Location name
+        - Keyword Usage:
+         - ``Click wireless clientexp widget by location {$location_name}``
+
+        :param ap_name: Ap name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        sleep(2)
+
+        ### Move to Wireless client experience widget
+        self.auto_actions.move_to_element(self.get_wireless_connectivity_experience_widget())
+
+        ### Select the option of location/ssid/ostype from the dropdown
+        self.utils.print_info("Clicking view by options.")
+        self.auto_actions.click(self.get_view_by_wireless_clientexp_option())
+        self.screen.save_screen_shot()
+        sleep(2)
+        sort_options = self.get_wireless_clientexp_widget_viewby_options()
+        self.utils.print_info(f"Sorting with {parameter}")
+        self.auto_actions.select_drop_down_options(sort_options, parameter)
+        sleep(2)
+
+        wireless_clientexp_widget = self.get_wireless_connectivity_experience_widget()
+        if not wireless_clientexp_widget:
+            self.utils.print_info("Unable to get wireless client experience widget")
+            fail_message = "Unable to get wireless client experience  widget"
+            self.common_validation.failed(**kwargs)
+        else:
+            searching_for_location_row = 1
+            location_rows = self.get_wireless_client_experience_widget_location_grid_rows_from_widget(wireless_clientexp_widget)
+            if not location_rows:
+                self.utils.print_info("Unable to get rows from widget")
+                fail_message = "Unable to get rows from widget"
+                self.common_validation.failed(**kwargs)
+                return_value = -1
+            else:
+                return_value = -1
+                self.utils.print_info("Searching for location : " + location_name)
+                for row in location_rows:
+                    self.utils.print_info("Current location :" + row.text)
+                    if location_name in row.text:
+                        self.utils.print_info("Location : " + location_name + " found")
+                        self.utils.print_info("Clicking on row")
+                        self.auto_actions.click(row)
+                        sleep(4)
+                        return_value = 1
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        if return_value == -1:
+            if searching_for_location_row == 1:
+                fail_message = "Unable to find location : " + location_name
+                self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Location successfully clicked to display Quality Index"
+            self.common_validation.passed(**kwargs)
+
+        return return_value
+
+
+    def get_wirless_clientexp_quality_index_by_location(self, location_name, parameter="Location", durationType="Last 24 Hours", **kwargs):
+
+        """
+        - This Keyword will get the Quality index values from Wireless client experience by location and Duration Tupe
+        - Flow: CoPilot--> Wireless Client Experience ---> Click the Location name
+        - Keyword Usage:
+        - ``Click wireless clientexp widget by location {$location_name}``
+
+        :param location_name: location name
+        :param parameter: filter type Location, SSID, OSType
+        :param durationType: Last 1 hrs , Last 24 hrs
+        :return: Quality index values if sucessfully clicking the row else return NA
+        """
+        ### will navigate to wireless client experience widget and click on location
+        navigation_return = self.navigate_wirless_clientexp_widget_by_location(location_name, parameter, **kwargs)
+
+        if navigation_return == -1:
+            fail_message = "Unable to navigate to wireless client experience by location : " + location_name
+            self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+            self.utils.print_info("Clicking wireless client experience Duration option : " + durationType)
+            self.auto_actions.click(self.get_wireless_client_experience_widget_duration_handle())
+            self.utils.print_info("Searching for duration option : " + durationType)
+
+            duration_options = self.get_wireless_client_experience_widget_duration_option()
+            self.utils.print_info(f"Sorting with {durationType}")
+            self.auto_actions.select_drop_down_options(duration_options, durationType)
+            sleep(2)
+
+            quality_index = self.get_wireless_clientexp_quality_index().text
+            self.utils.print_info(f"Quality index {quality_index}")
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+
+            return quality_index.split("/")[0]
+
+    def navigate_wirless_clientexp_widget_by_ssid(self, ssid_name, parameter, **kwargs):
+
+        """
+        - This Keyword will navigate to wireless client experience and click on the ssid {ssid name}
+        - Flow: CoPilot--> Wireless Client Experience ---> Click the SSID
+        - Keyword Usage:
+         - ``Click wireless clientexp widget by location {$SSID_Name}``
+
+        :param ap_name: Ap name
+        :return: 1 if sucessfully clicking the row else return -1
+        """
+
+        self.utils.print_info("Navigating to Copilot menu..")
+        if not self.get_copilot_branded_image():
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+        self.navigator.navigate_to_copilot_menu()
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+        sleep(2)
+
+        ### Move to Wireless client experience widget
+        self.auto_actions.move_to_element(self.get_wireless_connectivity_experience_widget())
+
+        ### Select the option of location/ssid/ostype from the dropdown
+        self.utils.print_info("Clicking view by options.")
+        self.auto_actions.click(self.get_view_by_wireless_clientexp_option())
+        self.screen.save_screen_shot()
+        sleep(2)
+        sort_options = self.get_wireless_clientexp_widget_viewby_options()
+        self.utils.print_info(f"Sorting with {parameter}")
+        self.auto_actions.select_drop_down_options(sort_options, parameter)
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        wireless_clientexp_widget = self.get_wireless_connectivity_experience_widget()
+        if not wireless_clientexp_widget:
+            self.utils.print_info("Unable to get wireless client experience widget")
+            fail_message = "Unable to get wireless client experience  widget"
+            self.common_validation.failed(**kwargs)
+        else:
+            searching_for_ssid_row = 1
+            ssid_rows = self.get_wireless_client_experience_widget_ssid_grid_rows_from_widget(wireless_clientexp_widget)
+            if not ssid_rows:
+                self.utils.print_info("Unable to get rows from widget")
+                fail_message = "Unable to get rows from widget"
+                self.common_validation.failed(**kwargs)
+                return_value = -1
+            else:
+                return_value = -1
+                self.utils.print_info("Searching for ssid : " + ssid_name)
+                for row in ssid_rows:
+                    self.utils.print_info("Current ssid :" + row.text)
+                    if ssid_name in row.text:
+                        self.utils.print_info("SSID : " + ssid_name + " found")
+                        self.utils.print_info("Clicking on row")
+                        self.auto_actions.click(row)
+                        sleep(4)
+                        return_value = 1
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
+        if return_value == -1:
+            if searching_for_ssid_row == 1:
+                fail_message = "Unable to find location : " + ssid_name
+                self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "ssid successfully clicked to display Quality Index"
+            self.common_validation.passed(**kwargs)
+
+        return return_value
+
+    def get_wirless_clientexp_quality_index_by_ssid(self, ssid_name, parameter="SSID", durationType="Last 24 Hours", **kwargs):
+
+        """
+        - This Keyword will get the Quality index values from Wireless client experience by location and Duration Tupe
+        - Flow: CoPilot--> Wireless Client Experience ---> Click the ssid name
+        - Keyword Usage:
+        - ``Click wireless clientexp widget by location {$ssid_name}``
+
+        :param location_name: ssid name
+        :param parameter: filter type Location, SSID, OSType
+        :param durationType: Last 1 hrs , Last 24 hrs
+        :return: Quality index values if sucessfully clicking the row else return NA
+        """
+        ### will navigate to wireless client experience widget and click on location
+        navigation_return = self.navigate_wirless_clientexp_widget_by_ssid(ssid_name, parameter, **kwargs)
+
+        if navigation_return == -1:
+            fail_message = "Unable to navigate to wireless client experience by ssid : " + ssid_name
+            self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+            self.utils.print_info("Clicking wireless client experience Duration option : " + durationType)
+            self.auto_actions.click(self.get_wireless_client_experience_widget_duration_handle())
+            self.utils.print_info("Searching for duration option : " + durationType)
+
+            duration_options = self.get_wireless_client_experience_widget_duration_option()
+            self.utils.print_info(f"Sorting with {durationType}")
+            self.auto_actions.select_drop_down_options(duration_options, durationType)
+            sleep(2)
+
+            quality_index = self.get_wireless_clientexp_quality_index().text
+            self.utils.print_info(f"Quality index {quality_index}")
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+
+            return quality_index.split("/")[0]

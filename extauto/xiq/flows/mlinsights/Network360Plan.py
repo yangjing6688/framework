@@ -5,8 +5,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.CommonValidation import CommonValidation
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from extauto.xiq.flows.manage.Client import Client
-from extauto.xiq.flows.manage.Devices import Devices
+
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.Network360PlanElements import Network360PlanElements
 
@@ -21,6 +20,7 @@ class Network360Plan:
         self.auto_actions = AutoActions()
         self.n360_elements = Network360PlanElements()
         self.commonValidation = CommonValidation()
+        self.default_map = 'auto_location_01_1595321828282.tar.gz'
 
         """
             Need to build a string that represents the location of the map files
@@ -171,6 +171,9 @@ class Network360Plan:
         :return: 1 if map uploaded successfully on Network360 Plan else -1
         """
 
+        if not map_file_name:
+            map_file_name = self.default_map
+
         self.navigator.navigate_to_network360plan()
 
         if self.n360_elements.get_import_map_button():
@@ -186,6 +189,7 @@ class Network360Plan:
 
         self.utils.print_info(f"Importing Map File : {map_file_name}")
         map_file_location = self.custom_file_dir + map_file_name
+        map_file_location = map_file_location.replace(":", ":\\")
         upload_button = self.n360_elements.get_import_map_upload_button()
         self.auto_actions.send_keys(upload_button, map_file_location)
 
@@ -212,5 +216,3 @@ class Network360Plan:
                     sleep(2)
                     return 1
         return -1
-
-

@@ -23,7 +23,7 @@ class DeviceWebElementsFlow(DeviceWebElements):
         - ``Add Device``
         :return: 1 if device has been added successfully else return -1
         """
-        if self.auto_actions.click(self.select_device_ui()) == 1:
+        if self.auto_actions.click_reference(self.select_device_ui) == 1:
             sleep(5)
             self.utils.print_info("Add a new device ")
             new = self.weh.get_element(self.new_dev_btn)

@@ -33,7 +33,7 @@ class A3WebElementsflow(A3WebElements):
         - ``SSH Page Inputs``
         :return: 1 if Navigation Successful to SSH inputs else return -1
         """
-        if self.auto_actions.click(self.select_auth_source_menu()) == 1:
+        if self.auto_actions.click_reference(self.select_auth_source_menu) == 1:
             sleep(2)
             self.utils.print_info("Select the Internal source & expand the menu ")
             sleep(10)
@@ -127,7 +127,7 @@ class A3WebElementsflow(A3WebElements):
         - ``SSH Page Inputs``
         :return: 1 if Navigation Successful to SSH inputs else return -1
         """
-        if self.auto_actions.click(self.select_conn_profile_menu()) == 1:
+        if self.auto_actions.click_reference(self.select_conn_profile_menu) == 1:
             sleep(2)
             self.utils.print_info("create a new connection profile ")
             sleep(10)

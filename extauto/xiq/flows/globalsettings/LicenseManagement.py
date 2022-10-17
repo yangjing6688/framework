@@ -787,3 +787,43 @@ class LicenseManagement(LicenseManagementWebElements):
         sleep(2)
 
         return -1
+
+    def confirm_entitlements_table_contains_feature(self, feature="PRD-XIQ-PIL-S-C"):
+        """
+         - Checks if the Entitlements table contains feature
+         - Assumes the License Management page is already being displayed.
+         - Keyword Usage
+          - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-PIL-S-C``
+          - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-C0PILOT-S-C``
+          - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-NAV-S-C``
+
+        :param feature: feature to search for in table;  PRD-XIQ-PIL-S-C, PRD-XIQ-COPILOT-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
+        :return: 1 if Entitlements Table contains feature, else -1
+        """
+
+        ret_val = -1
+
+        self.utils.print_info("Navigate to License Management page")
+        self.navigator.navigate_to_license_management()
+        sleep(2)
+
+        rows = self.get_entitlements_rows()
+        if rows:
+            self.utils.print_info(f"Got {len(rows)} rows from the Entitlements table")
+
+            for row in rows:
+                feature_value = self.get_entitlements_row_feature_value(row)
+                if feature_value:
+                    if feature_value.text == feature:
+                        self.utils.print_info(f"{feature} found in entitlements row")
+                        ret_val = 1
+                    else:
+                        self.utils.print_info(f"{feature} is not in entitlements row")
+                        self.screen.save_screen_shot()
+                        ret_val = -1
+                else:
+                    self.utils.print_info(f"Could not obtain feature value for row: {row}")
+                    ret_val = -1
+        else:
+            self.utils.print_info("Entitlements table is empty")
+        return ret_val

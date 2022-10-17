@@ -33,7 +33,7 @@ class ExtremeGuestUsers(object):
         """
         ret_val = -1
         self.utils.print_info("Clicking Location Drop Down Button in Create Bulk VouchersPage")
-        self.auto_actions.click(self.user_web_elem.get_create_bulk_users_location_drop_down_button())
+        self.auto_actions.click_reference(self.user_web_elem.get_create_bulk_users_location_drop_down_button)
         sleep(2)
         if sel_loc:
             try:
@@ -168,18 +168,18 @@ class ExtremeGuestUsers(object):
         """
         
         self.utils.print_info("Clicking Add User Button ")
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_add_button())
+        self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_add_button)
         sleep(2)
 
         self.utils.print_info("Clicking Create Bulk Vouchers Button ")
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_button())
+        self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_create_bulk_users_button)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Access Group Drop Down Button ")
-        self.auto_actions.click(self.user_web_elem.get_create_bulk_users_access_group_drop_down_button())
+        self.auto_actions.click_reference(self.user_web_elem.get_create_bulk_users_access_group_drop_down_button)
         sleep(2)
 
         self.utils.print_info(f"Selecting Access Group:{access_group}")
@@ -197,16 +197,16 @@ class ExtremeGuestUsers(object):
             self.select_location_for_create_bulk_vouchers_page(location_name)
 
         self.utils.print_info("Click Create Button")
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_create_button())
+        self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_create_bulk_users_create_button)
         sleep(2)
 
         if not print_users:
             self.utils.print_info("Clicking Close Button")
-            self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button())
+            self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button)
             sleep(2)
         else:
             self.utils.print_info("Clicking Print Button")
-            self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_print_button())
+            self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_create_bulk_users_print_button)
             sleep(2)
 
         self.screen.save_screen_shot()
@@ -228,20 +228,20 @@ class ExtremeGuestUsers(object):
         self.screen.save_screen_shot()
         self.utils.print_info("Deleting the User")
         self.utils.print_info("Click Delete Button")
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_button())
+        self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_button)
         self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Click OK Button")
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_ok_button())
+        self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_ok_button)
         self.screen.save_screen_shot()
         try:
-            self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_ok_button_duplicate())
+            self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_ok_button_duplicate)
             self.utils.print_info("Click OK Button")
         except Exception as e:
             self.utils.print_info("OK Button is already clicked")
             pass
         sleep(2)
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_delete_status_ok_button())
+        self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_status_ok_button)
         self.screen.save_screen_shot()
 
         return 1
@@ -322,7 +322,7 @@ class ExtremeGuestUsers(object):
         sleep(2)
 
         self.utils.print_info("Clicking Close Button")
-        self.auto_actions.click(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button())
+        self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_create_bulk_users_close_button)
         sleep(2)
 
         return credentials

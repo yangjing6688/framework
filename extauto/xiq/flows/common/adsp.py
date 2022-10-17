@@ -38,7 +38,7 @@ class Adsp(AdspWebElements):
         sleep(5)
 
         self.utils.print_info("Click More Insights button")
-        self.auto_actions.click(self.get_adsp_more_insights_button())
+        self.auto_actions.click_reference(self.get_adsp_more_insights_button)
         sleep(2)
 
         self.utils.print_info("Switch to New ADSP Tab")
