@@ -333,9 +333,3 @@ class EspAlert(EspAlertWebElements):
                     return 1
         self.screen.save_screen_shot()
         return -1
-    def check_alert_detail_event(self, summary, serial_number, interface_name):
-        """
-        :param serial_number:
-        :param interface_name:
-        :return: 1 if
-        """
