@@ -1566,6 +1566,12 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_voice_vlan_input)
         elif element == "data_vlan_input":
             return self.weh.get_element(self.select_element_data_vlan_input)
+        elif element == "summary_tab_confirmation":
+            return self.weh.get_element(self.summary_tab_confirmation)
+        elif element == "vlan_tab_confirmation":
+            return self.weh.get_element(self.vlan_tab_confirmation)
+        elif element == "transmission_tab_confirmation":
+            return self.weh.get_element(self.transmission_tab_confirmation)
         return None
 
     def get_select_element_port_type_summary(self, element):
@@ -1649,12 +1655,6 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_voice_vlan_summary)
         elif element == "data_vlan_summary":
             return self.weh.get_element(self.select_data_vlan_summary)
-        elif element == "summary_tab_confirmation":
-            return self.weh.get_element(self.summary_tab_confirmation)
-        elif element == "vlan_tab_confirmation":
-            return self.weh.get_element(self.vlan_tab_confirmation)
-        elif element == "transmission_tab_confirmation":
-            return self.weh.get_element(self.transmission_tab_confirmation)
         return None
 
     def get_device_d360_save_port_configuration(self):
