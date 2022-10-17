@@ -30,11 +30,11 @@ class Applications(object):
         """
 
         self.utils.print_info("Click on Manage Applications Tab")
-        self.auto_actions.click(self.app_web_elements.get_manage_applications())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_applications)
         sleep(2)
 
         self.utils.print_info("Click on Add Custom button")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom)
         sleep(2)
 
         self.utils.print_info("Enter Application name")
@@ -43,7 +43,7 @@ class Applications(object):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Click on Add Custom applications")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom_add_app())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_add_app)
         sleep(2)
 
         self.utils.print_info("Enter Group name")
@@ -52,11 +52,11 @@ class Applications(object):
         self.screen.save_screen_shot()
 
         self.utils.print_info("clicking Save Button")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom_group_name_save())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_group_name_save)
         sleep(5)
 
         self.utils.print_info("clicking Save Button")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom_app_save())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_app_save)
         sleep(3)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -81,11 +81,11 @@ class Applications(object):
         """
 
         self.utils.print_info("Click on Manage Applications Tab")
-        self.auto_actions.click(self.app_web_elements.get_manage_applications())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_applications)
         sleep(2)
 
         self.utils.print_info("Click on Search Application field")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom_app_search())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_app_search)
         sleep(2)
 
         self.utils.print_info("Enter the Application name")
@@ -93,11 +93,11 @@ class Applications(object):
         sleep(5)
 
         self.utils.print_info("Click on Application Check box")
-        self.auto_actions.click(self.app_web_elements.get_manage_apps_cell())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_apps_cell)
         sleep(3)
 
         self.utils.print_info("Click on Edit button")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom_edit())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_edit)
         sleep(3)
 
         self.utils.print_info("Enter the modified name")
@@ -107,7 +107,7 @@ class Applications(object):
         self.screen.save_screen_shot()
 
         self.utils.print_info("clicking Save Button")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom_app_save())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_app_save)
         sleep(3)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -131,11 +131,11 @@ class Applications(object):
         """
 
         self.utils.print_info("Click on Manage Applications Tab")
-        self.auto_actions.click(self.app_web_elements.get_manage_applications())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_applications)
         sleep(2)
 
         self.utils.print_info("Click on Search Application field")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom_app_search())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_app_search)
         sleep(2)
 
         self.utils.print_info("Enter the Application name")
@@ -143,15 +143,15 @@ class Applications(object):
         sleep(5)
 
         self.utils.print_info("Click on Application Check box")
-        self.auto_actions.click(self.app_web_elements.get_manage_apps_cell())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_apps_cell)
         sleep(3)
 
         self.utils.print_info("Click on Edit button")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom_delete())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_delete)
         sleep(3)
 
         self.utils.print_info("clicking on Yes to confirm delete operation")
-        self.auto_actions.click(self.app_web_elements.get_manage_add_custom_delete_confirm())
+        self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_delete_confirm)
         sleep(3)
 
         tool_tp_text = tool_tip.tool_tip_text
