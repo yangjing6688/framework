@@ -2039,7 +2039,7 @@ class Devices:
             entry_type = "Manual"
 
         if self.check_onboard_device_quick_parameters(device_type, entry_type, device_serial, device_make, location,
-                                                      csv_location, device_model, device_os, os_persona, **kwargs) == -1:
+                                                      csv_location, device_model, os_version, os_persona, **kwargs) == -1:
             return -1
 
         self.utils.print_info("Onboarding: ", device_make)
@@ -2081,6 +2081,7 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "digital twin":
+            list_initial_serial_dt = self.get_device_model_serial_numbers(device_model=device_model)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
@@ -2143,11 +2144,11 @@ class Devices:
                         self.common_validation.failed(**kwargs)
                         return -1
 
-        elif device_type.lower() == "simulated" or device_type.lower() == "digital twin":
+        elif device_type.lower() == "simulated":
             models = device_model.split(",")
             self.utils.print_info("Models: ", models)
             for model in models:
-                if self.search_device(device_serial=model) == 1:
+                if self.search_device_model(device_model=model) == 1:
                     kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {models}"
                     self.common_validation.passed(**kwargs)
                     return 1
@@ -2156,8 +2157,31 @@ class Devices:
                     self.common_validation.failed(**kwargs)
                     return -1
 
+        elif device_type.lower() == "digital twin":
+            models = device_model.split(",")
+            self.utils.print_info("Models: ", models)
+            sleep(100)  # this sleep is put until the bug XIQ-11770 is solved, then I will review the code and delete this sleep
+            for model in models:
+                list_final_dt_serial = self.get_device_model_serial_numbers(device_model=model)
+                for i in list_final_dt_serial:
+                    if i not in list_initial_serial_dt:
+                        serial_digital_twin = i
+                        self.utils.print_info(serial_digital_twin)
+                if len(list_final_dt_serial) - len (list_initial_serial_dt) == 1:
+                    kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device with model : {models} and serial : {serial_digital_twin}"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                elif len(list_final_dt_serial) - len (list_initial_serial_dt) == 0:
+                    kwargs['fail_msg'] = f"Failed to onboard device {device_make} with {models}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                elif len(list_final_dt_serial) - len (list_initial_serial_dt) >1:
+                    kwargs['fail_msg'] = "Failed to determine serial number because multiple devices have been onboarded."
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
     def check_onboard_device_quick_parameters(self, device_type, entry_type, device_serial, device_make, location,
-                                              csv_location, device_model, device_os, os_persona, **kwargs):
+                                              csv_location, device_model, os_version, os_persona, **kwargs):
         """
         This methods is created for validate the Mandatory arguments for onboard device quick method
         :param device_serial: serial number of Device
@@ -2196,10 +2220,8 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            if device_model is None or device_os is None or os_persona is None:
-                kwargs['fail_msg'] = f"The 'model': [{device_model}], 'OS version': [{device_os}] and 'OS persona': " \
-                                     f"[{os_persona}] are required when onboarding 'Digital Twin' devices. " \
-                                     f"One or more of the required values are missing."
+            if device_model == None or os_version == None or os_persona == None:
+                kwargs['fail_msg'] = f"The 'model': [{device_model}], 'OS version': [{os_version}] and 'OS persona': [{os_persona}] are required when onboarding 'Digital Twin' devices. One or more of the required values are missing."
                 self.common_validation.failed(**kwargs)
                 return -1
         return 1
@@ -2334,9 +2356,20 @@ class Devices:
         This method is create for onboard device with device_type == Digital Twin
         """
 
-        # Code specific to Digital Twin devices - Code copied from 'omboard_device_dt'
-        add_device_button = "Launch Digital Twin"
-        attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+        # Code specific to Digital Twin devices - Code copied from 'onboard_device_dt'
+        self.retries = 3
+        count = 0
+        while count < self.retries:
+            add_device_button = "Launch Digital Twin"
+            sleep(1)
+            attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+            try:
+                assert_equal("fn-hidden", attribute)
+            except AssertionError as err:
+                count += 1
+        if count == self.retries:
+            self.utils.print_warning("Unable to get the attribute...")
+
         if "fn-hidden" not in attribute:
             self.utils.print_info("Selecting 'Digital Twin' radio button")
             self.auto_actions.click(self.devices_web_elements.get_device_type_digital_twin_radio_button())
@@ -2352,7 +2385,6 @@ class Devices:
                 kwargs['fail_msg'] = f"Could not select OS Persona: {os_persona}"
                 self.common_validation.failed(**kwargs)
                 return -1
-
             self.utils.print_debug(f"Selecting Device Model: {device_model}")
             self.auto_actions.click(self.devices_web_elements.get_digital_twin_device_model_dropdown())
             sleep(2)
@@ -3839,6 +3871,16 @@ class Devices:
         else:
             self.utils.print_info("No rows present")
         return -1
+
+    def get_device_model_serial_numbers(self, device_model):
+        rows = self.devices_web_elements.get_grid_rows()
+        list_serial = []
+        if rows:
+            for row in rows:
+                if device_model in row.text:
+                    formated_row = self.format_row(row.text)
+                    list_serial.append(formated_row[11])
+        return list_serial
 
     def format_row(self, row):
         cell_values = row.split("\n")
