@@ -319,6 +319,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
             if field in cell.get_attribute("class"):
                 return cell
 
+    def get_common_object_template_grid_row_href(self, cell):
+        return self.weh.get_element(self.common_object_grid_row_cells_href, cell)
+
     def get_common_object_policy_ap_templates_view_all_pages(self):
         """
         :return: get_common_object_policy_ap_templates_view_all_pages
@@ -440,6 +443,15 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_common_object_wifi0_radio_profile_button(self):
         return self.weh.get_element(self.common_object_wifi0_radio_profile_button)
 
+    def get_common_object_wifi0_radio_profile_textbox(self):
+        return self.weh.get_element(self.common_object_wifi0_radio_profile_textbox)
+
+    def get_common_object_wifi1_radio_profile_textbox(self):
+        return self.weh.get_element(self.common_object_wifi1_radio_profile_textbox)
+
+    def get_common_object_wifi2_radio_profile_textbox(self):
+        return self.weh.get_element(self.common_object_wifi2_radio_profile_textbox)
+
     def get_common_object_wifi1_radio_profile_button(self):
         return self.weh.get_element(self.common_object_wifi1_radio_profile_button)
 
@@ -515,6 +527,18 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_common_object_wifi0_sensor(self):
         return self.weh.get_element(self.common_object_wifi0_sensor)
 
+    def get_common_object_wifi2_sensor(self):
+        return self.weh.get_element(self.common_object_wifi2_sensor)
+
+    def get_common_object_wifi0_sensor_UI_disable(self):
+        return self.weh.get_element(self.common_object_wifi0_sensor_UI_disable)
+
+    def get_common_object_wifi1_sensor_UI_disable(self):
+        return self.weh.get_element(self.common_object_wifi1_sensor_UI_disable)
+
+    def get_common_object_wifi2_sensor_UI_disable(self):
+        return self.weh.get_element(self.common_object_wifi2_sensor_UI_disable)
+
     def get_common_object_wifi1_client_mode(self):
         return self.weh.get_element(self.common_object_wifi1_client_mode)
 
@@ -571,6 +595,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_common_object_ap_template_save_button(self):
         return self.weh.get_element(self.common_object_ap_template_save_button)
+
+    def get_common_object_ap_template_cancel_button(self):
+        return self.weh.get_element(self.common_object_ap_template_cancel_button)
 
     def get_common_object_radio_profile_pagination_max(self):
         return self.weh.get_element(self.common_object_radio_profile_select_pagination_max)

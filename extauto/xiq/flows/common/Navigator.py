@@ -769,7 +769,7 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful
         """
-        if not self.get_common_object_basic_tab().is_selected():
+        if not self.get_subtab_common_object_basic():
             self.auto_actions.click_reference(self.get_common_object_basic_tab)
             sleep(2)
             return 1
@@ -1233,7 +1233,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click(common_object_element)
         sleep(5)
         self.utils.print_info("Clicking on policy")
-        self.auto_actions.click(self.weh.get_element(self.common_objects_policy))
+        self.navigate_to_common_object_policy_tab()
 
         sleep(5)
         self.utils.print_info("Clicking on user profile")
