@@ -48,9 +48,9 @@ class Alarms(AlarmsWebElements):
         if row:
             self.auto_actions.click(self.get_alarm_grid_row_check_box(row))
             sleep(2)
-            self.auto_actions.click(self.get_alarm_clear_button())
+            self.auto_actions.click_reference(self.get_alarm_clear_button)
             sleep(2)
-            self.auto_actions.click(self.get_alarm_clear_confirm_yes_button())
+            self.auto_actions.click_reference(self.get_alarm_clear_confirm_yes_button)
             sleep(2)
             _tool_tip = self.get_alarm_clear_tool_tip().text
 
@@ -100,11 +100,12 @@ class Alarms(AlarmsWebElements):
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
         self.utils.print_info("Clicking View Legacy Alarm Button")
-        self.auto_actions.click(self.get_alarms_grid_legacy_alarm_button())
+        self.auto_actions.click_reference(self.get_alarms_grid_legacy_alarm_button)
+        CloudDriver().refresh_page()
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Alarm Refresh Button")
-        self.auto_actions.click(self.get_alarms_grid_refresh_button())
+        self.auto_actions.click_reference(self.get_alarms_grid_refresh_button)
         self.screen.save_screen_shot()
 
         row = self._get_alarm_grid_row(search_string)

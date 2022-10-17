@@ -16,6 +16,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
+from extauto.xiq.flows.manage.Devices import Devices
 
 class DeviceConfig(DeviceConfigElements):
     def __init__(self):
@@ -30,6 +31,8 @@ class DeviceConfig(DeviceConfigElements):
         self.cobj_web_elements = CommonObjectsWebElements()
         self.common_validation = CommonValidation()
         self.tools = Tools()
+        self.devices = Devices()
+        self.cloud_driver = CloudDriver()
 
     def _override_wifi0_psk_ssid_settings(self, **override_args):
         """
@@ -43,7 +46,7 @@ class DeviceConfig(DeviceConfigElements):
         reassign_cwp = override_args.get('reassign_cwp')
 
         self.utils.print_info("Click on WiFi0 interface tab")
-        self.auto_actions.click(self.get_wifi0_interface_tab())
+        self.auto_actions.click_reference(self.get_wifi0_interface_tab)
 
         self.utils.print_info(f"overriding ssid broadcast name:{ssid_broadcast_name}")
         self.auto_actions.send_keys(self.get_override_wifi0_ssid_broadcast_ssid_field(), ssid_broadcast_name)
@@ -78,7 +81,7 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info("Click on wireless interfaces toggle button")
         sleep(5)
         if self.get_wireless_interface_toggle():
-            self.auto_actions.click(self.get_wireless_interface_toggle())
+            self.auto_actions.click_reference(self.get_wireless_interface_toggle)
             self.utils.print_info("able to click toggle")
 
     def override_client_mode_in_device_config(self, device_mac='', interface='', **client_mode_profile):
@@ -100,49 +103,49 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
             return -1
         self.utils.print_info("click on configuration tab")
-        self.auto_actions.click(self.get_configuration_tab())
+        self.auto_actions.click_reference(self.get_configuration_tab)
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab())
+        self.auto_actions.click_reference(self.get_interface_settings_tab)
         self._go_to_wireless_interface_settings_page()
         sleep(3)
-        self.auto_actions.click(self.get_wifi0_interface_tab())
-        self.auto_actions.click(self.get_override_client_access_wifi0_checked())
-        self.auto_actions.click(self.get_override_client_access_wifi0_checked())
-        self.auto_actions.click(self.get_interface_settings_save_button())
+        self.auto_actions.click_reference(self.get_wifi0_interface_tab)
+        self.auto_actions.click_reference(self.get_override_client_access_wifi0_checked)
+        self.auto_actions.click_reference(self.get_override_client_access_wifi0_checked)
+        self.auto_actions.click_reference(self.get_interface_settings_save_button)
         sleep(3)
         self._go_to_wireless_interface_settings_page()
 
         if   interface.lower() == 'wifi0':
             self.utils.print_info("Click on WiFi0 interface tab")
-            self.auto_actions.click(self.get_wifi0_interface_tab())
+            self.auto_actions.click_reference(self.get_wifi0_interface_tab)
             self.utils.print_info("Click enable Client Mode Checkbox")
-            self.auto_actions.click(self.get_override_client_mode_wifi0_checked())
+            self.auto_actions.click_reference(self.get_override_client_mode_wifi0_checked)
             sleep(3)
             self.auto_actions.scroll_down()
             self.utils.print_info("Click Add(+)")
-            self.auto_actions.click(self.get_override_add_client_mode_wifi0_profile())
+            self.auto_actions.click_reference(self.get_override_add_client_mode_wifi0_profile)
         elif interface.lower() == 'wifi1':
             self.utils.print_info("Click on WiFi1 interface tab")
-            self.auto_actions.click(self.get_wifi1_interface_tab())
+            self.auto_actions.click_reference(self.get_wifi1_interface_tab)
             self.utils.print_info("Click enable Client Mode Checkbox")
-            self.auto_actions.click(self.get_override_client_mode_wifi1_checked())
+            self.auto_actions.click_reference(self.get_override_client_mode_wifi1_checked)
             sleep(3)
             self.auto_actions.scroll_down()
             self.utils.print_info("Click Add(+)")
-            self.auto_actions.click(self.get_override_add_client_mode_wifi1_profile())
+            self.auto_actions.click_reference(self.get_override_add_client_mode_wifi1_profile)
         else:
             self.utils.print_info(f"Can you specify interface(wifi0 or wifi1)?")
 
         self._override_client_mode_wifi0_1(**client_mode_profile)
         sleep(3)
         self.utils.print_info("Click on interface settings save button")
-        self.auto_actions.click(self.get_interface_settings_save_button())
+        self.auto_actions.click_reference(self.get_interface_settings_save_button)
         sleep(5)
         self.screen.save_screen_shot()
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
         self.utils.print_info("Close the device360 page dialog window")
-        self.auto_actions.click(self.get_close_device360_dialog_window())
+        self.auto_actions.click_reference(self.get_close_device360_dialog_window)
 
         if 'Interface Settings were updated successfully.' in tool_tp_text:
             return 1
@@ -166,28 +169,28 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.send_keys(self.get_override_wifi0_1_client_mode_profile_name(), client_mode_profile_name)
         if cm_enable_local_web_page.upper() == 'DISABLE':
             self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
-            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_page_checkbox())
+            self.auto_actions.click_reference(self.get_override_wifi0_1_cm_local_web_page_checkbox)
             self.utils.print_info(f"Click Add(+)")
-            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_page_add())
+            self.auto_actions.click_reference(self.get_override_wifi0_1_cm_local_web_page_add)
             self.utils.print_info(f"Enter SSID Name: {cm_ssid_name}")
             self.auto_actions.send_keys(self.get_override_wifi0_1_cm_local_web_page_ssid_textbox(), cm_ssid_name)
             self.utils.print_info(f"Enter Password: {cm_password}")
             self.auto_actions.send_keys(self.get_override_wifi0_1_cm_local_web_page_password_textbox(), cm_password)
             self.utils.print_info(f"Auth Method: {cm_auth_method}")
-            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_page_auth_dropdown())
+            self.auto_actions.click_reference(self.get_override_wifi0_1_cm_local_web_page_auth_dropdown)
             self.auto_actions.select_drop_down_options(self.get_override_wifi0_1_cm_local_web_page_auth_dropdown_option(), cm_auth_method)
             self.utils.print_info(f"Key Type: {cm_key_type}")
-            self.auto_actions.click(self.get_override_wifi0_1_cm_local_web_key_type_dropdown())
+            self.auto_actions.click_reference(self.get_override_wifi0_1_cm_local_web_key_type_dropdown)
             self.auto_actions.select_drop_down_options(self.get_override_wifi0_1_cm_local_web_key_type_dropdown_option(), cm_key_type)
             self.screen.save_screen_shot()
             sleep(2)
             self.utils.print_info(f"Click Add button")
-            self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button())
+            self.auto_actions.click_reference(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button)
         self.utils.print_info(f"Enter DHCP Server Scope: {dhcp_server_scope}")
         self.auto_actions.send_keys(self.get_override_wifi0_1_client_mode_profile_dhcp_server_scope(), dhcp_server_scope)
         self.screen.save_screen_shot()
         self.utils.print_info("Click Save Client Mode Profile")
-        self.auto_actions.click(self.get_override_wifi0_1_client_mode_profile_save())
+        self.auto_actions.click_reference(self.get_override_wifi0_1_client_mode_profile_save)
 
     def override_psk_ssid_settings(self, device_serials='', **override_args):
         """
@@ -216,7 +219,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(5)
 
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab())
+        self.auto_actions.click_reference(self.get_interface_settings_tab)
 
         self._go_to_wireless_interface_settings_page()
 
@@ -230,7 +233,7 @@ class DeviceConfig(DeviceConfigElements):
             self._override_wifi2_psk_ssid_settings(**override_args)
 
         self.utils.print_info("Click on interface settings save button")
-        self.auto_actions.click(self.get_interface_settings_save_button())
+        self.auto_actions.click_reference(self.get_interface_settings_save_button)
         sleep(5)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -246,7 +249,7 @@ class DeviceConfig(DeviceConfigElements):
         :return: ovr_psk_password, ovr_psk_password
         """
         self.utils.print_info("Click on WiFi0 interface tab")
-        self.auto_actions.click(self.get_wifi0_interface_tab())
+        self.auto_actions.click_reference(self.get_wifi0_interface_tab)
 
         ovr_ssid_brdcst_name = self.get_override_wifi0_ssid_broadcast_ssid_field().get_attribute("value")
         self.utils.print_info(f"Override ssid broadcast name:{ovr_ssid_brdcst_name}")
@@ -279,17 +282,17 @@ class DeviceConfig(DeviceConfigElements):
             return -1
 
         self.utils.print_info("click on configuration tab")
-        self.auto_actions.click(self.get_configuration_tab())
+        self.auto_actions.click_reference(self.get_configuration_tab)
 
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab_single_device())
+        self.auto_actions.click_reference(self.get_interface_settings_tab_single_device)
         self._go_to_wireless_interface_settings_page()
 
         if interface == "WiFi0":
             ssid_broadcast_name, psk_password = self._get_override_wifi0_psk_ssid_settings()
 
         self.utils.print_info("Close the device360 page dialog window")
-        self.auto_actions.click(self.get_close_device360_dialog_window())
+        self.auto_actions.click_reference(self.get_close_device360_dialog_window)
         return ssid_broadcast_name, psk_password
 
     def _override_wifi0_channel(self, override_channel):
@@ -300,12 +303,12 @@ class DeviceConfig(DeviceConfigElements):
         :return: True
         """
         self.utils.print_info("Click on WiFi0 interface tab")
-        self.auto_actions.click(self.get_wifi0_interface_tab())
+        self.auto_actions.click_reference(self.get_wifi0_interface_tab)
 
         self._configure_wifi0_interface_radio_status("ON")
 
         self.utils.print_info("Click on channel drop down options")
-        self.auto_actions.click(self.get_wireless_interface_wifi0_channel_drop_down())
+        self.auto_actions.click_reference(self.get_wireless_interface_wifi0_channel_drop_down)
 
         self.utils.print_info(f"select the channel:{override_channel}")
         self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi0_channel_options(), override_channel)
@@ -317,12 +320,12 @@ class DeviceConfig(DeviceConfigElements):
         :return: True
         """
         self.utils.print_info("Click on WiFi1 interface tab")
-        self.auto_actions.click(self.get_wifi1_interface_tab())
+        self.auto_actions.click_reference(self.get_wifi1_interface_tab)
 
         self._configure_wifi1_interface_radio_status("ON")
 
         self.utils.print_info("Click on channel drop down options")
-        self.auto_actions.click(self.get_wireless_interface_wifi1_channel_drop_down())
+        self.auto_actions.click_reference(self.get_wireless_interface_wifi1_channel_drop_down)
 
         self.utils.print_info(f"select the channel:{override_channel}")
         self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi1_channel_options(), override_channel)
@@ -364,7 +367,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(5)
 
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab())
+        self.auto_actions.click_reference(self.get_interface_settings_tab)
 
         self._go_to_wireless_interface_settings_page()
 
@@ -378,7 +381,7 @@ class DeviceConfig(DeviceConfigElements):
             self._override_wifi2_channel(override_channel)
 
         self.utils.print_info("Click on interface settings save button")
-        self.auto_actions.click(self.get_interface_settings_save_button())
+        self.auto_actions.click_reference(self.get_interface_settings_save_button)
         sleep(5)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -395,12 +398,12 @@ class DeviceConfig(DeviceConfigElements):
         :return:
         """
         self.utils.print_info("Click on WiFi1 interface tab")
-        self.auto_actions.click(self.get_wifi0_interface_tab())
+        self.auto_actions.click_reference(self.get_wifi0_interface_tab)
 
         self._configure_wifi0_interface_radio_status("ON")
 
         self.utils.print_info("Click on WiFi0 radio profile drop down")
-        self.auto_actions.click(self.get_wireless_wifi0_radio_profile_drop_down())
+        self.auto_actions.click_reference(self.get_wireless_wifi0_radio_profile_drop_down)
 
         self.utils.print_info(f"select the radio profile:{override_radio_profile}")
         self.auto_actions.select_drop_down_options(self.get_wireless_wifi0_radio_profile_options(), override_radio_profile)
@@ -412,12 +415,12 @@ class DeviceConfig(DeviceConfigElements):
         :return:
         """
         self.utils.print_info("Click on WiFi1 interface tab")
-        self.auto_actions.click(self.get_wifi1_interface_tab())
+        self.auto_actions.click_reference(self.get_wifi1_interface_tab)
 
         self._configure_wifi1_interface_radio_status("ON")
 
         self.utils.print_info("Click on WiFi1 radio profile drop down")
-        self.auto_actions.click(self.get_wireless_wifi1_radio_profile_drop_down())
+        self.auto_actions.click_reference(self.get_wireless_wifi1_radio_profile_drop_down)
 
         self.utils.print_info(f"select the radio profile:{override_radio_profile}")
         self.auto_actions.select_drop_down_options(self.get_wireless_wifi1_radio_profile_options(), override_radio_profile)
@@ -435,7 +438,7 @@ class DeviceConfig(DeviceConfigElements):
         self.device_common.edit_device(device_serial)
         sleep(5)
         self.utils.print_info("Click on interface settings tab")
-        # self.auto_actions.click(self.get_interface_settings_tab())
+        # self.auto_actions.click_reference(self.get_interface_settings_tab)
 
         self._go_to_wireless_interface_settings_page()
 
@@ -446,7 +449,7 @@ class DeviceConfig(DeviceConfigElements):
             self._override_wifi1_radio_profile(override_radio_prof)
 
         self.utils.print_info("Click on interface settings save button")
-        self.auto_actions.click(self.get_interface_settings_save_button())
+        self.auto_actions.click_reference(self.get_interface_settings_save_button)
         sleep(5)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -482,7 +485,7 @@ class DeviceConfig(DeviceConfigElements):
         self.navigator.navigate_to_multiple_device_configuration_page(device_serials)
 
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab())
+        self.auto_actions.click_reference(self.get_interface_settings_tab)
 
         self._go_to_wireless_interface_settings_page()
 
@@ -493,7 +496,7 @@ class DeviceConfig(DeviceConfigElements):
             self._override_wifi1_radio_profile(override_radio_prof)
 
         self.utils.print_info("Click on interface settings save button")
-        self.auto_actions.click(self.get_interface_settings_save_button())
+        self.auto_actions.click_reference(self.get_interface_settings_save_button)
         sleep(5)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -512,21 +515,21 @@ class DeviceConfig(DeviceConfigElements):
         """
         self.utils.print_info("Click WIFI0 Interface tab")
         sleep(5)
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi0_tab())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_tab)
         self.screen.save_screen_shot()
         sleep(2)
 
         if status == "ON":
             if not self.get_manage_devices_edit_wireless_interface_wifi0_on_button().is_selected():
                 self.utils.print_info("Changing WIFI0 Interface Radio Status to ON")
-                self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi0_on_button())
+                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_on_button)
                 self.screen.save_screen_shot()
                 sleep(2)
 
         if status == "OFF":
             if not self.get_manage_devices_edit_wireless_interface_wifi0_off_button().is_selected():
                 self.utils.print_info("Changing WIFI0 Interface Status to OFF")
-                self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi0_off_button())
+                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_off_button)
                 self.screen.save_screen_shot()
                 sleep(2)
         return 1
@@ -539,21 +542,21 @@ class DeviceConfig(DeviceConfigElements):
         :return: 1
         """
         self.utils.print_info("Click WIFI1 Interface tab")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi1_tab())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi1_tab)
         self.screen.save_screen_shot()
         sleep(2)
 
         if status == "ON":
             if not self.get_manage_devices_edit_wireless_interface_wifi1_on_button().is_selected():
                 self.utils.print_info("Changing WIFI1 Interface Radio Status to ON")
-                self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi1_on_button())
+                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi1_on_button)
                 self.screen.save_screen_shot()
                 sleep(2)
 
         if status == "OFF":
             if not self.get_manage_devices_edit_wireless_interface_wifi1_off_button().is_selected():
                 self.utils.print_info("Changing WIFI1 Interface Radio Status to OFF")
-                self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi1_off_button())
+                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi1_off_button)
                 self.screen.save_screen_shot()
                 sleep(2)
         return 1
@@ -579,7 +582,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(5)
 
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab())
+        self.auto_actions.click_reference(self.get_interface_settings_tab)
 
         self._go_to_wireless_interface_settings_page()
         self.screen.save_screen_shot()
@@ -590,7 +593,7 @@ class DeviceConfig(DeviceConfigElements):
             self._configure_wifi1_interface_radio_status(status)
 
         self.utils.print_info("Click Interface Settings Save Button")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_save_button())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save_button)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -598,7 +601,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         self.utils.print_info("Click Interface Settings Cancel Button")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_cancel_button())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_cancel_button)
         sleep(2)
 
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
@@ -623,10 +626,10 @@ class DeviceConfig(DeviceConfigElements):
         self.device_common.edit_devices(device_serial)
         sleep(5)
         self.utils.print_info("Clicking on the config button")
-        self.auto_actions.click(self.get_devices_edit_config_button())
+        self.auto_actions.click_reference(self.get_devices_edit_config_button)
         sleep(5)
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab())
+        self.auto_actions.click_reference(self.get_interface_settings_tab)
 
         self._go_to_wireless_interface_settings_page()
 
@@ -636,7 +639,7 @@ class DeviceConfig(DeviceConfigElements):
             self._configure_wifi1_interface_radio_status(status)
 
         self.utils.print_info("Click Interface Settings Save Button")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_save_button())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save_button)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -644,7 +647,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(5)
 
         self.utils.print_info("Click Interface Settings Close Button")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_close_button())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_close_button)
         sleep(2)
 
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
@@ -679,11 +682,11 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device_override_configure_button().is_selected():
-            self.auto_actions.click(self.get_device_override_configure_button())
+            self.auto_actions.click_reference(self.get_device_override_configure_button)
         sleep(4)
 
         self.utils.print_info("Click Device Configuration Button")
-        self.auto_actions.click(self.get_device_override_configure_device_configuration_button())
+        self.auto_actions.click_reference(self.get_device_override_configure_device_configuration_button)
         sleep(2)
 
         self.utils.print_info("Entering New HostName...")
@@ -691,14 +694,14 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         self.utils.print_info("Save Device Configuration")
-        self.auto_actions.click(self.get_device_override_save_device_configuration())
+        self.auto_actions.click_reference(self.get_device_override_save_device_configuration)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         sleep(2)
 
         if "Device configuration was updated successfully" in tool_tip_text:
@@ -713,7 +716,7 @@ class DeviceConfig(DeviceConfigElements):
         :return: WiFi0 Radio status ie ON or OFF
         """
         self.utils.print_info("Click WIFI0 Tab")
-        self.auto_actions.click(self.get_device_override_configure_interface_settings_wifi0_tab())
+        self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_wifi0_tab)
         sleep(2)
 
         if self.get_device_override_configure_interface_settings_wifi0_radio_status().is_selected():
@@ -728,7 +731,7 @@ class DeviceConfig(DeviceConfigElements):
         :return:  WiFi1 Radio status ie ON or OFF
         """
         self.utils.print_info("Click WIFI1 Tab")
-        self.auto_actions.click(self.get_device_override_configure_interface_settings_wifi1_tab())
+        self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_wifi1_tab)
         sleep(2)
 
         if self.get_device_override_configure_interface_settings_wifi1_radio_status().is_selected():
@@ -743,7 +746,7 @@ class DeviceConfig(DeviceConfigElements):
         :return:  WiFi1 Radio status ie ON or OFF
         """
         self.utils.print_info("Click WIFI2 Tab")
-        self.auto_actions.click(self.get_wifi2_interface_tab())
+        self.auto_actions.click_reference(self.get_wifi2_interface_tab)
         sleep(2)
 
         if self.get_device_override_configure_interface_settings_wifi2_radio_status().is_selected():
@@ -778,28 +781,28 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device_override_configure_button().is_selected():
-            self.auto_actions.click(self.get_device_override_configure_button())
+            self.auto_actions.click_reference(self.get_device_override_configure_button)
         sleep(4)
 
         self.utils.print_info("Click Interface Settings Button")
-        self.auto_actions.click(self.get_device_override_configure_interface_settings_button())
+        self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_button)
         sleep(2)
 
         self.utils.print_info("Click Wireless interfaces Link")
-        self.auto_actions.click(self.get_device_override_configure_wireless_interface_link())
+        self.auto_actions.click_reference(self.get_device_override_configure_wireless_interface_link)
         sleep(2)
 
         if wifi_interface_name.upper() == "WIFI0":
            radio_status = self._check_wifi0_radio_status()
            self.utils.print_info("Close the device360 page dialog window")
-           self.auto_actions.click(self.get_close_device360_dialog_window())
+           self.auto_actions.click_reference(self.get_close_device360_dialog_window)
            sleep(2)
            return radio_status
 
         if wifi_interface_name.upper() == "WIFI1":
             radio_status = self._check_wifi1_radio_status()
             self.utils.print_info("Close the device360 page dialog window")
-            self.auto_actions.click(self.get_close_device360_dialog_window())
+            self.auto_actions.click_reference(self.get_close_device360_dialog_window)
             sleep(2)
             return radio_status
 
@@ -812,23 +815,23 @@ class DeviceConfig(DeviceConfigElements):
         :return: 1
         """
         self.utils.print_info("Click WIFI0 Interface tab")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi0_tab())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_tab)
         sleep(2)
 
         self.utils.print_info("Enable WIFI0 Interface Status to ON")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi0_on_button())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_on_button)
         self.screen.save_screen_shot()
         sleep(2)
 
         if transmission_mode == "Auto":
             self.utils.print_info("Enable Transmission Power Mode To Auto")
-            self.auto_actions.click(self.get_wireless_interface_wifi0_transmission_mode_auto())
+            self.auto_actions.click_reference(self.get_wireless_interface_wifi0_transmission_mode_auto)
             self.screen.save_screen_shot()
             sleep(2)
 
         if transmission_mode == "Manual":
             self.utils.print_info("Enable Transmission Power Mode To Manual")
-            self.auto_actions.click(self.get_wireless_interface_wifi0_transmission_mode_manual())
+            self.auto_actions.click_reference(self.get_wireless_interface_wifi0_transmission_mode_manual)
             self.screen.save_screen_shot()
             sleep(2)
 
@@ -859,24 +862,24 @@ class DeviceConfig(DeviceConfigElements):
         :return: 1
         """
         self.utils.print_info("Click WIFI1 Interface tab")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi1_tab())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi1_tab)
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Enable WIFI1 Interface Status to ON")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_wifi1_on_button())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi1_on_button)
         self.screen.save_screen_shot()
         sleep(2)
 
         if transmission_mode == "Auto":
             self.utils.print_info("Enable Transmission Power Mode To Auto")
-            self.auto_actions.click(self.get_wireless_interface_wifi1_transmission_mode_auto())
+            self.auto_actions.click_reference(self.get_wireless_interface_wifi1_transmission_mode_auto)
             self.screen.save_screen_shot()
             sleep(2)
 
         if transmission_mode == "Manual":
             self.utils.print_info("Enable Transmission Power Mode To Manual")
-            self.auto_actions.click(self.get_wireless_interface_wifi1_transmission_mode_manual())
+            self.auto_actions.click_reference(self.get_wireless_interface_wifi1_transmission_mode_manual)
             self.screen.save_screen_shot()
             sleep(2)
 
@@ -922,7 +925,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(5)
 
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab())
+        self.auto_actions.click_reference(self.get_interface_settings_tab)
         self.screen.save_screen_shot()
 
         self._go_to_wireless_interface_settings_page()
@@ -936,7 +939,7 @@ class DeviceConfig(DeviceConfigElements):
             pass
 
         self.utils.print_info("Click Interface Settings Save Button")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_save_button())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save_button)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -944,7 +947,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         self.utils.print_info("Click Interface Settings Cancel Button")
-        self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_cancel_button())
+        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_cancel_button)
         sleep(2)
 
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
@@ -979,28 +982,28 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device_override_configure_button().is_selected():
-            self.auto_actions.click(self.get_device_override_configure_button())
+            self.auto_actions.click_reference(self.get_device_override_configure_button)
         sleep(4)
 
         self.utils.print_info("Click Device Configuration Button")
-        self.auto_actions.click(self.get_device_override_configure_device_configuration_button())
+        self.auto_actions.click_reference(self.get_device_override_configure_device_configuration_button)
         sleep(2)
 
         self.utils.print_info("Click On Device Template drop down options")
-        self.auto_actions.click(self.get_device_edit_template_drop_down())
+        self.auto_actions.click_reference(self.get_device_edit_template_drop_down)
 
         self.utils.print_info(f"Selecting Device Template:{template_name}")
         self.auto_actions.select_drop_down_options(self.get_device_edit_template_drop_down_options(), template_name)
 
         self.utils.print_info("Save Device Configuration")
-        self.auto_actions.click(self.get_device_override_save_device_configuration())
+        self.auto_actions.click_reference(self.get_device_override_save_device_configuration)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         sleep(2)
 
         if "Device configuration was updated successfully" in tool_tip_text:
@@ -1028,18 +1031,18 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device_override_configure_button().is_selected():
-            self.auto_actions.click(self.get_device_override_configure_button())
+            self.auto_actions.click_reference(self.get_device_override_configure_button)
         sleep(4)
 
         self.utils.print_info("Click Interface Settings Button")
-        self.auto_actions.click(self.get_device_override_configure_interface_settings_button())
+        self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_button)
         sleep(2)
 
         template_text = self.get_device_edit_template_text().text
         self.utils.print_info("Device Template Configured is ", template_text)
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         sleep(2)
 
         return template_text
@@ -1070,22 +1073,22 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device_override_configure_button().is_selected():
-            self.auto_actions.click(self.get_device_override_configure_button())
+            self.auto_actions.click_reference(self.get_device_override_configure_button)
         sleep(10)
 
         self.utils.print_info("Click Device Configuration Button")
-        self.auto_actions.click(self.get_device_override_configure_exos_device_configuration_button())
+        self.auto_actions.click_reference(self.get_device_override_configure_exos_device_configuration_button)
         sleep(5)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Click On Device Template drop down options")
-        self.auto_actions.click(self.get_device_edit_template_drop_down())
+        self.auto_actions.click_reference(self.get_device_edit_template_drop_down)
 
         self.utils.print_info(f"Selecting Device Template:{template_name}")
         self.auto_actions.select_drop_down_options(self.get_device_edit_template_drop_down_options(), template_name)
 
         self.utils.print_info("Save Device Configuration")
-        self.auto_actions.click(self.get_device_override_exos_save_device_configuration())
+        self.auto_actions.click_reference(self.get_device_override_exos_save_device_configuration())
         sleep(2)
         self.screen.save_screen_shot()
 
@@ -1093,7 +1096,7 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         sleep(2)
 
         if "Device configuration was updated successfully" in tool_tip_text:
@@ -1131,15 +1134,15 @@ class DeviceConfig(DeviceConfigElements):
         if self.get_device_override_configure_button().is_selected():
             pass
         else:
-            self.auto_actions.click(self.get_device_override_configure_button())
+            self.auto_actions.click_reference(self.get_device_override_configure_button)
         
 
         self.utils.print_info("Click Device Configuration Button")
-        self.auto_actions.click(self.get_device_override_configure_exos_device_configuration_button())
+        self.auto_actions.click_reference(self.get_device_override_configure_exos_device_configuration_button)
         
 
         self.utils.print_info("Click on Supplemental cli add option")
-        self.auto_actions.click(self.get_device_config_supplemental_cli_add_button())
+        self.auto_actions.click_reference(self.get_device_config_supplemental_cli_add_button)
         
 
         self.utils.print_info(f"Entering Supplemental Cli Name:{suppl_cli_name}")
@@ -1151,21 +1154,21 @@ class DeviceConfig(DeviceConfigElements):
         
 
         self.utils.print_info(f"Saving Supplemental Cli Configs")
-        self.auto_actions.click(self.get_device_config_supplemental_cli_save_button())
+        self.auto_actions.click_reference(self.get_device_config_supplemental_cli_save_button)
         self.screen.save_screen_shot()
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page - Supplemental Cli ", tool_tip_text)
 
         self.utils.print_info("Save Device Configuration")
-        self.auto_actions.click(self.get_device_override_exos_save_device_configuration())
+        self.auto_actions.click_reference(self.get_device_override_exos_save_device_configuration)
         
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         
 
         if "Device configuration was updated successfully" in tool_tip_text:
@@ -1200,30 +1203,30 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device_override_configure_button().is_selected():
-            self.auto_actions.click(self.get_device_override_configure_button())
+            self.auto_actions.click_reference(self.get_device_override_configure_button)
         sleep(10)
 
         self.utils.print_info("Click Device Configuration Button")
-        self.auto_actions.click(self.get_device_override_configure_exos_device_configuration_button())
+        self.auto_actions.click_reference(self.get_device_override_configure_exos_device_configuration_button)
         sleep(5)
 
         # Selecting  Supplemental Cli from dropdown
         self.utils.print_info("Click on Supplemental Cli Select")
-        self.auto_actions.click(self.get_device_supplemental_cli_drop_down())
+        self.auto_actions.click_reference(self.get_device_supplemental_cli_drop_down)
 
         self.utils.print_info(f"Selecting Supplemental Cli:{suppl_cli_name}")
         self.auto_actions.select_drop_down_options(self.get_device_select_supplemental_cli_drop_down_options(), suppl_cli_name)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Save Device Configuration")
-        self.auto_actions.click(self.get_device_override_exos_save_device_configuration())
+        self.auto_actions.click_reference(self.get_device_override_exos_save_device_configuration)
         sleep(1)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         sleep(2)
 
         if "Device configuration was updated successfully" in tool_tip_text:
@@ -1244,12 +1247,12 @@ class DeviceConfig(DeviceConfigElements):
         """
 
         self.utils.print_info("Click on Device Config Audit tab")
-        self.auto_actions.click(self.get_device_config_audit_view())
+        self.auto_actions.click_reference(self.get_device_config_audit_view)
         sleep(20)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Click on Device Config Audit Delta View")
-        self.auto_actions.click(self.get_device_config_audit_delta_view())
+        self.auto_actions.click_reference(self.get_device_config_audit_delta_view)
         sleep(20)
         self.screen.save_screen_shot()
         sleep(5)
@@ -1258,7 +1261,7 @@ class DeviceConfig(DeviceConfigElements):
         delta_configs = self.get_device_config_audit_delta_view_content().text
         self.utils.print_info("Delta Configs : ", delta_configs)
 
-        self.auto_actions.click(self.get_device_config_audit_view_close_button())
+        self.auto_actions.click_reference(self.get_device_config_audit_view_close_button)
 
         return delta_configs
 
@@ -1283,7 +1286,7 @@ class DeviceConfig(DeviceConfigElements):
         self.navigator.navigate_to_common_object_basic_tab()
 
         self.utils.print_info("Click on Supplemental CLI Objects tab...")
-        self.auto_actions.click(self.get_common_obj_basic_supplemental_cli_tab())
+        self.auto_actions.click_reference(self.get_common_obj_basic_supplemental_cli_tab)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -1299,9 +1302,9 @@ class DeviceConfig(DeviceConfigElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Deleting Supplemental CLI Object...")
-        self.auto_actions.click(self.get_supplemental_cli_delete_button())
+        self.auto_actions.click_reference(self.get_supplemental_cli_delete_button())
         sleep(2)
-        self.auto_actions.click(self.get_supplemental_cli_delete_confirm_button())
+        self.auto_actions.click_reference(self.get_supplemental_cli_delete_confirm_button())
         sleep(2)
 
         return 1
@@ -1345,11 +1348,11 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device_override_configure_button().is_selected():
-            self.auto_actions.click(self.get_device_override_configure_button())
+            self.auto_actions.click_reference(self.get_device_override_configure_button)
         sleep(4)
 
         self.utils.print_info("Click Device Configuration Button")
-        self.auto_actions.click(self.get_device_override_configure_device_configuration_button())
+        self.auto_actions.click_reference(self.get_device_override_configure_device_configuration_button)
         sleep(2)
 
         self.auto_actions.scroll_down()
@@ -1362,7 +1365,7 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info("Device Template Configured is ", template_text)
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         sleep(2)
 
         return template_text
@@ -1385,7 +1388,7 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info("*****************************")
         self.utils.print_info("Clicking severity Dropdown ")
         sleep(3)
-        self.auto_actions.click(self.get_device_events_select_severity())
+        self.auto_actions.click_reference(self.get_device_events_select_severity)
         sleep(3)
 
         self.utils.print_info("selecting the severity ",severity )
@@ -1415,20 +1418,20 @@ class DeviceConfig(DeviceConfigElements):
         sleep(5)
 
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab_single_device())
+        self.auto_actions.click_reference(self.get_interface_settings_tab_single_device)
         self.screen.save_screen_shot()
 
         self._go_to_wireless_interface_settings_page()
         self.screen.save_screen_shot()
 
         self.utils.print_info("Click WiFi2 Interface tab")
-        self.auto_actions.click(self.get_device_config_wireless_interfaces_wifi2_tab())
+        self.auto_actions.click_reference(self.get_device_config_wireless_interfaces_wifi2_tab)
         self.screen.save_screen_shot()
 
         if interface_status.upper() == "ENABLE":
             self.utils.print_info("Enable Status of WiFi2 Interface")
             if not self.get_device_config_wireless_interfaces_wifi2_status_radio_button().is_selected():
-                self.auto_actions.click(self.get_device_config_wireless_interfaces_wifi2_status_radio_button())
+                self.auto_actions.click_reference(self.get_device_config_wireless_interfaces_wifi2_status_radio_button)
                 self.screen.save_screen_shot()
                 sleep(5)
             else:
@@ -1437,7 +1440,7 @@ class DeviceConfig(DeviceConfigElements):
         if interface_status.upper() == "DISABLE":
             self.utils.print_info("Disable Status of WiFi2 Interface")
             if self.get_device_config_wireless_interfaces_wifi2_status_radio_button().is_selected():
-                self.auto_actions.click(self.get_device_config_wireless_interfaces_wifi2_status_radio_button())
+                self.auto_actions.click_reference(self.get_device_config_wireless_interfaces_wifi2_status_radio_button)
                 self.screen.save_screen_shot()
                 sleep(5)
             else:
@@ -1445,7 +1448,7 @@ class DeviceConfig(DeviceConfigElements):
 
         if not self.get_manage_device_interface_settings_save_button_disabled():
             self.utils.print_info("Click Interface Settings Save Button.")
-            self.auto_actions.click(self.get_manage_device_edit_wireless_interface_save_button())
+            self.auto_actions.click_reference(self.get_manage_device_edit_wireless_interface_save_button)
             self.screen.save_screen_shot()
             sleep(2)
 
@@ -1454,11 +1457,11 @@ class DeviceConfig(DeviceConfigElements):
             sleep(2)
 
             self.utils.print_info("Click Interface Settings Cancel Button")
-            self.auto_actions.click(self.get_manage_device_edit_wireless_interface_cancel_button())
+            self.auto_actions.click_reference(self.get_manage_device_edit_wireless_interface_cancel_button)
             sleep(2)
 
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             sleep(2)
 
@@ -1469,11 +1472,11 @@ class DeviceConfig(DeviceConfigElements):
                 return -1
         else:
             self.utils.print_info("Click Interface Settings Cancel Button.")
-            self.auto_actions.click(self.get_manage_device_edit_wireless_interface_cancel_button())
+            self.auto_actions.click_reference(self.get_manage_device_edit_wireless_interface_cancel_button)
             sleep(2)
 
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             sleep(2)
 
@@ -1519,11 +1522,11 @@ class DeviceConfig(DeviceConfigElements):
             self.screen.save_screen_shot()
 
         self.utils.print_info("Click on interface settings save button")
-        self.auto_actions.click(self.get_interface_settings_save_button())
+        self.auto_actions.click_reference(self.get_interface_settings_save_button)
         sleep(5)
 
         self.utils.print_info("Click on Update button")
-        self.auto_actions.click(self.get_interface_settings_update_button())
+        self.auto_actions.click_reference(self.get_interface_settings_update_button)
 
         self.utils.print_info("Click on Perform Update")
         self.get_interface_settings_perform_update_button().click()
@@ -1550,47 +1553,47 @@ class DeviceConfig(DeviceConfigElements):
                 self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
                 return -1
             self.utils.print_info("click on configuration tab")
-            self.auto_actions.click(self.get_configuration_tab())
+            self.auto_actions.click_reference(self.get_configuration_tab)
             self.utils.print_info("Click on interface settings tab")
-            self.auto_actions.click(self.get_interface_settings_tab())
+            self.auto_actions.click_reference(self.get_interface_settings_tab)
             self._go_to_wireless_interface_settings_page()
             sleep(3)
-            self.auto_actions.click(self.get_wifi0_interface_tab())
-            self.auto_actions.click(self.get_override_client_access_wifi0_checked())
-            self.auto_actions.click(self.get_override_client_access_wifi0_checked())
-            self.auto_actions.click(self.get_interface_settings_save_button())
+            self.auto_actions.click_reference(self.get_wifi0_interface_tab)
+            self.auto_actions.click_reference(self.get_override_client_access_wifi0_checked)
+            self.auto_actions.click_reference(self.get_override_client_access_wifi0_checked)
+            self.auto_actions.click_reference(self.get_interface_settings_save_button)
             sleep(3)
             self._go_to_wireless_interface_settings_page()
 
             if interface.lower() == 'wifi0':
                 self.utils.print_info("Click on WiFi0 interface tab")
-                self.auto_actions.click(self.get_wifi0_interface_tab())
+                self.auto_actions.click_reference(self.get_wifi0_interface_tab)
                 self.utils.print_info(f"select the channel: {override_channel}")
-                self.auto_actions.click(self.get_wireless_wifi0_channel_dropdown())
+                self.auto_actions.click_reference(self.get_wireless_wifi0_channel_dropdown())
                 self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi0_channel_options(), override_channel)
             elif interface.lower() == 'wifi1':
                 self.utils.print_info("Click on WiFi1 interface tab")
-                self.auto_actions.click(self.get_wifi1_interface_tab())
+                self.auto_actions.click_reference(self.get_wifi1_interface_tab)
                 self.utils.print_info(f"select the channel: {override_channel}")
-                self.auto_actions.click(self.get_wireless_wifi1_channel_dropdown())
+                self.auto_actions.click_reference(self.get_wireless_wifi1_channel_dropdown)
                 self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi1_channel_options(), override_channel)
             elif interface.lower() == 'wifi2':
                 self.utils.print_info("Click on WiFi2 interface tab")
-                self.auto_actions.click(self.get_wifi2_interface_tab())
+                self.auto_actions.click_reference(self.get_wifi2_interface_tab)
                 self.utils.print_info(f"select the channel: {override_channel}")
-                self.auto_actions.click(self.get_wireless_wifi2_channel_dropdown())
+                self.auto_actions.click_reference(self.get_wireless_wifi2_channel_dropdown)
                 self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi2_channel_options(), override_channel)
             else:
                 self.utils.print_info(f"Can you specify interface(wifi0, wifi1, or wifi1)?")
 
             self.utils.print_info("Click on interface settings save button")
-            self.auto_actions.click(self.get_interface_settings_save_button())
+            self.auto_actions.click_reference(self.get_interface_settings_save_button)
             sleep(3)
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
             self.utils.print_info("Close the override device page dialog window")
-            self.auto_actions.click(self.get_close_device360_dialog_window())
+            self.auto_actions.click_reference(self.get_close_device360_dialog_window)
 
             if 'Interface Settings were updated successfully.' in tool_tp_text:
                 return 1
@@ -1613,7 +1616,7 @@ class DeviceConfig(DeviceConfigElements):
         """
         self.utils.print_info("Channel Configuration: " + str(channel_input))
         try:
-            self.auto_actions.click(self.get_wireless_wifi2_channel_dropdown())
+            self.auto_actions.click_reference(self.get_wireless_wifi2_channel_dropdown)
             locator = self.get_wireless_wifi2_channel_list(str(channel_input))
             self.utils.print_info(" LOCATOR ------ " + str(locator))
             element = self.web.get_element(locator)
@@ -1629,11 +1632,11 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Channel does not match with " + str(element.text))
 
         self.utils.print_info("Click on interface settings save button")
-        self.auto_actions.click(self.get_interface_settings_save_button())
+        self.auto_actions.click_reference(self.get_interface_settings_save_button)
         sleep(5)
 
         self.utils.print_info("Click on Update button")
-        self.auto_actions.click(self.get_interface_settings_update_button())
+        self.auto_actions.click_reference(self.get_interface_settings_update_button)
 
         self.utils.print_info("Click on Perform Update")
         self.get_interface_settings_perform_update_button().click()
@@ -1740,21 +1743,21 @@ class DeviceConfig(DeviceConfigElements):
                 return -1
 
             self.utils.print_info("click on configuration tab")
-            self.auto_actions.click(self.get_configuration_tab())
+            self.auto_actions.click_reference(self.get_configuration_tab())
             self.utils.print_info("Click on Device Configuration tab")
-            self.auto_actions.click(self.get_device_configuration_tab())
+            self.auto_actions.click_reference(self.get_device_configuration_tab)
 
             dhcp_status = self.get_device_configuration_dhcp_checkbox().is_selected()
             if dhcp.upper() == "ENABLE" and not dhcp_status:
                 self.utils.print_info("Enable -> Use DHCP only to set IP Address")
-                self.auto_actions.click(self.get_device_configuration_dhcp_checkbox())
+                self.auto_actions.click_reference(self.get_device_configuration_dhcp_checkbox)
             elif dhcp.upper() == "DISABLE" and dhcp_status:
                 self.utils.print_info("Disable -> Use DHCP only to set IP Address")
-                self.auto_actions.click(self.get_device_configuration_dhcp_checkbox())
-            self.auto_actions.click(self.get_device_override_save_device_configuration())
+                self.auto_actions.click_reference(self.get_device_configuration_dhcp_checkbox)
+            self.auto_actions.click_reference(self.get_device_override_save_device_configuration)
             sleep(2)
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             sleep(2)
         except:
             self.utils.print_info("Not able to navigate to the page")
@@ -1781,15 +1784,15 @@ class DeviceConfig(DeviceConfigElements):
                 return -1
 
             self.utils.print_info("click on configuration tab")
-            self.auto_actions.click(self.get_configuration_tab())
+            self.auto_actions.click_reference(self.get_configuration_tab)
             self.utils.print_info("Click on interface settings tab")
-            self.auto_actions.click(self.get_interface_settings_tab_single_device())
+            self.auto_actions.click_reference(self.get_interface_settings_tab_single_device)
             self.utils.print_info("Click on the wireless link")
             self._go_to_wireless_interface_settings_page()
 
             if interface in ['wifi2', 'WIFI2']:
                 self.utils.print_info("Click on the wifi2 tab")
-                self.auto_actions.click(self.get_wifi2_interface_tab())
+                self.auto_actions.click_reference(self.get_wifi2_interface_tab)
 
                 self.utils.print_info("Enable the radio status if the button is not enabled")
                 status = self._check_wifi2_radio_status()
@@ -1797,11 +1800,11 @@ class DeviceConfig(DeviceConfigElements):
                 if status == 'OFF':
                     self.utils.print_info("Enable the radio status")
                     self._go_to_wireless_interface_settings_page()
-                    self.auto_actions.click(self.get_wifi2_interface_tab())
+                    self.auto_actions.click_reference(self.get_wifi2_interface_tab)
 
             if interface in ['wifi1', 'WIFI1']:
                 self.utils.print_info("Click on the wifi1 tab")
-                self.auto_actions.click(self.get_wifi1_interface_tab())
+                self.auto_actions.click_reference(self.get_wifi1_interface_tab)
 
                 self.utils.print_info("Enable the radio status if the button is not enabled")
                 status = self._check_wifi1_radio_status()
@@ -1809,11 +1812,11 @@ class DeviceConfig(DeviceConfigElements):
                 if status == 'OFF':
                     self.utils.print_info("Enable the radio status")
                     self._go_to_wireless_interface_settings_page()
-                    self.auto_actions.click(self.get_wifi1_interface_tab())
+                    self.auto_actions.click_reference(self.get_wifi1_interface_tab)
 
             if interface in ['wifi0', 'WIFI0']:
                 self.utils.print_info("Click on the wifi0 tab")
-                self.auto_actions.click(self.get_wifi0_interface_tab())
+                self.auto_actions.click_reference(self.get_wifi0_interface_tab)
 
                 self.utils.print_info("Enable the radio status if the button is not enabled")
                 status = self._check_wifi0_radio_status()
@@ -1821,7 +1824,7 @@ class DeviceConfig(DeviceConfigElements):
                 if status == 'OFF':
                     self.utils.print_info("Enable the radio status")
                     self._go_to_wireless_interface_settings_page()
-                    self.auto_actions.click(self.get_wifi0_interface_tab())
+                    self.auto_actions.click_reference(self.get_wifi0_interface_tab)
 
         except:
             self.utils.print_info("Not able to navigate to the page")
@@ -1921,7 +1924,7 @@ class DeviceConfig(DeviceConfigElements):
                  - ``close_D360_configuration_page''
         """
         self.utils.print_info("Click on close D360 popup page")
-        self.auto_actions.click(self.get_close_D360_popup())
+        self.auto_actions.click_reference(self.get_close_D360_popup)
         self.utils.print_info("able to close D360 popup page")
 
     def verify_page_details(self, dic1=None, dic2=None):
@@ -1983,8 +1986,8 @@ class DeviceConfig(DeviceConfigElements):
             if interface == 'wifi2':
                 if mode == 'OFF':
                     self.utils.print_info("Click on the radio status button " + mode)
-                    self.auto_actions.click(self.get_device_override_configure_interface_settings_wifi2_radio_status())
-                    self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_save2_button())
+                    self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_wifi2_radio_status)
+                    self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save2_button)
         except:
             self.utils.print_info("Can not enable the radio status button")
             return -1
@@ -2010,8 +2013,8 @@ class DeviceConfig(DeviceConfigElements):
             if interface == 'wifi2':
                 if mode == 'ON':
                     self.utils.print_info("Click on the radio status button " + mode)
-                    self.auto_actions.click(self.get_device_override_configure_interface_settings_wifi2_radio_status())
-                    self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_save2_button())
+                    self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_wifi2_radio_status)
+                    self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save2_button)
         except:
             self.utils.print_info("Not able not enable the radio status button")
             return -1
@@ -2179,27 +2182,27 @@ class DeviceConfig(DeviceConfigElements):
         element = None
         self.utils.print_info(" Configure a radio profile from the radio profile drop down list " + str(profile_name))
         if interface in ['wifi2', 'WIFI2']:
-            self.auto_actions.click(self.get_default_wireless_wifi2_radio_profile_drop_down())
+            self.auto_actions.click_reference(self.get_default_wireless_wifi2_radio_profile_drop_down)
             locator = self.get_select_wireless_wifi2_radio_profile(str(profile_name))
             self.auto_actions.click(self.web.get_element(locator))
             element = self.get_default_wireless_wifi2_radio_profile_drop_down()
             # CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
         elif interface in ['wifi1', 'WIFI1']:
-            self.auto_actions.click(self.get_default_wireless_wifi1_radio_profile_drop_down())
+            self.auto_actions.click_reference(self.get_default_wireless_wifi1_radio_profile_drop_down)
             locator = self.get_select_wireless_wifi1_radio_profile(str(profile_name))
             self.auto_actions.click(self.web.get_element(locator))
             element = self.get_default_wireless_wifi1_radio_profile_drop_down()
 
         elif interface in ['wifi0', 'WIFI0']:
-            self.auto_actions.click(self.get_default_wireless_wifi0_radio_profile_drop_down())
+            self.auto_actions.click_reference(self.get_default_wireless_wifi0_radio_profile_drop_down)
             locator = self.get_select_wireless_wifi0_radio_profile(str(profile_name))
             self.auto_actions.click(self.web.get_element(locator))
             element = self.get_default_wireless_wifi0_radio_profile_drop_down()
 
         if self.get_dialog_box_selected_radio_profile_yes_button() != None:
             self.get_dialog_box_selected_radio_profile_yes_button().click()
-            self.auto_actions.click(self.get_manage_devices_edit_wireless_interface_save2_button())
+            self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save2_button)
 
         if element.text != profile_name:
             self.utils.print_info(" Radio profile does not match after selecting the profile name " + str(element.text))
@@ -2309,7 +2312,7 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info("Click on wired interfaces toggle button")
         sleep(5)
         if self.get_wired_interface_toggle():
-            self.auto_actions.click(self.get_wired_interface_toggle())
+            self.auto_actions.click_reference(self.get_wired_interface_toggle)
             self.utils.print_info("able to click toggle")
 
     def device_override_create_imago_tag_profile(self, device_serial='', profile_name='', server='', channel='',
@@ -2341,7 +2344,7 @@ class DeviceConfig(DeviceConfigElements):
         sleep(5)
 
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click(self.get_interface_settings_tab_single_device())
+        self.auto_actions.click_reference(self.get_interface_settings_tab_single_device)
         self.screen.save_screen_shot()
 
         self._go_to_wired_interface_settings_page()
@@ -2352,11 +2355,11 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Click on ImagoTag Radio button")
         if not self.get_imago_tag_add_profile_add_button().is_displayed():
-            self.auto_actions.click(self.get_imago_tag_radio_button())
+            self.auto_actions.click_reference(self.get_imago_tag_radio_button)
             sleep(2)
 
         self.utils.print_info("Click on ImagoTag Profile Add button")
-        self.auto_actions.click(self.get_imago_tag_add_profile_add_button())
+        self.auto_actions.click_reference(self.get_imago_tag_add_profile_add_button)
 
         self.utils.print_info("Add profile name")
         self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_imago_tag_profile_name_textfield(),
@@ -2373,7 +2376,7 @@ class DeviceConfig(DeviceConfigElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("clicking Channel drop down Button")
-        self.auto_actions.click(self.cobj_web_elements.get_common_object_imago_tag_profile_channel_drop_down_button())
+        self.auto_actions.click_reference(self.cobj_web_elements.get_common_object_imago_tag_profile_channel_drop_down_button)
         sleep(2)
 
         self.utils.print_info(f"Selecting Channel Option : {channel}")
@@ -2386,13 +2389,13 @@ class DeviceConfig(DeviceConfigElements):
         if fcc_mode:
             self.utils.print_info("Click on Enable FCC Mode Checkbox")
             if not self.cobj_web_elements.get_common_object_imago_tag_profile_fcc_mode_checkbox().is_selected():
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_imago_tag_profile_fcc_mode_checkbox())
+                self.auto_actions.click_reference(self.cobj_web_elements.get_common_object_imago_tag_profile_fcc_mode_checkbox)
                 self.screen.save_screen_shot()
                 sleep(2)
 
         if server_port != 'default':
             self.utils.print_info("Click Advanced Settings Button")
-            self.auto_actions.click(self.cobj_web_elements.get_common_object_imago_tag_profile_advanced_settings_tab())
+            self.auto_actions.click_reference(self.cobj_web_elements.get_common_object_imago_tag_profile_advanced_settings_tab)
             sleep(2)
 
             self.utils.print_info("Change server Port Number")
@@ -2401,7 +2404,7 @@ class DeviceConfig(DeviceConfigElements):
             self.screen.save_screen_shot()
 
         self.utils.print_info("clicking Save Button")
-        self.auto_actions.click(self.cobj_web_elements.get_common_object_imago_tag_profile_save_button())
+        self.auto_actions.click_reference(self.cobj_web_elements.get_common_object_imago_tag_profile_save_button)
         self.screen.save_screen_shot()
         sleep(5)
 
@@ -2412,7 +2415,7 @@ class DeviceConfig(DeviceConfigElements):
         if "Succesfully Updated" in tool_tp_text[-1]:
 
             self.utils.print_info("Click on interface settings save button")
-            self.auto_actions.click(self.get_interface_settings_save_button())
+            self.auto_actions.click_reference(self.get_interface_settings_save_button)
 
             self.utils.print_info("Close the device360 page dialog window")
             self.get_close_device360_dialog_window().click()
@@ -2422,7 +2425,7 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Unable to Edit Image Tag Policy Successfully")
 
             self.utils.print_info("Click on interface settings save button")
-            self.auto_actions.click(self.get_interface_settings_save_button())
+            self.auto_actions.click_reference(self.get_interface_settings_save_button)
 
             self.utils.print_info("Close the device360 page dialog window")
             self.get_close_device360_dialog_window().click()
@@ -2499,7 +2502,7 @@ class DeviceConfig(DeviceConfigElements):
                 delta_view = self.get_device_config_audit_delta_view()
                 if delta_view:
                     self.utils.print_info("Clicking on Device Config Audit Delta View...")
-                    self.auto_actions.click(self.get_device_config_audit_delta_view())
+                    self.auto_actions.click_reference(self.get_device_config_audit_delta_view)
                 else:
                     self.utils.print_info("Did not find the delta view...")
                     kwargs['fail_msg'] = "Did not find the delta view..."
@@ -2526,7 +2529,7 @@ class DeviceConfig(DeviceConfigElements):
                 close_audit_view_button = self.get_device_config_audit_view_close_button()
                 self.utils.print_info("Attempting to locate the close button...")
                 if close_audit_view_button:
-                    self.auto_actions.click(self.get_device_config_audit_view_close_button())
+                    self.auto_actions.click_reference(self.get_device_config_audit_view_close_button)
                 else:
                     self.utils.print_info("Did not find the close button.")
                     kwargs['fail_msg'] = "Did not find the close button."
@@ -2587,7 +2590,7 @@ class DeviceConfig(DeviceConfigElements):
                             self.utils.print_info("Attempting to locate complete view...")
                             if complete_view:
                                 self.utils.print_info("Clicking on Device Config Audit Complete View...")
-                                self.auto_actions.click(self.get_device_config_audit_complete_view())
+                                self.auto_actions.click_reference(self.get_device_config_audit_complete_view)
                             else:
                                 self.utils.print_info("Did not find the complete view...")
                                 kwargs['fail_msg'] = "Did not find the complete view..."
@@ -2614,7 +2617,7 @@ class DeviceConfig(DeviceConfigElements):
                             self.utils.print_info("Attempting to locate delta view...")
                             if delta_view:
                                 self.utils.print_info("Clicking on Device Config Audit Delta View...")
-                                self.auto_actions.click(self.get_device_config_audit_delta_view())
+                                self.auto_actions.click_reference(self.get_device_config_audit_delta_view)
                             else:
                                 self.utils.print_info("Did not find the delta view...")
                                 kwargs['fail_msg'] = "Did not find the delta view..."
@@ -2641,7 +2644,7 @@ class DeviceConfig(DeviceConfigElements):
                             self.utils.print_info("Attempting to locate audit view...")
                             if audit_view:
                                 self.utils.print_info("Clicking on Device Config Audit audit View...")
-                                self.auto_actions.click(self.get_device_config_audit_audit_view())
+                                self.auto_actions.click_reference(self.get_device_config_audit_audit_view)
                             else:
                                 self.utils.print_info("Did not find the audit view...")
                                 kwargs['fail_msg'] = "Did not find the audit view..."
@@ -2667,7 +2670,7 @@ class DeviceConfig(DeviceConfigElements):
                         close_audit_view_button = self.get_device_config_audit_view_close_button()
                         self.utils.print_info("Attempting to locate the close button...")
                         if close_audit_view_button:
-                            self.auto_actions.click(self.get_device_config_audit_view_close_button())
+                            self.auto_actions.click_reference(self.get_device_config_audit_view_close_button)
                         else:
                             self.utils.print_info("Did not find the close button.")
                             kwargs['fail_msg'] = "Did not find the close button."
@@ -2698,3 +2701,80 @@ class DeviceConfig(DeviceConfigElements):
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
+
+    def configure_device_function(self, ap_serial, device_function='AP'):
+        """
+        - This keyword will configure device function as AP or Router
+        :param ap_serial:   The serial of the device
+        :param device_function: AP or ApAsRouter, default is AP
+        :return: success 1 else -1
+        """
+        if not self.navigator.get_devices_page():
+            self.utils.print_info("Not in Devices page, now to navigate this page...")
+            if self.navigator.navigate_to_devices() == 1:
+                self.utils.print_info("To navigate the Devices page successfully...")
+            else:
+                self.utils.print_info("Failed to navigate the Devices page ...")
+                return -1
+        self.utils.print_info(f"Select AP serial {ap_serial} ...")
+        ap_selected = False
+        while not ap_selected:
+            try_cnt = 0
+            if self.devices.select_ap(ap_serial):
+                self.utils.print_info(f"Edit AP serial {ap_serial} to go AP page...")
+                self.auto_actions.click_reference(self.get_edit_button)
+                device_360_page = self.get_device_360_page()
+                if not device_360_page:
+                    wait_times = 0
+                    while wait_times <= 30:
+                        self.utils.print_info("The device 360 page is still not loaded, sleep 2 seconds")
+                        sleep(2)
+                        wait_times += 1
+                        if device_360_page:
+                            self.utils.print_info("Device 360 page is already loaded, move to next step")
+                            break
+                        else:
+                            continue
+                self.utils.print_info("Click Configure tab...")
+                self.auto_actions.click_reference(self.get_devices_edit_config_button)
+                self.utils.print_info("Click Device Configuration...")
+                self.auto_actions.click_reference(self.get_device_configuration_tab)
+                device_config_node_not_load = True
+                while device_config_node_not_load:
+                    if not self.get_device_configuration_node():
+                        self.utils.print_info("Device config node page is still loading ...")
+                        sleep(2)
+                    else:
+                        device_config_node_not_load = False
+                        self.utils.print_info("Device config node page is loaded successfully ...")
+                        sleep(6)
+                if self.get_devices_device_config_device_function_set_ap():
+                    self.utils.print_info("Click Device Function dropdown button...")
+                    self.auto_actions.click_reference(self.get_devices_device_config_device_function_set_ap)
+                    device_function_options = self.get_devices_device_config_device_function()
+                    for opt in device_function_options:
+                        self.utils.print_info(f"Option is {opt}")
+                        if device_function.upper() == opt.text.upper():
+                            self.utils.print_info(f"Select {device_function} as Device Function")
+                            self.auto_actions.click(opt)
+                            break
+                elif self.get_devices_device_config_device_function_set_router:
+                    self.utils.print_info("Device function already is set as router mode...")
+                    pass
+                else:
+                    self.utils.print_info("No valid device function found!!!")
+                    return -1
+                sleep(3)
+                self.utils.print_info("Click Save Device Configuration button...")
+                self.auto_actions.click_reference(self.get_devices_device_config_page_save_button)
+                sleep(3)
+                self.utils.print_info("Close device config windows...")
+                self.auto_actions.click_reference(self.get_close_dialog)
+                return 1
+            else:
+                self.utils.wait_till(self.cloud_driver.refresh_page, timeout=60, delay=1, is_logging_enabled=True)
+                self.utils.print_info("Refresh page and try to select AP again")
+                try_cnt += 1
+                if try_cnt == 10:
+                    self.utils.print_info(f"Max {try_cnt} to select device is reached")
+                    return -1

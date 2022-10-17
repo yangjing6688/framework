@@ -31,7 +31,7 @@ class A3WebElementsflow(A3WebElements):
         :return: 1 if Backup created successfully else return -1
         """
         self.utils.print_info("Selecting Backup from menu...")
-        if self.auto_actions.click(self.get_backup()) == 1:
+        if self.auto_actions.click_reference(self.get_backup) == 1:
             sleep(5)
             self.utils.print_info("Click Backup ")
             element = self.weh.get_element(self.backup_save_config)
@@ -63,7 +63,7 @@ class A3WebElementsflow(A3WebElements):
         :return: row element if row exists else return None
         """
         self.utils.print_info("Getting Backup Table")
-        if self.auto_actions.click(self.get_backup()) == 1:
+        if self.auto_actions.click_reference(self.get_backup) == 1:
             sleep(5)
             rows = self.setting.get_backup_logs_grid_rows()
             # self.auto_actions.click(rows)

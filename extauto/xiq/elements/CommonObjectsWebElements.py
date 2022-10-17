@@ -219,6 +219,15 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
             if field in cell.get_attribute("class"):
                 return cell
 
+    def get_common_object_supp_cli_grid_rows(self):
+        return self.weh.get_elements(self.common_object_supp_cli_grid_rows)
+
+    def get_common_object_supp_cli_grid_row_cells(self, row, field='field-name'):
+        cells = self.weh.get_elements(self.common_object_supp_cli_grid_row_cells, row)
+        for cell in cells:
+            if field in cell.get_attribute("idx"):
+                return cell
+
     def get_common_object_edit_button(self):
         """
 
@@ -270,6 +279,12 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         :return: get_common_object_policy_port_types_view_all_pages
         """
         return self.weh.get_element(self.common_object_policy_port_types_view_all_pages)
+
+    def get_common_object_basic_supp_cli_view_all_pages(self):
+        """
+        :return: get_common_object_basic_supp_cli_view_all_pages
+        """
+        return self.weh.get_element(self.common_object_basic_supp_cli_view_all_pages)
 
     def get_common_object_network_subnetwork_space_tab(self):
         """
@@ -725,3 +740,12 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_next_page_element_disabled(self):
         return self.weh.get_element(self.next_page_element_disabled)
+
+    def get_common_object_policy_max_page_number(self):
+        return self.weh.get_elements(self.common_object_policy_max_page_number)
+
+    def get_common_object_policy_go_to_first_page(self):
+        elements = self.weh.get_elements(self.common_object_policy_go_to_first_page)
+        for el in elements:
+            if el.is_displayed():
+                return el

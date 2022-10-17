@@ -23,10 +23,10 @@ class Webhook(WebhookWebElements):
         :return: returns 1 if successfully create webhook else -1
         """
         self.utils.print_info("Opening webhook dialog for create")
-        self.auto_actions.click(self.get_webhook_add_btn())
+        self.auto_actions.click_reference(self.get_webhook_add_btn)
         sleep(2)
         self._webhook_dialog_input(webhook)
-        self.auto_actions.click(self.get_webhook_save_btn())
+        self.auto_actions.click_reference(self.get_webhook_save_btn)
         sleep(2)
         self.screen.save_screen_shot()
         return self.find_url_in_webhook_grid(webhook)
@@ -40,10 +40,10 @@ class Webhook(WebhookWebElements):
         self.utils.print_info("Searching webhook url:"+webhook1.url)
         if self.find_url_in_webhook_grid(webhook1) == 1:
           self.utils.print_info("Opening webhook dialog for edit")
-          self.auto_actions.click(self.get_webhook_edit_btn())
+          self.auto_actions.click_reference(self.get_webhook_edit_btn)
           sleep(2)
           self._webhook_dialog_input(webhook2)
-          self.auto_actions.click(self.get_webhook_save_btn())
+          self.auto_actions.click_reference(self.get_webhook_save_btn)
           sleep(2)
           self.screen.save_screen_shot()
           return self.find_url_in_webhook_grid(webhook2)
@@ -58,9 +58,9 @@ class Webhook(WebhookWebElements):
         self.utils.print_info("Inputing webhook description:"+webhook.description)
         self.auto_actions.send_keys(self.get_webhook_description_input(), webhook.description)
         if webhook.sendme:
-          self.auto_actions.click(self.get_webhook_sendme_radio())
+          self.auto_actions.click_reference(self.get_webhook_sendme_radio)
         else:
-          self.auto_actions.click(self.get_webhook_bind_radio())
+          self.auto_actions.click_reference(self.get_webhook_bind_radio)
           bind_item_eles = self.get_webhook_bind_items()
           if bind_item_eles:
             for item in webhook.bind_items:
@@ -100,9 +100,9 @@ class Webhook(WebhookWebElements):
         sleep(2)
         self.utils.print_info("Searching webhook url:"+webhook.url)
         if self.find_url_in_webhook_grid(webhook) == 1:
-          self.auto_actions.click(self.get_webhook_del_btn())
+          self.auto_actions.click_reference(self.get_webhook_del_btn)
           sleep(2)
-          self.auto_actions.click(self.get_confirm_yes_btn())
+          self.auto_actions.click_reference(self.get_confirm_yes_btn)
           sleep(2)
           if self.find_url_in_webhook_grid(webhook) == -1:
             return 1

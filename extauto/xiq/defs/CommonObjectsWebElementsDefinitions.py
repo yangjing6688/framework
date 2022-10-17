@@ -371,6 +371,18 @@ class CommonObjectsWebElementsDefinitions:
             'TAG_NAME': 'a',
             'wait_for': 5
         }
+        
+    common_object_supp_cli_grid_rows = \
+        {
+            'CSS_SELECTOR': '.dojoxGridRow',
+            'wait_for': 2
+        }
+
+    common_object_supp_cli_grid_row_cells = \
+        {
+            'CSS_SELECTOR': '.dojoxGridCell',
+            'wait_for': 2
+        }
 
     common_object_edit_button = \
         {
@@ -439,6 +451,12 @@ class CommonObjectsWebElementsDefinitions:
     common_object_policy_port_types_view_all_pages = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
+            'wait_for': 3
+        }
+
+    common_object_basic_supp_cli_view_all_pages = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="500"]',
             'wait_for': 3
         }
 
@@ -1219,5 +1237,17 @@ class CommonObjectsWebElementsDefinitions:
     next_page_element_disabled = \
         {
             'CSS_SELECTOR': '.J-page-next.ui-page-item-next.ui-page-item-disable',
+            'index': 0
+        }
+
+    common_object_policy_max_page_number = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="pagesWrap"]//a',
+            'index': 0
+        }
+
+    common_object_policy_go_to_first_page = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="pagePrev"]//a[@data-dojo-attach-point="prev-item1"]',
             'index': 0
         }

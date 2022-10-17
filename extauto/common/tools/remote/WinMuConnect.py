@@ -74,7 +74,7 @@ class WinMuConnect(object):
             if "Connection request was completed successfully." in out:
                 # Loop over 20 seconds to check the network connection status
                 connect_count = 0
-                while connect_count < 10:
+                while connect_count < 19:
                     print("Check wi-fi connection")
                     cmd = 'netsh interface show interface  | findstr Wi-Fi'
                     cmd_out = self._execute_commands(cmd)
@@ -82,8 +82,8 @@ class WinMuConnect(object):
                     if "Connected" in "".join(cmd_out):
                         return 1
                     else:
-                        sleep(2)
-                        connect_count += 2
+                        sleep(3)
+                        connect_count += 3
                 # if WiFi network is not connected disconnect and retry to connect
                 self.disconnect_wifi()
                 sleep(2)

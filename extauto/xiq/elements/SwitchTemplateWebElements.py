@@ -500,7 +500,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_stp_tab(self):
         return self.weh.get_element(self.sw_template_stp_tab)
-    
+
     def get_sw_template_port_details_tab(self):
         return self.weh.get_element(self.sw_template_port_details_tab)
 
@@ -513,14 +513,39 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_template_slot(self, slot):
         return self.weh.get_template_element(self.template_slot, slot=slot)
 
-
     def get_sw_template_hyperlink(self):
         return self.weh.get_element(self.sw_template_hyperlink)
 
     def get_sw_template_enable_mac_locking(self):
         return self.weh.get_element(self.sw_template_enable_mac_locking)
 
-
     def get_sw_template_enable_mac_locking_confirm_message_yes_button(self):
         return self.weh.get_element(self.sw_template_enable_mac_locking_confirm_message_yes_button)
 
+    def get_sw_template_adv_settings_tab(self):
+        return self.weh.get_element(self.sw_template_adv_settings_tab)
+
+    def get_sw_template_auto_cfg(self):
+        return self.weh.get_element(self.sw_template_auto_cfg)
+
+    def get_sw_template_auto_revert_enabled(self):
+        return self.weh.get_element(self.sw_template_auto_revert_enabled)
+
+    def get_sw_template_auto_revert_msg(self):
+        return self.weh.get_element(self.sw_template_auto_revert_msg)
+
+    def get_sw_template_notification_yes_btn(self):
+        return self.weh.get_element(self.sw_template_notification_yes_btn)
+
+    def get_sw_template_assign_existing_trunk_choice_second_dialog_box_save_button(self):
+        return self.weh.get_element(self.sw_template_assign_existing_trunk_choice_second_dialog_box_save_button)
+    
+    def get_sw_template_error_message(self):
+        rez = []
+        elements = self.weh.get_elements(self.pse_error_message)
+        for el in elements:
+            if el.is_displayed():
+                rez.append(el)
+        if len(rez) != 0:
+            return rez
+        return None

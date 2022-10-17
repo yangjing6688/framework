@@ -99,8 +99,8 @@ class XIQSE_ControlPolicyServiceCreate(ControlPolicyServiceCreateWebElements):
         if err_msg:
             self.utils.print_info(f"A service with name '{service_name}' already exists")
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.get_error_ok_button())
-            self.auto_actions.click(self.get_cancel_button())
+            self.auto_actions.click_reference(self.get_error_ok_button)
+            self.auto_actions.click_reference(self.get_cancel_button)
         else:
             self.utils.print_info(f"A service with name '{service_name}' is not in-use. Continue...")
             ret_val = 1

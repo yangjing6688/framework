@@ -104,7 +104,7 @@ class Tools:
                 kwargs['fail_msg'] = "Unable to gather Layer 2 Neighbor Information and unable to close dialog page"
                 self.common_validation.failed(**kwargs)
                 return -1
-            self.auto_actions.click(self.tools_elements.get_neighbor_info_close_button())
+            self.auto_actions.click_reference(self.tools_elements.get_neighbor_info_close_button)
             kwargs['fail_msg'] = "Unable to gather Layer 2 Neighbor Information rows"
             self.common_validation.failed(**kwargs)
             return -1
@@ -113,7 +113,7 @@ class Tools:
             if mac in row.text:
                 self.utils.print_info("Found AP MAC in row: ", row.text)
                 self.utils.print_info("Closing the Dialog page")
-                self.auto_actions.click(self.tools_elements.get_neighbor_info_close_button())
+                self.auto_actions.click_reference(self.tools_elements.get_neighbor_info_close_button)
                 kwargs['pass_msg'] = "Successful found AP with MAC " +  mac + " in Layer 2 Neighbor Information table"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -162,7 +162,7 @@ class Tools:
             kwargs['fail_msg'] = "Unable to click Utilities Button"
             self.common_validation.failed(**kwargs)
             return -1
-        self.auto_actions.click(self.tools_elements.get_utilities_button())
+        self.auto_actions.click_reference(self.tools_elements.get_utilities_button)
 
         self.utils.print_info("Hovering over Diagnostics button")
         diagnostic_button = self.tools_elements.get_device_diagnostics_menu_item()
@@ -220,15 +220,15 @@ class Tools:
         self.utils.print_info("Clicking on Account icon")
         sleep(5)
 
-        self.auto_actions.click(self.tools_elements.get_account_icon())
+        self.auto_actions.click_reference(self.tools_elements.get_account_icon)
         self.utils.print_info("Click on Global Settings")
         sleep(5)
 
-        self.auto_actions.click(self.tools_elements.get_global_settings())
+        self.auto_actions.click_reference(self.tools_elements.get_global_settings)
         self.utils.print_info("Clicking on SSH availability")
         sleep(2)
 
-        self.auto_actions.click(self.tools_elements.get_ssh_availability())
+        self.auto_actions.click_reference(self.tools_elements.get_ssh_availability)
         self.utils.print_info("Getting SSH Availability status")
         sleep(2)
 
@@ -242,7 +242,7 @@ class Tools:
             self.utils.print_info("SSH enable box is already checked")
         else:
             self.utils.print_info("SSH is not enabled. Enabling...")
-            self.auto_actions.click(self.tools_elements.get_enable_ssh())
+            self.auto_actions.click_reference(self.tools_elements.get_enable_ssh)
 
         self.screen.save_screen_shot()
         return 1
@@ -291,7 +291,7 @@ class Tools:
                 kwargs['fail_msg'] = "Unable to click on ssh availability"
                 self.common_validation.failed(**kwargs)
                 return -1
-            self.auto_actions.click(self.tools_elements.get_run_button())
+            self.auto_actions.click_reference(self.tools_elements.get_run_button)
             sleep(15)
 
             self.utils.print_info("clicking on 5 minutes radio")
@@ -447,7 +447,7 @@ class Tools:
         self.utils.print_info("verify device info utilities")
         self.navigator.navigate_to_tools_page()
         self.navigator.navigate_tool_utility()
-        self.auto_actions.click(self.tools_elements.get_device_list_element_link())
+        self.auto_actions.click_reference(self.tools_elements.get_device_list_element_link)
         # self.wait_til_elements_avail(self.tool_utils.device_diag_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
@@ -499,7 +499,7 @@ class Tools:
             self.click_til_element_avail(self.tools_elements.get_device_client_info_btn())
             assert ap_name in CloudDriver().cloud_driver.page_source, "Not able to find the ap name"
             assert ap_mac in CloudDriver().cloud_driver.page_source, "Not able to find the ap mac"
-            self.auto_actions.click(self.tools_elements.get_device_client_close_btn())
+            self.auto_actions.click_reference(self.tools_elements.get_device_client_close_btn)
         else:
             btn_status = self.tools_elements.get_device_client_info_btn()
             assert btn_status.is_enabled() != True, 'The Device Client Information button should be disabled'
@@ -788,7 +788,7 @@ class Tools:
         :return: 1 if operation is successful
         """
         self.utils.print_info("Clicking Utilities...")
-        self.auto_actions.click(self.tools_elements.get_device_utilities())
+        self.auto_actions.click_reference(self.tools_elements.get_device_utilities)
         sleep(2)
 
         self.utils.print_info("Clicking Diagnostics...")
@@ -796,7 +796,7 @@ class Tools:
         sleep(2)
 
         self.utils.print_info("Clicking Ping...")
-        self.auto_actions.click(self.tools_elements.get_device_ping())
+        self.auto_actions.click_reference(self.tools_elements.get_device_ping)
         sleep(2)
 
         self.utils.print_info("Getting Ping Output...")
@@ -807,7 +807,7 @@ class Tools:
         sleep(2)
 
         self.utils.print_info("Closing the Dialog page")
-        self.auto_actions.click(self.tools_elements.get_device_ping_close())
+        self.auto_actions.click_reference(self.tools_elements.get_device_ping_close)
 
         if 'ping statistics' in output and '5 packets transmitted' in output:
             return 1

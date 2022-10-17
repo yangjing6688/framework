@@ -37,6 +37,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return False
 
+    def get_devices_page_number_one(self):
+        return self.weh.get_elements(self.devices_page_number_one)
+
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)
         return refresh_icon
@@ -162,6 +165,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return error message
         """
         return self.weh.get_element(self.device_os_change_error_message)
+
+    def get_device_update_error_message(self):
+        """
+        :return error message
+        """
+        return self.weh.get_element(self.device_update_error_message)
 
     def get_device_delete_confirm_ok_button(self):
         """
@@ -292,13 +301,19 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_device_utilities_button(self):
         return self.weh.get_element(self.manage_device_utilities_button)
 
+    def get_manage_device_utilities_wan_access(self):
+        return self.weh.get_element(self.manage_device_utilities_wan_access())
+
     def get_actions_assign_network_policy_combo(self):
         elements = self.weh.get_elements(self.actions_assign_network_policy)
         return self.get_dislayed_element(elements)
 
     def get_action_assign_network_policy_dialog(self):
         return self.weh.get_element(self.action_assign_network_policy_dialog)
-    
+
+    def get_action_assign_network_policy_dialog_cancel_button(self):
+        return self.weh.get_element(self.action_assign_network_policy_dialog_cancel_button)
+
     def get_nw_policy_drop(self):
         return self.weh.get_element(self.nw_policy_drop)
 
@@ -323,8 +338,20 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_ui_banner_error_message(self):
         return self.weh.get_element(self.ui_banner_error_message)
 
+    def get_ui_banner_error_close_button(self):
+        return self.weh.get_element(self.ui_banner_error_close_button)
+
     def get_ui_banner_warning_message(self):
         return self.weh.get_element(self.ui_banner_warning_message)
+
+    def get_ui_banner_warning_close_button(self):
+        return self.weh.get_element(self.ui_banner_warning_close_button)
+
+    def get_ui_banner_notice_message(self):
+        return self.weh.get_element(self.ui_banner_notice_message)
+
+    def get_ui_banner_notice_close_button(self):
+        return self.weh.get_element(self.ui_banner_notice_close_button)
 
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)
@@ -544,6 +571,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: advanced add device make drop down to select the make of device (aerohive, voss, etc.)
         """
         return self.weh.get_element(self.devices_advanced_add_device_make_drop_down)
+
+    def get_devices_quick_add_block_show(self):
+        return self.weh.get_element(self.devices_quick_add_block_show)
 
     def get_devices_quick_add_device_make_aerohive_choice(self):
         """
@@ -818,12 +848,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_actions_open_site_engine_menu_option(self):
         return self.weh.get_element(self.actions_open_site_engine_menu_option)
 
-    def get_actions_maximum_site_engine_message(self):
-        return self.weh.get_element(self.actions_maximum_site_engine_message)
-
-    def get_actions_maximum_site_engine_message_box(self):
-        return self.weh.get_element(self.actions_maximum_site_engine_message_close_btn)
-
     def get_devices_service_tag_textbox(self):
         return self.weh.get_element(self.device_service_tag_textbox)
 
@@ -986,8 +1010,8 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return None
 
-    def get_device_stack_template_click(self):
-        return self.weh.get_element(self.device_stack_template_click)
+    def get_device_stack_template_click(self,row):
+        return self.weh.get_element(self.device_stack_template_click, row)
 
     def get_create_template_click(self):
         return self.weh.get_element(self.create_template_click)
@@ -1306,3 +1330,10 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: Devices > 100 rows per page button
         """
         return self.weh.get_element(self.one_hundred_rows_per_page_button)
+
+    def get_device_model(self, device_row):
+        """
+        :param device_row: the device parent row
+        :return: Devices -> Device Row -> Device's 'Model' column -> Device model element
+        """
+        return self.weh.get_element(self.device_model, parent=device_row)

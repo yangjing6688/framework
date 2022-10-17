@@ -93,7 +93,7 @@ class Events:
             self.utils.print_info("Clicking on download button.")
             download_btn = self.EventsWebElements.get_events_download_button()
             if download_btn.is_displayed() and download_btn.is_enabled():
-                self.auto_actions.click(self.EventsWebElements.get_events_download_button())
+                self.auto_actions.click_reference(self.EventsWebElements.get_events_download_button)
                 self.utils.print_info("Events Download verified.")
                 return 1
             return -1

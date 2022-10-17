@@ -1,4 +1,4 @@
-class CopilotDefs:
+class CopilotWebElementsDefinitions:
 
     wifi_capacity_content = \
         {
@@ -947,4 +947,59 @@ class CopilotDefs:
     wifi_capacity_widget_location_ap_overall_discription = \
         {
             'CSS_SELECTOR': '.as-list-item-body'
+        }
+
+    enable_copilot_menu_feature_button = \
+        {
+            'XPATH': '//span[contains(text(), "Enable CoPilot")]'
+        }
+
+    copilot_menu_alert_message_banner = \
+        {
+            'XPATH': '//div[@role="alert"]//span[contains(text(), "CoPilot deactivated due to lack of licenses")]'
+        }
+
+    wireless_connectivity_experience_widget = \
+        {
+            'CSS_SELECTOR': '.con-exp-wireless',
+            'wait_for': 15
+        }
+
+    wirless_client_experience_widget_location_grid_rows = \
+        {
+            'XPATH': '//nui-connectivity-experience[contains(@class,"con-exp-wireless")]//div[contains(@class,"anomaly-body")]//div[contains(@class,"ce-col-icon-n-name")]//div[contains(@class,"title-subtitle")]',
+            'wait_for': 5
+         }
+
+    wifi_clientexp_widget_viewby_option_handle = \
+        {
+            'XPATH': '//nui-connectivity-experience[contains(@class,"con-exp-wireless")]//div//mat-select[contains(@class,"nui-auto-copilot-connectivity-experience--view-by-dropdown")]',
+            'wait_for': 5
+        }
+
+    wifi_clientexp_widget_sort_viewby_options = \
+        {
+            'XPATH': '//div[contains(@class,"cdk-overlay-pane")]//div[contains(@class,"mat-select-panel")]//mat-option[contains(@class,"mat-option")]//span',
+            'wait_for': 5
+        }
+    wifi_clientexp_widget_duration_handle = \
+        {
+            'XPATH': '//mat-dialog-component[contains(@class,"connectivity-exp-detail-dialog")]//mat-form-field[contains(@class,"duration-dropdown")]',
+            'wait_for': 5
+        }
+    wifi_clientexp_widget_duration_options = \
+        {
+            'XPATH': '//div[contains(@class,"cdk-overlay-pane")]//div[contains(@class,"mat-select-panel")]//mat-option[contains(@class,"mat-option")]//span',
+            'wait_for': 5
+        }
+    wireless_clientexp_quality_index = \
+        {
+            'XPATH': '//div[contains(@class,"cexp-detail-wrap")]//div[contains(@class,"time-to-connect")]//div[contains(@class,"quali-score-label")]//p[contains(@class,"quali-score")]',
+            'wait_for': 5
+        }
+
+    wirless_client_experience_widget_ssid_grid_rows = \
+        {
+            'XPATH': '//nui-connectivity-experience[contains(@class,"con-exp-wireless")]//div[contains(@class,"anomaly-body")]//div[contains(@class,"ce-col-icon-n-name")]//span[contains(@class,"entity-name")]',
+            'wait_for': 5
         }

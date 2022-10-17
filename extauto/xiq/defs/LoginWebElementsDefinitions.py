@@ -411,7 +411,7 @@ class LoginWebElementsDefinitions:
 
     welcome_wizard_heading = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='headingNode']",
+            'CSS_SELECTOR': '.WelcomeWizard.initial-flow',
             'wait_for': 5
         }
 
@@ -601,6 +601,12 @@ class LoginWebElementsDefinitions:
             'wait_for': 3,
         }
 
+    page_loading = \
+        {
+            'CSS_SELECTOR': '.preload',
+            'wait_for': 3
+        }
+
     devices_list_check = \
         {
             'XPATH': '//*[@class="dgrid-row-table"]',
@@ -633,4 +639,3 @@ class LoginWebElementsDefinitions:
             'XPATH': '//*[@id="ah/comp/common/AHDrawer_0"]/div[2]',
             'wait_for': 3,
         }
-

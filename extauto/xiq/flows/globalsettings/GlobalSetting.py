@@ -81,7 +81,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if close_icon := self.get_authentication_logs_unknown_error_close_icon():
             if close_icon.is_displayed():
                 self.utils.print_info("Click close icon")
-                self.auto_actions.click(self.get_authentication_logs_unknown_error_close_icon())
+                self.auto_actions.click_reference(self.get_authentication_logs_unknown_error_close_icon)
                 sleep(2)
 
         if search_filter:
@@ -95,7 +95,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if view_log := self.get_authentication_logs_view_all_pages_button():
             if view_log.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.get_authentication_logs_view_all_pages_button())
+                self.auto_actions.click_reference(self.get_authentication_logs_view_all_pages_button)
                 sleep(2)
 
         auth_logs_dict = {}
@@ -229,7 +229,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.navigate.navigate_to_accounts_organization_page()
 
         self.utils.print_info("Click Add button")
-        self.auto_actions.click(self.get_global_settings_account_organizations_add_button())
+        self.auto_actions.click_reference(self.get_global_settings_account_organizations_add_button)
         sleep(2)
 
         self.utils.print_info("Entering Organization name: ", organization_name)
@@ -237,7 +237,7 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Click colour scroll down box")
-        self.auto_actions.click(self.get_organization_drop_down_button())
+        self.auto_actions.click_reference(self.get_organization_drop_down_button)
         sleep(2)
 
         self.utils.print_info("Select Colour for Organization")
@@ -250,7 +250,7 @@ class GlobalSetting(GlobalSettingWebElements):
                 break
 
         self.utils.print_info("Click Add button")
-        self.auto_actions.click(self.get_global_settings_account_organizations_save_button())
+        self.auto_actions.click_reference(self.get_global_settings_account_organizations_save_button)
 
         return 1
 
@@ -311,11 +311,11 @@ class GlobalSetting(GlobalSettingWebElements):
 
         if str(hiq_status) == "False":
             self.utils.print_info("Click Enabling HIQ button")
-            self.auto_actions.click(self.get_global_settings_account_enable_hiq_button())
+            self.auto_actions.click_reference(self.get_global_settings_account_enable_hiq_button)
             sleep(2)
 
             self.utils.print_info("Click Enabling HIQ confirm button")
-            self.auto_actions.click(self.get_global_settings_account_enable_hiq_confirm_button())
+            self.auto_actions.click_reference(self.get_global_settings_account_enable_hiq_confirm_button)
             sleep(2)
 
             tool_tp_text = tool_tip.tool_tip_text
@@ -350,7 +350,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if close_icon := self.get_authentication_logs_unknown_error_close_icon():
             if close_icon.is_displayed():
                 self.utils.print_info("Click close icon")
-                self.auto_actions.click(self.get_authentication_logs_unknown_error_close_icon())
+                self.auto_actions.click_reference(self.get_authentication_logs_unknown_error_close_icon)
                 sleep(2)
 
         if search_filter:
@@ -363,7 +363,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if view_log := self.get_authentication_logs_view_all_pages_button():
             if view_log.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.get_authentication_logs_view_all_pages_button())
+                self.auto_actions.click_reference(self.get_authentication_logs_view_all_pages_button)
                 sleep(2)
 
         acct_logs_dict = {}
@@ -401,7 +401,7 @@ class GlobalSetting(GlobalSettingWebElements):
             sleep(5)
 
             self.utils.print_info("Selecting Device Management Settings...")
-            self.auto_actions.click(self.get_device_management_settings_menu())
+            self.auto_actions.click_reference(self.get_device_management_settings_menu)
             sleep(5)
 
             self.utils.print_info("Entering password")
@@ -413,12 +413,12 @@ class GlobalSetting(GlobalSettingWebElements):
             sleep(1)
 
             self.utils.print_info("Clicking Show Password checkbox...")
-            self.auto_actions.click(self.get_device_management_settings_show_password_checkbox())
+            self.auto_actions.click_reference(self.get_device_management_settings_show_password_checkbox)
             sleep(1)
 
             self.screen.save_screen_shot()
             self.utils.print_info("Saving the changes...")
-            self.auto_actions.click(self.get_device_management_settings_save_button())
+            self.auto_actions.click_reference(self.get_device_management_settings_save_button)
             sleep(5)
             return 1
         except Exception as e:
@@ -439,14 +439,14 @@ class GlobalSetting(GlobalSettingWebElements):
         self.navigate.navigate_to_account_details_page()
 
         self.utils.print_info("Click on the select language drop down")
-        self.auto_actions.click(self.get_account_select_language_drop_down())
+        self.auto_actions.click_reference(self.get_account_select_language_drop_down)
         sleep(2)
 
         self.utils.print_info("select the language")
         self.auto_actions.select_drop_down_options(self.get_account_select_language_drop_down_options(), language)
 
         self.utils.print_info("Click on the apply button")
-        self.auto_actions.click(self.get_account_language_apply_button())
+        self.auto_actions.click_reference(self.get_account_language_apply_button)
         sleep(10)
         return 1
 
@@ -464,7 +464,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.navigate.navigate_to_account_details_page()
 
         self.utils.print_info("Click on the Time Zone drop down")
-        self.auto_actions.click(self.get_account_time_zone_drop_down())
+        self.auto_actions.click_reference(self.get_account_time_zone_drop_down)
         sleep(2)
 
         self.utils.print_info("Select the time zone '" + time_zone + "'")
@@ -472,7 +472,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.auto_actions.select_drop_down_options(options, time_zone)
 
         self.utils.print_info("Click the apply button")
-        self.auto_actions.click(self.get_account_time_zone_apply_button())
+        self.auto_actions.click_reference(self.get_account_time_zone_apply_button)
         sleep(10)
         return 1
 
@@ -492,7 +492,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.screen.save_screen_shot()
         if not self.get_ssh_availability_option_status().is_selected():
             self.utils.print_info("Enabling SSH Availability..")
-            self.auto_actions.click(self.get_ssh_availability_option_status())
+            self.auto_actions.click_reference(self.get_ssh_availability_option_status)
             sleep(1)
             self.screen.save_screen_shot()
         else:
@@ -518,7 +518,7 @@ class GlobalSetting(GlobalSettingWebElements):
 
         if self.get_ssh_availability_option_status().is_selected():
             self.utils.print_info("Disabling SSH Availability..")
-            self.auto_actions.click(self.get_ssh_availability_option_status())
+            self.auto_actions.click_reference(self.get_ssh_availability_option_status)
             sleep(1)
             self.screen.save_screen_shot()
         else:
@@ -571,15 +571,15 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(20)  # this delay is required to load the API tokens rows
 
         self.utils.print_info("Select the all API Token rows")
-        self.auto_actions.click(self.get_api_access_tokens_select_check_box())
+        self.auto_actions.click_reference(self.get_api_access_tokens_select_check_box)
 
         sleep(2)
         self.utils.print_info("Click on API Access Tokens delete button")
-        self.auto_actions.click(self.get_api_access_tokens_delete_button())
+        self.auto_actions.click_reference(self.get_api_access_tokens_delete_button)
 
         sleep(2)
         self.utils.print_info("clicking on confirm Yes button")
-        self.auto_actions.click(self.get_api_access_tokens_delete_cnfm_button())
+        self.auto_actions.click_reference(self.get_api_access_tokens_delete_cnfm_button)
 
         sleep(2)
         self.screen.save_screen_shot()
@@ -599,14 +599,14 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Backup Now Button")
-        self.auto_actions.click(self.get_viq_backup_now_button())
+        self.auto_actions.click_reference(self.get_viq_backup_now_button)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Backup Confirm Button")
-        self.auto_actions.click(self.get_viq_backup_confirm_button())
+        self.auto_actions.click_reference(self.get_viq_backup_confirm_button)
         sleep(2)
 
         """
@@ -654,14 +654,14 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Reset VIQ Button")
-        self.auto_actions.click(self.get_viq_delete_data_button())
+        self.auto_actions.click_reference(self.get_viq_delete_data_button)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Reset VIQ Confirm Button")
-        self.auto_actions.click(self.get_reset_viq_confirm_button())
+        self.auto_actions.click_reference(self.get_reset_viq_confirm_button)
         sleep(2)
 
         """
@@ -698,7 +698,7 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(5)
         self.utils.print_info("Adding sleep for the audit logs to get updated")
         sleep(10)
-        self.auto_actions.click(self.get_audit_logs_view_all_pages_button())
+        self.auto_actions.click_reference(self.get_audit_logs_view_all_pages_button)
         sleep(5)
 
         audit_logs_dict = {}
@@ -797,7 +797,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.navigate.navigate_to_account_details_page()
 
         self.utils.print_info("Click on the Industry drop down")
-        self.auto_actions.click(self.get_industry_drop_down_button())
+        self.auto_actions.click_reference(self.get_industry_drop_down_button)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -807,7 +807,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Click on the apply button")
-        self.auto_actions.click(self.get_industry_apply_button())
+        self.auto_actions.click_reference(self.get_industry_apply_button)
         sleep(10)
         return 1
 
@@ -828,7 +828,7 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Export VIQ Button")
-        self.auto_actions.click(self.get_viq_export_button())
+        self.auto_actions.click_reference(self.get_viq_export_button)
         sleep(5)
         self.utils.print_info("Switch to Export Now Tab")
         self.auto_actions.driver.switch_to.window(self.auto_actions.driver.window_handles[1])
@@ -838,15 +838,15 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Export Now Button")
-        self.auto_actions.click(self.get_viq_export_now_button())
+        self.auto_actions.click_reference(self.get_viq_export_now_button())
         sleep(2)
 
         self.utils.print_info("Clicking Yes Button")
-        self.auto_actions.click(self.get_viq_export_yes_button())
+        self.auto_actions.click_reference(self.get_viq_export_yes_button)
         sleep(30)
 
         self.utils.print_info("Clicking OK")
-        self.auto_actions.click(self.get_viq_export_ok_button())
+        self.auto_actions.click_reference(self.get_viq_export_ok_button)
         sleep(20)
         self.utils.print_info("Switch to normal tab")
         self.auto_actions.driver.switch_to.window(self.auto_actions.driver.window_handles[0])
@@ -890,7 +890,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if option.lower() == "enable":
             if not self.get_opt_out_copilot_beta_status().is_selected():
                 self.utils.print_info("Enabling..")
-                self.auto_actions.click(self.get_opt_out_copilot_beta_status())
+                self.auto_actions.click_reference(self.get_opt_out_copilot_beta_status)
                 sleep(1)
                 self.screen.save_screen_shot()
             else:
@@ -901,7 +901,7 @@ class GlobalSetting(GlobalSettingWebElements):
                 self.utils.print_info("Option already disabled")
             else:
                 self.utils.print_info("Disabling...")
-                self.auto_actions.click(self.get_opt_out_copilot_beta_status())
+                self.auto_actions.click_reference(self.get_opt_out_copilot_beta_status)
                 sleep(1)
                 self.screen.save_screen_shot()
         return 1
@@ -945,17 +945,19 @@ class GlobalSetting(GlobalSettingWebElements):
         if option.lower() == "enable":
             if not self.get_supplemental_cli_option_status().is_selected():
                 self.utils.print_info("Enabling..")
-                self.auto_actions.click(self.get_supplemental_cli_option_status())
+                self.auto_actions.click_reference(self.get_supplemental_cli_option_status)
                 sleep(1)
             else:
                 self.utils.print_info("Option already enabled...")
-        if option.lower() == "disable":
+        elif option.lower() == "disable":
             if not self.get_supplemental_cli_option_status().is_selected():
                 self.utils.print_info("Option already disabled")
             else:
                 self.utils.print_info("Disabling...")
-                self.auto_actions.click(self.get_supplemental_cli_option_status())
+                self.auto_actions.click_reference(self.get_supplemental_cli_option_status)
                 sleep(1)
+        else:
+            return -1
         return 1
 
     def change_exos_device_management_settings(self, option, platform):
@@ -976,9 +978,9 @@ class GlobalSetting(GlobalSettingWebElements):
             if option.lower() == "enable":
                 if not self.get_exos_device_management_settings_status().is_selected():
                     self.utils.print_info("Enabling..")
-                    self.auto_actions.click(self.get_exos_device_management_settings_status())
+                    self.auto_actions.click_reference(self.get_exos_device_management_settings_status)
                     self.utils.print_info("Saving option")
-                    self.auto_actions.click(self.get_exos_device_management_settings_save_button())
+                    self.auto_actions.click_reference(self.get_exos_device_management_settings_save_button)
                     sleep(1)
                 else:
                     self.utils.print_info("Option already enabled...")
@@ -987,9 +989,9 @@ class GlobalSetting(GlobalSettingWebElements):
                     self.utils.print_info("Option already disabled")
                 else:
                     self.utils.print_info("Disabling...")
-                    self.auto_actions.click(self.get_exos_device_management_settings_status())
+                    self.auto_actions.click_reference(self.get_exos_device_management_settings_status)
                     self.utils.print_info("Saving option")
-                    self.auto_actions.click(self.get_exos_device_management_settings_save_button())
+                    self.auto_actions.click_reference(self.get_exos_device_management_settings_save_button)
                     sleep(1)
         else:
             self.utils.print_info("Device is not EXOS")
@@ -1160,7 +1162,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.screen.save_screen_shot()
         if not self.get_enable_copilot_feature_option_status().is_selected():
             self.utils.print_info("Enabling CoPilot feature..")
-            self.auto_actions.click(self.get_enable_copilot_feature_option_status())
+            self.auto_actions.click_reference(self.get_enable_copilot_feature_option_status)
             sleep(1)
             self.screen.save_screen_shot()
         else:
@@ -1186,7 +1188,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.screen.save_screen_shot()
         if self.get_enable_copilot_feature_option_status().is_selected():
             self.utils.print_info("Disabling CoPilot feature..")
-            self.auto_actions.click(self.get_enable_copilot_feature_option_status())
+            self.auto_actions.click_reference(self.get_enable_copilot_feature_option_status)
             sleep(1)
             self.screen.save_screen_shot()
         else:
