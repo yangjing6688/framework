@@ -179,7 +179,7 @@ class DeviceConfigDefs:
 
     device_configuration_tab = \
         {
-            'XPATH': '//li[@data-dojo-attach-point="configureViewSelect"]',
+            'XPATH': '//li[@data-dojo-attach-point="deviceConfigurationTab"]',
             'wait_for': 5
         }
 
