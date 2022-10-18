@@ -1268,8 +1268,7 @@ class Devices:
             self.utils.print_info("click on perform update button")
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(30)
-            import sys, pdb;
-            pdb.Pdb(stdout=sys.__stdout__).set_trace()
+
             tool_tip = self.devices_web_elements.get_device_update_error_message()
             if tool_tip:
                 tool_tp_text = tool_tip.text
