@@ -639,3 +639,15 @@ class LoginWebElementsDefinitions:
             'XPATH': '//*[@id="ah/comp/common/AHDrawer_0"]/div[2]',
             'wait_for': 3,
         }
+
+    external_admin_account_names = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="accountResults"]//a',
+            'wait_for': 15,
+        }
+
+    admin_portal_page = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="adminPortalHeader"]',
+            'wait_for': 15,
+        }
