@@ -1268,26 +1268,29 @@ class Devices:
             self.utils.print_info("click on perform update button")
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(30)
+            import sys, pdb;
+            pdb.Pdb(stdout=sys.__stdout__).set_trace()
             tool_tip = self.devices_web_elements.get_device_update_error_message()
-            tool_tp_text = tool_tip.text
-            self.utils.print_info(tool_tp_text)
-            update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
-            update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
-                                  "you must select a Complete Configuration Update."
-            update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
-            if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
-                self.utils.print_info('Convert to Complete. Delta not supported')
-                update_method = "Complete"
+            if tool_tip:
+                tool_tp_text = tool_tip.text
+                self.utils.print_info(tool_tp_text)
+                update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
+                update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
+                                      "you must select a Complete Configuration Update."
+                update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
+                if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
+                    self.utils.print_info('Convert to Complete. Delta not supported')
+                    update_method = "Complete"
 
-            if update_tooltip_msg3 in tool_tp_text:
-                self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
-                self.screen.save_screen_shot()
-                self.utils.print_info("click on Device Update Cancel Button")
-                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                self.screen.save_screen_shot()
-                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                self.common_validation.failed(**kwargs)
-                return -1
+                if update_tooltip_msg3 in tool_tp_text:
+                    self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("click on Device Update Cancel Button")
+                    self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
         if update_method == "Complete":
             self.utils.print_info("click on complete config radio button")
@@ -1298,19 +1301,20 @@ class Devices:
             sleep(2)
 
             tool_tip = self.devices_web_elements.get_device_update_error_message()
-            tool_tp_text = tool_tip.text
-            self.utils.print_info(tool_tp_text)
-            update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+            if tool_tip:
+                tool_tp_text = tool_tip.text
+                self.utils.print_info(tool_tp_text)
+                update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
 
-            if update_tooltip_msg in tool_tp_text:
-                self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
-                self.screen.save_screen_shot()
-                self.utils.print_info("click on Device Update Cancel Button")
-                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                self.screen.save_screen_shot()
-                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                self.common_validation.failed(**kwargs)
-                return -1
+                if update_tooltip_msg in tool_tp_text:
+                    self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("click on Device Update Cancel Button")
+                    self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -1336,6 +1340,16 @@ class Devices:
             device_update_status = self.get_device_updated_status(device_serial)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
+            elif 'Rebooting' in device_update_status:
+                reboot_res = self.wait_until_device_reboots(device_serial, retry_duration=15, retry_count=12)
+                if reboot_res == 1:
+                    self.utils.print_info(
+                        'Reboot for device with serial number: {} is successful'.format(device_serial))
+                else:
+                    kwargs['fail_msg'] = 'Reboot for device with serial number: {} is NOT successful: {}'.format(
+                        device_serial, reboot_res)
+                    self.common_validation.failed(**kwargs)
+                    return -1
             elif 'Certification' in device_update_status or 'Application' in device_update_status:
                 # Some other random push to the device is blocking my policy update!
                 self.utils.print_info("Non-update text in status :{}".format(device_update_status))
