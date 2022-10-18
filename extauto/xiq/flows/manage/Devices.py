@@ -10922,24 +10922,30 @@ class Devices:
             return wifi0_1_lists
         else:
             return -1
-            
-    def get_ap_hostname(self, ap_serial):
-        """
-        - This method gets AP hostname based on AP serial
-        - Keyword Usage:
-         - ``Get Ap Hostname   ${AP_SERIAL}``
 
-        :param ap_serial: serial number of AP
-        :return: success AP hostname else -1
+    def get_hostname(self, device_serial, **kwargs):
         """
+        - This method gets hostname assigned to the device based on device serial
+        - Keyword Usage:
+        - ``Get Hostname  ${SERIAL}``
+
+        :param device_serial: serial number of a device
+        :If the device is found the hostname will be returned else an error will be thrown
+        """
+
+        self.utils.print_info(f"Getting host name for device '{device_serial}'")
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
-                if ap_serial in row.text:
+                if device_serial in row.text:
                     hostname = self.devices_web_elements.get_hostname_code_cell(row).text
+                    kwargs['pass_msg'] = f"Hostname for '{device_serial}' is '{hostname}' "
+                    self.common_validation.passed(**kwargs)
                     return hostname
         else:
-            return -1
+            kwargs['fail_msg'] = f"'get_hostname()' failed. Device {device_serial} was not found"
+            self.common_validation.failed(**kwargs)
+
 
     def check_voss_image_version(self, output_image_version, os_version, operator='less'):
         """
