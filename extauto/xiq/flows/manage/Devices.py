@@ -1107,24 +1107,22 @@ class Devices:
             self.utils.print_info("Unable to Onboard Simulated Device")
             return -1
 
-    def get_device_serial_numbers(self, device_type, os_persona=None):
+    def get_device_serial_numbers(self, device_type):
         """
         - gets all existing devices serials with the same device_type
         - Keyword Usage:
          - ``Get Device Serial Numbers   ${DEVICE_TYPE}``
 
         :param device_type: type of device to
-        :param os_persona: device OS Persona. (Specific to Digital Twin)
         :return: serial number(s) with same device type
         """
         try:
-            # self.auto_actions.click_reference(self.devices_web_elements.get_refresh_devices_page)
             prev_dev_list = []
             sleep(5)
             rows = self.devices_web_elements.get_grid_rows()
             if rows:
                 for row in rows:
-                    if (device_type and device_type in row.text) or (os_persona and os_persona in row.text):
+                    if device_type and device_type in row.text:
                         self.utils.print_info(f"{row.text}")
                         try:
                             cells = self.devices_web_elements.get_device_row_cells(row)
@@ -2734,9 +2732,7 @@ class Devices:
 
         self.navigator.navigate_to_devices()
 
-        if os_persona:
-            initial_serials = self.get_device_serial_numbers(os_persona)
-        elif device_model:
+        if device_model and device_model != "":
             initial_serials = self.get_device_serial_numbers(device_model)
 
         self.utils.print_info("Clicking on ADD button...")
@@ -2748,97 +2744,8 @@ class Devices:
         self.utils.print_info("Selecting Deploy your devices directly to the cloud")
         self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
-        if device_type.lower() == "real":
-            self.utils.print_info("Selecting 'Real' Device Type radio button")
-            self.auto_actions.click_reference(self.devices_web_elements.get_device_type_real_radio_button)
-
-            if entry_type.lower() == "csv":
-                self.utils.print_info("Selecting 'CSV Import' Entry Type radio button")
-                # Select "Device Make"
-                if self.switch_web_elements.get_switch_make_drop_down():
-                    self.utils.print_info(f"Selecting Switch Type : {device_make}")
-                    self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
-                    self.auto_actions.select_drop_down_options_partial_match(
-                        self.switch_web_elements.get_switch_make_drop_down_options(), device_make)
-
-                # Select "Import File"
-                # csv_location looks to be the full path to the CSV file.
-                # csv_file_name looks to be the name of CSV file.  Need to prepend the self.custom_file_dir.
-                if csv_file_name:
-                    csv_location = self.custom_file_dir + csv_file_name
-
-                if csv_location:
-                    upload_button = self.devices_web_elements.get_device_entry_voss_csv_upload_button()
-                    if upload_button:
-                        self.utils.print_info("Specifying CSV file '" + csv_location + "'")
-                        self.auto_actions.send_keys(upload_button, csv_location)
-                    else:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
-                        self.common_validation.failed(**kwargs)
-                        return -1
-                else:
-                    self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
-                    self.common_validation.failed(**kwargs)
-                    return -1
-
-            else:  # Manually onboard device
-                self.utils.print_info("Entering Serial Number(s)...", device_serial)
-                self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
-                sleep(5)
-
-                # Check for "Device Make" option field
-                if self.switch_web_elements.get_switch_make_drop_down():
-                    self.utils.print_info(f"Selecting Switch Type : {device_make}")
-                    self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
-                    self.auto_actions.select_drop_down_options(
-                        self.switch_web_elements.get_switch_make_drop_down_options(), device_make)
-
-                # Check for "Device OS" option field. (Switch Engine, Fabric Engine, Cloud IQ Engine, Wing)
-                if self.get_devices_quick_add_device_os_radio():
-                    if 'Extreme - Aerohive' in device_make:
-                        if self.devices_web_elements.get_device_os_radio():
-                            self.utils.print_info("Verify Cloud IQ Engine Device OS Radio Button Status")
-                            device_os = self.devices_web_elements.get_device_os_radio().text
-                            self.utils.print_info("Device OS: ", device_os)
-                            if 'Cloud IQ Engine' in device_os:
-                                self.utils.print_info("Device OS matched")
-                            else:
-                                self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
-                                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_radio)
-
-                    if "EXOS" in device_make.upper():
-                        if self.devices_web_elements.get_device_os_exos_radio():
-                            self.utils.print_info("Selecting Device OS : Switch Engine")
-                            self.auto_actions.click_reference(self.devices_web_elements.get_device_os_exos_radio)
-                            self.screen.save_screen_shot()
-
-                    if "VOSS" in device_make.upper():
-                        if self.devices_web_elements.get_device_os_voss_radio():
-                            self.utils.print_info("Selecting Device OS : Fabric Engine")
-                            self.auto_actions.click_reference(self.devices_web_elements.get_device_os_voss_radio)
-                            self.screen.save_screen_shot()
-
-        # Code copied from 'onboard_simulated_device'
-        elif device_type.lower() == "simulated":
-            self.utils.print_info("Selecting 'Simulated' Device Type radio button")
-            self.auto_actions.click_reference(self.devices_web_elements.get_quick_onboard_simulated)
-            self.auto_actions.click_reference(self.devices_web_elements.get_simulated_devices_dropdown)
-
-            table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
-
-            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
-            for option in options:
-                if device_model in option.text:
-                    self.utils.print_info("Simulated device option: ", option.text)
-                    self.auto_actions.click(option)
-
-            self.utils.print_info(f"Entering Device Count: {device_count}")
-            self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), device_count)
-
         # Code specific to Digital Twin devices
-        elif device_type.lower() == "digital_twin":
+        if device_type.lower() == "digital_twin":
             add_device_button = "Launch Digital Twin"
             sleep(3)
             attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
@@ -2896,14 +2803,8 @@ class Devices:
                 return -1
 
         else:
-            self.utils.print_info(f"Specified Device Type not found: {device_type.lower()}")
+            self.utils.print_info(f"Specified Device Type not found or supported: {device_type.lower()}")
             return -1
-
-        # Selecting a Location is required for Real > Manual and Simulated devices.
-        if location and location != "":
-            self.utils.print_info("Selecting Location '" + location + "'")
-            if self.auto_actions.click_reference(self.devices_web_elements.get_location_button):
-                self._select_location(location)
 
         # Selecting a Network Policy is not required when onboarding a device.
         if policy and policy != "":
@@ -2931,14 +2832,7 @@ class Devices:
 
         if dialog_message:
             self.screen.save_screen_shot()
-            if "Device already onboarded" in dialog_message:
-                self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-                kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
-
-            elif "failed to onboard Digital Twin device" in dialog_message:
+            if "failed to onboard Digital Twin device" in dialog_message:
                 self.utils.print_info(f"Dialog Message: {dialog_message}")
                 self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 kwargs['fail_msg'] = f"failed to onboard Digital Twin device"
@@ -2953,9 +2847,7 @@ class Devices:
             self.utils.print_info("No Dialog box")
 
         # Need to obtain Serial Number for new Simulated or Digital Twin device
-        if os_persona:
-            current_serials = self.get_device_serial_numbers(os_persona)
-        elif device_model:
+        if device_model and device_model != "":
             current_serials = self.get_device_serial_numbers(device_model)
 
         if current_serials:
@@ -2979,7 +2871,6 @@ class Devices:
                 kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
                 self.common_validation.failed(**kwargs)
                 return -1
-
 
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
                             csv_location='', policy_name=None, loc_name=None):
