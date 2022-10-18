@@ -212,7 +212,6 @@ class CommonObjects(object):
                 if self._search_common_object(ssid):
                     self._select_common_object_row(ssid)
                     select_ssid_flag = True
-                    break
                 else:
                     self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
 
