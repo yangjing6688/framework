@@ -191,7 +191,7 @@ class DeviceConfigDefs:
 
     device_configuration_dhcp_checkbox = \
         {
-            'XPATH': '//input[@data-dojo-attach-point="dhcpAddressOnly"]',
+            'XPATH': '//input[@data-dojo-attach-point="mgtd-dhcp"]',
             'wait_for': 5
         }
 
