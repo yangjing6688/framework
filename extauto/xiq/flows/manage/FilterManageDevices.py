@@ -594,7 +594,7 @@ class FilterManageDevices():
         # Expand the Device Types filter section if it is not yet expanded
         device_type_filter_collapsed = self.filter_element.get_device_type_filter_link_collapsed()
         if device_type_filter_collapsed and device_type_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_type_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_type_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -634,7 +634,7 @@ class FilterManageDevices():
         # Expand the Device Connection State filter section if it is not yet expanded
         connection_state_filter_collapsed = self.filter_element.get_device_state_filter_link_collapsed()
         if connection_state_filter_collapsed and connection_state_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_state_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_state_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -676,7 +676,7 @@ class FilterManageDevices():
         # Expand the Device Management State filter section if it is not yet expanded
         mgmt_state_filter_collapsed = self.filter_element.get_device_data_management_state_filter_link_collapsed()
         if mgmt_state_filter_collapsed and mgmt_state_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_data_management_state_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_data_management_state_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -716,7 +716,7 @@ class FilterManageDevices():
         # Expand the Device Function filter section if it is not yet expanded
         func_filter_collapsed = self.filter_element.get_device_function_filter_link_collapsed()
         if func_filter_collapsed and func_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_function_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_function_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -752,7 +752,7 @@ class FilterManageDevices():
         # Expand the Device Product Type filter section if it is not yet expanded
         prod_filter_collapsed = self.filter_element.get_device_function_filter_link_collapsed()
         if prod_filter_collapsed and prod_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_function_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_function_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -786,7 +786,7 @@ class FilterManageDevices():
         # Expand the Device Software Version filter section if it is not yet expanded
         soft_ver_filter_collapsed = self.filter_element.get_device_soft_version_link_collapsed()
         if soft_ver_filter_collapsed and soft_ver_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_soft_version_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_soft_version_link)
 
         # Get the check box element to toggle
         element = None
@@ -823,7 +823,7 @@ class FilterManageDevices():
         # Expand the Cloud Config Group filter section if it is not yet expanded
         ccg_filter_collapsed = self.filter_element.get_cloud_config_group_filter_link_collapsed()
         if ccg_filter_collapsed and ccg_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_cloud_config_group_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_cloud_config_group_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -916,31 +916,31 @@ class FilterManageDevices():
             self.navigator.navigate_to_devices()
             if not self.filter_element.get_device_type_filter_link().is_displayed():
                 self.utils.print_info("Expand the filter toggle ")
-                self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+                self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         elif navigator == 'client filter':
             self.navigator.navigate_to_clients()
             if not self.client_element.get_filter_client_device_function_link().is_displayed():
-                self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+                self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         elif navigator == 'ml_insight filter':
             self.navigator.navigate_to_client360()
             if not self.client_element.get_filter_client_device_function_link().is_displayed():
-                self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+                self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         elif navigator == 'application':
             self.navigator.navigate_manage_application()
-            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
 
         all_filters = self.filter_element.get_my_saved_filter_list()
         if all_filters:
             self.utils.print_info("Start clearing my filter ")
             for index in range(1, len(all_filters) + 1):
-                self.auto_actions.click(self.filter_element.get_list_del_index_filter())
+                self.auto_actions.click_reference(self.filter_element.get_list_del_index_filter)
                 self.tools.wait_til_elements_avail(self.filter_element.dialog_yes_filter_btn, 60, False)
                 self.tools.click_til_element_avail(self.filter_element.get_del_yes_btn())
 
         all_applied_filters = self.filter_element.get_applied_filter_list()
         if all_applied_filters:
             self.utils.print_info("start clearing the applied filters ")
-            self.auto_actions.click(self.filter_element.get_applied_clear_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_applied_clear_filter_link)
             sleep(3)
         self.utils.print_info("Exit --> Clear all filters ")
 
@@ -962,7 +962,7 @@ class FilterManageDevices():
         sleep(5)
         self.auto_actions.click(element)
         if collapse:
-            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         self.utils.print_info(" Exit --> Expand / collapse filters " + filter_type)
 
         return 1
@@ -999,11 +999,11 @@ class FilterManageDevices():
 
         self.utils.print_info("Start --> Save filter ")
         filter_name = self.utils.get_random_string(8)
-        self.auto_actions.click(self.filter_element.get_save_filter_btn())
+        self.auto_actions.click_reference(self.filter_element.get_save_filter_btn)
         self.tools.wait_til_elements_avail(self.filter_element.dialog_input_filter_filename_txt, 30, False)
         self.utils.print_info(" Enter the filter saved name  " + filter_name + ' and click on Save')
         self.auto_actions.send_keys(self.filter_element.get_enter_filter_name_txt(), filter_name)
-        self.auto_actions.click(self.filter_element.get_dialog_save_btn())
+        self.auto_actions.click_reference(self.filter_element.get_dialog_save_btn)
         self.utils.print_info("Exit --> Save filter ")
 
         return filter_name
@@ -1048,7 +1048,7 @@ class FilterManageDevices():
         elif filter in ['client device function', 'client connection', 'client os type', 'client ssid']:
             sleep(5)
             if self.client_element.get_page_size_100_link().is_displayed():
-                self.auto_actions.click(self.client_element.get_page_size_100_link())
+                self.auto_actions.click_reference(self.client_element.get_page_size_100_link)
             if filter == 'client device function': elements = self.client_element.get_filter_client_device_list()
             elif filter == 'client connection' :   elements = self.client_element.get_filter_client_connection_list()
             elif filter == 'client os type'    :   return  self.get_elements_text(self.client_element.get_filter_client_os_type_list())
@@ -1093,16 +1093,16 @@ class FilterManageDevices():
         self.utils.print_info(" Start --> the action managed state " + str(ap))
         self.device.select_ap(ap)
         self.utils.print_info(" Click on the action button  ")
-        self.auto_actions.click(self.device_actions.get_device_actions_button())
+        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         self.auto_actions.move_to_element(self.device_actions.get_device_actions_change_management_status())
         self.tools.wait_til_elements_avail(self.filter_element.action_managed_device_link, 30, False)
         self.utils.print_info(" Change the managed state to  " + state)
         if state == "managed":
-            self.auto_actions.click(self.filter_element.get_action_managed_device())
+            self.auto_actions.click_reference(self.filter_element.get_action_managed_device)
         else:
-            self.auto_actions.click(self.filter_element.get_action_unmanaged_device())
-        self.auto_actions.click(self.filter_element.get_del_yes_btn())
-        self.auto_actions.click(self.filter_element.get_action_close_dialog())
+            self.auto_actions.click_reference(self.filter_element.get_action_unmanaged_device)
+        self.auto_actions.click_reference(self.filter_element.get_del_yes_btn)
+        self.auto_actions.click_reference(self.filter_element.get_action_close_dialog)
         self.utils.print_info(" Exit --> the Action managed state  ")
 
         return 1
@@ -1176,7 +1176,7 @@ class FilterManageDevices():
         self.utils.print_info("Clicking on filter")
         sleep(5)
         self.utils.print_info(self.filter_element.get_filter_toggle_link())
-        self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+        self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         sleep(10)
         self.utils.print_info("getting user profile grid")
         eles = self.filter_element.get_user_profile_grid()

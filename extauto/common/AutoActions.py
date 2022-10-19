@@ -29,7 +29,6 @@ class AutoActions:
         """
         - This Keyword Uses to Click the Mentioned Web Element
         - If the Element is not visible into view it Scroll element into view and Scroll down into page to click Element
-
         :param element: Web Element to Click on Web Page
         :return: None
         """
@@ -58,14 +57,21 @@ class AutoActions:
                     # To Overcome the Click Intercepted Exception we need to wait either explicit or implicit wait
                     # due to Xiq Application limitation we need to scroll the el into view, which is not visible on the page
                     # If scroll the el into view is not working will scroll down to the end of the page.
-                    if count < 2:
-                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view")
-                        CloudDriver().cloud_driver.execute_script(" arguments[0].scrollIntoView({block:'nearest'})", element)
-                        # CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView(true); ", element)
+                    if count == 0:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view [arguments[0].scrollIntoView(true)]")
+                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView(true); ", element)
                         sleep(2)
-                    elif 2 < count < 4:
+                    elif count == 1:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view [arguments[0].scrollIntoView({block:'nearest'})]")
+                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView({block:'nearest'});", element)
+                        sleep(2)
+                    elif count == 2:
                         self.utils.print_info("'Element Click Intercepted Exception': Scroll down to page")
                         self.scroll_down()
+                        sleep(2)
+                    elif count == 3:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll up to page")
+                        self.scroll_up()
                         sleep(2)
                     elif count == 4:
                         self.utils.print_info("'Element Click Intercepted Exception': trying javascript click().")

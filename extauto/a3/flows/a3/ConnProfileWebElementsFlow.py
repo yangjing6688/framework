@@ -23,7 +23,7 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
         - ``Create Mac Conn Profile``
         :return: 1 if connection profile is created successfully else return -1
         """
-        if self.auto_actions.click(self.select_conn_profile_menu()) == 1:
+        if self.auto_actions.click_reference(self.select_conn_profile_menu) == 1:
             sleep(5)
             self.utils.print_info("create a new connection profile ")
             sleep(10)
@@ -81,7 +81,7 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
         - ``Create Guest Conn Profile``
         :return: 1 if connection profile is created successfully else return -1
         """
-        if self.auto_actions.click(self.select_conn_profile_menu()) == 1:
+        if self.auto_actions.click_reference(self.select_conn_profile_menu) == 1:
             sleep(5)
             self.utils.print_info("create a new connection profile ")
             sleep(10)
@@ -142,7 +142,7 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
         :param user_name:  it should be the user name ex: ad or mac id
         :return: 1 if Authentication is done successfully else -1
         """
-        if self.auto_actions.click(self.get_radius_audit_log_ui()) == 1:
+        if self.auto_actions.click_reference(self.get_radius_audit_log_ui) == 1:
             sleep(2)
             self.utils.print_info(f"select the table")
             tab = self.weh.get_element(self.get_table)
@@ -189,7 +189,7 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
         :param owner:  it should be the user name ex: ad or default
         :return: 1 if Authentication is done successfully else -1
         """
-        if self.auto_actions.click(self.get_clients_search_ui()) == 1:
+        if self.auto_actions.click_reference(self.get_clients_search_ui) == 1:
             sleep(5)
             self.utils.print_info(f"select the table")
             sleep(10)

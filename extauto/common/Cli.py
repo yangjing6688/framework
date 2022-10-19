@@ -898,10 +898,13 @@ class Cli(object):
         """
 
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
-            self.send(connection, f'hivemanager address {server_name}')
+            self.send(connection, f'do hivemanager address {server_name}')
 
         elif  NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(connection, f'do Hivemanager address {server_name}')
+            self.send(connection, f'capwap client server name {server_name}')
+            self.send(connection, f'no capwap client enable')
+            self.send(connection, f'capwap client enable')
+            self.send(connection, f'save config')
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'capwap client server name {server_name}')
@@ -1237,9 +1240,24 @@ class Cli(object):
         :param retry_count: Retry count to check device connection status with Cloud server
         :return: 1 id device successfully disconnected with cloud server else -1
         """
+        if NetworkElementConstants.OS_AHXR in cli_type.upper():
+            self.send(connection, f'no capwap client server name')
+            self.send(connection, f'no capwap client enable')
+            self.send(connection, f'capwap client enable')
+            self.send(connection, f'save config')
+            count = 1
+            while count <= retry_count:
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                time.sleep(10)
+                hm_status = self.send(connection, f'show capwap client | include RUN')
+                if 'RUN State' not in hm_status: # the RUN state will not be in the output, only the DISCOVERY state will be shown
+                    self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
+                    return 1
+                count += 1
 
-        if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper() or \
-           NetworkElementConstants.OS_AHXR in cli_type.upper():
+            self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
             self.send(connection, f'no Hivemanager address ')
             self.send(connection, f'Application stop hiveagent')
             self.send(connection, f'Application start hiveagent')

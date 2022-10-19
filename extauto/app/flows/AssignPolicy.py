@@ -12,11 +12,11 @@ class AssignPolicy:
         self.utils = Utils()
 
     def assign_update_policy(self, policy):
-        self.auto_actions.click(self.mob_login_web_elements.get_assign_policy())
+        self.auto_actions.click_reference(self.mob_login_web_elements.get_assign_policy)
         self.utils.print_info("user clicked on assign policy widget")
-        self.auto_actions.click(self.mob_login_web_elements.get_np_backward_link())
+        self.auto_actions.click_reference(self.mob_login_web_elements.get_np_backward_link)
         self.utils.print_info("user clicked on backward link")
-        self.auto_actions.click(self.mob_login_web_elements.get_assign_policy())
+        self.auto_actions.click_reference(self.mob_login_web_elements.get_assign_policy)
         self.utils.print_info("user clicked on assign policy widget")
         time.sleep(1)
         self.auto_actions.send_keys(self.scan_web_elements.get_searched_np(), policy)
@@ -32,25 +32,25 @@ class AssignPolicy:
                 return 1
 
     def cancel_assign_policy(self):
-        self.auto_actions.click(self.mob_login_web_elements.assign_policy_cancel_button())
+        self.auto_actions.click_reference(self.mob_login_web_elements.assign_policy_cancel_button)
         self.utils.print_info("user canceled the assign policy")
         time.sleep(5)
 
     def confirm_assign_policy(self):
         self.utils.print_info("user is on AP details screen")
-        self.auto_actions.click(self.mob_login_web_elements.assign_policy_yes_button())
+        self.auto_actions.click_reference(self.mob_login_web_elements.assign_policy_yes_button)
         self.utils.print_info("user confirmed the assign policy")
         time.sleep(10)
-        self.auto_actions.click(self.mob_login_web_elements.get_update_policy())
+        self.auto_actions.click_reference(self.mob_login_web_elements.get_update_policy)
         self.utils.print_info("user clicked on update policy widget")
         time.sleep(2)
-        self.auto_actions.click(self.mob_login_web_elements.get_update_policy_cancel())
+        self.auto_actions.click_reference(self.mob_login_web_elements.get_update_policy_cancel)
         self.utils.print_info("user canceled the update policy")
         time.sleep(8)
-        self.auto_actions.click(self.mob_login_web_elements.get_update_policy())
+        self.auto_actions.click_reference(self.mob_login_web_elements.get_update_policy)
         self.utils.print_info("user clicked on update policy widget")
         time.sleep(5)
-        self.auto_actions.click(self.mob_login_web_elements.get_update_policy_confirm())
+        self.auto_actions.click_reference(self.mob_login_web_elements.get_update_policy_confirm)
         self.utils.print_info("user confirmed the update policy")
         time.sleep(5)
 

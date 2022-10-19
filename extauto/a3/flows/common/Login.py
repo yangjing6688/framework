@@ -106,7 +106,7 @@ class Login:
 
         self.utils.print_info("Clicking on Sign In button")
 
-        self.auto_actions.click(self.login_web_elements.get_login_page_login_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_login_page_login_button)
         sleep(10)
 
         return 1

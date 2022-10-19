@@ -29,7 +29,7 @@ class AnalyzeClients(object):
         """
         
         self.utils.print_info("Clicking on Extreme Guest Analyze > Clients Page")
-        self.auto_actions.click(self.clients_web_elem.get_extreme_guest_analyze_clients_tab())
+        self.auto_actions.click_reference(self.clients_web_elem.get_extreme_guest_analyze_clients_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -47,7 +47,7 @@ class AnalyzeClients(object):
         """
 
         self.utils.print_info("Clicking on Total Clients Key Metrics")
-        self.auto_actions.click(self.clients_web_elem.get_extreme_guest_analyze_clients_total_clients())
+        self.auto_actions.click_reference(self.clients_web_elem.get_extreme_guest_analyze_clients_total_clients)
         sleep(2)
 
         self.utils.print_info("Clicking on Location")
