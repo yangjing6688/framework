@@ -1743,7 +1743,7 @@ class DeviceConfig(DeviceConfigElements):
                 return -1
 
             self.utils.print_info("click on configuration tab")
-            self.auto_actions.click_reference(self.get_configuration_tab())
+            self.auto_actions.click_reference(self.get_configuration_tab)
             self.utils.print_info("Click on Device Configuration tab")
             self.auto_actions.click_reference(self.get_device_configuration_tab)
 
@@ -1754,6 +1754,7 @@ class DeviceConfig(DeviceConfigElements):
             elif dhcp.upper() == "DISABLE" and dhcp_status:
                 self.utils.print_info("Disable -> Use DHCP only to set IP Address")
                 self.auto_actions.click_reference(self.get_device_configuration_dhcp_checkbox)
+            self.utils.print_info("Save Device Configuration")
             self.auto_actions.click_reference(self.get_device_override_save_device_configuration)
             sleep(2)
             self.utils.print_info("Close Dialogue Window")
@@ -1761,6 +1762,7 @@ class DeviceConfig(DeviceConfigElements):
             sleep(2)
         except:
             self.utils.print_info("Not able to navigate to the page")
+            return -1
 
         return 1
 
