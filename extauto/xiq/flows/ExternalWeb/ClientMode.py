@@ -54,7 +54,7 @@ class ClientMode:
             self.auto_actions.send_keys(self.ClientModeWebElements.get_login_page_password_text(), password)
             self.screen.save_screen_shot()
             self.utils.print_info("Clicking on Login button")
-            self.auto_actions.click(self.ClientModeWebElements.get_login_page_login_button())
+            self.auto_actions.click_reference(self.ClientModeWebElements.get_login_page_login_button)
             sleep(5)
         except Exception as e:
             self.utils.print_debug(e)
@@ -77,7 +77,7 @@ class ClientMode:
             return 1
 
         try:
-            CloudDriver().cloud_driver.quit()
+            CloudDriver().close_browser()
             self.utils.print_info("Resetting cloud driver to -1")
             return 1
         except Exception as e:
@@ -86,7 +86,7 @@ class ClientMode:
 
     def navigator_client_mode_ssid(self):
         self.utils.print_info("Click Client Mode SSID tab")
-        self.auto_actions.click(self.ClientModeWebElements.get_admin_page_client_mode_ssid_tab())
+        self.auto_actions.click_reference(self.ClientModeWebElements.get_admin_page_client_mode_ssid_tab)
         self.ClientModeWebElements.get_wifi_connection_status()
         self.screen.save_screen_shot()
 
@@ -94,7 +94,7 @@ class ClientMode:
         disconnect = 0
         wifi_status = None
         self.utils.print_info("Click other SSIDs button.")
-        self.auto_actions.click(self.ClientModeWebElements.get_other_ssids_button())
+        self.auto_actions.click_reference(self.ClientModeWebElements.get_other_ssids_button())
         self.utils.print_info("Input ssid.")
         self.auto_actions.send_keys(self.ClientModeWebElements.get_ssid_textbox(), ssid)
         self.utils.print_info("Select security type.")
@@ -103,7 +103,7 @@ class ClientMode:
         self.auto_actions.send_keys(self.ClientModeWebElements.get_password_textbox(), password)
         self.screen.save_screen_shot()
         self.utils.print_info("Click connect button.")
-        self.auto_actions.click(self.ClientModeWebElements.get_connect_button())
+        self.auto_actions.click_reference(self.ClientModeWebElements.get_connect_button)
         for i in range(1, 30):
             sleep(5)
             wifi_status = self.ClientModeWebElements.get_wifi_connection_status().text

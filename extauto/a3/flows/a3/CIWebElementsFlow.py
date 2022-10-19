@@ -32,7 +32,7 @@ class CIWebElementsFlow(CIWebElements):
         """
         self.utils.print_info("Selecting Cloud Integration from menu...")
 
-        if self.auto_actions.click(self.get_cloud()) == 1:
+        if self.auto_actions.click_reference(self.get_cloud) == 1:
             sleep(2)
             self.utils.print_info("Entering Cloud account details ")
             element1 = self.weh.get_element(self.cloud_host_input)

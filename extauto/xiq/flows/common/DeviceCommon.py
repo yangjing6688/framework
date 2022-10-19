@@ -217,7 +217,7 @@ class DeviceCommon(DeviceCommonElements):
         """
         if self.select_device_row(device_serial):
             self.utils.print_info("Click on device tab edit button")
-            self.auto_actions.click(self.get_device_table_edit_button())
+            self.auto_actions.click_reference(self.get_device_table_edit_button)
             return 1
         return -1
 
@@ -234,7 +234,7 @@ class DeviceCommon(DeviceCommonElements):
         self.select_device_rows(device_serials)
         sleep(4)
         self.utils.print_info("Click on device tab edit button")
-        self.auto_actions.click(self.get_device_table_edit_button())
+        self.auto_actions.click_reference(self.get_device_table_edit_button)
         return 1
 
     def go_to_device360_window(self, device_mac='', device_host=''):
@@ -259,8 +259,13 @@ class DeviceCommon(DeviceCommonElements):
         if not search_strg:
             self.utils.print_info(f"Pass the device MAC or Device host name")
             return -1
+        rows = self.get_device_grid_rows()
+        if not rows:
+            self.screen.save_screen_shot()
+            self.utils.print_info(f"Can not obtain rows")
+            return -1
 
-        for row in self.get_device_grid_rows():
+        for row in rows:
             if search_strg in row.text:
                 self.utils.print_info(f"found device with:{search_strg}")
                 if self.get_device_row_cells_with_row(row):
@@ -408,7 +413,7 @@ class DeviceCommon(DeviceCommonElements):
         :return: 1 if all Devices Selected Successfully else -1
         """
         self.utils.print_info("Click on Select All Devices Button")
-        self.auto_actions.click(self.get_manage_devices_select_all_devices_checkbox())
+        self.auto_actions.click_reference(self.get_manage_devices_select_all_devices_checkbox)
         sleep(2)
 
         device_sr_nums = device_serials.split(',')

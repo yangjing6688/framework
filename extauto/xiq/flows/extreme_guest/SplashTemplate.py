@@ -31,7 +31,7 @@ class SplashTemplate(object):
         :return: 1 if success
         """
         self.utils.print_info("Clicking on Extreme Guest Configure > Splash Template tab")
-        self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_splash_template_tab())
+        self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_configure_splash_template_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -51,7 +51,7 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_template_tab()
         self.utils.print_info("Clicking on Extreme Guest Configure > Splash Template > System Template tab")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_system_template_tab())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_system_template_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -70,7 +70,7 @@ class SplashTemplate(object):
         :return: 1 if success
         """
         self.utils.print_info("Clicking on Extreme Guest Configure > Splash Template > User Template tab")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_template_tab())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_user_template_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -91,7 +91,7 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_system_template_tab()
         self.utils.print_info("Clicking the Clone icon on Accept and Connect Template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_accept_connect_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_accept_connect_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -106,7 +106,7 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking the Save button on the clone system template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -127,8 +127,8 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_system_template_tab()
         self.utils.print_info("Clicking the Clone icon on Accept and Connect with terms and agreement Template")
-        self.auto_actions.click(
-            self.splash_web_elem.get_extreme_guest_clone_accept_and_connect_with_terms_and_agreement_icon())
+        self.auto_actions.click_reference(
+            self.splash_web_elem.get_extreme_guest_clone_accept_and_connect_with_terms_and_agreement_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -143,7 +143,7 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking the Save button on the clone system template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -164,8 +164,8 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_system_template_tab()
         self.utils.print_info("Clicking the Clone icon on Device_Registration_with_Social_WiFi Template")
-        self.auto_actions.click(
-            self.splash_web_elem.get_extreme_guest_clone_device_registration_with_social_wifi_icon())
+        self.auto_actions.click_reference(
+            self.splash_web_elem.get_extreme_guest_clone_device_registration_with_social_wifi_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -176,15 +176,15 @@ class SplashTemplate(object):
                                     template_name)
 
         self.utils.print_info("Adding Login tab")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_icon())
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_login_item())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_icon)
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_login_item)
         
         self.utils.print_info("Drag and Drop Layout1 to Login tab")
         self.auto_actions.drag_and_drop_element(
             self.splash_web_elem.get_extreme_guest_clone_system_template_theme_layout1(),
             self.splash_web_elem.get_extreme_guest_clone_system_template_main_droppanel())
         
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_selectwidget_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_selectwidget_icon)
         self.auto_actions.drag_and_drop_element(
             self.splash_web_elem.get_extreme_guest_clone_system_template_loginform_widget_icon(),
             self.splash_web_elem.get_extreme_guest_clone_system_template_secondary_droppanel())
@@ -193,7 +193,7 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking the Save button on the clone system template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -214,7 +214,7 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_system_template_tab()
         self.utils.print_info("Clicking the Clone icon on Email_Access Template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_email_access_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_email_access_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -229,7 +229,7 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking the Save button on the clone system template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -250,8 +250,8 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_system_template_tab()
         self.utils.print_info("Clicking the Clone icon on Social_WiFi_with_Facebook_and_GooglePlus Template")
-        self.auto_actions.click(
-            self.splash_web_elem.get_extreme_guest_clone_social_wifi_with_facebook_and_googleplus_icon())
+        self.auto_actions.click_reference(
+            self.splash_web_elem.get_extreme_guest_clone_social_wifi_with_facebook_and_googleplus_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -266,7 +266,7 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking the Save button on the clone system template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -287,7 +287,7 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_system_template_tab()
         self.utils.print_info("Clicking the Clone icon on Social_WiFi_with_all Template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_social_wifi_with_all_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_social_wifi_with_all_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -302,7 +302,7 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking the Save button on the clone system template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -323,7 +323,7 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_system_template_tab()
         self.utils.print_info("Clicking the Clone icon on Sponsored_Guest_Access Template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_sponsored_guest_access_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_sponsored_guest_access_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -338,7 +338,7 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking the Save button on the clone system template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -359,8 +359,8 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_system_template_tab()
         self.utils.print_info("Clicking the Clone icon on User_Reg_With_Social_Forgot_Passcode Template")
-        self.auto_actions.click(
-            self.splash_web_elem.get_extreme_guest_clone_user_reg_with_social_forgot_passcode_icon())
+        self.auto_actions.click_reference(
+            self.splash_web_elem.get_extreme_guest_clone_user_reg_with_social_forgot_passcode_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -375,7 +375,7 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking the Save button on the clone system template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -396,7 +396,7 @@ class SplashTemplate(object):
         """
         self.go_to_configure_splash_system_template_tab()
         self.utils.print_info("Clicking the Clone icon on User_Registration_with_Social_WiFi Template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_user_registration_with_social_wifi_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_user_registration_with_social_wifi_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -411,7 +411,7 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking the Save button on the clone system template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_save_icon)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -443,7 +443,7 @@ class SplashTemplate(object):
             self.select_location_for_apply_user_template_page(location)
 
         self.utils.print_info("Clicking Network name Name Drop Down Button")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_dropdown())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_dropdown)
         sleep(2)
 
         self.utils.print_info("Selecting the Network Name")
@@ -453,15 +453,15 @@ class SplashTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking Add Button")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_add_button())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_add_button)
         sleep(2)
 
         self.utils.print_info("Clicking Apply Button")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_button())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_button)
         sleep(3)
 
         self.utils.print_info("Clicking OK Button")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_ok_button())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_ok_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -490,18 +490,18 @@ class SplashTemplate(object):
 
         if self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_delete_button().is_displayed():
             self.utils.print_info("Clicking Delete Button")
-            self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_delete_button())
+            self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_delete_button)
             sleep(2)
         else:
             self.utils.print_info("No policy/location mapping for the template")
             sleep(2)
 
         self.utils.print_info("Clicking Apply Button")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_button())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_button)
         sleep(2)
 
         self.utils.print_info("Clicking OK Button")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_ok_button())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_user_test_template_apply_network_apply_ok_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -523,7 +523,7 @@ class SplashTemplate(object):
         """
         ret_val = -1
         self.utils.print_info("Clicking Location Drop Down Button in Apply Template")
-        self.auto_actions.click(self.splash_web_elem.get_extreme_guest_user_test_template_apply_location_dropdown())
+        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_user_test_template_apply_location_dropdown)
         sleep(2)
         if sel_loc:
             try:

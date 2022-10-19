@@ -37,7 +37,7 @@ class RadioProfile (RadioProfileWebElements):
         sleep(3)
 
         self.utils.print_info("Click on Add radio profile button")
-        self.auto_actions.click(self.radprof_web_elements.get_add_radio_profile_button())
+        self.auto_actions.click_reference(self.radprof_web_elements.get_add_radio_profile_button)
         sleep(2)
 
         self.utils.print_info("Add radio profile name")
@@ -56,7 +56,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if Chosen Radio Mode Successfully else -1
         """
         self.utils.print_info("Clicking on radio modes dropdown")
-        self.auto_actions.click(self.radprof_web_elements.get_radio_profile_radio_mode_dropdown())
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_radio_mode_dropdown)
 
         self.utils.print_info("Selecting the radio mode")
         self.auto_actions.select_drop_down_options(self.radprof_web_elements.
@@ -149,7 +149,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if success else -1
         """
         self.utils.print_info("Clicking on the drop-down options of BG Scan Interval Unit")
-        self.auto_actions.click(self.radprof_web_elements.get_radio_profile_bg_scan_interval_unit_dropdown()),
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_bg_scan_interval_unit_dropdown),
         self.utils.print_info("Selecting Background Scan Interval Unit")
         self.auto_actions.select_drop_down_options(self.radprof_web_elements.
                                          get_radio_profile_bg_scan_interval_unit_dropdown_opts(), bg_scan_interval_unit)
@@ -166,8 +166,8 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if success else -1
         """
         self.utils.print_info("Skipping Background Scan when Clients are Connected")
-        self.auto_actions.click(self.radprof_web_elements.
-                                           get_radio_profile_skip_bg_scan_clients_connected_checkbox()),
+        self.auto_actions.click_reference(self.radprof_web_elements.
+                                           get_radio_profile_skip_bg_scan_clients_connected_checkbox),
         sleep(3)
         return 1
 
@@ -181,8 +181,8 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if success else -1
         """
         self.utils.print_info("Skipping Background Scan when Clients Connected are in Power Save Mode")
-        self.auto_actions.click(self.radprof_web_elements.
-                                           get_radio_profile_skip_bg_scan_clients_power_save_mode_checkbox()),
+        self.auto_actions.click_reference(self.radprof_web_elements.
+                                           get_radio_profile_skip_bg_scan_clients_power_save_mode_checkbox),
         sleep(3)
         return 1
 
@@ -196,8 +196,8 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if success else -1
         """
         self.utils.print_info("Skipping Background Scan when N/w Traffic Voice Priority detected")
-        self.auto_actions.click(self.radprof_web_elements.
-                                           get_radio_profile_skip_bg_scan_nw_voice_priority_checkbox()),
+        self.auto_actions.click_reference(self.radprof_web_elements.
+                                           get_radio_profile_skip_bg_scan_nw_voice_priority_checkbox),
 
         self.utils.print_info("Scrolling the page down...")
         self.auto_actions.scroll_down()
@@ -217,7 +217,7 @@ class RadioProfile (RadioProfileWebElements):
         self.auto_actions.scroll_down()
 
         self.utils.print_info("Clicking on Channels list drop-down")
-        self.auto_actions.click(self.radprof_web_elements.get_radio_profile_channel_list_dropdown()),
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_channel_list_dropdown),
         sleep(3)
         self.screen.save_screen_shot()
 
@@ -237,7 +237,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if channel_width is chosen Successfully else -1
         """
         self.utils.print_info("Clicking on channel-width drop-down")
-        self.auto_actions.click(self.radprof_web_elements.get_radio_profile_channel_width_dropdown()),
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_channel_width_dropdown),
         sleep(3)
         self.screen.save_screen_shot()
 
@@ -258,7 +258,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if channels are chosen for exclusion Successfully else -1
         """
         self.utils.print_info("Enabling Exclude Channels option")
-        self.auto_actions.click(self.radprof_web_elements.get_radio_profile_enable_exclude_channels_button())
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_enable_exclude_channels_button)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Checking for the channels available for exclusion")
@@ -267,7 +267,7 @@ class RadioProfile (RadioProfileWebElements):
         sleep(2)
 
         self.utils.print_info("Selecting the channels for exclusion")
-        self.auto_actions.click(self.radprof_web_elements.get_radio_profile_select_channels_for_exclusion())
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_select_channels_for_exclusion)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Scrolling the page down...")
@@ -285,7 +285,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if exclude channels button is disabled successfully else -1
         """
         self.utils.print_info("Disabling the Exclude Channels option")
-        self.auto_actions.click(self.radprof_web_elements.get_radio_profile_enable_exclude_channels_button()),
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_enable_exclude_channels_button),
         self.screen.save_screen_shot()
         sleep(2)
         return 1
@@ -300,7 +300,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if success else -1
         """
         self.utils.print_info("Configuring tx power Auto")
-        self.auto_actions.click(self.radprof_web_elements.get_radio_profile_transmission_power_auto())
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_transmission_power_auto)
         sleep(2)
         self.screen.save_screen_shot()
         return 1
@@ -318,9 +318,9 @@ class RadioProfile (RadioProfileWebElements):
         radio_mode = self.auto_actions.select_drop_down_options(self.radprof_web_elements.
                                                    get_radio_profile_radio_mode_dropdown_opts())
         if radio_mode == "b/g" or "g/n" or "ax (2.4GHz)":
-            self.auto_actions.click(self.radprof_web_elements.get_radio_profile_tx_power_slider_24GHz())
+            self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_tx_power_slider_24GHz)
         if radio_mode == "a" or "a/n" or "ac" or "ax (5GHZ)":
-            self.auto_actions.click(self.radprof_web_elements.get_radio_profile_tx_power_slider_5GHz())
+            self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_tx_power_slider_5GHz)
         return 1
 
     def enable_dfs_button(self, enable_dfs_btn):
@@ -359,7 +359,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if radio profile was saved successfully else -1
         """
         self.utils.print_info("saving the radio profile")
-        self.auto_actions.click(self.radprof_web_elements.get_save_radio_profile())
+        self.auto_actions.click_reference(self.radprof_web_elements.get_save_radio_profile)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -386,7 +386,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if radio profile was cancelled else -1
         """
         self.utils.print_info("cancelling radio profile")
-        self.auto_actions.click(self.radprof_web_elements.get_cancel_radio_profile())
+        self.auto_actions.click_reference(self.radprof_web_elements.get_cancel_radio_profile)
         sleep(2)
 
 
@@ -661,13 +661,13 @@ class RadioProfile (RadioProfileWebElements):
 
         self.auto_actions.scroll_up()
         self.utils.print_info(" Click on delete button ")
-        self.auto_actions.click(self.get_radio_profile_delete_button())
+        self.auto_actions.click_reference(self.get_radio_profile_delete_button)
 
         sleep(3)
         diag_yes_button = self.get_radio_profile_dialog_yes_button()
         if diag_yes_button:
             self.utils.print_info(" Click on Yes button ")
-            self.auto_actions.click(self.get_radio_profile_dialog_yes_button())
+            self.auto_actions.click_reference(self.get_radio_profile_dialog_yes_button)
 
         sleep(3)
         cells = self.get_radio_profile_table_cells()
@@ -726,5 +726,5 @@ class RadioProfile (RadioProfileWebElements):
                  - ``enable_DFS_selection''
         """
         self.utils.print_info("Enable Dynamic Frequency Selection on radio profile")
-        self.auto_actions.click(self.get_enable_DFS_selection())
+        self.auto_actions.click_reference(self.get_enable_DFS_selection)
         self.utils.print_info("able to enable DFS selection")

@@ -169,9 +169,10 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_network_policy_page_size(self, page_size='100'):
         if els := self.weh.get_elements(self.network_policy_page_size):
-            for el in els:
-                if str(page_size) in el.text:
-                    return el
+            if els:
+                for el in els:
+                    if str(page_size) in el.text:
+                        return el
 
     def get_device_actions_button(self):
         return self.weh.get_element(self.device_actions_button)
@@ -376,6 +377,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_subtab_common_object(self):
         return self.weh.get_element(self.subtab_common_object)
+
+    def get_subtab_common_object_basic(self):
+        return self.weh.get_element(self.subtab_common_object_basic)
 
     def get_device_actions_advanced_cli_ap_access(self):
         return self.weh.get_element(self.device_actions_advanced_cli_access)

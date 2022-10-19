@@ -467,7 +467,7 @@ class Device360Stack(Device360WebElements):
         device360_info = dict()
 
         self.utils.print_info("Clicking on System Information")
-        self.auto_actions.click(self.dev360.get_stack_system_info_button())
+        self.auto_actions.click_reference(self.dev360.get_stack_system_info_button)
         sleep(5)
 
         unit_number_field = self.dev360.get_stack_system_info_unit_number()[i].text
@@ -653,7 +653,7 @@ class Device360Stack(Device360WebElements):
         if view_log := self.get_d360_switch_port_view_all_pages_button():
             if view_log.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
+                self.auto_actions.click_reference(self.get_d360_switch_port_view_all_pages_button)
                 self.screen.save_screen_shot()
                 sleep(4)
 
@@ -708,7 +708,7 @@ class Device360Stack(Device360WebElements):
                             self.utils.print_info(f"{key}:{value}")
 
                         self.screen.save_screen_shot()
-                        self.auto_actions.click(self.dev360.get_close_dialog())
+                        self.auto_actions.click_reference(self.dev360.get_close_dialog)
                         self.screen.save_screen_shot()
                         return switch_stack_device360_info
 
@@ -730,6 +730,6 @@ class Device360Stack(Device360WebElements):
             else:
                 self.utils.print_info("Unable to get Port Table Information")
                 self.screen.save_screen_shot()
-                self.auto_actions.click(self.dev360.get_close_dialog())
+                self.auto_actions.click_reference(self.dev360.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1

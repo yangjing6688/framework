@@ -45,9 +45,9 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
             self.auto_actions.click(self.get_cred_dist_grps_grid_row_check_box(row))
             sleep(2)
             self.utils.print_info("Click on delete button")
-            self.auto_actions.click(self.get_cred_distr_grps_row_delete_button())
+            self.auto_actions.click_reference(self.get_cred_distr_grps_row_delete_button)
             sleep(2)
-            self.auto_actions.click(self.get_cred_distr_grps_row_delete_confirm_yes_button())
+            self.auto_actions.click_reference(self.get_cred_distr_grps_row_delete_confirm_yes_button)
             sleep(2)
             return 1
 
@@ -82,14 +82,14 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
 
         self.delete_cred_distr_group(group_name)
         self.utils.print_info("Click on add button")
-        self.auto_actions.click(self.get_cred_distr_grps_add_button())
+        self.auto_actions.click_reference(self.get_cred_distr_grps_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter group name:{group_name}")
         self.auto_actions.send_keys(self.get_cred_distr_grps_name_field(), group_name)
 
         self.utils.print_info("click on admin account drop down")
-        self.auto_actions.click(self.get_cred_distr_grps_admin_acct_drop_down())
+        self.auto_actions.click_reference(self.get_cred_distr_grps_admin_acct_drop_down)
         sleep(2)
 
         self.auto_actions.select_drop_down_options(self.get_cred_distr_grps_admin_acct_drop_down_opts(), admin_account)
@@ -120,7 +120,7 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
         sleep(2)
 
         self.utils.print_info("click on credential distribution save button")
-        self.auto_actions.click(self.get_cred_distr_grp_save_button())
+        self.auto_actions.click_reference(self.get_cred_distr_grp_save_button)
 
         self.screen.save_screen_shot()
         sleep(2)

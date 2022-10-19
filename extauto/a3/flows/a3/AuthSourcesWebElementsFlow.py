@@ -25,7 +25,7 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
         - ``Select Auth Source``
         :return: 1 if auth source is created successfully -1
         """
-        if self.auto_actions.click(self.get_auth_source_menu()) == 1:
+        if self.auto_actions.click_reference(self.get_auth_source_menu) == 1:
             sleep(2)
             self.utils.print_info("Select the Internal source & expand the menu ")
             sleep(10)

@@ -29,7 +29,7 @@ class AnalyzeUsers(object):
         """
         
         self.utils.print_info("Clicking on Extreme Guest Analyze > Users Page")
-        self.auto_actions.click(self.users_web_elem.get_extreme_guest_analyze_users_tab())
+        self.auto_actions.click_reference(self.users_web_elem.get_extreme_guest_analyze_users_tab)
         sleep(2)
 
         self.screen.save_screen_shot()

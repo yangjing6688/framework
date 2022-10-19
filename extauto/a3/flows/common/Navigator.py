@@ -33,7 +33,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Configuration Tab else return -1
         """
         self.utils.print_info("Selecting Configuration Tab...")
-        if self.auto_actions.click(self.get_configuration_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_configuration_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -50,7 +50,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Tools Tab else return -1
         """
         self.utils.print_info("Selecting Tools Tab...")
-        if self.auto_actions.click(self.get_tools_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_tools_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -67,7 +67,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Auditing Tab else return -1
         """
         self.utils.print_info("Selecting Auditing Tab...")
-        if self.auto_actions.click(self.get_auditing_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_auditing_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -84,7 +84,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Clients Tab else return -1
         """
         self.utils.print_info("Selecting Clients Tab...")
-        if self.auto_actions.click(self.get_clients_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_clients_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -101,7 +101,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Policies & Access Control else return -1
         """
         self.utils.print_info("Selecting Policies Access Control Tab...")
-        if self.auto_actions.click(self.get_policies_access_control()) == 1:
+        if self.auto_actions.click_reference(self.get_policies_access_control) == 1:
             sleep(2)
             return 1
         else:
@@ -118,7 +118,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to System Configuration else return -1
         """
         self.utils.print_info("Selecting System Configuration...")
-        if self.auto_actions.click(self.get_system_configuration()) == 1:
+        if self.auto_actions.click_reference(self.get_system_configuration) == 1:
             sleep(2)
             return 1
         else:

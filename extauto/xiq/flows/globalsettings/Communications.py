@@ -67,7 +67,7 @@ class Communications(CommunicationsWebElements):
         """
 
         self.utils.print_info("Selecting notifications menu on communications page..")
-        self.auto_actions.click(self.get_notifications_nav())
+        self.auto_actions.click_reference(self.get_notifications_nav)
         sleep(5)
 
         try:
@@ -100,7 +100,7 @@ class Communications(CommunicationsWebElements):
         :return: 1 if Navigation Successful to Preview Page
         """
         self.utils.print_info("Selecting preview menu on Communications page...")
-        self.auto_actions.click(self.get_preview_nav())
+        self.auto_actions.click_reference(self.get_preview_nav)
         sleep(5)
 
         try:
@@ -134,7 +134,7 @@ class Communications(CommunicationsWebElements):
         """
 
         self.utils.print_info("Selecting new in Extremecloud menu on Communications page..")
-        self.auto_actions.click(self.get_new_updates_nav())
+        self.auto_actions.click_reference(self.get_new_updates_nav)
         sleep(5)
 
         try:

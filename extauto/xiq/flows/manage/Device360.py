@@ -49,7 +49,7 @@ class Device360(Device360WebElements):
         """
         try:
             self.utils.print_info("Clicking on System Information")
-            self.auto_actions.click(self.dev360.get_system_info_button())
+            self.auto_actions.click_reference(self.dev360.get_system_info_button)
             sleep(5)
 
             self.screen.save_screen_shot()
@@ -74,7 +74,7 @@ class Device360(Device360WebElements):
             sys_info["mgt0_mac"] = self.dev360.get_system_info_mgt0_mac().text
             sys_info["info_dns"] = self.dev360.get_system_info_dns().text
             sys_info["info_ntp"] = self.dev360.get_system_info_ntp().text
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return sys_info
         except Exception as e:
             self.utils.print_info("Unable to get device360 details")
@@ -179,10 +179,10 @@ class Device360(Device360WebElements):
             self.utils.print_info("Getting the clients rows: ", row.text)
             if client_mac in row.text and "CONNECTED" in row.text:
                 self.utils.print_info("Client found")
-                self.auto_actions.click(self.dev360.get_close_dialog())
+                self.auto_actions.click_reference(self.dev360.get_close_dialog)
                 return 1
         self.utils.print_info("Client not found")
-        self.auto_actions.click(self.dev360.get_close_dialog())
+        self.auto_actions.click_reference(self.dev360.get_close_dialog)
         return -1
 
     def get_status_interface_list(self, device_serial=None):
@@ -198,7 +198,7 @@ class Device360(Device360WebElements):
         if device_serial:
             self.navigator.navigate_to_status_interface(device_serial)
             sleep(5)
-            self.auto_actions.click(self.dev360.get_utilities_status_interface_name_dropdown())
+            self.auto_actions.click_reference(self.dev360.get_utilities_status_interface_name_dropdown)
             sleep(2)
             options = self.dev360.get_utilities_status_interface_name_dropdown_opt()
             list_options = []
@@ -206,7 +206,7 @@ class Device360(Device360WebElements):
                 if "All" not in opt.text:
                     list_options.append(opt.text)
             self.utils.print_info("Interfaces List: ", list_options)
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return list_options
 
     def get_status_interface(self, device_serial=None, interface_name=None):
@@ -223,7 +223,7 @@ class Device360(Device360WebElements):
         if device_serial and interface_name:
             self.navigator.navigate_to_status_interface(device_serial)
             sleep(5)
-            self.auto_actions.click(self.dev360.get_utilities_status_interface_name_dropdown())
+            self.auto_actions.click_reference(self.dev360.get_utilities_status_interface_name_dropdown)
             sleep(2)
             options = self.dev360.get_utilities_status_interface_name_dropdown_opt()
             for opt in options:
@@ -234,7 +234,7 @@ class Device360(Device360WebElements):
 
             content = self.dev360.get_utilities_status_interface_contents().text
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return content
         else:
             self.utils.print_info("Device serial and interface name are not provided")
@@ -277,7 +277,7 @@ class Device360(Device360WebElements):
         close_diag = self.get_close_dialog()
         if close_diag:
             self.utils.print_info("closing the dialogue ")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             ret_val = 1
         else:
             self.utils.print_info("couldn't close the dialogue box")
@@ -287,7 +287,7 @@ class Device360(Device360WebElements):
         return ret_val
 
     def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30,
-                                              retry_time=15, retry_counter=0, **kwargs):
+                                              retry_time=15, **kwargs):
         """
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -299,8 +299,7 @@ class Device360(Device360WebElements):
         :param device_name: The device Name
         :param run_time: The run time value to keep the ssh open (5, 30, 60, 120, 240)
         :param time_interval: sleep time to read in the new ssh port / ip values
-        :param retry_time: The number of times to try and read in the new ssh port / ip values
-        :param retry_counter: retry counter value, do not override (default=0)
+        :param retry_time: The number of times to try and read in the new ssh port / ip value
 
         :return: SSH String
         """
@@ -353,7 +352,7 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
         if self.get_device_ssh_ui_tip_error() is not None:
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.get_device_ssh_ui_tip_close())
+            self.auto_actions.click_reference(self.get_device_ssh_ui_tip_close)
             kwargs['fail_msg'] = f"Encountered an error. Clicking to exit the error window. Please see the screenshot"
             self.close_device360_window()
             self.common_validation.failed(**kwargs)
@@ -375,13 +374,8 @@ class Device360(Device360WebElements):
                 for key, value in ip_port_info.items():
                     self.utils.print_info(f"{key}:{value}")
 
-                if retry_counter != 0:
-                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}, however this took {retry_counter} times to get the ssh to work"
-                    # we could fail here because it took many times
-                    self.common_validation.passed(**kwargs)
-                else:
-                    kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
-                    self.common_validation.passed(**kwargs)
+                kwargs['pass_msg'] = f"Got the SSH and port information: {ip}:{port}"
+                self.common_validation.passed(**kwargs)
                 self.close_device360_window()
                 return ip_port_info
             else:
@@ -389,18 +383,6 @@ class Device360(Device360WebElements):
                     f"****************** IP/Port Information is not available after {time_interval} seconds ************************")
                 sleep(time_interval)
                 retry_count += 1
-
-        # we got here, so let's try this again
-        if retry_counter == 5:
-            kwargs['fail_msg'] = f"Failed to get the SSH and port information"
-            self.common_validation.failed(**kwargs)
-            return -1
-        else:
-            retry_counter += 1
-            self.close_device360_window()
-            self.utils.print_info(f"****************** Rerun the keyword device360_enable_ssh_cli_connectivity {retry_counter}")
-            return self.device360_enable_ssh_cli_connectivity(device_mac, device_name, run_time, time_interval,
-                                                              retry_time, retry_counter, **kwargs)
 
     def device360_enable_ssh_web_connectivity(self, device_mac='', device_name='', run_time=5):
         """
@@ -426,7 +408,7 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH WEB tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_web_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_web_tab)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH WEB Run Time: ", run_time)
@@ -434,25 +416,25 @@ class Device360(Device360WebElements):
         sleep(5)
 
         if run_time == 5:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_5min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_5min_radio)
 
         if run_time == 30:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_30min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_30min_radio)
 
         if run_time == 60:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_60min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_60min_radio)
 
         if run_time == 120:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_120min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_120min_radio)
 
         if run_time == 240:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_240min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_240min_radio)
 
         self.screen.save_screen_shot()
 
         sleep(5)
         self.utils.print_info("Clicking Device 360 SSH WEB Enable SSH button...")
-        self.auto_actions.click(self.get_device360_configure_ssh_web_enable_button())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_web_enable_button)
 
         sleep(60)
 
@@ -486,7 +468,7 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Check if enabled based on first radio button")
@@ -519,7 +501,7 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Check if disabled based on first radio button")
@@ -563,7 +545,7 @@ class Device360(Device360WebElements):
             self.utils.print_info(f"{key}:{value}")
 
         self.utils.print_info("Closing device360 Dialogue Window.")
-        self.auto_actions.click(self.dev360.get_close_dialog())
+        self.auto_actions.click_reference(self.dev360.get_close_dialog)
         self.screen.save_screen_shot()
 
         return device360_info
@@ -621,7 +603,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_advance_channel_selection(device_serial)
             content = self.dev360.get_utilities_status_adv_channel_sel_contents().text
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return content
         else:
             self.utils.print_info("Device serial is not provided")
@@ -641,7 +623,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_wifi_status_summary(device_serial)
             sleep(5)
             self.utils.print_info("Clicking on Station..")
-            self.auto_actions.click(self.dev360.get_utilities_status_wifi_summary_station_btn())
+            self.auto_actions.click_reference(self.dev360.get_utilities_status_wifi_summary_station_btn)
             sleep(2)
 
             self.screen.save_screen_shot()
@@ -649,7 +631,7 @@ class Device360(Device360WebElements):
             content = self.dev360.get_utilities_status_wifi_summary_station_content().text
             self.utils.print_info("Content: ", content)
             self.utils.print_info("Clicking on close dialog")
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return content
         else:
             self.utils.print_info("Device serial is not provided.")
@@ -777,11 +759,11 @@ class Device360(Device360WebElements):
                 self.auto_actions.move_to_element(self.get_sidebar_model())
                 self.auto_actions.scroll_down()
 
-                self.auto_actions.click(self.get_device360_configure_button())
+                self.auto_actions.click_reference(self.get_device360_configure_button)
                 sleep(8)
 
                 self.utils.print_info("Clicking Device Configuration on the Device360 Configure tab")
-                self.auto_actions.click(self.get_device360_device_configuration_button())
+                self.auto_actions.click_reference(self.get_device360_device_configuration_button)
                 sleep(3)
 
                 voss_info = self.get_voss_device_configuration_information()
@@ -799,11 +781,11 @@ class Device360(Device360WebElements):
                 self.auto_actions.move_to_element(self.get_sidebar_model())
                 self.auto_actions.scroll_down()
 
-                self.auto_actions.click(self.get_device360_configure_button())
+                self.auto_actions.click_reference(self.get_device360_configure_button)
                 sleep(8)
 
                 self.utils.print_info("Clicking Device Configuration on the Device360 Configure tab")
-                self.auto_actions.click(self.get_device360_device_configuration_button())
+                self.auto_actions.click_reference(self.get_device360_device_configuration_button)
                 sleep(3)
                 voss_info = self.get_voss_device_configuration_information()
                 self.device360_device_configuration_click_cancel()
@@ -961,7 +943,7 @@ class Device360(Device360WebElements):
         """
         if self.get_device360_configure_ssh_web_disable_button():
             self.utils.print_info("Clicking Device 360 SSH CLI Disable SSH button...")
-            self.auto_actions.click(self.get_device360_configure_ssh_web_disable_button())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_disable_button)
             sleep(5)
             self.screen.save_screen_shot()
 
@@ -981,12 +963,12 @@ class Device360(Device360WebElements):
             self.auto_actions.click_reference(self.get_device360_configure_button)
 
             self.utils.print_info("Clicking Device 360 SSH WEB tab")
-            self.auto_actions.click(self.get_device360_configure_ssh_web_tab())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_tab)
 
             sleep(5)
 
             self.utils.print_info("Clicking Device 360 SSH CLI Disable SSH button...")
-            self.auto_actions.click(self.get_device360_configure_ssh_web_disable_button())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_disable_button)
 
             if self.get_device360_configure_ssh_web_url():
                 return -1
@@ -1016,7 +998,7 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
 
         disable_ssh_btn = self.get_device360_configure_ssh_disable_button()
@@ -2983,7 +2965,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking on System Information")
-        self.auto_actions.click(self.dev360.get_system_info_button())
+        self.auto_actions.click_reference(self.dev360.get_system_info_button())
         sleep(2)
 
         try:
@@ -3031,7 +3013,7 @@ class Device360(Device360WebElements):
         snmp_locn = self.dev360.get_device360_stack_configure_device_snmp_location().get_attribute('value')
 
         # info_note_el = self.dev360.get_switch_system_info_note()
-        # self.auto_actions.click(self.get_device360_configure_device_snmp_location())
+        # self.auto_actions.click_reference(self.get_device360_configure_device_snmp_location)
 
         return snmp_locn
 
@@ -3052,13 +3034,13 @@ class Device360(Device360WebElements):
 
         if self.devices_web_elements.get_ap_configure_button():
             self.utils.print_info("Clicking on 'Configure' button  ")
-            self.auto_actions.click(self.devices_web_elements.get_ap_configure_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_ap_configure_button)
         else:
             self.utils.print_info("'Configure' button was not found ")
             return -1
 
         if self.dev360.get_device360_device_configuration_button():
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_button)
             self.utils.print_info("Clicking on 'Device Configuration 'button")
         else:
             self.utils.print_info("'Device Configuration 'button was not found ")
@@ -3098,7 +3080,7 @@ class Device360(Device360WebElements):
 
         if self.dev360.get_device360_device_configuration_save_button():
             self.utils.print_info("Click on save button")
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_save_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_save_button)
         else:
             self.utils.print_info("The save button was not found")
 
@@ -3126,14 +3108,14 @@ class Device360(Device360WebElements):
 
         if self.dev360.get_device360_device_configuration_update_button():
             self.utils.print_info("Click on update button")
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_update_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_update_button)
 
         else:
             self.utils.print_info("The update button was not found")
 
         if self.devices_web_elements.get_devices_perform_update_button_d360():
             self.utils.print_info("Click on update performe button")
-            self.auto_actions.click(self.devices_web_elements.get_devices_perform_update_button_d360())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_perform_update_button_d360)
 
         else:
             self.utils.print_info("The update button was not found")
@@ -3153,7 +3135,7 @@ class Device360(Device360WebElements):
 
         if self.dev360.get_device360_device_configuration_exit_button():
             self.utils.print_info("Click on exit button")
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_exit_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_exit_button)
         else:
             self.utils.print_info("The exit button was not found")
 
@@ -3199,7 +3181,7 @@ class Device360(Device360WebElements):
                         self.auto_actions.click(expand_more)
                         sleep(5)
                         desc_val = self.get_device360_event_more_expand_value().text
-                        self.auto_actions.click(self.get_device360_event_more_close_btn())
+                        self.auto_actions.click_reference(self.get_device360_event_more_close_btn)
                         self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
                         # Check if the event description value for this row contains what we are looking for
                         if event_str in desc_val:
@@ -3538,7 +3520,7 @@ class Device360(Device360WebElements):
         if view_log := self.get_d360_switch_port_view_all_pages_button():
             if view_log.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
+                self.auto_actions.click_reference(self.get_d360_switch_port_view_all_pages_button)
                 self.screen.save_screen_shot()
                 sleep(4)
 
@@ -3580,13 +3562,13 @@ class Device360(Device360WebElements):
                         self.utils.print_info(f"{key}:{value}")
 
                     self.screen.save_screen_shot()
-                    self.auto_actions.click(self.dev360.get_close_dialog())
+                    self.auto_actions.click_reference(self.dev360.get_close_dialog)
                     self.screen.save_screen_shot()
                     return switch_device360_info
         except Exception as e:
             self.utils.print_info("Unable to get Port Table Information")
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -3825,7 +3807,7 @@ class Device360(Device360WebElements):
         """
         if self.get_d360_view_100_rows_on_page():
             self.utils.print_info("Select view 100 rows ")
-            self.auto_actions.click(self.get_d360_view_100_rows_on_page())
+            self.auto_actions.click_reference(self.get_d360_view_100_rows_on_page)
             self.auto_actions.scroll_up()
             return 1
         else:
@@ -3857,9 +3839,10 @@ class Device360(Device360WebElements):
 
         if self.dev360.get_device360_device_configuration_exit_button():
             self.utils.print_info("Click on exit button")
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_exit_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_exit_button)
         else:
             self.utils.print_info("The exit button was not found")
+            return -1
         return 1
 
     def device360_transmission_mode_overview(self, port_name):
@@ -4120,13 +4103,13 @@ class Device360(Device360WebElements):
 
         if self.devices_web_elements.get_ap_configure_button():
             self.utils.print_info("Clicking on 'Configure' button  ")
-            self.auto_actions.click(self.devices_web_elements.get_ap_configure_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_ap_configure_button)
         else:
             self.utils.print_info("'Configure' button was not found ")
             return -1
 
         if self.dev360.get_device360_device_configuration_button():
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_button)
             self.utils.print_info("Clicking on 'Device Configuration 'button")
         else:
             self.utils.print_info("'Device Configuration 'button was not found ")
@@ -4134,7 +4117,7 @@ class Device360(Device360WebElements):
 
         # Click on creating auto template on stacking
         if self.dev360.get_device360_create_auto_template_button():
-            self.auto_actions.click(self.dev360.get_device360_create_auto_template_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_create_auto_template_button)
             self.utils.print_info("Clicking on 'Creating Auto template' button")
         else:
             self.utils.print_info("'Creating Auto template 'button was not found")
@@ -4179,11 +4162,11 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4200,7 +4183,7 @@ class Device360(Device360WebElements):
                     else:
                         self.utils.print_info(f"Port {port_number} Already Enabled")
                         self.utils.print_info("Close Dialogue Window")
-                        self.auto_actions.click(self.get_close_dialog())
+                        self.auto_actions.click_reference(self.get_close_dialog)
                         self.screen.save_screen_shot()
                         return 1
 
@@ -4212,7 +4195,7 @@ class Device360(Device360WebElements):
                     else:
                         self.utils.print_info(f"Port {port_number} Already Disabled")
                         self.utils.print_info("Close Dialogue Window")
-                        self.auto_actions.click(self.get_close_dialog())
+                        self.auto_actions.click_reference(self.get_close_dialog)
                         self.screen.save_screen_shot()
                         return 1
 
@@ -4226,7 +4209,7 @@ class Device360(Device360WebElements):
                     sleep(2)
 
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     sleep(2)
 
@@ -4238,13 +4221,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4281,11 +4264,11 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4323,7 +4306,7 @@ class Device360(Device360WebElements):
                     sleep(2)
 
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     sleep(2)
 
@@ -4335,13 +4318,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4379,11 +4362,11 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4435,7 +4418,7 @@ class Device360(Device360WebElements):
                     sleep(2)
 
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     sleep(2)
 
@@ -4447,13 +4430,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4493,15 +4476,15 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         self.utils.print_info("Click Port Settings Tab")
-        self.auto_actions.click(self.get_device360_port_configuration_port_settings_tab())
+        self.auto_actions.click_reference(self.get_device360_port_configuration_port_settings_tab)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4549,13 +4532,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4592,15 +4575,15 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         self.utils.print_info("Click PSE Tab")
-        self.auto_actions.click(self.get_device360_port_configuration_pse_tab())
+        self.auto_actions.click_reference(self.get_device360_port_configuration_pse_tab)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4648,7 +4631,7 @@ class Device360(Device360WebElements):
                     sleep(2)
 
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     sleep(2)
 
@@ -4660,13 +4643,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4714,18 +4697,18 @@ class Device360(Device360WebElements):
                 cpu_utilization_percentage = cpu_utilization[1].strip()
                 self.utils.print_info(f"WireFrame CPU Utilization Percentage is : {cpu_utilization_percentage}")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return cpu_utilization[1].strip()
             else:
                 self.utils.print_info(f"Tooltip content Not Found for WireFrame CPU Utilization")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         self.screen.save_screen_shot()
         return -1
 
@@ -4773,18 +4756,18 @@ class Device360(Device360WebElements):
                 memory_usage_percentage = memory_usage[1].strip()
                 self.utils.print_info(f"WireFrame Memory Usage Percentage is : {memory_usage_percentage}")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return memory_usage[1].strip()
             else:
                 self.utils.print_info(f"Tooltip content Not Found for WireFrame Memory Utilization")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         self.screen.save_screen_shot()
         return -1
 
@@ -4882,7 +4865,7 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Send command:", el)
                     self.auto_actions.send_keys(search, el)
                     sleep(2)
-                    self.auto_actions.click(self.dev360.get_cli_apply())
+                    self.auto_actions.click_reference(self.dev360.get_cli_apply)
                     sleep(delay)
                 else:
                     self.utils.print_info("'Send command' field not found")
@@ -4927,7 +4910,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Send command:", command)
                 self.auto_actions.send_keys(search, command)
                 sleep(2)
-                self.auto_actions.click(self.dev360.get_cli_apply())
+                self.auto_actions.click_reference(self.dev360.get_cli_apply)
                 sleep(delay)
             else:
                 self.utils.print_info("Web CLI input field not found")
@@ -4977,9 +4960,9 @@ class Device360(Device360WebElements):
         :param cli_commands: list of CLI commands separated by comma
         :return: 1 if supplemental cli profile save successfully else -1
         """
-        self.auto_actions.click(self.get_device360_configure_button())
-        self.auto_actions.click(self.get_device360_device_configuration_button())
-        self.auto_actions.click(self.get_device360_select_supplemental_cli())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
+        self.auto_actions.click_reference(self.get_device360_device_configuration_button)
+        self.auto_actions.click_reference(self.get_device360_select_supplemental_cli)
         sleep(3)
         list_items = self.get_device360_supplemental_cli_list()
         found_profile = False
@@ -4991,19 +4974,19 @@ class Device360(Device360WebElements):
                     self.auto_actions.click(profile)
                     if name_s_cli == "No Supplemental CLI":
                         self.utils.print_info("Saving Configuration")
-                        self.auto_actions.click(self.get_device360_device_configuration_save_button())
+                        self.auto_actions.click_reference(self.get_device360_device_configuration_save_button)
                         sleep(3)
                         found_profile = True
                         self.utils.print_info("Exit device configuration")
                         if self.get_device360_device_configuration_exit_button():
-                            self.auto_actions.click(self.get_device360_device_configuration_exit_button())
+                            self.auto_actions.click_reference(self.get_device360_device_configuration_exit_button)
                             return 1
                         else:
                             self.utils.print_info("Exit D360 button not found")
                             return -1
                     else:
                         self.utils.print_info("Edit profile")
-                        self.auto_actions.click(self.get_device360_supplemental_cli_edit_profile())
+                        self.auto_actions.click_reference(self.get_device360_supplemental_cli_edit_profile)
                         profile_commands_cli = self.get_device_360_supplemental_cli_profile_commands()
                         cli_command_list = cli_commands.split(",")
                         new_line_cli_commands = "\n".join(cli_command_list)
@@ -5011,15 +4994,15 @@ class Device360(Device360WebElements):
                         self.auto_actions.send_keys(profile_commands_cli, new_line_cli_commands)
                         sleep(3)
                         self.utils.print_info("Saving Profile")
-                        self.auto_actions.click(self.get_device360_supplemental_cli_save_profile())
+                        self.auto_actions.click_reference(self.get_device360_supplemental_cli_save_profile)
                         sleep(3)
                         self.utils.print_info("Saving Configuration")
-                        self.auto_actions.click(self.get_device360_device_configuration_save_button())
+                        self.auto_actions.click_reference(self.get_device360_device_configuration_save_button)
                         sleep(3)
                         found_profile = True
                         self.utils.print_info("Exit device configuration")
                         if self.get_device360_device_configuration_exit_button():
-                            self.auto_actions.click(self.get_device360_device_configuration_exit_button())
+                            self.auto_actions.click_reference(self.get_device360_device_configuration_exit_button)
                             return 1
                         else:
                             self.utils.print_info("Exit D360 button not found")
@@ -5027,7 +5010,7 @@ class Device360(Device360WebElements):
             if found_profile == False:
                 self.utils.print_info("'{}' profile was not found".format(name_s_cli))
                 self.utils.print_info("Creating one")
-                self.auto_actions.click(self.get_device_360_supplemental_cli_new_profile())
+                self.auto_actions.click_reference(self.get_device_360_supplemental_cli_new_profile)
                 self.auto_actions.send_keys(self.get_device_360_supplemental_cli_profile_name(), name_s_cli)
                 sleep(3)
                 profile_commands_cli = self.get_device_360_supplemental_cli_profile_commands()
@@ -5037,14 +5020,14 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(profile_commands_cli, new_line_cli_commands)
                 sleep(3)
                 self.utils.print_info("Saving Profile")
-                self.auto_actions.click(self.get_device360_supplemental_cli_save_profile())
+                self.auto_actions.click_reference(self.get_device360_supplemental_cli_save_profile)
                 sleep(3)
                 self.utils.print_info("Saving Configuration")
-                self.auto_actions.click(self.get_device360_device_configuration_save_button())
+                self.auto_actions.click_reference(self.get_device360_device_configuration_save_button)
                 sleep(3)
                 self.utils.print_info("Exit device configuration")
                 if self.get_device360_device_configuration_exit_button():
-                    self.auto_actions.click(self.get_device360_device_configuration_exit_button())
+                    self.auto_actions.click_reference(self.get_device360_device_configuration_exit_button)
                     return 1
                 else:
                     self.utils.print_info("Exit D360 button not found")
@@ -5065,35 +5048,45 @@ class Device360(Device360WebElements):
         :param device_name: Device Name
         :return: list with power supply details
         """
+        rez = -1
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
             device_row = self.dev.get_device_row(device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
-                sleep(8)
-
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
             device_row = self.dev.get_device_row(device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
-                sleep(8)
-        sleep(5)
 
+        self.utils.wait_till(self.dev360.get_device360_thunderbold_icon, timeout=30, is_logging_enabled=True, delay=5)
         power_el = self.dev360.get_device360_thunderbold_icon()
         if power_el:
             self.utils.print_info("Power Details")
             self.auto_actions.click_and_hold_element(power_el)
             self.auto_actions.move_to_element(power_el)
+            self.screen.save_screen_shot()
         else:
             self.utils.print_info("Power details not found")
-        sleep(5)
-        power_details = self.dev360.get_device360_power_details().text
-        self.utils.print_info(f"", power_details)
-        self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
-        return power_details
+            self.screen.save_screen_shot()
+
+        self.utils.wait_till(self.dev360.get_device360_power_details, timeout=30, is_logging_enabled=True, delay=5)
+        power_details = self.dev360.get_device360_power_details()
+        if power_details:
+            self.utils.print_info(f"Power details from XIQ are : ", power_details.text)
+            # self.utils.print_info("Close Dialogue Window")
+            # self.auto_actions.click_reference(self.get_close_dialog)
+            # self.screen.save_screen_shot()
+            rez = power_details.text
+            self.auto_actions.click_reference(self.get_close_dialog)
+        else:
+            self.utils.print_info("Power details not found")
+            self.auto_actions.click_reference(self.get_close_dialog)
+            self.screen.save_screen_shot()
+            return -1
+        return str(rez)
 
     def device360_configure_poe_threshold_value(self, threshold_value, device_mac="", device_name=""):
         """
@@ -5124,7 +5117,7 @@ class Device360(Device360WebElements):
         self.select_port_configuration_view()
         sleep(2)
         self.utils.print_info("Click PSE Tab")
-        self.auto_actions.click(self.get_device360_port_configuration_pse_tab())
+        self.auto_actions.click_reference(self.get_device360_port_configuration_pse_tab)
         sleep(2)
         pse_settings_for_device_button = self.get_device360_pse_settings_for_device_button()
         if pse_settings_for_device_button:
@@ -5165,7 +5158,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Could not click Save button")
             return -1
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         return 1
 
     def device360_check_wired_client(self, device_serial=None, device_mac=None, client_mac=None, sleep_time=30,
@@ -5354,7 +5347,7 @@ class Device360(Device360WebElements):
             # remove this try once AIQ-1529
             clickable = -1
             try:
-                clickable = self.auto_actions.click(self.dev360.get_device360_click_particular_client())
+                clickable = self.auto_actions.click_reference(self.dev360.get_device360_click_particular_client)
                 if clickable == 1:
                     print("Able to click the client and see the popup...")
                     sleep(5)
@@ -5439,7 +5432,7 @@ class Device360(Device360WebElements):
         close_btn = self.dev360.get_client360_close_dialog()
         if close_btn:
             self.utils.print_info("Closing client360 Dialog Window.")
-            self.auto_actions.click(self.dev360.get_client360_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_client360_close_dialog)
             return 1
         else:
             self.screen.save_screen_shot()
@@ -5481,7 +5474,7 @@ class Device360(Device360WebElements):
         :return: 1 if the selection was made, -1 if not
         """
         self.utils.print_info(f"select '{network_policy}' from drop down")
-        self.auto_actions.click(self.get_device360_configure_device_network_policy())
+        self.auto_actions.click_reference(self.get_device360_configure_device_network_policy)
         device_network_policy_drop_down_items = self.get_device360_configure_device_network_policy_items()
 
         if device_network_policy_drop_down_items:
@@ -5604,7 +5597,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("Clicking on Column Picker")
         sleep(5)
         # Handle the case where a tooltip / popup is covering the column picker icon
-        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.auto_actions.click_reference(self.get_device360_column_picker_icon)
         sleep(2)
         if option.lower() == "check":
             self.utils.print_info("Column list to check for selected items: ", columns)
@@ -5654,9 +5647,9 @@ class Device360(Device360WebElements):
         sleep(2)
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
-        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.auto_actions.click_reference(self.get_device360_column_picker_icon)
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         return ret_val
 
     def device360_check_column_picker(self, option, *columns, select_page="", device_mac="", device_name=""):
@@ -5704,7 +5697,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("Clicking on Column Picker")
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
-        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.auto_actions.click_reference(self.get_device360_column_picker_icon)
         if option.lower() == "unchecked":
             self.utils.print_info(f"Checking '{columns}' are not selected")
             sleep(2)
@@ -5751,9 +5744,9 @@ class Device360(Device360WebElements):
             ret_val = -1
         sleep(2)
         self.utils.print_info("Closing Column Picker")
-        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.auto_actions.click_reference(self.get_device360_column_picker_icon)
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         return ret_val
 
     def create_new_port_type(self, template_values, port, d360=False, verify_summary=True):
@@ -5932,9 +5925,8 @@ class Device360(Device360WebElements):
                     return False
 
             sleep(5)
-            close_port_type_box = self.get_close_port_type_box()
+            close_port_type_box = self.get_save_and_close_port_type_box()
             sleep(5)
-
             if close_port_type_box:
                 self.utils.print_info(" The button close_port_type_box from policy  was found")
                 self.auto_actions.click(close_port_type_box)
@@ -6100,7 +6092,6 @@ class Device360(Device360WebElements):
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
-
             def _check_that_port_type_is_closed():
                 if not self.get_close_port_type_box():
                     self.utils.print_info("Port type profile dialog box has been closed")
@@ -6115,10 +6106,10 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(close_port_type_box)
                 self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
                                      silent_failure=True, msg="Checking that create new port type profile has been"
-                                                              "dialog box has been closed...")
-                sleep(2)
+                                                              "dialog box has been closed...")               
             else:
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
+                return -1
             return 1
 
     def port_type_verify_summary(self, template_values):
@@ -6142,6 +6133,9 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info("The element is not correct into summary. Current value in summary:" +
                                           conf_element.text + " Wanted value: " + template_values[key][1])
+                    cancel_button_port_type = self.get_cancel_button_port_type()
+                    self.utils.print_info("Canceling the port type profile")
+                    self.auto_actions.click(cancel_button_port_type)
                     return -1
             else:
                 pass
@@ -6200,6 +6194,30 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info("get_next_button not found ")
 
+        elif "next_all_pages" in value:
+            sleep(5)
+            cnt = 0
+            flag_save_is_displayed = False
+            while not flag_save_is_displayed and cnt < 10:
+                summaryPage = self.get_select_element_port_type("summaryPage")
+                if summaryPage:
+                    self.utils.print_info("bgd", summaryPage.get_attribute("class"))
+                    if "active" in summaryPage.get_attribute("class"):
+                        flag_save_is_displayed = True
+                        break
+                    else:
+                        get_next_button = self.get_select_element_port_type("next_button")
+                        if get_next_button:
+                            sleep(2)
+                            self.auto_actions.click(get_next_button)
+                        else:
+                            self.utils.print_info("get_next_button not found ")
+                else:
+                    self.utils.print_info("save_and_close_port_type_box not found ")
+                cnt = cnt + 1
+            if flag_save_is_displayed:
+                return 1
+
         elif "usagePage" in element:
             sleep(5)
 
@@ -6220,7 +6238,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(get_tab_usagePage)
                 return 1
 
-        elif "trunkVlanPage" in element or "accessVlanPage" in element:
+        elif "trunkVlanPage" in element or "accessVlanPage" in element or 'phoneVlanPage' in element:
             sleep(5)
 
             def _check_vlan_page():
@@ -6408,6 +6426,12 @@ class Device360(Device360WebElements):
                 sleep(2)
                 self.auto_actions.click(get_trunk_el)
                 return 1
+        elif element == "port usage" and value == "phone port":
+            get_phone_el = self.get_select_element_port_type(element,value)
+            self.utils.print_info("phone element",get_phone_el)
+            if get_phone_el:
+                self.auto_actions.click(get_phone_el)
+                return 1
         # page Vlan
         elif element == "vlan":
             sleep(5)
@@ -6499,6 +6523,157 @@ class Device360(Device360WebElements):
                 self.utils.print_info("native vlan get_select_button not found ")
             self.utils.print_info(" Error when configure native vlan ")
             return -1
+
+        elif element == "voice vlan":
+            def _save_vlan_disappear():
+                return not bool(self.get_select_element_port_type("save_vlan"))
+
+            def _voice_vlan_appear():
+                return bool(self.get_select_element_port_type("voice_vlan_name_vlan"))
+
+            def _voice_vlan_dropdown():
+                return bool(self.get_select_element_port_type("voice_vlan_dropdown_items"))
+
+
+            get_select_button = self.get_select_element_port_type("voice_vlan_select_button")
+            if get_select_button:
+                self.auto_actions.click(get_select_button)
+
+                self.utils.wait_till(_voice_vlan_dropdown,is_logging_enabled=True)
+                get_dropdown_items = self.get_select_element_port_type("voice_vlan_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+                else:
+                    get_add_vlan = self.get_select_element_port_type("voice_vlan_add_vlan")
+                    if get_add_vlan:
+                        self.auto_actions.click(get_add_vlan)
+
+                        self.utils.wait_till(_voice_vlan_appear,is_logging_enabled=True)
+
+                        get_name_vlan = self.get_select_element_port_type("voice_vlan_name_vlan")
+                        if get_name_vlan:
+                            self.auto_actions.send_keys(get_name_vlan,value)
+                        else:
+                            self.utils.print_info("voice vlan get_id_vlan not found ")
+                        get_id_vlan = self.get_select_element_port_type("voice_vlan_id_vlan")
+                        if get_id_vlan:
+                            self.auto_actions.send_keys(get_id_vlan,value)
+                        else:
+                            self.utils.print_info("voice vlan get_id_vlan not found ")
+                        get_save_vlan = self.get_select_element_port_type("save_vlan")
+                        if get_save_vlan:
+                            self.auto_actions.click(get_save_vlan)
+
+                            self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+                            return 1
+                        else:
+                            self.utils.print_info("get_save_vlan not found ")
+                    else:
+                        self.utils.print_info("voice vlan get_add_vlan not found ")
+            else:
+                self.utils.print_info("voice vlan get_select_button not found ")
+            self.utils.print_info(" Error when configure voice vlan ")
+            return -1
+        elif element == "data vlan":
+
+            def _data_vlan_dropdown():
+                return bool(self.get_select_element_port_type("data_vlan_dropdown_items"))
+
+            def _data_vlan_appear():
+                return bool(self.get_select_element_port_type("data_vlan_name_vlan"))
+
+            def _save_vlan_disappear():
+                return not bool(self.get_select_element_port_type("save_vlan"))
+
+            get_select_button = self.get_select_element_port_type("data_vlan_select_button")
+            if get_select_button:
+                self.auto_actions.click(get_select_button)
+
+                self.utils.wait_till(_data_vlan_dropdown, is_logging_enabled=True)
+
+                get_dropdown_items = self.get_select_element_port_type("data_vlan_dropdown_items")
+                if self.auto_actions.select_drop_down_options(get_dropdown_items, value):
+                    self.utils.print_info(" Selected into dropdown value : ", value)
+                    return 1
+                else:
+                    get_add_vlan = self.get_select_element_port_type("data_vlan_add_vlan")
+                    if get_add_vlan:
+                        self.auto_actions.click(get_add_vlan)
+
+                        self.utils.wait_till(_data_vlan_appear,is_logging_enabled=True)
+                        get_name_vlan = self.get_select_element_port_type("data_vlan_name_vlan")
+                        if get_name_vlan:
+                            self.auto_actions.send_keys(get_name_vlan,value)
+                        else:
+                            self.utils.print_info("data vlan get_id_vlan not found ")
+                        get_id_vlan = self.get_select_element_port_type("data_vlan_id_vlan")
+                        if get_id_vlan:
+                            self.auto_actions.send_keys(get_id_vlan,value)
+                        else:
+                            self.utils.print_info("data vlan get_id_vlan not found ")
+                        get_save_vlan = self.get_select_element_port_type("save_vlan")
+                        if get_save_vlan:
+                            self.auto_actions.click(get_save_vlan)
+                            self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+                            return 1
+                        else:
+                            self.utils.print_info("get_save_vlan not found ")
+                    else:
+                        self.utils.print_info("data vlan get_add_vlan not found ")
+            else:
+                self.utils.print_info("data vlan get_select_button not found ")
+            self.utils.print_info(" Error when configure data vlan ")
+            return -1
+
+        elif element in ["lldp_voice_vlan_options", "cdp_voice_vlan_options"]:
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "enable_lldp_advertisment_of_dot1_vlan":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "enable_lldp_advertisment_of_med_voice_vlan":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "lldp_advertisment_of_med_voice_vlan_dscp_value":
+            get_value_el = self.get_select_element_port_type(element)
+            if get_value_el:
+                self.auto_actions.send_keys(get_value_el, value)
+                return 1
+
+        elif element == "enable_lldp_advertisment_of_med_voice_signaling_vlan":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "lldp_advertisment_of_med_voice_signaling_vlan_dscp_value":
+            get_value_el = self.get_select_element_port_type(element)
+            if get_value_el:
+                self.auto_actions.send_keys(get_value_el, value)
+                return 1
+
+        elif element == "enable_cdp_advertisment_of_voice_vlan":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
+        elif element == "enable_cdp_advertisment_of_power_available":
+            get_options_el = self.get_select_element_port_type(element)
+            if get_options_el:
+                self.auto_actions.click(get_options_el)
+                return 1
+
         elif element == "allowed vlans":
             sleep(5)
             get_allowed_vlans = self.get_select_element_port_type(element)
@@ -6679,6 +6854,7 @@ class Device360(Device360WebElements):
 
         # page PSE
         elif element.lower() == "pse profile":
+            self.utils.print_info("Pse Profile is :", value)
             sleep(5)
 
             try:
@@ -6722,77 +6898,18 @@ class Device360(Device360WebElements):
 
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
                     self.utils.print_info(" Selected into dropdown value : ", pse_profile_name)
-
+                    
                     if edit_flag:
                         self.utils.print_info(f"Editing PSE profile {value['pse_profile_name']}")
                         get_pse_profile_edit_button = self.get_select_element_port_type("pse_profile_edit")
                         if get_pse_profile_edit_button:
                             self.utils.print_info("Found pse profile edit button!")
                             self.auto_actions.click(get_pse_profile_edit_button)
-
-                        get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
-                        if get_pse_profile_name:
-                            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
-                            sleep(2)
                         else:
-                            self.utils.print_info("get_pse_profile_name not found ")
-                        sleep(5)
-
-                        get_pse_profile_power_mode_dropdown = self.get_select_element_port_type(
-                            'pse_profile_power_mode_dropdown')
-                        if get_pse_profile_power_mode_dropdown:
-                            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
-                            get_pse_profile_power_mode_items = self.get_select_element_port_type(
-                                "pse_profile_power_mode_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items,
-                                                                          value['pse_profile_power_mode']):
-                                self.utils.print_info(" Selected into dropdown value : ",
-                                                      value['pse_profile_power_mode'])
-
-                        get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
-                        if get_pse_profile_power_limit:
-                            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
-                        else:
-                            self.utils.print_info("Power Limit textbox not found!")
-
-                        sleep(2)
-                        get_pse_profile_priority_dropdown = self.get_select_element_port_type("pse_profile_priority")
-                        if get_pse_profile_priority_dropdown:
-                            self.auto_actions.click(get_pse_profile_priority_dropdown)
-                            sleep(2)
-                            get_pse_profile_priority_items = self.get_select_element_port_type(
-                                "pse_profile_priority_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
-                                                                          value['pse_profile_priority']):
-                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
-
-                        sleep(2)
-                        get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
-                        if get_pse_profile_description:
-                            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
-                            sleep(2)
-                        else:
-                            self.utils.print_info("get_pse_profile_description not found ")
-                        sleep(5)
-
-                        def _check_save_pse_profile_closure():
-                            if not self.get_select_element_port_type("pse_profile_save"):
-                                self.utils.print_info("PSE profile save button not present anymore.")
-                                return True
-                            else:
-                                self.utils.print_info("PSE profile save button is still present. Retrying...")
-                                return False
-
-                        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
-                        if get_pse_profile_save:
-                            self.auto_actions.click(get_pse_profile_save)
-                            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
-                                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
-                                                                                   "save...")
-                            return 1
-                        else:
-                            self.utils.print_info("get_pse_profile_save not found ")
-
+                            self.utils.print_info("get_pse_profile_edit_button not found ")
+                            return -1
+                        if not self.fill_in_pse_profile_fields(value) == 1:
+                            return -1
                     return 1
 
                 elif edit_flag:
@@ -6809,72 +6926,19 @@ class Device360(Device360WebElements):
                     return -1
 
                 else:
-                    sleep(5)
-                    self.utils.print_info(f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
-                                          f"Closing dropdown...")
+                    self.utils.print_info(
+                        f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
+                        f"Closing dropdown...")
+                  
                     self.auto_actions.click(get_pse_profile)
-                    
                     get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
                     if get_pse_profile_add:
                         self.auto_actions.click(get_pse_profile_add)
-                        sleep(2)
-                        get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
-                        if get_pse_profile_name:
-                            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
-                            sleep(2)
-                        else:
-                            self.utils.print_info("get_pse_profile_name not found ")
-                        sleep(5)
-                        get_pse_profile_power_mode_dropdown = self.get_select_element_port_type('pse_profile_power_mode_dropdown')
-                        if get_pse_profile_power_mode_dropdown:
-                            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
-                            get_pse_profile_power_mode_items = self.get_select_element_port_type("pse_profile_power_mode_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items, value['pse_profile_power_mode']):
-                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_power_mode'])
-
-                        get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
-                        if get_pse_profile_power_limit:
-                            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
-                        else:
-                            self.utils.print_info("Power Limit textbox not found!")
-
-                        sleep(2)
-                        get_pse_profile_priority_dropdown = self.get_select_element_port_type("pse_profile_priority")
-                        if get_pse_profile_priority_dropdown:
-                            self.auto_actions.click(get_pse_profile_priority_dropdown)
-                            sleep(2)
-                            get_pse_profile_priority_items = self.get_select_element_port_type("pse_profile_priority_items")
-                            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items, value['pse_profile_priority']):
-                                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
-
-                        sleep(2)
-                        get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
-                        if get_pse_profile_description:
-                            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
-                            sleep(2)
-                        else:
-                            self.utils.print_info("get_pse_profile_description not found ")
-                        sleep(5)
-
-                        def _check_save_pse_profile_closure():
-                            if not self.get_select_element_port_type("pse_profile_save"):
-                                self.utils.print_info("PSE profile save button not present anymore.")
-                                return True
-                            else:
-                                self.utils.print_info("PSE profile save button is still present. Retrying...")
-                                return False
-
-                        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
-                        if get_pse_profile_save:
-                            self.auto_actions.click(get_pse_profile_save)
-                            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
-                                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
-                                                                                   "save...")
-                            return 1
-                        else:
-                            self.utils.print_info("get_pse_profile_save not found ")
+                        if not self.fill_in_pse_profile_fields(value) == 1:
+                            return -1
                     else:
                         self.utils.print_info("get_pse_profile_add not found ")
+                    return 1
             else:
                 self.utils.print_info("get_pse_profile not found ")
         elif element.lower() == "poe status":
@@ -6972,7 +7036,7 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row Not Found"
                     self.screen.save_screen_shot()
@@ -6984,7 +7048,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(save_btn)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 kwargs['pass_msg'] = "Switch Port Configuration Saved"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -7002,7 +7066,7 @@ class Device360(Device360WebElements):
                 #
                 # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                 # self.utils.print_info("Close Dialogue Window")
-                # self.auto_actions.click(self.get_close_dialog())
+                # self.auto_actions.click_reference(self.get_close_dialog)
                 # if confirmation_message:
                 #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
                 #     self.common_validation.passed(**kwargs)
@@ -7015,7 +7079,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
@@ -7077,7 +7141,7 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row was not found"
                     self.common_validation.failed(**kwargs)
@@ -7089,7 +7153,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(save_btn)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 kwargs['pass_msg'] = "Stack Port Configuration Saved"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -7113,7 +7177,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
@@ -7148,10 +7212,10 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Click Port Configuration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -7191,7 +7255,7 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info("Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row was not found"
                     self.common_validation.failed(**kwargs)
@@ -7203,7 +7267,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(save_btn)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 kwargs['pass_msg'] = "Switch Port Configuration Saved"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -7229,7 +7293,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
@@ -7250,9 +7314,9 @@ class Device360(Device360WebElements):
         """
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         self.utils.print_info("Click Port Configuration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -7281,7 +7345,7 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row was not found"
                     self.common_validation.failed(**kwargs)
@@ -7293,7 +7357,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(save_btn)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 kwargs['pass_msg'] = "Stack Port Configuration Saved"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -7319,7 +7383,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
@@ -7339,7 +7403,7 @@ class Device360(Device360WebElements):
                 return False
 
         self.utils.wait_till(_check_dropdown)
-        self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
+        self.auto_actions.click_reference(self.dev360.get_device360_port_configuration_stack_units_dropdown)
 
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
@@ -7398,7 +7462,7 @@ class Device360(Device360WebElements):
         self.select_stack_unit(slot=slot)
         sleep(2)
         self.utils.print_info("Click PSE Tab")
-        self.auto_actions.click(self.get_device360_port_config_pse_tab_slot_stack())
+        self.auto_actions.click_reference(self.get_device360_port_config_pse_tab_slot_stack)
         sleep(2)
         pse_settings_for_device_button = self.get_device360_pse_settings_for_device_button_stack()
         if pse_settings_for_device_button:
@@ -7437,7 +7501,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Could not click Save button")
             return -1
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         return 1
 
     def device360_power_details_stack(self, slot, device_mac="", device_name=""):
@@ -7451,6 +7515,7 @@ class Device360(Device360WebElements):
         :param device_name: Device Name
         :return: list with power supply details; else -1
         """
+        rez = None
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
@@ -7464,16 +7529,20 @@ class Device360(Device360WebElements):
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
         slot_index = 1
         slot_found = False
+        self.utils.wait_till(self.get_device360_stack_overview_slot_details_rows, timeout=120, is_logging_enabled=True,
+                             delay=5)
+        self.screen.save_screen_shot()
         slot_details_overview = self.get_device360_stack_overview_slot_details_rows()
         if slot_details_overview:
             power_elements = self.dev360.get_device360_thunderbold_icon_stack(slot_details_overview)
             for power_item in power_elements:
                 if slot_index == int(slot):
                     self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
+                    self.screen.save_screen_shot()
                     self.auto_actions.click_and_hold_element(power_item)
                     sleep(2)
                     self.auto_actions.move_to_element(power_item)
-                    sleep(2)
+                    self.screen.save_screen_shot()
                     slot_found = True
                     break
                 slot_index = slot_index + 1
@@ -7484,15 +7553,16 @@ class Device360(Device360WebElements):
             self.utils.print_info("Power details not found")
             return -1
         sleep(2)
-        power_details = self.dev360.get_device360_power_details().text
+        power_details = self.dev360.get_device360_power_details()
         if power_details:
-            self.utils.print_info(f"", power_details)
+            self.utils.print_info(f"", power_details.text)
+            rez = power_details.text
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
-            return power_details
+            self.auto_actions.click_reference(self.get_close_dialog)
         else:
             self.utils.print_info("Power details not found")
             return -1
+        return rez
 
     def is_device360_relaunch_digital_twin_button_visible(self):
         """
@@ -7541,7 +7611,7 @@ class Device360(Device360WebElements):
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
-                    self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
+                    self.auto_actions.click_reference(self.dialog_web_elements.get_confirm_yes_button)
                     self.utils.print_info("Confirming the relaunch.")
                     banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
                     if banner_text_error:
@@ -7549,7 +7619,7 @@ class Device360(Device360WebElements):
                         return -1
                     return 1
                 else:
-                    self.auto_actions.click(self.dialog_web_elements.get_confirm_cancel_button())
+                    self.auto_actions.click_reference(self.dialog_web_elements.get_confirm_cancel_button)
                     return 1
         else:
             self.utils.print_info("Could not find the 'Relaunch Digital Twin' button.")
@@ -7603,7 +7673,7 @@ class Device360(Device360WebElements):
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
-                    self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
+                    self.auto_actions.click_reference(self.dialog_web_elements.get_confirm_yes_button)
                     self.utils.print_info("Confirming the shutdown.")
                     banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
                     if banner_text_error:
@@ -7611,7 +7681,7 @@ class Device360(Device360WebElements):
                         return -1
                     return 1
                 else:
-                    self.auto_actions.click(self.dialog_web_elements.get_confirm_cancel_button())
+                    self.auto_actions.click_reference(self.dialog_web_elements.get_confirm_cancel_button)
                     return 1
         else:
             self.utils.print_info("Could not find the 'Shutdown Digital Twin' button.")
@@ -8621,6 +8691,7 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
 
+
     def get_event_from_device360(self, dut, event, close_360_window=True, **kwargs):
         """
         This function is used to search for an event given as parameter in Events view from Device360 window
@@ -8656,3 +8727,1931 @@ class Device360(Device360WebElements):
         if close_360_window:
             self.close_device360_window()
         return count
+
+    def check_port_cdp_lldp(self, port_type_name, cdp_transmit_receive_should_be_editable=None,
+                            cdp_transmit_receive_should_be_enabled=None, lldp_transmit_should_be_editable=None,
+                            lldp_transmit_should_be_enabled=None, lldp_receive_should_be_editable=None,
+                            lldp_receive_should_be_enabled=None):
+        """
+        AIQ-1739
+        Keyword: In port type editor, in transmission settings - check CDP/LLDP options are enabled /disabled/editable
+                https://jira.extremenetworks.com/browse/AIQ-1739
+        This function verifies that the 'Enable CDP Transmit/Receive', 'Enable LLDP Transmit', 'Enabled LLDP Receive'
+         checkboxes are selected/not selected/editable/not editable.
+        It will also verify the status of the 'LLDP Voice VLAN Options', 'CDP Voice VLAN Options' options
+         of the VLAN page.
+        For the configurable voice port type fields that are a bool type value:
+            If kwarg == True then the function will verify the port type editor field that corresponds to the kwarg
+                is enabled/editable
+            If kwarg == False then the function will verify the port type editor field that corresponds to the kwarg
+                is not enabled/editable
+            If kwarg == None then the function will not verify the port type field that corresponds to the kwarg
+        The method should be called from 'Configure -> Network Policies -> Network Policy -> Device Template -> Port Configuration'.
+        args:
+            :port_type_name:                              <str>
+        kwargs:
+            :cdp_transmit_receive_should_be_editable:     <bool|None>
+            :cdp_transmit_receive_should_be_enabled:      <bool|None>
+            :lldp_transmit_should_be_editable:            <bool|None>
+            :lldp_transmit_should_be_enabled:             <bool|None>
+            :lldp_receive_should_be_editable:             <bool|None>
+            :lldp_receive_should_be_enabled:              <bool|None>
+        returns: 1 if the selected verifications are successful else -1
+        usage:
+          self.xiq.xflowsmanageDevice360.check_port_cdp_lldp(
+                port_type_name="testing_port", cdp_transmit_receive_should_be_editable=True,
+                lldp_receive_should_be_enabled=False)
+        # the check_port_cdp_lldp method will verify:
+        #   - the 'Enable CDP Transmit/Receive' checkbox is editable
+        #   - the 'Enable LLDP Transmit' checkbox is not selected
+        """
+        if not any(
+                [
+                    cdp_transmit_receive_should_be_editable is not None,
+                    cdp_transmit_receive_should_be_enabled is not None,
+                    lldp_transmit_should_be_editable is not None,
+                    lldp_transmit_should_be_enabled is not None,
+                    lldp_receive_should_be_editable is not None,
+                    lldp_receive_should_be_enabled is not None
+                ]
+        ):
+            self.utils.print_info("At least a checkbox should be verified (at least a kwarg should be True/False)")
+            return -1
+
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return -1
+        else:
+            for row in rows:
+                if re.search(rf'\d+\n{port_type_name}\n', row.text):
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was found")
+                        self.auto_actions.click(policy_edit_port_type)
+                        def _check_port_editor_window_present():
+                            return bool(self.get_select_element_port_type("tab_vlan"))
+
+                        self.utils.wait_till(_check_port_editor_window_present, timeout=10, delay=1,
+                                                       msg="Waiting for edit port type window to appear",
+                                                       is_logging_enabled=True)
+                        break
+                    else:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
+
+        lldp_voice_vlan_options_checkbox_name = "LLDP Voice VLAN Options"
+        cdp_voice_vlan_options_checkbox_name = "CDP Voice VLAN Options"
+
+        en_cdp_transmit_receive_checkbox_name = "Enable CDP Transmit/Receive"
+        en_lldp_transmit_checkbox_name = "Enable LLDP Transmit"
+        en_lldp_receive_checkbox_name = "Enabled LLDP Receive"
+
+        vlan_tab = self.get_select_element_port_type("tab_vlan")
+        if not vlan_tab:
+            self.utils.print_info("Failed to get the vlan page")
+            return -1
+        self.auto_actions.click(vlan_tab)
+
+        def _wait_for_vlan_tab_appear():
+            return bool(self.get_select_element_port_type("vlan_tab_confirmation")) \
+                   and bool(self.get_select_element_port_type("lldp_voice_vlan_options"))
+
+        self.utils.wait_till(_wait_for_vlan_tab_appear, timeout=4, delay=1,
+                             msg="Waiting for vlan window to appear",
+                             is_logging_enabled=True)
+
+        lldp_voice_options = self.get_select_element_port_type("lldp_voice_vlan_options")
+        if not lldp_voice_options:
+            self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' option not found")
+            return -1
+
+        lldp_options_enabled = lldp_voice_options.is_selected()
+        self.utils.print_info(
+            f"'{lldp_voice_vlan_options_checkbox_name}': {'enabled' if lldp_options_enabled else 'not enabled'}")
+
+        cdp_voice_options = self.get_select_element_port_type("cdp_voice_vlan_options")
+        if not cdp_voice_options:
+            self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' option not found")
+            return -1
+
+        cdp_options_enabled = cdp_voice_options.is_selected()
+        self.utils.print_info(
+            f"'{cdp_voice_vlan_options_checkbox_name}': {'enabled' if cdp_options_enabled else 'not enabled'}")
+
+        transmission_tab = self.get_select_element_port_type("transmissionSettingsPage")
+        if not transmission_tab:
+            self.utils.print_info("Failed to get transmission settings page")
+            return -1
+        self.auto_actions.click(transmission_tab)
+        def _wait_for_transmission_tab_appear():
+            return bool(self.get_select_element_port_type("transmission_tab_confirmation")) \
+                   and bool(self.get_select_element_port_type("cdp receive"))
+
+        self.utils.wait_till(_wait_for_transmission_tab_appear, timeout=4, delay=1,
+                             msg="Waiting for transmission tab window to appear",
+                             is_logging_enabled=True)
+
+        if (cdp_transmit_receive_should_be_editable is not None) or (
+                cdp_transmit_receive_should_be_enabled is not None):
+            cdp_transmit_receive = self.get_select_element_port_type("cdp receive")
+            if not cdp_transmit_receive:
+                self.utils.print_info(f"Failed to get '{en_cdp_transmit_receive_checkbox_name}' checkbox")
+                return -1
+
+        if cdp_transmit_receive_should_be_editable is not None:
+            # first check the transmission settings page
+            cdp_transmit_receive_is_editable = cdp_transmit_receive.is_enabled()
+
+            if cdp_transmit_receive_is_editable == cdp_transmit_receive_should_be_editable:
+                self.utils.print_info(
+                    f"Successfully found '{en_cdp_transmit_receive_checkbox_name}' checkbox in the expected state: "
+                    f"'{'editabled' if cdp_transmit_receive_is_editable else 'not editable'}'")
+            else:
+                self.utils.print_info(
+                    f"Failed to find '{en_cdp_transmit_receive_checkbox_name}' in the expected state. Found"
+                    f" '{'editabled' if cdp_transmit_receive_is_editable else 'not editable'}' but expected "
+                    f"'{'editabled' if cdp_transmit_receive_should_be_editable else 'not editable'}'")
+                return -1
+
+            # now check the vlan page
+
+            # CDP voice vlan options = OFF (VLAN PAGE) => enable CDP transmit/receive = not editable (TRANSMISSION SETTINGS page)
+            # LLDP voice vlan options = OFF (VLAN PAGE) => enable LLDP transmit = not editable (TRANSMISSION SETTINGS page)
+            # LLDP voice vlan options = OFF (VLAN PAGE) => enable LLDP receive = not editable (TRANSMISSION SETTINGS page)
+
+            # CDP voice vlan options = ON (VLAN PAGE) => enable CDP transmit/receive = editable (TRANSMISSION SETTINGS page)
+            # LLDP voice vlan options = ON (VLAN PAGE) => enable LLDP transmit = editable (TRANSMISSION SETTINGS page)
+            # LLDP voice vlan options = ON (VLAN PAGE) => enable LLDP receive = editable (TRANSMISSION SETTINGS page)
+
+            if cdp_transmit_receive_is_editable != cdp_options_enabled:
+                self.utils.print_info(
+                    f"Successfully found 'cdp_transmit_receive_is_enable'='{cdp_transmit_receive_is_editable}' "
+                    f"when cdp_options_enable='{cdp_options_enabled}' in the vlan page"
+                )
+            else:
+                self.utils.print_info(
+                    f"Failed! Found 'cdp_transmit_receive_is_enable'='{cdp_transmit_receive_is_editable}'"
+                    f" when 'cdp_options_enable'='{cdp_options_enabled}' in the vlan page"
+                )
+                return -1
+
+        if cdp_transmit_receive_should_be_enabled is not None:
+            cdp_transmit_receive_is_enabled = cdp_transmit_receive.is_selected()
+
+            if cdp_transmit_receive_is_enabled == cdp_transmit_receive_should_be_enabled:
+                self.utils.print_info(f"Successfully found that '{en_cdp_transmit_receive_checkbox_name}' checkbox is "
+                                      f"'{'enabled' if cdp_transmit_receive_should_be_enabled else 'disabled'}'")
+            else:
+                self.utils.print_info(f"Expected to find the '{en_cdp_transmit_receive_checkbox_name}' checkbox as "
+                                      f"'{'enabled' if cdp_transmit_receive_should_be_enabled else 'disabled'}' "
+                                      f"but found '{'enabled' if cdp_transmit_receive_is_enabled else 'disabled'}'")
+                return -1
+
+        if (lldp_transmit_should_be_editable is not None) or (lldp_transmit_should_be_enabled is not None):
+            lldp_transmit = self.get_select_element_port_type("lldp transmit")
+            if not lldp_transmit:
+                self.utils.print_info(f"Failed to get '{en_lldp_transmit_checkbox_name}' checkbox")
+                return -1
+
+        if lldp_transmit_should_be_editable is not None:
+            lldp_transmit_is_editable = lldp_transmit.is_enabled()
+
+            if lldp_transmit_is_editable == lldp_transmit_should_be_editable:
+                self.utils.print_info(
+                    f"Successfully found '{en_lldp_transmit_checkbox_name}' checkbox in the expected state: "
+                    f"'{'editable' if lldp_transmit_is_editable else 'not editable'}'")
+            else:
+                self.utils.print_info(
+                    f"Failed to find '{en_lldp_transmit_checkbox_name}' checkbox in the expected state. Found "
+                    f"'{'editable' if lldp_transmit_is_editable else 'not editable'}' but expected "
+                    f"'{'editable' if lldp_transmit_should_be_editable else 'not editable'}'")
+                return -1
+
+            if lldp_transmit_is_editable != lldp_options_enabled:
+                self.utils.print_info(
+                    f"Successfully found 'lldp_transmit_is_editable'='{lldp_transmit_is_editable}'"
+                    f"when 'cdp_options_enable'='{lldp_options_enabled}'"
+                )
+            else:
+                self.utils.print_info(
+                    f"Failed! Found 'lldp_transmit_is_editable'='{lldp_transmit_is_editable}'"
+                    f" when 'cdp_options_enable'='{lldp_options_enabled}'"
+                )
+                return -1
+
+        if lldp_transmit_should_be_enabled is not None:
+            lldp_transmit_is_enabled = lldp_transmit.is_selected()
+
+            if lldp_transmit_is_enabled == lldp_transmit_should_be_enabled:
+                self.utils.print_info(f"Successfully found that '{en_lldp_transmit_checkbox_name}' checkbox is "
+                                      f"'{'enabled' if lldp_transmit_should_be_enabled else 'disabled'}'")
+            else:
+                self.utils.print_info(f"Expected to find the '{en_lldp_transmit_checkbox_name}' checkbox as "
+                                      f"'{'enabled' if lldp_transmit_should_be_enabled else 'disabled'}' but found "
+                                      f"'{'enabled' if lldp_transmit_is_enabled else 'disabled'}'")
+                return -1
+
+        if (lldp_receive_should_be_editable is not None) or (lldp_receive_should_be_enabled is not None):
+            lldp_receive = self.get_select_element_port_type("lldp transmit")
+            if not lldp_receive:
+                self.utils.print_info(f"Failed to get '{en_lldp_receive_checkbox_name}' checkbox")
+                return -1
+
+        if lldp_receive_should_be_editable is not None:
+            lldp_receive_is_editable = lldp_receive.is_enabled()
+
+            if lldp_receive_is_editable == lldp_receive_should_be_editable:
+                self.utils.print_info(
+                    f"Successfully found '{en_lldp_receive_checkbox_name}' checkbox in the expected state:"
+                    f" '{'editable' if lldp_receive_is_editable else 'not editable'}'")
+            else:
+                self.utils.print_info(
+                    f"Failed to find '{en_lldp_receive_checkbox_name}' checkbox in the expected state. Found "
+                    f"'{'editable' if lldp_receive_is_editable else 'not editable'}' but expected "
+                    f"'{'editable' if lldp_receive_should_be_editable else 'not editable'}'")
+                return -1
+
+            if lldp_receive_is_editable != lldp_options_enabled:
+                self.utils.print_info(
+                    f"Successfully found 'lldp_receive_is_enable'='{lldp_receive_is_editable}'"
+                    f"when 'lldp_options_enable'='{lldp_options_enabled}'"
+                )
+            else:
+                self.utils.print_info(
+                    f"Failed! Found 'lldp_receive_is_enable'={lldp_receive_is_editable}"
+                    f" when 'lldp_options_enable'='{lldp_options_enabled}'"
+                )
+                return -1
+
+        if lldp_receive_should_be_enabled is not None:
+            lldp_receive_is_enabled = lldp_receive.is_selected()
+
+            if lldp_receive_is_enabled == lldp_receive_should_be_enabled:
+                self.utils.print_info(f"Successfully found that '{en_lldp_receive_checkbox_name}' checkbox is "
+                                      f"'{'enabled' if lldp_receive_should_be_enabled else 'disabled'}'")
+            else:
+                self.utils.print_info(f"Expected to find the '{en_lldp_receive_checkbox_name}' checkbox as "
+                                      f"'{'enabled' if lldp_receive_should_be_enabled else 'disabled'}' but found "
+                                      f"'{'enabled' if lldp_receive_is_enabled else 'disabled'}'")
+                return -1
+
+        summary_page = self.get_select_element_port_type("summaryPage")
+        if not summary_page:
+            self.utils.print_info("Failed to get summary page")
+            return -1
+        self.auto_actions.click(summary_page)
+        # self.utils.wait_till(3)
+        def _wait_for_summary_tab_appear():
+            return bool(self.get_select_element_port_type("summary_tab_confirmation")) \
+                   and bool(self.dev360.get_close_port_type_box())
+
+        self.utils.wait_till(_wait_for_summary_tab_appear, timeout=4, delay=1,
+                             msg="Waiting for summary tab window to appear",
+                             is_logging_enabled=True)
+
+        close_button = self.dev360.get_close_port_type_box()
+        if not close_button:
+            self.utils.print_info("save button not found")
+            return -1
+        self.auto_actions.click(close_button)
+        return 1
+
+    def create_voice_port(self, port, port_type_name="test_port", description="description_of_test_port", status=True,
+                          voice_vlan="1", data_vlan="2", lldp_voice_options_flag=True, cdp_voice_options_flag=True,
+                          dot1_vlan_id_flag=True, lldp_advertisment_of_med_voice_vlan_flag=True,
+                          lldp_voice_vlan_dscp=1, lldp_advertisment_of_med_signaling_vlan_flag=True,
+                          lldp_voice_signaling_dscp=2, cdp_advertisment_of_voice_vlan_flag=True,
+                          cdp_advertisment_of_power_available_flag=True, device_360=False):
+        """
+        AIQ-1736
+        Keyword: Create port type - phone with a data port in template level
+                https://jira.extremenetworks.com/browse/AIQ-1736
+        Method used to configure a new voice port type.
+        For the configurable voice port type fields that are a bool type value:
+            If kwarg == True then the function will enable the port type editor field that
+                corresponds to the given kwarg (if not already enabled).
+            If kwarg == False then the function will disable the port type editor field that
+                corresponds to the given kwarg (if not already disabled).
+        If the device_360 keyword is False then the method should be called from 'Configure -> Network Policies -> Network Policy -> Device Template -> Port Configuration'.
+        If the device_360 keyword is True then the method should be called from 'Manage -> Devices -> Device -> Configure -> Port Configuration'.
+        args:
+            :port:                                           <str>
+        kwargs:
+            :port_type_name:                                 <str>
+            :description:                                    <str>
+            :status:                                         <bool
+            :voice_vlan: the voice vlan                      <str>
+            :data_vlan: the data vlan                        <str>
+            :lldp_voice_options_flag:                        <bool>
+            :cdp_voice_options_flag:                         <bool>
+            :dot1_vlan_id_flag:                              <bool>
+            :lldp_advertisment_of_med_voice_vlan_flag:       <bool>
+            :lldp_voice_vlan_dscp:                           <int>
+            :lldp_advertisment_of_med_signaling_vlan_flag:   <bool>
+            :lldp_voice_signaling_dscp:                      <int>
+            :cdp_advertisment_of_voice_vlan_flag:            <bool>
+            :cdp_advertisment_of_power_available_flag:       <bool>
+            :device_360:                                     <bool>
+        returns: 1 if the configuration is successful else -1
+        usage:
+            self.xiq.xflowsmanageDevice360.create_voice_port(
+                port="2", port_type_name="testing")
+            # creates a port type with every phone port type option turned on
+            self.xiq.xflowsmanageDevice360.create_voice_port(
+                port="2", port_type_name="testing", lldp_voice_options_flag=False, cdp_voice_options_flag=False)
+            # creates a port type with 'LLDP Voice VLAN Options' and 'CDP Voice VLAN Options' disabled
+        """
+        if not device_360:
+            rows = self.get_policy_configure_port_rows()
+            if not rows:
+                self.utils.print_info("Could not obtain list of port rows")
+                return -1
+            else:
+                for row in rows:
+                    if re.search(f'{port}\n', row.text):
+                        d360_create_port_type = self.get_d360_create_port_type(row)
+                        if d360_create_port_type:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was found")
+                            self.auto_actions.click(d360_create_port_type)
+                            def _check_port_editor_window_present():
+                                return bool(self.get_select_element_port_type("tab_vlan"))
+
+                            self.utils.wait_till(_check_port_editor_window_present, timeout=10, delay=1,
+                                                 msg="Waiting for new port type window to appear",
+                                                 is_logging_enabled=True)
+                            break
+                        else:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was not found")
+                            self.screen.save_screen_shot()
+                            return -1
+        else:
+            port_conf_content = self.get_device360_port_configuration_content()
+            if port_conf_content:
+                port_row = self.device360_get_port_row(port)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+
+                    d360_create_port_type = self.get_d360_create_port_type(port_row)
+                    if d360_create_port_type:
+                        self.utils.print_info(" The button d360_create_port_type  was found")
+                        self.auto_actions.click(d360_create_port_type)
+
+                        def _check_port_editor_window_present():
+                            return bool(self.get_select_element_port_type("tab_vlan"))
+
+                        self.utils.wait_till(_check_port_editor_window_present, timeout=3, delay=1,
+                                             msg="Waiting for new port type window to appear",
+                                             is_logging_enabled=True)
+                    else:
+                        self.utils.print_info(" The button d360_create_port_type  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
+                else:
+                    self.utils.print_info("Port was not found ")
+                    return -1
+            else:
+                return -1
+
+        name_element = self.get_select_element_port_type("name")
+        if not name_element:
+            self.utils.print_info("Port name was not found ")
+            return -1
+        self.auto_actions.send_keys(name_element, port_type_name)
+
+        description_element = self.get_select_element_port_type("description")
+        if not description_element:
+            self.utils.print_info("Port description was not found ")
+            return -1
+        self.auto_actions.send_keys(description_element, description)
+
+        status_element = self.get_select_element_port_type("status")
+        if not status_element:
+            self.utils.print_info("Port status was not found ")
+            return -1
+
+        if (not status_element.is_selected() and status) or (
+                status_element.is_selected() and not status):
+            self.auto_actions.click(status_element)
+            self.utils.wait_till(delay=1,timeout=2,msg= "waiting for port status element")
+
+        phone_port_element = self.get_select_element_port_type("port usage", "phone port")
+        if not phone_port_element:
+            self.utils.print_info("phone port type was not found ")
+            return -1
+        self.auto_actions.click(phone_port_element)
+        self.utils.wait_till(delay=1,timeout=2)
+
+        get_next_button = self.get_select_element_port_type("next_button")
+        if get_next_button:
+            self.utils.print_info("go to the vlan configuration page")
+            self.auto_actions.click(get_next_button)
+            def _wait_for_vlan_tab_appear():
+                return bool(self.get_select_element_port_type("vlan_tab_confirmation")) \
+                       and bool(self.get_select_element_port_type("lldp_voice_vlan_options"))
+
+            self.utils.wait_till(_wait_for_vlan_tab_appear, timeout=4, delay=1,
+                                 msg="Waiting for vlan window to appear",
+                                 is_logging_enabled=True)
+        else:
+            self.utils.print_info("get_next_button not found ")
+            return -1
+
+        get_select_button = self.get_select_element_port_type("voice_vlan_select_button")
+        if get_select_button:
+            self.auto_actions.click(get_select_button)
+
+            self.utils.wait_till(delay=2, timeout=4)
+            get_dropdown_items = self.get_select_element_port_type("voice_vlan_dropdown_items")
+
+            if self.auto_actions.select_drop_down_options(get_dropdown_items, voice_vlan):
+                self.utils.print_info(" Selected into dropdown voice_vlan : ", voice_vlan)
+                self.utils.wait_till(delay=1,timeout=2,msg="Dropdown voice vlan selection")
+            else:
+                get_add_vlan = self.get_select_element_port_type("voice_vlan_add_vlan")
+                if get_add_vlan:
+                    self.auto_actions.click(get_add_vlan)
+
+                    def _voice_vlan_appear():
+                        return bool(self.get_select_element_port_type("voice_vlan_name_vlan"))
+
+                    self.utils.wait_till(_voice_vlan_appear,
+                                         is_logging_enabled=True,
+                                         msg= "Voice vlan appear on clicking")
+
+                    get_name_vlan = self.get_select_element_port_type("voice_vlan_name_vlan")
+                    if get_name_vlan:
+                        self.auto_actions.send_keys(get_name_vlan, voice_vlan)
+                    else:
+                        self.utils.print_info("voice vlan get_id_vlan not found ")
+                        return -1
+                    get_id_vlan = self.get_select_element_port_type("voice_vlan_id_vlan")
+                    if get_id_vlan:
+                        self.auto_actions.send_keys(get_id_vlan, voice_vlan)
+                    else:
+                        self.utils.print_info("voice vlan get_id_vlan not found ")
+                        return -1
+                    get_save_vlan = self.get_select_element_port_type("save_vlan")
+                    if get_save_vlan:
+                        self.auto_actions.click(get_save_vlan)
+
+                        def _save_vlan_disappear():
+                            return not bool(self.get_select_element_port_type("save_vlan"))
+
+                        self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+                    else:
+                        self.utils.print_info("get_save_vlan not found ")
+                        return -1
+                else:
+                    self.utils.print_info("voice vlan get_add_vlan not found ")
+                    return -1
+        else:
+            self.utils.print_info("voice vlan get_select_button not found ")
+            return -1
+
+        get_select_button = self.get_select_element_port_type("data_vlan_select_button")
+        if get_select_button:
+            self.auto_actions.click(get_select_button)
+            self.utils.wait_till(delay=2, timeout=4)
+
+            get_dropdown_items = self.get_select_element_port_type("data_vlan_dropdown_items")
+            if self.auto_actions.select_drop_down_options(get_dropdown_items, data_vlan):
+                self.utils.print_info(" Selected into dropdown value : ", data_vlan)
+                self.utils.wait_till(delay=1,timeout=2,msg="Dropdown data vlan selection")
+
+            else:
+                get_add_vlan = self.get_select_element_port_type("data_vlan_add_vlan")
+                if get_add_vlan:
+                    self.auto_actions.click(get_add_vlan)
+                    def _data_vlan_appear():
+                        return bool(self.get_select_element_port_type("data_vlan_name_vlan"))
+
+                    self.utils.wait_till(_data_vlan_appear, is_logging_enabled=True)
+
+                    get_name_vlan = self.get_select_element_port_type("data_vlan_name_vlan")
+                    if get_name_vlan:
+                        self.auto_actions.send_keys(get_name_vlan, data_vlan)
+                    else:
+                        self.utils.print_info("data vlan get_id_vlan not found ")
+                        return -1
+                    get_id_vlan = self.get_select_element_port_type("data_vlan_id_vlan")
+                    if get_id_vlan:
+                        self.auto_actions.send_keys(get_id_vlan, data_vlan)
+                    else:
+                        self.utils.print_info("data vlan get_id_vlan not found ")
+                        return -1
+                    get_save_vlan = self.get_select_element_port_type("save_vlan")
+                    if get_save_vlan:
+                        self.auto_actions.click(get_save_vlan)
+
+                        def _save_vlan_disappear():
+                            return not bool(self.get_select_element_port_type("save_vlan"))
+                        self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+
+                    else:
+                        self.utils.print_info("get_save_vlan not found ")
+                        return -1
+                else:
+                    self.utils.print_info("data vlan get_add_vlan not found ")
+                    return -1
+        else:
+            self.utils.print_info("data vlan get_select_button not found ")
+            return -1
+
+        lldp_voice_vlan_options_checkbox_name = "LLDP Voice VLAN Options"
+        cdp_voice_vlan_options_checkbox_name = "CDP Voice VLAN Options"
+
+        en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name = "Enable LLDP advertisement of 802.1 VLAN ID and port protocol of Voice VLAN"
+        en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice VLAN DSCP Value"
+        en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice Signaling VLAN DSCP Value"
+        en_cdp_adv_of_voice_vlan_checkbox_name = "Enable CDP advertisement of Voice VLAN"
+        en_cdp_adv_of_power_available_checkbox_name = "Enable CDP advertisement of power available"
+
+        lldp_voice_options = self.get_select_element_port_type("lldp_voice_vlan_options")
+        if not lldp_voice_options:
+            self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+            return -1
+        previous_state_1 = lldp_voice_options.is_selected()
+        if (not lldp_voice_options.is_selected() and lldp_voice_options_flag) or (
+                lldp_voice_options.is_selected() and not lldp_voice_options_flag):
+            self.auto_actions.click(lldp_voice_options)
+            def _lldp_voice_option():
+                return not (bool(lldp_voice_options.is_selected()) and previous_state_1)
+
+            self.utils.wait_till(_lldp_voice_option, is_logging_enabled=True)
+
+        cdp_voice_options = self.get_select_element_port_type("cdp_voice_vlan_options")
+        if not cdp_voice_options:
+            self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox not found")
+            return -1
+
+        previous_state_2 = cdp_voice_options.is_selected()
+
+        if (not cdp_voice_options.is_selected() and cdp_voice_options_flag) or (
+                cdp_voice_options.is_selected() and not cdp_voice_options_flag):
+            self.auto_actions.click(cdp_voice_options)
+            def _cdp_voice_option():
+                return not (bool(cdp_voice_options.is_selected()) and previous_state_2)
+
+            self.utils.wait_till(_cdp_voice_option, is_logging_enabled=True)
+
+        if lldp_voice_options_flag:
+
+            lldp_advertisment_of_med_voice_vlan = self.get_select_element_port_type(
+                "enable_lldp_advertisment_of_med_voice_vlan")
+
+            if not lldp_advertisment_of_med_voice_vlan:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox option not found")
+                return -1
+            previous_state_3 = lldp_advertisment_of_med_voice_vlan.is_selected()
+
+            if (not lldp_advertisment_of_med_voice_vlan.is_selected() and lldp_advertisment_of_med_voice_vlan_flag) or \
+                    (
+                            lldp_advertisment_of_med_voice_vlan.is_selected() and not lldp_advertisment_of_med_voice_vlan_flag):
+                self.auto_actions.click(lldp_advertisment_of_med_voice_vlan)
+                def _lldp_med_voice_option():
+                    return not (bool(lldp_advertisment_of_med_voice_vlan.is_selected()) and previous_state_3)
+
+                self.utils.wait_till(_lldp_med_voice_option, is_logging_enabled=True)
+
+            if lldp_advertisment_of_med_voice_vlan.is_selected():
+
+                lldp_advertisment_of_med_voice_vlan_dscp_value_element = self.get_select_element_port_type(
+                    "lldp_advertisment_of_med_voice_vlan_dscp_value")
+                if not lldp_advertisment_of_med_voice_vlan_dscp_value_element:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' input dscp value not found")
+                    return -1
+                else:
+                    self.auto_actions.send_keys(lldp_advertisment_of_med_voice_vlan_dscp_value_element,
+                                                lldp_voice_vlan_dscp)
+
+            lldp_advertisment_of_med_signaling_vlan = self.get_select_element_port_type(
+                "enable_lldp_advertisment_of_med_voice_signaling_vlan")
+            previous_state_4 = lldp_advertisment_of_med_signaling_vlan.is_selected()
+
+            if not lldp_advertisment_of_med_signaling_vlan:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' checkbox not found")
+                return -1
+
+            if (
+                    not lldp_advertisment_of_med_signaling_vlan.is_selected() and lldp_advertisment_of_med_signaling_vlan_flag) \
+                    or (lldp_advertisment_of_med_signaling_vlan.is_selected()
+                        and not lldp_advertisment_of_med_signaling_vlan_flag):
+                self.auto_actions.click(lldp_advertisment_of_med_signaling_vlan)
+                def _lldp_med_signalling_vlan():
+                    return not (bool(lldp_advertisment_of_med_signaling_vlan.is_selected()) and previous_state_4)
+
+                self.utils.wait_till(_lldp_med_signalling_vlan, is_logging_enabled=True)
+
+            if lldp_advertisment_of_med_signaling_vlan.is_selected():
+                lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element = self.get_select_element_port_type(
+                    "lldp_advertisment_of_med_voice_signaling_vlan_dscp_value")
+                if not lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' input dscp value not found")
+                    return -1
+                else:
+                    self.auto_actions.send_keys(lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element,
+                                                lldp_voice_signaling_dscp)
+            dot1_vlan_id_element = self.get_select_element_port_type("enable_lldp_advertisment_of_dot1_vlan")
+            previous_state_5 = dot1_vlan_id_element.is_selected()
+
+            if not dot1_vlan_id_element:
+                self.utils.print_info(
+                    f"{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name} option not found")
+                return -1
+
+            if (not dot1_vlan_id_element.is_selected() and dot1_vlan_id_flag) or (
+                    dot1_vlan_id_element.is_selected() and not dot1_vlan_id_flag):
+                self.auto_actions.click(dot1_vlan_id_element)
+                def _dot1_vlan_id_element_():
+                    return not (bool(dot1_vlan_id_element.is_selected()) and previous_state_5)
+
+                self.utils.wait_till(_dot1_vlan_id_element_, is_logging_enabled=True)
+
+        else:
+            self.utils.print_info(f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}',"
+                              "'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' and"
+                              "'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}'"
+                              "checkboxes cant be updated because '{lldp_voice_vlan_options_checkbox_name}' checkbox is disabled")
+
+        if cdp_voice_options_flag:
+            cdp_advertisment_of_power_available = self.get_select_element_port_type(
+                "enable_cdp_advertisment_of_power_available")
+            previous_state_6 = cdp_advertisment_of_power_available.is_selected()
+
+            if not cdp_advertisment_of_power_available:
+                self.utils.print_info(f"'{en_cdp_adv_of_power_available_checkbox_name}' checkbox not found")
+                if cdp_voice_options_flag:
+                    return -1
+
+            if (not cdp_advertisment_of_power_available.is_selected() and cdp_advertisment_of_power_available_flag) or \
+                    (cdp_advertisment_of_power_available.is_selected() and not cdp_advertisment_of_power_available_flag):
+                self.auto_actions.click(cdp_advertisment_of_power_available)
+                def _cdp_power_available_vlan():
+                    return (not bool(cdp_advertisment_of_power_available.is_selected())) and previous_state_6
+
+                self.utils.wait_till(_cdp_power_available_vlan, is_logging_enabled=True)
+
+            cdp_advertisment_of_voice_vlan = self.get_select_element_port_type("enable_cdp_advertisment_of_voice_vlan")
+            previous_state_7 = cdp_advertisment_of_voice_vlan.is_selected()
+
+            if not cdp_advertisment_of_voice_vlan:
+                self.utils.print_info(f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' checkbox not found")
+                return -1
+
+            if (not cdp_advertisment_of_voice_vlan.is_selected() and cdp_advertisment_of_voice_vlan_flag) or \
+                    (cdp_advertisment_of_voice_vlan.is_selected() and not cdp_advertisment_of_voice_vlan_flag):
+                self.auto_actions.click(cdp_advertisment_of_voice_vlan)
+                def _cdp_voice_vlan():
+                    return not (bool(cdp_advertisment_of_voice_vlan.is_selected()) and previous_state_7)
+
+                self.utils.wait_till(_cdp_voice_vlan, is_logging_enabled=True)
+        else:
+            self.utils.print_info(
+                f"'{en_cdp_adv_of_power_available_checkbox_name}' and '{en_cdp_adv_of_voice_vlan_checkbox_name}' checkboxes cant"
+                f"be updated because '{cdp_voice_vlan_options_checkbox_name}' checkbox is disabled'")
+
+        self.utils.print_info("Go to the last page and save the port type")
+        for _ in range(10):
+            get_next_button = self.get_select_element_port_type("next_button")
+            if get_next_button:
+                if get_next_button.is_enabled():
+                    self.auto_actions.click(get_next_button)
+                    self.utils.wait_till(delay=1,timeout=2)
+                else:
+                    break
+            else:
+                self.utils.print_info("get_next_button not found")
+                return -1
+
+        save_button = self.dev360.get_close_port_type_box()
+        if not save_button:
+            self.utils.print_info("save button not found")
+            return -1
+        self.auto_actions.click(save_button)
+        return 1
+
+    def edit_voice_port_type(self, port_type_name, **kwargs):
+        """
+        AIQ-1849
+        Keyword: Edit port type - phone with a data port in template level
+                https://jira.extremenetworks.com/browse/AIQ-1849
+        Method used to enable or disable configurable fields of a voice port type.
+        If kwarg == True then the function will enable the port type editor field that
+            corresponds to the given kwarg (if not already enabled).
+        If kwarg == False then the function will disable the port type editor field that
+            corresponds to the given kwarg (if not already disabled).
+        If kwarg == None then the function will not change the port type editor field that
+            corrsponds to the given kwarg.
+        The method should be called from 'Configure -> Network Policies -> Network Policy -> Device Template -> Port Configuration'.
+        args:
+            :port_type_name:                                  <str>
+        kwargs:
+            :voice_vlan:                                      <str>
+            :data_vlan:                                       <str>
+            :lldp_voice_options_flag:                         <bool|None>
+            :cdp_voice_options_flag:                          <bool|None>
+            :dot1_vlan_id_flag:                               <bool|None>
+            :lldp_advertisment_of_med_voice_vlan_flag:        <bool|None>
+            :lldp_advertisment_of_med_signaling_vlan_flag:    <bool|None>
+            :cdp_advertisment_of_voice_vlan_flag:             <bool|None>
+            :cdp_advertisment_of_power_available_flag:        <bool|None>
+            :enable_cdp_transmit_receive_flag:                <bool|None>
+            :enable_lldp_transmit_flag:                       <bool|None>
+            :enable_lldp_receive_flag:                        <bool|None>
+            :lldp_voice_vlan_dscp:                            <int>
+            :lldp_voice_signaling_dscp:                       <int>
+        returns: 1 if the functions call is successfull else -1
+        usage:
+            self.xiq.xflowsmanageDevice360.edit_voice_port_type(
+                port_type_name="test", enable_lldp_receive_flag=True, cdp_voice_options_flag=True)
+            # enables 'Enable LLDP Receive', enables 'Enable CDP Voice VLAN Options'
+            self.xiq.xflowsmanageDevice360.edit_voice_port_type(
+                port_type_name="test", voice_vlan="31")
+            # updates Voice VLAN to "31"
+            self.xiq.xflowsmanageDevice360.edit_voice_port_type(
+                port_type_name="test", lldp_voice_vlan_dscp=12, lldp_voice_signaling_dscp=14)
+            # updates dscp values
+        """
+        if not kwargs:
+            self.utils.print_info("At least a field should be updated")
+            return -1
+
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return -1
+        else:
+            for row in rows:
+                if re.search(rf'\d+\n{port_type_name}\n', row.text):
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was found")
+                        self.auto_actions.click(policy_edit_port_type)
+                        def _check_port_editor_window_present():
+                            return bool(self.get_select_element_port_type("tab_vlan"))
+
+                        self.utils.wait_till(_check_port_editor_window_present, timeout=10, delay=1,
+                                             msg="Waiting for existing port type window to appear",
+                                             is_logging_enabled=True)
+                        break
+                    else:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was not found")
+                        self.screen.save_screen_shot()
+                        return -1
+
+        vlan_tab_flags = [
+            "voice_vlan", "data_vlan", "lldp_voice_options_flag", "cdp_voice_options_flag", "dot1_vlan_id_flag",
+            "lldp_advertisment_of_med_voice_vlan_flag", "lldp_advertisment_of_med_signaling_vlan_flag",
+            "cdp_advertisment_of_voice_vlan_flag", "cdp_advertisment_of_power_available_flag", "lldp_voice_vlan_dscp",
+            "lldp_voice_signaling_dscp"
+        ]
+
+        lldp_voice_vlan_options_checkbox_name = "LLDP Voice VLAN Options"
+        cdp_voice_vlan_options_checkbox_name = "CDP Voice VLAN Options"
+
+        en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name = "Enable LLDP advertisement of 802.1 VLAN ID and port protocol of Voice VLAN"
+        en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice VLAN DSCP Value"
+        en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice Signaling VLAN DSCP Value"
+        en_cdp_adv_of_voice_vlan_checkbox_name = "Enable CDP advertisement of Voice VLAN"
+        en_cdp_adv_of_power_available_checkbox_name = "Enable CDP advertisement of power available"
+        en_cdp_transmit_receive_checkbox_name = "Enable CDP Transmit/Receive"
+        en_lldp_transmit_checkbox_name = "Enable LLDP Transmit"
+        en_lldp_receive_checkbox_name = "Enabled LLDP Receive"
+
+        if any(k in vlan_tab_flags for k in kwargs):
+
+            vlan_tab = self.get_select_element_port_type("tab_vlan")
+            if not vlan_tab:
+                self.utils.print_info("Failed to get the vlan page")
+                return -1
+            self.auto_actions.click(vlan_tab)
+            def _check_vlan_editor_window_present():
+                return bool(self.get_select_element_port_type("vlan_tab_confirmation"))
+
+            self.utils.wait_till(_check_vlan_editor_window_present, timeout=3, delay=1,
+                                 msg="Waiting for vlan port type window to appear",
+                                 is_logging_enabled=True)
+            voice_vlan = kwargs.get("voice_vlan")
+
+            if isinstance(voice_vlan, (str, int)):
+                get_select_button = self.get_select_element_port_type("voice_vlan_select_button")
+                if get_select_button:
+                    self.auto_actions.click(get_select_button)
+                    self.utils.wait_till(delay=2,timeout=4)
+
+                    get_dropdown_items = self.get_select_element_port_type("voice_vlan_dropdown_items")
+
+                    if self.auto_actions.select_drop_down_options(get_dropdown_items, str(voice_vlan)):
+                        self.utils.print_info(" Selected into dropdown voice_vlan : ", str(voice_vlan))
+                    else:
+                        get_add_vlan = self.get_select_element_port_type("voice_vlan_add_vlan")
+                        if get_add_vlan:
+                            self.auto_actions.click(get_add_vlan)
+                            def _voice_vlan_appear():
+                                return bool(self.get_select_element_port_type("voice_vlan_name_vlan"))
+
+                            self.utils.wait_till(_voice_vlan_appear, is_logging_enabled=True)
+                            get_name_vlan = self.get_select_element_port_type("voice_vlan_name_vlan")
+                            if get_name_vlan:
+                                self.auto_actions.send_keys(get_name_vlan, str(voice_vlan))
+                            else:
+                                self.utils.print_info("voice vlan get_id_vlan not found ")
+                                return -1
+                            get_id_vlan = self.get_select_element_port_type("voice_vlan_id_vlan")
+                            if get_id_vlan:
+                                self.auto_actions.send_keys(get_id_vlan, str(voice_vlan))
+                            else:
+                                self.utils.print_info("voice vlan get_id_vlan not found ")
+                                return -1
+                            get_save_vlan = self.get_select_element_port_type("save_vlan")
+                            if get_save_vlan:
+                                self.auto_actions.click(get_save_vlan)
+                            else:
+                                self.utils.print_info("get_save_vlan not found ")
+                                return -1
+                        else:
+                            self.utils.print_info("voice vlan get_add_vlan not found ")
+                            return -1
+                else:
+                    self.utils.print_info("voice vlan get_select_button not found ")
+                    return -1
+            else:
+                self.utils.print_info("voice vlan won't be updated")
+
+            data_vlan = kwargs.get("data_vlan")
+
+            if isinstance(data_vlan, (str, int)):
+                get_select_button = self.get_select_element_port_type("data_vlan_select_button")
+                if get_select_button:
+                    self.auto_actions.click(get_select_button)
+
+                    self.utils.wait_till(delay=2, timeout=4)
+                    get_dropdown_items = self.get_select_element_port_type("data_vlan_dropdown_items")
+                    if self.auto_actions.select_drop_down_options(get_dropdown_items, str(data_vlan)):
+                        self.utils.print_info(" Selected into dropdown value : ", str(data_vlan))
+                    else:
+                        get_add_vlan = self.get_select_element_port_type("data_vlan_add_vlan")
+                        if get_add_vlan:
+                            self.auto_actions.click(get_add_vlan)
+                            def _data_vlan_appear():
+                                return bool(self.get_select_element_port_type("data_vlan_name_vlan"))
+
+                            self.utils.wait_till(_data_vlan_appear, is_logging_enabled=True)
+                            get_name_vlan = self.get_select_element_port_type("data_vlan_name_vlan")
+                            if get_name_vlan:
+                                self.auto_actions.send_keys(get_name_vlan, str(data_vlan))
+                            else:
+                                self.utils.print_info("data vlan get_id_vlan not found ")
+                                return -1
+                            get_id_vlan = self.get_select_element_port_type("data_vlan_id_vlan")
+                            if get_id_vlan:
+                                self.auto_actions.send_keys(get_id_vlan, data_vlan)
+                            else:
+                                self.utils.print_info("data vlan get_id_vlan not found ")
+                                return -1
+                            get_save_vlan = self.get_select_element_port_type("save_vlan")
+                            if get_save_vlan:
+                                self.auto_actions.click(get_save_vlan)
+
+                                def _save_vlan_disappear():
+                                    return not bool(self.get_select_element_port_type("save_vlan"))
+
+                                self.utils.wait_till(_save_vlan_disappear, is_logging_enabled=True)
+                            else:
+                                self.utils.print_info("get_save_vlan not found ")
+                                return -1
+                        else:
+                            self.utils.print_info("data vlan get_add_vlan not found ")
+                            return -1
+                else:
+                    self.utils.print_info("data vlan get_select_button not found ")
+                    return -1
+            else:
+                self.utils.print_info("data vlan won't be updated")
+
+            lldp_voice_options_flag = kwargs.get("lldp_voice_options_flag")
+
+            if lldp_voice_options_flag is not None:
+                lldp_voice_options = self.get_select_element_port_type("lldp_voice_vlan_options")
+                if not lldp_voice_options:
+                    self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+                    return -1
+                previous_state_1 = lldp_voice_options.is_selected()
+                self.utils.print_info(previous_state_1)
+                if (not lldp_voice_options.is_selected() and lldp_voice_options_flag) or (
+                        lldp_voice_options.is_selected() and not lldp_voice_options_flag):
+                    self.auto_actions.click(lldp_voice_options)
+                    def _lldp_voice_option():
+                        return  not ((bool(lldp_voice_options.is_selected())) and previous_state_1)
+
+                    self.utils.wait_till(_lldp_voice_option, is_logging_enabled=True,
+                                         msg="lldp voice options toggled",delay =2, timeout=6)
+
+            else:
+                self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox won't be updated")
+
+            cdp_voice_options_flag = kwargs.get("cdp_voice_options_flag")
+
+            if cdp_voice_options_flag is not None:
+                cdp_voice_options = self.get_select_element_port_type("cdp_voice_vlan_options")
+                if not cdp_voice_options:
+                    self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox not found")
+                    return -1
+
+                if (not cdp_voice_options.is_selected() and cdp_voice_options_flag) or (
+                        cdp_voice_options.is_selected() and not cdp_voice_options_flag):
+                    self.auto_actions.click(cdp_voice_options)
+                    self.utils.wait_till(delay=2,timeout=6,msg="waiting for CDP options to get toggled")
+
+            else:
+                self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox won't be updated")
+
+            lldp_voice_options = self.get_select_element_port_type("lldp_voice_vlan_options")
+            if not lldp_voice_options:
+                self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+                return -1
+
+            lldp_voice_options_enabled = lldp_voice_options.is_selected()
+            self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is "
+                                  f"{'enabled' if lldp_voice_options_enabled else 'disabled'}")
+
+            dot1_vlan_id_flag = kwargs.get("dot1_vlan_id_flag")
+
+            if isinstance(dot1_vlan_id_flag, bool):
+                if not lldp_voice_options_enabled:
+                    if not dot1_vlan_id_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' is already disabled")
+                    else:
+                        self.utils.print_info(
+                            f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is not enabled so we cannot update "
+                            f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}'")
+                        return -1
+                else:
+                    dot1_vlan_id_element = self.get_select_element_port_type("enable_lldp_advertisment_of_dot1_vlan")
+                    previous_state_5 = dot1_vlan_id_element.is_selected()
+
+                    if not dot1_vlan_id_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' checkbox not found")
+                        return -1
+
+                    if (not dot1_vlan_id_element.is_selected() and dot1_vlan_id_flag) or (
+                            dot1_vlan_id_element.is_selected() and not dot1_vlan_id_flag):
+                        self.auto_actions.click(dot1_vlan_id_element)
+                        def _dot1_vlan_id_element_():
+                            return not (bool(dot1_vlan_id_element.is_selected()) and previous_state_5)
+
+                        self.utils.wait_till(_dot1_vlan_id_element_, is_logging_enabled=True)
+            else:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' checkbox won't be updated")
+
+            lldp_advertisment_of_med_voice_vlan_flag = kwargs.get("lldp_advertisment_of_med_voice_vlan_flag")
+            lldp_voice_vlan_dscp = kwargs.get("lldp_voice_vlan_dscp")
+
+            if isinstance(lldp_advertisment_of_med_voice_vlan_flag, bool):
+                if not lldp_voice_options_enabled:
+                    if not lldp_advertisment_of_med_voice_vlan_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' is already disabled")
+                    else:
+                        self.utils.print_info(
+                            f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is not enabled so "
+                            f"we cannot update '{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}'")
+                        return -1
+                else:
+                    lldp_advertisment_of_med_voice_vlan = self.get_select_element_port_type(
+                        "enable_lldp_advertisment_of_med_voice_vlan")
+
+                    if not lldp_advertisment_of_med_voice_vlan:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                        return -1
+
+                    if (
+                            not lldp_advertisment_of_med_voice_vlan.is_selected() and lldp_advertisment_of_med_voice_vlan_flag) or \
+                            (
+                                    lldp_advertisment_of_med_voice_vlan.is_selected() and not lldp_advertisment_of_med_voice_vlan_flag):
+                        self.auto_actions.click(lldp_advertisment_of_med_voice_vlan)
+                        self.utils.wait_till(delay=2, timeout=6, msg="waiting for lldp advertisement options to get toggled")
+
+                    if lldp_advertisment_of_med_voice_vlan.is_selected():
+                        lldp_advertisment_of_med_voice_vlan_dscp_value_element = self.get_select_element_port_type(
+                            "lldp_advertisment_of_med_voice_vlan_dscp_value")
+                        if not lldp_advertisment_of_med_voice_vlan_dscp_value_element:
+                            self.utils.print_info(
+                                f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                            return -1
+                        else:
+                            self.auto_actions.send_keys(lldp_advertisment_of_med_voice_vlan_dscp_value_element, 2)
+            else:
+                self.utils.print_info(f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' won't be updated")
+
+            if isinstance(lldp_voice_vlan_dscp, (str, int)):
+
+                lldp_advertisment_of_med_voice_vlan = self.get_select_element_port_type(
+                    "enable_lldp_advertisment_of_med_voice_vlan")
+
+                if not lldp_advertisment_of_med_voice_vlan:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                    return -1
+
+                if lldp_advertisment_of_med_voice_vlan.is_selected():
+                    lldp_advertisment_of_med_voice_vlan_dscp_value_element = self.get_select_element_port_type(
+                        "lldp_advertisment_of_med_voice_vlan_dscp_value")
+                    if not lldp_advertisment_of_med_voice_vlan_dscp_value_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                        return -1
+                    else:
+                        self.auto_actions.send_keys(lldp_advertisment_of_med_voice_vlan_dscp_value_element,
+                                                    lldp_voice_vlan_dscp)
+                else:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' is not enabled "
+                        f"so the dscp value cant be set")
+                    return -1
+            else:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' dscp value won't be updated")
+
+            lldp_advertisment_of_med_signaling_vlan_flag = kwargs.get("lldp_advertisment_of_med_signaling_vlan_flag")
+            lldp_voice_signaling_dscp = kwargs.get("lldp_voice_signaling_dscp")
+
+            if isinstance(lldp_advertisment_of_med_signaling_vlan_flag, bool):
+
+                if not lldp_voice_options_enabled:
+                    if not lldp_advertisment_of_med_signaling_vlan_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' is already disabled")
+                    else:
+                        self.utils.print_info(
+                            f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is not enabled so we cannot "
+                            f"update '{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' checkbox")
+                        return -1
+                else:
+                    lldp_advertisment_of_med_signaling_vlan = self.get_select_element_port_type(
+                        "enable_lldp_advertisment_of_med_voice_signaling_vlan")
+
+                    if not lldp_advertisment_of_med_signaling_vlan:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' option not found")
+                        return -1
+
+                    if (
+                            not lldp_advertisment_of_med_signaling_vlan.is_selected() and lldp_advertisment_of_med_signaling_vlan_flag) \
+                            or (lldp_advertisment_of_med_signaling_vlan.is_selected()
+                                and not lldp_advertisment_of_med_signaling_vlan_flag):
+                        self.auto_actions.click(lldp_advertisment_of_med_signaling_vlan)
+                        self.utils.wait_till(delay=2, timeout=6, msg="waiting for lldp advertisement medvoice  to get toggled")
+
+                    if lldp_advertisment_of_med_signaling_vlan.is_selected():
+                        lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element = self.get_select_element_port_type(
+                            "lldp_advertisment_of_med_voice_signaling_vlan_dscp_value")
+                        if not lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element:
+                            self.utils.print_info(
+                                f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' checkbox not found")
+                            return -1
+                        else:
+                            self.auto_actions.send_keys(
+                                lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element, 1)
+
+            else:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' won't be updated")
+
+            if isinstance(lldp_voice_signaling_dscp, (str, int)):
+
+                lldp_advertisment_of_med_signaling_vlan = self.get_select_element_port_type(
+                    "enable_lldp_advertisment_of_med_voice_signaling_vlan")
+
+                if not lldp_advertisment_of_med_signaling_vlan:
+                    self.utils.print_info("enable_lldp_advertisment_of_med_voice_signaling_vlan option not found")
+                    return -1
+
+                if lldp_advertisment_of_med_signaling_vlan.is_selected():
+                    lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element = self.get_select_element_port_type(
+                        "lldp_advertisment_of_med_voice_signaling_vlan_dscp_value")
+                    if not lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' option not found")
+                        return -1
+                    else:
+                        self.auto_actions.send_keys(lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element,
+                                                    lldp_voice_signaling_dscp)
+                else:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' dscp value can't be set "
+                        f"because the checkbox is not selected")
+                    return -1
+            else:
+                self.utils.print_info(
+                    f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' dscp value won't be updated")
+
+            cdp_voice_options = self.get_select_element_port_type("cdp_voice_vlan_options")
+            if not cdp_voice_options:
+                self.utils.print_info("cdp_voice_options option not found")
+                return -1
+
+            cdp_voice_options_enabled = cdp_voice_options.is_selected()
+            self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' is "
+                                  f"{'enabled' if cdp_voice_options_enabled else 'not enabled'}")
+
+            cdp_advertisment_of_voice_vlan_flag = kwargs.get("cdp_advertisment_of_voice_vlan_flag")
+            cdp_advertisment_of_power_available_flag = kwargs.get("cdp_advertisment_of_power_available_flag")
+
+            if isinstance(cdp_advertisment_of_power_available_flag, bool):
+                if not cdp_voice_options_enabled:
+                    self.utils.print_info(
+                        f"'{en_cdp_adv_of_power_available_checkbox_name}' can't be updated because "
+                        f"'{cdp_voice_vlan_options_checkbox_name}' is not enabled")
+                    return -1
+
+                cdp_advertisment_of_power_available = self.get_select_element_port_type(
+                    "enable_cdp_advertisment_of_power_available")
+                if not cdp_advertisment_of_power_available:
+                    self.utils.print_info("'{en_cdp_adv_of_power_available_checkbox_name}' checkbox not found")
+                    return -1
+                previous_state_6 = cdp_advertisment_of_power_available.is_selected()
+
+                if (
+                        not cdp_advertisment_of_power_available.is_selected() and cdp_advertisment_of_power_available_flag) or \
+                        (
+                                cdp_advertisment_of_power_available.is_selected() and not cdp_advertisment_of_power_available_flag):
+                    self.auto_actions.click(cdp_advertisment_of_power_available)
+                    def _cdp_power_available_vlan():
+                        return not (bool(cdp_advertisment_of_power_available.is_selected()) and previous_state_6)
+
+                    self.utils.wait_till(_cdp_power_available_vlan, is_logging_enabled=True)
+            else:
+                self.utils.print_info(f"'{en_cdp_adv_of_power_available_checkbox_name}' won't be updated")
+
+            if isinstance(cdp_advertisment_of_voice_vlan_flag, bool):
+                if not cdp_voice_options_enabled:
+                    self.utils.print_info(
+                        f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' can't be updated because"
+                        f" '{cdp_voice_vlan_options_checkbox_name}' is not enabled")
+                    return -1
+
+                cdp_advertisment_of_voice_vlan = self.get_select_element_port_type(
+                    "enable_cdp_advertisment_of_voice_vlan")
+                previous_state_7 = cdp_advertisment_of_voice_vlan.is_selected()
+
+                if not cdp_advertisment_of_voice_vlan:
+                    self.utils.print_info(f"{en_cdp_adv_of_voice_vlan_checkbox_name} checkbox not found")
+                    return -1
+
+                if (not cdp_advertisment_of_voice_vlan.is_selected() and cdp_advertisment_of_voice_vlan_flag) or \
+                        (cdp_advertisment_of_voice_vlan.is_selected() and not cdp_advertisment_of_voice_vlan_flag):
+                    self.auto_actions.click(cdp_advertisment_of_voice_vlan)
+                    def _cdp_voice_vlan():
+                        return not (bool(cdp_advertisment_of_voice_vlan.is_selected()) and previous_state_7)
+
+                    self.utils.wait_till(_cdp_voice_vlan, is_logging_enabled=True)
+            else:
+                self.utils.print_info(f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' won't be updated")
+        else:
+            self.utils.print_info("No change needed in the VLAN tab of the port type editor")
+
+        transmission_tab_flags = [
+            "enable_cdp_transmit_receive_flag", "enable_lldp_transmit_flag", "enable_lldp_receive_flag"
+        ]
+
+        if any(k in transmission_tab_flags for k in kwargs):
+            transmission_tab = self.get_select_element_port_type("transmissionSettingsPage")
+            if not transmission_tab:
+                self.utils.print_info("Failed to get transmission settings page")
+                return -1
+            self.auto_actions.click(transmission_tab)
+            self.utils.wait_till(delay=2, timeout=6, msg="waiting for transmission tab")
+
+            enable_cdp_transmit_receive_flag = kwargs.get("enable_cdp_transmit_receive_flag")
+            enable_lldp_transmit_flag = kwargs.get("enable_lldp_transmit_flag")
+            enable_lldp_receive_flag = kwargs.get("enable_lldp_receive_flag")
+
+            if isinstance(enable_cdp_transmit_receive_flag, bool):
+
+                cdp_transmit_receive = self.get_select_element_port_type("cdp receive")
+                if not cdp_transmit_receive:
+                    self.utils.print_info(f"Failed to get '{en_cdp_transmit_receive_checkbox_name}' checkbox")
+                    return -1
+
+                if not cdp_transmit_receive.is_enabled():
+                    if cdp_transmit_receive.is_selected() == enable_cdp_transmit_receive_flag:
+                        self.utils.print_info(
+                            f"'{en_cdp_transmit_receive_checkbox_name}' is already '{'enabled' if enable_cdp_transmit_receive_flag else 'disabled'}' "
+                            f"so no need to be updated (the checkbox is not editable)")
+                    else:
+                        self.utils.print_info(
+                            f"'{en_cdp_transmit_receive_checkbox_name}' is not clickable so it won't be updated")
+                        return -1
+                else:
+                    if (not cdp_transmit_receive.is_selected() and enable_cdp_transmit_receive_flag) or \
+                            (cdp_transmit_receive and not enable_cdp_transmit_receive_flag):
+                        self.auto_actions.click(cdp_transmit_receive)
+                        self.utils.wait_till(delay=2,timeout=6,msg= "cdp transmit receive")
+            else:
+                self.utils.print_info(f"'{en_cdp_transmit_receive_checkbox_name}' won't be updated")
+
+            if isinstance(enable_lldp_transmit_flag, bool):
+
+                lldp_transmit = self.get_select_element_port_type("lldp transmit")
+                if not lldp_transmit:
+                    self.utils.print_info(f"Failed to get '{en_lldp_transmit_checkbox_name}' checkbox")
+                    return -1
+
+                if not lldp_transmit.is_enabled():
+                    if lldp_transmit.is_selected() == enable_lldp_transmit_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_transmit_checkbox_name}' is already '{'enabled' if enable_lldp_transmit_flag else 'disabled'}' "
+                            f"so no need to be updated (the checkbox is not editable)")
+                    else:
+                        self.utils.print_info(
+                            f"'{en_lldp_transmit_checkbox_name}' checkbox is not clickable so it won't be updated")
+                        return -1
+                else:
+                    if (not lldp_transmit.is_selected() and enable_lldp_transmit_flag) or \
+                            (lldp_transmit and not enable_lldp_transmit_flag):
+                        self.auto_actions.click(lldp_transmit)
+                        self.utils.wait_till(timeout=2,delay=2)
+            else:
+                self.utils.print_info(f"'{en_lldp_transmit_checkbox_name}' won't be updated")
+
+            if isinstance(enable_lldp_receive_flag, bool):
+                lldp_receive = self.get_select_element_port_type("lldp receive")
+                if not lldp_receive:
+                    self.utils.print_info(f"Failed to get {en_lldp_receive_checkbox_name} checkbox")
+                    return -1
+
+                if not lldp_receive.is_enabled():
+                    if lldp_receive.is_selected() == enable_lldp_receive_flag:
+                        self.utils.print_info(
+                            f"'{en_lldp_receive_checkbox_name}' is already '{'enabled' if enable_lldp_receive_flag else 'disabled'}' "
+                            f"so no need to be updated (the checkbox is not editable)")
+                    else:
+                        self.utils.print_info(
+                            f"'{en_lldp_receive_checkbox_name}' checkbox is not clickable so it won't be updated")
+                        return -1
+                else:
+                    if (not lldp_receive.is_selected() and enable_lldp_receive_flag) or \
+                            (lldp_receive and not enable_lldp_receive_flag):
+                        self.auto_actions.click(lldp_receive)
+                        self.utils.wait_till(timeout=2,delay=1)
+            else:
+                self.utils.print_info(f"'{en_lldp_receive_checkbox_name}' won't be updated")
+        else:
+            self.utils.print_info("No change needed in the Transmission Settings tab of the port type editor")
+
+        summary_page = self.get_select_element_port_type("summaryPage")
+        if not summary_page:
+            self.utils.print_info("Failed to get summary page")
+            return -1
+        self.auto_actions.click(summary_page)
+        def _wait_for_summary_tab_appear():
+            return bool(self.get_select_element_port_type("summary_tab_confirmation")) \
+                   and bool(self.dev360.get_close_port_type_box())
+
+        self.utils.wait_till(_wait_for_summary_tab_appear, timeout=4, delay=1,
+                             msg="Waiting for summary tab window to appear",
+                             is_logging_enabled=True)
+        close_button = self.dev360.get_close_port_type_box()
+        if not close_button:
+            self.utils.print_info("save button not found")
+            return -1
+        self.auto_actions.click(close_button)
+        return 1
+
+    def get_voice_port_summary(self, port_type_name):
+        """
+        Method used to get the summary of the voice port type related fields of the honeycomb summary tab at template level.
+        args:
+            :port_type_name:        <str>
+        The method should be called from 'Configure -> Network Policies -> Network Policy -> Device Template -> Port Configuration'.
+        returns: empty dict if the function fails or a dict which contains all the voice port type fields from the summary tab if the function does not fail.
+        usage:
+            >>> data = self.xiq.xflowsmanageDevice360.get_voice_port_summary("port_type_tcxm_19696")
+            ...
+            >>> print(json.dumps(data, indent=4))
+            {
+                "LLDP Advertisements": "ON",
+                "802.1 VLAN and port protocol": "ON",
+                "Med Voice VLAN DSCP Value": "OFF",
+                "Med Voice Signaling DSCP Value": "2",
+                "CDP Advertisement": "ON",
+                "CDP Voice VLAN": "ON",
+                "CDP Power Available": "OFF"
+            }
+        """
+        rows = self.get_policy_configure_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+            return {}
+        else:
+            for row in rows:
+                if re.search(rf'\d+\n{port_type_name}\n', row.text):
+                    policy_edit_port_type = self.get_policy_edit_port_type(row)
+                    if policy_edit_port_type:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was found")
+                        self.auto_actions.click(policy_edit_port_type)
+
+                        def _check_port_editor_window_present():
+                            return bool(self.get_select_element_port_type("tab_vlan"))
+
+                        self.utils.wait_till(_check_port_editor_window_present, timeout=10, delay=1,
+                                             msg="Waiting for existing port type window to appear",
+                                             is_logging_enabled=True)
+                        break
+                    else:
+                        self.utils.print_info("The button policy_edit_port_type from policy  was not found")
+                        self.screen.save_screen_shot()
+                        return {}
+
+        summary_page = self.get_select_element_port_type("summaryPage")
+        if not summary_page:
+            self.utils.print_info("Failed to get summary page")
+            return {}
+        self.auto_actions.click(summary_page)
+        self.utils.wait_till(delay=2, timeout=4, msg = "waiting at summary page..")
+        ret = {}
+        for row_name, row_value in zip(
+                [
+                    "LLDP Advertisements",
+                    "802.1 VLAN and port protocol",
+                    "Med Voice VLAN DSCP Value",
+                    "Med Voice Signaling DSCP Value",
+                    "CDP Advertisement",
+                    "CDP Voice VLAN",
+                    "CDP Power Available",
+                    "Voice VLAN",
+                    "Data VLAN"
+                ],
+                [
+                    "port_type_voice_lldp_advertisment_summary",
+                    "802_1_vlan_and_port_protocol_summary",
+                    "med_voice_vlan_dscp_value_summary",
+                    "med_voice_signaling_dscp_value_summary",
+                    "cdp_advertisment_summary",
+                    "cdp_voice_vlan_summary",
+                    "cdp_power_available_summary",
+                    "voice_vlan_summary",
+                    "data_vlan_summary"
+                ]
+        ):
+            ret[row_name] = self.get_select_element_port_type_summary(row_value).text
+
+        close_button = self.dev360.get_close_port_type_box()
+        if not close_button:
+            self.utils.print_info("save button not found")
+            return {}
+        self.auto_actions.click(close_button)
+
+        return ret
+    
+    def device360_voip_get_port_row(self, port_name):
+        """
+        - Get the port row object matching the specified port_name from Device360 --> Configure --> Port Configuration
+        :param port_name: name of the port to return the row for
+        :return: row element if row exists else return None
+        """
+        ret_val = None
+        self.utils.print_info("Getting the Port rows from the Device360 Port Configuration page")
+        rows = self.get_device360_voip_port_rows()
+        if not rows:
+            self.utils.print_info("Could not obtain list of port rows")
+        else:
+            for row in rows:
+                self.utils.print_info("rowtext =>", row.text)
+                if port_name in row.text:
+                    ret_val = row
+                    self.utils.print_info("rowtext =>", row.text)
+                    break
+        return ret_val
+
+    def edit_voip_in_d360(self,port, **kwargs):
+        #Navigating to Voice tab
+        """
+        This method is to edit the VOIP in d360
+        :param port: name of the port to return
+       The method should be called from 'Configure -> D360 -> Port configuration -> VOIP tab'.
+        args:
+            :port:                                            <str>
+        kwargs:
+            :lldp_voice_options_flag:                         <bool|None>
+            :cdp_voice_options_flag:                          <bool|None>
+            :dot1_vlan_id_flag:                               <bool|None>
+            :lldp_advertisment_of_med_voice_vlan_flag:        <bool|None>
+            :lldp_advertisment_of_med_signaling_vlan_flag:    <bool|None>
+            :cdp_advertisment_of_voice_vlan_flag:             <bool|None>
+            :cdp_advertisment_of_power_available_flag:        <bool|None>
+            :enable_cdp_transmit_receive_flag:                <bool|None>
+            :enable_lldp_transmit_flag:                       <bool|None>
+            :enable_lldp_receive_flag:                        <bool|None>
+            :lldp_voice_vlan_dscp:                            <int>
+            :lldp_voice_signaling_dscp:                       <int>
+        returns: 1 if the functions call is successfull else -1
+        usage:
+            self.xiq.xflowsmanageDevice360.edit_voip_in_d360(
+                enable_lldp_receive_flag=True, cdp_voice_options_flag=True)
+            # enables 'Enable LLDP Receive', enables 'Enable CDP Voice VLAN Options'
+            self.xiq.xflowsmanageDevice360.edit_voip_in_d360( lldp_voice_vlan_dscp=12, lldp_voice_signaling_dscp=14)
+            # updates dscp values
+        :return:
+        """
+        voip_tab = self.dev360.get_device360_voip_tab()
+        if voip_tab:
+            self.auto_actions.click(voip_tab)
+        else:
+            return -1
+
+        self.utils.wait_till(delay=2,timeout=4)
+        port_voice_tab_content = self.dev360.get_device360_voip_tab_data()
+        if port_voice_tab_content:
+            port_row = self.device360_voip_get_port_row(port)
+            if port_row:
+                self.utils.print_info("Found port row")
+                self.utils.print_info(port_row)
+            else:
+                return -1
+            vlan_tab_flags = [
+                "voice_vlan", "data_vlan", "lldp_voice_options_flag", "cdp_voice_options_flag", "dot1_vlan_id_flag",
+                "lldp_advertisment_of_med_voice_vlan_flag", "lldp_advertisment_of_med_signaling_vlan_flag",
+                "cdp_advertisment_of_voice_vlan_flag", "cdp_advertisment_of_power_available_flag",
+                "lldp_voice_vlan_dscp",
+                "lldp_voice_signaling_dscp"
+            ]
+
+            lldp_voice_vlan_options_checkbox_name = "LLDP Voice VLAN Options"
+            cdp_voice_vlan_options_checkbox_name = "CDP Voice VLAN Options"
+
+            en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name = "Enable LLDP advertisement of 802.1 VLAN ID and port protocol of Voice VLAN"
+            en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice VLAN DSCP Value"
+            en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name = "Enable LLDP advertisement of med Voice Signaling VLAN DSCP Value"
+            en_cdp_adv_of_voice_vlan_checkbox_name = "Enable CDP advertisement of Voice VLAN"
+            en_cdp_adv_of_power_available_checkbox_name = "Enable CDP advertisement of power available"
+
+            lldp_voice_options_flag = kwargs.get("lldp_voice_options_flag")
+            if any(k in vlan_tab_flags for k in kwargs):
+
+                if lldp_voice_options_flag is not None:
+
+                    lldp_voice_options = self.dev360.get_device360_vlan_lldp_capabilities(port_row)
+                    if not lldp_voice_options:
+                        self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+                        return -1
+                    previous_state_1 = lldp_voice_options.is_selected()
+
+                    if (not lldp_voice_options.is_selected() and lldp_voice_options_flag) or (
+                            lldp_voice_options.is_selected() and not lldp_voice_options_flag):
+                        self.auto_actions.click(lldp_voice_options)
+                        self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' updated as true")
+                        def _lldp_voice_option():
+                            return not ((bool(lldp_voice_options.is_selected())) and previous_state_1)
+
+                        self.utils.wait_till(_lldp_voice_option, is_logging_enabled=True,
+                                             msg="lldp voice options toggled", delay=2, timeout=6)
+                else:
+                    self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox won't be updated")
+                cdp_voice_options_flag = kwargs.get("cdp_voice_options_flag")
+                cdp_voice_options = self.dev360.get_d360_port_voice_vlan_cdp_capabilities(port_row)
+
+                if cdp_voice_options_flag is not None:
+                    cdp_voice_options = self.dev360.get_d360_port_voice_vlan_cdp_capabilities(port_row)
+                    self.utils.print_info(cdp_voice_options,cdp_voice_options.is_selected())
+                    if not cdp_voice_options:
+                        self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox not found")
+                        return -1
+
+                    if (not cdp_voice_options.is_selected() and cdp_voice_options_flag) or (
+                            cdp_voice_options.is_selected() and not cdp_voice_options_flag):
+                        self.auto_actions.click(cdp_voice_options)
+                        self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox is updated")
+                        self.utils.wait_till(delay=2,timeout=6,msg="waiting for CDP options to get toggled")
+
+                    self.utils.print_info("Not doing anything==")
+                else:
+                    self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' checkbox won't be updated")
+
+                lldp_voice_options = self.dev360.get_device360_vlan_lldp_capabilities(port_row)
+                if not lldp_voice_options:
+                    self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox not found")
+                    return -1
+
+                lldp_voice_options_enabled = lldp_voice_options.is_selected()
+                self.utils.print_info(f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is "
+                                      f"{'enabled' if lldp_voice_options_enabled else 'disabled'}")
+                dot1_vlan_id_flag = kwargs.get("dot1_vlan_id_flag")
+
+                if isinstance(dot1_vlan_id_flag, bool):
+                    if not lldp_voice_options_enabled:
+                        if not dot1_vlan_id_flag:
+                            self.utils.print_info(
+                                f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' is already disabled")
+                        else:
+                            self.utils.print_info(
+                                f"'{lldp_voice_vlan_options_checkbox_name}' checkbox is not enabled so we cannot update "
+                                f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}'")
+                            return -1
+                    else:
+                        dot1_vlan_id_element = self.dev360.get_device360_802_1_voice_vlan(port_row)
+                        previous_state_5 = dot1_vlan_id_element.is_selected()
+
+                        if not dot1_vlan_id_element:
+                            self.utils.print_info(
+                                f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' checkbox not found")
+                            return -1
+
+                        if (not dot1_vlan_id_element.is_selected() and dot1_vlan_id_flag) or (
+                                dot1_vlan_id_element.is_selected() and not dot1_vlan_id_flag):
+                            self.auto_actions.click(dot1_vlan_id_element)
+                            def _dot1_vlan_id_element_():
+                                return not (bool(dot1_vlan_id_element.is_selected()) and previous_state_5)
+
+                            self.utils.wait_till(_dot1_vlan_id_element_, is_logging_enabled=True)
+
+                else:
+                        self.utils.print_info(
+                        f"'{en_lldp_adv_of_802_port_protocol_of_voice_vlan_checkbox_name}' checkbox won't be updated")
+                lldp_voice_vlan_dscp = kwargs.get("lldp_voice_vlan_dscp")
+
+                if isinstance(lldp_voice_vlan_dscp, (str, int)):
+
+                    lldp_advertisment_of_med_voice_vlan_dscp_value_element = self.dev360.get_d360_port_voice_vlan_med_dscp(port_row)
+                    if not lldp_advertisment_of_med_voice_vlan_dscp_value_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' checkbox not found")
+                        return -1
+                    else:
+                        self.auto_actions.send_keys(lldp_advertisment_of_med_voice_vlan_dscp_value_element,
+                                                    lldp_voice_vlan_dscp)
+
+                else:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_vlan_dscp_value_checkbox_name}' dscp value won't be updated")
+
+                lldp_voice_signaling_dscp = kwargs.get("lldp_voice_signaling_dscp")
+
+                if isinstance(lldp_voice_signaling_dscp, (str, int)):
+
+                    lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element = self.dev360.get_d360_port_voice_vlan_med_sig_dscp(port_row)
+
+                    if not lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element:
+                        self.utils.print_info(
+                            f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' option not found")
+                        return -1
+                    else:
+                        self.auto_actions.send_keys(lldp_advertisment_of_med_voice_signaling_vlan_dscp_value_element,
+                                                    lldp_voice_signaling_dscp)
+                else:
+                    self.utils.print_info(
+                        f"'{en_lldp_adv_of_med_voice_signaling_vlan_dscp_value_checkbox_name}' dscp value can't be set "
+                        f"because the checkbox is not selected")
+
+                cdp_voice_options_enabled = cdp_voice_options.is_selected()
+                self.utils.print_info(f"'{cdp_voice_vlan_options_checkbox_name}' is "
+                                      f"{'enabled' if cdp_voice_options_enabled else 'not enabled'}")
+                cdp_advertisment_of_voice_vlan_flag = kwargs.get("cdp_advertisment_of_voice_vlan_flag")
+                cdp_advertisment_of_power_available_flag = kwargs.get("cdp_advertisment_of_power_available_flag")
+
+                if cdp_advertisment_of_power_available_flag is not None:
+
+                    if not cdp_voice_options_enabled:
+                        self.utils.print_info(
+                            f"'{en_cdp_adv_of_power_available_checkbox_name}' can't be updated because "
+                            f"'{cdp_voice_vlan_options_checkbox_name}' is not enabled")
+                        return -1
+
+                    cdp_advertisment_of_power_available = self.dev360.get_d360_advert_power_available(port_row)
+                    if not cdp_advertisment_of_power_available:
+                        self.utils.print_info("'{en_cdp_adv_of_power_available_checkbox_name}' checkbox not found")
+                        return -1
+                    previous_state_6 = cdp_advertisment_of_power_available.is_selected()
+
+                    if ( not cdp_advertisment_of_power_available.is_selected() and cdp_advertisment_of_power_available_flag) or \
+                            ( cdp_advertisment_of_power_available.is_selected() and not cdp_advertisment_of_power_available_flag):
+                        self.auto_actions.click(cdp_advertisment_of_power_available)
+                        def _cdp_power_available_vlan():
+                            return not (bool(cdp_advertisment_of_power_available.is_selected()) and previous_state_6)
+
+                        self.utils.wait_till(_cdp_power_available_vlan, is_logging_enabled=True)
+                else:
+                    self.utils.print_info(f"'{en_cdp_adv_of_power_available_checkbox_name}' won't be updated")
+
+                if cdp_advertisment_of_voice_vlan_flag is not None:
+
+                    if not cdp_voice_options_enabled:
+                        self.utils.print_info(
+                            f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' can't be updated because"
+                            f" '{cdp_voice_vlan_options_checkbox_name}' is not enabled")
+                        return -1
+
+                    cdp_advertisment_of_voice_vlan = self.dev360.get_d360_cdp_voice_vlan(port_row)
+                    previous_state_7 = cdp_advertisment_of_voice_vlan.is_selected()
+
+                    if not cdp_advertisment_of_voice_vlan:
+                        self.utils.print_info(f"{en_cdp_adv_of_voice_vlan_checkbox_name} checkbox not found")
+                        return -1
+
+                    if (not cdp_advertisment_of_voice_vlan.is_selected() and cdp_advertisment_of_voice_vlan_flag) or \
+                            (cdp_advertisment_of_voice_vlan.is_selected() and not cdp_advertisment_of_voice_vlan_flag):
+                        self.auto_actions.click(cdp_advertisment_of_voice_vlan)
+                        def _cdp_voice_vlan():
+                            return not (bool(cdp_advertisment_of_voice_vlan.is_selected()) and previous_state_7)
+
+                        self.utils.wait_till(_cdp_voice_vlan, is_logging_enabled=True)
+                else:
+                    self.utils.print_info(f"'{en_cdp_adv_of_voice_vlan_checkbox_name}' won't be updated")
+            else:
+                self.utils.print_info("No change needed in the VLAN tab of the port type editor")
+
+
+    def d360_assign_port_type(self, port_type, port_numbers):
+        port_conf_content = self.dev360.get_device360_port_configuration_content()
+        if port_conf_content and port_conf_content.is_displayed():
+            for port_number in port_numbers.split(','):
+                port_row = self.device360_get_port_row(port_number)
+                if port_row:
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+                    self.utils.print_info("click Port Usage drop down")
+                    self.utils.wait_till(delay=1, timeout=2)
+                    drop_down_button = self.dev360.get_device360_configure_port_usage_drop_down_button(port_row)
+                    self.auto_actions.click(drop_down_button)
+                    self.utils.wait_till(delay=1, timeout=2)
+                    if self.dev360.get_device360_configure_port_usage_drop_down_options_presence(port_row):
+                        options = self.dev360.get_d360_port_type_options(port_row)
+                        self.utils.wait_till(delay=1, timeout=2)
+                        self.utils.print_info("drop down options", options)
+                        self.auto_actions.select_drop_down_options(options, port_type)
+                        return 1
+                    else:
+                        self.utils.print_info("Port usage drop down didnot present,")
+                        return  -1
+
+    def add_new_pse_profile_from_port_type_page_button(self):
+        '''
+        This keyword click on new pse profile button from pse tab from port type page
+        :return: 1 if button has been found; else -1
+        '''
+
+        get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
+        if get_pse_profile_add:
+            self.utils.print_info("pse_profile_add has been found ")
+            self.auto_actions.click(get_pse_profile_add)
+        else:
+            self.utils.print_info("pse_profile_add not found ")
+            return -1
+        return 1
+
+    def create_new_pse_profile_from_port_type_page(self, value):
+        '''
+        This keyword create new pse profile from port type page
+
+        :param value:
+        'value': {'pse_profile_name': pse_profile_name,
+                 'pse_profile_power_mode': pse_profile_power_mode,
+                 'pse_profile_power_limit': pse_profile_power_limit,
+                 'pse_profile_priority': pse_profile_priority,
+                 'pse_profile_description': pse_profile_description
+                 }
+        :return: 1 if profile has been created ; else -1
+        '''
+
+        if not self.add_new_pse_profile_from_port_type_page_button() == 1:
+            return -1
+        if not self.fill_in_pse_profile_fields(value) == 1:
+            return -1
+        return 1
+
+    def fill_in_pse_profile_fields(self, value):
+        '''
+        This keyword fill in all fields when pse profile is created and save the profile
+
+        :param value:
+        'value': {'pse_profile_name': pse_profile_name,
+                 'pse_profile_power_mode': pse_profile_power_mode,
+                 'pse_profile_power_limit': pse_profile_power_limit,
+                 'pse_profile_priority': pse_profile_priority,
+                 'pse_profile_description': pse_profile_description
+                 }
+        :return: 1 if successfully ; else -1
+        '''
+
+        get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
+        if get_pse_profile_name:
+            self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
+        else:
+            self.utils.print_info("get_pse_profile_name not found ")
+            return -1
+
+        get_pse_profile_power_mode_dropdown = self.get_select_element_port_type(
+            'pse_profile_power_mode_dropdown')
+        if get_pse_profile_power_mode_dropdown:
+            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
+            get_pse_profile_power_mode_items = self.get_select_element_port_type(
+                "pse_profile_power_mode_items")
+            if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items,
+                                                          value['pse_profile_power_mode']):
+                self.utils.print_info(" Selected into dropdown value : ",
+                                      value['pse_profile_power_mode'])
+            else:
+                self.utils.print_info("Can not select into drop down")
+                return -1
+        else:
+            self.utils.print_info("Can not click on drop down")
+            return -1
+
+        get_pse_profile_power_limit = self.get_select_element_port_type("pse_profile_power_limit")
+        if get_pse_profile_power_limit:
+            self.auto_actions.send_keys(get_pse_profile_power_limit, value['pse_profile_power_limit'])
+        else:
+            self.utils.print_info("Power Limit textbox not found!")
+            return -1
+
+        get_pse_profile_priority_dropdown = self.get_select_element_port_type("pse_profile_priority")
+        if get_pse_profile_priority_dropdown:
+            self.auto_actions.click(get_pse_profile_priority_dropdown)
+            get_pse_profile_priority_items = self.get_select_element_port_type(
+                "pse_profile_priority_items")
+            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
+                                                          value['pse_profile_priority']):
+                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+            else:
+                return -1
+        else:
+            return -1
+
+        get_pse_profile_description = self.get_select_element_port_type("pse_profile_description")
+        if get_pse_profile_description:
+            self.auto_actions.send_keys(get_pse_profile_description, value['pse_profile_description'])
+        else:
+            self.utils.print_info("get_pse_profile_description not found ")
+            return -1
+
+        def _check_save_pse_profile_closure():
+            if not self.get_select_element_port_type("pse_profile_save"):
+                self.utils.print_info("PSE profile save button not present anymore.")
+                return True
+            else:
+                self.utils.print_info("PSE profile save button is still present. Retrying...")
+                return False
+
+        get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
+        if get_pse_profile_save:
+            self.auto_actions.click(get_pse_profile_save)
+            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
+                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
+                                                                   "save...")
+            return 1
+        else:
+            self.utils.print_info("get_pse_profile_save not found ")
+            return -1
+
+    def device360_edit_select_or_add_new_pse_profile(self, mode, port_number, poe_profile=None):
+        '''
+        This keyword edit,select or add new pse profile from port configuration page
+
+        :param mode: Specify the modes : edit, select or add
+        :param port_number: port
+        :param poe_profile: pse profile name
+        :return: 1 if successfully ; else -1
+        '''
+        port_rows = self.get_device360_configure_port_pse_rows()
+        if port_rows:
+            for port_row in port_rows:
+                get_interface = self.get_device360_port_configuration_pse_profile_port_interface(port_row)
+                if port_number in get_interface.text:
+                    self.utils.print_info("Found row for port: ", port_row.text)
+                    if mode == 'select':
+                        if poe_profile:
+                            self.utils.print_info("clicking POE Profile Select Button")
+                            select_button = self.get_device360_port_configuration_pse_profile_select_button(port_row)
+                            if select_button:
+                                self.auto_actions.click(select_button)
+                            else:
+                                self.utils.print_info("select_button not found")
+                                return -1
+                            self.utils.print_info(f"Selecting POE Profile Option : {poe_profile}")
+                            if self.auto_actions.select_drop_down_options(
+                                    self.get_device360_port_configuration_pse_profile_select_options(), poe_profile):
+                                self.utils.print_info(f"Pse profile has been selected")
+                                return 1
+                    elif mode == 'add':
+                        self.utils.print_info("clicking POE Profile ADD Button")
+                        add_button = self.get_device360_port_configuration_pse_profile_add_button(port_row)
+                        if add_button:
+                            self.auto_actions.click(add_button)
+                            return 1
+                        else:
+                            self.utils.print_info("add_button not found")
+                            return -1
+                    elif mode == 'edit':
+                        if poe_profile:
+                            self.utils.print_info("clicking POE Profile Select Button")
+                            select_button = self.get_device360_port_configuration_pse_profile_select_button(port_row)
+                            if select_button:
+                                self.auto_actions.click(select_button)
+                            else:
+                                self.utils.print_info("select_button not found")
+                                return -1
+                            self.utils.print_info(f"Selecting POE Profile Option : {poe_profile}")
+                            if self.auto_actions.select_drop_down_options(self.get_device360_port_configuration_pse_profile_select_options(), poe_profile):
+                                self.utils.print_info(f"Pse profile has been selected")
+                        sleep(5)
+                        self.utils.print_info("clicking POE Profile EDIT Button")
+                        edit_button = self.get_device360_port_configuration_pse_profile_edit_button(port_row)
+                        if edit_button:
+                            self.auto_actions.click(edit_button)
+                            return 1
+                        else:
+                            self.utils.print_info("edit_button not found")
+                            return -1
+                    else:
+                        self.utils.print_info("The selected mode is not valid")
+                        return -1
+                else:
+                    pass
+        else:
+            self.utils.print_info("Can not get rows")
+        return -1
+
+    def port_type_nav_to_summary_page_and_save(self):
+        '''
+        This keyword navigate to summary page into port type page and save it .
+        :return: 1 if successfully ; else -1
+        '''
+
+        summary_tab = self.get_select_element_port_type("summaryPage")
+        if summary_tab:
+            self.auto_actions.click(summary_tab)
+            close_port_type_box = self.get_common_save_button()
+            if close_port_type_box:
+                self.utils.print_info(" The button close_port_type_box from policy  was found")
+                self.auto_actions.click(close_port_type_box)
+        else:
+            self.utils.print_info("Summary tab not found")
+            return -1
+
+    def banner_message_after_save_config(self):
+        '''
+            This keyword return the message displayed after a config is saved.
+            It can be use after save a template, policy or device360 page
+        :return: messages which are displayed ; None if no message is displayed
+        '''
+
+        message = self.sw_template_web_elements.get_sw_template_error_message()
+        if message:
+            return message
+        else:
+            return None
+
+    def device360_navigate_to_pse_tab(self):
+        '''
+        This keyword navigate to pse tab from device360 page
+        :return: 1 if successfully ; else -1
+        '''
+
+        port_conf_btn = self.get_device360_configure_port_configuration_button()
+        if port_conf_btn:
+            self.utils.print_info("Click PortConfiguration Button")
+            self.auto_actions.click(port_conf_btn)
+        else:
+            self.utils.print_info("PortConfiguration Button was not found ")
+            return -1
+        self.utils.wait_till(self.get_device360_port_configuration_pse_tab, timeout=20, delay=1, is_logging_enabled=True )
+        pse_tab_button = self.get_device360_port_configuration_pse_tab()
+        if pse_tab_button:
+            self.utils.print_info("Click PSE Tab")
+            self.auto_actions.click(pse_tab_button)
+        else:
+            self.utils.print_info("PSE Tab was not found ")
+            return -1
+        return 1
+
+    def common_cancel_button(self):
+        '''
+        This keyword push the cancel button. It can be use in all pages where cancel button is displayed
+        :return: 1 if succesfully ; else -1
+        '''
+        cancel_button = self.get_common_cancel_button()
+        if cancel_button:
+            self.utils.print_info("Click cancel button")
+            self.auto_actions.click(cancel_button)
+            return 1
+        else:
+            self.utils.print_info("cancel button not found")
+            return -1
+
+    def poe_pse_profiles_elements(self, element):
+        '''
+        This keyword returns the web elements returned by get_select_element_port_type function from Device360WebElements.py
+        :param element: Specify the element. See get_select_element_port_type function
+        :return: web element if it has been found; None if element was not found 
+        '''
+        return self.get_select_element_port_type(element)
