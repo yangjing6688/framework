@@ -16,6 +16,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.flows.common.Login import Login
+from robot.utils.asserts import assert_equal
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
@@ -30,6 +31,7 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
+
 
 class Devices:
     def __init__(self):
@@ -2325,7 +2327,7 @@ class Devices:
             return self.onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
 
         if 'DUAL BOOT' in device_make.upper():
-            return self.onboard_ap(device_serial=device_serial, device_make=device_make, location=location, device_os=device_os)
+            return self.onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
 
         if device_make:
             sleep(5)
