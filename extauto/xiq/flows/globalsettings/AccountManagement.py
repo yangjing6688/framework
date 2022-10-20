@@ -94,7 +94,7 @@ class AccountManagement(AccntMgmtWebElements):
             return 1
 
         self.utils.print_info("Clicking on account add button")
-        self.auto_actions.click(self.get_account_mgmt_add_button())
+        self.auto_actions.click_reference(self.get_account_mgmt_add_button)
         sleep(2)
 
         self.utils.print_info(f"Entering email id:{email}")
@@ -106,7 +106,7 @@ class AccountManagement(AccntMgmtWebElements):
         self.utils.print_info("Organisation drop down is visible only for MSP Account")
         if self.get_account_mgmt_organisation_sec().is_displayed():
             self.utils.print_info("Click on organisation drop down")
-            self.auto_actions.click(self.get_account_mgmt_org_drop_down())
+            self.auto_actions.click_reference(self.get_account_mgmt_org_drop_down)
             sleep(2)
             self.auto_actions.select_drop_down_options(self.get_account_mgmt_org_drop_down_opt(), organization)
 
@@ -132,13 +132,13 @@ class AccountManagement(AccntMgmtWebElements):
             self.utils.print_info(f'Cannot select location for :{role} role')
         if role != "GuestManagement" and role != "Administrator":
             self.utils.print_info(f'selecting the location check box')
-            self.auto_actions.click(self.get_Rbac_Assign_Location_checkbox())
+            self.auto_actions.click_reference(self.get_Rbac_Assign_Location_checkbox)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info(f'Clicking Account Management save button')
-        self.auto_actions.click(self.get_account_mgmt_save_button())
+        self.auto_actions.click_reference(self.get_account_mgmt_save_button)
         sleep(5)
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tooltip: ", tool_tip_text)
@@ -168,9 +168,9 @@ class AccountManagement(AccntMgmtWebElements):
             self.auto_actions.click(self.get_account_mgmt_grid_row_check_box(row))
             sleep(2)
             self.utils.print_info("click on delete button")
-            self.auto_actions.click(self.get_account_mgmt_delete_button())
+            self.auto_actions.click_reference(self.get_account_mgmt_delete_button)
             sleep(1)
-            self.auto_actions.click(self.get_account_mgmt_delete_conf_yes_button())
+            self.auto_actions.click_reference(self.get_account_mgmt_delete_conf_yes_button)
             sleep(2)
             return 1
     def delete_guest_management_accounts(self):
@@ -192,9 +192,9 @@ class AccountManagement(AccntMgmtWebElements):
                 self.auto_actions.click(self.get_account_mgmt_grid_row_check_box(row_guest))
             sleep(2)
             self.utils.print_info("click on delete button")
-            self.auto_actions.click(self.get_account_mgmt_delete_button())
+            self.auto_actions.click_reference(self.get_account_mgmt_delete_button)
             sleep(1)
-            self.auto_actions.click(self.get_account_mgmt_delete_conf_yes_button())
+            self.auto_actions.click_reference(self.get_account_mgmt_delete_conf_yes_button)
             sleep(2)
             return 1
 
@@ -218,9 +218,9 @@ class AccountManagement(AccntMgmtWebElements):
             self.auto_actions.click(self.get_account_mgmt_grid_row_check_box(row))
             sleep(2)
             self.utils.print_info("click on delete button")
-            self.auto_actions.click(self.get_account_mgmt_delete_button())
+            self.auto_actions.click_reference(self.get_account_mgmt_delete_button)
             sleep(1)
-            self.auto_actions.click(self.get_account_mgmt_delete_conf_yes_button())
+            self.auto_actions.click_reference(self.get_account_mgmt_delete_conf_yes_button)
             sleep(2)
             return 1
 
@@ -397,7 +397,7 @@ class AccountManagement(AccntMgmtWebElements):
         sleep(5)
 
         self.utils.print_info("Clicking + button")
-        self.auto_actions.click(self.get_credential_distribution_groups_add_button())
+        self.auto_actions.click_reference(self.get_credential_distribution_groups_add_button)
         sleep(2)
 
         self.utils.print_info("Entering group name")
@@ -405,17 +405,17 @@ class AccountManagement(AccntMgmtWebElements):
         sleep(2)
 
         self.utils.print_info("Selecting admin account")
-        self.auto_actions.click(self.get_credential_distribution_groups_admin_account_dropdown())
+        self.auto_actions.click_reference(self.get_credential_distribution_groups_admin_account_dropdown)
         sleep(2)
 
         if admin_account == "Guest Management Role User":
             self.utils.print_info("Selecting guest management role user")
-            self.auto_actions.click(self.get_credential_distribution_groups_guest_management_role_user_option())
+            self.auto_actions.click_reference(self.get_credential_distribution_groups_guest_management_role_user_option)
             sleep(2)
 
         if admin_account == "Active Directory User":
             self.utils.print_info("Selecting active directory user")
-            self.auto_actions.click(self.get_credential_distribution_groups_active_directory_user_option())
+            self.auto_actions.click_reference(self.get_credential_distribution_groups_active_directory_user_option)
             sleep(2)
 
         self.utils.print_info("selecting member of ")
@@ -423,7 +423,7 @@ class AccountManagement(AccntMgmtWebElements):
         sleep(2)
 
         self.utils.print_info("Selecting credential restriction")
-        self.auto_actions.click(self.get_credential_distribution_groups_credential_restriction_checkbox())
+        self.auto_actions.click_reference(self.get_credential_distribution_groups_credential_restriction_checkbox)
         sleep(2)
 
         self.utils.print_info("Selecting credential restriction count")
@@ -433,12 +433,12 @@ class AccountManagement(AccntMgmtWebElements):
         self.utils.print_info("Selecting registration operation: ", registration_operation)
         if registration_operation != "None":
             self.utils.print_info("Selecting registration operation")
-            self.auto_actions.click(self.get_credential_distribution_groups_registration_operation_checkbox())
+            self.auto_actions.click_reference(self.get_credential_distribution_groups_registration_operation_checkbox)
             sleep(2)
 
         self.utils.print_info("Selecting enable user groups: ", user_group_name)
         if "Select All" in user_group_name:
-            self.auto_actions.click(self.get_credential_distribution_groups_select_all_checkbox())
+            self.auto_actions.click_reference(self.get_credential_distribution_groups_select_all_checkbox)
         else:
             user_group_checkboxes = self.get_credential_distribution_groups_user_group_checkboxes()
             for user_group_checkbox in user_group_checkboxes:
@@ -448,7 +448,7 @@ class AccountManagement(AccntMgmtWebElements):
         sleep(2)
 
         self.utils.print_info("Saving...")
-        self.auto_actions.click(self.get_credential_distribution_groups_save_button())
+        self.auto_actions.click_reference(self.get_credential_distribution_groups_save_button)
         sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text

@@ -34,14 +34,14 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
                     return 1
 
         self.utils.print_info(f"Click on the domain add button")
-        self.auto_actions.click(self.get_approve_email_domain_list_add_button())
+        self.auto_actions.click_reference(self.get_approve_email_domain_list_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter the approve email domain:{domain}")
         self.auto_actions.send_keys(self.get_approve_email_domain_list_domain_name(), domain)
 
         self.utils.print_info(f"Click on the domain list add button")
-        self.auto_actions.click(self.get_approve_email_domain_list_domain_add_button())
+        self.auto_actions.click_reference(self.get_approve_email_domain_list_domain_add_button)
         return 1
 
     def _config_cwp_ppsk_settings(self, **ppsk_settings):
@@ -54,14 +54,14 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         :return: None
         """
         self.utils.print_info("Click on choose access ssid drop down")
-        self.auto_actions.click(self.get_choose_access_ssid_drop_down())
+        self.auto_actions.click_reference(self.get_choose_access_ssid_drop_down)
         sleep(2)
 
         self.utils.print_info(f"Selecting access ssid:{ppsk_settings['choose_access_ssid']}")
         self.auto_actions.select_drop_down_options(self.get_choose_access_ssid_options(), ppsk_settings['choose_access_ssid'])
 
         self.utils.print_info("Click choose ppsk server drop down")
-        self.auto_actions.click(self.get_choose_a_ppsk_server_drop_down())
+        self.auto_actions.click_reference(self.get_choose_a_ppsk_server_drop_down)
         sleep(2)
 
         self.utils.print_info(f"Selecting ppsk server:{ppsk_settings['choose_ppsk_server']}")
@@ -91,7 +91,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             return 1
 
         self.utils.print_info("Click on default cwp add button")
-        self.auto_actions.click(self.get_default_cwp_add_button())
+        self.auto_actions.click_reference(self.get_default_cwp_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter cwp name:{cwp_name}")
@@ -107,7 +107,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.get_default_add_windows_cwp_save_cwp_button())
+        self.auto_actions.click_reference(self.get_default_add_windows_cwp_save_cwp_button)
         sleep(5)
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
@@ -134,7 +134,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             return 1
 
         self.utils.print_info("Click on default cwp add button")
-        self.auto_actions.click(self.get_default_cwp_add_button())
+        self.auto_actions.click_reference(self.get_default_cwp_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter cwp name:{cwp_name}")
@@ -145,7 +145,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.get_default_add_windows_cwp_save_cwp_button())
+        self.auto_actions.click_reference(self.get_default_add_windows_cwp_save_cwp_button)
         sleep(5)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -220,13 +220,13 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         """
         self.utils.print_info("selecting Social Login type for cloud CWP wireless network")
         if social_login_type.upper() == "FACEBOOK":
-            self.auto_actions.click(self.get_cloud_cwp_social_login_type_fb())
+            self.auto_actions.click_reference(self.get_cloud_cwp_social_login_type_fb)
             return 1
         elif social_login_type.upper() == "GOOGLE":
-            self.auto_actions.click(self.get_cloud_cwp_social_login_type_google())
+            self.auto_actions.click_reference(self.get_cloud_cwp_social_login_type_google)
             return 1
         elif social_login_type.upper() == "LINKEDIN":
-            self.auto_actions.click(self.get_cloud_cwp_social_login_type_linkedin())
+            self.auto_actions.click_reference(self.get_cloud_cwp_social_login_type_linkedin)
             return 1
         else:
             return -1
@@ -248,7 +248,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         auth_cache_duration = social_cwp_config.get('auth_cache_duration')
 
         self.utils.print_info("Click on default CWP add button")
-        self.auto_actions.click(self.get_default_cwp_add_button())
+        self.auto_actions.click_reference(self.get_default_cwp_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter CWP name: {social_cwp_name}")
@@ -271,7 +271,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         sleep(3)
 
         self.utils.print_info("Click CWP save button")
-        self.auto_actions.click(self.get_default_add_windows_cwp_save_cwp_button())
+        self.auto_actions.click_reference(self.get_default_add_windows_cwp_save_cwp_button)
 
         self.screen.save_screen_shot()
         sleep(3)
@@ -282,10 +282,10 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
                 self.utils.print_info(f"{tool_tp_text}")
 
                 self.utils.print_info("Click CWP Cancel button")
-                self.auto_actions.click(self.get_default_cwp_add_dialog_cwp_cancel_cwp_button())
+                self.auto_actions.click_reference(self.get_default_cwp_add_dialog_cwp_cancel_cwp_button)
 
                 self.utils.print_info("Click Cancel wireless network button")
-                self.auto_actions.click(self.get_cwp_wireless_network_cancel_button())
+                self.auto_actions.click_reference(self.get_cwp_wireless_network_cancel_button)
                 return -1
         return 1
 
@@ -300,12 +300,12 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         self.auto_actions.scroll_down()
         sleep(2)
 
-        self.auto_actions.click(self.get_default_cwp_select_button())
+        self.auto_actions.click_reference(self.get_default_cwp_select_button)
         sleep(2)
 
         if not self.get_default_select_window_cwp_rows():
             self.utils.print_info(f"default CWP: {cwp_name} does't exist, Please create default cwp")
-            self.auto_actions.click(self.get_default_cwp_select_window_cancel_button())
+            self.auto_actions.click_reference(self.get_default_cwp_select_window_cancel_button)
             sleep(2)
             return False
 
@@ -313,11 +313,11 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             if cwp_name.upper() in row.text.upper():
                 self.auto_actions.click(self.get_default_cwp_select_window_row_select_check_box(row))
                 sleep(2)
-                self.auto_actions.click(self.get_default_cwp_select_window_select_button())
+                self.auto_actions.click_reference(self.get_default_cwp_select_window_select_button)
                 return True
 
         self.utils.print_info(f"default CWP: {cwp_name} does't exist, Please create default cwp")
-        self.auto_actions.click(self.get_default_cwp_select_window_cancel_button())
+        self.auto_actions.click_reference(self.get_default_cwp_select_window_cancel_button)
         sleep(2)
         return False
 
@@ -374,14 +374,14 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
 
 
         self.utils.print_info("Click Walled Garden Add button")
-        self.auto_actions.click(self.get_walled_garden_add_button())
+        self.auto_actions.click_reference(self.get_walled_garden_add_button)
         sleep(5)
 
         self.utils.print_info("Adding Walled Garden Web Objects")
         self.auto_actions.send_keys(self.get_walled_garden_text_area(), social_profile_web_obj)
 
         self.utils.print_info("Click Walled Garden Text Add button")
-        self.auto_actions.click(self.get_walled_garden_text_add_button())
+        self.auto_actions.click_reference(self.get_walled_garden_text_add_button)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -403,7 +403,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             return 1
 
         self.utils.print_info("Click on default cwp add button")
-        self.auto_actions.click(self.get_default_cwp_add_button())
+        self.auto_actions.click_reference(self.get_default_cwp_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter CWP name:{cwp_name}")
@@ -411,16 +411,16 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
 
         if customize_and_preview.upper() == "ENABLE":
             self.utils.print_info("Click on customise and preview button")
-            self.auto_actions.click(self.get_customise_and_preview_button())
+            self.auto_actions.click_reference(self.get_customise_and_preview_button)
 
             self.utils.print_info("Click on authentication drop down")
-            self.auto_actions.click(self.get_auth_method_drop_down())
+            self.auto_actions.click_reference(self.get_auth_method_drop_down)
             sleep(2)
 
             self.utils.print_info(f"select the authentication method:{auth_method}")
             self.auto_actions.select_drop_down_options(self.get_auth_method_drop_down_options(), auth_method)
 
-        self.auto_actions.click(self.get_default_add_windows_cwp_save_cwp_button())
+        self.auto_actions.click_reference(self.get_default_add_windows_cwp_save_cwp_button)
         sleep(5)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -447,7 +447,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             return 1
 
         self.utils.print_info("Click on default cwp add button")
-        self.auto_actions.click(self.get_default_cwp_add_button())
+        self.auto_actions.click_reference(self.get_default_cwp_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter cwp name:{cwp_name}")
@@ -455,17 +455,17 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
 
         if import_html.upper() == "ENABLE":
             self.utils.print_info("click on import html button")
-            self.auto_actions.click(self.get_import_html_button())
+            self.auto_actions.click_reference(self.get_import_html_button)
             self.screen.save_screen_shot()
 
             if open_cwp_config.get('download_samples') == 'download':
                 self.utils.print_info("click on the User-Auth-Return-PPSK-Example download link")
                 if self.get_user_auth_return_ppsk_link():
-                    self.auto_actions.click(self.get_user_auth_return_ppsk_link())
+                    self.auto_actions.click_reference(self.get_user_auth_return_ppsk_link)
                     self.screen.save_screen_shot()
                     # @to do Need to add the import logic just checking download the html pages
                     sleep(2)
-                    self.auto_actions.click(self.get_cwp_dialog_window_cancel_button())
+                    self.auto_actions.click_reference(self.get_cwp_dialog_window_cancel_button)
                     self.screen.save_screen_shot()
                     return 1
                 else:
@@ -580,7 +580,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         :return: 1
         """
         self.utils.print_info("Click on default CWP add button")
-        self.auto_actions.click(self.get_default_cwp_add_button())
+        self.auto_actions.click_reference(self.get_default_cwp_add_button)
         sleep(2)
 
         self.utils.print_info("Enter CWP name:{}".format(cwp_name))
@@ -589,7 +589,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Click CWP save button")
-        self.auto_actions.click(self.get_default_add_windows_cwp_save_cwp_button())
+        self.auto_actions.click_reference(self.get_default_add_windows_cwp_save_cwp_button)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
@@ -663,7 +663,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         :return:
         """
         self.utils.print_info("Click on success page drop down")
-        self.auto_actions.click(self.get_customise_success_page_drop_down())
+        self.auto_actions.click_reference(self.get_customise_success_page_drop_down)
         sleep(2)
 
         options = self.get_customise_success_page_drop_down_options()
@@ -678,7 +678,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         :return:
         """
         self.utils.print_info("Click on login page drop down")
-        self.auto_actions.click(self.get_customise_login_page_drop_down())
+        self.auto_actions.click_reference(self.get_customise_login_page_drop_down)
         sleep(2)
 
         options = self.get_customise_login_page_drop_down_option()
@@ -696,7 +696,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         self.utils.print_info("Click on manage files upload/remove button")
         self.auto_actions.scroll_down()
         sleep(2)
-        self.auto_actions.click(self.get_manage_upload_remove_files())
+        self.auto_actions.click_reference(self.get_manage_upload_remove_files)
         sleep(2)
 
         self.utils.print_info("Uploading the customized html files")
@@ -707,7 +707,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             sleep(1)
 
         self.utils.print_info("Click on customise choose files window done button")
-        self.auto_actions.click(self.get_manage_file_choose_done_button())
+        self.auto_actions.click_reference(self.get_manage_file_choose_done_button)
         sleep(2)
 
     def _select_web_file_directory(self, directory_name):
@@ -725,7 +725,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         self._create_web_file_directory(directory_name)
 
         self.utils.print_info("Click on web file directory drop down")
-        self.auto_actions.click(self.get_web_file_directory_drop_down())
+        self.auto_actions.click_reference(self.get_web_file_directory_drop_down)
         sleep(2)
         options = self.get_web_file_directory_drop_down_options()
         self.auto_actions.select_drop_down_options(options, directory_name)
@@ -739,18 +739,18 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         :return: 1
         """
         self.utils.print_info("Click on web file directory create button")
-        self.auto_actions.click(self.get_create_web_file_directory())
+        self.auto_actions.click_reference(self.get_create_web_file_directory)
         sleep(2)
 
         self.utils.print_info("Enter the directory name:{}".format(directory_name))
         self.auto_actions.send_keys(self.get_directory_name(), directory_name)
 
         self.utils.print_info("Click on web directory create button")
-        self.auto_actions.click(self.get_web_file_directory_create_button())
+        self.auto_actions.click_reference(self.get_web_file_directory_create_button)
         sleep(2)
 
         self.utils.print_info("Click on web directory create done button")
-        self.auto_actions.click(self.get_web_file_directory_create_done_button())
+        self.auto_actions.click_reference(self.get_web_file_directory_create_done_button)
         sleep(2)
         return 1
 
@@ -765,7 +765,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         upload_files = custom_settings.get('upload_files')
         self.utils.print_info("Click on customize CWP radio button")
         if not self.get_customise_cwp_setting().is_selected():
-            self.auto_actions.click(self.get_customise_cwp_setting())
+            self.auto_actions.click_reference(self.get_customise_cwp_setting)
             sleep(2)
 
         self.auto_actions.scroll_down()
@@ -797,14 +797,14 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         :return:
         """
 
-        self.auto_actions.click(self.get_daily_report_delivery_time_hour_drop_down())
+        self.auto_actions.click_reference(self.get_daily_report_delivery_time_hour_drop_down)
         sleep(2)
 
         self.utils.print_info("Select hour:{}".format(time_hour))
         options = self.get_daily_report_delivery_time_hour_options()
         self.auto_actions.select_drop_down_options(options, time_hour)
 
-        self.auto_actions.click(self.get_daily_report_delivery_time_minutes_drop_down())
+        self.auto_actions.click_reference(self.get_daily_report_delivery_time_minutes_drop_down)
         sleep(2)
 
         self.utils.print_info("Select minutes:{}".format(time_minutes))
@@ -828,7 +828,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         :param pin_time: time in hour
         :return:
         """
-        self.auto_actions.click(self.get_valid_pin_time_drop_down())
+        self.auto_actions.click_reference(self.get_valid_pin_time_drop_down)
         sleep(2)
 
         self.utils.print_info("PIN Valid time:{}".format(pin_time))
@@ -873,7 +873,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         delivery_time_hour, delivery_time_minute = self._get_report_delivery_time(report_time_delta)
 
         self.utils.print_info("Click on default CWP add button")
-        self.auto_actions.click(self.get_default_cwp_add_button())
+        self.auto_actions.click_reference(self.get_default_cwp_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter CWP name:{cloud_cwp_name}")
@@ -899,7 +899,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         :return: 1 if created else -1
         """
         self.utils.print_info("Click on CWP save button")
-        self.auto_actions.click(self.get_default_add_windows_cwp_save_cwp_button())
+        self.auto_actions.click_reference(self.get_default_add_windows_cwp_save_cwp_button)
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -936,7 +936,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
 
         self.utils.print_info("Click on Request a pin radio button")
         if not self.get_request_pin_radio_button().is_selected():
-            self.auto_actions.click(self.get_request_pin_radio_button())
+            self.auto_actions.click_reference(self.get_request_pin_radio_button)
             sleep(2)
         self.screen.save_screen_shot()
 
@@ -965,7 +965,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         """
         cwp_name = edit_config.get('cwp_name')
         self.utils.print_info("Click on cwp:{} edit link".format(cwp_name))
-        self.auto_actions.click(self.get_default_cwp_edit_link())
+        self.auto_actions.click_reference(self.get_default_cwp_edit_link)
         sleep(2)
 
         pin_valid_time = edit_config.get('pin_valid_time', '1 Hour')
@@ -990,7 +990,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             return -1
 
         self.utils.print_info("Click on wireless network save button")
-        self.auto_actions.click(self.get_cwp_wireless_network_save_button())
+        self.auto_actions.click_reference(self.get_cwp_wireless_network_save_button)
         sleep(2)
         return 1
 

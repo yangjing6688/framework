@@ -24,7 +24,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         :return: 1 if successfully connected with internet with social login type facebook else -1
         """
         self.utils.print_info("Click Social Login facebook button")
-        self.auto_actions.click(self.get_social_wifi_all_facebook_icon())
+        self.auto_actions.click_reference(self.get_social_wifi_all_facebook_icon)
         self.get_gp_page_screen_shot()
         sleep(5)
 
@@ -35,12 +35,12 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.auto_actions.send_keys(self.get_social_wifi_all_facebook_password_field(), password)
 
         self.utils.print_info("Click Facebook Sign in button")
-        self.auto_actions.click(self.get_social_wifi_all_facebook_login_button())
+        self.auto_actions.click_reference(self.get_social_wifi_all_facebook_login_button)
         sleep(5)
 
         if self.get_social_wifi_all_facebook_login_error_page():
             self.utils.print_info("Click Facebook error after login in button")
-            self.auto_actions.click(self.get_social_wifi_all_facebook_login_error_page())
+            self.auto_actions.click_reference(self.get_social_wifi_all_facebook_login_error_page)
             sleep(3)
 
         self.get_gp_page_screen_shot()
@@ -62,7 +62,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         :return: 1 if successfully connected with internet with social login type Linkedin else -1
         """
         self.utils.print_info("Click Social Login Linkedin button")
-        self.auto_actions.click(self.get_social_wifi_all_linkedin_icon())
+        self.auto_actions.click_reference(self.get_social_wifi_all_linkedin_icon)
         self.get_gp_page_screen_shot()
         sleep(5)
 
@@ -73,17 +73,17 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.auto_actions.send_keys(self.get_social_wifi_all_linkedin_password_field(), password)
 
         self.utils.print_info("Click Linkedin Sign in button")
-        self.auto_actions.click(self.get_social_wifi_all_linkedin_signin_button())
+        self.auto_actions.click_reference(self.get_social_wifi_all_linkedin_signin_button)
         sleep(5)
 
         if self.get_social_wifi_all_linkedin_allow_button():
             self.utils.print_info("Click Linkedin Allow button")
-            self.auto_actions.click(self.get_social_wifi_all_linkedin_allow_button())
+            self.auto_actions.click_reference(self.get_social_wifi_all_linkedin_allow_button)
             sleep(5)
 
         if self.get_social_wifi_all_linkedin_login_error_page():
             self.utils.print_info("Click Linkedin error after login in button")
-            self.auto_actions.click(self.get_social_wifi_all_linkedin_login_error_page())
+            self.auto_actions.click_reference(self.get_social_wifi_all_linkedin_login_error_page)
             sleep(3)
 
         self.get_gp_page_screen_shot()
@@ -106,7 +106,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         :return: 1 if successfully connected with internet with social login type facebook else -1
         """
         self.utils.print_info("Click Social Login google button")
-        self.auto_actions.click(self.get_social_wifi_all_google_icon())
+        self.auto_actions.click_reference(self.get_social_wifi_all_google_icon)
         self.get_gp_page_screen_shot()
         sleep(5)
 
@@ -114,18 +114,18 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.auto_actions.send_keys(self.get_social_wifi_all_google_username_field(), username)
 
         self.utils.print_info("Click next button")
-        self.auto_actions.click(self.get_social_wifi_all_google_next_button())
+        self.auto_actions.click_reference(self.get_social_wifi_all_google_next_button)
 
         self.utils.print_info("Enter Google Password")
         self.auto_actions.send_keys(self.get_social_wifi_all_google_password_field(), password)
 
         self.utils.print_info("Click next button")
-        self.auto_actions.click(self.get_social_wifi_all_google_next_button())
+        self.auto_actions.click_reference(self.get_social_wifi_all_google_next_button)
         sleep(5)
 
         if self.get_social_wifi_all_google_login_error_page():
             self.utils.print_info("Click Google error after login in button")
-            self.auto_actions.click(self.get_social_wifi_all_facebook_login_error_page())
+            self.auto_actions.click_reference(self.get_social_wifi_all_facebook_login_error_page)
             sleep(3)
 
         self.get_gp_page_screen_shot()
@@ -158,12 +158,12 @@ class MuGuestPortal(MuGuestPortalWebElements):
         sleep(2)
 
         self.utils.print_info("Click Sign In button")
-        self.auto_actions.click(self.get_user_registration_social_wifi_signin_button())
+        self.auto_actions.click_reference(self.get_user_registration_social_wifi_signin_button)
         sleep(5)
 
         if self.get_user_registration_social_wifi_login_error_page():
             self.utils.print_info("Click error after login in button")
-            self.auto_actions.click(self.get_user_registration_social_wifi_login_error_page())
+            self.auto_actions.click_reference(self.get_user_registration_social_wifi_login_error_page)
             sleep(3)
 
         self.get_gp_page_screen_shot()
@@ -208,7 +208,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         """
 
         self.utils.print_info("Click Guest Register button")
-        self.auto_actions.click(self.get_sponsor_guest_access_register_guest_btn())
+        self.auto_actions.click_reference(self.get_sponsor_guest_access_register_guest_btn)
         self.get_gp_page_screen_shot()
         sleep(2)
 
@@ -231,10 +231,10 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.auto_actions.send_keys(self.get_sponsor_guest_access_register_guest_purpose(), access_purpose)
 
         self.utils.print_info("Clicking Disclaimer Checkbox")
-        self.auto_actions.click(self.get_sponsor_guest_access_register_guest_disclaimer())
+        self.auto_actions.click_reference(self.get_sponsor_guest_access_register_guest_disclaimer)
 
         self.utils.print_info("Clicking Register Button")
-        self.auto_actions.click(self.get_sponsor_guest_access_register_guest_register())
+        self.auto_actions.click_reference(self.get_sponsor_guest_access_register_guest_register)
         sleep(2)
 
         self.get_gp_page_screen_shot()
@@ -243,7 +243,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_sponsor_guest_access_register_guest_registration_status_text() == 'Successfully registered!':
             self.utils.print_info("Registration Successful!")
             self.utils.print_info("Clicking Login Button")
-            self.auto_actions.click(self.get_sponsor_guest_access_register_guest_sponsorlogin())
+            self.auto_actions.click_reference(self.get_sponsor_guest_access_register_guest_sponsorlogin)
             sleep(2)
             return 1
         else:
@@ -283,12 +283,12 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.auto_actions.send_keys(self.get_sponsor_guest_access_password_field(), password)
 
         self.utils.print_info("Clicking Signin Button")
-        self.auto_actions.click(self.get_sponsor_guest_access_signin_btn())
+        self.auto_actions.click_reference(self.get_sponsor_guest_access_signin_btn)
         sleep(2)
 
         if self.get_sponsor_guest_access_login_error_button():
             self.utils.print_info("Click Send Anyway after login in button")
-            self.auto_actions.click(self.get_sponsor_guest_access_login_error_button())
+            self.auto_actions.click_reference(self.get_sponsor_guest_access_login_error_button)
             sleep(3)
 
         self.get_gp_page_screen_shot()
@@ -307,7 +307,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         :return: 1 if sponsor field is not present else -1
         """
         self.utils.print_info("Click Guest Register button")
-        self.auto_actions.click(self.get_sponsor_guest_access_register_guest_btn())
+        self.auto_actions.click_reference(self.get_sponsor_guest_access_register_guest_btn)
         self.get_gp_page_screen_shot()
         sleep(2)
 
@@ -339,7 +339,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         """
 
         self.utils.print_info("Click Register button")
-        self.auto_actions.click(self.get_registernow_btn())
+        self.auto_actions.click_reference(self.get_registernow_btn)
         sleep(2)
 
         self.utils.print_info("Enter Guest Name")
@@ -349,13 +349,13 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.auto_actions.send_keys(self.get_email_field(), visitor_email)
 
         self.utils.print_info("Disabling SMS Preferred Checkbox")
-        self.auto_actions.click(self.get_mobilepreferred_check())
+        self.auto_actions.click_reference(self.get_mobilepreferred_check)
 
         self.utils.print_info("Clicking Disclaimer Checkbox")
-        self.auto_actions.click(self.get_disclaimer_check())
+        self.auto_actions.click_reference(self.get_disclaimer_check)
 
         self.utils.print_info("Clicking Register Button")
-        self.auto_actions.click(self.get_register_btn())
+        self.auto_actions.click_reference(self.get_register_btn)
         sleep(2)
 
         self.get_gp_page_screen_shot()
@@ -364,7 +364,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_registration_status() == 'Successfully registered!':
             self.utils.print_info("Registration Successful!")
             self.utils.print_info("Clicking Login Button")
-            self.auto_actions.click(self.get_login_btn())
+            self.auto_actions.click_reference(self.get_login_btn)
             sleep(2)
             return 1
         else:
@@ -386,12 +386,12 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.auto_actions.send_keys(self.get_email_field(), visitor_email)
 
         self.utils.print_info("Clicking Go Button")
-        self.auto_actions.click(self.get_register_btn())
+        self.auto_actions.click_reference(self.get_register_btn)
         sleep(2)
 
         if self.get_sponsor_guest_access_login_error_button():
             self.utils.print_info("Click Send Anyway after login in button")
-            self.auto_actions.click(self.get_sponsor_guest_access_login_error_button())
+            self.auto_actions.click_reference(self.get_sponsor_guest_access_login_error_button)
             sleep(3)
 
         self.get_gp_page_screen_shot()

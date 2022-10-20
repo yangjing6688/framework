@@ -728,13 +728,13 @@ class Device360WebElementDefs:
 
     device360_port_diagnostics_select_all_ports_button = \
         {
-            'XPATH': '//div[@class="selection-buttons"]/button[@data-dojo-attach-point="selectAllButton"]',
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@class="selection-buttons"]/button[@data-dojo-attach-point="selectAllButton"]',
             'wait_for': 5
         }
 
     device360_port_diagnostics_deselect_all_ports_button = \
         {
-            'XPATH': '//div[@class="selection-buttons"]/button[@data-dojo-attach-point="deselectAllButton"]',
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@class="selection-buttons"]/button[@data-dojo-attach-point="deselectAllButton"]',
             'wait_for': 5
         }
 
@@ -1912,7 +1912,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_pse_tab = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-port-config-pse"]',
+            'XPATH': '//div[@data-automation-tag="automation-port-config-pse" or @data-automation-tag="automation-port-configuration-pse"]',
             'wait_for': 5
         }
 
@@ -2499,6 +2499,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    select_element_port_type_pse_profile_power_limit = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+            'wait_for': 5
+        }
+
     select_element_port_type_pse_profile_priority = \
         {
             'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[contains(@class,"priority")]//div[@data-automation-tag="automation-chzn-container-ctn"]',
@@ -2509,6 +2515,12 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[contains(@class,"priority")]//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
             'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_power_mode_dropdown = \
+        {
+            'XPATH': '//div[@class="column last"]//a[@class="chzn-single"]',
+            'index': 0
         }
 
     select_element_port_type_pse_profile_description = \
@@ -2526,6 +2538,18 @@ class Device360WebElementDefs:
     select_element_port_type_poe_status = \
         {
             'XPATH': '//input[@data-automation-tag="port-type-editor-pse-enable"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_edit = \
+        {
+            'XPATH': '//span[@data-automation-tag="automation-port-type-editor-pse-profile-edit-btn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_error_text = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="powerLimitContainer"]//span',
             'wait_for': 5
         }
 
@@ -2759,6 +2783,133 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_monitor_diagnostics_stack_drop_down = \
+        {
+            'XPATH': '//div[@class="stack-member-chooser fn-right"]//div[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_ip_address_stack_active_unit = \
+        {
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-ipAddr"]//span[contains(text(),"${ip_address}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_mac_address_stack_active_unit = \
+        {
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-macAddr"]//span[contains(text(),"${mac_address}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_soft_version_stack_active_unit = \
+        {
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-version"]//span[contains(text(),"${soft_version}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_model_stack_active_unit = \
+        {
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-type"]//span[contains(text(),"${model}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_serial_number_stack_active_unit = \
+        {
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-tag"]//span[contains(text(),"${serial_number}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_make_stack_active_unit = \
+        {
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-make"]//span[contains(text(),"${make}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit = \
+        {
+            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@data-automation-tag="automation-entity-health-status-agent"]//span[contains(text(),"${iqagent_version}")]',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_stack_drop_down_unit = \
+        {
+            'XPATH': '//div[@data-automation-tag="diagnostics-stack-member-chooser-area"]//a',
+            'wait_for': 5
+        }
+
+    device360_monitor_diagnostics_stack_drop_down_unit_options = \
+        {
+            'XPATH': '//li[@data-automation-tag="Unit_${unit}_-_${unit_role}"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_status = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableMacLocking"]',
+            'wait_for': 5
+
+        }
+
+    select_element_port_type_macLock_max_first_arrival = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-maxfa"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_disable_port = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-shutdown"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_link_down_clear = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-clear"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_link_down_retain = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-retain"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_macLock_remove_aged_MACs = \
+        {
+            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-remove-aged"]',
+            'wait_for': 5
+        }
+
+    select_mac_locking_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-enable"]'
+        }
+
+    select_mac_locking_first_arrival_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-max-fa-limit"]'
+        }
+
+    select_mac_locking_port_disable_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-disable-port"]'
+        }
+
+    select_mac_locking_link_down_action_clear_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-link-down-action"][@title="Clear"]'
+        }
+
+    select_mac_locking_link_down_action_retain_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-link-down-action"][@title="Retain"]'
+        }
+
+    select_mac_locking_remove_aged_macs_summary = \
+        {
+            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-remove-aged-macs"]'
+        }
+
     device360_cpu_utilized_button = \
         {
             'XPATH': '//*[@class="timeline-legend-label" and text()="CPU UTILIZED"]',
@@ -2847,6 +2998,12 @@ class Device360WebElementDefs:
     device360_ports_table_current_pagin_number = \
         {
             "XPATH": "//div[@class='pagination-num-ctn']//span[@class='pagination-page current-pagination']",
+            'wait_for': 5
+        }
+
+    cancel_button_port_type = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
             'wait_for': 5
         }
 
@@ -3087,8 +3244,8 @@ class Device360WebElementDefs:
  
     select_element_port_type_pse_profile_power_limit = \
         {
-	'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
-	'wait_for': 5
+	          'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+	          'wait_for': 5
         }
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
@@ -3106,8 +3263,6 @@ class Device360WebElementDefs:
         {
             'CSS_SELECTOR': '.J-ip-more'
         }
-
-
 
     device360_configure_port_access_vlan_textfield_VOSS = \
         {
@@ -3129,6 +3284,7 @@ class Device360WebElementDefs:
             'index': 2,
             'wait_for': 5
         }
+
     select_element_port_type_port_usage_phone = \
         {
             'XPATH': '//input[@data-dojo-attach-point="phoneType"]',
@@ -3434,4 +3590,51 @@ class Device360WebElementDefs:
         {
             'XPATH': '//*[contains(@class,"transmission-settings active")]',
             'wait_for': 5
+        }
+        
+    device360_port_configuration_pse_profile_add_button = \
+        {
+            'CSS_SELECTOR': '.ui-ip-save',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_pse_profile_edit_button = \
+        {
+            'CSS_SELECTOR': '.ui-ip-edit-active',
+            'wait_for': 5
+        }
+
+    device360_configure_port_pse_rows = \
+        {
+            'XPATH': '//div[@class="port-pse-entry " or @class="clearfix entry-in-line"]',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_pse_profile_port_interface = \
+        {
+            'CSS_SELECTOR': '.port-interface',
+            'wait_for': 5
+        }
+
+    device360_port_configuration_pse_profile_port_interface_voss = \
+        {
+            'CSS_SELECTOR': '.portInterface',
+            'wait_for': 5
+        }
+
+    common_save_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
+            'wait_for': 5
+        }
+
+    common_cancel_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="cancelBtn"]',
+            'wait_for': 5
+        }
+
+    save_and_close_port_type_box = \
+        {
+            'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
         }

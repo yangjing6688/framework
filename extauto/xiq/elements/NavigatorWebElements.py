@@ -378,6 +378,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_subtab_common_object(self):
         return self.weh.get_element(self.subtab_common_object)
 
+    def get_subtab_common_object_basic(self):
+        return self.weh.get_element(self.subtab_common_object_basic)
+
     def get_device_actions_advanced_cli_ap_access(self):
         return self.weh.get_element(self.device_actions_advanced_cli_access)
 

@@ -64,13 +64,13 @@ class XIQSE_ControlPolicyDomainEnforce(ControlPolicyDomainEnforceWebElements):
     def _not_empty_domain(self):
         ret_val = -1
         if self.get_enforce_domain_data_question():
-            self.auto_actions.click(self.get_enforce_domain_data_yes_button())
+            self.auto_actions.click_reference(self.get_enforce_domain_data_yes_button)
             self.utils.print_info("Domain has at least 1 device in it. Continue...")
             ret_val = 1
         else:
             self.utils.print_info("No Device(s) are found in Enforce Preview window. Cancel the Enforce action.")
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.enforce_preview.get_enforce_preview_cancel_button())
+            self.auto_actions.click_reference(self.enforce_preview.get_enforce_preview_cancel_button)
 
         return ret_val
 

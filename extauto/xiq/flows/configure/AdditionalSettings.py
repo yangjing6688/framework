@@ -34,10 +34,10 @@ class AdditionalSettings(AdditionalSettingsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on network policy Additional Settings Tab")
-        self.auto_actions.click(self.get_nw_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.get_nw_policy_additional_settings_tab)
 
         self.utils.print_info("Click on NTP Server Tab")
-        self.auto_actions.click(self.get_nw_policy_additional_settings_ntp_server_tab())
+        self.auto_actions.click_reference(self.get_nw_policy_additional_settings_ntp_server_tab)
         sleep(2)
 
         self.auto_actions.scroll_down()
@@ -68,10 +68,10 @@ class AdditionalSettings(AdditionalSettingsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on network policy Additional Settings Tab")
-        self.auto_actions.click(self.get_nw_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.get_nw_policy_additional_settings_tab)
 
         self.utils.print_info("Click on NTP Server Tab")
-        self.auto_actions.click(self.get_nw_policy_additional_settings_ntp_server_tab())
+        self.auto_actions.click_reference(self.get_nw_policy_additional_settings_ntp_server_tab)
         sleep(2)
 
         self.auto_actions.scroll_down()
@@ -108,10 +108,10 @@ class AdditionalSettings(AdditionalSettingsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on network policy Additional Settings Tab")
-        self.auto_actions.click(self.get_nw_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.get_nw_policy_additional_settings_tab)
 
         self.utils.print_info("Click on NTP Server Tab")
-        self.auto_actions.click(self.get_nw_policy_additional_settings_ntp_server_tab())
+        self.auto_actions.click_reference(self.get_nw_policy_additional_settings_ntp_server_tab)
         sleep(10)
 
         self.auto_actions.scroll_down()

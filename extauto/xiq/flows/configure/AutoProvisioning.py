@@ -101,20 +101,20 @@ class AutoProvisioning:
 
         if reboot == "Enable":
             self.utils.print_info("Enabling Reboot After Uploading")
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_enable_Reboot())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_enable_Reboot)
 
         if upload_firmware == "Enable":
             self.utils.print_info("Enabling Upload Device Firmware")
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_enable_upload_auth())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_enable_upload_auth)
             sleep(3)
             if firmware_version == "golden_version":
-                self.auto_actions.click(self.app_web_elements.get_auto_provisioning_Upload_Auth_golden_version())
+                self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_Upload_Auth_golden_version)
             else:
-                self.auto_actions.click(self.app_web_elements.get_auto_provisioning_Upload_Auth_latest_version())
+                self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_Upload_Auth_latest_version)
 
         if upload_configuration == "Enable":
             self.utils.print_info("Enabling Upload Configuration Automatically")
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_enable_Upload_Auto())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_enable_Upload_Auto)
             sleep(3)
             self.screen.save_screen_shot()
 
@@ -165,22 +165,22 @@ class AutoProvisioning:
             if primary_capwap == "default":
 
                 if primary_hostname == "default":
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_ip_addr())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_ip_addr)
                     sleep(3)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_ip_name(), primary_name)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_ip_IPaddr(), primary_ip_addr)
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_save_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_save_button)
                     sleep(2)
                 else:
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_hostname())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_hostname)
                     sleep(3)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_hostname_name(), primary_name)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_hostname_hostname(), primary_hostname)
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_save_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_save_button)
                     sleep(2)
             else:
                 self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_primary_server_input(), primary_capwap)
@@ -194,19 +194,19 @@ class AutoProvisioning:
 
                 if backup_hostname == "default":
 
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_ip_addr())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_ip_addr)
                     sleep(5)
                     self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_add_ip_name(), backup_name)
                     self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_add_ip_IPaddr(), backup_ip_addr)
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_save_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_save_button)
                     sleep(2)
                 else:
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_hostname())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_hostname)
                     sleep(5)
                     self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_add_hostname_name(), backup_name)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_hostname_hostname(), backup_hostname)
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_save_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_save_button)
                     sleep(2)
             else:
                 self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_primary_server_input(), backup_capwap)
@@ -257,7 +257,7 @@ class AutoProvisioning:
         """
         sleep(3)
         self.utils.print_info("Clicking on Network Policy")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_network_policy())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_network_policy)
         sleep(5)
         network_policy_list = []
         net_results = self.app_web_elements.get_auto_provisioning_network_policy_list()
@@ -441,7 +441,7 @@ class AutoProvisioning:
         sleep(3)
 
         self.utils.print_info("Deleting Auto Provisioning Policy: ", policy_name)
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_button)
         sleep(2)
 
         if self.search_auto_provisioning_policy(policy_name) == 1:
@@ -452,11 +452,11 @@ class AutoProvisioning:
                     sleep(2)
 
                     self.utils.print_info("Clicking Delete button...")
-                    self.auto_actions.click(self.app_web_elements.get_auto_provisioning_delete_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_delete_button)
                     sleep(2)
 
                     self.utils.print_info("Confirming delete")
-                    self.auto_actions.click(self.app_web_elements.get_auto_provisioning_alert_yes())
+                    self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_alert_yes)
                     self.utils.print_info("Deleted Auto Provisioning Policy: ", policy_name)
                     return 1
         else:
@@ -483,15 +483,15 @@ class AutoProvisioning:
         header = self.app_web_elements.get_auto_provisioning_grid_header()
         self.utils.print_info("Selecting all Policies")
 
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_select_all_check_box())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_select_all_check_box)
         sleep(2)
 
         self.utils.print_info("Clicking Delete button...")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_delete_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_delete_button)
         sleep(2)
 
         self.utils.print_info("Confirming delete")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_alert_yes())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_alert_yes)
         sleep(5)
 
         new_count = self.get_auto_provision_policy_count()
@@ -516,7 +516,7 @@ class AutoProvisioning:
         sleep(3)
 
         self.utils.print_info("Searching Auto Provisioning Policy: ", policy_name)
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_button)
         sleep(2)
         rows = self.app_web_elements.get_auto_provision_grid_rows()
         self.utils.print_info("Rows: ", rows)
@@ -543,7 +543,7 @@ class AutoProvisioning:
         self.navigator.navigate_configure_common_objects()
         sleep(3)
 
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_button)
         sleep(2)
         return 1
 

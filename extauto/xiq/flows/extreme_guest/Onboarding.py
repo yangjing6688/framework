@@ -30,7 +30,7 @@ class Onboarding(object):
         """
         self.ext_guest.go_to_configure_page()
         self.utils.print_info("Clicking on Extreme Guest Configure > Onboarding Policy tab")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_tab())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -48,7 +48,7 @@ class Onboarding(object):
         :return: 1 if success
         """
         self.utils.print_info("Clicking on Extreme Guest Configure > Onboarding Rules tab")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_tab())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -77,7 +77,7 @@ class Onboarding(object):
         """
         self.go_to_configure_onboarding_policy_tab()
         self.utils.print_info("Clicking the add policy icon ")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_policy())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_policy)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -88,7 +88,7 @@ class Onboarding(object):
                                     policy_name)
         sleep(2)
         self.utils.print_info("Clicking Criteria Condition Drop Down Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown)
         sleep(2)
         self.utils.print_info("Selecting the Criteria condition")
         self.auto_actions.select_drop_down_options(
@@ -100,15 +100,15 @@ class Onboarding(object):
                                         condition_value)
         sleep(2)
         self.utils.print_info("Clicking Action Drop Down Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_action_dropdown())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_action_dropdown)
         sleep(2)
         self.utils.print_info("Selecting the Action")
         self.auto_actions.select_drop_down_options(
             self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_action_dropdown_items(), action_type)
         sleep(2)
         self.utils.print_info("Clicking Group Drop Down Button")
-        self.auto_actions.click(
-            self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_group_select_dropdown())
+        self.auto_actions.click_reference(
+            self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_group_select_dropdown)
 
         self.utils.print_info("Selecting the Group")
         self.auto_actions.select_drop_down_options(
@@ -116,27 +116,26 @@ class Onboarding(object):
         sleep(2)
         if ('User' in action_type) or ('Approval' in action_type):
             self.utils.print_info("Clicking User Notification Drop Down Button")
-            self.auto_actions.click(
-                self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown())
-            sleep(2)
+
+            self.auto_actions.click_reference(
+                self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown)
             self.utils.print_info("Selecting the User Notification")
             self.auto_actions.select_drop_down_options(
                 self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown_items(), user_notifpolicy)
         sleep(2)
         if 'Sponsor' in action_type:
             self.utils.print_info("Clicking Sponsor Notification Drop Down Button")
-            self.auto_actions.click(
-                self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown())
-            sleep(2)
+            self.auto_actions.click_reference(
+                self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown)
             self.utils.print_info("Selecting the Sponsor Notification")
             self.auto_actions.select_drop_down_options(
                 self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown_items(), sponsor_notifpolicy)
 
         self.utils.print_info("Clicking Save Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_button())
-        sleep(5)
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_button)
+
         self.utils.print_info("Clicking OK Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -157,7 +156,7 @@ class Onboarding(object):
         """
         ret_val = -1
         self.utils.print_info("Clicking Location Drop Down Button in Eguest Onboarding Rule Page")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_location_dropdown())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_location_dropdown)
         sleep(2)
         if sel_loc:
             try:
@@ -251,7 +250,7 @@ class Onboarding(object):
         """
         self.go_to_configure_onboarding_rules_tab()
         self.utils.print_info("Clicking the add Rules icon ")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_rule())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_rule)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -261,14 +260,14 @@ class Onboarding(object):
         self.auto_actions.send_keys(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_name(), rule_name)
 
         self.utils.print_info("Clicking Policy Drop Down Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_policy_dropdown())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_policy_dropdown)
 
         self.utils.print_info("Selecting the Policy")
         self.auto_actions.select_drop_down_options(
             self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_policy_dropdown_items(), policy_name)
 
         self.utils.print_info("Clicking Network Drop Down Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_network_dropdown())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_network_dropdown)
 
         self.utils.print_info("Selecting the Network")
         # Current implementation for 'All Networks'
@@ -279,10 +278,10 @@ class Onboarding(object):
         sleep(3)
 
         self.utils.print_info("Clicking Save Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_button())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_button)
 
         self.utils.print_info("Clicking OK Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_ok_button())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_ok_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -311,21 +310,20 @@ class Onboarding(object):
         """
         self.go_to_configure_onboarding_policy_tab()
         self.utils.print_info("Clicking existing name")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_name_add_rule_existing())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_name_add_rule_existing)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking the add policy icon ")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_rule_existing())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_rule_existing)
         sleep(2)
         AutoActions.scroll_down(self)
         AutoActions.scroll_down(self)
         sleep(2)
         self.utils.print_info("Clicking Criteria Condition Drop Down Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_existing())
-        sleep(2)
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_existing)
         self.utils.print_info("Selecting the Criteria condition")
         self.auto_actions.select_drop_down_options(
             self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_items(), condition_type)
@@ -336,15 +334,15 @@ class Onboarding(object):
                                         condition_value)
         sleep(2)
         self.utils.print_info("Clicking Action Drop Down Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_action_dropdown_existing())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_action_dropdown_existing)
 
         self.utils.print_info("Selecting the Action")
         self.auto_actions.select_drop_down_options(
             self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_action_dropdown_items(), action_type)
         AutoActions.scroll_down(self)
         self.utils.print_info("Clicking Group Drop Down Button")
-        self.auto_actions.click(
-            self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_group_select_dropdown_existing())
+        self.auto_actions.click_reference(
+            self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_group_select_dropdown_existing)
         self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Selecting the Group")
@@ -353,8 +351,8 @@ class Onboarding(object):
 
         if ('User' in action_type) or ('Approval' in action_type):
             self.utils.print_info("Clicking User Notification Drop Down Button")
-            self.auto_actions.click(
-                self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown())
+            self.auto_actions.click_reference(
+                self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown)
 
             self.utils.print_info("Selecting the User Notification")
             self.auto_actions.select_drop_down_options(
@@ -362,8 +360,8 @@ class Onboarding(object):
 
         if 'Sponsor' in action_type:
             self.utils.print_info("Clicking Sponsor Notification Drop Down Button")
-            self.auto_actions.click(
-                self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown())
+            self.auto_actions.click_reference(
+                self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown)
 
             self.utils.print_info("Selecting the Sponsor Notification")
             self.auto_actions.select_drop_down_options(
@@ -371,10 +369,10 @@ class Onboarding(object):
         self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Clicking Save Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_button())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_button)
         sleep(2)
         self.utils.print_info("Clicking OK Button")
-        self.auto_actions.click(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button())
+        self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button)
 
         self.screen.save_screen_shot()
         sleep(2)

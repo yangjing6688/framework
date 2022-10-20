@@ -424,3 +424,63 @@ class DeviceActionsDefs:
             'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-dt-revert-template"]',
             'wait_for': 5
         }
+
+    clone_device_btn = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-clone-device"]',
+            'wait_for': 2
+        }
+
+    replacement_device_dropdown = \
+        {
+            'XPATH': '//*[contains(@class,"field-replDevice")]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    replacement_device_items = \
+        {
+            'XPATH': '//*[@class="dgrid-cell dgrid-column-4 field-replDevice overflow-visible w130"]//li',
+            'wait_for': 2
+        }
+
+    replacement_serial_number_dropdown = \
+        {
+            'XPATH': '//*[contains(@class,"field-replacementSerialNumber")]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    replacement_serial_number_items = \
+        {
+            'XPATH': '//*[@class="dgrid-cell dgrid-column-5 field-replacementSerialNumberOb overflow-visible w220"]//li',
+            'wait_for': 2
+        }
+
+    clone_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-device"]',
+            'wait_for': 2
+        }
+
+    yes_confirmation_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 2
+        }
+
+    loading_clone_configuration = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-loading-div"]',
+            'wait_for': 2
+        }
+
+    warning_message_disconnected = \
+        {
+            'XPATH': '//*[contains(text(), "disconnected or in the unmanaged state.")]',
+            'wait_for': 2
+        }
+
+    cancel_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-cancel"]',
+            'wait_for': 2
+        }

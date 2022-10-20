@@ -79,7 +79,7 @@ class XIQSE_ControlPolicyDomainAssignDevice(ControlPolicyDomainAssignDeviceWebEl
                 self.utils.print_info(f"Device '{device_ip}' is either not created in XIQ-SE, an unsupported Policy Mgr device, "
                                       "or it is already added to the current Policy domain.")
                 self.screen.save_screen_shot()
-                self.auto_actions.click(self.get_assign_cancel_button())
+                self.auto_actions.click_reference(self.get_assign_cancel_button)
         else:
             self.utils.print_info("Unable to locate 'All Devices' node in the Devices tree "
                                   "in Assign Device(s) to Domain window.")
@@ -99,7 +99,7 @@ class XIQSE_ControlPolicyDomainAssignDevice(ControlPolicyDomainAssignDeviceWebEl
             if add_disabled == 'true':
                 self.utils.print_info("The Add (or '>') button is disabled in the Assign Device(s) to Domain window.")
                 # Close the Assign Device(s) to Domain window
-                self.auto_actions.click(self.get_assign_cancel_button())
+                self.auto_actions.click_reference(self.get_assign_cancel_button)
             else:
                 self.utils.print_info("clicking Add (or '>') button in the Assign Device(s) to Domain window.")
                 self.auto_actions.click(add_bttn)

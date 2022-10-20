@@ -77,7 +77,7 @@ class ClientMode:
             return 1
 
         try:
-            CloudDriver().cloud_driver.quit()
+            CloudDriver().close_browser()
             self.utils.print_info("Resetting cloud driver to -1")
             return 1
         except Exception as e:

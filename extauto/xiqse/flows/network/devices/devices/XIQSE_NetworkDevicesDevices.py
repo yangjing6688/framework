@@ -1736,7 +1736,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.screen.save_screen_shot()
 
         self.utils.print_info("Closing Column Selection Menu")
-        self.auto_actions.click(self.devices_tab.xiqse_devices_select_devices_tab())
+        self.auto_actions.click_reference(self.devices_tab.xiqse_devices_select_devices_tab)
 
         return ret_val
 

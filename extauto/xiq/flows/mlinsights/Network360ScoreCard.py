@@ -30,11 +30,11 @@ class Network360ScoreCard:
         """
         try:
             self.utils.print_info("Clicking on ML Insights button")
-            self.auto_actions.click(self.ml_insights.get_ml_insights_button())
+            self.auto_actions.click_reference(self.ml_insights.get_ml_insights_button)
             sleep(2)
 
             self.utils.print_info("Clicking on ML Insights Score Card button")
-            self.auto_actions.click(self.ml_insights.get_n360_scorecard_button())
+            self.auto_actions.click_reference(self.ml_insights.get_n360_scorecard_button)
             sleep(3)
             return 1
         except Exception as e:
