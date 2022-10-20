@@ -21,7 +21,7 @@ class GlobalSearch:
         self.global_web_elements = GlobalSearchWebElements()
         self.devices_web_elements = DevicesWebElements()
 
-    def global_search(self, search_value, category, expect_result=""):
+    def global_search(self, search_value, category, expect_result="", **kwargs):
         """
         - This Keyword searches given search string info in global search
         - Flow : Click Global search Box--> Search String
@@ -74,6 +74,8 @@ class GlobalSearch:
             self.screen.save_screen_shot()
             sleep(2)
             self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
+            kwargs['fail_msg'] = "Value was not found"
+            self.commonValidation.failed(**kwargs)
             return -1
         return matched_val
 
