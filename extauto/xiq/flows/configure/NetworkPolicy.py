@@ -268,9 +268,6 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -2
 
-        import sys, pdb;
-        pdb.Pdb(stdout=sys.__stdout__).set_trace()
-
         # Get the total pages
         pages = self.common_objects.cobj_web_elements.get_page_numbers()
         select_flag = None
