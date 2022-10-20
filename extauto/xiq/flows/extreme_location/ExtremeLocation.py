@@ -1235,7 +1235,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Save Button of Third party Ibeacon")
-        self.auto_actions.click(self.get_xloc_ibeacon_save())
+        self.auto_actions.click_reference(self.get_xloc_ibeacon_save)
         sleep(2)
 
         self.screen.save_screen_shot()
