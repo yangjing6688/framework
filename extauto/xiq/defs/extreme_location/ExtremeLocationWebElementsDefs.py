@@ -146,90 +146,6 @@ class ExtremeLocationWebElementsDefs:
             'wait_for': 5
         }
 
-    xloc_search_name_field = \
-        {   'XPATH': '//input[@id="allcolumnssearch-1641-inputEl"]',
-            'wait_for': 5
-        } 
-
-    common_object_grid_rows = \
-        {
-            'XPATH': "//tr[@class='  x-grid-row']//td[2]",
-            'wait_for': 3
-        }
-    
-    common_object_grid_ap_status = \
-        {
-            'XPATH': "//tr[@class='  x-grid-row']//td[10]",
-            'wait_for': 3
-        }
-    
-    view_ibeacon_details_button = \
-        {
-            'XPATH': '//*[contains(@class, "xloc-third-party-beacon-grid-row-action-view")]',
-            'wait_for': 3
-        }
-    
-    xloc_third_party_beacon_edit_button = \
-        {
-            'XPATH': '//*[contains(@class, "x-btn xloc-third-party-beacon-edit")]',
-            'wait_for': 3
-        }
-    
-    xloc_third_party_beacon_settings = \
-        {
-            'XPATH': '//*[contains(@class, "xloc-third-party-beacon-settings-nav")]',
-            'wait_for': 3 
-        }
-    
-    xloc_third_party_beacon_uuid_text = \
-        {
-            'XPATH': '//*[contains(@class,"xloc-third-party-beacon-uuid-text")]//*[contains(@class,"x-form-required-field")]',
-            'wait_for': 3
-        }
-
-    xloc_third_party_beacon_major_minor_version = \
-        {
-            'XPATH': '//*[contains(@class,"xloc-third-party-beacon-uuid-minor-version-txt")]//*[contains(@class,"x-form-required-field")]',
-            'wait_for': 3
-        }
-
-    xloc_third_party_beacon_save_btn = \
-        {
-            'XPATH': '//*[contains(@class,"xloc-third-party-beacon-save-btn")]',
-            'wait_for': 3
-        }
-
-    xloc_third_party_major_minor_error_message = \
-        {
-            'XPATH': "//div[contains(., 'Invalid UUID Major and Minor Version')]",
-            'wait_for': 2
-        }
-
-    xloc_third_party_success_message = \
-        {
-            'XPATH': "//div[contains(., 'Beacon details updated successfully')]",
-            'wait_for': 2
-        }
-    
-    xloc_third_party_beacon_delete_button = \
-        {
-            'XPATH': '//*[contains(@class,"xloc-third-party-beacon-grid-row-action-delete")]',
-            'wait_for': 2
-        }
-    xloc_third_party_beacon_confirm_button = \
-        {
-            'XPATH': '//*[text()="Yes"]',
-            'wait_for': 2
-
-        }
-    xloc_third_party_beacon_download_button = \
-        {
-            'XPATH': '(//*[contains(@class,"xloc-third-party-beacon-grid-download-btn")])[2]',
-            'wait_for': 2
-
-        }
-
-    
     extreme_location_sites_menu_dropdown_items = \
         {
             'CSS_SELECTOR': '.x-boundlist-item',
@@ -590,25 +506,6 @@ class ExtremeLocationWebElementsDefs:
             'wait_for': 5
         }
 
-    
-    xloc_uuid_name = \
-        {
-            'XPATH': '//*[contains(@class,"x-field xloc-third-party-beacon-uuid-text")]//*[contains(@class, "x-form-field x-form-empty-field")]',
-            'wait_for': 5
-        }
-
-    xloc_major_version = \
-        {
-            'XPATH': '(//*[contains(@class, "x-field xloc-third-party-beacon-uuid-major-version-txt")]//*[contains(@class, "x-form-field x-form-empty-field")])[1]',
-            'wait_for': 5
-        }
-
-    xloc_minor_version = \
-        {
-            'XPATH': '(//*[contains(@class, "x-field xloc-third-party-beacon-uuid-minor-version-txt")]//*[contains(@class, "x-form-field x-form-empty-field")])[1]',
-            'wait_for': 5
-        }
-
     xloc_ibeacon_site_dropdown = \
         {
             'XPATH': '//*[contains(@class,"xloc-third-party-beacon-site-db")]//*[@class="select2-selection__arrow"]',
@@ -912,20 +809,20 @@ class ExtremeLocationWebElementsDefs:
 
     click_asset_category_add = \
         {
-            'XPATH': '(//*[contains(@class,"x-btn-inner x-btn-inner-e-tbar-p-btn-circular-toolbar-small")])[5]',
+            'XPATH': '//span[@id="button-1545-btnEl"]',
             'wait_for': 5
         }
 
     click_asset_category_name = \
         {
-            'XPATH': '(//*[contains(@class,"x-form-field x-form-required-field x-form-text x-form-text-default  x-form-empty-field x-form-empty-field-default x-form-invalid-field x-form-invalid-field-default")])',
+            'XPATH': '//input[@id="textfield-1407-inputEl"]',
             'wait_for': 5
         }
 
 
     click_asset_category_save = \
         {
-            'XPATH': '(//*[contains(@class,"x-btn-inner x-btn-inner-e-tbar-p-btn-flat-toolbar-small")])[3]',
+            'XPATH': '//span[@id="button-1548-btnEl"]',
             'wait_for': 5
         }
 
@@ -937,12 +834,12 @@ class ExtremeLocationWebElementsDefs:
 
     click_asset_category_site_edit = \
         {
-            'XPATH': '(//*[@class="x-btn-inner x-btn-inner-e-tbar-p-btn-circular-toolbar-small"])[6]',
+            'XPATH': '//span[@id="button-1546-btnEl"]',
             'wait_for': 5
         }
 
     click_asset_category_site_map = \
         {
-            'XPATH': '(//span[contains(text(), "Map Site")])[2]',
+            'XPATH': '//span[@id="button-1479-btnInnerEl"]',
             'wait_for': 5
         }

@@ -133,24 +133,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return 1
 
-    def _search_common_object(self, search_string):
-        """
-        Search the passed search string object in grid rows
-        :param search_string:
-        :return:
-        """
-        self.utils.print_info("Entering the Ibeacon Name in search field: ", search_string)
-        self.auto_actions.click(self.get_xloc_search_name_field())
-        self.auto_actions.send_keys(self.get_xloc_search_name_field(), search_string)
-        sleep(2)
-        passed_value = self.get_common_object_grid_rows()
-        pass1 = passed_value.text
-        if pass1 == search_string:
-            self.screen.save_screen_shot()
-            return passed_value
-        self.utils.print_info(f"common object row {search_string} not present")
-        return False
-
     def go_to_extreme_location_category_menu(self):
         """
         -This keyword Will Navigate to Category Menu on Extreme Location Page
@@ -1180,7 +1162,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return 1
 
-    def create_xloc_third_party_ibeacon(self, ibeacon_name, uuid_name, xloc_site_name, as_category_name, ibeacon_mac_address, major_version="", minor_version=""):
+    def create_xloc_third_party_ibeacon(self, ibeacon_name, xloc_site_name, as_category_name, ibeacon_mac_address):
         """
         -This keyword Will create third party ibeacon on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Beacons->Onboard Third Party Ibeacon
@@ -1252,180 +1234,16 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.auto_actions.send_keys(self.get_xloc_ibeacon_ibeacon_mac_address(), ibeacon_mac_address_formatted)
         sleep(2)
 
-        self.utils.print_info("Entering the UUID Name: ", uuid_name)
-        self.auto_actions.click(self.get_xloc_uuid_name())
-        self.auto_actions.send_keys(self.get_xloc_uuid_name(), uuid_name)
-        sleep(2)
-        
-        self.utils.print_info("Entering the Major version: ", major_version)
-        self.auto_actions.send_keys(self.get_xloc_major_version(), major_version)
-        sleep(2)
-
-        self.utils.print_info("Entering the Minor version: ", minor_version)
-        self.auto_actions.send_keys(self.get_xloc_minor_version(), minor_version)
-        sleep(2)
-
         self.utils.print_info("Clicking Save Button of Third party Ibeacon")
+        self.auto_actions.click(self.get_xloc_ibeacon_save())
         sleep(2)
 
-        self.utils.print_info("Search grid based on ibeacon mac address in search filter")
-        self.utils.print_info("Entering search_string for ibeacon mac address  ", ibeacon_mac_address)
-        
-        self.auto_actions.click(self.get_xloc_search_name_field())
-        self.auto_actions.send_keys(self.get_xloc_search_name_field(), ibeacon_mac_address)
-        sleep(2)
-
-        self.utils.print_info("clicking view ibeacon details button")
-        self.auto_actions.click(self.get_view_ibeacon_details_button())
-
-        sleep(2)
-        self.utils.print_info("clicking xloc third party beacon edit button")
-        self.auto_actions.click(self.get_xloc_third_party_beacon_edit_button())
-
-        sleep(2)
-        self.utils.print_info("clicking xloc third party beacon edit settings")
-        self.auto_actions.click(self.get_xloc_third_party_beacon_settings())
-        self.screen.save_screen_shot()
-
-        sleep(2)
-        self.utils.print_info("Entering the UUID Name: ", uuid_name)
-        self.auto_actions.click(self.get_xloc_third_party_beacon_uuid_text())
-        self.auto_actions.send_keys(self.get_xloc_third_party_beacon_uuid_text(), uuid_name)
-        self.screen.save_screen_shot()
-        sleep(2)
-        self.utils.print_info("Entering Major and Minor Version: ", major_version, minor_version)
-        a = (str(major_version),str(minor_version))
-        Formatted_major_minor_Value = ":".join(a)
-        self.auto_actions.click(self.get_xloc_third_party_beacon_major_minor_version())
-        self.auto_actions.send_keys(self.get_xloc_third_party_beacon_major_minor_version(),Formatted_major_minor_Value)
-        self.screen.save_screen_shot()
-        
-        sleep(2)
-        self.utils.print_info("clicking xloc third party beacon save settings")
-        self.auto_actions.click(self.get_xloc_third_party_beacon_save_btn())
-        self.screen.save_screen_shot()
-        
-        self.utils.print_info("verifying configuration sucessfully save")
-        if self.get_xloc_third_party_success_message().is_displayed():
-            self.screen.save_screen_shot()
-            sleep(2)
-            self.utils.print_info("configuration sucessfully saved")
-            return 1
-        else:
-            self.utils.print_info("configuration not saved sucessfully")
-            return -1
-    
-    
-    def delete_ibeacon_in_xloc(self, ibeacon_mac_address):
-
-        """
-        - delete_ibeacon_in_xloc
-        - Flow : Extreme Location--> More Insights-->
-        - Keyword Usage:
-        - ``Delete ibeacon in xloc    ${IBEACON_MAC_ADDRESS}``
-        
-        :return: 1 if successfully Deleted
-        """
-
-        self.go_to_extreme_location_beacons_menu()
-        sleep(2)
-        self.utils.print_info("Search grid based on ibeacon mac address in search filter")
-        self.utils.print_info("Entering search_string for ibeacon mac address  ", ibeacon_mac_address)
-        
-        self.auto_actions.click(self.get_xloc_search_name_field())
-        self.auto_actions.send_keys(self.get_xloc_search_name_field(), ibeacon_mac_address)
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.utils.print_info("Checking xloc ibeacon mac address in Grid")
-        if self._search_common_object(ibeacon_mac_address):
-            self.utils.print_info(f"third party ibeacon {ibeacon_mac_address} is avaliable")
-        
-        else:
-            self.utils.print_info("third party ibeacon is not avaliable")
-            return -1
-        
-        self.utils.print_info("Clicking Delete Button")
-        self.screen.save_screen_shot()
-        self.auto_actions.click(self.get_xloc_third_party_beacon_delete_button())
-
+        self.utils.print_info("Successfully Created Third Party Ibeacon", ibeacon_name)
         sleep(2)
-        self.utils.print_info("Clicking Confirm Button")
-        self.screen.save_screen_shot()
-        self.auto_actions.click(self.get_xloc_third_party_beacon_confirm_button())
-        sleep(2)
-        self.screen.save_screen_shot()
 
-        try:
-            if self._search_common_object(ibeacon_mac_address):
-                self.utils.print_info(f"third party ibeacon {ibeacon_mac_address} is avaliable")
-                self.screen.save_screen_shot()
-                return -1
-        except:
-            self.utils.print_info("third party ibeacon is not avaliable")
-            self.screen.save_screen_shot()
-            return 1
-    
-    def get_ibeacon_status(self, ibeacon_mac_address):
-
-        """
-        - get_ibeacon_status
-        - Flow : Extreme Location--> More Insights-->
-        - Keyword Usage:
-        - ``Get ibeacon Status       ${IBEACON_MAC_ADDRESS}``
-
-        :return: status of ibeacon(Online or Offline)
-        """
-        
-        # self.go_to_extreme_location_beacons_menu()
-        # sleep(2)
-
-        self.utils.print_info("Getting the status of ibeacon") 
-        count = 1
-        retry_duration = 10
-        while True:
-            try:
-                while count <= 5:
-                    self.utils.print_info(f"Ibeacon Online Status Check - Loop: ", count)
-                    get_status_value  = self.get_common_object_grid_ap_status()
-                    get_status_value = get_status_value.text
-                    self.utils.print_info("",get_status_value)
-                    if get_status_value == "Online":
-                        self.screen.save_screen_shot()
-                        self.utils.print_info(f"Ibeacon in Online State")
-                        return 1
-                    else:
-                        self.utils.print_info(f"Waiting for {retry_duration} seconds...")
-                        sleep(retry_duration)
-                    count += 1
-                break
-            except:
-                pass
-        self.screen.save_screen_shot()
-        self.utils.print_info(f"Ibeacon in Offline State")
-        return -1
-
-    def download_ibeacon_report(self):
-
-        """
-        - download_ibeacon_report
-        - Flow : Extreme Location--> More Insights-->
-        - Keyword Usage:
-        - ``Download ibeacon report``
-
-        :return: Download ibeacon report
-        """
-        
-        self.go_to_extreme_location_beacons_menu()
-        sleep(2)
-        self.utils.print_info("downloading ibeacon report")
-        self.utils.print_info("Clicking Download button")
-        self.screen.save_screen_shot()
-        self.auto_actions.click(self.get_xloc_third_party_beacon_download_button())
-        sleep(2)
-        self.open_new("chrome://downloads/")
-        sleep(2)
-        self.screen.save_screen_shot()
         return 1
 
     def create_time_based_device_classification_rule(self, user_type, visiting_hours="", visiting_minutes=""):
@@ -1954,34 +1772,3 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         return 1
-
-    def go_back_to_xloc(self):
-        """
-        -This keyword Will Navigate back to XIQ Window
-        - Keyword Usage:
-            ''Go Back To Xiq''
-
-        :return: 1 if success
-        """
-        self.utils.print_info("Switch to XIQ Window")
-        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
-
-        return 1
-
-    def switch_to_extreme_location_window(self, win_index=1):
-        """
-        - Switches to the specified window
-
-        :param:  win_index - Index of the window to switch to
-        :return: None
-        """
-        CloudDriver().switch_to_window(win_index)
-
-    def close_extreme_location_window(self, win_index=1):
-        """
-        - Closes the specified window
-
-        :param:  win_index - Index of the window to close
-        :return: None
-        """
-        CloudDriver().close_window(win_index)
