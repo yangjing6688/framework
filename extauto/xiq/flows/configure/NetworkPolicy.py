@@ -268,43 +268,48 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -2
 
+        import sys, pdb;
+        pdb.Pdb(stdout=sys.__stdout__).set_trace()
+
         # Get the total pages
         pages = self.common_objects.cobj_web_elements.get_page_numbers()
         select_flag = None
         if pages.is_displayed():
             last_page = int(pages.text[-1])
-            page_counter = 0
+            page_counter = 1
             self.utils.print_info(f"There are {last_page} page(s) to check")
             while page_counter < last_page:
                 for policy in policies:
                     if self._search_network_policy_in_list_view(policy) == 1:
                         self.utils.print_info("Select Network policy row")
                         self.select_network_policy_row(policy)
+                        self.screen.save_screen_shot()
+                        self._perform_np_delete()
+                        self.screen.save_screen_shot()
                         select_flag = True
                         sleep(1)
-                        break
                     else:
-                        self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
-
-                if select_flag:
-                    # we found what we were looking for, so exit
-                    break
+                        self.utils.print_info(f"Network policy {policy} doesn't exist in page {page_counter + 1}")
 
                 # goto the next page
                 page_counter += 1
-                self.utils.print_info(f"Move to next page {page_counter}")
+                self.utils.print_info(f"Move to next page {page_counter + 1}")
                 self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
+                self.screen.save_screen_shot()
                 sleep(5)
         else:
             for policy in policies:
                 if self._search_network_policy_in_list_view(policy) == 1:
                     self.utils.print_info("Select Network policy row")
                     self.select_network_policy_row(policy)
+                    self.screen.save_screen_shot()
+                    self._perform_np_delete()
+                    self.screen.save_screen_shot()
                     select_flag = True
                     sleep(1)
-                    break
                 else:
                     self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
+                    self.screen.save_screen_shot()
 
         if not select_flag:
             kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
@@ -312,7 +317,6 @@ class NetworkPolicy(object):
             return 1
 
         self.screen.save_screen_shot()
-        self._perform_np_delete()
         
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
