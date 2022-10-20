@@ -220,7 +220,7 @@ class Login:
                 page_still_loading = False
                 self.utils.print_info("Page is loaded successfully")
 
-        if self.login_web_elements.get_admin_portal_page():
+        if self.login_web_elements.get_admin_portal_page().is_displayed():
             account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
             self.utils.print_info(f"Selecting the Account Name {account_name} in Admin Portal")
 
