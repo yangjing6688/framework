@@ -1164,7 +1164,7 @@ class Device360WebElementDefs:
 
     device360_ports_each_asic_port_group_stack = \
         {
-            'XPATH': './/div[contains(@data-automation-tag, "automation-port-${slot}")]git diff ',
+            'XPATH': './/div[contains(@data-automation-tag, "automation-port-${slot}")]',
             'wait_for': 5
         }
 
