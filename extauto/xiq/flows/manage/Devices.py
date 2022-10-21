@@ -16,7 +16,6 @@ from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.flows.common.Login import Login
-from robot.utils.asserts import assert_equal
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
@@ -31,7 +30,6 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
-
 
 class Devices:
     def __init__(self):
