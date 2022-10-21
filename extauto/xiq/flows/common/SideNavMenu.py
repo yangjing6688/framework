@@ -40,7 +40,7 @@ class SideNavMenu(NavigatorWebElements):
         """
         return self.get_side_nav_panel_2_menu_order_number(menu_item_tag)
 
-    def is_nav_menu_item_visible(self, tag):
+    def is_nav_menu_item_visible(self, tag, **kwargs):
         """
         - This Keyword checks if the specified nav menu item is visible
         - Keyword Usage:
@@ -197,12 +197,14 @@ class SideNavMenu(NavigatorWebElements):
                 if self.get_vpn_management_tab().is_displayed():
                     return 1
 
+            kwargs['fail_msg'] = "Nav Menu Item not Visible"
+            self.common_validation.failed(**kwargs)
             return -1
 
         except Exception as e:
             return -1
 
-    def is_nav_menu_item_enabled(self, tag):
+    def is_nav_menu_item_enabled(self, tag, **kwargs):
         """
         - This Keyword checks if the specified nav menu item is enabled
         - Keyword Usage:
@@ -334,9 +336,11 @@ class SideNavMenu(NavigatorWebElements):
             if self.get_vpn_management_tab().is_enabled():
                 return 1
 
+        kwargs['fail_msg'] = "Nav Menu Item is not Enabled"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def has_main_nav_tab_the_expected_image(self, tab_tag, expected_class):
+    def has_main_nav_tab_the_expected_image(self, tab_tag, expected_class, **kwargs):
         """
         - This Keyword checks if the expected class of the specified main nav tab exists
         - Keyword Usage:
@@ -369,9 +373,11 @@ class SideNavMenu(NavigatorWebElements):
             if expected_class in self.get_a3_tab_img_class():
                 return 1
 
+        kwargs['fail_msg'] = "The expected class of the specified main nav tab does not exists"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def is_the_expected_url(self, expected_url):
+    def is_the_expected_url(self, expected_url, **kwargs):
         """
         - This Keyword checks if the expected url of the specified main nav tab is loaded
         - Keyword Usage:
@@ -383,4 +389,6 @@ class SideNavMenu(NavigatorWebElements):
         if expected_url in CloudDriver().cloud_driver.current_url:
             return 1
 
+        kwargs['fail_msg'] = "The expected url of the specified main nav tab is not loaded"
+        self.common_validation.failed(**kwargs)
         return -1

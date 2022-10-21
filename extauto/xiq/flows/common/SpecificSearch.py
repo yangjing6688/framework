@@ -36,7 +36,7 @@ class SpecificSearch:
             self.utils.print_debug(e)
             return -1
 
-    def application_specific_search(self, info):
+    def application_specific_search(self, info, **kwargs):
         """
          - searches information specific to application in Application page
          :return: 1 if successfully Search information about specific Application else -1
@@ -54,10 +54,14 @@ class SpecificSearch:
             if info == result:
                 return 1
             else:
+                kwargs['fail_msg'] = f"Info message: '{info}' does not match the result message: '{result}'"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         except Exception as e:
             self.utils.print_info(e)
+            kwargs['fail_msg'] = f"Error message: '{e}'"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def warning_search_close_window(self, info):
@@ -74,7 +78,11 @@ class SpecificSearch:
                 sleep(5)
                 return 1
             else:
+                kwargs['fail_msg'] = f"Info message: '{info}' does not match the result message: '{result}'"
+                self.common_validation.failed(**kwargs)
                 return -1
         except Exception as e:
             self.utils.print_info(e)
+            kwargs['fail_msg'] = f"Error message: '{e}'"
+            self.common_validation.failed(**kwargs)
             return -1

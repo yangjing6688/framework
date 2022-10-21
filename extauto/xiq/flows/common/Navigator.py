@@ -16,7 +16,7 @@ class Navigator(NavigatorWebElements):
         self.device_common = DeviceCommon()
         self.common_validation = CommonValidation()
 
-    def navigate_to_manage_tab(self):
+    def navigate_to_manage_tab(self, **kwargs):
         """
          - This keyword Navigates to Manage Tab
          - Keyword Usage
@@ -35,14 +35,18 @@ class Navigator(NavigatorWebElements):
             else:
                 self.screen.save_screen_shot()
                 self.utils.print_info("Even though already click manage tab, but can NOT go to subtab nav, stop NOT go to next step")
+                kwargs['fail_msg'] = "Even though already click manage tab, but can NOT go to subtab nav, stop NOT go to next step"
+                self.commonValidation.failed(**kwargs)
                 return -1
 
         else:
             self.utils.print_info("Unable to navigate to Manage tab")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Manage tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_ml_insight_tab(self):
+    def navigate_to_ml_insight_tab(self, **kwargs):
         """
          - This keyword Navigates to ML Insight tab
          - Keyword Usage
@@ -57,9 +61,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to ML Insight tab")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to ML Insight tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_configure_tab(self):
+    def navigate_to_configure_tab(self, **kwargs):
         """
          - This keyword Navigates to configure tab
          - Keyword Usage
@@ -74,9 +80,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Configure tab")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Configure tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_tools_sub_tab(self):
+    def navigate_to_tools_sub_tab(self, **kwargs):
         """
          - This keyword Navigates to Tools Sub tab on Monitor Tab
          - Keyword Usage
@@ -91,6 +99,8 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Tools tab")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Tools tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def navigate_to_auto_provision(self):
@@ -144,8 +154,12 @@ class Navigator(NavigatorWebElements):
                 else:
                     self.utils.print_info("Unable to navigate to Devices tab")
                     self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "Unable to navigate to Devices tab"
+                    self.commonValidation.failed(**kwargs)
                     return -1
             else:
+                kwargs['fail_msg'] = "Manage page is not present"
+                self.commonValidation.failed(**kwargs)
                 return -1
 
     def navigate_to_ssids(self):
@@ -186,7 +200,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_device_utilities_tools()
 
 
-    def navigate_configure_network_policies(self):
+    def navigate_configure_network_policies(self, **kwargs):
         """
          - This keyword Navigates to Network Policies On Configure Menu
          - Flow Configure--> Network Policies
@@ -200,6 +214,8 @@ class Navigator(NavigatorWebElements):
             self.navigate_to_configure_tab()
             sleep(2)
         else:
+            kwargs['fail_msg'] = "Configure tab is not displayed"
+            self.commonValidation.failed(**kwargs)
             return -2
 
         return self.navigate_to_network_policies_tab()
@@ -248,6 +264,8 @@ class Navigator(NavigatorWebElements):
         if network_policy_tab_display:
             return 1
         else:
+            kwargs['fail_msg'] = "Navigation to Network Policies On Configure Menu was not successful"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def navigate_to_clients_tab(self, **kwargs):
@@ -270,7 +288,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def navigate_to_clients(self):
+    def navigate_to_clients(self, **kwargs):
         """
         - This keyword Navigates to Clients On Manage Menu
         - Flow: Manage --> Client 360
@@ -288,8 +306,12 @@ class Navigator(NavigatorWebElements):
             else:
                 self.utils.print_info("Unable to navigate to Client 360 tab")
                 self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "Unable to navigate to Client 360 tab"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "Unable to navigate to Manage tab"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def navigate_to_client_mode_profiles(self):
@@ -340,7 +362,7 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to global settings")
             kwargs['fail_msg'] = "Unable to navigate to global settings"
-            self.common_validation.passed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def navigate_to_configure_user_sub_tab(self):
@@ -358,6 +380,8 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to the Configure Users sub tab")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to global settings"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def navigate_to_global_settings_page(self):
@@ -396,7 +420,7 @@ class Navigator(NavigatorWebElements):
 
         return 1
 
-    def navigate_to_authentication_logs_menu(self):
+    def navigate_to_authentication_logs_menu(self, **kwargs):
         """
         - This keyword Navigate to the Authentication Logs Slider Menu
         - Flow: Authentication Logs
@@ -413,9 +437,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Authentication Logs")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Authentication Logs"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_accounting_logs_menu(self):
+    def navigate_to_accounting_logs_menu(self, **kwargs):
         """
         - This keyword Navigate to the Accounting Logs Slider Menu
         - Flow: Accounting Logs
@@ -431,6 +457,8 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Accounting Logs")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Accounting Logs"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def navigate_to_authentication_logs(self):
@@ -610,7 +638,7 @@ class Navigator(NavigatorWebElements):
 
         return 1
 
-    def navigate_to_security_option(self):
+    def navigate_to_security_option(self, **kwargs):
         """
         - This Keyword Navigate to the Security option on Monitor Tab
         - Flow: Security
@@ -626,9 +654,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to Security on Monitor Page")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to Security on Monitor Page"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_manage_security(self):
+    def navigate_manage_security(self, **kwargs):
         """
         - This Keyword Navigate to Manage --> Security
         - Flow: Manage--->Security
@@ -640,6 +670,8 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_manage_tab() == 1:
             return self.navigate_to_security_option()
         else:
+            kwargs['fail_msg'] = "Unable to navigate to Manage tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def navigate_to_common_object_security_tab(self):
@@ -1020,7 +1052,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         return self.device_common.goto_device360_with_client(device_serial)
 
-    def navigate_to_device_cli_access(self, device_serials=''):
+    def navigate_to_device_cli_access(self, device_serials='', **kwargs):
         """
         - This keyword is used to navigate to single/multiple device cli access window
         - Flow:
@@ -1036,6 +1068,8 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_devices()
         if self.device_common.select_device_rows(device_serials) == -1:
+            kwargs['fail_msg'] = f"Unable to select device row with serial: {device_serials}"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Click on Device Actions Button")
@@ -1054,7 +1088,7 @@ class Navigator(NavigatorWebElements):
             sleep(5)
         return 1
 
-    def navigate_to_device_utilities_status(self):
+    def navigate_to_device_utilities_status(self, **kwargs):
         """
         - This keyword is used to navigate to utilities status menu
         - Assumes that already navigated to the Manage --> Device page
@@ -1069,6 +1103,8 @@ class Navigator(NavigatorWebElements):
                 sleep(2)
             else:
                 self.utils.print_info("Unable to click on Utilities Button due to being disabled")
+                kwargs['fail_msg'] = "Unable to click on Utilities Button due to being disabled"
+                self.commonValidation.failed(**kwargs)
                 return -1
 
         self.utils.print_info("Hovering over Status Menu Item")
@@ -1077,11 +1113,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to hover over Status Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to hover over Status Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_status_interface(self, device_serial=''):
+    def navigate_to_status_interface(self, device_serial='', **kwargs):
         """
         - This Keyword navigates to device Status Interface window
         - Navigate to Manage --> Device
@@ -1097,6 +1135,8 @@ class Navigator(NavigatorWebElements):
         self.device_common.select_device_row(device_serial)
 
         if self.navigate_to_device_utilities_status() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Utilities --> Status"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Interface")
@@ -1105,7 +1145,7 @@ class Navigator(NavigatorWebElements):
         sleep(5)
         return 1
 
-    def navigate_to_advance_channel_selection(self, device_serial=''):
+    def navigate_to_advance_channel_selection(self, device_serial='', **kwargs):
         """
         - This Keyword navigates to device advanced channel selection window
         - Navigate to Manage --> Device
@@ -1121,6 +1161,8 @@ class Navigator(NavigatorWebElements):
         self.device_common.select_device_row(device_serial)
 
         if self.navigate_to_device_utilities_status() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Utilities --> Status"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Advance Channel Selection")
@@ -1129,7 +1171,7 @@ class Navigator(NavigatorWebElements):
         sleep(5)
         return 1
 
-    def navigate_to_wifi_status_summary(self, device_serial=''):
+    def navigate_to_wifi_status_summary(self, device_serial='', **kwargs):
         """
         - This Keyword navigates to  device Status Interface window
         - Navigate to Manage --> Device
@@ -1145,6 +1187,8 @@ class Navigator(NavigatorWebElements):
         self.device_common.select_device_row(device_serial)
 
         if self.navigate_to_device_utilities_status() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Utilities --> Status"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Wifi Status Summary")
@@ -1248,7 +1292,7 @@ class Navigator(NavigatorWebElements):
         sleep(5)
         return 1
 
-    def navigate_to_onboard_tab(self):
+    def navigate_to_onboard_tab(self, **kwargs):
         """
          - This keyword Navigates to Onboard Tab
          - Keyword Usage
@@ -1263,6 +1307,8 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Onboard tab")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Onboard tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def navigate_to_common_object_user_profile(self):
@@ -1771,7 +1817,7 @@ class Navigator(NavigatorWebElements):
 
         return 1
 
-    def navigate_manage_application(self):
+    def navigate_manage_application(self, **kwargs):
         """
         - Navigate to the MANAGE->Application
         - Flow: Manage --> application
@@ -1792,9 +1838,11 @@ class Navigator(NavigatorWebElements):
             return 1
         except Exception as e:
             self.utils.print_info("Unable to Navigate to  Manage--> Application")
+            kwargs['fail_msg'] = "Unable to Navigate to  Manage--> Application"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_manage_events(self):
+    def navigate_manage_events(self, **kwargs):
         """
         - Navigate to the MANAGE->EVENTS
         - Flow: Manage --> Events
@@ -1817,6 +1865,8 @@ class Navigator(NavigatorWebElements):
 
         except Exception as e:
             self.utils.print_info("Unable to Navigate to Events ", e)
+            kwargs['fail_msg'] = f"Unable to Navigate to Events: {e} "
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def navigate_configure_users(self):
@@ -1839,7 +1889,7 @@ class Navigator(NavigatorWebElements):
         sleep(2)
         return 1
 
-    def navigate_to_account_mgmt(self):
+    def navigate_to_account_mgmt(self, **kwargs):
         """
         - Navigate to the USER ACCOUNT-> Global settings > Account Management
         - Flow: USER ACCOUNT-> Global settings > Account Management
@@ -1857,9 +1907,11 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click(account_mgmt_ele)
             return 1
         else:
+            kwargs['fail_msg'] = "Account Management is not displayed"
+            self.commonValidation.failed(**kwargs)
             return -2
 
-    def navigate_to_license_mgmt(self):
+    def navigate_to_license_mgmt(self, **kwargs):
         """
         - Navigate to the USER ACCOUNT-> Global settings > Account Management
         - Flow: USER ACCOUNT-> Global settings > Account Management
@@ -1876,9 +1928,11 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click(license_mgmt_ele)
             return 1
         else:
+            kwargs['fail_msg'] = "License Management is not displayed"
+            self.commonValidation.failed(**kwargs)
             return -2
 
-    def navigate_to_accounts_organization_page(self):
+    def navigate_to_accounts_organization_page(self, **kwargs):
         """
         - Navigate to the USER ACCOUNT-> Global settings > Account --> Organization
         - Flow: USER ACCOUNT-> Global settings > Account --> Organization
@@ -1896,9 +1950,11 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click(organization_ele)
             return 1
         else:
+            kwargs['fail_msg'] = "Accounts Organization page is not displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_account_details_page(self):
+    def navigate_to_account_details_page(self, **kwargs):
         """
         - Navigate to the USER ACCOUNT-> Global settings > Account Details
         - Flow: USER ACCOUNT-> Global settings > Account Details
@@ -1916,9 +1972,11 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click(account_details_ele)
             return 1
         else:
+            kwargs['fail_msg'] = "Account Details page is not displayed"
+            self.commonValidation.failed(**kwargs)
             return -2
 
-    def navigate_to_webhooks_page(self):
+    def navigate_to_webhooks_page(self, **kwargs):
         """
         - Navigate to the USER ACCOUNT-> Global settings > Webhooks
         - Flow: USER ACCOUNT-> Global settings > Webhooks
@@ -1934,9 +1992,11 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click(webhooks_ele)
             return 1
         else:
+            kwargs['fail_msg'] = "Webhooks page is not displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_dashboard_page(self):
+    def navigate_to_dashboard_page(self, **kwargs):
         """
         - Navigate to dashboard page by clicking top left of UI
         - Flow: Dashboard Menu
@@ -1954,9 +2014,11 @@ class Navigator(NavigatorWebElements):
             if report_ele.text == "CREATE REPORT":
                 return 1
         else:
+            kwargs['fail_msg'] = "Dashboard page is not displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_credential_dist_groups(self):
+    def navigate_to_credential_dist_groups(self, **kwargs):
         """
         - Navigate to Global settings > Credential Distribution Groups
         - Flow: Global settings > Credential Distribution Groups
@@ -1973,6 +2035,8 @@ class Navigator(NavigatorWebElements):
             sleep(2)
             return 1
         else:
+            kwargs['fail_msg'] = "Credential Dist Groups is not displayed"
+            self.commonValidation.failed(**kwargs)
             return -2
 
     def navigate_tool_utility(self):
@@ -2040,7 +2104,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_device_utilities)
         sleep(2)
 
-    def navigate_to_audit_logs_menu(self):
+    def navigate_to_audit_logs_menu(self, **kwargs):
         """
         - This keyword Navigate to the Audit Logs Slider Menu
         - Flow: Authentication Logs
@@ -2059,6 +2123,8 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Audit Logs")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Audit Logs"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def navigate_to_copilot_menu(self):
@@ -2244,7 +2310,7 @@ class Navigator(NavigatorWebElements):
 
         return 1
 
-    def navigate_to_device_utilities_tools(self):
+    def navigate_to_device_utilities_tools(self, **kwargs):
         """
         - This keyword is used to navigate to utilities tools menu
         - Assumes that already navigated to the Manage --> Device page
@@ -2259,6 +2325,8 @@ class Navigator(NavigatorWebElements):
                 sleep(2)
             else:
                 self.utils.print_info("Unable to click on Utilities Button due to being disabled")
+                kwargs['fail_msg'] = "Unable to hover over Tools Menu Item due to not being displayed"
+                self.commonValidation.failed(**kwargs)
                 return -1
 
         self.utils.print_info("Hovering over Tools Menu Item")
@@ -2267,11 +2335,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to hover over Tools Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to hover over Tools Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_client_information(self):
+    def navigate_to_device_client_information(self, **kwargs):
         """
         - This keyword is used to navigate to a single device client information tool window
         - Assumes that already navigated to the Manage --> Device page
@@ -2288,11 +2358,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Client Information Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Client Information Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_get_tech_data(self):
+    def navigate_to_device_get_tech_data(self, **kwargs):
         """
         - This keyword is used to navigate to single/multiple device get tech data tool window
         - Assumes that already navigated to the Manage --> Device page
@@ -2309,11 +2381,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Get Tech Data Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Get Tech Data Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_locate_device(self):
+    def navigate_to_device_locate_device(self, **kwargs):
         """
         - This keyword is used to navigate to a single device locate device tool window
         - Assumes that already navigated to the Manage --> Device page
@@ -2330,11 +2404,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Locate Device Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Locate Device Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_layer_neighbor_info(self):
+    def navigate_to_device_layer_neighbor_info(self, **kwargs):
         """
         - This keyword is used to navigate to a single device l2 neighbor info tool window
         - Assumes that already navigated to the Manage --> Device page
@@ -2351,11 +2427,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on L2 Neighbor Info Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Locate Device Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_packet_capture(self):
+    def navigate_to_device_packet_capture(self, **kwargs):
         """
         - This keyword is used to navigate to a single packet capture tool window
         - Assumes that already navigated to the Manage --> Device page
@@ -2372,11 +2450,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Packet Capture Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Packet Capture Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_vlan_probe(self):
+    def navigate_to_device_vlan_probe(self, **kwargs):
         """
         - This keyword is used to navigate to single/multiple device vlan probe tool window
         - Assumes that already navigated to the Manage --> Device page
@@ -2393,11 +2473,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on VLAN Probe Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on VLAN Probe Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_utilities_diagnostics(self):
+    def navigate_to_device_utilities_diagnostics(self, **kwargs):
         """
         - This keyword is used to navigate to utilities diagnostics menu
         - Assumes that already navigated to the Manage --> Device page
@@ -2419,11 +2501,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to hover over Diagnostics Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to hover over Diagnostics Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_ping(self):
+    def navigate_to_device_ping(self, **kwargs):
         """
         - This keyword is used to navigate to a single device ping diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2440,11 +2524,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Ping Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show Ping Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_log(self):
+    def navigate_to_device_show_log(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show log diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2461,11 +2547,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Log Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show Log Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_mac_table(self):
+    def navigate_to_device_show_mac_table(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show mac table diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2474,6 +2562,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show MAC Table Menu Item")
@@ -2482,11 +2572,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show MAC Table Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show MAC Table Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_version(self):
+    def navigate_to_device_show_version(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show version diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2495,6 +2587,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Version Menu Item")
@@ -2503,11 +2597,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Version Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show Version Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_running_config(self):
+    def navigate_to_device_show_running_config(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show running config diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2516,6 +2612,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Running Config Menu Item")
@@ -2524,11 +2622,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Running Config Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show Running Config Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_startup_config(self):
+    def navigate_to_device_show_startup_config(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show startup config diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2537,6 +2637,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Startup Config Menu Item")
@@ -2545,11 +2647,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Startup Config Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show Startup Config Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_ip_routes(self):
+    def navigate_to_device_show_ip_routes(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show ip routes diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2558,6 +2662,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IP Routes Menu Item")
@@ -2566,11 +2672,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IP Routes Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show IP Routes Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_mac_routes(self):
+    def navigate_to_device_show_mac_routes(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show mac routes diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2579,6 +2687,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show MAC Routes Menu Item")
@@ -2587,11 +2697,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show MAC Routes Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show MAC Routes Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_arp_cache(self):
+    def navigate_to_device_show_arp_cache(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show arp cache diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2600,6 +2712,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show ARP Cache Menu Item")
@@ -2608,11 +2722,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show ARP Cache Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show ARP Cache Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_roaming_cache(self):
+    def navigate_to_device_show_roaming_cache(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show roaming cache diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2621,6 +2737,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Roaming Cache Menu Item")
@@ -2629,11 +2747,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Roaming Cache Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show Roaming Cache Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_dnxp_neighbors(self):
+    def navigate_to_device_show_dnxp_neighbors(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show dnxp neighbors diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2642,6 +2762,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show DNXP Neighbors Menu Item")
@@ -2650,11 +2772,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show DNXP Neighbors Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show DNXP Neighbors Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_dnxp_cache(self):
+    def navigate_to_device_show_dnxp_cache(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show dnxp cache diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2663,6 +2787,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show DNXP Cache Menu Item")
@@ -2671,11 +2797,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show DNXP Cache Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show DNXP Cache Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_amrp_tunnel(self):
+    def navigate_to_device_show_amrp_tunnel(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show amrp tunnel diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2684,6 +2812,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show AMRP Tunnel Menu Item")
@@ -2692,11 +2822,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show AMRP Tunnel Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show AMRP Tunnel Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_gre_tunnel(self):
+    def navigate_to_device_show_gre_tunnel(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show gre tunnel diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2705,6 +2837,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show GRE Tunnel Menu Item")
@@ -2713,11 +2847,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show GRE Tunnel Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show GRE Tunnel Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_ike_event(self):
+    def navigate_to_device_show_ike_event(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show ike event diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2726,6 +2862,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IKE Event Menu Item")
@@ -2734,11 +2872,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IKE Event Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show IKE Event Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_ike_sa(self):
+    def navigate_to_device_show_ike_sa(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show ike sa diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2747,6 +2887,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IKE SA Menu Item")
@@ -2755,11 +2897,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IKE SA Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show IKE SA Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_ipsec_sa(self):
+    def navigate_to_device_show_ipsec_sa(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show ipsec sa diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2768,6 +2912,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IPSec SA Menu Item")
@@ -2776,11 +2922,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IPSec SA Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show IPSec SA Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_ipsec_tunnel(self):
+    def navigate_to_device_show_ipsec_tunnel(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show ipsec tunnel diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2789,6 +2937,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IPSec Tunnel Menu Item")
@@ -2797,11 +2947,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show IPSec Tunnel Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show IPSec Tunnel Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_vpn_tunnel(self):
+    def navigate_to_device_show_vpn_tunnel(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show vpn tunnel diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2810,6 +2962,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show VPN Tunnel Menu Item")
@@ -2818,11 +2972,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show VPN Tunnel Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show VPN Tunnel Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_cpu(self):
+    def navigate_to_device_show_cpu(self,**kwargs):
         """
         - This keyword is used to navigate to a single device show cpu diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2831,6 +2987,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show CPU Menu Item")
@@ -2839,11 +2997,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show CPU Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show CPU Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_memory(self):
+    def navigate_to_device_show_memory(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show memory diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2852,6 +3012,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Memory Menu Item")
@@ -2860,11 +3022,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show Memory Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show Memory Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_device_show_pse(self):
+    def navigate_to_device_show_pse(self, **kwargs):
         """
         - This keyword is used to navigate to a single device show pse diagnostic window
         - Assumes that already navigated to the Manage --> Device page
@@ -2873,6 +3037,8 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show PSE Menu Item")
@@ -2881,11 +3047,13 @@ class Navigator(NavigatorWebElements):
             sleep(2)
         else:
             self.utils.print_info("Unable to click on Show PSE Menu Item due to not being displayed")
+            kwargs['fail_msg'] = "Unable to click on Show PSE Menu Item due to not being displayed"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         return 1
 
-    def navigate_to_locked_users_tab(self):
+    def navigate_to_locked_users_tab(self, **kwargs):
         """"
         - This Keyword Navigate to Locked Users Page
         - Flow: Configure --> Users --> User Management --> Locked Users
@@ -2909,9 +3077,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Locked Users Page")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Locked Users Page"
+            self.commonValidation.failed(**kwargs)
             return -2
 
-    def navigate_to_unbind_device_tab(self):
+    def navigate_to_unbind_device_tab(self, **kwargs):
         """"
         - This Keyword Navigate to Unbind Device Page
         - Flow: Configure --> Users --> User Management --> Unbind Device
@@ -2935,9 +3105,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Unbind Device Page")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Unbind Device Page"
+            self.commonValidation.failed(**kwargs)
             return -2
 
-    def navigate_to_client_monitor_and_diagnosis_tab(self):
+    def navigate_to_client_monitor_and_diagnosis_tab(self, **kwargs):
         """"
         - This Keyword Navigate to Client Monitor and Diagnosis Page
         - Flow: Manage --> Client Monitor & Diagnosis
@@ -2956,9 +3128,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Client Monitor & Diagnosis Page")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Client Monitor & Diagnosis Page"
+            self.commonValidation.failed(**kwargs)
             return -2
 
-    def navigate_manage_alerts(self):
+    def navigate_manage_alerts(self, **kwargs):
         """
         - Navigate to the MANAGE->ALERTS
         - Flow: Manage --> Alerts
@@ -2972,6 +3146,8 @@ class Navigator(NavigatorWebElements):
             if self.get_manage_tab().is_displayed():
                 self.auto_actions.click_reference(self.get_manage_tab)
             else:
+                kwargs['fail_msg'] = "Unable to navigate to Manage tab"
+                self.commonValidation.failed(**kwargs)
                 return -1
 
             self.utils.print_info("Clicking on Alerts Tab..")
@@ -2981,9 +3157,11 @@ class Navigator(NavigatorWebElements):
 
         except Exception as e:
             self.utils.print_info("Unable to Navigate to Alerts ", e)
+            kwargs['fail_msg'] = f"Unable to navigate to Alerts: {e}"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_applications_tab(self):
+    def navigate_to_applications_tab(self, **kwargs):
         """"
         - This Keyword Navigate to Applications Page
         - Flow: Manage --> Applications
@@ -3002,9 +3180,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to Applications Page")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to Applications Page"
+            self.commonValidation.failed(**kwargs)
             return -2
 
-    def navigate_to_manage_summary(self):
+    def navigate_to_manage_summary(self, **kwargs):
         """
          - This keyword Navigates to Summary on Manage Menu
          - Flow Manage--> Summary
@@ -3021,11 +3201,15 @@ class Navigator(NavigatorWebElements):
             else:
                 self.utils.print_info("Unable to navigate to Summary tab")
                 self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "Unable to navigate to Summary tab"
+                self.commonValidation.failed(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "Unable to navigate to Manage tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_manage_users(self):
+    def navigate_to_manage_users(self, **kwargs):
         """
          - This keyword Navigates to Users on Manage Menu
          - Flow Manage--> Users
@@ -3042,11 +3226,15 @@ class Navigator(NavigatorWebElements):
             else:
                 self.utils.print_info("Unable to navigate to Users tab")
                 self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "Unable to navigate to Users tab"
+                self.commonValidation.failed(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "Unable to navigate to Manage tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_configure_guest_essentials_users(self):
+    def navigate_to_configure_guest_essentials_users(self, **kwargs):
         """
          - This keyword Navigates to Guest Essentials Users on Configure Menu
          - Flow Configure--> Guest Essentials Users
@@ -3063,11 +3251,15 @@ class Navigator(NavigatorWebElements):
             else:
                 self.utils.print_info("Unable to navigate to Guest Essentials Users tab")
                 self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "Unable to navigate to Guest Essentials Users tab"
+                self.commonValidation.failed(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "Unable to navigate to Configure tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_vpn_management_tab(self):
+    def navigate_to_vpn_management_tab(self, **kwargs):
         """"
         - This Keyword Navigate to VPN Management Page
         - Flow: Manage --> VPN Management
@@ -3085,9 +3277,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to VPN Management Page")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to VPN Management Page"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def point_client_hyperlink_to_client360(self):
+    def point_client_hyperlink_to_client360(self, **kwargs):
         """"
         - This Keyword point client hyperlink to Client 360 page in ML Insights
         - Flow: Client Hyperlink --> ML Insights --> Client 360
@@ -3103,9 +3297,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to open clients hyperlink page")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to open clients hyperlink page"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def navigate_to_vpn_services_tab(self):
+    def navigate_to_vpn_services_tab(self, **kwargs):
         """"
         - This Keyword Navigate to VPN Services Page
         - Flow: Assume that already navigated to Configure > Common Objects > Network tab
@@ -3122,9 +3318,11 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to VPN Services Page")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Unable to navigate to VPN Services Page"
+            self.commonValidation.failed(**kwargs)
             return -1
     
-    def navigate_to_manage_events(self):
+    def navigate_to_manage_events(self, **kwargs):
         """
          - This keyword Navigates to Events on Manage Menu
          - Flow Manage--> Events
@@ -3140,8 +3338,12 @@ class Navigator(NavigatorWebElements):
             else:
                 self.utils.print_info("Unable to navigate to Devices tab")
                 self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "Unable to navigate to Devices tab"
+                self.commonValidation.failed(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "Unable to navigate to Manage tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def navigate_to_port_configuration_d360(self, **kwargs):
