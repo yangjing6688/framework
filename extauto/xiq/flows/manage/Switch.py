@@ -319,35 +319,7 @@ class Switch(SwitchWebElements):
             return self.devices.search_device(device_mac=sw_mac)
         return 1
 
-    def delete_switch(self, sw_serial):
-        """
-        - This keyword Deletes Switch using serial number
-        - Flow  Manage--> Devices--> Select Switch Row using serial number-->Click Delete Button
-        - Keyword Usage
-         - ``Delete Switch ${SWITCH_SERIAL}``
 
-        :param sw_serial: Switch Serial Number
-        :return: 1 if the AP is online else return -1
-        """
-        self.utils.print_info("Navigate to Manage-->Devices")
-        self.navigator.navigate_to_devices()
-        sleep(5)
-        rows = self.devices_web_elements.get_grid_rows()
-        for row in rows:
-            self.utils.print_debug("row data: ", row.text)
-            if sw_serial in row.text:
-                self.utils.print_info("Found switch Row: ", row.text)
-                self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
-                sleep(3)
-                self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
-        for row in rows:
-            if sw_serial in row.text:
-                self.utils.print_info("Unable to delete switch")
-                return -1
-            else:
-                self.utils.print_info("Deleted  Successfully: ", sw_serial)
-                return 1
 
     def get_switch_status(self, serial='default', name='default', mac='default'):
         """
@@ -416,30 +388,4 @@ class Switch(SwitchWebElements):
                     return row
         return -1
 
-    def capture_xiq_switch_connection_host(self):
-        """
-        - This keyword Get Switch Connection Host
-        - Flow  Manage--> Devices
-        - Keyword Usage
-         - ``Capture XIQ Switch Connection Host``
 
-        :param sw_serial: Switch Serial Number
-        :param sw_name: Switch Name
-        :param sw_mac: Switch MAC Address
-        :return: row if the AP is present on devices grid else -1
-        """
-        self.utils.print_info("Clicking on About ExtremecloudIQ link")
-        self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
-        sleep(2)
-        self.auto_actions.click_reference(self.login_web_elements.get_about_extreme_cloudiq_link)
-        sleep(2)
-
-        switch_connection_host = self.get_switch_connection_host_details()
-        self.utils.print_info("XIQ SWitch Connection Host Is: ", switch_connection_host)
-        sleep(4)
-
-        self.utils.print_info("Close About ExtremecloudIQ Link Dialogue Page")
-        self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
-        sleep(2)
-
-        return switch_connection_host
