@@ -3145,3 +3145,51 @@ class Navigator(NavigatorWebElements):
                     self.utils.print_info(f"trying again...")
                 counter += 1
                 sleep(5)
+
+    def navigate_configure_network_policies(self):
+        """
+         - This keyword Navigates to Network Policies On Configure Menu
+         - Flow Configure--> Network Policies
+         - Keyword Usage
+          - ``Navigate Configure Network Policies``
+
+        :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
+        """
+        self.utils.print_info("Selecting Configure tab...")
+        if self.get_configure_tab().is_displayed():
+            self.navigate_to_configure_tab()
+            sleep(2)
+        else:
+            return -2
+
+        return self.navigate_to_network_policies_tab()
+
+    def navigate_to_network_policies_tab(self, **kwargs):
+        """
+         - This keyword Navigates to Network Policies
+         - Keyword Usage
+          - ``Navigate To Network Policies Tab``
+        :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
+        """
+        network_policy_tab_display = False
+        try_cnt = 0
+        while not network_policy_tab_display:
+            self.utils.print_info("Navigate to Configure Tab first")
+            self.navigate_to_configure_tab()
+            if self.get_subtab_head_img_nav():
+                self.utils.print_info("Selecting Network Policies Tab...")
+                self.auto_actions.click_reference(self.get_network_policies_sub_tab)
+                sleep(2)
+                network_policy_tab_display = True
+            else:
+                sleep(2)
+                self.utils.print_info("Network Policy tab is NOT displayed, try to navigate to the tab again")
+                self.screen.save_screen_shot()
+                try_cnt += 1
+                if try_cnt == 10:
+                    self.utils.print_info(f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
+                    return False
+        if network_policy_tab_display:
+            return 1
+        else:
+            return -1
