@@ -1,5 +1,6 @@
 import re
 from time import sleep
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -21,9 +22,13 @@ class Alarms(AlarmsWebElements):
         :param search_string:
         :return:row information which matches search string row
         """
-        for row in self.get_alarms_grid_rows():
-            if search_string in row.text:
-                return row
+        rows = self.get_alarms_grid_rows()
+        if rows:
+            for row in rows:
+                if search_string in row.text:
+                    return row
+        else:
+            return False
 
     def clear_alarm(self, search_string):
         """
@@ -38,12 +43,14 @@ class Alarms(AlarmsWebElements):
         _tool_tip = ""
         self.navigator.navigate_to_manage_alarms()
 
-        if row := self._get_alarm_grid_row(search_string):
+        self.utils.print_info(f"Checking Alarm Row with Search string {search_string}")
+        row = self._get_alarm_grid_row(search_string)
+        if row:
             self.auto_actions.click(self.get_alarm_grid_row_check_box(row))
             sleep(2)
-            self.auto_actions.click(self.get_alarm_clear_button())
+            self.auto_actions.click_reference(self.get_alarm_clear_button)
             sleep(2)
-            self.auto_actions.click(self.get_alarm_clear_confirm_yes_button())
+            self.auto_actions.click_reference(self.get_alarm_clear_confirm_yes_button)
             sleep(2)
             _tool_tip = self.get_alarm_clear_tool_tip().text
 
@@ -88,15 +95,31 @@ class Alarms(AlarmsWebElements):
         """
         alarm_details = {}
         self.navigator.navigate_to_manage_alarms()
+        self.screen.save_screen_shot()
 
-        self.auto_actions.click(self.get_alarms_grid_refresh_button())
-        sleep(2)
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
 
-        if row := self._get_alarm_grid_row(search_string):
+        self.utils.print_info("Clicking View Legacy Alarm Button")
+        self.auto_actions.click_reference(self.get_alarms_grid_legacy_alarm_button)
+        CloudDriver().refresh_page()
+        self.screen.save_screen_shot()
+
+        self.utils.print_info("Clicking Alarm Refresh Button")
+        self.auto_actions.click_reference(self.get_alarms_grid_refresh_button)
+        self.screen.save_screen_shot()
+
+        row = self._get_alarm_grid_row(search_string)
+        if row:
             cells = self.get_alarms_grid_row_cells(row)
             for cell in cells:
                 if re.search(r'field-\w*', cell.get_attribute("class")):
                     label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
                     alarm_details[label] = cell.text
             self.utils.print_info(alarm_details)
+            self.screen.save_screen_shot()
             return alarm_details
+
+        else:
+            self.utils.print_info(f"Unable to Find Alarm with string {search_string}")
+            self.screen.save_screen_shot()
+            return -1

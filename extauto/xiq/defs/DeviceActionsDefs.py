@@ -6,6 +6,60 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    device_actions_button_disable = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-manage-device-actions"] //button[contains(@class, "btn-disable")]',
+            'wait_for': 2
+        }
+
+    device_actions_dropdown = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions"] //*[@class="ui-menu-list" and contains(@style, "display: block")]',
+            'wait_for': 2
+        }
+
+    device_actions_advance = \
+        {
+            'XPATH': '//ul[contains(@class,"ui-menu-list") and contains(@style,"display: block")] //*[@data-automation-tag="automation-manage-device-actions-advanced"]',
+            'wait_for': 2
+        }
+
+    device_actions_advance_cli_access = \
+        {
+            'XPATH': '//ul[contains(@class,"ui-menu-list") and contains(@style,"display: block")] //a[@data-automation-tag="automation-manage-device-actions-router-cli-access"]',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_input = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli .cli-command-input',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_input_apply = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli .btn.btn-small.btn-dim',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_cli_result_windows = \
+        {
+            'CSS_SELECTOR': '.device-actions-cli .cli-pane-resut',
+            'wait_for': 2
+        }
+
+    device_actions_cli_windows_close = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeDialogTop"]',
+            'wait_for': 2
+        }
+
     device_actions_reboot_menu_item = \
         {
             'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag, "-reboot")]',
@@ -369,4 +423,64 @@ class DeviceActionsDefs:
             'DESC': 'Digital Twin: Actions > Revert Device to Template Defaults',
             'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-dt-revert-template"]',
             'wait_for': 5
+        }
+
+    clone_device_btn = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-clone-device"]',
+            'wait_for': 2
+        }
+
+    replacement_device_dropdown = \
+        {
+            'XPATH': '//*[contains(@class,"field-replDevice")]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    replacement_device_items = \
+        {
+            'XPATH': '//*[@class="dgrid-cell dgrid-column-4 field-replDevice overflow-visible w130"]//li',
+            'wait_for': 2
+        }
+
+    replacement_serial_number_dropdown = \
+        {
+            'XPATH': '//*[contains(@class,"field-replacementSerialNumber")]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    replacement_serial_number_items = \
+        {
+            'XPATH': '//*[@class="dgrid-cell dgrid-column-5 field-replacementSerialNumberOb overflow-visible w220"]//li',
+            'wait_for': 2
+        }
+
+    clone_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-device"]',
+            'wait_for': 2
+        }
+
+    yes_confirmation_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 2
+        }
+
+    loading_clone_configuration = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-loading-div"]',
+            'wait_for': 2
+        }
+
+    warning_message_disconnected = \
+        {
+            'XPATH': '//*[contains(text(), "disconnected or in the unmanaged state.")]',
+            'wait_for': 2
+        }
+
+    cancel_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-cancel"]',
+            'wait_for': 2
         }

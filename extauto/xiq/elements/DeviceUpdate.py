@@ -26,6 +26,9 @@ class DeviceUpdate(DeviceUpdateDefs):
     def get_upgrade_to_latest_version_radio(self):
         return self.weh.get_element(self.upgrade_to_latest_version_radio)
 
+    def get_upgrade_even_if_versions_are_same_button(self):
+        return self.weh.get_element(self.upgrade_even_if_versions_are_same_button)
+
     def get_upgrade_to_specific_version_radio(self):
         return self.weh.get_element(self.upgrade_to_specific_version_radio)
 
@@ -124,6 +127,9 @@ class DeviceUpdate(DeviceUpdateDefs):
         except AttributeError:
             return -1
 
+    def get_is_specific_version_dropdown_open(self):
+        return self.weh.get_element(self.is_specific_version_dropdown_open)
+
     def get_device_update_form_error(self, row):
         return self.weh.get_element(self.device_update_form_error, row).get_attribute("title")
 
@@ -139,7 +145,7 @@ class DeviceUpdate(DeviceUpdateDefs):
         
     def get_d360_close_button(self):
         return self.weh.get_element(self.update_close_button)
-        
+
     def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status(self):
         return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox).get_attribute("checked")
         
@@ -149,6 +155,9 @@ class DeviceUpdate(DeviceUpdateDefs):
     def get_config_download_options_checkbox(self):
         return self.weh.get_element(self.config_download_options_checkbox)
 
-        
+    def get_actions_update_version_drop_down(self):
+        return self.weh.get_element(self.upgrade_specific_firmware_drop_down_button)
 
+    def get_actions_update_version_drop_down_items(self):
+        return self.weh.get_elements(self.upgrade_specific_firmware_drop_down_items)
         

@@ -35,7 +35,7 @@ class PpskClassification(object):
         self.utils.print_info("Click on Network Policy card view button")
         self.navigator.navigate_to_configure_ppsk_classification()
 
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_ppsk_classification_network_dropdown())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_ppsk_classification_network_dropdown)
         sleep(2)
 
         network_list = self.ppsk_classification_web_elements.get_all_networks_from_dropdown()
@@ -47,11 +47,11 @@ class PpskClassification(object):
         sleep(2)
 
         self.utils.print_info("Clicking on PPSK Classification Rule Add Button")
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_ppsk_classification_rule_add_button())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_ppsk_classification_rule_add_button)
         sleep(2)
 
         self.utils.print_info("Clicking on PPSK Classification User Select Dropdown")
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_ppsk_classification_users_dropdown())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_ppsk_classification_users_dropdown)
         sleep(2)
 
         ppsk_users = self.ppsk_classification_web_elements.get_ppsk_classification_users_list()
@@ -63,11 +63,11 @@ class PpskClassification(object):
         sleep(2)
 
         self.utils.print_info("Clicking on Add User Button")
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_add_user_button())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_add_user_button)
         sleep(2)
 
         self.utils.print_info("Clicking on Select ClassificationRule Icon")
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_select_classification_rule_button())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_select_classification_rule_button)
         sleep(2)
 
         self.utils.print_info("Selecting ClassificationRule Rule")
@@ -75,10 +75,10 @@ class PpskClassification(object):
         self.auto_actions.select_drop_down_options(classification_rule_all, classification_rule)
         sleep(1)
 
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_link_button())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_link_button)
         sleep(1)
 
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_save_button())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_save_button)
 
         if self.verify_ppsk_classification_rule_to_user(network_name, user_name, classification_rule):
             return 1
@@ -104,7 +104,7 @@ class PpskClassification(object):
         self.utils.print_info("Click on Network Policy card view button")
         self.navigator.navigate_to_configure_ppsk_classification()
 
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_ppsk_classification_network_dropdown())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_ppsk_classification_network_dropdown)
         sleep(2)
 
         network_list = self.ppsk_classification_web_elements.get_all_networks_from_dropdown()
@@ -123,8 +123,8 @@ class PpskClassification(object):
                 sleep(2)
 
                 self.utils.print_info("Clicking on Select ClassificationRule Icon")
-                self.auto_actions.click(
-                    self.ppsk_classification_web_elements.get_select_classification_rule_button())
+                self.auto_actions.click_reference(
+                    self.ppsk_classification_web_elements.get_select_classification_rule_button)
                 sleep(2)
 
                 self.utils.print_info("Selecting ClassificationRule Rule")
@@ -132,10 +132,10 @@ class PpskClassification(object):
                 self.auto_actions.select_drop_down_options(classification_rule_all, classification_rule)
                 sleep(1)
 
-                self.auto_actions.click(self.ppsk_classification_web_elements.get_link_button())
+                self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_link_button)
                 sleep(1)
 
-                self.auto_actions.click(self.ppsk_classification_web_elements.get_save_button())
+                self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_save_button)
 
         if self.verify_ppsk_classification_rule_to_user(network_name, user_name, classification_rule):
             return 1
@@ -159,7 +159,7 @@ class PpskClassification(object):
         self.utils.print_info("Click on Network Policy card view button")
         self.navigator.navigate_to_configure_ppsk_classification()
 
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_ppsk_classification_network_dropdown())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_ppsk_classification_network_dropdown)
         sleep(3)
 
         network_list = self.ppsk_classification_web_elements.get_all_networks_from_dropdown()
@@ -204,7 +204,7 @@ class PpskClassification(object):
         self.utils.print_info("Click on Network Policy card view button")
         self.navigator.navigate_to_configure_ppsk_classification()
 
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_ppsk_classification_network_dropdown())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_ppsk_classification_network_dropdown)
         sleep(2)
 
         network_list = self.ppsk_classification_web_elements.get_all_networks_from_dropdown()
@@ -216,12 +216,12 @@ class PpskClassification(object):
         sleep(2)
 
         self.utils.print_info("Selecting all ppsk users")
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_select_all_ppsk_users())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_select_all_ppsk_users)
         sleep(1)
 
         self.utils.print_info("Deleting all ppsk users")
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_delete_ppsk_user())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_delete_ppsk_user)
         sleep(2)
 
-        self.auto_actions.click(self.ppsk_classification_web_elements.get_yes_confirmation_button())
+        self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_yes_confirmation_button)
         return 1

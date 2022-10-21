@@ -434,6 +434,72 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_mgmt_vlan_text_field(self):
         return self.weh.get_element(self.mgmt_vlan_text_field)
 
+    def get_select_all_rows(self):
+        return self.weh.get_element(self.select_all_rows)
+
+    def get_sw_template_adv_settings_tab(self):
+        return self.weh.get_element(self.sw_template_adv_settings_tab)
+
+    def get_sw_template_adv_tab_textfield(self):
+        return self.weh.get_element(self.sw_template_adv_tab_textfield)
+
+    def get_sw_template_save_button_adv_tab(self):
+        return self.weh.get_elements(self.sw_template_save_btn_adv_tab)
+
+    def get_confirm_message_yes_button(self):
+        return self.weh.get_element(self.confirm_message_yes_button)
+
+    def get_sw_template_adv_settings_upgrade_device_text(self):
+        return self.weh.get_element(self.sw_template_adv_settings_upgrade_device_text)
+
+    def get_sw_template_adv_settings_upgrade_device_on_off_button(self):
+        return self.weh.get_element(self.sw_template_adv_settings_upgrade_device_on_off_button)
+
+    def get_sw_template_adv_settings_upload_config_text(self):
+        return self.weh.get_element(self.sw_template_adv_settings_upload_config_text)
+
+    def get_sw_template_adv_settings_upload_configuration_on_off_button(self):
+        return self.weh.get_element(self.sw_template_adv_settings_upload_configuration_on_off_button)
+
+    def get_sw_template_adv_settings_upgr_firm_latest_button(self):
+        return self.weh.get_element(self.sw_template_adv_settings_upgr_firm_latest_button)
+
+    def get_sw_template_adv_settings_upgr_firm_specific_button(self):
+        return self.weh.get_element(self.sw_template_adv_settings_upgr_firm_specific_button)
+
+    def get_sw_template_device_sett_forward_delay_drop_down(self):
+        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down)
+
+    def get_sw_template_device_sett_forward_delay_drop_down_container(self):
+        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_container)
+
+    def get_sw_template_device_sett_forward_delay_drop_down_item16(self):
+        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_item16)
+
+    def get_sw_template_device_sett_forward_delay_drop_down_item15(self):
+        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_item15)
+
+    def get_sw_template_device_sett_forward_delay_drop_down_items(self):
+        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_items)
+
+    def get_sw_template_adv_settings_download_specific_firmware_drop_down_button(self):
+        return self.weh.get_elements(self.sw_template_adv_settings_download_specific_firmware_drop_down_button)
+
+    def get_sw_template_adv_settings_download_specific_firmware_drop_down_items(self):
+        return self.weh.get_elements(self.sw_template_adv_settings_download_specific_firmware_drop_down_items)
+
+    def get_sw_template_row_cells(self, row):
+        cells = self.weh.get_elements(self.sw_template_row_cells, row)
+        return cells
+
+    def get_sw_template_row_table_cells(self, row):
+        cells = self.weh.get_elements(self.sw_template_row_table_cells, row)
+        return cells
+
+    def get_sw_template_row_cells_hyperlink(self, cell):
+        value = self.weh.get_elements(self.sw_template_row_cells_hyperlink, cell)
+        return value
+
     def get_sw_template_assign_choose_existing_trunk_choice_second_dialog_box(self):
         return self.weh.get_element(self.sw_template_assign_choose_existing_trunk_choice_second_dialog_box)
 
@@ -493,7 +559,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_stp_tab(self):
         return self.weh.get_element(self.sw_template_stp_tab)
-    
+
     def get_sw_template_port_details_tab(self):
         return self.weh.get_element(self.sw_template_port_details_tab)
 
@@ -511,3 +577,41 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_port_in_agg(self):
         return self.weh.get_template_elements(self.port_in_agg)
+
+    def get_sw_template_hyperlink(self):
+        return self.weh.get_element(self.sw_template_hyperlink)
+
+    def get_sw_template_enable_mac_locking(self):
+        return self.weh.get_element(self.sw_template_enable_mac_locking)
+
+    def get_sw_template_enable_mac_locking_confirm_message_yes_button(self):
+        return self.weh.get_element(self.sw_template_enable_mac_locking_confirm_message_yes_button)
+
+    def get_sw_template_adv_settings_tab(self):
+        return self.weh.get_element(self.sw_template_adv_settings_tab)
+
+    def get_sw_template_auto_cfg(self):
+        return self.weh.get_element(self.sw_template_auto_cfg)
+
+    def get_sw_template_auto_revert_enabled(self):
+        return self.weh.get_element(self.sw_template_auto_revert_enabled)
+
+    def get_sw_template_auto_revert_msg(self):
+        return self.weh.get_element(self.sw_template_auto_revert_msg)
+
+    def get_sw_template_notification_yes_btn(self):
+        return self.weh.get_element(self.sw_template_notification_yes_btn)
+
+    def get_sw_template_assign_existing_trunk_choice_second_dialog_box_save_button(self):
+        return self.weh.get_element(self.sw_template_assign_existing_trunk_choice_second_dialog_box_save_button)
+    
+    def get_sw_template_error_message(self):
+        rez = []
+        elements = self.weh.get_elements(self.pse_error_message)
+        for el in elements:
+            if el.is_displayed():
+                rez.append(el)
+        if len(rez) != 0:
+            return rez
+        return None
+

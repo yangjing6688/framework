@@ -5,7 +5,6 @@ from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
@@ -27,11 +26,38 @@ class DevicesActions:
         self.device_actions = DeviceActions()
         self.device_update = DeviceUpdate()
         self.device_common = DeviceCommon()
-        self.device_common = DeviceCommon()
         self.devices = Devices()
 
         self.screen = Screen()
         self.robot_built_in = BuiltIn()
+
+    def is_actions_button_enabled(self):
+        """
+        - This keyword checks if the 'Actions' button is enabled within Manage > Devices view.
+        - It is assumed that the Manage > Device view is open.
+        - Keyword Usage
+         - ``Is Actions Button Enabled``
+        :return: True if the button is enabled, False if the button is disabled, else -1
+        """
+        ret_val = -1
+        self.utils.print_info("Checking if 'Actions' button is enabled.")
+        actions_btn = self.device_actions.get_device_actions_button()
+
+        if actions_btn:
+            btn_state = actions_btn.get_attribute("class")
+            self.utils.print_debug(f"'Actions' button Class value: {btn_state}")
+            if "btn-disabled" in btn_state:
+                self.utils.print_info("The 'Actions' button is disabled.")
+                self.screen.save_screen_shot()
+                ret_val = False
+            else:
+                self.utils.print_info("The 'Actions' button is enabled.")
+                self.screen.save_screen_shot()
+                ret_val = True
+        else:
+            self.utils.print_info("Could not find the 'Actions' button.")
+
+        return ret_val
 
     def clear_audit_mismatch_on_device(self, device_serial):
         """
@@ -47,11 +73,11 @@ class DevicesActions:
 
         if self.devices.select_ap(device_serial):
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
 
             self.utils.print_info("Selecting Clear Audit Mismatch menu item")
-            self.auto_actions.click(self.device_actions.get_device_actions_clear_audit_mismatch_menu())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_clear_audit_mismatch_menu)
             sleep(2)
 
             return 1
@@ -79,12 +105,12 @@ class DevicesActions:
             return ['False'], ['Unable to select any device(s)']
 
         self.utils.print_info("Click Reset Device to Default.")
-        self.auto_actions.click(self.device_actions.get_reset_devices_to_default())
+        self.auto_actions.click_reference(self.device_actions.get_reset_devices_to_default)
         self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info(self.device_actions.get_device_reset_warning_msg().text)
         self.utils.print_info("Click 'yes' button ")
-        self.auto_actions.click(self.device_actions.get_device_reset_yes_dialog())
+        self.auto_actions.click_reference(self.device_actions.get_device_reset_yes_dialog)
         self.utils.print_info("Wait....")
         sleep(10)
         msg = self.device_actions.get_device_reset_dialog_box_msg().text
@@ -94,7 +120,7 @@ class DevicesActions:
         reset_list = self.validate_reset_dialogue_box_msg(msg, *device_list)
         self.utils.print_info("Return values of failed and success list :", reset_list)
         self.utils.print_info("Closing the Reset dialogue box")
-        self.auto_actions.click(self.device_actions.get_device_reset_close_dialog())
+        self.auto_actions.click_reference(self.device_actions.get_device_reset_close_dialog)
         self.screen.save_screen_shot()
         sleep(1)
         return reset_list
@@ -136,7 +162,7 @@ class DevicesActions:
         reset_msg = self.device_actions.get_device_reset_warning_msg().text
         self.utils.print_info("Reset warning message:  ", reset_msg)
         self.utils.print_info("Confirming to device reset by hitting 'yes' button ")
-        self.auto_actions.click(self.device_actions.get_device_reset_yes_dialog())
+        self.auto_actions.click_reference(self.device_actions.get_device_reset_yes_dialog)
         self.utils.print_info("Device reset dialogue box takes more than 5 seconds"
                               " to load, so giving adequate sleep of 10 seconds")
         sleep(10)
@@ -147,7 +173,7 @@ class DevicesActions:
         reset_list = self.validate_reset_dialogue_box_msg(diag_msg, *device_list)
         self.utils.print_info("Return values of failed and success list :", reset_list)
         self.utils.print_info("Closing the Reset dialogue box")
-        self.auto_actions.click(self.device_actions.get_device_reset_close_dialog())
+        self.auto_actions.click_reference(self.device_actions.get_device_reset_close_dialog)
         self.screen.save_screen_shot()
         sleep(1)
         return reset_list
@@ -202,7 +228,7 @@ class DevicesActions:
 
         if select:
             self.utils.print_info("Clicking on Utilities")
-            self.auto_actions.click(self.device_actions.get_device_utilities())
+            self.auto_actions.click_reference(self.device_actions.get_device_utilities)
             sleep(2)
             return 1
         else:
@@ -214,11 +240,10 @@ class DevicesActions:
         - It is assumed that the Manage > Device window is open and that a device is selected.
         - Keyword Usage
          - ``Is Actions Relaunch Digital Twin Visible``
-        :return: 1 if the menu item is displayed, else -1
+        :return: True if visible, False if not visible, else -1
         """
-        ret_val = -1
         self.utils.print_info("Opening Actions menu")
-        self.auto_actions.click(self.device_actions.get_device_actions_button())
+        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         sleep(2)
 
         relaunch_link = self.device_actions.get_digital_twin_relaunch_action_menu_item()
@@ -228,16 +253,17 @@ class DevicesActions:
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Relaunch Digital Twin' link is not displayed.")
                 self.screen.save_screen_shot()
+                return False
             else:
                 self.utils.print_info("The 'Relaunch Digital Twin' link is displayed.")
                 self.screen.save_screen_shot()
-                ret_val = 1
+                return True
         else:
             self.utils.print_info("Could not find the 'Actions > Relaunch Digital Twin' link.")
 
         self.utils.print_info("Closing Actions menu")
-        self.auto_actions.click(self.device_actions.get_device_actions_button())
-        return ret_val
+        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
+        return -1
 
     def actions_relaunch_digital_twin(self, confirm="yes"):
         """
@@ -249,7 +275,7 @@ class DevicesActions:
         :return: 1 if action was successful, else -1
         """
         self.utils.print_info("Clicking on Actions Button")
-        self.auto_actions.click(self.device_actions.get_device_actions_button())
+        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         sleep(2)
 
         relaunch_link = self.device_actions.get_digital_twin_relaunch_action()
@@ -259,23 +285,23 @@ class DevicesActions:
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Relaunch Digital Twin' link is not displayed.")
                 self.utils.print_info("Closing Actions menu")
-                self.auto_actions.click(self.device_actions.get_device_actions_button())
+                self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Relaunch Digital Twin' link.")
                 self.screen.save_screen_shot()
                 self.auto_actions.click(relaunch_link)
                 if confirm.lower() == 'yes':
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
                     self.utils.print_info("Confirming the relaunch.")
                     self.screen.save_screen_shot()
-                    tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
-                    if tool_tp_text_error:
-                        self.utils.print_info(tool_tp_text_error.text)
+                    banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
+                    if banner_text_error:
+                        self.utils.print_info(banner_text_error.text)
                         return -1
                     return 1
                 else:
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_cancel_button())
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_cancel_button)
                     return 1
         else:
             self.utils.print_info("Could not find the 'Actions > Relaunch Digital Twin' link.")
@@ -288,11 +314,10 @@ class DevicesActions:
         - It is assumed that the Manage > Device window is open and that a device is selected.
         - Keyword Usage
          - ``Is Actions Shutdown Digital Twin Visible``
-        :return: 1 if the menu item is displayed, else -1
+        :return: True if visible, False if not visible, else -1
         """
-        ret_val = -1
         self.utils.print_info("Opening Actions menu")
-        self.auto_actions.click(self.device_actions.get_device_actions_button())
+        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         sleep(2)
 
         shutdown_link = self.device_actions.get_digital_twin_shutdown_action_menu_item()
@@ -302,16 +327,17 @@ class DevicesActions:
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Shutdown Digital Twin' link is not displayed.")
                 self.screen.save_screen_shot()
+                return False
             else:
                 self.utils.print_info("The 'Shutdown Digital Twin' link is displayed.")
                 self.screen.save_screen_shot()
-                ret_val = 1
+                return True
         else:
             self.utils.print_info("Could not find the 'Actions > Shutdown Digital Twin' link.")
 
         self.utils.print_info("Closing Actions menu")
-        self.auto_actions.click(self.device_actions.get_device_actions_button())
-        return ret_val
+        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
+        return -1
 
     def actions_shutdown_digital_twin(self, confirm="yes"):
         """
@@ -323,7 +349,7 @@ class DevicesActions:
         :return: 1 if action was successful, else -1
         """
         self.utils.print_info("Clicking on Actions Button")
-        self.auto_actions.click(self.device_actions.get_device_actions_button())
+        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         sleep(2)
 
         shutdown_link = self.device_actions.get_digital_twin_shutdown_action()
@@ -333,23 +359,23 @@ class DevicesActions:
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Shutdown Digital Twin' link is not displayed.")
                 self.utils.print_info("Closing Actions menu")
-                self.auto_actions.click(self.device_actions.get_device_actions_button())
+                self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Shutdown Digital Twin' link.")
                 self.screen.save_screen_shot()
                 self.auto_actions.click(shutdown_link)
                 if confirm.lower() == 'yes':
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
                     self.utils.print_info("Confirming the shutdown.")
                     self.screen.save_screen_shot()
-                    tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
-                    if tool_tp_text_error:
-                        self.utils.print_info(tool_tp_text_error.text)
+                    banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
+                    if banner_text_error:
+                        self.utils.print_info(banner_text_error.text)
                         return -1
                     return 1
                 else:
-                    self.auto_actions.click(self.dialogue_web_elements.get_confirm_cancel_button())
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_cancel_button)
                     return 1
         else:
             self.utils.print_info("Could not find the 'Actions > Shutdown Digital Twin' link.")

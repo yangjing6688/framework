@@ -44,8 +44,14 @@ class TelnetAgent(CliAgent):
         if self.connected and self.logged_in:
             try:
                 output = self.send_command("")
+                # This is an array and we must go through all of the prompts...
                 if '*** IDLE TIMEOUT ***' in output:
+                    self.debug_print(f"Found issue in output ('*** IDLE TIMEOUT ***'), setting flags to log back in: {output}")
                     self.connected = False
+                    self.logged_in = False
+                # check to see if any of the prompts are in the output
+                elif any(x in self.device.login_prompt for x in output):
+                    self.debug_print(f"Found issue in output ({self.device.login_prompt}), setting flags to log back in: {output}")
                     self.logged_in = False
                 else:
                     self.debug_print("Already connected and logged in")
@@ -88,7 +94,10 @@ class TelnetAgent(CliAgent):
         if found_login_prompt:
             for i in range(0, retries):
                 if output.strip().endswith(tuple(self.device.pass_prompt)):
-                    self.write_encode_ln(self.device.password)
+                    adjusted_password = self.cmd_encode(self.device.password)
+                    if self.get_enable_default_password_mode():
+                        adjusted_password = self.cmd_encode(self.default_password)
+                    self.write_encode_ln(adjusted_password)
                     break
                 else:
                     output += self.wait_no_parse(250, 1)
@@ -178,7 +187,7 @@ class TelnetAgent(CliAgent):
         """
         if not self.connected:
             raise EOFError("Telnet session closed.")
-        return self.main_session.read_until(text.encode("ascii")).decode("utf-8")
+        return self.main_session.read_until(text.encode("ascii"), timeout=5).decode("utf-8")
 
     def read_until_list_match(self, _list):
         """
@@ -250,8 +259,7 @@ class TelnetAgent(CliAgent):
             self.debug_print(self.send_command("terminal more disable"))
         elif self.device.oper_sys == NetworkElementConstants.OS_AHAP:
             self.debug_print(self.send_command("console page 0"))
-        elif self.device.oper_sys in [NetworkElementConstants.OS_AHFASTPATH,
-                                      NetworkElementConstants.OS_AHXR]:
+        elif self.device.oper_sys in [NetworkElementConstants.OS_AHXR]:
             self.debug_print(self.send_command("enable"))
             self.debug_print(self.send_command("configure"))
             self.debug_print(self.send_command("do terminal length 0"))

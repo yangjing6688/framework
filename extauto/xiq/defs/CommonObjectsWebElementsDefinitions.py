@@ -366,6 +366,24 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 2
         }
 
+    common_object_grid_row_cells_href = \
+        {
+            'TAG_NAME': 'a',
+            'wait_for': 5
+        }
+        
+    common_object_supp_cli_grid_rows = \
+        {
+            'CSS_SELECTOR': '.dojoxGridRow',
+            'wait_for': 2
+        }
+
+    common_object_supp_cli_grid_row_cells = \
+        {
+            'CSS_SELECTOR': '.dojoxGridCell',
+            'wait_for': 2
+        }
+
     common_object_edit_button = \
         {
             'CSS_SELECTOR': '.table-action-icons.table-edit',
@@ -433,6 +451,12 @@ class CommonObjectsWebElementsDefinitions:
     common_object_policy_port_types_view_all_pages = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
+            'wait_for': 3
+        }
+
+    common_object_basic_supp_cli_view_all_pages = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="500"]',
             'wait_for': 3
         }
 
@@ -583,9 +607,28 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+
+    common_object_wifi0_radio_profile_textbox = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile2g"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 3
+        }
+
     common_object_wifi1_radio_profile_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="radioProfile5g"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi1_radio_profile_textbox = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile5g"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi2_radio_profile_textbox = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile6g"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 3
         }
 
@@ -733,6 +776,30 @@ class CommonObjectsWebElementsDefinitions:
     common_object_wifi0_sensor = \
         {
             'XPATH': '//input[@data-dojo-attach-point="radioUsage2GHzSensor"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi2_sensor = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzSensor"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_sensor_UI_disable = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage2GHzSensorLi"][contains(@style, "display: none")]',
+            'wait_for': 3
+        }
+
+    common_object_wifi1_sensor_UI_disable = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage5GHzSensorLi"][contains(@style, "display: none")]',
+            'wait_for': 3
+        }
+
+    common_object_wifi2_sensor_UI_disable = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzSensorLi"][contains(@style, "display: none")]',
             'wait_for': 3
         }
 
@@ -903,6 +970,12 @@ class CommonObjectsWebElementsDefinitions:
     common_object_ap_template_save_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnCtn"]//*[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 3
+        }
+
+    common_object_ap_template_cancel_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="btnCtn"]//*[@data-dojo-attach-point="cancelButton"]',
             'wait_for': 3
         }
 
@@ -1173,3 +1246,14 @@ class CommonObjectsWebElementsDefinitions:
             'index': 0
         }
 
+    common_object_policy_max_page_number = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="pagesWrap"]//a',
+            'index': 0
+        }
+
+    common_object_policy_go_to_first_page = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="pagePrev"]//a[@data-dojo-attach-point="prev-item1"]',
+            'index': 0
+        }

@@ -411,7 +411,7 @@ class LoginWebElementsDefinitions:
 
     welcome_wizard_heading = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='headingNode']",
+            'CSS_SELECTOR': '.WelcomeWizard.initial-flow',
             'wait_for': 5
         }
 
@@ -601,6 +601,12 @@ class LoginWebElementsDefinitions:
             'wait_for': 3,
         }
 
+    page_loading = \
+        {
+            'CSS_SELECTOR': '.preload',
+            'wait_for': 3
+        }
+
     devices_list_check = \
         {
             'XPATH': '//*[@class="dgrid-row-table"]',
@@ -634,3 +640,14 @@ class LoginWebElementsDefinitions:
             'wait_for': 3,
         }
 
+    external_admin_account_names = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="accountResults"]//a',
+            'wait_for': 20,
+        }
+
+    admin_portal_page = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="adminPortalHeader"]',
+            'wait_for': 20,
+        }

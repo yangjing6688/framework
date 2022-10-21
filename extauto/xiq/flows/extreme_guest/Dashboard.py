@@ -40,7 +40,7 @@ class Dashboard(object):
         :return: 1 if navigation success
         """
         self.utils.print_info("Clicking the Create New tab ")
-        self.auto_actions.click(self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_tab())
+        self.auto_actions.click_reference(self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_tab)
         sleep(5)
 
         self.utils.print_info("Dragging the Theme15 into the main canvas ")
@@ -50,16 +50,16 @@ class Dashboard(object):
         sleep(2)
 
         self.utils.print_info("Clicking the theme/widget toggle button ")
-        self.auto_actions.click(
-            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_toggle_button())
+        self.auto_actions.click_reference(
+            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_toggle_button)
         sleep(2)
 
         client_panel_expand_status = self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_client_panel().get_attribute(
             'aria-expanded')
         if client_panel_expand_status == "false":
             self.utils.print_info("Clicking the client panel ")
-            self.auto_actions.click(
-                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_client_panel())
+            self.auto_actions.click_reference(
+                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_client_panel)
             sleep(2)
 
         self.utils.print_info("Dragging the widget1 into the canvas1 ")
@@ -82,8 +82,8 @@ class Dashboard(object):
             'aria-expanded')
         if users_panel_expand_status == "false":
             self.utils.print_info("Clicking the users panel ")
-            self.auto_actions.click(
-                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_users_panel())
+            self.auto_actions.click_reference(
+                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_users_panel)
             sleep(2)
 
         self.utils.print_info("Dragging the widget1 into the canvas4 ")
@@ -106,8 +106,8 @@ class Dashboard(object):
             'aria-expanded')
         if usage_panel_expand_status == "false":
             self.utils.print_info("Clicking the usage panel ")
-            self.auto_actions.click(
-                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_usage_panel())
+            self.auto_actions.click_reference(
+                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_usage_panel)
             sleep(2)
 
         self.utils.print_info("Dragging the widget1 into the canvas7 ")
@@ -129,8 +129,8 @@ class Dashboard(object):
         sleep(3)
 
         self.utils.print_info("Clicking the save button ")
-        self.auto_actions.click(
-            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_save_button())
+        self.auto_actions.click_reference(
+            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_save_button)
         sleep(2)
 
         self.utils.print_info("Entering Dashboard name  ", )
@@ -143,8 +143,8 @@ class Dashboard(object):
         sleep(2)
 
         self.utils.print_info("Clicking the save button ")
-        self.auto_actions.click(
-            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_save_dashboard_save_button())
+        self.auto_actions.click_reference(
+            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_save_dashboard_save_button)
         sleep(2)
 
         return 1
@@ -159,7 +159,7 @@ class Dashboard(object):
         :return: 1 if navigation success
         """
         self.utils.print_info("Clicking the dashboard ")
-        self.auto_actions.click(self.dashboard_web_elem.get_extreme_guest_dashboard_automation_db1_tab())
+        self.auto_actions.click_reference(self.dashboard_web_elem.get_extreme_guest_dashboard_automation_db1_tab)
         sleep(2)
         all_displayed = True
 

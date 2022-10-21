@@ -99,7 +99,7 @@ class Reports(object):
         """
         self.ext_guest.go_to_analyze_page()
         self.utils.print_info("Clicking on Extreme Guest Manage Reports Tab")
-        self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_tab())
+        self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -121,7 +121,7 @@ class Reports(object):
             f"report_name: {report_name}, report_type: {report_type}, report_format: {report_format}, save_type: {save_type}, scope: {scope}, period: {period}, dashboard_name: {dashboard_name}")
         if report_type:
             self.utils.print_info("Clicking report type dropdown")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_type_dropdown())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_type_dropdown)
             self.utils.print_info("selecting report type", report_type)
             self.auto_actions.select_drop_down_options(
                 self.reports_web_elem.get_extreme_guest_manage_reports_add_report_type_dropdown_items(), report_type)
@@ -129,8 +129,8 @@ class Reports(object):
             if report_type == "Guest Visit History":
                 if period:
                     self.utils.print_info("Clicking report period dropdown")
-                    self.auto_actions.click(
-                        self.reports_web_elem.get_extreme_guest_manage_reports_add_report_period_dropdown())
+                    self.auto_actions.click_reference(
+                        self.reports_web_elem.get_extreme_guest_manage_reports_add_report_period_dropdown)
                     self.utils.print_info("selecting period", period)
                     self.auto_actions.select_drop_down_options(
                         self.reports_web_elem.get_extreme_guest_manage_reports_add_report_period_dropdown_items(),
@@ -142,8 +142,8 @@ class Reports(object):
 
             elif report_type == "Dashboard Report":
                 self.utils.print_info("Clicking report dashboard name dropdown")
-                self.auto_actions.click(
-                    self.reports_web_elem.get_extreme_guest_manage_reports_add_report_dashboard_name_dropdown())
+                self.auto_actions.click_reference(
+                    self.reports_web_elem.get_extreme_guest_manage_reports_add_report_dashboard_name_dropdown)
                 self.utils.print_info("selecting dashboard name", dashboard_name)
                 self.auto_actions.select_drop_down_options(
                     self.reports_web_elem.get_extreme_guest_manage_reports_add_report_dashboard_name_dropdown_items(),
@@ -152,8 +152,8 @@ class Reports(object):
 
         if report_format:
             self.utils.print_info("Clicking report format dropdown")
-            self.auto_actions.click(
-                self.reports_web_elem.get_extreme_guest_manage_reports_add_report_format_dropdown())
+            self.auto_actions.click_reference(
+                self.reports_web_elem.get_extreme_guest_manage_reports_add_report_format_dropdown)
             self.utils.print_info("selecting report format", report_format)
             self.auto_actions.select_drop_down_options(
                 self.reports_web_elem.get_extreme_guest_manage_reports_add_report_format_dropdown_items(),
@@ -162,21 +162,21 @@ class Reports(object):
 
         if save_type == "save":
             self.utils.print_info("Clicking save button")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_button)
             sleep(2)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             sleep(5)
             if self._get_extreme_guest_manage_reports_page_user_row(report_name):
                 self.utils.print_info("Save successful")
                 return 1
         elif save_type == "run":
             self.utils.print_info("Clicking run button")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_run_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_run_button)
             sleep(2)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             sleep(5)
             self.utils.print_info("Clicking on Extreme Guest Generated Reports Tab")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_generated_reports_tab())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_generated_reports_tab)
             sleep(2)
             if self._get_extreme_guest_generated_reports_page_user_row(report_name):
                 self.utils.print_info("Run successful")
@@ -186,15 +186,15 @@ class Reports(object):
 
             self.screen.save_screen_shot()
             sleep(2)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_run_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_run_button)
             sleep(10)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             sleep(5)
             if self._get_extreme_guest_manage_reports_page_user_row(report_name):
                 self.utils.print_info("Save successful. Checking for Run state..")
                 sleep(2)
                 self.utils.print_info("Clicking on Extreme Guest Generated Reports Tab")
-                self.auto_actions.click(self.reports_web_elem.get_extreme_guest_generated_reports_tab())
+                self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_generated_reports_tab)
                 sleep(2)
                 if self._get_extreme_guest_generated_reports_page_user_row(report_name):
                     self.utils.print_info("Run successful")
@@ -214,7 +214,7 @@ class Reports(object):
         """
         ret_val = -1
         self.utils.print_info("Clicking Location Drop Down Button in add reports")
-        self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_scope_dropdown())
+        self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_scope_dropdown)
         sleep(2)
         if scope:
             try:
@@ -310,7 +310,7 @@ class Reports(object):
             f"report_name: {report_name}, report_type: {report_type}, report_format: {report_format}, save_type: {save_type}, scope: {scope}, period: {period}, dashboard_name: {dashboard_name}")
         self.go_to_manage_reports_tab()
         self.utils.print_info("Click on create report button")
-        self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_button())
+        self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_button)
         self.utils.print_info("Entering Report name", report_name)
         self.auto_actions.send_keys(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_name_field(),
                                     report_name)
@@ -325,13 +325,13 @@ class Reports(object):
         self.go_to_manage_reports_tab()
         if self._select_extreme_guest_manage_page_user_row_cell(report_name):
             self.utils.print_info("Deleting Manage Report: ", report_name)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_delete_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_delete_button)
             sleep(2)
             self.utils.print_info("Clicking OK to delete")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             sleep(2)
             self.utils.print_info("Clicking OK")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             return 1
         return 0
 
@@ -343,9 +343,9 @@ class Reports(object):
         self.go_to_generated_reports_tab()
         if self._select_extreme_guest_generated_page_user_row(report_name):
             self.utils.print_info("Deleting Generated Report: ", report_name)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_generated_reports_delete_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_generated_reports_delete_button)
             sleep(2)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             return 1
         return 0
 
@@ -356,7 +356,7 @@ class Reports(object):
         self.utils.print_info("Navigating to Generated Reports Page")
         self.ext_guest.go_to_analyze_page()
         self.utils.print_info("Clicking on Extreme Guest Generated Reports Tab")
-        self.auto_actions.click(self.reports_web_elem.get_extreme_guest_generated_reports_tab())
+        self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_generated_reports_tab)
         sleep(2)
 
         self.screen.save_screen_shot()

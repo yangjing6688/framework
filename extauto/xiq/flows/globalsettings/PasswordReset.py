@@ -28,15 +28,15 @@ class PasswordReset:
         :return: 1 if account created else -1
         """
         self.utils.print_info("clicking on account icon..")
-        self.auto_actions.click(self.pw_web_elements.get_account_icon())
+        self.auto_actions.click_reference(self.pw_web_elements.get_account_icon)
         sleep(5)
 
         self.utils.print_info("clicking on global settings")
-        self.auto_actions.click(self.pw_web_elements.get_global_settings())
+        self.auto_actions.click_reference(self.pw_web_elements.get_global_settings)
         sleep(5)
 
         self.utils.print_info("clicking on account management")
-        self.auto_actions.click(self.pw_web_elements.get_account_management())
+        self.auto_actions.click_reference(self.pw_web_elements.get_account_management)
         sleep(5)
 
         result = self.pw_web_elements.get_user_table()
@@ -44,14 +44,14 @@ class PasswordReset:
             if _email in res.text:
                 self.utils.print_info("yes!....the email  is already present")
                 self.auto_actions.click(res)
-                self.auto_actions.click(self.pw_web_elements.get_delete_icon())
+                self.auto_actions.click_reference(self.pw_web_elements.get_delete_icon)
                 sleep(5)
 
-                self.auto_actions.click(self.pw_web_elements.get_delete_alert())
+                self.auto_actions.click_reference(self.pw_web_elements.get_delete_alert)
             self.utils.print_info("popup : ", res.text)
 
         self.utils.print_info("clicking on add account")
-        self.auto_actions.click(self.pw_web_elements.get_add_account())
+        self.auto_actions.click_reference(self.pw_web_elements.get_add_account)
         sleep(3)
 
         self.utils.print_info("Entering Email: ", _email)
@@ -63,7 +63,7 @@ class PasswordReset:
         sleep(2)
 
         self.utils.print_info("Clicking on save and close...")
-        self.auto_actions.click(self.pw_web_elements.get_save_button())
+        self.auto_actions.click_reference(self.pw_web_elements.get_save_button)
         sleep(10)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -103,15 +103,15 @@ class PasswordReset:
         """
 
         self.utils.print_info("clicking on account icon")
-        self.auto_actions.click(self.pw_web_elements.get_account_icon())
+        self.auto_actions.click_reference(self.pw_web_elements.get_account_icon)
         sleep(3)
 
         self.utils.print_info("clicking on global settings")
-        self.auto_actions.click(self.pw_web_elements.get_global_settings())
+        self.auto_actions.click_reference(self.pw_web_elements.get_global_settings)
         sleep(3)
 
         self.utils.print_info("clicking on account management")
-        self.auto_actions.click(self.pw_web_elements.get_account_management())
+        self.auto_actions.click_reference(self.pw_web_elements.get_account_management)
         sleep(3)
 
         result = self.pw_web_elements.get_user_table()
@@ -119,14 +119,14 @@ class PasswordReset:
             if _email in res.text:
                 self.utils.print_info("yes!....the email  is already present")
                 self.auto_actions.click(res)
-                self.auto_actions.click(self.pw_web_elements.get_delete_icon())
+                self.auto_actions.click_reference(self.pw_web_elements.get_delete_icon)
                 sleep(5)
 
-                self.auto_actions.click(self.pw_web_elements.get_delete_alert())
+                self.auto_actions.click_reference(self.pw_web_elements.get_delete_alert)
             self.utils.print_info("popup : ", res.text)
 
         self.utils.print_info("clicking on add account")
-        self.auto_actions.click(self.pw_web_elements.get_add_account())
+        self.auto_actions.click_reference(self.pw_web_elements.get_add_account)
         sleep(3)
 
         self.utils.print_info("Entering Email: ", _email)
@@ -138,7 +138,7 @@ class PasswordReset:
         sleep(2)
 
         self.utils.print_info("Clicking on save and close...")
-        self.auto_actions.click(self.pw_web_elements.get_save_button())
+        self.auto_actions.click_reference(self.pw_web_elements.get_save_button)
         sleep(10)
 
         reset_link = self.gm_handler.get_url_to_set_password_for_new_user(_email, _password)

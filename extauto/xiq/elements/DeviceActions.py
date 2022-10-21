@@ -13,6 +13,30 @@ class DeviceActions(DeviceActionsDefs):
         """
         return self.weh.get_element(self.device_actions_button)
 
+    def get_device_actions_button_disable(self):
+        return self.weh.get_element(self.device_actions_button_disable)
+
+    def get_device_actions_dropdown(self):
+        return self.weh.get_element(self.device_actions_dropdown)
+
+    def get_device_actions_advance(self):
+        return self.weh.get_element(self.device_actions_advance)
+
+    def get_device_actions_advance_cli_access(self):
+        return self.weh.get_element(self.device_actions_advance_cli_access)
+
+    def get_device_actions_cli_windows(self):
+        return self.weh.get_element(self.device_actions_cli_windows)
+
+    def get_device_actions_cli_windows_input(self):
+        return self.weh.get_element(self.device_actions_cli_windows_input)
+
+    def get_device_actions_cli_windows_input_apply(self):
+        return self.weh.get_element(self.device_actions_cli_windows_input_apply)
+
+    def get_device_actions_cli_windows_close(self):
+        return self.weh.get_element(self.device_actions_cli_windows_close)
+
     def get_device_actions_reboot_menu_item(self):
         """
         :return: Reboot Menu Option
@@ -224,3 +248,33 @@ class DeviceActions(DeviceActionsDefs):
 
     def get_digital_twin_revert_device_template(self):
         return self.weh.get_element(self.digital_twin_revert_device_template)
+
+    def get_clone_device_btn(self):
+        return self.weh.get_element(self.clone_device_btn)
+
+    def get_replacement_device_dropdown(self):
+        return self.weh.get_element(self.replacement_device_dropdown)
+
+    def get_replacement_device_items(self):
+        return self.weh.get_elements(self.replacement_device_items)
+
+    def get_replacement_serial_number_dropdown(self):
+        return self.weh.get_element(self.replacement_serial_number_dropdown)
+
+    def get_replacement_serial_number_items(self):
+        return self.weh.get_elements(self.replacement_serial_number_items)
+
+    def get_clone_button(self):
+        return self.weh.get_element(self.clone_button)
+
+    def get_yes_confirmation_button(self):
+        return self.weh.get_element(self.yes_confirmation_button)
+
+    def get_loading_clone_configuration(self):
+        return self.weh.get_element(self.loading_clone_configuration)
+
+    def get_warning_message_disconnected(self):
+        return self.weh.get_element(self.warning_message_disconnected)
+
+    def get_cancel_button(self):
+        return self.weh.get_element(self.cancel_button)

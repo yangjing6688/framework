@@ -41,7 +41,7 @@ class XIQSE_ControlPolicyDomainSave(ControlPolicyDomainSaveWebElements):
                 if save_status:
                     # Save Successful message is detected
                     self.utils.print_info("Save Domain...Successful!")
-                    self.auto_actions.click(self.get_save_ok_bttn())
+                    self.auto_actions.click_reference(self.get_save_ok_bttn)
                     ret_val = 1
                     break
                 else:

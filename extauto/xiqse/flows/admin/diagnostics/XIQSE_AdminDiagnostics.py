@@ -267,7 +267,7 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
             self.screen.save_screen_shot()
 
         self.utils.print_debug("Closing Column Selection Menu")
-        self.auto_actions.click(self.get_xiq_device_message_details_title())
+        self.auto_actions.click_reference(self.get_xiq_device_message_details_title)
 
         return ret_val
 
@@ -292,7 +292,7 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
             self.screen.save_screen_shot()
 
         self.utils.print_debug("Closing Column Selection Menu")
-        self.auto_actions.click(self.get_xiq_device_message_details_title())
+        self.auto_actions.click_reference(self.get_xiq_device_message_details_title)
 
         return ret_val
 

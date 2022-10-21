@@ -171,9 +171,21 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    device_360_page = \
+        {
+            'CSS_SELECTOR': '.device-entity.modal-360',
+            'wait_for': 5
+        }
+
     device_configuration_tab = \
         {
             'XPATH': '//li[@data-dojo-attach-point="deviceConfigurationTab"]',
+            'wait_for': 5
+        }
+
+    device_configuration_node = \
+        {
+            'CSS_SELECTOR': '.device-config-node',
             'wait_for': 5
         }
 
@@ -453,7 +465,7 @@ class DeviceConfigDefs:
 
     device_edit_button = \
         {
-            'CSS_SELECTOR': '.table-action-icons.table-edit',
+            'XPATH': '//span[@data-automation-tag="automation-device-list-bulkEdit-btn"]',
             'wait_for': 5
         }
 
@@ -1350,6 +1362,30 @@ class DeviceConfigDefs:
             'wait_for': 10
         }
 
+    devices_device_config_device_function_set_ap = \
+        {
+            'XPATH': '//a[@href="javascript:void(0)"] //span[contains(text(),"AP")]',
+            'wait_for': 5
+        }
+
+    devices_device_config_device_function_set_router = \
+        {
+            'XPATH': '//a[@href="javascript:void(0)"] //span[contains(text(), "ApAsRouter")]',
+            'wait_for': 5
+        }
+
+    devices_device_config_device_function = \
+        {
+            'CSS_SELECTOR': '.chzn-results.qa-chzn-results-devicefunction .active-result',
+            'wait_for': 5
+        }
+
+    devices_device_config_page_save_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-deviceconfiguration-save-btn"]',
+            'wait_for': 5
+        }
+
     config_audit_content = \
         {
             'XPATH': "//div[@data-dojo-attach-point='auditCtn']"
@@ -1358,4 +1394,17 @@ class DeviceConfigDefs:
     config_audit_delta_view_button_yellow = \
         {
             'CSS_SELECTOR': '.ui-icon-sprite-mismatch'
+        }
+
+    stack_edit_template_drop_down = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="stackTemplateArea"]//div['
+                     '@data-automation-tag="automation-chzn-container-ctn"]/a',
+            'wait_for': 5
+        }
+
+    device_edit_template_drop_down_options_stack = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]//ul[contains(@class, "chzn-results '
+                     'qa-chzn-results-stacktemplatelist")]//li',
         }
