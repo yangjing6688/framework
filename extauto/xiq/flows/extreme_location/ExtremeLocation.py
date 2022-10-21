@@ -35,14 +35,14 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if self.get_extreme_location_subscribe_page().is_displayed():
             self.utils.print_info("Click Extreme Location Subscribe button")
-            self.auto_actions.click_reference(self.get_extreme_location_subscribe_button)
+            self.auto_actions.click(self.get_extreme_location_subscribe_button())
             sleep(3)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Click Extreme Location Subscribe Apply button")
-            self.auto_actions.click_reference(self.get_extreme_location_subscribe_apply_button)
+            self.auto_actions.click(self.get_extreme_location_subscribe_apply_button())
             sleep(3)
 
             self.screen.save_screen_shot()
@@ -68,14 +68,14 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if self.get_extreme_location_subscribe_page().is_displayed():
             self.utils.print_info("Click Extreme Location Subscribe button")
-            self.auto_actions.click_reference(self.get_extreme_location_subscribe_button)
+            self.auto_actions.click(self.get_extreme_location_subscribe_button())
             sleep(3)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Click Extreme Location Subscribe Apply button")
-            self.auto_actions.click_reference(self.get_extreme_location_subscribe_apply_button)
+            self.auto_actions.click(self.get_extreme_location_subscribe_apply_button())
             sleep(3)
 
             self.screen.save_screen_shot()
@@ -87,7 +87,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(5)
 
         self.utils.print_info("Click More Insights button")
-        self.auto_actions.click_reference(self.get_extreme_location_more_insights_tab)
+        self.auto_actions.click(self.get_extreme_location_more_insights_tab())
         sleep(15)
 
         self.utils.print_info("Switch to New Extreme Location Window")
@@ -132,6 +132,24 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         return 1
+
+    def _search_common_object(self, search_string):
+        """
+        Search the passed search string object in grid rows
+        :param search_string:
+        :return:
+        """
+        self.utils.print_info("Entering the Ibeacon Name in search field: ", search_string)
+        self.auto_actions.click(self.get_xloc_search_name_field())
+        self.auto_actions.send_keys(self.get_xloc_search_name_field(), search_string)
+        sleep(2)
+        passed_value = self.get_common_object_grid_rows()
+        pass1 = passed_value.text
+        if pass1 == search_string:
+            self.screen.save_screen_shot()
+            return passed_value
+        self.utils.print_info(f"common object row {search_string} not present")
+        return False
 
     def go_to_extreme_location_category_menu(self):
         """
@@ -356,7 +374,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.go_to_extreme_location_access_points_menu()
 
         self.utils.print_info("Clicking search button on XLOC AP page")
-        self.auto_actions.click_reference(self.get_search_xloc_ap_page)
+        self.auto_actions.click(self.get_search_xloc_ap_page())
 
         self.utils.print_info("Seraching ap hostname in XLOC APp page")
         self.auto_actions.send_keys(self.get_host_to_xloc_ap_page(), device_hostname)
@@ -391,7 +409,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         """
 
         self.utils.print_info("Clicking Site Name Drop Down Button")
-        self.auto_actions.click_reference(self.get_devices_wireless_devices_sites_dropdown_button)
+        self.auto_actions.click(self.get_devices_wireless_devices_sites_dropdown_button())
         sleep(2)
 
         self.utils.print_info("select the Site Name: ", site_name)
@@ -486,7 +504,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Site Name Drop Down Button")
-        self.auto_actions.click_reference(self.get_extreme_location_sites_menu_dropdown_button)
+        self.auto_actions.click(self.get_extreme_location_sites_menu_dropdown_button())
         sleep(2)
 
         self.utils.print_info("select the Site Name: ", site_name)
@@ -504,18 +522,18 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(3)
 
         self.utils.print_info("Clicking Site Name Icon")
-        self.auto_actions.click_reference(self.get_extreme_location_sites_name_icon)
+        self.auto_actions.click(self.get_extreme_location_sites_name_icon())
         sleep(2)
 
         self.utils.print_info("Clicking Floor Link for the Selected Site")
-        self.auto_actions.click_reference(self.get_extreme_location_sites_name_floor_link)
+        self.auto_actions.click(self.get_extreme_location_sites_name_floor_link())
         sleep(5)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Floor name Name Drop Down Button")
-        self.auto_actions.click_reference(self.get_extreme_location_sites_menu_floor_name_dropdown_button)
+        self.auto_actions.click(self.get_extreme_location_sites_menu_floor_name_dropdown_button())
         sleep(2)
 
         self.utils.print_info("Selecting the Floor Name")
@@ -557,7 +575,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             if not self.get_extreme_location_sites_device_preference_apply_button_disabled().is_displayed():
                 self.utils.print_info("Client Entry Present In the Selected the Location")
                 self.utils.print_info("Clicking Apply Button")
-                self.auto_actions.click_reference(self.get_extreme_location_sites_device_preference_apply_button)
+                self.auto_actions.click(self.get_extreme_location_sites_device_preference_apply_button())
                 sleep(5)
 
                 self.screen.save_screen_shot()
@@ -594,7 +612,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if self.get_extreme_location_subscribe_page().is_displayed():
             self.utils.print_info("Click Extreme Location Subscribe button")
-            self.auto_actions.click_reference(self.get_extreme_location_subscribe_button)
+            self.auto_actions.click(self.get_extreme_location_subscribe_button())
             sleep(3)
 
             self.screen.save_screen_shot()
@@ -610,17 +628,17 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
             if ibeacon == 'enable':
                 self.utils.print_info("Enable Ibeacon button")
-                #self.auto_actions.click_reference(self.get_extreme_location_subscribe_async_ibeacon_button)
+                #self.auto_actions.click(self.get_extreme_location_subscribe_async_ibeacon_button())
                 self.auto_actions.enable_check_box(self.get_extreme_location_subscribe_async_ibeacon_button())
 
 
             if ibeacon == 'disable':
                 self.utils.print_info("Disable Ibeacon button")
                 self.auto_actions.disable_check_box(self.get_extreme_location_subscribe_async_ibeacon_button())
-                #self.auto_actions.click_reference(self.get_extreme_location_subscribe_async_ibeacon_button)
+                #self.auto_actions.click(self.get_extreme_location_subscribe_async_ibeacon_button())
 
             self.utils.print_info("Click Extreme Location Subscribe Apply button")
-            self.auto_actions.click_reference(self.get_extreme_location_subscribe_apply_button)
+            self.auto_actions.click(self.get_extreme_location_subscribe_apply_button())
             sleep(3)
 
             self.screen.save_screen_shot()
@@ -646,14 +664,14 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if self.get_extreme_location_subscribe_page().is_displayed():
             self.utils.print_info("Click Extreme Location Subscribe button")
-            self.auto_actions.click_reference(self.get_extreme_location_subscribe_button)
+            self.auto_actions.click(self.get_extreme_location_subscribe_button())
             sleep(3)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Click Extreme Location Subscribe Apply button")
-            self.auto_actions.click_reference(self.get_extreme_location_subscribe_apply_button)
+            self.auto_actions.click(self.get_extreme_location_subscribe_apply_button())
             sleep(3)
 
             self.screen.save_screen_shot()
@@ -674,7 +692,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             return -1
 
         self.utils.print_info("Click More Insights button")
-        self.auto_actions.click_reference(self.get_extreme_location_more_insights_tab)
+        self.auto_actions.click(self.get_extreme_location_more_insights_tab())
         sleep(15)
 
         return 1
@@ -696,7 +714,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         """
 
         self.utils.print_info("Clicking Add button of Assets Page in XLOC-Asset Management")
-        self.auto_actions.click_reference(self.get_extreme_location_asset_add_button)
+        self.auto_actions.click(self.get_extreme_location_asset_add_button())
         sleep(3)
 
         self.utils.print_info("Entering Asset Name", wifi_asset_name)
@@ -704,17 +722,17 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(4)
 
         self.utils.print_info("Clicking drop down button of sites in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_sites_click)
+        self.auto_actions.click(self.get_xloc_asset_sites_click())
         sleep(3)
         self.utils.print_info("Searching the Site Name: ", xloc_site_name)
         self.auto_actions.send_keys(self.get_xloc_asset_sites_search_field(), xloc_site_name)
         sleep(2)
         self.utils.print_info("Clicking drop down button of sites in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_sites_search_click)
+        self.auto_actions.click(self.get_xloc_asset_sites_search_click())
         sleep(3)
 
         self.utils.print_info("Clicking drop down button of asset category in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_assetcategory_click)
+        self.auto_actions.click(self.get_xloc_asset_assetcategory_click())
         sleep(3)
 
         self.utils.print_info("Select the Asset Category Name: ", as_category_name)
@@ -735,7 +753,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Selecting WIFI Asset button")
-        self.auto_actions.click_reference(self.enable_wifi_button)
+        self.auto_actions.click(self.enable_wifi_button())
         sleep(2)
 
         self.utils.print_info("Entering WIFI MAC Address for WIFI Asset: ", client_mac)
@@ -746,7 +764,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if confined_category != 'default':
             self.utils.print_info("Clicking drop down button of confined category in assets page")
-            self.auto_actions.click_reference(self.get_xloc_asset_cc_click)
+            self.auto_actions.click(self.get_xloc_asset_cc_click())
             sleep(3)
             self.utils.print_info("Select the Confined Category: ", confined_category)
             cc_name_items = self.get_xloc_asset_cc_dropdown_items()
@@ -764,7 +782,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if prohibited_category != 'default':
             self.utils.print_info("Clicking drop down button of prohibited category in assets page")
-            self.auto_actions.click_reference(self.get_xloc_asset_pc_click)
+            self.auto_actions.click(self.get_xloc_asset_pc_click())
             sleep(3)
             self.utils.print_info("Select the Prohibited Category: ", prohibited_category)
             pc_name_items = self.get_xloc_asset_pc_dropdown_items()
@@ -781,7 +799,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             sleep(3)
 
         self.utils.print_info("Clicking Save button of created Assets in XLOC-Asset Management")
-        self.auto_actions.click_reference(self.get_extreme_location_asset_save_button)
+        self.auto_actions.click(self.get_extreme_location_asset_save_button())
         sleep(3)
 
         self.utils.print_info("Successfully Created WIFI Assets in Asset Management Page")
@@ -807,7 +825,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         """
 
         self.utils.print_info("Clicking Add button of Assets Page in XLOC-Asset Management")
-        self.auto_actions.click_reference(self.get_extreme_location_asset_add_button)
+        self.auto_actions.click(self.get_extreme_location_asset_add_button())
         sleep(3)
 
         self.utils.print_info("Entering Asset Name", ble_asset_name)
@@ -815,17 +833,17 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(4)
 
         self.utils.print_info("Clicking drop down button of sites in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_sites_click)
+        self.auto_actions.click(self.get_xloc_asset_sites_click())
         sleep(3)
         self.utils.print_info("Searching the Site Name: ", xloc_site_name)
         self.auto_actions.send_keys(self.get_xloc_asset_sites_search_field(), xloc_site_name)
         sleep(2)
         self.utils.print_info("Clicking drop down button of sites in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_sites_search_click)
+        self.auto_actions.click(self.get_xloc_asset_sites_search_click())
         sleep(3)
 
         self.utils.print_info("Clicking drop down button of asset category in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_assetcategory_click)
+        self.auto_actions.click(self.get_xloc_asset_assetcategory_click())
         sleep(3)
 
         self.utils.print_info("Select the Asset Category Name: ", as_category_name)
@@ -843,11 +861,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(3)
 
         self.utils.print_info("Selecting BLE Asset button")
-        self.auto_actions.click_reference(self.enable_ble_button)
+        self.auto_actions.click(self.enable_ble_button())
         sleep(5)
 
         self.utils.print_info("Clicking drop down button of ibeacon in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_ibeacon_click)
+        self.auto_actions.click(self.get_xloc_asset_ibeacon_click())
         sleep(3)
         self.utils.print_info("Ibeacon from dropdown: ", ibeacon_name)
         ibeacon_name_items = self.get_xloc_asset_ibeacon_dropdown_items()
@@ -865,7 +883,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if confined_category != 'default':
             self.utils.print_info("Clicking drop down button of confined category in assets page")
-            self.auto_actions.click_reference(self.get_xloc_asset_cc_click)
+            self.auto_actions.click(self.get_xloc_asset_cc_click())
             sleep(3)
             self.utils.print_info("Select the Confined Category: ", confined_category)
             cc_name_items = self.get_xloc_asset_cc_dropdown_items()
@@ -883,7 +901,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if prohibited_category != 'default':
             self.utils.print_info("Clicking drop down button of prohibited category in assets page")
-            self.auto_actions.click_reference(self.get_xloc_asset_pc_click)
+            self.auto_actions.click(self.get_xloc_asset_pc_click())
             sleep(3)
             self.utils.print_info("Select the Prohibited Category: ", prohibited_category)
             pc_name_items = self.get_xloc_asset_pc_dropdown_items()
@@ -900,7 +918,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             sleep(3)
 
         self.utils.print_info("Clicking Save button of created Assets in XLOC-Asset Management")
-        self.auto_actions.click_reference(self.get_extreme_location_asset_save_button)
+        self.auto_actions.click(self.get_extreme_location_asset_save_button())
         sleep(3)
 
         self.utils.print_info("Successfully Created BLE Assets in Asset Management Page")
@@ -924,7 +942,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         """
 
         self.utils.print_info("Clicking Add button of Assets Page in XLOC-Asset Management")
-        self.auto_actions.click_reference(self.get_extreme_location_asset_add_button)
+        self.auto_actions.click(self.get_extreme_location_asset_add_button())
         sleep(3)
 
         self.utils.print_info("Entering Asset Name", none_asset_name)
@@ -932,17 +950,17 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(4)
 
         self.utils.print_info("Clicking drop down button of sites in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_sites_click)
+        self.auto_actions.click(self.get_xloc_asset_sites_click())
         sleep(3)
         self.utils.print_info("Searching the Site Name: ", xloc_site_name)
         self.auto_actions.send_keys(self.get_xloc_asset_sites_search_field(), xloc_site_name)
         sleep(2)
         self.utils.print_info("Clicking drop down button of sites in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_sites_search_click)
+        self.auto_actions.click(self.get_xloc_asset_sites_search_click())
         sleep(3)
 
         self.utils.print_info("Clicking drop down button of asset category in assets page")
-        self.auto_actions.click_reference(self.get_xloc_asset_assetcategory_click)
+        self.auto_actions.click(self.get_xloc_asset_assetcategory_click())
         sleep(3)
 
         self.utils.print_info("Select the Asset Category Name: ", as_category_name)
@@ -960,7 +978,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(3)
 
         self.utils.print_info("Selecting NONE Asset button")
-        self.auto_actions.click_reference(self.enable_none_button)
+        self.auto_actions.click(self.enable_none_button())
         sleep(3)
 
         self.auto_actions.scroll_down()
@@ -968,7 +986,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if confined_category != 'default':
             self.utils.print_info("Clicking drop down button of confined category in assets page")
-            self.auto_actions.click_reference(self.get_xloc_asset_cc_click)
+            self.auto_actions.click(self.get_xloc_asset_cc_click())
             sleep(3)
             self.utils.print_info("Select the Confined Category: ", confined_category)
             cc_name_items = self.get_xloc_asset_cc_dropdown_items()
@@ -986,7 +1004,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         if prohibited_category != 'default':
             self.utils.print_info("Clicking drop down button of prohibited category in assets page")
-            self.auto_actions.click_reference(self.get_xloc_asset_pc_click)
+            self.auto_actions.click(self.get_xloc_asset_pc_click())
             sleep(3)
             self.utils.print_info("Select the Prohibited Category: ", prohibited_category)
             pc_name_items = self.get_xloc_asset_pc_dropdown_items()
@@ -1003,7 +1021,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             sleep(3)
 
         self.utils.print_info("Clicking Save button of created Assets in XLOC-Asset Management")
-        self.auto_actions.click_reference(self.get_extreme_location_asset_save_button)
+        self.auto_actions.click(self.get_extreme_location_asset_save_button())
         sleep(3)
 
         self.utils.print_info("Successfully Created NONE Assets in Asset Management Page")
@@ -1028,11 +1046,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
             return -1
         if row:
             self.utils.print_info(f"Deleting the asset:{asset_name} from Assets Grid")
-            self.auto_actions.click_reference(self.get_delete_asset)
+            self.auto_actions.click(self.get_delete_asset())
             self.screen.save_screen_shot()
             sleep(5)
             self.utils.print_info("Confirming deletion of asset by clicking Yes")
-            self.auto_actions.click_reference(self.get_delete_asset_yes)
+            self.auto_actions.click(self.get_delete_asset_yes())
             sleep(2)
             self.screen.save_screen_shot()
             sleep(5)
@@ -1057,10 +1075,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
             return -1
         if row:
             self.utils.print_info(f"Click Actions for the asset:{asset_name} from Assets Grid")
-            self.auto_actions.click_reference(self.get_actions_asset)
+            self.auto_actions.click(self.get_actions_asset())
             self.screen.save_screen_shot()
             sleep(5)
-            self.auto_actions.click_reference(self.get_actions_edit_asset)
+            self.auto_actions.click(self.get_actions_edit_asset())
             self.screen.save_screen_shot()
             sleep(5)
 
@@ -1068,7 +1086,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 self.auto_actions.scroll_down()
                 sleep(2)
                 self.utils.print_info("Selecting WIFI Asset button")
-                self.auto_actions.click_reference(self.enable_wifi_button)
+                self.auto_actions.click(self.enable_wifi_button())
                 sleep(2)
                 self.utils.print_info("Entering New WIFI MAC Address for WIFI Asset: ", client_mac_new)
                 client_mac_formatted = ':'.join(client_mac_new[i:i+2] for i in range(0,12,2))
@@ -1078,7 +1096,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
             if confined_category != 'default':
                 self.utils.print_info("Clicking drop down button of confined category in assets page")
-                self.auto_actions.click_reference(self.get_xloc_asset_cc_click)
+                self.auto_actions.click(self.get_xloc_asset_cc_click())
                 sleep(3)
                 self.utils.print_info("Select the Confined Category: ", confined_category)
                 cc_name_items = self.get_xloc_asset_cc_dropdown_items()
@@ -1096,7 +1114,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
             if prohibited_category != 'default':
                 self.utils.print_info("Clicking drop down button of prohibited category in assets page")
-                self.auto_actions.click_reference(self.get_xloc_asset_pc_click)
+                self.auto_actions.click(self.get_xloc_asset_pc_click())
                 sleep(3)
                 self.utils.print_info("Select the Prohibited Category: ", prohibited_category)
                 pc_name_items = self.get_xloc_asset_pc_dropdown_items()
@@ -1113,7 +1131,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 sleep(3)
 
             self.utils.print_info("Clicking Save button of created Assets in XLOC-Asset Management")
-            self.auto_actions.click_reference(self.get_extreme_location_asset_save_button)
+            self.auto_actions.click(self.get_extreme_location_asset_save_button())
             sleep(3)
 
             self.utils.print_info("Successfully Created WIFI Assets in Asset Management Page")
@@ -1139,7 +1157,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(5)
 
         self.utils.print_info("Clicking Refresh button of XLOC Summary")
-        self.auto_actions.click_reference(self.click_refresh_xloc_summary_page)
+        self.auto_actions.click(self.click_refresh_xloc_summary_page())
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -1162,7 +1180,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return 1
 
-    def create_xloc_third_party_ibeacon(self, ibeacon_name, xloc_site_name, as_category_name, ibeacon_mac_address):
+    def create_xloc_third_party_ibeacon(self, ibeacon_name, uuid_name, xloc_site_name, as_category_name, ibeacon_mac_address, major_version="", minor_version=""):
         """
         -This keyword Will create third party ibeacon on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Beacons->Onboard Third Party Ibeacon
@@ -1182,7 +1200,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Add Button of Third Party Ibeacon")
-        self.auto_actions.click_reference(self.get_xloc_ibeacon_add_button)
+        self.auto_actions.click(self.get_xloc_ibeacon_add_button())
         sleep(2)
 
         self.utils.print_info("Entering the Ibeacon Name: ", ibeacon_name)
@@ -1190,7 +1208,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Site Name Drop Down Button")
-        self.auto_actions.click_reference(self.get_xloc_ibeacon_site_dropdown)
+        self.auto_actions.click(self.get_xloc_ibeacon_site_dropdown())
         sleep(2)
 
         self.utils.print_info("Selecting the Site Name for the ibeacon from dropdown: ", xloc_site_name)
@@ -1208,7 +1226,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(3)
 
         self.utils.print_info("Clicking Asset Category Drop Down Button")
-        self.auto_actions.click_reference(self.get_xloc_ibeacon_as_category_dropdown)
+        self.auto_actions.click(self.get_xloc_ibeacon_as_category_dropdown())
         sleep(2)
 
         self.utils.print_info("Selecting the Asset Category Name for the ibeacon from dropdown: ", as_category_name)
@@ -1234,16 +1252,220 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.auto_actions.send_keys(self.get_xloc_ibeacon_ibeacon_mac_address(), ibeacon_mac_address_formatted)
         sleep(2)
 
-        self.utils.print_info("Clicking Save Button of Third party Ibeacon")
-        self.auto_actions.click_reference(self.get_xloc_ibeacon_save)
+        self.utils.print_info("Entering the UUID Name: ", uuid_name)
+        self.auto_actions.click(self.get_xloc_uuid_name())
+        self.auto_actions.send_keys(self.get_xloc_uuid_name(), uuid_name)
+        sleep(2)
+        
+        self.utils.print_info("Entering the Major version: ", major_version)
+        self.auto_actions.send_keys(self.get_xloc_major_version(), major_version)
         sleep(2)
 
+        self.utils.print_info("Entering the Minor version: ", minor_version)
+        self.auto_actions.send_keys(self.get_xloc_minor_version(), minor_version)
+        sleep(2)
+
+        self.utils.print_info("Clicking Save Button of Third party Ibeacon")
+        self.auto_actions.click(self.get_xloc_ibeacon_save())
+        self.screen.save_screen_shot()
+        
+        try:
+            if self.get_xloc_third_party_major_minor_error_message().is_displayed():
+                self.screen.save_screen_shot()
+                self.utils.print_info("configuration not saved sucessfully")
+                return -1
+        except Exception as e:
+            self.utils.print_info("configuration sucessfully saved")
+            self.screen.save_screen_shot()
+            pass
+
+        if self._search_common_object(ibeacon_mac_address):
+            self.screen.save_screen_shot()
+            self.utils.print_info(f"third party ibeacon {ibeacon_mac_address} created")
+            return 1
+        else:
+            self.utils.print_info("third party ibeacon is not created")
+            return -1
+
+    def edit_Ibeacon_in_XLOC(self, ibeacon_mac_address, uuid_name, major_version="", minor_version=""):
+
+        """
+        - edit_Ibeacon_in_XLOC
+        - Flow : Extreme Location--> More Insights-->Asset Management-->Assets
+        - Keyword Usage:
+        - ``Edit Ibeacon in XLOC    ${IBEACON_MAC_ADDRESS}    ${uuid}    major_version=''    minor_version='' ``
+        
+        :return: 1 if successfully Edited
+        """
+        self.go_to_extreme_location_beacons_menu()
+        sleep(2)
+
+        self.utils.print_info("Search grid based on ibeacon mac address in search filter")
+        self.utils.print_info("Entering search_string for ibeacon mac address  ", ibeacon_mac_address)
+        
+        self.auto_actions.click(self.get_xloc_search_name_field())
+        self.auto_actions.send_keys(self.get_xloc_search_name_field(), ibeacon_mac_address)
+        sleep(2)
+
+        self.utils.print_info("clicking view ibeacon details button")
+        self.auto_actions.click(self.get_view_ibeacon_details_button())
+
+        sleep(2)
+        self.utils.print_info("clicking xloc third party beacon edit button")
+        self.auto_actions.click(self.get_xloc_third_party_beacon_edit_button())
+
+        sleep(2)
+        self.utils.print_info("clicking xloc third party beacon edit settings")
+        self.auto_actions.click(self.get_xloc_third_party_beacon_settings())
+        self.screen.save_screen_shot()
+
+        sleep(2)
+        self.utils.print_info("Entering the UUID Name: ", uuid_name)
+        self.auto_actions.click(self.get_xloc_third_party_beacon_uuid_text())
+        self.auto_actions.send_keys(self.get_xloc_third_party_beacon_uuid_text(), uuid_name)
+        self.screen.save_screen_shot()
+        sleep(2)
+        self.utils.print_info("Entering Major and Minor Version: ", major_version, minor_version)
+        a = (str(major_version),str(minor_version))
+        Formatted_major_minor_Value = ":".join(a)
+        self.auto_actions.click(self.get_xloc_third_party_beacon_major_minor_version())
+        self.auto_actions.send_keys(self.get_xloc_third_party_beacon_major_minor_version(),Formatted_major_minor_Value)
+        self.screen.save_screen_shot()
+        
+        sleep(2)
+        self.utils.print_info("clicking xloc third party beacon save settings")
+        self.auto_actions.click(self.get_xloc_third_party_beacon_save_btn())
+        self.screen.save_screen_shot()
+        
+        self.utils.print_info("verifying configuration sucessfully save")
+        if self.get_xloc_third_party_success_message().is_displayed():
+            self.screen.save_screen_shot()
+            sleep(2)
+            self.utils.print_info("configuration sucessfully saved")
+            return 1
+        else:
+            self.utils.print_info("configuration not saved sucessfully")
+            return -1
+    
+    
+    def delete_ibeacon_in_xloc(self, ibeacon_mac_address):
+
+        """
+        - delete_ibeacon_in_xloc
+        - Flow : Extreme Location--> More Insights-->
+        - Keyword Usage:
+        - ``Delete ibeacon in xloc    ${IBEACON_MAC_ADDRESS}``
+        
+        :return: 1 if successfully Deleted
+        """
+
+        self.go_to_extreme_location_beacons_menu()
+        sleep(2)
+        self.utils.print_info("Search grid based on ibeacon mac address in search filter")
+        self.utils.print_info("Entering search_string for ibeacon mac address  ", ibeacon_mac_address)
+        
+        self.auto_actions.click(self.get_xloc_search_name_field())
+        self.auto_actions.send_keys(self.get_xloc_search_name_field(), ibeacon_mac_address)
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.utils.print_info("Successfully Created Third Party Ibeacon", ibeacon_name)
-        sleep(2)
+        self.utils.print_info("Checking xloc ibeacon mac address in Grid")
+        if self._search_common_object(ibeacon_mac_address):
+            self.utils.print_info(f"third party ibeacon {ibeacon_mac_address} is avaliable")
+        
+        else:
+            self.utils.print_info("third party ibeacon is not avaliable")
+            return -1
+        
+        self.utils.print_info("Clicking Delete Button")
+        self.screen.save_screen_shot()
+        self.auto_actions.click(self.get_xloc_third_party_beacon_delete_button())
 
+        sleep(2)
+        self.utils.print_info("Clicking Confirm Button")
+        self.screen.save_screen_shot()
+        self.auto_actions.click(self.get_xloc_third_party_beacon_confirm_button())
+        sleep(2)
+        self.screen.save_screen_shot()
+
+        try:
+            if self._search_common_object(ibeacon_mac_address):
+                self.utils.print_info(f"third party ibeacon {ibeacon_mac_address} is avaliable")
+                self.screen.save_screen_shot()
+                return -1
+        except:
+            self.utils.print_info("third party ibeacon is not avaliable")
+            self.screen.save_screen_shot()
+            return 1
+    
+    def get_ibeacon_status(self, ibeacon_mac_address):
+
+        """
+        - get_ibeacon_status
+        - Flow : Extreme Location--> More Insights-->
+        - Keyword Usage:
+        - ``Get ibeacon Status       ${IBEACON_MAC_ADDRESS}``
+
+        :return: status of ibeacon(Online or Offline)
+        """
+        
+        # self.go_to_extreme_location_beacons_menu()
+        # sleep(2)
+
+        self.utils.print_info("Getting the status of ibeacon") 
+        count = 1
+        retry_duration = 10
+        while True:
+            try:
+                while count <= 5:
+                    self.utils.print_info(f"Ibeacon Online Status Check - Loop: ", count)
+                    get_status_value  = self.get_common_object_grid_ap_status()
+                    get_status_value = get_status_value.text
+                    self.utils.print_info("",get_status_value)
+                    if get_status_value == "Online":
+                        self.screen.save_screen_shot()
+                        self.utils.print_info(f"Ibeacon in Online State")
+                        return 1
+                    elif get_status_value != "Online":
+                        self.screen.save_screen_shot()
+                        self.utils.print_info(f"Refreshing Ibeacon")
+                        self.auto_actions.click(self.get_xloc_third_party_beacon_refresh_button())
+                        sleep(2)
+                        self.utils.print_info("Search grid based on ibeacon mac address in search filter")
+                        self.utils.print_info("Entering search_string for ibeacon mac address  ", ibeacon_mac_address)
+                        self.auto_actions.click(self.get_xloc_search_name_field())
+                        self.auto_actions.send_keys(self.get_xloc_search_name_field(), ibeacon_mac_address)
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                        self.utils.print_info(f"Waiting for {retry_duration} seconds...")
+                        sleep(retry_duration)
+                    count += 1
+                break
+            except:
+                pass
+        self.screen.save_screen_shot()
+        self.utils.print_info(f"Ibeacon in Offline State")
+        return -1
+
+    def download_ibeacon_report(self):
+
+        """
+        - download_ibeacon_report
+        - Flow : Extreme Location--> More Insights-->
+        - Keyword Usage:
+        - ``Download ibeacon report``
+
+        :return: Download ibeacon report
+        """
+        
+        self.go_to_extreme_location_beacons_menu()
+        sleep(2)
+        self.utils.print_info("downloading ibeacon report")
+        self.utils.print_info("Clicking Download button")
+        self.screen.save_screen_shot()
+        self.auto_actions.click(self.get_xloc_third_party_beacon_download_button())
+        sleep(2)
+        self.screen.save_screen_shot()
         return 1
 
     def create_time_based_device_classification_rule(self, user_type, visiting_hours="", visiting_minutes=""):
@@ -1263,15 +1485,15 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Add Device Classification Button")
-        self.auto_actions.click_reference(self.get_xloc_device_classification_add_button)
+        self.auto_actions.click(self.get_xloc_device_classification_add_button())
         sleep(2)
 
         self.utils.print_info("Clicking Add Device Rule Menu Button")
-        self.auto_actions.click_reference(self.get_xloc_device_classification_add_device_rule_menu_button)
+        self.auto_actions.click(self.get_xloc_device_classification_add_device_rule_menu_button())
         sleep(2)
 
         self.utils.print_info("Clicking User Type Drop Down Button")
-        self.auto_actions.click_reference(self.get_xloc_device_classification_user_type_drop_down_button)
+        self.auto_actions.click(self.get_xloc_device_classification_user_type_drop_down_button())
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -1282,7 +1504,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Visitor Duration Radio Button")
-        self.auto_actions.click_reference(self.get_xloc_device_classification_visitor_duration_radio_button)
+        self.auto_actions.click(self.get_xloc_device_classification_visitor_duration_radio_button())
         sleep(2)
 
         if visiting_hours:
@@ -1297,7 +1519,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.screen.save_screen_shot()
             sleep(2)
         self.utils.print_info("Clicking Save Button")
-        self.auto_actions.click_reference(self.get_xloc_device_classification_save_button)
+        self.auto_actions.click(self.get_xloc_device_classification_save_button())
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -1345,7 +1567,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                         self.auto_actions.click(edit_rule_rows[idx])
 
                     self.utils.print_info("Clicking on ssid option radio button ")
-                    self.auto_actions.click_reference(self.get_device_classification_ssid_radio_btn)
+                    self.auto_actions.click(self.get_device_classification_ssid_radio_btn())
                     ssid_text = self.get_device_classification_ssid_text_field().text
 
                     self.utils.print_debug("SSID text field content : ", ssid_text)
@@ -1357,7 +1579,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                             self.utils.print_info("Adding SSID :", ssid)
                             self.auto_actions.move_to_element(self.get_device_classification_ssid_dropdown_button())
                             self.utils.print_info("Clicking on SSID dropdown button")
-                            self.auto_actions.click_reference(self.get_device_classification_ssid_dropdown_button)
+                            self.auto_actions.click(self.get_device_classification_ssid_dropdown_button())
                             dd_items = self.get_device_classification_ssid_dropdown_items()
                             self.utils.print_info("Selecting SSID from dropdown")
                             self.auto_actions.select_drop_down_options(dd_items, ssid)
@@ -1378,7 +1600,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                         else:
                             self.utils.print_info("SSID not present to delete :", ssid)
                     self.utils.print_info("Saving the Device Classification Rule")
-                    self.auto_actions.click_reference(self.get_device_classification_save_btn)
+                    self.auto_actions.click(self.get_device_classification_save_btn())
                     self.screen.save_screen_shot()
                     sleep(5)
                     return 1
@@ -1418,7 +1640,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                         self.auto_actions.click(edit_rule_rows[idx])
 
                     self.utils.print_info("Clicking on visitor duration radio button")
-                    self.auto_actions.click_reference(self.get_visitor_duration_checkbox)
+                    self.auto_actions.click(self.get_visitor_duration_checkbox())
 
                     self.utils.print_info("Entering hours field for visitor duration")
                     self.auto_actions.send_keys(self.get_visitor_duration_hrs_textbox(), hr_min[0])
@@ -1429,7 +1651,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     sleep(2)
 
                     self.utils.print_info("Saving the Device Classification Rule")
-                    self.auto_actions.click_reference(self.get_device_classification_save_btn)
+                    self.auto_actions.click(self.get_device_classification_save_btn())
                     self.screen.save_screen_shot()
                     sleep(2)
                     return 1
@@ -1457,42 +1679,42 @@ class ExtremeLocation(ExtremeLocationWebElements):
         '''
 
         self.utils.print_info("Enter the Subscriber Push URL")
-        self.auto_actions.click_reference(self.get_enter_subscriber_url)
+        self.auto_actions.click(self.get_enter_subscriber_url())
         self.auto_actions.send_keys(self.get_enter_subscriber_url(), subscriber_push_url)
         sleep(2)
 
         self.utils.print_info("Enter the Username of URL")
-        self.auto_actions.click_reference(self.get_enter_subscriber_url_username)
+        self.auto_actions.click(self.get_enter_subscriber_url_username())
         self.auto_actions.send_keys(self.get_enter_subscriber_url_username(), username)
         sleep(2)
 
         self.utils.print_info("Enter the Password of URL")
-        self.auto_actions.click_reference(self.get_enter_subscriber_url_password)
+        self.auto_actions.click(self.get_enter_subscriber_url_password())
         self.auto_actions.send_keys(self.get_enter_subscriber_url_password(), password)
         sleep(2)
 
         self.utils.print_info("Clicking presence event")
-        self.auto_actions.click_reference(self.get_click_presence_event)
+        self.auto_actions.click(self.get_click_presence_event())
         sleep(2)
 
         self.utils.print_info("Clicking category event")
-        self.auto_actions.click_reference(self.get_click_category_event)
+        self.auto_actions.click(self.get_click_category_event())
         sleep(2)
 
         self.utils.print_info("Clicking location event")
-        self.auto_actions.click_reference(self.get_click_location_event)
+        self.auto_actions.click(self.get_click_location_event())
         sleep(2)
 
         self.utils.print_info("Clicking rssi event")
-        self.auto_actions.click_reference(self.get_click_rssi_event)
+        self.auto_actions.click(self.get_click_rssi_event())
         sleep(2)
 
         self.utils.print_info("Clicking crowding event")
-        self.auto_actions.click_reference(self.get_click_crowding_event)
+        self.auto_actions.click(self.get_click_crowding_event())
         sleep(2)
 
         self.utils.print_info("Clicking alarm event")
-        self.auto_actions.click_reference(self.get_click_alarm_event)
+        self.auto_actions.click(self.get_click_alarm_event())
         sleep(2)
 
         self.utils.print_info("Successfully configured third party configurations")
@@ -1515,7 +1737,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         self.configure_xloc_third_party_configurations(subscriber_push_url, username, password)
         self.utils.print_info("Clicking Save button of third party configurations")
-        self.auto_actions.click_reference(self.get_click_save_third_party_btn)
+        self.auto_actions.click(self.get_click_save_third_party_btn())
         sleep(2)
 
         self.utils.print_info("Successfully saved third party configurations")
@@ -1538,7 +1760,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         self.configure_xloc_third_party_configurations(subscriber_push_url, username, password)
         self.utils.print_info("Clicking Reset button of third party configurations")
-        self.auto_actions.click_reference(self.get_click_reset_third_party_btn)
+        self.auto_actions.click(self.get_click_reset_third_party_btn())
         sleep(2)
 
         self.utils.print_info("Successfully Resetted third party configurations")
@@ -1561,7 +1783,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         self.configure_xloc_third_party_configurations(subscriber_push_url, username, password)
         self.utils.print_info("Clicking Test Connection button of third party configurations")
-        self.auto_actions.click_reference(self.get_click_test_connection_btn_third_party)
+        self.auto_actions.click(self.get_click_test_connection_btn_third_party())
         sleep(2)
 
         xloc_test_connection_status = self.get_test_connection_xloc_status_textfield().text
@@ -1571,14 +1793,14 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("Test Connection was Successful")
             sleep(2)
             self.utils.print_info("Closing Test Connection Status Window")
-            self.auto_actions.click_reference(self.get_click_xloc_test_connection_close_btn)
+            self.auto_actions.click(self.get_click_xloc_test_connection_close_btn())
             sleep(2)
             return 1
         else:
             self.utils.print_info("Test Connection was Failed")
             sleep(2)
             self.utils.print_info("Closing Test Connection Status Window")
-            self.auto_actions.click_reference(self.get_click_xloc_test_connection_close_btn)
+            self.auto_actions.click(self.get_click_xloc_test_connection_close_btn())
             sleep(2)
             return -1
 
@@ -1631,10 +1853,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking XLOC Engagement Category")
-        self.auto_actions.click_reference(self.click_xloc_engagement_category)
+        self.auto_actions.click(self.click_xloc_engagement_category())
 
         self.utils.print_info("Clicking Add button of Engagement Category")
-        self.auto_actions.click_reference(self.click_xloc_engagement_category_add)
+        self.auto_actions.click(self.click_xloc_engagement_category_add())
 
         self.utils.print_info("Clicking Engagement Category Name Area and inputting category name:", en_category_name)
         self.auto_actions.send_keys(self.click_xloc_engagement_category_name(), en_category_name)
@@ -1645,21 +1867,21 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Engagement Category Save Button")
-        self.auto_actions.click_reference(self.click_xloc_engagement_category_save)
+        self.auto_actions.click(self.click_xloc_engagement_category_save())
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Engagement Category Site Button")
-        self.auto_actions.click_reference(self.click_xloc_engagement_category_site)
+        self.auto_actions.click(self.click_xloc_engagement_category_site())
         sleep(2)
 
         self.utils.print_info("Clicking Engagement Category Site Edit Button")
-        self.auto_actions.click_reference(self.click_xloc_engagement_category_site_edit)
+        self.auto_actions.click(self.click_xloc_engagement_category_site_edit())
         sleep(2)
 
         self.utils.print_info("Clicking Engagement Category Site Map Button")
-        self.auto_actions.click_reference(self.click_xloc_engagement_category_site_map)
+        self.auto_actions.click(self.click_xloc_engagement_category_site_map())
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -1680,11 +1902,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(3)
 
         self.utils.print_info("Clicking Engagement Category Site Select Next Button")
-        self.auto_actions.click_reference(self.click_xloc_category_site_select_next)
+        self.auto_actions.click(self.click_xloc_category_site_select_next())
         sleep(2)
 
         self.utils.print_info("Clicking Engagement Category Site Map Final Button")
-        self.auto_actions.click_reference(self.click_xloc_category_site_map_final)
+        self.auto_actions.click(self.click_xloc_category_site_map_final())
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -1713,31 +1935,31 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking XLOC Asset Category")
-        self.auto_actions.click_reference(self.click_xloc_asset_category)
+        self.auto_actions.click(self.click_xloc_asset_category())
 
         self.utils.print_info("Clicking Add button of Asset Category")
-        self.auto_actions.click_reference(self.click_xloc_asset_category_add)
+        self.auto_actions.click(self.click_xloc_asset_category_add())
 
         self.utils.print_info("Clicking Asset Category Name Area and inputting category name:", as_category_name)
         self.auto_actions.send_keys(self.click_xloc_asset_category_name(), as_category_name)
         sleep(2)
 
         self.utils.print_info("Clicking Asset Category Save Button")
-        self.auto_actions.click_reference(self.click_xloc_asset_category_save)
+        self.auto_actions.click(self.click_xloc_asset_category_save())
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Asset Category Site Button")
-        self.auto_actions.click_reference(self.click_xloc_asset_category_site)
+        self.auto_actions.click(self.click_xloc_asset_category_site())
         sleep(2)
 
         self.utils.print_info("Clicking Asset Category Site Edit Button")
-        self.auto_actions.click_reference(self.click_xloc_asset_category_site_edit)
+        self.auto_actions.click(self.click_xloc_asset_category_site_edit())
         sleep(2)
 
         self.utils.print_info("Clicking Asset Category Site Map Button")
-        self.auto_actions.click_reference(self.click_xloc_asset_category_site_map)
+        self.auto_actions.click(self.click_xloc_asset_category_site_map())
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -1758,11 +1980,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(3)
 
         self.utils.print_info("Clicking Asset Category Site Select Next Button")
-        self.auto_actions.click_reference(self.click_xloc_category_site_select_next)
+        self.auto_actions.click(self.click_xloc_category_site_select_next())
         sleep(2)
 
         self.utils.print_info("Clicking Asset Category Site Map Final Button")
-        self.auto_actions.click_reference(self.click_xloc_category_site_map_final)
+        self.auto_actions.click(self.click_xloc_category_site_map_final())
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -1772,3 +1994,34 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         return 1
+
+    def go_back_to_xloc(self):
+        """
+        -This keyword Will Navigate back to XIQ Window
+        - Keyword Usage:
+            ''Go Back To Xiq''
+
+        :return: 1 if success
+        """
+        self.utils.print_info("Switch to XIQ Window")
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
+
+        return 1
+
+    def switch_to_extreme_location_window(self, win_index=1):
+        """
+        - Switches to the specified window
+
+        :param:  win_index - Index of the window to switch to
+        :return: None
+        """
+        CloudDriver().switch_to_window(win_index)
+
+    def close_extreme_location_window(self, win_index=1):
+        """
+        - Closes the specified window
+
+        :param:  win_index - Index of the window to close
+        :return: None
+        """
+        CloudDriver().close_window(win_index)
