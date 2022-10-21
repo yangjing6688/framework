@@ -10655,3 +10655,229 @@ class Device360(Device360WebElements):
         :return: web element if it has been found; None if element was not found 
         '''
         return self.get_select_element_port_type(element)
+
+    def multi_edit_d360_port_config(self):
+        '''
+        This keyword push the multi edit button.
+        :return: 1 if succesfully ; else -1
+        '''
+        multi_edit_button = self.get_d360_monitor_port_details_edit()
+        if multi_edit_button:
+            self.utils.print_info("Click multi edit button")
+            self.auto_actions.click(multi_edit_button)
+            return 1
+        else:
+            self.utils.print_info("Multi edit button not found")
+            return -1
+
+    def fill_port_details_multi_edit_fields(self, port_state=None, port_usage=None, description=None, **kwargs):
+        '''
+        This keyword fill in all fields when port settings are configured for multiple ports from multi edit tab
+
+        :args:
+                 'Port State': ON/OFF - mandatory,
+                 'Port Usage': port_usage_mode - mandatory,
+                 'description': description - mandatory
+            kwargs:
+                 'vlan': vlan_value - used for Access Port,
+                 'Native': vlan_native - used for Trunk Port,
+                 'Allowed' : vlan_allowed - used for Trunk Port,
+                 'Voice' : voice_vlan - used for Phone with a Data Port,
+                 'Data' : Data_vlan - used for Phone with a Data Port,
+        :return: 1 if successfully ; else -1
+        '''
+
+        vlan_access_port = kwargs.get("vlan_access_port")
+        self.utils.print_info(vlan_access_port)
+
+        native_vlan_trunk_port = kwargs.get("native_vlan_trunk_port")
+        self.utils.print_info(native_vlan_trunk_port)
+
+        allowed_vlan_trunk_port = kwargs.get("allowed_vlan_trunk_port")
+        self.utils.print_info(allowed_vlan_trunk_port)
+
+        if port_state is not None:
+
+            """
+             - This keyword will select Port State in Multi Edit (D360-Port Configuration) and after that will put the port to OFF
+            """
+
+            checkbox_port_state = self.get_multi_edit_checkbox_status()
+            sleep(5)
+            if checkbox_port_state:
+                print("Click on checkbox")
+                AutoActions().click(checkbox_port_state)
+            else:
+                print("Unable to click the element")
+
+
+            get_multi_edit_port_state = self.get_multi_edit_status_toggle()
+            if get_multi_edit_port_state:
+                self.utils.print_info("Clicking Port State toggle to Off")
+                self.auto_actions.click(get_multi_edit_port_state)
+            else:
+                self.utils.print_info("Port state cannot be switched to OFF")
+                return -1
+
+        if port_usage is not None:
+            """
+             - This keyword will select Port Usage in Multi Edit (D360-Port Configuration)
+            """
+
+            checkbox = self.get_multi_edit_checkbox_port_type()
+            sleep(5)
+            if checkbox:
+                print("Click on checkbox")
+                AutoActions().click(checkbox)
+                sleep(1)
+            else:
+                print("Unable to click the element")
+
+
+            get_port_usage_mode_dropdown = self.get_multi_edit_port_type_dropdown()
+
+            if get_port_usage_mode_dropdown:
+                self.auto_actions.click(get_port_usage_mode_dropdown)
+                get_port_usage_items = self.get_multi_edit_port_type_drop_down_list()
+                if self.auto_actions.select_drop_down_options(get_port_usage_items,
+                                                              port_usage):
+                    self.utils.print_info(" Selected into dropdown value : ",port_usage)
+
+                    if port_usage == 'Access Port':
+                        if vlan_access_port is not None:
+                            """
+                             - This keyword will select Vlan in Multi Edit when Port usage is Access Port (D360-Port Configuration)
+                             and after that will complete the field with one value
+                            """
+
+                            checkbox_vlan = self.get_multi_edit_checkbox_vlan()
+                            sleep(5)
+                            if checkbox_vlan:
+                                print("Click on checkbox")
+                                AutoActions().click(checkbox_vlan)
+                                sleep(1)
+                            else:
+                                print("Unable to click the element")
+
+                            get_multi_edit_vlan = self.get_multi_edit_vlan_input()
+                            if get_multi_edit_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_vlan, vlan_access_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_vlan cannot be completed ")
+                                return -1
+
+                    elif port_usage == 'Trunk Port':
+                        if (native_vlan_trunk_port is not None) or (allowed_vlan_trunk_port is not None):
+                            """
+                             - This keyword will select Vlan settings in Multi Edit when Port usage is Trunk Port (D360-Port Configuration)
+                             and after that will complete the fields with values
+                            """
+
+                            checkbox_native_vlan = self.get_d360_multi_edit_checkbox_native_vlan()
+                            sleep(5)
+                            if checkbox_native_vlan:
+                                print("Click on checkbox")
+                                AutoActions().click(checkbox_native_vlan)
+                                sleep(1)
+                            else:
+                                print("Unable to click the element")
+
+                            checkbox_allowed_vlan = self.get_d360_multi_edit_checkbox_allowed_vlan()
+                            if checkbox_allowed_vlan:
+                                print("Click on checkbox")
+                                AutoActions().click(checkbox_allowed_vlan )
+                                sleep(1)
+                            else:
+                                print("Unable to click the element")
+
+                        if native_vlan_trunk_port is not None:
+
+                            get_multi_edit_native_vlan = self.get_d360_multi_edit_native_vlan_input()
+                            if get_multi_edit_native_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_native_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_native_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new native vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_native_vlan, native_vlan_trunk_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_native_vlan cannot be completed ")
+                                return -1
+
+                        if allowed_vlan_trunk_port is not None:
+
+                            # checkbox_allowed_vlan = self.get_d360_multi_edit_checkbox_allowed_vlan()
+                            # if checkbox_allowed_vlan:
+                            #     print("Click on checkbox")
+                            #     AutoActions().click(checkbox_allowed_vlan )
+                            #     sleep(1)
+                            # else:
+                            #     print("Unable to click the element")
+
+                            get_multi_edit_allowed_vlan = self.get_d360_multi_edit_allowed_vlan_input()
+                            if get_multi_edit_allowed_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_allowed_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_allowed_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new allowed vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_allowed_vlan, allowed_vlan_trunk_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_allowed_vlan cannot be completed ")
+                                return -1
+                else:
+                    self.utils.print_info("Can not select into drop down")
+                    return -1
+            else:
+                self.utils.print_info("Can not click on drop down")
+                return -1
+
+        if description is not None:
+            """
+             - This keyword will select Description in Multi Edit (D360-Port Configuration) and after that will complete the field
+            """
+            checkbox = self.get_multi_edit_checkbox_port_description()
+            sleep(5)
+            if checkbox:
+                print("Click on checkbox")
+                AutoActions().click(checkbox)
+                sleep(1)
+            else:
+                print("Unable to click the element")
+
+            get_multi_edit_description = self.get_multi_edit_port_description_input()
+            if get_multi_edit_description:
+                self.auto_actions.send_keys(get_multi_edit_description, description)
+            else:
+                self.utils.print_info("get_multi_edit_description cannot be completed ")
+                return -1
+
+    def d360_save_multi_edit_button(self):
+        '''
+        This keyword push the save button from Multi Edit tab.
+        :return: 1 if succesfully ; else -1
+        '''
+        save_button_multi_edit = self.get_d360_save_multi_edit()
+        if save_button_multi_edit:
+            self.utils.print_info("Click save button from Multi Edit")
+            self.auto_actions.click(save_button_multi_edit)
+            return 1
+        else:
+            self.utils.print_info("save button from Multi Edit not found")
+            return -1
+
+    def d360_cancel_multi_edit_button(self):
+        '''
+        This keyword push the cancel button from Multi Edit.
+        :return: 1 if succesfully ; else -1
+        '''
+        cancel_button_multi_edit = self.get_d360_cancel_multi_edit()
+        if cancel_button_multi_edit:
+            self.utils.print_info("Click cancel button from Multi Edit")
+            self.auto_actions.click(cancel_button_multi_edit)
+            return 1
+        else:
+            self.utils.print_info("cancel button from Multi Edit not found")
+            return -1

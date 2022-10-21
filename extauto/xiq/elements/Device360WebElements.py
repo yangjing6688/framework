@@ -2072,3 +2072,63 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_common_cancel_button(self):
         return self.weh.get_element(self.common_cancel_button)
+
+    def get_multi_edit_checkbox_status(self):
+        return self.weh.get_element(self.d360_multi_edit_checkbox_status)
+
+    def get_multi_edit_status_toggle(self):
+        return self.weh.get_element(self.d360_multi_edit_status_toggle)
+
+    def get_multi_edit_checkbox_port_type(self):
+        return self.weh.get_element(self.d360_multi_edit_checkbox_port_type)
+
+    def get_multi_edit_port_type_dropdown(self):
+        return self.weh.get_element(self.d360_multi_edit_port_type_dropdown)
+
+    def get_multi_edit_port_type_drop_down_list(self):
+        return self.weh.get_elements(self.d360_multi_edit_port_type_drop_down_list)
+
+    def get_multi_edit_checkbox_vlan(self):
+        return self.weh.get_element(self.d360_multi_edit_checkbox_vlan)
+
+    def get_multi_edit_vlan_input(self):
+        return self.weh.get_element(self.d360_multi_edit_vlan_input)
+
+    def get_d360_multi_edit_checkbox_native_vlan(self):
+        return self.weh.get_element(self.d360_multi_edit_checkbox_native_vlan)
+
+    def get_d360_multi_edit_native_vlan_input(self):
+        return self.weh.get_element(self.d360_multi_edit_native_vlan_input)
+
+    def get_d360_multi_edit_checkbox_allowed_vlan(self):
+        return self.weh.get_element(self.d360_multi_edit_checkbox_allowed_vlan)
+
+    def get_d360_multi_edit_allowed_vlan_input(self):
+        return self.weh.get_element(self.d360_multi_edit_allowed_vlan_input)
+
+    def get_multi_edit_checkbox_port_description(self):
+        return self.weh.get_element(self.d360_multi_edit_checkbox_port_description)
+
+    def get_multi_edit_port_description_input(self):
+        return self.weh.get_element(self.d360_multi_edit_port_description_input)
+
+    def get_close_multi_edit(self):
+        return self.weh.get_element(self.d360_close_multi_edit)
+
+    def get_save_multi_edit(self):
+        return self.weh.get_element(self.d360_save_multi_edit)
+
+    def get_d360_monitor_port_details_checkbox_interface(self, port_number):
+        return self.weh.get_template_element(self.d360_monitor_port_details_checkbox_interface, port_number=port_number)
+
+    def get_d360_monitor_port_details_edit(self):
+        return self.weh.get_element(self.d360_monitor_port_details_edit)
+
+    def get_vlan_error_message_close_multi_edit(self):
+        return self.weh.get_element(self.vlan_error_message_close_multi_edit)
+
+    def get_d360_save_multi_edit(self):
+        return self.weh.get_element(self.d360_save_multi_edit)
+
+    def get_d360_cancel_multi_edit(self):
+        return self.weh.get_element(self.d360_close_multi_edit)
