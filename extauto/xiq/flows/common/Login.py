@@ -220,6 +220,17 @@ class Login:
                 page_still_loading = False
                 self.utils.print_info("Page is loaded successfully")
 
+        if self.login_web_elements.get_admin_portal_page().is_displayed():
+            account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
+            self.utils.print_info(f"Selecting the Account Name {account_name} in Admin Portal")
+
+            account_names = self.login_web_elements.get_external_admin_account_names()
+            for account in account_names:
+                if account_name in account.text:
+                    self.auto_actions.click(account)
+                    sleep(10)
+                    break
+
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid,
                                     recover_login=recover_login, map_override=map_override) == -1:
