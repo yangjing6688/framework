@@ -456,3 +456,28 @@ class MLInsightsMonitorDefinitions:
             'XPATH': '//*[@class="text"]',
             'wait_for': 5
         }
+
+    n360_monitor_drop_down_options = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tracker-os-filter-chzn-drop-ctn"]//li[contains(text(),"${option}")]',
+            'wait_for': 5
+        }
+
+    n360_monitor_health_selector_drop_down_arrow = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tracker-os-filter-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    n360_monitor_health_selector_drop_down_options = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-360-selector-chzn-drop-ctn"]//li[contains(text(),"${option}")]',
+            'wait_for': 5
+        }
+
+    n360_monitor_port_connection_speed_container_down_arrow = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tracker-os-filter-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+

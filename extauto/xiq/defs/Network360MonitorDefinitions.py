@@ -55,8 +55,8 @@ class Network360MonitorDefinitions:
 
     n360_monitor_devices_card = \
         {
-            #'XPATH': '//*[@data-dojo-attach-point="deviceHealthScoreLabelCtn"]//span[@class="open-screen-icon ah-global-icon"]',
-            #'XPATH': '//*[@data-dojo-attach-point="automation-tracker-n360-card-device"]',
+            # 'XPATH': '//*[@data-dojo-attach-point="deviceHealthScoreLabelCtn"]//span[@class="open-screen-icon ah-global-icon"]',
+            # 'XPATH': '//*[@data-dojo-attach-point="automation-tracker-n360-card-device"]',
             'CSS_SELECTOR': '.open-screen-icon.ah-global-icon',
             'index': 0,
             'wait_for': 5
@@ -100,13 +100,90 @@ class Network360MonitorDefinitions:
         }
 
     client_health_clients_widget_count_5G = \
-    {
-        'XPATH': '//span[contains(text(),"5 GHz")]/../b',
-        'wait_for': 5
-    }
+        {
+            'XPATH': '//span[contains(text(),"5 GHz")]/../b',
+            'wait_for': 5
+        }
 
     client_health_clients_widget_count_6G = \
-    {
-        'XPATH': '//span[contains(text(),"6 GHz")]/../b',
-        'wait_for': 5
-    }
+        {
+            'XPATH': '//span[contains(text(),"6 GHz")]/../b',
+            'wait_for': 5
+        }
+
+    graph_point = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="highChartCtn"]//*[name()="svg"]/*[name()="g"]/*[name()="g"] [contains(@class, "highcharts-markers highcharts-series-${color} highcharts-spline-series highcharts-tracker")]',
+            'wait_for': 5
+        }
+
+    graph_point_hover = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="highChartCtn"]//*[name()="svg"]/*[name()="g"]/*[name()="g"] [contains(@class, "highcharts-markers highcharts-series-${color} highcharts-spline-series highcharts-tracker highcharts-series-hover")]',
+            'wait_for': 5
+        }
+
+    graph_line_color = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="highChartCtn"]//*[name()="svg"]/*[name()="g"]/*[name()="g"] [contains(@class, "highcharts-series highcharts-series-${color} highcharts-spline-series")]',
+            'wait_for': 5
+        }
+
+    graph_legend_names = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="highChartCtn"]//*[name()="svg"]//*[name()="g"][contains(@class, "highcharts-legend-item highcharts-spline-series highcharts-color-undefined highcharts-series-${color}")]',
+            'wait_for': 5
+        }
+
+    n360_back_to_timeline = \
+        {
+            'CSS_SELECTOR': '.fw400.font_75.back-btn.fn-inline-block',
+            'wait_for': 5
+        }
+
+    n360_graph_tooltip = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="highChartCtn"]//*[name()="svg"]/*[name()="g"][@class="highcharts-label highcharts-tooltip highcharts-color-undefined"]',
+            'wait_for': 5
+        }
+    n360_graph_tooltip_info = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="highChartCtn"]//div[@class="highcharts-label highcharts-tooltip highcharts-color-undefined"]//div[contains (text(),*)]',
+            'wait_for': 5
+        }
+
+    n360_device_health_refresh_btn = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="pageRefresh"]',
+            'wait_for': 5
+        }
+
+    n360_device_health_pagination = \
+        {
+            'CSS_SELECTOR': '.J-page-size.ui-page-size',
+            'wait_for': 5
+        }
+
+    n360_device_health_settings_btn = \
+        {
+            'CSS_SELECTOR': '[data-tip="Settings"][data-dojo-attach-point="flagSetting"]:not([style*=none])',
+            'wait_for': 5
+        }
+
+    n360_device_health_events_list = \
+        {
+            'CSS_SELECTOR': '.entity-timeline-flag-setting-list.entity-timeline-flag-setting-list-client[style*="1"] ul li .checkbox',
+            'wait_for': 5
+        }
+
+    n360_device_health_search_box = \
+        {
+            'CSS_SELECTOR': '.search-filter[data-dojo-attach-point="inputSearch"]',
+            'wait_for': 5
+        }
+
+    n360_device_health_column_headers = \
+        {
+            'CSS_SELECTOR': '[id="dgrid_18"] .dgrid-row-table tr th[class^="dgrid-cell dgrid-colum"][role="columnheader"]',
+            'wait_for': 5
+        }

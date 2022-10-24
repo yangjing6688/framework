@@ -209,3 +209,15 @@ class MLInsighstMonitorWebElements(MLInsightsMonitorDefinitions):
 
     def get_n360_monitor_search_grid(self):
         return self.weh.get_elements(self.n360_monitor_search_grid)
+
+    def get_n360_monitor_health_selector_drop_down_arrow(self):
+        return self.weh.get_element(self.n360_monitor_health_selector_drop_down_arrow)
+
+    def get_n360_monitor_health_selector_drop_down_options(self, option):
+        return self.weh.get_template_element(self.n360_monitor_health_selector_drop_down_options, option=option)
+
+    def get_n360_monitor_port_connection_speed_container_down_arrow(self):
+        return self.weh.get_element(self.n360_monitor_port_connection_speed_container_down_arrow)
+
+    def get_n360_monitor_drop_down_options(self, option):
+        return self.weh.get_template_element(self.n360_monitor_drop_down_options, option=option)

@@ -438,3 +438,20 @@ class AutoActions:
         except:
             self.utils.print_info("Shift+click element failed")
             return -1
+
+    def move_mouse_with_offset(self, x_offset, y_offset):
+        """
+        - Moves the mouse cursor with x ,y offsets from the current mouse position.
+
+        :param y_offset:
+        :param x_offset:
+        :return: n/a
+        """
+
+        actions = ActionChains(CloudDriver().cloud_driver)
+        actions.move_by_offset(x_offset, y_offset)
+        actions.perform()
+
+    def mouse_left_click(self):
+        actions = ActionChains(CloudDriver().cloud_driver)
+        actions.click().perform()
