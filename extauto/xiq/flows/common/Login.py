@@ -630,6 +630,39 @@ class Login:
         self.utils.print_info("Page Title on Reset password Page: ", got_title)
         return 1
 
+    def get_switch_connection_host(self, **kwargs):
+        """
+        - This keyword Get Switch Connection Host
+        - Keyword Usage
+         - ``Get Switch Connection Host``
+        :return: returns switch connection host info else fails keyword
+        """
+        self.utils.print_info("Clicking on About ExtremecloudIQ link")
+        self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
+        sleep(2)
+        self.auto_actions.click_reference(self.login_web_elements.get_about_extreme_cloudiq_link)
+        sleep(2)
+
+        # Take a screen shot for reference before closing the dialogue page.
+        # Need to do this instead of using built in IRV screen shoot function to trouble shoot.
+        # The IRV will throw an execption and the screen will be left up, beacuse IRV would not now to close the dialogue screen
+
+        self.screen.save_screen_shot()
+        switch_connection_host = self.login_web_elements.get_switch_connection_host().text
+
+        # Close the Dialogue page
+        self.utils.print_info("Close About ExtremecloudIQ Link Dialogue Page")
+        self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
+        sleep(2)
+
+        if  switch_connection_host:
+            kwargs['pass_msg'] = f" Switch Connection Host Is: '{switch_connection_host} '"
+            self.common_validation.passed(**kwargs)
+            return switch_connection_host
+        else:
+            kwargs['fail_msg'] = f"'get_switch_connection_host()' failed. Switch Connection host info was no found: The following was found '{switch_connection_host}'"
+            self.common_validation.failed(**kwargs)
+
     def get_viq_id(self):
         """
         - This method is used to get the build id or owner id
