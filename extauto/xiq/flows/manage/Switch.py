@@ -42,9 +42,14 @@ class Switch(SwitchWebElements):
         :param entry_type: Device Entry Type ie Manual or CSV
         :return: 1 if Switch OnBoarding is Successful without Error Message
         """
-        if self.search_switch_serial(switch_serial) == 1:
+
+
+        if self.devices.search_device(device_serial=switch_serial) == 1:
             self.utils.print_info(f"Switch with {switch_serial} serial number already onboarded")
             return 1
+        else:
+            self.utils.print_info(f"Onboarding Switch with serial number '{switch_serial}'")
+
 
         self.utils.print_info("Clicking on ADD button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
@@ -238,87 +243,6 @@ class Switch(SwitchWebElements):
                port_status = value.split("Port Status")[-1]
                break
         return port_status
-
-    def search_switch_serial(self, sw_serial):
-        """
-        - Searches for Switch matching Switch's Serial Number
-        - Flow  Manage--> Devices--> Search Switch Row based on Serial Number
-        - Keyword Usage
-         - ``Search Switch Serial   ${SWITCH_SERIAL}``
-
-        :param sw_serial: Switch's Serial Number
-        :return: return 1 if Switch found on Devices Grid Row else -1
-        """
-        #Adding 5 seconds of sleep as a workaround for XIQ-9267, will be removed after it's fixed
-        sleep(5)
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                self.utils.print_info("Device row data: ", row.text)
-                if sw_serial in row.text:
-                    self.utils.print_info("Found Switch Row: ", row.text)
-                    return 1
-        return -1
-
-    def search_switch_mac(self, sw_mac):
-        """
-        - Searches for Switch matching Switch's Mac Address
-        - Flow  Manage--> Devices--> Search Switch Row based on Mac Address
-        - Keyword Usage
-         - ``Search Switch Mac   ${SWITCH_SERIAL}``
-
-        :param sw_mac: Switch's Mac Address
-        :return: return 1 if Switch found on Devices Grid Row else -1
-        """
-        rows = self.devices_web_elements.get_grid_rows()
-        for row in rows:
-            if sw_mac in row.text:
-                self.utils.print_info("Found Switch Row: ", row.text)
-                return 1
-        return -1
-
-    def search_switch_name(self, sw_name):
-        """
-        - Searches for Switch matching Switch's Name
-        - Flow  Manage--> Devices--> Search Switch Row based on Switch Name
-        - Keyword Usage
-         - ``Search Switch Name   ${SWITCH_NAME}``
-
-        :param sw_name: Switch's Name
-        :return: return 1 if Switch found on Devices Grid Row else -1
-        """
-        rows = self.devices_web_elements.get_grid_rows()
-        for row in rows:
-            if sw_name in row.text:
-                self.utils.print_info("Found Switch Row: ", row.text)
-                return 1
-        return -1
-
-    def search_switch(self, sw_serial=None, sw_name=None, sw_mac=None):
-        """
-        - This keyword returns Searches Switch using serial number,name or mac address
-        - Flow  Manage--> Devices--> Search Switch Row using Serial Number,Name or mac address
-        - Keyword Usage
-         - ``Search Switch sw_serial=${SWITCH_SERIAL}``
-         - ``Search Switch sw_name=${SWITCH_NAME}``
-         - ``Search Switch sw_mac=${SWITCH_MAC}``
-
-        :param sw_serial: Switch Serial Number
-        :param sw_name: Switch Name
-        :param sw_mac: Switch MAC Address
-        :return: 'green' if the AP is online else return -1
-        """
-        if sw_serial:
-            self.utils.print_info("Searching Switch with Serial: ", sw_serial)
-            return self.devices.search_device(device_serial=sw_serial)
-        if sw_name:
-            self.utils.print_info("Searching Switch with Name: ", sw_name)
-            return self.devices.search_device(device_name=sw_name)
-        if sw_mac:
-            self.utils.print_info("Searching Switch with MAC: ", sw_mac)
-            return self.devices.search_device(device_mac=sw_mac)
-        return 1
-
 
 
     def get_switch_status(self, serial='default', name='default', mac='default'):
