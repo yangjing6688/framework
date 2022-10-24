@@ -12,6 +12,7 @@ from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
+from ExtremeAutomation.Utilities.deprecated import deprecated
 
 
 class Switch(SwitchWebElements):
@@ -27,6 +28,7 @@ class Switch(SwitchWebElements):
         self.login_web_elements = LoginWebElements()
         self.devices = Devices()
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_switch(self, switch_serial, switch_make="default", device_os="default", location=None, switch_type="Real", entry_type="Manual"):
         """
         - This keyword onboards an Switch Device based on Switch Type(ie Exos) using Quick onboard flow.
@@ -125,7 +127,7 @@ class Switch(SwitchWebElements):
                 self.utils.print_error(f"Switch with serial no. {switch_serial} is not successfully onboarded...")
                 return -1
 
-
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_aerohive_switch(self, switch_serial, switch_type):
         """
         - This keyword onboards an Aerohive Switch using Quick onboarding flow.
