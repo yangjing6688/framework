@@ -445,6 +445,8 @@ class DeviceCommon(DeviceCommonElements):
                 self.commonValidation.failed(**kwargs)
                 return -1
         self.utils.print_info(f"Select Device Checkbox is Checked with serial number:{device_serial}")
+        kwargs['fail_msg'] = f"Select Device Checkbox is Checked with serial number:{device_serial}"
+        self.commonValidation.failed(**kwargs)
         return -1
 
     def _select_device_checkbox_status_row(self, row, **kwargs):

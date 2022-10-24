@@ -992,7 +992,7 @@ class Navigator(NavigatorWebElements):
         if self.auto_actions.click_reference(self.get_network_policy_card_view) == 1:
             return 1
 
-    def navigate_to_multiple_device_configuration_page(self, device_serials=''):
+    def navigate_to_multiple_device_configuration_page(self, device_serials='', **kwargs):
         """
         - Flow: Manage --> Device --> Select Multiple Device --> Click on Edit button
         - This keyword is navigate to the devices configuration page
@@ -1006,6 +1006,8 @@ class Navigator(NavigatorWebElements):
         device_serials_num = device_serials.split(',')
         if len(device_serials_num) == 1:
             self.utils.print_info("This keyword works with multiple device,pass devices serial number with comma sep")
+            kwargs['fail_msg'] = "This keyword works with multiple device,pass devices serial number with comma sep"
+            self.commonValidation.failed(**kwargs)
             return -1
         self.device_common.edit_devices(device_serials)
         sleep(5)
