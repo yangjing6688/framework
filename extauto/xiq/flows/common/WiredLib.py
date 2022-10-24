@@ -1,6 +1,7 @@
 from extauto.common.Utils import Utils
 from extauto.xiq.flows.manage.Location import *
 from extauto.xiq.flows.manage.Device360 import Device360
+from extauto.common.CommonValidation import CommonValidation
 from extauto.common.Cli import Cli
 
 class WiredLib():
@@ -9,6 +10,7 @@ class WiredLib():
         self.utils = Utils()
         self.cli = Cli()
         self.device360 = Device360()
+        self.common_validation = CommonValidation()
 
     def configure_port_duplex_cli(self, range_ports_start, range_ports_end, sw_spawn, operate,speed=100):
         '''

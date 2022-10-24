@@ -1,6 +1,7 @@
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.WebElementHandler import *
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
 
@@ -8,6 +9,7 @@ class SideNavMenu(NavigatorWebElements):
     def __init__(self):
         super().__init__()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def get_order_number_of_main_nav_tab(self, tab_tag):

@@ -1,6 +1,7 @@
 from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.ApplicationSpecificSearchWebElements import ApplicationSpecificSearchWebElements
 from extauto.xiq.elements.ApSpecificSearchWebElements import ApSpecificSearchWebElements
 
@@ -9,6 +10,7 @@ class SpecificSearch:
     def __init__(self):
         self.ap_web_elements = ApSpecificSearchWebElements()
         self.app_web_elements = ApplicationSpecificSearchWebElements()
+        self.common_validation = CommonValidation()
         self.auto_actions = AutoActions()
         self.utils = Utils()
 

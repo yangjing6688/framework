@@ -285,7 +285,7 @@ class Login:
         if capture_version:
             self._capture_xiq_version()
         kwargs['pass_msg'] = "User has been logged in"
-        self.commonValidation.passed(**kwargs)
+        self.common_validation.passed(**kwargs)
         
         try:
             if self.login_web_elements.get_right_arrow().is_displayed():
@@ -315,7 +315,7 @@ class Login:
             device_page_found = self.nav_web_elements.get_devices_page()
             if device_page_found:
                 kwargs['pass_msg'] = "Device page found"
-                self.commonValidation.passed(**kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = "Device page not found"
@@ -543,12 +543,12 @@ class Login:
             if "sent you an email" in reset_message:
                 if "with instructions for resetting your password" in reset_message:
                     kwargs['pass_msg'] = f"{reset_message}"
-                    self.commonValidation.passed(**kwargs)
+                    self.common_validation.passed(**kwargs)
                     return 1
 
         self.utils.print_info("Unable to find the reset message")
         kwargs['fail_msg'] = "Unable to find the reset message"
-        self.commonValidation.failed(**kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _capture_data_center_name(self):
@@ -880,7 +880,7 @@ class Login:
         if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
             self.utils.print_info("Wrong Credentials. Try Again")
             kwargs['fail_msg'] = "Wrong Credentials. Try Again"
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Check for welcome page options..")
@@ -945,7 +945,7 @@ class Login:
                     self.utils.print_info("trial option is selected.")
                 else:
                     kwargs['fail_msg'] = "Trial option is not displayed"
-                    self.commonValidation.failed(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -2
 
             elif login_option.lower() == 'extremecloudiqlicense':
@@ -964,7 +964,7 @@ class Login:
                         self.utils.print_info("ExtremeCloud IQ License option is selected.")
                     else:
                         kwargs['fail_msg'] = "Tooltip is not displayed"
-                        self.commonValidation.failed(**kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -2
 
             elif login_option.lower() == 'legacylicense':
@@ -978,7 +978,7 @@ class Login:
                     sleep(5)
                 else:
                     kwargs['fail_msg'] = "Legacy License option is not displayed"
-                    self.commonValidation.failed(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -2
 
             elif login_option.lower() == 'connect':
@@ -990,12 +990,12 @@ class Login:
                     sleep(5)
                 else:
                     kwargs['fail_msg'] = "Extreme Connect option is not displayed"
-                    self.commonValidation.failed(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -2
             else:
                 self.utils.print_info("Not a valid login option.")
                 kwargs['fail_msg'] = "Not a valid login option."
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
             gs_btn = self.login_web_elements.get_get_started_button()
@@ -1016,7 +1016,7 @@ class Login:
                         ek_err = self.login_web_elements.get_legacy_ek_invalid_err().text
                         self.utils.print_info(str(ek_err))
                         kwargs['fail_msg'] = "License Error has occurred..."
-                        self.commonValidation.failed(**kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
                 except Exception as e:
                     pass
@@ -1041,7 +1041,7 @@ class Login:
         else:
             self.utils.print_info("Not a valid login option.")
             kwargs['fail_msg'] = "Not a valid login option."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def verify_upgrade_option_for_connect_user(self, **kwargs):
@@ -1063,7 +1063,7 @@ class Login:
         else:
             self.utils.print_info("Upgrade Button is not shown for Connect User.")
             kwargs['fail_msg'] = "Upgrade Button is not shown for Connect User."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def link_xiq_to_extreme_portal(self, sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid=None, **kwargs):
@@ -1081,7 +1081,7 @@ class Login:
                     sfdc_login_err_txt = self.login_web_elements.get_sfdc_login_err().text
                     self.utils.print_info("SFDC login Failed...", sfdc_login_err_txt)
                     kwargs['fail_msg'] = f"SFDC login Failed...{sfdc_login_err_txt}"
-                    self.commonValidation.failed(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
             except Exception as e:
                 pass
@@ -1134,7 +1134,7 @@ class Login:
         else:
             self.utils.print_info("Redirection to Extreme Portal ERROR. Linking is not successful.")
             kwargs['fail_msg'] = "Redirection to Extreme Portal ERROR. Linking is not successful."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def login_for_first_time(self):
@@ -1307,7 +1307,7 @@ class Login:
             else:
                 self.utils.print_info("submit button not found ")
                 kwargs['fail_msg'] = "submit button not found "
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             check_error_shared_cuid = self.login_web_elements.get_check_error_shared_cuid()
             if check_error_shared_cuid:
@@ -1316,7 +1316,7 @@ class Login:
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = f"The below error was displayed when enter shared CUID:" \
                                      f" {check_error_shared_cuid.text}"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             else:
                 return 1
@@ -1351,7 +1351,7 @@ class Login:
         self._agree_cloud_terms_and_conditions()
         if self._check_legacy_entitlement_key_errors() == -1:
             kwargs['fail_msg'] = "Check for entitlement key errors"
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self._agree_data_privacy_and_protection()
 
@@ -1409,7 +1409,7 @@ class Login:
             else:
                 self.utils.print_info("No Cloud Terms and Conditions popup")
                 kwargs['fail_msg'] = "No Cloud Terms and Conditions popup"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
         except Exception as e:
             self.utils.print_info(e)
 
@@ -1431,11 +1431,11 @@ class Login:
             else:
                 self.utils.print_info("No Accepting Data Privacy and Protection popup")
                 kwargs['fail_msg'] = "No Accepting Data Privacy and Protection popup"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
         except Exception as e:
             self.utils.print_info(e)
 
-    def _check_legacy_entitlement_key_errors(self, **kwargs)):
+    def _check_legacy_entitlement_key_errors(self, **kwargs):
         self.utils.print_info("Checking for entitlement key errors")
         try:
             entitlement_error = self.login_web_elements.get_entitlement_key_error()
@@ -1443,7 +1443,7 @@ class Login:
                 self.screen.save_screen_shot()
                 self.utils.print_info("This entitlement key has already been used by another system")
                 kwargs['fail_msg'] = "This entitlement key has already been used by another system"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         except Exception as e:
             self.utils.print_debug(e)
@@ -1501,7 +1501,7 @@ class Login:
                 if cnt == 2:
                     self.utils.print_info("the users already existed")
                     kwargs['fail_msg'] = "the users already existed"
-                    self.commonValidation.failed(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 else:
                     self.utils.print_info("the user already existed . Try again")
@@ -1509,7 +1509,7 @@ class Login:
                 if cnt == 2:
                     self.utils.print_info("Error")
                     kwargs['fail_msg'] = "Error"
-                    self.commonValidation.failed(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 else:
                     pass
@@ -1534,7 +1534,7 @@ class Login:
         if not found_page:
             self.utils.print_info("ADD BUTTON NOT FOUND")
             kwargs['fail_msg'] = "ADD BUTTON NOT FOUND"
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(5)
         self.screen.save_screen_shot()
@@ -1548,7 +1548,7 @@ class Login:
             self.utils.print_info("Unable to find customer name field.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find customer name field."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Inserting admin first name in the field...")
@@ -1561,7 +1561,7 @@ class Login:
             self.utils.print_info("Unable to find admin first name field.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find admin first name field."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Inserting admin last name in the field...")
@@ -1574,7 +1574,7 @@ class Login:
             self.utils.print_info("Unable to find admin last name field.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find admin last name field."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Inserting admin email in the field...")
@@ -1587,7 +1587,7 @@ class Login:
             self.utils.print_info("Unable to find admin email field.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find admin email field."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Inserting admin password in the field...")
@@ -1600,7 +1600,7 @@ class Login:
             self.utils.print_info("Unable to find admin password field.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find admin password field."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Clicking on Data Center dropdown...")
@@ -1655,7 +1655,7 @@ class Login:
         else:
             self.utils.print_info("Unable to find submit button.")
             kwargs['fail_msg'] = "Unable to find submit button."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def delete_user_portal(self, customer_name, check_delete_devices=-1, **kwargs):
@@ -1689,13 +1689,13 @@ class Login:
                     self.utils.print_info("Unable to find dropdown option: Equals")
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Unable to find dropdown option: Equals"
-                    self.commonValidation.failed(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
             else:
                 self.utils.print_info("Unable to click filter type dropdown.")
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Unable to click filter type dropdown."
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             filter_text_box = self.login_web_elements.get_filter_text_box()
             if filter_text_box:
@@ -1705,13 +1705,13 @@ class Login:
                 self.utils.print_info("Unable to find the filter text box!")
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Unable to find the filter text box!"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Unable to find cell menu button.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find cell menu button."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(3)
         user_found = self.login_web_elements.get_user_found()
@@ -1726,7 +1726,7 @@ class Login:
                 self.utils.print_info("Multiple users were found ")
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Multiple users were found "
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             delete_button = self.login_web_elements.get_delete_button()
             if delete_button:
@@ -1742,7 +1742,7 @@ class Login:
                 else:
                     self.utils.print_info("Unable to find confirmation option!")
                     kwargs['fail_msg'] = "Unable to find confirmation option!"
-                    self.commonValidation.failed(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 sleep(5)
                 self.screen.save_screen_shot()
@@ -1757,7 +1757,7 @@ class Login:
                 self.utils.print_info("Unable to find delete button.")
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Unable to find delete button."
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("The user has already been deleted or it hasn't been created.")
@@ -1781,7 +1781,7 @@ class Login:
         else:
             self.utils.print_info("Unable to find LOGOUT button.")
             kwargs['fail_msg'] = "Unable to find LOGOUT button."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def get_portal_url(self, sw_connection_host, **kwargs):
@@ -1800,11 +1800,11 @@ class Login:
                 return url
             else:
                 kwargs['fail_msg'] = "Can not return url of RDC"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             kwargs['fail_msg'] = "Could not get gdc"
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def check_if_xiq_user_exists(self, customer_name, **kwargs):
@@ -1834,13 +1834,13 @@ class Login:
                     self.utils.print_info("Unable to find dropdown option: Equals")
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Unable to find dropdown option: Equals"
-                    self.commonValidation.failed(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
             else:
                 self.utils.print_info("Unable to click filter type dropdown.")
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Unable to click filter type dropdown."
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             filter_text_box = self.login_web_elements.get_filter_text_box()
             if filter_text_box:
@@ -1850,13 +1850,13 @@ class Login:
                 self.utils.print_info("Unable to find the filter text box!")
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Unable to find the filter text box!"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Unable to find cell menu button.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find cell menu button."
-            self.commonValidation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(3)
         user_found = self.login_web_elements.get_user_found()
@@ -1866,13 +1866,13 @@ class Login:
                 sleep(5)
                 self.utils.print_info("Found user!")
                 kwargs['fail_msg'] = "Found user!"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             else:
                 self.utils.print_info("Multiple users were found ")
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Multiple users were found "
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("The user has already been deleted or it hasn't been created.")
