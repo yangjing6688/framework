@@ -3638,3 +3638,9 @@ class Device360WebElementDefs:
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
         }
+
+    device360_port_details_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-port-diagnostics-port-details"]',
+            'wait_for': 5
+        }

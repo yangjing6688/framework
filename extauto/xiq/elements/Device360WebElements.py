@@ -2143,3 +2143,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_common_cancel_button(self):
         return self.weh.get_element(self.common_cancel_button)
+
+    def get_device360_port_details_button(self):
+        return self.weh.get_element(self.device360_port_details_button)

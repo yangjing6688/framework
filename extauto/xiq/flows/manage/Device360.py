@@ -10655,3 +10655,22 @@ class Device360(Device360WebElements):
         :return: web element if it has been found; None if element was not found 
         '''
         return self.get_select_element_port_type(element)
+
+    def select_port_details_tab(self):
+        """
+        - This keyword clicks the PortDetails tab under Diagnostics button on the Monitor tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor tab.
+        - Flow: Device 360 Window --> Monitor tab --> Click "Diagnostics" button --> Click "Port Details" tab
+        - Keyword Usage:
+         - ``Select POrt Details Tab``
+        :return: 1 if Monitor> Diagnostics< POrt Details  was selected, else -1
+        """
+        port_details_btn = self.get_device360_port_details_button()
+        if port_details_btn:
+            self.utils.print_info("Clicking Port Details tab under Diagnostics button on the Device360 Monitor tab")
+            self.auto_actions.click(port_details_btn)
+            return 1
+        else:
+            self.utils.print_info(
+                "Could not find Port Details tab under Diagnostics button - make sure Device360 window is open and on Monitor tab")
+            return -1
