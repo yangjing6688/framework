@@ -90,6 +90,9 @@ class Network360MonitorElements(Network360MonitorDefinitions):
     def get_n360_device_health_events_list(self):
         return self.weh.get_elements(self.n360_device_health_events_list)
 
+    def get_n360_device_health_events_checkbox(self):
+        return self.weh.get_elements(self.n360_device_health_events_checkbox)
+
     def get_n360_device_health_search_box(self):
         return self.weh.get_element(self.n360_device_health_search_box)
 

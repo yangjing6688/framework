@@ -175,6 +175,12 @@ class Network360MonitorDefinitions:
             'CSS_SELECTOR': '.entity-timeline-flag-setting-list.entity-timeline-flag-setting-list-client[style*="1"] ul li .checkbox',
             'wait_for': 5
         }
+    n360_device_health_events_checkbox = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="flagSettingList"][@style="opacity: 1;"]/ul/li/label/input',
+            'wait_for': 5
+        }
+
 
     n360_device_health_search_box = \
         {
