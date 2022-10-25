@@ -200,7 +200,10 @@ class DeviceCommon(DeviceCommonElements):
                     kwargs['fail_msg'] = "Device grid row is not selected"
                     self.common_validation.failed(**kwargs)
                     return -1
+
         self.utils.print_info(f"Device row not found with {search_criteria}: {search_str}")
+        kwargs['fail_msg'] = f"Device row not found with {search_criteria}: {search_str}"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def select_device_rows(self, device_serials='', device_macs='', device_names='', **kwargs):
@@ -224,6 +227,7 @@ class DeviceCommon(DeviceCommonElements):
                     self.utils.print_info(f"The Device with Serial Number {device} was not found")
                     kwargs['fail_msg'] = f"The Device with Serial Number {device} was not found"
                     self.common_validation.failed(**kwargs)
+                    return -1
             return 1
         elif device_macs:
             device_list = device_macs.split(',')
@@ -232,6 +236,7 @@ class DeviceCommon(DeviceCommonElements):
                     self.utils.print_info(f"The Device with MAC Address {device} was not found")
                     kwargs['fail_msg'] = f"The Device with MAC Address {device} was not found"
                     self.common_validation.failed(**kwargs)
+                    return -1
             return 1
         elif device_names:
             device_list = device_names.split(',')
@@ -240,6 +245,7 @@ class DeviceCommon(DeviceCommonElements):
                     self.utils.print_info(f"The Device with Name {device} was not found")
                     kwargs['fail_msg'] = f"The Device with Name {device} was not found"
                     self.common_validation.failed(**kwargs)
+                    return -1
             return 1
         else:
             self.utils.print_info("Pass the Device Serial Number, MAC address, or Name.")
@@ -567,8 +573,6 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("Client link is not available")
-                kwargs['fail_msg'] = "Client link is not available"
-                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
@@ -595,8 +599,6 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("Host Name link is not available")
-                kwargs['fail_msg'] = "Host Name link is not available"
-                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
@@ -623,8 +625,6 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("MAC link is not available")
-                kwargs['fail_msg'] = "MAC link is not available"
-                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
@@ -651,8 +651,6 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("Policy link is not available")
-                kwargs['fail_msg'] = "Policy link is not available"
-                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
@@ -679,8 +677,6 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("Location link is not available")
-                kwargs['fail_msg'] = "Location link is not available"
-                self.common_validation.failed(**kwargs)
                 return -1
 
         else:

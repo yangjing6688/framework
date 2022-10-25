@@ -14,7 +14,7 @@ class SpecificSearch:
         self.auto_actions = AutoActions()
         self.utils = Utils()
 
-    def ap_specific_search(self, info):
+    def ap_specific_search(self, info, **kwargs):
         """
         - searches information specific to AP in Devices page
         :return: 1 if successfully Search information about specific AP else -1
@@ -33,9 +33,13 @@ class SpecificSearch:
             if info in lst:
                 return 1
             else:
+                kwargs['fail_msg'] = "There is no specific information about AP in Devices page"
+                self.common_validation.failed(**kwargs)
                 return -1
         except Exception as e:
             self.utils.print_debug(e)
+            kwargs['fail_msg'] = f"{e}"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def application_specific_search(self, info, **kwargs):
