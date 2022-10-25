@@ -10655,3 +10655,55 @@ class Device360(Device360WebElements):
         :return: web element if it has been found; None if element was not found 
         '''
         return self.get_select_element_port_type(element)
+
+    def enter_port_type_and_vlan_id(
+            self, port, port_type=None, access_vlan_id=None, native_vlan=None, allowed_vlans=None):
+        sleep(8)
+        port_row = self.device360_get_port_row(port)
+        if port_row:
+            self.utils.print_debug("Found row for port: ", port_row.text)
+
+            if port_type:
+                self.utils.print_info("click Port Usage drop down")
+                self.auto_actions.click(self.dev360.get_device360_configure_port_usage_drop_down_button(port_row))
+                sleep(2)
+
+                self.utils.print_info("Selecting Port Usage")
+                dropdown_options = self.dev360.get_device360_configure_port_usage_drop_down_options(port_row)
+                if not dropdown_options:
+                    dropdown_options = self.dev360.weh.get_elements(
+                        {"XPATH": f"//li[contains(@data-automation-tag, 'automation-port-details-port-dropdown-{port}-chzn-option')]"})
+
+                self.auto_actions.select_drop_down_options(dropdown_options, port_type)
+                sleep(2)
+
+            if access_vlan_id:
+                self.utils.print_info("Deleting the selected values in port..")
+                input_field_access_vlan_id = self.dev360.get_device360_configure_port_access_vlan_textfield(port_row)
+                if not input_field_access_vlan_id:
+                    input_field_access_vlan_id = self.dev360.weh.get_element(
+                        {"XPATH": f".//input[contains(@data-automation-tag, 'automation-port-details-port-access-vlan')]"}, parent=port_row)
+
+                self.auto_actions.send_keys(input_field_access_vlan_id, Keys.BACK_SPACE * 10 + access_vlan_id + Keys.ENTER)
+                sleep(2)
+
+            if native_vlan:
+
+                self.utils.print_info("Deleting the selected values in port..")
+                input_field_trunk_native = self.dev360.get_device360_configure_port_trunk_native_vlan_textfield(port_row)
+                if not input_field_trunk_native:
+                    input_field_trunk_native = self.dev360.weh.get_element(
+                        {"XPATH": f".//input[contains(@data-automation-tag, 'automation-port-details-port-trunk-native-vlan')]"}, parent=port_row)
+
+                self.auto_actions.send_keys(input_field_trunk_native, Keys.BACK_SPACE * 10 + native_vlan + Keys.ENTER)
+                sleep(2)
+
+            if allowed_vlans:
+                input_field_allowed_vlans = self.dev360.get_device360_configure_port_trunk_vlan_textfield(port_row)
+                if not input_field_allowed_vlans:
+                    input_field_allowed_vlans = self.dev360.weh.get_element(
+                        {"XPATH": f".//input[contains(@data-automation-tag, 'automation-port-details-port-trunk-allowed-vlan')]"}, parent=port_row)
+
+                self.auto_actions.send_keys(input_field_allowed_vlans, Keys.BACK_SPACE * 10 + allowed_vlans + Keys.ENTER)
+
+            sleep(8)
