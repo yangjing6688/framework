@@ -10680,7 +10680,7 @@ class Device360(Device360WebElements):
         """Method that goes to the next page of the honeycomb port editor.
 
         Returns:
-            int: 1 if successful else -1
+            int: 1 if function call is successful else -1
         """
         get_next_button, _ = self.utils.wait_till(lambda: self.get_select_element_port_type("next_button"),
                                             exp_func_resp=True, delay=5)
@@ -10703,7 +10703,7 @@ class Device360(Device360WebElements):
             port_type (str, optional): the port type. Defaults to "access".
         
         Returns:
-            int: 1 if successful else -1
+            int: 1 if function call is successful else -1
             
         """
         name_element, _ = self.utils.wait_till(
@@ -10883,7 +10883,7 @@ class Device360(Device360WebElements):
         """Method that press the save button in the honeycomb port type edtitor.
         
         Returns:
-            1 if succcessful else -1
+            1 if function call is succcessful else -1
         """
         try:
             save_button, _ = self.utils.wait_till(
@@ -11016,6 +11016,16 @@ class Device360(Device360WebElements):
 
     def verify_stp_settings_in_honeycomb_summary(self, stp_settings_summary, stp_enabled=None, edge_port=None,
                                                  bpdu_protection=None, priority=None, path_cost=None):
+        """Method that verifies the STP settings of the summary tab in the honeycomb port type editor.
+
+        Args:
+            stp_settings_summary (dict): the summary returned by the get_stp_settings_summary method
+            stp_enabled (bool, optional): True or False Defaults to None.
+            edge_port (bool, optional): True or False. Defaults to None.
+            bpdu_protection (int, optional): The pbdu protection value. Defaults to None.
+            priority (int, optional): the priority value. Defaults to None.
+            path_cost (int, optional): the path cost value. Defaults to None.
+        """
         if stp_enabled is not None:
             stp_enabled = "Enabled" if stp_enabled is True else "Disabled"
             assert stp_enabled == stp_settings_summary["STP"],\
@@ -11040,6 +11050,8 @@ class Device360(Device360WebElements):
                 f'Expected Path Cost enabled to be "{path_cost}" but found "{stp_settings_summary["Path Cost"]}"'
 
     def go_to_stp_settings_tab_in_honeycomb(self):
+        """Method that goes to the STP settings tab in the honeycomb port editor.
+        """
         self.utils.print_info("Go to the STP settings page")
         
         for _ in range(5):
@@ -11069,7 +11081,16 @@ class Device360(Device360WebElements):
                 self.utils.print_info("get_next_button not found")
 
     def get_one_port_from_each_asic_flow(self, dut, order, slot=None):
-        
+        """Method that returns one port from each asic in the device360 window.
+
+        Args:
+            dut (dict): the dut
+            order (int): the order in asic of the port
+            slot (int, optional): the slot of the stack if the device is a stack. Defaults to None.
+
+        Returns:
+            list: a list with the selected ports
+        """
         self.utils.wait_till(timeout=5)
         self.dev._goto_devices()
 
@@ -11088,6 +11109,8 @@ class Device360(Device360WebElements):
             self.close_device360_window()
 
     def verify_port_type_editor_still_in_stp_tab(self):
+        """Method that verifies if the browser is still in the STP tab of the honeycomb port editor.
+        """
         stp_tab, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("stpPage"),
             exp_func_resp=True,
@@ -11096,6 +11119,11 @@ class Device360(Device360WebElements):
         assert "active" in stp_tab.get_attribute("class")
 
     def set_path_cost_in_honeycomb(self, path_cost):
+        """Method that sets the path cost in the honeycomb port type editor.
+
+        Args:
+            path_cost (int): the path cost value
+        """
         path_cost_element, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("path cost"),
             exp_func_resp=True,
@@ -11114,6 +11142,8 @@ class Device360(Device360WebElements):
         self.utils.wait_till(timeout=5)
 
     def verify_path_cost_field_is_editable(self):
+        """Method that verifies if the path cost field in editable in the honeycomb port type editor.
+        """
         path_cost_element, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("path cost"), 
             exp_func_resp=True,
@@ -11127,6 +11157,15 @@ class Device360(Device360WebElements):
 
     def configure_stp_settings_tab_in_honeycomb(self, stp_enabled=None, edge_port=None, bpdu_protection=None,
                                                 path_cost=None, priority=None):
+        """Method that configures the STP settings tab in the honeycomb port type editor.
+
+        Args:
+            stp_enabled (bool_, optional): the STP status. Defaults to None.
+            edge_port (bool, optional): the edge port status. Defaults to None.
+            bpdu_protection (int, optional): the bpdu protection value. Defaults to None.
+            path_cost (int, optional): the path cost value. Defaults to None.
+            priority (int, optional): the priority value. Defaults to None.
+        """
         if stp_enabled is not None:
             stp_enabled_element, _ = self.utils.wait_till(
                 func=lambda: self.get_select_element_port_type("stp enable"),

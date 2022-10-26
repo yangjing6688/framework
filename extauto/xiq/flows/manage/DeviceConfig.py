@@ -1,4 +1,5 @@
 from time import sleep
+import re
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -2858,6 +2859,6 @@ class DeviceConfig(DeviceConfigElements):
                 except:
                     pass
 
-                self.xiq.xflowscommonDevices.select_device(device_mac=dut.mac)
+                self.devices.select_device(device_mac=dut.mac)
         else:
             assert False, f"Failed to verify these commands in the delta cli after {retries} retries: {commands}"
