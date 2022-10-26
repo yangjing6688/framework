@@ -12447,7 +12447,15 @@ class Devices:
             return -1
 
     def update_and_wait_switch(self, policy_name, dut):
-        
+        """Method that updates the switch and then wait for the update to finish.
+
+        Args:
+            policy_name (str): the name of the policy
+            dut (dict): the dut (e.g. tb.dut1)
+
+        Returns:
+            int: the status of the update
+        """
         self.utils.wait_till(timeout=10)
         self._goto_devices()
         self.utils.wait_till(timeout=10)

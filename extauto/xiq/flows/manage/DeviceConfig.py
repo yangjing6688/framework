@@ -2780,7 +2780,13 @@ class DeviceConfig(DeviceConfigElements):
                     return -1
 
     def verify_delta_cli_commands(self, dut, commands, retries=5):
-        
+        """Method that verifies that given CLI commands appear in the Delta CLI window of a dut.
+
+        Args:
+            dut (dict): the dut (e.g. tb.du1)
+            commands (list): a list of CLI commands
+            retries (int, optional): the number of retries. Defaults to 5.
+        """
         self.utils.wait_till(timeout=10)
         self.devices._goto_devices()
         self.utils.wait_till(timeout=10)

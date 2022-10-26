@@ -2499,7 +2499,7 @@ class SwitchTemplate(object):
         self.click_on_stp_tab()
         
         found_path_cost_value = self.get_path_cost_value_from_stp_port_configuration_row(
-            port, level="template")
+            port)
         assert str(found_path_cost_value) == str(path_cost), \
             f"In XIQ port configuration: Expected path cost for port='{port}' is {path_cost} " \
             f"but found {found_path_cost_value}"

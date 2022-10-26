@@ -10677,17 +10677,35 @@ class Device360(Device360WebElements):
                 break
 
     def go_to_next_editor_tab(self):
+        """Method that goes to the next page of the honeycomb port editor.
+
+        Returns:
+            int: 1 if successful else -1
+        """
         get_next_button, _ = self.utils.wait_till(lambda: self.get_select_element_port_type("next_button"),
                                             exp_func_resp=True, delay=5)
         if get_next_button:
             self.utils.wait_till(
                 func=lambda: self.auto_actions.click(get_next_button),
                 exp_func_resp=True, delay=4)
+            return 1
         else:
             self.utils.print_info("get_next_button not found ")
             return -1
 
     def configure_port_name_usage_tab(self, port_type_name, description="test", status=True, port_type="access"):
+        """Method that configures the first page of the honeycomb port type editor.
+
+        Args:
+            port_type_name (str): the name of the port type
+            description (str, optional): the description of the port type. Defaults to "test".
+            status (bool, optional): the port status. Defaults to True.
+            port_type (str, optional): the port type. Defaults to "access".
+        
+        Returns:
+            int: 1 if successful else -1
+            
+        """
         name_element, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("name"), 
             exp_func_resp=True,
@@ -10770,8 +10788,15 @@ class Device360(Device360WebElements):
             delay=4
         )
         self.utils.wait_till(timeout=2)
+        return 1
 
     def open_new_port_type_editor(self, port, device_360=False):
+        """Method that opens the honeycomb port type editor for given port.
+
+        Args:
+            port (str): the name of the port
+            device_360 (bool, optional): True if the browser is in the device 360 window. Defaults to False.
+        """
         self.utils.wait_till(timeout=10)
         ret = 1
         if not device_360:
@@ -10855,52 +10880,80 @@ class Device360(Device360WebElements):
         assert ret == 1, "Failed to find port {port}"
 
     def save_port_type_config(self):
-        save_button, _ = self.utils.wait_till(
-            func=self.get_close_port_type_box,
-            exp_func_resp=True, 
-            delay=5
-        )
+        """Method that press the save button in the honeycomb port type edtitor.
         
-        self.utils.wait_till(
-            func=lambda: self.auto_actions.click(save_button),
-            exp_func_resp=True, 
-            delay=4
-        )
-        self.utils.wait_till(timeout=10)
+        Returns:
+            1 if succcessful else -1
+        """
+        try:
+            save_button, _ = self.utils.wait_till(
+                func=self.get_close_port_type_box,
+                exp_func_resp=True, 
+                delay=5
+            )
+            
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(save_button),
+                exp_func_resp=True, 
+                delay=4
+            )
+            self.utils.wait_till(timeout=10)
+        except:
+            return -1
+        return 1
 
     def close_port_type_config(self):
-        close_button, _ = self.utils.wait_till(
-            func=self.get_cancel_port_type_box,
-            exp_func_resp=True,
-            delay=5
-        )
-        self.utils.wait_till(
-            func=lambda: self.auto_actions.click(close_button),
-            exp_func_resp=True, 
-            delay=4
-        )
-        self.utils.wait_till(timeout=10)
+        """Method that press the close button in the honeycomb port type edtitor.
+        
+        Returns:
+            1 if succcessful else -1
+        """
+        try:
+            close_button, _ = self.utils.wait_till(
+                func=self.get_cancel_port_type_box,
+                exp_func_resp=True,
+                delay=5
+            )
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(close_button),
+                exp_func_resp=True, 
+                delay=4
+            )
+            self.utils.wait_till(timeout=10)
+        except:
+            return -1
+        return 1
 
     def click_on_stp_tab(self):
-
-        stp_tab_button, _ = self.utils.wait_till(
-            func=self.get_d360_configure_port_stp_tab_button,
-            silent_failure=True,
-            exp_func_resp=True,
-            delay=5
-        )
-
-        assert stp_tab_button, "Failed to get the STP tab button"
+        """Method that click the STP configure port stb tab button in the device 360 window.
         
-        self.utils.wait_till(
-            func=lambda: self.auto_actions.click(stp_tab_button),
-            exp_func_resp=True,
-            delay=4
-        )
+        Returns:
+            1 if succcessful else -1
+        """
+        try:
+            stp_tab_button, _ = self.utils.wait_till(
+                func=self.get_d360_configure_port_stp_tab_button,
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            )
 
-        self.utils.print_info("Successfully clicked the STP tab button")    
+            assert stp_tab_button, "Failed to get the STP tab button"
+            
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(stp_tab_button),
+                exp_func_resp=True,
+                delay=4
+            )
+
+            self.utils.print_info("Successfully clicked the STP tab button")    
+        except:
+            return -1
+        return 1
 
     def get_stp_port_configuration_rows(self):
+        """Method that returns the STP port configuration rows in the device 360 window.
+        """
         rows, _ = self.utils.wait_till(
             func=self.get_device360_configure_stp_rows,
             silent_failure=True,
@@ -10912,6 +10965,8 @@ class Device360(Device360WebElements):
         return rows
 
     def get_stp_port_configuration_row(self, port):
+        """Method that returns a specific STP port configuration row from the device 360 window.
+        """
         rows = self.get_stp_port_configuration_rows()
         for row in rows:
             if re.search(f"^{port}\n", row.text):
@@ -10921,7 +10976,14 @@ class Device360(Device360WebElements):
             assert False, f"Failed to find the row port for port='{port}'"
 
     def get_path_cost_value_from_stp_port_configuration_row(self, port):
-        
+        """Method that returns the path cost value of a specific port from device 360.
+
+        Args:
+            port (str): the port of the switch
+
+        Returns:
+            int: the path cost value
+        """
         row = self.get_stp_port_configuration_row(port=port)
         
         cost_element, _ = self.utils.wait_till(
@@ -10934,6 +10996,11 @@ class Device360(Device360WebElements):
         return cost_element.get_attribute("value")
         
     def get_stp_settings_summary(self):
+        """Method that returns the STP settings from the honeycomb summary tab.
+
+        Returns:
+            dict: the summary
+        """
         self.utils.wait_till(timeout=5)
         summary = {}
         
