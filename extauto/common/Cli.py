@@ -1437,15 +1437,15 @@ class Cli(object):
             self.close_connection_with_error_handling(dut)
             self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
             
-            if dut.cli_type.upper() == "EXOS":
+            if NetworkElementConstants.OS_EXOS in dut.cli_type.upper():
                 self.networkElementCliSend.send_cmd(dut.name, 'reboot all', max_wait=10, interval=2,
                                      confirmation_phrases='Are you sure you want to reboot the switch?',
                                      confirmation_args='y'
                                      )
-            elif dut.cli_type.upper() == "VOSS":
+            elif NetworkElementConstants.OS_VOSS in dut.cli_type.upper():
                 self.networkElementCliSend.send_cmd(dut.name, 'reset -y', max_wait=10, interval=2)
                 
-            elif dut.cli_type.upper() == "AH-FASTPATH":
+            elif NetworkElementConstants.OS_AHFASTPATH in dut.cli_type.upper():
                 try:
                     self.networkElementCliSend.send_cmd(dut.name, "enable")
                 except:
@@ -1469,9 +1469,9 @@ class Cli(object):
         for _ in range(retries):
             try:
                 self.close_connection_with_error_handling(dut)
-                self.connect_to_network_element(dut)
+                self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
                 
-                if dut.cli_type.upper() == "AH-FASTPATH":
+                if NetworkElementConstants.OS_AHFASTPATH in dut.cli_type.upper():
                     output = self.networkElementCliSend.send_cmd(
                         dut.name, f'show spanning-tree mst port detailed 0 {port}', max_wait=10, interval=2)[
                         0].return_text
@@ -1494,13 +1494,13 @@ class Cli(object):
                         assert False, f"Failed to find the path cost correctly configure for port='{port}'"
                 
                 else:
-                    if dut.cli_type.upper() == "VOSS":
+                    if  NetworkElementConstants.OS_VOSS in dut.cli_type.upper():
                         output = self.networkElementCliSend.send_cmd(
                             dut.name, f'show spanning-tree {mode} port config {port}', max_wait=10, interval=2)[
                             0].return_text
                         path_cost_match = re.search(fr"\r\nCist Port cost\s+:\s*(\d+)\s*\r\n", output)
 
-                    elif dut.cli_type.upper() == "EXOS":
+                    elif  NetworkElementConstants.OS_EXOS in dut.cli_type.upper():
                         output = self.networkElementCliSend.send_cmd(
                             dut.name, f'show stpd s0 ports {port} detail', max_wait=10, interval=2)[
                             0].return_text
