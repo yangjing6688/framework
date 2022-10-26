@@ -12445,3 +12445,17 @@ class Devices:
         else:
             self.utils.print_info("Could not select device with serial ", device_mac)
             return -1
+
+    def update_and_wait_switch(self, policy_name, dut):
+        
+        self.utils.wait_till(timeout=10)
+        self._goto_devices()
+        self.utils.wait_till(timeout=10)
+		
+        self.utils.print_info(f"Select switch row with serial {dut.mac}")
+        if not self.select_device(dut.mac):
+            self.utils.print_info(f"Switch {dut.mac} is not present in the grid")
+            return -1
+        self.utils.wait_till(timeout=2)
+        self._update_switch(update_method="PolicyAndConfig")
+        return self._check_update_network_policy_status(policy_name, dut.serial)

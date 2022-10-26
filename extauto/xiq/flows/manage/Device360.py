@@ -10655,3 +10655,528 @@ class Device360(Device360WebElements):
         :return: web element if it has been found; None if element was not found 
         '''
         return self.get_select_element_port_type(element)
+
+    def go_to_last_page(self):
+        
+        self.utils.print_info("Go to the last page and save the port type")
+        for _ in range(10):
+            
+            get_next_button, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("next_button"),
+                exp_func_resp=True, 
+                delay=5
+            )
+            
+            if get_next_button.is_enabled():
+                self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(get_next_button),
+                    exp_func_resp=True, 
+                    delay=4
+                )
+            else:
+                break
+
+    def go_to_next_editor_tab(self):
+        get_next_button, _ = self.utils.wait_till(lambda: self.get_select_element_port_type("next_button"),
+                                            exp_func_resp=True, delay=5)
+        if get_next_button:
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(get_next_button),
+                exp_func_resp=True, delay=4)
+        else:
+            self.utils.print_info("get_next_button not found ")
+            return -1
+
+    def configure_port_name_usage_tab(self, port_type_name, description="test", status=True, port_type="access"):
+        name_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("name"), 
+            exp_func_resp=True,
+            delay=5)
+        
+        if not name_element:
+            self.utils.print_info("Port name was not found ")
+            return -1
+
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.send_keys(name_element, port_type_name),
+            exp_func_resp=True, 
+            delay=4
+        )
+
+        description_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("description"),
+            exp_func_resp=True,
+            silent_failure=True, 
+            delay=5)
+
+        if not description_element:
+            self.utils.print_info("Port description was not found ")
+            return -1
+
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.send_keys(description_element, description),
+            exp_func_resp=True,
+            delay=4
+        )
+
+        status_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("status"),
+            exp_func_resp=True,
+            silent_failure=True, 
+            delay=5
+        )
+
+        if not status_element:
+            self.utils.print_info("Port status was not found ")
+            return -1
+
+        if (not status_element.is_selected() and status) or (
+            status_element.is_selected() and not status):
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(status_element),
+                exp_func_resp=True,
+                delay=4
+            )
+
+        auto_sense, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("auto-sense"),
+            exp_func_resp=True,
+            silent_failure=True, 
+            delay=5
+        )
+
+        if auto_sense:
+            if auto_sense.is_selected():
+                self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(auto_sense),
+                    exp_func_resp=True, 
+                    delay=4
+                )
+
+        port_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("port usage", f"{port_type} port"),
+            exp_func_resp=True, 
+            silent_failure=True,
+            delay=5
+        )
+        
+        if not port_element:
+            self.utils.print_info(f"{port_type} port type was not found ")
+            return -1
+        
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.click(port_element),
+            exp_func_resp=True,
+            delay=4
+        )
+        self.utils.wait_till(timeout=2)
+
+    def open_new_port_type_editor(self, port, device_360=False):
+        self.utils.wait_till(timeout=10)
+        ret = 1
+        if not device_360:
+            rows, _ = self.utils.wait_till(
+                func=self.get_policy_configure_port_rows,
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+            if not rows:
+                self.utils.print_info("Could not obtain list of port rows")
+                ret = -1
+            else:
+                for row in rows:
+                    if re.search(f'{port}\n', row.text):
+                        d360_create_port_type, _ = self.utils.wait_till(
+                            func=lambda: self.get_d360_create_port_type(row),
+                            exp_func_resp=True, 
+                            silent_failure=True,
+                            delay=5
+                        )
+                        if d360_create_port_type:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was found")
+                            self.utils.wait_till(
+                                func=lambda: self.auto_actions.click(d360_create_port_type),
+                                exp_func_resp=True,
+                                delay=4
+                            )
+                            self.utils.wait_till(timeout=10)
+                            ret = 1
+                            break
+                        else:
+                            self.utils.print_info(" The button d360_create_port_type from policy  was not found")
+        else:
+            port_conf_content, _ = self.utils.wait_till(
+                func=self.get_device360_port_configuration_content, 
+                exp_func_resp=True,
+                silent_failure=True, 
+                delay=5
+            )
+
+            if port_conf_content:
+                port_row, _ = self.utils.wait_till(
+                    func=lambda: self.device360_get_port_row(port), 
+                    exp_func_resp=True,
+                    silent_failure=True,
+                    delay=5
+                )
+                if not re.search(f"{port}\n", port_row.text):
+                    port_row, _ = self.utils.wait_till(
+                        func=lambda: self.device360_get_port_row(f"{port}\n"),
+                        exp_func_resp=True,
+                        silent_failure=True
+                    )
+                    if not re.search(f"{port}\n", port_row.text):
+                        self.utils.print_info("Port was not found ")
+                        port_row = None
+
+                if port_row:            
+                    self.utils.print_debug("Found row for port: ", port_row.text)
+
+                    d360_create_port_type, _ = self.utils.wait_till(
+                        func=lambda: self.get_d360_create_port_type(port_row),
+                        silent_failure=True,
+                        exp_func_resp=True, 
+                        delay=5
+                    )
+                    
+                    if d360_create_port_type:
+                        self.utils.print_info(" The button d360_create_port_type  was found")
+                        self.utils.wait_till(
+                            func=lambda: self.auto_actions.click(d360_create_port_type),
+                            exp_func_resp=True,
+                            delay=4
+                        )
+                        self.utils.wait_till(timeout=10)
+                        ret = 1
+                    else:
+                        self.utils.print_info(" The button d360_create_port_type  was not found")
+
+        assert ret == 1, "Failed to find port {port}"
+
+    def save_port_type_config(self):
+        save_button, _ = self.utils.wait_till(
+            func=self.get_close_port_type_box,
+            exp_func_resp=True, 
+            delay=5
+        )
+        
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.click(save_button),
+            exp_func_resp=True, 
+            delay=4
+        )
+        self.utils.wait_till(timeout=10)
+
+    def close_port_type_config(self):
+        close_button, _ = self.utils.wait_till(
+            func=self.get_cancel_port_type_box,
+            exp_func_resp=True,
+            delay=5
+        )
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.click(close_button),
+            exp_func_resp=True, 
+            delay=4
+        )
+        self.utils.wait_till(timeout=10)
+
+    def click_on_stp_tab(self):
+
+        stp_tab_button, _ = self.utils.wait_till(
+            func=self.get_d360_configure_port_stp_tab_button,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        assert stp_tab_button, "Failed to get the STP tab button"
+        
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.click(stp_tab_button),
+            exp_func_resp=True,
+            delay=4
+        )
+
+        self.utils.print_info("Successfully clicked the STP tab button")    
+
+    def get_stp_port_configuration_rows(self):
+        rows, _ = self.utils.wait_till(
+            func=self.get_device360_configure_stp_rows,
+            silent_failure=True,
+            exp_func_resp=True, 
+            delay=5
+        )
+
+        assert rows, "Failed to get the STP port configuration rows"
+        return rows
+
+    def get_stp_port_configuration_row(self, port):
+        rows = self.get_stp_port_configuration_rows()
+        for row in rows:
+            if re.search(f"^{port}\n", row.text):
+                self.utils.print_info(f"Successfully found the row port for port='{port}'")
+                return row
+        else:
+            assert False, f"Failed to find the row port for port='{port}'"
+
+    def get_path_cost_value_from_stp_port_configuration_row(self, port):
+        
+        row = self.get_stp_port_configuration_row(port=port)
+        
+        cost_element, _ = self.utils.wait_till(
+            func=lambda: self.get_device360_port_configuration_path_cost_stp(row),
+            silent_failure=True,
+            exp_func_resp=True, 
+            delay=5
+        )
+        
+        return cost_element.get_attribute("value")
+        
+    def get_stp_settings_summary(self):
+        self.utils.wait_till(timeout=5)
+        summary = {}
+        
+        for row_name, row_value in zip(
+            ["STP", "Edge Port", "BPDU Protection", "Priority", "Path Cost"],
+            ["stp", "edge port", "bpdu protection", "priority", "path cost"]
+        ):
+            try:
+                summary[row_name]  = self.dev360.get_select_element_port_type_summary(row_value).text
+            except:
+                summary[row_name] = ""
+        return summary
+
+    def verify_stp_settings_in_honeycomb_summary(self, stp_settings_summary, stp_enabled=None, edge_port=None,
+                                                 bpdu_protection=None, priority=None, path_cost=None):
+        if stp_enabled is not None:
+            stp_enabled = "Enabled" if stp_enabled is True else "Disabled"
+            assert stp_enabled == stp_settings_summary["STP"],\
+                f'Expected STP Enabled to be "{stp_enabled}" but found "{stp_settings_summary["STP"]}"'
+        
+        if edge_port is not None:
+            edge_port = "Enabled" if edge_port is True else "Disabled"
+            assert edge_port == stp_settings_summary["Edge Port"], \
+                f'Expected Edge Port to be "{edge_port}" but found "{stp_settings_summary["Edge Port"]}"'
+        
+        if bpdu_protection is not None:
+            assert bpdu_protection == stp_settings_summary["BPDU Protection"],\
+                f'Expected BPDU Protection to be "{bpdu_protection}" ' \
+                f'but found "{stp_settings_summary["BPDU Protection"]}"'
+        
+        if priority is not None:
+            assert int(priority) == int(stp_settings_summary["Priority"]), \
+                f'Expected Priority to be "{priority}" but found "{stp_settings_summary["Priority"]}"'
+        
+        if path_cost is not None:
+            assert int(path_cost) == int(stp_settings_summary["Path Cost"]), \
+                f'Expected Path Cost enabled to be "{path_cost}" but found "{stp_settings_summary["Path Cost"]}"'
+
+    def go_to_stp_settings_tab_in_honeycomb(self):
+        self.utils.print_info("Go to the STP settings page")
+        
+        for _ in range(5):
+            
+            if "active" in self.get_select_element_port_type("stpPage").get_attribute("class"):
+                return
+            
+            get_next_button, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("next_button"),
+                exp_func_resp=True, 
+                delay=5
+            )
+
+            if get_next_button:
+                if get_next_button.is_enabled():
+                    
+                    self.utils.wait_till(
+                        func=lambda: self.auto_actions.click(get_next_button),
+                        exp_func_resp=True,
+                        delay=4
+                    )
+
+                    self.utils.wait_till(timeout=2)
+                else:
+                    break
+            else:
+                self.utils.print_info("get_next_button not found")
+
+    def get_one_port_from_each_asic_flow(self, dut, order, slot=None):
+        
+        self.utils.wait_till(timeout=5)
+        self.dev._goto_devices()
+
+        try:
+            self.utils.wait_till(timeout=5)
+            self.deviceCommon.go_to_device360_window(device_mac=dut.mac)
+            self.utils.wait_till(timeout=5)
+            
+            if slot:
+                return self.get_one_port_from_each_asic_stack(order=order, slot=slot)
+            
+            return self.get_one_port_from_each_asic(order=order)
+
+        finally:
+            self.utils.wait_till(timeout=5)
+            self.close_device360_window()
+
+    def verify_port_type_editor_still_in_stp_tab(self):
+        stp_tab, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("stpPage"),
+            exp_func_resp=True,
+            delay=5
+        )
+        assert "active" in stp_tab.get_attribute("class")
+
+    def set_path_cost_in_honeycomb(self, path_cost):
+        path_cost_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("path cost"),
+            exp_func_resp=True,
+            silent_failure=True, 
+            delay=5
+        )
+        
+        assert path_cost_element, "Path Cost element was not found"
+
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.send_keys(path_cost_element, str(path_cost)),
+            exp_func_resp=True, 
+            delay=4
+        )
+        self.utils.print_info("Successfully configured the path cost field")
+        self.utils.wait_till(timeout=5)
+
+    def verify_path_cost_field_is_editable(self):
+        path_cost_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("path cost"), 
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5
+        )
+        assert path_cost_element, "Path Cost element was not found"
+        
+        assert path_cost_element.is_enabled() is True, "The path cost element is not editable"
+        self.utils.print_info("Successfully verified that the path cost field is editable")
+
+    def configure_stp_settings_tab_in_honeycomb(self, stp_enabled=None, edge_port=None, bpdu_protection=None,
+                                                path_cost=None, priority=None):
+        if stp_enabled is not None:
+            stp_enabled_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("stp enable"),
+                exp_func_resp=True, 
+                silent_failure=True,
+                delay=5
+            )
+            
+            assert stp_enabled_element, "STP Enabled element was not found"
+            
+            if (not stp_enabled_element.is_selected() and stp_enabled) or (
+                stp_enabled_element.is_selected() and not stp_enabled):
+                
+                self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(stp_enabled_element), 
+                    exp_func_resp=True, 
+                    delay=4
+                )
+                self.utils.print_info("Successfully clicked on the STP enabled element")
+
+        if edge_port is not None:
+            edge_port_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("edge port"),
+                exp_func_resp=True, 
+                silent_failure=True,
+                delay=5
+            )
+            
+            assert edge_port_element, "Edge Port element was not found"
+            
+            if (not edge_port_element.is_selected() and edge_port) or (
+                edge_port_element.is_selected() and not edge_port):
+                
+                self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(edge_port_element),
+                    exp_func_resp=True, 
+                    delay=4
+                )
+                self.utils.print_info("Successfully clicked on the Edge Port element")
+
+        if bpdu_protection is not None:
+            bpdu_protection_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("bpdu protection"),
+                exp_func_resp=True,
+                silent_failure=True, 
+                delay=5
+            )
+            
+            assert bpdu_protection_element, "BPDU Protection element was not found"
+
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(bpdu_protection_element),
+                exp_func_resp=True,
+                delay=4
+            )
+            self.utils.print_info("Successfully clicked on the BPDU Protection element")
+            
+            get_bpdu_protection_items, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("bpdu_protection_items"),
+                exp_func_resp=True,
+                silent_failure=True, 
+                delay=5
+            )
+            
+            assert get_bpdu_protection_items, "BPDU Protection list elements not found"
+            
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.select_drop_down_options(
+                get_bpdu_protection_items, bpdu_protection),
+                exp_func_resp=True
+            )
+            self.utils.print_info("Selected into dropdown value : ", bpdu_protection)
+
+        if path_cost is not None:
+            
+            path_cost_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("path cost"),
+                exp_func_resp=True, silent_failure=True,
+                delay=5
+            )
+            
+            assert path_cost_element, "Path Cost element was not found"
+            
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.send_keys(path_cost_element, str(path_cost)), 
+                exp_func_resp=True, 
+                delay=4
+            )
+            self.utils.print_info("Successfully configured the path cost field")
+        
+        if priority:
+            priority_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("priority"),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+            
+            assert priority_element, "Priority element was not found"
+            
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(priority_element), 
+                exp_func_resp=True, 
+                delay=4
+            )
+            self.utils.print_info("Successfully clicked on the priority element")
+            
+            get_priority_items, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("priority_items"),
+                exp_func_resp=True, 
+                silent_failure=True,
+                delay=5
+            )
+            assert get_priority_items, "Priority dropdown elements not found"
+            
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.select_drop_down_options(get_priority_items, str(priority)),
+                exp_func_resp=True
+            )
+            self.utils.print_info("Selected into dropdown value : ", priority)

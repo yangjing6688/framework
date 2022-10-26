@@ -2265,3 +2265,299 @@ class SwitchTemplate(object):
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             return -1
+
+    def click_on_port_details_tab(self):
+        """Method that click on the STP port details button in the Template Configuration
+        """
+        stp_tab_button, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_port_details_tab,
+            silent_failure=True, 
+            exp_func_resp=True, 
+            delay=5
+        )
+        
+        assert stp_tab_button, "Failed to get the Port Details tab button"
+        
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.click(stp_tab_button),
+            exp_func_resp=True,
+            delay=4
+        )
+
+        self.utils.print_info("Successfully clicked the Port Details tab button")
+
+    def revert_port_configuration_template_level(self, port_type):
+        """Method that reverts all the ports to a specific port type.
+
+        Args:
+            port_type (str): the port type name
+        """
+        try:
+            select_all_ports, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.all_ports_selected,
+                silent_failure=True,
+                exp_func_resp=True
+            )
+            
+            assert select_all_ports, "Select all ports button was not found"
+            self.utils.print_info("Select all ports button was found")
+            
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(select_all_ports),
+                exp_func_resp=True,
+                delay=4
+            )
+            
+            assign_to_all_ports_selected, _ = self.utils.wait_till(
+                func=
+                self.sw_template_web_elements.assign_all_ports_selected,
+                silent_failure=True, 
+                exp_func_resp=True, 
+                delay=5
+            )
+            
+            assert assign_to_all_ports_selected, "Assign button was not found"
+            self.utils.print_info("Assign Button was found")
+            
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(assign_to_all_ports_selected),
+                exp_func_resp=True,
+                delay=4
+            )
+
+            assign_button, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_assign_choose_existing,
+                silent_failure=True, 
+                exp_func_resp=True, 
+                delay=5
+            )
+            
+            assert assign_button
+            
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(assign_button),
+                exp_func_resp=True,
+                delay=4
+            )
+
+            radio_buttons, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_all_port_type_list_radio,
+                silent_failure=True,
+                exp_func_resp=True,
+                timeout=40,
+                delay=5
+            )
+            
+            assert radio_buttons, "Radio buttons not found"
+
+            radio_buttons_labels, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_all_port_type_list_label,
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            
+            )
+            assert radio_buttons_labels, "Radio buttons labels not found"
+            
+            for btn, label in zip(radio_buttons, radio_buttons_labels):
+                if label.text == port_type:
+                    self.utils.wait_till(
+                        func=lambda: self.auto_actions.click(btn),
+                        exp_func_resp=True,
+                        delay=4
+                    )
+                    break
+            else:
+                assert False, "Failed to found the correct button for port type"
+        
+        finally:
+            
+            save_button, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_port_type_list_save_button,
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            )
+
+            assert save_button, "Save button was not found"
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(save_button),
+                exp_func_resp=True
+            )
+            
+            self.utils.wait_till(timeout=5)
+
+    def click_on_stp_tab(self):
+        """Method that click on the STP tab in the Template Configuration page
+        """
+        stp_tab_button, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_stp_tab,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        assert stp_tab_button, "Failed to get the STP tab button"
+        
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.click(stp_tab_button),
+            exp_func_resp=True,
+            delay=4
+        )
+
+        self.utils.print_info("Successfully clicked the STP tab button")    
+
+    def get_stp_port_configuration_rows(self):
+        """Method that returns the port configuration rows in the Template Configuration page
+
+        Returns:
+            list: a list that contains all the STP port configuration rows
+        """
+        rows, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_stp_port_rows,
+            silent_failure=True, 
+            exp_func_resp=True, 
+            delay=5
+        )
+
+        assert rows, "Failed to get the STP port configuration rows"
+        return rows
+
+    def get_stp_port_configuration_row(self, port):
+        """Method that returns a specific STP port configuration row based on the given port value.
+
+        Args:
+            port (string): the port of the switch
+
+        Returns:
+            _type_: the STP row configuration of the given port
+        """
+        rows = self.get_stp_port_configuration_rows()
+        for row in rows:
+            if re.search(f"^{port}\n", row.text):
+                self.utils.print_info(f"Successfully found the row port for port='{port}'")
+                return row
+        else:
+            assert False, f"Failed to find the row port for port='{port}'"
+
+    def navigate_to_slot_template(self, slot):
+        """Method that navigates to the template configuration of a given stack slot.
+
+        Args:
+            slot (int): the stack slot
+
+        Returns:
+            int: 1 if successful else -1
+        """
+        try:
+            template_slot = self.switch_template_web_elements.get_template_slot(slot=slot)
+            self.auto_actions.click(template_slot)
+            self.utils.wait_till(timeout=5)
+        except Exception as e:
+            print(f"Error Exception: {e}")
+            return -1
+        return 1
+
+    def get_path_cost_value_from_stp_port_configuration_row(self, port):
+        """Method that returns the path cost value of a given port.
+
+        Args:
+            port (str): the name of the port
+
+        Returns:
+            int: the path cost
+        """
+        row = self.get_stp_port_configuration_row(port=port)
+        cost_element, _ = self.utils.wait_till(
+            func=lambda:
+            self.sw_template_web_elements.get_sw_template_path_cost_row(row),
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+        
+        return cost_element.get_attribute("value")
+
+    def verify_path_cost_in_port_configuration_stp_tab(self, template_switch, network_policy, port, path_cost, slot=None):
+        """Method that verifies the path cost of a given port.
+
+        Args:
+            template_switch (str): the name of the template switch
+            network_policy (str): the name of the network policy
+            port (str): the port of the switch
+            path_cost (): the expected path cost value
+            slot (str, optional): the stack slot. Defaults to None.
+        """
+        
+        self.utils.print_info(f"Go to the port configuration of {template_switch} template")
+        self.select_sw_template(
+            network_policy, template_switch)
+        self.go_to_port_configuration()
+        if slot is not None:
+            required_slot = template_switch + "-" + slot
+            self.navigate_to_slot_template(required_slot)
+        self.click_on_stp_tab()
+        
+        found_path_cost_value = self.get_path_cost_value_from_stp_port_configuration_row(
+            port, level="template")
+        assert str(found_path_cost_value) == str(path_cost), \
+            f"In XIQ port configuration: Expected path cost for port='{port}' is {path_cost} " \
+            f"but found {found_path_cost_value}"
+
+    def set_stp(self, enable=True):
+        """Method that enables the STP in Template Configuration.
+
+        Args:
+            enable (bool, optional): If it is True then it will enable STP; if it is False then it will disable STP. Defaults to True.
+        """
+        button, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_enable_spanningtree, 
+            exp_func_resp=True, 
+            silent_failure=True, 
+            delay=5
+        )
+        
+        if (not button.is_selected() and enable) or (
+            button.is_selected() and not enable):
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(button),
+                exp_func_resp=True,
+                delay=4
+            )
+
+    def choose_stp_mode(self, mode):
+        """Method that choses the STP mode in Template Configuration.
+
+        Args:
+            mode (str): the STP mode
+        """
+        if mode == "stp":
+            button, _ = self.utils.wait_till(
+                func=self.get_sw_template_enable_stp, 
+                exp_func_resp=True, 
+                silent_failure=True, 
+                delay=5
+            )
+            
+        elif mode == "rstp":
+            button, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_enable_rstp, 
+                exp_func_resp=True, 
+                silent_failure=True, 
+                delay=5
+            )
+
+        elif mode == "mstp":
+            button, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_enable_mstp,
+                exp_func_resp=True, 
+                silent_failure=True,
+                delay=5
+        )
+        
+        assert button, f"Failed to get the {mode} stp mode button"
+        self.utils.wait_till(
+            func=lambda: self.auto_actions.click(button),
+            exp_func_resp=True,
+            delay=4
+        )

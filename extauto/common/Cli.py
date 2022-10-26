@@ -1426,6 +1426,102 @@ class Cli(object):
         else:
             return output2
 
+    def close_connection_with_error_handling(self, dut):
+        try:
+            self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
+        except Exception as exc:
+            self.utils.print_info(exc)
+
+    def reboot_dut(self, dut):
+        try:
+            self.close_connection_with_error_handling(dut)
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+            
+            if dut.cli_type.upper() == "EXOS":
+                self.networkElementCliSend.send_cmd(dut.name, 'reboot all', max_wait=10, interval=2,
+                                     confirmation_phrases='Are you sure you want to reboot the switch?',
+                                     confirmation_args='y'
+                                     )
+            elif dut.cli_type.upper() == "VOSS":
+                self.networkElementCliSend.send_cmd(dut.name, 'reset -y', max_wait=10, interval=2)
+                
+            elif dut.cli_type.upper() == "AH-FASTPATH":
+                try:
+                    self.networkElementCliSend.send_cmd(dut.name, "enable")
+                except:
+                    self.networkElementCliSend.send_cmd(dut.name, "exit")
+                    
+                self.networkElementCliSend.send_cmd(
+                    dut.name, 'reload', max_wait=10, interval=2,
+                    confirmation_phrases='Would you like to save them now? (y/n)', confirmation_args='y'
+                )
+        except Exception as exc:
+            msg = f"Failed to reboot: {repr(exc)}"
+            self.utils.print_info(msg)
+            self.utils.wait_till(timeout=5)
+            assert False, msg
+        else:
+            self.utils.wait_till(timeout=120)
+        finally:
+            self.close_connection_with_error_handling(dut)
+
+    def verify_path_cost_on_dut(self, dut, port, expected_path_cost, mode="mstp", retries=10, step=60):
+        for _ in range(retries):
+            try:
+                self.close_connection_with_error_handling(dut)
+                self.connect_to_network_element(dut)
+                
+                if dut.cli_type.upper() == "AH-FASTPATH":
+                    output = self.networkElementCliSend.send_cmd(
+                        dut.name, f'show spanning-tree mst port detailed 0 {port}', max_wait=10, interval=2)[
+                        0].return_text
+                    path_cost_match = re.search(rf"\r\nPort Path Cost\.+\s+(\d+)", output)
+                    external_path_cost_match = re.search(rf"\r\nExternal Port Path Cost\.+\s+(\d+)", output)
+                    assert path_cost_match or external_path_cost_match
+                    
+                    for path_cost_match in [path_cost_match, external_path_cost_match]:
+                        try:
+                            found_path_cost = int(path_cost_match.group(1))
+                            self.utils.print_info(f"Found path_cost='{found_path_cost}' for port='{port}'")
+                            assert int(expected_path_cost) == found_path_cost, \
+                                f"Found path cost for port='{port}' is {found_path_cost}" \
+                                f" but expected {expected_path_cost}"
+                        except:
+                            continue
+                        else:
+                            return
+                    else:
+                        assert False, f"Failed to find the path cost correctly configure for port='{port}'"
+                
+                else:
+                    if dut.cli_type.upper() == "VOSS":
+                        output = self.networkElementCliSend.send_cmd(
+                            dut.name, f'show spanning-tree {mode} port config {port}', max_wait=10, interval=2)[
+                            0].return_text
+                        path_cost_match = re.search(fr"\r\nCist Port cost\s+:\s*(\d+)\s*\r\n", output)
+
+                    elif dut.cli_type.upper() == "EXOS":
+                        output = self.networkElementCliSend.send_cmd(
+                            dut.name, f'show stpd s0 ports {port} detail', max_wait=10, interval=2)[
+                            0].return_text
+                        path_cost_match = re.search(fr"\tPath Cost:\s(\d+)\r\n", output)
+                    
+                    assert path_cost_match, "Failed to match get the path cost of port='{port}' from dut {dut}"
+                    found_path_cost = int(path_cost_match.group(1))
+                    self.utils.print_info(f"Found path_cost='{found_path_cost}' for port='{port}'")
+                    assert int(expected_path_cost) == found_path_cost,\
+                        f"Found path cost for port='{port}' is {found_path_cost}" \
+                        f" but expected {expected_path_cost}"
+                    return
+                
+            except Exception as exc:
+                self.utils.print_info(repr(exc))
+                self.utils.wait_till(timeout=step)
+            finally:
+                self.close_connection_with_error_handling(dut)
+        else:
+            assert False, f"Failed to verify the path cost of port='{port}' on this dut\n{dut}"
+
 
 if __name__ == '__main__':
     from pytest_testconfig import *

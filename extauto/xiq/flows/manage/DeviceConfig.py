@@ -2778,3 +2778,80 @@ class DeviceConfig(DeviceConfigElements):
                 if try_cnt == 10:
                     self.utils.print_info(f"Max {try_cnt} to select device is reached")
                     return -1
+
+    def verify_delta_cli_commands(self, dut, commands, retries=5):
+        
+        self.utils.wait_till(timeout=10)
+        self.devices._goto_devices()
+        self.utils.wait_till(timeout=10)
+        self.devices.refresh_devices_page()
+        self.utils.wait_till(timeout=5)
+                
+        for _ in range(retries):
+            try:
+                self.devices.select_device(device_mac=dut.mac)
+                
+                btn, _ = self.utils.wait_till(
+                    func=self.get_device_config_audit_view,
+                    delay=5,
+                    exp_func_resp=True
+                )
+                
+                self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(btn),
+                    delay=4,
+                    exp_func_resp=True
+                )
+
+                delta_view, _ = self.utils.wait_till(
+                    func=self.get_device_config_audit_delta_view,
+                    delay=5,
+                    exp_func_resp=True
+                )
+                
+                self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(delta_view),
+                    timeout=60,
+                    delay=20,
+                    exp_func_resp=True
+                )
+                
+                delta_configs, _ = self.utils.wait_till(
+                    func=self.get_device_config_audit_delta_view_content,
+                    timeout=60,
+                    exp_func_resp=True,
+                    delay=5
+                )
+                
+                delta_configs = delta_configs.text
+
+                for command in commands:
+                    assert re.search(command, delta_configs), f"Did not find this command in delta CLI: {command}"
+            
+            except Exception as exc:
+                self.utils.print_info(repr(exc))
+                self.utils.wait_till(timeout=15)
+            else:
+                break
+            finally:
+                
+                try:
+                    close_btn, _ = self.utils.wait_till(
+                        func=self.get_device_config_audit_view_close_button,
+                        exp_func_resp=True,
+                        silent_failure=True,
+                        delay=5
+                    )
+                    
+                    self.utils.wait_till(
+                        func=lambda: self.auto_actions.click(close_btn) == 1,
+                        exp_func_resp=True,
+                        delay=4,
+                        silent_failure=True
+                    )
+                except:
+                    pass
+
+                self.xiq.xflowscommonDevices.select_device(device_mac=dut.mac)
+        else:
+            assert False, f"Failed to verify these commands in the delta cli after {retries} retries: {commands}"
