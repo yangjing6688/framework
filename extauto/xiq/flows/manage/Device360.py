@@ -10707,3 +10707,38 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(input_field_allowed_vlans, Keys.BACK_SPACE * 10 + allowed_vlans + Keys.ENTER)
 
             sleep(8)
+
+    def select_max_pagination_size(self):
+        try:
+            sleep(2)
+            pagination_size = max(self.dev360.get_device360_ports_table_pagination_sizes(),
+                                key=lambda x: int(x.text))
+            pagination_size.location_once_scrolled_into_view
+            self.auto_actions.click(pagination_size)
+            print(f"Selected the max pagination size: {pagination_size.text}")
+            sleep(5)
+            return 1
+        except Exception as exc:
+            print(repr(exc))
+            return -1
+
+    def select_pagination_size(self, int_size):
+        try:
+            sleep(2)
+            paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+            [pg_size] = [pg for pg in paginations if pg.text == int_size]
+            self.auto_actions.click(pg_size)
+            sleep(5)
+            return 1
+        except Exception as exc:
+            print(repr(exc))
+            return -1
+
+    def get_device360_port_table_rows(self):
+        table_rows = self.dev360.get_device360_port_table_rows()
+        assert table_rows, "Did not find the rows of the ports table"
+        table_rows[0].location_once_scrolled_into_view
+        return [
+            row for row in table_rows if not
+            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
+        ]

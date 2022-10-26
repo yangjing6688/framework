@@ -1426,6 +1426,191 @@ class Cli(object):
         else:
             return output2
 
+    def get_ports_from_dut(self, dut):
+        try:
+            self.close_connection_with_error_handling(dut)
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+            if dut.cli_type.upper() == "EXOS":
+                self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+                output = self.networkElementCliSend.send_cmd(dut.name, f'show ports info', max_wait=10, interval=2)[
+                    0].return_text
+                output = re.findall(r"\r\n(\d+)\s+", output)
+
+            elif dut.cli_type.upper() == "VOSS":
+                output = \
+                    self.networkElementCliSend.send_cmd(dut.name, "show int gig int | no-more", max_wait=10,
+                                                        interval=2)[
+                        0].return_text
+                output = re.findall(r"\r\n(\d+/\d+)\s+", output)
+        finally:
+            self.close_connection_with_error_handling(dut)
+        return output
+
+    def close_connection_with_error_handling(self, dut):
+        try:
+
+            try:
+                if dut.cli_type.upper() == "VOSS":
+                    for session_id in range(7):
+                        self.networkElementCliSend.send_cmd(dut.name, f"clear ssh {session_id}")
+                elif dut.cli_type.upper() == "EXOS":
+                    self.networkElementCliSend.send_cmd(dut.name, "clear session all")
+            except Exception as err:
+                print(err)
+
+            self.networkElementConnectionManager.device_collection.remove_device(dut.name)
+            self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
+
+        except Exception as exc:
+            print(exc)
+        else:
+            time.sleep(30)
+
+    def set_lldp(self, dut, ports, action="enable"):
+
+        try:
+
+            self.close_connection_with_error_handling(dut)
+
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+            if dut.cli_type.upper() == "EXOS":
+                if action == "enable":
+                    self.networkElementCliSend.send_cmd(dut.name, 'enable cdp ports all', max_wait=10, interval=2)
+                    self.networkElementCliSend.send_cmd(dut.name, 'enable edp ports all', max_wait=10, interval=2)
+                    self.networkElementCliSend.send_cmd(dut.name, 'enable lldp ports all', max_wait=10, interval=2)
+                elif action == "disable":
+                    self.networkElementCliSend.send_cmd(dut.name, 'disable cdp ports all', max_wait=10, interval=2)
+                    self.networkElementCliSend.send_cmd(dut.name, 'disable edp ports all', max_wait=10, interval=2)
+                    self.networkElementCliSend.send_cmd(dut.name, 'disable lldp ports all', max_wait=10, interval=2)
+
+            elif dut.cli_type.upper() == "VOSS":
+                self.networkElementCliSend.send_cmd(dut.name, "enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "configure terminal", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(
+                    dut.name, f"interface gigabitEthernet {ports[0]}-{ports[-1]}", max_wait=10, interval=2)
+                cmd_action = f"lldp port {ports[0]}-{ports[-1]} cdp enable"
+                if action == "enable":
+                    self.networkElementCliSend.send_cmd(dut.name, "no auto-sense enable", max_wait=10, interval=2)
+                    self.networkElementCliSend.send_cmd(dut.name, "no fa enable", max_wait=10, interval=2)
+                    self.networkElementCliSend.send_cmd(dut.name, cmd_action, max_wait=10, interval=2)
+                    self.networkElementCliSend.send_cmd(dut.name, "fa enable", max_wait=10, interval=2)
+                    self.networkElementCliSend.send_cmd(dut.name, "auto-sense enable", max_wait=10, interval=2)
+                elif action == "disable":
+                    self.networkElementCliSend.send_cmd(dut.name, "no " + cmd_action, max_wait=10, interval=2)
+
+        finally:
+            self.close_connection_with_error_handling(dut)
+
+    def bounce_IQAgent(self, dut, xiq_ip_address=None, connect_to_dut=True, disconnect_from_dut=True, wait=True,
+                       xiq=None):
+
+        try:
+
+            if connect_to_dut:
+                self.close_connection_with_error_handling(dut)
+                self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+            if dut.cli_type.upper() == "EXOS":
+                self.networkElementCliSend.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
+                                                    confirmation_phrases='Do you want to continue?',
+                                                    confirmation_args='Yes')
+                if xiq_ip_address:
+                    self.networkElementCliSend.send_cmd(
+                        dut.name, f"configure iqagent server ipaddress {xiq_ip_address}", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'enable iqagent', max_wait=10, interval=2)
+
+            elif dut.cli_type.upper() == "VOSS":
+                self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'application', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'no iqagent enable', max_wait=10, interval=2)
+                if xiq_ip_address:
+                    self.networkElementCliSend.send_cmd(
+                        dut.name, f'iqagent server {xiq_ip_address}', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'iqagent enable', max_wait=10, interval=2)
+        finally:
+            if disconnect_from_dut:
+                self.close_connection_with_error_handling(dut)
+        if wait and xiq is not None:
+            xiq.xflowscommonDevices.wait_until_device_online(dut.serial)
+
+    def get_the_number_of_ports_from_cli(self, dut):
+
+        try:
+            self.close_connection_with_error_handling(dut)
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+            if dut.cli_type.upper() == "VOSS":
+
+                self.networkElementCliSend.send_cmd(dut.name, 'enable',
+                                                    max_wait=10, interval=2)
+                output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig int | no-more',
+                                                             max_wait=10, interval=2)
+                p = re.compile(r'^\d+\/\d+\/?\d*', re.M)
+                match_port = re.findall(p, output[0].return_text)
+                print(f"{match_port}")
+                no_ports = len(match_port)
+                no_ports = int(no_ports)
+
+            elif dut.cli_type.upper() == "EXOS":
+                self.networkElementCliSend.send_cmd(self.tb.dut1.name, f'disable cli paging',
+                                                    max_wait=10)
+                output = self.networkElementCliSend.send_cmd(dut.name, f'show ports vlan',
+                                                             max_wait=10)
+                output = output[0].return_text
+                match_port = re.findall(r'(\d+)\s+\w+', output)
+                no_ports = len(match_port)
+                no_ports = int(no_ports)
+
+            print(f'Number of ports for this switch is {no_ports}')
+            return no_ports
+
+        finally:
+            self.close_connection_with_error_handling(dut)
+
+    def verify_vlan_config_on_switch(self, onboarded_switch, port_vlan_mapping, logger):
+        try:
+            self.close_connection_with_error_handling(onboarded_switch)
+            self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
+
+            logger.info("Wait 120 seconds for the configuration of the ports to update on the dut")
+            start_time = time.time()
+            while time.time() - start_time < 120:
+
+                if onboarded_switch.cli_type.upper() == "EXOS":
+                    try:
+                        for port, vlan in port_vlan_mapping.items():
+                            output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show vlan ports {port}',
+                                                          max_wait=10, interval=2)[0].return_text
+                            assert re.search(fr"\r\nVLAN_{str(vlan).zfill(4)}\s+{vlan}\s+", output)
+                    except Exception as exc:
+                        logger.info(f"Sleep 10s...\n{repr(exc)}")
+                        time.sleep(10)
+                    else:
+                        logger.info("Configuration successfully updated on the dut")
+                        break
+
+                elif onboarded_switch.cli_type.upper() == "VOSS":
+                    try:
+                        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show vlan members',
+                                                      max_wait=10, interval=2)[0].return_text
+
+                        for port, vlan in port_vlan_mapping.items():
+                            assert re.search(fr"\r\n{vlan}\s+{port}\s+", output)
+
+                    except Exception as exc:
+                        logger.info(f"Sleep 10s...\n{repr(exc)}")
+                        time.sleep(10)
+                    else:
+                        logger.info("Configuration successfully updated on the dut")
+                        break
+            else:
+                raise AssertionError("The configuration did not update on the dut after 120 seconds")
+        finally:
+            self.close_connection_with_error_handling(onboarded_switch)
+
 
 if __name__ == '__main__':
     from pytest_testconfig import *
