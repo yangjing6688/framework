@@ -75,7 +75,10 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
 
     def get_extreme_location_sites_menu_dropdown_button(self):
         return self.weh.get_element(self.extreme_location_sites_menu_dropdown_button)
-
+    
+    def get_extreme_location_sites_menu_dropdown_items(self):
+        return self.weh.get_elements(self.extreme_location_sites_menu_dropdown_items)
+    
     def get_xloc_search_name_field(self):
         return self.weh.get_element((self.xloc_search_name_field))
     
