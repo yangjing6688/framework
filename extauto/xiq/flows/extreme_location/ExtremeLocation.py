@@ -137,7 +137,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
         """
         Search the passed search string object in grid rows
         :param search_string:
-        :return:
+        :return search value if value is present:
+        :return False: if search value is not present
         """
         self.utils.print_info("Entering the Ibeacon Name in search field: ", search_string)
         self.auto_actions.click(self.get_xloc_search_name_field())
@@ -374,7 +375,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.go_to_extreme_location_access_points_menu()
 
         self.utils.print_info("Clicking search button on XLOC AP page")
-        self.auto_actions.click(self.get_search_xloc_ap_page())
+        self.auto_actions.click_reference(self.get_search_xloc_ap_page())
 
         self.utils.print_info("Seraching ap hostname in XLOC APp page")
         self.auto_actions.send_keys(self.get_host_to_xloc_ap_page(), device_hostname)
@@ -1296,6 +1297,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - ``Edit Ibeacon in XLOC    ${IBEACON_MAC_ADDRESS}    ${uuid}    major_version=''    minor_version='' ``
         
         :return: 1 if successfully Edited
+        :return: -1 if not successfully Edited
         """
         self.go_to_extreme_location_beacons_menu()
         sleep(2)
@@ -1352,11 +1354,12 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         """
         - delete_ibeacon_in_xloc
-        - Flow : Extreme Location--> More Insights-->
+        - Flow : Extreme Location--> More Insights-->Beacons->Delete selected Ibeacon
         - Keyword Usage:
         - ``Delete ibeacon in xloc    ${IBEACON_MAC_ADDRESS}``
         
         :return: 1 if successfully Deleted
+        :return: -1 if not Deleted
         """
 
         self.go_to_extreme_location_beacons_menu()
@@ -1402,15 +1405,15 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         """
         - get_ibeacon_status
-        - Flow : Extreme Location--> More Insights-->
+        - Flow : Extreme Location--> More Insights-->Beacons-->Get Ibeacon status
         - Keyword Usage:
         - ``Get ibeacon Status       ${IBEACON_MAC_ADDRESS}``
 
         :return: status of ibeacon(Online or Offline)
-        """
+        :return: 1 if ibeacon in Online
+        :return: -1 if ibeacon in Offline
         
-        # self.go_to_extreme_location_beacons_menu()
-        # sleep(2)
+        """
 
         self.utils.print_info("Getting the status of ibeacon") 
         count = 1
@@ -1454,8 +1457,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - Flow : Extreme Location--> More Insights-->
         - Keyword Usage:
         - ``Download ibeacon report``
-
-        :return: Download ibeacon report
+        :return: 1 if successfully report download
         """
         
         self.go_to_extreme_location_beacons_menu()
