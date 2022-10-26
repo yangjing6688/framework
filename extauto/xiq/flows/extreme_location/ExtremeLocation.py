@@ -919,7 +919,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             sleep(3)
 
         self.utils.print_info("Clicking Save button of created Assets in XLOC-Asset Management")
-        self.auto_actions.click(self.get_extreme_location_asset_save_button())
+        self.auto_actions.click_reference(self.get_extreme_location_asset_save_button)
         sleep(3)
 
         self.utils.print_info("Successfully Created BLE Assets in Asset Management Page")
@@ -961,7 +961,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(3)
 
         self.utils.print_info("Clicking drop down button of asset category in assets page")
-        self.auto_actions.click(self.get_xloc_asset_assetcategory_click())
+        self.auto_actions.click_reference(self.get_xloc_asset_assetcategory_click)
         sleep(3)
 
         self.utils.print_info("Select the Asset Category Name: ", as_category_name)
@@ -1958,11 +1958,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Asset Category Site Edit Button")
-        self.auto_actions.click(self.click_xloc_asset_category_site_edit())
+        self.auto_actions.click_reference(self.click_xloc_asset_category_site_edit)
         sleep(2)
 
         self.utils.print_info("Clicking Asset Category Site Map Button")
-        self.auto_actions.click(self.click_xloc_asset_category_site_map())
+        self.auto_actions.click_reference(self.click_xloc_asset_category_site_map)
         sleep(5)
 
         self.screen.save_screen_shot()
