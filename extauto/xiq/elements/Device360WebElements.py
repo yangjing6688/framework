@@ -2146,3 +2146,13 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_port_details_button(self):
         return self.weh.get_element(self.device360_port_details_button)
+
+    def get_device360_diagnostics_port(self, port):
+        """
+        :param port: -voss: x/y (Ex: 1/2)
+                     -exos: x (Ex: 1)
+                     -stack: slot:port (Ex: 1:2)
+                     -management: mgmt
+                     -console: console
+        """
+        return self.weh.get_template_element(self.device360_diagnostics_select_port, index=port)

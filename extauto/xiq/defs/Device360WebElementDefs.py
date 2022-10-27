@@ -734,7 +734,7 @@ class Device360WebElementDefs:
 
     device360_port_diagnostics_deselect_all_ports_button = \
         {
-            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@class="selection-buttons"]/button[@data-dojo-attach-point="deselectAllButton"]',
+            'XPATH': '//div[@class="switch-ports-panel-ctn"]//button[@data-dojo-attach-point="deselectAllButton"]',
             'wait_for': 5
         }
 
@@ -3643,4 +3643,10 @@ class Device360WebElementDefs:
         {
             'XPATH': '//*[@data-automation-tag="automation-port-diagnostics-port-details"]',
             'wait_for': 5
+        }
+
+    device360_diagnostics_select_port = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-$index"]',
+            'index': 1
         }

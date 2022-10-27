@@ -10674,3 +10674,20 @@ class Device360(Device360WebElements):
             self.utils.print_info(
                 "Could not find Port Details tab under Diagnostics button - make sure Device360 window is open and on Monitor tab")
             return -1
+
+    def port_diagnostics_select_ports(self, ports, **kwargs):
+        self.device360_navigate_to_monitor_diagnostics()
+        sleep(5)
+        self.select_port_details_tab()
+        sleep(5)
+        self.device360_port_diagnostics_deselect_all_ports()
+        sleep(5)
+        for port in ports.split(','):
+            port_search = self.get_device360_diagnostics_port(port)
+            if port_search:
+                self.auto_actions.click(port_search)
+            else:
+                self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
+                kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+                self.common_validation.failed(**kwargs)
+                return -1
