@@ -786,9 +786,10 @@ class Xapi:
 
         if result_code:
             if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
-                return stdout
+                return 1
             else:
-                return -1        
+                return -1
+        return stdout
 
  
     def rest_api_v3(self, path, operation="POST", data="default", access_token="default", return_output="default",
