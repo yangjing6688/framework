@@ -1427,6 +1427,101 @@ class Cli(object):
             return output2
 
 
+    def disable_iqagent(self, dut):
+        """
+        This function is used to disable IQAgent on an EXOS device
+        :param dut: the instance of the EXOS device
+        :return: 1 - if the IQAgent was disabled successfully ; -1 - if not
+        """
+        try:
+            self.networkElementCliSend.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
+                                 confirmation_phrases='Do you want to continue? (y/N)', confirmation_args='y')
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+        return 1
+
+    def configure_iqagent(self, dut, xiq_ip_addr):
+        """
+        This function is used to configure IQAgent on an EXOS device
+        :param dut: the instance of the EXOS device
+        :param xiq_ip_addr: the ip address of the XIQ
+        :return: 1 - if the configuration was successful ; -1 - if not
+        """
+        try:
+            self.networkElementCliSend.send_cmd(dut.name, f'configure iqagent server ipaddress {xiq_ip_addr}', max_wait=10, interval=2)
+
+            vr_name = self.get_virtual_router(dut)
+            if vr_name == -1:
+                return -1
+            self.networkElementCliSend.send_cmd(dut.name, f'configure iqagent server vr {vr_name}', max_wait=10, interval=2)
+
+            self.networkElementCliSend.send_cmd(dut.name, 'enable iqagent', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'save configuration', max_wait=10, interval=2,
+                                 confirmation_phrases='Do you want to save configuration to primary.cfg and overwrite '
+                                                      'it? (y/N)', confirmation_args='y')
+            self.networkElementCliSend.send_cmd_verify_output(dut.name, 'show process iqagent', 'Ready', max_wait=30, interval=10)
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+        return 1
+
+    def get_virtual_router(self, dut):
+        """
+        This function is used to get the virtual router from an EXOS device
+        :param dut: the instance of the EXOS device
+        :return: 1 - if the virtual router was found successfully ; -1 - if not
+        """
+        result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
+        output = result[0].cmd_obj.return_text
+
+        pattern = r'(\w+)(\s+)(\d+)(\s+)(' + f'{dut.ip}' r')(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
+        match = re.search(pattern, output)
+
+        if match:
+            self.utils.print_info(f"Mgmt Vlan Name  : {match.group(1)}")
+            self.utils.print_info(f"Vlan ID         : {match.group(3)}")
+            self.utils.print_info(f"Mgmt IP address : {match.group(5)}")
+            self.utils.print_info(f"Active ports    : {match.group(9)}")
+            self.utils.print_info(f"Total ports     : {match.group(11)}")
+            self.utils.print_info(f"Virtual router  : {match.group(12)}")
+
+            if int(match.group(9)) > 0:
+                return match.group(12)
+            else:
+                self.utils.print_info(f"There is no active port in the mgmt vlan {match.group(1)}")
+                return -1
+        else:
+            self.utils.print_info("Pattern not found, unable to get virtual router info!")
+            return -1
+
+    def get_ip(self, dut):
+        """
+        This function is used to return an unresponsive ip address from the mgmt class to be used in testing
+        iqagent unresponsive.
+        :param : dut
+        :return: ip
+        """
+        octet = 254
+        try:
+            while octet > 240:
+                octet_str = str(octet)
+                ip = '.'.join(dut.ip.split('.')[:-1] + [octet_str])
+                if dut.platform == '5320':
+                    output = self.networkElementCliSend.send_cmd(dut.name, f"ping vr VR-Default {ip}", max_wait=10)
+                else:
+                    output = self.networkElementCliSend.send_cmd(dut.name, f"ping vr VR-Mgmt {ip}", max_wait=10)
+                if "Request timed out" in output[0].return_text:
+                    self.utils.print_info("Ping failed. IP is usable.")
+                    return ip
+                else:
+                    self.utils.print_info("Ping successfully. Making another try.")
+                    octet = octet - 1
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+
+
 if __name__ == '__main__':
     from pytest_testconfig import *
     config['${TEST_NAME}'] = 'bob'

@@ -2265,3 +2265,142 @@ class SwitchTemplate(object):
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             return -1
+
+    def verify_upload_config_auto_button(self, option="OFF"):
+        """
+        This function is used to verify the `Upload configuration automatically` button from Advanced Settings tab
+        based on an option given as parameter
+        :param option: name of policy
+        :return: 1 - if the button is equal with option was successful ; -1 - if not
+        """
+        try:
+            verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg().is_selected()
+            if not verify_upload_cfg_auto and option == "OFF":
+                self.utils.print_info("Auto configuration button is on OFF!")
+                return 1
+            elif verify_upload_cfg_auto and option == "ON":
+                self.utils.print_info("Auto configuration button is on ON!")
+                return 1
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+        return -1
+
+    def verify_enable_auto_revert_option(self):
+        """
+        This function is used to verify if the `Reboot and revert Extreme Networks switch configuration if IQAgent is
+        unresponsive after configuration update.` button from Advanced Settings tab is present or not
+        :return: 1 - if the button is present ; -1 - if not
+        """
+        try:
+            enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
+            if not enable_auto_revert:
+                self.utils.print_info("Enable Auto Revert button is not present!")
+                return -1
+            elif not enable_auto_revert.is_displayed():
+                self.utils.print_info("Enable Auto Revert button is not present!")
+                return -1
+            else:
+                self.utils.print_info("Enable Auto Revert button is present!")
+                return 1
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+
+    def set_upload_config_auto_button(self):
+        """
+        This function is used to set the `Upload configuration automatically` button from Advanced Settings tab
+        :return: 1 - if the button is set successfully ; -1 - if not
+        """
+        try:
+            verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg().is_selected()
+            if not verify_upload_cfg_auto:
+                self.utils.print_info("Auto configuration button is by default on OFF!")
+            else:
+                self.utils.print_info("Auto configuration button is already on ON!")
+                return -1
+
+            self.utils.print_info("Click on Upload configuration automatically button")
+            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_auto_cfg())
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+        sleep(3)
+        return 1
+
+    def check_text_enable_auto_revert_option(self):
+        """
+        This function is used to verify the `Reboot and revert Extreme Networks switch configuration if IQAgent is
+        unresponsive after configuration update.` button text from Advanced Settings tab based on an option given as
+        parameter
+        :return: 1 - if the button text is the one expected ; -1 - if not
+        """
+        try:
+            enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg().text
+            if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
+                                             "unresponsive after configuration update.":
+                self.utils.print_info(
+                    f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!")
+                return -1
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+        return 1
+
+    def set_enable_auto_revert_option(self):
+        """
+        This function is used to set/check the `Reboot and revert Extreme Networks switch configuration if IQAgent is
+        unresponsive after configuration update.` button under the `Upload configuration automatically` button
+        from Advanced Settings tab
+        :return: 1 - if the button is set successfully ; -1 - if not
+        """
+        try:
+            enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg().text
+            if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
+                                             "unresponsive after configuration update.":
+                self.utils.print_info(f"The Enable Auto Revert button name is not the correct one:"
+                                      f" {enable_auto_revert_message}!")
+                return -1
+
+            enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
+            if not enable_auto_revert:
+                self.utils.print_info("Enable Auto Revert button is not present!")
+                return -1
+            if not enable_auto_revert.is_selected():
+                self.utils.print_info("Enable Auto Revert button is by default unchecked!")
+            else:
+                self.utils.print_info("Enable Auto Revert button is already checked!")
+                return -1
+
+            self.utils.print_info("Click on Enable Auto Revert button")
+            self.auto_actions.click(enable_auto_revert)
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+        return 1
+
+    def save_template_with_popup(self):
+        """
+        This function is used to save the current device template with a pop-up displayed
+        :return: 1 - if the save was successful ; -1 - if not
+        """
+        try:
+            save_template_button = self.sw_template_web_elements.get_switch_temp_save_button()
+            if not save_template_button.is_displayed():
+                self.utils.print_info("SAVE button is not displayed")
+                return -1
+
+            self.utils.print_info("Click on SAVE button")
+            self.auto_actions.click(save_template_button)
+
+            sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
+            if not sw_yes_button.is_displayed():
+                self.utils.print_info("YES button is not displayed")
+                return -1
+
+            self.utils.print_info("Click on SAVE button")
+            self.auto_actions.click(sw_yes_button)
+        except Exception as exc:
+            self.utils.print_info(exc)
+            return -1
+        return 1
