@@ -455,6 +455,12 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    replacement_serial_number_field = \
+        {
+            'XPATH': '//*[@data-automation-tag="replacement-serial-number"]',
+            'wait_for': 2
+        }
+
     clone_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-device"]',
