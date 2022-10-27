@@ -332,7 +332,7 @@ class Xapi:
             self.utils.print_info("httpcode value: ", httpCode)
             self.utils.print_info("response value: ", stdout)
             #return {'httpCode': httpCode, 'response': stdout}
-            return httpCode, stdout.decode('utf-8')
+            return httpCode, stdout
 
         if result_code:
             if 'HTTP/2 200' in str(stderr):
