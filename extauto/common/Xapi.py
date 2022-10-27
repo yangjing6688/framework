@@ -786,10 +786,9 @@ class Xapi:
 
         if result_code:
             if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
-                return 1
+                return stdout
             else:
-                return -1
-        return stdout
+                return -1        
 
  
     def rest_api_v3(self, path, operation="POST", data="default", access_token="default", return_output="default",
@@ -829,10 +828,9 @@ class Xapi:
 
         if result_code:
             if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
-                return 1
+                return stdout
             else:
-                return -1
-        return stdout
+                return -1       
 
 
     def get_index_nw_policy_name_from_list_json(self, json_data, index):
