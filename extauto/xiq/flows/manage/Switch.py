@@ -127,65 +127,7 @@ class Switch(SwitchWebElements):
                 self.utils.print_error(f"Switch with serial no. {switch_serial} is not successfully onboarded...")
                 return -1
 
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboard_aerohive_switch(self, switch_serial, switch_type):
-        """
-        - This keyword onboards an Aerohive Switch using Quick onboarding flow.
-        - Flow  Manage--> Devices--> Add --> Quick Add Devices--> Select Aerohive Device Make --> Enter Serial Number
-                 --> Add Devices
-        - Keyword Usage
-         - ``Onboard Aerohive Switch    ${SWITCH_SERIAL}  ${SWITCH_MAKE_TYPE}``
 
-        :param switch_serial: serial number of Switch
-        :param switch_type: Model of the Switch
-        :return: 1 if Aerohive Switch OnBoarding is Successful without Error Message
-        """
-
-        self.navigator.navigate_to_devices()
-        sleep(2)
-        if 'aerohive' in switch_type:
-            self.utils.print_info("Clicking on ADD button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
-
-            self.utils.print_info("Selecting Quick Add menu")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_menu_item)
-
-            self.utils.print_info("Entering Serial Number....:", switch_serial)
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), switch_serial)
-
-            self.utils.print_info("Clicking on ADD DEVICES button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
-
-            tooltip_text = self.dialogue_web_elements.get_tooltip_text()
-            sleep(5)
-
-            """
-            self.utils.print_info("tooltip_text: ", tooltip_text)
-            if "1 device was  added successfully!" in tooltip_text:
-                return 1
-            """
-
-            self.utils.print_info("Checking for Errors...")
-            dialog_message = self.dialogue_web_elements.get_dialog_message()
-
-            if dialog_message:
-                self.utils.print_info("Dialog Message: ", dialog_message)
-                if "Device already onboarded" in dialog_message:
-                    self.utils.print_info("Error: ", dialog_message)
-                    self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                return -1
-            else:
-                self.utils.print_info("No Dialog box")
-
-            serials = switch_serial.split(",")
-            self.utils.print_info("Serials: ", serials)
-            self.devices.refresh_devices_page()
-            for serial in serials:
-                if self.devices.search_device(device_serial=serial):
-                    self.utils.print_info("Successfully Onboarded switch(s): ", serials)
-                    return 1
-                else:
-                    return -1
 
     def select_switch(self, sw_serial):
         """
@@ -247,71 +189,7 @@ class Switch(SwitchWebElements):
         return port_status
 
 
-    def get_switch_status(self, serial='default', name='default', mac='default'):
-        """
-        - This keyword Get the status of the Switch using serial number,Switch Name and Mac address
-        - Flow  Manage--> Devices
-        - Keyword Usage
-         - ``Get Switch Status serial=${SWITCH_SERIAL}``
-         - ``Get Switch Status name=${SWITCH_NAME}``
-         - ``Get Switch Status mac=${SWITCH_MAC}``
 
-        :param serial: Switch Serial Number
-        :param name: Switch Name
-        :param mac: Switch MAC Address
-        :return: Green if the AP is online
-        """
-        row = -1
 
-        self.utils.print_info('Getting Switch Status using')
-        if serial != 'default':
-            self.utils.print_info("Getting status of Switch with serial: ", serial)
-            row = self.get_switch_row(serial)
-
-        if name != 'default':
-            self.utils.print_info("Getting status of switch with name: ", name)
-            row = self.get_switch_row(name)
-
-        if mac != 'default':
-            self.utils.print_info("Getting status of AP with MAC: ", mac)
-            row = self.get_switch_row(mac)
-
-        if row:
-            sleep(5)
-            status = self.devices_web_elements.get_status_cell(row)
-            if status:
-                self.utils.print_info("Switch Status: Connected")
-                return 'green'
-
-    def get_switch_row(self, sw_serial='default', sw_name='default', sw_mac='default'):
-        """
-        - This keyword Get presence of Switch row in devices grid using serial number,Switch Name and Mac address
-        - Flow  Manage--> Devices
-        - Keyword Usage
-         - ``Get Switch Row sw_serial=${SWITCH_SERIAL}``
-         - ``Get Switch Row sw_name=${SWITCH_NAME}``
-         - ``Get Switch Row sw_mac=${SWITCH_MAC}``
-
-        :param sw_serial: Switch Serial Number
-        :param sw_name: Switch Name
-        :param sw_mac: Switch MAC Address
-        :return: row if the AP is present on devices grid else -1
-        """
-        self.utils.print_info('Getting Switch row...')
-        rows = self.devices_web_elements.get_grid_rows()
-        for row in rows:
-            if sw_serial != 'default':
-                if sw_serial in row.text:
-                    self.utils.print_info("Found Switch row: ", row.text)
-                    return row
-            if sw_name != 'default':
-                if sw_name in row.text:
-                    self.utils.print_info("Found Switch row: ", row.text)
-                    return row
-            if sw_mac != 'default':
-                if sw_mac in row.text:
-                    self.utils.print_info("Found Switch row: ", row.text)
-                    return row
-        return -1
-
+    
 
