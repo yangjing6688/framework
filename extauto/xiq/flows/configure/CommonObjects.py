@@ -208,35 +208,8 @@ class CommonObjects(object):
             self.screen.save_screen_shot()
             sleep(5)
 
-        # Get the total pages
         pages = self.cobj_web_elements.get_page_numbers()
-        select_ssid_flag = None
-        if pages.is_displayed():
-            last_page = int(pages.text[-1])
-            page_counter = 0
-            self.utils.print_info(f"There are {last_page} page(s) to check")
-            while page_counter < last_page:
-                for ssid in ssids:
-                    if self._search_common_object(ssid):
-                        self._select_common_object_row(ssid)
-                        select_ssid_flag = True
-                        break
-                    else:
-                        self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
-                        self.screen.save_screen_shot()
-
-                if select_ssid_flag:
-                    # we found what we were looking for, so exit
-                    break
-
-                # goto the next page
-                page_counter += 1
-                self.utils.print_info(f"Move to next page {page_counter}")
-                self.auto_actions.click_reference(self.cobj_web_elements.get_next_page_element)
-                self.screen.save_screen_shot()
-                sleep(5)
-        else:
-            last_page = 1
+        last_page = int(pages.text[-1])
         page_counter = 0
         self.utils.print_info(f"There are {last_page} page(s) to check")
         while page_counter < last_page:
