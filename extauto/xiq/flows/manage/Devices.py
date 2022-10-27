@@ -12466,4 +12466,4 @@ class Devices:
             return -1
         self.utils.wait_till(timeout=2)
         self._update_switch(update_method="PolicyAndConfig")
-        return self._check_update_network_policy_status(policy_name, dut.serial)
+        return self._check_update_network_policy_status(policy_name, dut.mac)

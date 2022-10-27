@@ -200,6 +200,11 @@ class XiqVerifications:
                     self.switch_template.select_sw_template(
                         network_policy, template_switch)
                     self.switch_template.go_to_port_configuration()
+                    
+                    if slot:
+                        required_slot = template_switch + "-" + slot
+                        self.switch_template.navigate_to_slot_template(required_slot)
+            
                     self.switch_template.click_on_port_details_tab()
                             
                     if revert_mode == "revert_template":
