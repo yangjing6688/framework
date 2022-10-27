@@ -261,8 +261,8 @@ class DeviceActions(DeviceActionsDefs):
     def get_replacement_serial_number_dropdown(self):
         return self.weh.get_element(self.replacement_serial_number_dropdown)
 
-    def get_replacement_serial_field(self):
-        return self.weh.get_element(self.replacement_serial_field)
+    def get_replacement_serial_number_field(self):
+        return self.weh.get_element(self.replacement_serial_number_field)
 
     def get_replacement_serial_number_items(self):
         return self.weh.get_elements(self.replacement_serial_number_items)
