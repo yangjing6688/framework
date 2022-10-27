@@ -142,6 +142,12 @@ class ExtremeGuestUsersWebElementsDefs:
             'wait_for': 5
         }
 
+    extreme_guest_users_delete_ok_button_duplicate = \
+        {
+            'XPATH': '(//div[@data-automation-tag="eguest-popup-message"]//span[text()="OK"])[2]',
+            'wait_for': 5
+        }
+
     extreme_guest_users_delete_status_ok_button = \
         {
             'XPATH': '//span[text()="OK"]',
