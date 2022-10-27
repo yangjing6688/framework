@@ -404,15 +404,18 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
-        if result_code == 'response_map':
+        if result_code == 'response_map':            
             httpCode = 200
-            if 'HTTP/1.1 200' in str(stderr):
+            if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
-            elif 'HTTP/1.1 400' in str(stderr):
+            elif 'HTTP/2 400' in str(stderr):
                 httpCode = 400
-            elif 'HTTP/1.1 500' in str(stderr):
+            elif 'HTTP/2 500' in str(stderr):
                 httpCode = 500
-            return {'httpCode': httpCode, 'response': stdout}
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            #return {'httpCode': httpCode, 'response': stdout}
+            return httpCode, stdout
 
         if result_code:
             if 'HTTP/1.1 200' in str(stderr):
@@ -449,15 +452,18 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
-        if result_code == 'response_map':
+        if result_code == 'response_map':            
             httpCode = 200
             if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
-            elif 'HTTP/1.1 400' in str(stderr):
+            elif 'HTTP/2 400' in str(stderr):
                 httpCode = 400
-            elif 'HTTP/1.1 500' in str(stderr):
+            elif 'HTTP/2 500' in str(stderr):
                 httpCode = 500
-            return {'httpCode': httpCode, 'response': stdout}
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            #return {'httpCode': httpCode, 'response': stdout}
+            return httpCode, stdout
 
         if result_code:
             if 'HTTP/2 200' in str(stderr):
