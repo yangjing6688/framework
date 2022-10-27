@@ -479,14 +479,38 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    onboarding_replacement = \
+        {
+            'XPATH': '//*[@class="ui-sml-pgr-inline cl-progress-bar" ]',
+            'wait_for': 2
+        }
+
     warning_message_disconnected = \
         {
             'XPATH': '//*[contains(text(), "disconnected or in the unmanaged state.")]',
             'wait_for': 2
         }
 
+    warning_replacement_not_connected = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'wait_for': 2
+        }
+
     cancel_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-cancel"]',
+            'wait_for': 2
+        }
+
+    close_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog""]',
+            'wait_for': 2
+        }
+
+    x_button_clone_window = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="closeButtonNode""]',
             'wait_for': 2
         }

@@ -276,8 +276,20 @@ class DeviceActions(DeviceActionsDefs):
     def get_loading_clone_configuration(self):
         return self.weh.get_element(self.loading_clone_configuration)
 
+    def get_onboarding_replacement(self):
+        return self.weh.get_element(self.onboarding_replacement)
+
+    def get_warning_replacement_not_connected(self):
+        return self.weh.get_element(self.warning_replacement_not_connected)
+
     def get_warning_message_disconnected(self):
         return self.weh.get_element(self.warning_message_disconnected)
 
     def get_cancel_button(self):
         return self.weh.get_element(self.cancel_button)
+
+    def get_close_button(self):
+        return self.weh.get_element(self.close_button)
+
+    def get_x_button_clone_window(self):
+        return self.weh.get_element(self.x_button_clone_window)

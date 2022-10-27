@@ -12135,8 +12135,10 @@ class Devices:
         :return: 1 if the cloning process is done else -1
         """
         self.utils.print_info("Navigate to Manage-->Devices")
+
         def _navigate_to_devices():
             return self.navigator.navigate_to_devices()
+
         self.utils.wait_till(_navigate_to_devices)
         select_flag = False
         if device_serial:
@@ -12209,6 +12211,7 @@ class Devices:
                     print("Still loading configuration")
                 else:
                     return 1
+
             self.utils.wait_till(_loading_clone, exp_func_resp=1)
 
             warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
@@ -12261,12 +12264,212 @@ class Devices:
                     pass
                 return 1
             else:
-                self.utils.print_info("The device clone has been successfully completed, but the device cannot be updated at this time as it's disconnected or in the unmanaged state.")
+                self.utils.print_info(
+                    "The device clone has been successfully completed, but the device cannot be updated at this time as it's disconnected or in the unmanaged state.")
                 cancel_button = self.device_actions.get_cancel_button()
                 self.utils.print_info("Closing the Clone window")
                 self.screen.save_screen_shot()
                 self.auto_actions.click(cancel_button)
                 return -1
+        else:
+            self.utils.print_info("No clone device button from Actions found")
+            self.screen.save_screen_shot()
+            return -1
+
+    def clone_device_quick_onboard(self, device_serial, replacement_device_type, replacement_serial):
+        """
+        - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device level config to another same type SKU switch.
+        :param device_serial: Select the device (first device) that you want to clone the configuration for the replacement device (second device)
+        :param replacement_device_type: Select the type option for replacement device in Cloning process ('Onboarded' , 'Quick Onboard')
+        :param replacement_serial: Select the serial number for replacement device
+        :return: 1 if the cloning process is done else -1
+        """
+        self.utils.print_info("Navigate to Manage-->Devices")
+        def _navigate_to_devices():
+            return self.navigator.navigate_to_devices()
+        self.utils.wait_till(_navigate_to_devices)
+        select_flag = False
+        if device_serial:
+            self.select_device(device_serial)
+            select_flag = True
+        else:
+            self.utils.print_info("Device is not there")
+            self.screen.save_screen_shot()
+            return -1
+
+        if select_flag:
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.device_actions.get_device_actions_button())
+
+        clone_device = self.device_actions.get_clone_device_btn()
+
+        if clone_device:
+            self.utils.print_info("Select Clone device")
+            self.auto_actions.click(clone_device)
+            replacement_device_dropdown = self.device_actions.get_replacement_device_dropdown()
+            if replacement_device_dropdown:
+                self.utils.print_info("Select replacement device drop down")
+                self.auto_actions.click(replacement_device_dropdown)
+                replacement_device_items = self.device_actions.get_replacement_device_items()
+                self.utils.print_info(f"Select {replacement_device_type} option")
+                if self.auto_actions.select_drop_down_options(replacement_device_items, replacement_device_type):
+                    pass
+                else:
+                    self.utils.print_info(f"No {replacement_device_type} option selected")
+                    self.screen.save_screen_shot()
+                    return -1
+            else:
+                self.utils.print_info("No replacement device option found")
+                self.screen.save_screen_shot()
+                return -1
+
+            if replacement_device_type == "Onboarded":
+                replacement_serial_number_dropdown = self.device_actions.get_replacement_serial_number_dropdown()
+                if replacement_serial_number_dropdown:
+                    self.utils.print_info("Select Replacement serial number")
+                    self.auto_actions.click(replacement_serial_number_dropdown)
+                    replacement_serial_number_items = self.device_actions.get_replacement_serial_number_items()
+                    self.utils.print_info(f"Select {replacement_serial} serial number")
+                    if self.auto_actions.select_drop_down_options(replacement_serial_number_items, replacement_serial):
+                        pass
+                    else:
+                        self.utils.print_info(f"No {replacement_serial} serial selected")
+                        self.screen.save_screen_shot()
+                        return -1
+                else:
+                    self.utils.print_info("No replacement serial number option found")
+                    self.screen.save_screen_shot()
+                    return -1
+
+                clone_button = self.device_actions.get_clone_button()
+                if clone_button:
+                    self.utils.print_info("Select Clone button")
+                    self.auto_actions.click(clone_button)
+                    yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
+                    if yes_confirmation_button:
+                        self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
+                        self.auto_actions.click(yes_confirmation_button)
+                    else:
+                        self.utils.print_info(f"No confirm message buttons found")
+                        self.screen.save_screen_shot()
+                        return -1
+
+                def _loading_clone():
+                    loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
+                    if loading_clone_configuration.is_displayed():
+                        print("Still loading configuration")
+                    else:
+                        return 1
+                self.utils.wait_till(_loading_clone, exp_func_resp=1)
+
+
+                warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
+                if 'disconnected or in the unmanaged state.' not in warning_message_disconnected.text:
+
+                    close_button = self.device_actions.get_close_button()
+                    if close_button:
+
+                        self.utils.print_info("Closing the Device Update window")
+                        self.screen.save_screen_shot()
+                        self.auto_actions.click(close_button)
+                    else:
+                        self.utils.print_info("No Close button found")
+                        return -1
+
+                    self.utils.print_info("Navigate to Manage-->Devices")
+
+                    def _navigate_to_devices():
+                        return self.navigator.navigate_to_devices()
+
+                    self.utils.wait_till(_navigate_to_devices)
+                else:
+                    self.utils.print_info(
+                        "The device clone has been successfully completed, but the device cannot be updated at this time as it's disconnected or in the unmanaged state.")
+                    cancel_button = self.device_actions.get_cancel_button()
+                    self.utils.print_info("Closing the Clone window")
+                    self.screen.save_screen_shot()
+                    self.auto_actions.click(cancel_button)
+                    return -1
+
+            elif replacement_device_type == "Quick Onboard":
+                replacement_serial_number_field = self.device_actions.get_replacement_serial_number_field()
+                if replacement_serial_number_field:
+                    self.utils.print_info("Entering  Replacement Serial Number...")
+                    self.auto_actions.send_keys(replacement_serial_number_field, replacement_serial)
+                    self.utils.print_info(f"Entering {replacement_serial} SN")
+                else:
+                    self.utils.print_info("No replacement serial number field found")
+                    self.screen.save_screen_shot()
+                    return -1
+
+                clone_button = self.device_actions.get_clone_button()
+                if clone_button:
+                    self.utils.print_info("Select Clone button")
+                    self.auto_actions.click(clone_button)
+
+                    def _onboarding_replacement():
+                        onboarding_replacement = self.device_actions.get_onboarding_replacement()
+                        if onboarding_replacement.is_displayed():
+                            print("Still onboarding replacement device")
+                        else:
+                            return 1
+
+                    self.utils.wait_till(_onboarding_replacement, exp_func_resp=1)
+
+                    warning_replacement_not_connected = self.device_actions.get_warning_replacement_not_connected()
+                    if warning_replacement_not_connected:
+                        x_button_clone_window = self.device_actions.get_x_button_clone_window()
+                        self.auto_actions.click(x_button_clone_window)
+                        self.utils.print_info("Navigate to Manage-->Devices")
+
+                        def _navigate_to_devices():
+                            return self.navigator.navigate_to_devices()
+
+                        self.utils.wait_till(_navigate_to_devices)
+
+                        self.delete_device(replacement_serial) # to be removed
+                        self.clone_device(device_serial, replacement_device_type, replacement_serial)
+                    else:
+
+                        yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
+                        if yes_confirmation_button:
+                            self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
+                            self.auto_actions.click(yes_confirmation_button)
+                        else:
+                            self.utils.print_info(f"No confirm message buttons found")
+                            self.screen.save_screen_shot()
+                            return -1
+
+                def _loading_clone():
+                    loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
+                    if loading_clone_configuration.is_displayed():
+                        print("Still loading configuration")
+                    else:
+                        return 1
+
+                self.utils.wait_till(_loading_clone, exp_func_resp=1)
+
+                close_button = self.device_actions.get_close_button()
+                if close_button:
+
+                    self.utils.print_info("Closing the Device Update window")
+                    self.screen.save_screen_shot()
+                    self.auto_actions.click(close_button)
+                else:
+                    self.utils.print_info("No Close button found")
+                    return -1
+
+                self.utils.print_info("Navigate to Manage-->Devices")
+                def _navigate_to_devices():
+                    return self.navigator.navigate_to_devices()
+
+                self.utils.wait_till(_navigate_to_devices)
+
+            # else:
+            #     self.utils.print_info("No replacement type was selected")
+            #     return -1
+
+
         else:
             self.utils.print_info("No clone device button from Actions found")
             self.screen.save_screen_shot()
