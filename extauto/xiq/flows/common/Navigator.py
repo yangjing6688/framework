@@ -3197,3 +3197,27 @@ class Navigator(NavigatorWebElements):
             kwargs['fail_msg'] = f"Unable to Navigate to Network Policies Menu"
             self.common_validation.failed(**kwargs)
             return -1
+
+    def navigate_to_ssids(self):
+        """
+        - This keyword Navigates to SSIDs Menu on Common Objects
+        - Flow Configure --> Common Objects --> Policy --> SSIDs
+        - Keyword Usage
+         - ``Navigate To SSIDs``
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_configure_tab()
+
+        self.utils.print_info("Selecting Common Objects")
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
+        sleep(2)
+
+        if self.get_ssid_option() is None:
+            self.utils.print_info("SSID menu is NOT visible. Clicking Policy...")
+            self.auto_actions.click_reference(self.get_policy_toggle)
+            sleep(2)
+        self.utils.print_info("SSID menu is visible. Selecting...")
+        self.auto_actions.click_reference(self.get_ssid_option)
+        sleep(2)
+
+        return 1
