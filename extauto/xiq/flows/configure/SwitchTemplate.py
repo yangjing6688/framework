@@ -2450,7 +2450,7 @@ class SwitchTemplate(object):
             int: 1 if successful else -1
         """
         try:
-            template_slot = self.switch_template_web_elements.get_template_slot(slot=slot)
+            template_slot = self.sw_template_web_elements.get_template_slot(slot=slot)
             self.auto_actions.click(template_slot)
             self.utils.wait_till(timeout=5)
         except Exception as e:
