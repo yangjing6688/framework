@@ -791,6 +791,49 @@ class Xapi:
                 return -1
         return stdout
 
+ 
+    def rest_api_v3(self, path, operation="POST", data="default", access_token="default", return_output="default",
+                        result_code="default", role="default"):
+
+        """
+        - This Keyword is used to run the API request for any operation(GET/POST/PUT/DELETE) evaluating the httpCode
+        """
+
+        self.utils.print_info("Return Output :", return_output)
+        self.utils.print_info("Role : ", role)
+
+        self.utils.print_info("URL Path : ", path)
+        self.utils.print_info("Data: ", data)
+
+        if access_token == "default":
+            access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
+
+        base_url = BuiltIn().get_variable_value("${BASE_URL}")
+        url = base_url + path
+
+        if data == "default":
+            curl_cmd = f"curl -v --location --request {operation} '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
+        else:
+            curl_cmd = f"curl -v --location --request {operation} '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + data
+
+        self.utils.print_info("*****************************")
+        self.utils.print_info("Curl Command: ", curl_cmd.encode())
+
+        process = subprocess.Popen(curl_cmd, shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+
+        self.utils.print_info("stdout: ", stdout)
+        self.utils.print_info("stderr: ", stderr)
+
+        if result_code:
+            if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
+                return 1
+            else:
+                return -1
+        return stdout
+
 
     def get_index_nw_policy_name_from_list_json(self, json_data, index):
         """
