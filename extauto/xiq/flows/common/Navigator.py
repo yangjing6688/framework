@@ -3164,6 +3164,21 @@ class Navigator(NavigatorWebElements):
 
         return self.navigate_to_network_policies_tab()
 
+    def navigate_configure_common_objects(self):
+        """
+        - This keyword Navigates to Common Objects On Configure Menu
+        - Flow: Configure --> Common Objects
+        - Keyword Usage
+         - ``Navigate Configure Common Objects``
+
+        :return: -1 if Navigation Not Successful to Configure Menu else return None
+        """
+        self.navigate_to_configure_tab()
+
+        self.utils.print_info("Selecting Common Objects")
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
+        sleep(5)
+
     def navigate_to_network_policies_tab(self, **kwargs):
         """
          - This keyword Navigates to Network Policies
