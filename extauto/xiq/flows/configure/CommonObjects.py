@@ -208,8 +208,12 @@ class CommonObjects(object):
             self.screen.save_screen_shot()
             sleep(5)
 
+        # Get the total pages
         pages = self.cobj_web_elements.get_page_numbers()
-        last_page = int(pages.text[-1])
+        if pages.text != '':
+            last_page = int(pages.text[-1])
+        else:
+            last_page = 1
         page_counter = 0
         self.utils.print_info(f"There are {last_page} page(s) to check")
         while page_counter < last_page:
