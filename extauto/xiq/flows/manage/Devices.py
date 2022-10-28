@@ -30,6 +30,8 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
+from ExtremeAutomation.Utilities.deprecated import deprecated
+
 
 class Devices:
     def __init__(self):
@@ -989,6 +991,7 @@ class Devices:
         self.utils.print_info("Device is not Rebooting after update configuration")
         return False
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_multiple_devices(self, serials, device_make):
         """
         - This Keyword will Onboard Multiple Devices with Serial Numbers and Device Make
@@ -1033,6 +1036,7 @@ class Devices:
             self.utils.print_info("Unable to delete APs: ", aps)
             self.utils.print_info("Exception: ", e)
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_simulated_device(self, device_model, count=1, location=None, policy=None):
         """
         - onboard multiple simulated devices of same type and returns their serial number(s)
@@ -2427,7 +2431,7 @@ class Devices:
 
         return 1
 
-    # EJL update the defaults
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
                        csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False, **kwargs):
         """
@@ -2704,6 +2708,7 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_device_dt(self, device_serial=None, device_make=None, device_mac=None, device_type="Real", entry_type="Manual",
                            csv_file_name=None, csv_location=None, device_os=None, location=None, service_tag=None,
                            os_persona=None, device_model=None, device_count=1, os_version=None, policy=None, **kwargs):
@@ -2885,6 +2890,7 @@ class Devices:
                 self.common_validation.failed(**kwargs)
                 return -1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
                             csv_location='', policy_name=None, loc_name=None):
         """
@@ -2907,6 +2913,7 @@ class Devices:
         return self.onboard_switch_device(device_serial, "voss", device_type, entry_type, csv_location, policy_name,
                                           loc_name)
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_exos_device(self, device_serial, device_make="exos", device_type="Real", entry_type="Manual",
                             csv_file_name='', policy_name=None, loc_name=None):
         """
@@ -3022,6 +3029,7 @@ class Devices:
                 else:
                     return -1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_switch_device(self, device_serial, device_make, device_type="Real", entry_type="Manual",
                               csv_location='', policy_name=None, loc_name=None):
         """
@@ -3157,6 +3165,7 @@ class Devices:
             else:
                 return -1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_xiq_site_engine(self, xiqse_serial):
         """
         - This keyword on boards an XIQ Site Engine using the Quick Add Devices flow.
@@ -6736,6 +6745,7 @@ class Devices:
         if ap_public_ip:
             return ap_public_ip
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_multiple_exos_switches(self, device_serials, device_make="exos"):
         """
         - This Keyword will Onboard Multiple Exos Devices with Serial Numbers

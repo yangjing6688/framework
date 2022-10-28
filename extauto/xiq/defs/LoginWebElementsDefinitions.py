@@ -71,6 +71,12 @@ class LoginWebElementsDefinitions:
         'wait_for': 5
     }
 
+    switch_connection_host = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-account-menu-connection-host']",
+            'wait_for': 5
+        }
+
     viq_id_field = \
         {
             'DESC': 'VIQ ID Element',

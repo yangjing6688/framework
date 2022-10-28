@@ -96,6 +96,9 @@ class LoginWebElements(LoginWebElementsDefinitions):
             if el.is_displayed():
                 return el
 
+    def get_switch_connection_host(self):
+        return self.weh.get_element(self.switch_connection_host)
+
     def get_viq_id_field(self):
         return self.weh.get_element(self.viq_id_field)
 
