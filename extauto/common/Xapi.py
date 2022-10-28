@@ -253,7 +253,7 @@ class Xapi:
         url = base_url + path
 
         #curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=@{file_path}' "
-        curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=${file_path}' "
+        curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' -F 'file=@{file_path}' "
 
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())
