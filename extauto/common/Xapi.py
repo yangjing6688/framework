@@ -228,7 +228,6 @@ class Xapi:
                 httpCode = 500
             self.utils.print_info("httpcode value: ", httpCode)
             self.utils.print_info("response value: ", stdout)
-            #return {'httpCode': httpCode, 'response': stdout}
             return httpCode, stdout        
 
         if result_code:
@@ -344,7 +343,6 @@ class Xapi:
                 httpCode = 500
             self.utils.print_info("httpcode value: ", httpCode)
             self.utils.print_info("response value: ", stdout)
-            #return {'httpCode': httpCode, 'response': stdout}
             return httpCode, stdout
 
         if result_code:
@@ -427,7 +425,6 @@ class Xapi:
                 httpCode = 500
             self.utils.print_info("httpcode value: ", httpCode)
             self.utils.print_info("response value: ", stdout)
-            #return {'httpCode': httpCode, 'response': stdout}
             return httpCode, stdout
 
         if result_code:
@@ -475,7 +472,6 @@ class Xapi:
                 httpCode = 500
             self.utils.print_info("httpcode value: ", httpCode)
             self.utils.print_info("response value: ", stdout)
-            #return {'httpCode': httpCode, 'response': stdout}
             return httpCode, stdout
 
         if result_code:
