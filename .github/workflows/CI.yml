@@ -31,7 +31,7 @@ jobs:
         # CreateJob body template
         job_template='{
                 "jsonString":{
-                    "description": "CI Verification Run",
+                    "description": "CI Verification Run [Username]: CI_Service  [RDC]: None",
                     "priority": 3,
                     "version": 1,
                     "rerun": 0,
