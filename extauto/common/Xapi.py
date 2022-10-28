@@ -218,6 +218,19 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
+        if result_code == 'response_map':            
+            httpCode = 200
+            if 'HTTP/2 200' in str(stderr):
+                httpCode = 200
+            elif 'HTTP/2 400' in str(stderr):
+                httpCode = 400
+            elif 'HTTP/2 500' in str(stderr):
+                httpCode = 500
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            #return {'httpCode': httpCode, 'response': stdout}
+            return httpCode, stdout        
+
         if result_code:
             if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
                 return 1
@@ -239,7 +252,8 @@ class Xapi:
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         url = base_url + path
 
-        curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=@{file_path}' "
+        #curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=@{file_path}' "
+        curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=${file_path}' "
 
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())
