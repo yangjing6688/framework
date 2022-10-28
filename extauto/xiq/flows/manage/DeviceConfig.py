@@ -2780,8 +2780,8 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info(f"Max {try_cnt} to select device is reached")
                     return -1
 
-    def verify_delta_cli_commands(self, dut, commands, retries=5):
-        """Method that verifies that given CLI commands appear in the Delta CLI window of a dut.
+    def verify_delta_cli_commands(self, dut, commands, retries=5, **kwargs):
+        """Method that verifies that given CLI commands appear in the Delta CLI window of a device.
 
         Args:
             dut (dict): the dut (e.g. tb.du1)
@@ -2801,45 +2801,97 @@ class DeviceConfig(DeviceConfigElements):
                 btn, _ = self.utils.wait_till(
                     func=self.get_device_config_audit_view,
                     delay=5,
-                    exp_func_resp=True
+                    exp_func_resp=True,
+                    silence_failure=True
                 )
                 
-                self.utils.wait_till(
+                if not btn:
+                    kwargs["fail_msg"] = "Failed to get the device_config_audit_view button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                
+                kwargs["pass_msg"] = "Successfully got the device_config_audit_view button"
+                self.common_validation.passed(**kwargs)
+        
+                res, _ = self.utils.wait_till(
                     func=lambda: self.auto_actions.click(btn),
                     delay=4,
-                    exp_func_resp=True
+                    exp_func_resp=True,
+                    silence_failure=True
                 )
 
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to click the device_config_audit_view button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+            
+                kwargs["pass_msg"] = "Successfully clicked the device_config_audit_view button"
+                self.common_validation.passed(**kwargs)
+        
                 delta_view, _ = self.utils.wait_till(
                     func=self.get_device_config_audit_delta_view,
                     delay=5,
-                    exp_func_resp=True
+                    exp_func_resp=True,
+                    silence_failure=True
                 )
                 
-                self.utils.wait_till(
+                if not delta_view:
+                    kwargs["fail_msg"] = "Failed to get the delta_view button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+            
+                kwargs["pass_msg"] = "Successfully got the delta_view button"
+                self.common_validation.passed(**kwargs)
+        
+                res, _ = self.utils.wait_till(
                     func=lambda: self.auto_actions.click(delta_view),
                     timeout=60,
                     delay=20,
-                    exp_func_resp=True
+                    exp_func_resp=True,
+                    silence_failure=True
                 )
+                
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to click the delta_view button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+            
+                kwargs["pass_msg"] = "Successfully clicked the delta_view button"
+                self.common_validation.passed(**kwargs)
                 
                 delta_configs, _ = self.utils.wait_till(
                     func=self.get_device_config_audit_delta_view_content,
                     timeout=60,
                     exp_func_resp=True,
-                    delay=5
+                    delay=5,
+                    silence_failure=True
                 )
                 
+                if not delta_configs:
+                    kwargs["fail_msg"] = "Failed to get the delta_configs element"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+            
+                kwargs["pass_msg"] = "Successfully got the delta_configs element"
+                self.common_validation.passed(**kwargs)
+        
                 delta_configs = delta_configs.text
 
                 for command in commands:
-                    assert re.search(command, delta_configs), f"Did not find this command in delta CLI: {command}"
+                    
+                    if not re.search(command, delta_configs):
+                        kwargs["fail_msg"] = f"Did not find this command in delta CLI: {command}"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+                    
+                    kwargs["pass_msg"] = f"Successfully found this command in delta CLI: {command}"
+                    self.common_validation.passed(**kwargs)
             
             except Exception as exc:
                 self.utils.print_info(repr(exc))
                 self.utils.wait_till(timeout=15)
             else:
-                break
+                return 1
             finally:
                 
                 try:
@@ -2861,4 +2913,6 @@ class DeviceConfig(DeviceConfigElements):
 
                 self.devices.select_device(device_mac=dut.mac)
         else:
-            assert False, f"Failed to verify these commands in the delta cli after {retries} retries: {commands}"
+            kwargs["fail_msg"] = f"Failed to verify these commands in the delta cli after {retries} retries: {commands}"
+            self.common_validation.failed(**kwargs)
+            return -1

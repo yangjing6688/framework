@@ -12446,7 +12446,7 @@ class Devices:
             self.utils.print_info("Could not select device with serial ", device_mac)
             return -1
 
-    def update_and_wait_switch(self, policy_name, dut):
+    def update_and_wait_switch(self, policy_name, dut, **kwargs):
         """Method that updates the switch and then wait for the update to finish.
 
         Args:
@@ -12461,9 +12461,30 @@ class Devices:
         self.utils.wait_till(timeout=10)
 		
         self.utils.print_info(f"Select switch row with serial {dut.mac}")
-        if not self.select_device(dut.mac):
-            self.utils.print_info(f"Switch {dut.mac} is not present in the grid")
+        
+        if self.select_device(dut.mac) != 1:
+            kwargs["fail_msg"] = f"Switch {dut.mac} is not present in the grid"
+            self.common_validation.failed(**kwargs)
             return -1
+        
+        kwargs["pass_msg"] = f"Successfully found {dut.mac} in the grid"
+        self.common_validation.passed(**kwargs)
+        
         self.utils.wait_till(timeout=2)
-        self._update_switch(update_method="PolicyAndConfig")
-        return self._check_update_network_policy_status(policy_name, dut.mac)
+        
+        if self._update_switch(update_method="PolicyAndConfig") != 1:
+            kwargs["fail_msg"] = f"Failed to push the update to switch {dut.mac}"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        kwargs["pass_msg"] = f"Successfully pushed the update to switch {dut.mac}"
+        self.common_validation.passed(**kwargs)
+        
+        if self._check_update_network_policy_status(policy_name, dut.mac) != 1:
+            kwargs["fail_msg"] = "The update for switch {dut.mac} is not successful"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        kwargs["pass_msg"] = "Successfully updated the switch {dut.mac}"
+        self.common_validation.passed(**kwargs)
+        return 1

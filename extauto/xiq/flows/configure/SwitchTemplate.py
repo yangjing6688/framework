@@ -2266,7 +2266,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             return -1
 
-    def click_on_port_details_tab(self):
+    def click_on_port_details_tab(self, **kwargs):
         """Method that click on the STP port details button in the Template Configuration
         """
         stp_tab_button, _ = self.utils.wait_till(
@@ -2276,17 +2276,31 @@ class SwitchTemplate(object):
             delay=5
         )
         
-        assert stp_tab_button, "Failed to get the Port Details tab button"
+        if stp_tab_button is None:
+            kwargs["fail_msg"] = "Failed to get the STP port details button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs["pass_msg"] = "Successfully got the STP port details button"
+            self.common_validation.passed(**kwargs)
         
-        self.utils.wait_till(
+        res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(stp_tab_button),
             exp_func_resp=True,
-            delay=4
+            delay=4,
+            silent_failure=True
         )
+        
+        if res == 1:
+            kwargs["pass_msg"] = "Successfully clicked the STP port details button"
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs["fail_msg"] = "Failed to click the STP port details button"
+            self.common_validation.passed(**kwargs)
+            return -1
+        return 1
 
-        self.utils.print_info("Successfully clicked the Port Details tab button")
-
-    def revert_port_configuration_template_level(self, port_type):
+    def revert_port_configuration_template_level(self, port_type, **kwargs):
         """Method that reverts all the ports to a specific port type.
 
         Args:
@@ -2299,14 +2313,22 @@ class SwitchTemplate(object):
                 exp_func_resp=True
             )
             
-            assert select_all_ports, "Select all ports button was not found"
-            self.utils.print_info("Select all ports button was found")
-            
-            self.utils.wait_till(
+            kwargs["fail_msg"] = "Failed to get the select_all_ports button"
+            kwargs["pass_msg"] = "Successfully got the select_all_ports button"
+            self.common_validation.validate(bool(select_all_ports), True, **kwargs)
+        
+            res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(select_all_ports),
                 exp_func_resp=True,
                 delay=4
             )
+            if res == 1:
+                kwargs["pass_msg"] = "Successfully clicked the select_all_ports button"
+                self.common_validation.passed(**kwargs)
+            else:
+                kwargs["fail_msg"] = "Failed to click the select_all_ports button"
+                self.common_validation.failed(**kwargs)
+                return -1
             
             assign_to_all_ports_selected, _ = self.utils.wait_till(
                 func=
@@ -2316,15 +2338,28 @@ class SwitchTemplate(object):
                 delay=5
             )
             
-            assert assign_to_all_ports_selected, "Assign button was not found"
-            self.utils.print_info("Assign Button was found")
+            if assign_to_all_ports_selected:
+                kwargs["pass_msg"] = "Successfully got the assign_to_all_ports_selected button"
+                self.common_validation.passed(**kwargs)
+            else:
+                kwargs["fail_msg"] = "Failed to get the assign_to_all_ports_selected button"
+                self.common_validation.failed(**kwargs)
+                return -1
             
-            self.utils.wait_till(
+            res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(assign_to_all_ports_selected),
                 exp_func_resp=True,
                 delay=4
             )
 
+            if res == 1:
+                self.common_validation.passed(**kwargs)
+                kwargs["pass_msg"] = "Successfully clicked the assign_to_all_ports_selected button"
+            else:
+                kwargs["fail_msg"] = "Failed to click the assign_to_all_ports_selected button"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
             assign_button, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_assign_choose_existing,
                 silent_failure=True, 
@@ -2332,14 +2367,28 @@ class SwitchTemplate(object):
                 delay=5
             )
             
-            assert assign_button
+            if not assign_button:
+                kwargs["fail_msg"] = "Failed to get the assign_button button"
+                self.common_validation.failed(**kwargs)
+                return -1
+            else:
+                kwargs["pass_msg"] = "Successfully got the assign_button button"
+                self.common_validation.passed(**kwargs)
             
-            self.utils.wait_till(
+            res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(assign_button),
                 exp_func_resp=True,
                 delay=4
             )
-
+            
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the assign_button button"
+                self.common_validation.failed(**kwargs)
+                return -1
+            else:
+                kwargs["pass_msg"] = "Successfully clicked the assign_button button"
+                self.common_validation.passed(**kwargs)
+            
             radio_buttons, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_all_port_type_list_radio,
                 silent_failure=True,
@@ -2348,7 +2397,13 @@ class SwitchTemplate(object):
                 delay=5
             )
             
-            assert radio_buttons, "Radio buttons not found"
+            if not radio_buttons:
+                kwargs["fail_msg"] = "Failed to get the radio_buttons"
+                self.common_validation.failed(**kwargs)
+                return -1
+            else:
+                kwargs["pass_msg"] = "Successfully got the radio_buttons"
+                self.common_validation.passed(**kwargs)
 
             radio_buttons_labels, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_all_port_type_list_label,
@@ -2357,7 +2412,14 @@ class SwitchTemplate(object):
                 delay=5
             
             )
-            assert radio_buttons_labels, "Radio buttons labels not found"
+            
+            if not radio_buttons_labels:
+                kwargs["fail_msg"] = "Failed to get the radio_buttons_labels"
+                self.common_validation.failed(**kwargs)
+                return -1
+            else:
+                kwargs["pass_msg"] = "Successfully got the radio_buttons_labels"
+                self.common_validation.passed(**kwargs)
             
             for btn, label in zip(radio_buttons, radio_buttons_labels):
                 if label.text == port_type:
@@ -2368,7 +2430,11 @@ class SwitchTemplate(object):
                     )
                     break
             else:
-                assert False, "Failed to found the correct button for port type"
+                kwargs["fail_msg"] = "Failed to find the correct button for port type"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
+            return 1
         
         finally:
             
@@ -2378,16 +2444,15 @@ class SwitchTemplate(object):
                 exp_func_resp=True,
                 delay=5
             )
-
-            assert save_button, "Save button was not found"
-            self.utils.wait_till(
-                func=lambda: self.auto_actions.click(save_button),
-                exp_func_resp=True
-            )
             
-            self.utils.wait_till(timeout=5)
+            if save_button:
+                self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(save_button),
+                    exp_func_resp=True,
+                    silent_failure=True
+                )
 
-    def click_on_stp_tab(self):
+    def click_on_stp_tab(self, **kwargs):
         """Method that click on the STP tab in the Template Configuration page
         """
         stp_tab_button, _ = self.utils.wait_till(
@@ -2396,18 +2461,33 @@ class SwitchTemplate(object):
             exp_func_resp=True,
             delay=5
         )
-
-        assert stp_tab_button, "Failed to get the STP tab button"
         
-        self.utils.wait_till(
+        if not stp_tab_button:
+            kwargs["fail_msg"] = "Failed to get the STP tab button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs["pass_msg"] = "Successfully got the STP tab button"
+            self.common_validation.passed(**kwargs)
+        
+        res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(stp_tab_button),
             exp_func_resp=True,
+            silent_failure=True,
             delay=4
         )
 
-        self.utils.print_info("Successfully clicked the STP tab button")    
+        if res == 1:
+            kwargs["pass_msg"] = "Successfully clicked the STP tab button"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs["fail_msg"] = "Failed to click the STP tab button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        return 1
 
-    def get_stp_port_configuration_rows(self):
+    def get_stp_port_configuration_rows(self, **kwargs):
         """Method that returns the port configuration rows in the Template Configuration page
 
         Returns:
@@ -2419,11 +2499,17 @@ class SwitchTemplate(object):
             exp_func_resp=True, 
             delay=5
         )
-
-        assert rows, "Failed to get the STP port configuration rows"
+        
+        if not rows:
+            kwargs["fail_msg"] = "Failed to get the STP port configuration rows"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        kwargs["pass_msg"] = "Successfully got the STP port configuration rows"
+        self.common_validation.passed(**kwargs)
         return rows
 
-    def get_stp_port_configuration_row(self, port):
+    def get_stp_port_configuration_row(self, port, **kwargs):
         """Method that returns a specific STP port configuration row based on the given port value.
 
         Args:
@@ -2433,14 +2519,18 @@ class SwitchTemplate(object):
             _type_: the STP row configuration of the given port
         """
         rows = self.get_stp_port_configuration_rows()
-        for row in rows:
-            if re.search(f"^{port}\n", row.text):
-                self.utils.print_info(f"Successfully found the row port for port='{port}'")
-                return row
-        else:
-            assert False, f"Failed to find the row port for port='{port}'"
+        row = [r for r in rows if re.search(f"^{port}\n", r.text)]
+        
+        if not row:
+            kwargs["fail_msg"] = f"Failed to find the row port for port='{port}'"
+            self.common_validation.failed(**kwargs)
+            return -1
 
-    def navigate_to_slot_template(self, slot):
+        kwargs["pass_msg"] = f"Successfully found the row port for port='{port}'"
+        self.common_validation.passed(**kwargs)
+        return row
+
+    def navigate_to_slot_template(self, slot, **kwargs):
         """Method that navigates to the template configuration of a given stack slot.
 
         Args:
@@ -2449,16 +2539,27 @@ class SwitchTemplate(object):
         Returns:
             int: 1 if successful else -1
         """
-        try:
-            template_slot = self.sw_template_web_elements.get_template_slot(slot=slot)
-            self.auto_actions.click(template_slot)
-            self.utils.wait_till(timeout=5)
-        except Exception as e:
-            print(f"Error Exception: {e}")
+        template_slot = self.sw_template_web_elements.get_template_slot(slot=slot)
+        if not template_slot:
+            kwargs["fail_msg"] = f"Failed to get the template for slot {slot}"
+            self.common_validation.failed(**kwargs)
             return -1
+        
+        kwargs["pass_msg"] = f"Successfully got the template for slot {slot}"
+        self.common_validation.passed(**kwargs)
+        
+        if self.auto_actions.click(template_slot) != 1:
+            kwargs["fail_msg"] = f"Failed to click on the tempalte slot {slot}"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        kwargs["pass_msg"] = f"Successfully clicked on the template slot {slot}"
+        self.common_validation.passed(**kwargs)
+        
+        self.utils.wait_till(timeout=5)
         return 1
 
-    def get_path_cost_value_from_stp_port_configuration_row(self, port):
+    def get_path_cost_value_from_stp_port_configuration_row(self, port, **kwargs):
         """Method that returns the path cost value of a given port.
 
         Args:
@@ -2476,9 +2577,13 @@ class SwitchTemplate(object):
             delay=5
         )
         
+        kwargs["fail_msg"] = f"Failed to get path cost element"
+        kwargs["pass_msg"] = f"Successfully got the path cost element"
+        self.common_validation.validate(bool(cost_element), True, **kwargs)
+        
         return cost_element.get_attribute("value")
 
-    def verify_path_cost_in_port_configuration_stp_tab(self, template_switch, network_policy, port, path_cost, slot=None):
+    def verify_path_cost_in_port_configuration_stp_tab(self, template_switch, network_policy, port, path_cost, slot=None, **kwargs):
         """Method that verifies the path cost of a given port.
 
         Args:
@@ -2500,11 +2605,18 @@ class SwitchTemplate(object):
         
         found_path_cost_value = self.get_path_cost_value_from_stp_port_configuration_row(
             port)
-        assert str(found_path_cost_value) == str(path_cost), \
-            f"In XIQ port configuration: Expected path cost for port='{port}' is {path_cost} " \
-            f"but found {found_path_cost_value}"
+        
+        if str(found_path_cost_value) != str(path_cost):
+            kwargs["fail_msg"] = f"In XIQ port configuration: Expected path cost for port='{port}' is {path_cost} " \
+                                f"but found {found_path_cost_value}"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        kwargs["pass_msg"] = f"Successfully found the expected path cost"
+        self.common_validation.passed(**kwargs)
+        return 1
 
-    def set_stp(self, enable=True):
+    def set_stp(self, enable=True, **kwargs):
         """Method that enables the STP in Template Configuration.
 
         Args:
@@ -2517,15 +2629,32 @@ class SwitchTemplate(object):
             delay=5
         )
         
+        if not button:
+            kwargs["fail_msg"] = f"Failed to get stp button element"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        kwargs["pass_msg"] = f"Successfully got the stp button element"
+        self.common_validation.passed(**kwargs)
+        
         if (not button.is_selected() and enable) or (
             button.is_selected() and not enable):
-            self.utils.wait_till(
+            res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(button),
                 exp_func_resp=True,
                 delay=4
             )
+            
+            if res != 1:
+                kwargs["fail_msg"] = f"Failed to click stp button element"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
+            kwargs["pass_msg"] = f"Successfully clicked the stp button element"
+            self.common_validation.passed(**kwargs)
+        return 1
 
-    def choose_stp_mode(self, mode):
+    def choose_stp_mode(self, mode, **kwargs):
         """Method that choses the STP mode in Template Configuration.
 
         Args:
@@ -2555,9 +2684,25 @@ class SwitchTemplate(object):
                 delay=5
         )
         
-        assert button, f"Failed to get the {mode} stp mode button"
-        self.utils.wait_till(
+        if not button:
+            kwargs["fail_msg"] = f"Failed to get the {mode} stp mode button"
+            self.common_validation.failed(**kwargs)
+            return -1
+            
+        kwargs["pass_msg"] = f"Successfully got the {mode} stp mode button"
+        self.common_validation.passed(**kwargs)
+        
+        res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(button),
             exp_func_resp=True,
             delay=4
         )
+
+        if res != 1:
+            kwargs["fail_msg"] = f"Failed to click the {mode} stp mode button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        kwargs["pass_msg"] = f"Successfully clicked the {mode} stp mode button"
+        self.common_validation.passed(**kwargs)
+        return 1

@@ -40,8 +40,25 @@ class XiqVerifications:
         self, onboarded_switch, path_cost, template_switch,
         network_policy, default_path_cost="", revert_mode="revert_template",
         port_type="access", verify_delta_cli=False, stp_mode="mstp",
-        revert_configuration=True, port_order_in_asic=None, ports=None, slot=None):
-        
+        revert_configuration=True, port_order_in_asic=None, ports=None, slot=None, **kwargs):
+        """This method is used to configure the path cost on an already onboarded switch.
+        Also it will verify the configuration on the switch once it is configured.
+
+        Args:
+            onboarded_switch (dict): the switch - e.g. tb.dut1
+            path_cost (int): the path cost value
+            template_switch (str): the name of the switch template
+            network_policy (str): the name of the network policy
+            default_path_cost (int, optional): the default path cost. Defaults to "".
+            revert_mode (str, optional): the revert mode. Defaults to "revert_template".
+            port_type (str, optional): the port type. Defaults to "access".
+            verify_delta_cli (bool, optional): enable of disable the delta cli verification. Defaults to False.
+            stp_mode (str, optional): the stp mode. Defaults to "mstp".
+            revert_configuration (bool, optional): revert or not the configuration. Defaults to True.
+            port_order_in_asic (int, optional): the order in asic of the port we want to verify. Defaults to None.
+            ports (List[str], optional): a list of ports to be verified. Defaults to None.
+            slot (str, optional): the slot of the stack to be verified. Defaults to None.
+        """
         if not default_path_cost:
             default_path_cost = "200000000" if onboarded_switch.cli_type.upper() == "VOSS" else "20000"
 
@@ -111,12 +128,12 @@ class XiqVerifications:
                             "Verify that the configured fields"
                             " appear correctly in the summary tab"
                         )
-                        assert all(expected_summary[k] == summary[k] for k in expected_summary), \
-                            f"Not all the values of the summary are the expected ones. " \
-                            f"Expected summary: {expected_summary}\nFound summary: {summary}"
-                        self.utils.print_info(
-                            "Successfully verified the summary")
-                    
+                        
+                        kwargs["fail_msg"] = f"Not all the values of the summary are the expected ones. " \
+                                             f"Expected summary: {expected_summary}\nFound summary: {summary}"
+                        kwargs["pass_msg"] = "Successfully verified the summary"
+                        self.common_validation.validate(
+                            all(expected_summary[k] == summary[k] for k in expected_summary), True, **kwargs)
                     finally:
                         self.device360.save_port_type_config()
             finally:
@@ -218,10 +235,10 @@ class XiqVerifications:
                                 port_type_name=port_type_config["port_type_name"],
                                 path_cost=""
                             )
-                            assert summary["Path Cost"] == "", \
-                                "Failed to edit the Path Cost"
-                            self.utils.print_info(
-                                "Successfully edited the Path Cost")
+                            
+                            kwargs["fail_msg"] = "Failed to edit the Path Cost"
+                            kwargs["pass_msg"] = "Successfully edited the Path Cost"
+                            self.common_validation.validate(summary["Path Cost"], "", **kwargs)
                         
                 finally:
                     
