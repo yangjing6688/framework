@@ -814,9 +814,12 @@ class Xapi:
  
     def rest_api_v3(self, path, operation="POST", data="default", access_token="default", return_output="default",
                         result_code="default", role="default"):
-
         """
-        - This Keyword is used to run the API request for any operation(GET/POST/PUT/DELETE) evaluating the httpCode
+        - This Keyword is used to perform a rest-api operation and return the output or -1 based on 'result_code' 
+
+        :param path: API Endpoint path
+        :param operation: API Operation(GET/POST/DELETE/PUT/PATCH)
+        :return: returns output or -1
         """
 
         self.utils.print_info("Return Output :", return_output)
