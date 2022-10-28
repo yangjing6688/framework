@@ -186,11 +186,7 @@ class SwitchWebElementsDefinitions:
             'wait_for': 5
         }
 
-    switch_connection_host_details = \
-        {
-            'XPATH': "//*[@data-automation-tag='automation-account-menu-connection-host']",
-            'wait_for': 5
-        }
+
 
     switch_voss_serial_text_area = \
         {
