@@ -1432,52 +1432,6 @@ class Cli(object):
         except Exception:
             pass
 
-    def reboot_device(self, device, **kwargs):
-        """Method that reboots the device through CLI.
-
-        Args:
-            device (dict): the device, e.g. tb.dut1
-
-        Returns:
-            int: 1 if the function call has succeeded else -1
-        """
-        try:
-            self.close_connection_with_error_handling(device)
-            self.networkElementConnectionManager.connect_to_network_element_name(device.name)
-            
-            if NetworkElementConstants.OS_EXOS in device.cli_type.upper():
-                self.networkElementCliSend.send_cmd(device.name, 'reboot all', max_wait=10, interval=2,
-                                     confirmation_phrases='Are you sure you want to reboot the switch?',
-                                     confirmation_args='y'
-                                     )
-            elif NetworkElementConstants.OS_VOSS in device.cli_type.upper():
-                self.networkElementCliSend.send_cmd(device.name, 'reset -y', max_wait=10, interval=2)
-                
-            elif NetworkElementConstants.OS_AHFASTPATH in device.cli_type.upper():
-                try:
-                    self.networkElementCliSend.send_cmd(device.name, "enable")
-                except:
-                    self.networkElementCliSend.send_cmd(device.name, "exit")
-                    
-                self.networkElementCliSend.send_cmd(
-                    device.name, 'reload', max_wait=10, interval=2,
-                    confirmation_phrases='Would you like to save them now? (y/n)', confirmation_args='y'
-                )
-        
-        except Exception as exc:
-            kwargs["fail_msg"] = f"Failed to reboot: {repr(exc)}"
-            self.commonValidation.failed(**kwargs)
-            return -1         
-       
-        else:
-            self.utils.wait_till(timeout=120)
-            kwargs["pass_msg"] = f"Successfully rebooted {device.name}"
-            self.commonValidation.passed(**kwargs)
-            return 1
-        
-        finally:
-            self.close_connection_with_error_handling(device)
-
     def verify_path_cost_on_device(self, device, port, expected_path_cost, mode="mstp", retries=10, step=60, **kwargs):
         """Method that verifies the path cost on a specific port of a given device.
 
