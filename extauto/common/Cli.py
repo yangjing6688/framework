@@ -1433,6 +1433,14 @@ class Cli(object):
             pass
 
     def reboot_device(self, device, **kwargs):
+        """Method that reboots the device through CLI.
+
+        Args:
+            device (dict): the device, e.g. tb.dut1
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
         try:
             self.close_connection_with_error_handling(device)
             self.networkElementConnectionManager.connect_to_network_element_name(device.name)
@@ -1455,16 +1463,35 @@ class Cli(object):
                     device.name, 'reload', max_wait=10, interval=2,
                     confirmation_phrases='Would you like to save them now? (y/n)', confirmation_args='y'
                 )
+        
         except Exception as exc:
             kwargs["fail_msg"] = f"Failed to reboot: {repr(exc)}"
-            self.commonValidation.validate(True, False, **kwargs)          
+            self.commonValidation.failed(**kwargs)
+            return -1         
+       
         else:
             self.utils.wait_till(timeout=120)
+            kwargs["pass_msg"] = f"Successfully rebooted {device.name}"
+            self.commonValidation.passed(**kwargs)
+            return 1
+        
         finally:
             self.close_connection_with_error_handling(device)
 
     def verify_path_cost_on_device(self, device, port, expected_path_cost, mode="mstp", retries=10, step=60, **kwargs):
-        
+        """Method that verifies the path cost on a specific port of a given device.
+
+        Args:
+            device (dict): the device, e.g. tb.dut1
+            port (_type_): _description_
+            expected_path_cost (int): the expected path cost value
+            mode (str, optional): the stp mode. Defaults to "mstp".
+            retries (int, optional): the number of retries. Defaults to 10.
+            step (int, optional): seconds to sleep between retries. Defaults to 60.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
         for _ in range(retries):
             try:
                 
@@ -1508,7 +1535,7 @@ class Cli(object):
                             0].return_text
                         path_cost_match = re.search(fr"\tPath Cost:\s(\d+)\r\n", output)
                     
-                    assert path_cost_match, "Failed to match get the path cost of port='{port}' from dut {dut}"
+                    assert path_cost_match, f"Failed to match get the path cost of port='{port}' from dut {device.name}"
                     found_path_cost = int(path_cost_match.group(1))
                     self.utils.print_info(f"Found path_cost='{found_path_cost}' for port='{port}'")
                     
@@ -1516,8 +1543,8 @@ class Cli(object):
                         f"Found path cost for port='{port}' is {found_path_cost}" \
                         f" but expected {expected_path_cost}"
                     
-                    self.utils.print_info("Successfully found the path cost correctly set on port='{port}'")
-                    
+                    kwargs["pass_msg"] = f"Successfully found the path cost correctly set on port='{port}'"
+                    self.commonValidation.passed(**kwargs)
                     return 1
                 
             except Exception as exc:

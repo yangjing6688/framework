@@ -10657,6 +10657,11 @@ class Device360(Device360WebElements):
         return self.get_select_element_port_type(element)
 
     def go_to_last_page(self, **kwargs):
+        """Method that goes to the last page of the honeycomb port type editor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
         
         self.utils.print_info("Go to the last page and save the port type")
         for _ in range(10):
@@ -10698,6 +10703,9 @@ class Device360(Device360WebElements):
 
     def go_to_next_editor_tab(self, **kwargs):
         """Method that goes to the next page of the honeycomb port editor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         get_next_button, _ = self.utils.wait_till(
             lambda: self.get_select_element_port_type("next_button"),
@@ -10737,6 +10745,9 @@ class Device360(Device360WebElements):
             description (str, optional): the description of the port type. Defaults to "test".
             status (bool, optional): the port status. Defaults to True.
             port_type (str, optional): the port type. Defaults to "access".
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         name_element, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("name"), 
@@ -10888,6 +10899,9 @@ class Device360(Device360WebElements):
         Args:
             port (str): the name of the port
             device_360 (bool, optional): True if the browser is in the device 360 window. Defaults to False.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         self.utils.wait_till(timeout=10)
         
@@ -11011,6 +11025,9 @@ class Device360(Device360WebElements):
 
     def save_port_type_config(self, **kwargs):
         """Method that press the save button in the honeycomb port type edtitor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         save_button, _ = self.utils.wait_till(
             func=self.get_close_port_type_box,
@@ -11047,6 +11064,9 @@ class Device360(Device360WebElements):
 
     def close_port_type_config(self, **kwargs):
         """Method that press the close button in the honeycomb port type edtitor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         close_button, _ = self.utils.wait_till(
             func=self.get_cancel_port_type_box,
@@ -11083,6 +11103,9 @@ class Device360(Device360WebElements):
 
     def click_on_stp_tab(self, **kwargs):
         """Method that click the STP configure port stb tab button in the device 360 window.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         stp_tab_button, _ = self.utils.wait_till(
             func=self.get_d360_configure_port_stp_tab_button,
@@ -11117,6 +11140,9 @@ class Device360(Device360WebElements):
 
     def get_stp_port_configuration_rows(self, **kwargs):
         """Method that returns the STP port configuration rows in the device 360 window.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         rows, _ = self.utils.wait_till(
             func=self.get_device360_configure_stp_rows,
@@ -11205,6 +11231,9 @@ class Device360(Device360WebElements):
             bpdu_protection (int, optional): The pbdu protection value. Defaults to None.
             priority (int, optional): the priority value. Defaults to None.
             path_cost (int, optional): the path cost value. Defaults to None.
+        
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         if stp_enabled is not None:
             
@@ -11263,6 +11292,9 @@ class Device360(Device360WebElements):
 
     def go_to_stp_settings_tab_in_honeycomb(self, **kwargs):
         """Method that goes to the STP settings tab in the honeycomb port editor.
+        
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         self.utils.print_info("Go to the STP settings page")
         
@@ -11355,6 +11387,9 @@ class Device360(Device360WebElements):
 
     def verify_port_type_editor_still_in_stp_tab(self, **kwargs):
         """Method that verifies if the browser is still in the STP tab of the honeycomb port editor.
+        
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         stp_page, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("stpPage"),
@@ -11386,6 +11421,9 @@ class Device360(Device360WebElements):
 
         Args:
             path_cost (int): the path cost value
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         path_cost_element, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("path cost"),
@@ -11422,6 +11460,9 @@ class Device360(Device360WebElements):
 
     def verify_path_cost_field_is_editable(self, **kwargs):
         """Method that verifies if the path cost field in editable in the honeycomb port type editor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         path_cost_element, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("path cost"), 
@@ -11457,6 +11498,9 @@ class Device360(Device360WebElements):
             bpdu_protection (int, optional): the bpdu protection value. Defaults to None.
             path_cost (int, optional): the path cost value. Defaults to None.
             priority (int, optional): the priority value. Defaults to None.
+            
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         if stp_enabled is not None:
             stp_enabled_element, _ = self.utils.wait_till(

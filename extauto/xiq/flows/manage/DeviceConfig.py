@@ -2788,7 +2788,8 @@ class DeviceConfig(DeviceConfigElements):
             commands (list): a list of CLI commands
             retries (int, optional): the number of retries. Defaults to 5.
         
-        Returns: 1 if the verification is successful else -1
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         self.utils.wait_till(timeout=10)
         self.devices._goto_devices()

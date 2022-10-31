@@ -12454,7 +12454,7 @@ class Devices:
             dut (dict): the dut (e.g. tb.dut1)
 
         Returns:
-            int: the status of the update
+            int: 1 if the function call has succeeded else -1
         """
         self.utils.wait_till(timeout=10)
         self._goto_devices()
@@ -12481,10 +12481,10 @@ class Devices:
         self.common_validation.passed(**kwargs)
         
         if self._check_update_network_policy_status(policy_name, dut.mac) != 1:
-            kwargs["fail_msg"] = "The update for switch {dut.mac} is not successful"
+            kwargs["fail_msg"] = f"The update for switch {dut.mac} is not successful"
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully updated the switch {dut.mac}"
+        kwargs["pass_msg"] = f"Successfully updated the switch {dut.mac}"
         self.common_validation.passed(**kwargs)
         return 1

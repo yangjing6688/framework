@@ -41,7 +41,7 @@ class XiqVerifications:
         network_policy, default_path_cost="", revert_mode="revert_template",
         port_type="access", verify_delta_cli=False, stp_mode="mstp",
         revert_configuration=True, port_order_in_asic=None, ports=None, slot=None):
-        """This method is used to configure the path cost on an already onboarded switch.
+        """This method is used to set the path cost in XIQ on an already onboarded switch.
         Also it will verify the configuration on the switch once it is configured.
 
         Args:
@@ -58,6 +58,9 @@ class XiqVerifications:
             port_order_in_asic (int, optional): the order in asic of the port we want to verify. Defaults to None.
             ports (List[str], optional): a list of ports to be verified. Defaults to None.
             slot (str, optional): the slot of the stack to be verified. Defaults to None.
+        
+        Returns: None; The function will raise an error if the verification failed.
+
         """
         if not default_path_cost:
             default_path_cost = "200000000" if onboarded_switch.cli_type.upper() == "VOSS" else "20000"
@@ -65,6 +68,10 @@ class XiqVerifications:
         if not ports:
             ports = self.device360.get_one_port_from_each_asic_flow(
                 dut=onboarded_switch, order=port_order_in_asic, slot=slot)
+
+
+        ports = [ports[0]]
+
 
         port_config = defaultdict(lambda: {})
         for port in ports:
@@ -255,7 +262,7 @@ class XiqVerifications:
                     )
                     
                     for port in port_config:
-                        self.cli.verify_path_cost_on_dut(
+                        self.cli.verify_path_cost_on_device(
                             onboarded_switch,
                             expected_path_cost=default_path_cost,
                             port=port,

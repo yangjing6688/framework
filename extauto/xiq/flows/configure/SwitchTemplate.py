@@ -2268,6 +2268,9 @@ class SwitchTemplate(object):
 
     def click_on_port_details_tab(self, **kwargs):
         """Method that click on the STP port details button in the Template Configuration
+        
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         stp_tab_button, _ = self.utils.wait_till(
             func=self.sw_template_web_elements.get_sw_template_port_details_tab,
@@ -2305,6 +2308,9 @@ class SwitchTemplate(object):
 
         Args:
             port_type (str): the port type name
+            
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         try:
             select_all_ports, _ = self.utils.wait_till(
@@ -2458,6 +2464,9 @@ class SwitchTemplate(object):
 
     def click_on_stp_tab(self, **kwargs):
         """Method that click on the STP tab in the Template Configuration page
+        
+            Returns:
+                int: 1 if the function call has succeeded else -1
         """
         stp_tab_button, _ = self.utils.wait_till(
             func=self.sw_template_web_elements.get_sw_template_stp_tab,
@@ -2531,7 +2540,7 @@ class SwitchTemplate(object):
 
         kwargs["pass_msg"] = f"Successfully found the row port for port='{port}'"
         self.common_validation.passed(**kwargs)
-        return row
+        return row[0]
 
     def navigate_to_slot_template(self, slot, **kwargs):
         """Method that navigates to the template configuration of a given stack slot.
@@ -2540,7 +2549,7 @@ class SwitchTemplate(object):
             slot (int): the stack slot
 
         Returns:
-            int: 1 if successful else -1
+            int: 1 if the function call has succeeded else -1
         """
         template_slot = self.sw_template_web_elements.get_template_slot(slot=slot)
         if not template_slot:
@@ -2572,6 +2581,7 @@ class SwitchTemplate(object):
             int: the path cost
         """
         row = self.get_stp_port_configuration_row(port=port)
+        
         cost_element, _ = self.utils.wait_till(
             func=lambda:
             self.sw_template_web_elements.get_sw_template_path_cost_row(row),
@@ -2599,6 +2609,10 @@ class SwitchTemplate(object):
             port (str): the port of the switch
             path_cost (): the expected path cost value
             slot (str, optional): the stack slot. Defaults to None.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+                
         """
         
         self.utils.print_info(f"Go to the port configuration of {template_switch} template")
@@ -2630,6 +2644,9 @@ class SwitchTemplate(object):
 
         Args:
             enable (bool, optional): If it is True then it will enable STP; if it is False then it will disable STP. Defaults to True.
+    
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         button, _ = self.utils.wait_till(
             func=self.sw_template_web_elements.get_sw_template_enable_spanningtree, 
@@ -2669,6 +2686,9 @@ class SwitchTemplate(object):
 
         Args:
             mode (str): the STP mode
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
         """
         if mode == "stp":
             button, _ = self.utils.wait_till(
