@@ -10690,7 +10690,8 @@ class Device360(Device360WebElements):
                     return -1
                 
                 kwargs["pass_msg"] = "Successfully clicked the next button"
-                self.common_validation.validate(res, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
+                
             else:
                 break
         return 1
@@ -10970,7 +10971,7 @@ class Device360(Device360WebElements):
                     silent_failure=True
                 )
                 if not re.search(f"{port}\n", port_row.text):
-                    self.utils.print_info("Port was not found ")
+                    self.utils.print_info("Port was not found")
                     port_row = None
 
             if port_row:            
@@ -10989,7 +10990,6 @@ class Device360(Device360WebElements):
                     return -1
                 
                 kwargs["pass_msg"] = "Successfully got the d360_create_port_type button"
-                self.common_validation.validate(bool(d360_create_port_type), True, **kwargs)
                 self.common_validation.passed(**kwargs)
                 
                 res, _ = self.utils.wait_till(
@@ -11270,7 +11270,7 @@ class Device360(Device360WebElements):
             
             stp_page, _ = self.utils.wait_till(
                 func=lambda: self.get_select_element_port_type("stpPage"),
-                silence_failure=True,
+                silent_failure=True,
                 exp_func_resp=True, 
                 delay=5
             )
@@ -11288,7 +11288,7 @@ class Device360(Device360WebElements):
             
             get_next_button, _ = self.utils.wait_till(
                 func=lambda: self.get_select_element_port_type("next_button"),
-                silence_failure=True,
+                silent_failure=True,
                 exp_func_resp=True, 
                 delay=5
             )
@@ -11306,7 +11306,7 @@ class Device360(Device360WebElements):
                 res, _ = self.utils.wait_till(
                     func=lambda: self.auto_actions.click(get_next_button),
                     exp_func_resp=True,
-                    silence_failure=True,
+                    silent_failure=True,
                     delay=4
                 )
 
@@ -11319,8 +11319,10 @@ class Device360(Device360WebElements):
                 self.common_validation.passed(**kwargs)
                 
                 self.utils.wait_till(timeout=2)
+            
             else:
                 break
+        
         return 1
 
     def get_one_port_from_each_asic_flow(self, dut, order, slot=None):
@@ -11356,7 +11358,7 @@ class Device360(Device360WebElements):
         """
         stp_page, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("stpPage"),
-            silence_failure=True,
+            silent_failure=True,
             exp_func_resp=True, 
             delay=5
         )
@@ -11375,7 +11377,9 @@ class Device360(Device360WebElements):
             return -1
         
         kwargs["pass_msg"] = "Currently in the STP tab"
-        self.common_validation.passed(**kwargs)       
+        self.common_validation.passed(**kwargs)    
+        
+        return 1   
 
     def set_path_cost_in_honeycomb(self, path_cost, **kwargs):
         """Method that sets the path cost in the honeycomb port type editor.
@@ -11413,6 +11417,7 @@ class Device360(Device360WebElements):
         kwargs["pass_msg"] = "Successfully sent keys to the path cost element"
         self.common_validation.passed(**kwargs)
         self.utils.wait_till(timeout=5)
+        
         return 1
 
     def verify_path_cost_field_is_editable(self, **kwargs):

@@ -1490,10 +1490,9 @@ class Cli(object):
                         except:
                             continue
                         else:
-                            return
+                            return 1
                     else:
-                        kwargs["fail_msg"] = f"Failed to find the path cost correctly configure for port='{port}'"
-                        self.common_validation.failed(**kwargs)
+                        assert False, "Failed to find the path cost correctly configure for port='{port}'"
                 
                 else:
                     
@@ -1513,11 +1512,13 @@ class Cli(object):
                     found_path_cost = int(path_cost_match.group(1))
                     self.utils.print_info(f"Found path_cost='{found_path_cost}' for port='{port}'")
                     
-                    kwargs["fail_msg"] = f"Found path cost for port='{port}' is {found_path_cost}" \
-                                         f" but expected {expected_path_cost}"
-                    kwargs["pass_msg"] = "Successfully found the path cost correctly set on port='{port}'"
-                    self.commonValidation.validate(int(expected_path_cost) == found_path_cost, True, **kwargs)
-                    return
+                    assert int(expected_path_cost) == found_path_cost, \
+                        f"Found path cost for port='{port}' is {found_path_cost}" \
+                        f" but expected {expected_path_cost}"
+                    
+                    self.utils.print_info("Successfully found the path cost correctly set on port='{port}'")
+                    
+                    return 1
                 
             except Exception as exc:
                 self.utils.print_info(repr(exc))
@@ -1526,7 +1527,8 @@ class Cli(object):
                 self.close_connection_with_error_handling(device)
         else:
             kwargs["fail_msg"] = f"Failed to verify the path cost of port='{port}' on this dut\n{device}"
-            self.common_validation.failed(**kwargs)
+            self.commonValidation.failed(**kwargs)
+            return -1
 
 
 if __name__ == '__main__':

@@ -2293,10 +2293,10 @@ class SwitchTemplate(object):
         
         if res == 1:
             kwargs["pass_msg"] = "Successfully clicked the STP port details button"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.passed(**kwargs)
         else:
             kwargs["fail_msg"] = "Failed to click the STP port details button"
-            self.common_validation.passed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         return 1
 
@@ -2313,9 +2313,13 @@ class SwitchTemplate(object):
                 exp_func_resp=True
             )
             
-            kwargs["fail_msg"] = "Failed to get the select_all_ports button"
+            if not select_all_ports:
+                kwargs["fail_msg"] = "Failed to get the select_all_ports button"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
             kwargs["pass_msg"] = "Successfully got the select_all_ports button"
-            self.common_validation.validate(bool(select_all_ports), True, **kwargs)
+            self.common_validation.passed(**kwargs)
         
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(select_all_ports),
@@ -2353,8 +2357,8 @@ class SwitchTemplate(object):
             )
 
             if res == 1:
-                self.common_validation.passed(**kwargs)
                 kwargs["pass_msg"] = "Successfully clicked the assign_to_all_ports_selected button"
+                self.common_validation.passed(**kwargs)
             else:
                 kwargs["fail_msg"] = "Failed to click the assign_to_all_ports_selected button"
                 self.common_validation.failed(**kwargs)
@@ -2480,12 +2484,11 @@ class SwitchTemplate(object):
         if res == 1:
             kwargs["pass_msg"] = "Successfully clicked the STP tab button"
             self.common_validation.passed(**kwargs)
-        else:
-            kwargs["fail_msg"] = "Failed to click the STP tab button"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        return 1
+            return 1
+
+        kwargs["fail_msg"] = "Failed to click the STP tab button"
+        self.common_validation.failed(**kwargs)
+        return -1
 
     def get_stp_port_configuration_rows(self, **kwargs):
         """Method that returns the port configuration rows in the Template Configuration page
@@ -2577,9 +2580,13 @@ class SwitchTemplate(object):
             delay=5
         )
         
-        kwargs["fail_msg"] = f"Failed to get path cost element"
+        if not cost_element:
+            kwargs["fail_msg"] = f"Failed to get path cost element"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
         kwargs["pass_msg"] = f"Successfully got the path cost element"
-        self.common_validation.validate(bool(cost_element), True, **kwargs)
+        self.common_validation.passed(**kwargs)
         
         return cost_element.get_attribute("value")
 
@@ -2598,9 +2605,11 @@ class SwitchTemplate(object):
         self.select_sw_template(
             network_policy, template_switch)
         self.go_to_port_configuration()
+        
         if slot is not None:
             required_slot = template_switch + "-" + slot
             self.navigate_to_slot_template(required_slot)
+        
         self.click_on_stp_tab()
         
         found_path_cost_value = self.get_path_cost_value_from_stp_port_configuration_row(
@@ -2612,7 +2621,7 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = f"Successfully found the expected path cost"
+        kwargs["pass_msg"] = f"Successfully found the expected path cost for port='{port}': {path_cost}"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -2652,6 +2661,7 @@ class SwitchTemplate(object):
             
             kwargs["pass_msg"] = f"Successfully clicked the stp button element"
             self.common_validation.passed(**kwargs)
+            
         return 1
 
     def choose_stp_mode(self, mode, **kwargs):

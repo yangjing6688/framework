@@ -40,7 +40,7 @@ class XiqVerifications:
         self, onboarded_switch, path_cost, template_switch,
         network_policy, default_path_cost="", revert_mode="revert_template",
         port_type="access", verify_delta_cli=False, stp_mode="mstp",
-        revert_configuration=True, port_order_in_asic=None, ports=None, slot=None, **kwargs):
+        revert_configuration=True, port_order_in_asic=None, ports=None, slot=None):
         """This method is used to configure the path cost on an already onboarded switch.
         Also it will verify the configuration on the switch once it is configured.
 
@@ -106,8 +106,7 @@ class XiqVerifications:
                             stp_enabled=True,
                             edge_port=True, 
                             bpdu_protection="Disabled",
-                            path_cost=port_type_config["path_cost"],
-                            priority=64
+                            path_cost=port_type_config["path_cost"]
                         )
                         self.device360.go_to_last_page()
 
@@ -115,7 +114,6 @@ class XiqVerifications:
                             'STP': 'Enabled', 
                             'Edge Port': 'Enabled', 
                             'BPDU Protection': 'Disabled', 
-                            'Priority': '64',
                             'Path Cost': str(port_type_config["path_cost"])
                             }
                         self.utils.print_info(
@@ -129,14 +127,16 @@ class XiqVerifications:
                             " appear correctly in the summary tab"
                         )
                         
-                        kwargs["fail_msg"] = f"Not all the values of the summary are the expected ones. " \
-                                             f"Expected summary: {expected_summary}\nFound summary: {summary}"
-                        kwargs["pass_msg"] = "Successfully verified the summary"
-                        self.common_validation.validate(
-                            all(expected_summary[k] == summary[k] for k in expected_summary), True, **kwargs)
+                        assert all(expected_summary[k] == summary[k] for k in expected_summary), \
+                            f"Not all the values of the summary are the expected ones. " \
+                            f"Expected summary: {expected_summary}\nFound summary: {summary}"
+                        self.utils.print_info("Successfully verified the summary")
+                    
                     finally:
                         self.device360.save_port_type_config()
+            
             finally:
+                
                 self.utils.wait_till(timeout=5)
                 self.switch_template.switch_template_save()
                 self.utils.wait_till(timeout=10)
@@ -199,7 +199,7 @@ class XiqVerifications:
                     f"Verifying path cost for port {port} on dut:"
                     f" {port_type_config}"
                 )
-                self.cli.verify_path_cost_on_dut(
+                self.cli.verify_path_cost_on_device(
                     onboarded_switch,
                     expected_path_cost=port_type_config["path_cost"],
                     port=port,
@@ -236,9 +236,8 @@ class XiqVerifications:
                                 path_cost=""
                             )
                             
-                            kwargs["fail_msg"] = "Failed to edit the Path Cost"
-                            kwargs["pass_msg"] = "Successfully edited the Path Cost"
-                            self.common_validation.validate(summary["Path Cost"], "", **kwargs)
+                            assert summary["Path Cost"] == "", "Failed to edit the Path Cost"
+                            self.utils.print_info("Successfully edited the Path Cost")
                         
                 finally:
                     
