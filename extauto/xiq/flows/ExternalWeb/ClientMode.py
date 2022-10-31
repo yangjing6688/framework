@@ -96,7 +96,7 @@ class ClientMode:
         self.ClientModeWebElements.get_wifi_connection_status()
         self.screen.save_screen_shot()
 
-    def manual_passphrase_ssid_connect(self, ssid, password='aerohive', security='WPA2'):
+    def manual_passphrase_ssid_connect(self, ssid, password='aerohive', security='WPA2', **kwargs):
         disconnect = 0
         wifi_status = None
         self.utils.print_info("Click other SSIDs button.")
