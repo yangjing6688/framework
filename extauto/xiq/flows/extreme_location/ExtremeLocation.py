@@ -7,6 +7,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_location.ExtremeLocationWebElements import ExtremeLocationWebElements
 from selenium.common.exceptions import *
+from extauto.common.CommonValidation import CommonValidation
 
 
 class ExtremeLocation(ExtremeLocationWebElements):
@@ -17,6 +18,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
 
     def subscribe_extreme_location_essentials(self):
         """
@@ -342,7 +344,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return 1
 
-    def check_location_assigned_to_ap_in_xloc(self, device_hostname, dev_location):
+    def check_location_assigned_to_ap_in_xloc(self, device_hostname, dev_location, **kwargs):
         """
         - This Keyword Will check new location assigned to AP in XLOC AP Page
         - Flow: Extreme Location--> More Insights--> AP page--> New location assgined to AP
@@ -376,9 +378,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
             return 1
         else:
             self.utils.print_info("Edited/Assigned Location cannot be seen in XLOC AP page")
+            kwargs['fail_msg'] = "Edited/Assigned Location cannot be seen in XLOC AP page"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def get_client_information_in_extreme_location_devices_page(self, client_mac=None, site_name=None, retry_duration=30, retry_count=5):
+    def get_client_information_in_extreme_location_devices_page(self, client_mac=None, site_name=None, retry_duration=30, retry_count=5, **kwargs):
         """
         - get client information in extreme location devices page
         - - Flow: Extreme Location--> More Insights--> Devices-->Wireless Devices
@@ -436,10 +440,12 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     sleep(retry_duration)
                 count += 1
 
-        self.utils.print_info(f"Client mac failed to display on Devices Page. Please check.")
+        self.utils.print_info("Client mac failed to display on Devices Page. Please check.")
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['fail_msg'] = "Client mac failed to display on Devices Page. Please check."
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _get_wireless_device_details(self):
@@ -469,7 +475,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return wireless_device_info
 
-    def validate_client_entry_in_extreme_location_sites_page(self, site_name=None, floor_name=None, client_mac=None, retry_duration=30, retry_count=5):
+    def validate_client_entry_in_extreme_location_sites_page(self, site_name=None, floor_name=None, client_mac=None, retry_duration=30, retry_count=5, **kwargs):
         """
         - validate_client_entry_in_extreme_location_sites_page
         - Flow : Extreme Location--> More Insights-->Sites
@@ -571,10 +577,12 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 sleep(retry_duration)
             count += 1
 
-        self.utils.print_info(f"Client mac failed to display on floor. Please check.")
+        self.utils.print_info("Client mac failed to display on floor. Please check.")
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['fail_msg'] = "Client mac failed to display on floor. Please check."
+        self.common_validation.failed(**kwargs)
         return -1
 
     def async_subscribe_extreme_location_essentials(self, presence='enable', ibeacon='enable'):
@@ -629,7 +637,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("User Already Subscribed Extreme Location Page")
         return 1
 
-    def go_to_extreme_location_xloc_application(self):
+    def go_to_extreme_location_xloc_application(self, **kwargs):
         """
         -This keyword Will Navigate to Wireless Devices Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights
@@ -671,6 +679,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
         if type(obj_type) == list:
             self.screen.save_screen_shot()
             self.utils.print_info("Authentication Error Seen")
+            kwargs['fail_msg'] = "Authentication Error Seen"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Click More Insights button")
@@ -1011,7 +1021,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return 1
 
-    def delete_asset_in_xloc(self, asset_name):
+    def delete_asset_in_xloc(self, asset_name, **kwargs):
 
         self.utils.print_info("Search grid based on Asset Name search filter")
         self.utils.print_info("Entering search_string for assetname  ", asset_name)
@@ -1025,6 +1035,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
         row = self.get_grid_row_assets()
         if not row:
             self.utils.print_info(f"Assets For:{asset_name} is not Found in the Assets Grid")
+            kwargs['fail_msg'] = f"Assets For:{asset_name} is not Found in the Assets Grid"
+            self.common_validation.failed(**kwargs)
             return -1
         if row:
             self.utils.print_info(f"Deleting the asset:{asset_name} from Assets Grid")
@@ -1041,7 +1053,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
             return 1
 
-    def edit_wifi_asset_in_xloc(self, asset_name, client_mac_new='default', confined_category='default', prohibited_category='default'):
+    def edit_wifi_asset_in_xloc(self, asset_name, client_mac_new='default', confined_category='default', prohibited_category='default', **kwargs):
         self.utils.print_info("Search grid based on Asset Name search filter")
         self.utils.print_info("Entering search_string for assetname  ", asset_name)
         self.auto_actions.send_keys(self.get_assets_search_textfield(), asset_name)
@@ -1054,6 +1066,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
         row = self.get_grid_row_assets()
         if not row:
             self.utils.print_info(f"Assets For:{asset_name} is not Found in the Assets Grid")
+            kwargs['fail_msg'] = f"Assets For:{asset_name} is not Found in the Assets Grid"
+            self.common_validation.failed(**kwargs)
             return -1
         if row:
             self.utils.print_info(f"Click Actions for the asset:{asset_name} from Assets Grid")
@@ -1246,7 +1260,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return 1
 
-    def create_time_based_device_classification_rule(self, user_type, visiting_hours="", visiting_minutes=""):
+    def create_time_based_device_classification_rule(self, user_type, visiting_hours="", visiting_minutes="", **kwargs):
         """
         - This Keyword will Create Time Based Device Classification Rule
         - Flow : Extreme Location--> More Insights--> Settings-->Device Classification–> Add Device Rule
@@ -1310,10 +1324,12 @@ class ExtremeLocation(ExtremeLocationWebElements):
                                       f'with Duration {expected_duration}')
                 return 1
             else:
-                self.utils.print_info(f'Device Classification Rule Not Created successfully')
+                self.utils.print_info('Device Classification Rule Not Created successfully')
+                kwargs['fail_msg'] = "Device Classification Rule Not Created successfully"
+                self.common_validation.failed(**kwargs)
                 return -1
 
-    def update_ssid_in_device_rule(self, rule_type, ssid, option):
+    def update_ssid_in_device_rule(self, rule_type, ssid, option, **kwargs):
         """
         - This keyword is used to update SSID in device classification rule
         - Flow : Assumes already in Device classification rule page of Location
@@ -1340,6 +1356,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
                     if re.search(r'x-item-disabled', edit_rule_rows[idx].get_attribute("class")):
                         self.utils.print_info("Edit option is disabled for rule : ", rule_type)
+                        kwargs['fail_msg'] = f"Edit option is disabled for rule: {rule_type}"
+                        self.common_validation.failed(**kwargs)
                         return -2
                     else:
                         self.auto_actions.click(edit_rule_rows[idx])
@@ -1383,9 +1401,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     sleep(5)
                     return 1
         self.utils.print_info("Device classification rules not found")
+        kwargs['fail_msg'] = "Device classification rules not found"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def update_visitor_duration_for_device_rule(self, rule_type, duration):
+    def update_visitor_duration_for_device_rule(self, rule_type, duration, **kwargs):
         """
         - This keyword updates visitor duration for device classification rule
         - Flow : Assumes already in Device classification rule page of location.
@@ -1413,6 +1433,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
                     if re.search(r'x-item-disabled', edit_rule_rows[idx].get_attribute("class")):
                         self.utils.print_info("Edit option is disabled for rule : ", rule_type)
+                        kwargs['fail_msg'] = f"Edit option is disabled for rule: {rule_type}"
+                        self.common_validation.failed(**kwargs)
                         return -2
                     else:
                         self.auto_actions.click(edit_rule_rows[idx])
@@ -1434,6 +1456,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     sleep(2)
                     return 1
         self.utils.print_info("Device classification rules not found")
+        kwargs['fail_msg'] = "Device classification rules not found"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def format_row(self, row):
@@ -1546,7 +1570,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return 1
 
-    def check_xloc_test_connection_button(self, subscriber_push_url, username, password):
+    def check_xloc_test_connection_button(self, subscriber_push_url, username, password, **kwargs):
         '''
         - This Keyword will Create Time Based Device Classification Rule
         - Flow : Extreme Location--> More Insights--> Settings-->Third Party Configurations
@@ -1580,9 +1604,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("Closing Test Connection Status Window")
             self.auto_actions.click_reference(self.get_click_xloc_test_connection_close_btn)
             sleep(2)
+            kwargs['fail_msg'] = "Test Connection was Failed"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def check_subscription_of_extreme_location_page(self):
+    def check_subscription_of_extreme_location_page(self, **kwargs):
         """
         -This keyword Will Check Extreme Location Page is Subscribed or Not after Reset VIQ
         - Flow: Login to XIQ -> Click XLOC Icon -> Check Subscription Status
@@ -1610,6 +1636,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
             self.screen.save_screen_shot()
             sleep(2)
+            kwargs['fail_msg'] = "Check for Auth Error or User Already Subscribed to Extreme Location"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def create_engagement_category_xloc(self, en_category_name, en_category_threshold, xloc_site_name):
