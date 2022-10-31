@@ -12428,9 +12428,9 @@ class Devices:
                         self.utils.wait_till(_navigate_to_devices)
 
                         self.delete_device(replacement_serial) # to be removed
-                        self.clone_device(device_serial, replacement_device_type, replacement_serial)
-                    else:
+                        self.clone_device_quick_onboard(device_serial, "Quick Onboard", replacement_serial)
 
+                    else:
                         yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
                         if yes_confirmation_button:
                             self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
