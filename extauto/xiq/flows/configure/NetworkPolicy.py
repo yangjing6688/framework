@@ -24,6 +24,10 @@ from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.flows.configure.UserGroups import UserGroups
 from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
+import extauto.xiq.flows.configure.SwitchTemplate
+
+
+
 
 
 class NetworkPolicy(object):
@@ -49,6 +53,7 @@ class NetworkPolicy(object):
         self.user_group_elements = UserGroupsWebElements()
         self.use_existing_policy = False
         # self.driver = extauto.common.CloudDriver.cloud_driver
+        self.switch_template = extauto.xiq.flows.configure.SwitchTemplate.SwitchTemplate()
 
     def select_network_policy_row(self, policy):
         """
@@ -133,7 +138,7 @@ class NetworkPolicy(object):
         out = self.create_network_policy(policy, wireless_profile)
         return out
 
-    def create_network_policy(self, policy, **wireless_profile):
+    def create_network_policy(self, policy, cli_type='AH-AP', **wireless_profile):
         """
         - Create the network policy from CONFIGURE-->NETWORK POLICIES
         - This keyword will create the network policy and wireless network
@@ -193,7 +198,10 @@ class NetworkPolicy(object):
                 self.utils.print_info(f"{tip_text}")
                 return -3
 
-        return self.wireless_nw.create_wireless_network(**wireless_profile)
+            if cli_type == 'AH-AP':
+                return self.wireless_nw.create_wireless_network(**wireless_profile)
+            else:
+                self.switch_template.create_switching_network(policy, **wireless_profile)
 
     def delete_network_policy(self, policy, **kwargs):
         """

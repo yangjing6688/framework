@@ -6,7 +6,7 @@ from extauto.common.Screen import Screen
 
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
-from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+# import extauto.xiq.flows.configure.NetworkPolicy
 from extauto.xiq.flows.manage.Tools import Tools
 
 from selenium.webdriver.common.keys import Keys
@@ -31,8 +31,7 @@ class SwitchTemplate(object):
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.np_web_elements = NetworkPolicyWebElements()
-        self.nw_policy = NetworkPolicy()
-        self.legacy_port_type_editor = SwTemplateLegacyPortTypeWebElements();
+        self.legacy_port_type_editor = SwTemplateLegacyPortTypeWebElements()
         self.dev360 = Device360WebElements()
         self.alarm = AlarmsWebElements()
         self.screen = Screen()
@@ -114,7 +113,9 @@ class SwitchTemplate(object):
         self.navigator.navigate_configure_network_policies()
         sleep(1)
 
-        self.nw_policy.select_network_policy_in_card_view(nw_policy)
+        # self.nw_policy.select_network_policy_in_card_view(nw_policy)
+        self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
+
         sleep(2)
 
         self.utils.print_info("Click on Device Template tab button")
@@ -1967,7 +1968,7 @@ class SwitchTemplate(object):
         self.navigator.navigate_to_devices()
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
-        if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
+        if self.select_network_policy_in_card_view_using_network_web_elements(nw_policy) == -1:
             self.utils.print_info("Not found the network policy. Make sure that it was created")
             kwargs['fail_msg'] = f"Policy: {nw_policy} has not been found."
             self.screen.save_screen_shot()
@@ -2265,3 +2266,531 @@ class SwitchTemplate(object):
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             return -1
+
+    def create_switching_network(self, policy, **switch_profile):
+        """
+        - Configure switching template options
+        :param switch_profile: used to get options for configuring switching template
+        :return: 1 if exists else -1
+        """
+        sw_template_name = switch_profile.get('switch_template_name')
+
+        return_value = self.create_new_switch_template(**switch_profile)
+        if return_value == -1:
+            self.utils.print_info("Unable to create new switch template")
+            return -1
+
+        return_value = self.add_switch_template(policy, sw_template_name, **switch_profile)
+        if return_value == -1:
+            self.utils.print_info("Unable to add new switch template")
+            return -1
+
+        return 1
+
+    def select_network_policy_in_card_view_using_network_web_elements(self, policy_name):
+        """
+        - Selects the existing network polices card view
+
+        :param policy_name: name of the policy to search
+        :return: 1 if exists else -1
+        """
+
+        self.utils.print_info("Selecting Network Policy: ", policy_name)
+
+        self.utils.print_info("Click on Network Policy card view button")
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
+        # sleep(5)
+        self.utils.wait_till(self.np_web_elements.get_network_policy_card_items)
+        policy_cards = self.np_web_elements.get_network_policy_card_items()
+        for policy_card in policy_cards:
+            if policy_name.upper() in policy_card.text.upper():
+                self.utils.print_info(policy_card.text)
+                self.auto_actions.click(self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
+                sleep(4)
+                return 1
+        return -1
+
+    def add_switch_template(self, nw_policy, sw_template, **switch_profile):
+        """
+        - Assume that already on the Switch Template
+            :return: Returns 1 if successfully navigates to the Port Configuration Tab
+                     Else returns -1
+        """
+        combo_selected = -1
+        port_details_dictionary = switch_profile.get('port_details')
+        port_details_interface_value = port_details_dictionary.get('interface')
+        port_details_port_type = port_details_dictionary.get('port_type')
+        port_name_and_usage_dictionary = port_details_port_type.get('port_name_and_usage')
+        port_details_port_type_name_value = port_name_and_usage_dictionary.get('name')
+
+
+        self.utils.print_info("Navigate to  Network Policies menu")
+        self.navigator.navigate_configure_network_policies()
+        self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
+        self.utils.wait_till(self.device_template_web_elements.get_add_device_template_menu)
+
+        self.utils.print_info("Click on Device Template tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_tab_button)
+
+        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        if tab.is_displayed():
+            self.utils.print_info("Click on Switch Templates tab")
+            self.auto_actions.click(tab)
+            self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
+
+        h_link = self.get_sw_template_row_hyperlink(sw_template)
+        self.auto_actions.click(h_link)
+
+        self.utils.print_info("Click on Port Configuration tab")
+        port_configuration = self.sw_template_web_elements.port_config_template()
+        if port_configuration:
+            self.utils.print_info("The Port Configuration button was found")
+            self.auto_actions.click(port_configuration)
+            # sleep(2)
+            self.utils.wait_till( self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
+
+        self.utils.print_info("Select port type " + port_details_port_type_name_value + " from list of port types")
+        combo_selected = self.select_switch_template_port_configuration_port_type(port_details_interface_value, port_details_port_type_name_value)
+
+        if combo_selected != 1:
+            self.utils.print_info("Port type " + port_details_port_type_name_value + " not found")
+            self.utils.print_info("Attempting to create new Port type " + port_details_port_type_name_value)
+            combo_selected = self.create_new_switch_template_port_configuration_port_type(port_details_interface_value, port_details_port_type_name_value, **switch_profile)
+
+        return combo_selected
+
+    def select_switch_template_port_configuration_port_details_tab(self):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+        port_details = self.sw_template_web_elements.get_sw_template_port_details_tab()
+        if port_details:
+            self.utils.print_info("The Port Details tab was found")
+            self.auto_actions.click(port_details)
+            sleep(4)
+            return 1
+        return -1
+
+    def select_switch_template_port_configuration_port_type(self, port_details_interface_value, port_details_port_type_value):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+        if port_details_port_type_value and port_details_interface_value:
+            list_of_interface_elements = self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows()
+            if list_of_interface_elements:
+                for an_interface_element in list_of_interface_elements:
+                    a_port_string = self.sw_template_web_elements.get_sw_template_port_details_row_interface_value(an_interface_element)
+                    if a_port_string.text == port_details_interface_value:
+                        port_type_element = self.sw_template_web_elements.get_sw_template_port_details_row_combo(an_interface_element)
+                        self.auto_actions.click(port_type_element)
+                        # sleep(5)
+                        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list)
+                        combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+                        for a_combo_element in combo_box_value_elements:
+                            if a_combo_element.text == port_details_port_type_value:
+                                self.auto_actions.click(a_combo_element)
+                                return 1
+        return -1
+
+    def create_new_switch_template_port_configuration_port_type(self, port_details_interface_value, port_details_port_type_value, **switch_profile):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+        if port_details_port_type_value and port_details_interface_value:
+            list_of_interface_elements = self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows()
+            if list_of_interface_elements:
+                for an_interface_element in list_of_interface_elements:
+                    a_port_string = self.sw_template_web_elements.get_sw_template_port_details_row_interface_value(an_interface_element)
+                    if a_port_string.text == port_details_interface_value:
+                        add_button = self.sw_template_web_elements.get_port_details_row_add_button(an_interface_element)
+                        self.auto_actions.click(add_button)
+                        sleep(4)
+                        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name)
+                        port_type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
+                        self.auto_actions.send_keys(port_type_name_field, port_details_port_type_value)
+
+                        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+
+                        port_name_and_usage_dictionary = port_type_dictionary.get('port_name_and_usage')
+                        status_value = port_name_and_usage_dictionary.get('status')
+                        auto_sense_value = port_name_and_usage_dictionary.get('auto_sense')
+                        access_value = port_name_and_usage_dictionary.get('access_port')
+                        trunk_value = port_name_and_usage_dictionary.get('trunk_port')
+                        description_value = port_name_and_usage_dictionary.get('description')
+
+                        description_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_description()
+                        status_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status()
+                        auto_sense_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_auto_sense_status()
+                        access_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_access()
+                        trunk_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_trunk()
+
+                        transmission_setting_dictionary = port_type_dictionary.get('transmission_setting')
+                        type_value = transmission_setting_dictionary.get('type')
+                        speed_value = transmission_setting_dictionary.get('speed')
+                        duplex_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow()
+                        speed_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow()
+
+                        storm_control_dictionary = port_type_dictionary.get('storm_control')
+                        broadcast_value = storm_control_dictionary.get('broadcast')
+                        unicast_value = storm_control_dictionary.get('unicast')
+                        multicast_value = storm_control_dictionary.get('multicast')
+                        rate_limit_value = storm_control_dictionary.get('rate_limit_value')
+                        client_reporting_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_client_reporting()
+                        cdp_receive_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_cdp_receive()
+                        lldp_transmit_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_lldp_transmit()
+                        lldp_receive_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_lldp_receive()
+                        sc_broadcast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast()
+                        sc_unicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast()
+                        sc_multicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast()
+                        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+                        sc_rate_limit_type_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
+                        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+                        sc_rate_limit_value_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_value()
+
+                        if description_value and description_element:
+                            self.auto_actions.send_keys(description_element, description_value)
+                        if status_value and status_element:
+                            if status_value.lower() == 'on' and not status_element.is_selected():
+                                self.utils.print_info("Clicking status button to ON")
+                                self.auto_actions.click(status_element)
+                            if status_value.lower() == 'off' and status_element.is_selected():
+                                self.utils.print_info("Clicking status button to OFF")
+                                self.auto_actions.click(status_element)
+                        if auto_sense_value and auto_sense_element:
+                            if auto_sense_value.lower() == 'on' and not auto_sense_element.is_selected():
+                                self.utils.print_info("Clicking status button to ON")
+                                self.auto_actions.click(auto_sense_element)
+                            if auto_sense_value.lower() == 'off' and auto_sense_element.is_selected():
+                                self.utils.print_info("Clicking status button to OFF")
+                                self.auto_actions.click(auto_sense_element)
+                        if access_value and access_element:
+                            if access_value.lower() == 'enable' and not access_element.is_selected():
+                                self.utils.print_info("Clicking access port option")
+                                self.auto_actions.click(access_element)
+                        if trunk_value and trunk_element:
+                            if trunk_value.lower() == 'enable' and not trunk_element.is_selected():
+                                self.utils.print_info("Clicking trunk port option")
+                                self.auto_actions.click(trunk_element)
+
+                        ##click next buttton
+
+                        if type_value and duplex_arrow_element:
+                            self.auto_actions.click(duplex_arrow_element)
+                            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+                            for a_combo_element in combo_box_value_elements:
+                                if a_combo_element.text == port_details_port_type_value:
+                                    self.auto_actions.click(a_combo_element)
+
+                        if speed_value and speed_arrow_element:
+                            self.auto_actions.click(speed_arrow_element)
+                            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+                            for a_combo_element in combo_box_value_elements:
+                                if a_combo_element.text == port_details_port_type_value:
+                                    self.auto_actions.click(a_combo_element)
+
+                        ##click next buttton
+
+                        if broadcast_value and sc_broadcast_element:
+                            if broadcast_value.lower() == 'enable' and not sc_broadcast_element.is_selected():
+                                self.utils.print_info("Selecting broadcast option")
+                                self.auto_actions.click(sc_broadcast_element)
+                            if broadcast_value.lower() == 'disable' and sc_broadcast_element.is_selected():
+                                self.utils.print_info("Unselecting broadcast option")
+                                self.auto_actions.click(sc_broadcast_element)
+
+                        if multicast_value and sc_multicast_element:
+                            if multicast_value.lower() == 'enable' and not sc_multicast_element.is_selected():
+                                self.utils.print_info("Selecting multicast option")
+                                self.auto_actions.click(sc_multicast_element)
+                            if multicast_value.lower() == 'disable' and sc_multicast_element.is_selected():
+                                self.utils.print_info("Unselecting multicast option")
+                                self.auto_actions.click(sc_multicast_element)
+
+                        if unicast_value and sc_unicast_element:
+                            if unicast_value.lower() == 'enable' and not sc_unicast_element.is_selected():
+                                self.utils.print_info("Selecting unicast option")
+                                self.auto_actions.click(sc_unicast_element)
+                            if unicast_value.lower() == 'disable' and sc_unicast_element.is_selected():
+                                self.utils.print_info("Unselecting unicast option")
+                                self.auto_actions.click(sc_unicast_element)
+
+                        if rate_limit_value and sc_rate_limit_value_element:
+                            self.auto_actions.send_keys(sc_rate_limit_value_element, rate_limit_value)
+
+                        return 1
+        return -1
+
+    def create_new_switch_template(self, **wireless_network_conf):
+        """
+        - Assume that the network policy has already been selected
+            :param wireless_network_conf: Dictionary contains information needed to configure templates
+            :return: Returns 1 if configuration is successful
+                     Else Returns -1
+        """
+        device_model = wireless_network_conf.get('device_model')
+        switch_template_name = wireless_network_conf.get('switch_template_name')
+
+        self.utils.print_info("Click on  Device Templates tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_tab_button)
+
+        self.utils.print_info("Click on  Switch Templates tab")
+        self.auto_actions.click(self.sw_template_web_elements.get_sw_template_tab_button())
+
+        self.utils.print_info("Click on Select button/drop down")
+        select_button = self.sw_template_web_elements.get_device_switch_select_button()
+        if not select_button:
+            self.utils.print_info("Unable to locate select button")
+            return -1
+        self.auto_actions.click(select_button)
+
+        self.utils.print_info("Enter " + switch_template_name + " into the Search text field")
+        filter_text = self.sw_template_web_elements.get_sw_template_selection_search_textfield()
+        if not filter_text:
+            self.utils.print_info("Unable to locate the search text field")
+            return -1
+        self.auto_actions.send_keys(filter_text, switch_template_name)
+
+        self.utils.print_info("Click on Search button")
+        search_button = self.sw_template_web_elements.get_sw_template_selection_search_button()
+        if not search_button:
+            self.utils.print_info("Unable to locate search button")
+            return -1
+        self.auto_actions.click(search_button)
+        sleep(2)
+
+        self.utils.print_info("Attempting to locate Device Template table")
+        device_switch_popup_close_button = self.sw_template_web_elements.get_sw_template_selection_cancel_button()
+        search_table = self.sw_template_web_elements.get_sw_template_selection_grid()
+        if not search_table:
+            self.utils.print_info("Unable to locate table")
+            self.auto_actions.click(device_switch_popup_close_button)
+            return -1
+
+        self.utils.print_info("Verify that switch template " +  switch_template_name + " does not exist")
+        search_table_rows = self.sw_template_web_elements.get_sw_template_table_rows(search_table)
+        if search_table_rows:
+            self.utils.print_info("Switch template already exist")
+            self.auto_actions.click(device_switch_popup_close_button)
+            return -1
+
+        self.utils.print_info("Switch template does NOT exist")
+        self.utils.print_info("Close Device Template Pop-up Window")
+        self.auto_actions.click(device_switch_popup_close_button)
+
+        self.utils.print_info("Clicking Add button")
+        add_button = self.device_template_web_elements.get_switch_template_add_button()
+        if not add_button:
+            self.utils.print_info("Unable to locate add button")
+            return -1
+        self.auto_actions.click(add_button)
+
+        self.utils.print_info("Enter " + device_model + " into filter text field")
+        device_switch_filter_text = self.device_template_web_elements.get_device_switch_template_menue_filter()
+        if not device_switch_filter_text:
+            self.utils.print_info("Unable to locate filter text field")
+            return -1
+        self.auto_actions.send_keys(device_switch_filter_text, device_model)
+        sleep(4)
+
+        self.utils.print_info("Select " + device_model + "from the model list")
+        device_switch_template_list = self.device_template_web_elements.get_switch_template_platform_from_drop_down()
+        if not device_switch_template_list:
+            self.utils.print_info("Unable to get switch template list")
+            return -1
+        sleep(3)
+        for dev_sw_templ in device_switch_template_list:
+            self.auto_actions.click(dev_sw_templ)
+
+        self.utils.print_info("Enter " + switch_template_name + " into the name field")
+        switch_template_name_field = self.sw_template_web_elements.get_sw_template_adv_tab_textfield()
+        if not switch_template_name_field:
+            self.utils.print_info("Unable to locate filter text field")
+            return -1
+        self.auto_actions.send_keys(switch_template_name_field, switch_template_name)
+
+        self.configure_switch_template_setup_device_spanning_tree(**wireless_network_conf)
+
+        self.utils.print_info("Save switch template")
+        save_button = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
+        self.auto_actions.click(save_button)
+        return 1
+
+
+    #####################
+    def configure_switch_template_setup_device_spanning_tree(self, **wireless_network_conf):
+        device_model = wireless_network_conf.get('device_model')
+        switch_template_name = wireless_network_conf.get('switch_template_name')
+
+        # spanning tree
+        spanning_dictionary = wireless_network_conf.get('stp_config')
+        span_tree_mode_value = spanning_dictionary.get('stp_mode')
+
+        span_tree_mode_web_element = self.sw_template_web_elements.get_sw_template_enable_spanningtree()
+        if not span_tree_mode_web_element:
+            self.utils.print_info("Unable to locate spanning tree mode button")
+            return -1
+
+        if span_tree_mode_value.lower() == 'on' and not span_tree_mode_web_element.is_selected():
+            self.utils.print_info("Turning spanning tree mode ON")
+            self.auto_actions.click(span_tree_mode_web_element)
+
+        if span_tree_mode_value.lower() == 'off' and span_tree_mode_web_element.is_selected():
+            self.utils.print_info("Turning spanning tree mode OFF")
+            self.auto_actions.click(span_tree_mode_web_element)
+
+        if span_tree_mode_web_element.is_selected():
+            span_tree_protocol_value = ''
+            span_tree_bridge_priority_value = ''
+            span_tree_forward_delay_value = ''
+            span_tree_max_age_value = ''
+
+            span_tree_protocol_value = spanning_dictionary.get('stp_protocol')
+
+            if span_tree_protocol_value:
+                self.utils.print_info("Configuring Spanning Tree Protocol options")
+                if span_tree_protocol_value.lower() == 'stp':
+                    self.utils.print_info("Selecting STP option button")
+                    stp_web_element = self.sw_template_web_elements.get_sw_template_enable_stp()
+                    if not stp_web_element:
+                        self.utils.print_info("Unable to locate spanning tree protocol STP option button")
+                        return -1
+                    self.auto_actions.click(stp_web_element)
+
+                if span_tree_protocol_value.lower() == 'rstp':
+                    self.utils.print_info("Selecting RSTP(Rapid STP) option button")
+                    stp_web_element = self.sw_template_web_elements.get_sw_template_enable_rstp()
+                    if not stp_web_element:
+                        self.utils.print_info("Unable to locate spanning tree protocol RSTP option button")
+                        return -1
+                    self.auto_actions.click(stp_web_element)
+
+                if span_tree_protocol_value.lower() == 'mstp':
+                    self.utils.print_info("Selecting MSTP(Multiple STP) option button")
+                    stp_web_element = self.sw_template_web_elements.get_sw_template_enable_mstp()
+                    if not stp_web_element:
+                        self.utils.print_info("Unable to locate spanning tree protocol MSTP option button")
+                        return -1
+                    self.auto_actions.click(stp_web_element)
+
+            span_tree_bridge_priority_value = spanning_dictionary.get('stp_bridge_priority')
+            '''if span_tree_bridge_priority_value:
+                span_tree_bridge_priority_element = self.sw_template_web_elements.priority_dropdown()
+                sleep(5)
+                if not span_tree_bridge_priority_element:
+                    self.utils.print_info("Unable to locate spanning tree priority option drop down")
+                    return -1
+                for priority_option in span_tree_bridge_priority_element:
+                    if priority_option.text == span_tree_bridge_priority_value:
+                        self.auto_actions.click(priority_option)'''
+
+            span_tree_forward_delay_value = spanning_dictionary.get('stp_forward_delay')
+            if span_tree_forward_delay_value:
+                span_tree_forward_delay_element = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items()
+                if not span_tree_forward_delay_element:
+                    self.utils.print_info("Unable to locate spanning tree priority option drop down")
+                    return -1
+
+                span_tree_forward_delay_element_all = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items_all_items(span_tree_forward_delay_element)
+
+                for span_tree_forward_delay_option in span_tree_forward_delay_element_all:
+                    self.utils.print_info("ROW VALUE -> " + span_tree_forward_delay_option.text)
+                    if span_tree_forward_delay_option.text == span_tree_forward_delay_value:
+                        self.utils.print_info("ROW VALUE -> " + span_tree_forward_delay_option.text)
+                        self.auto_actions.click(span_tree_forward_delay_option)
+
+            span_tree_max_age_value = spanning_dictionary.get('stp_max_age')
+            if span_tree_max_age_value:
+                span_tree_max_age_element = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items()
+                if not span_tree_max_age_element:
+                    self.utils.print_info("Unable to locate spanning tree priority option drop down")
+                    return -1
+                for span_tree_max_age_option in span_tree_max_age_element:
+                    if span_tree_max_age_option.text == span_tree_max_age_value:
+                        self.auto_actions.click(span_tree_max_age_option)
+
+        return 1
+
+    def configure_switch_template_setup_device_igmp_setting(self, **wireless_network_conf):
+        """
+        - Assume that the network policy has already been selected
+            :param wireless_network_conf: Dictionary contains information needed to configure templates
+            :return: Returns 1 if configuration is successful
+                     Else Returns -1
+        """
+        # igmp
+        igmp_dictionary = wireless_network_conf.get('igmp_setting')
+        igmp_snooping_value = igmp_dictionary.get('igmp_snooping')
+        enable_immediate_leave_value = igmp_dictionary.get('enable_immediate_leave')
+        supress_redundant_value = igmp_dictionary.get('supress_redundant')
+
+        igmp_snooping_value_element = self.sw_template_web_elements.get_switch_template_device_configuration_igmp_settings()
+        if not igmp_snooping_value_element:
+            self.utils.print_info("Unable to locate IGMP mode button")
+            return -1
+
+        if igmp_snooping_value.lower() == 'on' and not igmp_snooping_value_element.is_selected():
+            self.utils.print_info("Turning spanning tree mode ON")
+            self.auto_actions.click(igmp_snooping_value_element)
+
+        if igmp_snooping_value.lower() == 'off' and igmp_snooping_value_element.is_selected():
+            self.utils.print_info("Turning spanning tree mode OFF")
+            self.auto_actions.click(igmp_snooping_value_element)
+
+        if igmp_snooping_value_element.is_selected():
+
+            if enable_immediate_leave_value:
+                enable_immediate_leave_element = self.sw_template_web_elements.get_switch_template_device_configuration_igmp_immediate_leave()
+                if not enable_immediate_leave_element:
+                    self.utils.print_info("Unable to locate igmp immediate leave option button")
+                    return -1
+                self.auto_actions.click(enable_immediate_leave_element)
+
+            if supress_redundant_value:
+                supress_redundant_value_element = self.sw_template_web_elements.get_switch_template_device_configuration_igmp_suppress_independent()
+                if not supress_redundant_value_element:
+                    self.utils.print_info("Unable to locate igmp suppress independent option button")
+                    return -1
+                self.auto_actions.click(supress_redundant_value_element)
+
+        return 1
+
+    def configure_switch_template_setup_device_mtu_setting(self, **wireless_network_conf):
+        """
+        - Assume that the network policy has already been selected
+            :param wireless_network_conf: Dictionary contains information needed to configure templates
+            :return: Returns 1 if configuration is successful
+                     Else Returns -1
+        """
+        # mtu
+        mtu_value = wireless_network_conf.get('mtu')
+
+        if mtu_value == '1522':
+            mtu_element = self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1522()
+            if not mtu_element:
+                self.utils.print_info("Unable to locate MTU 1522 radio button")
+                return -1
+            self.auto_actions.click(mtu_element)
+
+        if mtu_value == '1950':
+            mtu_element = self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1950()
+            if not mtu_element:
+                self.utils.print_info("Unable to locate MTU 1950 radio button")
+                return -1
+            self.auto_actions.click(mtu_element)
+
+        if mtu_value == '9600':
+            mtu_element = self.sw_template_web_elements.get_switch_template_device_configuration_mtu_9600()
+            if not mtu_element:
+                self.utils.print_info("Unable to locate MTU 1950 radio button")
+                return -1
+            self.auto_actions.click(mtu_element)
+
+        return 1
