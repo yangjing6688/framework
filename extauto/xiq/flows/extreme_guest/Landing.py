@@ -5,6 +5,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestLandingWebElements import ExtremeGuestLandingWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 from time import sleep
 
 
@@ -19,8 +20,9 @@ class Landing(object):
         self.auto_actions = AutoActions()
         self.landing_web_elem = ExtremeGuestLandingWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
-    def check_all_landing_page_widgets(self):
+    def check_all_landing_page_widgets(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Page and check all widgets
         - Flow: XIQ--> Extreme Guest
@@ -73,9 +75,11 @@ class Landing(object):
         if all_displayed:
             return 1
         else:
+            kwargs['fail_msg'] = f"{all_displayed}"
+            self.common_validation.failed(**kwargs)
             return 0
 
-    def check_map_location_widget(self):
+    def check_map_location_widget(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Page and check map widget marker
         - Flow: XIQ--> Extreme Guest
@@ -95,4 +99,7 @@ class Landing(object):
             print("Return Users Yesterday: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_yesterday('Return Users').text)
             self.screen.save_screen_shot()
             return 1
+
+        kwargs['fail_msg'] = "Widget is not displayed"
+        self.common_validation.failed(**kwargs)
         return -1

@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestDashboardWebElements import ExtremeGuestDashboardWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Dashboard(object):
@@ -18,6 +19,7 @@ class Dashboard(object):
         self.auto_actions = AutoActions()
         self.dashboard_web_elem = ExtremeGuestDashboardWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def go_to_extreme_guest_dashboard_page(self):
         """
@@ -149,7 +151,7 @@ class Dashboard(object):
 
         return 1
 
-    def check_dashboard_page_widgets(self):
+    def check_dashboard_page_widgets(self, **kwargs):
         """
         -This keyword Will check if the newly created dashboard is displaying all the widgets
         - Flow: dashboard--> automation_db1
@@ -220,4 +222,6 @@ class Dashboard(object):
         if all_displayed:
             return 1
         else:
+            kwargs['fail_msg'] = f"{all_displayed}"
+            self.common_validation.failed(**kwargs)
             return 0

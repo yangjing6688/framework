@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestAnalyzeClientsWebElements import ExtremeGuestAnalyzeClientsWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class AnalyzeClients(object):
@@ -17,6 +18,7 @@ class AnalyzeClients(object):
         self.auto_actions = AutoActions()
         self.clients_web_elem = ExtremeGuestAnalyzeClientsWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def go_to_analyze_clients_page(self):
         """
@@ -37,7 +39,7 @@ class AnalyzeClients(object):
 
         return 1
 
-    def check_if_the_client_exists(self, mac, location):
+    def check_if_the_client_exists(self, mac, location, **kwargs):
         """
         -This keyword Will Check if the mac address is present in the Extreme Guest Analyze Clients Page
         - Keyword Usage:
@@ -59,4 +61,7 @@ class AnalyzeClients(object):
             self.screen.save_screen_shot()
             sleep(2)
             return 1
+
+        kwargs['fail_msg'] = "Client mac address is not in the Analyze Clients Grid"
+        self.common_validation.failed(**kwargs)
         return -1
