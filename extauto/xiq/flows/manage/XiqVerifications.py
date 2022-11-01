@@ -69,10 +69,6 @@ class XiqVerifications:
             ports = self.device360.get_one_port_from_each_asic_flow(
                 dut=onboarded_switch, order=port_order_in_asic, slot=slot)
 
-
-        ports = [ports[0]]
-
-
         port_config = defaultdict(lambda: {})
         for port in ports:
             port_config[port]["port_type_name"] = f"port_type_{''.join(random.sample(list(string.ascii_letters) + list(string.digits), k=6))}"

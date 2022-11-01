@@ -2631,7 +2631,7 @@ class SwitchTemplate(object):
         
         if str(found_path_cost_value) != str(path_cost):
             kwargs["fail_msg"] = f"In XIQ port configuration: Expected path cost for port='{port}' is {path_cost} " \
-                                f"but found {found_path_cost_value}"
+                                 f"but found '{found_path_cost_value}'"
             self.common_validation.failed(**kwargs)
             return -1
         
