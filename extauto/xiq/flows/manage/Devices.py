@@ -12446,7 +12446,7 @@ class Devices:
             self.utils.print_info("Could not select device with serial ", device_mac)
             return -1
 
-    def check_update_column_by_failure_message(self, device_serial, failure_message):
+    def check_update_column_by_failure_message(self, device_serial, failure_message, **kwargs):
         """
         This function is used to check the UPDATED column from device grid from a device with device_serial given as
         parameter. Check if the update process failed with the same message as failure_message given as parameter
@@ -12461,22 +12461,31 @@ class Devices:
         update_text = str(current_date).split()[0]
 
         while "Device Update Failed" != current_status:
+            
             sleep(10)
             count += 10
-            current_status = self.get_device_updated_status(device_serial=device_serial)
             self.utils.print_info(f"\nINFO \t Time elapsed in the Update process is '{count} seconds'\n")
+            
+            current_status = self.get_device_updated_status(device_serial=device_serial)
 
             if update_text in current_status:
-                self.utils.print_info("Update process ended up successfully!")
+                kwargs["fail_msg"] = "Update process ended up successfully which is not expected"
+                self.common_validation.failed(**kwargs)
                 return -1
+            
             if count > max_wait:
-                self.utils.print_info(f"Max time {max_wait} seconds exceeded")
+                kwargs["fail_msg"] = f"Max time {max_wait} seconds exceeded which is not expected"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         current_message = \
             self.get_device_updated_fail_message_after_reboot(device_serial=device_serial)
 
         if failure_message != current_message:
-            self.utils.print_info(f"Update process ended up with another failure message: {current_message}")
+            kwargs["fail_msg"] = f"Update process ended up with another failure message: {current_message}"
+            self.common_validation.failed(**kwargs)
             return -1
+
+        kwargs["pass_msg"] = f"Successfully found the expected failure message: {failure_message}"
+        self.common_validation.passed(**kwargs)
         return 1

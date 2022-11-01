@@ -2266,141 +2266,209 @@ class SwitchTemplate(object):
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             return -1
 
-    def verify_upload_config_auto_button(self, option="OFF"):
+    def verify_upload_config_auto_button(self, option="OFF", **kwargs):
         """
         This function is used to verify the `Upload configuration automatically` button from Advanced Settings tab
         based on an option given as parameter
         :param option: name of policy
         :return: 1 - if the button is equal with option was successful ; -1 - if not
         """
-        try:
-            verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg().is_selected()
-            if not verify_upload_cfg_auto and option == "OFF":
-                self.utils.print_info("Auto configuration button is on OFF!")
-                return 1
-            elif verify_upload_cfg_auto and option == "ON":
-                self.utils.print_info("Auto configuration button is on ON!")
-                return 1
-        except Exception as exc:
-            self.utils.print_info(exc)
+        verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg()
+        
+        if not verify_upload_cfg_auto:
+            kwargs["fail_msg"] = "Failed to get the verify_upload_cfg_auto button"
+            self.common_validation.failed(**kwargs)
             return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the verify_upload_cfg_auto button"
+        self.common_validation.passed(**kwargs)
+            
+        verify_upload_cfg_auto = verify_upload_cfg_auto.is_selected()
+
+        if not verify_upload_cfg_auto and option == "OFF":
+            kwargs["pass_msg"] = "Auto configuration button is on OFF!"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        elif verify_upload_cfg_auto and option == "ON":
+            kwargs["pass_msg"] = "Auto configuration button is on ON!"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        kwargs["fail_msg"] = "Auto configuration button is not in the expected state"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def verify_enable_auto_revert_option(self):
+    def verify_enable_auto_revert_option(self, **kwargs):
         """
         This function is used to verify if the `Reboot and revert Extreme Networks switch configuration if IQAgent is
         unresponsive after configuration update.` button from Advanced Settings tab is present or not
         :return: 1 - if the button is present ; -1 - if not
         """
-        try:
-            enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
-            if not enable_auto_revert:
-                self.utils.print_info("Enable Auto Revert button is not present!")
-                return -1
-            elif not enable_auto_revert.is_displayed():
-                self.utils.print_info("Enable Auto Revert button is not present!")
-                return -1
-            else:
-                self.utils.print_info("Enable Auto Revert button is present!")
-                return 1
-        except Exception as exc:
-            self.utils.print_info(exc)
+        enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
+        
+        if not enable_auto_revert or not enable_auto_revert.is_displayed():
+            kwargs["fail_msg"] = "Enable Auto Revert button is not present!"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def set_upload_config_auto_button(self):
+        kwargs["pass_msg"] = "Enable Auto Revert button is present!"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def set_upload_config_auto_button(self, **kwargs):
         """
         This function is used to set the `Upload configuration automatically` button from Advanced Settings tab
         :return: 1 - if the button is set successfully ; -1 - if not
         """
-        try:
-            verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg().is_selected()
-            if not verify_upload_cfg_auto:
-                self.utils.print_info("Auto configuration button is by default on OFF!")
-            else:
-                self.utils.print_info("Auto configuration button is already on ON!")
-                return -1
-
-            self.utils.print_info("Click on Upload configuration automatically button")
-            self.auto_actions.click(self.sw_template_web_elements.get_sw_template_auto_cfg())
-        except Exception as exc:
-            self.utils.print_info(exc)
+        verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg()
+        
+        if not verify_upload_cfg_auto:
+            kwargs["fail_msg"] = "Failed to get the verify_upload_cfg_auto button"
+            self.common_validation.failed(**kwargs)
             return -1
-        sleep(3)
-        return 1
 
-    def check_text_enable_auto_revert_option(self):
+        kwargs["pass_msg"] = "Successfully got the verify_upload_cfg_auto button"
+        self.common_validation.passed(**kwargs)
+
+        verify_upload_cfg_auto = verify_upload_cfg_auto.is_selected()
+        
+        if not verify_upload_cfg_auto:
+            kwargs["pass_msg"] = "Auto configuration button is by default on OFF!"
+            self.common_validation.passed(**kwargs)
+            
+        else:
+            kwargs["fail_msg"] = "Auto configuration button is already on ON!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on Upload configuration automatically button")
+        if self.auto_actions.click(verify_upload_cfg_auto) != 1:
+            kwargs["fail_msg"] = "Failed to click the verify_upload_cfg_auto button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        kwargs["pass_msg"] = "Successfully clicked on the verify_upload_cfg_auto button"
+        self.common_validation.passed(**kwargs)
+        return 1
+      
+    def check_text_enable_auto_revert_option(self, **kwargs):
         """
         This function is used to verify the `Reboot and revert Extreme Networks switch configuration if IQAgent is
         unresponsive after configuration update.` button text from Advanced Settings tab based on an option given as
         parameter
         :return: 1 - if the button text is the one expected ; -1 - if not
         """
-        try:
-            enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg().text
-            if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
-                                             "unresponsive after configuration update.":
-                self.utils.print_info(
-                    f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!")
-                return -1
-        except Exception as exc:
-            self.utils.print_info(exc)
+        enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg()
+        
+        if not enable_auto_revert_message:
+            kwargs["fail_msg"] = "Failed to get enable_auto_revert_message element"
+            self.common_validation.failed(**kwargs)
             return -1
+
+        kwargs["pass_msg"] = "Successfully got the enable_auto_revert_message element"
+        self.common_validation.passed(**kwargs)
+
+        enable_auto_revert_message = enable_auto_revert_message.text
+        
+        if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
+                                            "unresponsive after configuration update.":
+            kwargs["fail_msg"] = f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
         return 1
 
-    def set_enable_auto_revert_option(self):
+    def set_enable_auto_revert_option(self, **kwargs):
         """
         This function is used to set/check the `Reboot and revert Extreme Networks switch configuration if IQAgent is
         unresponsive after configuration update.` button under the `Upload configuration automatically` button
         from Advanced Settings tab
         :return: 1 - if the button is set successfully ; -1 - if not
         """
-        try:
-            enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg().text
-            if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
-                                             "unresponsive after configuration update.":
-                self.utils.print_info(f"The Enable Auto Revert button name is not the correct one:"
-                                      f" {enable_auto_revert_message}!")
-                return -1
-
-            enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
-            if not enable_auto_revert:
-                self.utils.print_info("Enable Auto Revert button is not present!")
-                return -1
-            if not enable_auto_revert.is_selected():
-                self.utils.print_info("Enable Auto Revert button is by default unchecked!")
-            else:
-                self.utils.print_info("Enable Auto Revert button is already checked!")
-                return -1
-
-            self.utils.print_info("Click on Enable Auto Revert button")
-            self.auto_actions.click(enable_auto_revert)
-        except Exception as exc:
-            self.utils.print_info(exc)
+        enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg()
+        
+        if not enable_auto_revert_message:
+            kwargs["fail_msg"] = "Failed to get enable_auto_revert_message element"
+            self.common_validation.failed(**kwargs)
             return -1
+
+        kwargs["pass_msg"] = "Successfully got the enable_auto_revert_message element"
+        self.common_validation.passed(**kwargs)
+
+        enable_auto_revert_message = enable_auto_revert_message.text
+        
+        if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
+                                            "unresponsive after configuration update.":
+            kwargs["fail_msg"] = f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
+        
+        if not enable_auto_revert:
+            kwargs["fail_msg"] = "Enable Auto Revert button is not present!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Enable Auto Revert button is present!"
+        self.common_validation.passed(**kwargs)
+                
+        if not enable_auto_revert.is_selected():
+            kwargs["pass_msg"] = "Enable Auto Revert button is by default unchecked!"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs["fail_msg"] = "Enable Auto Revert button is already checked!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on Enable Auto Revert button")
+        if self.auto_actions.click(enable_auto_revert) != 1:
+            kwargs["fail_msg"] = "Failed to click the enable_auto_revert button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the enable_auto_revert button"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def save_template_with_popup(self):
+    def save_template_with_popup(self, **kwargs):
         """
         This function is used to save the current device template with a pop-up displayed
         :return: 1 - if the save was successful ; -1 - if not
         """
-        try:
-            save_template_button = self.sw_template_web_elements.get_switch_temp_save_button()
-            if not save_template_button.is_displayed():
-                self.utils.print_info("SAVE button is not displayed")
-                return -1
-
-            self.utils.print_info("Click on SAVE button")
-            self.auto_actions.click(save_template_button)
-
-            sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
-            if not sw_yes_button.is_displayed():
-                self.utils.print_info("YES button is not displayed")
-                return -1
-
-            self.utils.print_info("Click on SAVE button")
-            self.auto_actions.click(sw_yes_button)
-        except Exception as exc:
-            self.utils.print_info(exc)
+        save_template_button = self.sw_template_web_elements.get_switch_temp_save_button()
+        
+        if not save_template_button.is_displayed():
+            kwargs["fail_msg"] = "SAVE button is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
+
+        kwargs["pass_msg"] = "Successfully found the SAVE button"
+        self.common_validation.passed(**kwargs)
+
+        self.utils.print_info("Click on SAVE button")
+        if self.auto_actions.click(save_template_button) != 1:
+            kwargs["fail_msg"] = "Failed to click the SAVE button"
+            self.common_validation.failed(**kwargs)
+            return -1       
+
+        kwargs["pass_msg"] = "Successfully clicked the SAVE button"
+        self.common_validation.passed(**kwargs)
+            
+        sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
+        
+        if not sw_yes_button or not sw_yes_button.is_displayed():
+            kwargs["fail_msg"] = "YES button is not displayed"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on SAVE button")
+        if self.auto_actions.click(sw_yes_button) != 1:
+            kwargs["fail_msg"] = "Failed to click the sw_yes_button button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the sw_yes_button button"
+        self.common_validation.passed(**kwargs)
         return 1
