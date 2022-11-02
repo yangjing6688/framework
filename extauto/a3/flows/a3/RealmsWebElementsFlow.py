@@ -28,7 +28,7 @@ class RealmsWebElementsFlow(RealmsWebElements):
         """
         self.utils.print_info("Selecting Realm from menu...")
 
-        if self.auto_actions.click(self.get_realms_ui()) == 1:
+        if self.auto_actions.click_reference(self.get_realms_ui) == 1:
             sleep(2)
             self.utils.print_info("Clicking New Realm ")
             element = self.weh.get_element(self.realm_button)

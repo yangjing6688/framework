@@ -45,7 +45,7 @@ class ClassificationRule(object):
 
         self.utils.print_info(f"Adding Classification Rule with name:{name}")
         self.utils.print_info("Clicking on Classification Rule Add Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_classification_rule_add_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_classification_rule_add_button)
         sleep(3)
 
         self.utils.print_info("Enter the Classification Rule name:{}".format(name))
@@ -55,7 +55,7 @@ class ClassificationRule(object):
         self.auto_actions.send_keys(self.classification_rule_web_elements.get_classification_rule_description_text(), description)
 
         self.utils.print_info("Clicking on Classification Rule Option Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_classification_option_add_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_classification_option_add_button)
         sleep(3)
 
         self.utils.print_info("Selecting CCG Option from dropdown")
@@ -73,7 +73,7 @@ class ClassificationRule(object):
             self.utils.print_info(f"The ccg Match Type {match_type_flag} is incorrect, force ccg Match Type as default 'Contains' ")
             match_type = "Contains"
         self.utils.print_info("Selecting CCG Match Type from dropdown")
-        self.auto_actions.click(self.classification_rule_web_elements.get_ccg_match_type_dropdown_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_ccg_match_type_dropdown_button)
         match_type_options = self.classification_rule_web_elements.get_ccg_match_type_options()
         if self.auto_actions.select_drop_down_options(match_type_options, match_type):
             self.utils.print_info(f"Selected CCG Match Type {match_type}")
@@ -81,7 +81,7 @@ class ClassificationRule(object):
             self.utils.print_info(f"Not able to Select CCG Match Type {match_type}")
             return False
         self.utils.print_info(f"Selecting CCG policy :{ccg_policy}")
-        self.auto_actions.click(self.classification_rule_web_elements.get_ccg_policy_select_option())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_ccg_policy_select_option)
         sleep(2)
 
         ccg_policy_items = self.classification_rule_web_elements.get_ccg_policy_drop_down_items()
@@ -95,11 +95,11 @@ class ClassificationRule(object):
             return False
 
         self.utils.print_info("Clicking on Continue Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_continue_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_continue_button)
         sleep(2)
 
         self.utils.print_info("Saving the Classification Rule")
-        self.auto_actions.click(self.classification_rule_web_elements.get_save_rule_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_save_rule_button)
         sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -132,7 +132,7 @@ class ClassificationRule(object):
 
         self.utils.print_info(f"Adding Classification Rule with name:{name}")
         self.utils.print_info("Clicking on Classification Rule Add Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_classification_rule_add_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_classification_rule_add_button)
         sleep(3)
 
         self.utils.print_info("Enter the Classification Rule name:{}".format(name))
@@ -142,7 +142,7 @@ class ClassificationRule(object):
         self.auto_actions.send_keys(self.classification_rule_web_elements.get_classification_rule_description_text(), description)
 
         self.utils.print_info("Clicking on Classification Rule Option Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_classification_option_add_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_classification_option_add_button)
         sleep(3)
 
         self.utils.print_info("Selecting Device Location Option from dropdown")
@@ -161,7 +161,7 @@ class ClassificationRule(object):
 
 
         self.utils.print_info("Saving the Classification Rule")
-        self.auto_actions.click(self.classification_rule_web_elements.get_save_rule_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_save_rule_button)
         sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -194,7 +194,7 @@ class ClassificationRule(object):
 
         self.utils.print_info(f"Adding Classification Rule with name:{name}")
         self.utils.print_info("Clicking on Classification Rule Add Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_classification_rule_add_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_classification_rule_add_button)
         sleep(3)
 
         self.utils.print_info("Enter the Classification Rule name:{}".format(name))
@@ -205,7 +205,7 @@ class ClassificationRule(object):
             self.classification_rule_web_elements.get_classification_rule_description_text(), description)
 
         self.utils.print_info("Clicking on Classification Rule Option Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_classification_option_add_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_classification_option_add_button)
         sleep(3)
 
         if option == "ip_address":
@@ -259,7 +259,7 @@ class ClassificationRule(object):
 
 
         self.utils.print_info("Saving the Classification Rule")
-        self.auto_actions.click(self.classification_rule_web_elements.get_save_rule_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_save_rule_button)
         sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -292,7 +292,7 @@ class ClassificationRule(object):
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
         name_select_flag = None
@@ -307,12 +307,12 @@ class ClassificationRule(object):
 
         if name_select_flag:
             self.utils.print_info("Deleting classification rules  ")
-            self.auto_actions.click(
-                self.classification_rule_web_elements.delete_classification_rule_from_common_object())
+            self.auto_actions.click_reference(
+                self.classification_rule_web_elements.delete_classification_rule_from_common_object)
             sleep(2)
 
-            self.auto_actions.click(
-                self.classification_rule_web_elements.get_confirmation_dialog_yes_button())
+            self.auto_actions.click_reference(
+                self.classification_rule_web_elements.get_confirmation_dialog_yes_button)
             sleep(2)
             return 1
 
@@ -330,7 +330,7 @@ class ClassificationRule(object):
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
         get_all_classification_rule= self.classification_rule_web_elements.view_all_classification_rule()
@@ -342,11 +342,11 @@ class ClassificationRule(object):
                 sleep(2)
 
                 self.utils.print_info("Deleting classification rule:-  ", name)
-                self.auto_actions.click(self.classification_rule_web_elements.delete_classification_rule_from_common_object())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.delete_classification_rule_from_common_object)
                 sleep(2)
 
-                self.auto_actions.click(
-                    self.classification_rule_web_elements.get_confirmation_dialog_yes_button())
+                self.auto_actions.click_reference(
+                    self.classification_rule_web_elements.get_confirmation_dialog_yes_button)
                 sleep(2)
 
                 tool_tp_text = tool_tip.tool_tip_text
@@ -375,7 +375,7 @@ class ClassificationRule(object):
         floor_node = location_config.get('floor_node')
 
         self.utils.print_info("click on the assign location button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_org_loc_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_org_loc_button)
         sleep(1)
 
         self.utils.print_info("Click on country node open icon")
@@ -407,7 +407,7 @@ class ClassificationRule(object):
         sleep(1)
 
         self.utils.print_info("Click on location assign button")
-        self.auto_actions.click(self.classification_rule_web_elements.select_loc_assign_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.select_loc_assign_button)
         sleep(2)
 
         return True
@@ -454,7 +454,7 @@ class ClassificationRule(object):
         ip_address = ip_address_rule.get('ip')
 
         self.utils.print_info("click on the ip address add details add button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_ip_object_add_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_ip_object_add_button)
         sleep(2)
 
         self.utils.print_info("Entering Ip Object Name")
@@ -465,7 +465,7 @@ class ClassificationRule(object):
                                     , ip_address)
 
         self.utils.print_info("Click on Save IP Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_ip_object_save())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_ip_object_save)
         sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -475,7 +475,7 @@ class ClassificationRule(object):
             if "IP Object was successfully saved" in tip_text:
                 self.utils.print_info(f"{tip_text}")
                 self.utils.print_info("Click on Continue Button")
-                self.auto_actions.click(self.classification_rule_web_elements.get_continue_button())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.get_continue_button)
                 sleep(1)
                 return 1
         return False
@@ -492,7 +492,7 @@ class ClassificationRule(object):
         ip_mask = ip_subnet_rule.get('mask')
 
         self.utils.print_info("click on the ip address add details add button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_ip_object_add_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_ip_object_add_button)
         sleep(2)
 
         self.utils.print_info("Entering Ip Object Name")
@@ -508,7 +508,7 @@ class ClassificationRule(object):
                                     , ip_mask)
 
         self.utils.print_info("Click on Save IP Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_ip_object_save())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_ip_object_save)
         sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -518,7 +518,7 @@ class ClassificationRule(object):
             if "IP Object was successfully saved" in tip_text:
                 self.utils.print_info(f"{tip_text}")
                 self.utils.print_info("Click on Continue Button")
-                self.auto_actions.click(self.classification_rule_web_elements.get_continue_button())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.get_continue_button)
                 sleep(1)
                 return 1
         return False
@@ -535,7 +535,7 @@ class ClassificationRule(object):
         ip_range_to = ip_subnet_rule.get('ip_range_to')
 
         self.utils.print_info("click on the ip address add details add button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_ip_object_add_button())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_ip_object_add_button)
         sleep(2)
 
         self.utils.print_info("Entering Ip Object Name")
@@ -551,7 +551,7 @@ class ClassificationRule(object):
                                     , ip_range_to)
 
         self.utils.print_info("Click on Save IP Button")
-        self.auto_actions.click(self.classification_rule_web_elements.get_ip_object_save())
+        self.auto_actions.click_reference(self.classification_rule_web_elements.get_ip_object_save)
         sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -561,7 +561,7 @@ class ClassificationRule(object):
             if "IP Object was successfully saved" in tip_text:
                 self.utils.print_info(f"{tip_text}")
                 self.utils.print_info("Click on Continue Button")
-                self.auto_actions.click(self.classification_rule_web_elements.get_continue_button())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.get_continue_button)
                 sleep(1)
                 return 1
         return False
@@ -664,12 +664,12 @@ class ClassificationRule(object):
         :return: 1 if success else return False
         """
         self.utils.print_info("Searching SSID: ", ssid)
-        self.auto_actions.click(self.np_web_elements.get_network_policy_wireless_networks_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_tab)
         sleep(5)
 
         if not self.classification_rule_web_elements.enable_classification_rule().is_selected():
             self.utils.print_info("Enabling Assign SSIDs using Classification Rules")
-            self.auto_actions.click(self.classification_rule_web_elements.enable_classification_rule())
+            self.auto_actions.click_reference(self.classification_rule_web_elements.enable_classification_rule)
             sleep(3)
 
         grid_rows = self.np_web_elements.get_network_policy_wireless_networks_grid_rows()
@@ -682,17 +682,17 @@ class ClassificationRule(object):
                 if view_all_pages := self.classification_rule_web_elements.view_all_pages():
                     if view_all_pages.is_displayed():
                         self.utils.print_info("Click Full pages button")
-                        self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                        self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                         sleep(2)
 
                 classification_rule_all = self.classification_rule_web_elements.get_all_classification_rule()
                 self.auto_actions.select_drop_down_options(classification_rule_all,classification_rule)
                 sleep(1)
 
-                self.auto_actions.click(self.classification_rule_web_elements.get_link_button())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.get_link_button)
                 sleep(1)
 
-                self.auto_actions.click(self.classification_rule_web_elements.get_next_button())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.get_next_button)
                 return 1
         return False
 
@@ -705,7 +705,7 @@ class ClassificationRule(object):
         :return: 1 if success else return False
         """
         self.utils.print_info("Searching SSID: ", ssid)
-        self.auto_actions.click(self.np_web_elements.get_network_policy_wireless_networks_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_tab)
         sleep(5)
 
         grid_rows = self.np_web_elements.get_network_policy_wireless_networks_grid_rows()
@@ -732,7 +732,7 @@ class ClassificationRule(object):
         :return: 1 if success else return False
         """
         self.utils.print_info("Searching SSID: ", ssid)
-        self.auto_actions.click(self.np_web_elements.get_network_policy_wireless_networks_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_tab)
         sleep(5)
 
         grid_rows = self.np_web_elements.get_network_policy_wireless_networks_grid_rows()
@@ -742,7 +742,7 @@ class ClassificationRule(object):
                 self.auto_actions.click(self.classification_rule_web_elements.delete_classification_rule_from_ssid(row))
                 sleep(2)
 
-                self.auto_actions.click(self.classification_rule_web_elements.get_confirmation_dialog_yes_button())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.get_confirmation_dialog_yes_button)
                 return 1
         return False
 
@@ -762,7 +762,7 @@ class ClassificationRule(object):
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
         get_all_classification_rule = self.classification_rule_web_elements.view_all_classification_rule()
@@ -787,7 +787,7 @@ class ClassificationRule(object):
         # if view_all_pages := self.classification_rule_web_elements.view_all_pages():
         #     if view_all_pages.is_displayed():
         #         self.utils.print_info("Click Full pages button")
-        #         self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+        #         self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
         #         sleep(2)
 
         get_all_classification_rule = self.classification_rule_web_elements.view_all_classification_rule()
@@ -814,7 +814,7 @@ class ClassificationRule(object):
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
         get_all_classification_rule = self.classification_rule_web_elements.view_all_classification_rule()

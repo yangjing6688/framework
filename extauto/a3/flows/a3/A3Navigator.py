@@ -31,7 +31,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Monitor Tab else return -1
         """
         self.utils.print_info("Selecting Manage Tab...")
-        if self.auto_actions.click(self.get_manage_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_manage_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -48,7 +48,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to ML Insight tab else return -1
         """
         self.utils.print_info("Selecting ML Insight Tab....")
-        if self.auto_actions.click(self.get_ml_insight_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_ml_insight_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -65,7 +65,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to configure tab else return -1
         """
         self.utils.print_info("Selecting Configure tab")
-        if self.auto_actions.click(self.get_configure_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_configure_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -82,7 +82,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Tools Sub tab on Monitor Tab else return -1
         """
         self.utils.print_info("Selecting Tools tab...")
-        if self.auto_actions.click(self.get_manage_tools_menu_item()) == 1:
+        if self.auto_actions.click_reference(self.get_manage_tools_menu_item) == 1:
             sleep(2)
             return 1
         else:
@@ -101,16 +101,16 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_configure_tab()
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(2)
 
         if self.get_auto_provisioning_option() is None:
             self.utils.print_info("Auto Provisioning is Not visible. Clicking Policy...")
-            self.auto_actions.click(self.get_policy_toggle())
+            self.auto_actions.click_reference(self.get_policy_toggle)
             sleep(2)
 
         self.utils.print_info("Auto Provision menu is visible. Selecting...")
-        self.auto_actions.click(self.get_auto_provisioning_option())
+        self.auto_actions.click_reference(self.get_auto_provisioning_option)
         sleep(2)
 
     def navigate_to_devices(self, **kwargs):
@@ -124,7 +124,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_manage_tab() == 1:
             self.utils.print_info("Clicking Devices Tab...")
-            if self.auto_actions.click(self.get_devices_nav()) == 1:
+            if self.auto_actions.click_reference(self.get_devices_nav) == 1:
                 sleep(2)
                 kwargs['pass_msg'] = "Navigation Successful to Devices tab"
                 self.common_validation.passed(**kwargs)
@@ -146,15 +146,15 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_configure_tab()
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(2)
 
         if self.get_ssid_option() is None:
             self.utils.print_info("SSID menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click(self.get_policy_toggle())
+            self.auto_actions.click_reference(self.get_policy_toggle)
             sleep(2)
         self.utils.print_info("SSID menu is visible. Selecting...")
-        self.auto_actions.click(self.get_ssid_option())
+        self.auto_actions.click_reference(self.get_ssid_option)
         sleep(2)
 
     def navigate_to_tools_page(self):
@@ -199,7 +199,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(5)
 
     def navigate_to_network_policies_tab(self):
@@ -211,7 +211,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
         """
         self.utils.print_info("Selecting Network Policies Tab...")
-        if self.auto_actions.click(self.get_network_policies_sub_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_network_policies_sub_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -228,7 +228,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Clients On Monitor Menu else return -1
         """
         self.utils.print_info("Selecting Clients Tab...")
-        if self.auto_actions.click(self.get_clients_sub_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_clients_sub_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -262,7 +262,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to User Account Menu else return -1
         """
         self.utils.print_info("Selecting user account...")
-        if self.auto_actions.click(self.get_user_account_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_user_account_nav) == 1:
             sleep(2)
             return 1
         else:
@@ -275,7 +275,7 @@ class Navigator(NavigatorWebElements):
         - This method is used to click on the global setting button
         """
         self.utils.print_info("Selecting global settings...")
-        if self.auto_actions.click(self.get_global_settings_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_global_settings_nav) == 1:
             sleep(2)
             return 1
         else:
@@ -292,7 +292,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Global Settings on User Account Menu else return -1
         """
         self.utils.print_info("Clicking on the Users Sub tab")
-        if self.auto_actions.click(self.get_configure_users_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_configure_users_nav) == 1:
             sleep(2)
             return 1
         else:
@@ -327,11 +327,11 @@ class Navigator(NavigatorWebElements):
         sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
-            self.auto_actions.click(self.get_configure_users_user_management_side_menu())
+            self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
             sleep(5)
 
         self.utils.print_info("Click on users group sub menu")
-        self.auto_actions.click(self.get_configure_user_group_side_nav_item())
+        self.auto_actions.click_reference(self.get_configure_user_group_side_nav_item)
         sleep(2)
 
     def navigate_to_authentication_logs_menu(self):
@@ -345,7 +345,7 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Selecting Authentication Logs...")
 
-        if self.auto_actions.click(self.global_settings_authentication_logs_slider()) == 1:
+        if self.auto_actions.click_reference(self.global_settings_authentication_logs_slider) == 1:
             sleep(2)
             return 1
         else:
@@ -363,7 +363,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Accounting Logs Slider
         """
         self.utils.print_info("Selecting Accounting Logs...")
-        if self.auto_actions.click(self.global_settings_accounting_logs_slider()) == 1:
+        if self.auto_actions.click_reference(self.global_settings_accounting_logs_slider) == 1:
             sleep(2)
             return 1
         else:
@@ -406,7 +406,7 @@ class Navigator(NavigatorWebElements):
         :return: None
         """
         if not self.get_common_object_authentication_tab().is_selected():
-            self.auto_actions.click(self.get_common_object_authentication_tab())
+            self.auto_actions.click_reference(self.get_common_object_authentication_tab)
             sleep(2)
 
     def navigate_to_captive_web_portal(self):
@@ -422,7 +422,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on captive web portal tab...")
-        self.auto_actions.click(self.get_common_object_authentication_captive_portal())
+        self.auto_actions.click_reference(self.get_common_object_authentication_captive_portal)
         sleep(5)
 
     def navigate_to_aaa_server_settings(self):
@@ -438,7 +438,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on AAA server Settings...")
-        self.auto_actions.click(self.get_common_object_authentication_aaa_server_settings())
+        self.auto_actions.click_reference(self.get_common_object_authentication_aaa_server_settings)
         sleep(5)
 
     def navigate_to_ad_servers(self):
@@ -454,7 +454,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on AAA server Settings...")
-        self.auto_actions.click(self.get_common_object_authentication_ad_servers())
+        self.auto_actions.click_reference(self.get_common_object_authentication_ad_servers)
         sleep(5)
 
     def navigate_to_external_radius_server(self):
@@ -470,7 +470,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on  external radius server...")
-        self.auto_actions.click(self.get_common_object_authentication_external_radius_server())
+        self.auto_actions.click_reference(self.get_common_object_authentication_external_radius_server)
         sleep(5)
 
     def navigate_to_extreme_networks_a3(self):
@@ -486,7 +486,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on External network A3...")
-        self.auto_actions.click(self.get_common_object_authentication_extreme_networks_a3())
+        self.auto_actions.click_reference(self.get_common_object_authentication_extreme_networks_a3)
         sleep(5)
 
     def navigate_to_servers(self):
@@ -502,7 +502,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on servers tab...")
-        self.auto_actions.click(self.get_common_object_authentication_servers())
+        self.auto_actions.click_reference(self.get_common_object_authentication_servers)
         sleep(5)
 
     def navigate_to_ldap_servers(self):
@@ -518,7 +518,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
         self.utils.print_info("Click on servers tab...")
-        self.auto_actions.click(self.get_common_object_authentication_ldap_servers())
+        self.auto_actions.click_reference(self.get_common_object_authentication_ldap_servers)
         sleep(5)
 
     def navigate_to_security_option(self):
@@ -531,7 +531,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Security tab on Monitor Menu else return -1
         """
         self.utils.print_info("Selecting Security on Monitor Page...")
-        if self.auto_actions.click(self.get_manage_security_nav()) == 1:
+        if self.auto_actions.click_reference(self.get_manage_security_nav) == 1:
             sleep(2)
             return 1
         else:
@@ -563,7 +563,7 @@ class Navigator(NavigatorWebElements):
         :return:
         """
         if not self.get_common_object_security_tab().is_selected():
-            self.auto_actions.click(self.get_common_object_security_tab())
+            self.auto_actions.click_reference(self.get_common_object_security_tab)
             sleep(2)
 
     def navigate_to_security_wips_policies(self):
@@ -580,7 +580,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common Security tab")
         self.navigate_to_common_object_security_tab()
         self.utils.print_info("Click on WIPS Policies tab...")
-        self.auto_actions.click(self.get_common_object_security_wips_policies())
+        self.auto_actions.click_reference(self.get_common_object_security_wips_policies)
         sleep(5)
 
     def navigate_to_common_object_policy_tab(self):
@@ -593,7 +593,7 @@ class Navigator(NavigatorWebElements):
         :return: None
         """
         if not self.get_common_object_policy_tab().is_selected():
-            self.auto_actions.click(self.get_common_object_policy_tab())
+            self.auto_actions.click_reference(self.get_common_object_policy_tab)
             sleep(2)
 
     def navigate_to_policy_ap_template(self):
@@ -610,7 +610,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common Policy tab")
         self.navigate_to_common_object_policy_tab()
         self.utils.print_info("Click on Ap Template tab...")
-        self.auto_actions.click(self.get_common_object_policy_ap_template())
+        self.auto_actions.click_reference(self.get_common_object_policy_ap_template)
         sleep(5)
 
     def navigate_to_manage_reports(self):
@@ -624,7 +624,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_manage_tab()
         self.utils.print_info("Click on reports tab....")
-        self.auto_actions.click(self.get_manage_reports_nav())
+        self.auto_actions.click_reference(self.get_manage_reports_nav)
         sleep(2)
 
     def navigate_to_policy_port_types(self):
@@ -642,7 +642,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_common_object_policy_tab()
 
         self.utils.print_info("Click on Port Types tab...")
-        self.auto_actions.click(self.get_common_object_policy_port_types())
+        self.auto_actions.click_reference(self.get_common_object_policy_port_types)
         sleep(5)
 
     def navigate_to_common_object_network_tab(self):
@@ -656,7 +656,7 @@ class Navigator(NavigatorWebElements):
         :return: None
         """
         if not self.get_common_object_network_tab().is_selected():
-            self.auto_actions.click(self.get_common_object_network_tab())
+            self.auto_actions.click_reference(self.get_common_object_network_tab)
             sleep(2)
 
     def navigate_to_network_subnetwork_space(self):
@@ -673,7 +673,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common object Network tab")
         self.navigate_to_common_object_network_tab()
         self.utils.print_info("Click on Subnetwork Space tab...")
-        self.auto_actions.click(self.get_common_object_network_sub_network_space())
+        self.auto_actions.click_reference(self.get_common_object_network_sub_network_space)
         sleep(5)
 
     def navigate_to_common_object_basic_tab(self):
@@ -687,7 +687,7 @@ class Navigator(NavigatorWebElements):
         :return: None
         """
         if not self.get_common_object_basic_tab().is_selected():
-            self.auto_actions.click(self.get_common_object_basic_tab())
+            self.auto_actions.click_reference(self.get_common_object_basic_tab)
             sleep(2)
 
     def navigate_to_basic_vlans_tab(self):
@@ -704,7 +704,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common object Basic tab")
         self.navigate_to_common_object_basic_tab()
         self.utils.print_info("Click on Vlan tab...")
-        self.auto_actions.click(self.get_common_object_basic_vlans())
+        self.auto_actions.click_reference(self.get_common_object_basic_vlans)
         sleep(5)
 
     def navigate_to_manage_alarms(self):
@@ -719,7 +719,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_manage_tab()
         sleep(5)
         self.utils.print_info("Click on Alarms tab..")
-        self.auto_actions.click(self.get_manage_alarms_nav())
+        self.auto_actions.click_reference(self.get_manage_alarms_nav)
         sleep(5)
 
     def navigate_to_client360(self):
@@ -733,7 +733,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_ml_insight_tab()
         self.utils.print_info("Click on Client 360 tab..")
-        self.auto_actions.click(self.get_ml_insight_client360())
+        self.auto_actions.click_reference(self.get_ml_insight_client360)
         sleep(5)
 
     def navigate_to_network360plan(self):
@@ -747,7 +747,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_ml_insight_tab()
         self.utils.print_info("Click on Network 360 tab..")
-        self.auto_actions.click(self.get_ml_insight_network360plan())
+        self.auto_actions.click_reference(self.get_ml_insight_network360plan)
         sleep(5)
 
     def navigate_to_network360monitor(self):
@@ -761,7 +761,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_ml_insight_tab()
         self.utils.print_info("Click on Network 360 Monitor tab..")
-        self.auto_actions.click(self.get_ml_insight_network360monitor())
+        self.auto_actions.click_reference(self.get_ml_insight_network360monitor)
         sleep(5)
 
     def navigate_to_network_policies_list_view_page(self):
@@ -775,10 +775,10 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_configure_network_policies()
         self.utils.print_info("click on list view button")
-        self.auto_actions.click(self.get_network_policy_list_view())
+        self.auto_actions.click_reference(self.get_network_policy_list_view)
         self.utils.print_info("Click on network policy full size page")
         if self.get_network_policy_page_size():
-            self.auto_actions.click(self.get_network_policy_page_size())
+            self.auto_actions.click_reference(self.get_network_policy_page_size)
             sleep(2)
         return 1
 
@@ -792,7 +792,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_configure_network_policies()
         self.utils.print_info("click on card view button")
-        if self.auto_actions.click(self.get_network_policy_card_view()) == 1:
+        if self.auto_actions.click_reference(self.get_network_policy_card_view) == 1:
             return 1
 
     def navigate_to_multiple_device_configuration_page(self, device_serials=''):
@@ -874,7 +874,7 @@ class Navigator(NavigatorWebElements):
             return -1
 
         self.utils.print_info("Click on Device Actions Button")
-        self.auto_actions.click(self.get_device_actions_button())
+        self.auto_actions.click_reference(self.get_device_actions_button)
 
         self.utils.print_info("Hovering over Advanced button")
         self.auto_actions.move_to_element(self.weh.get_element(self.device_actions_advanced))
@@ -901,7 +901,7 @@ class Navigator(NavigatorWebElements):
         self.device_common.select_device_row(device_serial)
 
         self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
+        self.auto_actions.click_reference(self.get_device_utilities)
         sleep(2)
 
         self.utils.print_info("Hovering over Status button")
@@ -931,7 +931,7 @@ class Navigator(NavigatorWebElements):
         self.device_common.select_device_row(device_serial)
 
         self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
+        self.auto_actions.click_reference(self.get_device_utilities)
         sleep(2)
 
         self.utils.print_info("Hovering over Status button")
@@ -961,7 +961,7 @@ class Navigator(NavigatorWebElements):
         self.device_common.select_device_row(device_serial)
 
         self.utils.print_info("Clicking on Utilities")
-        self.auto_actions.click(self.get_device_utilities())
+        self.auto_actions.click_reference(self.get_device_utilities)
         sleep(2)
 
         self.utils.print_info("Hovering over Status button")
@@ -986,15 +986,15 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_configure_tab()
 
         self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click(self.get_common_objects_sub_tab())
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(2)
 
         if self.get_switch_template_option() is None:
             self.utils.print_info("Switch Template menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click(self.get_policy_toggle())
+            self.auto_actions.click_reference(self.get_policy_toggle)
             sleep(2)
         self.utils.print_info("Switch Template menu is visible. Selecting...")
-        self.auto_actions.click(self.get_switch_template_option())
+        self.auto_actions.click_reference(self.get_switch_template_option)
         sleep(2)
 
     def navigate_to_api_token_mngment(self):
@@ -1008,7 +1008,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_global_settings_page()
         self.utils.print_info("Click on api token management tab")
-        self.auto_actions.click(self.get_api_token_mgmt_tab())
+        self.auto_actions.click_reference(self.get_api_token_mgmt_tab)
         sleep(5)
 
     def navigate_a3_inventory(self):
@@ -1021,11 +1021,11 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Inventory tab on A3 Menu
         """
         self.utils.print_info("Selecting A3 Tab...")
-        self.auto_actions.click(self.get_a3_tab())
+        self.auto_actions.click_reference(self.get_a3_tab)
         sleep(2)
 
         self.utils.print_info("Selecting Inventory on A3 Page...")
-        self.auto_actions.click(self.get_a3_inventory_tab())
+        self.auto_actions.click_reference(self.get_a3_inventory_tab)
         sleep(2)
         return 1
 
@@ -1039,7 +1039,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Extreme AirDefence Menu
         """
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
-        self.auto_actions.click(self.get_air_defence_menu())
+        self.auto_actions.click_reference(self.get_air_defence_menu)
         sleep(5)
 
     def navigate_to_onboard_tab(self):
@@ -1051,7 +1051,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to onboard Tab else return -1
         """
         self.utils.print_info("Selecting Onboard Tab...")
-        if self.auto_actions.click(self.get_onboard_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_onboard_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -1089,7 +1089,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Configuration Tab else return -1
         """
         self.utils.print_info("Selecting Configuration Tab...")
-        if self.auto_actions.click(self.get_configuration_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_configuration_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -1106,7 +1106,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Tools Tab else return -1
         """
         self.utils.print_info("Selecting Configuration Tab...")
-        if self.auto_actions.click(self.get_tools_tab()) == 1:
+        if self.auto_actions.click_reference(self.get_tools_tab) == 1:
             sleep(2)
             return 1
         else:
@@ -1134,7 +1134,7 @@ class Navigator(NavigatorWebElements):
 
 
         #self.utils.print_info("Selecting SSH option...")
-        #if self.auto_actions.click(self.get_ssh_option_ui()) == 1:
+        #if self.auto_actions.click_reference(self.get_ssh_option_ui) == 1:
         wait = WebDriverWait(self.driver, 17)
         #sleep(10)
         self.utils.print_info("After WebDriverWait")
@@ -1149,7 +1149,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("After ScrollIntoView")
         ssh_btn.click()
         self.utils.print_info("After click")
-        #self.auto_actions.click(self.a3_web_elements.get_ssh_button())
+        #self.auto_actions.click_reference(self.a3_web_elements.get_ssh_button)
         sleep(2)
         return 1
         #else:
@@ -1168,7 +1168,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Policies & Access Control else return -1
         """
         self.utils.print_info("Selecting Onboard Tab...")
-        if self.auto_actions.click(self.get_policies_access_control()) == 1:
+        if self.auto_actions.click_reference(self.get_policies_access_control) == 1:
             sleep(2)
             return 1
         else:
@@ -1185,7 +1185,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to System Configuration else return -1
         """
         self.utils.print_info("Selecting System Configuration...")
-        if self.auto_actions.click(self.get_system_configuration()) == 1:
+        if self.auto_actions.click_reference(self.get_system_configuration) == 1:
             sleep(2)
             return 1
         else:
@@ -1204,7 +1204,7 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Selecting Cloud Integration from menu...")
 
-        if self.auto_actions.click(self.get_cloud()) == 1:
+        if self.auto_actions.click_reference(self.get_cloud) == 1:
             sleep(2)
             self.utils.print_info("Entering Cloud account details ")
             element1 = self.weh.get_element(self.cloud_host_input)
@@ -1245,7 +1245,7 @@ class Navigator(NavigatorWebElements):
         #ssh_btn = self.weh.get_element(self.ssh_selector)
         self.driver.find_element_by_name("check-button").click()
 
-        #self.auto_actions.click(self.a3_web_elements.get_ssh_button())
+        #self.auto_actions.click_reference(self.a3_web_elements.get_ssh_button)
         #ssh_btn = self.weh.get_element(self.ssh_selector)
         #ssh_btn.click()
         #self.getElementsByName('check-button')[0].click()
@@ -1298,7 +1298,7 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Selecting Roles from menu...")
 
-        if self.auto_actions.click(self.get_roles()) == 1:
+        if self.auto_actions.click_reference(self.get_roles) == 1:
             sleep(2)
             self.utils.print_info("Clicking New Roles ")
             element = self.weh.get_element(self.role_button)
@@ -1333,7 +1333,7 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Selecting Active Directory Domains from menu...")
 
-        if self.auto_actions.click(self.get_ad_domains()) == 1:
+        if self.auto_actions.click_reference(self.get_ad_domains) == 1:
             sleep(2)
             self.utils.print_info("Creating domain ")
             element = self.weh.get_element(self.domain_button)

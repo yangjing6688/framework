@@ -6,7 +6,7 @@ from extauto.common.CommonValidation import CommonValidation
 from xiqse.elements.admin.options.AdminOptionsWebElements import AdminOptionsWebElements
 from xiqse.elements.common.CommonViewWebElements import CommonViewWebElements
 from xiqse.flows.common.XIQSE_CommonNavigator import XIQSE_CommonNavigator
-
+from robot.libraries.BuiltIn import BuiltIn
 
 class XIQSE_AdminOptions(AdminOptionsWebElements):
     def __init__(self):
@@ -17,6 +17,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         self.view_el = CommonViewWebElements()
         self.xiqse_nav = XIQSE_CommonNavigator()
         self.common_validation = CommonValidation()
+        self.builtin = BuiltIn()
 
     def xiqse_select_site_engine_general_option(self):
         """
@@ -548,6 +549,15 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         :param value: true to enable the extended scoping and false to disable
         """
         ret_val = 1
+        xiqse_version = self.builtin.get_variable_value("${XIQSE_OS_VERSION}")
+        parts = xiqse_version.split(".")
+        majorMinor = parts[0] + "." + parts[1]
+        floatVersion = float(majorMinor);
+
+        if (floatVersion < 22.9):
+            self.utils.print_info(f"Skipping Event Search Scope - supported in version '{floatVersion}'")
+            return # feature added in 22.9
+
         if self.xiqse_nav.xiqse_navigate_to_admin_options_tab():
             if self.xiqse_select_alarm_event_option():
                 # enable the client event search scope

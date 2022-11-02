@@ -116,7 +116,7 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
             self.screen.save_screen_shot()
 
         self.utils.print_debug("Closing Column Selection Menu")
-        self.auto_actions.click(self.get_licenses_panel_title())
+        self.auto_actions.click_reference(self.get_licenses_panel_title)
 
         return ret_val
 
@@ -141,7 +141,7 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
             self.screen.save_screen_shot()
 
         self.utils.print_debug("Closing Column Selection Menu")
-        self.auto_actions.click(self.get_licenses_panel_title())
+        self.auto_actions.click_reference(self.get_licenses_panel_title)
 
         return ret_val
 

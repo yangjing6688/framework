@@ -42,11 +42,11 @@ class MLInsightClient360(MLInsightsClients360WebElements):
         self.navigator.navigate_to_client360()
 
         self.utils.print_info("Click on real time client 360 tab")
-        self.auto_actions.click(self.get_client_360_inactive_tab())
-        self.auto_actions.click(self.get_client_360_real_time_tab())
+        self.auto_actions.click_reference(self.get_client_360_inactive_tab)
+        self.auto_actions.click_reference(self.get_client_360_real_time_tab)
 
         self.utils.print_info("Click on the client 360 refresh button")
-        self.auto_actions.click(self.get_n360_client_360_client_refresh())
+        self.auto_actions.click_reference(self.get_n360_client_360_client_refresh)
         sleep(2)
 
         if row := self._get_real_time_grid_rows(search_string):
@@ -82,11 +82,11 @@ class MLInsightClient360(MLInsightsClients360WebElements):
         self.navigator.navigate_to_client360()
 
         self.utils.print_info("Click on real time client 360 tab")
-        self.auto_actions.click(self.get_client_360_inactive_tab())
-        self.auto_actions.click(self.get_client_360_real_time_tab())
+        self.auto_actions.click_reference(self.get_client_360_inactive_tab)
+        self.auto_actions.click_reference(self.get_client_360_real_time_tab)
 
         self.utils.print_info("Click on the client 360 refresh button")
-        self.auto_actions.click(self.get_n360_client_360_client_refresh())
+        self.auto_actions.click_reference(self.get_n360_client_360_client_refresh)
         sleep(2)
 
         if row := self._get_real_time_grid_rows(search_string):
@@ -111,7 +111,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
                     self.screen.save_screen_shot()
                     sleep(2)
                     self.utils.print_info("Close dialog current connection status,")
-                    self.auto_actions.click(self.client_360_close_current_connection_status())
+                    self.auto_actions.click_reference(self.client_360_close_current_connection_status)
                     return client360_status
         else:
             self.utils.print_info(f"Device not found in the grid with: {search_string}")

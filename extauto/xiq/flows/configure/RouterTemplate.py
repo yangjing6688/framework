@@ -58,7 +58,7 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Router Settings tab button")
-        self.auto_actions.click(self.get_router_settings_tab_button())
+        self.auto_actions.click_reference(self.get_router_settings_tab_button)
         sleep(2)
 
         return True
@@ -87,7 +87,7 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.get_device_template_tab())
+        self.auto_actions.click_reference(self.get_device_template_tab)
         sleep(2)
 
         if self.check_router_template(router_model):
@@ -95,7 +95,7 @@ class RouterTemplate(RouterTemplateWebElements):
             return 1
 
         self.utils.print_info("Click on Add Router Template button")
-        self.auto_actions.click(self.get_router_template_add_button())
+        self.auto_actions.click_reference(self.get_router_template_add_button)
         sleep(5)
 
         self.utils.print_info("select the Router Platform: ", router_model)
@@ -125,7 +125,7 @@ class RouterTemplate(RouterTemplateWebElements):
         self.configure_new_port_type(**port_type_settings)
 
         self.utils.print_info("Click on the save template button")
-        self.auto_actions.click(self.get_router_template_save_button())
+        self.auto_actions.click_reference(self.get_router_template_save_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -137,11 +137,11 @@ class RouterTemplate(RouterTemplateWebElements):
             return -1
 
         self.utils.print_info("Click Network Allocation Tab")
-        self.auto_actions.click(self.get_network_allocation_tab())
+        self.auto_actions.click_reference(self.get_network_allocation_tab)
         sleep(15)
 
         self.utils.print_info("Click Add Network Allocation")
-        self.auto_actions.click(self.get_router_allocation_add_button())
+        self.auto_actions.click_reference(self.get_router_allocation_add_button)
         sleep(5)
 
         self.utils.print_info("Configure Sub Network Section")
@@ -225,7 +225,7 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click Save port button")
-        self.auto_actions.click(self.get_new_port_save_button())
+        self.auto_actions.click_reference(self.get_new_port_save_button)
         sleep(5)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -247,7 +247,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         if port_usage_configuration['port_usage_type'].upper() == "ACCESS":
             self.auto_actions.center_element(self.get_router_new_port_type_access_radio_button())
-            self.auto_actions.click(self.get_router_new_port_type_access_radio_button())
+            self.auto_actions.click_reference(self.get_router_new_port_type_access_radio_button)
             sleep(2)
 
             self.screen.save_screen_shot()
@@ -256,7 +256,7 @@ class RouterTemplate(RouterTemplateWebElements):
         if port_usage_configuration['port_usage_type'].upper() == "TRUNK":
             trunk_allowed_vlans = port_usage_configuration['allowed_vlans']
             self.auto_actions.center_element(self.get_router_new_port_type_trunk_radio_button())
-            self.auto_actions.click(self.get_router_new_port_type_trunk_radio_button())
+            self.auto_actions.click_reference(self.get_router_new_port_type_trunk_radio_button)
             sleep(2)
 
             self.utils.print_info("Enter Description For New Port Type Name: ", trunk_allowed_vlans)
@@ -268,7 +268,7 @@ class RouterTemplate(RouterTemplateWebElements):
             sleep(2)
 
         if port_usage_configuration['port_usage_type'].upper() == "WAN":
-            self.auto_actions.click(self.get_router_new_port_type_wan_radio_button())
+            self.auto_actions.click_reference(self.get_router_new_port_type_wan_radio_button)
             sleep(2)
 
             self.screen.save_screen_shot()
@@ -291,34 +291,34 @@ class RouterTemplate(RouterTemplateWebElements):
         self.utils.print_info("Configuring SSH Status Section")
         if ssh_status.upper() == "ENABLE":
             if not self.get_router_new_port_type_enable_ssh_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_ssh_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_ssh_checkbox)
         else:
             if self.get_router_new_port_type_enable_ssh_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_ssh_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_ssh_checkbox)
 
         self.utils.print_info("Configuring Telnet Status Section")
         if telnet_status.upper() == "ENABLE":
             if not self.get_router_new_port_type_enable_telnet_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_telnet_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_telnet_checkbox)
         else:
             if self.get_router_new_port_type_enable_telnet_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_telnet_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_telnet_checkbox)
 
         self.utils.print_info("Configuring Ping Status Section")
         if ping_status.upper() == "ENABLE":
             if not self.get_router_new_port_type_enable_ping_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_ping_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_ping_checkbox)
         else:
             if self.get_router_new_port_type_enable_ping_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_ping_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_ping_checkbox)
 
         self.utils.print_info("Configuring SNMP Status Section")
         if snmp_status.upper() == "ENABLE":
             if not self.get_router_new_port_type_enable_snmp_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_snmp_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_snmp_checkbox)
         else:
             if self.get_router_new_port_type_enable_snmp_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_snmp_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_snmp_checkbox)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -338,14 +338,14 @@ class RouterTemplate(RouterTemplateWebElements):
         vlan_id_field = network_allocation_vlan_settings['vlan_id']
 
         self.utils.print_info("Click VLAN Object Select button")
-        self.auto_actions.click(self.get_router_allocation_vlan_select_button())
+        self.auto_actions.click_reference(self.get_router_allocation_vlan_select_button)
         sleep(6)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click New VLAN Object button")
-        self.auto_actions.click(self.get_router_allocation_new_vlan_add_button())
+        self.auto_actions.click_reference(self.get_router_allocation_new_vlan_add_button)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -363,11 +363,11 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click Save VLAN button")
-        self.auto_actions.click(self.get_router_allocation_new_vlan_save_button())
+        self.auto_actions.click_reference(self.get_router_allocation_new_vlan_save_button)
         sleep(5)
 
         self.utils.print_info("Saving Network Allocation Configuration")
-        self.auto_actions.click(self.get_save_network_allocation_button())
+        self.auto_actions.click_reference(self.get_save_network_allocation_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -388,14 +388,14 @@ class RouterTemplate(RouterTemplateWebElements):
         advance_config = network_allocation_sub_network_settings['advance_config']
 
         self.utils.print_info("Click Sub Network Select button")
-        self.auto_actions.click(self.get_router_allocation_subnetwork_select_button())
+        self.auto_actions.click_reference(self.get_router_allocation_subnetwork_select_button)
         sleep(10)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click New Sub Network button")
-        self.auto_actions.click(self.get_router_allocation_new_subnetwork_add_button())
+        self.auto_actions.click_reference(self.get_router_allocation_new_subnetwork_add_button)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -431,7 +431,7 @@ class RouterTemplate(RouterTemplateWebElements):
         ip_address_space = basic_config['local_ip_address_space']
         gateway_option = basic_config['gateway_options']
 
-        #self.auto_actions.click(self.get_save_subnetwork_button())
+        #self.auto_actions.click_reference(self.get_save_subnetwork_button)
         #sleep(5)
 
         self.utils.print_info(f"Enter Network Description For Allocation: {network_description}")
@@ -444,7 +444,7 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(3)
 
         self.utils.print_info("Click on Network Usage Type drop down")
-        self.auto_actions.click(self.get_new_subnetwork_network_type_drop_down())
+        self.auto_actions.click_reference(self.get_new_subnetwork_network_type_drop_down)
         sleep(3)
         key_options = self.get_new_subnetwork_network_type_drop_down_options()
         for opt in key_options:
@@ -459,10 +459,10 @@ class RouterTemplate(RouterTemplateWebElements):
         self.utils.print_info("Configuring Create Unique Subnetwork Radio Button Section")
         if create_unique_subnetwork.upper() == "ENABLE":
             if not self.get_create_unique_subnetwork_radio_button().is_selected():
-                self.auto_actions.click(self.get_create_unique_subnetwork_radio_button())
+                self.auto_actions.click_reference(self.get_create_unique_subnetwork_radio_button)
         else:
             if self.get_create_unique_subnetwork_radio_button().is_selected():
-                self.auto_actions.click(self.get_create_unique_subnetwork_radio_button())
+                self.auto_actions.click_reference(self.get_create_unique_subnetwork_radio_button)
 
         self.utils.print_info(f"Enter Local IP Address Space: {ip_address_space}")
         self.auto_actions.send_keys(self.get_local_ip_address_space_textfield(),
@@ -473,16 +473,16 @@ class RouterTemplate(RouterTemplateWebElements):
         if gateway_option.upper() == "FIRSTIP":
             self.utils.print_info("Configuring First IP as Default gateway")
             if not self.get_first_ip_as_gateway_radio_button().is_selected():
-                self.auto_actions.click(self.get_first_ip_as_gateway_radio_button())
+                self.auto_actions.click_reference(self.get_first_ip_as_gateway_radio_button)
         else:
             self.utils.print_info("Configuring Last IP as Default gateway")
-            self.auto_actions.click(self.get_last_ip_as_gateway_radio_button())
+            self.auto_actions.click_reference(self.get_last_ip_as_gateway_radio_button)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Saving Sub Network Configuration")
-        self.auto_actions.click(self.get_save_subnetwork_button())
+        self.auto_actions.click_reference(self.get_save_subnetwork_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -499,14 +499,14 @@ class RouterTemplate(RouterTemplateWebElements):
         :return: return True if Router Template Name found in the Row
         """
         self.utils.print_info("Click on default Router Template select button")
-        self.auto_actions.click(self.get_default_router_template_select_button())
+        self.auto_actions.click_reference(self.get_default_router_template_select_button)
         sleep(2)
 
         rsg_rows = self.get_default_router_template_dialog_rsg_rows()
         if not rsg_rows:
             self.utils.print_info(
                 "default Router Template: {} doesn't exist, Please create default".format(template_name))
-            self.auto_actions.click(self.get_default_router_template_dialog_cancel_button())
+            self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
             sleep(2)
             return False
 
@@ -531,16 +531,16 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.get_device_template_tab())
+        self.auto_actions.click_reference(self.get_device_template_tab)
         sleep(2)
 
         if self.select_router_template_row(template_name):
             self.utils.print_info("Click delete Button to delete Router Template Name")
-            self.auto_actions.click(self.get_router_template_delete_button())
+            self.auto_actions.click_reference(self.get_router_template_delete_button)
             sleep(2)
 
             self.utils.print_info("Click Confirm Delete Button")
-            self.auto_actions.click(self.get_router_template_delete_confirm_button())
+            self.auto_actions.click_reference(self.get_router_template_delete_confirm_button)
             sleep(3)
 
             tool_tp_text = tool_tip.tool_tip_text
@@ -548,7 +548,7 @@ class RouterTemplate(RouterTemplateWebElements):
             sleep(2)
 
             self.utils.print_info("Click Cancel Button")
-            self.auto_actions.click(self.get_default_router_template_dialog_cancel_button())
+            self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
             sleep(2)
             for value in tool_tp_text:
                 if "The item was deleted successfully" in value:
@@ -565,7 +565,7 @@ class RouterTemplate(RouterTemplateWebElements):
                 self.common_validation.validate(1, 1, **kwargs)
                 return True
         else:
-            self.auto_actions.click(self.get_default_router_template_dialog_cancel_button())
+            self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
             kwargs['pass_msg'] = f"default Router Template :{template_name} doesn't exist in the list"
             self.common_validation.validate(1, 1, **kwargs)
             return True

@@ -84,7 +84,7 @@ class Landing(object):
 
         :return: 1 if widget is displayed
         """
-        if self.auto_actions.click(self.landing_web_elem.get_extreme_guest_map_location_marker()):
+        if self.auto_actions.click_reference(self.landing_web_elem.get_extreme_guest_map_location_marker):
             print("Online Users Count: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_users_count().text)
             print("Total Users Count: ", self.landing_web_elem.get_extreme_guest_map_location_marker_total_users_count().text)
             print("Total Users Today: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_today('Total Users').text)

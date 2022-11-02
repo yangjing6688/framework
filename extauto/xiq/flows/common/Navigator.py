@@ -25,7 +25,9 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful to Monitor Tab else return -1
         """
         self.utils.print_info("Selecting Manage Tab...")
-        if self.auto_actions.click_reference(self.get_manage_tab) == 1:
+        manage_tab = self.get_manage_tab()
+        if manage_tab:
+            self.auto_actions.click(manage_tab)
             sleep(2)
             if self.get_subtab_head_img_nav():
                 self.utils.print_info("Subtab nav is already shown")
@@ -34,6 +36,7 @@ class Navigator(NavigatorWebElements):
                 self.screen.save_screen_shot()
                 self.utils.print_info("Even though already click manage tab, but can NOT go to subtab nav, stop NOT go to next step")
                 return -1
+
         else:
             self.utils.print_info("Unable to navigate to Manage tab")
             self.screen.save_screen_shot()
@@ -231,7 +234,7 @@ class Navigator(NavigatorWebElements):
             self.navigate_to_configure_tab()
             if self.get_subtab_head_img_nav():
                 self.utils.print_info("Selecting Network Policies Tab...")
-                self.auto_actions.click(self.get_network_policies_sub_tab())
+                self.auto_actions.click_reference(self.get_network_policies_sub_tab)
                 sleep(2)
                 network_policy_tab_display = True
             else:
@@ -792,7 +795,7 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Navigation Successful
         """
-        if not self.get_common_object_basic_tab().is_selected():
+        if not self.get_subtab_common_object_basic():
             self.auto_actions.click_reference(self.get_common_object_basic_tab)
             sleep(2)
             return 1
@@ -829,7 +832,7 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on common object Basic tab")
         self.navigate_to_common_object_basic_tab()
         self.utils.print_info("Click on Vlan tab...")
-        self.auto_actions.click(self.get_common_object_basic_supplemental_cli())
+        self.auto_actions.click_reference(self.get_common_object_basic_supplemental_cli)
         sleep(5)
         return 1
 
@@ -935,8 +938,10 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_configure_network_policies()
         self.utils.print_info("click on list view button")
+        self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.get_network_policy_list_view)
         self.utils.print_info("Click on network policy full size page")
+        self.screen.save_screen_shot()
         if self.get_network_policy_page_size():
             self.auto_actions.click_reference(self.get_network_policy_page_size)
             sleep(2)
@@ -1274,7 +1279,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click(common_object_element)
         sleep(5)
         self.utils.print_info("Clicking on policy")
-        self.auto_actions.click(self.weh.get_element(self.common_objects_policy))
+        self.navigate_to_common_object_policy_tab()
 
         sleep(5)
         self.utils.print_info("Clicking on user profile")
@@ -3193,6 +3198,7 @@ class Navigator(NavigatorWebElements):
         """
         try_again = True
         counter = 0
+
         while try_again:
             try:
                 page_size_element = self.get_page_size()

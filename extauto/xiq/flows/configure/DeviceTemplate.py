@@ -39,7 +39,7 @@ class DeviceTemplate(object):
         :return: True if AP Template Found on Grid else False
         """
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
         ap_template_rows_elements = self.device_template_web_elements.get_ap_template_rows()
@@ -75,7 +75,7 @@ class DeviceTemplate(object):
             return 1
 
         self.utils.print_info("Click on AP Template add button")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_add_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -112,15 +112,16 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Click on the save template button")
         self.auto_actions.scroll_up()
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_save_button)
         sleep(2)
 
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-        observed_temp_message = tool_tp_text[-1]
-        self.utils.print_info("Tooltip Message Displayed on UI is : ", observed_temp_message)
+        self.utils.print_info("Checking the Save profile message...")
+        observed_profile_message = self.device_template_web_elements.get_ap_template_save_tool_tip().text
+        self.utils.print_info("Observed Message: ", observed_profile_message)
+        self.screen.save_screen_shot()
+        sleep(2)
 
-        if "AP template was saved successfully" in observed_temp_message:
+        if "AP template was saved successfully" in observed_profile_message:
             return 1
         else:
             return -1
@@ -139,26 +140,26 @@ class DeviceTemplate(object):
         self.network_policy.navigate_to_np_edit_tab(policy_name)
 
         self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
 
         self.utils.print_info("Click on AP Template")
-        self.auto_actions.click(self.device_template_web_elements.get_select_ap_template())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_template)
 
         self.utils.print_info("Click on WiFi2 Tab on AP Template page")
-        self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi2_tab())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_device_template_ap_template_wifi2_tab)
 
         self.auto_actions.scroll_down()
 
         self.utils.print_info("Disable Radio Status on WiFi2 Interface")
         if self.device_template_web_elements.get_wifi2_radio_status_button().is_selected():
-            self.auto_actions.click(self.device_template_web_elements.get_wifi2_radio_status_button())
+            self.auto_actions.click_reference(self.device_template_web_elements.get_wifi2_radio_status_button)
 
             self.screen.save_screen_shot()
 
         self.auto_actions.scroll_up()
 
         self.utils.print_info("Click on the save template button")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_save_button)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.screen.save_screen_shot()
@@ -186,47 +187,47 @@ class DeviceTemplate(object):
         radio_profile_wifi0 = wifi0_profile.get('radio_profile', 'radio_ng_11ax-2g')
 
         self.utils.print_info("Click on WiFi0 Tab on AP Template page")
-        self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi0_tab())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_device_template_ap_template_wifi0_tab)
         sleep(3)
 
         CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
         self.utils.print_info(f"select Radio Profile:{radio_profile_wifi0}")
         sleep(2)
-        self.auto_actions.click(self.device_template_web_elements.get_wifi0_radio_profile_drop_down())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_wifi0_radio_profile_drop_down)
         self.auto_actions.select_drop_down_options(self.device_template_web_elements.
                                                    get_wifi0_radio_profile_drop_down_opts(), radio_profile_wifi0)
         if client_access_status_wifi0.upper() == "ENABLE":
             self.utils.print_info("Enable Client Access Checkbox on WiFi0 Interface")
             if not self.device_template_web_elements.get_client_access_checkbox_wifi0().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi0())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_client_access_checkbox_wifi0)
                 sleep(5)
         else:
             self.utils.print_info("Disable Client Access check box on WiFi0 Interface")
             if self.device_template_web_elements.get_client_access_checkbox_wifi0().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi0())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_client_access_checkbox_wifi0)
                 sleep(5)
 
         if backhaul_mesh_status_wifi0.upper() == "ENABLE":
             self.utils.print_info("Enable Backhaul Mesh Link Checkbox on WiFi0 Interface")
             if not self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0)
                 sleep(5)
         else:
             self.utils.print_info("Disable Backhaul Mesh Link Checkbox on WiFi0 Interface")
             if self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi0)
                 sleep(5)
 
         if self.device_template_web_elements.get_sensor_checkbox_wifi0().is_displayed():
             if sensor_status_wifi0.upper() == "ENABLE":
                 self.utils.print_info("Enable Sensor Checkbox on WiFi0 Interface")
                 if not self.device_template_web_elements.get_sensor_checkbox_wifi0().is_selected():
-                    self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi0())
+                    self.auto_actions.click_reference(self.device_template_web_elements.get_sensor_checkbox_wifi0)
                     sleep(5)
             else:
                 self.utils.print_info("Disable Sensor Checkbox on WiFi0 Interface")
                 if self.device_template_web_elements.get_sensor_checkbox_wifi0().is_selected():
-                    self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi0())
+                    self.auto_actions.click_reference(self.device_template_web_elements.get_sensor_checkbox_wifi0)
                     sleep(5)
 
             self.screen.save_screen_shot()
@@ -235,7 +236,7 @@ class DeviceTemplate(object):
         if self.device_template_web_elements.get_wifi0_sdr_checkbox():
             self.utils.print_info("Disable SDR Checkbox")
             if self.device_template_web_elements.get_wifi0_sdr_checkbox().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_wifi0_sdr_checkbox())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_wifi0_sdr_checkbox)
                 sleep(5)
 
         CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_UP)
@@ -256,48 +257,48 @@ class DeviceTemplate(object):
         sensor_status_wifi1 = wifi1_profile.get('sensor', 'Enable')
         radio_profile_wifi1 = wifi1_profile.get('radio_profile', 'radio_ng_11ax-5g')
         self.utils.print_info("Click on WiFi1 Tab on AP Template page")
-        self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi1_tab())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_device_template_ap_template_wifi1_tab)
         sleep(5)
 
         CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
 
         self.utils.print_info(f"select Radio Profile:{radio_profile_wifi1}")
         sleep(2)
-        self.auto_actions.click(self.device_template_web_elements.get_wifi1_radio_profile_drop_down())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_wifi1_radio_profile_drop_down)
         self.auto_actions.select_drop_down_options(self.device_template_web_elements.
                                                    get_wifi1_radio_profile_drop_down_opts(), radio_profile_wifi1)
         if client_access_status_wifi1.upper() == "ENABLE":
             self.utils.print_info("Enable Client Access Checkbox on WiFi1 Interface")
             if not self.device_template_web_elements.get_client_access_checkbox_wifi1().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi1())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_client_access_checkbox_wifi1)
                 sleep(5)
         else:
             self.utils.print_info("Disable Client Access check box on WiFi1 Interface")
             if self.device_template_web_elements.get_client_access_checkbox_wifi1().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi1())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_client_access_checkbox_wifi1)
                 sleep(5)
 
         if backhaul_mesh_status_wifi1.upper() == "ENABLE":
             self.utils.print_info("Enable Backhaul Mesh Link Checkbox on WiFi1 Interface")
             if not self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1)
                 sleep(5)
         else:
             self.utils.print_info("Disable Backhaul Mesh Link Checkbox on WiFi1 Interface")
             if self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi1)
                 sleep(5)
 
         if self.device_template_web_elements.get_sensor_checkbox_wifi1().is_displayed():
             if sensor_status_wifi1.upper() == "ENABLE":
                 self.utils.print_info("Enable Sensor Checkbox on WiFi1 Interface")
                 if not self.device_template_web_elements.get_sensor_checkbox_wifi1().is_selected():
-                    self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi1())
+                    self.auto_actions.click_reference(self.device_template_web_elements.get_sensor_checkbox_wifi1)
                     sleep(5)
             else:
                 self.utils.print_info("Disable Sensor Checkbox on WiFi1 Interface")
                 if self.device_template_web_elements.get_sensor_checkbox_wifi1().is_selected():
-                    self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi1())
+                    self.auto_actions.click_reference(self.device_template_web_elements.get_sensor_checkbox_wifi1)
                     sleep(5)
 
             self.screen.save_screen_shot()
@@ -320,7 +321,7 @@ class DeviceTemplate(object):
         sensor_status_wifi2 = wifi2_profile.get('sensor', 'Enable')
         radio_status_wifi2 = wifi2_profile.get('radio_status', 'Enable')
         self.utils.print_info("Click on WiFi2 Tab on AP Template page")
-        self.auto_actions.click(self.device_template_web_elements.get_device_template_ap_template_wifi2_tab())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_device_template_ap_template_wifi2_tab)
         sleep(5)
 
         CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
@@ -329,7 +330,7 @@ class DeviceTemplate(object):
         if radio_status_wifi2.upper() == "ENABLE":
             self.utils.print_info("Enable Radio Status on WiFi2 Interface")
             if not self.device_template_web_elements.get_wifi2_radio_status_button().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_wifi2_radio_status_button())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_wifi2_radio_status_button)
                 sleep(5)
 
                 self.screen.save_screen_shot()
@@ -338,7 +339,7 @@ class DeviceTemplate(object):
         else:
             self.utils.print_info("Disable Radio Status on WiFi2 Interface")
             if self.device_template_web_elements.get_wifi2_radio_status_button().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_wifi2_radio_status_button())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_wifi2_radio_status_button)
                 sleep(5)
 
                 self.screen.save_screen_shot()
@@ -346,33 +347,33 @@ class DeviceTemplate(object):
         if client_access_status_wifi2.upper() == "ENABLE":
             self.utils.print_info("Enable Client Access Checkbox on WiFi2 Interface")
             if not self.device_template_web_elements.get_client_access_checkbox_wifi2().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi2())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_client_access_checkbox_wifi2)
                 sleep(5)
         else:
             self.utils.print_info("Disable Client Access check box on WiFi2 Interface")
             if self.device_template_web_elements.get_client_access_checkbox_wifi2().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_client_access_checkbox_wifi2())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_client_access_checkbox_wifi2)
                 sleep(5)
         if backhaul_mesh_status_wifi2.upper() == "ENABLE":
             self.utils.print_info("Enable Backhaul Mesh Link Checkbox on WiFi2 Interface")
             if not self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2)
                 sleep(5)
         else:
             self.utils.print_info("Disable Backhaul Mesh Link Checkbox on WiFi2 Interface")
             if self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_backhaul_mesh_link_checkbox_wifi2)
                 sleep(5)
 
         if sensor_status_wifi2.upper() == "ENABLE":
             self.utils.print_info("Enable Sensor Checkbox on WiFi2 Interface")
             if not self.device_template_web_elements.get_sensor_checkbox_wifi2().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi2())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_sensor_checkbox_wifi2)
                 sleep(5)
         else:
             self.utils.print_info("Disable Sensor Checkbox on WiFi2 Interface")
             if self.device_template_web_elements.get_sensor_checkbox_wifi2().is_selected():
-                self.auto_actions.click(self.device_template_web_elements.get_sensor_checkbox_wifi2())
+                self.auto_actions.click_reference(self.device_template_web_elements.get_sensor_checkbox_wifi2)
                 sleep(5)
 
         """ 
@@ -412,12 +413,12 @@ class DeviceTemplate(object):
         :return: 1 if AP Template Found on Grid else -1
         """
         self.utils.print_info("Click on Device Template Select button")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_select_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_select_button)
         sleep(5)
 
         if self.device_template_web_elements.get_select_ap_templates_view_all_pages():
             self.utils.print_info("Click Full pages button")
-            self.auto_actions.click(self.device_template_web_elements.get_select_ap_templates_view_all_pages())
+            self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_templates_view_all_pages)
             sleep(5)
 
         self.auto_actions.scroll_up()
@@ -438,7 +439,7 @@ class DeviceTemplate(object):
             self.utils.print_info(f'Device Template with name {ap_template} not found')
             return -1
 
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_dialog_select_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_dialog_select_button)
 
         return 1
 
@@ -470,7 +471,7 @@ class DeviceTemplate(object):
         """
         if self.device_template_web_elements.get_select_ap_templates_rules_view_all_pages():
             self.utils.print_info("Click Full pages button")
-            self.auto_actions.click(self.device_template_web_elements.get_select_ap_templates_rules_view_all_pages())
+            self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_templates_rules_view_all_pages)
 
         rules = self.device_template_web_elements.get_ap_template_rule_list()
         for el in rules:
@@ -552,12 +553,12 @@ class DeviceTemplate(object):
 
         if self.device_template_web_elements.get_select_rule_in_templates_view_all_pages():
             self.utils.print_info("Click Full pages button")
-            self.auto_actions.click(self.device_template_web_elements.get_select_rule_in_templates_view_all_pages())
+            self.auto_actions.click_reference(self.device_template_web_elements.get_select_rule_in_templates_view_all_pages)
 
         if not self._select_rule_to_ap_template(classification_rule):
             self.utils.print_info(f"Rule {classification_rule} is not available in the list")
             return -3
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_rule_link_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_rule_link_button)
         return 1
 
     def remove_ap_template_from_network_policy(self, ap_template_name, policy_name):
@@ -592,7 +593,7 @@ class DeviceTemplate(object):
                 break
 
         self.utils.print_info(f"CLicking Delete Button for AP Template {ap_template_name}")
-        self.auto_actions.click(self.device_template_web_elements.get_delete_ap_template_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_delete_ap_template_button)
 
         sleep(5)
         self.screen.save_screen_shot()
@@ -606,7 +607,7 @@ class DeviceTemplate(object):
 
         """        
         self.utils.print_info("Click on AP Template Add button")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_add_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -641,7 +642,7 @@ class DeviceTemplate(object):
             self.config_ap_template_wifi2(**wifi2_config)
 
         self.utils.print_info("Click on the save template button")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_save_button)
         sleep(3)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -681,7 +682,7 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Click on network policy add button")
-        self.auto_actions.click(self.device_template_web_elements.get_network_policy_add_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
         sleep(2)
 
         self.utils.print_info("Enter the policy name")
@@ -692,15 +693,15 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Click on network policy save button")
-        self.auto_actions.click(self.device_template_web_elements.get_network_policy_save_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_save_button)
         sleep(3)
 
         self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
         sleep(5)
 
         self.utils.print_info("Click on AP Template add button")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_add_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -725,11 +726,11 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking Advanced Settings ... ")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_advanced_settings())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_advanced_settings)
         sleep(2)
 
         self.utils.print_info("Click to enable Supplemental CLI ... ")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_enable_scli())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_enable_scli)
         sleep(2)
 
         self.utils.print_info("Entering Supplemental Cli Name")
@@ -745,7 +746,7 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Saving template ... ")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_save_template())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_save_template)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -784,7 +785,7 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Click on network policy add button")
-        self.auto_actions.click(self.device_template_web_elements.get_network_policy_add_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
         sleep(2)
 
         self.utils.print_info("Enter the policy name")
@@ -795,19 +796,19 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Click on network policy save button")
-        self.auto_actions.click(self.device_template_web_elements.get_network_policy_save_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_save_button)
         sleep(3)
 
         self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
         sleep(5)
 
         self.utils.print_info("Click on Switch Template tab")
-        self.auto_actions.click(self.device_template_web_elements.get_select_switch_template())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_switch_template)
         sleep(5)
 
         self.utils.print_info("Click on Switch Template add button")
-        self.auto_actions.click(self.device_template_web_elements.get_switch_template_add_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -832,11 +833,11 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Clicking Advanced Settings ... ")
-        self.auto_actions.click(self.device_template_web_elements.get_switch_template_advanced_settings())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_advanced_settings)
         sleep(2)
 
         self.utils.print_info("Click to enable Supplemental CLI ... ")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_enable_scli())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_enable_scli)
         sleep(2)
 
         self.utils.print_info("Entering Supplemental Cli Name")
@@ -852,7 +853,7 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Saving template ... ")
-        self.auto_actions.click(self.device_template_web_elements.get_switch_template_save_template())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_save_template)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -888,21 +889,21 @@ class DeviceTemplate(object):
         self.navigator.navigate_to_network_policies_tab()
 
         self.utils.print_info("Click on network policy add button")
-        self.auto_actions.click(self.device_template_web_elements.get_network_policy_add_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
 
         self.utils.print_info("Enter the policy name")
         self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
 
         self.utils.print_info("Click on network policy save button")
-        self.auto_actions.click(self.device_template_web_elements.get_network_policy_save_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_save_button)
 
         self.screen.save_screen_shot()
 
         self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click(self.device_template_web_elements.get_select_device_template())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
 
         self.utils.print_info("Click on AP Template add button")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_add_button())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_add_button)
 
         self.screen.save_screen_shot()
 
@@ -922,13 +923,13 @@ class DeviceTemplate(object):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Advanced Settings ... ")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_advanced_settings())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_advanced_settings)
 
         self.auto_actions.scroll_down()
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking on Country Code dropdown")
-        self.auto_actions.click(self.device_template_web_elements.get_ap_template_country_code_drop_down())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_country_code_drop_down)
 
         self.utils.print_info("Select the Country Code")
         countries = self.device_template_web_elements.get_ap_template_country_code_list()
@@ -944,7 +945,7 @@ class DeviceTemplate(object):
             self.screen.save_screen_shot()
 
         self.utils.print_info("Saving template ... ")
-        self.auto_actions.click(self.device_template_web_elements.get_switch_template_save_template())
+        self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_save_template)
 
         self.screen.save_screen_shot()
 
