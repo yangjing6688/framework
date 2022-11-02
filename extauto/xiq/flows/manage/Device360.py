@@ -10670,6 +10670,20 @@ class Device360(Device360WebElements):
             self.utils.print_info("Multi edit button not found")
             return -1
 
+    def multi_edit_add_port_usage(self):
+        '''
+        This keyword click on add button for port usage.
+        :return: 1 if succesfully ; else -1
+        '''
+        add_port_usage = self.get_add_port_type_port_usage_multi_edit()
+        if add_port_usage:
+            self.utils.print_info("Click add port usage")
+            self.auto_actions.click(add_port_usage)
+            return 1
+        else:
+            self.utils.print_info("add port usage button not found")
+            return -1
+
     def fill_port_details_multi_edit_fields(self, port_state=None, port_usage=None, description=None, **kwargs):
         '''
         This keyword fill in all fields when port settings are configured for multiple ports from multi edit tab
@@ -10727,9 +10741,12 @@ class Device360(Device360WebElements):
             checkbox = self.get_multi_edit_checkbox_port_type()
             sleep(5)
             if checkbox:
-                print("Click on checkbox")
-                AutoActions().click(checkbox)
-                sleep(1)
+                if checkbox.is_selected():
+                    print("The Port Usage is checked!")
+                else:
+                    print("Click on Port Usage checkbox")
+                    AutoActions().click(checkbox)
+                    sleep(1)
             else:
                 print("Unable to click the element")
 
@@ -10827,6 +10844,23 @@ class Device360(Device360WebElements):
                             else:
                                 self.utils.print_info("get_multi_edit_allowed_vlan cannot be completed ")
                                 return -1
+
+                    elif port_usage == 'Auto-sense Port':
+                        checkbox_vlan = self.get_multi_edit_checkbox_vlan()
+                        sleep(5)
+                        if checkbox_vlan:
+                            if checkbox_vlan.is_enabled():
+                                print("Click on checkbox")
+                                AutoActions().click(checkbox_vlan)
+                                sleep(1)
+                            else:
+                                print ("The vlan is disabled")
+                        else:
+                            print("Unable to click the element")
+
+                    # elif port_usage == 'Phone with a Data Port':
+
+
                 else:
                     self.utils.print_info("Can not select into drop down")
                     return -1

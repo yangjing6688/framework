@@ -2706,13 +2706,13 @@ class Device360WebElementDefs:
 
     device_d360_save_port_configuration = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"]',
             'wait_for': 5
         }
 
     device_d360_cancel_port_configuration = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
+            'XPATH': '//*[@data-automation-tag="automation-port-configuration-cancel-button"]',
             'wait_for': 5
         }
         
@@ -3665,7 +3665,7 @@ class Device360WebElementDefs:
 
     d360_save_multi_edit = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-details-multi-edit-save-btn"]',
             'wait_for': 5
         }
 
@@ -3683,5 +3683,16 @@ class Device360WebElementDefs:
 
     vlan_error_message_close_multi_edit = \
         {
-            'XPATH': '//div[contains(@widgetid,"MessageBase_0")]//div/i[@data-dojo-attach-point="xEl"]'
+            'XPATH': '//div[@class="ui-tipbox-close"]//div/i[@data-dojo-attach-point="xEl"]'
+        }
+
+    d360_save_port_configuration_message_multi_edit = \
+        {
+            'XPATH': '//div[contains(@widgetid,"ah/util/dojocover/AHDialog_0")]//div/i[@data-dojo-attach-point="xEl"]'
+        }
+
+    add_port_type_port_usage_multi_edit = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="addNewVlan"]',
+            'wait_for': 5
         }

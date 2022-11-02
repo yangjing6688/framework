@@ -2127,8 +2127,14 @@ class Device360WebElements(Device360WebElementDefs):
     def get_vlan_error_message_close_multi_edit(self):
         return self.weh.get_element(self.vlan_error_message_close_multi_edit)
 
+    def get_d360_save_port_configuration_message_multi_edit(self):
+        return self.weh.get_element(self.d360_save_port_configuration_message_multi_edit)
+
     def get_d360_save_multi_edit(self):
         return self.weh.get_element(self.d360_save_multi_edit)
 
     def get_d360_cancel_multi_edit(self):
         return self.weh.get_element(self.d360_close_multi_edit)
+
+    def get_add_port_type_port_usage_multi_edit(self):
+        return self.weh.get_element(self.add_port_type_port_usage_multi_edit)
