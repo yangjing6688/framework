@@ -3,6 +3,7 @@ from extauto.common.GmailHandler import GmailHandler
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Cli import Cli
 from time import sleep
+from extauto.common.CommonValidation import CommonValidation
 
 
 class MuGuestPortal(MuGuestPortalWebElements):
@@ -11,8 +12,9 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.cli = Cli()
         self.auto_actions = AutoActions()
         self.gmail = GmailHandler()
+        self.common_validation = CommonValidation()
 
-    def validate_eguest_social_login_with_facebook(self, username, password):
+    def validate_eguest_social_login_with_facebook(self, username, password, **kwargs):
         """
         - Register network via facebook login CWP
         - Validate Captive Web Portal social login with facebook credentials
@@ -49,9 +51,11 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_social_wifi_all_login_success_page().is_displayed():
             return 1
         else:
+            kwargs['fail_msg'] = "Could not connect with internet with social login type facebook"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def validate_eguest_social_login_with_linkedin(self, username, password):
+    def validate_eguest_social_login_with_linkedin(self, username, password, **kwargs):
         """
         - Register network via Linkedin login CWP
         - Validate Captive Web Portal social login with Linkedin credentials
@@ -92,9 +96,11 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_social_wifi_all_login_success_page().is_displayed():
             return 1
         else:
+            kwargs['fail_msg'] = "Could not connect with internet with social login type Linkedin"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def validate_eguest_social_login_with_google(self, username, password):
+    def validate_eguest_social_login_with_google(self, username, password, **kwargs):
         """
         - Register network via google login CWP
         - Validate Captive Web Portal social login with facebook credentials
@@ -134,9 +140,11 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_social_wifi_all_login_success_page().is_displayed():
             return 1
         else:
+            kwargs['fail_msg'] = "Could not connect with internet via Google"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def validate_eguest_user_login_with_voucher_credentials(self, credentials):
+    def validate_eguest_user_login_with_voucher_credentials(self, credentials, **kwargs):
         """
         - Register network via google login CWP
         - Validate Captive Web Portal social login with facebook credentials
@@ -172,9 +180,11 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_social_wifi_all_login_success_page().is_displayed():
             return 1
         else:
+            kwargs['fail_msg'] = "Could not connect with internet via Google"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def validate_eguest_default_template_with_no_mapping(self):
+    def validate_eguest_default_template_with_no_mapping(self, **kwargs):
         """
         - Register network via google login CWP
         - Validate Captive Web Portal social login with facebook credentials
@@ -189,9 +199,11 @@ class MuGuestPortal(MuGuestPortalWebElements):
             self.get_gp_page_screen_shot()
             return 1
         else:
+            kwargs['fail_msg'] = "Default template is displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def register_sponsored_guest_user(self, visitor_name, visitor_email, visitor_mobile, sponsor_name, sponsor_email, access_purpose):
+    def register_sponsored_guest_user(self, visitor_name, visitor_email, visitor_mobile, sponsor_name, sponsor_email, access_purpose, **kwargs):
         """
         - Register network via Sponsor Action CWP
         - Register User with Captive Web Portal Sponsor Form
@@ -248,9 +260,12 @@ class MuGuestPortal(MuGuestPortalWebElements):
             return 1
         else:
             self.utils.print_info(self.get_sponsor_guest_access_register_guest_registration_status_text())
+
+        kwargs['fail_msg'] = "Registration was not Successful!"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def validate_sponsored_guest_access(self, email, password, onboarding_action, login_email = 'null'):
+    def validate_sponsored_guest_access(self, email, password, onboarding_action, login_email = 'null', **kwargs):
         """
         - Validate the Sponsor Action on the Guest Access
         - Validate User with Captive Web Portal Sponsor Form Login
@@ -297,9 +312,11 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_sponsor_guest_access_login_success_page():
             return 1
         else:
+            kwargs['fail_msg'] = "Registration was not Successful!"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def check_if_sponsor_mobile_is_displayed(self):
+    def check_if_sponsor_mobile_is_displayed(self, **kwargs):
         """
         - Check if the sponsor mobile field is present in Sponsor Form
         - Keyword Usage:
@@ -312,6 +329,8 @@ class MuGuestPortal(MuGuestPortalWebElements):
         sleep(2)
 
         if self.get_sponsor_guest_access_register_guest_sponsor_mobile():
+            kwargs['fail_msg'] = "Sponsor field is not present"
+            self.common_validation.failed(**kwargs)
             return -1
         return 1
 
@@ -326,7 +345,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.utils.print_info(success_text.text)
         return success_text.text
 
-    def register_device_for_guest_access(self, visitor_name, visitor_email):
+    def register_device_for_guest_access(self, visitor_name, visitor_email, **kwargs):
         """
         - Register Device via Device registration CWP
         - Register Device with Captive Web Portal Device Registration Form
@@ -369,9 +388,12 @@ class MuGuestPortal(MuGuestPortalWebElements):
             return 1
         else:
             self.utils.print_info(self.get_sponsor_guest_access_register_guest_registration_status_text())
+
+        kwargs['fail_msg'] = "Registration was not Successful!"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def register_device_with_email_for_guest_access(self, visitor_email):
+    def register_device_with_email_for_guest_access(self, visitor_email, **kwargs):
         """
         - Register Device with email to receive offers
         - Register Device with Captive Web Portal Email Access Form
@@ -400,4 +422,6 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_sponsor_guest_access_login_success_page():
             return 1
         else:
+            kwargs['fail_msg'] = "Registration was not Successful!"
+            self.common_validation.failed(**kwargs)
             return -1

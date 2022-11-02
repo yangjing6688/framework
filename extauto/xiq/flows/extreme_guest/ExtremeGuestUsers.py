@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestUsersWebElemets import ExtremeGuestUsersWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class ExtremeGuestUsers(object):
@@ -18,8 +19,9 @@ class ExtremeGuestUsers(object):
         self.auto_actions = AutoActions()
         self.user_web_elem = ExtremeGuestUsersWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
-    def select_location_for_create_bulk_vouchers_page(self, sel_loc):
+    def select_location_for_create_bulk_vouchers_page(self, sel_loc, **kwargs):
         """
         - This keyword selects a location in the Eguest Users --> Create Bulk users Vouchers Page
         - It is assumed that location is already created
@@ -106,12 +108,16 @@ class ExtremeGuestUsers(object):
             except Exception as e:
                 self.utils.print_info(e)
                 self.utils.print_info("Unable to select location")
+                kwargs['fail_msg'] = "Unable to select location"
+                self.common_validation.failed(**kwargs)
         else:
             self.utils.print_info("Cannot select location - location not specified in Create Bulk Users Page")
+            kwargs['fail_msg'] = "Cannot select location - location not specified in Create Bulk Users Page"
+            self.common_validation.failed(**kwargs)
 
         return ret_val
 
-    def create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
+    def create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False, **kwargs):
         """
         - This Keyword will create Bulk Vouchers in Eguest users Page
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
@@ -129,9 +135,12 @@ class ExtremeGuestUsers(object):
         self.ext_guest.go_to_configure_users_page()
         if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
             return 1
+
+        kwargs['fail_msg'] = "Unable to create Bulk Vouchers in Eguest users Page"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def create_guest_management_role_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
+    def create_guest_management_role_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False, **kwargs):
         """
         - This Keyword will create Bulk Vouchers in Guest Mangement Users Page
         - Flow : Guest Management Users --> Add user--> Create Bulk users Vouchers
@@ -149,6 +158,9 @@ class ExtremeGuestUsers(object):
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
             return 1
+
+        kwargs['fail_msg'] = "Unable to create Bulk Vouchers in Eguest users Page"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):

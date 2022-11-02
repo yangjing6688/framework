@@ -6,6 +6,7 @@ from extauto.common.Cli import Cli
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class ExtremeGuest(object):
@@ -18,8 +19,9 @@ class ExtremeGuest(object):
         self.cli = Cli()
         self.auto_actions = AutoActions()
         self.guest_web_elem = ExtremeGuestWebElements()
+        self.common_validation = CommonValidation()
 
-    def go_to_extreme_guest_subscribe_page(self):
+    def go_to_extreme_guest_subscribe_page(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Subscription Page
         - Flow: Extreme Guest--> Subscribe--> Page
@@ -45,11 +47,13 @@ class ExtremeGuest(object):
             sleep(2)
         else:
             self.utils.print_info("User Already Subscribed Extreme Guest Page")
+            kwargs['fail_msg'] = "User Already Subscribed Extreme Guest Page"
+            self.common_validation.failed(**kwargs)
             return 0
 
         return 1
 
-    def go_to_extreme_guest_landing_page(self):
+    def go_to_extreme_guest_landing_page(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Window
         - Flow: XIQ--> Extreme Guest
@@ -79,6 +83,8 @@ class ExtremeGuest(object):
                 self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_checkbox)
             else:
                 self.utils.print_info("Add SSID before continuing")
+                kwargs['fail_msg'] = "Add SSID before continuing"
+                self.common_validation.failed(**kwargs)
                 return 0
 
             self.utils.print_info("Click Extreme Guest Subscribe Apply button")
@@ -205,7 +211,7 @@ class ExtremeGuest(object):
 
         return 1
 
-    def check_help_information(self):
+    def check_help_information(self, **kwargs):
         """
         -This keyword Will check if help information is available to create open SSID
         - Flow: Extreme Guest--> Subscribe--> Page
@@ -218,9 +224,12 @@ class ExtremeGuest(object):
         if self.guest_web_elem.get_extreme_guest_subscription_page_help_information().is_displayed():
             self.utils.print_info("Help information is displayed")
             return 1
+
+        kwargs['fail_msg'] = "Help information is not displayed"
+        self.common_validation.failed(**kwargs)
         return 0
 
-    def _get_extreme_guest_subscription_page_open_ssid_row(self, search_string):
+    def _get_extreme_guest_subscription_page_open_ssid_row(self, search_string, **kwargs):
         """
         Getting the row in Open SSID is same for all the objects
         :param search_string:
@@ -236,6 +245,8 @@ class ExtremeGuest(object):
                         return row
 
         self.utils.print_info(f"common object row {search_string} not present")
+        kwargs['fail_msg'] = f"common object row {search_string} not present"
+        self.common_validation.failed(**kwargs)
         return False
 
     def _search_extreme_guest_subscription_page_open_ssid(self, search_string):
@@ -249,7 +260,7 @@ class ExtremeGuest(object):
             self.utils.print_info(f"{search_string} object present in grid row")
             return 1
 
-    def _select_extreme_guest_subscription_page_open_ssid_row(self, search_string):
+    def _select_extreme_guest_subscription_page_open_ssid_row(self, search_string, **kwargs):
         """
         Select the passed search string object in grid rows
         :param search_string:
@@ -261,9 +272,12 @@ class ExtremeGuest(object):
                 self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_grid_row_cells(row, 'dgrid-selector'))
             sleep(2)
             return 1
+
+        kwargs['fail_msg'] = "Row is not present"
+        self.common_validation.failed(**kwargs)
         return 0
 
-    def apply_selected_open_ssid(self, search_string):
+    def apply_selected_open_ssid(self, search_string, **kwargs):
         """
         -This keyword Will select and apply an open SSID
         - Flow: Flow: Extreme Guest--> Subscribe--> Page
@@ -279,6 +293,9 @@ class ExtremeGuest(object):
             self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button)
             sleep(3)
             return 1
+
+        kwargs['fail_msg'] = "Row is not present"
+        self.common_validation.failed(**kwargs)
         return 0
 
     def check_created_ssid_table(self, ssid_name=None):
@@ -374,7 +391,7 @@ class ExtremeGuest(object):
 
         return 1
     
-    def check_guest_subscription(self):
+    def check_guest_subscription(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Subscription Page
         - Flow: Extreme Guest--> Subscribe--> Page
@@ -397,4 +414,6 @@ class ExtremeGuest(object):
             return 1
         else:
             self.utils.print_info("User Already Subscribed Extreme Guest Page")
+            kwargs['fail_msg'] = "User Already Subscribed Extreme Guest Page"
+            self.common_validation.failed(**kwargs)
             return -1
