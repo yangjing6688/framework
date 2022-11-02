@@ -3683,7 +3683,7 @@ class Device360WebElementDefs:
 
     vlan_error_message_close_multi_edit = \
         {
-            'XPATH': '//div[@class="ui-tipbox-close"]//div/i[@data-dojo-attach-point="xEl"]'
+            'XPATH': '//div[@class="ui-tipbox ui-tipbox-error"]//i[@class="ui-tipbox-close"]'
         }
 
     d360_save_port_configuration_message_multi_edit = \
