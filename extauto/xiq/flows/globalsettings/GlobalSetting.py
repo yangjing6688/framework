@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
@@ -21,6 +22,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.navigate = Navigator()
         self.builtin = BuiltIn()
         self.devices_web_elements = DevicesWebElements()
+        self.common_validation = CommonValidation()
 
     def get_authentication_logs_row(self, search_string):
         """
@@ -1000,14 +1002,14 @@ class GlobalSetting(GlobalSettingWebElements):
         return 1
 
     def check_audit_log(self, date_start, description, rows_number='20'):
-        '''
+        """
         This function checks if a log is present into audit log
 
         :param date_start: Starting date for search
         :param description: Expected log description
         :param rows_number: number of logs displayed into table
         :return: 1 if the log was found ; else -1
-        '''
+        """
 
         user_button = self.devices_web_elements.get_user_button()
         if user_button:
@@ -1146,13 +1148,13 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("The log was not found . return -1")
         return -1
 
-    def enable_copilot_feature_for_this_viq(self):
+    def enable_copilot_feature_for_this_viq(self, **kwargs):
         """
         - Enabling CoPilot Feature in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
         - Keyword Usage
          - ``Enable CoPilot feature for this VIQ``
-        :return: 1 after successfully enabling CoPilot feature
+        :return: 1 after successfully enabling CoPilot feature, else -1
         """
 
         self.navigate.navigate_to_viq_management_page()
@@ -1163,8 +1165,17 @@ class GlobalSetting(GlobalSettingWebElements):
         if not self.get_enable_copilot_feature_option_status().is_selected():
             self.utils.print_info("Enabling CoPilot feature..")
             self.auto_actions.click_reference(self.get_enable_copilot_feature_option_status)
-            sleep(1)
+            sleep(2)
             self.screen.save_screen_shot()
+            if self.devices_web_elements.get_ui_banner_warning_message():
+                banner_warning_text = self.devices_web_elements.get_ui_banner_warning_message().text
+                if banner_warning_text:
+                    self.utils.print_info(f"Warning Message: {banner_warning_text}")
+                    self.auto_actions.click_reference(self.devices_web_elements.get_ui_banner_warning_close_button)
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"{banner_warning_text}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
         else:
             self.utils.print_info("Enable CoPilot feature for this VIQ button already enabled...")
             sleep(2)
@@ -1189,7 +1200,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if self.get_enable_copilot_feature_option_status().is_selected():
             self.utils.print_info("Disabling CoPilot feature..")
             self.auto_actions.click_reference(self.get_enable_copilot_feature_option_status)
-            sleep(1)
+            sleep(2)
             self.screen.save_screen_shot()
         else:
             self.utils.print_info("Enable CoPilot feature for this VIQ button already disabled...")

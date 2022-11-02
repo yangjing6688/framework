@@ -207,22 +207,19 @@ class CommonObjects(object):
         page_counter = 0
         self.utils.print_info(f"There are {last_page} page(s) to check")
         while page_counter < last_page:
+            self.utils.print_info(f"Checking SSID's in the Page {page_counter+1}")
             select_ssid_flag = None
             for ssid in ssids:
                 if self._search_common_object(ssid):
                     self._select_common_object_row(ssid)
                     select_ssid_flag = True
-                    break
+                    self._delete_common_objects()
                 else:
-                    self.utils.print_info(f"SSID {ssid} doesn't exist in the list")
-
-            if select_ssid_flag:
-                # we found what we were looking for, so exit
-                break
+                    self.utils.print_info(f"SSID {ssid} doesn't exist in the page {page_counter+1}")
 
             # goto the next page
             page_counter += 1
-            self.utils.print_info(f"Move to next page {page_counter}")
+            self.utils.print_info(f"Move to next page {page_counter+1}")
             self.auto_actions.click_reference(self.cobj_web_elements.get_next_page_element)
             sleep(5)
 
@@ -230,7 +227,6 @@ class CommonObjects(object):
             kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"
             self.common_validation.passed(**kwargs)
             return 1
-        self._delete_common_objects()
 
         sleep(2)
         tool_tp_text = tool_tip.tool_tip_text
@@ -1413,6 +1409,467 @@ class CommonObjects(object):
         else:
             return -1
 
+    def get_ap_template_wifi(self, ap_template_name, **wifi_interface_config):
+        """"
+        - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
+        - Get AP Template wiifi in Common Object
+        - Keyword Usage
+        - ``Get AP Template Wifi     ${AP_MODEL}    &{AP_TEMPLATE_CONFIG}``
+
+        :param ap_template_name: AP default template name like AP_4000-default-template, AP_305-default-templateA etc
+        :param wifi_interface_config: (Get Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor etc
+        :return: wifi_interface_config if Get AP Template Wifi Successfully else -1
+        """
+        wifi0_config = wifi_interface_config.get('wifi0_configuration', 'None')
+        wifi1_config = wifi_interface_config.get('wifi1_configuration', 'None')
+        wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
+
+        try:
+            self.utils.print_info("Navigate to Policy--> AP Templates")
+            self.navigator.navigate_to_policy_ap_template()
+            if self.cobj_web_elements.get_common_object_policy_ap_templates_view_all_pages():
+                self.utils.print_info("Click Full pages button")
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_ap_templates_view_all_pages())
+                sleep(2)
+
+            for row in self.cobj_web_elements.get_common_object_grid_rows():
+                cell = self.cobj_web_elements.get_common_object_template_grid_row_cells(row)
+                if cell.text == ap_template_name:
+                    self.utils.print_info("Click on AP default template name: ", cell.text)
+                    self.auto_actions.click(self.cobj_web_elements.get_common_object_template_grid_row_href(cell))
+                    break
+
+            if wifi0_config != 'None':
+                self.utils.print_info("Get WiFI0 Interface Status")
+                wifi_interface_config['wifi0_configuration'] = self._get_ap_template_wifi0(**wifi0_config)
+                self.screen.save_screen_shot()
+
+            if wifi1_config != 'None':
+                self.utils.print_info("Get WiFI1 Interface Status")
+                wifi_interface_config['wifi1_configuration'] = self._get_ap_template_wifi1(**wifi1_config)
+                self.screen.save_screen_shot()
+
+            if wifi2_config != 'None':
+                self.utils.print_info("Get WiFI2 Interface Status")
+                wifi_interface_config['wifi2_configuration'] = self._get_ap_template_wifi2(**wifi2_config)
+                self.screen.save_screen_shot()
+
+            self.utils.print_info("Click on the cancel template button")
+            self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_cancel_button())
+
+            self.common_validation.passed(**wifi_interface_config)
+            return wifi_interface_config
+
+        except Exception as e:
+            self.common_validation.failed(**wifi_interface_config)
+            self.utils.print_info(f'Actual error is :- {e}')
+            return -1
+
+    def set_ap_template_wifi(self, ap_template_name, **wifi_interface_config):
+        """
+        - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
+        - Set AP Template wiifi in Common Object
+        - Keyword Usage
+        - ``Set AP Template WiFi     ${ap_template_name}   &{wifi_interface_config}``
+
+        :param ap_template_name: AP template name like AP_4000-default-template, AP_305-default-templateA etc
+        :param wifi_interface_config: (Set Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor etc
+        :return: 1 if Set AP Template wifi Successfully else -1
+        """
+        wifi0_config = wifi_interface_config.get('wifi0_configuration', 'None')
+        wifi1_config = wifi_interface_config.get('wifi1_configuration', 'None')
+        wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
+
+        self.utils.print_info("Navigate to Policy--> AP Templates")
+        self.navigator.navigate_to_policy_ap_template()
+        if self.cobj_web_elements.get_common_object_policy_ap_templates_view_all_pages():
+            self.utils.print_info("Click Full pages button")
+            self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_ap_templates_view_all_pages())
+            sleep(2)
+
+        for row in self.cobj_web_elements.get_common_object_grid_rows():
+            cell = self.cobj_web_elements.get_common_object_template_grid_row_cells(row)
+            if cell.text == ap_template_name:
+                self.utils.print_info("Click on AP default template name: ", cell.text)
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_template_grid_row_href(cell))
+                break
+
+        if wifi0_config != 'None':
+            self.utils.print_info("Set WiFI0 Interface Setting")
+            self._set_ap_template_wifi0(**wifi0_config)
+            self.screen.save_screen_shot()
+
+        if wifi1_config != 'None':
+            self.utils.print_info("Set WiFI1 Interface Setting")
+            self._set_ap_template_wifi1(**wifi1_config)
+            self.screen.save_screen_shot()
+
+        if wifi2_config != 'None':
+            self.utils.print_info("Set WiFI2 Interface Setting")
+            self._set_ap_template_wifi2(**wifi2_config)
+            self.screen.save_screen_shot()
+
+        self.utils.print_info("Click on the save template button")
+        self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_save_button())
+        sleep(3)
+
+        tool_tip_text = tool_tip.tool_tip_text
+        self.screen.save_screen_shot()
+        sleep(2)
+        self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+        sub_string = "template"
+        strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
+        self.utils.print_info("Tool tip Text ap template", strings_with_substring)
+        if "AP template was saved successfully" in str(strings_with_substring):
+            self.common_validation.passed(**wifi_interface_config)
+            return 1
+        else:
+            self.common_validation.failed(**wifi_interface_config)
+            return -1
+
+    def _set_ap_template_wifi0(self, **wifi0_profile):
+        """
+        - Set the WIFI0 configuration on AP Template
+        - Keyword Usage
+        - ``Set AP Template WiFi0    &{WIFI0_CONFIG}``
+
+        :param wifi0_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
+        :return: 1 if Set WiFi0 Profile Successfully else -1
+        """
+        client_mode_status_wifi0   = wifi0_profile.get('client_mode'       , 'None')
+        client_access_status_wifi0 = wifi0_profile.get('client_access'     , 'None')
+        backhaul_mesh_status_wifi0 = wifi0_profile.get('backhaul_mesh_link', 'None')
+        sensor_status_wifi0        = wifi0_profile.get('sensor'            , 'None')
+        enable_SDR_wifi0           = wifi0_profile.get('enable_SDR'        , 'None')
+
+        self.utils.print_info("Click on WiFi0 Tab on AP Template page")
+        self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi0_tab())
+        self.auto_actions.scroll_down()
+
+        try:
+            if client_mode_status_wifi0 != 'None':
+                self.utils.print_info("Set Client Mode Checkbox on WiFi0 Interface: ", client_mode_status_wifi0)
+                if client_mode_status_wifi0.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_mode())
+
+            if client_access_status_wifi0 != 'None':
+                self.utils.print_info("Set Client Access Checkbox on WiFi0 Interface: ", client_access_status_wifi0)
+                if client_access_status_wifi0.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi0_client_access().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_access())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi0_client_access().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_client_access())
+
+            if backhaul_mesh_status_wifi0 != 'None':
+                self.utils.print_info("Set Backhaul Mesh Link Checkbox on WiFi0 Interface: ", backhaul_mesh_status_wifi0)
+                if backhaul_mesh_status_wifi0.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_mesh_link())
+                else:
+                   if self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_mesh_link())
+
+            if sensor_status_wifi0 != 'None':
+                self.utils.print_info("Set Sensor Checkbox on WiFi0 Interface: ", sensor_status_wifi0)
+                if sensor_status_wifi0.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor())
+
+            if enable_SDR_wifi0 != 'None':
+                self.utils.print_info("Set Enable SDR Checkbox on WiFi0 Interface: ", enable_SDR_wifi0)
+                if enable_SDR_wifi0.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_ap_template_enable_sdr().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_enable_sdr())
+                else:
+                    if self.cobj_web_elements.get_common_object_ap_template_enable_sdr().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_enable_sdr())
+
+        except Exception as e:
+            self.utils.print_info(f'Actual error is :- {e}')
+            return -1
+
+        return 1
+
+    def _set_ap_template_wifi1(self, **wifi1_profile):
+        """
+        - Set the WIFI1 configuration on AP Template
+        - Keyword Usage
+        - ``Set AP Template WiFi1    &{WIFI0_CONFI1}``
+
+        :param wifi1_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
+        :return: 1 if Get WiFi1 Profile Successfully else -1
+        """
+        client_mode_status_wifi1   = wifi1_profile.get('client_mode'       , 'None')
+        client_access_status_wifi1 = wifi1_profile.get('client_access'     , 'None')
+        backhaul_mesh_status_wifi1 = wifi1_profile.get('backhaul_mesh_link', 'None')
+        sensor_status_wifi1        = wifi1_profile.get('sensor'            , 'None')
+
+        self.utils.print_info("Click on WiFi1 Tab on AP Template page")
+        self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi1_tab())
+        self.auto_actions.scroll_down()
+
+        try:
+            if client_mode_status_wifi1 != 'None':
+                self.utils.print_info("Set Client Mode Checkbox on WiFi1 Interface: ", client_mode_status_wifi1)
+                if client_mode_status_wifi1.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_mode())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_mode())
+
+            if client_access_status_wifi1 != 'None':
+                self.utils.print_info("Set Client Access Checkbox on WiFi1 Interface: ", client_access_status_wifi1)
+                if client_access_status_wifi1.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_access())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_client_access())
+
+            if backhaul_mesh_status_wifi1 != 'None':
+                self.utils.print_info("Set Backhaul Mesh Link Checkbox on WiFi1 Interface: ",
+                                      backhaul_mesh_status_wifi1)
+                if backhaul_mesh_status_wifi1.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi1_mesh_link().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_mesh_link())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi1_mesh_link().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_mesh_link())
+
+            if sensor_status_wifi1 != 'None':
+                self.utils.print_info("Set Sensor Checkbox on WiFi1 Interface: ", sensor_status_wifi1)
+                if sensor_status_wifi1.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor())
+
+        except Exception as e:
+            self.utils.print_info(f'Actual error is :- {e}')
+            return -1
+
+        return 1
+
+    def _set_ap_template_wifi2(self, **wifi2_profile):
+        """
+        - Set the WIFI2 configuration on AP Template
+        - Keyword Usage
+        - ``Set AP Template WiFi2    &{WIFI0_CONFI2}``
+
+        :param wifi2_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
+        :return: 1 if Get WiFi2 Profile Successfully else -1
+        """
+        client_access_status_wifi2 = wifi2_profile.get('client_access'     , 'None')
+        backhaul_mesh_status_wifi2 = wifi2_profile.get('backhaul_mesh_link', 'None')
+        sensor_status_wifi2        = wifi2_profile.get('sensor'            , 'None')
+
+        self.utils.print_info("Click on WiFi0 Tab on AP Template page")
+        self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi2_tab())
+        self.auto_actions.scroll_down()
+
+        try:
+            if client_access_status_wifi2 != 'None':
+                self.utils.print_info("Set Client Access Checkbox on WiFi0 Interface: ", client_access_status_wifi2)
+                if client_access_status_wifi2.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_client_access())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_client_access())
+
+            if backhaul_mesh_status_wifi2 != 'None':
+                self.utils.print_info("Set Backhaul Mesh Link Checkbox on WiFi0 Interface: ", backhaul_mesh_status_wifi2)
+                if backhaul_mesh_status_wifi2.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_mesh_link())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_mesh_link())
+
+            if sensor_status_wifi2 != 'None':
+                self.utils.print_info("Set Sensor Checkbox on WiFi0 Interface: ", sensor_status_wifi2)
+                if sensor_status_wifi2.lower() == 'enable':
+                    if not self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor())
+                else:
+                    if self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected():
+                        self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor())
+
+        except Exception as e:
+            self.utils.print_info(f'Actual error is :- {e}')
+            return -1
+
+        return 1
+
+    def _get_ap_template_wifi0(self, **wifi0_profile):
+        """
+        - Get the WIFI0 configuration on AP Template
+        - Keyword Usage
+        - ``Get AP Template WiFi0    &{WIFI0_CONFIG}``
+
+        :param wifi0_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
+        :return: wifi0_profile if Get WiFi0 Profile Successfully else None
+        """
+        radio_status_wifi0         = wifi0_profile.get('radio_status'      , 'None')   # radio_status=get or yes
+        radio_profile_wifi0        = wifi0_profile.get('radio_profile'     , 'None')
+        client_mode_status_wifi0   = wifi0_profile.get('client_mode'       , 'None')
+        client_access_status_wifi0 = wifi0_profile.get('client_access'     , 'None')
+        backhaul_mesh_status_wifi0 = wifi0_profile.get('backhaul_mesh_link', 'None')
+        sensor_status_wifi0        = wifi0_profile.get('sensor'            , 'None')
+        enable_SDR_wifi0           = wifi0_profile.get('enable_SDR'        , 'None')
+
+        self.utils.print_info("Click on WiFi0 Tab on AP Template page")
+        self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi0_tab())
+
+        if radio_status_wifi0 != 'None':
+            wifi0_profile['radio_status'] = self.cobj_web_elements.get_common_object_wifi0_radio_status_button().is_selected()
+            self.utils.print_info("Get Radio Status on WiFi0 Interface: ", wifi0_profile['radio_status'])
+            if not wifi0_profile['radio_status']:
+                return wifi0_profile
+        self.auto_actions.scroll_down()
+
+        if radio_profile_wifi0 != 'None':
+            wifi0_profile['radio_profile'] = self.cobj_web_elements.get_common_object_wifi0_radio_profile_textbox().text
+            self.utils.print_info("Get Radio Profile status on WiFi0 Interface: ",  wifi0_profile['radio_profile'])
+
+        if client_mode_status_wifi0 != 'None':
+            wifi0_profile['client_mode'] = self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected()
+            self.utils.print_info("Get Client Mode Checkbox on WiFi0 Interface: ", wifi0_profile['client_mode'])
+
+        if client_access_status_wifi0 != 'None':
+            wifi0_profile['client_access'] = self.cobj_web_elements.get_common_object_wifi0_client_access().is_selected()
+            self.utils.print_info("Get Client Access Checkbox on WiFi0 Interface: ", wifi0_profile['client_access'])
+
+        if backhaul_mesh_status_wifi0 != 'None':
+            wifi0_profile['backhaul_mesh_link'] = self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected()
+            self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi0 Interface: ", wifi0_profile['backhaul_mesh_link'])
+
+        try:
+            if sensor_status_wifi0 != 'None':
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
+                wifi0_profile['sensor'] = 'Disable'
+        except:
+            wifi0_profile['sensor'] = self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected()
+        finally:
+            self.utils.print_info("Get Sensor Checkbox on WiFi0 Interface: ", wifi0_profile['sensor'])
+
+        if enable_SDR_wifi0 != 'None':
+            wifi0_profile['enable_SDR'] = self.cobj_web_elements.get_common_object_ap_template_enable_sdr().is_selected()
+            self.utils.print_info("Get Enable SDR Checkbox on WiFi0 Interface: ", wifi0_profile['enable_SDR'])
+
+        return wifi0_profile
+
+    def _get_ap_template_wifi1(self, **wifi1_profile):
+        """
+        - Get the WIFI1 configuration on AP Template
+        - Keyword Usage
+        - ``Get AP Template WiFi1    &{WIFI0_CONFI1}``
+
+        :param wifi1_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
+        :return: wifi1_profile if Get WiFi1 Profile Successfully else None
+        """
+        radio_status_wifi1         = wifi1_profile.get('radio_status'      , 'None')  # radio_status=get or yes
+        radio_profile_wifi1        = wifi1_profile.get('radio_profile'     , 'None')
+        client_mode_status_wifi1   = wifi1_profile.get('client_mode'       , 'None')
+        client_access_status_wifi1 = wifi1_profile.get('client_access'     , 'None')
+        backhaul_mesh_status_wifi1 = wifi1_profile.get('backhaul_mesh_link', 'None')
+        sensor_status_wifi1        = wifi1_profile.get('sensor'            , 'None')
+
+        self.utils.print_info("Click on WiFi1 Tab on AP Template page")
+        self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi1_tab())
+
+        if radio_status_wifi1 != 'None':
+            wifi1_profile['radio_status'] = self.cobj_web_elements.get_common_object_wifi1_radio_status_button().is_selected()
+            self.utils.print_info("Get Radio Status on WiFi1 Interface: ", wifi1_profile['radio_status'])
+            if not wifi1_profile['radio_status']:
+                return wifi1_profile
+        self.auto_actions.scroll_down()
+
+        if radio_profile_wifi1 != 'None':
+            wifi1_profile['radio_profile'] = self.cobj_web_elements.get_common_object_wifi1_radio_profile_textbox().text
+            self.utils.print_info("Get Radio Profile status on WiFi1 Interface: ", wifi1_profile['radio_profile'])
+
+        if client_mode_status_wifi1 != 'None':
+            wifi1_profile['client_mode'] = self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected()
+            self.utils.print_info("Get Client Mode Checkbox on WiFi1 Interface: ", wifi1_profile['client_mode'])
+
+        if client_access_status_wifi1 != 'None':
+            wifi1_profile[
+                'client_access'] = self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected()
+            self.utils.print_info("Get Client Access Checkbox on WiFi1 Interface: ", wifi1_profile['client_access'])
+
+        if backhaul_mesh_status_wifi1 != 'None':
+            wifi1_profile['backhaul_mesh_link'] = self.cobj_web_elements.get_common_object_wifi1_mesh_link().is_selected()
+            self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi1 Interface: ", wifi1_profile['backhaul_mesh_link'])
+
+        try:
+            if sensor_status_wifi1 != 'None':
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
+                wifi1_profile['sensor'] = 'Disable'
+        except:
+            wifi1_profile['sensor'] = self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected()
+        finally:
+            self.utils.print_info("Get Sensor Checkbox on WiFi1 Interface: ", wifi1_profile['sensor'])
+
+        return wifi1_profile
+
+    def _get_ap_template_wifi2(self, **wifi2_profile):
+        """
+        - Get the WIFI2 configuration on AP Template
+        - Keyword Usage
+        - ``Get AP Template WiFi2    &{WIFI0_CONFI2}``
+
+        :param wifi2_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
+        :return: wifi2_profile if Get WiFi2 Profile Successfully else None
+        """
+        radio_status_wifi2         = wifi2_profile.get('radio_status'      , 'None')  # radio_status=get or yes
+        radio_profile_wifi2        = wifi2_profile.get('radio_profile'     , 'None')
+        client_access_status_wifi2 = wifi2_profile.get('client_access'     , 'None')
+        backhaul_mesh_status_wifi2 = wifi2_profile.get('backhaul_mesh_link', 'None')
+        sensor_status_wifi2        = wifi2_profile.get('sensor'            , 'None')
+
+        self.utils.print_info("Click on WiFi2 Tab on AP Template page")
+        try:
+            self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi2_tab())
+        except:
+            return wifi2_profile
+
+        if radio_status_wifi2 != 'None':
+            wifi2_profile['radio_status'] = self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected()
+            self.utils.print_info("Get Radio Status on WiFi2 Interface: ", wifi2_profile['radio_status'])
+            if not wifi2_profile['radio_status']:
+                return wifi2_profile
+        self.auto_actions.scroll_down()
+
+        if radio_profile_wifi2 != 'None':
+            wifi2_profile['radio_profile'] = self.cobj_web_elements.get_common_object_wifi2_radio_profile_textbox().text
+            self.utils.print_info("Get Radio Profile status on WiFi2 Interface: ", wifi2_profile['radio_profile'])
+
+        if client_access_status_wifi2 != 'None':
+            wifi2_profile['client_access'] = self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected()
+            self.utils.print_info("Get Client Access Checkbox on WiFi2 Interface: ", wifi2_profile['client_access'])
+
+        if backhaul_mesh_status_wifi2 != 'None':
+            wifi2_profile[
+                'backhaul_mesh_link'] = self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected()
+            self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi2 Interface: ", wifi2_profile['backhaul_mesh_link'])
+
+        if sensor_status_wifi2 != 'None':
+            wifi2_profile['sensor'] = self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected()
+            self.utils.print_info("Get Sensor Checkbox on WiFi2 Interface: ", wifi2_profile['sensor'])
+
+        return wifi2_profile
+
     def _config_ap_template_wifi0(self, **wifi0_profile):
         """
         - Configure the WIFI0 configuration on AP Template
@@ -1435,12 +1892,12 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi0_tab())
 
         if radio_status_wifi0.upper() == "OFF":
-            self.utils.print_info("Enable Client Access Checkbox on WiFi0 Interface")
+            self.utils.print_info("Enable Radio Status on WiFi0 Interface")
             if self.cobj_web_elements.get_common_object_wifi0_radio_status_button().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_radio_status_button())
             return 1
         else:
-            self.utils.print_info("Disable Client Access check box on WiFi0 Interface")
+            self.utils.print_info("Disable Radio Status on WiFi0 Interface")
             if not self.cobj_web_elements.get_common_object_wifi0_radio_status_button().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_radio_status_button())
         self.auto_actions.scroll_down()

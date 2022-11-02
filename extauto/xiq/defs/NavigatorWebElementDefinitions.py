@@ -960,6 +960,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 3
         }
 
+    subtab_common_object_basic = \
+        {
+            'CSS_SELECTOR': '.subSubTab-option.Basic',
+            'wait_for': 3
+        }
+
     global_settings_audit_logs_slider = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-auditLogs"]',
