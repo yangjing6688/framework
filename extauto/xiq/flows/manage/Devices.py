@@ -1267,8 +1267,7 @@ class Devices:
             self.utils.print_info("click on perform update button")
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(30)
-            tool_tip = self.devices_web_elements.get_device_update_error_message()
-            tool_tp_text = tool_tip.text
+            tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
             update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
             update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
@@ -1296,8 +1295,7 @@ class Devices:
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(2)
 
-            tool_tip = self.devices_web_elements.get_device_update_error_message()
-            tool_tp_text = tool_tip.text
+            tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
             update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
 
@@ -1329,10 +1327,15 @@ class Devices:
         """
         retry_count = 0
         update_time = 0
+
+        self.utils.print_info(f"Enable the Updated On column")
+        self.column_picker_select("Updated On")
+
         max_config_push_wait = self.robot_built_in.get_variable_value("${MAX_CONFIG_PUSH_TIME}")
         while True:
             self.utils.print_info(f"Time elapsed for device update: {update_time} seconds")
             device_update_status = self.get_device_updated_status(device_serial)
+            self.utils.print_info(f"Status returned: {device_serial}")
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif 'Certification' in device_update_status or 'Application' in device_update_status:
@@ -1348,7 +1351,7 @@ class Devices:
                     return -1
                 continue
             elif retry_count >= int(max_config_push_wait):
-                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
+                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait} seconds")
                 return -1
             sleep(30)
             update_time += 30
@@ -3958,7 +3961,10 @@ class Devices:
         """
         device_row = -1
 
-        # self.refresh_devices_page()
+        self.utils.print_info(f"Enable the Updated On column")
+        self.column_picker_select("Updated On")
+
+        self.utils.print_info(f"Refresh the devices page")
         self.utils.wait_till(self.refresh_devices_page)
         self.utils.print_info('Getting device Updated Status using')
         if device_serial:
@@ -3976,7 +3982,6 @@ class Devices:
         device_row = copy.copy(device_row)
 
         if device_row:
-            self.utils.print_info(f"Device row debugging: {self.devices_web_elements.get_updated_status_cell(device_row)}")
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             self.utils.print_info("Device Updated Status is :", device_updated_status)
             if "Querying" in device_updated_status:
@@ -5066,23 +5071,27 @@ class Devices:
         self.select_device(device_serial)
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         if update_method == "Delta":
-            self.auto_actions.click(self.devices_web_elements.get_delta_config_update_button())
+            self.utils.print_info("Using Delta method...")
+            self.auto_actions.click_reference(self.devices_web_elements.get_delta_config_update_button)
             sleep(2)
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
+            sleep(5)
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
             for value in tool_tp_text:
                 if "a device mode change is not supported with a delta configuration update" in value.lower():
                     self.utils.print_info(value)
                     update_method = "Complete"
+                    self.utils.print_info("There was an issue with Delta method...")
 
         if update_method == "Complete":
-            self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
+            self.utils.print_info("Using Complete method...")
+            self.auto_actions.click_reference(self.devices_web_elements.get_full_config_update_button)
             sleep(2)
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
         self.screen.save_screen_shot()
 
@@ -10328,6 +10337,10 @@ class Devices:
         # Get the Updated cell data timestamp to validate the update process
         self.utils.print_info("Navigate to Manage --> Devices")
         self.navigator.navigate_to_devices()
+
+        self.utils.print_info(f"Enable the Updated On column")
+        self.column_picker_select("Updated On")
+
         self.refresh_devices_page()
         self.close_last_refreshed_tooltip()
 
@@ -11340,6 +11353,10 @@ class Devices:
         """
         device_row = -1
 
+        # Select the correct column
+        self.utils.print_info(f"Enable the Updated On column")
+        self.column_picker_select("Updated On")
+
         self.utils.print_info('Getting device Updated Status using')
         if device_serial != 'default':
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
@@ -11394,16 +11411,16 @@ class Devices:
                 device_row = self.get_device_row(device_serial)
             else:
                 return -1
-            device_update_status = self.devices_web_elements.get_updated_status_cell(device_row)
+            device_update_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             if device_update_status:
-                if 'Rebooting' in device_update_status.text:
-                    self.utils.print_info("Rebooting status was found  ", device_update_status.text)
+                if 'Rebooting' in device_update_status:
+                    self.utils.print_info("Rebooting status was found  ", device_update_status)
                     return 1
-                elif 'Failed' in device_update_status.text:
-                    self.utils.print_info("Device Update Failed: ", device_update_status.text)
+                elif 'Failed' in device_update_status:
+                    self.utils.print_info("Device Update Failed: ", device_update_status)
                     return -1
                 else:
-                    self.utils.print_info("Waiting for Rebooting status; Now the status is :  ", device_update_status.text)
+                    self.utils.print_info("Waiting for Rebooting status; Now the status is :  ", device_update_status)
             else:
                 pass
             sleep(time_interval)

@@ -611,8 +611,8 @@ class NetworkPolicy(object):
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif retry_count >= int(max_config_push_wait):
-                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
-                kwargs['fail_msg'] = f"Config push to AP taking more than {max_config_push_wait}seconds"
+                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait} seconds")
+                kwargs['fail_msg'] = f"Config push to AP taking more than {max_config_push_wait} seconds"
                 self.common_validation.failed(**kwargs)
                 return -1
             sleep(30)
