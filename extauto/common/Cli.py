@@ -1437,7 +1437,7 @@ class Cli(object):
 
         Args:
             device (dict): the device, e.g. tb.dut1
-            port (_type_): _description_
+            port (str): the port of the device
             expected_path_cost (int): the expected path cost value
             mode (str, optional): the stp mode. Defaults to "mstp".
             retries (int, optional): the number of retries. Defaults to 10.
