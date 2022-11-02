@@ -111,7 +111,7 @@ class Dashboard(object):
                 self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_usage_panel)
             sleep(2)
 
-        self.auto_actions.click(
+        self.auto_actions.click_reference(
             self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme15_canvas9())
         sleep(2)
 
