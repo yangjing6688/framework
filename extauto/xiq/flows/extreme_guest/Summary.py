@@ -5,6 +5,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestSummaryWebElements import ExtremeGuestSummaryWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Summary(object):
@@ -17,8 +18,9 @@ class Summary(object):
         self.auto_actions = AutoActions()
         self.summary_web_elem = ExtremeGuestSummaryWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
-    def check_all_summary_page_widgets(self):
+    def check_all_summary_page_widgets(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check all widgets
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -74,10 +76,12 @@ class Summary(object):
         if all_displayed:
             return 1
         else:
+            kwargs['fail_msg'] = f"'check_all_summary_page_widgets()' -> {all_displayed}"
+            self.common_validation.failed(**kwargs)
             return 0
 
 
-    def check_summary_page_visitor_widget_data(self):
+    def check_summary_page_visitor_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check visitor widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -90,6 +94,8 @@ class Summary(object):
             self.utils.print_info("visitors_widget is displayed")
         else:
             self.utils.print_info("visitors_widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_visitor_widget_data()' -> visitors_widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking Visitor widget data")
@@ -102,7 +108,7 @@ class Summary(object):
 
         return 1
 
-    def check_summary_page_new_user_widget_data(self):
+    def check_summary_page_new_user_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check new user widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -115,6 +121,8 @@ class Summary(object):
             self.utils.print_info("new_user_widget is displayed")
         else:
             self.utils.print_info("new_user_widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_new_user_widget_data()' -> new_user_widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking New User widget data")
@@ -127,7 +135,7 @@ class Summary(object):
 
         return 1
 
-    def check_summary_page_conversion_widget_data(self):
+    def check_summary_page_conversion_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check conversion widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -140,6 +148,8 @@ class Summary(object):
             self.utils.print_info("conversion_widget is displayed")
         else:
             self.utils.print_info("conversion_widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_conversion_widget_data()' -> conversion_widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking Conversion widget data")
@@ -152,7 +162,7 @@ class Summary(object):
 
         return 1
 
-    def check_summary_page_gender_widget_data(self):
+    def check_summary_page_gender_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check gender widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -165,6 +175,8 @@ class Summary(object):
             self.utils.print_info("gender_widget is displayed")
         else:
             self.utils.print_info("gender_widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_gender_widget_data()' -> gender_widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking Gender widget data")
@@ -174,7 +186,7 @@ class Summary(object):
 
         return 1
 
-    def check_summary_page_facebook_widget_data(self):
+    def check_summary_page_facebook_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check facebook widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -187,6 +199,8 @@ class Summary(object):
             self.utils.print_info("Facebook widget is displayed")
         else:
             self.utils.print_info("Facebook widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_facebook_widget_data()' -> Facebook widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking Facebook widget data")
@@ -196,7 +210,7 @@ class Summary(object):
 
         return 1
 
-    def check_summary_page_google_widget_data(self):
+    def check_summary_page_google_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check google widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -209,6 +223,8 @@ class Summary(object):
             self.utils.print_info("Google widget is displayed")
         else:
             self.utils.print_info("Google widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_google_widget_data()' -> Google widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking Google widget data")
@@ -218,7 +234,7 @@ class Summary(object):
 
         return 1
 
-    def check_summary_page_linkedin_widget_data(self):
+    def check_summary_page_linkedin_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -231,6 +247,8 @@ class Summary(object):
             self.utils.print_info("linkedin widget is displayed")
         else:
             self.utils.print_info("linkedin widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_linkedin_widget_data()' -> linkedin widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking linkedin widget data")
@@ -240,7 +258,7 @@ class Summary(object):
 
         return 1
 
-    def check_summary_page_total_users_widget_data(self):
+    def check_summary_page_total_users_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -253,6 +271,8 @@ class Summary(object):
             self.utils.print_info("total_users widget is displayed")
         else:
             self.utils.print_info("total_users widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_total_users_widget_data()' -> total_users widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking total_users widget data")
@@ -262,7 +282,7 @@ class Summary(object):
 
         return 1
 
-    def check_summary_page_online_users_widget_data(self):
+    def check_summary_page_online_users_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -275,6 +295,8 @@ class Summary(object):
             self.utils.print_info("online_users widget is displayed")
         else:
             self.utils.print_info("online_users widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_online_users_widget_data()' -> online_users widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking online_users widget data")
@@ -284,7 +306,7 @@ class Summary(object):
 
         return 1
 
-    def check_summary_page_total_clients_widget_data(self):
+    def check_summary_page_total_clients_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -297,6 +319,8 @@ class Summary(object):
             self.utils.print_info("total_clients widget is displayed")
         else:
             self.utils.print_info("total_clients widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_total_clients_widget_data()' -> total_clients widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking total_clients widget data")
@@ -306,7 +330,7 @@ class Summary(object):
 
         return 1
     
-    def check_summary_page_online_clients_widget_data(self):
+    def check_summary_page_online_clients_widget_data(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -319,6 +343,8 @@ class Summary(object):
             self.utils.print_info("online_clients widget is displayed")
         else:
             self.utils.print_info("online_clients widget is not displayed")
+            kwargs['fail_msg'] = "'check_summary_page_online_clients_widget_data()' -> online_clients widget is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Checking online_clients widget data")

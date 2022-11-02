@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestReportsWebElements import ExtremeGuestReportsWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Reports(object):
@@ -18,6 +19,7 @@ class Reports(object):
         self.auto_actions = AutoActions()
         self.reports_web_elem = ExtremeGuestReportsWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def _get_extreme_guest_manage_reports_page_user_row(self, search_string):
         """
@@ -37,7 +39,7 @@ class Reports(object):
                     self.utils.print_info("returning rows")
                     return row
 
-    def _select_extreme_guest_manage_page_user_row_cell(self, search_string, cell="checkbox"):
+    def _select_extreme_guest_manage_page_user_row_cell(self, search_string, cell="checkbox", **kwargs):
         """
         Select the passed search string object in grid rows
         :param search_string:
@@ -59,6 +61,9 @@ class Reports(object):
                                                                                           search_string))
                 sleep(2)
                 return 1
+
+        kwargs['fail_msg'] = "'_select_extreme_guest_manage_page_user_row_cell()' -> Unable to get row"
+        self.common_validation.failed(**kwargs)
         return 0
 
     def _get_extreme_guest_generated_reports_page_user_row(self, search_string):
@@ -106,7 +111,7 @@ class Reports(object):
         sleep(2)
 
     def _add_edit_manage_guest_report(self, report_name, report_type, report_format, period, dashboard_name, save_type,
-                                      scope):
+                                      scope, **kwargs):
         """
         :param report_name:
         :param report_type:
@@ -199,9 +204,12 @@ class Reports(object):
                 if self._get_extreme_guest_generated_reports_page_user_row(report_name):
                     self.utils.print_info("Run successful")
                     return 1
+
+        kwargs['fail_msg'] = "'_add_edit_manage_guest_report()' -> Unable to create/edit report"
+        self.common_validation.failed(**kwargs)
         return 0
 
-    def select_scope_for_add_manage_report_page(self, scope):
+    def select_scope_for_add_manage_report_page(self, scope, **kwargs):
         """
         - This keyword selects a location in the Eguest Users --> Create Bulk users Vouchers Page
         - It is assumed that location is already created
@@ -291,6 +299,9 @@ class Reports(object):
                 self.utils.print_info("Unable to select location")
         else:
             self.utils.print_info("Cannot select location - location not specified")
+            kwargs['fail_msg'] = "'select_scope_for_add_manage_report_page()' -> Cannot select location - location not" \
+                                 " specified"
+            self.common_validation.failed(**kwargs)
 
         return ret_val
 

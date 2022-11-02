@@ -59,6 +59,6 @@ class AnalyzeUsers(object):
             sleep(2)
             return 1
 
-        kwargs['fail_msg'] = "Username is not in the Analyze Users Grid"
+        kwargs['fail_msg'] = "'check_if_the_user_exists()' -> Username is not in the Analyze Users Grid"
         self.common_validation.failed(**kwargs)
         return -1

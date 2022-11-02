@@ -62,6 +62,6 @@ class AnalyzeClients(object):
             sleep(2)
             return 1
 
-        kwargs['fail_msg'] = "Client mac address is not in the Analyze Clients Grid"
+        kwargs['fail_msg'] = "'check_if_the_client_exists()' -> Client mac address is not in the Analyze Clients Grid"
         self.common_validation.failed(**kwargs)
         return -1

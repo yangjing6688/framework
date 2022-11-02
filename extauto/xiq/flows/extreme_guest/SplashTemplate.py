@@ -7,6 +7,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestSplashTemplateWebElements import ExtremeGuestSplashTemplateWebElements
 from extauto.xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class SplashTemplate(object):
@@ -20,6 +21,7 @@ class SplashTemplate(object):
         self.splash_web_elem = ExtremeGuestSplashTemplateWebElements()
         self.guest_web_elem = ExtremeGuestWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def go_to_configure_splash_template_tab(self):
         """
@@ -509,7 +511,7 @@ class SplashTemplate(object):
 
         return 1
 
-    def select_location_for_apply_user_template_page(self, sel_loc):
+    def select_location_for_apply_user_template_page(self, sel_loc, **kwargs):
         """
         - This keyword selects a location in apply user template page
         - It is assumed that location is already created
@@ -604,5 +606,8 @@ class SplashTemplate(object):
                 self.utils.print_info("Unable to select location")
         else:
             self.utils.print_info("Cannot select location - location not specified in User Template apply page Page")
+            kwargs['fail_msg'] = "'select_location_for_apply_user_template_page()' -> Cannot select location -" \
+                                 " location not specified in User Template apply page Page"
+            self.common_validation.failed(**kwargs)
 
         return ret_val

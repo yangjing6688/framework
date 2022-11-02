@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestOnboardingWebElements import ExtremeGuestOnboardingWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Onboarding(object):
@@ -18,6 +19,7 @@ class Onboarding(object):
         self.auto_actions = AutoActions()
         self.onboarding_web_elem = ExtremeGuestOnboardingWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def go_to_configure_onboarding_policy_tab(self):
         """
@@ -143,7 +145,7 @@ class Onboarding(object):
 
         return 1
 
-    def select_location_for_add_onboarding_rule_page(self, sel_loc):
+    def select_location_for_add_onboarding_rule_page(self, sel_loc, **kwargs):
         """
         - This keyword selects a location in the Eguest Add on boarding Rule Page
         - It is assumed that location is already created
@@ -231,6 +233,9 @@ class Onboarding(object):
                 self.utils.print_info("Unable to select location")
         else:
             self.utils.print_info("Cannot select location - location not specified in Eguest Onboarding Add Rule Page")
+            kwargs['fail_msg'] = "'select_location_for_add_onboarding_rule_page()' -> Cannot select location - location" \
+                                 " not specified in Eguest Onboarding Add Rule Page"
+            self.common_validation.failed(**kwargs)
 
         return ret_val
 

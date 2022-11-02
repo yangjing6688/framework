@@ -21,7 +21,7 @@ class ExtremeGuest(object):
         self.guest_web_elem = ExtremeGuestWebElements()
         self.common_validation = CommonValidation()
 
-    def go_to_extreme_guest_subscribe_page(self, **kwargs):
+    def go_to_extreme_guest_subscribe_page(self):
         """
         -This keyword Will Navigate to Extreme Guest Subscription Page
         - Flow: Extreme Guest--> Subscribe--> Page
@@ -47,8 +47,6 @@ class ExtremeGuest(object):
             sleep(2)
         else:
             self.utils.print_info("User Already Subscribed Extreme Guest Page")
-            kwargs['fail_msg'] = "User Already Subscribed Extreme Guest Page"
-            self.common_validation.failed(**kwargs)
             return 0
 
         return 1
@@ -83,7 +81,7 @@ class ExtremeGuest(object):
                 self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_checkbox)
             else:
                 self.utils.print_info("Add SSID before continuing")
-                kwargs['fail_msg'] = "Add SSID before continuing"
+                kwargs['fail_msg'] = "'go_to_extreme_guest_landing_page()' -> Add SSID before continuing"
                 self.common_validation.failed(**kwargs)
                 return 0
 
@@ -225,7 +223,7 @@ class ExtremeGuest(object):
             self.utils.print_info("Help information is displayed")
             return 1
 
-        kwargs['fail_msg'] = "Help information is not displayed"
+        kwargs['fail_msg'] = "'check_help_information()' -> Help information is not displayed"
         self.common_validation.failed(**kwargs)
         return 0
 
@@ -245,7 +243,8 @@ class ExtremeGuest(object):
                         return row
 
         self.utils.print_info(f"common object row {search_string} not present")
-        kwargs['fail_msg'] = f"common object row {search_string} not present"
+        kwargs['fail_msg'] = f"'_get_extreme_guest_subscription_page_open_ssid_row()' -> common object row " \
+                             f"{search_string} not present"
         self.common_validation.failed(**kwargs)
         return False
 
@@ -273,7 +272,7 @@ class ExtremeGuest(object):
             sleep(2)
             return 1
 
-        kwargs['fail_msg'] = "Row is not present"
+        kwargs['fail_msg'] = "'_select_extreme_guest_subscription_page_open_ssid_row()' -> Row is not present"
         self.common_validation.failed(**kwargs)
         return 0
 
@@ -294,7 +293,7 @@ class ExtremeGuest(object):
             sleep(3)
             return 1
 
-        kwargs['fail_msg'] = "Row is not present"
+        kwargs['fail_msg'] = "'apply_selected_open_ssid()' -> Row is not present"
         self.common_validation.failed(**kwargs)
         return 0
 
@@ -414,6 +413,6 @@ class ExtremeGuest(object):
             return 1
         else:
             self.utils.print_info("User Already Subscribed Extreme Guest Page")
-            kwargs['fail_msg'] = "User Already Subscribed Extreme Guest Page"
+            kwargs['fail_msg'] = "'check_guest_subscription()' -> User Already Subscribed Extreme Guest Page"
             self.common_validation.failed(**kwargs)
             return -1

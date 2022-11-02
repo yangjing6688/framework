@@ -7,6 +7,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestNotificationWebElements import ExtremeGuestNotificationWebElements
 from selenium.common.exceptions import StaleElementReferenceException
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Notification(object):
@@ -19,6 +20,7 @@ class Notification(object):
         self.auto_actions = AutoActions()
         self.notification_web_elem = ExtremeGuestNotificationWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def go_to_configure_notification_policy_tab(self):
         """
@@ -105,7 +107,7 @@ class Notification(object):
 
         return 1
 
-    def get_notification_policy(self, policy_name):
+    def get_notification_policy(self, policy_name, **kwargs):
         """
         -This keyword Will Check if the Notification Policy Exists
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
@@ -141,6 +143,8 @@ class Notification(object):
                 stale_retry = stale_retry + 1
 
         self.utils.print_info("Unable to find Notification Policy row in grid")
+        kwargs['fail_msg'] = "'get_notification_policy()' -> Unable to find Notification Policy row in grid"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def format_notification_policy_row(self, row):
