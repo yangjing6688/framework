@@ -2780,12 +2780,13 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info(f"Max {try_cnt} to select device is reached")
                     return -1
 
-    def verify_delta_cli_commands(self, dut, commands, retries=5, **kwargs):
+    def verify_delta_cli_commands(self, dut, commands, retries=5, step=15, **kwargs):
         """Method that verifies that given CLI commands appear in the Delta CLI window of a device.
 
         Args:
-            dut (dict): the dut (e.g. tb.du1)
+            dut (dict): the dut (e.g. tb.dut1)
             commands (list): a list of CLI commands
+            step (int): seconds to sleep between retries
             retries (int, optional): the number of retries. Defaults to 5.
         
         Returns:
@@ -2862,9 +2863,11 @@ class DeviceConfig(DeviceConfigElements):
             
             except Exception as exc:
                 self.utils.print_info(repr(exc))
-                self.utils.wait_till(timeout=15)
+                self.utils.wait_till(timeout=step)
             
             else:
+                kwargs["pass_msg"] = f"Successfully found these commands in the delta cli: {commands}"
+                self.common_validation.passed(**kwargs)
                 return 1
             
             finally:

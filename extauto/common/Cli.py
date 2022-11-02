@@ -1471,6 +1471,8 @@ class Cli(object):
                         except:
                             continue
                         else:
+                            kwargs["pass_msg"] = f"Successfully found the path cost correctly set on port='{port}' to {expected_path_cost}"
+                            self.commonValidation.passed(**kwargs)
                             return 1
                     else:
                         assert False, "Failed to find the path cost correctly configure for port='{port}'"
@@ -1497,7 +1499,7 @@ class Cli(object):
                         f"Found path cost for port='{port}' is {found_path_cost}" \
                         f" but expected {expected_path_cost}"
                     
-                    kwargs["pass_msg"] = f"Successfully found the path cost correctly set on port='{port}'"
+                    kwargs["pass_msg"] = f"Successfully found the path cost correctly set on port='{port}' to {expected_path_cost}"
                     self.commonValidation.passed(**kwargs)
                     return 1
                 
