@@ -3688,7 +3688,9 @@ class Device360WebElementDefs:
 
     d360_save_port_configuration_message_multi_edit = \
         {
-            'XPATH': '//div[contains(@widgetid,"ah/util/dojocover/AHDialog_0")]//div/i[@data-dojo-attach-point="xEl"]'
+            # 'XPATH': '//div[contains(@widgetid,"ah/util/dojocover/AHDialog_0")]//div/i[@data-dojo-attach-point="xEl"]'
+            'XPATH': '//div[contains(@widgetid,"ah/util/dojocover/AHDialog_0")]//*[@data-dojo-attach-point="textEl"]',
+            'index': 0,
         }
 
     add_port_type_port_usage_multi_edit = \
