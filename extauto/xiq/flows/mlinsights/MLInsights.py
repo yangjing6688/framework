@@ -34,12 +34,12 @@ class MLInsights:
         self.utils.print_info("tooltip_text: ", tooltip_text)
         if tooltip_text:
             if "Your account does not have permission to perform that action" in tooltip_text:
-                self.auto_actions.click(self.mlinsights_web_elements.get_map_close_btn())
+                self.auto_actions.click_reference(self.mlinsights_web_elements.get_map_close_btn)
                 sleep(10)
                 return -2
 
         self.utils.print_info("Create a new map...")
-        self.auto_actions.click(self.mlinsights_web_elements.get_create_new_map_btn())
+        self.auto_actions.click_reference(self.mlinsights_web_elements.get_create_new_map_btn)
 
         organization = kwargs.get('organization')
         street_addr = kwargs.get('street_addr')
@@ -62,6 +62,6 @@ class MLInsights:
         sleep(2)
 
         self.utils.print_info("Saving the configuration")
-        self.auto_actions.click(self.mlinsights_web_elements.get_map_save_btn())
+        self.auto_actions.click_reference(self.mlinsights_web_elements.get_map_save_btn)
         sleep(2)
         return 1

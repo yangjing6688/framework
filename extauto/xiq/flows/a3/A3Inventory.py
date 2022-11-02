@@ -133,7 +133,7 @@ class A3Inventory(A3InventoryWebElements):
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
         self.utils.print_info("Click A3 Inventory Refresh button")
-        self.auto_actions.click(self.get_refresh_a3_devices_page())
+        self.auto_actions.click_reference(self.get_refresh_a3_devices_page)
         sleep(2)
         self.screen.save_screen_shot()
         sleep(2)
@@ -151,7 +151,7 @@ class A3Inventory(A3InventoryWebElements):
         :return: return 1 if A3 host found on A3 Inventory Grid else -1
         """
         self.utils.print_info("Click A3 Inventory Refresh button")
-        self.auto_actions.click(self.get_refresh_a3_devices_page())
+        self.auto_actions.click_reference(self.get_refresh_a3_devices_page)
         sleep(2)
         self.screen.save_screen_shot()
         sleep(2)
@@ -348,7 +348,7 @@ class A3Inventory(A3InventoryWebElements):
         self._expand_a3_server_node(a3_server_name)
         sleep(5)
         self.utils.print_info("Click A3 Inventory Refresh button")
-        self.auto_actions.click(self.get_refresh_a3_devices_page())
+        self.auto_actions.click_reference(self.get_refresh_a3_devices_page)
         rows = self.get_a3_node_grid_rows()
         print(rows)
         for row in rows:
@@ -393,7 +393,7 @@ class A3Inventory(A3InventoryWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking on Sign In button")
-        self.auto_actions.click(self.get_a3_login_button())
+        self.auto_actions.click_reference(self.get_a3_login_button)
         sleep(8)
 
         self.screen.save_screen_shot()
@@ -442,7 +442,7 @@ class A3Inventory(A3InventoryWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking on Sign In button")
-        self.auto_actions.click(self.get_a3_login_button())
+        self.auto_actions.click_reference(self.get_a3_login_button)
         sleep(8)
 
         self.screen.save_screen_shot()

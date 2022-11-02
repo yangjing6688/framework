@@ -41,15 +41,15 @@ class CloudConfigGroup(object):
         :return: True if CCG policy is selected else return False
         """
         self.utils.print_info("Click on actions button")
-        self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
         sleep(3)
 
         self.utils.print_info("Click on Add CCG policy action")
-        self.auto_actions.click(self.ccg_web_elements.get_actions_add_ccg_policy())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_actions_add_ccg_policy)
         sleep(4)
 
         self.utils.print_info("Click on CCG Select policy drop down")
-        self.auto_actions.click(self.ccg_web_elements.get_ccg_policy_dropdown())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_policy_dropdown)
         sleep(5)
 
 
@@ -69,12 +69,12 @@ class CloudConfigGroup(object):
 
         if option == "Cancel":
             self.utils.print_info("Click on cancel button")
-            self.auto_actions.click(self.ccg_web_elements.get_actions_ccg_policy_cancel_button())
+            self.auto_actions.click_reference(self.ccg_web_elements.get_actions_ccg_policy_cancel_button)
             sleep(5)
             return True
 
         self.utils.print_info("Click on ccg policy continue button")
-        self.auto_actions.click(self.ccg_web_elements.get_actions_ccg_policy_contimue_button())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_actions_ccg_policy_contimue_button)
         sleep(5)
 
         return True
@@ -217,7 +217,7 @@ class CloudConfigGroup(object):
 
         self.utils.print_info(f"Adding CCG Group with name:{policy}")
         self.utils.print_info("Clicking on CCG Group Add Button")
-        self.auto_actions.click(self.ccg_web_elements.get_ccg_add_button())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_add_button)
         sleep(3)
 
         self.utils.print_info("Enter the policy name:{}".format(policy))
@@ -233,14 +233,14 @@ class CloudConfigGroup(object):
         sleep(2)
 
         self.utils.print_info("Clicking on CCG Group Save Button")
-        self.auto_actions.click(self.ccg_web_elements.get_ccg_save_button())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
         sleep(3)
 
         if self.ccg_web_elements.get_form_error_text():
             if "This field is required" in self.ccg_web_elements.get_form_error_text().text:
                 self.utils.print_info("Entering CCG Name is Mandatory")
                 self.utils.print_info("Clicking on CCG Group Cancel Button")
-                self.auto_actions.click(self.ccg_web_elements.get_ccg_cancel_button())
+                self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                 return -2
 
         tool_tp_text = tool_tip.tool_tip_text
@@ -286,16 +286,16 @@ class CloudConfigGroup(object):
         sleep(2)
 
         self.utils.print_info("Click on actions button")
-        self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
         sleep(3)
 
         self.utils.print_info("Click on Add CCG policy action")
-        self.auto_actions.click(self.ccg_web_elements.get_actions_add_ccg_policy())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_actions_add_ccg_policy)
         sleep(3)
 
         self.utils.print_info(f"Adding CCG Group with name:{policy}")
         self.utils.print_info("Clicking on CCG Group Add Button")
-        self.auto_actions.click(self.ccg_web_elements.get_actions_add_ccg_button())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_actions_add_ccg_button)
         sleep(3)
 
         self.utils.print_info("Enter the policy name:{}".format(policy))
@@ -312,11 +312,11 @@ class CloudConfigGroup(object):
         # sleep(2)
 
         self.utils.print_info("Clicking on CCG Group Save Button")
-        self.auto_actions.click(self.ccg_web_elements.get_ccg_save_button())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
         sleep(2)
 
         self.utils.print_info("Clicking on CCG Group Continue Button")
-        self.auto_actions.click(self.ccg_web_elements.get_ccg_continue_button())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_continue_button)
         sleep(3)
 
         if ccg_group_members := self.get_ccg_group_members(policy):
@@ -348,7 +348,7 @@ class CloudConfigGroup(object):
 
             self.utils.print_info(f"Adding CCG Group with name:{policy}")
             self.utils.print_info("Clicking on CCG Group Add Button")
-            self.auto_actions.click(self.ccg_web_elements.get_ccg_add_button())
+            self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_add_button)
             sleep(3)
 
             self.utils.print_info("Enter the policy name:{}".format(policy))
@@ -363,14 +363,14 @@ class CloudConfigGroup(object):
             sleep(2)
 
             self.utils.print_info("Clicking on CCG Group Save Button")
-            self.auto_actions.click(self.ccg_web_elements.get_ccg_save_button())
+            self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
             sleep(3)
 
             if self.ccg_web_elements.get_form_error_text():
                 if "This field is required" in self.ccg_web_elements.get_form_error_text().text:
                     self.utils.print_info("Entering CCG Name is Mandatory")
                     self.utils.print_info("Clicking on CCG Group Cancel Button")
-                    self.auto_actions.click(self.ccg_web_elements.get_ccg_cancel_button())
+                    self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                     return -2
 
             tool_tp_text = tool_tip.tool_tip_text
@@ -418,7 +418,7 @@ class CloudConfigGroup(object):
         sleep(3)
 
         self.utils.print_info("Clicking on CCG Edit Button")
-        self.auto_actions.click(self.ccg_web_elements.edit_ccg_button_common_object())
+        self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
 
         if option == "add":
             for ap_serial in ap_serials:
@@ -435,7 +435,7 @@ class CloudConfigGroup(object):
         sleep(2)
 
         self.utils.print_info("Clicking on CCG Group Save Button")
-        self.auto_actions.click(self.ccg_web_elements.get_ccg_save_button())
+        self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
         sleep(3)
 
         if self.search_ccg_group_from_common_object(policy):
@@ -489,7 +489,7 @@ class CloudConfigGroup(object):
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
         policy_select_flag = None
@@ -508,10 +508,10 @@ class CloudConfigGroup(object):
 
         if policy_select_flag:
             self.utils.print_info("Clicking on CCG Delete Button")
-            self.auto_actions.click(self.ccg_web_elements.delete_ccg_button_common_object())
+            self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_button_common_object)
 
             self.utils.print_info("Clicking CCG Yes Confirmation Button")
-            self.auto_actions.click(self.ccg_web_elements.delete_ccg_yes_confirmation_button())
+            self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_yes_confirmation_button)
             sleep(3)
             return 1
 
@@ -532,11 +532,11 @@ class CloudConfigGroup(object):
         sleep(3)
 
         self.utils.print_info("Clicking on CCG Delete Button")
-        self.auto_actions.click(self.ccg_web_elements.delete_ccg_button_common_object())
+        self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_button_common_object)
 
 
         self.utils.print_info("Clicking CCG Yes Confirmation Button")
-        self.auto_actions.click(self.ccg_web_elements.delete_ccg_yes_confirmation_button())
+        self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_yes_confirmation_button)
         sleep(3)
 
         if self.search_ccg_group_from_common_object(policy):
@@ -563,7 +563,7 @@ class CloudConfigGroup(object):
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
         policy_select_flag = None
@@ -578,10 +578,10 @@ class CloudConfigGroup(object):
 
         if policy_select_flag:
             self.utils.print_info("Clicking on CCG Delete Button")
-            self.auto_actions.click(self.ccg_web_elements.delete_ccg_button_common_object())
+            self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_button_common_object)
 
             self.utils.print_info("Clicking CCG Yes Confirmation Button")
-            self.auto_actions.click(self.ccg_web_elements.delete_ccg_yes_confirmation_button())
+            self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_yes_confirmation_button)
             sleep(3)
             return 1
 
@@ -680,7 +680,7 @@ class CloudConfigGroup(object):
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
         self.utils.print_info(f"Searching CCG Group with name:{policy}")
@@ -704,7 +704,7 @@ class CloudConfigGroup(object):
         # if view_all_pages := self.classification_rule_web_elements.view_all_pages():
         #     if view_all_pages.is_displayed():
         #         self.utils.print_info("Click Full pages button")
-        #         self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+        #         self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
         #         sleep(2)
 
         self.utils.print_info(f"Searching CCG Group with name:{policy}")
@@ -731,7 +731,7 @@ class CloudConfigGroup(object):
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
         self.utils.print_info(f"Searching CCG Group with name:{policy}")
@@ -761,7 +761,7 @@ class CloudConfigGroup(object):
         # if view_all_pages := self.classification_rule_web_elements.view_all_pages():
         #     if view_all_pages.is_displayed():
         #         self.utils.print_info("Click Full pages button")
-        #         self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+        #         self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
         #         sleep(2)
 
         self.utils.print_info(f"Searching CCG Group with name:{policy}")
@@ -791,7 +791,7 @@ class CloudConfigGroup(object):
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.classification_rule_web_elements.view_all_pages())
+                self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
         rows = self.ccg_web_elements.get_ccg_grid_rows()
@@ -806,7 +806,7 @@ class CloudConfigGroup(object):
                 sleep(2)
 
                 self.utils.print_info("Clicking on CCG Edit Button")
-                self.auto_actions.click(self.ccg_web_elements.edit_ccg_button_common_object())
+                self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
                 sleep(2)
 
                 get_ccg_members_hostname = self.ccg_web_elements.get_ccg_members_hostname()
@@ -816,7 +816,7 @@ class CloudConfigGroup(object):
 
                 sleep(2)
                 # self.utils.print_info("Clicking on CCG Group Cancel Button")
-                # self.auto_actions.click(self.ccg_web_elements.get_ccg_cancel_button())
+                # self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                 # sleep(5)
 
                 for member in get_ccg_members_hostnames:
@@ -826,7 +826,7 @@ class CloudConfigGroup(object):
                     get_ccg_members_serial_numbers.append(device_serial_num)
 
                 self.utils.print_info("Clicking on CCG Group Cancel Button")
-                self.auto_actions.click(self.ccg_web_elements.get_ccg_cancel_button())
+                self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                 sleep(5)
 
                 self.utils.print_info(f"CCG Group members :{policy} are {get_ccg_members_serial_numbers}")

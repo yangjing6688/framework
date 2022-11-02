@@ -109,7 +109,7 @@ class NetworkPolicy(object):
         """
 
         self.utils.print_info("Click on network policy delete button")
-        self.auto_actions.click(self.np_web_elements.get_np_delete_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_delete_button)
         # sleep(2)
 
         confirm_delete_btn = self.dialogue_web_elements.get_confirm_yes_button()
@@ -164,7 +164,7 @@ class NetworkPolicy(object):
             return -1
 
         self.utils.print_info("Click on network policy add button")
-        self.auto_actions.click(self.np_web_elements.get_np_add_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_add_button)
         sleep(2)
 
         self.utils.print_info("Enter the policy name:{}".format(policy))
@@ -174,7 +174,7 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Click on network policy save button")
-        self.auto_actions.click(self.np_web_elements.get_np_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_save_button)
 
         sleep(2)
         tool_tp_text = tool_tip.tool_tip_text
@@ -280,31 +280,33 @@ class NetworkPolicy(object):
                     if self._search_network_policy_in_list_view(policy) == 1:
                         self.utils.print_info("Select Network policy row")
                         self.select_network_policy_row(policy)
+                        self.screen.save_screen_shot()
+                        self._perform_np_delete()
+                        self.screen.save_screen_shot()
                         select_flag = True
                         sleep(1)
-                        break
                     else:
-                        self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
-
-                if select_flag:
-                    # we found what we were looking for, so exit
-                    break
+                        self.utils.print_info(f"Network policy {policy} doesn't exist in page {page_counter + 1}")
 
                 # goto the next page
                 page_counter += 1
-                self.utils.print_info(f"Move to next page {page_counter}")
+                self.utils.print_info(f"Move to next page {page_counter + 1}")
                 self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
+                self.screen.save_screen_shot()
                 sleep(5)
         else:
             for policy in policies:
                 if self._search_network_policy_in_list_view(policy) == 1:
                     self.utils.print_info("Select Network policy row")
                     self.select_network_policy_row(policy)
+                    self.screen.save_screen_shot()
+                    self._perform_np_delete()
+                    self.screen.save_screen_shot()
                     select_flag = True
                     sleep(1)
-                    break
                 else:
                     self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
+                    self.screen.save_screen_shot()
 
         if not select_flag:
             kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
@@ -312,7 +314,6 @@ class NetworkPolicy(object):
             return 1
 
         self.screen.save_screen_shot()
-        self._perform_np_delete()
         
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
@@ -384,7 +385,7 @@ class NetworkPolicy(object):
                 sleep(5)
 
         self.utils.print_info("Clicking on Network Save button..")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_wireless_networks_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1
 
@@ -399,7 +400,7 @@ class NetworkPolicy(object):
         self.utils.print_info("Selecting Network Policy: ", policy_name)
 
         self.utils.print_info("Click on Network Policy card view button")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_card_view())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
         sleep(5)
         policy_cards = self.np_web_elements.get_network_policy_card_items()
         for policy_card in policy_cards:
@@ -433,7 +434,7 @@ class NetworkPolicy(object):
         :return:
         """
         self.utils.print_info("Searching SSID: ", ssid)
-        self.auto_actions.click(self.np_web_elements.get_network_policy_wireless_networks_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_tab)
         sleep(5)
         grid_rows = self.np_web_elements.get_network_policy_wireless_networks_grid_rows()
         for row in grid_rows:
@@ -503,11 +504,11 @@ class NetworkPolicy(object):
         sleep(5)
 
         self.utils.print_info("Click on deploy policy tab")
-        self.auto_actions.click(self.np_web_elements.get_deploy_policy_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_deploy_policy_tab)
         sleep(2)
 
         self.utils.print_info("Click on eligible device button")
-        self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_eligible_device_button)
         sleep(5)
 
         self.navigator.enable_page_size()
@@ -528,17 +529,17 @@ class NetworkPolicy(object):
         self.screen.save_screen_shot()
         sleep(5)
         self.utils.print_info("Click on the policy deploy upload button")
-        self.auto_actions.click(self.np_web_elements.get_deploy_policy_upload_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_deploy_policy_upload_button)
 
         sleep(10)
 
         if update_type == 'delta' and next_reboot == False and _date == None:
             self.utils.print_info("Selecting Delta Config Update")
-            self.auto_actions.click(self.device_update_web_elements.get_delta_config_update_radio())
+            self.auto_actions.click_reference(self.device_update_web_elements.get_delta_config_update_radio)
             sleep(2)
             self.screen.save_screen_shot()
             self.utils.print_info("Click on the perform update")
-            self.auto_actions.click(self.np_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.np_web_elements.get_perform_update_button)
             sleep(2)
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
@@ -549,28 +550,28 @@ class NetworkPolicy(object):
 
         if update_type == 'complete':
             self.utils.print_info("Selecting Complete Config Update")
-            self.auto_actions.click(self.device_update_web_elements.get_complete_config_update_radio())
+            self.auto_actions.click_reference(self.device_update_web_elements.get_complete_config_update_radio)
             self.screen.save_screen_shot()
             sleep(2)
 
         if next_reboot:
             update_type = "complete"
             self.utils.print_info("Selecting Complete Config Update")
-            self.auto_actions.click(self.device_update_web_elements.get_complete_config_update_radio())
+            self.auto_actions.click_reference(self.device_update_web_elements.get_complete_config_update_radio)
             sleep(2)
 
             self.utils.print_info("Selecting Next Reboot radio")
-            self.auto_actions.click(self.device_update_web_elements.get_activate_at_next_reboot_radio())
+            self.auto_actions.click_reference(self.device_update_web_elements.get_activate_at_next_reboot_radio)
             sleep(2)
 
         if _date:
             update_type = "complete"
             self.utils.print_info("Selecting Complete Config Update")
-            self.auto_actions.click(self.device_update_web_elements.get_complete_config_update_radio())
+            self.auto_actions.click_reference(self.device_update_web_elements.get_complete_config_update_radio)
             sleep(2)
 
             self.utils.print_info("Selecting Activate at radio")
-            self.auto_actions.click(self.device_update_web_elements.get_activate_at_time_radio())
+            self.auto_actions.click_reference(self.device_update_web_elements.get_activate_at_time_radio)
             sleep(2)
 
             self.utils.print_info("Selecting Time to update")
@@ -578,12 +579,12 @@ class NetworkPolicy(object):
             self.auto_actions.send_page_down(self.device_update_web_elements.get_activate_at_time_radio())
             sleep(5)
 
-            self.auto_actions.click(self.device_update_web_elements.get_activate_at_date_textfield())
+            self.auto_actions.click_reference(self.device_update_web_elements.get_activate_at_date_textfield)
             sleep(5)
             self.auto_actions.send_keys(self.device_update_web_elements.get_activate_at_date_textfield(), _date)
             sleep(5)
 
-            self.auto_actions.click(self.device_update_web_elements.get_activate_at_time_textfield())
+            self.auto_actions.click_reference(self.device_update_web_elements.get_activate_at_time_textfield)
             sleep(5)
             self.auto_actions.send_keys(self.device_update_web_elements.get_activate_at_time_textfield(), _time)
             sleep(5)
@@ -592,7 +593,7 @@ class NetworkPolicy(object):
 
         if update_type != 'delta':
             self.utils.print_info("Click on the perform update")
-            self.auto_actions.click(self.np_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.np_web_elements.get_perform_update_button)
             self.screen.save_screen_shot()
             sleep(20)
 
@@ -646,7 +647,7 @@ class NetworkPolicy(object):
         list_view_button = self.np_web_elements.get_network_policy_list_view()
         if list_view_button:
             self.utils.print_info("Network policy list view button found! Clicking... ")
-            self.auto_actions.click(self.np_web_elements.get_network_policy_list_view())
+            self.auto_actions.click_reference(self.np_web_elements.get_network_policy_list_view)
         else:
             self.utils.print_info("List view button not found!")
             kwargs['fail_msg'] = "List view button not found!"
@@ -716,7 +717,7 @@ class NetworkPolicy(object):
                 if not self.np_web_elements.get_next_page_element_disabled():
                     self.utils.print_info(f"The network policy {policy_name} is not present on page: {current_page}. "
                                           f"Checking next page: {current_page + 1}...")
-                    self.auto_actions.click(self.np_web_elements.get_next_page_element())
+                    self.auto_actions.click_reference(self.np_web_elements.get_next_page_element)
                     current_page += 1
                 else:
                     self.utils.print_info(f"This is the last page: {current_page}. Network policy was not found in all "
@@ -779,7 +780,7 @@ class NetworkPolicy(object):
         sleep(5)
 
         self.utils.print_info("Click on Network Policy card view button")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_card_view())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
         sleep(2)
 
         self.utils.print_info("Getting Network Policy list from Card view")
@@ -869,7 +870,7 @@ class NetworkPolicy(object):
         sleep(3)
 
         self.utils.print_info("Click on network policy list view button")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_list_view())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_list_view)
 
         cell = self.np_web_elements.get_np_page_title()
         sleep(2)
@@ -943,7 +944,7 @@ class NetworkPolicy(object):
             self.utils.print_info(" Create a new guess network " + str(ssid_name))
             self.wireless_nw.create_wireless_network(**rc)
 
-        self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
+        self.auto_actions.click_reference(self.wireless_element.get_wireless_networks_tab)
         ssid_element_list = self.wireless_element.get_ssid_list()
 
         if ssid_element_list:
@@ -974,7 +975,7 @@ class NetworkPolicy(object):
         try_cnt = 0
         wireless_networks_page = self.wireless_element.get_wireless_nw_tab_page()
         while try_cnt < 10:
-            self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
+            self.auto_actions.click_reference(self.wireless_element.get_wireless_networks_tab)
             self.utils.print_info(f" The value of wireless networks page {wireless_networks_page}")
             if wireless_networks_page:
                 self.utils.print_info("Go to Wireless Networks tab successfully")
@@ -1043,7 +1044,7 @@ class NetworkPolicy(object):
                         tool_tp_text = tool_tip.tool_tip_text
                         self.utils.print_info(tool_tp_text)
                         self.utils.print_info(" Closing SSID pop-up window ")
-                        self.auto_actions.click(self.wireless_element.get_wireless_re_use_cancel_button())
+                        self.auto_actions.click_reference(self.wireless_element.get_wireless_re_use_cancel_button)
                         if "deleted successfully" in str(tool_tp_text):
                             self.utils.print_info(" SSIDs were successfully deleted ")
                             return 1
@@ -1073,7 +1074,7 @@ class NetworkPolicy(object):
         self.navigate_to_np_edit_tab(policy)
 
         self.utils.print_info(" Click on the wireless network tab")
-        self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
+        self.auto_actions.click_reference(self.wireless_element.get_wireless_networks_tab)
         self.tools.wait_til_elements_avail(self.wireless_element.wireless_nw_add_button, 60, False)
         self.utils.print_info(" Get all ssids in the policy")
         ssids = self.wireless_element.get_ssid_list()
@@ -1126,7 +1127,7 @@ class NetworkPolicy(object):
                                     tool_tp_text = tool_tip.tool_tip_text
                                     self.utils.print_info(tool_tp_text)
                                     self.utils.print_info(" Closing SSID pop-up window ")
-                                    self.auto_actions.click(self.wireless_element.get_wireless_re_use_cancel_button())
+                                    self.auto_actions.click_reference(self.wireless_element.get_wireless_re_use_cancel_button)
                                     if "deleted successfully" in str(tool_tp_text):
                                         self.utils.print_info(" SSIDs were successfully deleted ")
                                         return 1
@@ -1169,14 +1170,14 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Clicking on presence analytics button")
-        self.auto_actions.click(self.np_web_elements.get_enable_presence_analytics_btn())
+        self.auto_actions.click_reference(self.np_web_elements.get_enable_presence_analytics_btn)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click on network policy save button")
-        self.auto_actions.click(self.np_web_elements.get_np_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_save_button)
 
     def enable_ibeacon_service_in_network_policy(self, nw_policy, service_name, uuid, monitoring):
         """
@@ -1199,25 +1200,25 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Clicking on Additional Settings Tab")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_additional_settings_tab)
         sleep(2)
 
         if self.np_web_elements.get_additional_settings_ibeacon_menu().is_displayed():
             self.utils.print_info("Click on iBeacon Service Menu button")
-            self.auto_actions.click(self.np_web_elements.get_additional_settings_ibeacon_menu())
+            self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_ibeacon_menu)
             sleep(2)
         else:
             self.utils.print_info("Click Security Tab")
-            self.auto_actions.click(self.np_web_elements.get_policy_settings_menu())
+            self.auto_actions.click_reference(self.np_web_elements.get_policy_settings_menu)
             sleep(2)
             self.utils.print_info("Click on iBeacon Service Menu button")
-            self.auto_actions.click(self.np_web_elements.get_additional_settings_ibeacon_menu())
+            self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_ibeacon_menu)
             sleep(2)
 
         sleep(5)
         self.utils.print_info("Click on Enable IBeacon service button")
         if not self.np_web_elements.get_ibeacon_status_button().is_selected():
-            self.auto_actions.click(self.np_web_elements.get_ibeacon_status_button())
+            self.auto_actions.click_reference(self.np_web_elements.get_ibeacon_status_button)
             sleep(2)
 
         self.utils.print_info("Enter IBeacon Service Name")
@@ -1235,20 +1236,20 @@ class NetworkPolicy(object):
         if monitoring == 'enable':
             self.utils.print_info("Enable IBeacon Monitoring Checkbox")
             if not self.np_web_elements.get_ibeacon_monitoring_checkbox().is_selected():
-                self.auto_actions.click(self.np_web_elements.get_ibeacon_monitoring_checkbox())
+                self.auto_actions.click_reference(self.np_web_elements.get_ibeacon_monitoring_checkbox)
                 sleep(2)
 
         elif monitoring == 'disable':
             self.utils.print_info("Disable IBeacon Monitoring Checkbox")
             if self.np_web_elements.get_ibeacon_monitoring_checkbox().is_selected():
-                self.auto_actions.click(self.np_web_elements.get_ibeacon_monitoring_checkbox())
+                self.auto_actions.click_reference(self.np_web_elements.get_ibeacon_monitoring_checkbox)
                 sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.np_web_elements.get_ibeacon_services_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_ibeacon_services_save_button)
         sleep(3)
 
         self.utils.print_info("Checking the Save profile message...")
@@ -1276,28 +1277,28 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Clicking on Additional Settings Tab")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_additional_settings_tab)
         sleep(2)
 
         if self.np_web_elements.get_additional_settings_ibeacon_menu().is_displayed():
             self.utils.print_info("Click on iBeacon Service Menu button")
-            self.auto_actions.click(self.np_web_elements.get_additional_settings_ibeacon_menu())
+            self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_ibeacon_menu)
             sleep(2)
         else:
             self.utils.print_info("Click Security Tab")
-            self.auto_actions.click(self.np_web_elements.get_policy_settings_menu())
+            self.auto_actions.click_reference(self.np_web_elements.get_policy_settings_menu)
             sleep(2)
             self.utils.print_info("Click on iBeacon Service Menu button")
-            self.auto_actions.click(self.np_web_elements.get_additional_settings_ibeacon_menu())
+            self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_ibeacon_menu)
             sleep(2)
 
         sleep(5)
         self.utils.print_info("Click on Disable IBeacon service button")
-        self.auto_actions.click(self.np_web_elements.get_ibeacon_status_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_ibeacon_status_button)
         sleep(2)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.np_web_elements.get_ibeacon_services_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_ibeacon_services_save_button)
         sleep(3)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -1321,11 +1322,11 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("click Additional settings button")
-        self.auto_actions.click(self.np_web_elements.get_ssid_authentication_additional_settings_option())
+        self.auto_actions.click_reference(self.np_web_elements.get_ssid_authentication_additional_settings_option)
         sleep(2)
 
         self.utils.print_info("click Customize button")
-        self.auto_actions.click(self.np_web_elements.get_advance_access_security_customize_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_advance_access_security_customize_button)
         sleep(2)
 
         if status.upper() == "ENABLE":
@@ -1335,7 +1336,7 @@ class NetworkPolicy(object):
             sleep(2)
 
             self.utils.print_info("click on save button")
-            self.auto_actions.click(self.np_web_elements.get_access_security_settings_save_button())
+            self.auto_actions.click_reference(self.np_web_elements.get_access_security_settings_save_button)
             sleep(2)
 
         else:
@@ -1345,11 +1346,11 @@ class NetworkPolicy(object):
             sleep(2)
 
             self.utils.print_info("click on save button")
-            self.auto_actions.click(self.np_web_elements.get_access_security_settings_save_button())
+            self.auto_actions.click_reference(self.np_web_elements.get_access_security_settings_save_button)
             sleep(2)
 
         self.utils.print_info("Click on network policy SSID save button")
-        self.auto_actions.click(self.np_web_elements.get_np_ssid_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_ssid_save_button)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
@@ -1376,10 +1377,10 @@ class NetworkPolicy(object):
         if self.select_network_policy_in_card_view(policy_name):
             if self._select_ssid(ssid_name):
                 if new_auth_method.upper() == "OPEN":
-                    self.auto_actions.click(self.wireless_element.get_wireless_authtype_open())
+                    self.auto_actions.click_reference(self.wireless_element.get_wireless_authtype_open)
 
         self.utils.print_info("Clicking on Network Save button..")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_wireless_networks_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1
 
@@ -1408,7 +1409,7 @@ class NetworkPolicy(object):
             return 1
 
         self.utils.print_info("Click on network policy add button")
-        self.auto_actions.click(self.np_web_elements.get_np_add_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_add_button)
         sleep(2)
 
         self.utils.print_info("Unselect wireless network check box")
@@ -1422,7 +1423,7 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Click on network policy save button")
-        self.auto_actions.click(self.np_web_elements.get_np_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_save_button)
 
         sleep(5)
         tool_tp_text = tool_tip.tool_tip_text
@@ -1442,7 +1443,7 @@ class NetworkPolicy(object):
                 return -1
 
         self.utils.print_info("Click on network policy exit button")
-        self.auto_actions.click(self.np_web_elements.get_np_exit_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_exit_button)
         sleep(2)
 
         return 1
@@ -1493,7 +1494,7 @@ class NetworkPolicy(object):
 
         sleep(2)
         self.utils.print_info("Click on network policy save button")
-        self.auto_actions.click(self.np_web_elements.get_np_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_save_button)
 
         self.utils.print_info("Checking the Save profile message...")
         observed_nwpolicy_message = self.np_web_elements.get_np_save_tool_tip().text
@@ -1527,12 +1528,12 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Click on deploy policy tab")
-        self.auto_actions.click(self.np_web_elements.get_deploy_policy_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_deploy_policy_tab)
         sleep(2)
 
         def _click_eligible():
             self.utils.print_info("Click on eligible device button")
-            self.auto_actions.click(self.np_web_elements.get_eligible_device_button())
+            self.auto_actions.click_reference(self.np_web_elements.get_eligible_device_button)
         _click_eligible()
         
         def _check_device_rows():
@@ -1554,7 +1555,7 @@ class NetworkPolicy(object):
         self.screen.save_screen_shot()
         sleep(1)
         self.utils.print_info("Click on the policy deploy upload button")
-        self.auto_actions.click(self.np_web_elements.get_deploy_policy_upload_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_deploy_policy_upload_button)
         sleep(1)
         self.screen.save_screen_shot()
 
@@ -1617,7 +1618,7 @@ class NetworkPolicy(object):
         self.utils.print_info("Checking for the perform update button presence")
         if self.np_web_elements.get_perform_update_policy_button():
             self.utils.print_info("Click on perform update button ")
-            self.auto_actions.click(self.np_web_elements.get_perform_update_policy_button())
+            self.auto_actions.click_reference(self.np_web_elements.get_perform_update_policy_button)
         else:
             self.utils.print_info("The perform update button was not found")
             return -1
@@ -1653,10 +1654,10 @@ class NetworkPolicy(object):
         self.navigate_to_np_edit_tab(policy)
 
         self.utils.print_info("Clicking on the wireless network tab")
-        self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
+        self.auto_actions.click_reference(self.wireless_element.get_wireless_networks_tab)
 
         self.utils.print_info("Clicking on the Select option to select SSID")
-        self.auto_actions.click(self.wireless_element.get_wireless_ssid_select_button())
+        self.auto_actions.click_reference(self.wireless_element.get_wireless_ssid_select_button)
         sleep(2)
         self.screen.save_screen_shot()
 
@@ -1667,11 +1668,11 @@ class NetworkPolicy(object):
                                                   get_wireless_select_ssid_row_check_box(row))
                 self.auto_actions.click(self.wireless_element.get_wireless_select_ssid_row_check_box(row))
                 sleep(2)
-                self.auto_actions.click(self.wireless_element.get_wireless_ssid_select_option_button())
+                self.auto_actions.click_reference(self.wireless_element.get_wireless_ssid_select_option_button)
                 self.screen.save_screen_shot()
                 return True
         self.utils.print_info(f"SSID: {ssid} not present !!!")
-        self.auto_actions.click(self.wireless_element.get_wireless_ssid_select_cancel_button())
+        self.auto_actions.click_reference(self.wireless_element.get_wireless_ssid_select_cancel_button)
         return False
 
     def enable_classifier_maps(self, nw_policy, classifier_name):
@@ -1689,20 +1690,20 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Clicking on Additional Settings Tab")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_additional_settings_tab)
         sleep(2)
 
         self.np_web_elements.get_additional_settings_classifiermaps().is_displayed()
 
         self.utils.print_info("Scroll to the Classifier Maps Option")
-        self.auto_actions.click(self.np_web_elements.get_additional_settings_classifiermaps())
+        self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_classifiermaps)
         sleep(2)
         self.utils.print_info("Click on Classifier Maps")
-        self.auto_actions.click(self.np_web_elements.get_additional_settings_classifiermaps())
+        self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_classifiermaps)
         sleep(2)
 
         self.utils.print_info("Enable Classifier Maps")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_enable())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_enable)
         sleep(3)
 
         self.utils.print_info("Enter Classifier Maps Name")
@@ -1714,75 +1715,75 @@ class NetworkPolicy(object):
         sleep(3)
 
         self.utils.print_info("Add Service")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_add_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_add_button)
         sleep(3)
 
         self.utils.print_info("Select from the following link")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_services_selectfromfollowing_link())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_services_selectfromfollowing_link)
         sleep(3)
 
         self.utils.print_info("Select BGP Service")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_services_select_service_bgp())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_services_select_service_bgp)
         sleep(3)
 
         self.utils.print_info("Save BGP Service")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_services_initial_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_services_initial_save_button)
         sleep(3)
 
         self.utils.print_info("Click on Save Services Button")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_services_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_services_save_button)
         sleep(3)
 
         self.utils.print_info("Click on MAC OUIs")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_macoui_link())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_macoui_link)
         sleep(3)
 
         self.utils.print_info("Click on Add")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_macoui_add())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_macoui_add)
         sleep(3)
 
         self.utils.print_info("Click on DropDown Menu")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_macoui_dropdown())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_macoui_dropdown)
         sleep(3)
 
         self.utils.print_info("Click Aerohive-08EA44")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_add_macoui_from_dropdown())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_add_macoui_from_dropdown)
         sleep(3)
 
         self.utils.print_info("Click on Save Button")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_macoui_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_macoui_save_button)
         sleep(3)
 
         self.utils.print_info("Click on SSID")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_ssid_link())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_ssid_link)
         sleep(3)
 
         self.utils.print_info("Add SSID")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_add_ssid())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_add_ssid)
         sleep(3)
 
         self.utils.print_info("Click on Save Button")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_ssid_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_ssid_save_button)
         sleep(3)
 
         self.utils.print_info("Click on 802.1p/DiffServ/802.11e")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_802_link())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_802_link)
         sleep(3)
 
         self.utils.print_info("Enable 802.1p")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_802enable())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_802enable)
         sleep(3)
 
         self.utils.print_info("Enable DiffServ")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_diffservenable())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_diffservenable)
         sleep(3)
 
         self.utils.print_info("Enable 802.11e")
-        self.auto_actions.click(self.np_web_elements.get_classifiermaps_80211enable())
+        self.auto_actions.click_reference(self.np_web_elements.get_classifiermaps_80211enable)
         sleep(3)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.np_web_elements.get_Classifier_Maps_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_Classifier_Maps_save_button)
         sleep(3)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -1819,21 +1820,21 @@ class NetworkPolicy(object):
         sleep(2)
         
         self.utils.print_info("Clicking on Additional Settings Tab")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_additional_settings_tab)
         sleep(2)
 
         self.np_web_elements.get_additional_settings_marker_maps().is_displayed()
         
         self.utils.print_info("Scroll to the Marker Maps Option")
-        self.auto_actions.click(self.np_web_elements.get_additional_settings_marker_maps())
+        self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_marker_maps)
         sleep(2)
         
         self.utils.print_info("Click on Marker Maps")
-        self.auto_actions.click(self.np_web_elements.get_additional_settings_marker_maps())
+        self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_marker_maps)
         sleep(2)
 
         self.utils.print_info("Enable Marker Maps")
-        self.auto_actions.click(self.np_web_elements.get_marker_maps_status_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_marker_maps_status_button)
         sleep(3)
 
         self.utils.print_info("Enter Marker Maps Name")
@@ -1845,7 +1846,7 @@ class NetworkPolicy(object):
         sleep(3)
 
         self.utils.print_info("Enable 802.1p Markers")
-        self.auto_actions.click(self.np_web_elements.get_marker_maps_8021P())
+        self.auto_actions.click_reference(self.np_web_elements.get_marker_maps_8021P)
         sleep(3)
 
         self.utils.print_info("Enter 802.1p Network Control")
@@ -1865,11 +1866,11 @@ class NetworkPolicy(object):
         sleep(3)
 
         self.utils.print_info("Switch to diffServ Markers")
-        self.auto_actions.click(self.np_web_elements.get_marker_maps_Switch_to_diffServ())
+        self.auto_actions.click_reference(self.np_web_elements.get_marker_maps_Switch_to_diffServ)
         sleep(3)
 
         self.utils.print_info("Enable diffServ Markers")
-        self.auto_actions.click(self.np_web_elements.get_marker_maps_diffServ())
+        self.auto_actions.click_reference(self.np_web_elements.get_marker_maps_diffServ)
         sleep(3)
 
         self.utils.print_info("Enter diffServ Network Control")
@@ -1889,7 +1890,7 @@ class NetworkPolicy(object):
         sleep(3)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.np_web_elements.get_marker_maps_services_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_marker_maps_services_save_button)
         sleep(3)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -1913,27 +1914,27 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Clicking on Additional Settings Tab")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_additional_settings_tab)
         sleep(2)
 
         if self.np_web_elements.get_additional_settings_marker_maps().is_displayed():
             self.utils.print_info("Scroll to the QoS Overview Option")
-            self.auto_actions.click(self.np_web_elements.get_additional_settings_QoS_Overview())
+            self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_QoS_Overview)
             sleep(2)
         else:
             self.utils.print_info("Click Security Tab")
-            self.auto_actions.click(self.np_web_elements.get_qos_options_menu())
+            self.auto_actions.click_reference(self.np_web_elements.get_qos_options_menu)
             sleep(2)
             self.utils.print_info("Click on QoS Overview")
-            self.auto_actions.click(self.np_web_elements.get_additional_settings_QoS_Overview())
+            self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_QoS_Overview)
             sleep(2)
 
         self.utils.print_info("Enable Dynamic Airtime Scheduling")
-        self.auto_actions.click(self.np_web_elements.get_QoS_Dynamic_Airtime_Scheduling_Enable())
+        self.auto_actions.click_reference(self.np_web_elements.get_QoS_Dynamic_Airtime_Scheduling_Enable)
         sleep(2)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.np_web_elements.get_QoS_services_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_QoS_services_save_button)
         
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
@@ -1961,10 +1962,10 @@ class NetworkPolicy(object):
         self.navigate_to_np_edit_tab(nw_policy)
 
         self.utils.print_info("Clicking on the wireless network tab")
-        self.auto_actions.click(self.wireless_element.get_wireless_networks_tab())
+        self.auto_actions.click_reference(self.wireless_element.get_wireless_networks_tab)
 
         self.utils.print_info("Click on Add SSID")
-        self.auto_actions.click(self.np_web_elements.get_add_ssid_menu())
+        self.auto_actions.click_reference(self.np_web_elements.get_add_ssid_menu)
         sleep(2)
 
         self.utils.print_info("Enter SSID")
@@ -1977,15 +1978,15 @@ class NetworkPolicy(object):
             sleep(2)
 
             self.utils.print_info("Clicking 'Yes'")
-            self.auto_actions.click(self.np_web_elements.get_OWE_wifi2_dialogue_box_yes())
+            self.auto_actions.click_reference(self.np_web_elements.get_OWE_wifi2_dialogue_box_yes)
             sleep(2)
 
             self.utils.print_info("Click on Enhanced Open Secure SSID Authentication")
-            self.auto_actions.click(self.np_web_elements.get_Enhanced_Open_Authentication())
+            self.auto_actions.click_reference(self.np_web_elements.get_Enhanced_Open_Authentication)
             sleep(3)
 
             self.utils.print_info("Click on Save Button")
-            self.auto_actions.click(self.np_web_elements.get_save_enhanced_open_ssid())
+            self.auto_actions.click_reference(self.np_web_elements.get_save_enhanced_open_ssid)
             sleep(3)
             return 1
 
@@ -1995,14 +1996,14 @@ class NetworkPolicy(object):
             sleep(2)
 
             self.utils.print_info("Click on Enhanced Open Secure SSID Authentication")
-            self.auto_actions.click(self.np_web_elements.get_Enhanced_Open_Authentication())
+            self.auto_actions.click_reference(self.np_web_elements.get_Enhanced_Open_Authentication)
             sleep(10)
 
             self.utils.print_info("Enable Transition Mode for 2.4Ghz and 5Ghz")
-            self.auto_actions.click(self.np_web_elements.get_OWE_Transition_mode())
+            self.auto_actions.click_reference(self.np_web_elements.get_OWE_Transition_mode)
 
             self.utils.print_info("Click on Save Button")
-            self.auto_actions.click(self.np_web_elements.get_save_enhanced_open_ssid())
+            self.auto_actions.click_reference(self.np_web_elements.get_save_enhanced_open_ssid)
             sleep(3)
             return 1
 
@@ -2046,15 +2047,15 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Clicking on Additional Settings Tab")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_additional_settings_tab)
         sleep(2)
 
         self.utils.print_info("Clicking on Management Options")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_management_options())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_management_options)
         sleep(5)
 
         self.utils.print_info("Enabling Management Option")
-        self.auto_actions.click(self.np_web_elements.enable_management_options_button())
+        self.auto_actions.click_reference(self.np_web_elements.enable_management_options_button)
         sleep(2)
 
         self.utils.print_info("Entering the name of Management Option")
@@ -2062,11 +2063,11 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Enabling HTTP Re-direct Option")
-        self.auto_actions.click(self.np_web_elements.enable_legacy_http_redirect_checkbox())
+        self.auto_actions.click_reference(self.np_web_elements.enable_legacy_http_redirect_checkbox)
         sleep(5)
 
         self.utils.print_info("Saving Management Option")
-        self.auto_actions.click(self.np_web_elements.save_management_option_button())
+        self.auto_actions.click_reference(self.np_web_elements.save_management_option_button)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -2093,11 +2094,11 @@ class NetworkPolicy(object):
         sleep(2)
 
         self.utils.print_info("Clicking on Additional Settings Tab")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_additional_settings_tab)
         sleep(2)
 
         self.utils.print_info("Clicking on Management Options")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_management_options())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_management_options)
         sleep(5)
         self.auto_actions.scroll_up()
         sleep(10)
@@ -2126,7 +2127,7 @@ class NetworkPolicy(object):
                                 if select_button:
                                     self.auto_actions.click(select_button)
                                     self.utils.print_info("Save changes to policy ")
-                                    self.auto_actions.click(self.np_web_elements.save_management_option_button())
+                                    self.auto_actions.click_reference(self.np_web_elements.save_management_option_button)
                                     return 1
                                 else:
                                     self.utils.print_info("Unable to click on the Select button")
@@ -2181,6 +2182,6 @@ class NetworkPolicy(object):
                     return -1
 
         self.utils.print_info("Clicking on Network Save button..")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_wireless_networks_save_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1

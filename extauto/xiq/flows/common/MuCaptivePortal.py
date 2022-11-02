@@ -100,7 +100,7 @@ class MuCaptivePortal(MuCPWebElement):
         sleep(2)
 
         self.utils.print_info("Click on registration Button")
-        self.auto_actions.click(self.get_registration_user_registration_button())
+        self.auto_actions.click_reference(self.get_registration_user_registration_button)
         sleep(2)
 
         self.utils.print_info("Check the registration error reason")
@@ -179,12 +179,12 @@ class MuCaptivePortal(MuCPWebElement):
         :return: 1 if successfully connected with internet with social login type facebook else -1
         """
         self.utils.print_info("Click Social Login User Acceptance Checkbox")
-        self.auto_actions.click(self.get_social_login_accept_condition_checkbox())
+        self.auto_actions.click_reference(self.get_social_login_accept_condition_checkbox)
         self.get_page_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click Social Login facebook button")
-        self.auto_actions.click(self.get_social_login_with_facebook_button())
+        self.auto_actions.click_reference(self.get_social_login_with_facebook_button)
         self.get_page_screen_shot()
         sleep(2)
 
@@ -209,7 +209,7 @@ class MuCaptivePortal(MuCPWebElement):
         self.auto_actions.send_keys(self.get_social_login_with_facebook_password_field(), password)
 
         self.utils.print_info("Click Facebook Sign in button")
-        self.auto_actions.click(self.get_social_login_with_facebook_login_button())
+        self.auto_actions.click_reference(self.get_social_login_with_facebook_login_button)
         sleep(5)
 
         self.get_page_screen_shot()
@@ -232,12 +232,12 @@ class MuCaptivePortal(MuCPWebElement):
         :return: 1 if successfully connected with internet with social login type google else -1
         """
         self.utils.print_info("Click Social Login User Acceptance Checkbox")
-        self.auto_actions.click(self.get_social_login_accept_condition_checkbox())
+        self.auto_actions.click_reference(self.get_social_login_accept_condition_checkbox)
         self.get_page_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click Social Login google button")
-        self.auto_actions.click(self.get_social_login_with_google_button())
+        self.auto_actions.click_reference(self.get_social_login_with_google_button)
         self.get_page_screen_shot()
         sleep(2)
 
@@ -245,7 +245,7 @@ class MuCaptivePortal(MuCPWebElement):
         self.auto_actions.send_keys(self.get_social_login_with_google_username_field(), username)
 
         self.utils.print_info("Click Next button")
-        self.auto_actions.click(self.get_social_login_with_google_username_next_button())
+        self.auto_actions.click_reference(self.get_social_login_with_google_username_next_button)
         sleep(3)
 
         self.utils.print_info("Enter Gmail Password")
@@ -255,7 +255,7 @@ class MuCaptivePortal(MuCPWebElement):
         sleep(2)
 
         self.utils.print_info("Click Next button")
-        self.auto_actions.click(self.get_social_login_with_google_password_next_button())
+        self.auto_actions.click_reference(self.get_social_login_with_google_password_next_button)
         sleep(3)
 
         self.get_page_screen_shot()
@@ -265,12 +265,12 @@ class MuCaptivePortal(MuCPWebElement):
         self.utils.print_info("Open New Tab")
         self.open_cp_new_tab()
         self.utils.print_info("Click Social Login User Acceptance Checkbox")
-        self.auto_actions.click(self.get_social_login_accept_condition_checkbox())
+        self.auto_actions.click_reference(self.get_social_login_accept_condition_checkbox)
         self.get_page_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click Social Login google button")
-        self.auto_actions.click(self.get_social_login_with_google_button())
+        self.auto_actions.click_reference(self.get_social_login_with_google_button)
         self.get_page_screen_shot()
         sleep(2)
         self.utils.print_info("Validating successful Page text")
@@ -293,12 +293,12 @@ class MuCaptivePortal(MuCPWebElement):
         :return: 1 if successfully connected with internet with social login type Linkedin else -1
         """
         self.utils.print_info("Click Social Login User Acceptance Checkbox")
-        self.auto_actions.click(self.get_social_login_accept_condition_checkbox())
+        self.auto_actions.click_reference(self.get_social_login_accept_condition_checkbox)
         self.get_page_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click Social Login Linkedin button")
-        self.auto_actions.click(self.get_social_login_with_linkedin_button())
+        self.auto_actions.click_reference(self.get_social_login_with_linkedin_button)
         self.get_page_screen_shot()
         sleep(2)
 
@@ -311,7 +311,7 @@ class MuCaptivePortal(MuCPWebElement):
         sleep(2)
 
         self.utils.print_info("Click Linkedin Sign in button")
-        self.auto_actions.click(self.get_social_login_linkedin_signin_button())
+        self.auto_actions.click_reference(self.get_social_login_linkedin_signin_button)
         sleep(5)
 
         self.get_page_screen_shot()
@@ -360,7 +360,7 @@ class MuCaptivePortal(MuCPWebElement):
         sleep(2)
 
         self.utils.print_info("Click on registration Button")
-        self.auto_actions.click(self.get_guest_access_registration_button())
+        self.auto_actions.click_reference(self.get_guest_access_registration_button)
         sleep(2)
 
         self.utils.print_info("Check the registration error reason")
@@ -403,7 +403,7 @@ class MuCaptivePortal(MuCPWebElement):
 
         self.get_page_screen_shot()
         self.utils.print_info("Click on guest user login ")
-        self.auto_actions.click(self.get_guest_access_login_button())
+        self.auto_actions.click_reference(self.get_guest_access_login_button)
         sleep(2)
         return self._get_registration_status()
 
@@ -423,11 +423,11 @@ class MuCaptivePortal(MuCPWebElement):
         self.auto_actions.send_keys(self.get_email_id_to_get_pin(), email)
 
         self.utils.print_info("accepts the term and conditions")
-        self.auto_actions.click(self.get_accept_terms_cond_check_box())
+        self.auto_actions.click_reference(self.get_accept_terms_cond_check_box)
 
         self.get_page_screen_shot()
         self.utils.print_info("Click on Submit button")
-        self.auto_actions.click(self.get_submit_button())
+        self.auto_actions.click_reference(self.get_submit_button)
         sleep(2)
 
         self.get_page_screen_shot()
@@ -453,13 +453,13 @@ class MuCaptivePortal(MuCPWebElement):
         self.auto_actions.send_keys(self.get_pin_field(), pin)
 
         if not self.get_accept_terms_cond_check_box().is_selected():
-            self.auto_actions.click(self.get_accept_terms_cond_check_box())
+            self.auto_actions.click_reference(self.get_accept_terms_cond_check_box)
 
         self.get_page_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click on Submit button")
-        self.auto_actions.click(self.get_submit_button())
+        self.auto_actions.click_reference(self.get_submit_button)
         sleep(5)
 
         self.get_page_screen_shot()
@@ -503,12 +503,12 @@ class MuCaptivePortal(MuCPWebElement):
         :return: 1 if successfully get the term and condition page text else -1
         """
         self.utils.print_info("Click Social Login User Acceptance Checkbox")
-        self.auto_actions.click(self.get_social_login_accept_condition_checkbox())
+        self.auto_actions.click_reference(self.get_social_login_accept_condition_checkbox)
         self.get_page_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click Term and Condition Link")
-        self.auto_actions.click(self.get_social_login_terms_and_condition_link())
+        self.auto_actions.click_reference(self.get_social_login_terms_and_condition_link)
         self.get_page_screen_shot()
         sleep(2)
 
@@ -517,7 +517,7 @@ class MuCaptivePortal(MuCPWebElement):
             msg = self.get_social_login_terms_and_condition_page_text().text
             self.utils.print_info(msg)
             self.utils.print_info("Click close Button")
-            self.auto_actions.click(self.get_social_login_terms_and_condition_close_button())
+            self.auto_actions.click_reference(self.get_social_login_terms_and_condition_close_button)
 
             if "Acceptable Use Policy" and "Terms of use" in msg:
                 return 1

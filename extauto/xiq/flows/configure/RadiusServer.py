@@ -21,7 +21,7 @@ class RadiusServer(RSWebElements):
         :return:
         """
         self.utils.print_info("click on IP/host name add button")
-        self.auto_actions.click(self.get_new_external_radius_server_ip_host_add_button())
+        self.auto_actions.click_reference(self.get_new_external_radius_server_ip_host_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -40,7 +40,7 @@ class RadiusServer(RSWebElements):
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.get_new_external_radius_server_save_ip_button())
+        self.auto_actions.click_reference(self.get_new_external_radius_server_save_ip_button)
         sleep(2)
         self.screen.save_screen_shot()
         sleep(2)
@@ -54,7 +54,7 @@ class RadiusServer(RSWebElements):
         :param rs_ip_host_name: IP name to select
         :return: 1
         """
-        self.auto_actions.click(self.get_extreme_networks_radius_server_select_button())
+        self.auto_actions.click_reference(self.get_extreme_networks_radius_server_select_button)
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -89,7 +89,7 @@ class RadiusServer(RSWebElements):
         sleep(2)
 
         self.utils.print_info("Click on IP/host name select drop down")
-        self.auto_actions.click(self.get_new_external_radius_server_ip_host_select_drop_down())
+        self.auto_actions.click_reference(self.get_new_external_radius_server_ip_host_select_drop_down)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -111,7 +111,7 @@ class RadiusServer(RSWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Radius Server save button")
-        self.auto_actions.click(self.get_external_radius_server_save_button())
+        self.auto_actions.click_reference(self.get_external_radius_server_save_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -140,7 +140,7 @@ class RadiusServer(RSWebElements):
                 sleep(2)
 
                 self.utils.print_info("click on RADIUS server save button")
-                self.auto_actions.click(self.get_radius_server_save_radius_button())
+                self.auto_actions.click_reference(self.get_radius_server_save_radius_button)
                 sleep(2)
                 return True
         return False
@@ -161,7 +161,7 @@ class RadiusServer(RSWebElements):
         ext_rs_name = ext_server_config.get('radius_server_name')
 
         self.utils.print_info("Click on EXTERNAL RADIUS SERVER label")
-        self.auto_actions.click(self.get_external_radius_server())
+        self.auto_actions.click_reference(self.get_external_radius_server)
         sleep(2)
 
         select_status = self._select_external_radius_server(ext_rs_name)
@@ -169,7 +169,7 @@ class RadiusServer(RSWebElements):
             return 1
 
         self.utils.print_info("Click on new external RADIUS server add button")
-        self.auto_actions.click(self.get_radius_server_list_add_button())
+        self.auto_actions.click_reference(self.get_radius_server_list_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -192,7 +192,7 @@ class RadiusServer(RSWebElements):
         server_type = rs_config.get('server_type')
 
         self.utils.print_info("Click on default RADIUS server group add button")
-        self.auto_actions.click(self.get_default_radius_server_group_add_button())
+        self.auto_actions.click_reference(self.get_default_radius_server_group_add_button)
         sleep(2)
 
         self.utils.print_info("Enter RADIUS Server Group name")
@@ -215,7 +215,7 @@ class RadiusServer(RSWebElements):
         self.utils.print_info("Click on default radius server group select button")
         self.auto_actions.center_element(self.get_default_radius_server_group_select_button())
 
-        self.auto_actions.click(self.get_default_radius_server_group_select_button())
+        self.auto_actions.click_reference(self.get_default_radius_server_group_select_button)
         sleep(2)
 
         for row in self.get_default_radius_server_group_dialog_rsg_rows():
@@ -224,7 +224,7 @@ class RadiusServer(RSWebElements):
                 sleep(2)
                 return True
         self.utils.print_info(f"default RADIUS server group: {rs_group_name} doesn't exist, Please create default")
-        self.auto_actions.click(self.get_default_radius_server_group_dialog_cancel_button())
+        self.auto_actions.click_reference(self.get_default_radius_server_group_dialog_cancel_button)
         sleep(2)
         return False
 
@@ -235,7 +235,7 @@ class RadiusServer(RSWebElements):
         :return:
         """
         if self._select_radius_server_group_row(rs_group_name):
-            self.auto_actions.click(self.get_default_radius_server_group_dialog_select_button())
+            self.auto_actions.click_reference(self.get_default_radius_server_group_dialog_select_button)
             return True
 
     def delete_radius_server_group(self, rs_group_name):
@@ -249,11 +249,11 @@ class RadiusServer(RSWebElements):
         """
         if self._select_radius_server_group_row(rs_group_name):
             self.utils.print_info("Click delete Button to delete RADIUS Group Name")
-            self.auto_actions.click(self.get_radius_server_group_delete_button())
+            self.auto_actions.click_reference(self.get_radius_server_group_delete_button)
             sleep(2)
 
             self.utils.print_info("Click Confirm Delete Button")
-            self.auto_actions.click(self.get_radius_server_group_delete_confirm_button())
+            self.auto_actions.click_reference(self.get_radius_server_group_delete_confirm_button)
             sleep(3)
 
             tool_tp_text = tool_tip.tool_tip_text
@@ -261,7 +261,7 @@ class RadiusServer(RSWebElements):
             sleep(2)
 
             self.utils.print_info("Click Cancel Button")
-            self.auto_actions.click(self.get_default_radius_server_group_dialog_cancel_button())
+            self.auto_actions.click_reference(self.get_default_radius_server_group_dialog_cancel_button)
             sleep(2)
             for value in tool_tp_text:
                 if "The item was deleted successfully" in value:
@@ -269,7 +269,7 @@ class RadiusServer(RSWebElements):
             return False
         else:
             self.utils.print_info("default RADIUS server group:{} does't exist, create it..".format(rs_group_name))
-            self.auto_actions.click(self.get_default_radius_server_group_dialog_cancel_button())
+            self.auto_actions.click_reference(self.get_default_radius_server_group_dialog_cancel_button)
             return False
 
     def config_radius_server(self, **rs_group_config):
@@ -303,13 +303,13 @@ class RadiusServer(RSWebElements):
         ext_rs_name = extreme_networks_server_config.get('radius_server_name')
 
         self.utils.print_info("Click on EXTREME NETWORKS RADIUS SERVER label")
-        self.auto_actions.click(self.get_extreme_networks_radius_server())
+        self.auto_actions.click_reference(self.get_extreme_networks_radius_server)
         sleep(2)
 
         # select Local Database as use DB
         self.utils.print_info("Select Use Database Type as Local Database")
         self.utils.print_info("Click Use Database Type scroll down box")
-        self.auto_actions.click(self.get_extreme_networks_radius_server_db_scroll_button())
+        self.auto_actions.click_reference(self.get_extreme_networks_radius_server_db_scroll_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -328,7 +328,7 @@ class RadiusServer(RSWebElements):
             return 1
 
         self.utils.print_info("Click on new external RADIUS server add button")
-        self.auto_actions.click(self.get_extreme_networks_device_as_radius_server_list_add_button())
+        self.auto_actions.click_reference(self.get_extreme_networks_device_as_radius_server_list_add_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -355,7 +355,7 @@ class RadiusServer(RSWebElements):
                 self.auto_actions.click(self.get_extreme_networks_radius_server_list_row_select_checkbox(row))
                 sleep(2)
                 self.utils.print_info("click on RADIUS server save button")
-                self.auto_actions.click(self.get_radius_server_save_radius_button())
+                self.auto_actions.click_reference(self.get_radius_server_save_radius_button)
                 sleep(2)
                 return True
         return False
@@ -396,13 +396,13 @@ class RadiusServer(RSWebElements):
 
         self.utils.print_info("Disabling Default user Database config")
         if self.get_user_db_active_directory_checkbox().is_selected():
-            self.auto_actions.click(self.get_user_db_active_directory_checkbox())
+            self.auto_actions.click_reference(self.get_user_db_active_directory_checkbox)
             sleep(2)
 
         if user_database.upper() == "LOCAL DATABASE":
             self.utils.print_info("Select the Local Database check box")
             if not self.get_user_db_local_database_checkbox().is_selected():
-                self.auto_actions.click(self.get_user_db_local_database_checkbox())
+                self.auto_actions.click_reference(self.get_user_db_local_database_checkbox)
                 sleep(2)
 
                 self.screen.save_screen_shot()
@@ -411,13 +411,13 @@ class RadiusServer(RSWebElements):
         if user_database.upper() == "LDAP":
             self.utils.print_info("Select the LDAP Database check box")
             if not self.get_user_db_ldap_database_checkbox().is_selected():
-                self.auto_actions.click(self.get_user_db_ldap_database_checkbox())
+                self.auto_actions.click_reference(self.get_user_db_ldap_database_checkbox)
                 sleep(2)
 
         if user_database.upper() == "ACTIVE DIRECTORY":
             self.utils.print_info("Select the active directory Database check box")
             if not self.get_user_db_active_directory_checkbox().is_selected():
-                self.auto_actions.click(self.get_user_db_active_directory_checkbox())
+                self.auto_actions.click_reference(self.get_user_db_active_directory_checkbox)
                 sleep(2)
 
         sleep(2)
@@ -428,14 +428,14 @@ class RadiusServer(RSWebElements):
         sleep(2)
 
         self.utils.print_info("Click Approved Radius Clients ")
-        self.auto_actions.click(self.get_extreme_networks_radius_server_approved_clients_tab())
+        self.auto_actions.click_reference(self.get_extreme_networks_radius_server_approved_clients_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click Add Button")
-        self.auto_actions.click(self.get_extreme_networks_radius_server_add_button())
+        self.auto_actions.click_reference(self.get_extreme_networks_radius_server_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -469,7 +469,7 @@ class RadiusServer(RSWebElements):
 
         sleep(2)
         self.utils.print_info("Click on RADIUS Server save button")
-        self.auto_actions.click(self.get_external_radius_server_save_button())
+        self.auto_actions.click_reference(self.get_external_radius_server_save_button)
         sleep(2)
         self.screen.save_screen_shot()
         sleep(2)
@@ -483,7 +483,7 @@ class RadiusServer(RSWebElements):
         :return:
         """
         self.utils.print_info("click on IP/host name add button")
-        self.auto_actions.click(self.get_extreme_networks_radius_server_ip_host_add_button())
+        self.auto_actions.click_reference(self.get_extreme_networks_radius_server_ip_host_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -507,7 +507,7 @@ class RadiusServer(RSWebElements):
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.get_new_external_radius_server_save_ip_button())
+        self.auto_actions.click_reference(self.get_new_external_radius_server_save_ip_button)
         sleep(2)
         return 1
 
@@ -518,7 +518,7 @@ class RadiusServer(RSWebElements):
         :return:
         """
         self.utils.print_info("Click on user group select button")
-        self.auto_actions.click(self.get_user_group_select_button())
+        self.auto_actions.click_reference(self.get_user_group_select_button)
         sleep(8)
 
         self.utils.print_info("Check user group present in  user group select windows")
@@ -526,7 +526,7 @@ class RadiusServer(RSWebElements):
 
         if not user_group_rows:
             self.utils.print_info("User group:{} not present in select window ".format(group_name))
-            self.auto_actions.click(self.get_user_group_dialog_cancel_button())
+            self.auto_actions.click_reference(self.get_user_group_dialog_cancel_button)
             sleep(2)
             self.screen.save_screen_shot()
             sleep(2)
@@ -535,13 +535,13 @@ class RadiusServer(RSWebElements):
             if group_name.upper() in row.text.upper():
                 self.auto_actions.click(self.get_usergroup_dialog_usergroup_row_checkbox(row))
                 sleep(2)
-                self.auto_actions.click(self.get_usergroup_dialog_select_button())
+                self.auto_actions.click_reference(self.get_usergroup_dialog_select_button)
                 sleep(2)
                 self.screen.save_screen_shot()
                 sleep(2)
                 return 1
         self.utils.print_info("User group:{} not present in select window ".format(group_name))
-        self.auto_actions.click(self.get_user_group_dialog_cancel_button())
+        self.auto_actions.click_reference(self.get_user_group_dialog_cancel_button)
         return -1
 
 

@@ -31,13 +31,13 @@ class UserProfile(UserProfileWebElements):
         self.navigator.navigate_to_common_object_user_profile()
         sleep(5)
         self.utils.print_info("Clicking on add user profile")
-        self.auto_actions.click(self.get_user_profile_add())
+        self.auto_actions.click_reference(self.get_user_profile_add)
 
         sleep(5)
         self.utils.print_info("Entering the name of the user profile: ", profile)
         self.auto_actions.send_keys(self.get_user_profile_name(), profile)
         self.utils.print_info("Clicking on add VLAN")
-        self.auto_actions.click(self.get_user_profile_vlan_add())
+        self.auto_actions.click_reference(self.get_user_profile_vlan_add)
 
         sleep(5)
         self.utils.print_info("Entering the VLAN name: ", vlan_name)
@@ -45,9 +45,9 @@ class UserProfile(UserProfileWebElements):
         self.utils.print_info("Entering the VLAN id: ", vlan_id)
         self.auto_actions.send_keys(self.get_user_profile_vlan_id(), vlan_id)
         self.utils.print_info("Saving the VLAN info")
-        self.auto_actions.click(self.get_user_profile_vlan_save())
+        self.auto_actions.click_reference(self.get_user_profile_vlan_save)
 
         sleep(5)
         self.utils.print_info("Saving the user profile")
-        self.auto_actions.click(self.get_user_profile_save())
+        self.auto_actions.click_reference(self.get_user_profile_save)
         return 1

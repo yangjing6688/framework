@@ -1010,8 +1010,8 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return None
 
-    def get_device_stack_template_click(self):
-        return self.weh.get_element(self.device_stack_template_click)
+    def get_device_stack_template_click(self,row):
+        return self.weh.get_element(self.device_stack_template_click, row)
 
     def get_create_template_click(self):
         return self.weh.get_element(self.create_template_click)

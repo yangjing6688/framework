@@ -49,7 +49,8 @@ class TelnetAgent(CliAgent):
                     self.debug_print(f"Found issue in output ('*** IDLE TIMEOUT ***'), setting flags to log back in: {output}")
                     self.connected = False
                     self.logged_in = False
-                elif self.device.login_prompt in output:
+                # check to see if any of the prompts are in the output
+                elif any(x in self.device.login_prompt for x in output):
                     self.debug_print(f"Found issue in output ({self.device.login_prompt}), setting flags to log back in: {output}")
                     self.logged_in = False
                 else:
