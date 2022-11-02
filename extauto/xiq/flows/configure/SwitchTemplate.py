@@ -2331,9 +2331,9 @@ class SwitchTemplate(object):
         kwargs["pass_msg"] = "Successfully got the verify_upload_cfg_auto button"
         self.common_validation.passed(**kwargs)
 
-        verify_upload_cfg_auto = verify_upload_cfg_auto.is_selected()
+        verify_upload_cfg_auto_is_selected = verify_upload_cfg_auto.is_selected()
         
-        if not verify_upload_cfg_auto:
+        if not verify_upload_cfg_auto_is_selected:
             kwargs["pass_msg"] = "Auto configuration button is by default on OFF!"
             self.common_validation.passed(**kwargs)
             
