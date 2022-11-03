@@ -88,7 +88,7 @@ class Login:
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   max_retries=3, recover_login=True, map_override=None, **kwargs):
+                   max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
         """
         - Login to Xiq account with username and password (we will try up to 3 times)
         - By default url will load from the topology file
@@ -119,9 +119,9 @@ class Login:
         count = 0
         expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
         result = self._login_user(username, password, capture_version, login_option, url,
-                                  incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                                  salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, recover_login,
-                                  map_override, **kwargs)
+                    incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                    salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, recover_login,
+                    map_override, ignore_map, **kwargs)
 
         # Let's try again if we don't expect and error and the results were not good
         if not expect_error:
@@ -129,7 +129,7 @@ class Login:
                 self.utils.print_warning(f'Trying to log in again: {count}')
                 result = self._login_user(username, password, capture_version, login_option, url,
                                           incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
+                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, ignore_map,
                                           **kwargs)
                 count = count + 1
         if result != 1:
@@ -141,9 +141,9 @@ class Login:
         return result
 
     def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
-                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                    recover_login=True, map_override=None, **kwargs):
+                   incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
+                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
+                   recover_login=True, map_override=None, ignore_map=False, **kwargs):
         if url == "default":
             self._init(incognito_mode=incognito_mode)
         else:
@@ -297,6 +297,9 @@ class Login:
         except Exception as er:
             pass
 
+        if ignore_map:
+            return 1
+
         device_page_found = self.nav_web_elements.get_devices_page()
         if device_page_found:
             return 1
@@ -428,7 +431,7 @@ class Login:
             json_response = r.text
             response_code = r.status_code
             total_time = r.elapsed.total_seconds()
-        except requests.exceptions.RequestException:  # This catches any errors that requests raises. Bad HTTP responses(4xx, 5xx) are not raised as exceptions
+        except requests.exceptions.RequestException: # This catches any errors that requests raises. Bad HTTP responses(4xx, 5xx) are not raised as exceptions
             json_response = "No Output"
             response_code = None
             total_time = None
@@ -605,7 +608,7 @@ class Login:
 
         return xiq_version
 
-    def reset_password_for_new_customer(self, password, url="default", ):
+    def reset_password_for_new_customer(self, password, url="default"):
         """
         - Reset password for xiq account with passed reset password url link
         - Keyword Usage:
@@ -701,8 +704,7 @@ class Login:
          - ``Get Base URL Of Current Page``
         :return: current page url
         """
-        base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*',
-                             CloudDriver().cloud_driver.current_url)
+        base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', CloudDriver().cloud_driver.current_url)
         return base_url.group()
 
     def get_current_page_url(self):
