@@ -9,12 +9,6 @@ from ExtremeAutomation.Apis.NetworkElement.GeneratedApis.CommandApis.Constants.H
     import HostutilsConstants as CommandConstants
 from ExtremeAutomation.Apis.NetworkElement.GeneratedApis.ParseApis.Constants.HostutilsConstants \
     import HostutilsConstants as ParseConstants
-from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
-from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
-from ExtremeAutomation.Imports.XiqLibrary import XiqLibrary
-import re
-import time
-
 
 
 class NetworkElementHostUtilsKeywords(NetworkElementKeywordBaseClass):
@@ -23,9 +17,6 @@ class NetworkElementHostUtilsKeywords(NetworkElementKeywordBaseClass):
         self.api_const = self.constants.API_HOSTUTILS
         self.cmd_const = CommandConstants()
         self.parse_const = ParseConstants()
-        self.network_manager = NetworkElementConnectionManager()
-        self.devCmd = NetworkElementCliSend()
-        self.xiq = XiqLibrary()
 
     # ##################################################################################################################
     #   Inspection Keywords   ##########################################################################################
