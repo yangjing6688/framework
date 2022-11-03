@@ -1337,3 +1337,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: Devices -> Device Row -> Device's 'Model' column -> Device model element
         """
         return self.weh.get_element(self.device_model, parent=device_row)
+
+    def get_device_serial_number(self, row, field='field-serialNumber'):
+        cells = self.weh.get_elements(self.devices_page_grid_cells, row)
+        for cell in cells:
+            if field in cell.get_attribute("class"):
+                return cell

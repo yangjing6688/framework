@@ -85,6 +85,33 @@ class DevicesActions:
             self.utils.print_info("Unable to Clear Audit Mismatch On Device ")
             return -1
 
+    def reset_all_devices_to_default(self):
+        """
+        - This Keyword performs factory reset to all APs
+        - Navigate to Manage --> Device
+        - Select all devices in rows
+        - Click Utilities --> Reset Device to Default
+        - Handles device reset pop up and validates reset dialogue box message.
+        - Keyword Usage:
+         - ``Reset All Devices To Default``
+        :return: 1 if Reset is Successful else -1
+        """
+        device_list = []
+        self.navigator.navigate_to_devices()
+        if rows := self.devices_web_elements.get_grid_rows():
+            for row in rows:
+                if cell := self.devices_web_elements.get_device_serial_number(row):
+                    device_list.append(cell.text)
+
+            if len(device_list) >= 1:
+                return self.reset_device_to_default(*device_list)
+            else:
+                self.utils.print_info("Unable to locate serial(s) number in rows")
+                return -1
+        else:
+            self.utils.print_info("Unable to gather Device(s)")
+            return -1
+
     def reset_device_to_default(self, *device_list):
         """
         - This Keyword performs factory reset on AP
