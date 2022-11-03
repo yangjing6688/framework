@@ -1427,6 +1427,11 @@ class Cli(object):
             return output2
 
     def get_ports_from_dut(self, dut):
+        """
+        - This Keyword gets ports for EXOS and VOSS from CLI
+        :param dut:
+        :return: CLI Command Output
+        """
         try:
             self.close_connection_with_error_handling(dut)
             self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
@@ -1448,6 +1453,11 @@ class Cli(object):
         return output
 
     def get_port_list_from_dut_without_not_present_ports(self, dut):
+        """
+        - This Keyword gets ports for EXOS and VOSS from CLI and than remove "not present" ports
+        :param dut:
+        :return: CLI Command Output
+        """
 
         if dut.cli_type.upper() == "VOSS":
 
@@ -1495,6 +1505,10 @@ class Cli(object):
             return match_port
 
     def close_connection_with_error_handling(self, dut):
+        """
+         - This keyword will clear ssh session
+        :return:
+        """
         try:
 
             try:
@@ -1515,6 +1529,10 @@ class Cli(object):
             time.sleep(30)
 
     def set_lldp(self, dut, ports, action="enable"):
+        """
+         - This keyword will set lldp on VOSS and EXOS in CLI
+        :return:
+        """
 
         try:
 
@@ -1552,6 +1570,10 @@ class Cli(object):
 
     def bounce_IQAgent(self, dut, xiq_ip_address=None, connect_to_dut=True, disconnect_from_dut=True, wait=True,
                        xiq=None):
+        """
+         - This keyword will bounce IQAgent for VOSS and EXOS in CLI
+        :return:
+        """
 
         try:
 
@@ -1584,6 +1606,10 @@ class Cli(object):
             xiq.xflowscommonDevices.wait_until_device_online(dut.serial)
 
     def get_the_number_of_ports_from_cli(self, dut):
+        """
+         - This keyword gets the number of ports for EXOS and VOSS from CLI
+        :return: the number of ports
+        """
 
         try:
             self.close_connection_with_error_handling(dut)
@@ -1618,6 +1644,10 @@ class Cli(object):
             self.close_connection_with_error_handling(dut)
 
     def verify_vlan_config_on_switch(self, onboarded_switch, port_vlan_mapping, logger):
+        """
+         - This keyword will verify vlan config on switch in CLI
+        :return: Device ports speed dictionary
+        """
         try:
             self.close_connection_with_error_handling(onboarded_switch)
             self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
@@ -1659,6 +1689,10 @@ class Cli(object):
             self.close_connection_with_error_handling(onboarded_switch)
 
     def no_channel_enable_on_all_ports(self, onboarded_switch):
+        """
+         - This keyword sends 'no channelize enable' on all ports in CLI
+        :return:
+        """
         output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show interface GigabitEthernet channelize',
                                       max_wait=10,
                                       interval=2)[0].return_text
@@ -1673,6 +1707,10 @@ class Cli(object):
                                      confirmation_args='y')
 
     def get_device_port_status(self, networkElementCliSend=None, dut=None):
+        """
+         - This keyword gets device ports status from CLI
+        :return: Device ports status dictionary
+        """
         if networkElementCliSend is None or dut is None:
             return
 
@@ -1708,6 +1746,10 @@ class Cli(object):
         return cli_ports_status
 
     def get_device_ports_speed(self, networkElementCliSend=None, dut=None):
+        """
+         - This keyword gets device ports speed from CLI
+        :return: Device ports speed dictionary
+        """
         if networkElementCliSend is None or dut is None:
             return
 
@@ -1774,6 +1816,10 @@ class Cli(object):
         return device_ports_speed
 
     def clear_counters(self, dut, first_port=None, second_port=None):
+        """
+         - This keyword will clear counters for EXOS and VOSS in CLI
+        :return:
+        """
         if dut.cli_type.upper() == "EXOS":
             self.networkElementCliSend.send_cmd(
                 dut.name, "clear counters ports all", max_wait=10, interval=2)
@@ -1782,6 +1828,10 @@ class Cli(object):
                 dut.name, f"clear-stats port {first_port},{second_port}", max_wait=10, interval=2)
 
     def get_received_traffic_list_from_dut(self, dut, first_port, second_port):
+        """
+         - This keyword gets the received traffic from ports visible in CLI
+        :return: received traffic list
+        """
 
         if dut.cli_type.upper() == "VOSS":
             time.sleep(10)
@@ -1827,6 +1877,10 @@ class Cli(object):
 
     def get_transmitted_traffic_list_from_dut(
             self, dut, first_port, second_port):
+        """
+         - This keyword gets the transmitted traffic from ports visible in CLI
+        :return: transmitted traffic list
+        """
 
         if dut.cli_type.upper() == "VOSS":
             time.sleep(10)

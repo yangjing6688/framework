@@ -10885,7 +10885,7 @@ class Device360(Device360WebElements):
 
     def device360_display_traffic_received_from_xiq_and_return_traffic_list(self, dut, first_port, second_port):
         """
-         - This keyword will display the received traffic from ports 1/1 and 1/24 visible in XIQ and returns a list with them
+         - This keyword will display the received traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
         :return: -1 if error
         """
         try:
@@ -10964,7 +10964,7 @@ class Device360(Device360WebElements):
     def device360_display_traffic_transmitted_from_xiq_and_return_traffic_list(
         self, dut, first_port, second_port):
         """
-         - This keyword will display the transmitted traffic from ports 1/1 and 1/24 visible in XIQ and returns a list with them
+         - This keyword will display the transmitted traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
         :return: -1 if error
         """
         try:
