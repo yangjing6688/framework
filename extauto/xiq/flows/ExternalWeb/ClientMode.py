@@ -61,7 +61,7 @@ class ClientMode:
         except Exception as e:
             self.utils.print_debug(e)
             self.utils.print_info( e + "\nCan not login user client mode.")
-            kwargs['fail_msg'] = "No Auto Provision Policy is present"
+            kwargs['fail_msg'] = "'login_user_client_mode()' -> No Auto Provision Policy is present"
             self.common_validation.failed(**kwargs)
             return -1
         return 1
@@ -86,7 +86,7 @@ class ClientMode:
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
-            kwargs['fail_msg'] = f"Error: {e}"
+            kwargs['fail_msg'] = f"'quit_browser_client_mode()' -> Error: {e}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -123,7 +123,7 @@ class ClientMode:
             elif disconnect == 20:
                 break
         self.screen.save_screen_shot()
-        kwargs['fail_msg'] = f"Status: disconnected -> {wifi_status}"
+        kwargs['fail_msg'] = f"'manual_passphrase_ssid_connect()' -> Status: disconnected -> {wifi_status}"
         self.common_validation.failed(**kwargs)
         return [-1, wifi_status]
 
