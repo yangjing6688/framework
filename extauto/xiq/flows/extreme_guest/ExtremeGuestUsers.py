@@ -235,10 +235,13 @@ class ExtremeGuestUsers(object):
         self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_ok_button)
         self.screen.save_screen_shot()
         try:
-            self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_ok_button_duplicate)
-            self.utils.print_info("Click OK Button")
+            if self.user_web_elem.get_extreme_guest_users_delete_ok_button_duplicate().is_displayed():
+                self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_ok_button_duplicate)
+                self.screen.save_screen_shot()
+                self.utils.print_info("Click Duplicate OK Button")
         except Exception as e:
             self.utils.print_info("OK Button is already clicked")
+            self.screen.save_screen_shot()
             pass
         sleep(2)
         self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_status_ok_button)
