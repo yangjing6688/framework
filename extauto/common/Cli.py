@@ -1447,6 +1447,53 @@ class Cli(object):
             self.close_connection_with_error_handling(dut)
         return output
 
+    def get_port_list_from_dut_without_not_present_ports(self, dut):
+
+        if dut.cli_type.upper() == "VOSS":
+
+            time.sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable',
+                                 max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig int | no-more',
+                                          max_wait=10, interval=2)
+
+            p = re.compile(r'^\d+\/\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            # remove elements with two /
+            p2 = re.compile(r'\d+\/\d+\/\d+', re.M)
+            filtered = [port for port in match_port if not p2.match(port)]
+            return filtered
+
+        elif dut.cli_type.upper() == "EXOS":
+
+            time.sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                 max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports info',
+                                          max_wait=20, interval=5)
+            p = re.compile(r'^\d+:\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            is_stack = True
+            if len(match_port) == 0:
+                is_stack = False
+                p = re.compile(r'^\d+', re.M)
+                match_port = re.findall(p, output[0].return_text)
+
+            # Remove "not present" ports
+            if is_stack:
+                p_notPresent = re.compile(r'^\d+:\d+.*NotPresent.*$', re.M)
+            else:
+                p_notPresent = re.compile(r'^\d+.*NotPresent.*$', re.M)
+            parsed_info = re.findall(p_notPresent, output[0].return_text)
+
+            for port in parsed_info:
+                port_num = re.findall(p, port)
+                match_port.remove(port_num[0])
+
+            return match_port
+
     def close_connection_with_error_handling(self, dut):
         try:
 
@@ -1555,7 +1602,7 @@ class Cli(object):
                 no_ports = int(no_ports)
 
             elif dut.cli_type.upper() == "EXOS":
-                self.networkElementCliSend.send_cmd(self.tb.dut1.name, f'disable cli paging',
+                self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging',
                                                     max_wait=10)
                 output = self.networkElementCliSend.send_cmd(dut.name, f'show ports vlan',
                                                              max_wait=10)
@@ -1610,6 +1657,219 @@ class Cli(object):
                 raise AssertionError("The configuration did not update on the dut after 120 seconds")
         finally:
             self.close_connection_with_error_handling(onboarded_switch)
+
+    def no_channel_enable_on_all_ports(self, onboarded_switch):
+        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show interface GigabitEthernet channelize',
+                                      max_wait=10,
+                                      interval=2)[0].return_text
+        match_port = re.findall(r"(\d+)\/(\d+)\s+(false|true)\s+[a-zA-Z0-9]+", output)
+
+        for port in match_port:
+            if port[2] == "true":
+                command = "interface GigabitEthernet " + port[0] + "/" + port[1] + "/1"
+                self.networkElementCliSend.send_cmd(onboarded_switch.name, command)
+                self.networkElementCliSend.send_cmd(onboarded_switch.name, 'no channelize enable',
+                                     confirmation_phrases='Do you wish to continue (y/n) ?',
+                                     confirmation_args='y')
+
+    def get_device_port_status(self, networkElementCliSend=None, dut=None):
+        if networkElementCliSend is None or dut is None:
+            return
+
+        # get the required information from the device CLI
+        if dut.cli_type.upper() == 'VOSS':
+            time.sleep(10)
+            output = networkElementCliSend.send_cmd(
+                dut.name, 'show interfaces gigabitEthernet name | no-more', max_wait=10, interval=2)
+            # get a list of all the ports from the device
+            p = re.compile(r'^\d+\/\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            # search the port status values in the command output
+            p = re.compile(r'(?:up|down)', re.M)
+            match_cli_port_status = re.findall(p, output[0].return_text)
+
+            # get a dictionary with ports as the keys and their corresponding speeds as the values
+            cli_ports_status = dict(zip(match_port, match_cli_port_status))
+        elif dut.cli_type.upper() == 'EXOS':
+            time.sleep(10)
+            networkElementCliSend.send_cmd(dut.name, 'disable cli refresh', max_wait=10, interval=2)
+            networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
+            output = networkElementCliSend.send_cmd(dut.name, 'show ports', max_wait=10, interval=2)
+            # get a list of all the ports from the device
+            match_port = re.findall(r"\r\n(\d+)\s+", output[0].return_text)
+            cli_ports_status={}
+            for port in match_port:
+                row_text = re.search(fr"\r\n{port}\s.*\r\n", output[0].return_text).group(0)
+                cli_ports_status[port] = "up" if re.search(r"\s+A\s+", row_text) else "down"
+
+        print("****************** Device ports status dictionary: ******************")
+        print(cli_ports_status)
+
+        return cli_ports_status
+
+    def get_device_ports_speed(self, networkElementCliSend=None, dut=None):
+        if networkElementCliSend is None or dut is None:
+            return
+
+        match_port = None
+        device_ports_speed = None
+
+        # get the required information from the device CLI
+        if dut.cli_type.upper() == 'VOSS':
+            output = networkElementCliSend.send_cmd(dut.name, 'show interfaces gigabitEthernet name | no-more', max_wait=10, interval=2)
+
+            # get a list of all the ports from the device
+            p = re.compile(r'^\d+\/\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+
+            # search the speed values in the command output
+            p = re.compile(r'(?:half|full)\s+(\d+)', re.M)
+            match_device_ports_speed = re.findall(p, output[0].return_text)
+
+            # get a dictionary with ports as the keys and their corresponding speeds as the values
+            device_ports_speed = dict(zip(match_port, match_device_ports_speed))
+        elif dut.cli_type.upper() == 'EXOS':
+            networkElementCliSend.send_cmd(dut.name, 'disable cli refresh', max_wait=10, interval=2)
+            networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
+            output = networkElementCliSend.send_cmd(dut.name, 'show ports', max_wait=10, interval=2)
+
+            # get a list of all the ports from the device
+            p = re.compile(r'^\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+
+            # search the speed values in the command output (the link state is needed in the result
+            # because the speed is not shown if the port is down)
+            p = re.compile(r'([ARNPLDdB]+\s\s\s\s\s\s(?:\d+G?)?)', re.M)
+            match_port_link_state_speed = re.findall(p, output[0].return_text)
+
+            # refine the values from the list
+            for i in range(len(match_port_link_state_speed)):
+                speed = re.search(r'\d+', match_port_link_state_speed[i])
+                unit = re.search(r'G', match_port_link_state_speed[i])
+
+                # if the speed value is not present set it as "0"
+                if speed is None:
+                    speed = "0"
+                else:
+                    # if a 'G' is found next to the speed value, transform it to Mbps
+                    if unit is not None:
+                        speed = str(int(speed.group(0)) * 1000)
+                    else:
+                        speed = speed.group(0)
+
+                # replace the current value in the list with the speed value
+                match_port_link_state_speed[i] = speed
+
+            match_device_ports_speed = match_port_link_state_speed
+
+            # get a dictionary with ports as the keys and their corresponding speeds as the values
+            device_ports_speed = dict(zip(match_port, match_device_ports_speed))
+
+        print("****************** Device port list: ******************")
+        print(match_port)
+
+        print("****************** Device ports speed dictionary: ******************")
+        print(device_ports_speed)
+
+        return device_ports_speed
+
+    def clear_counters(self, dut, first_port=None, second_port=None):
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementCliSend.send_cmd(
+                dut.name, "clear counters ports all", max_wait=10, interval=2)
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementCliSend.send_cmd(
+                dut.name, f"clear-stats port {first_port},{second_port}", max_wait=10, interval=2)
+
+    def get_received_traffic_list_from_dut(self, dut, first_port, second_port):
+
+        if dut.cli_type.upper() == "VOSS":
+            time.sleep(10)
+
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(
+                dut.name, f'show interfaces gigabitEthernet statistics {first_port},{second_port}', max_wait=10,
+                interval=2)
+
+            time.sleep(2)
+            print(output[0].return_text)
+            p = re.compile(r'(^\d+\/\d+)\s+(\d+)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            received_traffic_list = []
+            received_traffic_list.append(match_port[0][1])
+            received_traffic_list.append(match_port[1][1])
+
+            print(f"received_traffic for port {first_port} is {match_port[0][1]} octets")
+            print(f"received_traffic for port {second_port} is {match_port[1][1]} octets")
+
+        elif dut.cli_type.upper() == "EXOS":
+            time.sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, f'show port {first_port},{second_port} statistics no-refresh',
+                                            max_wait=10,
+                                            interval=2)
+            print(output[0].return_text)
+            p = re.compile(r'(^\d+)\s+(\D+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            received_traffic_list = []
+            received_traffic_list.append(match_port[0][5])
+            received_traffic_list.append(match_port[1][5])
+
+            print(f"received_traffic for port {first_port} is {match_port[0][5]} octets")
+            print(f"received_traffic for port {second_port} is {match_port[1][5]} octets")
+
+        return received_traffic_list
+
+    def get_transmitted_traffic_list_from_dut(
+            self, dut, first_port, second_port):
+
+        if dut.cli_type.upper() == "VOSS":
+            time.sleep(10)
+
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(
+                dut.name, f'show interfaces gigabitEthernet statistics {first_port},{second_port}', max_wait=10,
+                interval=2)
+
+            time.sleep(2)
+            print(output[0].return_text)
+            p = re.compile(r'(^\d+\/\d+)\s+(\d+)\s+(\d+)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            transmitted_traffic_list = []
+            transmitted_traffic_list.append(match_port[0][2])
+            transmitted_traffic_list.append(match_port[1][2])
+
+            print(f"transmitted traffic for port {first_port} is {match_port[0][2]} octets")
+            print(f"transmitted traffic for port {second_port} is {match_port[1][2]} octets")
+
+            print("list from dut is ", transmitted_traffic_list)
+
+        elif dut.cli_type.upper() == "EXOS":
+            time.sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                 max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, f'show port {first_port},{second_port} statistics no-refresh',
+                                          max_wait=10, interval=2)
+            print(output[0].return_text)
+            p = re.compile(r'(^\d+)\s+(\D+)\s+(\d+)\s+(\d+)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            transmitted_traffic_list = []
+            transmitted_traffic_list.append(match_port[0][3])
+            transmitted_traffic_list.append(match_port[1][3])
+
+            print(f"transmitted_traffic_list for port {first_port} is {match_port[0][3]} octets")
+            print(f"transmitted_traffic_list for port {second_port} is {match_port[1][3]} octets")
+
+        return transmitted_traffic_list
 
 
 if __name__ == '__main__':

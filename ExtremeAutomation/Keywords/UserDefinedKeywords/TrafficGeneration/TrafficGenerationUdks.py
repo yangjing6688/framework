@@ -487,6 +487,33 @@ class TrafficGenerationUdks():
             self.trafficPacketInspectionKeywords.capture_inspection_random_list(port_b, rx_packet_name_b,  5, **kwargs)
         else:
             print("You must define the packets to use this keyword")
+
+    def Transmit_Traffic_Bidirectionally_and_Verify_it_was_Received_simplified_version(
+        self, port_a, port_b, tx_packet_name_a,tx_packet_name_b, rx_packet_name_a,
+        rx_packet_name_b,tx_count=100, tx_rate=100, **kwargs):
+
+        self.Configure_Packet_on_Port_Single_Burst(
+            port_a, tx_packet_name_a, count=tx_count,rate=tx_rate, **kwargs)
+        self.Configure_Packet_on_Port_Single_Burst(
+            port_b, tx_packet_name_b, count=tx_count,rate=tx_rate, **kwargs)
+        rx_packet_a = self.trafficPacketCreationKeywords.get_packet(
+            rx_packet_name_a)
+        rx_packet_b = self.trafficPacketCreationKeywords.get_packet(
+            rx_packet_name_b)
+
+        assert rx_packet_a and rx_packet_b, "You must define the packets to use this keyword"
+
+        self.Start_Capture_with_DMAC_and_SMAC_Filter(
+            port_a, rx_packet_a.get_destination_mac(), rx_packet_a.get_source_mac(),
+            rx_packet_a.get_destination_mac_mask(), rx_packet_a.get_source_mac_mask())
+        self.Start_Capture_with_DMAC_and_SMAC_Filter(
+            port_b, rx_packet_b.get_destination_mac(), rx_packet_b.get_source_mac(),
+            rx_packet_b.get_destination_mac_mask(), rx_packet_b.get_source_mac_mask())
+
+        self.trafficTransmitKeywords.start_transmit_on_port(
+            port_a, **kwargs)
+        self.trafficTransmitKeywords.start_transmit_on_port_and_wait(
+            port_b, **kwargs)
             
     
     

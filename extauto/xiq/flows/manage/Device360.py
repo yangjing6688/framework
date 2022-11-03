@@ -18,6 +18,8 @@ from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElem
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
+import random
+from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 
 
 class Device360(Device360WebElements):
@@ -38,6 +40,7 @@ class Device360(Device360WebElements):
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.common_validation = CommonValidation()
         self.tools = Tools()
+        self.networkElementCliSend = NetworkElementCliSend()
 
     def get_system_info(self):
         """
@@ -10742,3 +10745,413 @@ class Device360(Device360WebElements):
             row for row in table_rows if not
             any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
         ]
+
+    def device360_confirm_current_page_number(self, page_num_ref):
+        """
+         - This keyword will check if the page with page_num_ref number is currently displayed
+         It Assumes That Already Navigated to Device360 Page (Monitoring->Overview)
+         - Keyword Usage:
+         - ``Device360 Monitor Overview Pagination Next Page By Number``
+        :return: True if page number matches
+        :return: False if page number doesn't match or on error
+        """
+        try:
+            current_page = int(
+                self.dev360.get_device360_ports_table_current_pagin_number().text)
+            if current_page == page_num_ref:
+                return True
+            return False
+        except Exception as e:
+            return False
+
+    def device360_switch_get_current_page_port_name_list(self):
+        """
+         - This keyword will get a list with all the port names from the current page (Monitoring->Overview)
+         - Flow: Click next page number
+         It Assumes That Already Navigated to Device360 Page (Monitoring->Overview)
+         - Keyword Usage:
+         - ``Device360 Monitor Overview Pagination Next Page By Number``
+        :return: port_name_list if successfully extracted the port names
+        :return: -1 if error
+        """
+        try:
+            port_name_list = []
+            rows = self.get_device360_port_table_rows()
+            for row in rows:
+                port_name_list.append(
+                    self.dev360.get_d360_switch_ports_table_interface_port_name_cell(row).text)
+            if 'PORT NAME' in port_name_list:
+                port_name_list.remove('PORT NAME')
+            pattern_voss_three_nums = re.compile(r'\d+\/\d+\/\d+', re.M)
+            filtered = [i for i in port_name_list if not pattern_voss_three_nums.match(i)]
+            pattern_mgmt = re.compile(r'.*mgmt.*', re.M)
+            filtered = [i for i in filtered if not pattern_mgmt.match(i)]
+            return filtered
+        except Exception as e:
+            return -1
+
+    def device360_monitor_overview_pagination_next_page_by_number(self):
+        """
+         - This keyword will navigate to the next page of the Monitoring Overview Ports Table, using the
+         page number button
+         - Flow: Click next page number
+         It Assumes That Already Navigated to Device360 Page
+         - Keyword Usage:
+         - ``Device360 Monitor Overview Pagination Next Page By Number``
+        :return: 1 if successfully changed to next page
+        :return: 2 if already on the last page
+        :return: -1 if error
+        """
+        try:
+            current_page = int(
+                self.dev360.get_device360_ports_table_current_pagin_number().text)
+            other_pages = self.dev360.get_device360_pagination_page_buttons()
+            for page in other_pages:
+                if int(page.text) == current_page + 1:
+                    self.utils.print_info(f"Going to page " + str(current_page + 1))
+                    self.auto_actions.click(page)
+                    sleep(5)
+                    return 1
+            return 2
+        except Exception as e:
+            return -1
+
+    def list_port_element(self, xiq, port_no):
+        rows = xiq.xflowscommonDevices.devices_web_elements.get_port_details_info()
+        matchers = ['Type', 'LACP Status', 'Port Mode', 'Port Status',
+                    'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
+                    'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
+                    'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
+                    'STP Port State', 'Port Speed']
+        if rows:
+            xiq.xflowscommonDevices.utils.print_debug(f"Searching {len(rows)} rows")
+            for row in rows:
+                xiq.xflowscommonDevices.utils.print_info(f"Port {port_no} details: ",
+                                                         xiq.xflowscommonDevices.format_row(row.text))
+                for i in matchers:
+                    test = any(i in string for string in xiq.xflowscommonDevices.format_row(row.text))
+                    if test == False:
+                        return -1
+            return 1
+        else:
+            return -1
+
+    def enter_port_transmission_mode(self, port, transmission_mode):
+
+        sleep(10)
+        configure_port_btn = self.dev360.get_d360_configure_port_settings_aggregation_tab_button()
+        if not configure_port_btn:
+            configure_port_btn = self.dev360.weh.get_element({"XPATH": '//div[@data-automation-tag="automation-port-configuration-port-settings"]'})
+        assert configure_port_btn, "Could not find element port configuration button"
+        self.utils.print_info("Click Port Settings Tab")
+        self.auto_actions.click(configure_port_btn)
+        sleep(3)
+
+        rows = self.dev360.get_device360_configure_port_settings_aggregation_rows()
+        if not rows:
+            rows = self.dev360.weh.get_elements({"XPATH": '//div[@class="port-details-entry line clearfix"]'})
+        assert rows, "Could not get the port settings aggregation rows"
+
+        for port_row in rows:
+            if re.search(f"{port}\n", port_row.text):
+                self.utils.print_debug("Found row for port: ", port_row.text)
+                break
+        else:
+            assert False, f"Failed to find the row for port {port}"
+
+        self.utils.print_info("clicking Transmission Mode drop down Button")
+        drop_down_button = self.dev360.get_device360_port_settings_transmission_mode_drop_down_button(port_row)
+        if self.auto_actions.click(drop_down_button) in [None, -1]:
+            drop_down_button = self.dev360.weh.get_element({
+                "XPATH": ".//div[@data-automation-tag='automation-automation-port-settings-port-transmission-type-chzn-container-ctn']"
+            }, parent=port_row)
+            assert self.auto_actions.click(drop_down_button) == 1, f"Failed to open transmission type drop down"
+
+        sleep(2)
+
+        drop_down_options = self.dev360.get_device360_port_settings_transmission_mode_drop_down_options(port_row)
+        if not drop_down_options:
+            drop_down_options = self.dev360.weh.get_elements({
+                "XPATH": './/li[contains(@data-automation-tag, "automation-automation-port-settings-port-transmission-type-chzn-option")]'
+            })
+        assert drop_down_options
+        drop_down_options = [opt for opt in drop_down_options if opt.text]
+        self.utils.print_info(f"Selecting Transmission Mode Option : {transmission_mode}")
+        self.auto_actions.select_drop_down_options(drop_down_options, transmission_mode)
+        sleep(2)
+
+    def generate_vlan_id(self, rng=range(1024, 4096)):
+        return str(random.choice(rng))
+
+    def device360_display_traffic_received_from_xiq_and_return_traffic_list(self, dut, first_port, second_port):
+        """
+         - This keyword will display the received traffic from ports 1/1 and 1/24 visible in XIQ and returns a list with them
+        :return: -1 if error
+        """
+        try:
+            paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+            assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
+
+            [pagination] = [pg for pg in paginations if pg.text == '10']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            if dut.cli_type.upper() == "VOSS":
+                x = self.dev360.get_device360_ports_table()
+                print("Displaying the traffic received value for the first 10 entries in the table")
+                for i in x:
+                    traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                    port_name = i["PORT NAME"]
+                    if port_name == first_port or port_name == second_port:
+                        print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                sleep(5)
+
+                [pagination] = [pg for pg in paginations if pg.text == '100']
+                sleep(5)
+                AutoActions().click(pagination)
+                sleep(3)
+
+                x = self.dev360.get_device360_ports_table()
+
+                traffic_list_xiq = []
+
+                print(" Displaying the traffic received value for pagination 100")
+                for i in x:
+                    traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                    port_name = i["PORT NAME"]
+                    if port_name == first_port or port_name == second_port:
+                        print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                        traffic_list_xiq.append(traffic_received)
+                sleep(5)
+
+                return traffic_list_xiq
+            elif dut.cli_type.upper() == "EXOS":
+                x = self.dev360.get_device360_ports_table()
+
+                print("x pentru exos 67 este: ", x)
+                print("Displaying the traffic received value for the first 10 entries in the table")
+                for i in x:
+                    traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                    port_name = i["PORT NAME"]
+                    if port_name == first_port or port_name == second_port:
+                        print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                sleep(5)
+
+                [pagination] = [pg for pg in paginations if pg.text == '100']
+                sleep(5)
+                AutoActions().click(pagination)
+                sleep(3)
+
+                x = self.dev360.get_device360_ports_table()
+
+                traffic_list_xiq = []
+
+                print(" Displaying the traffic received value for pagination 100")
+                for i in x:
+                    traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                    port_name = i["PORT NAME"]
+                    if port_name == first_port or port_name == second_port:
+                        print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                        traffic_list_xiq.append(traffic_received)
+                sleep(5)
+
+                return traffic_list_xiq
+
+        except Exception as e:
+            return -1
+
+    def device360_display_traffic_transmitted_from_xiq_and_return_traffic_list(
+        self, dut, first_port, second_port):
+        """
+         - This keyword will display the transmitted traffic from ports 1/1 and 1/24 visible in XIQ and returns a list with them
+        :return: -1 if error
+        """
+        try:
+            paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+            assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
+
+            [pagination] = [pg for pg in paginations if pg.text == '10']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            if dut.cli_type.upper() == "VOSS":
+                x = self.dev360.get_device360_ports_table()
+                print("Displaying the traffic transmitted value for the first 10 entries in the table")
+                for i in x:
+                    traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                    port_name = i["PORT NAME"]
+                    if port_name == first_port or port_name == second_port:
+                        print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                sleep(5)
+
+                [pagination] = [pg for pg in paginations if pg.text == '100']
+                sleep(5)
+                AutoActions().click(pagination)
+                sleep(3)
+
+                x = self.dev360.get_device360_ports_table()
+
+                traffic_list_xiq = []
+
+                print(" Displaying the traffic transmitted value for pagination 100")
+                for i in x:
+                    traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                    port_name = i["PORT NAME"]
+                    if port_name == first_port or port_name == second_port:
+                        print(f"TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                        traffic_list_xiq.append(traffic_received)
+                sleep(5)
+
+                return traffic_list_xiq
+
+            elif dut.cli_type.upper() == "EXOS":
+                x = self.dev360.get_device360_ports_table()
+
+                print("Displaying the traffic transmitted value for the first 10 entries in the table")
+                for i in x:
+                    traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                    port_name = i["PORT NAME"]
+                    if port_name == first_port or port_name == second_port:
+                        print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                sleep(5)
+
+                [pagination] = [pg for pg in paginations if pg.text == '100']
+                sleep(5)
+                AutoActions().click(pagination)
+                sleep(3)
+
+                x = self.dev360.get_device360_ports_table()
+
+                traffic_list_xiq = []
+
+                print(" Displaying the traffic transmitted value for pagination 100")
+                for i in x:
+                    traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                    port_name = i["PORT NAME"]
+                    if port_name == first_port or port_name == second_port:
+                        print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                        traffic_list_xiq.append(traffic_received)
+                sleep(5)
+
+                return traffic_list_xiq
+        except Exception as e:
+            return -1
+
+    def check_power_values(self, ports_power_xiq, ports_power_cli):
+        results = []
+        for port_xiq, port_cli in zip(ports_power_xiq, ports_power_cli):
+            if port_xiq[0] == port_cli[0]:
+                if port_xiq[1] == "N/A":
+                    if port_xiq[1] == port_cli[1]:
+                        results.append(["Port: " + port_xiq[0], "PASSED"])
+                    else:
+                        results.append(["Port: " + port_xiq[0], "FAILED"])
+                else:
+                    if float(port_xiq[1]) == (float(port_cli[1])*1000):
+                        results.append(["Port: " + port_xiq[0], "PASSED"])
+                    else:
+                        results.append(["Port: " + port_xiq[0], "FAILED"])
+            else:
+                return -1
+        return results
+
+    def check_port_type(self, dut):
+
+        if dut.cli_type.upper() == "VOSS":
+
+            sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable',
+                                    max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig l1-config | no-more',
+                                            max_wait=10, interval=2)
+            p = re.compile(r'(^\d+\/\d+)\s+(false|true)\s+(false|true)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            x = self.dev360.get_device360_ports_table()
+            x.pop(0)
+            cnt_values_port_type = 0
+            j = 0
+
+            for it in x:
+
+                port_type = it["TYPE"]
+                port_name = it["PORT NAME"]
+                print(f"port name:{port_name} and port type:{port_type}")
+
+                print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
+                assert port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"], \
+                    "Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')"
+
+                cnt_values_port_type = cnt_values_port_type + 1
+
+                if port_type == 'RJ45':
+
+                    port_type_match_cli = 'true'
+                    print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
+                    assert (match_port[j][0] == port_name) and (match_port[j][
+                                                                    2] == port_type_match_cli), \
+                        "Did not found the expected port type value for expected port name value"
+                    j = j + 1
+
+                else:
+
+                    print(f"{port_name},{port_type}")
+                    assert port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"], \
+                        "Did not found the expected value. Port type column has an entry with " \
+                        "a value different from ('SFP+','SFP-DD')"
+
+            print(f"Verify that the 'port type' column has no empty entry")
+            assert len(
+                x) == cnt_values_port_type, "Expecting to find a value for the 'port type' field of each table entry"
+
+        elif dut.cli_type.upper() == "EXOS":
+
+            sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                    max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(self.tb.dut1.name, 'show ports transceiver information',
+                                            max_wait=10, interval=2)
+            p = re.compile(r'(^\d+)\s+(DDMI\sis\snot\ssupported\son\sthis\sport)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            x = self.dev360.get_device360_ports_table()
+            x.pop(0)
+            cnt_values_port_type = 0
+            j = 0
+
+            for it in x:
+
+                port_type = it["TYPE"]
+                port_name = it["PORT NAME"]
+                print(f"port name:{port_name} and port type:{port_type}")
+
+                print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
+                assert port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"], \
+                    "Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')"
+
+                cnt_values_port_type = cnt_values_port_type + 1
+
+                if port_type == 'RJ45':
+                    port_type_match_cli = 'DDMI is not supported on this port'
+                    print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
+                    assert (match_port[j][0] == port_name) and (match_port[j][
+                                                                    1] == port_type_match_cli), \
+                        "Did not found the expected port type value RJ45 for expected port name"
+                    j = j + 1
+
+                else:
+                    print(f"{port_name},{port_type}")
+                    assert port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"], \
+                        "Did not found the expected value. Port type column has an entry with a " \
+                        "value different from ('SFP+','SFP-DD')"
+
+            print(f"Verify that the 'port type' column has no empty entry")
+            assert len(x) == cnt_values_port_type, \
+                "Expecting to find a value for the 'port type' field of each table entry"
+
+
+
