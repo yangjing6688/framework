@@ -2553,25 +2553,25 @@ class SwitchTemplate(object):
                 delay=5
             )
 
-            if assign_to_all_ports_selected:
-                self.utils.print_info("Successfully got the assign_to_all_ports_selected button")
-            else:
+            if not assign_to_all_ports_selected:
                 kwargs["fail_msg"] = "Failed to get the assign_to_all_ports_selected button"
                 self.common_validation.failed(**kwargs)
                 return -1
-
+            
+            self.utils.print_info("Successfully got the assign_to_all_ports_selected button")
+            
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(assign_to_all_ports_selected),
                 exp_func_resp=True,
                 delay=4
             )
 
-            if res == 1:
-                self.utils.print_info("Successfully clicked the assign_to_all_ports_selected button")
-            else:
+            if res != 1:
                 kwargs["fail_msg"] = "Failed to click the assign_to_all_ports_selected button"
                 self.common_validation.failed(**kwargs)
                 return -1
+            
+            self.utils.print_info("Successfully clicked the assign_to_all_ports_selected button")
 
             assign_button, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_assign_choose_existing,
@@ -2584,8 +2584,8 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Failed to get the assign_button button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            else:
-                self.utils.print_info("Successfully got the assign_button button")
+
+            self.utils.print_info("Successfully got the assign_button button")
 
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(assign_button),
@@ -2597,8 +2597,8 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Failed to click the assign_button button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            else:
-                self.utils.print_info("Successfully clicked the assign_button button")
+
+            self.utils.print_info("Successfully clicked the assign_button button")
 
             radio_buttons, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_all_port_type_list_radio,
@@ -2612,8 +2612,8 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Failed to get the radio_buttons"
                 self.common_validation.failed(**kwargs)
                 return -1
-            else:
-                self.utils.print_info("Successfully got the radio_buttons")
+
+            self.utils.print_info("Successfully got the radio_buttons")
 
             radio_buttons_labels, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_all_port_type_list_label,
@@ -2627,8 +2627,8 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Failed to get the radio_buttons_labels"
                 self.common_validation.failed(**kwargs)
                 return -1
-            else:
-                self.utils.print_info("Successfully got the radio_buttons_labels")
+
+            self.utils.print_info("Successfully got the radio_buttons_labels")
 
             for btn, label in zip(radio_buttons, radio_buttons_labels):
                 if label.text == port_type:
@@ -2643,6 +2643,8 @@ class SwitchTemplate(object):
                 self.common_validation.failed(**kwargs)
                 return -1
 
+            kwargs["pass_msg"] = "Successfully reverted the port configuration"
+            self.common_validation.passed(**kwargs)
             return 1
 
         finally:
