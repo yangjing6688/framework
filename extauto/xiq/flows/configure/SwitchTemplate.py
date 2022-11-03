@@ -2266,33 +2266,241 @@ class SwitchTemplate(object):
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             return -1
 
+    def verify_upload_config_auto_button(self, option="OFF", **kwargs):
+        """
+        This function is used to verify the `Upload configuration automatically` button from Advanced Settings tab
+        based on an option given as parameter
+        :param option: name of policy
+        :return: 1 - if the button is equal with option was successful ; -1 - if not
+        """
+        verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg()
+
+        if not verify_upload_cfg_auto:
+            kwargs["fail_msg"] = "Failed to get the verify_upload_cfg_auto button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the verify_upload_cfg_auto button"
+        self.common_validation.passed(**kwargs)
+
+        verify_upload_cfg_auto = verify_upload_cfg_auto.is_selected()
+
+        if not verify_upload_cfg_auto and option == "OFF":
+            kwargs["pass_msg"] = "Auto configuration button is on OFF!"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        elif verify_upload_cfg_auto and option == "ON":
+            kwargs["pass_msg"] = "Auto configuration button is on ON!"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        kwargs["fail_msg"] = "Auto configuration button is not in the expected state"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def verify_enable_auto_revert_option(self, **kwargs):
+        """
+        This function is used to verify if the `Reboot and revert Extreme Networks switch configuration if IQAgent is
+        unresponsive after configuration update.` button from Advanced Settings tab is present or not
+        :return: 1 - if the button is present ; -1 - if not
+        """
+        enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
+
+        if not enable_auto_revert or not enable_auto_revert.is_displayed():
+            kwargs["fail_msg"] = "Enable Auto Revert button is not present!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Enable Auto Revert button is present!"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def set_upload_config_auto_button(self, **kwargs):
+        """
+        This function is used to set the `Upload configuration automatically` button from Advanced Settings tab
+        :return: 1 - if the button is set successfully ; -1 - if not
+        """
+        verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg()
+
+        if not verify_upload_cfg_auto:
+            kwargs["fail_msg"] = "Failed to get the verify_upload_cfg_auto button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully got the verify_upload_cfg_auto button"
+        self.common_validation.passed(**kwargs)
+
+        verify_upload_cfg_auto_is_selected = verify_upload_cfg_auto.is_selected()
+
+        if not verify_upload_cfg_auto_is_selected:
+            kwargs["pass_msg"] = "Auto configuration button is by default on OFF!"
+            self.common_validation.passed(**kwargs)
+
+        else:
+            kwargs["fail_msg"] = "Auto configuration button is already on ON!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on Upload configuration automatically button")
+        if self.auto_actions.click(verify_upload_cfg_auto) != 1:
+            kwargs["fail_msg"] = "Failed to click the verify_upload_cfg_auto button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked on the verify_upload_cfg_auto button"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def check_text_enable_auto_revert_option(self, **kwargs):
+        """
+        This function is used to verify the `Reboot and revert Extreme Networks switch configuration if IQAgent is
+        unresponsive after configuration update.` button text from Advanced Settings tab based on an option given as
+        parameter
+        :return: 1 - if the button text is the one expected ; -1 - if not
+        """
+        enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg()
+
+        if not enable_auto_revert_message:
+            kwargs["fail_msg"] = "Failed to get enable_auto_revert_message element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully got the enable_auto_revert_message element"
+        self.common_validation.passed(**kwargs)
+
+        enable_auto_revert_message = enable_auto_revert_message.text
+
+        if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
+                                            "unresponsive after configuration update.":
+            kwargs["fail_msg"] = f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        return 1
+
+    def set_enable_auto_revert_option(self, **kwargs):
+        """
+        This function is used to set/check the `Reboot and revert Extreme Networks switch configuration if IQAgent is
+        unresponsive after configuration update.` button under the `Upload configuration automatically` button
+        from Advanced Settings tab
+        :return: 1 - if the button is set successfully ; -1 - if not
+        """
+        enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg()
+
+        if not enable_auto_revert_message:
+            kwargs["fail_msg"] = "Failed to get enable_auto_revert_message element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully got the enable_auto_revert_message element"
+        self.common_validation.passed(**kwargs)
+
+        enable_auto_revert_message = enable_auto_revert_message.text
+
+        if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
+                                            "unresponsive after configuration update.":
+            kwargs["fail_msg"] = f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
+
+        if not enable_auto_revert:
+            kwargs["fail_msg"] = "Enable Auto Revert button is not present!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Enable Auto Revert button is present!"
+        self.common_validation.passed(**kwargs)
+
+        if not enable_auto_revert.is_selected():
+            kwargs["pass_msg"] = "Enable Auto Revert button is by default unchecked!"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs["fail_msg"] = "Enable Auto Revert button is already checked!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on Enable Auto Revert button")
+        if self.auto_actions.click(enable_auto_revert) != 1:
+            kwargs["fail_msg"] = "Failed to click the enable_auto_revert button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the enable_auto_revert button"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def save_template_with_popup(self, **kwargs):
+        """
+        This function is used to save the current device template with a pop-up displayed
+        :return: 1 - if the save was successful ; -1 - if not
+        """
+        save_template_button = self.sw_template_web_elements.get_switch_temp_save_button()
+
+        if not save_template_button.is_displayed():
+            kwargs["fail_msg"] = "SAVE button is not displayed"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully found the SAVE button"
+        self.common_validation.passed(**kwargs)
+
+        self.utils.print_info("Click on SAVE button")
+        if self.auto_actions.click(save_template_button) != 1:
+            kwargs["fail_msg"] = "Failed to click the SAVE button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the SAVE button"
+        self.common_validation.passed(**kwargs)
+
+        sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
+
+        if not sw_yes_button or not sw_yes_button.is_displayed():
+            kwargs["fail_msg"] = "YES button is not displayed"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on SAVE button")
+        if self.auto_actions.click(sw_yes_button) != 1:
+            kwargs["fail_msg"] = "Failed to click the sw_yes_button button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the sw_yes_button button"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+
     def click_on_port_details_tab(self, **kwargs):
         """Method that click on the STP port details button in the Template Configuration
-        
+
         Returns:
             int: 1 if the function call has succeeded else -1
         """
         stp_tab_button, _ = self.utils.wait_till(
             func=self.sw_template_web_elements.get_sw_template_port_details_tab,
-            silent_failure=True, 
-            exp_func_resp=True, 
+            silent_failure=True,
+            exp_func_resp=True,
             delay=5
         )
-        
+
         if stp_tab_button is None:
             kwargs["fail_msg"] = "Failed to get the STP port details button"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         self.utils.print_info("Successfully got the STP port details button")
-        
+
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(stp_tab_button),
             exp_func_resp=True,
             delay=4,
             silent_failure=True
         )
-        
+
         if res == 1:
             kwargs["pass_msg"] = "Successfully clicked the STP port details button"
             self.common_validation.passed(**kwargs)
@@ -2307,7 +2515,7 @@ class SwitchTemplate(object):
 
         Args:
             port_type (str): the port type name
-            
+
         Returns:
             int: 1 if the function call has succeeded else -1
         """
@@ -2317,12 +2525,12 @@ class SwitchTemplate(object):
                 silent_failure=True,
                 exp_func_resp=True
             )
-            
+
             if not select_all_ports:
                 kwargs["fail_msg"] = "Failed to get the select_all_ports button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
             self.utils.print_info("Successfully got the select_all_ports button")
 
             res, _ = self.utils.wait_till(
@@ -2336,22 +2544,22 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Failed to click the select_all_ports button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
             assign_to_all_ports_selected, _ = self.utils.wait_till(
                 func=
                 self.sw_template_web_elements.assign_all_ports_selected,
-                silent_failure=True, 
-                exp_func_resp=True, 
+                silent_failure=True,
+                exp_func_resp=True,
                 delay=5
             )
-            
+
             if assign_to_all_ports_selected:
                 self.utils.print_info("Successfully got the assign_to_all_ports_selected button")
             else:
                 kwargs["fail_msg"] = "Failed to get the assign_to_all_ports_selected button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(assign_to_all_ports_selected),
                 exp_func_resp=True,
@@ -2364,14 +2572,14 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Failed to click the assign_to_all_ports_selected button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
             assign_button, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_assign_choose_existing,
-                silent_failure=True, 
-                exp_func_resp=True, 
+                silent_failure=True,
+                exp_func_resp=True,
                 delay=5
             )
-            
+
             if not assign_button:
                 kwargs["fail_msg"] = "Failed to get the assign_button button"
                 self.common_validation.failed(**kwargs)
@@ -2384,14 +2592,14 @@ class SwitchTemplate(object):
                 exp_func_resp=True,
                 delay=4
             )
-            
+
             if res != 1:
                 kwargs["fail_msg"] = "Failed to click the assign_button button"
                 self.common_validation.failed(**kwargs)
                 return -1
             else:
                 self.utils.print_info("Successfully clicked the assign_button button")
-            
+
             radio_buttons, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_all_port_type_list_radio,
                 silent_failure=True,
@@ -2399,7 +2607,7 @@ class SwitchTemplate(object):
                 timeout=40,
                 delay=5
             )
-            
+
             if not radio_buttons:
                 kwargs["fail_msg"] = "Failed to get the radio_buttons"
                 self.common_validation.failed(**kwargs)
@@ -2412,16 +2620,16 @@ class SwitchTemplate(object):
                 silent_failure=True,
                 exp_func_resp=True,
                 delay=5
-            
+
             )
-            
+
             if not radio_buttons_labels:
                 kwargs["fail_msg"] = "Failed to get the radio_buttons_labels"
                 self.common_validation.failed(**kwargs)
                 return -1
             else:
                 self.utils.print_info("Successfully got the radio_buttons_labels")
-            
+
             for btn, label in zip(radio_buttons, radio_buttons_labels):
                 if label.text == port_type:
                     self.utils.wait_till(
@@ -2434,18 +2642,18 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Failed to find the correct button for port type"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
             return 1
-        
+
         finally:
-            
+
             save_button, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_port_type_list_save_button,
                 silent_failure=True,
                 exp_func_resp=True,
                 delay=5
             )
-            
+
             if save_button:
                 self.utils.wait_till(
                     func=lambda: self.auto_actions.click(save_button),
@@ -2455,7 +2663,7 @@ class SwitchTemplate(object):
 
     def click_on_stp_tab(self, **kwargs):
         """Method that click on the STP tab in the Template Configuration page
-        
+
             Returns:
                 int: 1 if the function call has succeeded else -1
         """
@@ -2465,7 +2673,7 @@ class SwitchTemplate(object):
             exp_func_resp=True,
             delay=5
         )
-        
+
         if not stp_tab_button:
             kwargs["fail_msg"] = "Failed to get the STP tab button"
             self.common_validation.failed(**kwargs)
@@ -2497,16 +2705,16 @@ class SwitchTemplate(object):
         """
         rows, _ = self.utils.wait_till(
             func=self.sw_template_web_elements.get_sw_template_stp_port_rows,
-            silent_failure=True, 
-            exp_func_resp=True, 
+            silent_failure=True,
+            exp_func_resp=True,
             delay=5
         )
-        
+
         if not rows:
             kwargs["fail_msg"] = "Failed to get the STP port configuration rows"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         kwargs["pass_msg"] = "Successfully got the STP port configuration rows"
         self.common_validation.passed(**kwargs)
         return rows
@@ -2522,7 +2730,7 @@ class SwitchTemplate(object):
         """
         rows = self.get_stp_port_configuration_rows()
         row = [r for r in rows if re.search(f"^{port}\n", r.text)]
-        
+
         if not row:
             kwargs["fail_msg"] = f"Failed to find the row port for port='{port}'"
             self.common_validation.failed(**kwargs)
@@ -2546,17 +2754,17 @@ class SwitchTemplate(object):
             kwargs["fail_msg"] = f"Failed to get the template for slot {slot}"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         self.utils.print_info(f"Successfully got the template for slot {slot}")
-        
+
         if self.auto_actions.click(template_slot) != 1:
             kwargs["fail_msg"] = f"Failed to click on the tempalte slot {slot}"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         kwargs["pass_msg"] = f"Successfully clicked on the template slot {slot}"
         self.common_validation.passed(**kwargs)
-        
+
         self.utils.wait_till(timeout=5)
         return 1
 
@@ -2570,7 +2778,7 @@ class SwitchTemplate(object):
             int: the path cost
         """
         row = self.get_stp_port_configuration_row(port=port)
-        
+
         cost_element, _ = self.utils.wait_till(
             func=lambda:
             self.sw_template_web_elements.get_sw_template_path_cost_row(row),
@@ -2578,15 +2786,15 @@ class SwitchTemplate(object):
             exp_func_resp=True,
             delay=5
         )
-        
+
         if not cost_element:
             kwargs["fail_msg"] = f"Failed to get path cost element"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         kwargs["pass_msg"] = f"Successfully got the path cost element"
         self.common_validation.passed(**kwargs)
-        
+
         return cost_element.get_attribute("value")
 
     def verify_path_cost_in_port_configuration_stp_tab(self, template_switch, network_policy, port, path_cost, slot=None, **kwargs):
@@ -2601,29 +2809,29 @@ class SwitchTemplate(object):
 
         Returns:
             int: 1 if the function call has succeeded else -1
-                
+
         """
-        
+
         self.utils.print_info(f"Go to the port configuration of {template_switch} template")
         self.select_sw_template(
             network_policy, template_switch)
         self.go_to_port_configuration()
-        
+
         if slot is not None:
             required_slot = template_switch + "-" + slot
             self.navigate_to_slot_template(required_slot)
-        
+
         self.click_on_stp_tab()
-        
+
         found_path_cost_value = self.get_path_cost_value_from_stp_port_configuration_row(
             port)
-        
+
         if str(found_path_cost_value) != str(path_cost):
             kwargs["fail_msg"] = f"In XIQ port configuration: Expected path cost for port='{port}' is {path_cost} " \
                                  f"but found '{found_path_cost_value}'"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         kwargs["pass_msg"] = f"Successfully found the expected path cost for port='{port}': {path_cost}"
         self.common_validation.passed(**kwargs)
         return 1
@@ -2633,24 +2841,24 @@ class SwitchTemplate(object):
 
         Args:
             enable (bool, optional): If it is True then it will enable STP; if it is False then it will disable STP. Defaults to True.
-    
+
         Returns:
             int: 1 if the function call has succeeded else -1
         """
         button, _ = self.utils.wait_till(
-            func=self.sw_template_web_elements.get_sw_template_enable_spanningtree, 
-            exp_func_resp=True, 
-            silent_failure=True, 
+            func=self.sw_template_web_elements.get_sw_template_enable_spanningtree,
+            exp_func_resp=True,
+            silent_failure=True,
             delay=5
         )
-        
+
         if not button:
             kwargs["fail_msg"] = f"Failed to get stp button element"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         self.utils.print_info(f"Successfully got the stp button element")
-        
+
         if (not button.is_selected() and enable) or (
             button.is_selected() and not enable):
             res, _ = self.utils.wait_till(
@@ -2658,15 +2866,15 @@ class SwitchTemplate(object):
                 exp_func_resp=True,
                 delay=4
             )
-            
+
             if res != 1:
                 kwargs["fail_msg"] = f"Failed to click stp button element"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
             kwargs["pass_msg"] = f"Successfully clicked the stp button element"
             self.common_validation.passed(**kwargs)
-            
+
         return 1
 
     def choose_stp_mode(self, mode, **kwargs):
@@ -2680,35 +2888,35 @@ class SwitchTemplate(object):
         """
         if mode == "stp":
             button, _ = self.utils.wait_till(
-                func=self.get_sw_template_enable_stp, 
-                exp_func_resp=True, 
-                silent_failure=True, 
+                func=self.get_sw_template_enable_stp,
+                exp_func_resp=True,
+                silent_failure=True,
                 delay=5
             )
-            
+
         elif mode == "rstp":
             button, _ = self.utils.wait_till(
-                func=self.sw_template_web_elements.get_sw_template_enable_rstp, 
-                exp_func_resp=True, 
-                silent_failure=True, 
+                func=self.sw_template_web_elements.get_sw_template_enable_rstp,
+                exp_func_resp=True,
+                silent_failure=True,
                 delay=5
             )
 
         elif mode == "mstp":
             button, _ = self.utils.wait_till(
                 func=self.sw_template_web_elements.get_sw_template_enable_mstp,
-                exp_func_resp=True, 
+                exp_func_resp=True,
                 silent_failure=True,
                 delay=5
         )
-        
+
         if not button:
             kwargs["fail_msg"] = f"Failed to get the {mode} stp mode button"
             self.common_validation.failed(**kwargs)
             return -1
-            
+
         self.utils.print_info(f"Successfully got the {mode} stp mode button")
-        
+
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(button),
             exp_func_resp=True,
@@ -2719,7 +2927,7 @@ class SwitchTemplate(object):
             kwargs["fail_msg"] = f"Failed to click the {mode} stp mode button"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         kwargs["pass_msg"] = f"Successfully clicked the {mode} stp mode button"
         self.common_validation.passed(**kwargs)
         return 1

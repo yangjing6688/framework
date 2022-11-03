@@ -1984,7 +1984,7 @@ class Devices:
         """
         - This keyword onboards: an aerohive device [AP or Switch], Exos Switch and Voss devices using Quick onboarding flow.
         - Keyword Usage:
-         - ``Onboard Device  ${ap1}``
+         - ``Onboard Device Quick  ${ap1}``
                 {ap1} - dictionary from .yaml file of the testbed ( 'ap1' is only an example )
                 Example:
                 {'name': 'bui-flo-1996',
@@ -12446,6 +12446,51 @@ class Devices:
             self.utils.print_info("Could not select device with serial ", device_mac)
             return -1
 
+    def check_update_column_by_failure_message(self, device_serial, failure_message, **kwargs):
+        """
+        This function is used to check the UPDATED column from device grid from a device with device_serial given as
+        parameter. Check if the update process failed with the same message as failure_message given as parameter
+        :param device_serial: device serial number to check the config push status
+        :param failure_message: failure message that is expected to appear after Device Update Failed
+        :return: 1 - if the update process failed with the same message as failure_message ; -1 - if not
+        """
+        current_status = self.get_device_updated_status(device_serial=device_serial)
+        count = 0
+        max_wait = 900
+        current_date = datetime.now()
+        update_text = str(current_date).split()[0]
+
+        while "Device Update Failed" != current_status:
+
+            sleep(10)
+            count += 10
+            self.utils.print_info(f"\nINFO \t Time elapsed in the Update process is '{count} seconds'\n")
+
+            current_status = self.get_device_updated_status(device_serial=device_serial)
+
+            if update_text in current_status:
+                kwargs["fail_msg"] = "Update process ended up successfully which is not expected"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            if count > max_wait:
+                kwargs["fail_msg"] = f"Max time {max_wait} seconds exceeded which is not expected"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+        current_message = \
+            self.get_device_updated_fail_message_after_reboot(device_serial=device_serial)
+
+        if failure_message != current_message:
+            kwargs["fail_msg"] = f"Update process ended up with another failure message: {current_message}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = f"Successfully found the expected failure message: {failure_message}"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+
     def update_and_wait_device(self, policy_name, dut, wait=True, **kwargs):
         """Method that updates the switch and then wait for the update to finish.
 
@@ -12460,33 +12505,33 @@ class Devices:
         self.utils.wait_till(timeout=10)
         self._goto_devices()
         self.utils.wait_till(timeout=10)
-		
+
         self.utils.print_info(f"Select switch row with serial {dut.mac}")
-        
+
         if self.select_device(dut.mac) != 1:
             kwargs["fail_msg"] = f"Switch {dut.mac} is not present in the grid"
             self.common_validation.failed(**kwargs)
             return -1
-        
-        self.utils.print_info(f"Successfully selected {dut.mac} in the grid")       
+
+        self.utils.print_info(f"Successfully selected {dut.mac} in the grid")
         self.utils.wait_till(timeout=2)
-        
+
         if self._update_switch(update_method="PolicyAndConfig") != 1:
             kwargs["fail_msg"] = f"Failed to push the update to switch {dut.mac}"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         self.utils.print_info(f"Successfully pushed the update to switch {dut.mac}")
-        
+
         if wait:
-            
+
             self.utils.print_info("Wait for the update to end")
-            
+
             if self._check_update_network_policy_status(policy_name, dut.mac) != 1:
                 kwargs["fail_msg"] = f"The update for switch {dut.mac} is not successful"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
         kwargs["pass_msg"] = f"Successfully updated the switch {dut.mac}"
         self.common_validation.passed(**kwargs)
         return 1
