@@ -12,6 +12,7 @@ from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class DevicesActions:
@@ -30,6 +31,7 @@ class DevicesActions:
 
         self.screen = Screen()
         self.robot_built_in = BuiltIn()
+        self.common_validation = CommonValidation()
 
     def is_actions_button_enabled(self):
         """
@@ -85,7 +87,7 @@ class DevicesActions:
             self.utils.print_info("Unable to Clear Audit Mismatch On Device ")
             return -1
 
-    def reset_all_devices_to_default(self):
+    def reset_devices_to_default(self, **kwargs):
         """
         - This Keyword performs factory reset to all APs
         - Navigate to Manage --> Device
@@ -93,7 +95,7 @@ class DevicesActions:
         - Click Utilities --> Reset Device to Default
         - Handles device reset pop up and validates reset dialogue box message.
         - Keyword Usage:
-         - ``Reset All Devices To Default``
+         - ``Reset Devices To Default``
         :return: 1 if Reset is Successful else -1
         """
         device_list = []
@@ -106,10 +108,14 @@ class DevicesActions:
             if len(device_list) >= 1:
                 return self.reset_device_to_default(*device_list)
             else:
-                self.utils.print_info("Unable to locate serial(s) number in rows")
+                kwargs['fail_msg'] = "Unable to locate serial(s) number in rows"
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Unable to gather Device(s)")
+            kwargs['fail_msg'] = "Unable to gather Device(s)"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
     def reset_device_to_default(self, *device_list):
