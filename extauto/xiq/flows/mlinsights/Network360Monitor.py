@@ -69,7 +69,7 @@ class Network360Monitor:
                     self.auto_actions.click(match)
                     sleep(10)
                     self.utils.print_info("Clicking on the MAP tab")
-                    self.auto_actions.click(self.n360_elements.get_n360_monitor_map())
+                    self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_map)
                     sleep(10)
 
                     ap_list = self.n360_elements.get_n360_monitor_aps_on_floor()
@@ -156,7 +156,7 @@ class Network360Monitor:
                         self.utils.print_info("Unable to find AP Count")
 
                     self.utils.print_info("Clicking on Connected Clients tab ")
-                    self.auto_actions.click(self.n360_elements.get_n360_monitor_connected_clients_tab())
+                    self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_connected_clients_tab)
                     client_mac_list = self.n360_elements.get_n360_connected_client_macs()
                     if client_mac_list:
                         clients_on_floor = []
@@ -207,11 +207,11 @@ class Network360Monitor:
         """
         try:
             self.utils.print_info("Clicking on ML Insights button")
-            self.auto_actions.click(self.ml_insights.get_ml_insights_button())
+            self.auto_actions.click_reference(self.ml_insights.get_ml_insights_button)
             sleep(2)
 
             self.utils.print_info("Clicking on ML Insights Monitor button")
-            self.auto_actions.click(self.ml_insights.get_n360_monitor_button())
+            self.auto_actions.click_reference(self.ml_insights.get_n360_monitor_button)
             sleep(2)
             return 1
         except Exception as e:
@@ -298,7 +298,7 @@ class Network360Monitor:
                 return -1
 
         self.utils.print_info("Clicking the devices card...")
-        self.auto_actions.click(self.n360_elements.get_n360_monitor_devices_card())
+        self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_devices_card)
         sleep(5)
 
         availability_score = self.n360_elements.get_device_health_overal_score_availability_score()
@@ -366,7 +366,7 @@ class Network360Monitor:
                 return -1
 
         self.utils.print_info("Clicking the clients card...")
-        self.auto_actions.click(self.n360_elements.get_n360_monitor_clients_card())
+        self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_clients_card)
         sleep(5)
 
         self.screen.save_screen_shot()

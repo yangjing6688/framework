@@ -49,7 +49,7 @@ class Device360(Device360WebElements):
         """
         try:
             self.utils.print_info("Clicking on System Information")
-            self.auto_actions.click(self.dev360.get_system_info_button())
+            self.auto_actions.click_reference(self.dev360.get_system_info_button)
             sleep(5)
 
             self.screen.save_screen_shot()
@@ -74,7 +74,7 @@ class Device360(Device360WebElements):
             sys_info["mgt0_mac"] = self.dev360.get_system_info_mgt0_mac().text
             sys_info["info_dns"] = self.dev360.get_system_info_dns().text
             sys_info["info_ntp"] = self.dev360.get_system_info_ntp().text
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return sys_info
         except Exception as e:
             self.utils.print_info("Unable to get device360 details")
@@ -179,10 +179,10 @@ class Device360(Device360WebElements):
             self.utils.print_info("Getting the clients rows: ", row.text)
             if client_mac in row.text and "CONNECTED" in row.text:
                 self.utils.print_info("Client found")
-                self.auto_actions.click(self.dev360.get_close_dialog())
+                self.auto_actions.click_reference(self.dev360.get_close_dialog)
                 return 1
         self.utils.print_info("Client not found")
-        self.auto_actions.click(self.dev360.get_close_dialog())
+        self.auto_actions.click_reference(self.dev360.get_close_dialog)
         return -1
 
     def get_status_interface_list(self, device_serial=None):
@@ -198,7 +198,7 @@ class Device360(Device360WebElements):
         if device_serial:
             self.navigator.navigate_to_status_interface(device_serial)
             sleep(5)
-            self.auto_actions.click(self.dev360.get_utilities_status_interface_name_dropdown())
+            self.auto_actions.click_reference(self.dev360.get_utilities_status_interface_name_dropdown)
             sleep(2)
             options = self.dev360.get_utilities_status_interface_name_dropdown_opt()
             list_options = []
@@ -206,7 +206,7 @@ class Device360(Device360WebElements):
                 if "All" not in opt.text:
                     list_options.append(opt.text)
             self.utils.print_info("Interfaces List: ", list_options)
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return list_options
 
     def get_status_interface(self, device_serial=None, interface_name=None):
@@ -223,7 +223,7 @@ class Device360(Device360WebElements):
         if device_serial and interface_name:
             self.navigator.navigate_to_status_interface(device_serial)
             sleep(5)
-            self.auto_actions.click(self.dev360.get_utilities_status_interface_name_dropdown())
+            self.auto_actions.click_reference(self.dev360.get_utilities_status_interface_name_dropdown)
             sleep(2)
             options = self.dev360.get_utilities_status_interface_name_dropdown_opt()
             for opt in options:
@@ -234,7 +234,7 @@ class Device360(Device360WebElements):
 
             content = self.dev360.get_utilities_status_interface_contents().text
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return content
         else:
             self.utils.print_info("Device serial and interface name are not provided")
@@ -277,7 +277,7 @@ class Device360(Device360WebElements):
         close_diag = self.get_close_dialog()
         if close_diag:
             self.utils.print_info("closing the dialogue ")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             ret_val = 1
         else:
             self.utils.print_info("couldn't close the dialogue box")
@@ -352,7 +352,7 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
         if self.get_device_ssh_ui_tip_error() is not None:
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.get_device_ssh_ui_tip_close())
+            self.auto_actions.click_reference(self.get_device_ssh_ui_tip_close)
             kwargs['fail_msg'] = f"Encountered an error. Clicking to exit the error window. Please see the screenshot"
             self.close_device360_window()
             self.common_validation.failed(**kwargs)
@@ -408,7 +408,7 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH WEB tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_web_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_web_tab)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH WEB Run Time: ", run_time)
@@ -416,25 +416,25 @@ class Device360(Device360WebElements):
         sleep(5)
 
         if run_time == 5:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_5min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_5min_radio)
 
         if run_time == 30:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_30min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_30min_radio)
 
         if run_time == 60:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_60min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_60min_radio)
 
         if run_time == 120:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_120min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_120min_radio)
 
         if run_time == 240:
-            self.auto_actions.click(self.get_device360_configure_ssh_web_240min_radio())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_240min_radio)
 
         self.screen.save_screen_shot()
 
         sleep(5)
         self.utils.print_info("Clicking Device 360 SSH WEB Enable SSH button...")
-        self.auto_actions.click(self.get_device360_configure_ssh_web_enable_button())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_web_enable_button)
 
         sleep(60)
 
@@ -468,7 +468,7 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Check if enabled based on first radio button")
@@ -501,7 +501,7 @@ class Device360(Device360WebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking Device 360 SSH tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Check if disabled based on first radio button")
@@ -545,7 +545,7 @@ class Device360(Device360WebElements):
             self.utils.print_info(f"{key}:{value}")
 
         self.utils.print_info("Closing device360 Dialogue Window.")
-        self.auto_actions.click(self.dev360.get_close_dialog())
+        self.auto_actions.click_reference(self.dev360.get_close_dialog)
         self.screen.save_screen_shot()
 
         return device360_info
@@ -603,7 +603,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_advance_channel_selection(device_serial)
             content = self.dev360.get_utilities_status_adv_channel_sel_contents().text
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return content
         else:
             self.utils.print_info("Device serial is not provided")
@@ -623,7 +623,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_wifi_status_summary(device_serial)
             sleep(5)
             self.utils.print_info("Clicking on Station..")
-            self.auto_actions.click(self.dev360.get_utilities_status_wifi_summary_station_btn())
+            self.auto_actions.click_reference(self.dev360.get_utilities_status_wifi_summary_station_btn)
             sleep(2)
 
             self.screen.save_screen_shot()
@@ -631,7 +631,7 @@ class Device360(Device360WebElements):
             content = self.dev360.get_utilities_status_wifi_summary_station_content().text
             self.utils.print_info("Content: ", content)
             self.utils.print_info("Clicking on close dialog")
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return content
         else:
             self.utils.print_info("Device serial is not provided.")
@@ -759,11 +759,11 @@ class Device360(Device360WebElements):
                 self.auto_actions.move_to_element(self.get_sidebar_model())
                 self.auto_actions.scroll_down()
 
-                self.auto_actions.click(self.get_device360_configure_button())
+                self.auto_actions.click_reference(self.get_device360_configure_button)
                 sleep(8)
 
                 self.utils.print_info("Clicking Device Configuration on the Device360 Configure tab")
-                self.auto_actions.click(self.get_device360_device_configuration_button())
+                self.auto_actions.click_reference(self.get_device360_device_configuration_button)
                 sleep(3)
 
                 voss_info = self.get_voss_device_configuration_information()
@@ -781,11 +781,11 @@ class Device360(Device360WebElements):
                 self.auto_actions.move_to_element(self.get_sidebar_model())
                 self.auto_actions.scroll_down()
 
-                self.auto_actions.click(self.get_device360_configure_button())
+                self.auto_actions.click_reference(self.get_device360_configure_button)
                 sleep(8)
 
                 self.utils.print_info("Clicking Device Configuration on the Device360 Configure tab")
-                self.auto_actions.click(self.get_device360_device_configuration_button())
+                self.auto_actions.click_reference(self.get_device360_device_configuration_button)
                 sleep(3)
                 voss_info = self.get_voss_device_configuration_information()
                 self.device360_device_configuration_click_cancel()
@@ -943,7 +943,7 @@ class Device360(Device360WebElements):
         """
         if self.get_device360_configure_ssh_web_disable_button():
             self.utils.print_info("Clicking Device 360 SSH CLI Disable SSH button...")
-            self.auto_actions.click(self.get_device360_configure_ssh_web_disable_button())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_disable_button)
             sleep(5)
             self.screen.save_screen_shot()
 
@@ -963,12 +963,12 @@ class Device360(Device360WebElements):
             self.auto_actions.click_reference(self.get_device360_configure_button)
 
             self.utils.print_info("Clicking Device 360 SSH WEB tab")
-            self.auto_actions.click(self.get_device360_configure_ssh_web_tab())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_tab)
 
             sleep(5)
 
             self.utils.print_info("Clicking Device 360 SSH CLI Disable SSH button...")
-            self.auto_actions.click(self.get_device360_configure_ssh_web_disable_button())
+            self.auto_actions.click_reference(self.get_device360_configure_ssh_web_disable_button)
 
             if self.get_device360_configure_ssh_web_url():
                 return -1
@@ -998,7 +998,7 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Clicking Device 360 SSH CLI tab")
-        self.auto_actions.click(self.get_device360_configure_ssh_cli_tab())
+        self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
 
         disable_ssh_btn = self.get_device360_configure_ssh_disable_button()
@@ -2965,7 +2965,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
         self.utils.print_info("Clicking on System Information")
-        self.auto_actions.click(self.dev360.get_system_info_button())
+        self.auto_actions.click_reference(self.dev360.get_system_info_button())
         sleep(2)
 
         try:
@@ -3013,7 +3013,7 @@ class Device360(Device360WebElements):
         snmp_locn = self.dev360.get_device360_stack_configure_device_snmp_location().get_attribute('value')
 
         # info_note_el = self.dev360.get_switch_system_info_note()
-        # self.auto_actions.click(self.get_device360_configure_device_snmp_location())
+        # self.auto_actions.click_reference(self.get_device360_configure_device_snmp_location)
 
         return snmp_locn
 
@@ -3034,13 +3034,13 @@ class Device360(Device360WebElements):
 
         if self.devices_web_elements.get_ap_configure_button():
             self.utils.print_info("Clicking on 'Configure' button  ")
-            self.auto_actions.click(self.devices_web_elements.get_ap_configure_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_ap_configure_button)
         else:
             self.utils.print_info("'Configure' button was not found ")
             return -1
 
         if self.dev360.get_device360_device_configuration_button():
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_button)
             self.utils.print_info("Clicking on 'Device Configuration 'button")
         else:
             self.utils.print_info("'Device Configuration 'button was not found ")
@@ -3080,7 +3080,7 @@ class Device360(Device360WebElements):
 
         if self.dev360.get_device360_device_configuration_save_button():
             self.utils.print_info("Click on save button")
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_save_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_save_button)
         else:
             self.utils.print_info("The save button was not found")
 
@@ -3108,14 +3108,14 @@ class Device360(Device360WebElements):
 
         if self.dev360.get_device360_device_configuration_update_button():
             self.utils.print_info("Click on update button")
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_update_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_update_button)
 
         else:
             self.utils.print_info("The update button was not found")
 
         if self.devices_web_elements.get_devices_perform_update_button_d360():
             self.utils.print_info("Click on update performe button")
-            self.auto_actions.click(self.devices_web_elements.get_devices_perform_update_button_d360())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_perform_update_button_d360)
 
         else:
             self.utils.print_info("The update button was not found")
@@ -3135,7 +3135,7 @@ class Device360(Device360WebElements):
 
         if self.dev360.get_device360_device_configuration_exit_button():
             self.utils.print_info("Click on exit button")
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_exit_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_exit_button)
         else:
             self.utils.print_info("The exit button was not found")
 
@@ -3181,7 +3181,7 @@ class Device360(Device360WebElements):
                         self.auto_actions.click(expand_more)
                         sleep(5)
                         desc_val = self.get_device360_event_more_expand_value().text
-                        self.auto_actions.click(self.get_device360_event_more_close_btn())
+                        self.auto_actions.click_reference(self.get_device360_event_more_close_btn)
                         self.utils.print_debug("Checking row with event description value '" + desc_val + "'")
                         # Check if the event description value for this row contains what we are looking for
                         if event_str in desc_val:
@@ -3520,7 +3520,7 @@ class Device360(Device360WebElements):
         if view_log := self.get_d360_switch_port_view_all_pages_button():
             if view_log.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
+                self.auto_actions.click_reference(self.get_d360_switch_port_view_all_pages_button)
                 self.screen.save_screen_shot()
                 sleep(4)
 
@@ -3562,13 +3562,13 @@ class Device360(Device360WebElements):
                         self.utils.print_info(f"{key}:{value}")
 
                     self.screen.save_screen_shot()
-                    self.auto_actions.click(self.dev360.get_close_dialog())
+                    self.auto_actions.click_reference(self.dev360.get_close_dialog)
                     self.screen.save_screen_shot()
                     return switch_device360_info
         except Exception as e:
             self.utils.print_info("Unable to get Port Table Information")
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.dev360.get_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -3807,7 +3807,7 @@ class Device360(Device360WebElements):
         """
         if self.get_d360_view_100_rows_on_page():
             self.utils.print_info("Select view 100 rows ")
-            self.auto_actions.click(self.get_d360_view_100_rows_on_page())
+            self.auto_actions.click_reference(self.get_d360_view_100_rows_on_page)
             self.auto_actions.scroll_up()
             return 1
         else:
@@ -3839,7 +3839,7 @@ class Device360(Device360WebElements):
 
         if self.dev360.get_device360_device_configuration_exit_button():
             self.utils.print_info("Click on exit button")
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_exit_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_exit_button)
         else:
             self.utils.print_info("The exit button was not found")
             return -1
@@ -4103,13 +4103,13 @@ class Device360(Device360WebElements):
 
         if self.devices_web_elements.get_ap_configure_button():
             self.utils.print_info("Clicking on 'Configure' button  ")
-            self.auto_actions.click(self.devices_web_elements.get_ap_configure_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_ap_configure_button)
         else:
             self.utils.print_info("'Configure' button was not found ")
             return -1
 
         if self.dev360.get_device360_device_configuration_button():
-            self.auto_actions.click(self.dev360.get_device360_device_configuration_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_device_configuration_button)
             self.utils.print_info("Clicking on 'Device Configuration 'button")
         else:
             self.utils.print_info("'Device Configuration 'button was not found ")
@@ -4117,7 +4117,7 @@ class Device360(Device360WebElements):
 
         # Click on creating auto template on stacking
         if self.dev360.get_device360_create_auto_template_button():
-            self.auto_actions.click(self.dev360.get_device360_create_auto_template_button())
+            self.auto_actions.click_reference(self.dev360.get_device360_create_auto_template_button)
             self.utils.print_info("Clicking on 'Creating Auto template' button")
         else:
             self.utils.print_info("'Creating Auto template 'button was not found")
@@ -4162,11 +4162,11 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4183,7 +4183,7 @@ class Device360(Device360WebElements):
                     else:
                         self.utils.print_info(f"Port {port_number} Already Enabled")
                         self.utils.print_info("Close Dialogue Window")
-                        self.auto_actions.click(self.get_close_dialog())
+                        self.auto_actions.click_reference(self.get_close_dialog)
                         self.screen.save_screen_shot()
                         return 1
 
@@ -4195,7 +4195,7 @@ class Device360(Device360WebElements):
                     else:
                         self.utils.print_info(f"Port {port_number} Already Disabled")
                         self.utils.print_info("Close Dialogue Window")
-                        self.auto_actions.click(self.get_close_dialog())
+                        self.auto_actions.click_reference(self.get_close_dialog)
                         self.screen.save_screen_shot()
                         return 1
 
@@ -4209,7 +4209,7 @@ class Device360(Device360WebElements):
                     sleep(2)
 
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     sleep(2)
 
@@ -4221,13 +4221,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4264,11 +4264,11 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4306,7 +4306,7 @@ class Device360(Device360WebElements):
                     sleep(2)
 
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     sleep(2)
 
@@ -4318,13 +4318,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4362,11 +4362,11 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4418,7 +4418,7 @@ class Device360(Device360WebElements):
                     sleep(2)
 
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     sleep(2)
 
@@ -4430,13 +4430,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4476,15 +4476,15 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         self.utils.print_info("Click Port Settings Tab")
-        self.auto_actions.click(self.get_device360_port_configuration_port_settings_tab())
+        self.auto_actions.click_reference(self.get_device360_port_configuration_port_settings_tab)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4532,13 +4532,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4575,15 +4575,15 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         sleep(4)
 
         self.utils.print_info("Click PortConfiguration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         sleep(2)
 
         self.utils.print_info("Click PSE Tab")
-        self.auto_actions.click(self.get_device360_port_configuration_pse_tab())
+        self.auto_actions.click_reference(self.get_device360_port_configuration_pse_tab)
         sleep(2)
 
         port_conf_content = self.get_device360_port_configuration_content()
@@ -4631,7 +4631,7 @@ class Device360(Device360WebElements):
                     sleep(2)
 
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     sleep(2)
 
@@ -4643,13 +4643,13 @@ class Device360(Device360WebElements):
             else:
                 self.utils.print_info(f"Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
 
@@ -4697,18 +4697,18 @@ class Device360(Device360WebElements):
                 cpu_utilization_percentage = cpu_utilization[1].strip()
                 self.utils.print_info(f"WireFrame CPU Utilization Percentage is : {cpu_utilization_percentage}")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return cpu_utilization[1].strip()
             else:
                 self.utils.print_info(f"Tooltip content Not Found for WireFrame CPU Utilization")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         self.screen.save_screen_shot()
         return -1
 
@@ -4756,18 +4756,18 @@ class Device360(Device360WebElements):
                 memory_usage_percentage = memory_usage[1].strip()
                 self.utils.print_info(f"WireFrame Memory Usage Percentage is : {memory_usage_percentage}")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return memory_usage[1].strip()
             else:
                 self.utils.print_info(f"Tooltip content Not Found for WireFrame Memory Utilization")
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 self.screen.save_screen_shot()
                 return -1
 
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         self.screen.save_screen_shot()
         return -1
 
@@ -4865,7 +4865,7 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Send command:", el)
                     self.auto_actions.send_keys(search, el)
                     sleep(2)
-                    self.auto_actions.click(self.dev360.get_cli_apply())
+                    self.auto_actions.click_reference(self.dev360.get_cli_apply)
                     sleep(delay)
                 else:
                     self.utils.print_info("'Send command' field not found")
@@ -4910,7 +4910,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Send command:", command)
                 self.auto_actions.send_keys(search, command)
                 sleep(2)
-                self.auto_actions.click(self.dev360.get_cli_apply())
+                self.auto_actions.click_reference(self.dev360.get_cli_apply)
                 sleep(delay)
             else:
                 self.utils.print_info("Web CLI input field not found")
@@ -4960,9 +4960,9 @@ class Device360(Device360WebElements):
         :param cli_commands: list of CLI commands separated by comma
         :return: 1 if supplemental cli profile save successfully else -1
         """
-        self.auto_actions.click(self.get_device360_configure_button())
-        self.auto_actions.click(self.get_device360_device_configuration_button())
-        self.auto_actions.click(self.get_device360_select_supplemental_cli())
+        self.auto_actions.click_reference(self.get_device360_configure_button)
+        self.auto_actions.click_reference(self.get_device360_device_configuration_button)
+        self.auto_actions.click_reference(self.get_device360_select_supplemental_cli)
         sleep(3)
         list_items = self.get_device360_supplemental_cli_list()
         found_profile = False
@@ -4974,19 +4974,19 @@ class Device360(Device360WebElements):
                     self.auto_actions.click(profile)
                     if name_s_cli == "No Supplemental CLI":
                         self.utils.print_info("Saving Configuration")
-                        self.auto_actions.click(self.get_device360_device_configuration_save_button())
+                        self.auto_actions.click_reference(self.get_device360_device_configuration_save_button)
                         sleep(3)
                         found_profile = True
                         self.utils.print_info("Exit device configuration")
                         if self.get_device360_device_configuration_exit_button():
-                            self.auto_actions.click(self.get_device360_device_configuration_exit_button())
+                            self.auto_actions.click_reference(self.get_device360_device_configuration_exit_button)
                             return 1
                         else:
                             self.utils.print_info("Exit D360 button not found")
                             return -1
                     else:
                         self.utils.print_info("Edit profile")
-                        self.auto_actions.click(self.get_device360_supplemental_cli_edit_profile())
+                        self.auto_actions.click_reference(self.get_device360_supplemental_cli_edit_profile)
                         profile_commands_cli = self.get_device_360_supplemental_cli_profile_commands()
                         cli_command_list = cli_commands.split(",")
                         new_line_cli_commands = "\n".join(cli_command_list)
@@ -4994,15 +4994,15 @@ class Device360(Device360WebElements):
                         self.auto_actions.send_keys(profile_commands_cli, new_line_cli_commands)
                         sleep(3)
                         self.utils.print_info("Saving Profile")
-                        self.auto_actions.click(self.get_device360_supplemental_cli_save_profile())
+                        self.auto_actions.click_reference(self.get_device360_supplemental_cli_save_profile)
                         sleep(3)
                         self.utils.print_info("Saving Configuration")
-                        self.auto_actions.click(self.get_device360_device_configuration_save_button())
+                        self.auto_actions.click_reference(self.get_device360_device_configuration_save_button)
                         sleep(3)
                         found_profile = True
                         self.utils.print_info("Exit device configuration")
                         if self.get_device360_device_configuration_exit_button():
-                            self.auto_actions.click(self.get_device360_device_configuration_exit_button())
+                            self.auto_actions.click_reference(self.get_device360_device_configuration_exit_button)
                             return 1
                         else:
                             self.utils.print_info("Exit D360 button not found")
@@ -5010,7 +5010,7 @@ class Device360(Device360WebElements):
             if found_profile == False:
                 self.utils.print_info("'{}' profile was not found".format(name_s_cli))
                 self.utils.print_info("Creating one")
-                self.auto_actions.click(self.get_device_360_supplemental_cli_new_profile())
+                self.auto_actions.click_reference(self.get_device_360_supplemental_cli_new_profile)
                 self.auto_actions.send_keys(self.get_device_360_supplemental_cli_profile_name(), name_s_cli)
                 sleep(3)
                 profile_commands_cli = self.get_device_360_supplemental_cli_profile_commands()
@@ -5020,14 +5020,14 @@ class Device360(Device360WebElements):
                 self.auto_actions.send_keys(profile_commands_cli, new_line_cli_commands)
                 sleep(3)
                 self.utils.print_info("Saving Profile")
-                self.auto_actions.click(self.get_device360_supplemental_cli_save_profile())
+                self.auto_actions.click_reference(self.get_device360_supplemental_cli_save_profile)
                 sleep(3)
                 self.utils.print_info("Saving Configuration")
-                self.auto_actions.click(self.get_device360_device_configuration_save_button())
+                self.auto_actions.click_reference(self.get_device360_device_configuration_save_button)
                 sleep(3)
                 self.utils.print_info("Exit device configuration")
                 if self.get_device360_device_configuration_exit_button():
-                    self.auto_actions.click(self.get_device360_device_configuration_exit_button())
+                    self.auto_actions.click_reference(self.get_device360_device_configuration_exit_button)
                     return 1
                 else:
                     self.utils.print_info("Exit D360 button not found")
@@ -5077,13 +5077,13 @@ class Device360(Device360WebElements):
         if power_details:
             self.utils.print_info(f"Power details from XIQ are : ", power_details.text)
             # self.utils.print_info("Close Dialogue Window")
-            # self.auto_actions.click(self.get_close_dialog())
+            # self.auto_actions.click_reference(self.get_close_dialog)
             # self.screen.save_screen_shot()
             rez = power_details.text
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
         else:
             self.utils.print_info("Power details not found")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             return -1
         return str(rez)
@@ -5117,7 +5117,7 @@ class Device360(Device360WebElements):
         self.select_port_configuration_view()
         sleep(2)
         self.utils.print_info("Click PSE Tab")
-        self.auto_actions.click(self.get_device360_port_configuration_pse_tab())
+        self.auto_actions.click_reference(self.get_device360_port_configuration_pse_tab)
         sleep(2)
         pse_settings_for_device_button = self.get_device360_pse_settings_for_device_button()
         if pse_settings_for_device_button:
@@ -5158,7 +5158,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Could not click Save button")
             return -1
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         return 1
 
     def device360_check_wired_client(self, device_serial=None, device_mac=None, client_mac=None, sleep_time=30,
@@ -5347,7 +5347,7 @@ class Device360(Device360WebElements):
             # remove this try once AIQ-1529
             clickable = -1
             try:
-                clickable = self.auto_actions.click(self.dev360.get_device360_click_particular_client())
+                clickable = self.auto_actions.click_reference(self.dev360.get_device360_click_particular_client)
                 if clickable == 1:
                     print("Able to click the client and see the popup...")
                     sleep(5)
@@ -5432,7 +5432,7 @@ class Device360(Device360WebElements):
         close_btn = self.dev360.get_client360_close_dialog()
         if close_btn:
             self.utils.print_info("Closing client360 Dialog Window.")
-            self.auto_actions.click(self.dev360.get_client360_close_dialog())
+            self.auto_actions.click_reference(self.dev360.get_client360_close_dialog)
             return 1
         else:
             self.screen.save_screen_shot()
@@ -5474,7 +5474,7 @@ class Device360(Device360WebElements):
         :return: 1 if the selection was made, -1 if not
         """
         self.utils.print_info(f"select '{network_policy}' from drop down")
-        self.auto_actions.click(self.get_device360_configure_device_network_policy())
+        self.auto_actions.click_reference(self.get_device360_configure_device_network_policy)
         device_network_policy_drop_down_items = self.get_device360_configure_device_network_policy_items()
 
         if device_network_policy_drop_down_items:
@@ -5597,7 +5597,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("Clicking on Column Picker")
         sleep(5)
         # Handle the case where a tooltip / popup is covering the column picker icon
-        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.auto_actions.click_reference(self.get_device360_column_picker_icon)
         sleep(2)
         if option.lower() == "check":
             self.utils.print_info("Column list to check for selected items: ", columns)
@@ -5647,9 +5647,9 @@ class Device360(Device360WebElements):
         sleep(2)
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
-        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.auto_actions.click_reference(self.get_device360_column_picker_icon)
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         return ret_val
 
     def device360_check_column_picker(self, option, *columns, select_page="", device_mac="", device_name=""):
@@ -5697,7 +5697,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("Clicking on Column Picker")
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
-        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.auto_actions.click_reference(self.get_device360_column_picker_icon)
         if option.lower() == "unchecked":
             self.utils.print_info(f"Checking '{columns}' are not selected")
             sleep(2)
@@ -5744,9 +5744,9 @@ class Device360(Device360WebElements):
             ret_val = -1
         sleep(2)
         self.utils.print_info("Closing Column Picker")
-        self.auto_actions.click(self.get_device360_column_picker_icon())
+        self.auto_actions.click_reference(self.get_device360_column_picker_icon)
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         return ret_val
 
     def create_new_port_type(self, template_values, port, d360=False, verify_summary=True):
@@ -7036,7 +7036,7 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row Not Found"
                     self.screen.save_screen_shot()
@@ -7048,7 +7048,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(save_btn)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 kwargs['pass_msg'] = "Switch Port Configuration Saved"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -7066,7 +7066,7 @@ class Device360(Device360WebElements):
                 #
                 # confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                 # self.utils.print_info("Close Dialogue Window")
-                # self.auto_actions.click(self.get_close_dialog())
+                # self.auto_actions.click_reference(self.get_close_dialog)
                 # if confirmation_message:
                 #     kwargs['pass_msg'] = "Found confirmation message. Port Configuration Saved"
                 #     self.common_validation.passed(**kwargs)
@@ -7079,7 +7079,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
@@ -7141,7 +7141,7 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row was not found"
                     self.common_validation.failed(**kwargs)
@@ -7153,7 +7153,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(save_btn)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 kwargs['pass_msg'] = "Stack Port Configuration Saved"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -7177,7 +7177,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
@@ -7212,10 +7212,10 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
 
         self.utils.print_info("Click Port Configuration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -7255,7 +7255,7 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info("Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row was not found"
                     self.common_validation.failed(**kwargs)
@@ -7267,7 +7267,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(save_btn)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 kwargs['pass_msg'] = "Switch Port Configuration Saved"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -7293,7 +7293,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
@@ -7314,9 +7314,9 @@ class Device360(Device360WebElements):
         """
         self.utils.print_info("Click Configure Button")
         if not self.get_device360_configure_button().is_selected():
-            self.auto_actions.click(self.get_device360_configure_button())
+            self.auto_actions.click_reference(self.get_device360_configure_button)
         self.utils.print_info("Click Port Configuration Button")
-        self.auto_actions.click(self.get_device360_configure_port_configuration_button())
+        self.auto_actions.click_reference(self.get_device360_configure_port_configuration_button)
         port_conf_content = self.get_device360_port_configuration_content()
         if port_conf_content and port_conf_content.is_displayed():
             for port_number in port_numbers.split(','):
@@ -7345,7 +7345,7 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info(f"Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
-                    self.auto_actions.click(self.get_close_dialog())
+                    self.auto_actions.click_reference(self.get_close_dialog)
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Port Row was not found"
                     self.common_validation.failed(**kwargs)
@@ -7357,7 +7357,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(save_btn)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+                self.auto_actions.click_reference(self.get_close_dialog)
                 kwargs['pass_msg'] = "Stack Port Configuration Saved"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -7383,7 +7383,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info(f"Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
             kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
@@ -7403,7 +7403,7 @@ class Device360(Device360WebElements):
                 return False
 
         self.utils.wait_till(_check_dropdown)
-        self.auto_actions.click(self.dev360.get_device360_port_configuration_stack_units_dropdown())
+        self.auto_actions.click_reference(self.dev360.get_device360_port_configuration_stack_units_dropdown)
 
         self.utils.print_info("Gather the list of the devices in the stack")
         slot_index = 1
@@ -7462,7 +7462,7 @@ class Device360(Device360WebElements):
         self.select_stack_unit(slot=slot)
         sleep(2)
         self.utils.print_info("Click PSE Tab")
-        self.auto_actions.click(self.get_device360_port_config_pse_tab_slot_stack())
+        self.auto_actions.click_reference(self.get_device360_port_config_pse_tab_slot_stack)
         sleep(2)
         pse_settings_for_device_button = self.get_device360_pse_settings_for_device_button_stack()
         if pse_settings_for_device_button:
@@ -7501,7 +7501,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Could not click Save button")
             return -1
         self.utils.print_info("Close Dialogue Window")
-        self.auto_actions.click(self.get_close_dialog())
+        self.auto_actions.click_reference(self.get_close_dialog)
         return 1
 
     def device360_power_details_stack(self, slot, device_mac="", device_name=""):
@@ -7558,7 +7558,7 @@ class Device360(Device360WebElements):
             self.utils.print_info(f"", power_details.text)
             rez = power_details.text
             self.utils.print_info("Close Dialogue Window")
-            self.auto_actions.click(self.get_close_dialog())
+            self.auto_actions.click_reference(self.get_close_dialog)
         else:
             self.utils.print_info("Power details not found")
             return -1
@@ -7611,7 +7611,7 @@ class Device360(Device360WebElements):
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
-                    self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
+                    self.auto_actions.click_reference(self.dialog_web_elements.get_confirm_yes_button)
                     self.utils.print_info("Confirming the relaunch.")
                     banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
                     if banner_text_error:
@@ -7619,7 +7619,7 @@ class Device360(Device360WebElements):
                         return -1
                     return 1
                 else:
-                    self.auto_actions.click(self.dialog_web_elements.get_confirm_cancel_button())
+                    self.auto_actions.click_reference(self.dialog_web_elements.get_confirm_cancel_button)
                     return 1
         else:
             self.utils.print_info("Could not find the 'Relaunch Digital Twin' button.")
@@ -7673,7 +7673,7 @@ class Device360(Device360WebElements):
                 if confirm.lower() == 'yes':
                     sleep(3)
                     self.screen.save_screen_shot()
-                    self.auto_actions.click(self.dialog_web_elements.get_confirm_yes_button())
+                    self.auto_actions.click_reference(self.dialog_web_elements.get_confirm_yes_button)
                     self.utils.print_info("Confirming the shutdown.")
                     banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
                     if banner_text_error:
@@ -7681,7 +7681,7 @@ class Device360(Device360WebElements):
                         return -1
                     return 1
                 else:
-                    self.auto_actions.click(self.dialog_web_elements.get_confirm_cancel_button())
+                    self.auto_actions.click_reference(self.dialog_web_elements.get_confirm_cancel_button)
                     return 1
         else:
             self.utils.print_info("Could not find the 'Shutdown Digital Twin' button.")

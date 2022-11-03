@@ -59,7 +59,7 @@ class Client:
         sleep(2)
 
         self.utils.print_info("Click on client Refresh button")
-        self.auto_actions.click(self.client_web_elements.get_client_page_refresh_button())
+        self.auto_actions.click_reference(self.client_web_elements.get_client_page_refresh_button)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -69,7 +69,7 @@ class Client:
         #self.utils.print_info('Click on Page Size 100 if page exists')
         #element = self.client_web_elements.get_client_page_size_100()
         #if element != None and element.is_displayed():
-            #self.auto_actions.click(self.client_web_elements.get_client_page_size_100())
+            #self.auto_actions.click_reference(self.client_web_elements.get_client_page_size_100)
 
         self.utils.print_info('Getting Client Status using')
         if client_name != 'default':
@@ -143,7 +143,7 @@ class Client:
         sleep(2)
 
         self.utils.print_info("Click on clients real time tab")
-        self.auto_actions.click(self.client_web_elements.get_clients_real_time_tab())
+        self.auto_actions.click_reference(self.client_web_elements.get_clients_real_time_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -182,7 +182,7 @@ class Client:
         """
 
         self.utils.print_info("Click on client historical tab")
-        self.auto_actions.click(self.client_web_elements.get_clients_historical_tab())
+        self.auto_actions.click_reference(self.client_web_elements.get_clients_historical_tab)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -207,23 +207,23 @@ class Client:
         sleep(2)
 
         self.utils.print_info("Click on client delete button")
-        self.auto_actions.click(self.client_web_elements.get_client_gdpr_delete_button())
+        self.auto_actions.click_reference(self.client_web_elements.get_client_gdpr_delete_button)
         sleep(2)
 
         self.utils.print_info("Click on client delete confirmation yes button")
-        self.auto_actions.click(self.client_web_elements.get_client_gdpr_delete_yes_confirm_button())
+        self.auto_actions.click_reference(self.client_web_elements.get_client_gdpr_delete_yes_confirm_button)
         sleep(5)
 
         self.utils.print_info("click on client dialog window close button")
-        self.auto_actions.click(self.client_web_elements.get_client_dialog_window_close_button())
+        self.auto_actions.click_reference(self.client_web_elements.get_client_dialog_window_close_button)
         sleep(5)
 
         self.utils.print_info("Click on clients real time tab")
-        self.auto_actions.click(self.client_web_elements.get_clients_real_time_tab())
+        self.auto_actions.click_reference(self.client_web_elements.get_clients_real_time_tab)
         sleep(2)
 
         self.utils.print_info("Click on client historical tab")
-        self.auto_actions.click(self.client_web_elements.get_clients_historical_tab())
+        self.auto_actions.click_reference(self.client_web_elements.get_clients_historical_tab)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -247,7 +247,7 @@ class Client:
         """
 
         self.utils.print_info("Click on client real time tab")
-        self.auto_actions.click(self.client_web_elements.get_clients_real_time_tab())
+        self.auto_actions.click_reference(self.client_web_elements.get_clients_real_time_tab)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -272,23 +272,23 @@ class Client:
         sleep(2)
 
         self.utils.print_info("Click on client delete button")
-        self.auto_actions.click(self.client_web_elements.get_client_gdpr_delete_button())
+        self.auto_actions.click_reference(self.client_web_elements.get_client_gdpr_delete_button)
         sleep(2)
 
         self.utils.print_info("Click on client delete confirmation yes button")
-        self.auto_actions.click(self.client_web_elements.get_client_gdpr_delete_yes_confirm_button())
+        self.auto_actions.click_reference(self.client_web_elements.get_client_gdpr_delete_yes_confirm_button)
         sleep(5)
 
         self.utils.print_info("click on client dialog window close button")
-        self.auto_actions.click(self.client_web_elements.get_client_dialog_window_close_button())
+        self.auto_actions.click_reference(self.client_web_elements.get_client_dialog_window_close_button)
         sleep(5)
 
         self.utils.print_info("Click on client historical tab")
-        self.auto_actions.click(self.client_web_elements.get_clients_historical_tab())
+        self.auto_actions.click_reference(self.client_web_elements.get_clients_historical_tab)
         sleep(5)
 
         self.utils.print_info("Click on clients real time tab")
-        self.auto_actions.click(self.client_web_elements.get_clients_real_time_tab())
+        self.auto_actions.click_reference(self.client_web_elements.get_clients_real_time_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -331,7 +331,7 @@ class Client:
             self.utils.print_info(f"{key}:{value}")
 
         self.utils.print_info("Closing client360 Dialogue Window.")
-        self.auto_actions.click(self.client_web_elements.get_client_dialog_window_close_button())
+        self.auto_actions.click_reference(self.client_web_elements.get_client_dialog_window_close_button)
         sleep(2)
 
         return client360_info
@@ -350,7 +350,7 @@ class Client:
         sleep(2)
 
         self.utils.print_info("Click on clients real time tab")
-        self.auto_actions.click(self.client_web_elements.get_clients_real_time_tab())
+        self.auto_actions.click_reference(self.client_web_elements.get_clients_real_time_tab)
         sleep(2)
 
         self.screen.save_screen_shot()

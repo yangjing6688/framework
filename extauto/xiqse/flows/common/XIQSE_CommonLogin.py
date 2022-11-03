@@ -208,7 +208,7 @@ class XIQSE_CommonLogin():
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_password_text(), password)
 
         self.utils.print_info("Clicking on Login button")
-        self.auto_actions.click(self.login_web_elements.get_login_page_login_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_login_page_login_button)
 
         if check_credentials.lower() == "true":
             self.utils.print_info("Checking for invalid credentials..")

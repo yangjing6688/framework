@@ -88,7 +88,7 @@ class Login:
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   max_retries=3, recover_login=True, map_override=None, **kwargs):
+                   max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
         """
         - Login to Xiq account with username and password (we will try up to 3 times)
         - By default url will load from the topology file
@@ -121,7 +121,7 @@ class Login:
         result = self._login_user(username, password, capture_version, login_option, url,
                     incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
                     salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, recover_login,
-                    map_override, **kwargs)
+                    map_override, ignore_map, **kwargs)
 
         # Let's try again if we don't expect and error and the results were not good
         if not expect_error:
@@ -129,7 +129,7 @@ class Login:
                 self.utils.print_warning(f'Trying to log in again: {count}')
                 result = self._login_user(username, password, capture_version, login_option, url,
                                           incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
+                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, ignore_map,
                                           **kwargs)
                 count = count + 1
         if result != 1:
@@ -143,7 +143,7 @@ class Login:
     def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   recover_login=True, map_override=None, **kwargs):
+                   recover_login=True, map_override=None, ignore_map=False,**kwargs):
         if url == "default":
             self._init(incognito_mode=incognito_mode)
         else:
@@ -220,6 +220,17 @@ class Login:
                 page_still_loading = False
                 self.utils.print_info("Page is loaded successfully")
 
+        if self.login_web_elements.get_admin_portal_page().is_displayed():
+            account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
+            self.utils.print_info(f"Selecting the Account Name {account_name} in Admin Portal")
+
+            account_names = self.login_web_elements.get_external_admin_account_names()
+            for account in account_names:
+                if account_name in account.text:
+                    self.auto_actions.click(account)
+                    sleep(10)
+                    break
+
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid,
                                     recover_login=recover_login, map_override=map_override) == -1:
@@ -277,6 +288,9 @@ class Login:
                 self.auto_actions.click_reference(self.login_web_elements.click_right_arrow)
         except Exception as er:
             pass
+
+        if ignore_map:
+            return 1
 
         device_page_found = self.nav_web_elements.get_devices_page()
         if device_page_found:
@@ -603,6 +617,39 @@ class Login:
         got_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title on Reset password Page: ", got_title)
         return 1
+
+    def get_switch_connection_host(self, **kwargs):
+        """
+        - This keyword Get Switch Connection Host
+        - Keyword Usage
+         - ``Get Switch Connection Host``
+        :return: returns switch connection host info else fails keyword
+        """
+        self.utils.print_info("Clicking on About ExtremecloudIQ link")
+        self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
+        sleep(2)
+        self.auto_actions.click_reference(self.login_web_elements.get_about_extreme_cloudiq_link)
+        sleep(2)
+
+        # Take a screen shot for reference before closing the dialogue page.
+        # Need to do this instead of using built in IRV screen shoot function to trouble shoot.
+        # The IRV will throw an execption and the screen will be left up, beacuse IRV would not now to close the dialogue screen
+
+        self.screen.save_screen_shot()
+        switch_connection_host = self.login_web_elements.get_switch_connection_host().text
+
+        # Close the Dialogue page
+        self.utils.print_info("Close About ExtremecloudIQ Link Dialogue Page")
+        self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
+        sleep(2)
+
+        if  switch_connection_host:
+            kwargs['pass_msg'] = f" Switch Connection Host Is: '{switch_connection_host} '"
+            self.common_validation.passed(**kwargs)
+            return switch_connection_host
+        else:
+            kwargs['fail_msg'] = f"'get_switch_connection_host()' failed. Switch Connection host info was no found: The following was found '{switch_connection_host}'"
+            self.common_validation.failed(**kwargs)
 
     def get_viq_id(self):
         """

@@ -30,6 +30,8 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
+from ExtremeAutomation.Utilities.deprecated import deprecated
+
 
 class Devices:
     def __init__(self):
@@ -74,13 +76,13 @@ class Devices:
             return 1
 
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
         self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
         self.utils.print_info("Entering Serial Number...")
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), ap_serial)
@@ -94,17 +96,17 @@ class Devices:
                 self.utils.print_info("Device OS matched")
 
         if 'Extreme - Aerohive' in device_make:
-            self.auto_actions.click(self.devices_web_elements.get_device_make_dropdownoption())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
             self.auto_actions.select_drop_down_options(
                 self.devices_web_elements.get_device_make_drop_down_options(), device_make)
 
         if location:
             self.utils.print_info("Selecting location")
-            self.auto_actions.click(self.devices_web_elements.get_location_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
         quick_add_ongoing = True
         while quick_add_ongoing:
@@ -122,13 +124,13 @@ class Devices:
             self.utils.print_info("Dialog Message: ", dialog_message)
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 kwargs['fail_msg'] = f"Error: {dialog_message}"
                 self.common_validation.failed(**kwargs)
                 return -1
             if "A stake record of the device was found in the redirector." in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 kwargs['fail_msg'] = f"Error: {dialog_message}"
                 self.common_validation.failed(**kwargs)
                 return -2
@@ -208,7 +210,7 @@ class Devices:
 
             if self.devices_web_elements.get_manage_device_search_clear_button().is_displayed():
                 self.utils.print_info("Clear search filter option")
-                self.auto_actions.click(self.devices_web_elements.get_manage_device_search_clear_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_search_clear_button)
                 sleep(5)
 
             if 'true' in ap_status:
@@ -248,29 +250,29 @@ class Devices:
             if search_result != -1:
                 if self.select_device(device_mac):
                     self.utils.print_info("Click ACTION button")
-                    self.auto_actions.click(self.devices_web_elements.get_action_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
                     if self.voss:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_exos())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_exos)
                         self.screen.save_screen_shot()
                         sleep(2)
                         self.utils.print_info("Check for error message")
                         device_error_message = self.devices_web_elements.get_os_change_error_message()
                         self.utils.print_info("Error message: ", device_error_message.text)
                         self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
                         sleep(2)
                         self.screen.save_screen_shot()
 
                     if self.exos:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_voss())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_voss)
                         self.screen.save_screen_shot()
                         sleep(2)
                         self.utils.print_info("Check for error message")
                         device_error_message = self.devices_web_elements.get_os_change_error_message()
                         self.utils.print_info("Error message: ", device_error_message.text)
                         self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
                         sleep(2)
                         self.screen.save_screen_shot()
 
@@ -282,28 +284,28 @@ class Devices:
             if search_result != -1:
                 if self.select_device(device_serial):
                     self.utils.print_info("Click ACTION button")
-                    self.auto_actions.click(self.devices_web_elements.get_action_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
                     if self.voss:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_exos())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_exos)
                         self.screen.save_screen_shot()
                         sleep(2)
                         self.utils.print_info("Check for error message")
                         device_error_message = self.devices_web_elements.get_os_change_error_message()
                         self.utils.print_info("Error message: ", device_error_message.text)
                         self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
                         sleep(2)
                         self.screen.save_screen_shot()
                     if self.exos:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_voss())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_voss)
                         self.screen.save_screen_shot()
                         sleep(2)
                         self.utils.print_info("Check for error message")
                         device_error_message = self.devices_web_elements.get_os_change_error_message()
                         self.utils.print_info("Error message: ", device_error_message.text)
                         self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
                         sleep(2)
                         self.screen.save_screen_shot()
             else:
@@ -314,28 +316,28 @@ class Devices:
             if search_result != -1:
                 if self.select_device(device_name):
                     self.utils.print_info("Click ACTION button")
-                    self.auto_actions.click(self.devices_web_elements.get_action_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
                     if self.voss:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_exos())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_exos)
                         self.screen.save_screen_shot()
                         sleep(2)
                         self.utils.print_info("Check for error message")
                         device_error_message = self.devices_web_elements.get_os_change_error_message()
                         self.utils.print_info("Error message: ", device_error_message.text)
                         self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
                         sleep(2)
                         self.screen.save_screen_shot()
                     if self.exos:
-                        self.auto_actions.click(self.devices_web_elements.get_os_change_voss())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_voss)
                         self.screen.save_screen_shot()
                         sleep(2)
                         self.utils.print_info("Check for error message")
                         device_error_message = self.devices_web_elements.get_os_change_error_message()
                         self.utils.print_info("Error message: ", device_error_message.text)
                         self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
                         sleep(2)
                         self.screen.save_screen_shot()
             else:
@@ -671,8 +673,8 @@ class Devices:
 
             if search_result:
                 if self.select_ap(ap_serial):
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                    self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
                     if self.search_ap_serial(ap_serial=ap_serial) == 1:
                         self.utils.print_info("Unable to find the AP")
                         return -1
@@ -686,8 +688,8 @@ class Devices:
 
             if search_result:
                 if self.select_ap(ap_name):
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                    self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
                     if self.search_ap_name(ap_name=ap_name) == 1:
                         self.utils.print_info("Unable to find the AP")
                         return -1
@@ -700,8 +702,8 @@ class Devices:
 
             if search_result:
                 if self.select_ap(ap_mac):
-                    self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                    self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
                     if self.search_ap_mac(ap_mac=ap_mac) == 1:
                         self.utils.print_info("Unable to find the AP")
                         return -1
@@ -786,7 +788,7 @@ class Devices:
 
         self.auto_actions.click(self.devices_web_elements.get_devices_page_grid_ap_name_href(ap_name))
         sleep(5)
-        self.auto_actions.click(self.devices_web_elements.get_device_details_wireless_interfaces())
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_details_wireless_interfaces)
         sleep(5)
         self.auto_actions.move_to_element(
             self.devices_web_elements.get_device_details_wireless_interfaces_surrounding_aps_grid())
@@ -950,29 +952,29 @@ class Devices:
         self.auto_actions.send_keys(self.switch_web_elements.get_devices_search_field(), device_serial)
 
         self.utils.print_info("Clicking Device Search Button")
-        self.auto_actions.click(self.switch_web_elements.get_devices_search_button())
+        self.auto_actions.click_reference(self.switch_web_elements.get_devices_search_button)
         sleep(5)
 
         self.utils.print_info("Clicking Device Checkbox")
-        self.auto_actions.click(self.switch_web_elements.get_devices_select_checkbox_field())
+        self.auto_actions.click_reference(self.switch_web_elements.get_devices_select_checkbox_field)
         sleep(2)
 
         self.utils.print_info("Clicking Update Devices Button For The Device: ", device_serial)
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
 
         if config_update_option == 'delta':
             self.utils.print_info("Clicking Delta Configuration Update Radio Button")
-            self.auto_actions.click(self.devices_web_elements.get_delta_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_delta_config_update_button)
             sleep(1)
 
         if config_update_option == 'full':
             self.utils.print_info("Clicking Full Configuration Update Radio Button")
-            self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_full_config_update_button)
             sleep(1)
 
         self.utils.print_info("Clicking Perform update Button")
-        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
         sleep(3)
 
         count = 0
@@ -989,6 +991,7 @@ class Devices:
         self.utils.print_info("Device is not Rebooting after update configuration")
         return False
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_multiple_devices(self, serials, device_make):
         """
         - This Keyword will Onboard Multiple Devices with Serial Numbers and Device Make
@@ -1033,6 +1036,7 @@ class Devices:
             self.utils.print_info("Unable to delete APs: ", aps)
             self.utils.print_info("Exception: ", e)
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_simulated_device(self, device_model, count=1, location=None, policy=None):
         """
         - onboard multiple simulated devices of same type and returns their serial number(s)
@@ -1049,7 +1053,7 @@ class Devices:
 
         self.navigator.navigate_to_devices()
         if self.devices_web_elements.get_devices_drawer_open():
-            self.auto_actions.click(self.devices_web_elements.get_devices_drawer_trigger())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_drawer_trigger)
 
         try:
 
@@ -1060,18 +1064,18 @@ class Devices:
                 prev_serials = []
 
             self.utils.print_info("Clicking on ADD button...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
             self.utils.print_info("Selecting Quick Add Devices menu")
             self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
 
             self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-            self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+            self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
             self.utils.print_info("Selecting Simulated Device Type radio button")
-            self.auto_actions.click(self.devices_web_elements.get_quick_onboard_simulated())
+            self.auto_actions.click_reference(self.devices_web_elements.get_quick_onboard_simulated)
 
-            self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
+            self.auto_actions.click_reference(self.devices_web_elements.get_simulated_devices_dropdown)
 
             table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
 
@@ -1086,11 +1090,11 @@ class Devices:
 
             if location:
                 self.utils.print_info("Device OS matched")
-                self.auto_actions.click(self.devices_web_elements.get_location_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
                 self._select_location(location)
 
             self.utils.print_info("Clicking on ADD DEVICES button...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
             sleep(5)
 
             cur_serials = self.get_device_serial_numbers(device_model)
@@ -1107,24 +1111,22 @@ class Devices:
             self.utils.print_info("Unable to Onboard Simulated Device")
             return -1
 
-    def get_device_serial_numbers(self, device_type, os_persona=None):
+    def get_device_serial_numbers(self, device_type):
         """
         - gets all existing devices serials with the same device_type
         - Keyword Usage:
          - ``Get Device Serial Numbers   ${DEVICE_TYPE}``
 
         :param device_type: type of device to
-        :param os_persona: device OS Persona. (Specific to Digital Twin)
         :return: serial number(s) with same device type
         """
         try:
-            # self.auto_actions.click(self.devices_web_elements.get_refresh_devices_page())
             prev_dev_list = []
             sleep(5)
             rows = self.devices_web_elements.get_grid_rows()
             if rows:
                 for row in rows:
-                    if (device_type and device_type in row.text) or (os_persona and os_persona in row.text):
+                    if device_type and device_type in row.text:
                         self.utils.print_info(f"{row.text}")
                         try:
                             cells = self.devices_web_elements.get_device_row_cells(row)
@@ -1172,8 +1174,8 @@ class Devices:
 
         if search_result:
             if self.select_ap(ap_model):
-                self.auto_actions.click(self.devices_web_elements.get_delete_button())
-                self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
                 if self.search_ap_serial(ap_serial=ap_model) == 1:
                     self.utils.print_info("Unable to find the AP")
                     return -1
@@ -1208,13 +1210,13 @@ class Devices:
         :return:
         """
         self.utils.print_info("Click on actions button")
-        self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
         sleep(3)
         if self.device_actions.get_device_actions_dropdown():
             self.utils.print_info("Move to Assign Network policy action")
             self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
             self.utils.print_info("Click on Assign Network policy action")
-            self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_combo)
             sleep(4)
             select_is_shown = self.devices_web_elements.get_nw_policy_drop()
             if select_is_shown:
@@ -1231,7 +1233,7 @@ class Devices:
 
                 sleep(5)
                 self.utils.print_info("Click on network policy assign button")
-                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_button)
                 sleep(10)
 
                 tooltip_text = self.dialogue_web_elements.get_tooltip_text()
@@ -1240,7 +1242,7 @@ class Devices:
                 self.utils.print_info("tooltip_text: ", tooltip_text)
                 if tooltip_text:
                     if "Your account does not have permission to perform that action" in tooltip_text:
-                        self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_close_button)
                         sleep(5)
                         return False
                 return True
@@ -1260,7 +1262,7 @@ class Devices:
         :return:
         """
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
 
         if update_method == "Delta":
@@ -1270,26 +1272,28 @@ class Devices:
             self.utils.print_info("click on perform update button")
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(30)
-            tool_tip = self.devices_web_elements.get_device_update_error_message()
-            tool_tp_text = tool_tip.text
-            self.utils.print_info(tool_tp_text)
-            update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
-            update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
-                                  "you must select a Complete Configuration Update."
-            update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
-            if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
-                self.utils.print_info('Convert to Complete. Delta not supported')
-                update_method = "Complete"
 
-            if update_tooltip_msg3 in tool_tp_text:
-                self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
-                self.screen.save_screen_shot()
-                self.utils.print_info("click on Device Update Cancel Button")
-                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                self.screen.save_screen_shot()
-                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                self.common_validation.failed(**kwargs)
-                return -1
+            tool_tip = self.devices_web_elements.get_device_update_error_message()
+            if tool_tip:
+                tool_tp_text = tool_tip.text
+                self.utils.print_info(tool_tp_text)
+                update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
+                update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
+                                      "you must select a Complete Configuration Update."
+                update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
+                if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
+                    self.utils.print_info('Convert to Complete. Delta not supported')
+                    update_method = "Complete"
+
+                if update_tooltip_msg3 in tool_tp_text:
+                    self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("click on Device Update Cancel Button")
+                    self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
         if update_method == "Complete":
             self.utils.print_info("click on complete config radio button")
@@ -1300,19 +1304,20 @@ class Devices:
             sleep(2)
 
             tool_tip = self.devices_web_elements.get_device_update_error_message()
-            tool_tp_text = tool_tip.text
-            self.utils.print_info(tool_tp_text)
-            update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+            if tool_tip:
+                tool_tp_text = tool_tip.text
+                self.utils.print_info(tool_tp_text)
+                update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
 
-            if update_tooltip_msg in tool_tp_text:
-                self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
-                self.screen.save_screen_shot()
-                self.utils.print_info("click on Device Update Cancel Button")
-                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                self.screen.save_screen_shot()
-                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                self.common_validation.failed(**kwargs)
-                return -1
+                if update_tooltip_msg in tool_tp_text:
+                    self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("click on Device Update Cancel Button")
+                    self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -1338,6 +1343,16 @@ class Devices:
             device_update_status = self.get_device_updated_status(device_serial)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
+            elif 'Rebooting' in device_update_status:
+                reboot_res = self.wait_until_device_reboots(device_serial, retry_duration=15, retry_count=12)
+                if reboot_res == 1:
+                    self.utils.print_info(
+                        'Reboot for device with serial number: {} is successful'.format(device_serial))
+                else:
+                    kwargs['fail_msg'] = 'Reboot for device with serial number: {} is NOT successful: {}'.format(
+                        device_serial, reboot_res)
+                    self.common_validation.failed(**kwargs)
+                    return -1
             elif 'Certification' in device_update_status or 'Application' in device_update_status:
                 # Some other random push to the device is blocking my policy update!
                 self.utils.print_info("Non-update text in status :{}".format(device_update_status))
@@ -1416,7 +1431,7 @@ class Devices:
         self.close_last_refreshed_tooltip()
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
 
         pol_config_cb = self.devices_web_elements.get_switch_update_policy_and_config_check_button()
@@ -1424,12 +1439,12 @@ class Devices:
 
         if pol_config_cb is None:
             self.utils.print_info("ERROR: Unable to obtain 'Update Network Policy and Configuration' check button")
-            self.auto_actions.click(self.devices_web_elements.get_device_update_close_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_update_close_button)
             return -1
         if engine_img_cb is None:
             self.utils.print_info(
                 "ERROR: Unable to obtain 'Upgrade IQ Engine and Extreme Network Switch Images' check button")
-            self.auto_actions.click(self.devices_web_elements.get_device_update_close_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_update_close_button)
             return -1
 
         # TO DO: Handle the two check buttons to specify the type of update to perform
@@ -1441,12 +1456,12 @@ class Devices:
 
         else:
             self.utils.print_info(f"Unknown update method {update_method}. Please specify 'PolicyAndConfig'")
-            self.auto_actions.click(self.devices_web_elements.get_device_update_close_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_update_close_button)
             return -1
 
         # Perform the update
         self.utils.print_info("Click on perform update button")
-        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -1508,7 +1523,7 @@ class Devices:
                     self.utils.print_info(f"Max {try_cnt} attempts are reached, return -1")
                     return -1
                 self.utils.print_info("Cancel Network Policy assignment dialog")
-                self.auto_actions.click(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
                 sleep(2)
         self.utils.print_info("Select ap row")
         self.select_ap(ap_serial)
@@ -1595,14 +1610,14 @@ class Devices:
 
         if self.select_ap(ap_serial):
             self.utils.print_info("Click on Actions button")
-            self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
 
             self.utils.print_info("Selecting Assign Country Code menu item")
-            self.auto_actions.click(self.devices_web_elements.get_actions_country_code_menu_item())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_country_code_menu_item)
             sleep(5)
 
             self.utils.print_info("Clicking on Country Code dropdown")
-            self.auto_actions.click(self.devices_web_elements.get_actions_country_code_dropdown())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_country_code_dropdown)
             self.screen.save_screen_shot()
             sleep(2)
 
@@ -1613,17 +1628,17 @@ class Devices:
             sleep(2)
 
             self.utils.print_info("Saving Country Code settings")
-            self.auto_actions.click(self.devices_web_elements.get_actions_country_code_save_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_country_code_save_button)
             sleep(2)
 
             self.utils.print_info("Confirming AP reboot on Country Code settings...")
-            self.auto_actions.click(self.devices_web_elements.get_actions_country_code_confirm_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_country_code_confirm_button)
             sleep(2)
 
             error_msg = self.devices_web_elements.get_actions_country_code_error_message()
             if error_msg:
                 self.utils.print_info("Errors: ", error_msg)
-                self.auto_actions.click(self.devices_web_elements.get_actions_country_code_close_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_actions_country_code_close_button)
                 sleep(5)
                 return -1
         return 1
@@ -1718,17 +1733,17 @@ class Devices:
 
         if self.select_ap(device_serial):
             self.utils.print_info("Selecting Update Devices button")
-            self.auto_actions.click(self.device_update.get_update_devices_button())
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
             self.screen.save_screen_shot()
             sleep(5)
 
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
             self.screen.save_screen_shot()
             sleep(5)
 
             self.utils.print_info("Selecting upgrade to latest version checkbox")
-            self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
             sleep(2)
 
             latest_version = self.device_update.get_latest_version()
@@ -1738,19 +1753,19 @@ class Devices:
 
             if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
                 self.utils.print_info("Click on Upgrade even if the versions are the same button")
-                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_are_same_button())
+                self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_are_same_button)
                 sleep(5)
 
             self.screen.save_screen_shot()
 
             self.utils.print_info("Selecting Activate After radio button")
-            self.auto_actions.click(self.device_update.get_activate_after_radio())
+            self.auto_actions.click_reference(self.device_update.get_activate_after_radio)
 
             self.utils.print_info("Setting Activate time to 60 seconds")
             self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), activate_time)
 
             self.utils.print_info("Selecting Perform Update button...")
-            self.auto_actions.click(self.device_update.get_perform_update_button())
+            self.auto_actions.click_reference(self.device_update.get_perform_update_button)
 
         return latest_version
 
@@ -1768,7 +1783,7 @@ class Devices:
 
         if self.select_ap(device_serial):
             self.utils.print_info("Selecting Update Devices button")
-            self.auto_actions.click(self.device_update.get_update_devices_button())
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
             sleep(5)
 
             uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
@@ -1778,11 +1793,11 @@ class Devices:
                 self.auto_actions.click(uptd)
 
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
             sleep(5)
 
             self.utils.print_info("Selecting upgrade to latest version radio button")
-            self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
             sleep(2)
 
             latest_version = self.device_update.get_latest_version()
@@ -1792,20 +1807,20 @@ class Devices:
 
             self.utils.print_info("Selecting Perform upgrade if the versions are the same or "
                                   "upgrading to same version which includes a patch")
-            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
             sleep(5)
 
             if action == "perform upgrade":
                 self.utils.print_info("Selecting Perform Update button...")
-                self.auto_actions.click(self.device_update.get_perform_update_button())
+                self.auto_actions.click_reference(self.device_update.get_perform_update_button)
 
             elif action == "close":
                 self.utils.print_info("Selecting Cancel and Close button...")
-                self.auto_actions.click(self.device_update.get_update_close_button())
+                self.auto_actions.click_reference(self.device_update.get_update_close_button)
             
             else:
                 self.utils.print_error("Selected action {action} is unavailable, hence closing the update window...")
-                self.auto_actions.click(self.device_update.get_update_close_button())
+                self.auto_actions.click_reference(self.device_update.get_update_close_button)
 
         return latest_version
 
@@ -1823,18 +1838,18 @@ class Devices:
         specific_version = -1
         if self.select_ap(device_serial):
             self.utils.print_info("Selecting Update Devices button")
-            self.auto_actions.click(self.device_update.get_update_devices_button())
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
             sleep(5)
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
             sleep(5)
             self.utils.print_info("Selecting upgrade to specific version checkbox")
-            self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_radio)
             sleep(2)
             self.utils.print_info("Click specific version Dropdown")
-            self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_dropdown())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_dropdown)
             while not self.device_update.get_is_specific_version_dropdown_open():
-                self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_dropdown())
+                self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_dropdown)
             self.utils.print_info(f"Selected specific upgrade version as '{version}' from drop down")
             options = self.device_update.get_upgrade_to_specific_version_dropdown_list()
             for option in options:
@@ -1845,13 +1860,13 @@ class Devices:
             specific_version = self.device_update.get_specific_version()
             self.utils.print_info("Device Specific Version: ", specific_version)
             self.utils.print_info("Selecting Perform upgrade if the versions are the same")
-            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
             self.utils.print_info("Selecting Activate After radio button")
-            self.auto_actions.click(self.device_update.get_activate_after_radio())
+            self.auto_actions.click_reference(self.device_update.get_activate_after_radio)
             self.utils.print_info("Setting Activate time to 60 seconds")
             self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), '60')
             self.utils.print_info("Selecting Perform Update button...")
-            self.auto_actions.click(self.device_update.get_perform_update_button())
+            self.auto_actions.click_reference(self.device_update.get_perform_update_button)
         return specific_version
 
     def xiq_upgrade_device_to_specific_version(self, device_serial, version=None):
@@ -1869,19 +1884,19 @@ class Devices:
 
         if self.select_ap(device_serial):
             self.utils.print_info("Selecting Update Devices button")
-            self.auto_actions.click(self.device_update.get_update_devices_button())
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
             sleep(5)
 
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
             sleep(5)
 
             self.utils.print_info("Selecting upgrade to specific version radio button")
-            self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_radio)
             sleep(2)
 
             self.utils.print_info("Selecting specific upgrade version Dropdown")
-            self.auto_actions.click(self.device_update.get_xiq_upgrade_to_specific_version_dropdown())
+            self.auto_actions.click_reference(self.device_update.get_xiq_upgrade_to_specific_version_dropdown)
             sleep(5)
 
             self.utils.print_info(f"Selected specific upgrade version as '{version}' from drop down")
@@ -1894,11 +1909,11 @@ class Devices:
 
             self.utils.print_info("Selecting Perform upgrade if the versions are the same or "
                                   "upgrading to same version which includes a patch")
-            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
             sleep(5)
 
             self.utils.print_info("Selecting Perform Update button...")
-            self.auto_actions.click(self.device_update.get_perform_update_button())
+            self.auto_actions.click_reference(self.device_update.get_perform_update_button)
 
         return specific_version
 
@@ -1949,15 +1964,15 @@ class Devices:
 
         if search_result:
             if self.select_ap(ap_serial):
-                self.auto_actions.click(self.devices_web_elements.get_edit_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_edit_button)
                 sleep(5)
-                self.auto_actions.click(self.devices_web_elements.get_ap_configure_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_ap_configure_button)
                 sleep(2)
-                self.auto_actions.click(self.devices_web_elements.get_ap_device_config_tab())
+                self.auto_actions.click_reference(self.devices_web_elements.get_ap_device_config_tab)
                 sleep(2)
                 self.auto_actions.send_keys(self.devices_web_elements.get_ap_description_button(), ap_desc)
                 sleep(2)
-                self.auto_actions.click(self.devices_web_elements.get_save_device_config())
+                self.auto_actions.click_reference(self.devices_web_elements.get_save_device_config)
                 sleep(2)
                 return 1
 
@@ -1969,7 +1984,7 @@ class Devices:
         """
         - This keyword onboards: an aerohive device [AP or Switch], Exos Switch and Voss devices using Quick onboarding flow.
         - Keyword Usage:
-         - ``Onboard Device  ${ap1}``
+         - ``Onboard Device Quick  ${ap1}``
                 {ap1} - dictionary from .yaml file of the testbed ( 'ap1' is only an example )
                 Example:
                 {'name': 'bui-flo-1996',
@@ -2039,14 +2054,14 @@ class Devices:
             entry_type = "Manual"
 
         if self.check_onboard_device_quick_parameters(device_type, entry_type, device_serial, device_make, location,
-                                                      csv_location, device_model, device_os, os_persona, **kwargs) == -1:
+                                                      csv_location, device_model, os_version, os_persona, **kwargs) == -1:
             return -1
 
         self.utils.print_info("Onboarding: ", device_make)
         self.navigator.navigate_to_devices()
 
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
         quick_add_devices_button = ''
@@ -2055,7 +2070,7 @@ class Devices:
             if attempt_count != 3:
                 self.utils.print_info("Menu selection failed. Making another attempt...")
                 self.utils.print_info("Clicking on ADD button...")
-                self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
                 self.utils.print_info("Selecting Quick Add Devices menu")
                 sleep(4)
             try:
@@ -2070,7 +2085,7 @@ class Devices:
             return -1
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
         if device_type.lower() == "real":
             if self.set_onboard_values_for_real(device_serial, device_make, entry_type, device_os, service_tag, device_mac, location) != 1:
@@ -2081,18 +2096,19 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "digital twin":
+            list_initial_serial_dt = self.get_device_model_serial_numbers(device_model=device_model)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
         if location:
-            self.auto_actions.click(self.devices_web_elements.get_location_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -2104,7 +2120,7 @@ class Devices:
             self.utils.print_info("Dialog Message: ", dialog_message)
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
 
@@ -2114,7 +2130,7 @@ class Devices:
 
             elif "License limit exceeded for managed device" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
 
@@ -2143,11 +2159,11 @@ class Devices:
                         self.common_validation.failed(**kwargs)
                         return -1
 
-        elif device_type.lower() == "simulated" or device_type.lower() == "digital twin":
+        elif device_type.lower() == "simulated":
             models = device_model.split(",")
             self.utils.print_info("Models: ", models)
             for model in models:
-                if self.search_device(device_serial=model) == 1:
+                if self.search_device_model(device_model=model) == 1:
                     kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {models}"
                     self.common_validation.passed(**kwargs)
                     return 1
@@ -2156,8 +2172,31 @@ class Devices:
                     self.common_validation.failed(**kwargs)
                     return -1
 
+        elif device_type.lower() == "digital twin":
+            models = device_model.split(",")
+            self.utils.print_info("Models: ", models)
+            sleep(100)  # this sleep is put until the bug XIQ-11770 is solved, then I will review the code and delete this sleep
+            for model in models:
+                list_final_dt_serial = self.get_device_model_serial_numbers(device_model=model)
+                for i in list_final_dt_serial:
+                    if i not in list_initial_serial_dt:
+                        serial_digital_twin = i
+                        self.utils.print_info(serial_digital_twin)
+                if len(list_final_dt_serial) - len (list_initial_serial_dt) == 1:
+                    kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device with model : {models} and serial : {serial_digital_twin}"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                elif len(list_final_dt_serial) - len (list_initial_serial_dt) == 0:
+                    kwargs['fail_msg'] = f"Failed to onboard device {device_make} with {models}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                elif len(list_final_dt_serial) - len (list_initial_serial_dt) >1:
+                    kwargs['fail_msg'] = "Failed to determine serial number because multiple devices have been onboarded."
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
     def check_onboard_device_quick_parameters(self, device_type, entry_type, device_serial, device_make, location,
-                                              csv_location, device_model, device_os, os_persona, **kwargs):
+                                              csv_location, device_model, os_version, os_persona, **kwargs):
         """
         This methods is created for validate the Mandatory arguments for onboard device quick method
         :param device_serial: serial number of Device
@@ -2196,10 +2235,8 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            if device_model is None or device_os is None or os_persona is None:
-                kwargs['fail_msg'] = f"The 'model': [{device_model}], 'OS version': [{device_os}] and 'OS persona': " \
-                                     f"[{os_persona}] are required when onboarding 'Digital Twin' devices. " \
-                                     f"One or more of the required values are missing."
+            if device_model == None or os_version == None or os_persona == None:
+                kwargs['fail_msg'] = f"The 'model': [{device_model}], 'OS version': [{os_version}] and 'OS persona': [{os_persona}] are required when onboarding 'Digital Twin' devices. One or more of the required values are missing."
                 self.common_validation.failed(**kwargs)
                 return -1
         return 1
@@ -2209,7 +2246,7 @@ class Devices:
         This method is create for onboard device with device_type == Real
         """
 
-        self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_type_real_radio_button)
 
         self.utils.print_info("Entering Serial Number...", device_serial)
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
@@ -2218,7 +2255,7 @@ class Devices:
         if 'Extreme - Aerohive' in device_make:
             if entry_type:
                 if 'Manual' in entry_type:
-                    self.auto_actions.click(self.devices_web_elements.get_entry_type_manual_radio_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_entry_type_manual_radio_button)
 
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
@@ -2231,7 +2268,7 @@ class Devices:
                     self.utils.print_info("Device OS matched")
                 else:
                     self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
-                    self.auto_actions.click(self.devices_web_elements.get_device_os_radio())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_os_radio)
 
             _errors = self.check_negative_combinations()
             if _errors != 1:
@@ -2241,7 +2278,7 @@ class Devices:
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS/Fabric Engine")
             if self.switch_web_elements.get_switch_make_drop_down():
                 self.utils.print_info("Selecting Switch Type : VOSS")
-                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
                 self.screen.save_screen_shot()
                 self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
                                                            , "VOSS")
@@ -2249,19 +2286,19 @@ class Devices:
 
             if self.devices_web_elements.get_device_os_voss_radio():
                 self.utils.print_info("Selecting Device OS : Fabric Engine")
-                self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_voss_radio)
                 self.screen.save_screen_shot()
 
         elif "EXOS" in device_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : EXOS")
             try:
-                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
                 sleep(2)
                 self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(),
                                                            "EXOS")
             except Exception as e:
                 self.utils.print_debug("Exception: ", e)
-                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_exos_radio)
 
         elif 'Dell' in device_make:
             self.utils.print_info("Entering Serial Number...")
@@ -2292,7 +2329,7 @@ class Devices:
             return self.onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
 
         if 'DUAL BOOT' in device_make.upper():
-            return self.onboard_ap(device_serial=device_serial, device_make=device_make, location=location, device_os=device_os)
+            return self.onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
 
         if device_make:
             sleep(5)
@@ -2312,8 +2349,8 @@ class Devices:
 
         # Code copied from 'onboard_simulated_device'
         self.utils.print_info("Selecting 'Simulated' Device Type radio button")
-        self.auto_actions.click(self.devices_web_elements.get_quick_onboard_simulated())
-        self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
+        self.auto_actions.click_reference(self.devices_web_elements.get_quick_onboard_simulated)
+        self.auto_actions.click_reference(self.devices_web_elements.get_simulated_devices_dropdown)
 
         table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
 
@@ -2334,15 +2371,26 @@ class Devices:
         This method is create for onboard device with device_type == Digital Twin
         """
 
-        # Code specific to Digital Twin devices - Code copied from 'omboard_device_dt'
-        add_device_button = "Launch Digital Twin"
-        attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+        # Code specific to Digital Twin devices - Code copied from 'onboard_device_dt'
+        self.retries = 3
+        count = 0
+        while count < self.retries:
+            add_device_button = "Launch Digital Twin"
+            sleep(1)
+            attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+            try:
+                assert_equal("fn-hidden", attribute)
+            except AssertionError as err:
+                count += 1
+        if count == self.retries:
+            self.utils.print_warning("Unable to get the attribute...")
+
         if "fn-hidden" not in attribute:
             self.utils.print_info("Selecting 'Digital Twin' radio button")
-            self.auto_actions.click(self.devices_web_elements.get_device_type_digital_twin_radio_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_type_digital_twin_radio_button)
 
             self.utils.print_debug(f"Selecting OS Persona: {os_persona}")
-            self.auto_actions.click(self.devices_web_elements.get_digital_twin_os_persona_dropdown())
+            self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_os_persona_dropdown)
             sleep(2)
             if self.auto_actions.select_drop_down_options(
                     self.devices_web_elements.get_digital_twin_os_persona_dropdown_items(), os_persona):
@@ -2352,9 +2400,8 @@ class Devices:
                 kwargs['fail_msg'] = f"Could not select OS Persona: {os_persona}"
                 self.common_validation.failed(**kwargs)
                 return -1
-
             self.utils.print_debug(f"Selecting Device Model: {device_model}")
-            self.auto_actions.click(self.devices_web_elements.get_digital_twin_device_model_dropdown())
+            self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_device_model_dropdown)
             sleep(2)
             if self.auto_actions.select_drop_down_options(
                     self.devices_web_elements.get_digital_twin_device_model_dropdown_items(), device_model):
@@ -2366,7 +2413,7 @@ class Devices:
                 return -1
 
             self.utils.print_debug(f"Selecting OS Version: {os_version}")
-            self.auto_actions.click(self.devices_web_elements.get_digital_twin_os_version_dropdown())
+            self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_os_version_dropdown)
             sleep(2)
             if self.auto_actions.select_drop_down_options(
                     self.devices_web_elements.get_digital_twin_os_version_dropdown_items(), os_version):
@@ -2384,7 +2431,7 @@ class Devices:
 
         return 1
 
-    # EJL update the defaults
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_device(self, device_serial, device_make, device_mac=False, device_type="Real", entry_type="Manual",
                        csv_file_name='', device_os=False, location=False, policy_name=False, service_tag=False, **kwargs):
         """
@@ -2424,7 +2471,7 @@ class Devices:
         self.navigator.navigate_to_devices()
 
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
         quick_add_devices_button = ''
@@ -2433,7 +2480,7 @@ class Devices:
             if attempt_count != 3:
                 self.utils.print_info("Menu selection failed. Making another attempt...")
                 self.utils.print_info("Clicking on ADD button...")
-                self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
                 self.utils.print_info("Selecting Quick Add Devices menu")
                 sleep(4)
             try:
@@ -2447,12 +2494,12 @@ class Devices:
             return -8
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
         if device_type:
             self.utils.print_info("Selecting Real/Simulated Device Type Dropdown")
             sleep(2)
-            self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_type_real_radio_button)
 
         self.utils.print_info("Entering Serial Number...", device_serial)
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
@@ -2461,10 +2508,10 @@ class Devices:
         if 'Extreme - Aerohive' in device_make:
             if entry_type:
                 if 'Manual' in entry_type:
-                    self.auto_actions.click(self.devices_web_elements.get_entry_type_manual_radio_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_entry_type_manual_radio_button)
 
                 if 'CSV' in entry_type:
-                    self.auto_actions.click(self.devices_web_elements.get_entry_type_csv_radio_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_entry_type_csv_radio_button)
 
                 if entry_type == "CSV":
                     upload_button = self.devices_web_elements.get_device_entry_csv_upload_button()
@@ -2482,7 +2529,7 @@ class Devices:
                     self.utils.print_info("Device OS matched")
                 else:
                     self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
-                    self.auto_actions.click(self.devices_web_elements.get_device_os_radio())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_os_radio)
 
             _errors = self.check_negative_combinations()
             if _errors != 1:
@@ -2492,7 +2539,7 @@ class Devices:
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS/Fabric Engine")
             if self.switch_web_elements.get_switch_make_drop_down():
                 self.utils.print_info("Selecting Switch Type : VOSS")
-                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
                 self.screen.save_screen_shot()
                 self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
                                                            , "VOSS")
@@ -2500,7 +2547,7 @@ class Devices:
 
             if self.devices_web_elements.get_device_os_voss_radio():
                 self.utils.print_info("Selecting Device OS : Fabric Engine")
-                self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_voss_radio)
                 self.screen.save_screen_shot()
 
             if entry_type == "CSV":
@@ -2510,12 +2557,12 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for VOSS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                         kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
                         self.common_validation.failed(**kwargs)
                         return -1
                 else:
-                    self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                     kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -2524,14 +2571,14 @@ class Devices:
             self.utils.print_info("Selecting Switch Type/Device OS : EXOS/Switch Engine")
             if self.switch_web_elements.get_switch_make_drop_down():
                 self.utils.print_info("Selecting Switch Type : EXOS")
-                self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
                 self.screen.save_screen_shot()
                 self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(), "EXOS")
                 self.screen.save_screen_shot()
 
             if self.devices_web_elements.get_device_os_exos_radio():
                 self.utils.print_info("Selecting Device OS : Switch Engine")
-                self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_exos_radio)
                 self.screen.save_screen_shot()
 
             if entry_type == "CSV":
@@ -2541,12 +2588,12 @@ class Devices:
                         self.utils.print_info("Specifying CSV file '" + csv_location + "' for EXOS device")
                         self.auto_actions.send_keys(upload_button, csv_location)
                     else:
-                        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                         kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
                         self.common_validation.failed(**kwargs)
                         return -1
                 else:
-                    self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                     kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -2591,12 +2638,12 @@ class Devices:
                 self.utils.print_info("Device Make NOT matched")
 
         if location:
-            self.auto_actions.click(self.devices_web_elements.get_location_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
 
         if policy_name:
             self.utils.print_info("Selecting policy '" + policy_name + "'")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down)
             sleep(2)
             self.screen.save_screen_shot()
             self.auto_actions.select_drop_down_options(self.devices_web_elements.
@@ -2606,7 +2653,7 @@ class Devices:
         sleep(2)
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -2618,14 +2665,14 @@ class Devices:
             self.utils.print_info("Dialog Message: ", dialog_message)
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
                 kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
 
             elif "License limit exceeded for managed device" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
                 kwargs['fail_msg'] = f"Fail Onboarded - License limit exceeded for managed device"
@@ -2661,6 +2708,7 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_device_dt(self, device_serial=None, device_make=None, device_mac=None, device_type="Real", entry_type="Manual",
                            csv_file_name=None, csv_location=None, device_os=None, location=None, service_tag=None,
                            os_persona=None, device_model=None, device_count=1, os_version=None, policy=None, **kwargs):
@@ -2702,121 +2750,30 @@ class Devices:
 
         self.navigator.navigate_to_devices()
 
-        if os_persona:
-            initial_serials = self.get_device_serial_numbers(os_persona)
-        elif device_model:
+        if device_model and device_model != "":
             initial_serials = self.get_device_serial_numbers(device_model)
 
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
         self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud")
-        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
-
-        if device_type.lower() == "real":
-            self.utils.print_info("Selecting 'Real' Device Type radio button")
-            self.auto_actions.click(self.devices_web_elements.get_device_type_real_radio_button())
-
-            if entry_type.lower() == "csv":
-                self.utils.print_info("Selecting 'CSV Import' Entry Type radio button")
-                # Select "Device Make"
-                if self.switch_web_elements.get_switch_make_drop_down():
-                    self.utils.print_info(f"Selecting Switch Type : {device_make}")
-                    self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
-                    self.auto_actions.select_drop_down_options_partial_match(
-                        self.switch_web_elements.get_switch_make_drop_down_options(), device_make)
-
-                # Select "Import File"
-                # csv_location looks to be the full path to the CSV file.
-                # csv_file_name looks to be the name of CSV file.  Need to prepend the self.custom_file_dir.
-                if csv_file_name:
-                    csv_location = self.custom_file_dir + csv_file_name
-
-                if csv_location:
-                    upload_button = self.devices_web_elements.get_device_entry_voss_csv_upload_button()
-                    if upload_button:
-                        self.utils.print_info("Specifying CSV file '" + csv_location + "'")
-                        self.auto_actions.send_keys(upload_button, csv_location)
-                    else:
-                        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
-                        kwargs['fail_msg'] = "CSV file could not be specified - upload button not located"
-                        self.common_validation.failed(**kwargs)
-                        return -1
-                else:
-                    self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
-                    kwargs['fail_msg'] = "CSV file was not specified - device NOT on-boarded"
-                    self.common_validation.failed(**kwargs)
-                    return -1
-
-            else:  # Manually onboard device
-                self.utils.print_info("Entering Serial Number(s)...", device_serial)
-                self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
-                sleep(5)
-
-                # Check for "Device Make" option field
-                if self.switch_web_elements.get_switch_make_drop_down():
-                    self.utils.print_info(f"Selecting Switch Type : {device_make}")
-                    self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
-                    self.auto_actions.select_drop_down_options(
-                        self.switch_web_elements.get_switch_make_drop_down_options(), device_make)
-
-                # Check for "Device OS" option field. (Switch Engine, Fabric Engine, Cloud IQ Engine, Wing)
-                if self.get_devices_quick_add_device_os_radio():
-                    if 'Extreme - Aerohive' in device_make:
-                        if self.devices_web_elements.get_device_os_radio():
-                            self.utils.print_info("Verify Cloud IQ Engine Device OS Radio Button Status")
-                            device_os = self.devices_web_elements.get_device_os_radio().text
-                            self.utils.print_info("Device OS: ", device_os)
-                            if 'Cloud IQ Engine' in device_os:
-                                self.utils.print_info("Device OS matched")
-                            else:
-                                self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
-                                self.auto_actions.click(self.devices_web_elements.get_device_os_radio())
-
-                    if "EXOS" in device_make.upper():
-                        if self.devices_web_elements.get_device_os_exos_radio():
-                            self.utils.print_info("Selecting Device OS : Switch Engine")
-                            self.auto_actions.click(self.devices_web_elements.get_device_os_exos_radio())
-                            self.screen.save_screen_shot()
-
-                    if "VOSS" in device_make.upper():
-                        if self.devices_web_elements.get_device_os_voss_radio():
-                            self.utils.print_info("Selecting Device OS : Fabric Engine")
-                            self.auto_actions.click(self.devices_web_elements.get_device_os_voss_radio())
-                            self.screen.save_screen_shot()
-
-        # Code copied from 'onboard_simulated_device'
-        elif device_type.lower() == "simulated":
-            self.utils.print_info("Selecting 'Simulated' Device Type radio button")
-            self.auto_actions.click(self.devices_web_elements.get_quick_onboard_simulated())
-            self.auto_actions.click(self.devices_web_elements.get_simulated_devices_dropdown())
-
-            table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
-
-            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
-            for option in options:
-                if device_model in option.text:
-                    self.utils.print_info("Simulated device option: ", option.text)
-                    self.auto_actions.click(option)
-
-            self.utils.print_info(f"Entering Device Count: {device_count}")
-            self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), device_count)
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
         # Code specific to Digital Twin devices
-        elif device_type.lower() == "digital_twin":
+        if device_type.lower() == "digital_twin":
             add_device_button = "Launch Digital Twin"
             sleep(3)
             attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
             if "fn-hidden" not in attribute:
                 self.utils.print_info("Selecting 'Digital Twin' radio button")
-                self.auto_actions.click(self.devices_web_elements.get_device_type_digital_twin_radio_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_type_digital_twin_radio_button)
 
                 if os_persona and os_persona != "":
                     self.utils.print_debug(f"Selecting OS Persona: {os_persona}")
-                    self.auto_actions.click(self.devices_web_elements.get_digital_twin_os_persona_dropdown())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_os_persona_dropdown)
                     sleep(2)
                     if self.auto_actions.select_drop_down_options(
                             self.devices_web_elements.get_digital_twin_os_persona_dropdown_items(), os_persona):
@@ -2831,7 +2788,7 @@ class Devices:
 
                 if device_model and device_model != "":
                     self.utils.print_debug(f"Selecting Device Model: {device_model}")
-                    self.auto_actions.click(self.devices_web_elements.get_digital_twin_device_model_dropdown())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_device_model_dropdown)
                     sleep(2)
                     if self.auto_actions.select_drop_down_options(
                             self.devices_web_elements.get_digital_twin_device_model_dropdown_items(), device_model):
@@ -2846,7 +2803,7 @@ class Devices:
 
                 if os_version and os_version != "":
                     self.utils.print_debug(f"Selecting OS Version: {os_version}")
-                    self.auto_actions.click(self.devices_web_elements.get_digital_twin_os_version_dropdown())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_os_version_dropdown)
                     sleep(2)
                     if self.auto_actions.select_drop_down_options(
                             self.devices_web_elements.get_digital_twin_os_version_dropdown_items(), os_version):
@@ -2864,19 +2821,13 @@ class Devices:
                 return -1
 
         else:
-            self.utils.print_info(f"Specified Device Type not found: {device_type.lower()}")
+            self.utils.print_info(f"Specified Device Type not found or supported: {device_type.lower()}")
             return -1
-
-        # Selecting a Location is required for Real > Manual and Simulated devices.
-        if location and location != "":
-            self.utils.print_info("Selecting Location '" + location + "'")
-            if self.auto_actions.click(self.devices_web_elements.get_location_button()):
-                self._select_location(location)
 
         # Selecting a Network Policy is not required when onboarding a device.
         if policy and policy != "":
             self.utils.print_info(f"Selecting Policy: {policy}")
-            if self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down()):
+            if self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down):
                 sleep(2)
                 if self.auto_actions.select_drop_down_options(self.devices_web_elements.get_devices_quick_add_policy_drop_down_items(), policy):
                     self.utils.print_info(f"Policy set to: {policy}")
@@ -2889,7 +2840,7 @@ class Devices:
         sleep(2)
 
         self.utils.print_info("Clicking on " + add_device_button + " button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
         self.screen.save_screen_shot()
         sleep(10)
@@ -2899,16 +2850,9 @@ class Devices:
 
         if dialog_message:
             self.screen.save_screen_shot()
-            if "Device already onboarded" in dialog_message:
-                self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-                kwargs['fail_msg'] = f"Fail Onboarded - Device already onboarded"
-
-            elif "failed to onboard Digital Twin device" in dialog_message:
+            if "failed to onboard Digital Twin device" in dialog_message:
                 self.utils.print_info(f"Dialog Message: {dialog_message}")
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 kwargs['fail_msg'] = f"failed to onboard Digital Twin device"
 
             else:
@@ -2921,9 +2865,7 @@ class Devices:
             self.utils.print_info("No Dialog box")
 
         # Need to obtain Serial Number for new Simulated or Digital Twin device
-        if os_persona:
-            current_serials = self.get_device_serial_numbers(os_persona)
-        elif device_model:
+        if device_model and device_model != "":
             current_serials = self.get_device_serial_numbers(device_model)
 
         if current_serials:
@@ -2948,7 +2890,7 @@ class Devices:
                 self.common_validation.failed(**kwargs)
                 return -1
 
-
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
                             csv_location='', policy_name=None, loc_name=None):
         """
@@ -2971,6 +2913,7 @@ class Devices:
         return self.onboard_switch_device(device_serial, "voss", device_type, entry_type, csv_location, policy_name,
                                           loc_name)
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_exos_device(self, device_serial, device_make="exos", device_type="Real", entry_type="Manual",
                             csv_file_name='', policy_name=None, loc_name=None):
         """
@@ -2994,28 +2937,28 @@ class Devices:
 
         if 'exos' in device_make.lower():
             self.utils.print_info("Clicking on ADD button...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
             self.utils.print_info("Selecting Quick Add menu")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_menu_item())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_menu_item)
             self.screen.save_screen_shot()
             sleep(2)
 
             if device_type:
                 self.utils.print_info("Selecting Real/Simulated DEvice Type Dropdown")
-                self.auto_actions.click(self.devices_web_elements.get_device_type_dropdown())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_type_dropdown)
                 sleep(2)
                 self.auto_actions.select_drop_down_options(self.devices_web_elements.get_device_type_drop_down_options()
                                                            , device_type)
 
             self.utils.print_info("Selecting Device Make as EXOS")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_drop_down())
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_exos_choice())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_drop_down)
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_exos_choice)
             sleep(1)
 
             if entry_type:
                 self.utils.print_info("Selecting Entry Type")
-                self.auto_actions.click(self.devices_web_elements.get_device_entry_type_drop_down())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_entry_type_drop_down)
                 sleep(2)
                 self.auto_actions.select_drop_down_options(self.devices_web_elements.
                                                            get_device_entry_type_drop_down_options(), entry_type)
@@ -3036,23 +2979,23 @@ class Devices:
 
             if policy_name != None and policy_name != '':
                 self.utils.print_info("Selecting policy '" + policy_name + "'")
-                self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down())
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down)
                 self.auto_actions.select_drop_down_options(
                     self.devices_web_elements.get_devices_quick_add_policy_drop_down_items(),
                     policy_name)
 
             if loc_name != None and loc_name != '':
                 self.utils.print_info("Selecting location '" + loc_name + "'")
-                self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_location_field())
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_location_field)
                 self.location_dialog_select_location(loc_name)
                 self.utils.print_info("Clicking Select button")
-                self.auto_actions.click(self.device_actions.get_assign_location_select_button())
+                self.auto_actions.click_reference(self.device_actions.get_assign_location_select_button)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Clicking on ADD DEVICES button...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
             self.screen.save_screen_shot()
             sleep(2)
@@ -3067,7 +3010,7 @@ class Devices:
                 self.utils.print_info("Dialog Message: ", dialog_message)
                 if "Device already onboarded" in dialog_message:
                     self.utils.print_info("Error: ", dialog_message)
-                    self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                     self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-300'))
 
                     self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
@@ -3086,6 +3029,7 @@ class Devices:
                 else:
                     return -1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_switch_device(self, device_serial, device_make, device_type="Real", entry_type="Manual",
                               csv_location='', policy_name=None, loc_name=None):
         """
@@ -3108,13 +3052,13 @@ class Devices:
         self.navigator.navigate_to_devices()
 
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
         self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
         if 'voss' in device_make.lower():
             self.utils.print_info("Entering Serial Number...")
@@ -3128,23 +3072,23 @@ class Devices:
                 self.utils.print_info("Device Make: ", ui_device_make)
                 if 'Select One' in ui_device_make:
                     self.utils.print_info("Device Make not selected automatically")
-                    self.auto_actions.click(self.devices_web_elements.get_device_make_dropdownoption())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
                     self.auto_actions.select_drop_down_options(
                         self.devices_web_elements.get_device_make_drop_down_options(), device_make)
 
             if loc_name:
-                self.auto_actions.click(self.devices_web_elements.get_location_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
                 self._select_location(loc_name)
 
         elif 'exos' in device_make.lower():
             self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_drop_down())
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_exos_choice())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_drop_down)
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_exos_choice)
             sleep(1)
 
             if entry_type:
                 self.utils.print_info("Selecting Entry Type")
-                self.auto_actions.click(self.devices_web_elements.get_device_entry_type_drop_down())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_entry_type_drop_down)
                 sleep(2)
                 self.auto_actions.select_drop_down_options(self.devices_web_elements.
                                                            get_device_entry_type_drop_down_options(), entry_type)
@@ -3157,12 +3101,12 @@ class Devices:
                     else:
                         self.utils.print_info(">>> CSV file could not be specified - upload button not located")
                         self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-                        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                         return -1
                 else:
                     self.utils.print_info(">>> CSV file was not specified")
                     self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-                    self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                     return -1
             else:
                 self.utils.print_info("Entering Serial Number for EXOS device...")
@@ -3172,12 +3116,12 @@ class Devices:
         else:
             self.utils.print_info(">>> Unsupported device type " + device_make)
             self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
             return -1
 
         if policy_name != None and policy_name != '':
             self.utils.print_info("Selecting policy '" + policy_name + "'")
-            self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_policy_drop_down())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down)
             sleep(2)
             self.screen.save_screen_shot()
             self.auto_actions.select_drop_down_options(self.devices_web_elements.
@@ -3185,7 +3129,7 @@ class Devices:
             sleep(2)
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -3202,7 +3146,7 @@ class Devices:
             # if BuiltIn().get_variable_value('${MSG_DUPLICATE_DEVICE}') in dialog_message:
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-400'))
 
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-400'))
@@ -3221,6 +3165,7 @@ class Devices:
             else:
                 return -1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_xiq_site_engine(self, xiqse_serial):
         """
         - This keyword on boards an XIQ Site Engine using the Quick Add Devices flow.
@@ -3234,17 +3179,17 @@ class Devices:
 
         # Access the Quick Add panel
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add menu")
-        self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_menu_item())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_menu_item)
         self.screen.save_screen_shot()
         sleep(2)
 
         # Select 'XMC' from the 'Device Make' field
         self.utils.print_info("Selecting 'XMC' from the 'Device Make' drop down...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_drop_down())
-        self.auto_actions.click(self.devices_web_elements.get_devices_quick_add_device_make_xmc_choice())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_drop_down)
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_xmc_choice)
         sleep(1)
 
         # Enter the XIQ Site Engine's serial number
@@ -3255,7 +3200,7 @@ class Devices:
         sleep(2)
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -3270,7 +3215,7 @@ class Devices:
             self.utils.print_info("Dialog Message: ", dialog_message)
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-500'))
 
                 self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-500'))
@@ -3442,11 +3387,11 @@ class Devices:
         self.utils.print_info("Click delete button")
         self.auto_actions.scroll_up()
         sleep(2)
-        self.auto_actions.click(self.devices_web_elements.get_delete_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
         sleep(2)
 
         self.utils.print_info("Click confirmation Yes Button")
-        self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button())
+        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
         sleep(2)
         self.screen.save_screen_shot()
 
@@ -3540,7 +3485,7 @@ class Devices:
 
                 if page_len:
                     self.utils.print_info("Searching in next page")
-                    self.auto_actions.click(self.devices_web_elements.get_grid_rows_next())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_grid_rows_next)
                     sleep(5)
 
             if device_serial:
@@ -3840,6 +3785,16 @@ class Devices:
             self.utils.print_info("No rows present")
         return -1
 
+    def get_device_model_serial_numbers(self, device_model):
+        rows = self.devices_web_elements.get_grid_rows()
+        list_serial = []
+        if rows:
+            for row in rows:
+                if device_model in row.text:
+                    formated_row = self.format_row(row.text)
+                    list_serial.append(formated_row[11])
+        return list_serial
+
     def format_row(self, row):
         cell_values = row.split("\n")
         formatted_row = list()
@@ -3873,19 +3828,19 @@ class Devices:
         sleep(2)
 
         self.utils.print_info("Click on actions button")
-        self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
         sleep(2)
 
         self.utils.print_info("Click on Assign Network policy action")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_router_combo())
+        self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_router_combo)
         sleep(2)
 
         self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down_router())
+        self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_drop_down_router)
         self.auto_actions.scroll_down()
         sleep(2)
         
-        self.auto_actions.click(self.devices_web_elements.get_nw_policy_drop())
+        self.auto_actions.click_reference(self.devices_web_elements.get_nw_policy_drop)
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
         policy_status = False
         for item in network_policy_items:
@@ -3897,13 +3852,13 @@ class Devices:
                 break
         if not policy_status:
             self.utils.print_info("Network policy is not present in drop down")
-            self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_cancel_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_cancel_button)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click on network policy assign button")
-        self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_button)
         sleep(10)
 
         tooltip_text = self.dialogue_web_elements.get_tooltip_text()
@@ -3912,7 +3867,7 @@ class Devices:
         self.utils.print_info("tooltip_text: ", tooltip_text)
         if tooltip_text:
             if "Your account does not have permission to perform that action" in tooltip_text:
-                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_close_button)
                 sleep(5)
                 return -2
 
@@ -3920,13 +3875,13 @@ class Devices:
         self.select_device(router_serial)
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         count = 0
         if update_method == "Delta":
-            self.auto_actions.click(self.devices_web_elements.get_delta_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_delta_config_update_button)
             sleep(2)
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             count = 5
             tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
@@ -3942,9 +3897,9 @@ class Devices:
                         update_method = "Complete"
 
         if update_method == "Complete":
-            self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_full_config_update_button)
             sleep(2)
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             tool_tp_text_error = self.devices_web_elements.get_ui_banner_error_message()
             self.screen.save_screen_shot()
             tool_tp_text = tool_tip.tool_tip_text
@@ -4075,7 +4030,7 @@ class Devices:
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         self.screen.save_screen_shot()
         sleep(2)
         self.utils.print_info("Column list to select: ", columns)
@@ -4105,7 +4060,7 @@ class Devices:
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -4140,7 +4095,7 @@ class Devices:
         self.utils.print_info("Clicking on Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
         self.utils.print_info("Column list to unselect: ", columns)
         for filter_ in columns:
@@ -4168,7 +4123,7 @@ class Devices:
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
 
         if ret_val != 1:
@@ -4239,7 +4194,7 @@ class Devices:
             return -1
 
         if self.devices_web_elements.get_device_page_size_100() != None:
-            self.auto_actions.click(self.devices_web_elements.get_device_page_size_100())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_page_size_100)
             
         if self.get_device_count() == 0:
             self.utils.print_info("No devices present in the Devices grid")
@@ -4253,15 +4208,15 @@ class Devices:
                 
                 self.utils.print_info("Selecting Device grid checkbox...")
                 # self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(grid))
-                self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
+                self.auto_actions.click_reference(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox)
                 sleep(5)
 
                 self.utils.print_info("Clicking Delete button")
-                self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
                 sleep(5)
 
                 self.utils.print_info("Confirming delete...")
-                self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
                 sleep(2)
                 self.screen.save_screen_shot()
                 return 1
@@ -4290,7 +4245,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Select All Devices Checkbox")
-        self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox)
 
         if not self._assign_network_policy(policy_name):
             kwargs['fail_msg'] = f"Can not assign network policy {policy_name}"
@@ -4298,7 +4253,7 @@ class Devices:
             return -1
 
         self.utils.print_info("Select All Devices Checkbox")
-        self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox)
         sleep(2)
 
         self._update_network_policy(update_method)
@@ -4716,13 +4671,13 @@ class Devices:
         self.select_device(device_serial)
 
         self.utils.print_info("Click on device actions button")
-        self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
 
         self.utils.print_info("click on device actions reboot button")
-        self.auto_actions.click(self.devices_web_elements.get_device_actions_reboot_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_button)
 
         self.utils.print_info("Click on reboot confirm yes button")
-        self.auto_actions.click(self.devices_web_elements.get_device_actions_reboot_confirm_bttn())
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_confirm_bttn)
         return 1
 
     def onboard_wing_ap(self, device_serial, device_mac, device_make, location=False):
@@ -4744,13 +4699,13 @@ class Devices:
             return 1
 
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
         self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
         self.utils.print_info("Entering Serial Number...")
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
@@ -4768,7 +4723,7 @@ class Devices:
 
         if device_make == "wing" or device_make == "Controllers":
             self.utils.print_info("Selecting Device Make Controller")
-            self.auto_actions.click(self.devices_web_elements.get_device_make_drop_down())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_drop_down)
             sleep(2)
 
             self.utils.print_info("Selecting Device Make: ", device_make)
@@ -4782,11 +4737,11 @@ class Devices:
                 return _errors
 
         if location:
-            self.auto_actions.click(self.devices_web_elements.get_location_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
         _errors = self.check_negative_combinations()
         if _errors != 1:
@@ -4799,11 +4754,11 @@ class Devices:
             self.utils.print_info("Dialog Message: ", dialog_message)
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 return -1
             if "A stake record of the device was found in the redirector." in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click(self.dialogue_web_elements.get_dialog_box_ok_button())
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 return -2
         else:
             self.utils.print_info("No Errors while onboarding")
@@ -5111,12 +5066,12 @@ class Devices:
         self.select_device(device_serial)
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         if update_method == "Delta":
-            self.auto_actions.click(self.devices_web_elements.get_delta_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_delta_config_update_button)
             sleep(2)
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
             for value in tool_tp_text:
@@ -5125,9 +5080,9 @@ class Devices:
                     update_method = "Complete"
 
         if update_method == "Complete":
-            self.auto_actions.click(self.devices_web_elements.get_full_config_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_full_config_update_button)
             sleep(2)
-            self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
         self.screen.save_screen_shot()
 
@@ -5433,15 +5388,15 @@ class Devices:
         :return:
         """
         self.utils.print_info("Click on actions button")
-        self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
         sleep(3)
 
         self.utils.print_info("Click on Assign Network policy action for selected switch")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_combo_switch())
+        self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_combo_switch)
         sleep(4)
 
         self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
+        self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_drop_down)
         sleep(5)
 
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
@@ -5458,7 +5413,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Click on network policy assign button")
-        self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_button)
         sleep(10)
 
         tooltip_text = self.dialogue_web_elements.get_tooltip_text()
@@ -5467,7 +5422,7 @@ class Devices:
         self.utils.print_info("tooltip_text: ", tooltip_text)
         if tooltip_text:
             if "Your account does not have permission to perform that action" in tooltip_text:
-                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_close_button)
                 sleep(5)
                 return False
         return True
@@ -5501,12 +5456,12 @@ class Devices:
 
         if pol_config_cb is None:
             self.utils.print_info("ERROR: Unable to obtain 'Update Network Policy and Configuration' check button")
-            self.auto_actions.click(self.devices_web_elements.get_device_update_close_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_update_close_button)
             return -1
         if engine_img_cb is None:
             self.utils.print_info(
                 "ERROR: Unable to obtain 'Upgrade IQ Engine and Extreme Network Switch Images' check button")
-            self.auto_actions.click(self.devices_web_elements.get_device_update_close_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_update_close_button)
             return -1
 
         # TO DO: Handle the two check buttons to specify the type of update to perform
@@ -5521,7 +5476,7 @@ class Devices:
         #     self.auto_actions.disable_check_box(pol_config_cb)
         #     self.auto_actions.enable_check_box(engine_img_cb)
         #     sleep(2)
-        #     self.auto_actions.click(self.devices_web_elements.get_device_update_close_button())
+        #     self.auto_actions.click_reference(self.devices_web_elements.get_device_update_close_button)
         #     return -1
         #
         # elif update_method == "Complete":
@@ -5529,12 +5484,12 @@ class Devices:
         #     self.auto_actions.enable_check_box(pol_config_cb)
         #     self.auto_actions.enable_check_box(engine_img_cb)
         #     sleep(2)
-        #     self.auto_actions.click(self.devices_web_elements.get_device_update_close_button())
+        #     self.auto_actions.click_reference(self.devices_web_elements.get_device_update_close_button)
         #     return -1
         #
         # else:
         #     self.utils.print_info(f"Unknown update method {update_method}. Please specify 'PolicyAndConfig', 'EngineAndImages', or 'Complete'")
-        #     self.auto_actions.click(self.devices_web_elements.get_device_update_close_button())
+        #     self.auto_actions.click_reference(self.devices_web_elements.get_device_update_close_button)
         #     return -1
 
         # Perform the update
@@ -5678,7 +5633,7 @@ class Devices:
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
         self.utils.print_info("Column list to check for presence: ", columns)
         for filter_ in columns:
@@ -5694,7 +5649,7 @@ class Devices:
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
 
         if ret_val != 1:
@@ -5724,7 +5679,7 @@ class Devices:
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
         self.utils.print_info("Column list to check for no presence: ", columns)
         for filter_ in columns:
@@ -5740,7 +5695,7 @@ class Devices:
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
 
         if ret_val != 1:
@@ -5770,7 +5725,7 @@ class Devices:
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
         self.utils.print_info("Column list to check for selected items: ", columns)
         for filter_ in columns:
@@ -5799,7 +5754,7 @@ class Devices:
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
 
         if ret_val != 1:
@@ -5829,7 +5784,7 @@ class Devices:
         sleep(10)
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
         self.utils.print_info("Column list to check for unselected items: ", columns)
         for filter_ in columns:
@@ -5858,7 +5813,7 @@ class Devices:
         self.utils.print_info("Closing Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
-        self.auto_actions.click(self.devices_web_elements.get_column_picker_icon())
+        self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
         sleep(2)
 
         if ret_val != 1:
@@ -5913,15 +5868,15 @@ class Devices:
         """
         """
         self.utils.print_info("Click on actions button")
-        self.auto_actions.click(self.devices_web_elements.get_manage_device_actions_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
         sleep(3)
 
         self.utils.print_info("Click on Assign Network policy action")
-        self.auto_actions.click(self.devices_web_elements.get_devices_switch_assign_policy())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_switch_assign_policy)
         sleep(4)
 
         self.utils.print_info("Click on network policy drop down")
-        self.auto_actions.click(self.devices_web_elements.get_devices_switch_assign_policy_dropdown())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_switch_assign_policy_dropdown)
         sleep(5)
 
         network_policy_items = self.devices_web_elements.get_devices_switch_assign_policy_list()
@@ -5938,7 +5893,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Click on network policy assign button")
-        self.auto_actions.click(self.devices_web_elements.get_devices_switch_assign_policy_assign_btn())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_switch_assign_policy_assign_btn)
         sleep(10)
 
         tooltip_text = self.dialogue_web_elements.get_tooltip_text()
@@ -5947,7 +5902,7 @@ class Devices:
         self.utils.print_info("tooltip_text: ", tooltip_text)
         if tooltip_text:
             if "Your account does not have permission to perform that action" in tooltip_text:
-                self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_close_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_close_button)
                 sleep(5)
                 return False
         return True
@@ -5960,7 +5915,7 @@ class Devices:
         :return:
         """
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
 
         self.utils.print_info("Select the network policy and configuration checkbox")
@@ -5975,7 +5930,7 @@ class Devices:
         else:
             self.utils.print_info("Could not find network policy and configuration checkbox")
         self.utils.print_info("click on perform update button")
-        self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_switch_update_btn)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -6000,7 +5955,7 @@ class Devices:
                     self.utils.print_info("Select All checkbox already selected")
                 else:
                     self.utils.print_info("Clicking Select All checkbox")
-                    self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox)
                 return 1
 
             except Exception as e:
@@ -6027,9 +5982,9 @@ class Devices:
                 sel_unchecked = self.devices_web_elements.get_manage_devices_select_all_devices_checkbox_deselected()
                 if sel_unchecked:
                     self.utils.print_info("Select All checkbox not already selected - clicking to select all first")
-                    self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox)
                 self.utils.print_info("Clicking to deselect all devices")
-                self.auto_actions.click(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox())
+                self.auto_actions.click_reference(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox)
                 return 1
 
             except Exception as e:
@@ -6637,25 +6592,25 @@ class Devices:
 
         # Access the Quick Add panel
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
         self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
 
         self.utils.print_info("Entering Serial Number...")
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
 
         self.utils.print_info("Selecting Make")
-        self.auto_actions.click(self.switch_web_elements.get_switch_make_drop_down())
+        self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
         sleep(2)
         self.switch_web_elements.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(),
                                                           device_make)
 
         if location:
-            self.auto_actions.click(self.devices_web_elements.get_location_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
         else:
             self.utils.print_info("LOCATION NOT SPECIFIED BUT IS A REQUIRED FIELD")
@@ -6665,7 +6620,7 @@ class Devices:
         sleep(2)
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -6790,6 +6745,7 @@ class Devices:
         if ap_public_ip:
             return ap_public_ip
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboard_multiple_exos_switches(self, device_serials, device_make="exos"):
         """
         - This Keyword will Onboard Multiple Exos Devices with Serial Numbers
@@ -6991,12 +6947,12 @@ class Devices:
         :return:  1 if update was performed, -1 if not
         """
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
 
         # Perform the update
         self.utils.print_info("Click on perform update button")
-        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -7031,7 +6987,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
 
         # Select from dropdown
@@ -7065,7 +7021,7 @@ class Devices:
         self.utils.print_info(tool_tp_text_before)
 
         self.utils.print_info("Click on perform update button")
-        self.auto_actions.click(self.devices_web_elements.get_devices_perform_update_button_d360())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_perform_update_button_d36)
 
         self.screen.save_screen_shot()
         sleep(5)
@@ -7080,7 +7036,7 @@ class Devices:
                 self.utils.print_info(item_after)
                 if self.devices_web_elements.get_devices_close_button_update():
                     self.utils.print_info("Click on exit button")
-                    self.auto_actions.click(self.devices_web_elements.get_devices_close_button_update())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_devices_close_button_update)
                 else:
                     self.utils.print_info("The exit button was not found")
                 return item_after
@@ -7225,23 +7181,23 @@ class Devices:
 
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Update Devices button")
-            self.auto_actions.click(self.device_update.get_update_devices_button())
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
             sleep(5)
 
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
             sleep(5)
 
             self.utils.print_info("Selecting upgrade to specific version checkbox")
-            self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_radio)
             sleep(2)
 
             self.utils.print_info("Selecting upgrade even if the versions are the same")
-            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+            self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
             sleep(2)
 
             self.utils.print_info("Click on version drop down")
-            self.auto_actions.click(self.device_update.get_actions_update_version_drop_down())
+            self.auto_actions.click_reference(self.device_update.get_actions_update_version_drop_down)
             sleep(5)
 
             update_version_items = self.device_update.get_actions_update_version_drop_down_items()
@@ -7268,7 +7224,7 @@ class Devices:
                 if self.auto_actions.select_drop_down_options(update_version_items, image_select):
                     self.utils.print_info(f"Selected update version from drop down:{version}")
                     self.utils.print_info("Selecting Perform Update button...")
-                    self.auto_actions.click(self.device_update.get_perform_update_button())
+                    self.auto_actions.click_reference(self.device_update.get_perform_update_button)
                     self.screen.save_screen_shot()
                     sleep(5)
                     return 1
@@ -7292,7 +7248,7 @@ class Devices:
         ret_val = -1
 
         self.utils.print_info("Clicking on Actions Button")
-        self.auto_actions.click(self.device_actions.get_device_actions_button())
+        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         sleep(2)
 
         ose_link = self.devices_web_elements.get_actions_open_site_engine_menu_option()
@@ -7450,7 +7406,7 @@ class Devices:
                 self.screen.save_screen_shot()
 
                 self.utils.print_info("Clicking on Assign Location Button")
-                self.auto_actions.click(self.devices_web_elements.get_location_select_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_location_select_button)
                 sleep(5)
 
                 ret_val = 1
@@ -7559,7 +7515,7 @@ class Devices:
             self.utils.print_info("Location has not been found")
             if self.devices_web_elements.get_cancel_location_button():
                 self.utils.print_info("Selecting Cancel button")
-                self.auto_actions.click(self.devices_web_elements.get_cancel_location_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_cancel_location_button)
             else:
                 self.utils.print_info("Cancel button was not found")
                 sleep(3)
@@ -7650,14 +7606,14 @@ class Devices:
         if location:
             if self.devices_web_elements.get_add_location_button():
                 self.utils.print_info("Click on 'Location'")
-                self.auto_actions.click(self.devices_web_elements.get_add_location_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_add_location_button)
                 self.utils.print_info("Selecting location " + location)
                 if self.select_location_quick_onboarding(location) == 1:
                     self.utils.print_info("Location selected ")
                     self.utils.print_info("Clicking on select location Button")
-                    self.auto_actions.click(self.devices_web_elements.get_select_location())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_select_location)
                 else:
-                    self.auto_actions.click(self.devices_web_elements.get_cancel_location_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_cancel_location_button)
                     self.utils.print_info("Selecting Cancel button")
                     return -1
             else:
@@ -7668,7 +7624,7 @@ class Devices:
         if policy_name != None:
             self.utils.print_info("Selecting policy '" + policy_name + "'")
             if self.devices_web_elements.get_policy_drop_down():
-                self.auto_actions.click(self.devices_web_elements.get_policy_drop_down())
+                self.auto_actions.click_reference(self.devices_web_elements.get_policy_drop_down)
                 sleep(2)
             else:
                 self.utils.print_info("The policy drop down was not found")
@@ -7687,14 +7643,14 @@ class Devices:
             if self.devices_web_elements.get_device_make_list():
                 self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
                 self.utils.print_info("'VOSS' found in 'Device Make' list")
-                self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-                self.auto_actions.click(self.devices_web_elements.get_device_make_voss())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_voss)
                 sleep(2)
             else:
                 if self.devices_web_elements.get_device_auto_detection_voss():
                     self.utils.print_info("'VOSS' autodetection is working")
                     self.utils.print_info("Selecting 'VOSS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click(self.devices_web_elements.get_device_auto_detection_voss())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_voss)
                 else:
                     self.utils.print_info("Button 'VOSS' not found")
                     return -1
@@ -7702,26 +7658,26 @@ class Devices:
             if self.devices_web_elements.get_device_make_list():
                 self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
                 self.utils.print_info("'EXOS' found in 'Device Make' list")
-                self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-                self.auto_actions.click(self.devices_web_elements.get_device_make_exos())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_exos)
                 sleep(2)
             else:
                 if self.devices_web_elements.get_device_auto_detection_exos():
                     self.utils.print_info("'EXOS' autodetection is working ")
                     self.utils.print_info("Selecting 'EXOS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click(self.devices_web_elements.get_device_auto_detection_exos())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_exos)
                 else:
                     self.utils.print_info("Button 'EXOS' not found")
                     return -1
         elif 'aerohive' in device_make.lower():
             self.utils.print_info("Selecting 'Extreme - Aerohive' from the 'Device Make' drop down...")
-            self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-            self.auto_actions.click(self.devices_web_elements.get_device_make_aerohive())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_aerohive)
             sleep(2)
         elif 'universal_ap' in device_make.lower():
             if self.devices_web_elements.get_device_auto_detection_cloudIqEngineRadio():
                 self.utils.print_info("'cloudIqEngine' autodetection is working ")
-                self.auto_actions.click(self.devices_web_elements.get_device_auto_detection_cloudIqEngineRadio())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_cloudIqEngineRadio)
             else:
                 self.utils.print_info("'cloudIqEngine' autodetection is not working ")
                 return -1
@@ -7732,7 +7688,7 @@ class Devices:
         self.utils.print_info(tool_tp_text_before)
         if self.devices_web_elements.get_add_devices_button():
             self.utils.print_info("Click on Add Devices")
-            self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_add_devices_button)
             # Check the already onboarded error
             if self.devices_web_elements.get_quick_onboard_failure_panel():
                 self.utils.print_info("{} already onboarded ".format(device_sn))
@@ -7807,7 +7763,7 @@ class Devices:
         sleep(2)
         if self.devices_web_elements.get_select_csv():
             self.utils.print_info("Select CSV")
-            self.auto_actions.click(self.devices_web_elements.get_select_csv())
+            self.auto_actions.click_reference(self.devices_web_elements.get_select_csv)
         else:
             self.utils.print_info("CSV checkbox was not found")
             return -1
@@ -7815,8 +7771,8 @@ class Devices:
             if self.devices_web_elements.get_device_make_list():
                 self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
                 self.utils.print_info("'VOSS' found in 'Device Make' list")
-                self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-                self.auto_actions.click(self.devices_web_elements.get_device_make_voss())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_vos)
                 sleep(2)
             else:
                 self.utils.print_info("Button 'VOSS' not found")
@@ -7825,21 +7781,21 @@ class Devices:
             if self.devices_web_elements.get_device_make_list():
                 self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
                 self.utils.print_info("'EXOS' found in 'Device Make' list")
-                self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-                self.auto_actions.click(self.devices_web_elements.get_device_make_exos())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_exos)
                 sleep(2)
             else:
                 self.utils.print_info("Button 'EXOS' not found")
                 return -1
         elif 'aerohive' in device_make.lower():
             self.utils.print_info("Selecting 'Extreme - Aerohive' from the 'Device Make' drop down...")
-            self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-            self.auto_actions.click(self.devices_web_elements.get_device_make_aerohive())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_aerohive)
             sleep(2)
         elif 'universal_ap' in device_make.lower():
             if self.devices_web_elements.get_device_auto_detection_cloudIqEngineRadio():
                 self.utils.print_info("'cloudIqEngine' autodetection is working ")
-                self.auto_actions.click(self.devices_web_elements.get_device_auto_detection_cloudIqEngineRadio())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_cloudIqEngineRadio)
             else:
                 pass
         else:
@@ -7853,24 +7809,24 @@ class Devices:
             else:
                 self.utils.print_info(">>> CSV file could not be specified - upload button not located")
                 self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-                self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                 return -1
         else:
             self.utils.print_info(">>> CSV file was not specified")
             self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
             return -1
         if location != None:
             if self.devices_web_elements.get_add_location_button():
                 self.utils.print_info("Click on 'Location'")
-                self.auto_actions.click(self.devices_web_elements.get_add_location_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_add_location_button)
                 self.utils.print_info("Selecting location '" + location + "'")
                 if self.select_location_quick_onboarding(location) == 1:
                     self.utils.print_info("Location selected ")
                     self.utils.print_info("Clicking on select location Button")
-                    self.auto_actions.click(self.devices_web_elements.get_select_location())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_select_location)
                 else:
-                    self.auto_actions.click(self.devices_web_elements.get_cancel_location_button())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_cancel_location_button)
                     self.utils.print_info("Selecting Cancel button")
                     return -1
             else:
@@ -7881,7 +7837,7 @@ class Devices:
         if policy_name != None:
             self.utils.print_info("Selecting policy '" + policy_name + "'")
             if self.devices_web_elements.get_policy_drop_down():
-                self.auto_actions.click(self.devices_web_elements.get_policy_drop_down())
+                self.auto_actions.click_reference(self.devices_web_elements.get_policy_drop_down)
                 sleep(2)
             else:
                 self.utils.print_info("The policy drop down was not found")
@@ -7899,7 +7855,7 @@ class Devices:
         self.utils.print_info(tool_tp_text_before)
         if self.devices_web_elements.get_add_devices_button():
             self.utils.print_info("Click on Add Devices")
-            self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_add_devices_button)
             # Check the already onboarded error
             if self.devices_web_elements.get_quick_onboard_failure_panel():
                 self.utils.print_info("SN already onboarded ")
@@ -7983,14 +7939,14 @@ class Devices:
             if self.devices_web_elements.get_device_make_list():
                 self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
                 self.utils.print_info("'VOSS' found in 'Device Make' list")
-                self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-                self.auto_actions.click(self.devices_web_elements.get_device_make_voss())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_voss)
                 sleep(2)
             else:
                 if self.devices_web_elements.get_device_auto_detection_voss():
                     self.utils.print_info("'VOSS' autodetection is working")
                     self.utils.print_info("Selecting 'VOSS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click(self.devices_web_elements.get_device_auto_detection_voss())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_voss)
                 else:
                     self.utils.print_info("Button 'VOSS' not found")
                     return -1
@@ -7998,14 +7954,14 @@ class Devices:
             if self.devices_web_elements.get_device_make_list():
                 self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
                 self.utils.print_info("'EXOS' found in 'Device Make' list")
-                self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-                self.auto_actions.click(self.devices_web_elements.get_device_make_exos())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_exos)
                 sleep(2)
             else:
                 if self.devices_web_elements.get_device_auto_detection_exos():
                     self.utils.print_info("'EXOS' autodetection is working ")
                     self.utils.print_info("Selecting 'EXOS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click(self.devices_web_elements.get_device_auto_detection_exos())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_exos)
                 else:
                     self.utils.print_info("Button 'EXOS' not found")
                     return -1
@@ -8022,7 +7978,7 @@ class Devices:
         self.utils.print_info(tool_tp_text_before)
         if self.devices_web_elements.get_add_devices_button():
             self.utils.print_info("Click on Add Devices")
-            self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_add_devices_button)
             # Check the already onboarded error
             if self.devices_web_elements.get_quick_onboard_failure_panel():
                 self.utils.print_info("{} already onboarded ".format(device_sn))
@@ -8092,7 +8048,7 @@ class Devices:
             return -1
         if self.devices_web_elements.get_select_csv():
             self.utils.print_info("Select CSV")
-            self.auto_actions.click(self.devices_web_elements.get_select_csv())
+            self.auto_actions.click_reference(self.devices_web_elements.get_select_csv)
         else:
             self.utils.print_info("CSV checkbox was not found")
             return -1
@@ -8102,13 +8058,13 @@ class Devices:
             if self.devices_web_elements.get_device_make_list():
                 self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
                 self.utils.print_info("'VOSS' found in 'Device Make' list")
-                self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-                self.auto_actions.click(self.devices_web_elements.get_device_make_voss())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_voss)
                 sleep(2)
             else:
                 if self.devices_web_elements.get_device_auto_detection_voss():
                     self.utils.print_info("Selecting 'VOSS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click(self.devices_web_elements.get_device_auto_detection_voss())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_voss)
                 else:
                     self.utils.print_info("Button 'VOSS' not found")
                     return -1
@@ -8116,21 +8072,21 @@ class Devices:
             if self.devices_web_elements.get_device_make_list():
                 self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
                 self.utils.print_info("'EXOS' found in 'Device Make' list")
-                self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-                self.auto_actions.click(self.devices_web_elements.get_device_make_exos())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_exos)
                 sleep(2)
             else:
                 if self.devices_web_elements.get_device_auto_detection_exos():
                     self.utils.print_info("Selecting 'VOSS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click(self.devices_web_elements.get_device_auto_detection_exos())
+                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_exos)
                 else:
                     self.utils.print_info("Button 'EXOS' not found")
                     return -1
         elif 'wing' in device_make.lower():
             if self.devices_web_elements.get_device_auto_detection_wingRadio():
                 self.utils.print_info("Selecting 'WING' from the 'Device OS' checkbox...")
-                self.auto_actions.click(self.devices_web_elements.get_device_make_list())
-                self.auto_actions.click(self.devices_web_elements.get_device_auto_detection_wingRadio())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_wingRadio)
             else:
                 self.utils.print_info("Button 'WING' not found")
                 return -1
@@ -8146,19 +8102,19 @@ class Devices:
             else:
                 self.utils.print_info(">>> CSV file could not be specified - upload button not located")
                 self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-                self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                 return -1
         else:
             self.utils.print_info(">>> CSV file was not specified")
             self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
             return -1
 
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
         if self.devices_web_elements.get_add_devices_button():
             self.utils.print_info("Click on Add Devices")
-            self.auto_actions.click(self.devices_web_elements.get_add_devices_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_add_devices_button)
             # Check the already onboarded error
             if self.devices_web_elements.get_quick_onboard_failure_panel():
                 self.utils.print_info("Device(s) already onboarded ")
@@ -8276,7 +8232,7 @@ class Devices:
         else:
             self.utils.print_info("rows were not found ")
             return -1
-        if self.auto_actions.click(self.devices_web_elements.get_create_template_click()) == -1:
+        if self.auto_actions.click_reference(self.devices_web_elements.get_create_template_click) == -1:
             self.utils.print_info("Unable to click on Create template based on currently selected device button")
             return -1
         else:
@@ -8339,13 +8295,13 @@ class Devices:
         else:
             self.utils.print_info("Select Device row")
 
-        if self.auto_actions.click(self.devices_web_elements.get_update_device_button()) == -1:
+        if self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button) == -1:
             self.utils.print_info("Unable to click on device update button")
             return -1
         else:
             self.utils.print_info("Click on device update button")
 
-        if self.auto_actions.click(self.devices_web_elements.get_create_auto_template_update_device_click()) == -1:
+        if self.auto_actions.click_reference(self.devices_web_elements.get_create_auto_template_update_device_click) == -1:
             self.utils.print_info("Unable to click on Create template button")
             return -1
         else:
@@ -8648,11 +8604,11 @@ class Devices:
         self.utils.print_info("Check if device has policy")
         if self.devices_web_elements.get_assign_policy_device_selected():
             self.utils.print_info("Click on Assign Policy")
-            self.auto_actions.click(self.devices_web_elements.get_assign_policy_device_selected())
+            self.auto_actions.click_reference(self.devices_web_elements.get_assign_policy_device_selected)
             self.utils.print_info("Selecting '{}' policy".format(policy_name))
             self.utils.print_info("Click on network policy drop down")
             sleep(5)
-            self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_drop_down)
             sleep(5)
             network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
             # self.auto_actions.scroll_down()
@@ -8664,7 +8620,7 @@ class Devices:
                 self.utils.print_info("Network policy is not present in drop down")
                 return -1
             self.utils.print_info("Click on network policy assign button")
-            self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_button)
             sleep(5)
             if device_serial:
                 self.select_device(device_serial)
@@ -8676,7 +8632,7 @@ class Devices:
 
         sleep(5)
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         self.auto_actions.move_to_element(self.devices_web_elements.get_update_device_button())
         self.utils.print_info("Select the network policy and configuration checkbox")
         update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
@@ -8715,11 +8671,11 @@ class Devices:
             return -1
 
         self.utils.print_info("Click on perform update button")
-        self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_switch_update_btn)
         sleep(3)
         if option.lower() == "enable":
             self.utils.print_info("Proceed yes that user wants to continue with reboot/revert option")
-            self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_update_yes_btn)
             sleep(2)
         else:
             pass
@@ -8781,10 +8737,10 @@ class Devices:
         self.utils.print_info("Check if device has policy")
         if self.devices_web_elements.get_assign_policy_device_selected():
             self.utils.print_info("Click on Assign Policy")
-            self.auto_actions.click(self.devices_web_elements.get_assign_policy_device_selected())
+            self.auto_actions.click_reference(self.devices_web_elements.get_assign_policy_device_selected)
             self.utils.print_info("Selecting '{}' policy".format(policy_name))
             self.utils.print_info("Click on network policy drop down")
-            self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_drop_down)
             network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
             self.auto_actions.scroll_down()
             sleep(5)
@@ -8795,7 +8751,7 @@ class Devices:
                 self.utils.print_info("Network policy is not present in drop down")
                 return -1
             self.utils.print_info("Click on network policy assign button")
-            self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_button)
             sleep(5)
             self.select_device(device_serial)
         else:
@@ -8803,7 +8759,7 @@ class Devices:
             pass
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         self.utils.print_info("Select the network policy and configuration checkbox")
         update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
@@ -8846,11 +8802,11 @@ class Devices:
 
         if pop_up_message_text != None and "Not supported on Dell/SR" in pop_up_message_text:
             self.utils.print_info("", pop_up_message_text)
-            self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_cancel_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_cancel_button)
             return 1
         else:
             self.utils.print_info("Pop-up message didn't find")
-            self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_cancel_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_cancel_button)
             return -1
 
     def check_double_verification_display_rollback(self, policy_name, option, device_serial=None, device_mac=None):
@@ -8886,10 +8842,10 @@ class Devices:
         self.utils.print_info("Check if device has policy")
         if self.devices_web_elements.get_assign_policy_device_selected():
             self.utils.print_info("Click on Assign Policy")
-            self.auto_actions.click(self.devices_web_elements.get_assign_policy_device_selected())
+            self.auto_actions.click_reference(self.devices_web_elements.get_assign_policy_device_selected)
             self.utils.print_info("Selecting '{}' policy".format(policy_name))
             self.utils.print_info("Click on network policy drop down")
-            self.auto_actions.click(self.devices_web_elements.get_actions_assign_network_policy_drop_down())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_drop_down)
             network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
             self.auto_actions.scroll_down()
             sleep(5)
@@ -8900,7 +8856,7 @@ class Devices:
                 self.utils.print_info("Network policy is not present in drop down")
                 return -1
             self.utils.print_info("Click on network policy assign button")
-            self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_button)
             sleep(5)
             self.select_device(device_serial)
         else:
@@ -8908,7 +8864,7 @@ class Devices:
             pass
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         self.utils.print_info("Select the network policy and configuration checkbox")
         update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
@@ -8947,15 +8903,15 @@ class Devices:
             return -1
 
         self.utils.print_info("Click on perform update button")
-        self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_switch_update_btn)
         sleep(3)
 
         double_verification = self.devices_web_elements.get_check_double_verification_display_rollback()
 
         if double_verification:
             self.utils.print_info("Display double verification")
-            self.auto_actions.click(self.devices_web_elements.get_devices_update_no_btn())
-            self.auto_actions.click(self.devices_web_elements.get_actions_network_policy_assign_cancel_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_update_no_btn)
+            self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_cancel_button)
             return 1
         else:
             self.utils.print_info("Double verification doesn't appear")
@@ -9187,7 +9143,7 @@ class Devices:
 
         if select_flag:
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
 
         self.utils.print_info("Select Manage Device License ")
@@ -9346,7 +9302,7 @@ class Devices:
 
         if select_flag:
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
 
         manage_license = self.device_actions.get_device_actions_manage_license()
@@ -9864,7 +9820,7 @@ class Devices:
         self.screen.save_screen_shot()
 
         self.utils.print_info("Submitting")
-        self.auto_actions.click(self.devices_web_elements.get_sfdc_submit())
+        self.auto_actions.click_reference(self.devices_web_elements.get_sfdc_submit)
         sleep(2)
         self.screen.save_screen_shot()
 
@@ -10431,12 +10387,12 @@ class Devices:
 
                 if updatefromD360Page.lower() == "false":
                     self.utils.print_info("Selecting Update Devices Button")
-                    self.auto_actions.click(self.device_update.get_update_devices_button())
+                    self.auto_actions.click_reference(self.device_update.get_update_devices_button)
                     sleep(5)
                 elif updatefromD360Page.lower() == "true":
                     self.navigator.navigate_to_device360_page_with_mac(device_mac)
                     sleep(5)
-                    self.auto_actions.click(self.device_update.get_update_devices_button_from_d360())
+                    self.auto_actions.click_reference(self.device_update.get_update_devices_button_from_d360)
 
                 # Unchecking the Update Network Policy and Configuration checkbox if it is already checked
                 config_download_checkbox = self.device_update.get_config_download_options_checkbox()
@@ -10452,12 +10408,12 @@ class Devices:
                     self.utils.print_info(f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
                 else:
                     self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-                    self.auto_actions.click(self.device_update.get_upgrade_iq_engine_checkbox())
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
 
                 # Case-1 : This flow is to perform firmware upgrade to a latest version and return the latest version if success else -1
                 if updateTo.lower() == "latest":
                     self.utils.print_info("Selecting upgrade to latest version radio button")
-                    self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
                     sleep(2)
 
                     updateToVersion = self.device_update.get_latest_version()
@@ -10472,11 +10428,11 @@ class Devices:
                             self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked")
                         else:
                             self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
-                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                            self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
                     else:
                         if forceDownloadImage_checkbox_status is not None: 
                             self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is checked - Unchecking")
-                            self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                            self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
                         else:
                             self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
                     sleep(2)	
@@ -10487,17 +10443,17 @@ class Devices:
                     self.screen.save_screen_shot()
                     if performUpgrade.lower() == "true":
                         self.utils.print_info("Selecting Perform Update button...")
-                        self.auto_actions.click(self.device_update.get_perform_update_button())
+                        self.auto_actions.click_reference(self.device_update.get_perform_update_button)
                     else:
                         self.utils.print_info("Selecting Cancel and Close button...")
-                        self.auto_actions.click(self.device_update.get_update_close_button())
+                        self.auto_actions.click_reference(self.device_update.get_update_close_button)
                     sleep(10)
 
                     if updatefromD360Page.lower() == "true":
                         closebutton = self.device_update.get_d360_close_button()
                         sleep(2)
                         if closebutton:
-                            self.auto_actions.click(self.device_update.get_d360_close_button())
+                            self.auto_actions.click_reference(self.device_update.get_d360_close_button)
                             self.screen.save_screen_shot()
                             sleep(5)
                             self.utils.print_info("Closing the D360 window...")
@@ -10510,23 +10466,23 @@ class Devices:
                 # Case-2 : This flow is to perform firmware upgrade to a specific version if fails return -1
                 elif updateTo.lower() != "latest":
 
-                    self.auto_actions.click(self.device_update.get_upgrade_to_latest_version_radio())
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
                     sleep(5)
                     latest_version = self.device_update.get_latest_version()
                     self.utils.print_info("Device Latest Version: ", latest_version)
                     sleep(5)
 
                     self.utils.print_info("Selecting upgrade to specific version radio button")
-                    self.auto_actions.click(self.device_update.get_upgrade_to_specific_version_radio())
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_radio)
                     sleep(5)
                     
                     # This is needed to get the list from the dropdown box
                     self.utils.print_info("Selecting perform upgrade if the versions are the same")
-                    self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
                     sleep(5)
 
                     self.utils.print_info("Click on version drop down")
-                    self.auto_actions.click(self.device_update.get_xiq_upgrade_to_specific_version_dropdown())
+                    self.auto_actions.click_reference(self.device_update.get_xiq_upgrade_to_specific_version_dropdown)
                     sleep(5)
 
                     update_version_items = self.device_update.get_upgrade_to_specific_version_dropdown_list()
@@ -10646,28 +10602,28 @@ class Devices:
                                 self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is already checked")
                             else:
                                 self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
-                                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                                self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
                         else:
                             if forceDownloadImage_checkbox_status is not None:
                                 self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is checked - Unchecking")
-                                self.auto_actions.click(self.device_update.get_upgrade_even_if_versions_same_checkbox())
+                                self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
                             else:
                                 self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
                             
                         if performUpgrade.lower() == "true":
                             self.screen.save_screen_shot()
                             self.utils.print_info("Selecting Perform Update button...")
-                            self.auto_actions.click(self.device_update.get_perform_update_button())
+                            self.auto_actions.click_reference(self.device_update.get_perform_update_button)
                         else:
                             self.utils.print_info("Selecting Close button...")
-                            self.auto_actions.click(self.device_update.get_update_close_button())
+                            self.auto_actions.click_reference(self.device_update.get_update_close_button)
                         sleep(10)
 
                         if updatefromD360Page.lower() == "true":
                             closebutton = self.device_update.get_d360_close_button()
                             sleep(2)
                             if closebutton:
-                                self.auto_actions.click(self.device_update.get_d360_close_button())
+                                self.auto_actions.click_reference(self.device_update.get_d360_close_button)
                                 self.screen.save_screen_shot()
                                 sleep(5)
                                 self.utils.print_info("Closing the D360 window...")
@@ -10946,10 +10902,10 @@ class Devices:
         """
         wifi0_1_lists = {}
         if self.navigate_to_device_configure(ap_name) == 1:
-            self.auto_actions.click(self.devices_web_elements.get_device_configure_interface_settings())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_configure_interface_settings)
             while not self.devices_web_elements.get_device_configure_interface_settings_wireless_toggle():
                 self.utils.print_info("Wireless Interfaces toggle is NOT shown, click to refresh page ...")
-                self.auto_actions.click(self.devices_web_elements.get_device_level_page_refresh())
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_level_page_refresh)
                 self.utils.print_info("Wireless toggle is still NOT loaded successfully, try to refresh...")
             wifi0_ssids_list = []
             wifi0_ssid_rows = self.devices_web_elements.get_device_configure_interface_settings_wifi0_ssid()
@@ -10970,29 +10926,35 @@ class Devices:
             else:
                 self.utils.print_info("No WiFi1 SSID row found, set wifi0_1lists as empty...")
                 wifi0_1_lists['wifi1'] = wifi1_ssids_list
-            self.auto_actions.click(self.devices_web_elements.get_device_level_page_close_icon())
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_level_page_close_icon)
             self.utils.print_info(f"The WiFi0 and WiFi1 SSID list is: {wifi0_1_lists}")
             return wifi0_1_lists
         else:
             return -1
-            
-    def get_ap_hostname(self, ap_serial):
-        """
-        - This method gets AP hostname based on AP serial
-        - Keyword Usage:
-         - ``Get Ap Hostname   ${AP_SERIAL}``
 
-        :param ap_serial: serial number of AP
-        :return: success AP hostname else -1
+    def get_hostname(self, device_serial, **kwargs):
         """
+        - This method gets hostname assigned to the device based on device serial
+        - Keyword Usage:
+        - ``Get Hostname  ${SERIAL}``
+
+        :param device_serial: serial number of a device
+        :If the device is found the hostname will be returned else an error will be thrown
+        """
+
+        self.utils.print_info(f"Getting host name for device '{device_serial}'")
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
-                if ap_serial in row.text:
+                if device_serial in row.text:
                     hostname = self.devices_web_elements.get_hostname_code_cell(row).text
+                    kwargs['pass_msg'] = f"Hostname for '{device_serial}' is '{hostname}' "
+                    self.common_validation.passed(**kwargs)
                     return hostname
         else:
-            return -1
+            kwargs['fail_msg'] = f"'get_hostname()' failed. Device {device_serial} was not found"
+            self.common_validation.failed(**kwargs)
+
 
     def check_voss_image_version(self, output_image_version, os_version, operator='less'):
         """
@@ -11145,7 +11107,7 @@ class Devices:
             return -1
         if select_flag:
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
         self.utils.print_info("Trying to Change Management Status")
         sleep(2)
@@ -11379,7 +11341,7 @@ class Devices:
 
         if select_flag:
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
 
         self.utils.print_info("Select Change OS ")
@@ -11744,29 +11706,29 @@ class Devices:
         self.select_device(device_serial)
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         self.utils.print_info("Clicking on perform update")
-        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
         
-        # self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+        # self.auto_actions.click_reference(self.devices_web_elements.get_devices_update_yes_btn)
 
     def update_device_policy_config_reboot(self, device_serial):
         self.utils.print_info("Select Device row")
         self.select_device(device_serial)
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         self.utils.print_info("Selecting reboot option")
-        self.auto_actions.click(self.devices_web_elements.get_update_reboot_revert_checkbox())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_reboot_revert_checkbox)
 
         self.utils.print_info("Clicking on perform update")
-        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
         sleep(2)
-        # self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+        # self.auto_actions.click_reference(self.devices_web_elements.get_devices_update_yes_btn)
         sleep(2)
-        self.auto_actions.click(self.devices_web_elements.get_switch_update_reboot_and_revert_warning_dialog_yes_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_switch_update_reboot_and_revert_warning_dialog_yes_button)
 
     def get_device_events_list(self, device_model):
         self.utils.print_info("Getting events list")
@@ -11787,29 +11749,29 @@ class Devices:
         self.select_device(device_serial)
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         self.utils.print_info("Selecting image option")
-        self.auto_actions.click(self.devices_web_elements.get_update_image_checkbox())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_image_checkbox)
 
         self.utils.print_info("Clicking on perform update")
-        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
     def update_device_policy_image(self, device_serial):
         self.utils.print_info("Select Device row")
         self.select_device(device_serial)
 
         self.utils.print_info("Click on device update button")
-        self.auto_actions.click(self.devices_web_elements.get_update_device_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         self.utils.print_info("Selecting image option")
-        self.auto_actions.click(self.devices_web_elements.get_update_image_checkbox())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_image_checkbox)
 
         self.utils.print_info("Deselecting upgrade configuration option")
-        self.auto_actions.click(self.devices_web_elements.get_update_config_checkbox())
+        self.auto_actions.click_reference(self.devices_web_elements.get_update_config_checkbox)
 
         self.utils.print_info("Clicking on perform update")
-        self.auto_actions.click(self.devices_web_elements.get_perform_update_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
     def reboot_device_while_update(self, device_serial):
         """
@@ -11824,13 +11786,13 @@ class Devices:
 
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.device_actions.get_device_actions_button())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
 
             self.utils.print_info("Clicking on Reboot")
-            self.auto_actions.click(self.device_actions.get_device_actions_reboot_menu_item())
+            self.auto_actions.click_reference(self.device_actions.get_device_actions_reboot_menu_item)
 
             self.utils.print_info("Confirming...")
-            self.auto_actions.click(self.dialogue_web_elements.get_confirm_yes_button_reboot())
+            self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button_reboot)
 
             return 1
 
@@ -11939,7 +11901,7 @@ class Devices:
                     try_cnt1 = 0
                     while cli_access_none:
                         self.utils.print_info("Click Actions button ...")
-                        self.auto_actions.click(self.device_actions.get_device_actions_button())
+                        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
                         action_dropdown = self.device_actions.get_device_actions_dropdown()
                         if action_dropdown:
                             self.utils.print_info("Move to Advance button ...")
@@ -11951,14 +11913,14 @@ class Devices:
                                 self.utils.print_info(f"Move to CLI Access button {cli_access}...")
                                 self.auto_actions.move_to_element(cli_access)
                                 self.utils.print_info("Click CLI Access button ...")
-                                self.auto_actions.click(self.device_actions.get_device_actions_advance_cli_access())
+                                self.auto_actions.click_reference(self.device_actions.get_device_actions_advance_cli_access)
                                 if self.device_actions.get_device_actions_cli_windows():
                                     self.utils.print_info("Send command 'exec bypass-wan-hardening' CLI to input block ... ")
                                     self.auto_actions.send_keys(self.device_actions.get_device_actions_cli_windows_input(), "exec bypass-wan-hardening")
                                     self.utils.print_info("Click Apply button to send CLI to AP ...")
-                                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_input_apply())
+                                    self.auto_actions.click_reference(self.device_actions.get_device_actions_cli_windows_input_apply)
                                     self.utils.print_info("Close CLI windows ...")
-                                    self.auto_actions.click(self.device_actions.get_device_actions_cli_windows_close())
+                                    self.auto_actions.click_reference(self.device_actions.get_device_actions_cli_windows_close)
                                     return 1
                                 else:
                                     self.utils.print_info("There is no CLI window popup ...")
@@ -12073,13 +12035,13 @@ class Devices:
         """
         ret_val = -1
         self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
         self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud")
-        self.auto_actions.click(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item())
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
         sleep(3)
 
         if self.devices_web_elements.get_digital_twin_container_feature():
@@ -12096,7 +12058,7 @@ class Devices:
             self.screen.save_screen_shot()
 
         self.utils.print_info("Click the Quick Add Devices > Cancel button")
-        self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
         return ret_val
 
     def get_device_status_icon(self, device_serial=None):
@@ -12157,7 +12119,7 @@ class Devices:
 
         if "show-quick-add" in attribute:
             self.utils.print_info("Click the Quick Add Devices > Cancel button")
-            self.auto_actions.click(self.devices_web_elements.get_devices_add_devices_cancel_button())
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
             return 1
         else:
             self.utils.print_info("The Quick Add Devices panel is not visible.")
@@ -12483,3 +12445,47 @@ class Devices:
         else:
             self.utils.print_info("Could not select device with serial ", device_mac)
             return -1
+
+    def check_update_column_by_failure_message(self, device_serial, failure_message, **kwargs):
+        """
+        This function is used to check the UPDATED column from device grid from a device with device_serial given as
+        parameter. Check if the update process failed with the same message as failure_message given as parameter
+        :param device_serial: device serial number to check the config push status
+        :param failure_message: failure message that is expected to appear after Device Update Failed
+        :return: 1 - if the update process failed with the same message as failure_message ; -1 - if not
+        """
+        current_status = self.get_device_updated_status(device_serial=device_serial)
+        count = 0
+        max_wait = 900
+        current_date = datetime.now()
+        update_text = str(current_date).split()[0]
+
+        while "Device Update Failed" != current_status:
+            
+            sleep(10)
+            count += 10
+            self.utils.print_info(f"\nINFO \t Time elapsed in the Update process is '{count} seconds'\n")
+            
+            current_status = self.get_device_updated_status(device_serial=device_serial)
+
+            if update_text in current_status:
+                kwargs["fail_msg"] = "Update process ended up successfully which is not expected"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
+            if count > max_wait:
+                kwargs["fail_msg"] = f"Max time {max_wait} seconds exceeded which is not expected"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+        current_message = \
+            self.get_device_updated_fail_message_after_reboot(device_serial=device_serial)
+
+        if failure_message != current_message:
+            kwargs["fail_msg"] = f"Update process ended up with another failure message: {current_message}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = f"Successfully found the expected failure message: {failure_message}"
+        self.common_validation.passed(**kwargs)
+        return 1

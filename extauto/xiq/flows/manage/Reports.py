@@ -36,7 +36,7 @@ class Reports(ReportsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on report send button")
-        self.auto_actions.click(self.get_generate_report_button())
+        self.auto_actions.click_reference(self.get_generate_report_button)
         sleep(3)
 
         self.screen.save_screen_shot()

@@ -1566,6 +1566,12 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_voice_vlan_input)
         elif element == "data_vlan_input":
             return self.weh.get_element(self.select_element_data_vlan_input)
+        elif element == "summary_tab_confirmation":
+            return self.weh.get_element(self.summary_tab_confirmation)
+        elif element == "vlan_tab_confirmation":
+            return self.weh.get_element(self.vlan_tab_confirmation)
+        elif element == "transmission_tab_confirmation":
+            return self.weh.get_element(self.transmission_tab_confirmation)
         return None
 
     def get_select_element_port_type_summary(self, element):
@@ -1649,12 +1655,6 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_voice_vlan_summary)
         elif element == "data_vlan_summary":
             return self.weh.get_element(self.select_data_vlan_summary)
-        elif element == "summary_tab_confirmation":
-            return self.weh.get_element(self.summary_tab_confirmation)
-        elif element == "vlan_tab_confirmation":
-            return self.weh.get_element(self.vlan_tab_confirmation)
-        elif element == "transmission_tab_confirmation":
-            return self.weh.get_element(self.transmission_tab_confirmation)
         return None
 
     def get_device_d360_save_port_configuration(self):
@@ -1713,6 +1713,78 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_thunderbold_icon_stack(self,row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
+
+    def get_device360_monitor_diagnostics_stack_drop_down(self):
+        elements = self.weh.get_elements(self.device360_monitor_diagnostics_stack_drop_down)
+        if not elements:
+            return -1
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_device360_monitor_diagnostics_health_item_ip_address_stack_active_unit(self, ip_address):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_ip_address_stack_active_unit, ip_address=ip_address)
+
+    def get_device360_monitor_diagnostics_health_item_mac_address_stack_active_unit(self, mac_address):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_mac_address_stack_active_unit, mac_address=mac_address)
+
+    def get_device360_monitor_diagnostics_health_item_soft_version_stack_active_unit(self, soft_version):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_soft_version_stack_active_unit, soft_version=soft_version)
+
+    def get_device360_monitor_diagnostics_health_item_model_stack_active_unit(self, model):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_model_stack_active_unit, model=model)
+
+    def get_device360_monitor_diagnostics_health_item_serial_number_stack_active_unit(self, serial_number):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_serial_number_stack_active_unit, serial_number=serial_number)
+
+    def get_device360_monitor_diagnostics_health_item_make_stack_active_unit(self, make):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_make_stack_active_unit, make=make)
+
+    def get_device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit(self, iqagent_version):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit, iqagent_version=iqagent_version)
+
+    def get_device360_monitor_diagnostics_stack_drop_down_unit(self):
+        return self.weh.get_element(self.device360_monitor_diagnostics_stack_drop_down_unit)
+
+    def get_device360_monitor_diagnostics_stack_drop_down_unit_options(self, unit, unit_role):
+        return self.weh.get_template_element(self.device360_monitor_diagnostics_stack_drop_down_unit_options, unit=unit, unit_role=unit_role)
+
+    def get_topbar_cpu_diagnostics(self):
+        return self.weh.get_elements(self.device360_topbar_cpu)
+
+    def get_topbar_memory_diagnostics(self):
+        return self.weh.get_elements(self.device360_topbar_memory)
+
+
+    def get_topbar_mac_usage_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_mac_usage)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_topbar_uptime_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_uptime)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_topbar_temperature_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_temperature)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_topbar_power_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_power)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_topbar_fan_diagnostics(self):
+        elements = self.weh.get_elements(self.device360_topbar_fan)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_device360_cpu_utilized_button(self):
         return self.weh.get_element(self.device360_cpu_utilized_button)
@@ -1979,7 +2051,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_close_port_type_dialog_box(self):
         return self.weh.get_element(self.close_port_type_dialog_box)
-
 
     def get_device360_configure_port_access_vlan_textfield_VOSS(self, row):
         return self.weh.get_element(self.device360_configure_port_access_vlan_textfield_VOSS, row)

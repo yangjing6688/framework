@@ -151,7 +151,7 @@ class Network360Plan:
             if retries < 5:
                 retries += 1
                 self.utils.print_info("Click Close Button")
-                self.auto_actions.click(self.n360_elements.get_tooltip_close_button())
+                self.auto_actions.click_reference(self.n360_elements.get_tooltip_close_button)
                 self.utils.print_info(f"Exception Caught: {e}, tring again ({retries})")
                 return self.get_aps_from_network360plan_floor(floor_name, device_type, retries, **kwargs)
             else:
@@ -178,12 +178,12 @@ class Network360Plan:
 
         if self.n360_elements.get_import_map_button():
             self.utils.print_info("Click Import Map Button")
-            self.auto_actions.click(self.n360_elements.get_import_map_button())
+            self.auto_actions.click_reference(self.n360_elements.get_import_map_button)
             self.screen.save_screen_shot()
             sleep(2)
         else:
             self.utils.print_info("Click Import Map Button")
-            self.auto_actions.click(self.n360_elements.get_import_map_button_from_loaded_account())
+            self.auto_actions.click_reference(self.n360_elements.get_import_map_button_from_loaded_account)
             self.screen.save_screen_shot()
             sleep(2)
 
@@ -194,7 +194,7 @@ class Network360Plan:
         self.auto_actions.send_keys(upload_button, map_file_location)
 
         self.utils.print_info("Click Import Button")
-        self.auto_actions.click(self.n360_elements.get_import_button())
+        self.auto_actions.click_reference(self.n360_elements.get_import_button)
         sleep(10)
 
         if self.n360_elements.get_import_map_successful_text():
@@ -212,7 +212,7 @@ class Network360Plan:
                     self.utils.print_info("Map with Same Name Already Imported, So No need to Import Again")
 
                     self.utils.print_info("Click Close Button")
-                    self.auto_actions.click(self.n360_elements.get_tooltip_close_button())
+                    self.auto_actions.click_reference(self.n360_elements.get_tooltip_close_button)
                     sleep(2)
                     return 1
         return -1

@@ -298,7 +298,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.auto_actions.enable_check_box(self.lic_mgt_web_elements.get_upgrade_iagree_chkbox())
                 sleep(3)
                 self.utils.print_info("Click on Continue button to upgrade...")
-                self.auto_actions.click(self.lic_mgt_web_elements.get_upgrade_continue_btn())
+                self.auto_actions.click_reference(self.lic_mgt_web_elements.get_upgrade_continue_btn)
                 sleep(10)
                 self.utils.print_info("Redirected to SFDC for oauth...")
             except Exception as e:
