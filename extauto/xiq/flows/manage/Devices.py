@@ -12461,18 +12461,18 @@ class Devices:
         update_text = str(current_date).split()[0]
 
         while "Device Update Failed" != current_status:
-            
+
             sleep(10)
             count += 10
             self.utils.print_info(f"\nINFO \t Time elapsed in the Update process is '{count} seconds'\n")
-            
+
             current_status = self.get_device_updated_status(device_serial=device_serial)
 
             if update_text in current_status:
                 kwargs["fail_msg"] = "Update process ended up successfully which is not expected"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
             if count > max_wait:
                 kwargs["fail_msg"] = f"Max time {max_wait} seconds exceeded which is not expected"
                 self.common_validation.failed(**kwargs)
@@ -12487,5 +12487,51 @@ class Devices:
             return -1
 
         kwargs["pass_msg"] = f"Successfully found the expected failure message: {failure_message}"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+
+    def update_and_wait_device(self, policy_name, dut, wait=True, **kwargs):
+        """Method that updates the switch and then wait for the update to finish.
+
+        Args:
+            policy_name (str): the name of the policy
+            dut (dict): the dut (e.g. tb.dut1)
+            wait (bool): if True then the function waits for the update to end
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        self.utils.wait_till(timeout=10)
+        self._goto_devices()
+        self.utils.wait_till(timeout=10)
+
+        self.utils.print_info(f"Select switch row with serial {dut.mac}")
+
+        if self.select_device(dut.mac) != 1:
+            kwargs["fail_msg"] = f"Switch {dut.mac} is not present in the grid"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info(f"Successfully selected {dut.mac} in the grid")
+        self.utils.wait_till(timeout=2)
+
+        if self._update_switch(update_method="PolicyAndConfig") != 1:
+            kwargs["fail_msg"] = f"Failed to push the update to switch {dut.mac}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info(f"Successfully pushed the update to switch {dut.mac}")
+
+        if wait:
+
+            self.utils.print_info("Wait for the update to end")
+
+            if self._check_update_network_policy_status(policy_name, dut.mac) != 1:
+                kwargs["fail_msg"] = f"The update for switch {dut.mac} is not successful"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+        kwargs["pass_msg"] = f"Successfully updated the switch {dut.mac}"
         self.common_validation.passed(**kwargs)
         return 1
