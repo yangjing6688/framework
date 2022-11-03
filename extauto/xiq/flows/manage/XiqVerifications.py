@@ -194,7 +194,7 @@ class XiqVerifications:
                 self.device_config.verify_delta_cli_commands(
                     onboarded_switch, commands=commands)
 
-            self.devices.update_and_wait_switch(
+            self.devices.update_and_wait_device(
                 policy_name=network_policy, dut=onboarded_switch)
 
             for port, port_type_config in port_config.items():
@@ -252,7 +252,7 @@ class XiqVerifications:
                         "Saved the port type configuration, "
                         "now push the changes to the dut")
 
-                    self.devices.update_and_wait_switch(
+                    self.devices.update_and_wait_device(
                         policy_name=network_policy,
                         dut=onboarded_switch
                     )

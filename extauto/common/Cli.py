@@ -1427,6 +1427,11 @@ class Cli(object):
             return output2
 
     def close_connection_with_error_handling(self, dut):
+        """Method that makes sure the connection to a dut is closed.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+        """
         try:
             self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
         except Exception:

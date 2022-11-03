@@ -10678,8 +10678,7 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got the next button"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info("Successfully got the next button")
             
             if get_next_button.is_enabled():
                 res, _ = self.utils.wait_till(
@@ -10694,11 +10693,12 @@ class Device360(Device360WebElements):
                     self.common_validation.failed(**kwargs)
                     return -1
                 
-                kwargs["pass_msg"] = "Successfully clicked the next button"
-                self.common_validation.passed(**kwargs)
-                
+                self.utils.print_info("Successfully clicked the next page button")
             else:
                 break
+                
+        kwargs["pass_msg"] = "Successfully went to the last page"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def go_to_next_editor_tab(self, **kwargs):
@@ -10718,8 +10718,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully got the next button"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info("Successfully got the next button")
             
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(get_next_button),
@@ -10760,8 +10759,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully found port name element"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info("Successfully found port name element")
         
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.send_keys(name_element, port_type_name),
@@ -10774,9 +10772,8 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully sent keys to port name element"
-        self.common_validation.passed(**kwargs)
-        
+        self.utils.print_info("Successfully sent keys to port name element")
+
         description_element, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("description"),
             exp_func_resp=True,
@@ -10788,8 +10785,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully found port description element"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info("Successfully found port description element")
 
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.send_keys(description_element, description),
@@ -10803,8 +10799,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully sent keys to port description element"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info("Successfully sent keys to port description element")
 
         status_element, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("status"),
@@ -10818,8 +10813,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully found port status element"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info("Successfully found port status element")
 
         if (not status_element.is_selected() and status) or (
             status_element.is_selected() and not status):
@@ -10834,8 +10828,7 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully clicked the status button"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info("Successfully clicked the status button")
 
         auto_sense, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("auto-sense"),
@@ -10857,8 +10850,7 @@ class Device360(Device360WebElements):
                     self.common_validation.failed(**kwargs)
                     return -1
                 
-                kwargs["pass_msg"] = "Successfully clicked the auto sense button"
-                self.common_validation.passed(**kwargs)
+                self.utils.print_info("Successfully clicked the auto sense button")
             
         port_element, _ = self.utils.wait_till(
             func=lambda: self.get_select_element_port_type("port usage", f"{port_type} port"),
@@ -10872,8 +10864,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully got the port type element"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info("Successfully got the port type element")
         
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(port_element),
@@ -10918,8 +10909,7 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got the rows"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info("Successfully got the rows")
             
             for row in rows:
                 if re.search(f'{port}\n', row.text):
@@ -10935,8 +10925,7 @@ class Device360(Device360WebElements):
                         self.common_validation.failed(**kwargs)
                         return -1
                     
-                    kwargs["pass_msg"] = "Successfully got the d360_create_port_type button"
-                    self.common_validation.passed(**kwargs)
+                    self.utils.print_info("Successfully got the d360_create_port_type button")
                     
                     res, _ = self.utils.wait_till(
                         func=lambda: self.auto_actions.click(d360_create_port_type),
@@ -10950,9 +10939,7 @@ class Device360(Device360WebElements):
                         self.common_validation.failed(**kwargs)
                         return -1
                     
-                    kwargs["pass_msg"] = "Successfully clicked the d360_create_port_type button"
-                    self.common_validation.passed(**kwargs)
-                    
+                    self.utils.print_info("Successfully clicked the d360_create_port_type button")      
                     self.utils.wait_till(timeout=10)
                     break
         else:
@@ -10969,8 +10956,7 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got the port_conf_content element"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info("Successfully got the port_conf_content element")
         
             port_row, _ = self.utils.wait_till(
                 func=lambda: self.device360_get_port_row(port), 
@@ -11003,8 +10989,7 @@ class Device360(Device360WebElements):
                     self.common_validation.failed(**kwargs)
                     return -1
                 
-                kwargs["pass_msg"] = "Successfully got the d360_create_port_type button"
-                self.common_validation.passed(**kwargs)
+                self.utils.print_info("Successfully got the d360_create_port_type button")
                 
                 res, _ = self.utils.wait_till(
                     func=lambda: self.auto_actions.click(d360_create_port_type),
@@ -11018,8 +11003,7 @@ class Device360(Device360WebElements):
                     return -1
                 
                 kwargs["pass_msg"] = "Successfully clicked the d360_create_port_type button"
-                self.common_validation.passed(**kwargs)
-                    
+                self.common_validation.passed(**kwargs)       
                 self.utils.wait_till(timeout=10)
         return 1
 
@@ -11041,8 +11025,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully got the save button"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info("Successfully got the save button")
 
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(save_button),
@@ -11080,9 +11063,8 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully got the close button"
-        self.common_validation.passed(**kwargs)
-        
+        self.utils.print_info("Successfully got the close button")
+
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(close_button),
             exp_func_resp=True, 
@@ -11119,8 +11101,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully got the stp tab button"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info("Successfully got the stp tab button")
         
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click(stp_tab_button),
@@ -11244,9 +11225,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = f'Successfully found STP Enabled as "{stp_enabled}"'
-            self.common_validation.passed(**kwargs)
-        
+            self.utils.print_info(f'Successfully found STP Enabled as "{stp_enabled}"')
+
         if edge_port is not None:
             
             edge_port = "Enabled" if edge_port is True else "Disabled"
@@ -11256,9 +11236,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = f"Successfully found Edge Port as {edge_port}"
-            self.common_validation.passed(**kwargs)
-        
+            self.utils.print_info(f"Successfully found Edge Port as {edge_port}")
+
         if bpdu_protection is not None:
             
             if bpdu_protection != stp_settings_summary["BPDU Protection"]:
@@ -11266,8 +11245,8 @@ class Device360(Device360WebElements):
                                     f'but found "{stp_settings_summary["BPDU Protection"]}"'
                 self.common_validation.failed(**kwargs)
                 return -1
-            kwargs["pass_msg"] = f"Successfully found BPDU Protection as {bpdu_protection}"
-            self.common_validation.passed(**kwargs)
+            
+            self.utils.print_info(f"Successfully found BPDU Protection as {bpdu_protection}")
         
         if priority is not None:
             
@@ -11276,8 +11255,7 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = f"Successfully found Priority as {priority}"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info(f"Successfully found Priority as {priority}")
 
         if path_cost is not None:
             
@@ -11286,8 +11264,10 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = f"Successfully found path cost as {path_cost}"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info(f"Successfully found path cost as {path_cost}")
+        
+        kwargs["pass_msg"] = "Successfully verified the given stp settings"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def go_to_stp_settings_tab_in_honeycomb(self, **kwargs):
@@ -11312,9 +11292,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got the stp page element"
-            self.common_validation.passed(**kwargs)
-               
+            self.utils.print_info("Successfully got the stp page element")
+          
             if "active" in stp_page.get_attribute("class"):
                 break
             
@@ -11330,8 +11309,7 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got the next button"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info("Successfully got the next button")
 
             if get_next_button.is_enabled():
                 
@@ -11347,14 +11325,14 @@ class Device360(Device360WebElements):
                     self.common_validation.failed(**kwargs)
                     return -1
                 
-                kwargs["pass_msg"] = "Successfully clicked the next button"
-                self.common_validation.passed(**kwargs)
-                
+                self.utils.print_info("Successfully clicked the next button")
                 self.utils.wait_till(timeout=2)
             
             else:
                 break
-        
+
+        kwargs["pass_msg"] = "Successfully went to the stp settings tab in the hoenycomb port type editor"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def get_one_port_from_each_asic_flow(self, dut, order, slot=None):
@@ -11403,9 +11381,8 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
          
-        kwargs["pass_msg"] = "Successfully got the stp page element"
-        self.common_validation.passed(**kwargs) 
-        
+        self.utils.print_info("Successfully got the stp page element")
+
         if "active" not in stp_page.get_attribute("class"):
             kwargs["fail_msg"] = "Currently not in the STP tab"
             self.common_validation.failed(**kwargs)
@@ -11413,7 +11390,7 @@ class Device360(Device360WebElements):
         
         kwargs["pass_msg"] = "Currently in the STP tab"
         self.common_validation.passed(**kwargs)    
-        
+
         return 1   
 
     def set_path_cost_in_honeycomb(self, path_cost, **kwargs):
@@ -11437,8 +11414,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = "Successfully got the path cost element"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info("Successfully got the path cost element")
 
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.send_keys(path_cost_element, str(path_cost)),
@@ -11476,9 +11452,8 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-        kwargs["pass_msg"] = "Successfully got the path cost element"
-        self.common_validation.passed(**kwargs)
-        
+        self.utils.print_info("Successfully got the path cost element")
+
         if path_cost_element.is_enabled() is True:
             kwargs["pass_msg"] = "Successfully verified that the path cost field is editable"
             self.common_validation.passed(**kwargs)
@@ -11514,10 +11489,9 @@ class Device360(Device360WebElements):
                 kwargs["fail_msg"] = "Failed to get the stp_enabled"
                 self.common_validation.failed(**kwargs)
                 return -1
-            else:
-                kwargs["pass_msg"] = "Successfully got the stp_enabled"
-                self.common_validation.passed(**kwargs)
-                
+
+            self.utils.print_info("Successfully got the stp_enabled")
+            
             if (not stp_enabled_element.is_selected() and stp_enabled) or (
                 stp_enabled_element.is_selected() and not stp_enabled):
                 
@@ -11532,9 +11506,8 @@ class Device360(Device360WebElements):
                     kwargs["fail_msg"] = "Failed to click the stp_enabled button"
                     self.common_validation.failed(**kwargs)
                     return -1
-                else:
-                    kwargs["pass_msg"] = "Successfully clicked the stp_enabled button"
-                    self.common_validation.passed(**kwargs)
+
+                self.utils.print_info("Successfully clicked the stp_enabled button")
 
         if edge_port is not None:
             edge_port_element, _ = self.utils.wait_till(
@@ -11549,9 +11522,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got the edge_port_element button"
-            self.common_validation.passed(**kwargs)
-            
+            self.utils.print_info("Successfully got the edge_port_element button")
+           
             if (not edge_port_element.is_selected() and edge_port) or (
                 edge_port_element.is_selected() and not edge_port):
                 
@@ -11566,9 +11538,8 @@ class Device360(Device360WebElements):
                     kwargs["fail_msg"] = "Failed to click the edge_port_element button"
                     self.common_validation.failed(**kwargs)
                     return -1
-                else:
-                    kwargs["pass_msg"] = "Successfully clicked the edge_port_element button"
-                    self.common_validation.passed(**kwargs)
+
+                self.utils.print_info("Successfully clicked the edge_port_element button")
 
         if bpdu_protection is not None:
             bpdu_protection_element, _ = self.utils.wait_till(
@@ -11582,10 +11553,9 @@ class Device360(Device360WebElements):
                 kwargs["fail_msg"] = "Failed to get the bpdu_protection_element button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            else:
-                kwargs["pass_msg"] = "Successfully got the bpdu_protection_element button"
-                self.common_validation.passed(**kwargs)
-            
+
+            self.utils.print_info("Successfully got the bpdu_protection_element button")
+       
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(bpdu_protection_element),
                 exp_func_resp=True,
@@ -11598,9 +11568,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully clicked the bpdu_protection_element button"
-            self.common_validation.passed(**kwargs)
-            
+            self.utils.print_info("Successfully clicked the bpdu_protection_element button")
+       
             get_bpdu_protection_items, _ = self.utils.wait_till(
                 func=lambda: self.get_select_element_port_type("bpdu_protection_items"),
                 exp_func_resp=True,
@@ -11613,9 +11582,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got get_bpdu_protection_items"
-            self.common_validation.passed(**kwargs)
-        
+            self.utils.print_info("Successfully got get_bpdu_protection_items")
+ 
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.select_drop_down_options(
                 get_bpdu_protection_items, bpdu_protection),
@@ -11628,9 +11596,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully selected from dropdown"
-            self.common_validation.passed(**kwargs)
-            
+            self.utils.print_info("Successfully selected from dropdown")
+      
         if path_cost is not None:
             
             path_cost_element, _ = self.utils.wait_till(
@@ -11645,9 +11612,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got the path_cost_element"
-            self.common_validation.passed(**kwargs)
-            
+            self.utils.print_info("Successfully got the path_cost_element")
+       
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.send_keys(path_cost_element, str(path_cost)), 
                 exp_func_resp=True, 
@@ -11660,9 +11626,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully sent keys to the path_cost_element"
-            self.common_validation.passed(**kwargs)
-            
+            self.utils.print_info("Successfully sent keys to the path_cost_element")
+           
         if priority:
             priority_element, _ = self.utils.wait_till(
                 func=lambda: self.get_select_element_port_type("priority"),
@@ -11676,9 +11641,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got the priority_element"
-            self.common_validation.passed(**kwargs)
-            
+            self.utils.print_info("Successfully got the priority_element")
+         
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(priority_element), 
                 exp_func_resp=True, 
@@ -11691,8 +11655,7 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully clicked the priority_element"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info("Successfully clicked the priority_element")
             
             get_priority_items, _ = self.utils.wait_till(
                 func=lambda: self.get_select_element_port_type("priority_items"),
@@ -11706,9 +11669,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully got the priority_items"
-            self.common_validation.passed(**kwargs)
-            
+            self.utils.print_info("Successfully got the priority_items")
+
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.select_drop_down_options(get_priority_items, str(priority)),
                 exp_func_resp=True,
@@ -11720,7 +11682,8 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            kwargs["pass_msg"] = "Successfully selected from dropdown"
-            self.common_validation.passed(**kwargs)
-        
+            self.utils.print_info("Successfully selected from dropdown")
+
+        kwargs["pass_msg"] = "Successfully configured the stp settings"
+        self.common_validation.passed(**kwargs)
         return 1

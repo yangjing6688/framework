@@ -12446,12 +12446,13 @@ class Devices:
             self.utils.print_info("Could not select device with serial ", device_mac)
             return -1
 
-    def update_and_wait_switch(self, policy_name, dut, **kwargs):
+    def update_and_wait_device(self, policy_name, dut, wait=True, **kwargs):
         """Method that updates the switch and then wait for the update to finish.
 
         Args:
             policy_name (str): the name of the policy
             dut (dict): the dut (e.g. tb.dut1)
+            wait (bool): if True then the function waits for the update to end
 
         Returns:
             int: 1 if the function call has succeeded else -1
@@ -12467,9 +12468,7 @@ class Devices:
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = f"Successfully found {dut.mac} in the grid"
-        self.common_validation.passed(**kwargs)
-        
+        self.utils.print_info(f"Successfully selected {dut.mac} in the grid")       
         self.utils.wait_till(timeout=2)
         
         if self._update_switch(update_method="PolicyAndConfig") != 1:
@@ -12477,14 +12476,17 @@ class Devices:
             self.common_validation.failed(**kwargs)
             return -1
         
-        kwargs["pass_msg"] = f"Successfully pushed the update to switch {dut.mac}"
-        self.common_validation.passed(**kwargs)
+        self.utils.print_info(f"Successfully pushed the update to switch {dut.mac}")
         
-        if self._check_update_network_policy_status(policy_name, dut.mac) != 1:
-            kwargs["fail_msg"] = f"The update for switch {dut.mac} is not successful"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+        if wait:
+            
+            self.utils.print_info("Wait for the update to end")
+            
+            if self._check_update_network_policy_status(policy_name, dut.mac) != 1:
+                kwargs["fail_msg"] = f"The update for switch {dut.mac} is not successful"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
         kwargs["pass_msg"] = f"Successfully updated the switch {dut.mac}"
         self.common_validation.passed(**kwargs)
         return 1
