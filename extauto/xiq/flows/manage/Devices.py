@@ -1273,27 +1273,25 @@ class Devices:
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(30)
 
-            tool_tip = self.devices_web_elements.get_device_update_error_message()
-            if tool_tip:
-                tool_tp_text = tool_tip.text
-                self.utils.print_info(tool_tp_text)
-                update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
-                update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
-                                      "you must select a Complete Configuration Update."
-                update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
-                if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
-                    self.utils.print_info('Convert to Complete. Delta not supported')
-                    update_method = "Complete"
+            tool_tp_text = tool_tip.tool_tip_text
+            self.utils.print_info(tool_tp_text)
+            update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
+            update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
+                                  "you must select a Complete Configuration Update."
+            update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
+            if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
+                self.utils.print_info('Convert to Complete. Delta not supported')
+                update_method = "Complete"
 
-                if update_tooltip_msg3 in tool_tp_text:
-                    self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
-                    self.screen.save_screen_shot()
-                    self.utils.print_info("click on Device Update Cancel Button")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                    self.screen.save_screen_shot()
-                    kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                    self.common_validation.failed(**kwargs)
-                    return -1
+            if update_tooltip_msg3 in tool_tp_text:
+                self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
+                self.screen.save_screen_shot()
+                self.utils.print_info("click on Device Update Cancel Button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+                self.common_validation.failed(**kwargs)
+                return -1
 
         if update_method == "Complete":
             self.utils.print_info("click on complete config radio button")
@@ -1303,21 +1301,19 @@ class Devices:
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(2)
 
-            tool_tip = self.devices_web_elements.get_device_update_error_message()
-            if tool_tip:
-                tool_tp_text = tool_tip.text
-                self.utils.print_info(tool_tp_text)
-                update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+            tool_tp_text = tool_tip.tool_tip_text
+            self.utils.print_info(tool_tp_text)
+            update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
 
-                if update_tooltip_msg in tool_tp_text:
-                    self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
-                    self.screen.save_screen_shot()
-                    self.utils.print_info("click on Device Update Cancel Button")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                    self.screen.save_screen_shot()
-                    kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                    self.common_validation.failed(**kwargs)
-                    return -1
+            if update_tooltip_msg in tool_tp_text:
+                self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
+                self.screen.save_screen_shot()
+                self.utils.print_info("click on Device Update Cancel Button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+                self.common_validation.failed(**kwargs)
+                return -1
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -1337,10 +1333,15 @@ class Devices:
         """
         retry_count = 0
         update_time = 0
+
+        self.utils.print_info(f"Enable the Updated On column")
+        self.column_picker_select("Updated On")
+
         max_config_push_wait = self.robot_built_in.get_variable_value("${MAX_CONFIG_PUSH_TIME}")
         while True:
             self.utils.print_info(f"Time elapsed for device update: {update_time} seconds")
             device_update_status = self.get_device_updated_status(device_serial)
+            self.utils.print_info(f"Status returned: {device_serial}")
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif 'Rebooting' in device_update_status:
@@ -1366,7 +1367,7 @@ class Devices:
                     return -1
                 continue
             elif retry_count >= int(max_config_push_wait):
-                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
+                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait} seconds")
                 return -1
             sleep(30)
             update_time += 30
@@ -3958,7 +3959,10 @@ class Devices:
         """
         device_row = -1
 
-        # self.refresh_devices_page()
+        self.utils.print_info(f"Enable the Updated On column")
+        self.column_picker_select("Updated On")
+
+        self.utils.print_info(f"Refresh the devices page")
         self.utils.wait_till(self.refresh_devices_page)
         self.utils.print_info('Getting device Updated Status using')
         if device_serial:
@@ -3976,7 +3980,6 @@ class Devices:
         device_row = copy.copy(device_row)
 
         if device_row:
-            self.utils.print_info(f"Device row debugging: {self.devices_web_elements.get_updated_status_cell(device_row)}")
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             self.utils.print_info("Device Updated Status is :", device_updated_status)
             if "Querying" in device_updated_status:
@@ -5069,17 +5072,21 @@ class Devices:
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
 
         if update_method == "Delta":
+            self.utils.print_info("Using Delta method...")
             self.auto_actions.click_reference(self.devices_web_elements.get_delta_config_update_button)
             sleep(2)
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
+            sleep(5)
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
             for value in tool_tp_text:
                 if "a device mode change is not supported with a delta configuration update" in value.lower():
                     self.utils.print_info(value)
                     update_method = "Complete"
+                    self.utils.print_info("There was an issue with Delta method...")
 
         if update_method == "Complete":
+            self.utils.print_info("Using Complete method...")
             self.auto_actions.click_reference(self.devices_web_elements.get_full_config_update_button)
             sleep(2)
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
@@ -10358,6 +10365,10 @@ class Devices:
         # Get the Updated cell data timestamp to validate the update process
         self.utils.print_info("Navigate to Manage --> Devices")
         self.navigator.navigate_to_devices()
+
+        self.utils.print_info(f"Enable the Updated On column")
+        self.column_picker_select("Updated On")
+
         self.refresh_devices_page()
         self.close_last_refreshed_tooltip()
 
@@ -11376,6 +11387,10 @@ class Devices:
         """
         device_row = -1
 
+        # Select the correct column
+        self.utils.print_info(f"Enable the Updated On column")
+        self.column_picker_select("Updated On")
+
         self.utils.print_info('Getting device Updated Status using')
         if device_serial != 'default':
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
@@ -11430,16 +11445,16 @@ class Devices:
                 device_row = self.get_device_row(device_serial)
             else:
                 return -1
-            device_update_status = self.devices_web_elements.get_updated_status_cell(device_row)
+            device_update_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             if device_update_status:
-                if 'Rebooting' in device_update_status.text:
-                    self.utils.print_info("Rebooting status was found  ", device_update_status.text)
+                if 'Rebooting' in device_update_status:
+                    self.utils.print_info("Rebooting status was found  ", device_update_status)
                     return 1
-                elif 'Failed' in device_update_status.text:
-                    self.utils.print_info("Device Update Failed: ", device_update_status.text)
+                elif 'Failed' in device_update_status:
+                    self.utils.print_info("Device Update Failed: ", device_update_status)
                     return -1
                 else:
-                    self.utils.print_info("Waiting for Rebooting status; Now the status is :  ", device_update_status.text)
+                    self.utils.print_info("Waiting for Rebooting status; Now the status is :  ", device_update_status)
             else:
                 pass
             sleep(time_interval)
@@ -12445,3 +12460,93 @@ class Devices:
         else:
             self.utils.print_info("Could not select device with serial ", device_mac)
             return -1
+
+    def check_update_column_by_failure_message(self, device_serial, failure_message, **kwargs):
+        """
+        This function is used to check the UPDATED column from device grid from a device with device_serial given as
+        parameter. Check if the update process failed with the same message as failure_message given as parameter
+        :param device_serial: device serial number to check the config push status
+        :param failure_message: failure message that is expected to appear after Device Update Failed
+        :return: 1 - if the update process failed with the same message as failure_message ; -1 - if not
+        """
+        current_status = self.get_device_updated_status(device_serial=device_serial)
+        count = 0
+        max_wait = 900
+        current_date = datetime.now()
+        update_text = str(current_date).split()[0]
+
+        while "Device Update Failed" != current_status:
+
+            sleep(10)
+            count += 10
+            self.utils.print_info(f"\nINFO \t Time elapsed in the Update process is '{count} seconds'\n")
+
+            current_status = self.get_device_updated_status(device_serial=device_serial)
+
+            if update_text in current_status:
+                kwargs["fail_msg"] = "Update process ended up successfully which is not expected"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            if count > max_wait:
+                kwargs["fail_msg"] = f"Max time {max_wait} seconds exceeded which is not expected"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+        current_message = \
+            self.get_device_updated_fail_message_after_reboot(device_serial=device_serial)
+
+        if failure_message != current_message:
+            kwargs["fail_msg"] = f"Update process ended up with another failure message: {current_message}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = f"Successfully found the expected failure message: {failure_message}"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+
+    def update_and_wait_device(self, policy_name, dut, wait=True, **kwargs):
+        """Method that updates the switch and then wait for the update to finish.
+
+        Args:
+            policy_name (str): the name of the policy
+            dut (dict): the dut (e.g. tb.dut1)
+            wait (bool): if True then the function waits for the update to end
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        self.utils.wait_till(timeout=10)
+        self._goto_devices()
+        self.utils.wait_till(timeout=10)
+
+        self.utils.print_info(f"Select switch row with serial {dut.mac}")
+
+        if self.select_device(dut.mac) != 1:
+            kwargs["fail_msg"] = f"Switch {dut.mac} is not present in the grid"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info(f"Successfully selected {dut.mac} in the grid")
+        self.utils.wait_till(timeout=2)
+
+        if self._update_switch(update_method="PolicyAndConfig") != 1:
+            kwargs["fail_msg"] = f"Failed to push the update to switch {dut.mac}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info(f"Successfully pushed the update to switch {dut.mac}")
+
+        if wait:
+
+            self.utils.print_info("Wait for the update to end")
+
+            if self._check_update_network_policy_status(policy_name, dut.mac) != 1:
+                kwargs["fail_msg"] = f"The update for switch {dut.mac} is not successful"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+        kwargs["pass_msg"] = f"Successfully updated the switch {dut.mac}"
+        self.common_validation.passed(**kwargs)
+        return 1
