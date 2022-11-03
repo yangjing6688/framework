@@ -113,21 +113,20 @@ class Onboarding(object):
         self.utils.print_info("Selecting the Group")
         self.auto_actions.select_drop_down_options(
             self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_group_select_dropdown_items(), group_name)
-
+        sleep(2)
         if ('User' in action_type) or ('Approval' in action_type):
             self.utils.print_info("Clicking User Notification Drop Down Button")
+
             self.auto_actions.click_reference(
                 self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown)
-
             self.utils.print_info("Selecting the User Notification")
             self.auto_actions.select_drop_down_options(
                 self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_usernotifpolicy_select_dropdown_items(), user_notifpolicy)
-
+        sleep(2)
         if 'Sponsor' in action_type:
             self.utils.print_info("Clicking Sponsor Notification Drop Down Button")
             self.auto_actions.click_reference(
                 self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown)
-
             self.utils.print_info("Selecting the Sponsor Notification")
             self.auto_actions.select_drop_down_options(
                 self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_spnotifpolicy_select_dropdown_items(), sponsor_notifpolicy)
@@ -322,9 +321,9 @@ class Onboarding(object):
         sleep(2)
         AutoActions.scroll_down(self)
         AutoActions.scroll_down(self)
+        sleep(2)
         self.utils.print_info("Clicking Criteria Condition Drop Down Button")
         self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_existing)
-
         self.utils.print_info("Selecting the Criteria condition")
         self.auto_actions.select_drop_down_options(
             self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_items(), condition_type)
@@ -333,6 +332,7 @@ class Onboarding(object):
             self.utils.print_info("Entering Condition Value  ", condition_value)
             self.auto_actions.send_keys(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_value(),
                                         condition_value)
+        sleep(2)
         self.utils.print_info("Clicking Action Drop Down Button")
         self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_action_dropdown_existing)
 

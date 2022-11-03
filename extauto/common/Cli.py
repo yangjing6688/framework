@@ -984,11 +984,11 @@ class Cli(object):
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(retry_duration)
-                hm_status = self.send(connection, f'do show hivemanager status | include Status')
-                hm_address = self.send(connection, f'do show hivemanager address')
+                time.sleep(10)
+                capwap_status = self.send(connection, f'show capwap client | include "RUN state"')
+                capwap_server = self.send(connection, f'show capwap client | include "{server_name}"')
 
-                if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
+                if 'Connected securely to the CAPWAP server' in capwap_status and server_name in capwap_server:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
                 count += 1
