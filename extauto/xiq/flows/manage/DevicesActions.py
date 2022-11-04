@@ -90,7 +90,7 @@ class DevicesActions:
     def reset_devices_to_default(self, **kwargs):
         """
         - This Keyword performs factory reset only to all APs
-        - and in first page (can not use multiple pages).
+        - and on first page of devices (can not use multiple pages).
         - Navigate to Manage --> Device
         - Select all devices in rows
         - Click Utilities --> Reset Device to Default
