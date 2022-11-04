@@ -32,7 +32,7 @@ class EspAlert(EspAlertWebElements):
         """
         sleep(2)
         self.utils.print_info("Click on <Add New Policy> button")
-        self.auto_actions.click(self.get_add_policy())
+        self.auto_actions.click_reference(self.get_add_policy())
         sleep(2)
         self.utils.print_info(f"Ticking policy type : {policy.policy_type}")
         self.auto_actions.click(getattr(self,"get_policy_type_"+policy.policy_type)())
