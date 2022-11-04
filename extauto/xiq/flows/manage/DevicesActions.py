@@ -115,7 +115,7 @@ class DevicesActions:
         else:
             kwargs['fail_msg'] = "Unable to gather Device(s)"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def reset_device_to_default(self, *device_list):
