@@ -7,7 +7,6 @@ from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.common.CommonValidation import CommonValidation
 
-
 class Navigator(NavigatorWebElements):
     def __init__(self):
         super().__init__()
@@ -3452,9 +3451,14 @@ class Navigator(NavigatorWebElements):
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
-                        kwargs['fail_msg'] = "'enable_page_size()' -> Not able to click on page size "
-                        self.common_validation.failed(**kwargs)
-                        return -1
+                        if counter == 5:
+                            self.screen.save_screen_shot()
+                            kwargs['fail_msg'] = " Not able to click on page size "
+                            self.common_validation.failed(**kwargs)
+                            return -1
+                        else:
+                            self.utils.print_info(f"trying again...")
+                            counter += 1
                 else:
                     return 1
             except Exception as e:
