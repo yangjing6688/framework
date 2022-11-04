@@ -2031,6 +2031,7 @@ class Devices:
         """
         device_dict = device_dict[0]
         device_type = device_dict.get("onboard_device_type")
+        name = device_dict.get("name")
 
         # Arguments for device_type == "Real"
         device_serial = device_dict.get("serial")
@@ -2093,11 +2094,12 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "simulated":
+            list_initial_simulated_serial = self.get_device_model_serial_numbers(device_model=device_model, device_type=device_type)
             if self.set_onboard_values_for_simulated(device_model, device_count) != 1:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            list_initial_serial_dt = self.get_device_model_serial_numbers(device_model=device_model)
+            list_initial_serial_dt = self.get_device_model_serial_numbers(device_model=device_model, device_type=device_type)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
@@ -2164,12 +2166,17 @@ class Devices:
             models = device_model.split(",")
             self.utils.print_info("Models: ", models)
             for model in models:
+                list_final_simulated_serial = self.get_device_model_serial_numbers(device_model=model, device_type=device_type )
+                simulated_global_variable = "${" + name + ".serial}"
+                for i in list_final_simulated_serial:
+                    if i not in list_initial_simulated_serial:
+                        BuiltIn().set_global_variable(simulated_global_variable, i)
                 if self.search_device_model(device_model=model) == 1:
-                    kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {models}"
+                    kwargs['pass_msg'] = f"Successfully Onboarded Device(s) with {models}"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {models}"
+                    kwargs['fail_msg'] = f"Fail Onboarded Device(s) with {models}"
                     self.common_validation.failed(**kwargs)
                     return -1
 
@@ -2177,14 +2184,15 @@ class Devices:
             models = device_model.split(",")
             self.utils.print_info("Models: ", models)
             sleep(100)  # this sleep is put until the bug XIQ-11770 is solved, then I will review the code and delete this sleep
+            self.refresh_devices_page()
             for model in models:
-                list_final_dt_serial = self.get_device_model_serial_numbers(device_model=model)
+                list_final_dt_serial = self.get_device_model_serial_numbers(device_model=model, device_type=device_type)
+                dt_global_variable = "${" + name + ".serial}"
                 for i in list_final_dt_serial:
                     if i not in list_initial_serial_dt:
-                        serial_digital_twin = i
-                        self.utils.print_info(serial_digital_twin)
+                        BuiltIn().set_global_variable(dt_global_variable, i)
                 if len(list_final_dt_serial) - len (list_initial_serial_dt) == 1:
-                    kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device with model : {models} and serial : {serial_digital_twin}"
+                    kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device with model : {models}"
                     self.common_validation.passed(**kwargs)
                     return 1
                 elif len(list_final_dt_serial) - len (list_initial_serial_dt) == 0:
@@ -2380,7 +2388,7 @@ class Devices:
             sleep(1)
             attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
             try:
-                assert_equal("fn-hidden", attribute)
+                assert attribute == "fn-hidden"
             except AssertionError as err:
                 count += 1
         if count == self.retries:
@@ -3786,14 +3794,21 @@ class Devices:
             self.utils.print_info("No rows present")
         return -1
 
-    def get_device_model_serial_numbers(self, device_model):
+    def get_device_model_serial_numbers(self, device_model, device_type):
         rows = self.devices_web_elements.get_grid_rows()
         list_serial = []
         if rows:
             for row in rows:
                 if device_model in row.text:
-                    formated_row = self.format_row(row.text)
-                    list_serial.append(formated_row[11])
+                    if "digital twin" in device_type.lower():
+                        formated_row = self.format_row(row.text)
+                        if "New" in formated_row:
+                            list_serial.append(formated_row[10])
+                        elif "Managed" or "setting up..." in formated_row:
+                            list_serial.append(formated_row[11])
+                    elif "simulated" in device_type.lower():
+                        formated_row = self.format_row(row.text)
+                        list_serial.append(formated_row[7])
         return list_serial
 
     def format_row(self, row):
