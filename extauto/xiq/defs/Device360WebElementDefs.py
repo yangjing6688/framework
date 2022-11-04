@@ -1729,7 +1729,7 @@ class Device360WebElementDefs:
 
     d360_vim_model = \
         {
-            'XPATH': '//li[@class="port-group-label"]',
+            'XPATH': '//div[@data-dojo-attach-point="portBlockWrap"]//li[@class="port-group-label"]',
             'wait_for': 5
         }
 
@@ -2880,8 +2880,7 @@ class Device360WebElementDefs:
 
     device360_port_config_stack_slots_dropdown = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="stackMemberChooserArea"]'
-                     '/*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'XPATH': '//div[@class="stack-member-chooser"][@data-dojo-attach-point="stackMemberChooserArea"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 5
         }
 
