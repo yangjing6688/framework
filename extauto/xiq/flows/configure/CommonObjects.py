@@ -2957,7 +2957,7 @@ class CommonObjects(object):
             return -1
         return -1
 
-    def delete_all_user_profiles(self):
+    def delete_all_user_profiles(self, **kwargs):
         """
         - It deletes all user profiles
         -Flow: Configure --> Common Objects --> User Profile
@@ -2984,7 +2984,9 @@ class CommonObjects(object):
             self.auto_actions.click_reference(self.user_profile_web_elements.get_user_profile_confirm_delete_yes)
             return 1
         else:
-            self.utils.print_info("Unable to gather user profiles")
+            kwargs['fail_msg'] = "Unable to gather user profiles"
+            self.screen.save_screen_shot()
+            self.common_validation.validate(-1, 1, **kwargs)
             return -1
 
     def delete_ip_firewall_policy(self, ip_firewall_policy_name):
