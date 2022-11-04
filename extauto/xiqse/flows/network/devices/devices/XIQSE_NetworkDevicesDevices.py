@@ -2227,6 +2227,53 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
+    def xiqse_perform_rediscover_device(self, device_ip):
+        """
+         - This keyword rediscovers the specified device.
+         - It is assumed the user is already on the Network> Devices> Devices tab
+         - Keyword Usage
+          - ``XIQSE Perform Rediscover Device    ${DEVICE_IP}``
+
+        :param  device_ip:    IP address of the device to rediscover
+        :return: 1 if action was successful, else -1
+        """
+
+        ret_val = -1
+
+        if self.xiqse_select_device(device_ip) == 1:
+            menu_btn = self.get_device_menu_tb_button()
+            if menu_btn:
+                self.utils.print_info("Clicking Device Menu toolbar button")
+                self.auto_actions.click(menu_btn)
+                sleep(1)
+
+                rediscover_menu_item = self.get_rediscover_device_menu_item()
+                if rediscover_menu_item:
+                    self.utils.print_info("Clicking 'Rediscover' menu")
+                    self.auto_actions.click(rediscover_menu_item)
+                    sleep(1)
+                    # select yes in the confirmation box.
+                    confirm_box = self.get_rediscover_confirm_button_yes_item();
+                    if confirm_box:
+                        self.utils.print_info("Clicking 'Rediscover Device' confirm")
+                        self.auto_actions.click(confirm_box)
+                        sleep(5)
+                        ret_val = 1
+                    else:
+                        self.utils.print_info("Unable to find Rediscover Device Confirm")
+                        self.screen.save_screen_shot()
+                else:
+                    self.utils.print_info("Unable to find Rediscover menu")
+                    self.screen.save_screen_shot()
+            else:
+                self.utils.print_info("Unable to find Device Menu toolbar button")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to find select device")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
     def xiqse_perform_restart_device(self, device_ip):
         """
          - This keyword restarts the specified device.
