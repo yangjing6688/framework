@@ -96,17 +96,17 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
                         self.screen.save_screen_shot()
                         return 1 if self._add_classification_rule_to_exist_vlan(vlanid, classificationrule) else -1
 
-            kwargs['fail_msg'] = "User Profile " + userprofile + " was NOT found"
+            kwargs['fail_msg'] = "User Profile " + userprofile + " was NOT found."
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['fail_msg'] = "Unable to gather user profiles"
+            kwargs['fail_msg'] = "Unable to gather user profiles."
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def _add_classification_rule_to_exist_vlan(self, vlanid, classificationrule):
+    def _add_classification_rule_to_exist_vlan(self, vlanid, classificationrule, **kwargs):
         """
         - This local keyword add exist classification rule to exist vlan
         :param vlanid: VLAN ID
@@ -135,7 +135,9 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
                                 tool_tp_text = tool_tip.tool_tip_text
                                 self.utils.print_info(tool_tp_text)
                                 if "VLAN object was saved successfully." not in tool_tp_text:
-                                    self.utils.print_info("Unable to Save VLAN")
+                                    kwargs['fail_msg'] = "Unable to Save VLAN."
+                                    self.screen.save_screen_shot()
+                                    self.common_validation.failed(**kwargs)
                                     return -1
 
                                 self.screen.save_screen_shot()
@@ -149,22 +151,29 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
                                     tool_tip.tool_tip_text = []
                                     return 1
                                 else:
-                                    self.utils.print_info("Unable to Save User Profile")
+                                    kwargs['fail_msg'] = "Unable to Save User Profile."
+                                    self.screen.save_screen_shot()
+                                    self.common_validation.failed(**kwargs)
                                     return -1
-                        self.utils.print_info("classification rule " + classificationrule + " was NOT found")
+
+                        kwargs['fail_msg'] = "classification rule " + classificationrule + " was NOT found."
                         self.screen.save_screen_shot()
+                        self.common_validation.failed(**kwargs)
                         return -1
                     else:
-                        self.utils.print_info("Unable to gather classification rules.")
+                        kwargs['fail_msg'] = "Unable to gather classification rules."
                         self.screen.save_screen_shot()
+                        self.common_validation.failed(**kwargs)
                         return -1
 
-            self.utils.print_info("VLAN ID " + vlanid + " was NOT found")
+            kwargs['fail_msg'] = "VLAN ID " + vlanid + " was NOT found."
             self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
         else:
-            self.utils.print_info("Unable to gather VLAN ID.")
+            kwargs['fail_msg'] = "Unable to gather VLAN ID."
             self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
 
     def apply_different_user_profile_to_various_clients(self, ssidName, **userprofile):
@@ -228,17 +237,17 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
                             self.screen.save_screen_shot()
                             self.common_validation.failed(**userprofile)
                             return -1
-            userprofile['fail_msg'] = "SSID name " + ssidName + " was NOT found"
+            userprofile['fail_msg'] = "SSID name " + ssidName + " was NOT found."
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **userprofile)
+            self.common_validation.failed(**userprofile)
             return -1
         else:
             userprofile['fail_msg'] = "Unable to gather SSID."
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **userprofile)
+            self.common_validation.failed(**userprofile)
             return -1
 
-    def _edit_ssid_to_apply_different_user_profile(self, profileName, vlanName, vlanId, assignRule):
+    def _edit_ssid_to_apply_different_user_profile(self, profileName, vlanName, vlanId, assignRule, **kwargs):
         """
         - This local keyword edit exist ssid to 'Apply a different user profile to various clients and user groups' checkbox
         :param profileName: VLAN ID
@@ -274,8 +283,9 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
         if "VLAN object was saved successfully." not in tool_tp_text and "User profile was saved successfully." in tool_tp_text:
-            self.utils.print_info("Unable to save the VLAN or User Profile")
+            kwargs['fail_msg'] = "Unable to save the VLAN or User Profile."
             self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
 
         if vlan_rows := self.get_different_user_profile_vlan_rows():
@@ -292,17 +302,23 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
                                 self.utils.print_info("Click classification rules link button.")
                                 self.auto_actions.click_reference(self.get_user_profile_vlan_row_rule_link_btn)
                                 return 1
-                        self.utils.print_info("Assigment Rule " + assignRule + " was NOT found")
+
+                        kwargs['fail_msg'] = "Assigment Rule " + assignRule + " was NOT found."
                         self.screen.save_screen_shot()
+                        self.common_validation.failed(**kwargs)
                         return -1
                     else:
-                        self.utils.print_info("Unable to gather Assignment Rules.")
+                        kwargs['fail_msg'] = "Unable to gather Assignment Rules."
                         self.screen.save_screen_shot()
+                        self.common_validation.failed(**kwargs)
                         return -1
-            self.utils.print_info("User Profile " + profileName + " was NOT found")
+
+            kwargs['fail_msg'] = "User Profile " + profileName + " was NOT found."
             self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
         else:
-            self.utils.print_info("Unable to gather VLAN.")
+            kwargs['fail_msg'] = "Unable to gather VLAN."
             self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1

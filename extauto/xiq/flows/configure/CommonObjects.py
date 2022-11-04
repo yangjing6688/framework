@@ -772,7 +772,7 @@ class CommonObjects(object):
         else:
             kwargs['fail_msg'] = "Unable to gather VLANs"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def navigate_to_security_wips_policies(self):
@@ -2986,7 +2986,7 @@ class CommonObjects(object):
         else:
             kwargs['fail_msg'] = "Unable to gather user profiles"
             self.screen.save_screen_shot()
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def delete_ip_firewall_policy(self, ip_firewall_policy_name):
