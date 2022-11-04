@@ -3705,6 +3705,30 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    d360_multi_edit_checkbox_voice_vlan = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-details-multi-edit-checkbox-voice-vlan" and @type="checkbox"]',
+            'wait_for': 5
+        }
+
+    d360_multi_edit_voice_vlan_input = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-details-multi-edit-voice-vlan-input"]',
+            'wait_for': 5
+        }
+
+    d360_multi_edit_checkbox_data_vlan = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-details-multi-edit-checkbox-data-vlan" and @type="checkbox"]',
+            'wait_for': 5
+        }
+
+    d360_multi_edit_data_vlan_input = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-port-details-multi-edit-data-vlan-input"]',
+            'wait_for': 5
+        }
+
     d360_multi_edit_checkbox_port_description = \
         {
             'XPATH': '//input[@data-automation-tag="automation-port-details-multi-edit-checkbox-description" and @type="checkbox"]',

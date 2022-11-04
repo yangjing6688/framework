@@ -10710,6 +10710,12 @@ class Device360(Device360WebElements):
         allowed_vlan_trunk_port = kwargs.get("allowed_vlan_trunk_port")
         self.utils.print_info(allowed_vlan_trunk_port)
 
+        voice_vlan_phone_port = kwargs.get("voice_vlan_phone_port")
+        self.utils.print_info(voice_vlan_phone_port)
+
+        data_vlan_phone_port = kwargs.get("data_vlan_phone_port")
+        self.utils.print_info(data_vlan_phone_port)
+
         if port_state is not None:
 
             """
@@ -10826,14 +10832,6 @@ class Device360(Device360WebElements):
 
                         if allowed_vlan_trunk_port is not None:
 
-                            # checkbox_allowed_vlan = self.get_d360_multi_edit_checkbox_allowed_vlan()
-                            # if checkbox_allowed_vlan:
-                            #     print("Click on checkbox")
-                            #     AutoActions().click(checkbox_allowed_vlan )
-                            #     sleep(1)
-                            # else:
-                            #     print("Unable to click the element")
-
                             get_multi_edit_allowed_vlan = self.get_d360_multi_edit_allowed_vlan_input()
                             if get_multi_edit_allowed_vlan:
                                 self.auto_actions.send_keys(get_multi_edit_allowed_vlan, Keys.CONTROL + "a")
@@ -10858,9 +10856,55 @@ class Device360(Device360WebElements):
                         else:
                             print("Unable to click the element")
 
-                    # elif port_usage == 'Phone with a Data Port':
+                    elif port_usage == 'Phone_Port':
+                        if (voice_vlan_phone_port is not None) or (data_vlan_phone_port is not None):
+                            """
+                             - This keyword will select Vlan settings in Multi Edit when Port usage is Phone Port (D360-Port Configuration)
+                             and after that will complete the fields with values.
+                            """
 
+                            checkbox_voice_vlan = self.get_d360_multi_edit_checkbox_voice_vlan()
+                            sleep(5)
+                            if checkbox_voice_vlan:
+                                print("Click on checkbox")
+                                AutoActions().click(checkbox_voice_vlan)
+                                sleep(1)
+                            else:
+                                print("Unable to click the element")
 
+                            checkbox_data_vlan = self.get_d360_multi_edit_checkbox_data_vlan()
+                            if checkbox_data_vlan:
+                                print("Click on checkbox")
+                                AutoActions().click(checkbox_data_vlan)
+                                sleep(1)
+                            else:
+                                print("Unable to click the element")
+
+                        if voice_vlan_phone_port is not None:
+
+                            get_multi_edit_voice_vlan = self.get_d360_multi_edit_voice_vlan_input()
+                            if get_multi_edit_voice_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_voice_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_voice_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new native vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_voice_vlan, voice_vlan_phone_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_voice_vlan cannot be completed ")
+                                return -1
+
+                        if data_vlan_phone_port is not None:
+
+                            get_multi_edit_data_vlan = self.get_d360_multi_edit_data_vlan_input()
+                            if get_multi_edit_data_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_data_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_data_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new allowed vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_data_vlan, data_vlan_phone_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_data_vlan cannot be completed ")
+                                return -1
                 else:
                     self.utils.print_info("Can not select into drop down")
                     return -1

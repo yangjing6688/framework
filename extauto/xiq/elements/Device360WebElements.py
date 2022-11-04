@@ -2177,6 +2177,18 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_multi_edit_allowed_vlan_input(self):
         return self.weh.get_element(self.d360_multi_edit_allowed_vlan_input)
 
+    def get_d360_multi_edit_checkbox_voice_vlan(self):
+        return self.weh.get_element(self.d360_multi_edit_checkbox_voice_vlan)
+
+    def get_d360_multi_edit_voice_vlan_input(self):
+        return self.weh.get_element(self.d360_multi_edit_voice_vlan_input)
+
+    def get_d360_multi_edit_checkbox_data_vlan(self):
+        return self.weh.get_element(self.d360_multi_edit_checkbox_data_vlan)
+
+    def get_d360_multi_edit_data_vlan_input(self):
+        return self.weh.get_element(self.d360_multi_edit_data_vlan_input)
+
     def get_multi_edit_checkbox_port_description(self):
         return self.weh.get_element(self.d360_multi_edit_checkbox_port_description)
 
