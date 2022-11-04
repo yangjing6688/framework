@@ -199,12 +199,12 @@ class SideNavMenu(NavigatorWebElements):
                 if self.get_vpn_management_tab().is_displayed():
                     return 1
 
-            kwargs['fail_msg'] = "Nav Menu Item not Visible"
+            kwargs['fail_msg'] = "'is_nav_menu_item_visible()' -> Nav Menu Item not Visible"
             self.common_validation.failed(**kwargs)
             return -1
 
         except Exception as e:
-            kwargs['fail_msg'] = f"{e}"
+            kwargs['fail_msg'] = f"'is_nav_menu_item_visible()' -> {e}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -340,7 +340,7 @@ class SideNavMenu(NavigatorWebElements):
             if self.get_vpn_management_tab().is_enabled():
                 return 1
 
-        kwargs['fail_msg'] = "Nav Menu Item is not Enabled"
+        kwargs['fail_msg'] = "'is_nav_menu_item_enabled()' -> Nav Menu Item is not Enabled"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -377,7 +377,8 @@ class SideNavMenu(NavigatorWebElements):
             if expected_class in self.get_a3_tab_img_class():
                 return 1
 
-        kwargs['fail_msg'] = "The expected class of the specified main nav tab does not exists"
+        kwargs['fail_msg'] = "'has_main_nav_tab_the_expected_image()' -> The expected class of the specified main" \
+                             " nav tab does not exists"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -393,6 +394,6 @@ class SideNavMenu(NavigatorWebElements):
         if expected_url in CloudDriver().cloud_driver.current_url:
             return 1
 
-        kwargs['fail_msg'] = "The expected url of the specified main nav tab is not loaded"
+        kwargs['fail_msg'] = "'is_the_expected_url()' -> The expected url of the specified main nav tab is not loaded"
         self.common_validation.failed(**kwargs)
         return -1
