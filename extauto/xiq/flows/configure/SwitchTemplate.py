@@ -2195,8 +2195,6 @@ class SwitchTemplate(object):
             return 1
         return -1
 
-
-    
     def generate_template_name(self,platform,serial,model, slots = ""):
         """
         This method is to generate template name based on the testbed file given
@@ -2280,9 +2278,9 @@ class SwitchTemplate(object):
             self.utils.print_info("Unable to create new switch template")
             return -1
 
-        return_value = self.add_switch_template(policy, sw_template_name, **switch_profile)
+        return_value = self.select_or_create_port_type(policy, sw_template_name, **switch_profile)
         if return_value == -1:
-            self.utils.print_info("Unable to add new switch template")
+            self.utils.print_info("Unable to complete configuration of switch template")
             return -1
 
         return 1
@@ -2310,7 +2308,7 @@ class SwitchTemplate(object):
                 return 1
         return -1
 
-    def add_switch_template(self, nw_policy, sw_template, **switch_profile):
+    def select_or_create_port_type(self, nw_policy, sw_template, **switch_profile):
         """
         - Assume that already on the Switch Template
             :return: Returns 1 if successfully navigates to the Port Configuration Tab
@@ -2322,7 +2320,6 @@ class SwitchTemplate(object):
         port_details_port_type = port_details_dictionary.get('port_type')
         port_name_and_usage_dictionary = port_details_port_type.get('port_name_and_usage')
         port_details_port_type_name_value = port_name_and_usage_dictionary.get('name')
-
 
         self.utils.print_info("Navigate to  Network Policies menu")
         self.navigator.navigate_configure_network_policies()
@@ -2347,16 +2344,18 @@ class SwitchTemplate(object):
         if port_configuration:
             self.utils.print_info("The Port Configuration button was found")
             self.auto_actions.click(port_configuration)
-            # sleep(2)
-            self.utils.wait_till( self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
+            self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
 
         self.utils.print_info("Select port type " + port_details_port_type_name_value + " from list of port types")
-        combo_selected = self.select_switch_template_port_configuration_port_type(port_details_interface_value, port_details_port_type_name_value)
+        combo_selected = self.select_port_type(port_details_interface_value, port_details_port_type_name_value)
 
         if combo_selected != 1:
             self.utils.print_info("Port type " + port_details_port_type_name_value + " not found")
             self.utils.print_info("Attempting to create new Port type " + port_details_port_type_name_value)
-            combo_selected = self.create_new_switch_template_port_configuration_port_type(port_details_interface_value, port_details_port_type_name_value, **switch_profile)
+            created = self.create_new_port_type(port_details_interface_value, port_details_port_type_name_value, **switch_profile)
+            if created == 1:
+                self.utils.print_info("Make another attempt to select port type " + port_details_port_type_name_value + " from list of port types")
+                combo_selected = self.select_port_type(port_details_interface_value, port_details_port_type_name_value)
 
         return combo_selected
 
@@ -2374,7 +2373,7 @@ class SwitchTemplate(object):
             return 1
         return -1
 
-    def select_switch_template_port_configuration_port_type(self, port_details_interface_value, port_details_port_type_value):
+    def select_port_type(self, port_details_interface_value, port_details_port_type_value):
         """
         - Assume that already on the Switch Template (Port Configuration)
             :return: Returns 1 if successfully navigates to the Port Details Tab
@@ -2388,7 +2387,6 @@ class SwitchTemplate(object):
                     if a_port_string.text == port_details_interface_value:
                         port_type_element = self.sw_template_web_elements.get_sw_template_port_details_row_combo(an_interface_element)
                         self.auto_actions.click(port_type_element)
-                        # sleep(5)
                         self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list)
                         combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
                         for a_combo_element in combo_box_value_elements:
@@ -2397,135 +2395,68 @@ class SwitchTemplate(object):
                                 return 1
         return -1
 
-    def create_new_switch_template_port_configuration_port_type(self, port_details_interface_value, port_details_port_type_value, **switch_profile):
+    def create_new_port_type(self, port_details_interface_value, port_details_port_type_value, **switch_profile):
         """
         - Assume that already on the Switch Template (Port Configuration)
             :return: Returns 1 if successfully navigates to the Port Details Tab
                      Else returns -1
         """
-        if port_details_port_type_value and port_details_interface_value:
-            list_of_interface_elements = self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows()
-            if list_of_interface_elements:
-                for an_interface_element in list_of_interface_elements:
-                    a_port_string = self.sw_template_web_elements.get_sw_template_port_details_row_interface_value(an_interface_element)
-                    if a_port_string.text == port_details_interface_value:
-                        add_button = self.sw_template_web_elements.get_port_details_row_add_button(an_interface_element)
-                        self.auto_actions.click(add_button)
-                        sleep(4)
-                        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name)
-                        port_type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
-                        self.auto_actions.send_keys(port_type_name_field, port_details_port_type_value)
 
-                        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        self.utils.print_info("Open port type pop up dialog")
+        results = self.open_port_type_pop_up(port_details_interface_value, port_details_port_type_value, **switch_profile)
+        if results == -1:
+            self.utils.print_info("Unable to configure new port type")
+            return -1
 
-                        port_name_and_usage_dictionary = port_type_dictionary.get('port_name_and_usage')
-                        status_value = port_name_and_usage_dictionary.get('status')
-                        auto_sense_value = port_name_and_usage_dictionary.get('auto_sense')
-                        access_value = port_name_and_usage_dictionary.get('access_port')
-                        trunk_value = port_name_and_usage_dictionary.get('trunk_port')
-                        description_value = port_name_and_usage_dictionary.get('description')
+        self.utils.print_info("Processing Port Name and Usage tab")
+        self.create_new_port_type_port_name_and_usage(port_details_interface_value, port_details_port_type_value, **switch_profile)
 
-                        description_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_description()
-                        status_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status()
-                        auto_sense_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_auto_sense_status()
-                        access_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_access()
-                        trunk_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_trunk()
+        next_button = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_next()
+        self.auto_actions.click(next_button)
+        new_port_type_saved = False
+        prevent_infinite_loop = 10
 
-                        transmission_setting_dictionary = port_type_dictionary.get('transmission_setting')
-                        type_value = transmission_setting_dictionary.get('type')
-                        speed_value = transmission_setting_dictionary.get('speed')
-                        duplex_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow()
-                        speed_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow()
+        active_tab = self.get_active_port_type_tab()
 
-                        storm_control_dictionary = port_type_dictionary.get('storm_control')
-                        broadcast_value = storm_control_dictionary.get('broadcast')
-                        unicast_value = storm_control_dictionary.get('unicast')
-                        multicast_value = storm_control_dictionary.get('multicast')
-                        rate_limit_value = storm_control_dictionary.get('rate_limit_value')
-                        client_reporting_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_client_reporting()
-                        cdp_receive_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_cdp_receive()
-                        lldp_transmit_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_lldp_transmit()
-                        lldp_receive_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_lldp_receive()
-                        sc_broadcast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast()
-                        sc_unicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast()
-                        sc_multicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast()
-                        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
-                        sc_rate_limit_type_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
-                        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
-                        sc_rate_limit_value_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_value()
+        while not new_port_type_saved and prevent_infinite_loop > 0:
+            prevent_infinite_loop = prevent_infinite_loop - 1
+            # process tab
+            if active_tab == 'unknown':
+                self.utils.print_info("Unable to process current tab")
+            if active_tab == 'port_name_and_usage':
+                self.utils.print_info("Processing the Port Name and Usage tab has already been completed")
+            if active_tab == 'transmission_settings':
+                self.utils.print_info("Processing the Transmission Settings tab")
+                self.create_new_port_type_transmission_settings(port_details_interface_value,
+                                                              port_details_port_type_value, **switch_profile)
+            if active_tab == 'storm_control':
+                self.utils.print_info("Processing the Storm Control tab")
+                self.create_new_port_type_storm_control(port_details_interface_value,
+                                                                port_details_port_type_value, **switch_profile)
+            if active_tab == 'vlan':
+                self.utils.print_info("Processing the Vlan tab")
+                self.create_new_port_type_vlan(port_details_interface_value,
+                                                        port_details_port_type_value, **switch_profile)
+            if active_tab == 'stp':
+                self.utils.print_info("Processing the STP tab")
+                self.create_new_port_type_stp(port_details_interface_value,
+                                                        port_details_port_type_value, **switch_profile)
+            if active_tab == 'summary':
+                self.utils.print_info("Processing the Summary tab")
+                self.utils.print_info("Saving New Port Type")
+                save_button = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_save()
+                self.auto_actions.click(save_button)
+                new_port_type_saved = True
 
-                        if description_value and description_element:
-                            self.auto_actions.send_keys(description_element, description_value)
-                        if status_value and status_element:
-                            if status_value.lower() == 'on' and not status_element.is_selected():
-                                self.utils.print_info("Clicking status button to ON")
-                                self.auto_actions.click(status_element)
-                            if status_value.lower() == 'off' and status_element.is_selected():
-                                self.utils.print_info("Clicking status button to OFF")
-                                self.auto_actions.click(status_element)
-                        if auto_sense_value and auto_sense_element:
-                            if auto_sense_value.lower() == 'on' and not auto_sense_element.is_selected():
-                                self.utils.print_info("Clicking status button to ON")
-                                self.auto_actions.click(auto_sense_element)
-                            if auto_sense_value.lower() == 'off' and auto_sense_element.is_selected():
-                                self.utils.print_info("Clicking status button to OFF")
-                                self.auto_actions.click(auto_sense_element)
-                        if access_value and access_element:
-                            if access_value.lower() == 'enable' and not access_element.is_selected():
-                                self.utils.print_info("Clicking access port option")
-                                self.auto_actions.click(access_element)
-                        if trunk_value and trunk_element:
-                            if trunk_value.lower() == 'enable' and not trunk_element.is_selected():
-                                self.utils.print_info("Clicking trunk port option")
-                                self.auto_actions.click(trunk_element)
+            if not new_port_type_saved:
+                self.auto_actions.click(next_button)
+                sleep(2)
+                active_tab = self.get_active_port_type_tab()
 
-                        ##click next buttton
-
-                        if type_value and duplex_arrow_element:
-                            self.auto_actions.click(duplex_arrow_element)
-                            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
-                            for a_combo_element in combo_box_value_elements:
-                                if a_combo_element.text == port_details_port_type_value:
-                                    self.auto_actions.click(a_combo_element)
-
-                        if speed_value and speed_arrow_element:
-                            self.auto_actions.click(speed_arrow_element)
-                            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
-                            for a_combo_element in combo_box_value_elements:
-                                if a_combo_element.text == port_details_port_type_value:
-                                    self.auto_actions.click(a_combo_element)
-
-                        ##click next buttton
-
-                        if broadcast_value and sc_broadcast_element:
-                            if broadcast_value.lower() == 'enable' and not sc_broadcast_element.is_selected():
-                                self.utils.print_info("Selecting broadcast option")
-                                self.auto_actions.click(sc_broadcast_element)
-                            if broadcast_value.lower() == 'disable' and sc_broadcast_element.is_selected():
-                                self.utils.print_info("Unselecting broadcast option")
-                                self.auto_actions.click(sc_broadcast_element)
-
-                        if multicast_value and sc_multicast_element:
-                            if multicast_value.lower() == 'enable' and not sc_multicast_element.is_selected():
-                                self.utils.print_info("Selecting multicast option")
-                                self.auto_actions.click(sc_multicast_element)
-                            if multicast_value.lower() == 'disable' and sc_multicast_element.is_selected():
-                                self.utils.print_info("Unselecting multicast option")
-                                self.auto_actions.click(sc_multicast_element)
-
-                        if unicast_value and sc_unicast_element:
-                            if unicast_value.lower() == 'enable' and not sc_unicast_element.is_selected():
-                                self.utils.print_info("Selecting unicast option")
-                                self.auto_actions.click(sc_unicast_element)
-                            if unicast_value.lower() == 'disable' and sc_unicast_element.is_selected():
-                                self.utils.print_info("Unselecting unicast option")
-                                self.auto_actions.click(sc_unicast_element)
-
-                        if rate_limit_value and sc_rate_limit_value_element:
-                            self.auto_actions.send_keys(sc_rate_limit_value_element, rate_limit_value)
-
-                        return 1
-        return -1
+        if new_port_type_saved:
+            return 1
+        else:
+            return -1
 
     def create_new_switch_template(self, **wireless_network_conf):
         """
@@ -2616,16 +2547,34 @@ class SwitchTemplate(object):
             return -1
         self.auto_actions.send_keys(switch_template_name_field, switch_template_name)
 
-        self.configure_switch_template_setup_device_spanning_tree(**wireless_network_conf)
+        '''result = self.configure_switch_template_spanning_tree(**wireless_network_conf)
+        if result == -1:
+            self.utils.print_info("Unable to configure spanning tree values")
+            return -1'''
+
+        result = self.configure_switch_igmp_setting(**wireless_network_conf)
+        if result == -1:
+            self.utils.print_info("Unable to configure igmp values")
+            return -1
+
+        result = self.configure_switch_template_mtu_setting(**wireless_network_conf)
+        if result == -1:
+            self.utils.print_info("Unable to configure mtu values")
+            return -1
 
         self.utils.print_info("Save switch template")
         save_button = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
         self.auto_actions.click(save_button)
         return 1
 
+    def configure_switch_template_spanning_tree(self, **wireless_network_conf):
+        """
+        - Assume that the network policy has already been selected
+            :param wireless_network_conf: Dictionary contains information needed to configure templates
+            :return: Returns 1 if configuration is successful
+                     Else Returns -1
+        """
 
-    #####################
-    def configure_switch_template_setup_device_spanning_tree(self, **wireless_network_conf):
         device_model = wireless_network_conf.get('device_model')
         switch_template_name = wireless_network_conf.get('switch_template_name')
 
@@ -2681,7 +2630,7 @@ class SwitchTemplate(object):
                     self.auto_actions.click(stp_web_element)
 
             span_tree_bridge_priority_value = spanning_dictionary.get('stp_bridge_priority')
-            '''if span_tree_bridge_priority_value:
+            if span_tree_bridge_priority_value:
                 span_tree_bridge_priority_element = self.sw_template_web_elements.priority_dropdown()
                 sleep(5)
                 if not span_tree_bridge_priority_element:
@@ -2689,28 +2638,23 @@ class SwitchTemplate(object):
                     return -1
                 for priority_option in span_tree_bridge_priority_element:
                     if priority_option.text == span_tree_bridge_priority_value:
-                        self.auto_actions.click(priority_option)'''
+                        self.auto_actions.click(priority_option)
 
             span_tree_forward_delay_value = spanning_dictionary.get('stp_forward_delay')
             if span_tree_forward_delay_value:
                 span_tree_forward_delay_element = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items()
                 if not span_tree_forward_delay_element:
-                    self.utils.print_info("Unable to locate spanning tree priority option drop down")
+                    self.utils.print_info("Unable to locate spanning tree forward delay drop down")
                     return -1
-
-                span_tree_forward_delay_element_all = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items_all_items(span_tree_forward_delay_element)
-
-                for span_tree_forward_delay_option in span_tree_forward_delay_element_all:
-                    self.utils.print_info("ROW VALUE -> " + span_tree_forward_delay_option.text)
+                for span_tree_forward_delay_option in span_tree_forward_delay_element:
                     if span_tree_forward_delay_option.text == span_tree_forward_delay_value:
-                        self.utils.print_info("ROW VALUE -> " + span_tree_forward_delay_option.text)
                         self.auto_actions.click(span_tree_forward_delay_option)
 
             span_tree_max_age_value = spanning_dictionary.get('stp_max_age')
             if span_tree_max_age_value:
                 span_tree_max_age_element = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items()
                 if not span_tree_max_age_element:
-                    self.utils.print_info("Unable to locate spanning tree priority option drop down")
+                    self.utils.print_info("Unable to locate spanning tree max age drop down")
                     return -1
                 for span_tree_max_age_option in span_tree_max_age_element:
                     if span_tree_max_age_option.text == span_tree_max_age_value:
@@ -2718,14 +2662,14 @@ class SwitchTemplate(object):
 
         return 1
 
-    def configure_switch_template_setup_device_igmp_setting(self, **wireless_network_conf):
+    def configure_switch_igmp_setting(self, **wireless_network_conf):
         """
         - Assume that the network policy has already been selected
             :param wireless_network_conf: Dictionary contains information needed to configure templates
             :return: Returns 1 if configuration is successful
                      Else Returns -1
         """
-        # igmp
+
         igmp_dictionary = wireless_network_conf.get('igmp_setting')
         igmp_snooping_value = igmp_dictionary.get('igmp_snooping')
         enable_immediate_leave_value = igmp_dictionary.get('enable_immediate_leave')
@@ -2736,12 +2680,13 @@ class SwitchTemplate(object):
             self.utils.print_info("Unable to locate IGMP mode button")
             return -1
 
+        self.utils.print_info("Configuring IGMP Settings")
         if igmp_snooping_value.lower() == 'on' and not igmp_snooping_value_element.is_selected():
-            self.utils.print_info("Turning spanning tree mode ON")
+            self.utils.print_info("Turning igmp snooping ON")
             self.auto_actions.click(igmp_snooping_value_element)
 
         if igmp_snooping_value.lower() == 'off' and igmp_snooping_value_element.is_selected():
-            self.utils.print_info("Turning spanning tree mode OFF")
+            self.utils.print_info("Turning igmp snooping OFF")
             self.auto_actions.click(igmp_snooping_value_element)
 
         if igmp_snooping_value_element.is_selected():
@@ -2751,26 +2696,38 @@ class SwitchTemplate(object):
                 if not enable_immediate_leave_element:
                     self.utils.print_info("Unable to locate igmp immediate leave option button")
                     return -1
-                self.auto_actions.click(enable_immediate_leave_element)
+                if enable_immediate_leave_value.lower() == 'enable' and not enable_immediate_leave_element.is_selected():
+                    self.utils.print_info("Enabling IGMP Immediate Leave")
+                    self.auto_actions.click(enable_immediate_leave_element)
+                if enable_immediate_leave_value.lower() != 'enable' and enable_immediate_leave_element.is_selected():
+                    self.utils.print_info("Disabling IGMP Immediate Leave")
+                    self.auto_actions.click(enable_immediate_leave_element)
 
             if supress_redundant_value:
                 supress_redundant_value_element = self.sw_template_web_elements.get_switch_template_device_configuration_igmp_suppress_independent()
                 if not supress_redundant_value_element:
                     self.utils.print_info("Unable to locate igmp suppress independent option button")
                     return -1
-                self.auto_actions.click(supress_redundant_value_element)
+                if supress_redundant_value == 'enable' and not supress_redundant_value_element.is_selected():
+                    self.utils.print_info("Enabling IGMP Suppress Independent Membership")
+                    self.auto_actions.click(supress_redundant_value_element)
+                if supress_redundant_value != 'enable' and supress_redundant_value_element.is_selected():
+                    self.utils.print_info("Disabling IGMP Suppress Independent Membership")
+                    self.auto_actions.click(supress_redundant_value_element)
 
         return 1
 
-    def configure_switch_template_setup_device_mtu_setting(self, **wireless_network_conf):
+    def configure_switch_template_mtu_setting(self, **wireless_network_conf):
         """
         - Assume that the network policy has already been selected
             :param wireless_network_conf: Dictionary contains information needed to configure templates
             :return: Returns 1 if configuration is successful
                      Else Returns -1
         """
-        # mtu
+
         mtu_value = wireless_network_conf.get('mtu')
+        if mtu_value:
+            self.utils.print_info("Configuring MTU Values")
 
         if mtu_value == '1522':
             mtu_element = self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1522()
@@ -2792,5 +2749,283 @@ class SwitchTemplate(object):
                 self.utils.print_info("Unable to locate MTU 1950 radio button")
                 return -1
             self.auto_actions.click(mtu_element)
+
+        return 1
+
+    def open_port_type_pop_up(self, port_details_interface_value, port_details_port_type_value, **switch_profile):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+        if port_details_port_type_value and port_details_interface_value:
+            list_of_interface_elements = self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows()
+            if list_of_interface_elements:
+                for an_interface_element in list_of_interface_elements:
+                    a_port_string = self.sw_template_web_elements.get_sw_template_port_details_row_interface_value(an_interface_element)
+                    if a_port_string.text == port_details_interface_value:
+                        add_button = self.sw_template_web_elements.get_port_details_row_add_button(an_interface_element)
+                        self.auto_actions.click(add_button)
+                        sleep(4)
+                        return 1
+
+        return -1
+
+    def create_new_port_type_port_name_and_usage(self, port_details_interface_value, port_type_name, **switch_profile):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+
+        port_type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
+
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        port_name_and_usage_dictionary = port_type_dictionary.get('port_name_and_usage')
+        status_value = port_name_and_usage_dictionary.get('status')
+        auto_sense_value = port_name_and_usage_dictionary.get('auto_sense')
+        access_value = port_name_and_usage_dictionary.get('access_port')
+        trunk_value = port_name_and_usage_dictionary.get('trunk_port')
+        description_value = port_name_and_usage_dictionary.get('description')
+
+        description_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_description()
+        status_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status()
+        auto_sense_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_auto_sense_status()
+        access_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_access()
+        trunk_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_trunk()
+        type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
+
+        if port_type_name and type_name_field:
+            self.auto_actions.send_keys(type_name_field, port_type_name)
+        if description_value and description_element:
+            self.auto_actions.send_keys(description_element, description_value)
+        if status_value and status_element:
+            if status_value.lower() == 'on' and not status_element.is_selected():
+                self.utils.print_info("Clicking status button to ON")
+                self.auto_actions.click(status_element)
+            if status_value.lower() == 'off' and status_element.is_selected():
+                self.utils.print_info("Clicking status button to OFF")
+                self.auto_actions.click(status_element)
+        if auto_sense_value and auto_sense_element:
+            if auto_sense_value.lower() == 'on' and not auto_sense_element.is_selected():
+                self.utils.print_info("Clicking status button to ON")
+                self.auto_actions.click(auto_sense_element)
+            if auto_sense_value.lower() == 'off' and auto_sense_element.is_selected():
+                self.utils.print_info("Clicking status button to OFF")
+                self.auto_actions.click(auto_sense_element)
+        if access_value and access_element:
+            if access_value.lower() == 'enable' and not access_element.is_selected():
+                self.utils.print_info("Clicking access port option")
+                self.auto_actions.click(access_element)
+        if trunk_value and trunk_element:
+           if trunk_value.lower() == 'enable' and not trunk_element.is_selected():
+                self.utils.print_info("Clicking trunk port option")
+                self.auto_actions.click(trunk_element)
+        return 1
+
+    def get_active_port_type_tab(self):
+        """
+        - Assume that already on the Port Type Popup
+            :return: Returns string representing the active tab (if known)
+                     Else returns unknown
+        """
+
+        port_usage_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_port_name_and_usage_tab()
+        trans_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_transmission_tab()
+        storm_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_storm_control_tab()
+        summary_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_summary_tab()
+        vlan_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_vlan_tab()
+        stp_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_stp_tab()
+
+        results = port_usage_tab.get_attribute('class')
+        if 'active' in results:
+            return 'port_name_and_usage'
+
+        results = trans_tab.get_attribute('class')
+        if 'active' in results:
+            return 'transmission_settings'
+
+        results = storm_tab.get_attribute('class')
+        if 'active' in results:
+            return 'storm_control'
+
+        results = summary_tab.get_attribute('class')
+        if 'active' in results:
+            return 'summary'
+
+        results = vlan_tab.get_attribute('class')
+        if 'active' in results:
+            return 'vlan'
+
+        results = stp_tab.get_attribute('class')
+        if 'active' in results:
+            return 'stp'
+
+        return 'unknown'
+
+    def create_new_port_type_transmission_settings(self, port_details_interface_value, port_details_port_type_value, **switch_profile):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        transmission_setting_dictionary = port_type_dictionary.get('transmission_setting')
+        type_value = transmission_setting_dictionary.get('type')
+        speed_value = transmission_setting_dictionary.get('speed')
+        duplex_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow()
+        speed_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow()
+        if type_value and duplex_arrow_element:
+            self.utils.print_info("Selecting " + type_value + " option in the duplex combo box")
+            self.auto_actions.click(duplex_arrow_element)
+            combo_box_value_container = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_options_container()
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow_options(combo_box_value_container)
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == type_value:
+                    self.auto_actions.click(a_combo_element)
+        if speed_value and speed_arrow_element:
+            self.utils.print_info("Selecting " + speed_value + " option in the speed combo box")
+            self.auto_actions.click(speed_arrow_element)
+            combo_box_value_container = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_options_container()
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow_options(combo_box_value_container)
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == speed_value:
+                    self.auto_actions.click(a_combo_element)
+        return 1
+
+    def create_new_port_type_vlan(self, port_details_interface_value, port_details_port_type_value, **switch_profile):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        vlan_dictionary = port_type_dictionary.get('vlan')
+
+        native_vlan_value = vlan_dictionary.get('native_vlan')
+        allowed_vlans_value = vlan_dictionary.get('allowed_vlans')
+        native_vlan_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_description()
+        allowed_vlans_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status()
+
+        if native_vlan_value and native_vlan_element:
+            self.auto_actions.send_keys(native_vlan_element, native_vlan_value)
+
+        if allowed_vlans_value and allowed_vlans_element:
+            self.auto_actions.click(allowed_vlans_element)
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == port_details_port_type_value:
+                    self.auto_actions.click(a_combo_element)
+
+        return 1
+
+    def create_new_port_type_storm_control(self, port_details_interface_value, port_details_port_type_value,
+                                           **switch_profile):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        storm_control_dictionary = port_type_dictionary.get('storm_control')
+        broadcast_value = storm_control_dictionary.get('broadcast')
+        unicast_value = storm_control_dictionary.get('unicast')
+        multicast_value = storm_control_dictionary.get('multicast')
+        rate_limit_value = storm_control_dictionary.get('rate_limit_value')
+
+        sc_broadcast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast()
+        sc_unicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast()
+        sc_multicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast()
+        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+        sc_rate_limit_type_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
+        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+        sc_rate_limit_value_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_value()
+
+        if broadcast_value and sc_broadcast_element:
+            if broadcast_value.lower() == 'enable' and not sc_broadcast_element.is_selected():
+                self.utils.print_info("Enabling broadcast option")
+                self.auto_actions.click(sc_broadcast_element)
+            if broadcast_value.lower() == 'disable' and sc_broadcast_element.is_selected():
+                self.utils.print_info("Disabling broadcast option")
+                self.auto_actions.click(sc_broadcast_element)
+
+        if unicast_value and sc_unicast_element:
+            if unicast_value.lower() == 'enable' and not sc_unicast_element.is_selected():
+                self.utils.print_info("Enabling broadcast option")
+                self.auto_actions.click(sc_unicast_element)
+            if unicast_value.lower() == 'disable' and sc_unicast_element.is_selected():
+                self.utils.print_info("Disabling broadcast option")
+                self.auto_actions.click(sc_unicast_element)
+
+        if multicast_value and sc_multicast_element:
+            if multicast_value.lower() == 'enable' and not sc_multicast_element.is_selected():
+                self.utils.print_info("Enabling multicast option")
+                self.auto_actions.click(sc_multicast_element)
+            if multicast_value.lower() == 'disable' and sc_multicast_element.is_selected():
+                self.utils.print_info("Disabling multicast option")
+                self.auto_actions.click(sc_multicast_element)
+
+        if rate_limit_value and sc_rate_limit_value_element:
+            self.utils.print_info("Setting rate limit value to " + rate_limit_value)
+            self.auto_actions.send_keys(sc_rate_limit_value_element, rate_limit_value)
+
+        return 1
+
+    def create_new_port_type_stp(self, port_details_interface_value, port_details_port_type_value,
+                                           **switch_profile):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+
+        port_type_stp_dictionary = port_type_dictionary.get('port_type_stp_config')
+        stp_enabled_value = port_type_stp_dictionary.get('stp_enabled')
+        edge_port_value = port_type_stp_dictionary.get('edge_port')
+        bpdu_protection_value = port_type_stp_dictionary.get('bpdu_protection')
+        priority_value = port_type_stp_dictionary.get('priority')
+        path_cost_value = port_type_stp_dictionary.get('path_cost')
+
+        stp_enabled_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_stp_enable()
+        edge_port_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable()
+        bpdu_protection_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_bdu_protection()
+        priority_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_priority()
+        path_cost_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_path_cost()
+
+        if stp_enabled_value and stp_enabled_element:
+            if stp_enabled_value.lower() == 'on' and not stp_enabled_element.is_selected():
+                self.utils.print_info("Turning STP Enabled on")
+                self.auto_actions.click(stp_enabled_element)
+            if stp_enabled_value.lower() == 'off' and stp_enabled_element.is_selected():
+                self.utils.print_info("Turning STP Enabled off")
+                self.auto_actions.click(stp_enabled_element)
+
+        if edge_port_value and edge_port_element:
+            if edge_port_value.lower() == 'enable' and not edge_port_element.is_selected():
+                self.utils.print_info("Turning Edge Port on")
+                self.auto_actions.click(edge_port_element)
+            if edge_port_value.lower() == 'disable' and edge_port_element.is_selected():
+                self.utils.print_info("Turning Edge Port off")
+                self.auto_actions.click(edge_port_element)
+
+        if path_cost_value and path_cost_element:
+            self.auto_actions.send_keys(path_cost_element, path_cost_value)
+
+        if bpdu_protection_value and bpdu_protection_element:
+            self.auto_actions.click(bpdu_protection_element)
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == port_details_port_type_value:
+                    self.auto_actions.click(a_combo_element)
+        if priority_value and priority_element:
+            self.auto_actions.click(priority_element)
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == port_details_port_type_value:
+                    self.auto_actions.click(a_combo_element)
 
         return 1

@@ -672,18 +672,13 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_device_sett_forward_delay_drop_down_items = \
         {
-            # 'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-results-ctn"]',
-            'CSS_SELECTOR': '.chzn-drop',
-            'index': 5,
-            'wait_for': 10
-
-
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-drop-ctn"]',
+            'wait_for': 2
         }
 
     sw_template_device_sett_forward_delay_drop_down_items_all_items = \
         {
-            # 'CSS_SELECTOR': '.active-result',
-            'TAG_NAME': 'li'
+            'CSS_SELECTOR': '.active-result'
         }
 
     sw_template_device_sett_forward_delay_drop_down_item16 = \
@@ -709,9 +704,6 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': '//ul[@class="chzn-results qa-chzn-results-deviceimagemetadata"]//li[contains(@class,"active-result")]',
             'wait_for': 2
         }
-
-
-
 
     sw_template_row_cells_hyperlink = \
         {
@@ -883,10 +875,39 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': "//*[@data-automation-tag='automation-port-type-editor-duplex-chzn-arrow-down']"
         }
 
+    sw_template_port_details_port_type_editor_duplex_options_container = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-duplex-chzn-results-ctn']"
+        }
+
+    sw_template_port_details_port_type_editor_duplex_arrow_options = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+
+
+
+
     sw_template_port_details_port_type_editor_speed_arrow = \
         {
             'XPATH': "//*[@data-automation-tag='automation-port-type-editor-speed-chzn-arrow-down']"
         }
+
+    sw_template_port_details_port_type_editor_speed_options_container = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-speed-chzn-results-ctn']"
+        }
+
+    sw_template_port_details_port_type_editor_speed_arrow_options = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+
+
+
+
 
     sw_template_port_details_port_type_options = \
         {
@@ -955,7 +976,22 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_port_details_port_type_editor_storm_control_tab = \
         {
-            'XPATH': "//*[@data-automation-tag='port-type-editor-step-trans']"
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-storm-control']"
+        }
+
+    sw_template_port_details_port_type_editor_summary_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-summary']"
+        }
+
+    sw_template_port_details_port_type_editor_vlan_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-vlan']"
+        }
+
+    sw_template_port_details_port_type_editor_stp_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-stp']"
         }
 
     device_switch_select_button = \
@@ -1008,15 +1044,42 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': "//*[@data-automation-tag='automation-switch-template-pse-budget']"
         }
 
+    sw_template_port_details_port_type_editor_spanning_tree_stp_enable = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-stp-enable']"
+        }
 
+    sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-stp-edge-port']"
+        }
 
+    sw_template_port_details_port_type_editor_spanning_tree_bdu_protection = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-stp-bpdu-prot-chzn-arrow-down']"
+        }
 
+    sw_template_port_details_port_type_editor_spanning_tree_priority = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-stp-priority-chzn-drop-ctn']"
+        }
 
+    sw_template_port_details_port_type_editor_spanning_tree_path_cost = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-stp-path-cost']"
+        }
 
+    sw_template_port_details_port_type_editor_vlan_native_vlan = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-native-vlan-input']"
+        }
 
+    sw_template_port_details_port_type_editor_vlan_add_button = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-native-vlan-add-btn']"
+        }
 
-
-
-
-
-
+    sw_template_port_details_port_type_editor_vlan_allowed_vlans = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-allowed-vlans']"
+        }

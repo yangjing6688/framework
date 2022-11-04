@@ -574,8 +574,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_port_details_row_port_type_list(self):
         return self.weh.get_elements(self.sw_template_port_details_row_port_type_list)
 
-############
-
     def get_sw_template_port_details_port_type_editor_name(self):
         return self.weh.get_element(self.sw_template_port_details_port_type_editor_name)
 
@@ -607,10 +605,10 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.sw_template_port_details_port_type_editor_save)
 
     def get_sw_template_port_details_port_type_editor_duplex_arrow(self):
-        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_duplex_arrow)
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_duplex_arrow)
 
-    def get_sw_template_port_details_port_type_editor_duplex_option(self, parent):
-        return self.weh.get_element(self.sw_template_port_details_port_type_options, parent)
+    def get_sw_template_port_details_port_type_editor_duplex_option(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_options)
 
     def get_sw_template_port_details_port_type_editor_speed_arrow(self):
         return self.weh.get_elements(self.sw_template_port_details_port_type_editor_speed_arrow)
@@ -664,6 +662,15 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_port_details_port_type_editor_storm_control_tab(self):
         return self.weh.get_element(self.sw_template_port_details_port_type_editor_storm_control_tab)
 
+    def get_sw_template_port_details_port_type_editor_summary_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_summary_tab)
+
+    def get_sw_template_port_details_port_type_editor_vlan_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_vlan_tab)
+
+    def get_sw_template_port_details_port_type_editor_stp_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_stp_tab)
+
     def get_switch_template_device_configuration_igmp_settings(self):
         return self.weh.get_element(self.switch_template_device_configuration_igmp_settings)
 
@@ -687,3 +694,39 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_switch_template_device_configuration_pse_budget(self):
         return self.weh.get_element(self.switch_template_device_configuration_pse_budget)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_stp_enable(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_spanning_tree_stp_enable)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_path_cost(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_spanning_tree_path_cost)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_bdu_protection(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_spanning_tree_bdu_protection)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_priority(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_spanning_tree_priority)
+
+    def get_sw_template_port_details_port_type_editor_vlan_native_vlan(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_vlan_native_vlan)
+
+    def get_sw_template_port_details_port_type_editor_vlan_add_button(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_vlan_add_button)
+
+    def get_sw_template_port_details_port_type_editor_vlan_allowed_vlans(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_vlan_allowed_vlans)
+
+    def get_sw_template_port_details_port_type_editor_duplex_options_container(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_duplex_options_container)
+
+    def get_sw_template_port_details_port_type_editor_duplex_arrow_options(self, table):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_duplex_arrow_options, parent=table)
+
+    def get_sw_template_port_details_port_type_editor_speed_options_container(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_speed_options_container)
+
+    def get_sw_template_port_details_port_type_editor_speed_arrow_options(self, table):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_speed_arrow_options, parent=table)
