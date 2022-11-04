@@ -3,11 +3,10 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-
 from extauto.xiq.flows.manage.Devices import Devices
-
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.GlobalSearchWebElements import GlobalSearchWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class GlobalSearch:
@@ -15,11 +14,10 @@ class GlobalSearch:
         self.utils = Utils()
         self.screen = Screen()
         self.auto_actions = AutoActions()
-
         self.devices = Devices()
-
         self.global_web_elements = GlobalSearchWebElements()
         self.devices_web_elements = DevicesWebElements()
+        self.common_validation = CommonValidation()
 
     def global_search(self, search_value, category, expect_result="", **kwargs):
         """
@@ -68,16 +66,16 @@ class GlobalSearch:
                 matched_val = search_match
 
         if expect_result == "None" and matched_val == "":
-            kwargs['fail_msg'] = f"Variable 'expect_result' is None"
-            self.commonValidation.failed(**kwargs)
+            kwargs['fail_msg'] = f"'global_search()' -> Variable 'expect_result' is None"
+            self.common_validation.failed(**kwargs)
             return -2
 
         if matched_val == "":
             self.screen.save_screen_shot()
             sleep(2)
             self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
-            kwargs['fail_msg'] = "Value was not found"
-            self.commonValidation.failed(**kwargs)
+            kwargs['fail_msg'] = "'global_search()' -> Value was not found"
+            self.common_validation.failed(**kwargs)
             return -1
         return matched_val
 
