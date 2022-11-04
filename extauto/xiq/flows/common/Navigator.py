@@ -3217,6 +3217,7 @@ class Navigator(NavigatorWebElements):
                             return -1
                         else:
                             self.utils.print_info(f"trying again...")
+                            sleep(5)
                             counter += 1
                 else:
                     return 1
