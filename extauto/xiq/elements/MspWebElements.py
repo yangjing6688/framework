@@ -24,3 +24,15 @@ class MspWebElements(MspWebElementsDefinitions):
 
     def get_organizations_select_check_box(self, row):
         return self.weh.get_element(self.organizations_select_check_box, parent=row)
+
+    def get_paze_size_element(self, page_size='50'):
+        if els := self.weh.get_elements(self.page_size_element):
+            for el in els:
+                if str(page_size) in el.text:
+                    return el
+
+    def get_page_numbers(self):
+        return self.weh.get_elements(self.page_numbers)
+
+    def get_next_page_element(self, page_size='50'):
+        return self.weh.get_elements(self.next_page_element)
