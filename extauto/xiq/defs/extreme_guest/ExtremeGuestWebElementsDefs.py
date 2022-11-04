@@ -74,6 +74,7 @@ class ExtremeGuestWebElementsDefs:
 
     extreme_guest_configure_preview_button = \
         {
+            #'XPATH': '/html/body/div[1]/div/div/div[2]/div/div[2]/div/div/div[2]/div/div/div[2]/div/div[1]/div/div[1]/div/div[1]/div/div/div[6]/span/span/span[1]',
             'XPATH': '(//div[contains(@class, "eguest-preview-button")])[1]',
             'wait_for': 5
         }
