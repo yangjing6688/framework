@@ -1737,7 +1737,7 @@ class DeviceConfig(DeviceConfigElements):
                 return -1
 
             self.utils.print_info("click on configuration tab")
-            self.auto_actions.click_reference(self.get_configuration_tab())
+            self.auto_actions.click_reference(self.get_configuration_tab)
             self.utils.print_info("Click on Device Configuration tab")
             self.auto_actions.click_reference(self.get_device_configuration_tab)
 
