@@ -82,6 +82,9 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("select the AP: ", ap_model)
+        self.utils.print_info("Enter AP Model in the search box")
+        self.auto_actions.send_keys(self.device_template_web_elements.get_device_ap_template_search_inputfield(),
+                                    ap_model)
         ap_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
         print(len(ap_list_items))
         for el in ap_list_items:
@@ -89,8 +92,6 @@ class DeviceTemplate(object):
             if not el:
                 pass
             if ap_model.upper() in el.text.upper():
-                self.auto_actions.center_element(e1)
-                sleep(5)
                 self.auto_actions.click(el)
                 break
         sleep(3)
