@@ -551,13 +551,17 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
-    def xiqse_wait_until_device_add_operation_complete(self, retry_duration=30, retry_count=10):
+    def xiqse_wait_until_device_add_operation_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits until the device add operation has completed by checking the Device Added entry in the
-         - Operations panel for progress value of 100%.
+         - This keyword waits until the "Discover Site Actions" operation has completed by checking the
+         - "Discover Site Actions" entry in the Operations panel for progress value of 100%. Do not return complete
+         - for Device Added operation event as this event is just the first step. Most of XIQSE functions won't work
+         - correctly until the inventory discovery process is complete and the site actions have finished for a new
+         - device which initiates a discovery to identify the device and its  capabilities, then assign a license and
+         - complete the add process by running the site actions.
          - It is assumed the view is already navigated to the Site tab.
-         - NOTE: before performing the Device Add operation, the operations panel should be cleared, as the first match
-         - of "Device Added" will be used to check the progress.
+         - NOTE: before performing the Device Add, the operations panel should be cleared, as the first match
+         - of "Discover Site Actions" will be used to check the progress.
          - Keyword Usage
           - ``XIQSE Site Wait Until Device Add Operation Complete``
           - ``XIQSE Site Wait Until Device Add Operation Complete    retry_duration=10  retry_count=60``
@@ -566,7 +570,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         :param retry_count: retry count
         :return: 1 if action was successful, else -1
         """
-        return self.operations_panel.xiqse_operations_wait_until_operation_complete("Device Added",
+        return self.operations_panel.xiqse_operations_wait_until_operation_complete("Discover Site Actions",
                                                                                     retry_duration, retry_count)
 
     def xiqse_wait_until_device_added(self, device_ip, retry_duration=10, retry_count=30):
@@ -2220,6 +2224,53 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         if ret_val == -1:
             self.utils.print_info(f"Unable to perform search for {value}")
+
+        return ret_val
+
+    def xiqse_perform_rediscover_device(self, device_ip):
+        """
+         - This keyword rediscovers the specified device.
+         - It is assumed the user is already on the Network> Devices> Devices tab
+         - Keyword Usage
+          - ``XIQSE Perform Rediscover Device    ${DEVICE_IP}``
+
+        :param  device_ip:    IP address of the device to rediscover
+        :return: 1 if action was successful, else -1
+        """
+
+        ret_val = -1
+
+        if self.xiqse_select_device(device_ip) == 1:
+            menu_btn = self.get_device_menu_tb_button()
+            if menu_btn:
+                self.utils.print_info("Clicking Device Menu toolbar button")
+                self.auto_actions.click(menu_btn)
+                sleep(1)
+
+                rediscover_menu_item = self.get_rediscover_device_menu_item()
+                if rediscover_menu_item:
+                    self.utils.print_info("Clicking 'Rediscover' menu")
+                    self.auto_actions.click(rediscover_menu_item)
+                    sleep(1)
+                    # select yes in the confirmation box.
+                    confirm_box = self.get_rediscover_confirm_button_yes_item();
+                    if confirm_box:
+                        self.utils.print_info("Clicking 'Rediscover Device' confirm")
+                        self.auto_actions.click(confirm_box)
+                        sleep(5)
+                        ret_val = 1
+                    else:
+                        self.utils.print_info("Unable to find Rediscover Device Confirm")
+                        self.screen.save_screen_shot()
+                else:
+                    self.utils.print_info("Unable to find Rediscover menu")
+                    self.screen.save_screen_shot()
+            else:
+                self.utils.print_info("Unable to find Device Menu toolbar button")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to find select device")
+            self.screen.save_screen_shot()
 
         return ret_val
 
