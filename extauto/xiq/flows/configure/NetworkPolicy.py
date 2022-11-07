@@ -2190,6 +2190,6 @@ class NetworkPolicy(object):
     def generate_policy_name(self):
         """
         - This Keyword will generate policy name
-        :return: policy name
+        :return: random policy name
         """
         return f"test_policy_{str(time.time())[::-1][:5]}"

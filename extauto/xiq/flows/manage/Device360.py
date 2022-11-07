@@ -10760,7 +10760,7 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = f"'select_pagination_size()' failed. Specific pagination was not selected"
             self.common_validation.failed(**kwargs)
 
-    def get_device360_port_table_rows(self):
+    def get_device360_port_table_rows(self, **kwargs):
         """
          - This keyword will get device360 port table rows - Monitor Overview Ports Table
          It Assumes That Already Navigated to Device360 Page
@@ -10768,6 +10768,8 @@ class Device360(Device360WebElements):
         table_rows = self.dev360.get_device360_port_table_rows()
         assert table_rows, "Did not find the rows of the ports table"
         table_rows[0].location_once_scrolled_into_view
+        kwargs['pass_msg'] = f"Found the rows of the ports table"
+        self.common_validation.passed(**kwargs)
         return [
             row for row in table_rows if not
             any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
@@ -10789,12 +10791,13 @@ class Device360(Device360WebElements):
                 # return True
                 kwargs['pass_msg'] = f"Confirm current page number"
                 self.common_validation.passed(**kwargs)
+                return True
             # return False
             kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed."
             self.common_validation.failed(**kwargs)
         except Exception as e:
             # return False
-            kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed."
+            kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed with the following exception: {e}"
             self.common_validation.failed(**kwargs)
 
     def device360_switch_get_current_page_port_name_list(self, **kwargs):
@@ -10849,14 +10852,13 @@ class Device360(Device360WebElements):
                     self.utils.print_info(f"Going to page " + str(current_page + 1))
                     self.auto_actions.click(page)
                     sleep(5)
-                    # return 1
                     kwargs['pass_msg'] = f"Successfully changed to next page"
                     self.common_validation.passed(**kwargs)
-            # return 2
+                    return 1
             kwargs['pass_msg'] = f"Already on the last page"
             self.common_validation.passed(**kwargs)
+            return 2
         except Exception as e:
-            # return -1
             kwargs['fail_msg'] = f"'device360_monitor_overview_pagination_next_page_by_number()' failed."
             self.common_validation.failed(**kwargs)
 
@@ -10887,6 +10889,10 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
 
     def enter_port_transmission_mode(self, port, transmission_mode):
+        """
+         - This keyword will enter port transimission mode
+        :return: results
+        """
 
         sleep(10)
         configure_port_btn = self.dev360.get_d360_configure_port_settings_aggregation_tab_button()
@@ -10931,9 +10937,13 @@ class Device360(Device360WebElements):
         sleep(2)
 
     def generate_vlan_id(self, rng=range(1024, 4096)):
+        """
+         - This keyword will generate vlan id
+        :return: random vlan id
+        """
         return str(random.choice(rng))
 
-    def device360_display_traffic_received_from_xiq_and_return_traffic_list(self, dut, first_port, second_port):
+    def device360_display_traffic_received_from_xiq_and_return_traffic_list(self, dut, first_port, second_port, **kwargs):
         """
          - This keyword will display the received traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
         :return: -1 if error
@@ -11009,10 +11019,12 @@ class Device360(Device360WebElements):
                 return traffic_list_xiq
 
         except Exception as e:
-            return -1
+            # return -1
+            kwargs['fail_msg'] = f"'device360_display_traffic_received_from_xiq_and_return_traffic_list()' failed with the following exception: {e}."
+            self.common_validation.failed(**kwargs)
 
     def device360_display_traffic_transmitted_from_xiq_and_return_traffic_list(
-        self, dut, first_port, second_port):
+        self, dut, first_port, second_port, **kwargs):
         """
          - This keyword will display the transmitted traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
         :return: -1 if error
@@ -11087,9 +11099,15 @@ class Device360(Device360WebElements):
 
                 return traffic_list_xiq
         except Exception as e:
-            return -1
+            # return -1
+            kwargs['fail_msg'] = f"'device360_display_traffic_transmitted_from_xiq_and_return_traffic_list()' failed with the following exception: {e}."
+            self.common_validation.failed(**kwargs)
 
-    def check_power_values(self, ports_power_xiq, ports_power_cli):
+    def check_power_values(self, ports_power_xiq, ports_power_cli, **kwargs):
+        """
+         - This keyword will check power values
+        :return: results
+        """
         results = []
         for port_xiq, port_cli in zip(ports_power_xiq, ports_power_cli):
             if port_xiq[0] == port_cli[0]:
@@ -11104,10 +11122,17 @@ class Device360(Device360WebElements):
                     else:
                         results.append(["Port: " + port_xiq[0], "FAILED"])
             else:
-                return -1
+                # return -1
+                kwargs[
+                    'fail_msg'] = f"'check_power_values() failed."
+                self.common_validation.failed(**kwargs)
         return results
 
     def check_port_type(self, dut):
+        """
+         - This keyword will check port type
+        :return:
+        """
 
         if dut.cli_type.upper() == "VOSS":
 
@@ -11162,7 +11187,7 @@ class Device360(Device360WebElements):
             sleep(10)
             self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
                                     max_wait=10, interval=2)
-            output = self.networkElementCliSend.send_cmd(self.tb.dut1.name, 'show ports transceiver information',
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports transceiver information',
                                             max_wait=10, interval=2)
             p = re.compile(r'(^\d+)\s+(DDMI\sis\snot\ssupported\son\sthis\sport)', re.M)
             match_port = re.findall(p, output[0].return_text)
