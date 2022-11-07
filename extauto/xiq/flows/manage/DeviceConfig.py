@@ -115,6 +115,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.click_reference(self.get_interface_settings_save_button)
         sleep(3)
         self._go_to_wireless_interface_settings_page()
+        sleep(2)
 
         if   interface.lower() == 'wifi0':
             self.utils.print_info("Click on WiFi0 interface tab")
