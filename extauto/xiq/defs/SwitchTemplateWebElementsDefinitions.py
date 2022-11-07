@@ -447,8 +447,8 @@ class SwitchTemplateWebElementDefinitions:
 
     priority_options = \
         {
-            'XPATH': '//*[@class="line clearfix priority"]//*[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 2
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-bridge-dropdown-chzn-arrow-down"]'
+
         }
 
     low_value_option = \
@@ -469,10 +469,14 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 2
         }
 
+    priority_items_select_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-bridge-dropdown-chzn-results-ctn"]'
+        }
+
     priority_items_select = \
         {
-            'XPATH': '//div[@class="pse-profileobject-form ui-dialog-content"]//ul[@class="chzn-results qa-chzn-results-priority"]//li[contains(@class,"active-result")]',
-            'wait_for': 2
+            'CSS_SELECTOR': '.active-result'
         }
 
     power_mode_items_select = \
@@ -674,6 +678,11 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-drop-ctn"]',
             'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_items_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-results-ctn"]'
         }
 
     sw_template_device_sett_forward_delay_drop_down_items_all_items = \
@@ -1083,3 +1092,22 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': "//*[@data-automation-tag='port-type-editor-allowed-vlans']"
         }
+
+
+
+    sw_template_device_max_age_drop_down_items = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-age-dropdown-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_max_age_delay_items_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-age-dropdown-chzn-results-ctn"]'
+        }
+
+    sw_template_device_max_age_drop_down_all_items = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+

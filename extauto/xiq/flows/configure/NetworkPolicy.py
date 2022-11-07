@@ -201,6 +201,10 @@ class NetworkPolicy(object):
             if cli_type == 'AH-AP':
                 return self.wireless_nw.create_wireless_network(**wireless_profile)
             else:
+                switch_template_name = wireless_profile.get('switch_template_name')
+                if not switch_template_name:
+                    self.utils.print_info("No template information in dictionary")
+                    return 1
                 self.switch_template.create_switching_network(policy, **wireless_profile)
 
     def delete_network_policy(self, policy, **kwargs):

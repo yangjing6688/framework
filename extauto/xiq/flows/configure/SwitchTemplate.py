@@ -2268,10 +2268,14 @@ class SwitchTemplate(object):
     def create_switching_network(self, policy, **switch_profile):
         """
         - Configure switching template options
+        :param policy: name of the policy to create
         :param switch_profile: used to get options for configuring switching template
         :return: 1 if exists else -1
         """
         sw_template_name = switch_profile.get('switch_template_name')
+        if not sw_template_name:
+            self.utils.print_info("Template name required...Unable to continue")
+            return -1
 
         return_value = self.create_new_switch_template(**switch_profile)
         if return_value == -1:
@@ -2547,10 +2551,10 @@ class SwitchTemplate(object):
             return -1
         self.auto_actions.send_keys(switch_template_name_field, switch_template_name)
 
-        '''result = self.configure_switch_template_spanning_tree(**wireless_network_conf)
+        result = self.configure_switch_template_spanning_tree(**wireless_network_conf)
         if result == -1:
             self.utils.print_info("Unable to configure spanning tree values")
-            return -1'''
+            return -1
 
         result = self.configure_switch_igmp_setting(**wireless_network_conf)
         if result == -1:
@@ -2580,6 +2584,10 @@ class SwitchTemplate(object):
 
         # spanning tree
         spanning_dictionary = wireless_network_conf.get('stp_config')
+        if not spanning_dictionary:
+            self.utils.print_info("No spanning data in the dictionary")
+            return 1
+
         span_tree_mode_value = spanning_dictionary.get('stp_mode')
 
         span_tree_mode_web_element = self.sw_template_web_elements.get_sw_template_enable_spanningtree()
@@ -2632,13 +2640,17 @@ class SwitchTemplate(object):
             span_tree_bridge_priority_value = spanning_dictionary.get('stp_bridge_priority')
             if span_tree_bridge_priority_value:
                 span_tree_bridge_priority_element = self.sw_template_web_elements.priority_dropdown()
-                sleep(5)
                 if not span_tree_bridge_priority_element:
                     self.utils.print_info("Unable to locate spanning tree priority option drop down")
                     return -1
-                for priority_option in span_tree_bridge_priority_element:
+                self.auto_actions.click(span_tree_bridge_priority_element)
+                span_tree_bridge_priority_element_container = self.sw_template_web_elements.get_priority_items_select_container()
+                span_tree_bridge_priority_element_list = self.sw_template_web_elements.priority_items(span_tree_bridge_priority_element_container)
+
+                for priority_option in span_tree_bridge_priority_element_list:
                     if priority_option.text == span_tree_bridge_priority_value:
                         self.auto_actions.click(priority_option)
+                        break
 
             span_tree_forward_delay_value = spanning_dictionary.get('stp_forward_delay')
             if span_tree_forward_delay_value:
@@ -2646,19 +2658,29 @@ class SwitchTemplate(object):
                 if not span_tree_forward_delay_element:
                     self.utils.print_info("Unable to locate spanning tree forward delay drop down")
                     return -1
-                for span_tree_forward_delay_option in span_tree_forward_delay_element:
-                    if span_tree_forward_delay_option.text == span_tree_forward_delay_value:
+                self.auto_actions.click(span_tree_forward_delay_element)
+                span_tree_forward_delay_container = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items_container()
+                span_tree_forward_delay_element_all_items = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items_all_items(span_tree_forward_delay_container)
+
+                for span_tree_forward_delay_option in span_tree_forward_delay_element_all_items:
+                    if span_tree_forward_delay_option.get_attribute('textContent') == span_tree_forward_delay_value:
                         self.auto_actions.click(span_tree_forward_delay_option)
+                        break
 
             span_tree_max_age_value = spanning_dictionary.get('stp_max_age')
             if span_tree_max_age_value:
-                span_tree_max_age_element = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items()
+                span_tree_max_age_element = self.sw_template_web_elements.get_sw_template_device_max_age_drop_down_items()
                 if not span_tree_max_age_element:
                     self.utils.print_info("Unable to locate spanning tree max age drop down")
                     return -1
-                for span_tree_max_age_option in span_tree_max_age_element:
-                    if span_tree_max_age_option.text == span_tree_max_age_value:
+                self.auto_actions.click(span_tree_max_age_element)
+                span_tree_max_age_container = self.sw_template_web_elements.get_sw_template_device_max_age_delay_items_container()
+                span_tree_max_age_element_all_items = self.sw_template_web_elements.get_sw_template_device_max_age_drop_down_all_items(span_tree_max_age_container)
+
+                for span_tree_max_age_option in span_tree_max_age_element_all_items:
+                    if span_tree_max_age_option.get_attribute('textContent') == span_tree_max_age_value:
                         self.auto_actions.click(span_tree_max_age_option)
+                        break
 
         return 1
 
@@ -2671,6 +2693,10 @@ class SwitchTemplate(object):
         """
 
         igmp_dictionary = wireless_network_conf.get('igmp_setting')
+        if not igmp_dictionary:
+            self.utils.print_info("No igmp data in the dictionary")
+            return 1
+
         igmp_snooping_value = igmp_dictionary.get('igmp_snooping')
         enable_immediate_leave_value = igmp_dictionary.get('enable_immediate_leave')
         supress_redundant_value = igmp_dictionary.get('supress_redundant')
@@ -2781,6 +2807,10 @@ class SwitchTemplate(object):
         port_type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
 
         port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        if not port_type_dictionary:
+            self.utils.print_info("No port details data in the dictionary")
+            return 1
+
         port_name_and_usage_dictionary = port_type_dictionary.get('port_name_and_usage')
         status_value = port_name_and_usage_dictionary.get('status')
         auto_sense_value = port_name_and_usage_dictionary.get('auto_sense')
@@ -2871,6 +2901,10 @@ class SwitchTemplate(object):
         """
         port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
         transmission_setting_dictionary = port_type_dictionary.get('transmission_setting')
+        if not transmission_setting_dictionary:
+            self.utils.print_info("No transmission setting data in dictionary")
+            return 1
+
         type_value = transmission_setting_dictionary.get('type')
         speed_value = transmission_setting_dictionary.get('speed')
         duplex_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow()
@@ -2901,7 +2935,14 @@ class SwitchTemplate(object):
         """
 
         port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        if not port_type_dictionary:
+            self.utils.print_info("No port type data in dictionary")
+            return 1
+
         vlan_dictionary = port_type_dictionary.get('vlan')
+        if not vlan_dictionary:
+            self.utils.print_info("No vlan data in dictionary")
+            return 1
 
         native_vlan_value = vlan_dictionary.get('native_vlan')
         allowed_vlans_value = vlan_dictionary.get('allowed_vlans')
@@ -2929,7 +2970,15 @@ class SwitchTemplate(object):
         """
 
         port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        if not port_type_dictionary:
+            self.utils.print_info("No port type data in dictionary")
+            return 1
+
         storm_control_dictionary = port_type_dictionary.get('storm_control')
+        if not storm_control_dictionary:
+            self.utils.print_info("No storm control data in dictionary")
+            return 1
+
         broadcast_value = storm_control_dictionary.get('broadcast')
         unicast_value = storm_control_dictionary.get('unicast')
         multicast_value = storm_control_dictionary.get('multicast')
@@ -2982,8 +3031,15 @@ class SwitchTemplate(object):
         """
 
         port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        if not port_type_dictionary:
+            self.utils.print_info("No port type data in dictionary")
+            return 1
 
         port_type_stp_dictionary = port_type_dictionary.get('port_type_stp_config')
+        if not port_type_stp_dictionary:
+            self.utils.print_info("No storm control data in dictionary")
+            return 1
+
         stp_enabled_value = port_type_stp_dictionary.get('stp_enabled')
         edge_port_value = port_type_stp_dictionary.get('edge_port')
         bpdu_protection_value = port_type_stp_dictionary.get('bpdu_protection')

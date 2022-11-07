@@ -354,7 +354,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.pse_power_limit)
 
     def priority_dropdown(self):
-        return self.weh.get_elements(self.priority_options)
+        return self.weh.get_element(self.priority_options)
 
     def low_value(self):
         return self.weh.get_elements(self.low_value_option)
@@ -365,8 +365,11 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def critical_value(self):
         return self.weh.get_elements(self.critical_value_option)
 
-    def priority_items(self):
-        return self.weh.get_elements(self.priority_items_select)
+    def get_priority_items_select_container(self):
+        return self.weh.get_element(self.priority_items_select_container)
+
+    def priority_items(self, table):
+        return self.weh.get_elements(self.priority_items_select, parent=table)
 
     def power_mode_items(self):
         return self.weh.get_elements(self.power_mode_items_select)
@@ -470,8 +473,11 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_device_sett_forward_delay_drop_down_items(self):
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_items)
 
+    def get_sw_template_device_sett_forward_delay_drop_down_items_container(self):
+        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_items_container)
+
     def get_sw_template_device_sett_forward_delay_drop_down_items_all_items(self, parent):
-        return self.weh.get_elements(self.sw_template_device_sett_forward_delay_drop_down_items_all_items, parent)
+        return self.weh.get_elements(self.sw_template_device_sett_forward_delay_drop_down_items_all_items, parent=parent)
 
     def get_sw_template_adv_settings_download_specific_firmware_drop_down_button(self):
         return self.weh.get_elements(self.sw_template_adv_settings_download_specific_firmware_drop_down_button)
@@ -730,3 +736,15 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_port_details_port_type_editor_speed_arrow_options(self, table):
         return self.weh.get_elements(self.sw_template_port_details_port_type_editor_speed_arrow_options, parent=table)
+
+
+
+
+    def get_sw_template_device_max_age_drop_down_items(self):
+        return self.weh.get_element(self.sw_template_device_max_age_drop_down_items)
+
+    def get_sw_template_device_max_age_delay_items_container(self):
+        return self.weh.get_element(self.sw_template_device_max_age_delay_items_container)
+
+    def get_sw_template_device_max_age_drop_down_all_items(self, table):
+        return self.weh.get_elements(self.sw_template_device_max_age_drop_down_all_items, parent=table)
