@@ -94,7 +94,7 @@ class ClientMode:
         disconnect = 0
         wifi_status = None
         self.utils.print_info("Click other SSIDs button.")
-        self.auto_actions.click_reference(self.ClientModeWebElements.get_other_ssids_button())
+        self.auto_actions.click_reference(self.ClientModeWebElements.get_other_ssids_button)
         self.utils.print_info("Input ssid.")
         self.auto_actions.send_keys(self.ClientModeWebElements.get_ssid_textbox(), ssid)
         self.utils.print_info("Select security type.")

@@ -717,7 +717,6 @@ class CommonObjects(object):
             self.common_validation.validate(1, 1, **kwargs)
             return 1
 
-
     def delete_vlan_profile(self, vlan_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
@@ -757,6 +756,36 @@ class CommonObjects(object):
             kwargs['pass_msg'] = "Successfully deleted the vlan object"
             self.common_validation.validate(1, 1, **kwargs)
             return 1
+
+    def delete_all_vlan_profiles(self, **kwargs):
+        """
+        - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
+        - Delete Vlans in Common Object from the grid
+        - Keyword Usage:
+         - ``Delete All Vlan Profiles``
+        :return: 1 if vlans deleted successfully else returns -1
+        """
+        exclude_list = ['1', 'Mgmt-4048']
+        self.utils.print_info("Navigate to Basic--> VLANS Settings")
+        self.navigator.navigate_to_basic_vlans_tab()
+        if rows := self.cobj_web_elements.get_common_object_grid_rows():
+            for row in rows:
+                vlan_name = self.cobj_web_elements.get_common_object_grid_row_cells(row)
+                if exclude_list[0] == vlan_name.text.strip() or exclude_list[1] == vlan_name.text.strip():
+                    continue
+                self.utils.print_info("Selecting the row ", vlan_name.text)
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_grid_row_cells(row, 'dgrid-selector'))
+            self.utils.print_info("Clicking on the delete button")
+            self.auto_actions.click_reference(self.user_profile_web_elements.get_vlan_profile_delete)
+            sleep(3)
+            self.utils.print_info("Clicking yes on the confirm delete popup")
+            self.auto_actions.click_reference(self.user_profile_web_elements.get_user_profile_confirm_delete_yes)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Unable to gather VLANs"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def navigate_to_security_wips_policies(self):
         """
@@ -2939,6 +2968,38 @@ class CommonObjects(object):
             self.utils.print_info("Unable to gather user profiles")
             return -1
         return -1
+
+    def delete_all_user_profiles(self, **kwargs):
+        """
+        - It deletes all user profiles
+        -Flow: Configure --> Common Objects --> User Profile
+           - Keyword Usage:
+            - ``Delete All User Profiles``
+        :return: 1 if successfully created else -1
+        """
+        exclude_list = ['default-profile', 'default-guest-profile']
+        self.navigator.navigate_to_common_object_user_profile()
+        sleep(5)
+
+        if profile_rows := self.user_profile_web_elements.get_user_profile_grid_rows():
+            self.utils.print_info("Gathering all the user profiles in the profile table")
+            for row in profile_rows:
+                if exclude_list[0] in row.text.lower() or exclude_list[1] in row.text.lower():
+                    continue
+                self.utils.print_info("Selecting the row ", row.text)
+                self.auto_actions.click(self.user_profile_web_elements.get_all_profile_row_cells(row)[0])
+
+            self.utils.print_info("Clicking on the delete button")
+            self.auto_actions.click_reference(self.user_profile_web_elements.get_user_profile_delete)
+            sleep(3)
+            self.utils.print_info("Clicking yes on the confirm delete popup")
+            self.auto_actions.click_reference(self.user_profile_web_elements.get_user_profile_confirm_delete_yes)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Unable to gather user profiles"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def delete_ip_firewall_policy(self, ip_firewall_policy_name):
         """

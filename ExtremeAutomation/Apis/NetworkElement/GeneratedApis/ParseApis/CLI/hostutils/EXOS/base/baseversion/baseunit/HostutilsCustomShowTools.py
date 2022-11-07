@@ -39,7 +39,7 @@ class HostutilsCustomShowTools(HostutilsBaseCustomShowTools):
         return (True, response) if challenge != "valuenotpresent" else (False, None)
 
     def check_debug_login_enabled(self, output, args, **kwargs):
-        result = "(debug)" in output or "(pacman debug)" in output
+        result = "debug" in output
         return result, result
 
     def check_failed_login_attempts(self, output, args, **kwargs):
