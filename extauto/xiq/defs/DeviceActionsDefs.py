@@ -485,9 +485,17 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    loading_onboarding_replacement = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="loadingQuickOnboardDiv"]',
+            'wait_for': 2
+        }
+
     onboarding_replacement = \
         {
-            'XPATH': '//*[@class="ui-sml-pgr-inline cl-progress-bar" ]',
+            # 'XPATH': '//*[@class="ui-sml-pgr-inline cl-progress-bar" ]',
+            # 'XPATH': '//*[contains(text(), "Waiting for Replacement")]',
+            'XPATH': '//*[@data-dojo-attach-point="percentageDeviceStatus"]',
             'wait_for': 2
         }
 
@@ -499,7 +507,7 @@ class DeviceActionsDefs:
 
     warning_replacement_not_connected = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'XPATH': '//*[contains(text(), "Device Onboarded, but Device did not get connected.")]',
             'wait_for': 2
         }
 
@@ -511,12 +519,12 @@ class DeviceActionsDefs:
 
     close_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="closeDialog""]',
+            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 2
         }
 
     x_button_clone_window = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="closeButtonNode""]',
+            'XPATH': '//*[@data-dojo-attach-point="closeButtonNode"]',
             'wait_for': 2
         }

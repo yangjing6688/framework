@@ -12438,14 +12438,24 @@ class Devices:
                     self.utils.print_info("Select Clone button")
                     self.auto_actions.click(clone_button)
 
-                    def _onboarding_replacement():
-                        onboarding_replacement = self.device_actions.get_onboarding_replacement()
-                        if onboarding_replacement.is_displayed():
-                            print("Still onboarding replacement device")
+                    def _loading_onboarding_replacement():
+                        loading_onboarding_replacement = self.device_actions.get_loading_onboarding_replacement()
+                        if loading_onboarding_replacement.is_displayed():
+                            print("Still loading onboarding replacement")
                         else:
                             return 1
 
-                    self.utils.wait_till(_onboarding_replacement, exp_func_resp=1)
+                    self.utils.wait_till(_loading_onboarding_replacement, exp_func_resp=1)
+
+                    # def _onboarding_replacement():
+                    #     onboarding_replacement = self.device_actions.get_onboarding_replacement()
+                    #     if onboarding_replacement.is_displayed():
+                    #         print("Still onboarding replacement device")
+                    #     else:
+                    #         return 1
+                    #
+                    # self.utils.wait_till(_onboarding_replacement, exp_func_resp=1)
+                    sleep(30)
 
                     warning_replacement_not_connected = self.device_actions.get_warning_replacement_not_connected()
                     if warning_replacement_not_connected:

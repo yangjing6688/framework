@@ -279,6 +279,9 @@ class DeviceActions(DeviceActionsDefs):
     def get_loading_clone_configuration(self):
         return self.weh.get_element(self.loading_clone_configuration)
 
+    def get_loading_onboarding_replacement(self):
+        return self.weh.get_element(self.loading_onboarding_replacement)
+
     def get_onboarding_replacement(self):
         return self.weh.get_element(self.onboarding_replacement)
 
