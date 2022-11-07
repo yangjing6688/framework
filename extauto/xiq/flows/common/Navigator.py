@@ -3210,10 +3210,14 @@ class Navigator(NavigatorWebElements):
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
-                        self.screen.save_screen_shot()
-                        kwargs['fail_msg'] = " Not able to click on page size "
-                        self.common_validation.failed(**kwargs)
-                        return -1
+                        if counter == 5:
+                            self.screen.save_screen_shot()
+                            kwargs['fail_msg'] = " Not able to click on page size "
+                            self.common_validation.failed(**kwargs)
+                            return -1
+                        else:
+                            self.utils.print_info(f"trying again...")
+                            counter += 1
                 else:
                     return 1
             except Exception as e:
