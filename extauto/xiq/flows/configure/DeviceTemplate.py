@@ -82,6 +82,7 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("select the AP: ", ap_model)
+        self.auto_actions.scroll_down()
         ap_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
         for el in ap_list_items:
             if not el:
