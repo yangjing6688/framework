@@ -551,13 +551,17 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
-    def xiqse_wait_until_device_add_operation_complete(self, retry_duration=30, retry_count=10):
+    def xiqse_wait_until_device_add_operation_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits until the device add operation has completed by checking the Device Added entry in the
-         - Operations panel for progress value of 100%.
+         - This keyword waits until the "Device Added" operation has completed by checking the
+         - "Device Added" entry in the Operations panel for progress value of 100%. This should only be used when
+         . site actions are not required and only device added is needed. Most of XIQSE functions won't work
+         - correctly until the inventory discovery process is complete and the site actions have finished for a new
+         - device which initiates a discovery to identify the device and its  capabilities, then assign a license and
+         - complete the add process by running the site actions.
          - It is assumed the view is already navigated to the Site tab.
-         - NOTE: before performing the Device Add operation, the operations panel should be cleared, as the first match
-         - of "Device Added" will be used to check the progress.
+         - NOTE: before performing the Device Add, the operations panel should be cleared, as the first match
+         - of "Device Add" will be used to check the progress.
          - Keyword Usage
           - ``XIQSE Site Wait Until Device Add Operation Complete``
           - ``XIQSE Site Wait Until Device Add Operation Complete    retry_duration=10  retry_count=60``
@@ -567,6 +571,27 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         :return: 1 if action was successful, else -1
         """
         return self.operations_panel.xiqse_operations_wait_until_operation_complete("Device Added",
+                                                                                    retry_duration, retry_count)
+    def xiqse_wait_until_discover_site_actions_operation_complete(self, retry_duration=10, retry_count=30):
+        """
+         - This keyword waits until the "Discover Site Actions" operation has completed by checking the
+         - "Discover Site Actions" entry in the Operations panel for progress value of 100%. Do not return complete
+         - for Device Added operation event as this event is just the first step. Most of XIQSE functions won't work
+         - correctly until the inventory discovery process is complete and the site actions have finished for a new
+         - device which initiates a discovery to identify the device and its  capabilities, then assign a license and
+         - complete the add process by running the site actions.
+         - It is assumed the view is already navigated to the Site tab.
+         - NOTE: before performing the Device Add, the operations panel should be cleared, as the first match
+         - of "Discover Site Actions" will be used to check the progress.
+         - Keyword Usage
+          - ``XIQSE Site Wait Until Device Add Operation Complete``
+          - ``XIQSE Site Wait Until Device Add Operation Complete    retry_duration=10  retry_count=60``
+
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if action was successful, else -1
+        """
+        return self.operations_panel.xiqse_operations_wait_until_operation_complete("Discover Site Actions",
                                                                                     retry_duration, retry_count)
 
     def xiqse_wait_until_device_added(self, device_ip, retry_duration=10, retry_count=30):
