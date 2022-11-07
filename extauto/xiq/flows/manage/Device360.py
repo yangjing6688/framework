@@ -12205,10 +12205,7 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             
-            if dut.platform.upper() == "STACK":
-                [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
-            else:
-                [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text)]
+            [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
             
             if not re.search(rf"{port}.*None", port_row.text):
                 kwargs["fail_msg"] = f"Failed to find 'None' set as accessvlan to the given port '{port}'"
@@ -12274,10 +12271,7 @@ class Device360(Device360WebElements):
             rows = self.get_d360_switch_ports_table_grid_rows()[1:]
             assert rows, "Failed to get the port rows from device 360"
             
-            if dut.platform.upper() == "STACK":
-                [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
-            else:
-                [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text)]
+            [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
             
             data =  {
                 "port_mode": self.get_device360_switch_port_table_port_mode(port_row).text,
@@ -12326,10 +12320,7 @@ class Device360(Device360WebElements):
             
             for port in ports:
                 
-                if dut.platform.upper() == "STACK":
-                    [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
-                else:
-                    [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text)]
+                [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
                     
                 ret[port] = {
                     "port_mode": self.get_device360_switch_port_table_port_mode(port_row).text,
