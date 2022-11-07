@@ -1520,7 +1520,7 @@ class Cli(object):
 
     def verify_port_removed_from_vlan(self, dut, port, port_type, vlan=None, allowed_vlans="all", **kwargs):
         """Method that verifies if given port is removed from a specific vlan of a switch.
-        Currently this methods supports only duts with cli_type - exos (standalone and stack)/voss.
+        Currently this method supports only devices with cli_type - exos (standalone and stack) or voss.
 
         Args:
             dut (dict): the dut, e.g. tb.dut1

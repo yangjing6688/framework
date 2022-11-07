@@ -11811,7 +11811,8 @@ class Device360(Device360WebElements):
 
     def set_vlan_id(self, vlan_id, **kwargs):
         """Method that sets the vlan id in the vlan tab of honeycomb port type editor.
-
+        If the vlan is not found in the dropdown then it will be created.
+        
         Args:
             vlan_id (int): the vlan
 
@@ -11923,7 +11924,8 @@ class Device360(Device360WebElements):
 
     def set_native_vlan_id(self, native_vlan_id, **kwargs):
         """Method that sets the native vlan id in the vlan tab of honeycomb port type editor.
-
+        If the vlan is not found in the dropdown then it will be created.
+        
         Args:
             native_vlan_id (int): the vlan
 
@@ -12037,12 +12039,12 @@ class Device360(Device360WebElements):
         self, port, port_type_name, port_type="access", vlan_id=None, native_vlan_id=None, allowed_vlans=None, 
         device_360=False, **kwargs):
         """Method that creates a new port type with custom values for the vlan tab of the port type editor.
-        All the other fields remain with the default values (unconfigured).
+        All the other fields remain with the default values.
 
         Args:
             port (str): the name of the port
             port_type_name (str): the name of the port type
-            port_type (str, optional): type of port -acces/trunk. Defaults to "access".
+            port_type (str, optional): type of port - acces/trunk. Defaults to "access".
             vlan_id (str, optional): the vlan id. Defaults to None.
             native_vlan_id (str, optional): the native vlan id. Defaults to None.
             allowed_vlans (str, optional): the allowed vlans. Defaults to None.
@@ -12112,6 +12114,7 @@ class Device360(Device360WebElements):
             return -1           
         
         self.utils.print_info("Successfully sent keys to the allowed vlans element")
+        
         kwargs["pass_msg"] = "Successfully configured the allowed vlans field"
         self.common_validation.passed(**kwargs)
         return 1
@@ -12174,7 +12177,8 @@ class Device360(Device360WebElements):
         return 1
 
     def verify_none_vlan_id_appears_in_device_view(self, dut, port, **kwargs):
-        """Method that verifies is 'None' appear as access vlan in the device 360 after the vlan is set not 'none' in the honeycomb port type editor.
+        """Method that verifies if 'None' appear as access vlan in the device 360 window after the vlan is
+        set as 'none' in the honeycomb port type editor for given port.
 
         Args:
             dut (dict): the dut, e.g. tb.dut1
@@ -12275,12 +12279,16 @@ class Device360(Device360WebElements):
             else:
                 [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text)]
             
-            return {
+            data =  {
                 "port_mode": self.get_device360_switch_port_table_port_mode(port_row).text,
                 "port_access_vlan": self.get_device360_switch_port_table_access_vlan(port_row).text,
                 "port_tagged_vlan": self.get_device360_switch_port_table_tagged_vlans(port_row).text
             }
-        
+
+            kwargs["pass_msg"] = "Successfully got the port info from the device 360"
+            self.common_validation.passed(**kwargs)
+            return data
+
         except:
             kwargs["fail_msg"] = "Failed to get the port info from the device 360"
             self.common_validation.failed(**kwargs)
@@ -12328,7 +12336,9 @@ class Device360(Device360WebElements):
                     "port_access_vlan": self.get_device360_switch_port_table_access_vlan(port_row).text,
                     "port_tagged_vlan": self.get_device360_switch_port_table_tagged_vlans(port_row).text
                 }
-                
+            
+            kwargs["pass_msg"] = "Successfully got the port info from device 360"
+            self.common_validation.passed(**kwargs)
             return ret
         
         except:
