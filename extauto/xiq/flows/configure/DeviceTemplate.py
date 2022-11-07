@@ -86,7 +86,6 @@ class DeviceTemplate(object):
         self.auto_actions.send_keys(self.device_template_web_elements.get_device_ap_template_search_inputfield(),
                                     ap_model)
         ap_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
-        print(len(ap_list_items))
         for el in ap_list_items:
             print(el.text)
             if not el:
