@@ -89,6 +89,7 @@ class DeviceTemplate(object):
             if not el:
                 pass
             if ap_model.upper() in el.text.upper():
+                self.auto_actions.center_element(e1)
                 sleep(5)
                 self.auto_actions.click(el)
                 break
