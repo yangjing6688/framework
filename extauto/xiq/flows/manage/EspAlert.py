@@ -35,23 +35,23 @@ class EspAlert(EspAlertWebElements):
         self.auto_actions.click_reference(self.get_add_policy())
         sleep(2)
         self.utils.print_info(f"Ticking policy type : {policy.policy_type}")
-        self.auto_actions.click(getattr(self,"get_policy_type_"+policy.policy_type)())
+        self.auto_actions.click_reference(getattr(self,"get_policy_type_"+policy.policy_type)())
         self.utils.print_info(f"Selecting category: {policy.source_parent}")
-        self.auto_actions.click(self.get_source_parent())
-        self.auto_actions.click(self.get_source_parent_dynamic(policy.source_parent))
+        self.auto_actions.click_reference(self.get_source_parent())
+        self.auto_actions.click_reference(self.get_source_parent_dynamic(policy.source_parent))
         self.utils.print_info(f"Selecting source: {policy.source}")
-        self.auto_actions.click(self.get_source())
-        self.auto_actions.click(self.get_source_dynamic(policy.source))
+        self.auto_actions.click_reference(self.get_source())
+        self.auto_actions.click_reference(self.get_source_dynamic(policy.source))
         if policy.policy_type == 'metric':
             self.utils.print_info(f'Selecting threshold operator: {policy.threshold_operator}')
-            self.auto_actions.click(self.get_threshold_operator_select())
-            self.auto_actions.click(self.get_threshold_operator_dynamic(policy.threshold_operator))
+            self.auto_actions.click_reference(self.get_threshold_operator_select())
+            self.auto_actions.click_reference(self.get_threshold_operator_dynamic(policy.threshold_operator))
             self.utils.print_info(f'Entering threshold: {policy.threshold_input}')
             self.auto_actions.send_keys(self.get_threshold_input(), policy.threshold_input)
         self.utils.print_info(f"Ticking trigger type: {policy.trigger_type}")
-        self.auto_actions.click(getattr(self,"get_trigger_type_"+policy.trigger_type)())
+        self.auto_actions.click_reference(getattr(self,"get_trigger_type_"+policy.trigger_type)())
         self.utils.print_info("Clicking save")
-        self.auto_actions.click(self.get_save())
+        self.auto_actions.click_reference(self.get_save())
         sleep(5)
         return self.find_when_in_configured_grid(when)
     def go_to_policy_and_check_tab(self,configred_title,not_configured_title):
@@ -93,19 +93,19 @@ class EspAlert(EspAlertWebElements):
         self.auto_actions.click_reference(self.get_add_policy)
         sleep(3)
         self.utils.print_info("Ticking policy type:" + policy_type)
-        self.auto_actions.click(getattr(self,"get_policy_type_"+policy_type)())
+        self.auto_actions.click_reference(getattr(self,"get_policy_type_"+policy_type)())
         self.utils.print_info("Selecting category:" + source_parent)
         self.auto_actions.click_reference(self.get_source_parent)
-        self.auto_actions.click(getattr(self,"get_source_parent_"+source_parent)())
+        self.auto_actions.click_reference(getattr(self,"get_source_parent_"+source_parent)())
         self.utils.print_info("Selecting source:" + source)
         self.auto_actions.click_reference(self.get_source)
-        self.auto_actions.click(getattr(self,"get_source_"+source)())
+        self.auto_actions.click_reference(getattr(self,"get_source_"+source)())
         self.utils.print_info("Clicking trigger type:" + trigger_type)
-        self.auto_actions.click(getattr(self,"get_trigger_type_"+trigger_type)())
+        self.auto_actions.click_reference(getattr(self,"get_trigger_type_"+trigger_type)())
         if policy_type == 'metric':
             self.utils.print_info('Clicking threshold operator:'+threshold_operator)
             self.auto_actions.click_reference(self.get_threshold_operator_select)
-            self.auto_actions.click(getattr(self,"get_threshold_operator_select_"+threshold_operator)())
+            self.auto_actions.click_reference(getattr(self,"get_threshold_operator_select_"+threshold_operator)())
             self.utils.print_info('Entering threshold :'+threshold_input)
             self.auto_actions.send_keys(self.get_threshold_input(), threshold_input)
         self.utils.print_info("Clicking save")
@@ -139,7 +139,7 @@ class EspAlert(EspAlertWebElements):
         sleep(2)
         for row in self.get_configured_grid_rows():
             if self.get_when_in_rows(row).text == when:
-                self.auto_actions.click(self.get_del_icon_in_row(row))
+                self.auto_actions.click_reference(self.get_del_icon_in_row(row))
                 sleep(2)
                 self.auto_actions.click_reference(self.get_del_confirm_ok)
                 sleep(5)
@@ -198,7 +198,7 @@ class EspAlert(EspAlertWebElements):
         self.auto_actions.click_reference(self.get_not_configred_tab_txt)
         sleep(2)
         self.utils.print_info("Clicking policy type: "+policy_type)
-        self.auto_actions.click(getattr(self,"get_unconfigured_"+policy_type)())
+        self.auto_actions.click_reference(getattr(self,"get_unconfigured_"+policy_type)())
         sleep(2)
         self.utils.print_info('Cleaning&Entering search: '+when)
         self.auto_actions.send_keys(self.get_unconfigured_search_input(), "")
@@ -209,14 +209,14 @@ class EspAlert(EspAlertWebElements):
             self.utils.print_info("Matching..."+self.get_desc_in_unconfigured_grid_rows(row).text)
             if self.get_desc_in_unconfigured_grid_rows(row).text == when:
                 self.utils.print_info("successfully match with "+when)
-                self.auto_actions.click(self.get_add_icon_in_row(row))
+                self.auto_actions.click_reference(self.get_add_icon_in_row(row))
                 sleep(2)
                 self.utils.print_info("Clicking trigger type:" + trigger_type)
-                self.auto_actions.click(getattr(self,"get_trigger_type_"+trigger_type)())
+                self.auto_actions.click_reference(getattr(self,"get_trigger_type_"+trigger_type)())
                 if policy_type == 'metric':
                     self.utils.print_info('Clicking threshold operator:'+threshold_operator)
                     self.auto_actions.click_reference(self.get_threshold_operator_select)
-                    self.auto_actions.click(getattr(self,"get_threshold_operator_select_"+threshold_operator)())
+                    self.auto_actions.click_reference(getattr(self,"get_threshold_operator_select_"+threshold_operator)())
                     self.utils.print_info('Entering threshold :'+threshold_input)
                     self.auto_actions.send_keys(self.get_threshold_input(), threshold_input)
                 self.utils.print_info("Clicking save")
@@ -239,11 +239,11 @@ class EspAlert(EspAlertWebElements):
         sleep(2)
         for row in self.get_configured_grid_rows():
             if self.get_when_in_rows(row).text == when:
-                self.auto_actions.click(self.get_when_in_rows(row))
+                self.auto_actions.click_reference(self.get_when_in_rows(row))
                 sleep(2)
                 self.utils.print_info("Clicking severity select:"+severity)
                 self.auto_actions.click_reference(self.get_severity_select)
-                self.auto_actions.click(getattr(self,"get_severity_select_"+severity)())
+                self.auto_actions.click_reference(getattr(self,"get_severity_select_"+severity)())
                 self.utils.print_info("Entering desc text:"+desc)
                 self.auto_actions.send_keys(self.get_profile_description(),desc)
                 self.utils.print_info("Clicking save")
@@ -274,7 +274,7 @@ class EspAlert(EspAlertWebElements):
                 else:
                     status_target = "enable"
                 self.utils.print_info("Target toggle status:"+status_target)
-                self.auto_actions.click(self.get_status_slide_toggle(row))
+                self.auto_actions.click_reference(self.get_status_slide_toggle(row))
                 sleep(3)
                 break
         for row in self.get_configured_grid_rows():
@@ -294,7 +294,7 @@ class EspAlert(EspAlertWebElements):
         sleep(2)
         for row in self.get_configured_grid_rows():
             if self.get_when_in_rows(row).text == when:
-                self.auto_actions.click(self.get_subscribe_email(row))
+                self.auto_actions.click_reference(self.get_subscribe_email(row))
                 sleep(3)
                 break
         for row in self.get_configured_grid_rows():
