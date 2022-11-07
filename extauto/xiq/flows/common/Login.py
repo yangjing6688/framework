@@ -88,7 +88,7 @@ class Login:
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   max_retries=3, recover_login=True, map_override=None, **kwargs):
+                   max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
         """
         - Login to Xiq account with username and password (we will try up to 3 times)
         - By default url will load from the topology file
@@ -121,7 +121,7 @@ class Login:
         result = self._login_user(username, password, capture_version, login_option, url,
                     incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
                     salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, recover_login,
-                    map_override, **kwargs)
+                    map_override, ignore_map, **kwargs)
 
         # Let's try again if we don't expect and error and the results were not good
         if not expect_error:
@@ -129,7 +129,7 @@ class Login:
                 self.utils.print_warning(f'Trying to log in again: {count}')
                 result = self._login_user(username, password, capture_version, login_option, url,
                                           incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg,
+                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, ignore_map,
                                           **kwargs)
                 count = count + 1
         if result != 1:
@@ -143,7 +143,7 @@ class Login:
     def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   recover_login=True, map_override=None, **kwargs):
+                   recover_login=True, map_override=None, ignore_map=False,**kwargs):
         if url == "default":
             self._init(incognito_mode=incognito_mode)
         else:
@@ -288,6 +288,9 @@ class Login:
                 self.auto_actions.click_reference(self.login_web_elements.click_right_arrow)
         except Exception as er:
             pass
+
+        if ignore_map:
+            return 1
 
         device_page_found = self.nav_web_elements.get_devices_page()
         if device_page_found:
