@@ -396,7 +396,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("Edited/Assigned Location is successfully seen in XLOC AP page")
             return 1
         else:
-            self.utils.print_info("Edited/Assigned Location cannot be seen in XLOC AP page")
             kwargs['fail_msg'] = "'check_location_assigned_to_ap_in_xloc()' -> Edited/Assigned Location cannot be seen" \
                                  " in XLOC AP page"
             self.common_validation.failed(**kwargs)
@@ -459,10 +458,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     self.utils.print_info(f"Did not find client mac. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
                 count += 1
-
-        self.utils.print_info("Client mac failed to display on Devices Page. Please check.")
-        self.screen.save_screen_shot()
-        sleep(2)
 
         kwargs['fail_msg'] = "'get_client_information_in_extreme_location_devices_page()' -> Client mac failed to" \
                              " display on Devices Page. Please check."
@@ -598,10 +593,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 sleep(retry_duration)
             count += 1
 
-        self.utils.print_info("Client mac failed to display on floor. Please check.")
-        self.screen.save_screen_shot()
-        sleep(2)
-
         kwargs['fail_msg'] = "'validate_client_entry_in_extreme_location_sites_page()' -> Client mac failed to display" \
                              " on floor. Please check."
         self.common_validation.failed(**kwargs)
@@ -699,8 +690,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("No Authentication Error Seen")
 
         if type(obj_type) == list:
-            self.screen.save_screen_shot()
-            self.utils.print_info("Authentication Error Seen")
             kwargs['fail_msg'] = "'go_to_extreme_location_xloc_application()' -> Authentication Error Seen"
             self.common_validation.failed(**kwargs)
             return -1
@@ -1056,7 +1045,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.utils.print_info("Checking Asset Name Entry Row in Grid")
         row = self.get_grid_row_assets()
         if not row:
-            self.utils.print_info(f"Assets For:{asset_name} is not Found in the Assets Grid")
             kwargs['fail_msg'] = f"'delete_asset_in_xloc()' -> Assets For:{asset_name} is not Found in the Assets Grid"
             self.common_validation.failed(**kwargs)
             return -1
@@ -1087,7 +1075,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.utils.print_info("Checking Asset Name Entry Row in Grid")
         row = self.get_grid_row_assets()
         if not row:
-            self.utils.print_info(f"Assets For:{asset_name} is not Found in the Assets Grid")
             kwargs['fail_msg'] = f"'edit_wifi_asset_in_xloc()' -> Assets For:{asset_name} is not Found in the" \
                                  f" Assets Grid"
             self.common_validation.failed(**kwargs)
@@ -1199,7 +1186,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         return 1
 
-    def create_xloc_third_party_ibeacon(self, ibeacon_name, uuid_name, xloc_site_name, as_category_name, ibeacon_mac_address, major_version="", minor_version=""):
+    def create_xloc_third_party_ibeacon(self, ibeacon_name, uuid_name, xloc_site_name, as_category_name,
+                                        ibeacon_mac_address, major_version="", minor_version="", **kwargs):
         """
         -This keyword Will create third party ibeacon on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Beacons->Onboard Third Party Ibeacon
@@ -1292,6 +1280,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
             if self.get_xloc_third_party_major_minor_error_message().is_displayed():
                 self.screen.save_screen_shot()
                 self.utils.print_info("configuration not saved sucessfully")
+                kwargs['fail_msg'] = "'create_xloc_third_party_ibeacon()' -> configuration not saved sucessfully"
+                self.common_validation.failed(**kwargs)
                 return -1
         except Exception as e:
             self.utils.print_info("configuration sucessfully saved")
@@ -1303,10 +1293,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info(f"third party ibeacon {ibeacon_mac_address} created")
             return 1
         else:
-            self.utils.print_info("third party ibeacon is not created")
+            kwargs['fail_msg'] = f"third party ibeacon {ibeacon_mac_address} was not created"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def edit_Ibeacon_in_XLOC(self, ibeacon_mac_address, uuid_name, major_version="", minor_version=""):
+    def edit_Ibeacon_in_XLOC(self, ibeacon_mac_address, uuid_name, major_version="", minor_version="", **kwargs):
 
         """
         - edit_Ibeacon_in_XLOC
@@ -1364,11 +1355,12 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("configuration sucessfully saved")
             return 1
         else:
-            self.utils.print_info("configuration not saved sucessfully")
+            kwargs['fail_msg'] = "'edit_Ibeacon_in_XLOC()' -> configuration not saved sucessfully"
+            self.common_validation.failed(**kwargs)
             return -1
     
     
-    def delete_ibeacon_in_xloc(self, ibeacon_mac_address):
+    def delete_ibeacon_in_xloc(self, ibeacon_mac_address, **kwargs):
 
         """
         - delete_ibeacon_in_xloc
@@ -1411,15 +1403,16 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         try:
             if self._search_common_object(ibeacon_mac_address):
-                self.utils.print_info(f"third party ibeacon {ibeacon_mac_address} is avaliable")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"'edit_Ibeacon_in_XLOC()' -> third party ibeacon {ibeacon_mac_address}" \
+                                     f" is avaliable"
+                self.common_validation.failed(**kwargs)
                 return -1
         except:
             self.utils.print_info("third party ibeacon is not avaliable")
             self.screen.save_screen_shot()
             return 1
     
-    def get_ibeacon_status(self, ibeacon_mac_address):
+    def get_ibeacon_status(self, ibeacon_mac_address, **kwargs):
 
         """
         - get_ibeacon_status
@@ -1465,8 +1458,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 break
             except:
                 pass
-        self.screen.save_screen_shot()
-        self.utils.print_info(f"Ibeacon in Offline State")
+        kwargs['fail_msg'] = "Ibeacon in Offline State"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def download_ibeacon_report(self):
@@ -1553,7 +1546,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
                                       f'with Duration {expected_duration}')
                 return 1
             else:
-                self.utils.print_info('Device Classification Rule Not Created successfully')
                 kwargs['fail_msg'] = "'create_time_based_device_classification_rule()' -> Device Classification Rule" \
                                      " Not Created successfully"
                 self.common_validation.failed(**kwargs)
@@ -1863,11 +1855,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
             sleep(2)
             return 1
         else:
-            self.utils.print_info("Check for Auth Error or User Already Subscribed to Extreme Location")
-            sleep(3)
-
-            self.screen.save_screen_shot()
-            sleep(2)
             kwargs['fail_msg'] = "'check_subscription_of_extreme_location_page()' -> Check for Auth Error or User" \
                                  " Already Subscribed to Extreme Location"
             self.common_validation.failed(**kwargs)
