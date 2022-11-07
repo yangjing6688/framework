@@ -5407,9 +5407,9 @@ class Devices:
         self.screen.save_screen_shot()
 
         if serial:
-            return self._check_device_update_status(device_serial=serial)
+            return self._check_device_update_status(serial)
         elif mac:
-            return self._check_device_update_status(device_mac=mac)
+            return self._check_device_update_status(mac)
 
         return None
 
