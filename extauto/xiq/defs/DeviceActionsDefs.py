@@ -467,6 +467,12 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    clone_button_quick_onboard = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-quick-onboard"]',
+            'wait_for': 2
+        }
+
     yes_confirmation_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-confirm-message-yes-button"]',

@@ -12414,7 +12414,8 @@ class Devices:
                     self.utils.wait_till(_navigate_to_devices)
                 else:
                     self.utils.print_info(
-                        "The device clone has been successfully completed, but the device cannot be updated at this time as it's disconnected or in the unmanaged state.")
+                        "The device clone has been successfully completed, but the device cannot be updated at this "
+                        "time as it's disconnected or in the unmanaged state.")
                     cancel_button = self.device_actions.get_cancel_button()
                     self.utils.print_info("Closing the Clone window")
                     self.screen.save_screen_shot()
@@ -12432,7 +12433,7 @@ class Devices:
                     self.screen.save_screen_shot()
                     return -1
 
-                clone_button = self.device_actions.get_clone_button()
+                clone_button = self.device_actions.get_clone_button_quick_onboard()
                 if clone_button:
                     self.utils.print_info("Select Clone button")
                     self.auto_actions.click(clone_button)
