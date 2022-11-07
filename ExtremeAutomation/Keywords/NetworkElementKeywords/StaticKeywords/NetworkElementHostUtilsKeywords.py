@@ -258,8 +258,8 @@ class NetworkElementHostUtilsKeywords(NetworkElementKeywordBaseClass):
 
         Attempts to enable the debug prompt in the device, auto-filling any password or challenge-response.
         """
-        dev, cmd_api, parse_api = self._init_keyword(device_name, self.constants.API_HOSTSERVICES,
-                                                     self.constants.API_HOSTSERVICES, wait_for_prompt=False, **kwargs)
+        dev, cmd_api, parse_api = self._init_keyword(device_name, self.constants.API_HOSTUTILS,
+                                                     self.constants.API_HOSTUTILS, wait_for_prompt=False, **kwargs)
 
         kw_results = []
         # Get debug login and any password or challenge.
@@ -278,7 +278,7 @@ class NetworkElementHostUtilsKeywords(NetworkElementKeywordBaseClass):
         cmd_obj = dev.send_command_object(cmd_api.return_debug_creds(args))
         output = cmd_obj.return_text
         parse_result = parse_api.check_debug_login_enabled(output, args, **kwargs)
-        kw_results.append(self._determine_result(dev, cmd_obj, parse_result, True,
+        kw_results.append(self._determine_result(dev, cmd_obj, parse_result[0], True,
                                                  "Debug mode has been enabled on " + device_name + ".",
                                                  "Debug mode COULD NOT be enabled on " + device_name + "!"))
 

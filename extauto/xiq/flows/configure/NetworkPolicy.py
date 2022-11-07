@@ -273,7 +273,7 @@ class NetworkPolicy(object):
         select_flag = None
         if pages.is_displayed():
             last_page = int(pages.text[-1])
-            page_counter = 1
+            page_counter = 0
             self.utils.print_info(f"There are {last_page} page(s) to check")
             while page_counter < last_page:
                 for policy in policies:
@@ -612,8 +612,8 @@ class NetworkPolicy(object):
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif retry_count >= int(max_config_push_wait):
-                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
-                kwargs['fail_msg'] = f"Config push to AP taking more than {max_config_push_wait}seconds"
+                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait} seconds")
+                kwargs['fail_msg'] = f"Config push to AP taking more than {max_config_push_wait} seconds"
                 self.common_validation.failed(**kwargs)
                 return -1
             sleep(30)
