@@ -12,6 +12,7 @@ from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class DevicesActions:
@@ -30,6 +31,7 @@ class DevicesActions:
 
         self.screen = Screen()
         self.robot_built_in = BuiltIn()
+        self.common_validation = CommonValidation()
 
     def is_actions_button_enabled(self):
         """
@@ -83,6 +85,37 @@ class DevicesActions:
             return 1
         else:
             self.utils.print_info("Unable to Clear Audit Mismatch On Device ")
+            return -1
+
+    def reset_devices_to_default(self, **kwargs):
+        """
+        - This Keyword performs factory reset only to all APs appear on first page (can not use multiple pages)
+        - and not include other devices (Switch and etc ...)
+        - Navigate to Manage --> Device
+        - Select all devices in rows
+        - Click Utilities --> Reset Device to Default
+        - Keyword Usage:
+         - ``Reset Devices To Default``
+        :return: 1 if Reset is Successful else -1
+        """
+        device_list = []
+        self.navigator.navigate_to_devices()
+        if rows := self.devices_web_elements.get_grid_rows():
+            for row in rows:
+                if cell := self.devices_web_elements.get_device_serial_number(row):
+                    device_list.append(cell.text)
+
+            if len(device_list) >= 1:
+                return self.reset_device_to_default(*device_list)
+            else:
+                kwargs['fail_msg'] = "Unable to locate serial(s) number in rows"
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1
+        else:
+            kwargs['fail_msg'] = "Unable to gather Device(s)"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
             return -1
 
     def reset_device_to_default(self, *device_list):
