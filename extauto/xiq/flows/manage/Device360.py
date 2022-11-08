@@ -10932,7 +10932,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("get_multi_edit_description cannot be completed ")
                 return -1
 
-    def d360_save_multi_edit_button(self):
+    def d360_save_multi_edit_button(self, **kwargs):
         '''
         This keyword push the save button from Multi Edit tab.
         :return: 1 if succesfully ; else -1
@@ -10941,10 +10941,11 @@ class Device360(Device360WebElements):
         if save_button_multi_edit:
             self.utils.print_info("Click save button from Multi Edit")
             self.auto_actions.click(save_button_multi_edit)
-            return 1
+            kwargs['pass_msg'] = f"The multi edit configuration was saved successfully!"
+            self.common_validation.passed(**kwargs)
         else:
-            self.utils.print_info("save button from Multi Edit not found")
-            return -1
+            kwargs['fail_msg'] = f"save button from Multi Edit not found"
+            self.common_validation.failed(**kwargs)
 
     def d360_cancel_multi_edit_button(self):
         '''
