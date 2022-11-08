@@ -12119,11 +12119,12 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return 1
         
-    def go_to_device_360_port_config(self, dut, **kwargs):
+    def go_to_device_360_port_config(self, dut, slot=None, **kwargs):
         """Method that goes to the port configuration tab of the device 360 window.
 
         Args:
             dut (dict): the dut, e.g. tb.dut1
+            slot (str): the slot/unit of the stack
 
         Returns:
             int: 1 if the function call has succeeded else -1
@@ -12170,6 +12171,9 @@ class Device360(Device360WebElements):
             return -1
 
         self.utils.print_info("Successfully clicked the port_config_button element")
+        
+        if slot is not None:
+            self.select_stack_unit(slot)
         
         kwargs["pass_msg"] = "Successfully went to the port configuration tab of the device 360 window"
         self.common_validation.passed(**kwargs)
