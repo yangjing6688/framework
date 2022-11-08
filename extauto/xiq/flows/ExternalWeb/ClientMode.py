@@ -61,7 +61,7 @@ class ClientMode:
         except Exception as e:
             self.utils.print_debug(e)
             self.utils.print_info( e + "\nCan not login user client mode.")
-            kwargs['fault_msg'] = f"'login_user_client_mode()' -> {e}.....Can not login user client mode."
+            kwargs['fail_msg'] = f"'login_user_client_mode()' -> {e}.....Can not login user client mode."
             self.common_validation.fault(**kwargs)
             return -1
         return 1
@@ -86,7 +86,7 @@ class ClientMode:
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
-            kwargs['fault_msg'] = f"'quit_browser_client_mode()' -> Error: {e}"
+            kwargs['fail_msg'] = f"'quit_browser_client_mode()' -> Error: {e}"
             self.common_validation.fault(**kwargs)
             return -1
 
