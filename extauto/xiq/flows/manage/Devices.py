@@ -12446,15 +12446,6 @@ class Devices:
                             return 1
 
                     self.utils.wait_till(_loading_onboarding_replacement, exp_func_resp=1)
-
-                    # def _onboarding_replacement():
-                    #     onboarding_replacement = self.device_actions.get_onboarding_replacement()
-                    #     if onboarding_replacement.is_displayed():
-                    #         print("Still onboarding replacement device")
-                    #     else:
-                    #         return 1
-                    #
-                    # self.utils.wait_till(_onboarding_replacement, exp_func_resp=1)
                     sleep(30)
 
                     warning_replacement_not_connected = self.device_actions.get_warning_replacement_not_connected()
@@ -12469,9 +12460,9 @@ class Devices:
                         self.utils.wait_till(_navigate_to_devices)
 
                         self.delete_device(replacement_serial) # to be removed
-                        self.clone_device_quick_onboard(device_serial, "Quick Onboard", replacement_serial)
+                        self.clone_device_quick_onboard(device_serial, replacement_device_type, replacement_serial)
 
-                    else:
+                    elif self.device_actions.get_yes_confirmation_button():
                         yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
                         if yes_confirmation_button:
                             self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
@@ -12480,16 +12471,28 @@ class Devices:
                             self.utils.print_info(f"No confirm message buttons found")
                             self.screen.save_screen_shot()
                             return -1
-
-                def _loading_clone():
-                    loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
-                    if loading_clone_configuration.is_displayed():
-                        print("Still loading configuration")
                     else:
-                        return 1
+                        x_button_clone_window = self.device_actions.get_x_button_clone_window()
+                        self.auto_actions.click(x_button_clone_window)
+                        self.utils.print_info("Navigate to Manage-->Devices")
 
-                self.utils.wait_till(_loading_clone, exp_func_resp=1)
+                        def _navigate_to_devices():
+                            return self.navigator.navigate_to_devices()
 
+                        self.utils.wait_till(_navigate_to_devices)
+
+                        self.delete_device(replacement_serial)  # to be removed
+                        self.clone_device_quick_onboard(device_serial, replacement_device_type, replacement_serial)
+
+                # def _loading_clone():
+                #     loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
+                #     if loading_clone_configuration.is_displayed():
+                #         print("Still loading configuration")
+                #     else:
+                #         return 1
+                #
+                # self.utils.wait_till(_loading_clone, exp_func_resp=1)
+                self.utils.wait_till()
                 close_button = self.device_actions.get_close_button()
                 if close_button:
 
@@ -12505,10 +12508,11 @@ class Devices:
                     return self.navigator.navigate_to_devices()
 
                 self.utils.wait_till(_navigate_to_devices)
+                self.refresh_devices_page()
 
-            # else:
-            #     self.utils.print_info("No replacement type was selected")
-            #     return -1
+            else:
+                self.utils.print_info("No replacement type was selected")
+                return -1
 
 
         else:
