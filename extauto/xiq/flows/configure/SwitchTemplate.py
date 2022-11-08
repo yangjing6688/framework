@@ -2287,6 +2287,10 @@ class SwitchTemplate(object):
             self.utils.print_info("Unable to complete configuration of switch template")
             return -1
 
+        self.utils.print_info("Save switch template")
+        save_button = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
+        self.auto_actions.click(save_button)
+
         return 1
 
     def select_network_policy_in_card_view_using_network_web_elements(self, policy_name):
