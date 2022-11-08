@@ -10984,7 +10984,8 @@ class Device360(Device360WebElements):
                         print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
                         traffic_list_xiq.append(traffic_received)
                 sleep(5)
-
+                kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
+                self.common_validation.passed(**kwargs)
                 return traffic_list_xiq
             elif dut.cli_type.upper() == "EXOS":
                 x = self.dev360.get_device360_ports_table()
@@ -11015,7 +11016,8 @@ class Device360(Device360WebElements):
                         print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
                         traffic_list_xiq.append(traffic_received)
                 sleep(5)
-
+                kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
+                self.common_validation.passed(**kwargs)
                 return traffic_list_xiq
 
         except Exception as e:
@@ -11065,7 +11067,8 @@ class Device360(Device360WebElements):
                         print(f"TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
                         traffic_list_xiq.append(traffic_received)
                 sleep(5)
-
+                kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
+                self.common_validation.passed(**kwargs)
                 return traffic_list_xiq
 
             elif dut.cli_type.upper() == "EXOS":
@@ -11096,7 +11099,8 @@ class Device360(Device360WebElements):
                         print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
                         traffic_list_xiq.append(traffic_received)
                 sleep(5)
-
+                kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
+                self.common_validation.passed(**kwargs)
                 return traffic_list_xiq
         except Exception as e:
             # return -1
@@ -11126,6 +11130,8 @@ class Device360(Device360WebElements):
                 kwargs[
                     'fail_msg'] = f"'check_power_values() failed."
                 self.common_validation.failed(**kwargs)
+        kwargs['pass_msg'] = f"{results}"
+        self.common_validation.passed(**kwargs)
         return results
 
     def check_port_type(self, dut):
