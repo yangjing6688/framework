@@ -12259,7 +12259,7 @@ class Device360(Device360WebElements):
             port (str): the port of the dut
 
         Returns:
-            dict: it contains the port_mode, port_access_vlan and port_tagged_vlan fields of the given port
+            dict|int: a dict if the function call has succeeded else -1
         """
         try:
             
@@ -12302,7 +12302,7 @@ class Device360(Device360WebElements):
             dut (dict): the dut, e.g. tb.dut1
 
         Returns:
-            int: 1 if the function call has succeeded else -1
+            dict|int: a dict if the function call has succeeded else -1
         """
         try:
             
