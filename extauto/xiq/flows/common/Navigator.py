@@ -1764,7 +1764,7 @@ class Navigator(NavigatorWebElements):
         """
 
         # Make sure we can see the menu option
-        self.auto_action.scroll_up()
+        self.auto_actions.scroll_up()
 
         self.navigate_to_global_settings_page()
         sleep(2)
