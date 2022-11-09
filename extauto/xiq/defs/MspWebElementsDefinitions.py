@@ -30,6 +30,12 @@ class MspWebElementsDefinitions:
             'wait_for':    15
         }
 
+    organizations_select_radio_button = \
+        {
+            'NAME': 'singleOrgRadio',
+            'wait_for':    15
+        }
+
     page_size_element = \
         {
             'CSS_SELECTOR': '.J-page-size.ui-page-size',
@@ -40,11 +46,31 @@ class MspWebElementsDefinitions:
         {
             'CSS_SELECTOR': '.J-page-next.ui-page-item-next',
             'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
+            'index': 1,
             'wait_for': 2
         }
 
     page_numbers = \
         {
             'XPATH': '//*[@data-dojo-attach-point="pagesWrap"]',
+            'index': 1,
             'wait_for': 2
+        }
+
+    organization_search_text_field = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="mspOrgSearch"]',
+            'wait_for': 15
+        }
+
+    organization_search_icon = \
+        {
+            'XPATH': '//*[@class="search-icon"]',
+            'wait_for': 15
+        }
+
+    organization_search_result_option = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="mspOrgSearchResult"]//li',
+            'wait_for': 15
         }

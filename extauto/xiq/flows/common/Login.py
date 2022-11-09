@@ -17,8 +17,13 @@ import extauto.xiq.flows.common.ToolTipCapture
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.MspWebElements import MspWebElements
+
 import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
+import extauto.xiq.flows.manage.Msp
+
+
 
 
 class Login:
@@ -31,6 +36,7 @@ class Login:
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.login_web_elements = LoginWebElements()
         self.pw_web_elements = PasswordResetWebElements()
+        self.msp_web_elements = MspWebElements()
         self.nav_web_elements = NavigatorWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
@@ -230,6 +236,17 @@ class Login:
                     self.auto_actions.click(account)
                     sleep(10)
                     break
+
+        view_org_button = self.msp_web_elements.get_view_organization_button()
+        if view_org_button.is_displayed():
+            self.utils.print_info(f"User Credentials belongs to MSP account")
+            org_name = BuiltIn().get_variable_value("${organization_name}")
+            if org_name:
+                msp_module = extauto.xiq.flows.manage.Msp.Msp()
+                msp_module.select_organization(organization_name=org_name)
+            else:
+                self.utils.print_info(f"Continuing with own organization")
+                pass
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid,

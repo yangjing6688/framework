@@ -22,8 +22,8 @@ class MspWebElements(MspWebElementsDefinitions):
         else:
             return False
 
-    def get_organizations_select_check_box(self, row):
-        return self.weh.get_element(self.organizations_select_check_box, parent=row)
+    def get_organizations_select_check_box(self):
+        return self.weh.get_element(self.organizations_select_check_box)
 
     def get_paze_size_element(self, page_size='50'):
         if els := self.weh.get_elements(self.page_size_element):
@@ -34,5 +34,17 @@ class MspWebElements(MspWebElementsDefinitions):
     def get_page_numbers(self):
         return self.weh.get_elements(self.page_numbers)
 
-    def get_next_page_element(self, page_size='50'):
+    def get_next_page_element(self, page_size='10'):
         return self.weh.get_elements(self.next_page_element)
+
+    def get_organizations_select_radio_button(self):
+        return self.weh.get_element(self.organizations_select_radio_button)
+
+    def get_organization_search_text_field(self):
+        return self.weh.get_element(self.organization_search_text_field)
+
+    def get_organization_search_icon(self):
+        return self.weh.get_element(self.organization_search_icon)
+
+    def get_organization_search_result_option(self):
+        return self.weh.get_element(self.organization_search_result_option)
