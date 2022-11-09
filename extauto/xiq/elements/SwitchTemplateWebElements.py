@@ -512,7 +512,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_save_button_bottom(self):
         return self.weh.get_elements(self.sw_template_save_btn_bottom)
 
-
     def get_sw_template_stp_tab(self):
         return self.weh.get_element(self.sw_template_stp_tab)
 
@@ -736,9 +735,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_port_details_port_type_editor_speed_arrow_options(self, table):
         return self.weh.get_elements(self.sw_template_port_details_port_type_editor_speed_arrow_options, parent=table)
-
-
-
 
     def get_sw_template_device_max_age_drop_down_items(self):
         return self.weh.get_element(self.sw_template_device_max_age_drop_down_items)

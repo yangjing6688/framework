@@ -27,9 +27,6 @@ from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 import extauto.xiq.flows.configure.SwitchTemplate
 
 
-
-
-
 class NetworkPolicy(object):
 
     def __init__(self):
@@ -200,12 +197,20 @@ class NetworkPolicy(object):
 
             if cli_type == 'AH-AP':
                 return self.wireless_nw.create_wireless_network(**wireless_profile)
-            else:
+            if cli_type == 'VOSS' or cli_type == 'AH-AP':
                 switch_template_name = wireless_profile.get('switch_template_name')
                 if not switch_template_name:
                     self.utils.print_info("No template information in dictionary")
                     return 1
                 self.switch_template.create_switching_network(policy, **wireless_profile)
+            if 'XR' in cli_type:
+                router_template_name = wireless_profile.get('template_name')
+                if not router_template_name:
+                    self.utils.print_info("No template information in dictionary")
+                    return 1
+                from extauto.xiq.flows.configure.RouterTemplate import RouterTemplate
+                router_template = RouterTemplate()
+                return router_template.create_routing_network(policy, **wireless_profile)
 
     def delete_network_policy(self, policy, **kwargs):
         """

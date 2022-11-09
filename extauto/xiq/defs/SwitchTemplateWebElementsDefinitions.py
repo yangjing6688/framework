@@ -894,10 +894,6 @@ class SwitchTemplateWebElementDefinitions:
             'CSS_SELECTOR': '.active-result'
         }
 
-
-
-
-
     sw_template_port_details_port_type_editor_speed_arrow = \
         {
             'XPATH': "//*[@data-automation-tag='automation-port-type-editor-speed-chzn-arrow-down']"
@@ -912,11 +908,6 @@ class SwitchTemplateWebElementDefinitions:
         {
             'CSS_SELECTOR': '.active-result'
         }
-
-
-
-
-
 
     sw_template_port_details_port_type_options = \
         {
@@ -1093,8 +1084,6 @@ class SwitchTemplateWebElementDefinitions:
             'XPATH': "//*[@data-automation-tag='port-type-editor-allowed-vlans']"
         }
 
-
-
     sw_template_device_max_age_drop_down_items = \
         {
             'XPATH': '//*[@data-automation-tag="automation-switch-template-age-dropdown-chzn-arrow-down"]',
@@ -1110,4 +1099,3 @@ class SwitchTemplateWebElementDefinitions:
         {
             'CSS_SELECTOR': '.active-result'
         }
-
