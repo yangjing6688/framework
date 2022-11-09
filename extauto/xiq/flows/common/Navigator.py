@@ -1762,6 +1762,10 @@ class Navigator(NavigatorWebElements):
          - ``Navigate To Viq Management Page``
         :return: 1 if Navigation Successful
         """
+
+        # Make sure we can see the menu option
+        self.auto_action.scroll_up()
+
         self.navigate_to_global_settings_page()
         sleep(2)
 
