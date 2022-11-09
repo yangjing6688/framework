@@ -1148,6 +1148,10 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_wireframe_sfp28_port(self):
         port_list = []
         elements = self.weh.get_elements(self.d360_wireframe_sfp28_port)
+        for el in elements:
+            if el.is_displayed():
+                port_list.append(el)
+        return port_list
 
     def get_device360_automation_port(self):
         port_list = []
