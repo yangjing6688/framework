@@ -984,11 +984,11 @@ class Cli(object):
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(retry_duration)
-                hm_status = self.send(connection, f'do show hivemanager status | include Status')
-                hm_address = self.send(connection, f'do show hivemanager address')
+                time.sleep(10)
+                capwap_status = self.send(connection, f'show capwap client | include "RUN state"')
+                capwap_server = self.send(connection, f'show capwap client | include "{server_name}"')
 
-                if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
+                if 'Connected securely to the CAPWAP server' in capwap_status and server_name in capwap_server:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
                     return 1
                 count += 1
@@ -1425,6 +1425,98 @@ class Cli(object):
             return output2.decode()
         else:
             return output2
+
+    def close_connection_with_error_handling(self, dut):
+        """Method that makes sure the connection to a dut is closed.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+        """
+        try:
+            self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
+        except Exception:
+            pass
+
+    def verify_path_cost_on_device(self, device, port, expected_path_cost, mode="mstp", retries=10, step=60, **kwargs):
+        """Method that verifies the path cost on a specific port of a given device.
+
+        Args:
+            device (dict): the device, e.g. tb.dut1
+            port (str): the port of the device
+            expected_path_cost (int): the expected path cost value
+            mode (str, optional): the stp mode. Defaults to "mstp".
+            retries (int, optional): the number of retries. Defaults to 10.
+            step (int, optional): seconds to sleep between retries. Defaults to 60.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        for _ in range(retries):
+            try:
+                
+                self.close_connection_with_error_handling(device)
+                self.networkElementConnectionManager.connect_to_network_element_name(device.name)
+                
+                if NetworkElementConstants.OS_AHFASTPATH in device.cli_type.upper():
+                    
+                    output = self.networkElementCliSend.send_cmd(
+                        device.name, f'show spanning-tree mst port detailed 0 {port}', max_wait=10, interval=2)[
+                        0].return_text
+                    path_cost_match = re.search(rf"\r\nPort Path Cost\.+\s+(\d+)", output)
+                    external_path_cost_match = re.search(rf"\r\nExternal Port Path Cost\.+\s+(\d+)", output)
+                    assert path_cost_match or external_path_cost_match
+                    
+                    for path_cost_match in [path_cost_match, external_path_cost_match]:
+                        try:
+                            found_path_cost = int(path_cost_match.group(1))
+                            self.utils.print_info(f"Found path_cost='{found_path_cost}' for port='{port}'")
+                            assert int(expected_path_cost) == found_path_cost, \
+                                f"Found path cost for port='{port}' is {found_path_cost}" \
+                                f" but expected {expected_path_cost}"
+                        except:
+                            continue
+                        else:
+                            kwargs["pass_msg"] = f"Successfully found the path cost correctly set on port='{port}' to {expected_path_cost}"
+                            self.commonValidation.passed(**kwargs)
+                            return 1
+                    else:
+                        assert False, "Failed to find the path cost correctly configure for port='{port}'"
+                
+                else:
+                    
+                    if NetworkElementConstants.OS_VOSS in device.cli_type.upper():
+                        output = self.networkElementCliSend.send_cmd(
+                            device.name, f'show spanning-tree {mode} port config {port}', max_wait=10, interval=2)[
+                            0].return_text
+                        path_cost_match = re.search(fr"\r\nCist Port cost\s+:\s*(\d+)\s*\r\n", output)
+
+                    elif  NetworkElementConstants.OS_EXOS in device.cli_type.upper():
+                        output = self.networkElementCliSend.send_cmd(
+                            device.name, f'show stpd s0 ports {port} detail', max_wait=10, interval=2)[
+                            0].return_text
+                        path_cost_match = re.search(fr"\tPath Cost:\s(\d+)\r\n", output)
+                    
+                    assert path_cost_match, f"Failed to match get the path cost of port='{port}' from dut {device.name}"
+                    found_path_cost = int(path_cost_match.group(1))
+                    self.utils.print_info(f"Found path_cost='{found_path_cost}' for port='{port}'")
+                    
+                    assert int(expected_path_cost) == found_path_cost, \
+                        f"Found path cost for port='{port}' is {found_path_cost}" \
+                        f" but expected {expected_path_cost}"
+                    
+                    kwargs["pass_msg"] = f"Successfully found the path cost correctly set on port='{port}' to {expected_path_cost}"
+                    self.commonValidation.passed(**kwargs)
+                    return 1
+                
+            except Exception as exc:
+                self.utils.print_info(repr(exc))
+                self.utils.wait_till(timeout=step)
+            finally:
+                self.close_connection_with_error_handling(device)
+        else:
+            kwargs["fail_msg"] = f"Failed to verify the path cost of port='{port}' on this dut\n{device}"
+            self.commonValidation.failed(**kwargs)
+            return -1
 
 
 if __name__ == '__main__':

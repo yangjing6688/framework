@@ -458,3 +458,9 @@ class DeviceTemplateWebElementDefinitions:
         {
             'XPATH': "//*[@data-automation-tag='automation-switch-template-igmp-toggle']"
         }
+
+    device_ap_template_search_inputfield = \
+        {
+            'XPATH': '//input[@automation-tag="automation-wireless-device-templates-menu-filter"]',
+            'wait_for': 15
+        }
