@@ -12347,7 +12347,7 @@ class Device360(Device360WebElements):
     def enter_port_type_and_vlan_id(
         self, port, port_type=None, access_vlan_id=None, native_vlan=None,
         allowed_vlans=None, device_os="EXOS", **kwargs):
-        """Method that that configures the vlan and port type in the device 360 port configuration window.
+        """Method that configures the vlan and port type in the device 360 port configuration window.
 
         Args:
             port (str): the port
