@@ -5,6 +5,7 @@ from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.ClientModeWebElements import ClientModeWebElements
 
 
@@ -12,6 +13,7 @@ class ClientMode:
     def __init__(self):
         self.utils = Utils()
         self.ClientModeWebElements = ClientModeWebElements()
+        self.common_validation = CommonValidation()
         self.auto_actions = AutoActions()
         self.screen = Screen()
 
@@ -59,10 +61,12 @@ class ClientMode:
         except Exception as e:
             self.utils.print_debug(e)
             self.utils.print_info( e + "\nCan not login user client mode.")
+            kwargs['fail_msg'] = f"'login_user_client_mode()' -> {e}.....Can not login user client mode."
+            self.common_validation.fault(**kwargs)
             return -1
         return 1
 
-    def quit_browser_client_mode(self, _driver=None):
+    def quit_browser_client_mode(self, _driver=None, **kwargs):
         """
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
@@ -82,6 +86,8 @@ class ClientMode:
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
+            kwargs['fail_msg'] = f"'quit_browser_client_mode()' -> Error: {e}"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def navigator_client_mode_ssid(self):
@@ -90,11 +96,11 @@ class ClientMode:
         self.ClientModeWebElements.get_wifi_connection_status()
         self.screen.save_screen_shot()
 
-    def manual_passphrase_ssid_connect(self, ssid, password='aerohive', security='WPA2'):
+    def manual_passphrase_ssid_connect(self, ssid, password='aerohive', security='WPA2', **kwargs):
         disconnect = 0
         wifi_status = None
         self.utils.print_info("Click other SSIDs button.")
-        self.auto_actions.click_reference(self.ClientModeWebElements.get_other_ssids_button())
+        self.auto_actions.click_reference(self.ClientModeWebElements.get_other_ssids_button)
         self.utils.print_info("Input ssid.")
         self.auto_actions.send_keys(self.ClientModeWebElements.get_ssid_textbox(), ssid)
         self.utils.print_info("Select security type.")
@@ -117,5 +123,7 @@ class ClientMode:
             elif disconnect == 20:
                 break
         self.screen.save_screen_shot()
+        kwargs['fail_msg'] = f"'manual_passphrase_ssid_connect()' -> Status: disconnected -> {wifi_status}"
+        self.common_validation.failed(**kwargs)
         return [-1, wifi_status]
 
