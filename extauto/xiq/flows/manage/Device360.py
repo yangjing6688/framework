@@ -11724,15 +11724,13 @@ class Device360(Device360WebElements):
         
         if not name_element:
             kwargs["fail_msg"] = "Failed to find the port name element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.print_info("Successfully found the port name element")
         
         if self.auto_actions.send_keys(name_element, port_type_name) != 1:
             kwargs["fail_msg"] = "Failed to send keys to the port name element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
         
         self.utils.print_info("Successfully sent keys to the port name element")
         self.utils.wait_till(timeout=2)
@@ -11741,16 +11739,14 @@ class Device360(Device360WebElements):
         
         if not description_element:
             kwargs["fail_msg"] = "Failed to get the description element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.print_info("Successfully got the description element")
 
         if self.auto_actions.send_keys(description_element, description) != 1:
             kwargs["fail_msg"] = "Failed to send keys to the description element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.wait_till(timeout=2)
         self.utils.print_info("Successfully sent keys to the description element")
 
@@ -11758,9 +11754,8 @@ class Device360(Device360WebElements):
         
         if not status_element:
             kwargs["fail_msg"] = "Failed to get the status element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.wait_till(timeout=2)
         self.utils.print_info("Successfully got the status element")
 
@@ -11769,9 +11764,8 @@ class Device360(Device360WebElements):
             
             if self.auto_actions.click(status_element) != 1:
                 kwargs["fail_msg"] = "Failed to click the status element"
-                self.common_validation.failed(**kwargs)
-                return -1
-            
+                self.common_validation.fault(**kwargs)
+
             self.utils.wait_till(timeout=2)
             self.utils.print_info("Successfully clicked the status element")
 
@@ -11782,8 +11776,7 @@ class Device360(Device360WebElements):
                 
                 if self.auto_actions.click(auto_sense) != 1:
                     kwargs["fail_msg"] = "Failed to click the autosense button"
-                    self.common_validation.failed(**kwargs)
-                    return -1
+                    self.common_validation.fault(**kwargs)
                 
                 self.utils.print_info("Successfully clicked the autosense button")
                 self.utils.wait_till(timeout=2)
@@ -11792,9 +11785,8 @@ class Device360(Device360WebElements):
         
         if not port_element:
             kwargs["fail_msg"] = "Failed to get the port usage element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.print_info("Successfully got the port usage element")
         
         if self.auto_actions.click(port_element) != 1:
@@ -11823,15 +11815,13 @@ class Device360(Device360WebElements):
 
         if not get_select_button:
             kwargs["fail_msg"] = "Failed to get the select_button element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
 
         self.utils.print_info("Successfully got the select_button element")
         
         if self.auto_actions.click(get_select_button) != 1:
             kwargs["fail_msg"] = "Failed to click the select_button element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
 
         self.utils.wait_till(timeout=2)
         
@@ -11839,9 +11829,8 @@ class Device360(Device360WebElements):
         
         if not get_dropdown_items:
             kwargs["fail_msg"] = "Failed to get the dropdown_items elements"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.print_info("Successfully got the dropdown_items elements")
 
         if self.auto_actions.select_drop_down_options(get_dropdown_items, str(vlan_id)) == 1:
@@ -11855,15 +11844,13 @@ class Device360(Device360WebElements):
         
         if not get_add_vlan:
             kwargs["fail_msg"] = "Failed to get the add_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1               
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.print_info("Successfully got the add_vlan element")
 
         if self.auto_actions.click(get_add_vlan) != 1:
             kwargs["fail_msg"] = "Failed to click the get_add_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1                    
+            self.common_validation.fault(**kwargs)
 
         self.utils.print_info("Successfully clicked the add_vlan element")
         self.utils.wait_till(timeout=2)
@@ -11872,16 +11859,14 @@ class Device360(Device360WebElements):
 
         if not get_name_vlan:
             kwargs["fail_msg"] = "Failed to get the name_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
-            
+            self.common_validation.fault(**kwargs)
+
         self.utils.print_info("Successfully got the name_vlan element")
         
         if self.auto_actions.send_keys(get_name_vlan, str(vlan_id)) != 1:
             kwargs["fail_msg"] = "Failed to send keys to name_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.print_info("Successfully sent keys to the name_vlan element")
         self.utils.wait_till(timeout=2)
 
@@ -11889,16 +11874,14 @@ class Device360(Device360WebElements):
         
         if not get_id_vlan:
             kwargs["fail_msg"] = "Failed to get the id_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
 
         self.utils.print_info("Successfully got the id_vlan element")
         
         if self.auto_actions.send_keys(get_id_vlan, str(vlan_id)) != 1:
             kwargs["fail_msg"] = "Failed to send keys to the id_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.print_info("Successfully sent keys to the id_vlan element")
         self.utils.wait_till(timeout=2)
             
@@ -11906,16 +11889,15 @@ class Device360(Device360WebElements):
         
         if not get_save_vlan:
             kwargs["fail_msg"] = "Failed to get the save_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
+            self.common_validation.fault(**kwargs)
+
         self.utils.print_info("Successfully got the save_vlan element")
         
         if self.auto_actions.click(get_save_vlan) != 1:
             kwargs["fail_msg"] = "Failed to click the save_vlan element"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         self.utils.print_info("Successfully clicked the save_vlan element")
         
         kwargs["pass_msg"] = "Successfully configured the vlan"
@@ -11936,16 +11918,14 @@ class Device360(Device360WebElements):
 
         if not get_select_button:
             kwargs["fail_msg"] = "Failed to get the select_button"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
 
         self.utils.print_info("Successfully got the select_button element")
         
         if self.auto_actions.click(get_select_button) != 1:
             kwargs["fail_msg"] = "Failed to click the select_button element"
-            self.common_validation.failed(**kwargs)
-            return -1
-
+            self.common_validation.fault(**kwargs)
+        
         self.utils.print_info("Successfully clicked the select_button element")
         self.utils.wait_till(timeout=2)
         
@@ -11953,8 +11933,7 @@ class Device360(Device360WebElements):
         
         if not get_dropdown_items:
             kwargs["fail_msg"] = "Failed to get the get_dropdown_items elements"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
         
         self.utils.print_info("Successfully got the get_dropdown_items elements")
 
@@ -11969,15 +11948,13 @@ class Device360(Device360WebElements):
         
         if not get_add_vlan:
             kwargs["fail_msg"] = "Failed to get the native_vlan_add_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1               
+            self.common_validation.fault(**kwargs)
         
         self.utils.print_info("Successfully got the native_vlan_add_vlan element")
 
         if self.auto_actions.click(get_add_vlan) != 1:
             kwargs["fail_msg"] = "Failed to click the native_vlan_add_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1   
+            self.common_validation.fault(**kwargs)
         
         self.utils.print_info("Successfully clicked the native_vlan_add_vlan element")
         self.utils.wait_till(timeout=2)
@@ -11986,31 +11963,27 @@ class Device360(Device360WebElements):
         
         if not get_name_vlan:
             kwargs["fail_msg"] = "Failed to get the native_vlan_name_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
-            
+            self.common_validation.fault(**kwargs)
+        
         self.utils.print_info("Successfully found the native_vlan_name_vlan element")
         
         if self.auto_actions.send_keys(get_name_vlan, str(native_vlan_id)) != 1:
             kwargs["fail_msg"] = "Failed to send keys to name_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
-
+            self.common_validation.fault(**kwargs)
+        
         self.utils.print_info("Successfully clicked the native_vlan_name_vlan element")
         
         get_id_vlan = self.get_select_element_port_type("native_vlan_id_vlan")
 
         if not get_id_vlan:
             kwargs["fail_msg"] = "Failed to get the native_vlan_id_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
-
+            self.common_validation.fault(**kwargs)
+        
         self.utils.print_info("Successfully found the native_vlan_id_vlan element")
         
         if self.auto_actions.send_keys(get_id_vlan, str(native_vlan_id)) != 1:
             kwargs["fail_msg"] = "Failed to send keys to the native_vlan_id_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
         
         self.utils.print_info("Successfully sent keys to the native_vlan_id_vlan element")
         self.utils.wait_till(timeout=2)
@@ -12019,8 +11992,7 @@ class Device360(Device360WebElements):
                     
         if not get_save_vlan:
             kwargs["fail_msg"] = "Failed to get the save_vlan element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
         
         self.utils.print_info("Successfully got the save_vlan element")
         
@@ -12103,8 +12075,7 @@ class Device360(Device360WebElements):
         
         if not allowed_vlans:
             kwargs["fail_msg"] = "Failed to get allowed vlans element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
         
         self.utils.print_info("Successfully got the allowed vlans element")
         
@@ -12141,8 +12112,7 @@ class Device360(Device360WebElements):
  
         if not config_button:
             kwargs["fail_msg"] = "Failed to get the config_button element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
        
         self.utils.print_info("Successfully got the config_button element")
         
@@ -12150,8 +12120,7 @@ class Device360(Device360WebElements):
             
             if self.auto_actions.click(config_button) != 1:
                 kwargs["fail_msg"] = "Failed to click the config_button element"
-                self.common_validation.failed(**kwargs)
-                return 1
+                self.common_validation.fault(**kwargs)
 
             self.utils.print_info("Successfully clicked the config_button element")
             self.utils.wait_till(timeout=5)
@@ -12160,8 +12129,7 @@ class Device360(Device360WebElements):
         
         if not port_config_button:
             kwargs["fail_msg"] = "Failed to get the port_config_button element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
         
         self.utils.print_info("Successfully got the port_config_button element")
         
@@ -12206,13 +12174,12 @@ class Device360(Device360WebElements):
             
             if not rows:
                 kwargs["fail_msg"] = "Failed to get the port rows from device 360"
-                self.common_validation.failed(**kwargs)
-                return -1
+                self.common_validation.fault(**kwargs)
             
             [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
             
             if not re.search(rf"{port}.*None", port_row.text):
-                kwargs["fail_msg"] = f"Failed to find 'None' set as accessvlan to the given port '{port}'"
+                kwargs["fail_msg"] = f"Failed to find 'None' set as access vlan to the given port '{port}'"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -12234,8 +12201,7 @@ class Device360(Device360WebElements):
         save_btn = self.get_device360_configure_port_save_button()
         if not save_btn:
             kwargs["fail_msg"] = "Failed to get the save button"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
         
         self.utils.print_info("Successfully got the save button")
         
@@ -12365,8 +12331,7 @@ class Device360(Device360WebElements):
         
         if not port_row:
             kwargs["fail_msg"] = "Failed to get the port_row element"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
     
         self.utils.print_debug("Found row for port: ", port_row.text)
 
@@ -12376,15 +12341,13 @@ class Device360(Device360WebElements):
             
             if not drop_down:
                 kwargs["fail_msg"] = "Failed to get the drop_down button"
-                self.common_validation.failed(**kwargs)
-                return -1
+                self.common_validation.fault(**kwargs)
             
             self.utils.print_info("Successfully got the drop_down button")
             
             if self.auto_actions.click(drop_down) != 1:
                 kwargs["fail_msg"] = "Failed to click the drop_down button"
-                self.common_validation.failed(**kwargs)
-                return -1
+                self.common_validation.fault(**kwargs)
             
             self.utils.print_info("Successfully clicked the drop_down button")
             self.utils.wait_till(timeout=2)
@@ -12394,8 +12357,7 @@ class Device360(Device360WebElements):
             
             if not dropdown_options:
                 kwargs["fail_msg"] = "Failed to get the dropdown_options elements"
-                self.common_validation.failed(**kwargs)
-                return -1
+                self.common_validation.fault(**kwargs)
             
             self.utils.print_info("Successfully got the dropdown_options elements")
             
@@ -12416,15 +12378,13 @@ class Device360(Device360WebElements):
                 
             if not input_field_access_vlan_id:
                 kwargs["fail_msg"] = "Failed to get the input_field_access_vlan_id element"
-                self.common_validation.failed(**kwargs)
-                return -1
+                self.common_validation.fault(**kwargs)
             
             self.utils.print_info("Successfully got the input_field_access_vlan_id element")
             
             if self.auto_actions.send_keys(input_field_access_vlan_id, Keys.BACK_SPACE * 10 + access_vlan_id + Keys.ENTER) != 1:
                 kwargs["fail_msg"] = "Failed to sent keys to the input_field_access_vlan_id element"
-                self.common_validation.failed(**kwargs)
-                return -1
+                self.common_validation.fault(**kwargs)
             
             self.utils.print_info("Successfully sent keys to the input_field_access_vlan_id element")
             self.utils.wait_till(timeout=2)
@@ -12438,8 +12398,7 @@ class Device360(Device360WebElements):
 
             if not input_field_trunk_native:
                 kwargs["fail_msg"] = "Failed to get the input_field_trunk_native element"
-                self.common_validation.failed(**kwargs)
-                return -1
+                self.common_validation.fault(**kwargs)
             
             self.utils.print_info("Successfully got the input_field_trunk_native element")
             
@@ -12460,8 +12419,7 @@ class Device360(Device360WebElements):
             
             if not input_field_allowed_vlans:
                 kwargs["fail_msg"] = "Failed to get the input_field_allowed_vlans element"
-                self.common_validation.failed(**kwargs)
-                return -1
+                self.common_validation.fault(**kwargs)
             
             self.utils.print_info("Successfully got the input_field_allowed_vlans element")
             
@@ -12487,8 +12445,7 @@ class Device360(Device360WebElements):
         
         if not close_button:
             kwargs["fail_msg"] = "Failed to get the close button"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
 
         self.utils.print_info("Successfully got the close button")
 
