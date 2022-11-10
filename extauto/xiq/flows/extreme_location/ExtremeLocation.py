@@ -1552,8 +1552,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             if user_type and expected_duration in row.text:
                 self.utils.print_info(f'Device Classification Rule Created successfully with {user_type} '
                                       f'with Duration {expected_duration}')
-                kwargs['pass_msg'] = f'Device Classification Rule Created successfully with {user_type} '
-                                      f'with Duration {expected_duration}'
+                kwargs['pass_msg'] = f"Device Classification Rule Created successfully with {user_type} with Duration {expected_duration}"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
