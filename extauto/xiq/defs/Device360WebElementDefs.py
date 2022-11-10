@@ -3683,7 +3683,7 @@ class Device360WebElementDefs:
 
     d360_multi_edit_checkbox_native_vlan = \
         {
-            'XPATH': '//input[@data-automation-tag="automation-port-details-multi-edit-checkbox-native-vlan" and @type="checkbox"]',
+            'XPATH': '//input[@data-automation-tag="automation-port-details-multi-edit-checkbox-native" and @type="checkbox"]',
             'wait_for': 5
         }
 
@@ -3695,7 +3695,7 @@ class Device360WebElementDefs:
 
     d360_multi_edit_checkbox_allowed_vlan = \
         {
-            'XPATH': '//input[@data-automation-tag="automation-port-details-multi-edit-checkbox-allowed-vlan" and @type="checkbox"]',
+            'XPATH': '//input[@data-automation-tag="automation-port-details-multi-edit-checkbox-allowed" and @type="checkbox"]',
             'wait_for': 5
         }
 
@@ -3782,3 +3782,10 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-dojo-attach-point="addNewVlan"]',
             'wait_for': 5
         }
+
+    d360_multi_edit_port_count = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="portCount"]',
+            'wait_for': 5
+        }
+

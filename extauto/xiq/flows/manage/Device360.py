@@ -11992,4 +11992,3 @@ class Device360(Device360WebElements):
         kwargs["pass_msg"] = "Successfully configured the stp settings"
         self.common_validation.passed(**kwargs)
         return 1
-
