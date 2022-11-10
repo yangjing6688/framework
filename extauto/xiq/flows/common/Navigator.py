@@ -3458,6 +3458,7 @@ class Navigator(NavigatorWebElements):
                             return -1
                         else:
                             self.utils.print_info(f"trying again...")
+                            self.auto_actions.scroll_down()
                             counter += 1
                 else:
                     return 1
