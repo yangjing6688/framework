@@ -186,7 +186,7 @@ class DeviceCommon(DeviceCommonElements):
         if not search_str:
             self.utils.print_info("Pass the Device Serial Number, MAC address, or Name.")
             kwargs['fail_msg'] = "'select_device_row()' -> Pass the Device Serial Number, MAC address, or Name."
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         sleep(10)
@@ -194,11 +194,13 @@ class DeviceCommon(DeviceCommonElements):
             if search_str in row.text:
                 self.utils.print_info(f"Selecting the device row: {search_str}")
                 if self._select_device_grid_row(row):
+                    kwargs['pass_msg'] = "Device grid row selected"
+                    self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    self.utils.print_info(f"device grid row not selected")
+                    self.utils.print_info("device grid row not selected")
                     kwargs['fail_msg'] = "'select_device_row()' -> Device grid row is not selected"
-                    self.common_validation.failed(**kwargs)
+                    self.common_validation.fault(**kwargs)
                     return -1
 
         self.utils.print_info(f"Device row not found with {search_criteria}: {search_str}")
@@ -250,7 +252,7 @@ class DeviceCommon(DeviceCommonElements):
         else:
             self.utils.print_info("Pass the Device Serial Number, MAC address, or Name.")
             kwargs['fail_msg'] = "'select_device_rows()' -> Pass the Device Serial Number, MAC address, or Name."
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def edit_device(self, device_serial, **kwargs):
@@ -308,16 +310,13 @@ class DeviceCommon(DeviceCommonElements):
             search_strg = device_host
 
         if not search_strg:
-            self.utils.print_info(f"Pass the device MAC or Device host name")
-            kwargs['fail_msg'] = "'go_to_device360_window()' -> Device MAC or Device host name is missing"
-            self.common_validation.failed(**kwargs)
+            kwargs['fail_msg'] = "'go_to_device360_window()' -> Device MAC or Device host name is missing, please pass the args"
+            self.common_validation.fault(**kwargs)
             return -1
         rows = self.get_device_grid_rows()
         if not rows:
-            self.screen.save_screen_shot()
-            self.utils.print_info(f"Can not obtain rows")
             kwargs['fail_msg'] = "'go_to_device360_window()' -> Can not obtain rows"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         for row in rows:
@@ -330,10 +329,10 @@ class DeviceCommon(DeviceCommonElements):
                             if self.get_cell_href(cell):
                                 self.auto_actions.click(self.get_cell_href(cell))
                                 sleep(5)
+                                kwargs['pass_msg'] = "Clicked on device cell"
+                                self.common_validation.passed(**kwargs)
                                 return 1
 
-        self.utils.print_info(f"Device not found in the grid with:{search_strg}")
-        self.screen.save_screen_shot()
         kwargs['fail_msg'] = f"'go_to_device360_window()' -> Device not found in the grid with:{search_strg}"
         self.common_validation.failed(**kwargs)
         return -1
@@ -360,9 +359,8 @@ class DeviceCommon(DeviceCommonElements):
                 return 1
 
             else:
-                kwargs['fail_msg'] = "'goto_device360_with_client()' -> Could not navigate to client page and click on " \
-                                     "client hyperlink"
-                self.common_validation.failed(**kwargs)
+                kwargs['fail_msg'] = "'goto_device360_with_client()'->Could not navigate to client page and click on client hyperlink"
+                self.common_validation.fault(**kwargs)
                 return -1
 
         else:
@@ -394,7 +392,7 @@ class DeviceCommon(DeviceCommonElements):
             else:
                 kwargs['fail_msg'] = "'goto_device360_with_mac()' -> Could not navigate to D360 page and click on" \
                                      " MAC hyperlink"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
         else:
@@ -426,7 +424,7 @@ class DeviceCommon(DeviceCommonElements):
             else:
                 kwargs['fail_msg'] = "'goto_device360_with_hostname()' -> Could not navigate to D360 page and click" \
                                      " on host name hyperlink"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
         else:
@@ -449,11 +447,13 @@ class DeviceCommon(DeviceCommonElements):
         if row:
             self.utils.print_info(f"Checking Select Device Checkbox Status for the device row: {device_serial}")
             if self._select_device_checkbox_status_row(row):
+                kwargs['pass_msg'] = "Clicked on device cell"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Select Device Checkbox not selected")
                 kwargs['fail_msg'] = "'get_select_device_checkbox_status()' -> Select Device Checkbox not selected"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
         self.utils.print_info(f"Select Device Checkbox is Checked with serial number:{device_serial}")
         kwargs['fail_msg'] = f"'get_select_device_checkbox_status()' -> Select Device Checkbox is Checked with" \
@@ -505,6 +505,9 @@ class DeviceCommon(DeviceCommonElements):
                 self.common_validation.failed(**kwargs)
                 return -1
             sleep(2)
+
+        kwargs['pass_msg'] = "All Devices Selected Successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def get_devices_per_page(self, **kwargs):
@@ -550,12 +553,14 @@ class DeviceCommon(DeviceCommonElements):
             self.auto_actions.move_to_element(the_field)
             self.utils.print_info(f"Updating Devices Per Page value to {device_count}")
             self.auto_actions.click(self.get_devices_per_page_value(device_count=device_count))
+            kwargs['pass_msg'] = f"Updating Devices Per Page value to {device_count}"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(f"A Devices Per Page value of {device_count} is not supported.")
             kwargs['fail_msg'] = f"'update_devices_per_page()' -> A Devices Per Page value of {device_count} is" \
                                  f" not supported."
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
 
         return ret_val
 
@@ -574,15 +579,19 @@ class DeviceCommon(DeviceCommonElements):
             cell = self._get_client_cell(row)
             if cell and self.get_cell_href(cell):
                 self.utils.print_info("Client link is available")
+                kwargs['pass_msg'] = "Client link is available"
+                self.common_validation.passed(**kwargs)
                 return 1
 
             else:
                 self.utils.print_info("Client link is not available")
+                kwargs['fail_msg'] = "'is_client_link_available()' -> Client link is not available""
+                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
             kwargs['fail_msg'] = "'is_client_link_available()' -> Row with passed device serial is not found"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def is_hostname_link_available(self, device_serial=None, **kwargs):
@@ -600,15 +609,19 @@ class DeviceCommon(DeviceCommonElements):
             cell = self._get_hostname_cell(row)
             if cell and self.get_cell_href(cell):
                 self.utils.print_info("Host Name link is available")
+                kwargs['pass_msg'] = "Host Name link is available"
+                self.common_validation.passed(**kwargs)
                 return 1
 
             else:
                 self.utils.print_info("Host Name link is not available")
+                kwargs['fail_msg'] = "'is_hostname_link_available()' -> Host Name link is not available"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
             kwargs['fail_msg'] = "'is_hostname_link_available()' -> Row with passed device serial is not found"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def is_mac_link_available(self, device_serial=None, **kwargs):
@@ -626,15 +639,19 @@ class DeviceCommon(DeviceCommonElements):
             cell = self._get_mac_cell(row)
             if cell and self.get_cell_href(cell):
                 self.utils.print_info("MAC link is available")
+                kwargs['pass_msg'] = "MAC link is available"
+                self.common_validation.passed(**kwargs)
                 return 1
 
             else:
                 self.utils.print_info("MAC link is not available")
+                kwargs['fail_msg'] = "'is_mac_link_available()' -> MAC link is not available"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
             kwargs['fail_msg'] = "'is_mac_link_available()' -> Row with passed device serial is not found"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def is_policy_link_available(self, device_serial=None, **kwargs):
@@ -652,15 +669,19 @@ class DeviceCommon(DeviceCommonElements):
             cell = self._get_policy_cell(row)
             if cell and self.get_cell_href(cell):
                 self.utils.print_info("Policy link is available")
+                kwargs['pass_msg'] = "Policy link is available"
+                self.common_validation.passed(**kwargs)
                 return 1
 
             else:
                 self.utils.print_info("Policy link is not available")
+                kwargs['fail_msg'] = "'is_policy_link_available()' -> Policy link is not available"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
             kwargs['fail_msg'] = "'is_policy_link_available()' -> Row with passed device serial is not found"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def is_location_link_available(self, device_serial=None, **kwargs):
@@ -678,13 +699,17 @@ class DeviceCommon(DeviceCommonElements):
             cell = self._get_location_cell(row)
             if cell and self.get_cell_href(cell):
                 self.utils.print_info("Location link is available")
+                kwargs['pass_msg'] = "Location link is available"
+                self.common_validation.passed(**kwargs)
                 return 1
 
             else:
                 self.utils.print_info("Location link is not available")
+                kwargs['fail_msg'] = "'is_policy_link_available()' -> Location link is not available"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
             kwargs['fail_msg'] = "'is_location_link_available()' -> Row with passed device serial is not found"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1

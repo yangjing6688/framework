@@ -67,7 +67,7 @@ class GlobalSearch:
 
         if expect_result == "None" and matched_val == "":
             kwargs['fail_msg'] = f"'global_search()' -> Variable 'expect_result' is None"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -2
 
         if matched_val == "":
