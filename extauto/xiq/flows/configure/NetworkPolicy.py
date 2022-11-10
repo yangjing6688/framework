@@ -135,7 +135,7 @@ class NetworkPolicy(object):
         out = self.create_network_policy(policy, wireless_profile)
         return out
 
-    def create_network_policy(self, policy, cli_type='AH-AP', **wireless_profile):
+    def create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
         """
         - Create the network policy from CONFIGURE-->NETWORK POLICIES
         - This keyword will create the network policy and wireless network
@@ -147,6 +147,7 @@ class NetworkPolicy(object):
 
         :param policy: Name of the network policy to create
         :param wireless_profile: (dict) wireless network creation profile parameters
+        :param cli_type: Device type of the DUT
         :return: 1 if network policy creation is success
         """
         self.navigator.navigate_to_devices()
@@ -197,13 +198,13 @@ class NetworkPolicy(object):
 
             if cli_type == 'AH-AP':
                 return self.wireless_nw.create_wireless_network(**wireless_profile)
-            if cli_type == 'VOSS' or cli_type == 'AH-AP':
+            if cli_type.upper() == 'VOSS' or cli_type.upper() == 'EXOS':
                 switch_template_name = wireless_profile.get('switch_template_name')
                 if not switch_template_name:
                     self.utils.print_info("No template information in dictionary")
                     return 1
-                self.switch_template.create_switching_network(policy, **wireless_profile)
-            if 'XR' in cli_type:
+                self.switch_template.create_switching_network(policy, wireless_profile, **kwargs)
+            if 'XR' in cli_type.upper():
                 router_template_name = wireless_profile.get('template_name')
                 if not router_template_name:
                     self.utils.print_info("No template information in dictionary")
