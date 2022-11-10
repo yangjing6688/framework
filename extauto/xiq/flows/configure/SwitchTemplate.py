@@ -6,7 +6,6 @@ from extauto.common.Screen import Screen
 
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
-# import extauto.xiq.flows.configure.NetworkPolicy
 from extauto.xiq.flows.manage.Tools import Tools
 
 from selenium.webdriver.common.keys import Keys
@@ -21,6 +20,7 @@ from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 import re
+
 
 class SwitchTemplate(object):
 
@@ -113,7 +113,6 @@ class SwitchTemplate(object):
         self.navigator.navigate_configure_network_policies()
         sleep(1)
 
-        # self.nw_policy.select_network_policy_in_card_view(nw_policy)
         self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
 
         sleep(2)
@@ -2276,13 +2275,13 @@ class SwitchTemplate(object):
         if not sw_template_name:
             self.utils.print_info()
             kwargs["fail_msg"] = "Template name required...Unable to continue"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         return_value = self.create_new_switch_template(switch_profile, **kwargs)
         if return_value == -1:
             kwargs["fail_msg"] = "Unable to create new switch template"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         return_value = self.select_or_create_port_type(policy, sw_template_name, switch_profile, **kwargs)
@@ -2360,7 +2359,7 @@ class SwitchTemplate(object):
             self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
 
         self.utils.print_info("Select port type " + port_details_port_type_name_value + " from list of port types")
-        combo_selected = self.select_port_type(port_details_interface_value, port_details_port_type_name_value)
+        combo_selected = self._select_port_type(port_details_interface_value, port_details_port_type_name_value)
 
         if combo_selected != 1:
             self.utils.print_info("Port type " + port_details_port_type_name_value + " not found")
@@ -2368,25 +2367,11 @@ class SwitchTemplate(object):
             created = self.create_new_port_type(port_details_interface_value, port_details_port_type_name_value, switch_profile)
             if created == 1:
                 self.utils.print_info("Make another attempt to select port type " + port_details_port_type_name_value + " from list of port types")
-                combo_selected = self.select_port_type(port_details_interface_value, port_details_port_type_name_value)
+                combo_selected = self._select_port_type(port_details_interface_value, port_details_port_type_name_value)
 
         return combo_selected
 
-    def select_switch_template_port_configuration_port_details_tab(self):
-        """
-        - Assume that already on the Switch Template (Port Configuration)
-            :return: Returns 1 if successfully navigates to the Port Details Tab
-                     Else returns -1
-        """
-        port_details = self.sw_template_web_elements.get_sw_template_port_details_tab()
-        if port_details:
-            self.utils.print_info("The Port Details tab was found")
-            self.auto_actions.click(port_details)
-            sleep(4)
-            return 1
-        return -1
-
-    def select_port_type(self, port_details_interface_value, port_details_port_type_value):
+    def _select_port_type(self, port_details_interface_value, port_details_port_type_value):
         """
         - Assume that already on the Switch Template (Port Configuration)
             :return: Returns 1 if successfully navigates to the Port Details Tab
@@ -2429,7 +2414,7 @@ class SwitchTemplate(object):
         new_port_type_saved = False
         prevent_infinite_loop = 10
 
-        active_tab = self.get_active_port_type_tab()
+        active_tab = self._get_active_port_type_tab()
 
         while not new_port_type_saved and prevent_infinite_loop > 0:
             prevent_infinite_loop = prevent_infinite_loop - 1
@@ -2464,7 +2449,7 @@ class SwitchTemplate(object):
             if not new_port_type_saved:
                 self.auto_actions.click(next_button)
                 sleep(2)
-                active_tab = self.get_active_port_type_tab()
+                active_tab = self._get_active_port_type_tab()
 
         if new_port_type_saved:
             return 1
@@ -2621,11 +2606,11 @@ class SwitchTemplate(object):
 
         if span_tree_mode_value.lower() == 'on' and not span_tree_mode_web_element.is_selected():
             self.utils.print_info("Turning spanning tree mode ON")
-            self.auto_actions.click(span_tree_mode_web_element)
+            self.auto_actions.click_reference(span_tree_mode_web_element)
 
         if span_tree_mode_value.lower() == 'off' and span_tree_mode_web_element.is_selected():
             self.utils.print_info("Turning spanning tree mode OFF")
-            self.auto_actions.click(span_tree_mode_web_element)
+            self.auto_actions.click_reference(span_tree_mode_web_element)
 
         if span_tree_mode_web_element.is_selected():
             span_tree_protocol_value = ''
@@ -2926,7 +2911,7 @@ class SwitchTemplate(object):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def get_active_port_type_tab(self):
+    def _get_active_port_type_tab(self):
         """
         - Assume that already on the Port Type Popup
             :return: Returns string representing the active tab (if known)

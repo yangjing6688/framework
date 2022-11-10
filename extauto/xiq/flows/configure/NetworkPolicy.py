@@ -196,7 +196,7 @@ class NetworkPolicy(object):
                 self.utils.print_info(f"{tip_text}")
                 return -3
 
-            if cli_type == 'AH-AP':
+            if cli_type.upper() == 'AH-AP':
                 return self.wireless_nw.create_wireless_network(**wireless_profile)
             if cli_type.upper() == 'VOSS' or cli_type.upper() == 'EXOS':
                 switch_template_name = wireless_profile.get('switch_template_name')
@@ -204,7 +204,7 @@ class NetworkPolicy(object):
                     self.utils.print_info("No template information in dictionary")
                     return 1
                 self.switch_template.create_switching_network(policy, wireless_profile, **kwargs)
-            if 'XR' in cli_type.upper():
+            if cli_type.upper() == 'AH-XR':
                 router_template_name = wireless_profile.get('template_name')
                 if not router_template_name:
                     self.utils.print_info("No template information in dictionary")
