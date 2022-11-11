@@ -113,9 +113,9 @@ class DevicesActions:
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = "Unable to gather Device(s)"
+            kwargs['pass_msg'] = "Unable to gather Device(s)"
             self.screen.save_screen_shot()
-            self.common_validation.failed(**kwargs)
+            self.common_validation.passed(**kwargs)
             return -1
 
     def reset_device_to_default(self, *device_list):
@@ -144,8 +144,7 @@ class DevicesActions:
         self.utils.print_info(self.device_actions.get_device_reset_warning_msg().text)
         self.utils.print_info("Click 'yes' button ")
         self.auto_actions.click_reference(self.device_actions.get_device_reset_yes_dialog)
-        self.utils.print_info("Wait....")
-        sleep(10)
+        self.utils.wait_till(self.device_actions.get_device_reset_dialog_box_msg, timeout=200, delay=5, is_logging_enabled=True)
         msg = self.device_actions.get_device_reset_dialog_box_msg().text
         self.screen.save_screen_shot()
         sleep(2)
