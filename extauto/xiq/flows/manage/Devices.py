@@ -12317,7 +12317,8 @@ class Devices:
             self.screen.save_screen_shot()
             return -1
 
-    def clone_device_quick_onboard(self, device_serial, replacement_device_type, replacement_serial, force_quick_onboard=False):
+    def clone_device_quick_onboard(self, device_serial, replacement_device_type, replacement_serial,
+                                   force_quick_onboard=False, perform_update=False, option="disable"):
         """
         - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device level config to another same type SKU switch.
         :param device_serial: Select the device (first device) that you want to clone the configuration for the replacement device (second device)
@@ -12408,32 +12409,89 @@ class Devices:
 
 
                 warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
-                if 'disconnected or in the unmanaged state.' not in warning_message_disconnected.text:
+                if warning_message_disconnected:
+                    if 'disconnected or in the unmanaged state' not in warning_message_disconnected.text:
+                        if perform_update:
+                            self.utils.print_info("Performing Update")
+                            self.utils.print_info("Select the network policy and configuration checkbox")
+                            update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
+                            reboot_rollback_check = self.devices_web_elements.get_devices_switch_update_reboot_rollback()
+                            sleep(3)
+                            if update_cb:
+                                if update_cb.is_selected():
+                                    self.utils.print_info("Network policy and configuration checkbox is already selected")
+                                    sleep(2)
+                                else:
+                                    self.utils.print_info("Clicking network policy and configuration checkbox")
+                                    self.auto_actions.click(update_cb)
+                                    sleep(2)
+                            else:
+                                self.utils.print_info("Network policy and configuration checkbox not found")
+                                return -1
+
+                            if reboot_rollback_check:
+                                if option.lower() == "enable":
+                                    if not reboot_rollback_check.is_selected():
+                                        self.utils.print_info("Check reboot and revert switch configuration option")
+                                        self.auto_actions.click(reboot_rollback_check)
+                                        sleep(2)
+                                    else:
+                                        self.utils.print_info("Reboot/revert already checked")
+                                if option.lower() == "disable":
+                                    if not reboot_rollback_check.is_selected():
+                                        self.utils.print_info("Reboot/revert option already unchecked")
+                                        sleep(2)
+                                    else:
+                                        self.utils.print_info("Uncheck reboot and revert switch configuration option")
+                                        self.auto_actions.click(reboot_rollback_check)
+                                        sleep(2)
+                            else:
+                                self.utils.print_info("Reboot and revert switch configuration checkbox not found")
+                                return -1
+
+                            self.utils.print_info("Click on perform update button")
+                            self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
+                            sleep(3)
+                            if option.lower() == "enable":
+                                self.utils.print_info("Proceed yes that user wants to continue with reboot/revert option")
+                                self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+                                sleep(2)
+                            else:
+                                pass
+                            return 1
+
+                    else:
+                        self.utils.print_info(
+                            "The device clone has been successfully completed, but the device cannot be updated at this "
+                            "time as it's disconnected or in the unmanaged state.")
+                        cancel_button = self.device_actions.get_cancel_button()
+                        if cancel_button:
+
+                            self.utils.print_info("Closing the Device Update window")
+                            self.screen.save_screen_shot()
+                            self.auto_actions.click(cancel_button)
+                        else:
+                            self.utils.print_info("No Close button found")
+                            return -1
+
+                        self.utils.print_info("Navigate to Manage-->Devices")
+
+                        def _navigate_to_devices():
+                            return self.navigator.navigate_to_devices()
+
+                        self.utils.wait_till(_navigate_to_devices)
+                else:
 
                     close_button = self.device_actions.get_close_button()
-                    if close_button:
-
-                        self.utils.print_info("Closing the Device Update window")
-                        self.screen.save_screen_shot()
-                        self.auto_actions.click(close_button)
-                    else:
-                        self.utils.print_info("No Close button found")
-                        return -1
-
+                    self.utils.print_info("Closing the Clone window")
+                    self.screen.save_screen_shot()
+                    self.auto_actions.click(close_button)
                     self.utils.print_info("Navigate to Manage-->Devices")
 
                     def _navigate_to_devices():
                         return self.navigator.navigate_to_devices()
 
                     self.utils.wait_till(_navigate_to_devices)
-                else:
-                    self.utils.print_info(
-                        "The device clone has been successfully completed, but the device cannot be updated at this "
-                        "time as it's disconnected or in the unmanaged state.")
-                    cancel_button = self.device_actions.get_cancel_button()
-                    self.utils.print_info("Closing the Clone window")
-                    self.screen.save_screen_shot()
-                    self.auto_actions.click(cancel_button)
                     return -1
 
             elif replacement_device_type == "Quick Onboard":
@@ -12509,24 +12567,73 @@ class Devices:
                                 else:
                                     self.wait_until_device_online(replacement_serial)
                                     self.clone_device_quick_onboard(device_serial, "Onboarded", replacement_serial)
+                if perform_update:
+                    self.utils.print_info("Performing Update")
+                    self.utils.print_info("Select the network policy and configuration checkbox")
+                    update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
+                    reboot_rollback_check = self.devices_web_elements.get_devices_switch_update_reboot_rollback()
+                    sleep(3)
+                    if update_cb:
+                        if update_cb.is_selected():
+                            self.utils.print_info("Network policy and configuration checkbox is already selected")
+                            sleep(2)
+                        else:
+                            self.utils.print_info("Clicking network policy and configuration checkbox")
+                            self.auto_actions.click(update_cb)
+                            sleep(2)
+                    else:
+                        self.utils.print_info("Network policy and configuration checkbox not found")
+                        return -1
 
-                self.utils.wait_till()
-                close_button = self.device_actions.get_close_button()
-                if close_button:
+                    if reboot_rollback_check:
+                        if option.lower() == "enable":
+                            if not reboot_rollback_check.is_selected():
+                                self.utils.print_info("Check reboot and revert switch configuration option")
+                                self.auto_actions.click(reboot_rollback_check)
+                                sleep(2)
+                            else:
+                                self.utils.print_info("Reboot/revert already checked")
+                        if option.lower() == "disable":
+                            if not reboot_rollback_check.is_selected():
+                                self.utils.print_info("Reboot/revert option already unchecked")
+                                sleep(2)
+                            else:
+                                self.utils.print_info("Uncheck reboot and revert switch configuration option")
+                                self.auto_actions.click(reboot_rollback_check)
+                                sleep(2)
+                    else:
+                        self.utils.print_info("Reboot and revert switch configuration checkbox not found")
+                        return -1
 
-                    self.utils.print_info("Closing the Device Update window")
-                    self.screen.save_screen_shot()
-                    self.auto_actions.click(close_button)
+                    self.utils.print_info("Click on perform update button")
+                    self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
+                    sleep(3)
+                    if option.lower() == "enable":
+                        self.utils.print_info("Proceed yes that user wants to continue with reboot/revert option")
+                        self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+                        sleep(2)
+                    else:
+                        pass
+                    return 1
+
                 else:
-                    self.utils.print_info("No Close button found")
-                    return -1
+                    self.utils.wait_till()
+                    close_button = self.device_actions.get_close_button()
+                    if close_button:
 
-                self.utils.print_info("Navigate to Manage-->Devices")
-                def _navigate_to_devices():
-                    return self.navigator.navigate_to_devices()
+                        self.utils.print_info("Closing the Device Update window")
+                        self.screen.save_screen_shot()
+                        self.auto_actions.click(close_button)
+                    else:
+                        self.utils.print_info("No Close button found")
+                        return -1
 
-                self.utils.wait_till(_navigate_to_devices)
-                self.refresh_devices_page()
+                    self.utils.print_info("Navigate to Manage-->Devices")
+                    def _navigate_to_devices():
+                        return self.navigator.navigate_to_devices()
+
+                    self.utils.wait_till(_navigate_to_devices)
+                    self.refresh_devices_page()
 
             else:
                 self.utils.print_info("No replacement type was selected")
