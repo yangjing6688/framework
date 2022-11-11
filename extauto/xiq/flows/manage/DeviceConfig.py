@@ -2827,6 +2827,8 @@ class DeviceConfig(DeviceConfigElements):
                 assert res == 1, "Failed to click the delta_view button"
                 self.utils.print_info("Successfully clicked the delta_view button")
                 
+                self.utils.wait_till(timeout=30)
+
                 delta_configs, _ = self.utils.wait_till(
                     func=self.get_device_config_audit_delta_view_content,
                     timeout=60,
