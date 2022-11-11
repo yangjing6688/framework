@@ -10355,7 +10355,9 @@ class Devices:
         except Exception as e:
             return -1
 
-    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true", performUpgrade="true", saveDefault="false", updateTo="latest", updatefromD360Page="false", retry_duration=30,retry_count=1200):
+    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true",
+                                       performUpgrade="true", saveDefault="false", updateTo="latest",
+                                       updatefromD360Page="false", retry_duration=30,retry_count=1200):
         """
         - This method update device to latest version or to a specific version from the dropdown
         - This method needs import datetime as dt
