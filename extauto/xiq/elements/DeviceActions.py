@@ -273,6 +273,9 @@ class DeviceActions(DeviceActionsDefs):
     def get_clone_button_quick_onboard(self):
         return self.weh.get_element(self.clone_button_quick_onboard)
 
+    def get_clone_inform_window(self):
+        return self.weh.get_element(self.clone_inform_window)
+
     def get_yes_confirmation_button(self):
         return self.weh.get_element(self.yes_confirmation_button)
 

@@ -467,6 +467,11 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    clone_inform_window = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="msgEl"]//*[@data-dojo-attach-point="desEl" and contains(text(),"Clone will copy")]',
+            'wait_for': 2
+        }
     clone_button_quick_onboard = \
         {
             'XPATH': '//*[@data-automation-tag="automation-clone-device-window-quick-onboard"]',
@@ -475,7 +480,7 @@ class DeviceActionsDefs:
 
     yes_confirmation_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
             'wait_for': 2
         }
 
@@ -519,12 +524,12 @@ class DeviceActionsDefs:
 
     close_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="closeDialog"]',
+            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//*[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 2
         }
 
     x_button_clone_window = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="closeButtonNode"]',
+            'XPATH': '//div[@componentpath="AHDialog"]/div/span[@class="dijitDialogCloseIcon"]',
             'wait_for': 2
         }

@@ -12317,7 +12317,7 @@ class Devices:
             self.screen.save_screen_shot()
             return -1
 
-    def clone_device_quick_onboard(self, device_serial, replacement_device_type, replacement_serial):
+    def clone_device_quick_onboard(self, device_serial, replacement_device_type, replacement_serial, force_quick_onboard=False):
         """
         - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device level config to another same type SKU switch.
         :param device_serial: Select the device (first device) that you want to clone the configuration for the replacement device (second device)
@@ -12386,22 +12386,25 @@ class Devices:
                 if clone_button:
                     self.utils.print_info("Select Clone button")
                     self.auto_actions.click(clone_button)
-                    yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
-                    if yes_confirmation_button:
-                        self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
-                        self.auto_actions.click(yes_confirmation_button)
-                    else:
-                        self.utils.print_info(f"No confirm message buttons found")
-                        self.screen.save_screen_shot()
-                        return -1
 
-                def _loading_clone():
-                    loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
-                    if loading_clone_configuration.is_displayed():
-                        print("Still loading configuration")
-                    else:
-                        return 1
-                self.utils.wait_till(_loading_clone, exp_func_resp=1)
+                    clone_inform_window = self.device_actions.get_clone_inform_window()
+                    if clone_inform_window:
+                        yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
+                        if yes_confirmation_button:
+                            self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
+                            self.auto_actions.click(yes_confirmation_button)
+                        else:
+                            self.utils.print_info(f"No confirm message buttons found")
+                            self.screen.save_screen_shot()
+                            return -1
+
+                # def _loading_clone():
+                #     loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
+                #     if loading_clone_configuration.is_displayed():
+                #         print("Still loading configuration")
+                #     else:
+                #         return 1
+                self.utils.wait_till()
 
 
                 warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
@@ -12459,50 +12462,54 @@ class Devices:
                     self.utils.wait_till(_loading_onboarding_replacement, exp_func_resp=1)
                     sleep(30)
 
-                    warning_replacement_not_connected = self.device_actions.get_warning_replacement_not_connected()
-                    if warning_replacement_not_connected:
-                        x_button_clone_window = self.device_actions.get_x_button_clone_window()
-                        self.auto_actions.click(x_button_clone_window)
-                        self.utils.print_info("Navigate to Manage-->Devices")
-
-                        def _navigate_to_devices():
-                            return self.navigator.navigate_to_devices()
-
-                        self.utils.wait_till(_navigate_to_devices)
-
-                        self.delete_device(replacement_serial) # to be removed
-                        self.clone_device_quick_onboard(device_serial, replacement_device_type, replacement_serial)
-
-                    elif self.device_actions.get_yes_confirmation_button():
+                    clone_inform_window = self.device_actions.get_clone_inform_window()
+                    if clone_inform_window:
                         yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
+
                         if yes_confirmation_button:
                             self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
                             self.auto_actions.click(yes_confirmation_button)
                         else:
                             self.utils.print_info(f"No confirm message buttons found")
                             self.screen.save_screen_shot()
-                            return -1
                     else:
-                        x_button_clone_window = self.device_actions.get_x_button_clone_window()
-                        self.auto_actions.click(x_button_clone_window)
-                        self.utils.print_info("Navigate to Manage-->Devices")
+                        warning_replacement_not_connected = self.device_actions.get_warning_replacement_not_connected()
+                        if warning_replacement_not_connected:
+                            x_button_clone_window = self.device_actions.get_x_button_clone_window()
+                            self.auto_actions.click(x_button_clone_window)
+                            self.utils.print_info("Navigate to Manage-->Devices")
 
-                        def _navigate_to_devices():
-                            return self.navigator.navigate_to_devices()
+                            def _navigate_to_devices():
+                                return self.navigator.navigate_to_devices()
 
-                        self.utils.wait_till(_navigate_to_devices)
+                            self.utils.wait_till(_navigate_to_devices)
+                            if force_quick_onboard:
+                                self.delete_device(replacement_serial)
+                                self.clone_device_quick_onboard(device_serial, "Quick Onboard",
+                                                                replacement_serial)
+                            else:
+                                self.wait_until_device_online(replacement_serial)
+                                self.clone_device_quick_onboard(device_serial, "Onboarded", replacement_serial)
 
-                        self.delete_device(replacement_serial)  # to be removed
-                        self.clone_device_quick_onboard(device_serial, replacement_device_type, replacement_serial)
+                        else:
+                            x_button_clone_window = self.device_actions.get_x_button_clone_window()
+                            if x_button_clone_window:
+                                self.auto_actions.click(x_button_clone_window)
+                                self.utils.print_info("Navigate to Manage-->Devices")
 
-                # def _loading_clone():
-                #     loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
-                #     if loading_clone_configuration.is_displayed():
-                #         print("Still loading configuration")
-                #     else:
-                #         return 1
-                #
-                # self.utils.wait_till(_loading_clone, exp_func_resp=1)
+                                def _navigate_to_devices():
+                                    return self.navigator.navigate_to_devices()
+
+                                self.utils.wait_till(_navigate_to_devices)
+
+                                if force_quick_onboard:
+                                    self.delete_device(replacement_serial)
+                                    self.clone_device_quick_onboard(device_serial, "Quick Onboard",
+                                                                    replacement_serial)
+                                else:
+                                    self.wait_until_device_online(replacement_serial)
+                                    self.clone_device_quick_onboard(device_serial, "Onboarded", replacement_serial)
+
                 self.utils.wait_till()
                 close_button = self.device_actions.get_close_button()
                 if close_button:
