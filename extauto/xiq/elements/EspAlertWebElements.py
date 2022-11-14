@@ -36,6 +36,14 @@ class EspAlertWebElements(EspAlertDefs):
     def get_source_parent(self):
         return self.weh.get_element(self.source_parent)
 
+    def get_source_parent_dynamic(self,source_parent):
+        ele_def_source_parent = \
+          {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-sp-select-' + source_parent,
+            'wait_for': 5
+          }
+        return self.weh.get_element(ele_def_source_parent)
+
     def get_source_parent_device(self):
         return self.weh.get_element(self.source_parent_device)
 
@@ -44,6 +52,14 @@ class EspAlertWebElements(EspAlertDefs):
 
     def get_source(self):
         return self.weh.get_element(self.source)
+
+    def get_source_dynamic(self,source):
+        ele_def_source = \
+          {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-source-select-' + source,
+            'wait_for': 5
+          }
+        return self.weh.get_element(ele_def_source)
 
     def get_source_device_down(self):
         return self.weh.get_element(self.source_device_down)
@@ -56,6 +72,14 @@ class EspAlertWebElements(EspAlertDefs):
 
     def get_threshold_operator_select(self):
         return self.weh.get_element(self.threshold_operator_select)
+
+    def get_threshold_operator_dynamic(self,threshold_operator):
+        ele_def_threshold_operator = \
+          {
+            'CSS_SELECTOR': '.nui-auto-esp-alert-profile-threshold-operator-select-' + threshold_operator,
+            'wait_for': 5
+          }
+        return self.weh.get_element(ele_def_threshold_operator)
 
     def get_threshold_operator_select_ne(self):
         return self.weh.get_element(self.threshold_operator_select_ne)
