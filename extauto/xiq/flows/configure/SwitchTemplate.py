@@ -2292,7 +2292,7 @@ class SwitchTemplate(object):
 
         self.utils.print_info("Save switch template")
         save_button = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
-        self.auto_actions.click(save_button)
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_save_button_adv_tab)
         kwargs["pass_msg"] = "Configuring switching template options complete"
         self.common_validation.passed(**kwargs)
         return 1
@@ -2345,7 +2345,7 @@ class SwitchTemplate(object):
         tab = self.sw_template_web_elements.get_sw_template_tab_button()
         if tab.is_displayed():
             self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click(tab)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_tab_button)
             self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
 
         h_link = self.get_sw_template_row_hyperlink(sw_template)
@@ -2355,7 +2355,7 @@ class SwitchTemplate(object):
         port_configuration = self.sw_template_web_elements.port_config_template()
         if port_configuration:
             self.utils.print_info("The Port Configuration button was found")
-            self.auto_actions.click(port_configuration)
+            self.auto_actions.click_reference(self.sw_template_web_elements.port_config_template)
             self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
 
         self.utils.print_info("Select port type " + port_details_port_type_name_value + " from list of port types")
@@ -2410,7 +2410,7 @@ class SwitchTemplate(object):
         self.create_new_port_type_port_name_and_usage(port_details_interface_value, port_details_port_type_value, switch_profile, **kwargs)
 
         next_button = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_next()
-        self.auto_actions.click(next_button)
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_next)
         new_port_type_saved = False
         prevent_infinite_loop = 10
 
@@ -2443,11 +2443,11 @@ class SwitchTemplate(object):
                 self.utils.print_info("Processing the Summary tab")
                 self.utils.print_info("Saving New Port Type")
                 save_button = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_save()
-                self.auto_actions.click(save_button)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_save)
                 new_port_type_saved = True
 
             if not new_port_type_saved:
-                self.auto_actions.click(next_button)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_next)
                 sleep(2)
                 active_tab = self._get_active_port_type_tab()
 
@@ -2478,7 +2478,7 @@ class SwitchTemplate(object):
         if not select_button:
             self.utils.print_info("Unable to locate select button")
             return -1
-        self.auto_actions.click(select_button)
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_device_switch_select_button)
 
         self.utils.print_info("Enter " + switch_template_name + " into the Search text field")
         filter_text = self.sw_template_web_elements.get_sw_template_selection_search_textfield()
@@ -2494,7 +2494,7 @@ class SwitchTemplate(object):
             kwargs["fail_msg"] = "Unable to locate search button"
             self.common_validation.failed(**kwargs)
             return -1
-        self.auto_actions.click(search_button)
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_search_button)
         sleep(2)
 
         self.utils.print_info("Attempting to locate Device Template table")
@@ -2503,7 +2503,7 @@ class SwitchTemplate(object):
         if not search_table:
             kwargs["fail_msg"] = "Unable to locate table"
             self.common_validation.failed(**kwargs)
-            self.auto_actions.click(device_switch_popup_close_button)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_cancel_button)
             return -1
 
         self.utils.print_info("Verify that switch template " +  switch_template_name + " does not exist")
@@ -2511,12 +2511,12 @@ class SwitchTemplate(object):
         if search_table_rows:
             kwargs["fail_msg"] = "Switch template already exist"
             self.common_validation.failed(**kwargs)
-            self.auto_actions.click(device_switch_popup_close_button)
+            self.auto_actions.click(search_table_rows)
             return -1
 
         self.utils.print_info("Switch template does NOT exist")
         self.utils.print_info("Close Device Template Pop-up Window")
-        self.auto_actions.click(device_switch_popup_close_button)
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_cancel_button)
 
         self.utils.print_info("Clicking Add button")
         add_button = self.device_template_web_elements.get_switch_template_add_button()
@@ -2524,7 +2524,7 @@ class SwitchTemplate(object):
             kwargs["fail_msg"] = "Unable to locate add button"
             self.common_validation.failed(**kwargs)
             return -1
-        self.auto_actions.click(add_button)
+        self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_add_button)
 
         self.utils.print_info("Enter " + device_model + " into filter text field")
         device_switch_filter_text = self.device_template_web_elements.get_device_switch_template_menue_filter()
@@ -2572,8 +2572,8 @@ class SwitchTemplate(object):
             return -1
 
         self.utils.print_info("Save switch template")
-        save_button = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
-        self.auto_actions.click(save_button)
+        # save_button = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_save_button_adv_tab)
         kwargs["pass_msg"] = "Switch template has been saved"
         self.common_validation.passed(**kwargs)
         return 1
@@ -2606,11 +2606,11 @@ class SwitchTemplate(object):
 
         if span_tree_mode_value.lower() == 'on' and not span_tree_mode_web_element.is_selected():
             self.utils.print_info("Turning spanning tree mode ON")
-            self.auto_actions.click_reference(span_tree_mode_web_element)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_spanningtree)
 
         if span_tree_mode_value.lower() == 'off' and span_tree_mode_web_element.is_selected():
             self.utils.print_info("Turning spanning tree mode OFF")
-            self.auto_actions.click_reference(span_tree_mode_web_element)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_spanningtree)
 
         if span_tree_mode_web_element.is_selected():
             span_tree_protocol_value = ''
@@ -2629,7 +2629,7 @@ class SwitchTemplate(object):
                         kwargs["fail_msg"] = "Unable to locate spanning tree protocol STP option button"
                         self.common_validation.failed(**kwargs)
                         return -1
-                    self.auto_actions.click(stp_web_element)
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_stp)
 
                 if span_tree_protocol_value.lower() == 'rstp':
                     self.utils.print_info("Selecting RSTP(Rapid STP) option button")
@@ -2638,7 +2638,7 @@ class SwitchTemplate(object):
                         kwargs["fail_msg"] = "Unable to locate spanning tree protocol RSTP option button"
                         self.common_validation.failed(**kwargs)
                         return -1
-                    self.auto_actions.click(stp_web_element)
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_rstp)
 
                 if span_tree_protocol_value.lower() == 'mstp':
                     self.utils.print_info("Selecting MSTP(Multiple STP) option button")
@@ -2647,7 +2647,7 @@ class SwitchTemplate(object):
                         kwargs["fail_msg"] = "Unable to locate spanning tree protocol MSTP option button"
                         self.common_validation.failed(**kwargs)
                         return -1
-                    self.auto_actions.click(stp_web_element)
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_mstp)
 
             span_tree_bridge_priority_value = spanning_dictionary.get('stp_bridge_priority')
             if span_tree_bridge_priority_value:
@@ -2728,11 +2728,11 @@ class SwitchTemplate(object):
         self.utils.print_info("Configuring IGMP Settings")
         if igmp_snooping_value.lower() == 'on' and not igmp_snooping_value_element.is_selected():
             self.utils.print_info("Turning igmp snooping ON")
-            self.auto_actions.click(igmp_snooping_value_element)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_settings)
 
         if igmp_snooping_value.lower() == 'off' and igmp_snooping_value_element.is_selected():
             self.utils.print_info("Turning igmp snooping OFF")
-            self.auto_actions.click(igmp_snooping_value_element)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_settings)
 
         if igmp_snooping_value_element.is_selected():
 
@@ -2744,10 +2744,10 @@ class SwitchTemplate(object):
                     return -1
                 if enable_immediate_leave_value.lower() == 'enable' and not enable_immediate_leave_element.is_selected():
                     self.utils.print_info("Enabling IGMP Immediate Leave")
-                    self.auto_actions.click(enable_immediate_leave_element)
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_immediate_leave)
                 if enable_immediate_leave_value.lower() != 'enable' and enable_immediate_leave_element.is_selected():
                     self.utils.print_info("Disabling IGMP Immediate Leave")
-                    self.auto_actions.click(enable_immediate_leave_element)
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_immediate_leave)
 
             if supress_redundant_value:
                 supress_redundant_value_element = self.sw_template_web_elements.get_switch_template_device_configuration_igmp_suppress_independent()
@@ -2757,10 +2757,10 @@ class SwitchTemplate(object):
                     return -1
                 if supress_redundant_value == 'enable' and not supress_redundant_value_element.is_selected():
                     self.utils.print_info("Enabling IGMP Suppress Independent Membership")
-                    self.auto_actions.click(supress_redundant_value_element)
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_suppress_independent)
                 if supress_redundant_value != 'enable' and supress_redundant_value_element.is_selected():
                     self.utils.print_info("Disabling IGMP Suppress Independent Membership")
-                    self.auto_actions.click(supress_redundant_value_element)
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_suppress_independent)
 
         kwargs["pass_msg"] = "Configuration of IGMP setting complete"
         self.common_validation.passed(**kwargs)
@@ -2784,7 +2784,7 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Unable to locate MTU 1522 radio button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            self.auto_actions.click(mtu_element)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1522)
 
         if mtu_value == '1950':
             mtu_element = self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1950()
@@ -2792,7 +2792,7 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Unable to locate MTU 1950 radio button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            self.auto_actions.click(mtu_element)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1950)
 
         if mtu_value == '9600':
             mtu_element = self.sw_template_web_elements.get_switch_template_device_configuration_mtu_9600()
@@ -2800,7 +2800,7 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Unable to locate MTU 9600 radio button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            self.auto_actions.click(mtu_element)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_mtu_9600)
 
         return 1
 
@@ -2875,10 +2875,10 @@ class SwitchTemplate(object):
                 return -1
             if status_value.lower() == 'on' and not status_element.is_selected():
                 self.utils.print_info("Clicking status button to ON")
-                self.auto_actions.click(status_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status)
             if status_value.lower() == 'off' and status_element.is_selected():
                 self.utils.print_info("Clicking status button to OFF")
-                self.auto_actions.click(status_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status)
         if auto_sense_value:
             if not auto_sense_element:
                 kwargs["fail_msg"] = "Unable to locate auto sense field"
@@ -2886,10 +2886,10 @@ class SwitchTemplate(object):
                 return -1
             if auto_sense_value.lower() == 'on' and not auto_sense_element.is_selected():
                 self.utils.print_info("Clicking status button to ON")
-                self.auto_actions.click(auto_sense_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_auto_sense_status)
             if auto_sense_value.lower() == 'off' and auto_sense_element.is_selected():
                 self.utils.print_info("Clicking status button to OFF")
-                self.auto_actions.click(auto_sense_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_auto_sense_status)
         if access_value:
             if not access_element:
                 kwargs["fail_msg"] = "Unable to locate access field"
@@ -2897,7 +2897,7 @@ class SwitchTemplate(object):
                 return -1
             if access_value.lower() == 'enable' and not access_element.is_selected():
                 self.utils.print_info("Clicking access port option")
-                self.auto_actions.click(access_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_access)
         if trunk_value:
             if not trunk_element:
                 kwargs["fail_msg"] = "Unable to locate trunk field"
@@ -2905,7 +2905,7 @@ class SwitchTemplate(object):
                 return -1
             if trunk_value.lower() == 'enable' and not trunk_element.is_selected():
                 self.utils.print_info("Clicking trunk port option")
-                self.auto_actions.click(trunk_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_trunk)
 
         kwargs["pass_msg"] = "Able to configure new port type (port name and usage)"
         self.common_validation.passed(**kwargs)
@@ -3083,10 +3083,10 @@ class SwitchTemplate(object):
                 return -1
             if broadcast_value.lower() == 'enable' and not sc_broadcast_element.is_selected():
                 self.utils.print_info("Enabling broadcast option")
-                self.auto_actions.click(sc_broadcast_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast)
             if broadcast_value.lower() == 'disable' and sc_broadcast_element.is_selected():
                 self.utils.print_info("Disabling broadcast option")
-                self.auto_actions.click(sc_broadcast_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast)
 
         if unicast_value:
             if not sc_unicast_element:
@@ -3094,11 +3094,11 @@ class SwitchTemplate(object):
                 self.common_validation.failed(**kwargs)
                 return -1
             if unicast_value.lower() == 'enable' and not sc_unicast_element.is_selected():
-                self.utils.print_info("Enabling broadcast option")
-                self.auto_actions.click(sc_unicast_element)
+                self.utils.print_info("Enabling unicast option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast)
             if unicast_value.lower() == 'disable' and sc_unicast_element.is_selected():
-                self.utils.print_info("Disabling broadcast option")
-                self.auto_actions.click(sc_unicast_element)
+                self.utils.print_info("Disabling unicast option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast)
 
         if multicast_value:
             if not sc_multicast_element:
@@ -3107,10 +3107,10 @@ class SwitchTemplate(object):
                 return -1
             if multicast_value.lower() == 'enable' and not sc_multicast_element.is_selected():
                 self.utils.print_info("Enabling multicast option")
-                self.auto_actions.click(sc_multicast_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast)
             if multicast_value.lower() == 'disable' and sc_multicast_element.is_selected():
                 self.utils.print_info("Disabling multicast option")
-                self.auto_actions.click(sc_multicast_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast)
 
         if rate_limit_value:
             if not sc_rate_limit_value_element:
@@ -3163,10 +3163,10 @@ class SwitchTemplate(object):
                 return -1
             if stp_enabled_value.lower() == 'on' and not stp_enabled_element.is_selected():
                 self.utils.print_info("Turning STP Enabled on")
-                self.auto_actions.click(stp_enabled_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_stp_enable)
             if stp_enabled_value.lower() == 'off' and stp_enabled_element.is_selected():
                 self.utils.print_info("Turning STP Enabled off")
-                self.auto_actions.click(stp_enabled_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_stp_enable)
 
         if edge_port_value:
             if not edge_port_element:
@@ -3175,10 +3175,10 @@ class SwitchTemplate(object):
                 return -1
             if edge_port_value.lower() == 'enable' and not edge_port_element.is_selected():
                 self.utils.print_info("Turning Edge Port on")
-                self.auto_actions.click(edge_port_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable)
             if edge_port_value.lower() == 'disable' and edge_port_element.is_selected():
                 self.utils.print_info("Turning Edge Port off")
-                self.auto_actions.click(edge_port_element)
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable)
 
         if path_cost_value:
             if not path_cost_element:
@@ -3192,7 +3192,7 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Unable to locate bdu protection field"
                 self.common_validation.failed(**kwargs)
                 return -1
-            self.auto_actions.click(bpdu_protection_element)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_bdu_protection)
             combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
             for a_combo_element in combo_box_value_elements:
                 if a_combo_element.text == port_details_port_type_value:
@@ -3202,7 +3202,7 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Unable to locate priority field"
                 self.common_validation.failed(**kwargs)
                 return -1
-            self.auto_actions.click(priority_element)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_priority)
             combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
             for a_combo_element in combo_box_value_elements:
                 if a_combo_element.text == port_details_port_type_value:
