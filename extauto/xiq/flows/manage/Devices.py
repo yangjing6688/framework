@@ -2148,7 +2148,7 @@ class Devices:
         else:
             self.utils.print_info("No Dialog box")
 
-        if device_type.lower() == "real":
+        if "real" in device_type.lower():
             if entry_type.lower() == "manual":
                 serials = device_serial.split(",")
                 self.utils.print_info("Serials: ", serials)
@@ -2162,25 +2162,32 @@ class Devices:
                         self.common_validation.failed(**kwargs)
                         return -1
 
-        elif device_type.lower() == "simulated":
+        elif "simulated" in device_type.lower():
             models = device_model.split(",")
             self.utils.print_info("Models: ", models)
             for model in models:
                 list_final_simulated_serial = self.get_device_model_serial_numbers(device_model=model, device_type=device_type )
                 simulated_global_variable = "${" + name + ".serial}"
+                simulated_global_variable_list = []
                 for i in list_final_simulated_serial:
                     if i not in list_initial_simulated_serial:
-                        BuiltIn().set_global_variable(simulated_global_variable, i)
-                if self.search_device_model(device_model=model) == 1:
-                    kwargs['pass_msg'] = f"Successfully Onboarded Device(s) with {models}"
+                        simulated_global_variable_list.append(i)
+                if len(simulated_global_variable_list) == 1:
+                    BuiltIn().set_global_variable(simulated_global_variable, simulated_global_variable_list[0])
+                    kwargs['pass_msg'] = f"Successfully Onboarded Device with model : {model}"
                     self.common_validation.passed(**kwargs)
                     return 1
-                else:
-                    kwargs['fail_msg'] = f"Fail Onboarded Device(s) with {models}"
+                elif len(simulated_global_variable_list) == 0:
+                    kwargs['fail_msg'] = f"Failed to Onboard Device with {model}"
                     self.common_validation.failed(**kwargs)
                     return -1
+                elif len(simulated_global_variable_list) > 1:
+                    BuiltIn().set_global_variable(simulated_global_variable, simulated_global_variable_list)
+                    kwargs['pass_msg'] = f"Successfully Onboarded {device_count} Devices with model : {model}"
+                    self.common_validation.passed(**kwargs)
+                    return 1
 
-        elif device_type.lower() == "digital twin":
+        elif "digital twin" in device_type.lower():
             models = device_model.split(",")
             self.utils.print_info("Models: ", models)
             sleep(100)  # this sleep is put until the bug XIQ-11770 is solved, then I will review the code and delete this sleep
@@ -3800,15 +3807,17 @@ class Devices:
         if rows:
             for row in rows:
                 if device_model in row.text:
+                    formated_row = self.format_row(row.text)
                     if "digital twin" in device_type.lower():
-                        formated_row = self.format_row(row.text)
                         if "New" in formated_row:
                             list_serial.append(formated_row[10])
                         elif "Managed" or "setting up..." in formated_row:
                             list_serial.append(formated_row[11])
                     elif "simulated" in device_type.lower():
-                        formated_row = self.format_row(row.text)
-                        list_serial.append(formated_row[7])
+                        if "Managed" in formated_row:
+                            list_serial.append(formated_row[8])
+                        else:
+                            list_serial.append(formated_row[7])
         return list_serial
 
     def format_row(self, row):
