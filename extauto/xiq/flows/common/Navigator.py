@@ -30,7 +30,8 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click(manage_tab)
             sleep(2)
             if self.get_subtab_head_img_nav():
-                self.utils.print_info("Subtab nav is already shown")
+                kwargs['pass_msg'] = "Subtab nav is already shown"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.screen.save_screen_shot()
@@ -38,12 +39,10 @@ class Navigator(NavigatorWebElements):
                     "Even though already click manage tab, but can NOT go to subtab nav, stop NOT go to next step")
                 kwargs['fail_msg'] = "'navigate_to_manage_tab()' -> Even though already click manage tab," \
                                      " but can NOT go to subtab nav, stop NOT go to next step"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
         else:
-            self.utils.print_info("Unable to navigate to Manage tab")
-            self.screen.save_screen_shot()
             kwargs['fail_msg'] = "'navigate_to_manage_tab()' -> Unable to navigate to Manage tab"
             self.common_validation.failed(**kwargs)
             return -1
@@ -59,10 +58,10 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting ML Insight Tab....")
         if self.auto_actions.click_reference(self.get_ml_insight_tab) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to ML Insight tab"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to navigate to ML Insight tab")
-            self.screen.save_screen_shot()
             kwargs['fail_msg'] = "'navigate_to_ml_insight_tab()' -> Unable to navigate to ML Insight tab"
             self.common_validation.failed(**kwargs)
             return -1
@@ -78,10 +77,10 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Configure tab")
         if self.auto_actions.click_reference(self.get_configure_tab) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to configure tab"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to navigate to Configure tab")
-            self.screen.save_screen_shot()
             kwargs['fail_msg'] = "'navigate_to_configure_tab()' -> Unable to navigate to Configure tab"
             self.common_validation.failed(**kwargs)
             return -1
@@ -97,6 +96,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Tools tab...")
         if self.auto_actions.click_reference(self.get_manage_tools_menu_item) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Tools Sub tab on Monitor Tab"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to Tools tab")
@@ -105,7 +106,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def navigate_to_auto_provision(self):
+    def navigate_to_auto_provision(self, **kwargs):
         """
          - This keyword Navigates to Auto Provisioning on Common Objects
          - Flow Configure --> Common Objects --> Policy --> Auto Provisioning
@@ -129,6 +130,8 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_auto_provisioning_option)
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Navigated to Auto Provisioning on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_devices(self, **kwargs):
@@ -152,6 +155,8 @@ class Navigator(NavigatorWebElements):
                     self.utils.print_info("Clicking Devices Tab...")
                     sleep(10)
                     self.enable_page_size(page_size='100')
+                    kwargs['pass_msg'] = "Navigation Successful to Devices Sub tab on Monitor Tab"
+                    self.common_validation.passed(**kwargs)
                     return 1
                 else:
                     self.utils.print_info("Unable to navigate to Devices tab")
@@ -161,10 +166,10 @@ class Navigator(NavigatorWebElements):
                     return -1
             else:
                 kwargs['fail_msg'] = "'navigate_to_devices()' -> Manage page is not present"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
-    def navigate_to_ssids(self):
+    def navigate_to_ssids(self, **kwargs):
         """
         - This keyword Navigates to SSIDs Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> SSIDs
@@ -187,6 +192,8 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_ssid_option)
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Navigated to SSIDs Menu on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_tools_page(self):
@@ -262,8 +269,13 @@ class Navigator(NavigatorWebElements):
                 if try_cnt == 10:
                     self.utils.print_info(
                         f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
+                    kwargs['fail_msg'] = f"The MAX {try_cnt} times trying is reached, need figure out manually why the" \
+                                         f" Network Policy tab can NOT be displayed"
+                    self.common_validation.fault(**kwargs)
                     return False
         if network_policy_tab_display:
+            kwargs['pass_msg'] = "Navigation Successful to Network Policies On Configure Menu"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_network_policies_tab()' -> Navigation to Network Policies On" \
@@ -305,6 +317,8 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Client 360 Tab...")
             if self.auto_actions.click_reference(self.get_clients_sub_tab) == 1:
                 sleep(2)
+                kwargs['pass_msg'] = "Navigation Successful to Clients Tab on Monitor"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("Unable to navigate to Client 360 tab")
@@ -317,7 +331,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def navigate_to_client_mode_profiles(self):
+    def navigate_to_client_mode_profiles(self, **kwargs):
         """
         - This Keyword Navigate to Client Mode Profile on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->Basic-->Client Mode Profiles
@@ -330,6 +344,9 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_common_object_basic_tab()
         self.utils.print_info("Click on Client Mode Profiles...")
         self.auto_actions.click_reference(self.get_common_object_basic_client_mode_profiles)
+
+        kwargs['pass_msg'] = "Successfully Navigated to Client Mode Profile on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_user_account(self, **kwargs):
@@ -368,7 +385,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def navigate_to_configure_user_sub_tab(self):
+    def navigate_to_configure_user_sub_tab(self, **kwargs):
         """
         - This keyword Navigates to Global Settings on User Account Menu which is already Navigated
         - Keyword Usage
@@ -379,6 +396,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Clicking on the Users Sub tab")
         if self.auto_actions.click_reference(self.get_configure_users_nav) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Global Settings on User Account Menu"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to the Configure Users sub tab")
@@ -401,7 +420,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_user_account()
         return self._navigate_to_global_settings()
 
-    def navigate_to_configure_user_groups(self):
+    def navigate_to_configure_user_groups(self, **kwargs):
         """
         - This keyword Navigates to User Groups On Configure Menu
         - Flow: Configure --> Users --> User Management --> User Groups
@@ -422,6 +441,8 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_configure_user_group_side_nav_item)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to User Groups On Configure Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_authentication_logs_menu(self, **kwargs):
@@ -437,6 +458,8 @@ class Navigator(NavigatorWebElements):
 
         if self.auto_actions.click_reference(self.get_global_settings_authentication_logs_slider) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Authentication Logs Slider Men"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to Authentication Logs")
@@ -457,6 +480,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Accounting Logs...")
         if self.auto_actions.click_reference(self.get_global_settings_accounting_logs_slider) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Accounting Logs Slider"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to Accounting Logs")
@@ -489,7 +514,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_global_settings_page()
         self.navigate_to_accounting_logs_menu()
 
-    def navigate_to_common_object_authentication_tab(self):
+    def navigate_to_common_object_authentication_tab(self, **kwargs):
         """
         - This keyword Navigate to the Authentication Tab on common objects
         - Assumes that already navigated to the configure --> common object
@@ -502,9 +527,11 @@ class Navigator(NavigatorWebElements):
         if not self.get_common_object_authentication_tab().is_selected():
             self.auto_actions.click_reference(self.get_common_object_authentication_tab)
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Authentication Tab on common objects"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def navigate_to_captive_web_portal(self):
+    def navigate_to_captive_web_portal(self, **kwargs):
         """
         - This keyword Navigate to the captive web portal tab on common objects
         - FLow: Configure --> Common Object --> Authentication --> Captive Web Portal
@@ -520,9 +547,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_authentication_captive_portal)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to the captive web portal tab on common objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_aaa_server_settings(self):
+    def navigate_to_aaa_server_settings(self, **kwargs):
         """
         - This Keyword Navigate to AAA server Settings on common objects
         - Flow: Configure --> Common Object --> Authentication --> AAA Server Settings
@@ -538,9 +567,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_authentication_aaa_server_settings)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to AAA server Settings on common objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_ad_servers(self):
+    def navigate_to_ad_servers(self, **kwargs):
         """
         - This Keyword Navigate to AD servers on common objects
         - Flow: Configure --> Common Object --> Authentication --> Ad Servers
@@ -556,9 +587,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_authentication_ad_servers)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to AD servers on common objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_external_radius_server(self):
+    def navigate_to_external_radius_server(self, **kwargs):
         """
         - This Keyword Navigate to External Radius Server on common objects
         - Flow: Configure --> Common Object --> Authentication --> External Radius Server
@@ -574,9 +607,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_authentication_external_radius_server)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to External Radius Server on common objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_a3_menu(self):
+    def navigate_to_a3_menu(self, **kwargs):
         """
         - This Keyword Navigate to A3 menu
         - Keyword Usage
@@ -586,9 +621,12 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Clicking on A3 Icon")
         self.auto_actions.click_reference(self.get_a3_tab)
         sleep(2)
+
+        kwargs['pass_msg'] = "Navigation Successful to A3 menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_networks_a3(self):
+    def navigate_to_extreme_networks_a3(self, **kwargs):
         """
         - This Keyword Navigate to Extreme Networks A3 on common objects
         - Flow: Configure --> Common Object --> Authentication --> Extreme Networks A3
@@ -604,9 +642,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_authentication_extreme_networks_a3)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to Extreme Networks A3 on common objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_servers(self):
+    def navigate_to_servers(self, **kwargs):
         """
         - This Keyword Navigate to Servers on common objects
         - Flow: Configure --> Common Object --> Authentication --> Servers
@@ -622,9 +662,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_authentication_servers)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to Servers on common objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_ldap_servers(self):
+    def navigate_to_ldap_servers(self, **kwargs):
         """
         - This Keyword Navigate to LDAP Servers on common objects
         - Flow: Configure --> Common Object --> Authentication --> LDAP Servers
@@ -640,6 +682,8 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_authentication_ldap_servers)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to LDAP Servers on common objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_security_option(self, **kwargs):
@@ -654,6 +698,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Security on Monitor Page...")
         if self.auto_actions.click_reference(self.get_manage_security_nav) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to the Security option on Monitor Tab"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to Security on Monitor Page")
@@ -693,7 +739,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_common_object_security_tab)
             sleep(2)
 
-    def navigate_to_security_wips_policies(self):
+    def navigate_to_security_wips_policies(self, **kwargs):
         """
         - This Keyword Navigate to WIPS Policies on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
@@ -710,9 +756,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_security_wips_policies)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to WIPS Policies on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_common_object_policy_tab(self):
+    def navigate_to_common_object_policy_tab(self, **kwargs):
         """
         - This Keyword Navigate to Policies option Menu on Common Objects
         - Assumes that already navigated to the configure --> common object
@@ -725,9 +773,11 @@ class Navigator(NavigatorWebElements):
         if not self.get_subtab_common_object():
             self.auto_actions.click_reference(self.get_common_object_policy_tab)
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Policies option Menu on Common Objects"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def navigate_to_policy_ap_template(self):
+    def navigate_to_policy_ap_template(self, **kwargs):
         """
         - This Keyword Navigate to AP Templates on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->AP Templates
@@ -744,9 +794,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_policy_ap_template)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to AP Templates on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_manage_reports(self):
+    def navigate_to_manage_reports(self, **kwargs):
         """
         - This Keyword Navigate to Reports on Manage Menu
         - Flow: Manage --> Reports
@@ -760,9 +812,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_manage_reports_nav)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to Reports on Manage Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_policy_port_types(self):
+    def navigate_to_policy_port_types(self, **kwargs):
         """
         - This Keyword Navigate to Port Types On Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->POLICIES-->PORT TYPES
@@ -785,9 +839,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click(el)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to Port Types On Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_common_object_network_tab(self):
+    def navigate_to_common_object_network_tab(self, **kwargs):
         """
         - This Keyword Navigate to Network Tab On Common Objects
         - Assumes that already navigated to the configure --> common object
@@ -800,9 +856,11 @@ class Navigator(NavigatorWebElements):
         if not self.get_common_object_network_tab().is_selected():
             self.auto_actions.click_reference(self.get_common_object_network_tab)
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Network Tab On Common Objects"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def navigate_to_network_subnetwork_space(self):
+    def navigate_to_network_subnetwork_space(self, **kwargs):
         """
         - This Keyword Navigate to SubNetwork Space Tab On Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
@@ -819,9 +877,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_network_sub_network_space)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to SubNetwork Space Tab On Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_common_object_basic_tab(self):
+    def navigate_to_common_object_basic_tab(self, **kwargs):
         """
         - This Keyword Navigate to Basic Tab On Common Objects
         - Assumes that already navigated to the configure --> common object
@@ -834,9 +894,11 @@ class Navigator(NavigatorWebElements):
         if not self.get_subtab_common_object_basic():
             self.auto_actions.click_reference(self.get_common_object_basic_tab)
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Basic Tab On Common Objects"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def navigate_to_basic_vlans_tab(self):
+    def navigate_to_basic_vlans_tab(self, **kwargs):
         """
         - This Keyword Navigate to Vlans Tabs On Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
@@ -852,9 +914,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Vlan tab...")
         self.auto_actions.click_reference(self.get_common_object_basic_vlans)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to Vlans Tabs On Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_supplemental_cli_objects(self):
+    def navigate_to_supplemental_cli_objects(self, **kwargs):
         """
         - This Keyword Navigate to Supplemental CLI Objects On Common Objects
         - Flow: Configure --> Common Objects --> Basic --> Supplemental CLI Objects
@@ -870,9 +934,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Vlan tab...")
         self.auto_actions.click_reference(self.get_common_object_basic_supplemental_cli)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to Supplemental CLI Objects On Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_manage_alarms(self):
+    def navigate_to_manage_alarms(self, **kwargs):
         """
         - This Keyword Navigate to Alarms on manage Menu
         - Flow: Manage --> Alarms
@@ -886,9 +952,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Alarms tab..")
         self.auto_actions.click_reference(self.get_manage_alarms_nav)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to Alarms on manage Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_client360(self):
+    def navigate_to_client360(self, **kwargs):
         """
         - This Keyword Navigate to Client360 on ML Insights Menu
         - Flow: ML Insights --> Client 360
@@ -901,9 +969,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Client 360 tab..")
         self.auto_actions.click_reference(self.get_ml_insight_client360)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to Client360 on ML Insights Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_network360plan(self):
+    def navigate_to_network360plan(self, **kwargs):
         """
         - This Keyword Navigate to network360plan on Manage Menu
         - Flow: Manage --> Network360Plan
@@ -916,9 +986,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Network 360 tab..")
         self.auto_actions.click_reference(self.get_ml_insight_network360plan)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to network360plan on Manage Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_network360monitor(self):
+    def navigate_to_network360monitor(self, **kwargs):
         """
         - This Keyword Navigate to network360monitor on ML Insights Menu
         - Flow: ML Insights --> Network360Monitor
@@ -931,9 +1003,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Network 360 Monitor tab..")
         self.auto_actions.click_reference(self.get_ml_insight_network360monitor)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to network360monitor on ML Insights Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_network_scorecard(self):
+    def navigate_to_network_scorecard(self, **kwargs):
         """
         - This Keyword Navigate to network scorecard on ML Insights Menu
         - Flow: ML Insights --> Network Scorecard
@@ -946,9 +1020,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Network Scorecard tab..")
         self.auto_actions.click_reference(self.get_ml_insight_network_scorecard)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to network scorecard on ML Insights Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_retail_dashboard(self):
+    def navigate_to_retail_dashboard(self, **kwargs):
         """
         - This Keyword Navigate to retail dashboard on ML Insights Menu
         - Flow: ML Insights --> Retail Dashboard
@@ -961,9 +1037,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Retail Dashboard tab..")
         self.auto_actions.click_reference(self.get_ml_insight_retail)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to retail dashboard on ML Insights Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_network_policies_list_view_page(self):
+    def navigate_to_network_policies_list_view_page(self, **kwargs):
         """
         - This keyword Navigate to policies list view page
         - Flow: Configure --> Network Policies --> List View Tab
@@ -981,9 +1059,12 @@ class Navigator(NavigatorWebElements):
         if self.get_network_policy_page_size():
             self.auto_actions.click_reference(self.get_network_policy_page_size)
             sleep(2)
+
+        kwargs['pass_msg'] = "Navigation Successful to policies list view page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_network_policies_card_view_page(self):
+    def navigate_to_network_policies_card_view_page(self, **kwargs):
         """
         - This Keyword navigate to the policies card view page
         - Flow: Configure --> Network Policies --> Card View Tab
@@ -994,6 +1075,8 @@ class Navigator(NavigatorWebElements):
         self.navigate_configure_network_policies()
         self.utils.print_info("click on card view button")
         if self.auto_actions.click_reference(self.get_network_policy_card_view) == 1:
+            kwargs['pass_msg'] = "Navigation Successful to the policies card view page"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def navigate_to_multiple_device_configuration_page(self, device_serials='', **kwargs):
@@ -1016,6 +1099,8 @@ class Navigator(NavigatorWebElements):
             return -1
         self.device_common.edit_devices(device_serials)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to Multiple Device Configuration page"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device360_page_with_mac(self, device_mac):
@@ -1075,8 +1160,7 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_devices()
         if self.device_common.select_device_rows(device_serials) == -1:
-            kwargs['fail_msg'] = f"'navigate_to_device_cli_access()' -> Unable to select device row with serial:" \
-                                 f" {device_serials}"
+            kwargs['fail_msg'] = f"'navigate_to_device_cli_access()' -> Unable to select device row with serial: {device_serials}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1094,6 +1178,9 @@ class Navigator(NavigatorWebElements):
         else:
             self.auto_actions.click_reference(self.get_device_actions_advanced_cli_router_access)
             sleep(5)
+
+        kwargs['pass_msg'] = "Navigation Successful to single/multiple device cli access window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_utilities_status(self, **kwargs):
@@ -1113,7 +1200,7 @@ class Navigator(NavigatorWebElements):
                 self.utils.print_info("Unable to click on Utilities Button due to being disabled")
                 kwargs['fail_msg'] = "'navigate_to_device_utilities_status()' -> Unable to click on Utilities Button" \
                                      " due to being disabled"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
         self.utils.print_info("Hovering over Status Menu Item")
@@ -1124,9 +1211,11 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to hover over Status Menu Item due to not being displayed")
             kwargs['fail_msg'] = "'navigate_to_device_utilities_status()' -> Unable to hover over Status Menu " \
                                  "Item due to not being displayed"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to utilities status menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_status_interface(self, device_serial='', **kwargs):
@@ -1153,6 +1242,9 @@ class Navigator(NavigatorWebElements):
         interface_access = self.weh.get_element(self.utilities_status_interface)
         self.auto_actions.click(interface_access)
         sleep(5)
+
+        kwargs['pass_msg'] = "Navigation Successful to device Status Interface window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_advance_channel_selection(self, device_serial='', **kwargs):
@@ -1171,8 +1263,7 @@ class Navigator(NavigatorWebElements):
         self.device_common.select_device_row(device_serial)
 
         if self.navigate_to_device_utilities_status() == -1:
-            kwargs['fail_msg'] = "'navigate_to_advance_channel_selection()' -> Unable to navigate to Utilities" \
-                                 " --> Status"
+            kwargs['fail_msg'] = "'navigate_to_advance_channel_selection()'-> Unable to navigate to Utilities --> Status"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1180,6 +1271,8 @@ class Navigator(NavigatorWebElements):
         adv_channel = self.weh.get_element(self.utilities_status_adv_channel_sel)
         self.auto_actions.click(adv_channel)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to device advanced channel selection window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_wifi_status_summary(self, device_serial='', **kwargs):
@@ -1206,9 +1299,11 @@ class Navigator(NavigatorWebElements):
         wifi = self.weh.get_element(self.utilities_status_wifi_status_summary)
         self.auto_actions.click(wifi)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to device Status Interface window"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_switch_templates(self):
+    def navigate_to_switch_templates(self, **kwargs):
         """
         - This keyword Navigates to Switch Templates Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> Switch Templates
@@ -1229,9 +1324,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Switch Template menu is visible. Selecting...")
         self.auto_actions.click_reference(self.get_switch_template_option)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to Switch Templates Menu on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_api_token_mngment(self):
+    def navigate_to_api_token_mngment(self, **kwargs):
         """
         - This keyword is used to navigate the "API Token Management"
         - Flows XIQ User Menu(Account Info) --> Global Settings --> API Token Management
@@ -1244,9 +1341,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on api token management tab")
         self.auto_actions.click_reference(self.get_api_token_mgmt_tab)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to navigate the API Token Management"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_a3_inventory(self):
+    def navigate_a3_inventory(self, **kwargs):
         """
         - This Keyword Navigate to A3 --> Inventory
         - Flow: A3--->Inventory
@@ -1259,9 +1358,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Inventory on A3 Page...")
         self.auto_actions.click_reference(self.get_a3_inventory_tab)
         sleep(2)
+        kwargs['pass_msg'] = "Navigation Successful to A3 --> Inventory"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_a3_reporting(self):
+    def navigate_a3_reporting(self, **kwargs):
         """
         - This Keyword Navigate to A3 --> Reporting
         - Flow: A3--->Reporting
@@ -1274,9 +1375,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Reporting on A3 Page...")
         self.auto_actions.click_reference(self.get_a3_reporting_tab)
         sleep(2)
+        kwargs['pass_msg'] = "Navigation Successful to A3 --> Reporting"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_essentials_menu(self):
+    def navigate_to_essentials_menu(self, **kwargs):
         """
         - This Keyword Navigate to Essentials Menu
         - Keyword Usage
@@ -1286,9 +1389,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Clicking on Essentials Icon")
         self.auto_actions.click_reference(self.get_essentials_menu)
         sleep(2)
+        kwargs['pass_msg'] = "Navigation Successful to Essentials Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_airdefence(self):
+    def navigate_to_extreme_airdefence(self, **kwargs):
         """
         - This Keyword Navigate to Extreme AirDefence Menu
         - Flow: Extreme AirDefence
@@ -1301,6 +1406,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
         self.auto_actions.click_reference(self.get_air_defence_menu)
         sleep(5)
+        kwargs['pass_msg'] = "Navigation Successful to Extreme AirDefence Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_onboard_tab(self, **kwargs):
@@ -1314,6 +1421,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Onboard Tab...")
         if self.auto_actions.click_reference(self.get_onboard_tab) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Onboard Tab"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to Onboard tab")
@@ -1322,7 +1431,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def navigate_to_common_object_user_profile(self):
+    def navigate_to_common_object_user_profile(self, **kwargs):
         """
         :return:
         """
@@ -1341,9 +1450,11 @@ class Navigator(NavigatorWebElements):
         sleep(5)
         self.utils.print_info("Clicking on user profile")
         self.auto_actions.click(self.weh.get_element(self.common_objects_policy_user_profile))
+        kwargs['pass_msg'] = "Navigation Successful to Common Object User Profile"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_communications_page(self):
+    def navigate_to_communications_page(self, **kwargs):
         """
         - This Keyword Navigate to communications menu in Global settings page
         - Keyword Usage
@@ -1359,9 +1470,11 @@ class Navigator(NavigatorWebElements):
 
         self.utils.print_info("Navigating to communications page...")
         self.auto_actions.click_reference(self.get_communications_nav)
+        kwargs['pass_msg'] = "Navigation Successful to communications menu in Global settings page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_iot_menu(self):
+    def navigate_to_extreme_iot_menu(self, **kwargs):
         """
         - This Keyword Navigate to Extreme IOT Essentials Page
         - Keyword Usage
@@ -1374,9 +1487,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_extreme_iot_essentials_menu)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to Extreme IOT Essentials Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_iot_clients_page(self):
+    def navigate_to_extreme_iot_clients_page(self, **kwargs):
         """
         - This Keyword Navigate to Clients Page on Extreme IOT Essentials Page
         - Keyword Usage
@@ -1402,9 +1517,12 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Clients Menu on Extreme IOT...")
             self.auto_actions.click_reference(self.get_extreme_iot_essentials_clients_submenu)
             sleep(2)
+
+        kwargs['pass_msg'] = "Navigation Successful to Clients Page on Extreme IOT Essentials Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_iot_devices_page(self):
+    def navigate_to_extreme_iot_devices_page(self, **kwargs):
         """
         - This Keyword Navigate to Devices Page on Extreme IOT Essentials Page
         - Keyword Usage
@@ -1430,9 +1548,12 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Devices Menu on Extreme IOT...")
             self.auto_actions.click_reference(self.get_extreme_iot_essentials_devices_submenu)
             sleep(2)
+
+        kwargs['pass_msg'] = "Navigation Successful to Devices Page on Extreme IOT Essentials Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_iot_user_profiles_page(self):
+    def navigate_to_extreme_iot_user_profiles_page(self, **kwargs):
         """
         - This Keyword Navigate to user profiles Page on Extreme IOT Essentials Page
         - Keyword Usage
@@ -1458,9 +1579,12 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking User Profiles Menu on Extreme IOT...")
             self.auto_actions.click_reference(self.get_extreme_iot_essentials_user_profiles_submenu)
             sleep(2)
+
+        kwargs['pass_msg'] = "Navigation Successful to user profiles Page on Extreme IOT Essentials Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_iot_policy_groups_page(self):
+    def navigate_to_extreme_iot_policy_groups_page(self, **kwargs):
         """
         - This Keyword Navigate to policy groups Page on Extreme IOT Essentials Page
         - Keyword Usage
@@ -1486,9 +1610,12 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Policy Groups Menu on Extreme IOT...")
             self.auto_actions.click_reference(self.get_extreme_iot_essentials_policy_groups_submenu)
             sleep(2)
+
+        kwargs['pass_msg'] = "Navigation Successful to policy groups Page on Extreme IOT Essentials Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_iot_dashboard_page(self):
+    def navigate_to_extreme_iot_dashboard_page(self, **kwargs):
         """
         - This Keyword Navigate to Dashboard Page on Extreme IOT Essentials Page
         - Keyword Usage
@@ -1514,9 +1641,12 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Dashboard Menu on Extreme IOT...")
             self.auto_actions.click_reference(self.get_extreme_iot_essentials_policy_groups_submenu)
             sleep(2)
+
+        kwargs['pass_msg'] = "Navigation Successful to Dashboard Page on Extreme IOT Essentials Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_guest_menu(self):
+    def navigate_to_extreme_guest_menu(self, **kwargs):
         """
         - This Keyword Navigate to Extreme guest Page
         - Keyword Usage
@@ -1529,9 +1659,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_extreme_guest_menu)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to Extreme guest Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_menu(self):
+    def navigate_to_extreme_location_menu(self, **kwargs):
         """
         - This Keyword Navigate to Extreme Location Page
         - Keyword Usage
@@ -1544,9 +1676,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_extreme_location_menu)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to Extreme Location Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_dashboard_menu(self):
+    def navigate_to_extreme_location_dashboard_menu(self, **kwargs):
         """
         - This Keyword Navigate to Dashboard Menu on Extreme Location
         - Keyword Usage
@@ -1556,9 +1690,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Dashboard Menu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_dashboard_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Dashboard Menu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_sites_menu(self):
+    def navigate_to_extreme_location_sites_menu(self, **kwargs):
         """
         - This Keyword Navigate to Sites Menu on Extreme Location
         - Keyword Usage
@@ -1568,9 +1705,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Sites Menu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_sites_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Sites Menu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_category_menu(self):
+    def navigate_to_extreme_location_category_menu(self, **kwargs):
         """
         - This Keyword Navigate to Category Menu on Extreme Location
         - Keyword Usage
@@ -1580,9 +1720,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Category Menu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_category_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Category Menu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_access_points_menu(self):
+    def navigate_to_extreme_location_access_points_menu(self, **kwargs):
         """
         - This Keyword Navigate to Access Points Menu on Extreme Location
         - Keyword Usage
@@ -1592,9 +1735,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Access Points Menu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_access_points_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Access Points Menu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_beacons_menu(self):
+    def navigate_to_extreme_location_beacons_menu(self, **kwargs):
         """
         - This Keyword Navigate to Beacons Menu on Extreme Location
         - Keyword Usage
@@ -1604,9 +1750,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Beacons Menu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_beacons_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Beacons Menu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_asset_management_menu(self):
+    def navigate_to_extreme_location_asset_management_menu(self, **kwargs):
         """
         - This Keyword Navigate to Beacons Menu on Extreme Location
         - Keyword Usage
@@ -1616,9 +1765,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Asset Management Menu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_asset_management_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Beacons Menu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_assets_submenu(self):
+    def navigate_to_extreme_location_assets_submenu(self, **kwargs):
         """
         - This Keyword Navigate to Assets SubMenu on Extreme Location
         - Keyword Usage
@@ -1628,9 +1780,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Assets SubMenu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_asset_management_assets_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Assets SubMenu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_alarms_submenu(self):
+    def navigate_to_extreme_location_alarms_submenu(self, **kwargs):
         """
         - This Keyword Navigate to Alarms SubMenu on Extreme Location
         - Keyword Usage
@@ -1640,9 +1795,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Alarms SubMenu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_asset_management_alarms_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Alarms SubMenu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_devices_menu(self):
+    def navigate_to_extreme_location_devices_menu(self, **kwargs):
         """
         - This Keyword Navigate to Devicess Menu on Extreme Location
         - Keyword Usage
@@ -1652,9 +1810,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Devices Menu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_devices_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to evicess Menu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_wireless_devices_submenu(self):
+    def navigate_to_extreme_location_wireless_devices_submenu(self, **kwargs):
         """
         - This Keyword Navigate to Wireless Devices SubMenu on Extreme Location
         - Keyword Usage
@@ -1664,9 +1825,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Wireless Devices SubMenu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_devices_wireless_devices_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Wireless Devices SubMenu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_bss_devices_submenu(self):
+    def navigate_to_extreme_location_bss_devices_submenu(self, **kwargs):
         """
         - This Keyword Navigate to BSS Devices SubMenu on Extreme Location
         - Keyword Usage
@@ -1676,9 +1840,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking BSS Devices SubMenu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_devices_bss_devices_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to BSS Devices SubMenu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_settings_menu(self):
+    def navigate_to_extreme_location_settings_menu(self, **kwargs):
         """
         - This Keyword Navigate to Settings Menu on Extreme Location
         - Keyword Usage
@@ -1688,9 +1855,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Settings Menu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_settings_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to BSS Devices SubMenu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_device_classification_submenu(self):
+    def navigate_to_extreme_location_device_classification_submenu(self, **kwargs):
         """
         - This Keyword Navigate to Device Classification SubMenu on Extreme Location
         - Keyword Usage
@@ -1700,9 +1870,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Device Classification SubMenu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_settings_device_classification_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Device Classification SubMenu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_threshold_submenu(self):
+    def navigate_to_extreme_location_threshold_submenu(self, **kwargs):
         """
         - This Keyword Navigate to Threshold SubMenu on Extreme Location
         - Keyword Usage
@@ -1712,9 +1885,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Threshold SubMenu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_settings_threshold_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Threshold SubMenu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_third_party_config_submenu(self):
+    def navigate_to_extreme_location_third_party_config_submenu(self, **kwargs):
         """
         - This Keyword Navigate to Third Party Configuration SubMenu on Extreme Location
         - Keyword Usage
@@ -1724,9 +1900,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Third Party Configuration SubMenu on Extreme Location")
         self.auto_actions.click_reference(self.get_extreme_location_settings_third_party_config_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Third Party Configuration SubMenu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_extreme_location_settings_alarms_submenu(self):
+    def navigate_to_extreme_location_settings_alarms_submenu(self, **kwargs):
         """
         - This Keyword Navigate to Settings Alarms SubMenu on Extreme Location
         - Keyword Usage
@@ -1736,9 +1915,12 @@ class Navigator(NavigatorWebElements):
         """
         self.utils.print_info("Clicking Alarms SubMenu on Extreme Location Settings")
         self.auto_actions.click_reference(self.get_extreme_location_settings_alarms_menu)
+
+        kwargs['pass_msg'] = "Navigation Successful to Settings Alarms SubMenu on Extreme Location"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_cloud_config_groups(self):
+    def navigate_to_cloud_config_groups(self, **kwargs):
         """
         - This keyword Navigates to CCGs Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> Cloud Config Groups
@@ -1761,9 +1943,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_ccg_option)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to CCGs Menu on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_classification_rule(self):
+    def navigate_to_classification_rule(self, **kwargs):
         """
         - This keyword Navigates to ClassificationRule Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> Classification Rule
@@ -1786,9 +1970,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_classification_option)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to ClassificationRule Menu on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_configure_ppsk_classification(self):
+    def navigate_to_configure_ppsk_classification(self, **kwargs):
         """
         - This keyword Navigates to PPSK Classification On Configure Menu
         - Flow: Configure --> Users --> User Management --> PPSK Classification
@@ -1809,9 +1995,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_configure_ppsk_classification_side_nav_item)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to PPSK Classification On Configure Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_viq_management_page(self):
+    def navigate_to_viq_management_page(self, **kwargs):
         """
         - This Keyword Navigate to VIQ Management Page
         - Flow: Global Settings --> VIQ Management
@@ -1826,6 +2014,8 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_viq_management_menu)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to VIQ Management Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_manage_application(self, **kwargs):
@@ -1842,12 +2032,14 @@ class Navigator(NavigatorWebElements):
                 self.auto_actions.click_reference(self.get_manage_tab)
             else:
                 kwargs['fail_msg'] = "'navigate_manage_application()' - > Manage Tab is not displayed"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -2
 
             self.utils.print_info("Clicking on Application Tab..")
             self.auto_actions.click_reference(self.get_manage_applications_menu_item)
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to MANAGE->Application"
+            self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:
             kwargs['fail_msg'] = "'navigate_manage_application()' - > Unable to Navigate to  Manage--> Application"
@@ -1869,12 +2061,14 @@ class Navigator(NavigatorWebElements):
                 self.auto_actions.click_reference(self.get_manage_tab)
             else:
                 kwargs['fail_msg'] = "'navigate_manage_events()' -> Manage Tab is not displayed"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -2
 
             self.utils.print_info("Clicking on Events Tab..")
             self.auto_actions.click_reference(self.get_manage_events_menu_item)
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to MANAGE->EVENTS"
+            self.common_validation.passed(**kwargs)
             return 1
 
         except Exception as e:
@@ -1883,7 +2077,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def navigate_configure_users(self):
+    def navigate_configure_users(self, **kwargs):
         """
         - Navigate To CONFIGURE--->USERS
         - Flow: CONFIGURE--->USERS
@@ -1901,6 +2095,8 @@ class Navigator(NavigatorWebElements):
         users_element = self.weh.get_element(self.configure_users_nav)
         self.auto_actions.click(users_element)
         sleep(2)
+        kwargs['pass_msg'] = "Navigation Successful to CONFIGURE--->USERS"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_account_mgmt(self, **kwargs):
@@ -1919,6 +2115,8 @@ class Navigator(NavigatorWebElements):
         sleep(2)
         if account_mgmt_ele.is_displayed():
             self.auto_actions.click(account_mgmt_ele)
+            kwargs['pass_msg'] = "Navigation Successful to USER ACCOUNT-> Global settings > Account Management"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_account_mgmt()' -> Account Management is not displayed"
@@ -1940,6 +2138,8 @@ class Navigator(NavigatorWebElements):
         license_mgmt_ele = self.weh.get_element(self.license_mgmt)
         if license_mgmt_ele.is_displayed():
             self.auto_actions.click(license_mgmt_ele)
+            kwargs['pass_msg'] = "Navigation Successful to USER ACCOUNT-> Global settings > Account Management"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_license_mgmt()' -> License Management is not displayed"
@@ -1962,6 +2162,8 @@ class Navigator(NavigatorWebElements):
         sleep(2)
         if organization_ele.is_displayed():
             self.auto_actions.click(organization_ele)
+            kwargs['pass_msg'] = "Navigation Successful to USER ACCOUNT-> Global settings > Account --> Organization"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_accounts_organization_page()' -> Accounts Organization page is" \
@@ -1985,6 +2187,8 @@ class Navigator(NavigatorWebElements):
         sleep(2)
         if account_details_ele.is_displayed():
             self.auto_actions.click(account_details_ele)
+            kwargs['pass_msg'] = "Navigation Successful to USER ACCOUNT-> Global settings > Account Details"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_account_details_page()' -> Account Details page is not displayed"
@@ -2005,6 +2209,8 @@ class Navigator(NavigatorWebElements):
         webhooks_ele = self.weh.get_element(self.global_settings_webhooks)
         if webhooks_ele.is_displayed():
             self.auto_actions.click(webhooks_ele)
+            kwargs['pass_msg'] = "Navigation Successful to USER ACCOUNT-> Global settings > Webhooks"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_webhooks_page()' -> Webhooks page is not displayed"
@@ -2027,6 +2233,8 @@ class Navigator(NavigatorWebElements):
         report_ele = self.weh.get_element(self.create_report)
         if report_ele:
             if report_ele.text == "CREATE REPORT":
+                kwargs['pass_msg'] = "Navigation Successful to dashboard page by clicking top left of UI"
+                self.common_validation.passed(**kwargs)
                 return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_dashboard_page()' -> Dashboard page is not displayed"
@@ -2048,6 +2256,8 @@ class Navigator(NavigatorWebElements):
         if self.weh.get_element(self.credential_dist_group).is_displayed():
             self.auto_actions.click(self.weh.get_element(self.credential_dist_group))
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Global settings > Credential Distribution Groups"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_credential_dist_groups()' -> Credential Dist Groups is not displayed"
@@ -2075,7 +2285,7 @@ class Navigator(NavigatorWebElements):
         """
         return self.navigate_to_license_mgmt()
 
-    def navigate_to_radio_profile(self):
+    def navigate_to_radio_profile(self, **kwargs):
         """
         - This keyword Navigates to SSIDs Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> Radio Profile
@@ -2098,6 +2308,8 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_radio_profile)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to SSIDs Menu on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_utilities(self, device_serial=''):
@@ -2134,6 +2346,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Audit Logs...")
         if self.auto_actions.click_reference(self.get_global_settings_audit_logs_slider) == 1:
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to Audit Logs Slider Menu"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to Audit Logs")
@@ -2142,7 +2356,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def navigate_to_copilot_menu(self):
+    def navigate_to_copilot_menu(self, **kwargs):
         """
         - This Keyword navigates to Copilot Menu
         - Keyword Usage:
@@ -2153,9 +2367,12 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_copilot_tab)
         sleep(5)
         self.screen.save_screen_shot()
+
+        kwargs['pass_msg'] = "Navigation Successful to Copilot Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_copilot_anomaly_notification_icon(self):
+    def navigate_to_copilot_anomaly_notification_icon(self, **kwargs):
         """
         - This Keyword navigates to Copilot Anomaly Notification Icon
         - Keyword Usage:
@@ -2166,9 +2383,12 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.move_to_element(self.get_copilot_anomaly_notification_icon())
         sleep(2)
         self.screen.save_screen_shot()
+
+        kwargs['pass_msg'] = "Navigation Successful to Copilot Anomaly Notification Icon"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def rbac_user_navigate_to_extreme_airdefence_helpdesk(self):
+    def rbac_user_navigate_to_extreme_airdefence_helpdesk(self, **kwargs):
         """
         - This Keyword is used to check if Extreme Airdefence menu is available for RBAC helpdesk user
         - Flow: Extreme AirDefence
@@ -2186,7 +2406,7 @@ class Navigator(NavigatorWebElements):
             sleep(5)
             return 1
 
-    def navigate_to_configure_users_subtab_users(self):
+    def navigate_to_configure_users_subtab_users(self, **kwargs):
         """
         - This keyword Navigates to PPSK Classification On Configure Menu
         - Flow: Configure --> Users --> User Management --> Users
@@ -2207,9 +2427,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_configure_users_subtab_users_side_nav_item)
         sleep(2)
 
+        kwargs['pass_msg'] = "Navigation Successful to PPSK Classification On Configure Menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_policy_imago_tag_profiles(self):
+    def navigate_to_policy_imago_tag_profiles(self, **kwargs):
         """
         - This Keyword Navigate to Imago Tag Profile on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->Imago Tag Profiles
@@ -2226,6 +2448,8 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_policy_imago_tag_profile)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to Imago Tag Profile on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_security_ip_firewall_policies(self):
@@ -2252,7 +2476,7 @@ class Navigator(NavigatorWebElements):
 
         sleep(5)
 
-    def navigate_to_policy_user_profiles(self):
+    def navigate_to_policy_user_profiles(self, **kwargs):
         """
         - This Keyword Navigate to User Profiles on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->POLICY-->USER PROFILES
@@ -2268,9 +2492,11 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_policy_user_profiles)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to User Profiles on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_device_management_settings(self):
+    def navigate_to_device_management_settings(self, **kwargs):
         """
         - This Keyword Navigate to Device Management Settings Page
         - Flow: Global Settings --> Device Management Settings
@@ -2284,6 +2510,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Clicking Device Management Settings Button")
         self.auto_actions.click_reference(self.get_navigate_to_device_management_settings_menu)
         sleep(2)
+        kwargs['pass_msg'] = "Navigation Successful to Device Management Settings Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_configure_private_client_group(self):
@@ -2307,7 +2535,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_nav_configure_users_management_private_client_group)
         sleep(2)
 
-    def navigate_to_common_objects_management_options(self):
+    def navigate_to_common_objects_management_options(self, **kwargs):
         """
         - This Keyword Navigate to Management Options on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->MANAGEMENT OPTIONS
@@ -2323,6 +2551,8 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_object_network_management_options)
         sleep(5)
 
+        kwargs['pass_msg'] = "Navigation Successful to Management Options on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_utilities_tools(self, **kwargs):
@@ -2341,7 +2571,7 @@ class Navigator(NavigatorWebElements):
             else:
                 kwargs['fail_msg'] = "'navigate_to_device_utilities_tools()' -> Unable to click on Utilities Button" \
                                      " due to being disabled"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
         self.utils.print_info("Hovering over Tools Menu Item")
@@ -2351,9 +2581,11 @@ class Navigator(NavigatorWebElements):
         else:
             kwargs['fail_msg'] = "'navigate_to_device_utilities_tools()' -> Unable to hover over Tools Menu " \
                                  "Item due to not being displayed"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to utilities tools menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_client_information(self, **kwargs):
@@ -2367,7 +2599,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_tools() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_client_information()' -> Unable to Navigate To Device" \
                                  " Utilities Tools"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Client Information Menu Item")
@@ -2380,6 +2612,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device client information tool window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_get_tech_data(self, **kwargs):
@@ -2392,7 +2626,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_device_utilities_tools() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_get_tech_data()' -> Unable to Navigate To Device Utilities Tools"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Get Tech Data Menu Item")
@@ -2405,6 +2639,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to single/multiple device get tech data tool window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_locate_device(self, **kwargs):
@@ -2417,7 +2653,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_device_utilities_tools() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_locate_device()' -> Unable to Navigate To Device Utilities Tools"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Locate Device Menu Item")
@@ -2430,6 +2666,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device locate device tool window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_layer_neighbor_info(self, **kwargs):
@@ -2443,7 +2681,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_tools() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_layer_neighbor_info()' -> Unable to Navigate To Device" \
                                  " Utilities Tools"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on L2 Neighbor Info Menu Item")
@@ -2456,6 +2694,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device l2 neighbor info tool window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_packet_capture(self, **kwargs):
@@ -2468,7 +2708,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_device_utilities_tools() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_packet_capture()' -> Unable to Navigate To Device Utilities Tools"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Packet Capture Menu Item")
@@ -2481,6 +2721,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single packet capture tool window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_vlan_probe(self, **kwargs):
@@ -2493,7 +2735,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_device_utilities_tools() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_vlan_probe()' -> Unable to Navigate To Device Utilities Tools"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on VLAN Probe Menu Item")
@@ -2506,6 +2748,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to single/multiple device vlan probe tool window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_utilities_diagnostics(self, **kwargs):
@@ -2523,7 +2767,7 @@ class Navigator(NavigatorWebElements):
         else:
             kwargs['fail_msg'] = "'navigate_to_device_utilities_diagnostics()' -> Unable to click on Utilities" \
                                  " Button due to being disabled"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Hovering over Diagnostics Menu Item")
@@ -2536,6 +2780,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to utilities diagnostics menu"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_ping(self, **kwargs):
@@ -2548,7 +2794,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_ping()' -> Unable to Navigate To Device Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Ping Menu Item")
@@ -2561,6 +2807,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device ping diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_log(self, **kwargs):
@@ -2573,7 +2821,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_log()' -> Unable to Navigate To Device Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Log Menu Item")
@@ -2586,6 +2834,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show log diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_mac_table(self, **kwargs):
@@ -2599,7 +2849,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_mac_table()' -> Unable to navigate to Device" \
                                  " Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show MAC Table Menu Item")
@@ -2612,6 +2862,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show mac table diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_version(self, **kwargs):
@@ -2625,7 +2877,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_version()' -> Unable to navigate to Device Utilities" \
                                  " Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Version Menu Item")
@@ -2638,6 +2890,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show version diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_running_config(self, **kwargs):
@@ -2651,7 +2905,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_running_config()' -> Unable to navigate to Device" \
                                  " Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Running Config Menu Item")
@@ -2664,6 +2918,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show running config diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_startup_config(self, **kwargs):
@@ -2677,7 +2933,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_startup_config()' -> Unable to navigate to Device" \
                                  " Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Startup Config Menu Item")
@@ -2690,6 +2946,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show startup config diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_ip_routes(self, **kwargs):
@@ -2702,7 +2960,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_ip_routes() -> Unable to navigate to Device Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IP Routes Menu Item")
@@ -2715,6 +2973,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show ip routes diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_mac_routes(self, **kwargs):
@@ -2728,7 +2988,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_mac_routes()' -> Unable to navigate to Device " \
                                  "Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show MAC Routes Menu Item")
@@ -2741,6 +3001,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show mac routes diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_arp_cache(self, **kwargs):
@@ -2754,7 +3016,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_arp_cache()' -> Unable to navigate to Device" \
                                  " Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show ARP Cache Menu Item")
@@ -2767,6 +3029,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show arp cache diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_roaming_cache(self, **kwargs):
@@ -2780,7 +3044,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_roaming_cache()' -> Unable to navigate to Device" \
                                  " Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Roaming Cache Menu Item")
@@ -2793,6 +3057,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show roaming cache diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_dnxp_neighbors(self, **kwargs):
@@ -2806,7 +3072,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_dnxp_neighbors()' -> Unable to navigate to Device" \
                                  " Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show DNXP Neighbors Menu Item")
@@ -2819,6 +3085,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show dnxp neighbors diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_dnxp_cache(self, **kwargs):
@@ -2832,7 +3100,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_dnxp_cache()' -> Unable to navigate to Device Utilities" \
                                  " Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show DNXP Cache Menu Item")
@@ -2845,6 +3113,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show dnxp cache diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_amrp_tunnel(self, **kwargs):
@@ -2858,7 +3128,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_amrp_tunnel()' -> Unable to navigate to Device" \
                                  " Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show AMRP Tunnel Menu Item")
@@ -2871,6 +3141,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show amrp tunnel diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_gre_tunnel(self, **kwargs):
@@ -2884,7 +3156,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_amrp_tunnel()' -> ()' -> Unable to navigate to Device" \
                                  " Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show GRE Tunnel Menu Item")
@@ -2897,6 +3169,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show gre tunnel diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_ike_event(self, **kwargs):
@@ -2910,7 +3184,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_ike_event()' -> Unable to navigate to Device" \
                                  " Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IKE Event Menu Item")
@@ -2923,6 +3197,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show ike event diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_ike_sa(self, **kwargs):
@@ -2936,7 +3212,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_ike_sa()' -> Unable to navigate to Device Utilities" \
                                  " Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IKE SA Menu Item")
@@ -2949,6 +3225,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show ike sa diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_ipsec_sa(self, **kwargs):
@@ -2962,7 +3240,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_ipsec_sa()' -> Unable to navigate to Device Utilities " \
                                  "Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IPSec SA Menu Item")
@@ -2975,6 +3253,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show ipsec sa diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_ipsec_tunnel(self, **kwargs):
@@ -2988,7 +3268,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_ipsec_tunnel()' -> Unable to navigate to Device Utilities" \
                                  " Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show IPSec Tunnel Menu Item")
@@ -3001,6 +3281,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show ipsec tunnel diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_vpn_tunnel(self, **kwargs):
@@ -3014,7 +3296,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_vpn_tunnel()' -> Unable to navigate to Device Utilities" \
                                  " Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show VPN Tunnel Menu Item")
@@ -3027,6 +3309,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show vpn tunnel diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_cpu(self, **kwargs):
@@ -3039,7 +3323,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_cpu()' -> Unable to navigate to Device Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show CPU Menu Item")
@@ -3052,6 +3336,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show cpu diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_memory(self, **kwargs):
@@ -3065,7 +3351,7 @@ class Navigator(NavigatorWebElements):
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_memory()' -> Unable to navigate to Device Utilities" \
                                  " Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Memory Menu Item")
@@ -3078,6 +3364,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show memory diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_device_show_pse(self, **kwargs):
@@ -3090,7 +3378,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
             kwargs['fail_msg'] = "'navigate_to_device_show_pse()' -> Unable to navigate to Device Utilities Diagnostics"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show PSE Menu Item")
@@ -3103,6 +3391,8 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Navigation Successful to a single device show pse diagnostic window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def navigate_to_locked_users_tab(self, **kwargs):
@@ -3125,10 +3415,10 @@ class Navigator(NavigatorWebElements):
         locked_users_ele = self.weh.get_element(self.locked_users_tab)
         if locked_users_ele.is_displayed():
             self.auto_actions.click(locked_users_ele)
+            kwargs['pass_msg'] = "Navigation Successful to Locked Users Page"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to navigate to Locked Users Page")
-            self.screen.save_screen_shot()
             kwargs['fail_msg'] = "'navigate_to_locked_users_tab()' -> Unable to navigate to Locked Users Page"
             self.common_validation.failed(**kwargs)
             return -2
@@ -3153,10 +3443,10 @@ class Navigator(NavigatorWebElements):
         unbind_device_ele = self.weh.get_element(self.unbind_device_tab)
         if unbind_device_ele.is_displayed():
             self.auto_actions.click(unbind_device_ele)
+            kwargs['pass_msg'] = "Navigation Successful to Unbind Device Page"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to navigate to Unbind Device Page")
-            self.screen.save_screen_shot()
             kwargs['fail_msg'] = "'navigate_to_unbind_device_tab()' -> Unable to navigate to Unbind Device Page"
             self.common_validation.failed(**kwargs)
             return -2
@@ -3176,10 +3466,10 @@ class Navigator(NavigatorWebElements):
         client_monitor_diagnosis_ele = self.weh.get_element(self.client_monitor_diagnosis_tab)
         if client_monitor_diagnosis_ele.is_displayed():
             self.auto_actions.click(client_monitor_diagnosis_ele)
+            kwargs['pass_msg'] = "Navigation Successful to Client Monitor and Diagnosis Page"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to navigate to Client Monitor & Diagnosis Page")
-            self.screen.save_screen_shot()
             kwargs['fail_msg'] = "'navigate_to_client_monitor_and_diagnosis_tab()' -> Unable to navigate to Client" \
                                  " Monitor & Diagnosis Page"
             self.common_validation.failed(**kwargs)
@@ -3200,12 +3490,14 @@ class Navigator(NavigatorWebElements):
                 self.auto_actions.click_reference(self.get_manage_tab)
             else:
                 kwargs['fail_msg'] = "'navigate_manage_alerts()' -> Unable to navigate to Manage tab"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
             self.utils.print_info("Clicking on Alerts Tab..")
             self.auto_actions.click_reference(self.get_manage_alerts_menu_item)
             sleep(2)
+            kwargs['pass_msg'] = "Navigation Successful to MANAGE->ALERTS"
+            self.common_validation.passed(**kwargs)
             return 1
 
         except Exception as e:
@@ -3228,6 +3520,8 @@ class Navigator(NavigatorWebElements):
         applications_page_ele = self.weh.get_element(self.applications_tab)
         if applications_page_ele.is_displayed():
             self.auto_actions.click(applications_page_ele)
+            kwargs['pass_msg'] = "Navigation Successful to Applications Page"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to Applications Page")
@@ -3249,6 +3543,8 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Summary Tab...")
             if self.auto_actions.click_reference(self.get_manage_summary_menu_item) == 1:
                 sleep(2)
+                kwargs['pass_msg'] = "Navigation Successful to Summary on Manage Menu"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("Unable to navigate to Summary tab")
@@ -3258,7 +3554,7 @@ class Navigator(NavigatorWebElements):
                 return -1
         else:
             kwargs['fail_msg'] = "'navigate_to_manage_summary()'- > Unable to navigate to Manage tab"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def navigate_to_manage_users(self, **kwargs):
@@ -3274,6 +3570,8 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Users Tab...")
             if self.auto_actions.click_reference(self.get_manage_users_menu_item) == 1:
                 sleep(2)
+                kwargs['pass_msg'] = "Navigation Successful to Users on Manage Menu"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = "'navigate_to_manage_users()' -> Unable to navigate to Users tab"
@@ -3281,7 +3579,7 @@ class Navigator(NavigatorWebElements):
                 return -1
         else:
             kwargs['fail_msg'] = "navigate_to_manage_users()' -> Unable to navigate to Manage tab"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def navigate_to_configure_guest_essentials_users(self, **kwargs):
@@ -3297,6 +3595,8 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Guest Essentials Users Tab...")
             if self.auto_actions.click_reference(self.get_configure_guest_essentials_users_menu_item) == 1:
                 sleep(2)
+                kwargs['pass_msg'] = "Navigation Successful to Guest Essentials Users on Configure Menu"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = "'navigate_to_configure_guest_essentials_users()' -> Unable to navigate to Guest" \
@@ -3306,7 +3606,7 @@ class Navigator(NavigatorWebElements):
         else:
             kwargs['fail_msg'] = "'navigate_to_configure_guest_essentials_users()' -> Unable to navigate to " \
                                  "Configure tab"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def navigate_to_vpn_management_tab(self, **kwargs):
@@ -3323,6 +3623,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on VPN Management Tab")
         if self.get_vpn_management_tab().is_displayed():
             self.auto_actions.click_reference(self.get_vpn_management_tab)
+            kwargs['pass_msg'] = "Navigation Successful to VPN Management Page"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_vpn_management_tab()' -> Unable to navigate to VPN Management Page"
@@ -3341,6 +3643,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on Clients Hyperlink")
         if self.get_clients_hyperlink().is_displayed():
             self.auto_actions.click_reference(self.get_clients_hyperlink)
+            kwargs['pass_msg'] = "Navigation Successful to Client 360 page in ML Insights"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'point_client_hyperlink_to_client360()' -> Unable to open clients hyperlink page"
@@ -3360,6 +3664,8 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Click on VPN Services Tab")
         if self.get_vpn_services_tab().is_displayed():
             self.auto_actions.click_reference(self.get_vpn_services_tab)
+            kwargs['pass_msg'] = "Navigation Successful to VPN Services Page"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'navigate_to_vpn_services_tab()' -> Unable to navigate to VPN Services Page"
@@ -3378,6 +3684,8 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Clicking Events Tab...")
             if self.auto_actions.click_reference(self.get_devices_nav) == 1:
                 sleep(2)
+                kwargs['pass_msg'] = "Navigation Successful to Events on Manage Menu"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = "'navigate_to_manage_events()' -> Unable to navigate to Devices tab"
@@ -3385,7 +3693,7 @@ class Navigator(NavigatorWebElements):
                 return -1
         else:
             kwargs['fail_msg'] = "'navigate_to_manage_events()' -> Unable to navigate to Manage tab"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def navigate_to_port_configuration_d360(self, **kwargs):
@@ -3425,7 +3733,7 @@ class Navigator(NavigatorWebElements):
                 return -1
         else:
             kwargs['fail_msg'] = "'navigate_to_port_configuration_d360()' -> Failed to find 'Configure' button!"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def enable_page_size(self, page_size='50', **kwargs):
@@ -3447,7 +3755,7 @@ class Navigator(NavigatorWebElements):
                     self.utils.print_info("Clicking on page size...")
                     if self.auto_actions.click(page_size_element) == 1:
                         self.screen.save_screen_shot()
-                        kwargs['pass_msg'] = " Clicked on page size "
+                        kwargs['pass_msg'] = " Clicked on page size"
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
@@ -3467,7 +3775,7 @@ class Navigator(NavigatorWebElements):
                 if counter == 5:
                     kwargs['fail_msg'] = f"'enable_page_size()' -> Not able to click on page size with" \
                                          f" exception: {e}, counter: {counter}"
-                    self.common_validation.failed(**kwargs)
+                    self.common_validation.fault(**kwargs)
                     return -1
                 else:
                     self.utils.print_info(f"trying again...")

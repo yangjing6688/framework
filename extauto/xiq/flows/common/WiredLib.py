@@ -110,6 +110,8 @@ class WiredLib():
             self.utils.print_info("",vlan_list)
             if vlan in vlan_list:
                 self.utils.print_info("Vlan {} found in CLI".format(vlan))
+                kwargs['pass_msg'] = "Vlan found in CLI"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("Vlan {} not found in CLI".format(vlan))
@@ -121,6 +123,8 @@ class WiredLib():
             vlan_list = self.utils.get_regexp_matches(result, "(\\d+)\\s+\\d+\\s+[\\w\\-]+", 1)
             if vlan in vlan_list:
                 self.utils.print_info("Vlan {} found in CLI".format(vlan))
+                kwargs['pass_msg'] = "Vlan found in CLI"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("Vlan {} not found in CLI".format(vlan))
@@ -130,5 +134,5 @@ class WiredLib():
         else:
             self.utils.print_info("No device make found")
             kwargs['fail_msg'] = "'check_vlan_cli()' -> No device make found"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1

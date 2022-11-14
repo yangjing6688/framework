@@ -453,12 +453,12 @@ class DeviceCommon(DeviceCommonElements):
             else:
                 self.utils.print_info(f"Select Device Checkbox not selected")
                 kwargs['fail_msg'] = "'get_select_device_checkbox_status()' -> Select Device Checkbox not selected"
-                self.common_validation.fault(**kwargs)
+                self.common_validation.fail(**kwargs)
                 return -1
         self.utils.print_info(f"Select Device Checkbox is Checked with serial number:{device_serial}")
         kwargs['fail_msg'] = f"'get_select_device_checkbox_status()' -> Select Device Checkbox is Checked with" \
                              f" serial number:{device_serial}"
-        self.common_validation.failed(**kwargs)
+        self.common_validation.fault(**kwargs)
         return -1
 
     def _select_device_checkbox_status_row(self, row, **kwargs):
@@ -534,7 +534,7 @@ class DeviceCommon(DeviceCommonElements):
         else:
             self.utils.print_info("The Devices Per Page field could not be found.")
             kwargs['fail_msg'] = "'get_devices_per_page()' -> The Devices Per Page field could not be found."
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
 
         return ret_val
 

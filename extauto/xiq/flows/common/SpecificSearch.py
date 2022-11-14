@@ -31,6 +31,8 @@ class SpecificSearch:
             lst = matches.splitlines()
             self.utils.print_info("lst: ", lst)
             if info in lst:
+                kwargs['pass_msg'] = "Information regarding AP appears in Devices Page"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = "'ap_specific_search()' -> There is no specific information about AP in" \
@@ -40,7 +42,7 @@ class SpecificSearch:
         except Exception as e:
             self.utils.print_debug(e)
             kwargs['fail_msg'] = f"'ap_specific_search()' -> {e}"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def application_specific_search(self, info, **kwargs):
@@ -59,6 +61,8 @@ class SpecificSearch:
             self.utils.print_info("results : ", self.app_web_elements.get_app_result().text)
             result = self.app_web_elements.get_app_result().text
             if info == result:
+                kwargs['pass_msg'] = "Information regarding applicaton appears in Application Page"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = f"'application_specific_search()' -> Info message: '{info}' does not match the " \
@@ -69,7 +73,7 @@ class SpecificSearch:
         except Exception as e:
             self.utils.print_info(e)
             kwargs['fail_msg'] = f"'application_specific_search()' -> Error message: '{e}'"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def warning_search_close_window(self, info):
@@ -84,6 +88,8 @@ class SpecificSearch:
             if info == result:
                 self.auto_actions.click_reference(self.app_web_elements.get_warning_close)
                 sleep(5)
+                kwargs['pass_msg'] = "Information Warning Page is available"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = f"'warning_search_close_window()' -> Info message: '{info}' does not match the" \
@@ -93,5 +99,5 @@ class SpecificSearch:
         except Exception as e:
             self.utils.print_info(e)
             kwargs['fail_msg'] = f"'warning_search_close_window()' -> Error message: '{e}'"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1

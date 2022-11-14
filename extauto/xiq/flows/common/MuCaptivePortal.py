@@ -25,9 +25,13 @@ class MuCaptivePortal(MuCPWebElement):
         if registration_status_el:
             if "Registration Successful" in registration_status_el.text:
                 self.utils.print_info(registration_status_el.text)
+                kwargs['pass_msg'] = "Registration Successful"
+                self.common_validation.passed(**kwargs)
                 return 1
             elif "Login Successful" in registration_status_el.text:
                 self.utils.print_info(registration_status_el.text)
+                kwargs['pass_msg'] = "Login Successful"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(registration_status_el.text)
@@ -228,10 +232,11 @@ class MuCaptivePortal(MuCPWebElement):
         page_title = self.get_page_title
         self.utils.print_info(page_title)
         if "Network Access Portal" in page_title:
+            kwargs['pass_msg'] = "Successfully connected with internet with social login type facebook"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_facebook()' -> 'Network Access Portal'" \
-                                 f" not in - {page_title}"
+            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_facebook()' -> 'Network Access Portal' not in - {page_title}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -292,10 +297,11 @@ class MuCaptivePortal(MuCPWebElement):
             self.utils.print_info(msg)
 
         if "Login Successful" and "connected to the network" in msg:
+            kwargs['pass_msg'] = "Successfully connected with internet with social login type google"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_google_account()' -> 'Login Successful' and" \
-                                 f" 'connected to the network' not in - {msg}"
+            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_google_account()' -> 'Login Successful' and 'connected to the network' not in - {msg}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -336,10 +342,11 @@ class MuCaptivePortal(MuCPWebElement):
         page_title = self.get_page_title
         self.utils.print_info(page_title)
         if "Network Access Portal" in page_title:
+            kwargs['pass_msg'] = "Successfully connected with internet with social login type Linkedin"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_linkedin_account()' -> 'Network Access Portal' " \
-                                 f"not in - {page_title}"
+            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_linkedin_account()' -> 'Network Access Portal' not in - {page_title}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -391,12 +398,13 @@ class MuCaptivePortal(MuCPWebElement):
             reply_msg_text = self.get_user_registration_reply_msg().text
             if "The user name you filled exceeds required length" in reply_msg_text:
                 self.utils.print_info(f'{reply_msg_text}')
+                kwargs['fail_msg'] = f"'guest_user_self_registration()' -> 'We are unable to' appears in - {reply_msg_text}"
+                self.common_validation.fault(**kwargs)
                 return -1, reply_msg_text
             if "We are unable to" in reply_msg_text:
                 self.utils.print_info(f'{reply_msg_text}')
-                kwargs['fail_msg'] = f"'guest_user_self_registration()' -> 'We are unable to' appears in " \
-                                     f"- {reply_msg_text}"
-                self.common_validation.failed(**kwargs)
+                kwargs['fail_msg'] = f"'guest_user_self_registration()' -> 'We are unable to' appears in - {reply_msg_text}"
+                self.common_validation.fault(**kwargs)
                 return -1, reply_msg_text
 
         field_err_els = self.get_user_registration_field_err()
@@ -503,6 +511,8 @@ class MuCaptivePortal(MuCPWebElement):
             self.utils.print_info(msg)
 
         if "Login Successful" in msg:
+            kwargs['pass_msg'] = "Login Successful"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def check_internet_connectivity(self, mu_ip, url="https://www.extremenetworks.com/"):
@@ -547,6 +557,8 @@ class MuCaptivePortal(MuCPWebElement):
             self.auto_actions.click_reference(self.get_social_login_terms_and_condition_close_button)
 
             if "Acceptable Use Policy" and "Terms of use" in msg:
+                kwargs['pass_msg'] = f"Successfully get the term and condition page text - {msg}"
+                self.common_validation.passed(**kwargs)
                 return 1
         else:
             kwargs['fail_msg'] = "'check_cwp_social_login_term_and_condition_page_text()' -> Could not get the " \

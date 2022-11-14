@@ -205,7 +205,7 @@ class SideNavMenu(NavigatorWebElements):
 
         except Exception as e:
             kwargs['fail_msg'] = f"'is_nav_menu_item_visible()' -> {e}"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def is_nav_menu_item_enabled(self, tag, **kwargs):
