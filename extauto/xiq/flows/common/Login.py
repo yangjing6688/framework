@@ -17,8 +17,13 @@ import extauto.xiq.flows.common.ToolTipCapture
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.MspWebElements import MspWebElements
+
 import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
+import extauto.xiq.flows.manage.Msp
+
+
 
 
 class Login:
@@ -31,6 +36,7 @@ class Login:
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.login_web_elements = LoginWebElements()
         self.pw_web_elements = PasswordResetWebElements()
+        self.msp_web_elements = MspWebElements()
         self.nav_web_elements = NavigatorWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
@@ -234,10 +240,24 @@ class Login:
                     sleep(10)
                     break
 
-        if self.select_login_option(login_option, entitlement_key=entitlement_key,
-                                    salesforce_username=salesforce_username,
-                                    salesforce_password=salesforce_password,
-                                    saleforce_shared_cuid=saleforce_shared_cuid,
+        view_org_button = self.msp_web_elements.get_view_organization_button()
+        if view_org_button.is_displayed():
+            self.utils.print_info(f"User Credentials belongs to MSP account")
+            org_name = BuiltIn().get_variable_value("${organization_name}")
+            if org_name:
+                msp_module = extauto.xiq.flows.manage.Msp.Msp()
+                device_page_found = self.nav_web_elements.get_devices_page()
+                if not device_page_found:
+                    self.utils.print_info(f"Devices page not found.Navigating to Manage-->Devices Page")
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
+                msp_module.select_organization(organization_name=org_name)
+            else:
+                self.utils.print_info(f"Continuing with own organization")
+                pass
+
+        if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
+                                    salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid,
                                     recover_login=recover_login, map_override=map_override) == -1:
             kwargs['fail_msg'] = "'_login_user()' -> Can not login with option. Try Again"
             self.common_validation.failed(**kwargs)
@@ -964,6 +984,7 @@ class Login:
                     self.utils.print_info("trial option is displayed")
                     self.auto_actions.click_reference(self.login_web_elements.get_option_30_days_trial)
                     sleep(5)
+                    self.utils.print_info("trial option is selected.")
                 else:
                     kwargs['fail_msg'] = "'select_welcome_page_option()' -> Trial option is not displayed"
                     self.common_validation.failed(**kwargs)
