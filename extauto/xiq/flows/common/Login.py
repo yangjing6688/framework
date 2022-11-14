@@ -243,6 +243,11 @@ class Login:
             org_name = BuiltIn().get_variable_value("${organization_name}")
             if org_name:
                 msp_module = extauto.xiq.flows.manage.Msp.Msp()
+                device_page_found = self.nav_web_elements.get_devices_page()
+                if not device_page_found:
+                    self.utils.print_info(f"Devices page not found.Navigating to Manage-->Devices Page")
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
                 msp_module.select_organization(organization_name=org_name)
             else:
                 self.utils.print_info(f"Continuing with own organization")

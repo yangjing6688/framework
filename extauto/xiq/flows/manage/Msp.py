@@ -29,13 +29,13 @@ class Msp(MspWebElements):
         :return: 1 if Mentioned organization Name is Selected Successfully else -1
         """
         self.utils.print_info(f"Clicking View All Organization")
-        self.auto_actions.click(self.get_view_organization_button())
+        self.auto_actions.click_reference(self.get_view_organization_button)
         self.screen.save_screen_shot()
 
         self.utils.print_info(f"Enter Organization Name {organization_name} in search field")
         self.auto_actions.send_keys(self.get_organization_search_text_field(), organization_name)
         sleep(2)
-        self.auto_actions.click(self.get_organization_search_result_option())
+        self.auto_actions.click_reference(self.get_organization_search_result_option)
         self.screen.save_screen_shot()
 
         rows = self.get_organization_grid_rows()
@@ -49,19 +49,19 @@ class Msp(MspWebElements):
                         configure_radio_button = self.get_organizations_select_radio_button()
                         self.utils.print_info(f"Clicking Organization {organization_name} Configure Radio Button")
                         if not configure_radio_button.is_selected():
-                            self.auto_actions.click(configure_radio_button)
+                            self.auto_actions.click_reference(self.get_organizations_select_radio_button)
                             self.screen.save_screen_shot()
 
                         check_box = self.get_organizations_select_check_box()
                         if check_box:
                             if not check_box.is_selected():
                                 self.utils.print_info(f"Clicking Organization {organization_name} View checkbox")
-                                self.auto_actions.click(check_box)
+                                self.auto_actions.click_reference(self.get_organizations_select_check_box)
                                 self.screen.save_screen_shot()
 
 
                         self.utils.print_info("Click Organizations close button")
-                        self.auto_actions.click(self.get_view_organization_close_button())
+                        self.auto_actions.click_reference(self.get_view_organization_close_button)
                         self.screen.save_screen_shot()
 
                         kwargs['pass_msg'] = f"Given Organization Name {organization_name} Selected Sucessfully on MSP Account"
