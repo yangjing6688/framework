@@ -29,6 +29,7 @@ class Dashboard(object):
         :return: 1 if navigation success
         """
         self.ext_guest.go_to_extreme_guest_monitor_dashboard_page()
+        return 1
 
     def create_new_extreme_guest_dashboard(self, dashboard_name="automation_db1"):
         """
@@ -109,6 +110,10 @@ class Dashboard(object):
             self.auto_actions.click_reference(
                 self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_usage_panel)
             sleep(2)
+        self.utils.print_info("Double Clicking the canvas7")
+        self.auto_actions.double_click(
+            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme15_canvas9())
+        sleep(2)
 
         self.utils.print_info("Dragging the widget1 into the canvas7 ")
         self.auto_actions.drag_and_drop_element(

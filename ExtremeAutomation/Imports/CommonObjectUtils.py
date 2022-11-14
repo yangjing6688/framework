@@ -53,7 +53,7 @@ class CommonObjectUtils:
             try:
                 # Try and get the generic capwap URL
                 generic_capwap_url = self.builtin.get_variable_value(self.setExecutionVariable("capwap_url",""))
-                if value['cli_type'].upper() == 'EXOS' or value['cli_type'].upper() == 'VOSS':
+                if value['cli_type'].upper() == 'EXOS' or value['cli_type'].upper() == 'VOSS' or value['cli_type'].upper() == 'AH-FASTPATH':
                     generic_capwap_url = self.builtin.get_variable_value(self.setExecutionVariable("sw_capwap_url",""))
                 elif value['cli_type'].upper() == 'WING-AP':
                     generic_capwap_url = self.builtin.get_variable_value(self.setExecutionVariable("wing_capwap_url", ""))

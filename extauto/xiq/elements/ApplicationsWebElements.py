@@ -53,3 +53,6 @@ class ApplicationsWebElements(ApplicationsWebElementsDefs):
 
     def get_manage_add_custom_delete_confirm(self):
         return self.weh.get_element(self.manage_add_custom_delete_confirm)
+
+    def get_application_dialogbox_close_button(self):
+        return self.weh.get_element(self.application_dialogbox_close_button)
