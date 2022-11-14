@@ -10659,63 +10659,6 @@ class Device360(Device360WebElements):
         '''
         return self.get_select_element_port_type(element)
 
-    def enter_port_type_and_vlan_id(
-            self, port, port_type=None, access_vlan_id=None, native_vlan=None, allowed_vlans=None):
-        """
-         - This keyword will enter port type and vlan id
-         It Assumes That Already Navigated to Device360 Page -> Configure tab -> Port Configuration
-        :return:
-        """
-        sleep(8)
-        port_row = self.device360_get_port_row(port)
-        if port_row:
-            self.utils.print_debug("Found row for port: ", port_row.text)
-
-            if port_type:
-                self.utils.print_info("click Port Usage drop down")
-                self.auto_actions.click(self.dev360.get_device360_configure_port_usage_drop_down_button(port_row))
-                sleep(2)
-
-                self.utils.print_info("Selecting Port Usage")
-                dropdown_options = self.dev360.get_device360_configure_port_usage_drop_down_options(port_row)
-                if not dropdown_options:
-                    dropdown_options = self.dev360.weh.get_elements(
-                        {"XPATH": f"//li[contains(@data-automation-tag, 'automation-port-details-port-dropdown-{port}-chzn-option')]"})
-
-                self.auto_actions.select_drop_down_options(dropdown_options, port_type)
-                sleep(2)
-
-            if access_vlan_id:
-                self.utils.print_info("Deleting the selected values in port..")
-                input_field_access_vlan_id = self.dev360.get_device360_configure_port_access_vlan_textfield(port_row)
-                if not input_field_access_vlan_id:
-                    input_field_access_vlan_id = self.dev360.weh.get_element(
-                        {"XPATH": f".//input[contains(@data-automation-tag, 'automation-port-details-port-access-vlan')]"}, parent=port_row)
-
-                self.auto_actions.send_keys(input_field_access_vlan_id, Keys.BACK_SPACE * 10 + access_vlan_id + Keys.ENTER)
-                sleep(2)
-
-            if native_vlan:
-
-                self.utils.print_info("Deleting the selected values in port..")
-                input_field_trunk_native = self.dev360.get_device360_configure_port_trunk_native_vlan_textfield(port_row)
-                if not input_field_trunk_native:
-                    input_field_trunk_native = self.dev360.weh.get_element(
-                        {"XPATH": f".//input[contains(@data-automation-tag, 'automation-port-details-port-trunk-native-vlan')]"}, parent=port_row)
-
-                self.auto_actions.send_keys(input_field_trunk_native, Keys.BACK_SPACE * 10 + native_vlan + Keys.ENTER)
-                sleep(2)
-
-            if allowed_vlans:
-                input_field_allowed_vlans = self.dev360.get_device360_configure_port_trunk_vlan_textfield(port_row)
-                if not input_field_allowed_vlans:
-                    input_field_allowed_vlans = self.dev360.weh.get_element(
-                        {"XPATH": f".//input[contains(@data-automation-tag, 'automation-port-details-port-trunk-allowed-vlan')]"}, parent=port_row)
-
-                self.auto_actions.send_keys(input_field_allowed_vlans, Keys.BACK_SPACE * 10 + allowed_vlans + Keys.ENTER)
-
-            sleep(8)
-
     def select_max_pagination_size(self, **kwargs):
         """
          - This keyword will navigate to the max pagination size Monitoring Overview Ports Table, using the page number button
@@ -10794,7 +10737,7 @@ class Device360(Device360WebElements):
                 return True
             # return False
             kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed."
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
         except Exception as e:
             # return False
             kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed with the following exception: {e}"
@@ -10879,7 +10822,7 @@ class Device360(Device360WebElements):
                     if test == False:
                         # return -1
                         kwargs['fail_msg'] = f"'list_port_element()' failed."
-                        self.common_validation.failed(**kwargs)
+                        self.common_validation.fault(**kwargs)
             # return 1
             kwargs['pass_msg'] = f"Success"
             self.common_validation.passed(**kwargs)
@@ -11314,153 +11257,153 @@ class Device360(Device360WebElements):
 
         return 1
     
-    def configure_port_name_usage_tab(self, port_type_name, description="test", status=True, port_type="access", **kwargs):
-        """Method that configures the first page of the honeycomb port type editor.
-
-        Args:
-            port_type_name (str): the name of the port type
-            description (str, optional): the description of the port type. Defaults to "test".
-            status (bool, optional): the port status. Defaults to True.
-            port_type (str, optional): the port type. Defaults to "access".
-
-        Returns:
-            int: 1 if the function call has succeeded else -1
-        """
-        name_element, _ = self.utils.wait_till(
-            func=lambda: self.get_select_element_port_type("name"), 
-            exp_func_resp=True,
-            silent_failure=True,
-            delay=5)
-        
-        if not name_element:
-            kwargs["fail_msg"] = "Failed to find port name element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        self.utils.print_info("Successfully found port name element")
-        
-        res, _ = self.utils.wait_till(
-            func=lambda: self.auto_actions.send_keys(name_element, port_type_name),
-            exp_func_resp=True, 
-            delay=4
-        )
-
-        if res != 1:
-            kwargs["fail_msg"] = "Failed to send keys to port name element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        self.utils.print_info("Successfully sent keys to port name element")
-
-        description_element, _ = self.utils.wait_till(
-            func=lambda: self.get_select_element_port_type("description"),
-            exp_func_resp=True,
-            silent_failure=True, 
-            delay=5)
-
-        if not description_element:
-            kwargs["fail_msg"] = "Failed to find port description element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        self.utils.print_info("Successfully found port description element")
-
-        res, _ = self.utils.wait_till(
-            func=lambda: self.auto_actions.send_keys(description_element, description),
-            exp_func_resp=True,
-            delay=4,
-            silent_failure=True
-        )
-
-        if res != 1:
-            kwargs["fail_msg"] = "Failed to send keys to port description element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        self.utils.print_info("Successfully sent keys to port description element")
-
-        status_element, _ = self.utils.wait_till(
-            func=lambda: self.get_select_element_port_type("status"),
-            exp_func_resp=True,
-            silent_failure=True, 
-            delay=5
-        )
-
-        if not status_element:
-            kwargs["fail_msg"] = "Failed to find port status element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        self.utils.print_info("Successfully found port status element")
-
-        if (not status_element.is_selected() and status) or (
-            status_element.is_selected() and not status):
-            res, _ = self.utils.wait_till(
-                func=lambda: self.auto_actions.click(status_element),
-                exp_func_resp=True,
-                delay=4
-            )
-
-            if res != 1:
-                kwargs["fail_msg"] = "Failed to click the status button"
-                self.common_validation.failed(**kwargs)
-                return -1
-            
-            self.utils.print_info("Successfully clicked the status button")
-
-        auto_sense, _ = self.utils.wait_till(
-            func=lambda: self.get_select_element_port_type("auto-sense"),
-            exp_func_resp=True,
-            silent_failure=True, 
-            delay=5
-        )
-
-        if auto_sense:
-            if auto_sense.is_selected():
-                res, _ = self.utils.wait_till(
-                    func=lambda: self.auto_actions.click(auto_sense),
-                    exp_func_resp=True, 
-                    delay=4
-                )
-                
-                if res != 1:
-                    kwargs["fail_msg"] = "Failed to click the auto sense button"
-                    self.common_validation.failed(**kwargs)
-                    return -1
-                
-                self.utils.print_info("Successfully clicked the auto sense button")
-            
-        port_element, _ = self.utils.wait_till(
-            func=lambda: self.get_select_element_port_type("port usage", f"{port_type} port"),
-            exp_func_resp=True, 
-            silent_failure=True,
-            delay=5
-        )
-        
-        if not port_element:
-            kwargs["fail_msg"] = "Failed to get the port type element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        self.utils.print_info("Successfully got the port type element")
-        
-        res, _ = self.utils.wait_till(
-            func=lambda: self.auto_actions.click(port_element),
-            exp_func_resp=True,
-            delay=4,
-            silent_failure=True
-        )
-        
-        if res != 1:
-            kwargs["fail_msg"] = "Failed to click the port type element"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        kwargs["pass_msg"] = "Successfully clicked the port type element"
-        self.common_validation.passed(**kwargs)
-        
-        self.utils.wait_till(timeout=2)
-        return 1
+    # def configure_port_name_usage_tab(self, port_type_name, description="test", status=True, port_type="access", **kwargs):
+    #     """Method that configures the first page of the honeycomb port type editor.
+    #
+    #     Args:
+    #         port_type_name (str): the name of the port type
+    #         description (str, optional): the description of the port type. Defaults to "test".
+    #         status (bool, optional): the port status. Defaults to True.
+    #         port_type (str, optional): the port type. Defaults to "access".
+    #
+    #     Returns:
+    #         int: 1 if the function call has succeeded else -1
+    #     """
+    #     name_element, _ = self.utils.wait_till(
+    #         func=lambda: self.get_select_element_port_type("name"),
+    #         exp_func_resp=True,
+    #         silent_failure=True,
+    #         delay=5)
+    #
+    #     if not name_element:
+    #         kwargs["fail_msg"] = "Failed to find port name element"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
+    #
+    #     self.utils.print_info("Successfully found port name element")
+    #
+    #     res, _ = self.utils.wait_till(
+    #         func=lambda: self.auto_actions.send_keys(name_element, port_type_name),
+    #         exp_func_resp=True,
+    #         delay=4
+    #     )
+    #
+    #     if res != 1:
+    #         kwargs["fail_msg"] = "Failed to send keys to port name element"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
+    #
+    #     self.utils.print_info("Successfully sent keys to port name element")
+    #
+    #     description_element, _ = self.utils.wait_till(
+    #         func=lambda: self.get_select_element_port_type("description"),
+    #         exp_func_resp=True,
+    #         silent_failure=True,
+    #         delay=5)
+    #
+    #     if not description_element:
+    #         kwargs["fail_msg"] = "Failed to find port description element"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
+    #
+    #     self.utils.print_info("Successfully found port description element")
+    #
+    #     res, _ = self.utils.wait_till(
+    #         func=lambda: self.auto_actions.send_keys(description_element, description),
+    #         exp_func_resp=True,
+    #         delay=4,
+    #         silent_failure=True
+    #     )
+    #
+    #     if res != 1:
+    #         kwargs["fail_msg"] = "Failed to send keys to port description element"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
+    #
+    #     self.utils.print_info("Successfully sent keys to port description element")
+    #
+    #     status_element, _ = self.utils.wait_till(
+    #         func=lambda: self.get_select_element_port_type("status"),
+    #         exp_func_resp=True,
+    #         silent_failure=True,
+    #         delay=5
+    #     )
+    #
+    #     if not status_element:
+    #         kwargs["fail_msg"] = "Failed to find port status element"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
+    #
+    #     self.utils.print_info("Successfully found port status element")
+    #
+    #     if (not status_element.is_selected() and status) or (
+    #         status_element.is_selected() and not status):
+    #         res, _ = self.utils.wait_till(
+    #             func=lambda: self.auto_actions.click(status_element),
+    #             exp_func_resp=True,
+    #             delay=4
+    #         )
+    #
+    #         if res != 1:
+    #             kwargs["fail_msg"] = "Failed to click the status button"
+    #             self.common_validation.failed(**kwargs)
+    #             return -1
+    #
+    #         self.utils.print_info("Successfully clicked the status button")
+    #
+    #     auto_sense, _ = self.utils.wait_till(
+    #         func=lambda: self.get_select_element_port_type("auto-sense"),
+    #         exp_func_resp=True,
+    #         silent_failure=True,
+    #         delay=5
+    #     )
+    #
+    #     if auto_sense:
+    #         if auto_sense.is_selected():
+    #             res, _ = self.utils.wait_till(
+    #                 func=lambda: self.auto_actions.click(auto_sense),
+    #                 exp_func_resp=True,
+    #                 delay=4
+    #             )
+    #
+    #             if res != 1:
+    #                 kwargs["fail_msg"] = "Failed to click the auto sense button"
+    #                 self.common_validation.failed(**kwargs)
+    #                 return -1
+    #
+    #             self.utils.print_info("Successfully clicked the auto sense button")
+    #
+    #     port_element, _ = self.utils.wait_till(
+    #         func=lambda: self.get_select_element_port_type("port usage", f"{port_type} port"),
+    #         exp_func_resp=True,
+    #         silent_failure=True,
+    #         delay=5
+    #     )
+    #
+    #     if not port_element:
+    #         kwargs["fail_msg"] = "Failed to get the port type element"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
+    #
+    #     self.utils.print_info("Successfully got the port type element")
+    #
+    #     res, _ = self.utils.wait_till(
+    #         func=lambda: self.auto_actions.click(port_element),
+    #         exp_func_resp=True,
+    #         delay=4,
+    #         silent_failure=True
+    #     )
+    #
+    #     if res != 1:
+    #         kwargs["fail_msg"] = "Failed to click the port type element"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
+    #
+    #     kwargs["pass_msg"] = "Successfully clicked the port type element"
+    #     self.common_validation.passed(**kwargs)
+    #
+    #     self.utils.wait_till(timeout=2)
+    #     return 1
 
     def open_new_port_type_editor(self, port, device_360=False, **kwargs):
         """Method that opens the honeycomb port type editor for given port.
@@ -11623,43 +11566,43 @@ class Device360(Device360WebElements):
         self.utils.wait_till(timeout=10)
         return 1
 
-    def close_port_type_config(self, **kwargs):
-        """Method that press the close button in the honeycomb port type edtitor.
-
-        Returns:
-            int: 1 if the function call has succeeded else -1
-        """
-        close_button, _ = self.utils.wait_till(
-            func=self.get_cancel_port_type_box,
-            exp_func_resp=True,
-            delay=5,
-            silent_failure=True
-        )
-        
-        if not close_button:
-            kwargs["fail_msg"] = "Failed to get the close button"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        self.utils.print_info("Successfully got the close button")
-
-        res, _ = self.utils.wait_till(
-            func=lambda: self.auto_actions.click(close_button),
-            exp_func_resp=True, 
-            delay=4,
-            silent_failure=True
-        )
-        
-        if res != 1:
-            kwargs["fail_msg"] = "Failed to click the next button"
-            self.common_validation.failed(**kwargs)
-            return -1
-        
-        kwargs["pass_msg"] = "Successfully clicked the next button"
-        self.common_validation.passed(**kwargs)
-        
-        self.utils.wait_till(timeout=10)
-        return 1
+    # def close_port_type_config(self, **kwargs):
+    #     """Method that press the close button in the honeycomb port type edtitor.
+    #
+    #     Returns:
+    #         int: 1 if the function call has succeeded else -1
+    #     """
+    #     close_button, _ = self.utils.wait_till(
+    #         func=self.get_cancel_port_type_box,
+    #         exp_func_resp=True,
+    #         delay=5,
+    #         silent_failure=True
+    #     )
+    #
+    #     if not close_button:
+    #         kwargs["fail_msg"] = "Failed to get the close button"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
+    #
+    #     self.utils.print_info("Successfully got the close button")
+    #
+    #     res, _ = self.utils.wait_till(
+    #         func=lambda: self.auto_actions.click(close_button),
+    #         exp_func_resp=True,
+    #         delay=4,
+    #         silent_failure=True
+    #     )
+    #
+    #     if res != 1:
+    #         kwargs["fail_msg"] = "Failed to click the next button"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
+    #
+    #     kwargs["pass_msg"] = "Successfully clicked the next button"
+    #     self.common_validation.passed(**kwargs)
+    #
+    #     self.utils.wait_till(timeout=10)
+    #     return 1
 
     def click_on_stp_tab(self, **kwargs):
         """Method that click the STP configure port stb tab button in the device 360 window.
@@ -13014,7 +12957,7 @@ class Device360(Device360WebElements):
         return 1
 
     def close_port_type_config(self, **kwargs):
-        """Method that closed the honeycomb port type editor.
+        """Method that closes the honeycomb port type editor.
 
         Returns:
             int: 1 if the function call has succeeded else -1
@@ -13044,3 +12987,29 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         self.utils.wait_till(timeout=10)
         return 1
+
+    def get_connected_ports(self, dut, **kwargs):
+
+        try:
+            sleep(8)
+            self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+            sleep(8)
+
+            self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+            sleep(4)
+
+            rows = self.dev360.get_d360_switch_ports_table_grid_rows()[1:]
+            connected_ports = []
+
+            for row in rows:
+                try:
+                    port_name = row.text.split(" ")[0]
+                    if (not "Disconnected" in row.text) and port_name != "mgmt":
+                        connected_ports.append(port_name)
+                except:
+                    pass
+            kwargs["pass_msg"] = "Successfully closed the honeycomb port type editor"
+            self.common_validation.passed(**kwargs)
+            return connected_ports
+        finally:
+            self.exit_d360_Page()
