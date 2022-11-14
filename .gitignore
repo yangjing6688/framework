@@ -11,6 +11,7 @@ _templates
 docfiles
 **/*.pyc
 *.pyc
+*.iml
 cloud-connect-application-log.log
 robot_atg_log
 *~*

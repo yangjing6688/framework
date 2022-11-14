@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.EspAlertWebElements import EspAlertWebElements
 import re
+import json
 
 
 class EspAlert(EspAlertWebElements):
@@ -15,6 +16,44 @@ class EspAlert(EspAlertWebElements):
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
+    def create_alert_policy_dynamic(self,policy,when):
+        """
+        - This can be used in Alert Policy page
+        - Keyword Usage
+         - ``Create Alert Policy Dynamic  ${policy}  ${when}``
+        :return: returns 1 if successfully show configred policies and not configured policies tab else -1
+        - policy attribute
+        -   policy_type: event/metric
+        -   source_parent:
+        -   source:
+        -   trigger_type: immediate
+        -   threshold_operator: GE(>=)/GT(>)/LE(<=)/LT(<)/EQ(=)/NE(!=)
+        -   threshold_input:
+        """
+        sleep(2)
+        self.utils.print_info("Click on <Add New Policy> button")
+        self.auto_actions.click_reference(self.get_add_policy)
+        sleep(2)
+        self.utils.print_info(f"Ticking policy type : {policy.policy_type}")
+        self.auto_actions.click(getattr(self,"get_policy_type_"+policy.policy_type)())
+        self.utils.print_info(f"Selecting category: {policy.source_parent}")
+        self.auto_actions.click_reference(self.get_source_parent)
+        self.auto_actions.click(self.get_source_parent_dynamic(policy.source_parent))
+        self.utils.print_info(f"Selecting source: {policy.source}")
+        self.auto_actions.click_reference(self.get_source)
+        self.auto_actions.click(self.get_source_dynamic(policy.source))
+        if policy.policy_type == 'metric':
+            self.utils.print_info(f'Selecting threshold operator: {policy.threshold_operator}')
+            self.auto_actions.click_reference(self.get_threshold_operator_select)
+            self.auto_actions.click(self.get_threshold_operator_dynamic(policy.threshold_operator))
+            self.utils.print_info(f'Entering threshold: {policy.threshold_input}')
+            self.auto_actions.send_keys(self.get_threshold_input(), policy.threshold_input)
+        self.utils.print_info(f"Ticking trigger type: {policy.trigger_type}")
+        self.auto_actions.click(getattr(self,"get_trigger_type_"+policy.trigger_type)())
+        self.utils.print_info("Clicking save")
+        self.auto_actions.click_reference(self.get_save)
+        sleep(5)
+        return self.find_when_in_configured_grid(when)
     def go_to_policy_and_check_tab(self,configred_title,not_configured_title):
         """
         - Go to policy page and check configured policies and not configured policies tab
@@ -278,6 +317,8 @@ class EspAlert(EspAlertWebElements):
         sleep(2)
     def go_out_alerts(self):
         self.utils.switch_to_default(CloudDriver().cloud_driver)
+    def get_json_from_string(self, json_string):
+        return json.loads(json_string)
     def check_alert_detail(self,summary):
         """
         - Go to policy page and check alert detail exist
