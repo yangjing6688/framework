@@ -161,13 +161,13 @@ class DeviceActionsDefs:
     device_location_ap_node = \
         {
             'CSS_SELECTOR': '.map-node',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_location_floor_map_section = \
         {
             'XPATH': '//div[@data-dojo-attach-point="mapBackground"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     multiple_device_reset_button = \
