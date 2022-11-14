@@ -3807,15 +3807,17 @@ class Devices:
         if rows:
             for row in rows:
                 if device_model in row.text:
+                    formated_row = self.format_row(row.text)
                     if "digital twin" in device_type.lower():
-                        formated_row = self.format_row(row.text)
                         if "New" in formated_row:
                             list_serial.append(formated_row[10])
                         elif "Managed" or "setting up..." in formated_row:
                             list_serial.append(formated_row[11])
                     elif "simulated" in device_type.lower():
-                        formated_row = self.format_row(row.text)
-                        list_serial.append(formated_row[7])
+                        if "Managed" in formated_row:
+                            list_serial.append(formated_row[8])
+                        else:
+                            list_serial.append(formated_row[7])
         return list_serial
 
     def format_row(self, row):

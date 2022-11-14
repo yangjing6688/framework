@@ -1490,7 +1490,7 @@ class Cli(object):
                             0].return_text
                         path_cost_match = re.search(fr"\r\nCist Port cost\s+:\s*(\d+)\s*\r\n", output)
 
-                    elif  NetworkElementConstants.OS_EXOS in device.cli_type.upper():
+                    elif NetworkElementConstants.OS_EXOS in device.cli_type.upper():
                         output = self.networkElementCliSend.send_cmd(
                             device.name, f'show stpd s0 ports {port} detail', max_wait=10, interval=2)[
                             0].return_text
@@ -1517,6 +1517,67 @@ class Cli(object):
             kwargs["fail_msg"] = f"Failed to verify the path cost of port='{port}' on this dut\n{device}"
             self.commonValidation.failed(**kwargs)
             return -1
+
+    def verify_port_removed_from_vlan(self, dut, port, port_type, vlan=None, allowed_vlans="all", **kwargs):
+        """Method that verifies if given port is removed from a specific vlan of a switch.
+        Currently this method supports only devices with cli_type - exos (standalone and stack) or voss.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            port (str): the port of the switch
+            port_type (str): the port type
+            vlan (str, optional): the vlan which is not expected to be found (this argument is used only when cli_type is voss). Defaults to None.
+            allowed_vlans (str, optional): the allowed vlans (should be used when port_type is "trunk"). Defaults to "all".
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        try:
+            self.close_connection_with_error_handling(dut)
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+            
+            if NetworkElementConstants.OS_EXOS in dut.cli_type.upper():
+                if port_type == "access":
+                    try:
+                        output = self.networkElementCliSend.send_cmd(
+                            dut.name, f'show vlan ports {port}', expect_error=True, max_wait=10, interval=2)[0].return_text
+                    except Exception as exc:
+                        self.utils.print_info(f"Successfully verified the {port} port is not member of any VLANs: {repr(exc)}")
+                    else:
+                        expected_error_message = "Error: The specified ports are not members of any VLANs."
+                        assert expected_error_message in output
+
+                elif port_type == "trunk":
+                    
+                    output = self.networkElementCliSend.send_cmd(
+                        dut.name, f'show vlan ports {port}', max_wait=10, interval=2)[0].return_text
+                    
+                    if allowed_vlans != "all":
+                        assert re.search(fr"\r\nVLAN_{allowed_vlans.zfill(4)}\s+{allowed_vlans}\s+", output)
+                    else:
+                        assert re.search(fr"\r\nDefault\s+1\s", output)
+
+            elif NetworkElementConstants.OS_VOSS in dut.cli_type.upper():
+                
+                output = self.networkElementCliSend.send_cmd(dut.name, 'show vlan members',
+                                              max_wait=10, interval=2)[0].return_text
+                assert not re.search(fr"\r\n{vlan}\s+{port}\s+", output)
+                
+                if allowed_vlans != "all":
+                    assert re.search(fr"\r\n{allowed_vlans}\s+{port}\s+", output)
+
+        except Exception as exc:
+            kwargs["fail_msg"] = "Failed to verify that given port is removed from any configured vlan"
+            self.commonValidation.failed(**kwargs)
+            return -1
+        
+        else:
+            kwargs["pass_msg"] = "Successfully verified that given port is removed from any configured vlan"
+            self.commonValidation.passed(**kwargs)
+            return 1
+        
+        finally:
+            self.close_connection_with_error_handling(dut)
 
 
 if __name__ == '__main__':
