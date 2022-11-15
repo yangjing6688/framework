@@ -40,7 +40,6 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         :param create_location: Create new location during onboarding
         :return: 1 if Device Onboarded Sucessfully else -1
         """
-
         self.utils.print_info("Navigate to advance on board tab")
         self._got_to_advanced_onboard_tab()
 
@@ -283,6 +282,9 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         :return:
         """
         self.navigator.navigate_to_onboard_tab()
+        if self.get_advance_onboard_choose_org_continue_button().is_displayed():
+            self.auto_actions.click_reference(self.get_advance_onboard_choose_org_continue_button)
+            sleep(8)
         self.utils.print_info("Clicking Deploy devices directly to the cloud button...")
         self.auto_actions.click_reference(self.get_deploy_devices_to_cloud_radio_button)
         sleep(5)
