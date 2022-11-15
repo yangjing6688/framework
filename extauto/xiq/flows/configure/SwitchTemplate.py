@@ -2360,7 +2360,6 @@ class SwitchTemplate(object):
 
         self.utils.print_info("Select port type " + port_details_port_type_name_value + " from list of port types")
         combo_selected = self._select_port_type(port_details_interface_value, port_details_port_type_name_value)
-
         if combo_selected != 1:
             self.utils.print_info("Port type " + port_details_port_type_name_value + " not found")
             self.utils.print_info("Attempting to create new Port type " + port_details_port_type_name_value)
@@ -2380,12 +2379,13 @@ class SwitchTemplate(object):
         if port_details_port_type_value and port_details_interface_value:
             list_of_interface_elements = self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows()
             if list_of_interface_elements:
+                int_index = -1
                 for an_interface_element in list_of_interface_elements:
+                    int_index = int_index + 1
                     a_port_string = self.sw_template_web_elements.get_sw_template_port_details_row_interface_value(an_interface_element)
                     if a_port_string.text == port_details_interface_value:
                         port_type_element = self.sw_template_web_elements.get_sw_template_port_details_row_combo(an_interface_element)
-                        self.auto_actions.click(port_type_element)
-                        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list)
+                        self.auto_actions.click(port_type_element[int_index])
                         combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
                         for a_combo_element in combo_box_value_elements:
                             if a_combo_element.text == port_details_port_type_value:

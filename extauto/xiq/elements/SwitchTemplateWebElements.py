@@ -568,7 +568,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_elements(self.sw_template_port_details_interface_all_rows)
 
     def get_sw_template_port_details_row_combo(self, parent):
-        return self.weh.get_element(self.sw_template_port_details_row_combo, parent)
+        return self.weh.get_elements(self.sw_template_port_details_row_combo, parent)
 
     def get_sw_template_port_details_row_interface_value(self, parent):
         return self.weh.get_element(self.sw_template_port_details_row_interface_value, parent)
