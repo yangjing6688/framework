@@ -6966,11 +6966,30 @@ class Device360(Device360WebElements):
         else:
             return -1
 
+    def d360_save_port_configuration_all_switches(self):
+        save_btn = self.get_device360_configure_port_save_button()
+        if save_btn:
+            self.utils.print_info("Clicking 'Save Port Configuration' button'")
+            self.auto_actions.click(save_btn)
+            return 1
+        else:
+            self.utils.print_info("Could not click Save button")
+            return -1
+
     def d360_cancel_port_configuration(self):
 
-        get_save_button = self.get_device_d360_cancel_port_configuration()
-        if get_save_button:
-            self.auto_actions.click(get_save_button)
+        get_cancel_button = self.get_device_d360_cancel_port_configuration()
+        if get_cancel_button:
+            self.auto_actions.click(get_cancel_button)
+            self.utils.print_info("Exit the port configuration ")
+            return 1
+        else:
+            return -1
+
+    def d360_cancel_port_configuration_all_switches(self):
+        get_cancel_button_stack = self.get_d360_cancel_port_configuration()
+        if get_cancel_button_stack:
+            self.auto_actions.click(get_cancel_button_stack)
             self.utils.print_info("Exit the port configuration ")
             return 1
         else:
@@ -10856,7 +10875,7 @@ class Device360(Device360WebElements):
                         else:
                             print("Unable to click the element")
 
-                    elif port_usage == 'Phone_Port':
+                    else:
                         if (voice_vlan_phone_port is not None) or (data_vlan_phone_port is not None):
                             """
                              - This keyword will select Vlan settings in Multi Edit when Port usage is Phone Port (D360-Port Configuration)

@@ -2013,6 +2013,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_save_port_configuration(self):
         return self.weh.get_element(self.d360_save_port_configuration)
 
+    def get_d360_cancel_port_configuration(self):
+        return self.weh.get_element(self.d360_cancel_port_configuration_stack)
+
     def get_d360_monitor_mac_locking_interface_edit_button(self):
         return self.weh.get_elements(self.d360_monitor_mac_locking_interface_edit_button)
 

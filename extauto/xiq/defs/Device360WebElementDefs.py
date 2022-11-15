@@ -3182,6 +3182,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    d360_cancel_port_configuration_stack = \
+        {
+            'XPATH': '//div[@class="btn-area"]//button[@data-dojo-attach-point="cancelButton"]',
+            'wait_for': 5
+        }
+
     d360_monitor_mac_locking_interface_edit_button = \
         {
             'XPATH': '//div[@class="mac-locking-global-controls"]//button[@class="btn btn-primary multi-edit-btn"]',
@@ -3772,7 +3778,6 @@ class Device360WebElementDefs:
 
     d360_save_port_configuration_message_multi_edit = \
         {
-            # 'XPATH': '//div[contains(@widgetid,"ah/util/dojocover/AHDialog_0")]//div/i[@data-dojo-attach-point="xEl"]'
             'XPATH': '//div[contains(@widgetid,"ah/util/dojocover/AHDialog_0")]//*[@data-dojo-attach-point="textEl"]',
             'index': 0,
         }
