@@ -1981,7 +1981,7 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-    def onboard_device_quick(self, *device_dict, **kwargs):
+    def onboard_device_quick(self, *device_dict, policy_name=None, **kwargs):
         """
         - This keyword onboards: an aerohive device [AP or Switch], Exos Switch and Voss devices using Quick onboarding flow.
         - Keyword Usage:
@@ -2025,7 +2025,7 @@ class Devices:
                           'neighbour_serial': '06301908310556',
                           'neighbour_mac': '7C95B1005700'}
                 }
-
+        :param policy_name: Name of policy that would be used when onbaording a device
         :return:  1 if onboarding success
         :return: -1 for errors
         """
@@ -2106,9 +2106,18 @@ class Devices:
         if location:
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
+            self.screen.save_screen_shot()
+            sleep(2)
 
-        self.screen.save_screen_shot()
-        sleep(2)
+        if policy_name:
+            self.utils.print_info("Selecting policy '" + policy_name + "'")
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down)
+            sleep(2)
+            self.screen.save_screen_shot()
+            self.auto_actions.select_drop_down_options(self.devices_web_elements.
+                                                       get_devices_quick_add_policy_drop_down_items(), policy_name)
+            sleep(2)
+
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
@@ -2227,6 +2236,15 @@ class Devices:
         :return:  1 if validate success
         :return: -1 for error : one or more arguments are missing
         """
+        support_onboard_device_types = ["real","simulated","digital twin"]
+
+        if device_type is None or device_type.lower() not in support_onboard_device_types:
+            kwargs['fail_msg'] = f"The onboarding device type '[{device_type}]' is not not a supported type." \
+                                 f" onboarding_device_type should be one of the following types:" \
+                                 f" {support_onboard_device_types}"
+            self.common_validation.fault(**kwargs)
+            return -1
+
         if device_type.lower() == "real":
             if entry_type.lower() == "manual":
                 if device_serial is None or device_make is None or location is None:
