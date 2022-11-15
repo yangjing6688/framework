@@ -4,7 +4,6 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.MspWebElements import MspWebElements
-from extauto.xiq.flows.manage.Devices import *
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.common.CommonValidation import CommonValidation
 
