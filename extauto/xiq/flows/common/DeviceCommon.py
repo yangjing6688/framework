@@ -585,7 +585,7 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("Client link is not available")
-                kwargs['fail_msg'] = "'is_client_link_available()' -> Client link is not available""
+                kwargs['fail_msg'] = "'is_client_link_available()' -> Client link is not available"
                 self.common_validation.failed(**kwargs)
                 return -1
 
