@@ -101,3 +101,6 @@ class AdvanceOnboardingWebElements(AdvanceOnboardingDefinitions):
 
     def get_advance_onboard_mac_textfield(self):
         return self.weh.get_element(self.advance_onboard_mac_address_textfield)
+
+    def get_advance_onboard_choose_org_continue_button(self):
+        return self.weh.get_element(self.advance_onboard_choose_org_continue_button)
