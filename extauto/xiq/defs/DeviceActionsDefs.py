@@ -83,61 +83,61 @@ class DeviceActionsDefs:
     assign_devices_search_box = \
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-assign-location-search-field"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     search_location_grid = \
         {
             'XPATH': '//*[@data-dojo-attach-point="mapTree"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnAssign"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     locations_generic = \
         {
             'XPATH': '//*[@data-folder-type="GENERIC"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     locations_building = \
         {
             'XPATH': '//*[@data-folder-type="BUILDING"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     locations_floors = \
         {
             'XPATH': '//*[@data-folder-type="FLOOR"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_search_location = \
         {
             'XPATH': '//*[@data-folder-type="GENERIC"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_search_building = \
         {
             'XPATH': '//*[@data-folder-type="BUILDING"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_search_building_expand = \
         {
             'XPATH': '//*[@data-folder-type="BUILDING"]//span[@class="plan-leftnav oc-icon"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_search_floors = \
         {
             'XPATH': '//*[@data-folder-type="FLOOR"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_actions__change_management_status = \
@@ -149,7 +149,7 @@ class DeviceActionsDefs:
     assign_location_select_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnSelect"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     clear_audit_mismatch_button = \
@@ -161,13 +161,13 @@ class DeviceActionsDefs:
     device_location_ap_node = \
         {
             'CSS_SELECTOR': '.map-node',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_location_floor_map_section = \
         {
             'XPATH': '//div[@data-dojo-attach-point="mapBackground"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     multiple_device_reset_button = \
