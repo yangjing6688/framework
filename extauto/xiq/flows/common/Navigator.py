@@ -2400,10 +2400,14 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting Extreme AirDefence Menu...")
         if self.auto_actions.click_reference(self.get_essentials_menu):
             self.utils.print_info("Clicked Extreme Airdefense Menu")
+            kwargs['fail_msg'] = "'rbac_user_navigate_to_extreme_airdefence_helpdesk()' -> Clicked Extreme Airdefense Menu"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
             self.utils.print_info("Did not find Extreme AirDefence Menu...")
             sleep(5)
+            kwargs['pass_msg'] = "Did not find Extreme AirDefence Menu..."
+            self.common_validation.passed(**kwargs)
             return 1
 
     def navigate_to_configure_users_subtab_users(self, **kwargs):

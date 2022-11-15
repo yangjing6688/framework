@@ -76,7 +76,7 @@ class Login:
         """
         return self.window_index
 
-    def enable_exos_status_on_xiq(self, url):
+    def enable_exos_status_on_xiq(self, url, **kwargs):
         """
         - for Exos switch to appear in UI we need to load the provided url
         - Keyword Usage:
@@ -89,6 +89,8 @@ class Login:
         CloudDriver().cloud_driver.get(url)
         CloudDriver().cloud_driver.refresh()
         sleep(5)
+        kwargs['pass_msg'] = "The url was loaded successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
@@ -191,6 +193,8 @@ class Login:
             else:
                 pass
             sleep(5)
+            kwargs['pass_msg'] = "Login successful"
+            self.common_validation.passed(**kwargs)
             return 1
         self.utils.print_info("Entering Username...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
@@ -318,10 +322,14 @@ class Login:
             pass
 
         if ignore_map:
+            kwargs['pass_msg'] = "Login successful"
+            self.common_validation.passed(**kwargs)
             return 1
 
         device_page_found = self.nav_web_elements.get_devices_page()
         if device_page_found:
+            kwargs['pass_msg'] = "Device page found"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Current page is not the Manage Devices Page...login process not completed")
@@ -384,7 +392,7 @@ class Login:
         self.common_validation.passed(**kwargs)
         return 1
 
-    def quit_browser(self, _driver=None):
+    def quit_browser(self, _driver=None, **kwargs):
         """
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
@@ -397,6 +405,8 @@ class Login:
 
         if _driver:
             _driver.quit()
+            kwargs['pass_msg'] = "Quit browser Successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         # stop tool tip text capture thread
@@ -404,6 +414,8 @@ class Login:
             if self.t1.is_alive():
                 self.t1.do_run = False
                 sleep(10)
+            kwargs['pass_msg'] = "Quit browser Successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
@@ -483,7 +495,7 @@ class Login:
         else:
             return self._init(url)
 
-    def set_password(self, new_pwd):
+    def set_password(self, new_pwd, **kwargs):
         """
         - Assumes that set password url is already opened
         - Set new password for the account
@@ -516,9 +528,11 @@ class Login:
 
         self.screen.save_screen_shot()
         sleep(2)
+        kwargs['pass_msg'] = "Set the Password Successfully for the Account"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def reset_password(self, new_pwd):
+    def reset_password(self, new_pwd, **kwargs):
         """
         - Assumes that reset password url browser is opened
         - Reset the user account password
@@ -543,6 +557,8 @@ class Login:
         self.auto_actions.click_reference(self.pw_web_elements.get_reset_password_button)
         sleep(2)
 
+        kwargs['pass_msg'] = "Reset the Password Successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def forgot_password(self, _email, url='default', **kwargs):
@@ -635,7 +651,7 @@ class Login:
 
         return xiq_version
 
-    def reset_password_for_new_customer(self, password, url="default"):
+    def reset_password_for_new_customer(self, password, url="default", **kwargs):
         """
         - Reset password for xiq account with passed reset password url link
         - Keyword Usage:
@@ -664,6 +680,8 @@ class Login:
 
         got_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title on Reset password Page: ", got_title)
+        kwargs['pass_msg'] = "Reset the Password For New Account Successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def get_switch_connection_host(self, **kwargs):
@@ -701,7 +719,7 @@ class Login:
                               f" The following was found '{switch_connection_host}'"
             self.common_validation.failed(**kwargs)
 
-    def get_viq_id(self):
+    def get_viq_id(self, **kwargs):
         """
         - This method is used to get the build id or owner id
         - Keyword Usage:
@@ -723,9 +741,11 @@ class Login:
         self.utils.print_info("Close About Extreme cloudIQ Link Dialogue Page")
         self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
 
+        kwargs['pass_msg'] = "Got the build id or owner id successfully"
+        self.common_validation.passed(**kwargs)
         return viq_id
 
-    def get_base_url_of_current_page(self):
+    def get_base_url_of_current_page(self, **kwargs):
         """
         - This Keyword is used to get the url of current loaded page
         - Keyword Usage:
@@ -733,6 +753,8 @@ class Login:
         :return: current page url
         """
         base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', CloudDriver().cloud_driver.current_url)
+        kwargs['pass_msg'] = "Got the url of current loaded page successfully"
+        self.common_validation.passed(**kwargs)
         return base_url.group()
 
     def get_current_page_url(self):
@@ -811,6 +833,8 @@ class Login:
         """
         if _driver:
             _driver.quit()
+            kwargs['pass_msg'] = "Closed all the browser windows and ends the WebDriver session successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         try:
@@ -820,6 +844,8 @@ class Login:
             self.utils.print_info("Resetting cloud driver to -1")
             # extauto.common.CloudDriver.cloud_driver = -1
             # CloudDriver().cloud_driver = None
+            kwargs['pass_msg'] = "Closed all the browser windows and ends the WebDriver session successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         except Exception as e:
@@ -960,6 +986,9 @@ class Login:
 
         if capture_version:
             self._capture_xiq_version()
+
+        kwargs['pass_msg'] = "Login Xiq account with username and password successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def select_welcome_page_option(self, login_option, ekey, sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid,
@@ -1075,6 +1104,8 @@ class Login:
                     self.utils.print_info("Click on I Agree and Submit on Second TOS...")
                     self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_agree)
                     self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_submit)
+                kwargs['pass_msg'] = "Login is successful"
+                self.common_validation.passed(**kwargs)
                 return 1
             except Exception as e:
                 pass
@@ -1103,6 +1134,8 @@ class Login:
             self.auto_actions.click_reference(self.login_web_elements.get_upgrade_link)
             sleep(5)
             self.utils.print_info("Clicking on Upgrade btn, navigates user to license management.")
+            kwargs['pass_msg'] = "Upgrade button is displayed and clicking on upgrade button"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Upgrade Button is not shown for Connect User.")
@@ -1174,6 +1207,8 @@ class Login:
                     sleep(3)
             except Exception as e:
                 pass
+            kwargs['pass_msg'] = "Linking is successful."
+            self.common_validation.passed(**kwargs)
             return 1
 
         else:
@@ -1183,7 +1218,7 @@ class Login:
             self.common_validation.failed(**kwargs)
             return -1
 
-    def login_for_first_time(self):
+    def login_for_first_time(self, **kwargs):
         """
             - This keyword used to login for the first time user based on option provided in test case
             - If option is not specified, default option of "30-days trial" is selected.
@@ -1256,6 +1291,8 @@ class Login:
 
         self.screen.save_screen_shot()
         sleep(2)
+        kwargs['pass_msg'] = "Login for the first time is sucessful"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
@@ -1822,6 +1859,8 @@ class Login:
             self.utils.print_info("Found LOGOUT button!")
             self.auto_actions.click(log_out_button_portal)
             self.utils.print_info("Successfully logged out!")
+            kwargs['pass_msg'] = "Successfully logged out!"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to find LOGOUT button.")
@@ -1915,7 +1954,7 @@ class Login:
             return 1
         # return 1 < This code is unreachable?
 
-    def xiq_soft_launch_feature_url(self, url):
+    def xiq_soft_launch_feature_url(self, url, **kwargs):
         # xiq_enable_hidden_feature
         """
         - XIQ uses a URL to enable or disable a 'soft launch' (beta) feature.
@@ -1927,6 +1966,8 @@ class Login:
         self.utils.print_info(f"Load Page: {url}")
         CloudDriver().cloud_driver.get(url)
         sleep(5)
+        kwargs['pass_msg'] = "The url was loaded successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def switch_to_extreme_guest_window(self, win_index=1):
