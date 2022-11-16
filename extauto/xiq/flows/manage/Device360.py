@@ -12827,3 +12827,22 @@ class Device360(Device360WebElements):
             return connected_ports
         finally:
             self.exit_d360_Page()
+
+    def verify_port_names(self, **kwargs):
+        """
+        Verifies that the port details of slot 1 are displayed by default.
+        """
+        first_order_rows = [r.text for r in self.get_device360_port_table_rows()]
+        first_port_names = [r.split(" ")[0] for r in first_order_rows]
+        print(f"Found these port names in the table: {first_port_names}")
+
+        for port_name in first_port_names:
+            print(f"Port name: {port_name}")
+            if not re.match(r"1:(\d+|mgmt)", port_name):
+                # pytest.fail('At least one port displayed is not from Slot 1')
+                kwargs["fail_msg"] = "At least one port displayed is not from Slot 1"
+                self.common_validation.failed(**kwargs)
+                return -1
+        # logger.info(f"All ports displayed by default are from Slot 1")
+        kwargs["pass_msg"] = "All ports displayed by default are from Slot 1"
+        self.common_validation.passed(**kwargs)

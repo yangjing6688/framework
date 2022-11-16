@@ -2054,6 +2054,24 @@ class Cli(object):
         finally:
             self.close_connection_with_error_handling(dut)
 
+    def get_master_slot(self, onboarded_stack, **kwargs):
+        output = self.networkElementCliSend.send_cmd(onboarded_stack.name, "show stacking")[0].return_text
+        rows = output.split("\r\n")
+        for row in rows:
+            slot = re.search(r"\s+.*\s+(\d+)\s+", row)
+
+            if not slot:
+                continue
+
+            slot = slot.group(1)
+
+            if 'Master' in row:
+                kwargs["pass_msg"] = f"Slot: {slot}"
+                self.commonValidation.passed(**kwargs)
+                return slot
+        kwargs["fail_msg"] = "get_master_slot() failed."
+        self.commonValidation.failed(**kwargs)
+        # return -1
 
 if __name__ == '__main__':
     from pytest_testconfig import *
