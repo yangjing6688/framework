@@ -391,3 +391,6 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_admin_portal_page(self):
         return self.weh.get_element(self.admin_portal_page)
+
+    def get_external_admin_manage_my_network_button(self):
+        return self.weh.get_element(self.cancel_button)

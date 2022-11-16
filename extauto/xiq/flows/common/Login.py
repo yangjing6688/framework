@@ -228,14 +228,19 @@ class Login:
 
         if self.login_web_elements.get_admin_portal_page().is_displayed():
             account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
-            self.utils.print_info(f"Selecting the Account Name {account_name} in Admin Portal")
+            if account_name:
+                self.utils.print_info(f"Selecting the Account Name {account_name} in Admin Portal")
 
-            account_names = self.login_web_elements.get_external_admin_account_names()
-            for account in account_names:
-                if account_name in account.text:
-                    self.auto_actions.click(account)
-                    sleep(10)
-                    break
+                account_names = self.login_web_elements.get_external_admin_account_names()
+                for account in account_names:
+                    if account_name in account.text:
+                        self.auto_actions.click(account)
+                        sleep(10)
+                        break
+            else:
+                self.utils.print_info(f"External Account Name Not Mentioned.So Continuing with managing own network")
+                self.auto_actions.click_reference(self.login_web_elements.get_external_admin_manage_my_network_button)
+                pass
 
         view_org_button = self.msp_web_elements.get_view_organization_button()
         if view_org_button.is_displayed():
