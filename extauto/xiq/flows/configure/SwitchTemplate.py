@@ -2291,7 +2291,6 @@ class SwitchTemplate(object):
             return -1
 
         self.utils.print_info("Save switch template")
-        save_button = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
         self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_save_button_adv_tab)
         kwargs["pass_msg"] = "Configuring switching template options complete"
         self.common_validation.passed(**kwargs)
@@ -2409,7 +2408,6 @@ class SwitchTemplate(object):
         self.utils.print_info("Processing Port Name and Usage tab")
         self.create_new_port_type_port_name_and_usage(port_details_interface_value, port_details_port_type_value, switch_profile, **kwargs)
 
-        next_button = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_next()
         self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_next)
         new_port_type_saved = False
         prevent_infinite_loop = 10
@@ -2442,7 +2440,6 @@ class SwitchTemplate(object):
             if active_tab == 'summary':
                 self.utils.print_info("Processing the Summary tab")
                 self.utils.print_info("Saving New Port Type")
-                save_button = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_save()
                 self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_save)
                 new_port_type_saved = True
 
@@ -2495,10 +2492,8 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
         self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_search_button)
-        sleep(2)
 
         self.utils.print_info("Attempting to locate Device Template table")
-        device_switch_popup_close_button = self.sw_template_web_elements.get_sw_template_selection_cancel_button()
         search_table = self.sw_template_web_elements.get_sw_template_selection_grid()
         if not search_table:
             kwargs["fail_msg"] = "Unable to locate table"
@@ -2572,7 +2567,6 @@ class SwitchTemplate(object):
             return -1
 
         self.utils.print_info("Save switch template")
-        # save_button = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
         self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_save_button_adv_tab)
         kwargs["pass_msg"] = "Switch template has been saved"
         self.common_validation.passed(**kwargs)
@@ -2966,7 +2960,10 @@ class SwitchTemplate(object):
 
         type_value = transmission_setting_dictionary.get('type')
         speed_value = transmission_setting_dictionary.get('speed')
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow, timeout=20, delay=4)
         duplex_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow()
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow,
+                             timeout=20, delay=4)
         speed_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow()
         if type_value:
             if not duplex_arrow_element:
@@ -2974,7 +2971,12 @@ class SwitchTemplate(object):
                 self.common_validation.failed(**kwargs)
                 return -1
             self.utils.print_info("Selecting " + type_value + " option in the duplex combo box")
-            self.auto_actions.click(duplex_arrow_element)
+
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(duplex_arrow_element),
+                exp_func_resp=True,
+                delay=4
+            )
             combo_box_value_container = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_options_container()
             combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow_options(combo_box_value_container)
             for a_combo_element in combo_box_value_elements:
@@ -2986,7 +2988,12 @@ class SwitchTemplate(object):
                 self.common_validation.failed(**kwargs)
                 return -1
             self.utils.print_info("Selecting " + speed_value + " option in the speed combo box")
-            self.auto_actions.click(speed_arrow_element)
+
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(speed_arrow_element),
+                exp_func_resp=True,
+                delay=4
+            )
             combo_box_value_container = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_options_container()
             combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow_options(combo_box_value_container)
             for a_combo_element in combo_box_value_elements:
