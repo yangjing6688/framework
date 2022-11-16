@@ -1981,7 +1981,7 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-    def onboard_device_quick(self, *device_dict, **kwargs):
+    def onboard_device_quick(self, *device_dict, policy_name=None, **kwargs):
         """
         - This keyword onboards: an aerohive device [AP or Switch], Exos Switch and Voss devices using Quick onboarding flow.
         - Keyword Usage:
@@ -2025,7 +2025,7 @@ class Devices:
                           'neighbour_serial': '06301908310556',
                           'neighbour_mac': '7C95B1005700'}
                 }
-
+        :param policy_name: Name of policy that would be used when onbaording a device
         :return:  1 if onboarding success
         :return: -1 for errors
         """
@@ -2094,21 +2094,30 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "simulated":
-            list_initial_simulated_serial = self.get_device_model_serial_numbers(device_model=device_model, device_type=device_type)
+            list_initial_simulated_serial = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_simulated(device_model, device_count) != 1:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            list_initial_serial_dt = self.get_device_model_serial_numbers(device_model=device_model, device_type=device_type)
+            list_initial_serial_dt = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
         if location:
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
+            self.screen.save_screen_shot()
+            sleep(2)
 
-        self.screen.save_screen_shot()
-        sleep(2)
+        if policy_name:
+            self.utils.print_info("Selecting policy '" + policy_name + "'")
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down)
+            sleep(2)
+            self.screen.save_screen_shot()
+            self.auto_actions.select_drop_down_options(self.devices_web_elements.
+                                                       get_devices_quick_add_policy_drop_down_items(), policy_name)
+            sleep(2)
+
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
@@ -2166,7 +2175,7 @@ class Devices:
             models = device_model.split(",")
             self.utils.print_info("Models: ", models)
             for model in models:
-                list_final_simulated_serial = self.get_device_model_serial_numbers(device_model=model, device_type=device_type )
+                list_final_simulated_serial = self.get_device_serial_numbers(model)
                 simulated_global_variable = "${" + name + ".serial}"
                 simulated_global_variable_list = []
                 for i in list_final_simulated_serial:
@@ -2193,7 +2202,7 @@ class Devices:
             sleep(100)  # this sleep is put until the bug XIQ-11770 is solved, then I will review the code and delete this sleep
             self.refresh_devices_page()
             for model in models:
-                list_final_dt_serial = self.get_device_model_serial_numbers(device_model=model, device_type=device_type)
+                list_final_dt_serial = self.get_device_serial_numbers(model)
                 dt_global_variable = "${" + name + ".serial}"
                 for i in list_final_dt_serial:
                     if i not in list_initial_serial_dt:
@@ -2227,6 +2236,15 @@ class Devices:
         :return:  1 if validate success
         :return: -1 for error : one or more arguments are missing
         """
+        support_onboard_device_types = ["real","simulated","digital twin"]
+
+        if device_type is None or device_type.lower() not in support_onboard_device_types:
+            kwargs['fail_msg'] = f"The onboarding device type '[{device_type}]' is not not a supported type." \
+                                 f" onboarding_device_type should be one of the following types:" \
+                                 f" {support_onboard_device_types}"
+            self.common_validation.fault(**kwargs)
+            return -1
+
         if device_type.lower() == "real":
             if entry_type.lower() == "manual":
                 if device_serial is None or device_make is None or location is None:
@@ -3807,15 +3825,17 @@ class Devices:
         if rows:
             for row in rows:
                 if device_model in row.text:
+                    formated_row = self.format_row(row.text)
                     if "digital twin" in device_type.lower():
-                        formated_row = self.format_row(row.text)
                         if "New" in formated_row:
                             list_serial.append(formated_row[10])
                         elif "Managed" or "setting up..." in formated_row:
                             list_serial.append(formated_row[11])
                     elif "simulated" in device_type.lower():
-                        formated_row = self.format_row(row.text)
-                        list_serial.append(formated_row[7])
+                        if "Managed" in formated_row:
+                            list_serial.append(formated_row[8])
+                        else:
+                            list_serial.append(formated_row[7])
         return list_serial
 
     def format_row(self, row):

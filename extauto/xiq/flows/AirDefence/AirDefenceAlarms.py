@@ -7,17 +7,18 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.AdspWebElements import AdspWebElements
 from extauto.xiq.flows.common.Login import Login
+from extauto.common.CommonValidation import CommonValidation
 
 
 class AirDefenceAlarms(AdspWebElements):
     def __init__(self):
         super().__init__()
         self.navigator = Navigator()
-        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.screen = Screen()
         self.utils = Utils()
         self.login = Login()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
 
     def get_adsp_alarm_details(self, search_string, page_size=250):
         """
@@ -68,10 +69,10 @@ class AirDefenceAlarms(AdspWebElements):
             self.utils.print_info(alarm_details)
             return alarm_details
 
-    def check_location_assigned_to_ap_in_adess(self, device_serial, dev_location):
+    def check_location_assigned_to_ap_in_adess(self, device_serial, dev_location, **kwargs):
         """
         - This Keyword Will check new location assigned to AP in ADESS Sensor page
-        - Flow: Extreme AirDefense--> More Insights--> Sensor page--> New location assgined to AP
+        - Flow: Extreme AirDefense--> More Insights--> Sensor page--> New location assigned to AP
         - Keyword Usage:
          - ``Check Location Assigned to AP in ADESS     ${AP1_SERIAL}       ${NEW_LOCATION}``
 
@@ -99,7 +100,7 @@ class AirDefenceAlarms(AdspWebElements):
         self.utils.print_info("Clicking search button on adsp sensor page")
         self.auto_actions.click_reference(self.get_search_adsp_sensor_page)
 
-        self.utils.print_info("Seraching serial number in ADSP Sensor page")
+        self.utils.print_info("Searching serial number in ADSP Sensor page")
         self.auto_actions.send_keys(self.get_serial_to_adsp_sensor_page(), device_serial)
 
         location_list = dev_location.split(',')
@@ -109,10 +110,13 @@ class AirDefenceAlarms(AdspWebElements):
         self.utils.print_info("Device location from ADSP Sensor page: ", observed_location)
 
         if expected_location.strip() in observed_location:
-            self.utils.print_info("Edited/Assigned Location is successfully seen in ADSP Sensor page")
+            kwargs['pass_msg'] = "Edited/Assigned Location is successfully seen in ADSP Sensor page"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Edited/Assigned Location cannot be seen in ADSP Sensor page")
+            kwargs['fail_msg'] = "check_location_assigned_to_ap_in_adess() failed." \
+                                 "Edited/Assigned Location cannot be seen in ADSP Sensor page"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def get_adsp_alarm_grid_row(self, search_string):
@@ -126,14 +130,15 @@ class AirDefenceAlarms(AdspWebElements):
             if search_string in row.text:
                 return row
 
-    def check_error_msg_when_adess_not_enabled(self, url="default", incognito_mode="False"):
+    def check_error_msg_when_adess_not_enabled(self, url="default", incognito_mode="False", **kwargs):
         """
         - This Keyword Will check for Auth Error in ADESS Page When ADESS is not Enabled
         - Flow: Extreme AirDefense--> Open New Tab--> Load ADESS URL--> Check Auth Error
         - Keyword Usage:
          - ``Check Error Msg When ADESS Not Enabled     ${URL}``
 
-        :param url: url of AD Essential appliction
+        :param url: url of AD Essential application
+        :param incognito_mode: set to False by default
         :return: 1 if expected auth error is successfully seen in AD Essentials page else -1
         """
 
@@ -154,16 +159,19 @@ class AirDefenceAlarms(AdspWebElements):
         self.screen.save_screen_shot()
 
         if "AirDefense Essential Service not enabled" in observed_auth_error:
-            self.utils.print_info("Expected Auth Error is Seen: ", observed_auth_error)
+            kwargs['pass_msg'] = f"Expected Auth Error is Seen: {observed_auth_error}"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Not Able to See Appropriate Auth Error or Auth Error is not seen")
+            kwargs['fail_msg'] = "check_error_msg_when_adess_not_enabled() failed." \
+                                 "Not Able to See Appropriate Auth Error or Auth Error is not seen"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def check_ap_in_adess_device_view_page(self, device_serial):
+    def check_ap_in_adess_device_view_page(self, device_serial, **kwargs):
         """
         - This Keyword Will check new location assigned to AP in ADESS Sensor page
-        - Flow: Extreme AirDefense--> More Insights--> Sensor page--> New location assgined to AP
+        - Flow: Extreme AirDefense--> More Insights--> Sensor page--> New location assigned to AP
         - Keyword Usage:
          - ``Check AP in ADESS Device View Page     ${AP1_SERIAL}``
 
@@ -190,7 +198,7 @@ class AirDefenceAlarms(AdspWebElements):
         self.utils.print_info("Clicking search button on adsp sensor page")
         self.auto_actions.click_reference(self.get_search_adsp_sensor_page)
 
-        self.utils.print_info("Seraching serial number in ADSP Sensor page")
+        self.utils.print_info("Searching serial number in ADSP Sensor page")
         self.auto_actions.send_keys(self.get_serial_to_adsp_sensor_page(), device_serial)
 
         observed_ap_serial = self.get_ap_serial_from_adsp().text
@@ -198,10 +206,12 @@ class AirDefenceAlarms(AdspWebElements):
         self.utils.print_info("Observed serial number from ADSP Sensor page: ", observed_ap_serial)
 
         if observed_ap_serial.strip() in device_serial:
-            self.utils.print_info("AP is successfully seen in ADSP Sensor page")
+            kwargs['pass_msg'] = "AP is successfully seen in ADSP Sensor page"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("AP cannot be seen in ADSP Sensor page")
+            kwargs['fail_msg'] = "check_ap_in_adess_device_view_page() failed. AP cannot be seen in ADSP Sensor page"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def _go_to_adsp_alarm_page(self):
@@ -248,7 +258,7 @@ class AirDefenceAlarms(AdspWebElements):
         self.screen.save_screen_shot()
         sleep(2)
 
-    def clear_all_adsp_alarms(self, search_filter=None, page_size=250):
+    def clear_all_adsp_alarms(self, search_filter=None, page_size=250, **kwargs):
         """
         - This Keyword Will Clear all ADSP Alarms generated in the past
         - Flow: Extreme AirDefense--> More Insights
@@ -303,11 +313,14 @@ class AirDefenceAlarms(AdspWebElements):
             self.utils.print_info("Switch to parent ADSP tab")
             CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
 
+            kwargs['pass_msg'] = "Deleted All adsp alarms successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("ADSP alarms rows not present in the grid")
-            self.utils.print_info("Switch to new ADSP tab")
             CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
+            kwargs['fail_msg'] = "clear_all_adsp_alarms() failed. " \
+                                 "ADSP alarms rows not present in the grid. Switched to new ADSP tab"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def get_total_adsp_alarm_count(self):
@@ -415,7 +428,7 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(2)
         return True
 
-    def change_wireless_thread_detection_status(self, wips_policy_name, status):
+    def change_wireless_thread_detection_status(self, wips_policy_name, status, **kwargs):
         """
         - Selects the WIPS Policy row and changes the wireless thread detection Status
         - Flow: Extreme AirDefense---> Settings
@@ -424,7 +437,7 @@ class AirDefenceAlarms(AdspWebElements):
 
         :param wips_policy_name: WIPS Policy name
         :param status: wireless thread detection status to change either ON/OFF
-        :return: return 1 if Wips Policy found and changed the status else False
+        :return: return 1 if Wips Policy found and changed the status else -1
         """
 
         self._go_to_adsp_settings_page()
@@ -461,17 +474,23 @@ class AirDefenceAlarms(AdspWebElements):
                 self.utils.print_info("Click Ok button to confirm")
                 self.auto_actions.click_reference(self.get_adsp_wireless_thread_detection_ok_button)
                 sleep(2)
-                return 1
-        return False
 
-    def Rbac_user_wips_profile_click_status(self, user, wips_policy_name):
+                kwargs['pass_msg'] = "Wips Policy found and status was changed!"
+                self.common_validation.passed(**kwargs)
+                return 1
+
+        kwargs['fail_msg'] = "change_wireless_thread_detection_status() failed. Failed to change status for Wips Policy"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def rbac_user_wips_profile_click_status(self, user, wips_policy_name, **kwargs):
         """
         - Flow: Extreme AirDefense--> Settings page
         - Check the Read Only status of WIPS profile button in settings page
         - Keyword Usage:
          - ``Rbac user wips profile_click_status   ${user} ${WIPS_POLICY_NAME}``
         :param user: Monitor,operator etc
-        :param WIPS_POLICY_NAME: WIPS policy name
+        :param wips_policy_name: WIPS policy name
         :return: WIPS profile button click status(Enabled/Disabled)
         """
         self.utils.print_info("Click on Settings Button")
@@ -486,16 +505,18 @@ class AirDefenceAlarms(AdspWebElements):
                     for cell in cells:
                         flag = cell.get_attribute("disabled")
                         if flag:
-                            self.utils.print_info("click Button is disabled for the wips policy ", row.text)
                             self.screen.save_screen_shot()
                             sleep(2)
+                            kwargs['pass_msg'] = f"Successfully disabled click button for wips policy {row.text}!"
+                            self.common_validation.passed(**kwargs)
                             return 1
                         else:
-                            self.utils.print_info("click Button is Enabled for the wips policy ", row.text)
                             self.screen.save_screen_shot()
                             sleep(2)
+                            kwargs['fail_msg'] = f"rbac_user_wips_profile_click_status() failed." \
+                                                 f"Click Button is Enabled for the wips policy {row.text}"
+                            self.common_validation.failed(**kwargs)
                             return -1
-
 
     def get_total_adsp_alarm_count_helpdesk(self):
         """
@@ -564,12 +585,12 @@ class AirDefenceAlarms(AdspWebElements):
             self.utils.print_info("User Already Subscribed ADESS Page")
         return 1
 
-    def check_subscription_of_ADEssentials_page(self):
+    def check_subscription_of_ADEssentials_page(self, **kwargs):
         """
         -This keyword Will Check Extreme AD Essentials Page is Subscribed or Not after Reset VIQ
         - Flow: Login to XIQ -> Click Extreme Airdefense Icon -> Check Subscription Status
 
-        :return: 1 if not subscribed
+        :return: 1 if not subscribed, else -1
         """
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
@@ -580,16 +601,12 @@ class AirDefenceAlarms(AdspWebElements):
         sleep(2)
 
         if self.get_adsp_subscribe_page().is_displayed():
-            self.utils.print_info("AD Essentials Subscription Page is Visible")
-            sleep(3)
-
             self.screen.save_screen_shot()
             sleep(2)
+            kwargs['pass_msg'] = "AD Essentials Subscription Page is Visible"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Check for Auth Error or User Already Subscribed to Extreme AD Essentials")
-            sleep(3)
-
-            self.screen.save_screen_shot()
-            sleep(2)
+            kwargs['fail_msg'] = "Check for Auth Error or User Already Subscribed to Extreme AD Essentials"
+            self.common_validation.failed(**kwargs)
             return -1
