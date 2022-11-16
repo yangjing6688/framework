@@ -663,3 +663,9 @@ class LoginWebElementsDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="manageMyNetwork"]',
             'wait_for': 15,
         }
+
+    external_admin_account_name_search_field = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="multipleVHMsFilter"]',
+            'wait_for': 20,
+        }
