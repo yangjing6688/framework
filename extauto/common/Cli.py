@@ -1518,6 +1518,34 @@ class Cli(object):
             self.commonValidation.failed(**kwargs)
             return -1
 
+    def check_lacp_dut(self, dut, lacp_list_ports):
+        """
+        Used for checking lacp on the switch matches the reference list:
+        dut - device to test
+        lacp_list_ports = ["port1, "port2", "port3", "port4", ...]
+        """
+
+        for attempts in range(3):
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show configuration | i sharing',
+                                          max_wait=10, interval=2)
+
+            p = re.compile(r'\d:\d+-\d:\d+|\d:\d+,\d:\d+|\d:\d+-\d+', re.M)
+            lacp_list_ports_from_dut = re.findall(p, output[0].return_text)
+
+            for i in range(0, len(lacp_list_ports), 2):
+                if lacp_list_ports[i] + '-' + lacp_list_ports[i+1] in lacp_list_ports_from_dut:
+                    lacp_list_ports_from_dut.remove(lacp_list_ports[i] + '-' + lacp_list_ports[i+1])
+                elif lacp_list_ports[i] + '-' + lacp_list_ports[i+1].split(":")[1] in lacp_list_ports_from_dut:
+                    lacp_list_ports_from_dut.remove(lacp_list_ports[i] + '-' + lacp_list_ports[i+1].split(":")[1])
+                elif lacp_list_ports[i] + ',' + lacp_list_ports[i+1] in lacp_list_ports_from_dut:
+                    lacp_list_ports_from_dut.remove(lacp_list_ports[i] + ',' + lacp_list_ports[i+1])
+                else:
+                    return False
+
+            if len(lacp_list_ports_from_dut) == 0:
+                return True
+        return False
+
 
 if __name__ == '__main__':
     from pytest_testconfig import *

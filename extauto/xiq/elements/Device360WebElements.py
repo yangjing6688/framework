@@ -2216,11 +2216,14 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_aggregate_selected_port(self, port):
         return self.weh.get_template_element(self.device360_aggregate_selected_port, port=port)
 
-    def get_device360_stack_slot_vim_ports(self, slot):
-        return self.weh.get_template_elements(self.device360_stack_slot_vim_ports, slot=slot)
+    def get_device360_stack_slot_vim_ports(self):
+        return self.weh.get_elements(self.device360_stack_slot_vim_ports)
 
     def get_device360_get_ports_by_type_slot(self, type, slot):
         return self.weh.get_template_elements(self.device360_get_ports_by_type_slot, type=type, slot=slot)
 
     def get_common_cancel_button(self):
         return self.weh.get_element(self.common_cancel_button)
+
+    def get_device360_stack_slot_sfp_ports(self):
+        return self.weh.get_elements(self.device360_stack_slot_sfp_ports)

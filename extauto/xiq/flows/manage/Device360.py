@@ -11687,3 +11687,306 @@ class Device360(Device360WebElements):
         kwargs["pass_msg"] = "Successfully configured the stp settings"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def device360_get_stack_ports_by_type(self, port_type, **kwargs):
+        """
+            Keyword used to get all the ports of type vim or sfp from stack device
+            port_type: vim or sfp
+            :return: On success: list of all ports ex: [1:59, 1:60,..], on Failure False
+        """
+        ret_ports = []
+        if port_type == "vim":
+            ports = self.get_device360_stack_slot_vim_ports()
+        elif port_type == "sfp":
+            ports = self.get_device360_stack_slot_sfp_ports()
+        else:
+            kwargs['fail_msg'] = f"'device360_get_stack_ports_by_type()' failed. port_type {port_type} not suported "
+            self.common_validation.failed(**kwargs)
+            return False
+        if not ports:
+            kwargs['fail_msg'] = f"'device360_get_stack_ports_by_type()' failed. No ports available"
+            self.common_validation.failed(**kwargs)
+            return False
+        for port in ports:
+            tag = port.get_attribute("data-automation-tag")
+            ret_ports.append(tag.split('-')[2])
+        if len(ret_ports) == 0:
+            kwargs['fail_msg'] = f"'device360_get_stack_ports_by_type()' failed. XPATH have no automation tag"
+            self.common_validation.failed(**kwargs)
+            return False
+        kwargs['pass_msg'] = f"Ports for type {port_type} are: {ret_ports}"
+        self.common_validation.passed(**kwargs)
+        return ret_ports
+
+    def device360_change_slot_view(self, unit, **kwargs):
+        """
+           This keyword is used to switch between slot port config pages
+           It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+
+           :param unit: string with slot number
+           :return: True if successful or False on failure
+           """
+        # Get slots dropdown
+        slots_dropdown = self.get_device360_port_config_stack_slots_dropdown()
+        if slots_dropdown:
+            self.utils.print_info("Clicking on slots dropdown")
+            self.auto_actions.click(slots_dropdown)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_change_slot_view()' failed. Slots dropdown not found"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Get next slot
+        next_slot = self.get_device360_slot_from_dropdown(unit=unit)
+        if next_slot:
+            self.utils.print_info("Clicking on next slot")
+            self.auto_actions.click(next_slot)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_change_slot_view()' failed.Next slot not found in dropdown list"
+            self.common_validation.failed(**kwargs)
+            return False
+        kwargs['pass_msg'] = f"Stack slot changed to slot {unit}"
+        self.common_validation.passed(**kwargs)
+        return True
+
+    def device360_aggregate_stack_ports_slots(self, ports, click_lacp=True, **kwargs):
+        """
+           This keyword is used to aggregate ports from same/different stack slots
+           It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+
+           :param click_lacp:  boolean value if needed to click the lacp toggle
+           :param ports: port list
+           :return: True if successful, False if failed, 1 if couldn't aggregate from other slot
+           """
+
+        if not self.device360_change_slot_view(ports[0].split(":")[0]):
+            kwargs['fail_msg'] = f"Failed to change stack slot."
+            self.common_validation.failed(**kwargs)
+            return False
+
+        click_checkbox_or_button = self.get_device360_port_settings_and_aggregation_interface_exos_standalone(ports[0].split(":")[1])
+        if click_checkbox_or_button:
+            self.utils.print_info("Clicking on port checkbox")
+            self.auto_actions.click(click_checkbox_or_button)
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Checkbox not found"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Aggregate
+        aggregate_btn = self.get_device360_configure_port_aggregate_button()
+        if aggregate_btn:
+            self.utils.print_info("Clicking 'Aggregate Selected Ports' button")
+            self.auto_actions.click(aggregate_btn)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.'Aggregate Selected Ports' button not found"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Get cancel button reference
+        cancel_button = self.get_device360_lag_cancel_button()
+        if not cancel_button:
+            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Could not find cancel button"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Add other ports to aggregation
+        for i in range(1, len(ports)):
+            switched_slot = False
+            if ports[i - 1].split(":")[0] != ports[i].split(":")[0]:
+                # Switching to other slot
+                other_slot = self.get_device360_aggregate_choose_slot(ports[i].split(":")[0])
+                if other_slot:
+                    switched_slot = True
+                    self.utils.print_info("Changing to other slot")
+                    self.auto_actions.click(other_slot)
+                else:
+                    kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Failed to change to other slot"
+                    self.common_validation.failed(**kwargs)
+                    self.auto_actions.click(cancel_button)
+                    return False
+            # Choose the next port
+            available_port = self.get_device360_aggregate_available_port(ports[i])
+            if available_port:
+                self.utils.print_info("Choosing next available port")
+                self.auto_actions.click(available_port)
+            else:
+                self.utils.print_info("Ports are not available in this Slot. Skiping..")
+
+            # Add next port
+            add_port_to_lacp = self.get_device360_aggregate_add_button()
+            if add_port_to_lacp:
+                self.utils.print_info("Clicking on add port")
+                self.auto_actions.click(add_port_to_lacp)
+            else:
+                kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Add port not found"
+                self.common_validation.failed(**kwargs)
+                self.auto_actions.click(cancel_button)
+                return False
+
+        # Toggle lacp on window
+        if click_lacp:
+            lacp_switch = self.get_device360_lacp_toggle()
+            if lacp_switch:
+                self.utils.print_info("Clicking LACP toggle")
+                self.auto_actions.click(lacp_switch)
+            else:
+                kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.LACP toggle not found"
+                self.common_validation.failed(**kwargs)
+                self.auto_actions.click(cancel_button)
+                return False
+
+        # Save
+        lag_save_button = self.get_device360_lag_save_button()
+        if lag_save_button:
+            self.utils.print_info("Clicking Save button")
+            self.auto_actions.click(lag_save_button)
+            sleep(10)
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Save button not found"
+            self.common_validation.failed(**kwargs)
+            self.auto_actions.click(cancel_button)
+            return False
+
+        # Save port Config
+        save_port_config = self.get_device360_save_port_config()
+        if save_port_config:
+            self.utils.print_info("Clicking Save port config button")
+            self.auto_actions.click(save_port_config)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Save port config button not found"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Check lacp formed in Device360
+        if self.get_device360_lacp_label(port=ports[0]):
+            kwargs['pass_msg'] = f"LAG link is available."
+            self.common_validation.passed(**kwargs)
+            return True
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.LAG link is not available"
+            self.common_validation.failed(**kwargs)
+            return False
+
+    def device360_check_aggregated_ports_number(self, reference_num, **kwargs):
+        """
+           This keyword is used to check the number of aggregated ports matches the reference
+           It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+
+           :param reference_num: reference integer
+           :return: If match True, else False
+           """
+        i = 1
+        no_of_ports = 0
+        while self.device360_change_slot_view(str(i)):
+            i = i + 1
+            lag_rows = self.get_device360_configure_aggregated_port_settings_aggregation_rows()
+            if lag_rows:
+                no_of_ports = no_of_ports + len(lag_rows)
+
+        # Close slots dropdown
+        slots_dropdown = self.get_device360_port_config_stack_slots_dropdown()
+        if slots_dropdown:
+            self.utils.print_info("Clicking on slots dropdown")
+            self.auto_actions.click(slots_dropdown)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_check_aggregated_ports_number()' failed.Slots dropdown not found"
+            self.common_validation.failed(**kwargs)
+            return False
+        if no_of_ports == reference_num:
+            kwargs['pass_msg'] = f"Number of LAG link matches."
+            self.common_validation.passed(**kwargs)
+            return True
+        else:
+            kwargs['fail_msg'] = f"'device360_check_aggregated_ports_number()' failed.LAG number does not match."
+            self.common_validation.failed(**kwargs)
+            return False
+
+    def device360_remove_stack_ports_slots(self, ports, **kwargs):
+        """
+           This keyword is used to remove port aggregation
+           It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+
+           :param ports: list of ports: ex: ["1:1", "2:1", "3:2"]
+           :return: True if successful or False on failure
+           """
+        if not self.device360_change_slot_view(ports[0].split(":")[0]):
+            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed. Change slot failed."
+            self.common_validation.failed(**kwargs)
+            return False
+
+        aggregated_ports = self.get_device360_lacp_label(port=ports[0])
+        if aggregated_ports:
+            self.utils.print_info("Clicking on aggregated ports label")
+            self.auto_actions.click(aggregated_ports)
+        else:
+            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to find aggregated port."
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Get cancel button reference
+        cancel_button = self.get_device360_lag_cancel_button()
+        if not cancel_button:
+            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Could not find cancel button."
+            self.common_validation.failed(**kwargs)
+            return False
+
+        selected_port = self.get_device360_aggregate_selected_port(ports[0])
+        if selected_port:
+            self.utils.print_info("Choosing second selected port")
+            self.auto_actions.click(selected_port)
+        else:
+            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to choose second selected port."
+            self.common_validation.failed(**kwargs)
+            self.auto_actions.click(cancel_button)
+            return False
+
+        # Remove ports from aggregation
+        for i in range(len(ports)):
+            # Remove the next port
+            remove_port_from_lacp = self.get_device360_aggregate_remove_button()
+            if remove_port_from_lacp:
+                self.utils.print_info("Clicking on remove port")
+                self.auto_actions.click(remove_port_from_lacp)
+            else:
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Remove port not found."
+                self.common_validation.failed(**kwargs)
+                self.auto_actions.click(cancel_button)
+                return False
+
+        # Save
+        lag_save_button = self.get_device360_lag_save_button()
+        if lag_save_button:
+            self.utils.print_info("Clicking Save button")
+            self.auto_actions.click(lag_save_button)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Save button not found."
+            self.common_validation.failed(**kwargs)
+            self.auto_actions.click(cancel_button)
+            return False
+
+        # Save port Config
+        save_port_config = self.get_device360_save_port_config()
+        if save_port_config:
+            self.utils.print_info("Clicking Save port config button")
+            self.auto_actions.click(save_port_config)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Save port config button not found."
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Check lacp formed in Device360
+        if self.get_device360_lacp_label(port=ports[0]):
+            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Aggregation remove failed."
+            self.common_validation.failed(**kwargs)
+            return False
+        kwargs['pass_msg'] = f"Ports {ports} were removed from LAG."
+        self.common_validation.passed(**kwargs)
+        return True
