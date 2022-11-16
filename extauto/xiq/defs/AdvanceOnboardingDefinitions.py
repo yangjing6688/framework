@@ -2,13 +2,13 @@ class AdvanceOnboardingDefinitions:
     deploy_devices_to_cloud_radio_button = \
         {
             'XPATH': '//input[@data-dojo-attach-point="cloudButton"]',
-            'wait_for': 5
+            'wait_for': 15
          }
 
     deploy_devices_locally_radio_button = \
         {
             'XPATH': '//input[@data-dojo-attach-point="localButton"]',
-            'wait_for': 5
+            'wait_for': 15
          }
 
     deploy_devices_get_started_button = \
@@ -194,6 +194,12 @@ class AdvanceOnboardingDefinitions:
     advance_onboard_mac_address_textfield = \
         {
             'XPATH': '//*[@data-dojo-attach-point="macSerials"]',
+            'wait_for': 5
+        }
+
+    advance_onboard_choose_org_continue_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="continueBtn"]',
             'wait_for': 5
         }
 
