@@ -7,7 +7,6 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   extauto.app.common
    extauto.app.configs
    extauto.app.defs
    extauto.app.elements
