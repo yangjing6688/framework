@@ -228,14 +228,24 @@ class Login:
 
         if self.login_web_elements.get_admin_portal_page().is_displayed():
             account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
-            self.utils.print_info(f"Selecting the Account Name {account_name} in Admin Portal")
+            if account_name:
+                self.utils.print_info("Enter Account Name {account_name} in Search Field")
+                account_search_field = self.login_web_elements.get_external_admin_account_name_search_field()
+                self.auto_actions.send_keys(account_search_field, account_name)
+                self.screen.save_screen_shot()
 
-            account_names = self.login_web_elements.get_external_admin_account_names()
-            for account in account_names:
-                if account_name in account.text:
-                    self.auto_actions.click(account)
-                    sleep(10)
-                    break
+                self.utils.print_info(f"Selecting the Account Name {account_name} in Admin Portal")
+                account_names = self.login_web_elements.get_external_admin_account_names()
+                for account in account_names:
+                    if account_name in account.text:
+                        self.auto_actions.click(account)
+                        self.screen.save_screen_shot()
+                        sleep(10)
+                        break
+            else:
+                self.utils.print_info(f"External Account Name Not Mentioned.So Continuing with managing own network")
+                self.screen.save_screen_shot()
+                self.auto_actions.click_reference(self.login_web_elements.get_external_admin_manage_my_network_button)
 
         view_org_button = self.msp_web_elements.get_view_organization_button()
         if view_org_button.is_displayed():
@@ -251,7 +261,7 @@ class Login:
                 msp_module.select_organization(organization_name=org_name)
             else:
                 self.utils.print_info(f"Continuing with own organization")
-                pass
+                self.screen.save_screen_shot()
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid,

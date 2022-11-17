@@ -282,7 +282,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         :return:
         """
         self.navigator.navigate_to_onboard_tab()
-        if self.get_advance_onboard_choose_org_continue_button().is_displayed():
+        if self.get_advance_onboard_choose_org_continue_button():
             self.auto_actions.click_reference(self.get_advance_onboard_choose_org_continue_button)
             sleep(8)
         self.utils.print_info("Clicking Deploy devices directly to the cloud button...")
