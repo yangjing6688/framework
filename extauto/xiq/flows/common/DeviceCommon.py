@@ -24,13 +24,9 @@ class DeviceCommon(DeviceCommonElements):
         for row in self.get_device_grid_rows():
             if device_serial in row.text:
                 self.utils.print_info("Found the row with the device serial: ", device_serial)
-                kwargs['pass_msg'] = "Device serial is not found in the Device grid"
-                self.common_validation.passed(**kwargs)
                 return row
 
         self.utils.print_info("Device serial is not found in the Device grid")
-        kwargs['fail_msg'] = "'_get_device_grid_row_by_serial()' -> Device serial is not found in the Device grid"
-        self.common_validation.failed(**kwargs)
         return None
 
     def _get_client_cell(self, row, **kwargs):
@@ -48,8 +44,6 @@ class DeviceCommon(DeviceCommonElements):
                 return cell
 
         self.utils.print_info("Connected Clients column is not found in the Device grid")
-        kwargs['fail_msg'] = "'_get_client_cell()' -> Connected Clients column is not found in the Device grid"
-        self.common_validation.failed(**kwargs)
         return None
 
     def _get_hostname_cell(self, row, **kwargs):
@@ -81,13 +75,9 @@ class DeviceCommon(DeviceCommonElements):
         for cell in self.get_device_row_cells_with_row(row):
             if "macAddress" in cell.get_attribute("class"):
                 self.utils.print_info("Found the MAC cell")
-                kwargs['pass_msg'] = "Found the MAC cell"
-                self.common_validation.passed(**kwargs)
                 return cell
 
         self.utils.print_info("MAC column is not found in the Device grid")
-        kwargs['fail_msg'] = "'_get_mac_cell()' -> MAC column is not found in the Device grid"
-        self.common_validation.failed(**kwargs)
         return None
 
     def _get_policy_cell(self, row, **kwargs):
@@ -100,13 +90,9 @@ class DeviceCommon(DeviceCommonElements):
         for cell in self.get_device_row_cells_with_row(row):
             if "networkPolicyName" in cell.get_attribute("class"):
                 self.utils.print_info("Found the policy cell")
-                kwargs['pass_msg'] = "Found the policy cell"
-                self.common_validation.passed(**kwargs)
                 return cell
 
         self.utils.print_info("Network Policy column is not found in the Device grid")
-        kwargs['fail_msg'] = "'_get_policy_cell()' -> Network Policy column is not found in the Device grid"
-        self.common_validation.failed(**kwargs)
         return None
 
     def _get_location_cell(self, row, **kwargs):
@@ -119,13 +105,9 @@ class DeviceCommon(DeviceCommonElements):
         for cell in self.get_device_row_cells_with_row(row):
             if "locationName" in cell.get_attribute("class"):
                 self.utils.print_info("Found the location cell")
-                kwargs['pass_msg'] = "Found the location cell"
-                self.common_validation.passed(**kwargs)
                 return cell
 
         self.utils.print_info("Location column is not found in the Device grid")
-        kwargs['fail_msg'] = "'_get_location_cell()' -> Location column is not found in the Device grid"
-        self.common_validation.failed(**kwargs)
         return None
 
     def _select_device_grid_row(self, row, **kwargs):
@@ -146,12 +128,8 @@ class DeviceCommon(DeviceCommonElements):
             row_attr = row.get_attribute("class")
             self.utils.print_info(row_attr)
             if "dgrid-selected" in row_attr:
-                kwargs['pass_msg'] = "Found device grid row check box in "
-                self.common_validation.passed(**kwargs)
                 return True
             elif retry_loop_count >= 50:
-                kwargs['fail_msg'] = "'_select_device_grid_row()' -> Device grid not found"
-                self.common_validation.failed(**kwargs)
                 return False
             sleep(5)
             retry_loop_count += 5
@@ -360,12 +338,12 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 kwargs['fail_msg'] = "'goto_device360_with_client()'->Could not navigate to client page and click on client hyperlink"
-                self.common_validation.fault(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
             kwargs['fail_msg'] = "'goto_device360_with_client()' -> Row with passed device serial is missing"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def goto_device360_with_mac(self, device_serial=None, **kwargs):
@@ -392,12 +370,12 @@ class DeviceCommon(DeviceCommonElements):
             else:
                 kwargs['fail_msg'] = "'goto_device360_with_mac()' -> Could not navigate to D360 page and click on" \
                                      " MAC hyperlink"
-                self.common_validation.fault(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
             kwargs['fail_msg'] = "'goto_device360_with_mac()' -> Row with passed device serial is missing"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def goto_device360_with_hostname(self, device_serial=None, **kwargs):
@@ -424,12 +402,12 @@ class DeviceCommon(DeviceCommonElements):
             else:
                 kwargs['fail_msg'] = "'goto_device360_with_hostname()' -> Could not navigate to D360 page and click" \
                                      " on host name hyperlink"
-                self.common_validation.fault(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
         else:
             kwargs['fail_msg'] = "'goto_device360_with_hostname()'Row with passed device serial is missing"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def get_select_device_checkbox_status(self, device_serial, **kwargs):
@@ -478,8 +456,6 @@ class DeviceCommon(DeviceCommonElements):
             if "dgrid-selected" in row_attr:
                 return True
             elif retry_loop_count >= 50:
-                kwargs['fail_msg'] = "'_select_device_checkbox_status_row()' -> Device grid row is not selected"
-                self.common_validation.failed(**kwargs)
                 return False
             sleep(5)
             retry_loop_count += 5

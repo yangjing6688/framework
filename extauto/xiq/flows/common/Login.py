@@ -321,8 +321,6 @@ class Login:
 
         if capture_version:
             self._capture_xiq_version()
-        kwargs['pass_msg'] = "User has been logged in"
-        self.common_validation.passed(**kwargs)
 
         try:
             if self.login_web_elements.get_right_arrow().is_displayed():
