@@ -12847,7 +12847,7 @@ class Device360(Device360WebElements):
         kwargs["pass_msg"] = "All ports displayed by default are from Slot 1"
         self.common_validation.passed(**kwargs)
 
-    def check_device360_LLDP_neighbors_with_hyperlink(self, isl_ports):
+    def check_device360_LLDP_neighbors_with_hyperlink(self, isl_ports_dut, hyperlinks=False):
         """
         Check Device360 LLDP neighbors with hyperlink.
         """
@@ -12858,13 +12858,14 @@ class Device360(Device360WebElements):
         table_rows = self.get_device360_port_table_rows()
 
         is_hyperlink = 0
+        hyperlinks_dut = []
         for row in table_rows:
             tds = self.dev360.weh.get_elements(
                 self.dev360.device360_ports_table_td_gridcell, parent=row)
             for th, td in zip(ths, tds):
                 if th.text.strip() == "PORT NAME":
                     port_found = 0
-                    for port in isl_ports:
+                    for port in isl_ports_dut:
                         if td.text.strip() == port:
                             port_found = 1
                             print(f"Port found: {td.text.strip()}")
@@ -12873,6 +12874,9 @@ class Device360(Device360WebElements):
                     if port_found == 1:
                         print(self.dev360.get_cell_href(td))
                         if self.dev360.get_cell_href(td) != None:
+                            if hyperlinks:
+                                hyperlink_dut = self.dev360.get_cell_href(td)
+                                hyperlinks_dut.append(hyperlink_dut)
                             is_hyperlink = is_hyperlink + 1
                             print(f"LLDP column displays the sysname, {td.text.strip()} with hyperlink for port {port}")
                         else:
@@ -12881,7 +12885,9 @@ class Device360(Device360WebElements):
                     break
 
         assert is_hyperlink == len(
-            isl_ports), "LLDP column displays the sysname without hyperlink for at least one port"
+            isl_ports_dut), "LLDP column displays the sysname without hyperlink for at least one port"
+        if hyperlinks:
+            return hyperlinks_dut
 
     def check_device360_LLDP_neighbors_without_hyperlink(self, isl_ports):
         """
