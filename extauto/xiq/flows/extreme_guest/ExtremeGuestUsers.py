@@ -270,7 +270,7 @@ class ExtremeGuestUsers(object):
 
     def get_extreme_social_users_count(self,social_name):
         """
-        Getting the ocial users count in Extreme Guest Users Page
+        Getting the social users count in Extreme Guest Users Page
         - Keyword Usage:
          - ``Get Extreme Guest Users Count``
         :return: User Count
