@@ -760,6 +760,6 @@ class NetworkPolicyWebElementDefinition:
 
     voss_parameters_text = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="vossSettingsContainer"]',
+            'XPATH': "//div[@class='common-switch-settings']",
             'wait_for': 3
         }

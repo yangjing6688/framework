@@ -462,4 +462,8 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
         return self.weh.get_element(self.common_settings_voss)
 
     def get_voss_parameters_text(self):
-        return self.weh.get_element(self.voss_parameters_text)
+        elements = self.weh.get_elements(self.voss_parameters_text)
+        for el in elements:
+            if el.is_displayed():
+                return el.text
+
