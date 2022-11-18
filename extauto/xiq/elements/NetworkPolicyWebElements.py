@@ -454,3 +454,12 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
 
     def get_next_page_element(self, page_size='50'):
         return self.weh.get_elements(self.next_page_element)
+
+    def get_switching_tab(self):
+        return self.weh.get_element(self.switching_tab)
+
+    def get_common_settings_voss(self):
+        return self.weh.get_element(self.common_settings_voss)
+
+    def get_voss_parameters_text(self):
+        return self.weh.get_element(self.voss_parameters_text)

@@ -745,3 +745,21 @@ class NetworkPolicyWebElementDefinition:
             'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
             'index': 1
         }
+
+    switching_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tab-switching"]',
+            'wait_for': 3
+        }
+
+    common_settings_voss = \
+        {
+            'XPATH': '//*[@data-automation-tag="policy-switching-settings-voss"]',
+            'wait_for': 3
+        }
+
+    voss_parameters_text = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="vossSettingsContainer"]',
+            'wait_for': 3
+        }

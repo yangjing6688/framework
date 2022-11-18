@@ -2185,3 +2185,16 @@ class NetworkPolicy(object):
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1
+
+    def get_switching_tab(self):
+        self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
+
+    def get_common_settings_voss(self):
+        self.auto_actions.click_reference(self.np_web_elements.get_common_settings_voss)
+
+    def check_common_settings_voss_parameters(self):
+        voss_settings_text = self.np_web_elements.get_voss_parameters_text.text
+        if "STP Configurations" and "IGMP Settings" and "MTU Settings" and "PSE Settings" in voss_settings_text:
+            self.utils.print_info("VOSS common settings contain the requiered parameters")
+            return True
+
