@@ -8,6 +8,9 @@ import subprocess
 import uuid
 from platform import system
 from netmiko import ConnectHandler
+
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementLacpGenKeywords import \
+    NetworkElementLacpGenKeywords
 from extauto.xiq.configs.device_commands import *
 from robot.libraries.BuiltIn import BuiltIn
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
@@ -16,6 +19,8 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSe
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from time import sleep
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementMltGenKeywords import \
+    NetworkElementMltGenKeywords
 
 from extauto.common.Utils import Utils
 from extauto.common.CommonValidation import CommonValidation
@@ -38,6 +43,8 @@ class Cli(object):
         self.commonValidation = CommonValidation()
         self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP', 'AH-XR']
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
+        self.networkElementMltGenKeywords = NetworkElementMltGenKeywords()
+        self.networkElementLacpGenKeywords = NetworkElementLacpGenKeywords()
 
     def close_spawn(self, spawn, pxssh=False, **kwargs):
         """
@@ -2072,6 +2079,51 @@ class Cli(object):
         kwargs["fail_msg"] = "get_master_slot() failed."
         self.commonValidation.failed(**kwargs)
         # return -1
+
+    def set_lacp(self, dut, mlt, key, port):
+        try:
+            self.close_connection_with_error_handling(dut)
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+            if dut.cli_type.upper() == "EXOS":
+                self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"{port}", f"{port}-{port}", '')
+            elif dut.cli_type.upper() == "VOSS":
+                self.networkElementMltGenKeywords.mlt_create_id(dut.name, mlt)
+                self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, f"interface gigabitEthernet {port}", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "no auto-sense enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
+                self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"gigabitEthernet {port}", port,
+                                                                                key)
+                self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, f"interface mlt {mlt}", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, f"lacp key {key}", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "lacp enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
+                self.networkElementLacpGenKeywords.lacp_enable_global(dut.name)
+        finally:
+            self.close_connection_with_error_handling(dut)
+
+    def cleanup_lacp(self, dut, mlt, port):
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementLacpGenKeywords.lacp_delete_lag(dut.name, port, '', '')
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementLacpGenKeywords.lacp_delete_lag(dut.name, f"gigabitEthernet {port}", '',
+                                                                             port)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, f"interface gigabitEthernet {port}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "no lacp enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "default lacp key", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "auto-sense enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
+            self.networkElementMltGenKeywords.mlt_delete_id(dut.name, mlt)
+
+        self.close_connection_with_error_handling(dut)
 
 if __name__ == '__main__':
     from pytest_testconfig import *

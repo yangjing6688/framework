@@ -102,3 +102,20 @@ class NetworkElementListUtils(object):
             self.logger.log_info("No ISL ports found in Test Environment File.")
 
         return isl_portlist
+
+    def create_ports_list(self, port_dict):
+        ports_isl = []
+        ports = self.create_list_of_netelem_isl_ports(port_dict)
+        contains = True
+        for old_port in ports:
+            if old_port is not None:
+                if old_port.find('/') != -1:
+                    parts = old_port.split("/")
+                    ports_isl.append(parts[1])
+                    contains = True
+                else:
+                    contains = False
+        if not contains:
+            ports_isl = ports
+        ports_isl = list(map(int, ports_isl))
+        return ports_isl

@@ -12925,3 +12925,92 @@ class Device360(Device360WebElements):
 
         assert no_hyperlink == len(
             isl_ports), "LLDP column displays the sysname with hyperlink/sysname missing for at least one port"
+
+    def verify_lacp_status_for_port_device_in_360_table(self, logger, port, check_value):
+
+        try:
+
+            self.select_max_pagination_size()
+
+            logger.info("Select LACP Status column if is not selected in column picker")
+            checkbox_button = self.dev360.get_device360_columns_toggle_button()
+            checkbox_button.location_once_scrolled_into_view
+
+            try:
+                self.auto_actions.click(checkbox_button)
+
+                sleep(2)
+                all_checkboxes = self.dev360.get_device360_all_checkboxes()
+                default_disabled = [k for k, v in all_checkboxes.items() if v["is_selected"] is False]
+
+                for checkbox_name, stats in all_checkboxes.items():
+                    if checkbox_name.upper() == "LACP STATUS" and checkbox_name in default_disabled \
+                            and stats["is_selected"] is False:
+                        self.auto_actions.click(stats["element"])
+                        break
+            finally:
+                # Close column picker
+                self.auto_actions.click(checkbox_button)
+                sleep(2)
+
+            ports_table = self.dev360.get_device360_ports_table()
+            [port_row] = [row for row in ports_table if row["PORT NAME"] == port]
+            lacp_status = port_row["LACP STATUS"]
+            logger.info(f"LACP status = {lacp_status}")
+
+            assert lacp_status == check_value, f"Default LACP Status for port: {port} is not {check_value}"
+
+        finally:
+
+            logger.info("Select LACP Status column if is not selected in column picker")
+            checkbox_button = self.dev360.get_device360_columns_toggle_button()
+            if checkbox_button:
+                checkbox_button.location_once_scrolled_into_view
+
+                try:
+                    self.auto_actions.click(checkbox_button)
+                    sleep(2)
+
+                    all_checkboxes = self.dev360.get_device360_all_checkboxes()
+
+                    for checkbox_name, stats in all_checkboxes.items():
+                        if checkbox_name.upper() == "LACP STATUS" and stats["is_selected"] is True:
+                            self.auto_actions.click(stats["element"])
+                            break
+                finally:
+                    # Close column picker
+                    self.auto_actions.click(checkbox_button)
+                    sleep(2)
+
+            self.select_pagination_size("10")
+            self.close_device360_window()
+
+    def check_lld_neighbour_field_with_value_and_with_hyperlink(self, ports_isl, real_ports, logger):
+        lldp_neighbour = {}
+        success = 1
+        for port in ports_isl:
+            logger.info("PORT =  {}".format(port))
+            try:
+                self.auto_actions.click(real_ports[port - 1])
+                elem = Device360WebElements().get_ports_from_device360_up_lldp_neighbour()
+                if not elem:
+                    elem = Device360WebElements().weh.get_element(
+                        {"XPATH": '//div[contains(@class, "port-info port-lldp-neighbor")]'})
+                lldp_neighbour[port] = elem
+                logger.info("lldp_neighbour =  {}".format(lldp_neighbour[port].text))
+                lldp_hyper_link = Device360WebElements().get_cell_href(lldp_neighbour[port])
+                logger.info("lldp_neighbour href =  {}".format(lldp_hyper_link is not None))
+                str1 = lldp_neighbour[port].text
+                splits = str1.split()
+                for split in splits:
+                    logger.info("SPLIT = {}".format(split))
+                if (lldp_neighbour[port].text is not None and lldp_neighbour[port].text != "" and len(
+                        splits) > 2) and lldp_hyper_link is not None:
+                    success = 1
+                else:
+                    success = 0
+                    break
+                sleep(5)
+            except IndexError:
+                logger.error("PORT =  {} does not exists".format(port))
+        return success
