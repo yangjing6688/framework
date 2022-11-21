@@ -712,6 +712,7 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
                 self.screen.save_screen_shot()
             if ret_val != -1:
                 break;
+            retry += 1
             self.utils.print_info("Retrying to Navigate to XIQ Admin - Diags tab");
 
         return ret_val
