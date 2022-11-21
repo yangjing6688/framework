@@ -692,22 +692,27 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
         :param pwd_value:   Value to enter into the Password field
         :return: 1 if successful, else -1
         """
-        ret_val = self.xiqse_nav.xiqse_navigate_to_admin_diagnostics_tab()
-        if ret_val != -1:
+        retry = 1;
+        while retry < 3:
+            ret_val = self.xiqse_nav.xiqse_navigate_to_admin_diagnostics_tab()
             sleep(2)
-            ret_val = self.xiqse_select_xiq_device_message_details_tree_node()
             if ret_val != -1:
+                ret_val = self.xiqse_select_xiq_device_message_details_tree_node()
                 sleep(2)
-                ret_val = self.xiqse_xiq_device_message_details_auto_onboard_xiqse(email_value, pwd_value)
-                if ret_val == -1:
-                    self.utils.print_info("Unable to onboard XIQ-SE to XIQ")
+                if ret_val != -1:
+                    ret_val = self.xiqse_xiq_device_message_details_auto_onboard_xiqse(email_value, pwd_value)
+                    if ret_val == -1:
+                        self.utils.print_info("Unable to onboard XIQ-SE to XIQ")
+                        self.screen.save_screen_shot()
+                else:
+                    self.utils.print_info("Unable to select the XIQ Device Message Details node")
                     self.screen.save_screen_shot()
             else:
-                self.utils.print_info("Unable to select the XIQ Device Message Details node")
+                self.utils.print_info("Unable to navigate to the Diagnostics tab")
                 self.screen.save_screen_shot()
-        else:
-            self.utils.print_info("Unable to navigate to the Diagnostics tab")
-            self.screen.save_screen_shot()
+            if ret_val != -1:
+                break;
+            self.utils.print_info("Retrying to Navigate to XIQ Admin - Diags tab");
 
         return ret_val
 
