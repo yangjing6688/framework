@@ -14,7 +14,7 @@ class DeviceCommon(DeviceCommonElements):
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
 
-    def _get_device_grid_row_by_serial(self, device_serial='', **kwargs):
+    def _get_device_grid_row_by_serial(self, device_serial=''):
         """
         - This method is used to get the device grid row where the serial number is a match
 
@@ -29,7 +29,7 @@ class DeviceCommon(DeviceCommonElements):
         self.utils.print_info("Device serial is not found in the Device grid")
         return None
 
-    def _get_client_cell(self, row, **kwargs):
+    def _get_client_cell(self, row):
         """
         - This method is used to get the client cell
 
@@ -39,14 +39,12 @@ class DeviceCommon(DeviceCommonElements):
         for cell in self.get_device_row_cells_with_row(row):
             if "activeClientCount" in cell.get_attribute("class"):
                 self.utils.print_info("Found the client cell")
-                kwargs['pass_msg'] = "Found the client cell"
-                self.common_validation.passed(**kwargs)
                 return cell
 
         self.utils.print_info("Connected Clients column is not found in the Device grid")
         return None
 
-    def _get_hostname_cell(self, row, **kwargs):
+    def _get_hostname_cell(self, row):
         """
         - This method is used to get the host name cell
 
@@ -56,14 +54,12 @@ class DeviceCommon(DeviceCommonElements):
         for cell in self.get_device_row_cells_with_row(row):
             if "hostname" in cell.get_attribute("class"):
                 self.utils.print_info("Found the host name cell")
-                kwargs['pass_msg'] = "Found the host name cell"
-                self.common_validation.passed(**kwargs)
                 return cell
 
         self.utils.print_info("Host Name column is not found in the Device grid")
         return None
 
-    def _get_mac_cell(self, row, **kwargs):
+    def _get_mac_cell(self, row):
         """
         - This method is used to get the MAC cell
 
@@ -78,7 +74,7 @@ class DeviceCommon(DeviceCommonElements):
         self.utils.print_info("MAC column is not found in the Device grid")
         return None
 
-    def _get_policy_cell(self, row, **kwargs):
+    def _get_policy_cell(self, row):
         """
         - This method is used to get the Network Policy cell
 
@@ -93,7 +89,7 @@ class DeviceCommon(DeviceCommonElements):
         self.utils.print_info("Network Policy column is not found in the Device grid")
         return None
 
-    def _get_location_cell(self, row, **kwargs):
+    def _get_location_cell(self, row):
         """
         - This method is used to get the Location cell
 
@@ -108,7 +104,7 @@ class DeviceCommon(DeviceCommonElements):
         self.utils.print_info("Location column is not found in the Device grid")
         return None
 
-    def _select_device_grid_row(self, row, **kwargs):
+    def _select_device_grid_row(self, row):
         """
         - This method is used to select the device grid row select check box
         - Check the row select status every 5 seconds with loop count of 50 seconds
@@ -437,7 +433,7 @@ class DeviceCommon(DeviceCommonElements):
         self.common_validation.fault(**kwargs)
         return -1
 
-    def _select_device_checkbox_status_row(self, row, **kwargs):
+    def _select_device_checkbox_status_row(self, row):
         """
         - This method is used to select the device grid row select check box
         - Check the row select status every 5 seconds with loop count of 50 seconds
