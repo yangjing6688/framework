@@ -61,8 +61,6 @@ class DeviceCommon(DeviceCommonElements):
                 return cell
 
         self.utils.print_info("Host Name column is not found in the Device grid")
-        kwargs['fail_msg'] = "'_get_hostname_cell()' -> Host Name column is not found in the Device grid"
-        self.common_validation.failed(**kwargs)
         return None
 
     def _get_mac_cell(self, row, **kwargs):
@@ -540,7 +538,7 @@ class DeviceCommon(DeviceCommonElements):
 
         return ret_val
 
-    def is_client_link_available(self, device_serial=None, **kwargs):
+    def _is_client_link_available(self, device_serial=None, **kwargs):
         """
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if client hyperlink is available
@@ -561,16 +559,42 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("Client link is not available")
-                kwargs['fail_msg'] = "'is_client_link_available()' -> Client link is not available"
-                self.common_validation.failed(**kwargs)
-                return -1
+                return False
 
         else:
             kwargs['fail_msg'] = "'is_client_link_available()' -> Row with passed device serial is not found"
             self.common_validation.fault(**kwargs)
             return -1
 
-    def is_hostname_link_available(self, device_serial=None, **kwargs):
+    def verify_client_link_available(self, tag):
+        """
+        - This keyword verifies if client hyperlink is available
+        - Keyword Usage:
+         - ``Verify Client Link Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if visible, -1 if error occurs
+        """
+
+        return self._is_client_link_available(tag, **kwargs)
+
+    def verify_client_link_not_available(self, tag, **kwargs):
+        """
+        - This keyword verifies if client hyperlink is not available
+        - Keyword Usage:
+         - ``Verify Client Link Not Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if not visible else -1
+        """
+        if self._is_client_link_available(tag, **kwargs):
+            kwargs['fail_msg'] = "'verify_nav_menu_item_not_visible()' -> Client link is available"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Client link is not available"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+    def _is_hostname_link_available(self, device_serial=None, **kwargs):
         """
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if host name hyperlink is available
@@ -585,22 +609,48 @@ class DeviceCommon(DeviceCommonElements):
             cell = self._get_hostname_cell(row)
             if cell and self.get_cell_href(cell):
                 self.utils.print_info("Host Name link is available")
-                kwargs['pass_msg'] = "Host Name link is available"
+                kwargs['pass_msg'] = "Hostname link is available"
                 self.common_validation.passed(**kwargs)
                 return 1
 
             else:
                 self.utils.print_info("Host Name link is not available")
-                kwargs['fail_msg'] = "'is_hostname_link_available()' -> Host Name link is not available"
-                self.common_validation.failed(**kwargs)
-                return -1
+                return False
 
         else:
             kwargs['fail_msg'] = "'is_hostname_link_available()' -> Row with passed device serial is not found"
             self.common_validation.fault(**kwargs)
             return -1
 
-    def is_mac_link_available(self, device_serial=None, **kwargs):
+    def verify_hostname_link_available(self, tag):
+        """
+        - This keyword verifies if host name hyperlink is available
+        - Keyword Usage:
+         - ``Verify Hostname Link Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if visible, -1 if error occurs
+        """
+
+        return self._is_hostname_link_available(tag, **kwargs)
+
+    def verify_hostname_link_not_available(self, tag, **kwargs):
+        """
+        - This keyword verifies if host name hyperlink is available
+        - Keyword Usage:
+         - ``Verify Hostname Link Not Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if not visible else -1
+        """
+        if self._is_hostname_link_available(tag, **kwargs):
+            kwargs['fail_msg'] = "'verify_nav_menu_item_not_visible()' -> Host Name link is available"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Host Name link is not available"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+    def _is_mac_link_available(self, device_serial=None, **kwargs):
         """
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if mac hyperlink is available
@@ -621,16 +671,42 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("MAC link is not available")
-                kwargs['fail_msg'] = "'is_mac_link_available()' -> MAC link is not available"
-                self.common_validation.failed(**kwargs)
-                return -1
+                return False
 
         else:
             kwargs['fail_msg'] = "'is_mac_link_available()' -> Row with passed device serial is not found"
             self.common_validation.fault(**kwargs)
             return -1
 
-    def is_policy_link_available(self, device_serial=None, **kwargs):
+    def verify_mac_link_available(self, tag):
+        """
+        - This keyword verifies if mac hyperlink is available
+        - Keyword Usage:
+         - ``Verify Mac Link Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if visible, -1 if error occurs
+        """
+
+        return self._is_mac_link_available(tag, **kwargs)
+
+    def verify_mac_link_not_available(self, tag, **kwargs):
+        """
+        - This keyword verifies if mac hyperlink is not available
+        - Keyword Usage:
+         - ``Verify Mac Link Not Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if not visible else -1
+        """
+        if self._is_mac_link_available(tag, **kwargs):
+            kwargs['fail_msg'] = "'verify_nav_menu_item_not_visible()' -> MAC link is available"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "MAC link is not available"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+    def _is_policy_link_available(self, device_serial=None, **kwargs):
         """
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if network policy hyperlink is available
@@ -651,16 +727,42 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("Policy link is not available")
-                kwargs['fail_msg'] = "'is_policy_link_available()' -> Policy link is not available"
-                self.common_validation.failed(**kwargs)
-                return -1
+                return False
 
         else:
             kwargs['fail_msg'] = "'is_policy_link_available()' -> Row with passed device serial is not found"
             self.common_validation.fault(**kwargs)
             return -1
 
-    def is_location_link_available(self, device_serial=None, **kwargs):
+    def verify_policy_link_available(self, tag):
+        """
+        - This keyword verifies if network policy hyperlink is available
+        - Keyword Usage:
+         - ``Verify Policy Link Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if visible, -1 if error occurs
+        """
+
+        return self._is_policy_link_available(tag, **kwargs)
+
+    def verify_policy_link_not_available(self, tag, **kwargs):
+        """
+        - This keyword verifies if network policy hyperlink is not available
+        - Keyword Usage:
+         - ``Verify Policy Link Not Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if not visible else -1
+        """
+        if self._is_policy_link_available(tag, **kwargs):
+            kwargs['fail_msg'] = "'verify_nav_menu_item_not_visible()' -> Policy link is available"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Policy link is not available"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+    def _is_location_link_available(self, device_serial=None, **kwargs):
         """
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if location hyperlink is available
@@ -681,11 +783,37 @@ class DeviceCommon(DeviceCommonElements):
 
             else:
                 self.utils.print_info("Location link is not available")
-                kwargs['fail_msg'] = "'is_policy_link_available()' -> Location link is not available"
-                self.common_validation.failed(**kwargs)
-                return -1
+                return False
 
         else:
             kwargs['fail_msg'] = "'is_location_link_available()' -> Row with passed device serial is not found"
             self.common_validation.fault(**kwargs)
             return -1
+
+    def verify_location_link_available(self, tag):
+        """
+        - This keyword verifies if location hyperlink is available
+        - Keyword Usage:
+         - ``Verify Location Link Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if visible, -1 if error occurs
+        """
+
+        return self._is_location_link_available(tag, **kwargs)
+
+    def verify_location_link_not_available(self, tag, **kwargs):
+        """
+        - This keyword verifies if location hyperlink is available
+        - Keyword Usage:
+         - ``Verify Location Link Not Available``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if not visible else -1
+        """
+        if self._is_location_link_available(tag, **kwargs):
+            kwargs['fail_msg'] = "'verify_nav_menu_item_not_visible()' -> Location link is available"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Location link is not available"
+            self.common_validation.passed(**kwargs)
+            return 1

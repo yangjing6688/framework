@@ -274,7 +274,7 @@ class Login:
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid,
                                     recover_login=recover_login, map_override=map_override) == -1:
             kwargs['fail_msg'] = "'_login_user()' -> Can not login with option. Try Again"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         if quick:
@@ -330,14 +330,10 @@ class Login:
             pass
 
         if ignore_map:
-            kwargs['pass_msg'] = "Login successful"
-            self.common_validation.passed(**kwargs)
             return 1
 
         device_page_found = self.nav_web_elements.get_devices_page()
         if device_page_found:
-            kwargs['pass_msg'] = "Device page found"
-            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Current page is not the Manage Devices Page...login process not completed")
@@ -357,16 +353,12 @@ class Login:
 
             device_page_found = self.nav_web_elements.get_devices_page()
             if device_page_found:
-                kwargs['pass_msg'] = "Device page found"
-                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = "'_login_user()' -> Device page not found"
                 self.common_validation.fault(**kwargs)
                 return -1
 
-        kwargs['pass_msg'] = "Login Successful"
-        self.common_validation.passed(**kwargs)
         return 1
 
     def logout_user(self, **kwargs):
@@ -1405,11 +1397,9 @@ class Login:
                 self.utils.print_info("The below error was displayed when enter shared CUID:",
                                       check_error_shared_cuid.text)
                 kwargs['fail_msg'] = f"'_extreme_cloud_iq_license()' -> The below error was displayed when enter shared CUID: {check_error_shared_cuid.text}"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
             else:
-                kwargs['pass_msg'] = "ExtremeCloud IQ License login is successful"
-                self.common_validation.passed(**kwargs)
                 return 1
         else:
             self.utils.print_info("shared cuid dialog is not displayed ")
@@ -1444,7 +1434,7 @@ class Login:
         self._agree_cloud_terms_and_conditions()
         if self._check_legacy_entitlement_key_errors() == -1:
             kwargs['fail_msg'] = "'_legacy_entitlement_key()' -> Check for entitlement key errors"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
         self._agree_data_privacy_and_protection()
 
@@ -1501,8 +1491,6 @@ class Login:
                 return 1
             else:
                 self.utils.print_info("No Cloud Terms and Conditions popup")
-                kwargs['fail_msg'] = "'_agree_cloud_terms_and_conditions()' -> No Cloud Terms and Conditions popup"
-                self.common_validation.failed(**kwargs)
         except Exception as e:
             self.utils.print_info(e)
 
@@ -1523,9 +1511,6 @@ class Login:
                 return 1
             else:
                 self.utils.print_info("No Accepting Data Privacy and Protection popup")
-                kwargs['fail_msg'] = "'_agree_data_privacy_and_protection()' -> No Accepting Data Privacy and" \
-                                     " Protection popup"
-                self.common_validation.failed(**kwargs)
         except Exception as e:
             self.utils.print_info(e)
 
@@ -1538,7 +1523,7 @@ class Login:
                 self.utils.print_info("This entitlement key has already been used by another system")
                 kwargs['fail_msg'] = "'_check_legacy_entitlement_key_errors()' -> This entitlement key has already" \
                                      " been used by another system"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
         except Exception as e:
             self.utils.print_debug(e)
