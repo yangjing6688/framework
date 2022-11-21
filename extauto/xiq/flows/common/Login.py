@@ -22,6 +22,7 @@ from extauto.xiq.elements.MspWebElements import MspWebElements
 import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
+import extauto.xiq.flows.globalsettings.GlobalSetting
 
 
 
@@ -294,7 +295,14 @@ class Login:
                     self.utils.print_info(f"Devices page not found.Navigating to Manage-->Devices Page")
                     local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
                     local_navigator.navigate_to_devices()
-                msp_module.select_organization(organization_name=org_name)
+
+                global_settings = extauto.xiq.flows.globalsettings.GlobalSetting.GlobalSetting()
+                if global_settings.search_organization_name(org_name) == 1:
+                    self.utils.print_info(f"Organization name {org_name} Already exists in MSP")
+                    msp_module.select_organization(organization_name=org_name)
+                else:
+                    self.utils.print_info(f"Organization name {org_name} Not exists in MSP.So Creating organization")
+                    global_settings.create_organization(org_name)
             else:
                 self.utils.print_info(f"Continuing with own organization")
                 self.screen.save_screen_shot()
