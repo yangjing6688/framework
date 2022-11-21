@@ -22,6 +22,7 @@ from extauto.xiq.elements.MspWebElements import MspWebElements
 import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
+import extauto.xiq.flows.globalsettings.GlobalSetting
 
 
 
@@ -196,6 +197,42 @@ class Login:
             kwargs['pass_msg'] = "Login successful"
             self.common_validation.passed(**kwargs)
             return 1
+
+        if 'sso' in url or 'tinyurl' in url:
+            self.utils.print_info("SSO Login Page found")
+            sso_username = BuiltIn().get_variable_value("${sso_username}")
+            sso_password = BuiltIn().get_variable_value("${sso_password}")
+
+            if sso_username and sso_password:
+                self.screen.save_screen_shot()
+                self.utils.print_info("Entering SSO Username")
+                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_username_text(), sso_username)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Entering SSO Password")
+                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_password_text(), sso_password)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Clicking on SSO Sign In button")
+                self.auto_actions.click_reference(self.login_web_elements.get_login_sso_page_login_button)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Check for wrong credentials in SSO Login Page..")
+                sign_in_error_message = self.login_web_elements.get_login_sso_page_sign_in_error_message()
+                self.utils.print_info("Wrong Credential Message: ", sign_in_error_message)
+                if 'No Message' in sign_in_error_message:
+                    kwargs['pass_msg'] = "No Error Message Found in SSO Login Page"
+                    self.common_validation.passed(**kwargs)
+                else:
+                    if "Incorrect user ID or password" in sign_in_error_message:
+                        kwargs['fail_msg'] = "SSO Login Failed.Wrong Credentials. Try Again"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+            else:
+                kwargs['fail_msg'] = f"SSO Username or Password Not Found"
+                self.common_validation.failed(**kwargs)
+                return -1
+
         self.utils.print_info("Entering Username...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
 
@@ -265,7 +302,19 @@ class Login:
                     self.utils.print_info(f"Devices page not found.Navigating to Manage-->Devices Page")
                     local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
                     local_navigator.navigate_to_devices()
-                msp_module.select_organization(organization_name=org_name)
+
+                global_settings = extauto.xiq.flows.globalsettings.GlobalSetting.GlobalSetting()
+                if global_settings.search_organization_name(org_name) == 1:
+                    self.utils.print_info(f"Organization name {org_name} Already exists in MSP")
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
+                    msp_module.select_organization(organization_name=org_name)
+                else:
+                    self.utils.print_info(f"Organization name {org_name} Not exists in MSP.So Creating organization")
+                    global_settings.create_organization(org_name)
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
+                    msp_module.select_organization(organization_name=org_name)
             else:
                 self.utils.print_info(f"Continuing with own organization")
                 self.screen.save_screen_shot()
