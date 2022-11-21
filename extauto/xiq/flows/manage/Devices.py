@@ -2094,12 +2094,12 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "simulated":
-            list_initial_simulated_serial = self.get_device_model_serial_numbers(device_model=device_model, device_type=device_type)
+            list_initial_simulated_serial = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_simulated(device_model, device_count) != 1:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            list_initial_serial_dt = self.get_device_model_serial_numbers(device_model=device_model, device_type=device_type)
+            list_initial_serial_dt = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
@@ -2175,7 +2175,7 @@ class Devices:
             models = device_model.split(",")
             self.utils.print_info("Models: ", models)
             for model in models:
-                list_final_simulated_serial = self.get_device_model_serial_numbers(device_model=model, device_type=device_type )
+                list_final_simulated_serial = self.get_device_serial_numbers(model)
                 simulated_global_variable = "${" + name + ".serial}"
                 simulated_global_variable_list = []
                 for i in list_final_simulated_serial:
@@ -2202,7 +2202,7 @@ class Devices:
             sleep(100)  # this sleep is put until the bug XIQ-11770 is solved, then I will review the code and delete this sleep
             self.refresh_devices_page()
             for model in models:
-                list_final_dt_serial = self.get_device_model_serial_numbers(device_model=model, device_type=device_type)
+                list_final_dt_serial = self.get_device_serial_numbers(model)
                 dt_global_variable = "${" + name + ".serial}"
                 for i in list_final_dt_serial:
                     if i not in list_initial_serial_dt:
