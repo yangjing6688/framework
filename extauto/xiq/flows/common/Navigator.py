@@ -376,13 +376,11 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("Selecting global settings...")
         if self.auto_actions.click_reference(self.get_global_settings_nav) == 1:
             sleep(2)
-            kwargs['pass_msg'] = "Navigated to global settings"
-            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to navigate to global settings")
             kwargs['fail_msg'] = "'_navigate_to_global_settings()' -> Unable to navigate to global settings"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def navigate_to_configure_user_sub_tab(self, **kwargs):

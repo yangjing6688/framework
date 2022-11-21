@@ -18,25 +18,19 @@ class MuCaptivePortal(MuCPWebElement):
         - Get the user registration  status
         :return: 1 if login successful else -1
         """
-        self.utils.print_info("Get the Registration status")
+        self.utils.print_info("Get the Registration status....")
         self.get_page_screen_shot()
         sleep(2)
         registration_status_el = self.get_user_registration_status()
         if registration_status_el:
             if "Registration Successful" in registration_status_el.text:
                 self.utils.print_info(registration_status_el.text)
-                kwargs['pass_msg'] = "Registration Successful"
-                self.common_validation.passed(**kwargs)
                 return 1
             elif "Login Successful" in registration_status_el.text:
                 self.utils.print_info(registration_status_el.text)
-                kwargs['pass_msg'] = "Login Successful"
-                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(registration_status_el.text)
-                kwargs['fail_msg'] = "'_get_registration_status()' -> Login was not successful"
-                self.common_validation.failed(**kwargs)
                 return -1
 
     def accept_user_acceptance_page(self):
