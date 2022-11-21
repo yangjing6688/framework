@@ -10,6 +10,7 @@ from platform import system
 from netmiko import ConnectHandler
 from extauto.xiq.configs.device_commands import *
 from robot.libraries.BuiltIn import BuiltIn
+from ExtremeAutomation.Imports.DefaultLibrary import DefaultLibrary
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
 from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
@@ -36,6 +37,8 @@ class Cli(object):
         self.networkElementCliSend = NetworkElementCliSend()
         self.endsystemConnectionManager = EndsystemConnectionManager()
         self.commonValidation = CommonValidation()
+        self.defaultLibrary = DefaultLibrary()
+        self.devCmd = self.defaultLibrary.deviceNetworkElement.networkElementCliSend
         self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP', 'AH-XR']
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
 
@@ -1578,6 +1581,236 @@ class Cli(object):
         
         finally:
             self.close_connection_with_error_handling(dut)
+
+    def get_virtual_router(self, dut, **kwargs):
+        """
+           - This keyword returns the vr used by the specified device
+           :param dut: device
+           :return match.group(12): the name of VR used
+                                    or -1 if is unable to get virtual router info
+        """
+        global vrName
+
+        result = self.devCmd.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
+        output = result[0].cmd_obj.return_text
+        pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
+        match = re.search(pattern, output)
+
+        if match:
+            print(f"Mgmt Vlan Name : {match.group(1)}")
+            print(f"Vlan ID        : {match.group(3)}")
+            print(f"Mgmt IPaddress : {match.group(5)}")
+            print(f"Active ports   : {match.group(9)}")
+            print(f"Total ports    : {match.group(11)}")
+            print(f"Virtual router : {match.group(12)}")
+
+            if int(match.group(9)) > 0:
+                return match.group(12)
+            else:
+                print(f"There is no active port in the mgmt vlan {match.group(1)}")
+                kwargs['fail_msg'] = f"There is no active port in the mgmt vlan {match.group(1)}"
+                self.commonValidation.failed(**kwargs)
+                # return -1
+        else:
+            print("Pattern not found, unable to get virtual router info!")
+            kwargs['fail_msg'] = f"Pattern not found, unable to get virtual router info!"
+            self.commonValidation.failed(**kwargs)
+            # return -1
+
+    def configure_iq_agent(self, dut, server_name, **kwargs):
+        """
+           - Configures iq agent from CLI for an EXOS/VOSS device
+
+            :param dut: device
+            :return 1 or -1 if the the iq agent was successfully configured or not
+        """
+        iqagent_configured = False
+        if dut.cli_type.upper() == "EXOS":
+            self.devCmd.send_cmd_verify_output(dut.name, 'show process iqagent', 'Ready', max_wait=30, interval=10)
+            self.devCmd.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
+                                 confirmation_phrases='Do you want to continue?', confirmation_args='y')
+
+            self.devCmd.send_cmd(dut.name, 'configure iqagent server ipaddress none', max_wait=10, interval=2)
+            vr_name = self.get_virtual_router(dut)
+            if vr_name == -1:
+                print("Error: Can't extract Virtual Router information")
+                kwargs['fail_msg'] = f"Error: Can't extract Virtual Router information"
+                self.commonValidation.failed(**kwargs)
+                # return -1
+            self.devCmd.send_cmd(dut.name, f'configure iqagent server vr {vr_name}', max_wait=10, interval=2)
+
+            self.devCmd.send_cmd(dut.name, 'configure iqagent server ipaddress ' + server_name,
+                                 max_wait=10, interval=2)
+            self.devCmd.send_cmd(dut.name, 'enable iqagent', max_wait=10, interval=2)
+            iqagent_configured = True
+
+        elif dut.cli_type.upper() == "VOSS":
+            self.devCmd.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            self.devCmd.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.devCmd.send_cmd(dut.name, 'application', max_wait=10, interval=2)
+            self.devCmd.send_cmd(dut.name, 'no iqagent enable', max_wait=10, interval=2)
+            self.devCmd.send_cmd(dut.name, 'iqagent server ' + server_name,
+                                 max_wait=10, interval=2)
+            self.devCmd.send_cmd(dut.name, 'iqagent enable', max_wait=10, interval=2)
+            self.devCmd.send_cmd_verify_output(dut.name, 'show application iqagent', 'true', max_wait=30,
+                                               interval=10)
+            self.devCmd.send_cmd(dut.name, 'exit', max_wait=10, interval=2)
+            iqagent_configured = True
+
+        self.utils.wait_till(timeout=10)
+
+        if iqagent_configured:
+            kwargs['pass_msg'] = f"Iq_agent successfully configured"
+            self.commonValidation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"Iq_agent not configured"
+            self.commonValidation.failed(**kwargs)
+
+    def get_device_model_name(self, dut, cli_type, **kwargs):
+        """
+           - Gets the device model name from CLI for an EXOS/VOSS device
+           - Keyword Usage:
+            - ``configure_iq_agent(dut=${DEVICE}, cli_type = "exos" / "voss")``
+
+           :param dut: device
+           :param cli_type: the type of device : EXOS / VOSS
+           :return system_type_string: a string with device model
+
+        """
+        if cli_type.lower() == 'exos':
+            device_system_output = self.devCmd.send_cmd(dut.name,
+                                                        'show system | include System')[0].cmd_obj._return_text
+            system_type_regex = '(System Type:[ ]{2,}.{0,})'
+            system_type = self.utils.get_regexp_matches(device_system_output, system_type_regex, 1)[0]
+            system_type_string = system_type.replace(self.utils.get_regexp_matches(system_type,
+                                                                                       '(System Type:[ ]{2,})')[0], '')
+            if 'SwitchEngine' in system_type_string:
+                system_type_string = 'Switch Engine ' + system_type_string
+                system_type_string = system_type_string.replace('-SwitchEngine', '')
+                system_type_string = system_type_string.replace('\r', '')
+            elif 'EXOS' in system_type_string:
+                system_type_string = 'Switch Engine ' + system_type_string
+                system_type_string = system_type_string.replace('-EXOS', '')
+                system_type_string = system_type_string.replace('\r', '')
+            else:
+                system_type_string = system_type_string.replace(system_type_string[:4], system_type_string[:4] + '-')
+                system_type_string = system_type_string.replace('\r', '')
+            print(f"Model name is:{system_type_string}")
+            return system_type_string
+
+        elif cli_type.lower() == 'voss':
+            device_system_output = self.devCmd.send_cmd(dut.name,
+                                                        'show sys-info | include ModelName')[0].cmd_obj._return_text
+            system_type_regex = '(ModelName[ ]{2,}.{0,})'
+            system_type = self.utils.get_regexp_matches(device_system_output, system_type_regex, 1)[0]
+            system_type_string = system_type.replace(self.utils.get_regexp_matches(system_type,
+                                                                                       '(ModelName[ ]{2,}.)')[0], '')
+            if 'FabricEngine' in system_type_string:
+                system_type_string = 'Fabric Engine' + system_type_string
+                system_type_string = system_type_string.replace('-FabricEngine', '')
+                system_type_string = system_type_string.replace('\r', '')
+            elif 'VOSS' in system_type_string:
+                system_type_string = 'Fabric Engine' + system_type_string
+                system_type_string = system_type_string.replace('-VOSS', '')
+                system_type_string = system_type_string.replace('\r', '')
+            else:
+                system_type_string = system_type_string.replace(system_type_string[:4], system_type_string[:4] + '-')
+                system_type_string = system_type_string.replace('\r', '')
+            print(f"Model name is:{system_type_string}")
+            return system_type_string
+        else:
+            kwargs['fail_msg'] = "Didn't find any switch model"
+            self.commonValidation.failed(**kwargs)
+
+    def check_os_versions(self, dut1, dut2):
+        """
+           - This keyword is used to check if 2 devices have the same os version or not
+           - Keyword Usage:
+            - ``check_os_versions(dut1=${DEVICE}, dut2=${DEVICE})``
+
+           :param dut1: first device
+           :param dut2: second device
+           :return "same"/"different": a string that specifies if the devices have the same OS or different OS
+
+        """
+        device_1 = dut1.name
+        device_2 = dut2.name
+        cli_type_device_1 = dut1.cli_type
+        cli_type_device_2 = dut2.cli_type
+
+        if cli_type_device_1.lower() and cli_type_device_2.lower() == 'exos':
+            check_image_version_1 = self.devCmd.send_cmd(device_1, 'show version | grep IMG')[0].cmd_obj._return_text
+            image_version_regex = 'IMG:([ ]{1,}.{0,})'
+            image_version_1 = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
+            image_version_1_string = image_version_1.replace(self.utils.get_regexp_matches(image_version_1,
+                                                                                               '([ ])')[0], '')
+
+            check_image_version_2 = self.devCmd.send_cmd(device_2, 'show version | grep IMG')[0].cmd_obj._return_text
+            image_version_2 = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
+            image_version_2_string = image_version_2.replace(self.utils.get_regexp_matches(image_version_2,
+                                                                                               '([ ])')[0], '')
+            print(f"OS version for clone device: {image_version_1_string}")
+            print(f"OS version for replacement device: {image_version_2_string}")
+
+            if image_version_1_string == image_version_2_string:
+                print("OS versions are the same")
+                return 'same'
+            else:
+                print("OS version are different")
+                return 'different'
+
+        elif cli_type_device_1.lower() and cli_type_device_2.lower() == 'voss':
+            check_image_version_1 = self.devCmd.send_cmd(device_1, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            image_version_regex = '(\\d+[.]\\d+[.]\\d+[.]\\d+)'
+            image_version_1_string = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
+            print(f"OS version for clone device: {image_version_1_string}")
+
+            check_image_version_2 = self.devCmd.send_cmd(device_2, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            image_version_2_string = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
+            print(f"OS version for replacement device: {image_version_2_string}")
+
+            if image_version_1_string == image_version_2_string:
+                print("OS versions are the same")
+                return 'same'
+            else:
+                print("OS version are different")
+                return 'different'
+
+    def disable_enable_iqagent_clone_device(self, device, iqagent_option, **kwargs):
+        """
+                - This keyword is used to enable/disable iq agent for a an EXOS/VOSS device from CLI
+                :param device: device selected
+                :param iqagent_option: "enable" or "disable" option for iqagent
+
+        """
+        device_1 = device.name
+        cli_type_device_1 = device.cli_type
+        if iqagent_option == 'disable':
+            if cli_type_device_1.lower() == 'exos':
+                self.devCmd.send_cmd(device_1, "disable iqagent", max_wait=10, interval=2,
+                                     confirmation_phrases='Do you want to continue?', confirmation_args='y')
+            elif cli_type_device_1.lower() == 'voss':
+                self.devCmd.send_cmd(device_1, "enable", max_wait=10, interval=2)
+                self.devCmd.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
+                self.devCmd.send_cmd(device_1, "application", max_wait=10, interval=2)
+                self.devCmd.send_cmd(device_1, "no iqagent enable", max_wait=10, interval=2)
+            else:
+                kwargs['fail_msg'] = "Didn't find any os type"
+                self.commonValidation.failed(**kwargs)
+        elif iqagent_option == 'enable':
+            if cli_type_device_1.lower() == 'exos':
+                self.devCmd.send_cmd(device_1, "enable iqagent", max_wait=10, interval=2)
+            elif cli_type_device_1.lower() == 'voss':
+                self.devCmd.send_cmd(device_1, "enable", max_wait=10, interval=2)
+                self.devCmd.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
+                self.devCmd.send_cmd(device_1, "application", max_wait=10, interval=2)
+                self.devCmd.send_cmd(device_1, "iqagent enable", max_wait=10, interval=2)
+            else:
+                kwargs['fail_msg'] = "Didn't find any os type"
+                self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['fail_msg'] = "Didn't find option for disable/enable"
+            self.commonValidation.failed(**kwargs)
 
 
 if __name__ == '__main__':
