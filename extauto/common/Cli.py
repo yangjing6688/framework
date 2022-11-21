@@ -1433,33 +1433,38 @@ class Cli(object):
         else:
             return output2
 
-    def get_ports_from_dut(self, dut):
+    def get_ports_from_dut(self, dut, **kwargs):
         """
         - This Keyword gets ports for EXOS and VOSS from CLI
         :param dut:
         :return: CLI Command Output
         """
-        try:
-            self.close_connection_with_error_handling(dut)
-            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
-            if dut.cli_type.upper() == "EXOS":
-                self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
-                output = self.networkElementCliSend.send_cmd(dut.name, f'show ports info', max_wait=10, interval=2)[
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+        output = None
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, f'show ports info', max_wait=10, interval=2)[
+                0].return_text
+            output = re.findall(r"\r\n(\d+)\s+", output)
+
+        elif dut.cli_type.upper() == "VOSS":
+            output = \
+                self.networkElementCliSend.send_cmd(dut.name, "show int gig int | no-more", max_wait=10,
+                                                    interval=2)[
                     0].return_text
-                output = re.findall(r"\r\n(\d+)\s+", output)
+            output = re.findall(r"\r\n(\d+/\d+)\s+", output)
 
-            elif dut.cli_type.upper() == "VOSS":
-                output = \
-                    self.networkElementCliSend.send_cmd(dut.name, "show int gig int | no-more", max_wait=10,
-                                                        interval=2)[
-                        0].return_text
-                output = re.findall(r"\r\n(\d+/\d+)\s+", output)
-        finally:
-            self.close_connection_with_error_handling(dut)
+        self.close_connection_with_error_handling(dut)
+        if not output:
+            kwargs["fail_msg"] = "get_ports_from_dut() failed. "
+            self.commonValidation.failed(**kwargs)
+        kwargs['pass_msg'] = f"Ports from dut: {output}"
+        self.commonValidation.passed(**kwargs)
         return output
 
-    def get_port_list_from_dut_without_not_present_ports(self, dut):
+    def get_port_list_from_dut_without_not_present_ports(self, dut, **kwargs):
         """
         - This Keyword gets ports for EXOS and VOSS from CLI and than remove "not present" ports
         :param dut:
@@ -1481,6 +1486,8 @@ class Cli(object):
             # remove elements with two /
             p2 = re.compile(r'\d+\/\d+\/\d+', re.M)
             filtered = [port for port in match_port if not p2.match(port)]
+            kwargs['pass_msg'] = f"Ports from VOSS without 'elements with two /': {filtered}"
+            self.commonValidation.passed(**kwargs)
             return filtered
 
         elif dut.cli_type.upper() == "EXOS":
@@ -1508,51 +1515,49 @@ class Cli(object):
             for port in parsed_info:
                 port_num = re.findall(p, port)
                 match_port.remove(port_num[0])
-
+            kwargs['pass_msg'] = f"Ports from EXOS without 'not present' ports: {match_port}"
+            self.commonValidation.passed(**kwargs)
             return match_port
 
-    def set_lldp(self, dut, ports, action="enable"):
+    def set_lldp(self, dut, ports, action="enable", **kwargs):
         """
          - This keyword will set lldp on VOSS and EXOS in CLI
         :return:
         """
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
-        try:
+        if dut.cli_type.upper() == "EXOS":
+            if action == "enable":
+                self.networkElementCliSend.send_cmd(dut.name, 'enable cdp ports all', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'enable edp ports all', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'enable lldp ports all', max_wait=10, interval=2)
+            elif action == "disable":
+                self.networkElementCliSend.send_cmd(dut.name, 'disable cdp ports all', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'disable edp ports all', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'disable lldp ports all', max_wait=10, interval=2)
 
-            self.close_connection_with_error_handling(dut)
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementCliSend.send_cmd(dut.name, "enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "configure terminal", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(
+                dut.name, f"interface gigabitEthernet {ports[0]}-{ports[-1]}", max_wait=10, interval=2)
+            cmd_action = f"lldp port {ports[0]}-{ports[-1]} cdp enable"
+            if action == "enable":
+                self.networkElementCliSend.send_cmd(dut.name, "no auto-sense enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "no fa enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, cmd_action, max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "fa enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "auto-sense enable", max_wait=10, interval=2)
+            elif action == "disable":
+                self.networkElementCliSend.send_cmd(dut.name, "no " + cmd_action, max_wait=10, interval=2)
 
-            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
-
-            if dut.cli_type.upper() == "EXOS":
-                if action == "enable":
-                    self.networkElementCliSend.send_cmd(dut.name, 'enable cdp ports all', max_wait=10, interval=2)
-                    self.networkElementCliSend.send_cmd(dut.name, 'enable edp ports all', max_wait=10, interval=2)
-                    self.networkElementCliSend.send_cmd(dut.name, 'enable lldp ports all', max_wait=10, interval=2)
-                elif action == "disable":
-                    self.networkElementCliSend.send_cmd(dut.name, 'disable cdp ports all', max_wait=10, interval=2)
-                    self.networkElementCliSend.send_cmd(dut.name, 'disable edp ports all', max_wait=10, interval=2)
-                    self.networkElementCliSend.send_cmd(dut.name, 'disable lldp ports all', max_wait=10, interval=2)
-
-            elif dut.cli_type.upper() == "VOSS":
-                self.networkElementCliSend.send_cmd(dut.name, "enable", max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, "configure terminal", max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(
-                    dut.name, f"interface gigabitEthernet {ports[0]}-{ports[-1]}", max_wait=10, interval=2)
-                cmd_action = f"lldp port {ports[0]}-{ports[-1]} cdp enable"
-                if action == "enable":
-                    self.networkElementCliSend.send_cmd(dut.name, "no auto-sense enable", max_wait=10, interval=2)
-                    self.networkElementCliSend.send_cmd(dut.name, "no fa enable", max_wait=10, interval=2)
-                    self.networkElementCliSend.send_cmd(dut.name, cmd_action, max_wait=10, interval=2)
-                    self.networkElementCliSend.send_cmd(dut.name, "fa enable", max_wait=10, interval=2)
-                    self.networkElementCliSend.send_cmd(dut.name, "auto-sense enable", max_wait=10, interval=2)
-                elif action == "disable":
-                    self.networkElementCliSend.send_cmd(dut.name, "no " + cmd_action, max_wait=10, interval=2)
-
-        finally:
-            self.close_connection_with_error_handling(dut)
+        self.close_connection_with_error_handling(dut)
+        kwargs['pass_msg'] = f"set_lldp() keyword passed."
+        self.commonValidation.passed(**kwargs)
 
     def bounce_IQAgent(self, dut, xiq_ip_address=None, connect_to_dut=True, disconnect_from_dut=True, wait=True,
-                       xiq=None):
+                       xiq=None, **kwargs):
         """
          - This keyword will bounce IQAgent for VOSS and EXOS in CLI
         :return:
@@ -1585,10 +1590,14 @@ class Cli(object):
         finally:
             if disconnect_from_dut:
                 self.close_connection_with_error_handling(dut)
+                kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed."
+                self.commonValidation.passed(**kwargs)
         if wait and xiq is not None:
             xiq.xflowscommonDevices.wait_until_device_online(dut.serial)
+            kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed. Successfully waited until device online."
+            self.commonValidation.passed(**kwargs)
 
-    def get_the_number_of_ports_from_cli(self, dut):
+    def get_the_number_of_ports_from_cli(self, dut, **kwargs):
         """
          - This keyword gets the number of ports for EXOS and VOSS from CLI
         :return: the number of ports
@@ -1621,12 +1630,14 @@ class Cli(object):
                 no_ports = int(no_ports)
 
             print(f'Number of ports for this switch is {no_ports}')
+            kwargs['pass_msg'] = f'Number of ports for this switch is {no_ports}'
+            self.commonValidation.passed(**kwargs)
             return no_ports
 
         finally:
             self.close_connection_with_error_handling(dut)
 
-    def verify_vlan_config_on_switch(self, onboarded_switch, port_vlan_mapping, logger):
+    def verify_vlan_config_on_switch(self, onboarded_switch, port_vlan_mapping, logger, **kwargs):
         """
          - This keyword will verify vlan config on switch in CLI
         :return: Device ports speed dictionary
@@ -1667,9 +1678,13 @@ class Cli(object):
                         logger.info("Configuration successfully updated on the dut")
                         break
             else:
-                raise AssertionError("The configuration did not update on the dut after 120 seconds")
+                # raise AssertionError("The configuration did not update on the dut after 120 seconds")
+                kwargs["fail_msg"] = "verify_vlan_config_on_switch() failed."
+                self.commonValidation.failed(**kwargs)
         finally:
             self.close_connection_with_error_handling(onboarded_switch)
+            kwargs['pass_msg'] = f'verify_vlan_config_on_switch() keyword passed'
+            self.commonValidation.passed(**kwargs)
 
     def no_channel_enable_on_all_ports(self, onboarded_switch):
         """
