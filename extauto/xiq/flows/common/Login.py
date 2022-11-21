@@ -303,6 +303,7 @@ class Login:
                 else:
                     self.utils.print_info(f"Organization name {org_name} Not exists in MSP.So Creating organization")
                     global_settings.create_organization(org_name)
+                    msp_module.select_organization(organization_name=org_name)
             else:
                 self.utils.print_info(f"Continuing with own organization")
                 self.screen.save_screen_shot()
