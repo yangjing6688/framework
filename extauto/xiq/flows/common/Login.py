@@ -192,7 +192,7 @@ class Login:
             sleep(5)
             return 1
 
-        if 'sso' or 'tinyurl' in url:
+        if 'sso' in url or 'tinyurl' in url:
             self.utils.print_info("SSO Login Page found")
             sso_username = BuiltIn().get_variable_value("${sso_username}")
             sso_password = BuiltIn().get_variable_value("${sso_password}")
@@ -299,10 +299,14 @@ class Login:
                 global_settings = extauto.xiq.flows.globalsettings.GlobalSetting.GlobalSetting()
                 if global_settings.search_organization_name(org_name) == 1:
                     self.utils.print_info(f"Organization name {org_name} Already exists in MSP")
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
                     msp_module.select_organization(organization_name=org_name)
                 else:
                     self.utils.print_info(f"Organization name {org_name} Not exists in MSP.So Creating organization")
                     global_settings.create_organization(org_name)
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
                     msp_module.select_organization(organization_name=org_name)
             else:
                 self.utils.print_info(f"Continuing with own organization")
