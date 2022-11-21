@@ -10940,7 +10940,8 @@ class Device360(Device360WebElements):
     def d360_save_multi_edit_button(self, **kwargs):
         '''
         This keyword push the save button from Multi Edit tab.
-        :return: 1 if succesfully ; else -1
+        :return: pass message if successfully
+        :return: fail message if error
         '''
         save_button_multi_edit = self.get_d360_save_multi_edit()
         if save_button_multi_edit:
