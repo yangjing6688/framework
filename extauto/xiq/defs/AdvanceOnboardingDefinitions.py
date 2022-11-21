@@ -94,6 +94,18 @@ class AdvanceOnboardingDefinitions:
             'wait_for': 5
         }
 
+    device_make_exos_radio_button = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-zero-day-onboard-exos-option"]',
+            'wait_for': 5
+        }
+
+    device_make_voss_radio_button = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-zero-day-onboard-voss-option"]',
+            'wait_for': 5
+        }
+
     device_make_drop_down_options = \
         {
             'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]'
