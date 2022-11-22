@@ -1062,7 +1062,7 @@ class XIQSE_CommonNavigator(CommonNavigatorWebElements):
             the_tab = self.admin_web_elements.get_users_tab()
             if the_tab:
                 self.utils.print_info("Selecting Administration> Users Tab...")
-                self.auto_actions.click(the_tab)
+                self.auto_actions.click_reference(self.admin_web_elements.get_users_tab)
                 ret_val = 1
                 sleep(2)
             else:

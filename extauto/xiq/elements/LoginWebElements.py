@@ -397,3 +397,24 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_external_admin_account_name_search_field(self):
         return self.weh.get_element(self.external_admin_account_name_search_field)
+
+    def get_login_sso_page_username_text(self):
+        return self.weh.get_element(self.login_sso_page_username_text)
+
+    def get_login_sso_page_password_text(self):
+        return self.weh.get_element(self.login_sso_page_password_text)
+
+    def get_login_sso_page_login_button(self):
+        return self.weh.get_element(self.login_sso_page_login_button)
+
+    def get_login_sso_page_sign_in_error_message(self):
+        try:
+            errors = self.weh.get_elements(self.login_sso_page_login_error_message)
+            if errors:
+                for error in errors:
+                    if error.is_displayed():
+                        return error.text
+            else:
+                return "No Message"
+        except Exception as e:
+            return "No Message"
