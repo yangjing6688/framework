@@ -10,7 +10,6 @@ from platform import system
 from netmiko import ConnectHandler
 from extauto.xiq.configs.device_commands import *
 from robot.libraries.BuiltIn import BuiltIn
-from ExtremeAutomation.Imports.DefaultLibrary import DefaultLibrary
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
 from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
@@ -37,8 +36,6 @@ class Cli(object):
         self.networkElementCliSend = NetworkElementCliSend()
         self.endsystemConnectionManager = EndsystemConnectionManager()
         self.commonValidation = CommonValidation()
-        self.defaultLibrary = DefaultLibrary()
-        self.devCmd = self.defaultLibrary.deviceNetworkElement.networkElementCliSend
         self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP', 'AH-XR']
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
 
@@ -1591,7 +1588,7 @@ class Cli(object):
         """
         global vrName
 
-        result = self.devCmd.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
+        result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
         output = result[0].cmd_obj.return_text
         pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
         match = re.search(pattern, output)
@@ -1622,39 +1619,40 @@ class Cli(object):
            - Configures iq agent from CLI for an EXOS/VOSS device
 
             :param dut: device
+            :param server_name: the server-name for cloud where the device should be onboarded
             :return 1 or -1 if the the iq agent was successfully configured or not
         """
         iqagent_configured = False
         if dut.cli_type.upper() == "EXOS":
-            self.devCmd.send_cmd_verify_output(dut.name, 'show process iqagent', 'Ready', max_wait=30, interval=10)
-            self.devCmd.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
+            self.networkElementCliSend.send_cmd_verify_output(dut.name, 'show process iqagent', 'Ready', max_wait=30, interval=10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
                                  confirmation_phrases='Do you want to continue?', confirmation_args='y')
 
-            self.devCmd.send_cmd(dut.name, 'configure iqagent server ipaddress none', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure iqagent server ipaddress none', max_wait=10, interval=2)
             vr_name = self.get_virtual_router(dut)
             if vr_name == -1:
                 print("Error: Can't extract Virtual Router information")
                 kwargs['fail_msg'] = f"Error: Can't extract Virtual Router information"
                 self.commonValidation.failed(**kwargs)
                 # return -1
-            self.devCmd.send_cmd(dut.name, f'configure iqagent server vr {vr_name}', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, f'configure iqagent server vr {vr_name}', max_wait=10, interval=2)
 
-            self.devCmd.send_cmd(dut.name, 'configure iqagent server ipaddress ' + server_name,
+            self.networkElementCliSend.send_cmd(dut.name, 'configure iqagent server ipaddress ' + server_name,
                                  max_wait=10, interval=2)
-            self.devCmd.send_cmd(dut.name, 'enable iqagent', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable iqagent', max_wait=10, interval=2)
             iqagent_configured = True
 
         elif dut.cli_type.upper() == "VOSS":
-            self.devCmd.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
-            self.devCmd.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
-            self.devCmd.send_cmd(dut.name, 'application', max_wait=10, interval=2)
-            self.devCmd.send_cmd(dut.name, 'no iqagent enable', max_wait=10, interval=2)
-            self.devCmd.send_cmd(dut.name, 'iqagent server ' + server_name,
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'application', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'no iqagent enable', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'iqagent server ' + server_name,
                                  max_wait=10, interval=2)
-            self.devCmd.send_cmd(dut.name, 'iqagent enable', max_wait=10, interval=2)
-            self.devCmd.send_cmd_verify_output(dut.name, 'show application iqagent', 'true', max_wait=30,
+            self.networkElementCliSend.send_cmd(dut.name, 'iqagent enable', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd_verify_output(dut.name, 'show application iqagent', 'true', max_wait=30,
                                                interval=10)
-            self.devCmd.send_cmd(dut.name, 'exit', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'exit', max_wait=10, interval=2)
             iqagent_configured = True
 
         self.utils.wait_till(timeout=10)
@@ -1678,8 +1676,7 @@ class Cli(object):
 
         """
         if cli_type.lower() == 'exos':
-            device_system_output = self.devCmd.send_cmd(dut.name,
-                                                        'show system | include System')[0].cmd_obj._return_text
+            device_system_output = self.networkElementCliSend.send_cmd(dut.name, 'show system | include System')[0].cmd_obj._return_text
             system_type_regex = '(System Type:[ ]{2,}.{0,})'
             system_type = self.utils.get_regexp_matches(device_system_output, system_type_regex, 1)[0]
             system_type_string = system_type.replace(self.utils.get_regexp_matches(system_type,
@@ -1699,12 +1696,11 @@ class Cli(object):
             return system_type_string
 
         elif cli_type.lower() == 'voss':
-            device_system_output = self.devCmd.send_cmd(dut.name,
-                                                        'show sys-info | include ModelName')[0].cmd_obj._return_text
+            device_system_output = self.networkElementCliSend.send_cmd(dut.name, 'show sys-info | include ModelName')[0].cmd_obj._return_text
             system_type_regex = '(ModelName[ ]{2,}.{0,})'
             system_type = self.utils.get_regexp_matches(device_system_output, system_type_regex, 1)[0]
             system_type_string = system_type.replace(self.utils.get_regexp_matches(system_type,
-                                                                                       '(ModelName[ ]{2,}.)')[0], '')
+                                                                                   '(ModelName[ ]{2,}.)')[0], '')
             if 'FabricEngine' in system_type_string:
                 system_type_string = 'Fabric Engine' + system_type_string
                 system_type_string = system_type_string.replace('-FabricEngine', '')
@@ -1739,13 +1735,13 @@ class Cli(object):
         cli_type_device_2 = dut2.cli_type
 
         if cli_type_device_1.lower() and cli_type_device_2.lower() == 'exos':
-            check_image_version_1 = self.devCmd.send_cmd(device_1, 'show version | grep IMG')[0].cmd_obj._return_text
+            check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')[0].cmd_obj._return_text
             image_version_regex = 'IMG:([ ]{1,}.{0,})'
             image_version_1 = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
             image_version_1_string = image_version_1.replace(self.utils.get_regexp_matches(image_version_1,
                                                                                                '([ ])')[0], '')
 
-            check_image_version_2 = self.devCmd.send_cmd(device_2, 'show version | grep IMG')[0].cmd_obj._return_text
+            check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show version | grep IMG')[0].cmd_obj._return_text
             image_version_2 = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
             image_version_2_string = image_version_2.replace(self.utils.get_regexp_matches(image_version_2,
                                                                                                '([ ])')[0], '')
@@ -1760,12 +1756,12 @@ class Cli(object):
                 return 'different'
 
         elif cli_type_device_1.lower() and cli_type_device_2.lower() == 'voss':
-            check_image_version_1 = self.devCmd.send_cmd(device_1, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
             image_version_regex = '(\\d+[.]\\d+[.]\\d+[.]\\d+)'
             image_version_1_string = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
             print(f"OS version for clone device: {image_version_1_string}")
 
-            check_image_version_2 = self.devCmd.send_cmd(device_2, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
             image_version_2_string = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
             print(f"OS version for replacement device: {image_version_2_string}")
 
@@ -1781,37 +1777,46 @@ class Cli(object):
                 - This keyword is used to enable/disable iq agent for a an EXOS/VOSS device from CLI
                 :param device: device selected
                 :param iqagent_option: "enable" or "disable" option for iqagent
+                :return 1 if sucess or -1 if fails
 
         """
         device_1 = device.name
         cli_type_device_1 = device.cli_type
         if iqagent_option == 'disable':
             if cli_type_device_1.lower() == 'exos':
-                self.devCmd.send_cmd(device_1, "disable iqagent", max_wait=10, interval=2,
+                self.networkElementCliSend.send_cmd(device_1, "disable iqagent", max_wait=10, interval=2,
                                      confirmation_phrases='Do you want to continue?', confirmation_args='y')
+                kwargs['pass_msg'] = "IQ agent successfully disabled"
+                self.commonValidation.passed(**kwargs)
             elif cli_type_device_1.lower() == 'voss':
-                self.devCmd.send_cmd(device_1, "enable", max_wait=10, interval=2)
-                self.devCmd.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
-                self.devCmd.send_cmd(device_1, "application", max_wait=10, interval=2)
-                self.devCmd.send_cmd(device_1, "no iqagent enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "application", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "no iqagent enable", max_wait=10, interval=2)
+                kwargs['pass_msg'] = "IQ agent successfully disabled"
+                self.commonValidation.passed(**kwargs)
             else:
                 kwargs['fail_msg'] = "Didn't find any os type"
                 self.commonValidation.failed(**kwargs)
+
         elif iqagent_option == 'enable':
             if cli_type_device_1.lower() == 'exos':
-                self.devCmd.send_cmd(device_1, "enable iqagent", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "enable iqagent", max_wait=10, interval=2)
+                kwargs['pass_msg'] = "IQ agent successfully enabled"
+                self.commonValidation.passed(**kwargs)
             elif cli_type_device_1.lower() == 'voss':
-                self.devCmd.send_cmd(device_1, "enable", max_wait=10, interval=2)
-                self.devCmd.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
-                self.devCmd.send_cmd(device_1, "application", max_wait=10, interval=2)
-                self.devCmd.send_cmd(device_1, "iqagent enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "application", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "iqagent enable", max_wait=10, interval=2)
+                kwargs['pass_msg'] = "IQ agent successfully enabled"
+                self.commonValidation.passed(**kwargs)
             else:
                 kwargs['fail_msg'] = "Didn't find any os type"
                 self.commonValidation.failed(**kwargs)
         else:
             kwargs['fail_msg'] = "Didn't find option for disable/enable"
             self.commonValidation.failed(**kwargs)
-
 
 if __name__ == '__main__':
     from pytest_testconfig import *
