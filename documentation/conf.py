@@ -62,4 +62,4 @@ exclude_patterns = ['build/*','_build', 'Thumbs.db', '.DS_Store']
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-autodoc_mock_imports = ['cv2', 'pytest_testconfig', 'bs4']
+autodoc_mock_imports = ['cv2', 'pytest', 'pytest_testconfig', 'bs4']
