@@ -3,6 +3,7 @@ __version__ = "1.0.1"
 
 from extauto.xiq.elements.MuCPWebElements import MuCPWebElement
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 from time import sleep
 
 
@@ -10,13 +11,14 @@ class MuCaptivePortal(MuCPWebElement):
     def __init__(self):
         super().__init__()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
 
-    def _get_registration_status(self):
+    def _get_registration_status(self, **kwargs):
         """
         - Get the user registration  status
         :return: 1 if login successful else -1
         """
-        self.utils.print_info("Get the Registration status")
+        self.utils.print_info("Get the Registration status....")
         self.get_page_screen_shot()
         sleep(2)
         registration_status_el = self.get_user_registration_status()
@@ -109,7 +111,7 @@ class MuCaptivePortal(MuCPWebElement):
 
         return self._get_registration_status()
 
-    def get_ppsk_passcode_user_registration(self):
+    def get_ppsk_passcode_user_registration(self, **kwargs):
         """
         - When user register with open network cwp and returning to aerohive ppsk network
         - Get the pass code from user self registration page
@@ -121,6 +123,9 @@ class MuCaptivePortal(MuCPWebElement):
         if passcode_el:= self.get_ppsk_pascode():
             self.utils.print_info(f"User PPSK Passcode for PPSK Network:{passcode_el.text} ")
             return passcode_el.text
+
+        kwargs['fail_msg'] = "'get_ppsk_passcode_user_registration()' -> Could not get PPSK Passcode for PPSK Network"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def social_login_user_acceptance_page(self):
@@ -152,7 +157,7 @@ class MuCaptivePortal(MuCPWebElement):
         if "Network Access Portal" in page_title:
             return 1
 
-    def check_successful_page_title(self):
+    def check_successful_page_title(self, **kwargs):
         """
         - Once social login successful it will redirect the url given while registration.
         - Check the page title of the loaded url
@@ -167,9 +172,12 @@ class MuCaptivePortal(MuCPWebElement):
         if "CNN International - Breaking News, US News, World News and Video" in page_title:
             return 1
         else:
+            kwargs['fail_msg'] = f"'check_successful_page_title()' -> 'CNN International - Breaking News, US News," \
+                                 f" World News and Video' not in - {page_title}"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def validate_cwp_social_login_with_facebook(self, username, password):
+    def validate_cwp_social_login_with_facebook(self, username, password, **kwargs):
         """
         - Register network via facebook login CWP
         - Validate Captive Web Portal social login with facebook credentials
@@ -218,11 +226,15 @@ class MuCaptivePortal(MuCPWebElement):
         page_title = self.get_page_title
         self.utils.print_info(page_title)
         if "Network Access Portal" in page_title:
+            kwargs['pass_msg'] = "Successfully connected with internet with social login type facebook"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_facebook()' -> 'Network Access Portal' not in - {page_title}"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def validate_cwp_social_login_with_google_account(self, username, password):
+    def validate_cwp_social_login_with_google_account(self, username, password, **kwargs):
         """
         - Register network via google login CWP
         - Validate Captive Web Portal social login with google credentials
@@ -279,11 +291,15 @@ class MuCaptivePortal(MuCPWebElement):
             self.utils.print_info(msg)
 
         if "Login Successful" and "connected to the network" in msg:
+            kwargs['pass_msg'] = "Successfully connected with internet with social login type google"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_google_account()' -> 'Login Successful' and 'connected to the network' not in - {msg}"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def validate_cwp_social_login_with_linkedin_account(self, username, password):
+    def validate_cwp_social_login_with_linkedin_account(self, username, password, **kwargs):
         """
         - Register network via Linkdin login CWP
         - Validate Captive Web Portal social login with linkdin credentials
@@ -320,11 +336,15 @@ class MuCaptivePortal(MuCPWebElement):
         page_title = self.get_page_title
         self.utils.print_info(page_title)
         if "Network Access Portal" in page_title:
+            kwargs['pass_msg'] = "Successfully connected with internet with social login type Linkedin"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_linkedin_account()' -> 'Network Access Portal' not in - {page_title}"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def guest_user_self_registration(self, **guest_user):
+    def guest_user_self_registration(self, **guest_user, **kwargs):
         """
         - Register the Guest User to access the network
         - Keyword Usage:
@@ -372,15 +392,21 @@ class MuCaptivePortal(MuCPWebElement):
             reply_msg_text = self.get_user_registration_reply_msg().text
             if "The user name you filled exceeds required length" in reply_msg_text:
                 self.utils.print_info(f'{reply_msg_text}')
+                kwargs['fail_msg'] = f"'guest_user_self_registration()' -> 'We are unable to' appears in - {reply_msg_text}"
+                self.common_validation.fault(**kwargs)
                 return -1, reply_msg_text
             if "We are unable to" in reply_msg_text:
                 self.utils.print_info(f'{reply_msg_text}')
+                kwargs['fail_msg'] = f"'guest_user_self_registration()' -> 'We are unable to' appears in - {reply_msg_text}"
+                self.common_validation.fault(**kwargs)
                 return -1, reply_msg_text
 
         field_err_els = self.get_user_registration_field_err()
         for el in field_err_els:
             if el.is_displayed():
                 self.utils.print_info(el.text)
+                kwargs['fail_msg'] = f"'guest_user_self_registration()' -> {el.text}"
+                self.common_validation.failed(**kwargs)
                 return -1, el.text
 
         return self._get_registration_status(), reg_error_reason_el
@@ -439,7 +465,7 @@ class MuCaptivePortal(MuCPWebElement):
         if "Success! Check your email for your new PIN" in msg:
             return 1
 
-    def enter_cloud_pin(self, pin):
+    def enter_cloud_pin(self, pin, **kwargs):
         """
         - Enter the cloud pin to authenticate user
         - Keyword Usage:
@@ -469,6 +495,9 @@ class MuCaptivePortal(MuCPWebElement):
             msg = self.get_pin_text_area().text
             self.utils.print_info(msg)
         if "PIN is not valid. Please request a new one" in msg:
+            kwargs['fail_msg'] = f"'enter_cloud_pin()' -> 'PIN is not valid. Please request a new one'" \
+                                 f" is in message: {msg}"
+            self.common_validation.failed(**kwargs)
             return -1
 
         if self.get_cloud_pin_success_text():
@@ -476,6 +505,8 @@ class MuCaptivePortal(MuCPWebElement):
             self.utils.print_info(msg)
 
         if "Login Successful" in msg:
+            kwargs['pass_msg'] = "Login Successful"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def check_internet_connectivity(self, mu_ip, url="https://www.extremenetworks.com/"):
@@ -494,7 +525,7 @@ class MuCaptivePortal(MuCPWebElement):
         self.close_cp_browser()
         return page_title
 
-    def check_cwp_social_login_term_and_condition_page_text(self):
+    def check_cwp_social_login_term_and_condition_page_text(self, **kwargs):
         """
         - Check Captive Web Portal social login term and condition page
         - Keyword Usage:
@@ -520,6 +551,11 @@ class MuCaptivePortal(MuCPWebElement):
             self.auto_actions.click_reference(self.get_social_login_terms_and_condition_close_button)
 
             if "Acceptable Use Policy" and "Terms of use" in msg:
+                kwargs['pass_msg'] = f"Successfully get the term and condition page text - {msg}"
+                self.common_validation.passed(**kwargs)
                 return 1
         else:
+            kwargs['fail_msg'] = "'check_cwp_social_login_term_and_condition_page_text()' -> Could not get the " \
+                                 "term and condition page text"
+            self.common_validation.failed(**kwargs)
             return -1
