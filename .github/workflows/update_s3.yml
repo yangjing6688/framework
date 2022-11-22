@@ -83,5 +83,5 @@ jobs:
         make html
         ls ${BUILD_DIR}
 
-    # - name: Upload Metadata
-    #   run: aws s3 sync ${WORK_DIR} s3://econgit/extreme_automation_tests
+    - name: Upload Metadata
+      run: aws s3 sync --delete --exclude "_source" --dryrun ${BUILD_DIR}/html s3://extreme-automation-framework-documentation
