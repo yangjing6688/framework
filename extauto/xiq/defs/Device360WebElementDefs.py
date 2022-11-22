@@ -3782,17 +3782,9 @@ class Device360WebElementDefs:
             'index': 0,
         }
 
-    add_port_type_port_usage_multi_edit_exos = \
+    add_port_type_port_usage_multi_edit = \
         {
-            # Only for Switch Engine
-            'XPATH': '//*[@data-dojo-attach-point="addNewVlan"]',
-            'wait_for': 5
-        }
-
-    add_port_type_port_usage_multi_edit_voss = \
-        {
-            # Only for Fabric Engine
-            'XPATH': '//*[@data-dojo-attach-point="createPortType"]',
+            'XPATH': '//*[@data-automation-tag="automation-port-details-multi-edit-multi-edit-add-new-vlan"]',
             'wait_for': 5
         }
 

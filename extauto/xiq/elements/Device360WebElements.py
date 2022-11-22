@@ -2222,11 +2222,8 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_cancel_multi_edit(self):
         return self.weh.get_element(self.d360_close_multi_edit)
 
-    def get_add_port_type_port_usage_multi_edit_exos(self):
-        return self.weh.get_element(self.add_port_type_port_usage_multi_edit_exos)
-
-    def get_add_port_type_port_usage_multi_edit_voss(self):
-        return self.weh.get_element(self.add_port_type_port_usage_multi_edit_voss)
+    def get_add_port_type_port_usage_multi_edit(self):
+        return self.weh.get_element(self.add_port_type_port_usage_multi_edit)
 
     def get_d360_multi_edit_port_count(self):
         # rez = []
