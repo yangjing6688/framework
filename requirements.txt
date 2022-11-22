@@ -10,7 +10,7 @@ robotframework-pabot==2.1.0
 sauceclient==1.0.0
 selenium==3.141.0
 typing-extensions==4.1.1\
-# Commentted - 11/22/22
+# Commented - 11/22/22 - peter sadej
 # This requirement isn't referenced anywhere in the framework and causes issues when pip installing this requirements file
 # cupshelpers==1.0
 # ----------------- From Wireless End ---------------------
