@@ -37,7 +37,7 @@ class Network360Plan:
         self.custom_file_dir = os.path.join(os.sep,*self.current_path, "configs", "maps") + os.sep
 
 
-    def search_floor_in_network360plan(self, floor_name='default'):
+    def search_floor_in_network360plan(self, floor_name='default', **kwargs):
         """
         - This keyword searches for the floor in Network360 Plan
         - Keyword Usage:
@@ -63,7 +63,8 @@ class Network360Plan:
 
             return search_matches
         else:
-            self.utils.print_info("No search matches found: ")
+            kwargs['fail_msg'] = f"'search_floor_in_network360plan()' -> No search matches found"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def get_aps_from_network360plan_floor(self, floor_name='default', device_type='default', retries=0, **kwargs):
@@ -144,7 +145,6 @@ class Network360Plan:
             else:
                 kwargs['fail_msg'] = f"No search matches found"
                 self.commonValidation.failed(**kwargs)
-                self.utils.print_info("No search matches found: ")
                 return -1
 
         except Exception as e:
@@ -155,13 +155,12 @@ class Network360Plan:
                 self.utils.print_info(f"Exception Caught: {e}, tring again ({retries})")
                 return self.get_aps_from_network360plan_floor(floor_name, device_type, retries, **kwargs)
             else:
-                self.utils.print_info(f"Exception Caught: {e}, max retries reached {retries}")
                 kwargs['fail_msg'] = f"Exception Caught: {e}, max retries reached {retries}"
                 self.commonValidation.failed(**kwargs)
                 return -1
 
 
-    def import_map_in_network360plan(self, map_file_name):
+    def import_map_in_network360plan(self, map_file_name, **kwargs):
         """
         - This keyword will Import Map file in Network360 Plan page
         - Keyword Usage:
@@ -201,7 +200,8 @@ class Network360Plan:
             tootip_text = self.n360_elements.get_import_map_successful_text().text
             if tootip_text:
                 if "Your network map was successfully imported" in tootip_text:
-                    self.utils.print_info(f"{tootip_text}")
+                    kwargs['pass_msg'] = f"'import_map_in_network360plan()' -> {tootip_text}"
+                    self.common_validation.passed(**kwargs)
                     return 1
 
         if self.n360_elements.get_import_map_already_exist_text():
@@ -209,10 +209,14 @@ class Network360Plan:
             if tootip_already_exist:
                 if "already exists" in tootip_already_exist:
                     self.utils.print_info(f"{tootip_already_exist}")
-                    self.utils.print_info("Map with Same Name Already Imported, So No need to Import Again")
+                    kwargs['pass_msg'] = f"'import_map_in_network360plan()' -> Map with Same Name Already Imported, " \
+                                         f"So No need to Import Again"
 
                     self.utils.print_info("Click Close Button")
                     self.auto_actions.click_reference(self.n360_elements.get_tooltip_close_button)
                     sleep(2)
+                    self.common_validation.passed(**kwargs)
                     return 1
+        kwargs['fail_msg'] = f"'import_map_in_network360plan()' -> Failed to import map in network 360 plan"
+        self.common_validation.fault(**kwargs)
         return -1
