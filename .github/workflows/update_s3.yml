@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     # Limit to one of these jobs at a time
     concurrency: s3_sync_docs
-    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch'}}
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request'}}
     env:
       DOCS_DIR: documentation
       BUILD_DIR: _build
