@@ -190,6 +190,42 @@ class Login:
                 pass
             sleep(5)
             return 1
+
+        if 'sso' or 'tinyurl' in url:
+            self.utils.print_info("SSO Login Page found")
+            sso_username = BuiltIn().get_variable_value("${sso_username}")
+            sso_password = BuiltIn().get_variable_value("${sso_password}")
+
+            if sso_username and sso_password:
+                self.screen.save_screen_shot()
+                self.utils.print_info("Entering SSO Username")
+                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_username_text(), sso_username)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Entering SSO Password")
+                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_password_text(), sso_password)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Clicking on SSO Sign In button")
+                self.auto_actions.click_reference(self.login_web_elements.get_login_sso_page_login_button)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Check for wrong credentials in SSO Login Page..")
+                sign_in_error_message = self.login_web_elements.get_login_sso_page_sign_in_error_message()
+                self.utils.print_info("Wrong Credential Message: ", sign_in_error_message)
+                if 'No Message' in sign_in_error_message:
+                    kwargs['pass_msg'] = "No Error Message Found in SSO Login Page"
+                    self.common_validation.passed(**kwargs)
+                else:
+                    if "Incorrect user ID or password" in sign_in_error_message:
+                        kwargs['fail_msg'] = "SSO Login Failed.Wrong Credentials. Try Again"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+            else:
+                kwargs['fail_msg'] = f"SSO Username or Password Not Found"
+                self.common_validation.failed(**kwargs)
+                return -1
+
         self.utils.print_info("Entering Username...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
 

@@ -115,6 +115,10 @@ class CloudDriver():
             element_identify = "class-name"
             element_identify_value_css = ".btn"
 
+        if "sso" in url:
+            element_identify_value_name = "UserName"
+            element_identify = "name"
+
         mode = BuiltIn().get_variable_value("${WEB_DRIVER_LOC}")
         os_platform = BuiltIn().get_variable_value("${OS_PLATFORM}")
 
