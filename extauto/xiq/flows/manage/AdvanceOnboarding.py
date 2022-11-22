@@ -131,20 +131,18 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             if device_make:
                 if 'exos' in device_make.lower():
                     self.utils.print_info(f"Select {device_make} Radio Button")
-                    if self.get_devices_make_exos_radio_button().is_displayed():
-                        self.auto_actions.click_reference(self.get_devices_make_exos_radio_button)
-                        sleep(2)
+                    self.auto_actions.click_reference(self.get_devices_make_exos_radio_button)
+                    sleep(2)
 
-                        self.screen.save_screen_shot()
-                        sleep(2)
+                    self.screen.save_screen_shot()
+                    sleep(2)
                 elif 'voss' in device_make.lower():
                     self.utils.print_info(f"Select {device_make} Radio Button")
-                    if self.get_devices_make_voss_radio_button().is_displayed():
-                        self.auto_actions.click_reference(self.get_devices_make_voss_radio_button)
-                        sleep(2)
+                    self.auto_actions.click_reference(self.get_devices_make_voss_radio_button)
+                    sleep(2)
 
-                        self.screen.save_screen_shot()
-                        sleep(2)
+                    self.screen.save_screen_shot()
+                    sleep(2)
                 else:
                     self.utils.print_info(f"Clicking Device Make Type Drop Down")
                     if self.get_device_make_aerohive_dropdown().is_displayed():
