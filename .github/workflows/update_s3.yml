@@ -2,9 +2,11 @@ name: Update Test Infomation in S3 for the UI
 on:
   create:
   delete:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
 
-env:
-  WORK_DIR: workflow_output
 
 jobs:
   update_ref_lists:
@@ -13,10 +15,12 @@ jobs:
     # Limit to one of these jobs at a time
     concurrency: s3_sync_ref_lists
     if: ${{ github.event_name == 'create' || github.event_name == 'delete' }}
+    env:
+      WORK_DIR: workflow_output
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         ref: main
@@ -41,3 +45,41 @@ jobs:
 
     - name: Upload Metadata
       run: aws s3 sync ${WORK_DIR} s3://econgit/extreme_automation_tests
+
+  update_docs:
+    name: Update Keyword Documentation
+    runs-on: ubuntu-latest
+    # Limit to one of these jobs at a time
+    concurrency: s3_sync_docs
+    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch'}}
+    env:
+      DOCS_DIR: documentation
+      BUILD_DIR: _build
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        ref: main
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Setup Environment
+      run: |
+        pip3 install -r requirements.txt
+        pip3 install -r ${DOCS_DIR}/requirements.txt
+
+    - name: Generate Documentation
+      run: |
+        cd ${DOCS_DIR}
+        make html
+        ls ${BUILD_DIR}
+
+    # - name: Upload Metadata
+    #   run: aws s3 sync ${WORK_DIR} s3://econgit/extreme_automation_tests
