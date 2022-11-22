@@ -344,7 +344,7 @@ class MuCaptivePortal(MuCPWebElement):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def guest_user_self_registration(self, **guest_user, **kwargs):
+    def guest_user_self_registration(self, guest_user, **kwargs):
         """
         - Register the Guest User to access the network
         - Keyword Usage:
