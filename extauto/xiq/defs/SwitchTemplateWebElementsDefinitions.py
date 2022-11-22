@@ -668,8 +668,8 @@ class SwitchTemplateWebElementDefinitions:
 
     lag_span = \
         {
-            'XPATH': '//a[@data-automation-tag="lag-edit-lag-${lag}"]',
-            'wait_for': 5
+            'CSS_SELECTOR': '.link-type-agg.link-type-agg-prime [data-automation-tag="lag-edit-lag-${lag}"]',
+            'wait_for': 10
         }
 
     available_port = \
@@ -903,4 +903,10 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': '//*[@data-dojo-attach-point="textEl"]',
             'index': 0,
+        }
+
+    device_template_no_of_ports = \
+        {
+            'CSS_SELECTOR': '.state-expanded.state-type-access-port',
+            'wait_for': 10
         }

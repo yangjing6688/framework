@@ -1579,7 +1579,7 @@ class Cli(object):
         finally:
             self.close_connection_with_error_handling(dut)
 
-    def check_lacp_dut(self, dut, lacp_list_ports):
+    def check_lacp_dut(self, dut, lacp_list_ports, **kwargs):
         """
         Used for checking lacp on the switch matches the reference list:
         dut - device to test
@@ -1601,10 +1601,16 @@ class Cli(object):
                 elif lacp_list_ports[i] + ',' + lacp_list_ports[i+1] in lacp_list_ports_from_dut:
                     lacp_list_ports_from_dut.remove(lacp_list_ports[i] + ',' + lacp_list_ports[i+1])
                 else:
+                    kwargs["fail_msg"] = "'check_lacp_dut()' failed. No LACP ports found on CLI"
+                    self.commonValidation.failed(**kwargs)
                     return False
 
             if len(lacp_list_ports_from_dut) == 0:
+                kwargs["pass_msg"] = "Successfully verified number of ports matched."
+                self.commonValidation.passed(**kwargs)
                 return True
+        kwargs["fail_msg"] = "'check_lacp_dut()' failed. No LACP ports found on CLI"
+        self.commonValidation.failed(**kwargs)
         return False
 
 

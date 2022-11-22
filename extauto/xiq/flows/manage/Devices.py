@@ -5548,6 +5548,7 @@ class Devices:
 
         update_button = self.devices_web_elements.get_update_device_button()
         if update_button:
+            update_button = self.devices_web_elements.get_update_device_button()
             self.utils.print_info("Click on device update button")
             self.auto_actions.click(update_button)
         else:

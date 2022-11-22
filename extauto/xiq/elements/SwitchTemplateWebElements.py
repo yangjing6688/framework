@@ -537,7 +537,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.switch_temp_save_button_v2)
 
     def get_lag_span(self, lag):
-        return self.weh.get_template_elements(self.lag_span, lag=lag)
+        return self.weh.get_template_element(self.lag_span, lag=lag)
 
     def get_available_port(self, port):
         return self.weh.get_template_element(self.available_port, port=port)
@@ -615,3 +615,5 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
             return rez
         return None
 
+    def get_device_template_no_of_ports(self):
+        return self.weh.get_elements(self.device_template_no_of_ports)

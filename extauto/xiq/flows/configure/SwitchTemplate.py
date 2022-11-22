@@ -2243,7 +2243,7 @@ class SwitchTemplate(object):
             sw_model = model.replace('_', '-')
         return  sw_model,-1
 
-    def sw_template_stack_select_slot(self, slot):
+    def sw_template_stack_select_slot1(self, slot):
         """
         - Assume that already in Device Template Port Configuration
         :param slot: "The slot number that needs to be selected"
@@ -2938,3 +2938,76 @@ class SwitchTemplate(object):
         kwargs["pass_msg"] = f"Successfully clicked the {mode} stp mode button"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def create_modify_lag_in_template(self, main_lag_port, port, **kwargs):
+        """
+        This keyword is used to create or verify and existing LAG port. It first verify if LAG was created and
+         add a new port to it. Assuming navigation to port configuration is done.
+        :param main_lag_port: Master port
+        :param port: other ports
+        """
+
+        lag_text = main_lag_port + " LAG"
+        lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+        is_lag_found = False
+        if lag_link is not None:
+            lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+            if lag_link.text == lag_text:
+                is_lag_found = True
+                self.utils.print_info(f"LAG {main_lag_port} found on the page.")
+        if not is_lag_found:
+            self.utils.print_info("LAG not created. Creating LAG.")
+            AutoActions().click(self.sw_template_web_elements.get_aggr_ports_across_stack_button())
+            AutoActions().click(self.sw_template_web_elements.get_lacp_toggle_button())
+            AutoActions().click(self.sw_template_web_elements.get_available_slot(main_lag_port[0]))
+            sleep(3)
+            AutoActions().click(self.sw_template_web_elements.get_available_port(port=main_lag_port))
+            AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+            AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
+            AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+            AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+            AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
+            kwargs["pass_msg"] = f"Successfully created lag {main_lag_port}"
+            self.common_validation.passed(**kwargs)
+        else:
+            self.utils.print_info(f"Add port {port} to lag group {main_lag_port}")
+            AutoActions().move_to_element(lag_link)
+            AutoActions().click(lag_link)
+            sleep(3)
+            AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
+            AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+            selected_port = self.sw_template_web_elements.get_selected_port(port=port)
+            if selected_port is None:
+                kwargs["fail_msg"] = f"Failed to add port {port} to lag {main_lag_port}"
+                self.common_validation.failed(**kwargs)
+            AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+            AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
+            kwargs["pass_msg"] = f"Successfully add {port} to lag {main_lag_port}"
+            self.common_validation.passed(**kwargs)
+
+    def remove_lag_in_template(self, main_lag_port, ports, **kwargs):
+        """
+        This keyword is used to remove ports from LAG
+        :param main_lag_port: Master port
+        :param ports: list with all ports that need to be removed
+        """
+        lag_text = main_lag_port + " LAG"
+        lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+        is_lag_found = False
+        if lag_link is not None:
+            lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+            if lag_link.text == lag_text:
+                is_lag_found = True
+                self.utils.print_info(f"LAG {main_lag_port} found on the page.")
+                AutoActions().click(lag_link)
+        if not is_lag_found:
+            kwargs["fail_msg"] = f"{lag_text} wasn't found"
+            self.common_validation.failed(**kwargs)
+        for port in ports:
+            AutoActions().click(self.sw_template_web_elements.get_selected_port(port=port))
+            AutoActions().click(self.sw_template_web_elements.get_lag_remove_port_button())
+        sleep(2)
+        AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+        AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
+        kwargs["pass_msg"] = f"Successfully removed {ports} from lag {main_lag_port}"
+        self.common_validation.passed(**kwargs)

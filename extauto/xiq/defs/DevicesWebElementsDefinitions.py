@@ -314,7 +314,8 @@ class DevicesWebElementsDefinitions:
 
     update_devices_button = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-manage-update-config']",
+            'XPATH': '//span[@data-automation-tag="automation-manage-update-config"]',
+            'wait_for': 8
             
         }
 

@@ -11692,7 +11692,7 @@ class Device360(Device360WebElements):
         """Method that returns the vlan settings from the summary tab of the honeycomb port type editor.
 
         Returns:
-            dict: the vlan settings
+            dict: the vlan settingsdevice360_change_slot_view
         """
         self.utils.wait_till(timeout=5)
         summary = {}
@@ -12651,7 +12651,7 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return False
 
-    def device360_check_aggregated_ports_number(self, reference_num, **kwargs):
+    def device360_check_aggregated_ports_number(self, reference_num, no_slots, **kwargs):
         """
            This keyword is used to check the number of aggregated ports matches the reference
            It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
@@ -12666,17 +12666,9 @@ class Device360(Device360WebElements):
             lag_rows = self.get_device360_configure_aggregated_port_settings_aggregation_rows()
             if lag_rows:
                 no_of_ports = no_of_ports + len(lag_rows)
+            if i == no_slots+1:
+                break
 
-        # Close slots dropdown
-        slots_dropdown = self.get_device360_port_config_stack_slots_dropdown()
-        if slots_dropdown:
-            self.utils.print_info("Clicking on slots dropdown")
-            self.auto_actions.click(slots_dropdown)
-            sleep(5)
-        else:
-            kwargs['fail_msg'] = f"'device360_check_aggregated_ports_number()' failed.Slots dropdown not found"
-            self.common_validation.failed(**kwargs)
-            return False
         if no_of_ports == reference_num:
             kwargs['pass_msg'] = f"Number of LAG link matches."
             self.common_validation.passed(**kwargs)
@@ -12769,3 +12761,23 @@ class Device360(Device360WebElements):
         kwargs['pass_msg'] = f"Ports {ports} were removed from LAG."
         self.common_validation.passed(**kwargs)
         return True
+
+    def device360_remove_port_from_lag(self, master_port, **kwargs):
+        """
+        This keyword is used to remove 2 LAG ports from Device360
+        It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+
+        :param master_port
+        """
+
+        AutoActions().click(self.get_device360_lacp_label(port=master_port))
+        AutoActions().click(self.get_device360_aggregate_selected_port(port=master_port))
+        for i in range(0, 2):
+            AutoActions().click(self.get_device360_aggregate_remove_button())
+            sleep(2)
+        AutoActions().click(self.get_device360_lag_save_button())
+        AutoActions().click(self.get_device360_save_port_config())
+        kwargs['pass_msg'] = f"Ports {master_port} were removed from LAG."
+        self.common_validation.passed(**kwargs)
+        return 1
+
