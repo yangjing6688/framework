@@ -198,7 +198,7 @@ class DeviceConfigDefs:
 
     wireless_interface_wifi0_channel_options = \
         {
-            'XPATH':  '//*[@data-automation-tag="automation-interface-settings-wifi1-channel-chzn-results-ctn"]//li',
+            'XPATH':  '//*[@data-automation-tag="automation-interface-settings-wifi0-channel-chzn-results-ctn"]//li',
             'wait_for': 5
         }
 
@@ -216,7 +216,7 @@ class DeviceConfigDefs:
 
     wireless_interface_wifi2_channel_options = \
         {
-            'XPATH': '//div[@class="grid_10 column"]//*[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-results-ctn"]//li',
+            'XPATH': '//div[@class="grid_10 column"]//*[@data-automation-tag="automation-interface-settings-wifi2-radio-profile-chzn-results-ctn"]//li',
             'wait_for': 5
         }
 
@@ -746,7 +746,7 @@ class DeviceConfigDefs:
 
     wireless_wifi2_channel_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi1-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
