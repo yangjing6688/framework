@@ -1,4 +1,4 @@
-extauto.app package
+extauto.app
 ===================
 
 Subpackages

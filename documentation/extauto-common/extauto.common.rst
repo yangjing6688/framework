@@ -1,4 +1,4 @@
-extauto.common package
+extauto.common
 ======================
 
 Submodules

@@ -13,8 +13,8 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join('..', '..')))
-sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join('..')))
+sys.path.insert(0, os.path.abspath(os.path.join('..', 'extauto')))
 
 source_suffix = ['.rst', '.md']
 
@@ -35,7 +35,9 @@ release = 'Main'
 # ones.
 extensions = [
         # 'sphinx_markdown_builder',
-        'sphinx.ext.autodoc'
+        'sphinx.ext.autodoc',
+        'sphinx.ext.napoleon',
+        'm2r2'
 ]
 
 
@@ -60,4 +62,4 @@ exclude_patterns = ['build/*','_build', 'Thumbs.db', '.DS_Store']
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-autodoc_mock_imports = ['cv2']
+autodoc_mock_imports = ['cv2', 'pytest_testconfig', 'bs4']
