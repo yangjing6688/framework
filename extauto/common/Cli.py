@@ -1467,10 +1467,9 @@ class Cli(object):
     def get_port_list_from_dut_without_not_present_ports(self, dut, **kwargs):
         """
         - This Keyword gets ports for EXOS and VOSS from CLI and than remove "not present" ports
-        :param dut:
+        :param dut: the dut, e.g. tb.dut1
         :return: CLI Command Output
         """
-
         if dut.cli_type.upper() == "VOSS":
 
             time.sleep(10)
@@ -1563,35 +1562,33 @@ class Cli(object):
         :return:
         """
 
-        try:
+        if connect_to_dut:
+            self.close_connection_with_error_handling(dut)
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
-            if connect_to_dut:
-                self.close_connection_with_error_handling(dut)
-                self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementCliSend.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
+                                                confirmation_phrases='Do you want to continue?',
+                                                confirmation_args='Yes')
+            if xiq_ip_address:
+                self.networkElementCliSend.send_cmd(
+                    dut.name, f"configure iqagent server ipaddress {xiq_ip_address}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable iqagent', max_wait=10, interval=2)
 
-            if dut.cli_type.upper() == "EXOS":
-                self.networkElementCliSend.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
-                                                    confirmation_phrases='Do you want to continue?',
-                                                    confirmation_args='Yes')
-                if xiq_ip_address:
-                    self.networkElementCliSend.send_cmd(
-                        dut.name, f"configure iqagent server ipaddress {xiq_ip_address}", max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, 'enable iqagent', max_wait=10, interval=2)
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'application', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'no iqagent enable', max_wait=10, interval=2)
+            if xiq_ip_address:
+                self.networkElementCliSend.send_cmd(
+                    dut.name, f'iqagent server {xiq_ip_address}', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'iqagent enable', max_wait=10, interval=2)
 
-            elif dut.cli_type.upper() == "VOSS":
-                self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, 'application', max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, 'no iqagent enable', max_wait=10, interval=2)
-                if xiq_ip_address:
-                    self.networkElementCliSend.send_cmd(
-                        dut.name, f'iqagent server {xiq_ip_address}', max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, 'iqagent enable', max_wait=10, interval=2)
-        finally:
-            if disconnect_from_dut:
-                self.close_connection_with_error_handling(dut)
-                kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed."
-                self.commonValidation.passed(**kwargs)
+        if disconnect_from_dut:
+            self.close_connection_with_error_handling(dut)
+            kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed."
+            self.commonValidation.passed(**kwargs)
         if wait and xiq is not None:
             xiq.xflowscommonDevices.wait_until_device_online(dut.serial)
             kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed. Successfully waited until device online."
@@ -2077,23 +2074,25 @@ class Cli(object):
             self.close_connection_with_error_handling(dut)
 
     def get_master_slot(self, onboarded_stack, **kwargs):
+        """Method that gets master slot info using "show stacking" command.
+        Args:
+            onboarded_stack
+        Returns:
+            int: slot number for master unit
+        """
         output = self.networkElementCliSend.send_cmd(onboarded_stack.name, "show stacking")[0].return_text
         rows = output.split("\r\n")
         for row in rows:
             slot = re.search(r"\s+.*\s+(\d+)\s+", row)
-
             if not slot:
                 continue
-
             slot = slot.group(1)
-
             if 'Master' in row:
                 kwargs["pass_msg"] = f"Slot: {slot}"
                 self.commonValidation.passed(**kwargs)
                 return slot
         kwargs["fail_msg"] = "get_master_slot() failed."
         self.commonValidation.failed(**kwargs)
-        # return -1
 
     def set_lacp(self, dut, mlt, key, port):
         try:

@@ -10697,10 +10697,11 @@ class Device360(Device360WebElements):
             # return 1
             kwargs['pass_msg'] = f"Selected the specific pagination size"
             self.common_validation.passed(**kwargs)
+            return 1
         except Exception as exc:
             print(repr(exc))
             # return -1
-            kwargs['fail_msg'] = f"'select_pagination_size()' failed. Specific pagination was not selected"
+            kwargs['fail_msg'] = f"'select_pagination_size()' failed with the following exception: {exc}. Specific pagination was not selected."
             self.common_validation.failed(**kwargs)
 
     def get_device360_port_table_rows(self, **kwargs):
@@ -10725,23 +10726,15 @@ class Device360(Device360WebElements):
          - Keyword Usage:
          - ``Device360 Monitor Overview Pagination Next Page By Number``
         :return: True if page number matches
-        :return: False if page number doesn't match or on error
         """
-        try:
-            current_page = int(
-                self.dev360.get_device360_ports_table_current_pagin_number().text)
-            if current_page == page_num_ref:
-                # return True
-                kwargs['pass_msg'] = f"Confirm current page number"
-                self.common_validation.passed(**kwargs)
-                return True
-            # return False
-            kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed."
-            self.common_validation.fault(**kwargs)
-        except Exception as e:
-            # return False
-            kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed with the following exception: {e}"
-            self.common_validation.failed(**kwargs)
+        current_page = int(
+            self.dev360.get_device360_ports_table_current_pagin_number().text)
+        if current_page == page_num_ref:
+            kwargs['pass_msg'] = f"Confirm current page number"
+            self.common_validation.passed(**kwargs)
+            return True
+        kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed."
+        self.common_validation.failed(**kwargs)
 
     def device360_switch_get_current_page_port_name_list(self, **kwargs):
         """
@@ -10751,28 +10744,22 @@ class Device360(Device360WebElements):
          - Keyword Usage:
          - ``Device360 Monitor Overview Pagination Next Page By Number``
         :return: port_name_list if successfully extracted the port names
-        :return: -1 if error
         """
-        try:
-            port_name_list = []
-            rows = self.get_device360_port_table_rows()
-            for row in rows:
-                port_name_list.append(
-                    self.dev360.get_d360_switch_ports_table_interface_port_name_cell(row).text)
-            if 'PORT NAME' in port_name_list:
-                port_name_list.remove('PORT NAME')
-            pattern_voss_three_nums = re.compile(r'\d+\/\d+\/\d+', re.M)
-            filtered = [i for i in port_name_list if not pattern_voss_three_nums.match(i)]
-            pattern_mgmt = re.compile(r'.*mgmt.*', re.M)
-            filtered = [i for i in filtered if not pattern_mgmt.match(i)]
-            kwargs['pass_msg'] = f"Port name list from current page: {filtered}"
-            self.common_validation.passed(**kwargs)
-            return filtered
-        except Exception as e:
-            # return -1
-            kwargs['fail_msg'] = f"'device360_switch_get_current_page_port_name_list()' failed."
-            self.common_validation.failed(**kwargs)
 
+        port_name_list = []
+        rows = self.get_device360_port_table_rows()
+        for row in rows:
+            port_name_list.append(
+                self.dev360.get_d360_switch_ports_table_interface_port_name_cell(row).text)
+        if 'PORT NAME' in port_name_list:
+            port_name_list.remove('PORT NAME')
+        pattern_voss_three_nums = re.compile(r'\d+\/\d+\/\d+', re.M)
+        filtered = [i for i in port_name_list if not pattern_voss_three_nums.match(i)]
+        pattern_mgmt = re.compile(r'.*mgmt.*', re.M)
+        filtered = [i for i in filtered if not pattern_mgmt.match(i)]
+        kwargs['pass_msg'] = f"Port name list from current page: {filtered}"
+        self.common_validation.passed(**kwargs)
+        return filtered
 
     def device360_monitor_overview_pagination_next_page_by_number(self, **kwargs):
         """
@@ -10784,26 +10771,21 @@ class Device360(Device360WebElements):
          - ``Device360 Monitor Overview Pagination Next Page By Number``
         :return: 1 if successfully changed to next page
         :return: 2 if already on the last page
-        :return: -1 if error
         """
-        try:
-            current_page = int(
-                self.dev360.get_device360_ports_table_current_pagin_number().text)
-            other_pages = self.dev360.get_device360_pagination_page_buttons()
-            for page in other_pages:
-                if int(page.text) == current_page + 1:
-                    self.utils.print_info(f"Going to page " + str(current_page + 1))
-                    self.auto_actions.click(page)
-                    sleep(5)
-                    kwargs['pass_msg'] = f"Successfully changed to next page"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-            kwargs['pass_msg'] = f"Already on the last page"
-            self.common_validation.passed(**kwargs)
-            return 2
-        except Exception as e:
-            kwargs['fail_msg'] = f"'device360_monitor_overview_pagination_next_page_by_number()' failed."
-            self.common_validation.failed(**kwargs)
+        current_page = int(
+            self.dev360.get_device360_ports_table_current_pagin_number().text)
+        other_pages = self.dev360.get_device360_pagination_page_buttons()
+        for page in other_pages:
+            if int(page.text) == current_page + 1:
+                self.utils.print_info(f"Going to page " + str(current_page + 1))
+                self.auto_actions.click(page)
+                sleep(5)
+                kwargs['pass_msg'] = f"Successfully changed to next page"
+                self.common_validation.passed(**kwargs)
+                return 1
+        kwargs['pass_msg'] = f"Already on the last page"
+        self.common_validation.passed(**kwargs)
+        return 2
 
     def list_port_element(self, xiq, port_no, **kwargs):
         rows = xiq.xflowscommonDevices.devices_web_elements.get_port_details_info()
@@ -12830,20 +12812,18 @@ class Device360(Device360WebElements):
 
     def verify_port_names(self, **kwargs):
         """
-        Verifies that the port details of slot 1 are displayed by default.
+        Verifies that the port details of slot 1 are displayed by default in D360 table.
+        It Assumes That Already Navigated to Device360 Page
         """
         first_order_rows = [r.text for r in self.get_device360_port_table_rows()]
         first_port_names = [r.split(" ")[0] for r in first_order_rows]
         print(f"Found these port names in the table: {first_port_names}")
-
         for port_name in first_port_names:
             print(f"Port name: {port_name}")
             if not re.match(r"1:(\d+|mgmt)", port_name):
-                # pytest.fail('At least one port displayed is not from Slot 1')
                 kwargs["fail_msg"] = "At least one port displayed is not from Slot 1"
                 self.common_validation.failed(**kwargs)
                 return -1
-        # logger.info(f"All ports displayed by default are from Slot 1")
         kwargs["pass_msg"] = "All ports displayed by default are from Slot 1"
         self.common_validation.passed(**kwargs)
 
