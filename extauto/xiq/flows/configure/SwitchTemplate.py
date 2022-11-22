@@ -46,7 +46,7 @@ class SwitchTemplate(object):
         - Check the Switch template in the Switch template Grid
         - Assumes That Already in Network Policy Edit Page
         - Keyword Usage
-         - ``Check SW Template  ${SWITCH_TEMPLATE_NAME}``
+        - ``Check SW Template  ${SWITCH_TEMPLATE_NAME}``
 
         :param sw_template: Switch Template Name ie SR2024P,X440-G2-24p-10G4 etc
         :return: True if Switch Template Found on Grid else False
@@ -69,7 +69,7 @@ class SwitchTemplate(object):
         - Checks the given switch template present already in the switch Templates Grid
         - If it is not there add to the sw_template
         - Keyword Usage
-         - ``Add SW Template  ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
+        - ``Add SW Template  ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
 
         :param nw_policy: network policy
         :param sw_model: Switch Model ie SR2348P
@@ -164,7 +164,7 @@ class SwitchTemplate(object):
                 sleep(1)
                 self.utils.print_info("Get Template Save Button")
                 save_btns = self.sw_template_web_elements.get_sw_template_save_button()
-        
+
                 rc = -1
                 for save_btn in save_btns:
                     if save_btn.is_displayed():
@@ -173,11 +173,11 @@ class SwitchTemplate(object):
                         self.screen.save_screen_shot()
                         tool_tip_text = tool_tip.tool_tip_text
                         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-                        
+
                         def _is_sw_template_available():
                             return self.get_sw_template_row(sw_template_name)
                         self.utils.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
-                        
+
                         self.screen.save_screen_shot()
                         rc = 1
                         break
@@ -192,7 +192,7 @@ class SwitchTemplate(object):
         """
         - Get the switch template row element on Network Policy's Switch Templates Grid
         - Keyword Usage
-         - ``Get SW Template Row  ${SW_TEMPLATE_NAME}``
+        - ``Get SW Template Row  ${SW_TEMPLATE_NAME}``
 
         :param sw_template: name of the sw_template
         :return: Switch Template Cell present on row
@@ -216,7 +216,7 @@ class SwitchTemplate(object):
         """
         - This Keyword will Select the Switch Template on Network Policy
         - Keyword Usage
-         - ``Select SW Template  ${NW_POLICY_NAME}  ${SW_TEMPLATE_NAME}``
+        - ``Select SW Template  ${NW_POLICY_NAME}  ${SW_TEMPLATE_NAME}``
 
         :param nw_policy: Name of the Network Policy to select Switch Template
         :param sw_template: Name of the sw_template
@@ -243,7 +243,7 @@ class SwitchTemplate(object):
         - Checking the sw template present in the sw Templates Grid
         - If it is not there add to the sw_template
         - Keyword Usage
-         - ``Assign SW Template  ${POLICY_NAME}  ${SW_TEMPLATE_NAME}``
+        - ``Assign SW Template  ${POLICY_NAME}  ${SW_TEMPLATE_NAME}``
 
         :param nw_policy: Name of policy to assign the switch template to
         :param sw_template_name: Name of the switch template to assign; e.g., SR_2348P-default-template
@@ -483,8 +483,8 @@ class SwitchTemplate(object):
         - If it is not there add to the sw_template
         - This function is working only for stack
         - Keyword Usage
-         - ``  ${MODEL_UNITS} ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
-         - e.g. Add Sw Stack Template                           5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS
+        - ``  ${MODEL_UNITS} ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
+        - e.g. Add Sw Stack Template                           5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS
            ...                             bgd2        EXOS-5520-Series-Stack          politicamea      True
         :param model_units: a string will all units e.g 5520-24T,5520-24X,5520-48T
         :param nw_policy: network policy
@@ -610,7 +610,7 @@ class SwitchTemplate(object):
                                     return 1
                                 else:
                                     self.utils.print_info("Not found successfully message yet ")
-                            
+
                             def _is_sw_template_available():
                                 return self.get_sw_template_row(sw_template_name)
                             self.utils.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
@@ -631,7 +631,7 @@ class SwitchTemplate(object):
         - Flow: First page from stack template
         - This function is working only for stack. It checks if the names of units have correct format
         - Keyword Usage
-         - e.g. check added sw stack template units      5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS     myTemplate
+        - e.g. check added sw stack template units      5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS     myTemplate
         :param model_units: a string with all units e.g 5520-24T,5520-24X,5520-48T
         :param sw_template_name: Switch Template Name; ie mypolicy
         :return: 1 if all expected units are displayed in policy and the names match; else -1 ;
@@ -893,7 +893,7 @@ class SwitchTemplate(object):
         - Flow: First page from stack template
         - This function is working only for stack. It checks if the type of units are the same in XIQ and CLI
         - Keyword Usage
-         - e.g. check added sw stack template units      5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS     myTemplate
+        - e.g. check added sw stack template units      5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS     myTemplate
         :param model_units: a string with all units e.g 5520-24T-EXOS,5520-24X-EXOS
         :return: 1 if all expected units are displayed in policy and the names match; else -1 ;
         """
@@ -938,7 +938,7 @@ class SwitchTemplate(object):
         """
         - Create Vlan In Template
         - Keyword Usage:
-         - ``Create Vlan In Template     ${policy_name}  ${template_name}  ${port}  ${vlan_number}``
+        - ``Create Vlan In Template     ${policy_name}  ${template_name}  ${port}  ${vlan_number}``
         :param policy_name: Name of the policy
         :param template_name : Name of the template
         :param port : Number of the port
@@ -954,7 +954,7 @@ class SwitchTemplate(object):
         """
         - Create Vlan In Stacked Template
         - Keyword Usage:
-         - ``Create Vlan In Stacked Template     ${nw_policy}  ${sw_template_name}  ${slot}  ${port}  ${vlan}
+        - ``Create Vlan In Stacked Template     ${nw_policy}  ${sw_template_name}  ${slot}  ${port}  ${vlan}
                ${port_type_name}``
         :param nw_policy: Name of the policy
         :param sw_template_name : Name of the template
@@ -1700,8 +1700,8 @@ class SwitchTemplate(object):
         - Checks able to configure OOB Mgmt interface
         - This function is working only if switch template already created
         - Keyword Usage
-         - ``  ${NW_POLICY}  ${SW_TEMPLATE_NAME} ${MGMTVLAN}
-         - e.g. configure_oob_mgmt_int bgd2 politicamea 4092
+        - ``  ${NW_POLICY}  ${SW_TEMPLATE_NAME} ${MGMTVLAN}
+        - e.g. configure_oob_mgmt_int bgd2 politicamea 4092
         :param nw_policy: network policy
         :param sw_template_name: Switch Template Name e.g mypolicy
         :param mgmtVlan: 4092 -vlan range need to be (1-4093)
@@ -1868,8 +1868,8 @@ class SwitchTemplate(object):
         - If it is not there add to the sw_template
         - This function is working only for stack
         - Keyword Usage
-         - ``  ${MODEL_UNITS} ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
-         - e.g. Add Sw Stack Template                           5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS
+        - ``  ${MODEL_UNITS} ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
+        - e.g. Add Sw Stack Template                           5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS
            ...                             bgd2        EXOS-5520-Series-Stack          politicamea      True
         :param model_units: a string will all units e.g 5520-24T,5520-24X,5520-48T
         :param nw_policy: network policy
@@ -1953,7 +1953,7 @@ class SwitchTemplate(object):
         else:
             self.utils.print_info("User choose not to save the policy. More configs could be added")
             return 1
-            
+
     def delete_switch_template_from_policy(self, nw_policy, sw_template_name, **kwargs):
         """
         - This keyword will delete the switch template from a newtwork policy
@@ -2077,7 +2077,7 @@ class SwitchTemplate(object):
         """
         - Get the switch template row element hyperlink on Network Policy's Switch Templates Grid
         - Keyword Usage
-         - ``Get SW Template Row  ${SW_TEMPLATE_NAME}``
+        - ``Get SW Template Row  ${SW_TEMPLATE_NAME}``
 
         :param sw_template: name of the sw_template
         :return: Switch Template Cell present on row
@@ -2195,7 +2195,7 @@ class SwitchTemplate(object):
         return -1
 
 
-    
+
     def generate_template_name(self,platform,serial,model, slots = ""):
         """
         This method is to generate template name based on the testbed file given
@@ -2557,9 +2557,9 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Failed to get the assign_to_all_ports_selected button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
             self.utils.print_info("Successfully got the assign_to_all_ports_selected button")
-            
+
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(assign_to_all_ports_selected),
                 exp_func_resp=True,
@@ -2570,7 +2570,7 @@ class SwitchTemplate(object):
                 kwargs["fail_msg"] = "Failed to click the assign_to_all_ports_selected button"
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+
             self.utils.print_info("Successfully clicked the assign_to_all_ports_selected button")
 
             assign_button, _ = self.utils.wait_till(

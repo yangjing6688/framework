@@ -19,7 +19,7 @@ class ClientMonitor(ClientMonitorWebElements):
         - Flow: Manage --> Client Monitor & Diagnosis --> Client Monitor
         - get ths issue authentication counts from authentication status card
         - Keyword Usage:
-         - ``Get Authentication Counts``
+        - ``Get Authentication Counts``
 
         :return: client authentication issue count
         """
@@ -38,7 +38,7 @@ class ClientMonitor(ClientMonitorWebElements):
         - Flow: Manage --> Tools --> Client Monitor
         - Get the client issue entries from the client issue grid rows,
         - Keyword Usage:
-         - ``Get Client Issue Entries   ${CLIENT_MAC}``
+        - ``Get Client Issue Entries   ${CLIENT_MAC}``
 
         :param search_string: sting to search the client issue rows, it may be detected time, client mac
         :param issue_type: type of the issue i.e Authentication, Association, Networking

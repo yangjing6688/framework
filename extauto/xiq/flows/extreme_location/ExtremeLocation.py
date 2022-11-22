@@ -22,7 +22,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def subscribe_extreme_location_essentials(self):
         """
-        -This keyword Will Subscribe extreme location essentials
+        - This keyword Will Subscribe extreme location essentials
         - Flow: Extreme Location--> Subscribe-->Apply
 
         :return:
@@ -55,7 +55,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def _go_to_extreme_location_page(self):
         """
-        -This keyword Will Navigate to Extreme Location Menu Window
+        - This keyword Will Navigate to Extreme Location Menu Window
         - Flow: Extreme Location--> More Insights-->Extreme Location Menu Window
 
         :return: 1 if navigation success
@@ -105,7 +105,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def _go_to_extreme_location_devices_menu(self):
         """
-        -This keyword Will Navigate to Devices Menu on Extreme Location Page
+        - This keyword Will Navigate to Devices Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Devices
 
         :return:
@@ -121,7 +121,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_sites_menu(self):
         """
-        -This keyword Will Navigate to Sites Menu on Extreme Location Page
+        - This keyword Will Navigate to Sites Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Sites
 
         :return:
@@ -156,7 +156,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_category_menu(self):
         """
-        -This keyword Will Navigate to Category Menu on Extreme Location Page
+        - This keyword Will Navigate to Category Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Category
 
         :return:
@@ -172,7 +172,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_access_points_menu(self):
         """
-        -This keyword Will Navigate to Access Points Menu on Extreme Location Page
+        - This keyword Will Navigate to Access Points Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Access Points
 
         :return:
@@ -188,7 +188,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_beacons_menu(self):
         """
-        -This keyword Will Navigate to Beacons Menu on Extreme Location Page
+        - This keyword Will Navigate to Beacons Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Beacons
 
         :return:
@@ -204,7 +204,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_asset_management_menu(self):
         """
-        -This keyword Will Navigate to Asset Management Menu on Extreme Location Page
+        - This keyword Will Navigate to Asset Management Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Asset Management
 
         :return:
@@ -220,7 +220,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_asset_management_assets_menu(self):
         """
-        -This keyword Will Navigate to Asset Management Menu on Extreme Location Page
+        - This keyword Will Navigate to Asset Management Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Asset Management-->Assets
 
         :return:
@@ -236,7 +236,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_asset_management_alarm_menu(self):
         """
-        -This keyword Will Navigate to Asset Management Menu on Extreme Location Page
+        - This keyword Will Navigate to Asset Management Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Asset Management-->Alarm
 
         :return:
@@ -252,7 +252,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_devices_wireless_devices_menu(self):
         """
-        -This keyword Will Navigate to Wireless Devices Menu on Extreme Location Page
+        - This keyword Will Navigate to Wireless Devices Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Devices-->Wireless Devices
 
         :return:
@@ -269,7 +269,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_devices_bss_devices_menu(self):
         """
-        -This keyword Will Navigate to BSS Devices Menu on Extreme Location Page
+        - This keyword Will Navigate to BSS Devices Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Devices-->BSS Devices
 
         :return:
@@ -285,7 +285,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def _go_to_extreme_location_settings_menu(self):
         """
-        -This keyword Will Navigate to Settings Menu on Extreme Location Page
+        - This keyword Will Navigate to Settings Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Settings
 
         :return:
@@ -301,7 +301,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_settings_device_classification_menu(self):
         """
-        -This keyword Will Navigate to device classification Menu on Extreme Location Page
+        - This keyword Will Navigate to device classification Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Settings-->Device Classification
 
         :return:
@@ -317,7 +317,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_settings_thresholds_menu(self):
         """
-        -This keyword Will Navigate to Thresholds Menu on Extreme Location Page
+        - This keyword Will Navigate to Thresholds Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Settings-->Thresholds
 
         :return:
@@ -333,7 +333,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_settings_third_party_config_menu(self):
         """
-        -This keyword Will Navigate to Third Party Configuration Menu on Extreme Location Page
+        - This keyword Will Navigate to Third Party Configuration Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Settings-->Third Party Configuration
 
         :return:
@@ -349,7 +349,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_settings_alarms_menu(self):
         """
-        -This keyword Will Navigate to Alarm Settings Menu on Extreme Location Page
+        - This keyword Will Navigate to Alarm Settings Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Settings-->Alarms
 
         :return:
@@ -368,7 +368,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - This Keyword Will check new location assigned to AP in XLOC AP Page
         - Flow: Extreme Location--> More Insights--> AP page--> New location assgined to AP
         - Keyword Usage:
-         - ``Check Location Assigned to AP in XLOC     ${AP1_SERIAL}       ${NEW_LOCATION}``
+        - ``Check Location Assigned to AP in XLOC     ${AP1_SERIAL}       ${NEW_LOCATION}``
         :param device_hostname: hostname of access point
         :param dev_location: location hierarchy in terms of location, building, floor
         :return: 1 if edited location is successfully seen in ADSP Sensor page else -1
@@ -406,7 +406,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - get client information in extreme location devices page
         - - Flow: Extreme Location--> More Insights--> Devices-->Wireless Devices
         - Keyword Usage:
-         - ``Get Client Information In Extreme Location Devices Page    ${CLIENT_MAC}   ${SITE_NAME}``
+        - ``Get Client Information In Extreme Location Devices Page    ${CLIENT_MAC}   ${SITE_NAME}``
 
         :param client_mac: client mac address
         :param site_name: Device Assigned Site Name
@@ -496,7 +496,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - validate_client_entry_in_extreme_location_sites_page
         - Flow : Extreme Location--> More Insights-->Sites
         - Keyword Usage:
-         - ``Validate Client Entry In Extreme Location Sites Page    ${SITE_NAME}   ${CLIENT_MAC}``
+        - ``Validate Client Entry In Extreme Location Sites Page    ${SITE_NAME}   ${CLIENT_MAC}``
 
         :param site_name: Site_name to View the Wireless Device
         :param floor_name: Floor name to View the Wireless Device
@@ -600,7 +600,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def async_subscribe_extreme_location_essentials(self, presence='enable', ibeacon='enable'):
         """
-        -This keyword Will Subscribe extreme location essentials and enable or disable the presence and ibeaocn option on subscription window
+        - This keyword Will Subscribe extreme location essentials and enable or disable the presence and ibeaocn option on subscription window
         - Flow: Extreme Location--> Subscribe-->Presence=enable or disable --> Apply
 
         :return:
@@ -652,7 +652,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_to_extreme_location_xloc_application(self, **kwargs):
         """
-        -This keyword Will Navigate to Wireless Devices Menu on Extreme Location Page
+        - This keyword Will Navigate to Wireless Devices Menu on Extreme Location Page
         - Flow: Extreme Location--> More Insights
 
         :return:
@@ -1146,10 +1146,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def check_xloc_data_points_after_resetviq(self):
         """
-        -This keyword Will check XLOC data points "Online Sensor" and "Live Devices" after reset viq
-        -This keyword can be used only after performing reset viq
+        - This keyword Will check XLOC data points "Online Sensor" and "Live Devices" after reset viq
+        - This keyword can be used only after performing reset viq
         - Keyword Usage:
-         - `` Check Xloc Data Points After Resetviq ``
+        - `` Check Xloc Data Points After Resetviq ``
 
         :return: 1 if data points of XLOC are resetted to zero which confirms pass of reset viq feature wrt XLOC
             """
@@ -1188,10 +1188,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
     def create_xloc_third_party_ibeacon(self, ibeacon_name, uuid_name, xloc_site_name, as_category_name,
                                         ibeacon_mac_address, major_version="", minor_version="", **kwargs):
         """
-        -This keyword Will create third party ibeacon on Extreme Location Page
+        - This keyword Will create third party ibeacon on Extreme Location Page
         - Flow: Extreme Location--> More Insights-->Beacons->Onboard Third Party Ibeacon
         - Keyword Usage:
-             - ``Create XLOC Third Party Ibeacon   ${IBEACON_NAME}   ${XLOC_SITE_NAME}   ${AS_CATEGORY_NAME}   ${IBEACON_MAC_ADDRESS}``
+        - ``Create XLOC Third Party Ibeacon   ${IBEACON_NAME}   ${XLOC_SITE_NAME}   ${AS_CATEGORY_NAME}   ${IBEACON_MAC_ADDRESS}``
 
         :param ibeacon_name: name of the third party ibeacon
         :param xloc_site_name: name of xloc site
@@ -1262,7 +1262,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.auto_actions.click_reference(self.get_xloc_uuid_name)
         self.auto_actions.send_keys(self.get_xloc_uuid_name(), uuid_name)
         sleep(2)
-        
+
         self.utils.print_info("Entering the Major version: ", major_version)
         self.auto_actions.send_keys(self.get_xloc_major_version(), major_version)
         sleep(2)
@@ -1305,7 +1305,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - Flow : Extreme Location--> More Insights-->Asset Management-->Assets
         - Keyword Usage:
         - ``Edit Ibeacon in XLOC    ${IBEACON_MAC_ADDRESS}    ${uuid}    major_version=''    minor_version='' ``
-        
+
         :return: 1 if successfully Edited
         :return: -1 if not successfully Edited
         """
@@ -1314,7 +1314,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         self.utils.print_info("Search grid based on ibeacon mac address in search filter")
         self.utils.print_info("Entering search_string for ibeacon mac address  ", ibeacon_mac_address)
-        
+
         self.auto_actions.click_reference(self.get_xloc_search_name_field)
         self.auto_actions.send_keys(self.get_xloc_search_name_field(), ibeacon_mac_address)
         sleep(2)
@@ -1343,7 +1343,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.auto_actions.click_reference(self.get_xloc_third_party_beacon_major_minor_version)
         self.auto_actions.send_keys(self.get_xloc_third_party_beacon_major_minor_version(),Formatted_major_minor_Value)
         self.screen.save_screen_shot()
-        
+
         sleep(2)
         self.utils.print_info("clicking xloc third party beacon save settings")
         self.auto_actions.click_reference(self.get_xloc_third_party_beacon_save_btn)
@@ -1359,8 +1359,8 @@ class ExtremeLocation(ExtremeLocationWebElements):
             kwargs['fail_msg'] = "'edit_Ibeacon_in_XLOC()' -> configuration not saved sucessfully"
             self.common_validation.failed(**kwargs)
             return -1
-    
-    
+
+
     def delete_ibeacon_in_xloc(self, ibeacon_mac_address, **kwargs):
 
         """
@@ -1368,7 +1368,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - Flow : Extreme Location--> More Insights-->Beacons->Delete selected Ibeacon
         - Keyword Usage:
         - ``Delete ibeacon in xloc    ${IBEACON_MAC_ADDRESS}``
-        
+
         :return: 1 if successfully Deleted
         :return: -1 if not Deleted
         """
@@ -1377,7 +1377,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         sleep(2)
         self.utils.print_info("Search grid based on ibeacon mac address in search filter")
         self.utils.print_info("Entering search_string for ibeacon mac address  ", ibeacon_mac_address)
-        
+
         self.auto_actions.click_reference(self.get_xloc_search_name_field)
         self.auto_actions.send_keys(self.get_xloc_search_name_field(), ibeacon_mac_address)
         self.screen.save_screen_shot()
@@ -1393,7 +1393,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                                  f" is avaliable"
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         self.utils.print_info("Clicking Delete Button")
         self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.get_xloc_third_party_beacon_delete_button)
@@ -1417,7 +1417,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             kwargs['pass_msg'] = "third party ibeacon is not avaliable"
             self.common_validation.passed(**kwargs)
             return 1
-    
+
     def get_ibeacon_status(self, ibeacon_mac_address, **kwargs):
 
         """
@@ -1429,10 +1429,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
         :return: status of ibeacon(Online or Offline)
         :return: 1 if ibeacon in Online
         :return: -1 if ibeacon in Offline
-        
+
         """
 
-        self.utils.print_info("Getting the status of ibeacon") 
+        self.utils.print_info("Getting the status of ibeacon")
         count = 1
         retry_duration = 10
         while True:
@@ -1479,7 +1479,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - ``Download ibeacon report``
         :return: 1 if successfully report download
         """
-        
+
         self.go_to_extreme_location_beacons_menu()
         sleep(2)
         self.utils.print_info("downloading ibeacon report")
@@ -1495,7 +1495,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - This Keyword will Create Time Based Device Classification Rule
         - Flow : Extreme Location--> More Insights--> Settings-->Device Classification–> Add Device Rule
         - Keyword Usage:
-            - ``Create Time Based Device Classification Rule   ${USER_TYPE}   visiting_hours=${HOUR_TIME}   visiting_minutes=${MINUTES_TIME}``
+        - ``Create Time Based Device Classification Rule   ${USER_TYPE}   visiting_hours=${HOUR_TIME}   visiting_minutes=${MINUTES_TIME}``
 
         :param user_type: User Type Option
         :param visiting_hours: Visiting Time in Hours
@@ -1566,7 +1566,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - This keyword is used to update SSID in device classification rule
         - Flow : Assumes already in Device classification rule page of Location
         - Keyword Usage:
-         - ``Update SSID in device rule    ${RULE_TYPE}   ${SSID}    ${OPTION}``
+        - ``Update SSID in device rule    ${RULE_TYPE}   ${SSID}    ${OPTION}``
 
         :param rule_type: rule type (eg: Assets/Faculty/Excluded Devices)
         :param ssid: SSID name to edit
@@ -1643,7 +1643,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - This keyword updates visitor duration for device classification rule
         - Flow : Assumes already in Device classification rule page of location.
         - Keyword Usage:
-         - ``Update Visitor Duration For Device Rule    ${RULE_TYPE}   ${DURATION}``
+        - ``Update Visitor Duration For Device Rule    ${RULE_TYPE}   ${DURATION}``
 
         :param rule_type: rule type (eg: Assets/Faculty/Excluded Devices)
         :param duration: Duration in hours and minutes(eg: 2:30)
@@ -1706,7 +1706,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - This Keyword will Create Time Based Device Classification Rule
         - Flow : Extreme Location--> More Insights--> Settings-->Third Party Configurations
         - Keyword Usage:
-            - ``Configure XLOC Third Party Configurations   ${SUBSCRIBER_PUSH_URL}   ${USERNAME}   ${PASSWORD}``
+        - ``Configure XLOC Third Party Configurations   ${SUBSCRIBER_PUSH_URL}   ${USERNAME}   ${PASSWORD}``
 
         :param subscriber_push_url: URL to be configured
         :param username: username for url
@@ -1763,7 +1763,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - This Keyword will Create Time Based Device Classification Rule
         - Flow : Extreme Location--> More Insights--> Settings-->Third Party Configurations
         - Keyword Usage:
-            - ``Save XLOC Third Party Configurations   ${SUBSCRIBER_PUSH_URL}   ${USERNAME}   ${PASSWORD}``
+        - ``Save XLOC Third Party Configurations   ${SUBSCRIBER_PUSH_URL}   ${USERNAME}   ${PASSWORD}``
 
         :param subscriber_push_url: URL to be configured
         :param username: username for url
@@ -1786,7 +1786,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - This Keyword will Create Time Based Device Classification Rule
         - Flow : Extreme Location--> More Insights--> Settings-->Third Party Configurations
         - Keyword Usage:
-            - ``Reset XLOC Third Party Configurations   ${SUBSCRIBER_PUSH_URL}   ${USERNAME}   ${PASSWORD}``
+        - ``Reset XLOC Third Party Configurations   ${SUBSCRIBER_PUSH_URL}   ${USERNAME}   ${PASSWORD}``
 
         :param subscriber_push_url: URL to be configured
         :param username: username for url
@@ -1809,7 +1809,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         - This Keyword will Create Time Based Device Classification Rule
         - Flow : Extreme Location--> More Insights--> Settings-->Third Party Configurations
         - Keyword Usage:
-            - ``Check XLOC Test Connection Button   ${SUBSCRIBER_PUSH_URL}   ${USERNAME}   ${PASSWORD}``
+        - ``Check XLOC Test Connection Button   ${SUBSCRIBER_PUSH_URL}   ${USERNAME}   ${PASSWORD}``
 
         :param subscriber_push_url: URL to be configured
         :param username: username for url
@@ -1844,7 +1844,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def check_subscription_of_extreme_location_page(self, **kwargs):
         """
-        -This keyword Will Check Extreme Location Page is Subscribed or Not after Reset VIQ
+        - This keyword Will Check Extreme Location Page is Subscribed or Not after Reset VIQ
         - Flow: Login to XIQ -> Click XLOC Icon -> Check Subscription Status
 
         :return: 1 if not subscribed
@@ -1872,10 +1872,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def create_engagement_category_xloc(self, en_category_name, en_category_threshold, xloc_site_name):
         """
-        -This keyword Will Navigate to Create Engagement Category on Extreme Location Page
+        - This keyword Will Navigate to Create Engagement Category on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Category-->Engagement Category
         - Keyword Usage:
-             - ``Create Engagement Category XLOC     ${EN_CATEGORY_NAME}     ${EN_CATEGORY_THRESHOLD}     ${XLOC_SITE_NAME}``
+        - ``Create Engagement Category XLOC     ${EN_CATEGORY_NAME}     ${EN_CATEGORY_THRESHOLD}     ${XLOC_SITE_NAME}``
 
         :param en_category_name: name of engagement category
         :param en_category_threshold: value of category threshold
@@ -1955,10 +1955,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def create_asset_category_xloc(self, as_category_name, xloc_site_name):
         """
-        -This keyword Will Navigate to Create Asset Category on Extreme Location Page
+        - This keyword Will Navigate to Create Asset Category on Extreme Location Page
         - Flow: Extreme Location--> More Insights--> Category-->Asset Category
         - Keyword Usage:
-             - ``Create Asset Category XLOC    ${AS_CATEGORY_NAME}     ${XLOC_SITE_NAME}``
+        - ``Create Asset Category XLOC    ${AS_CATEGORY_NAME}     ${XLOC_SITE_NAME}``
 
         :param as_category_name: name of engagement category
         :param xloc_site_name: Category Assigned Site Name
@@ -2033,7 +2033,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
     def go_back_to_xloc(self):
         """
-        -This keyword Will Navigate back to XIQ Window
+        - This keyword Will Navigate back to XIQ Window
         - Keyword Usage:
             ''Go Back To Xiq''
 

@@ -577,7 +577,7 @@ class Cli(object):
         """
         - This method returns device interface ipv4 address based on cli type
         - Keyword Usage:
-         - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${CLI_TYPE}  ${Interface_name}``
+        - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${CLI_TYPE}  ${Interface_name}``
 
         :param spawn: spawn to device
         :param cli_type: Currently this function just support AH-AP cli type, others cli types can be developed in the future
@@ -763,7 +763,7 @@ class Cli(object):
     # This needs to be fixed in order to use the new spawn
     # def reboot_switch(self, spawn, expected_output, option):
     #     """
-    #     -This Keyword will reboot the switch
+    #     - This Keyword will reboot the switch
     #     - Keyword Usage:
     #     -  ``Reboot Switch   ${SPAWN}  ${EXPECTED_OUTPUT}  ${OPTION}``
     #

@@ -25,18 +25,18 @@ class XIQSE_ControlPolicyDomainEnforce(ControlPolicyDomainEnforceWebElements):
 
     def xiqse_control_policy_enforce_domain(self):
         """
-         - This keyword performs Enforce Domain action.
-         - It is assumed that:
-         -     the current view is Control>Policy,
-         -     the Enforce action is initiated by the user, from one of these places on Policy Mgr view:
-         -          * Open/Manage Domain(s) dropdown menu
-         -          * popup menu from a device
-         -          * dropdown menu from the lower-left corner
-         -     the device(s) is already added to the current policy domain,
-         - NOTE: On every automation run, Enforce Preview window is always launched during the Enforce, even though
+        - This keyword performs Enforce Domain action.
+        - It is assumed that:
+        -     the current view is Control>Policy,
+        -     the Enforce action is initiated by the user, from one of these places on Policy Mgr view:
+        -          * Open/Manage Domain(s) dropdown menu
+        -          * popup menu from a device
+        -          * dropdown menu from the lower-left corner
+        -     the device(s) is already added to the current policy domain,
+        - NOTE: On every automation run, Enforce Preview window is always launched during the Enforce, even though
                  I uncheck the "Show on Enforce" checkbox in the Enforce Preview window before the automation starts.
-         - Keyword Usage
-         -     xiqse control policy enforce domain
+        - Keyword Usage
+        -     xiqse control policy enforce domain
 
         :return: 1 if action was successful, else -1
         """

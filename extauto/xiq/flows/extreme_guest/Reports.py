@@ -40,6 +40,7 @@ class Reports(object):
     def _select_extreme_guest_manage_page_user_row_cell(self, search_string, cell="checkbox"):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -64,6 +65,7 @@ class Reports(object):
     def _get_extreme_guest_generated_reports_page_user_row(self, search_string):
         """
         Getting the row in Open SSID is same for all the objects
+
         :param search_string:
         :return:
         """
@@ -81,6 +83,7 @@ class Reports(object):
     def _select_extreme_guest_generated_page_user_row(self, search_string, cell="checkbox"):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -207,7 +210,8 @@ class Reports(object):
         - It is assumed that location is already created
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
+        - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
+
         :param scope: location to select, in a comma-separated list format;
                e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
         :return: 1 if location is selected, else -1'

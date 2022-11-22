@@ -26,7 +26,7 @@ class GlobalSearch:
         - This Keyword searches given search string info in global search
         - Flow : Click Global search Box--> Search String
         - Keyword Usage
-         - ``Global Search   ${AP_MAC}   ${AP_CATEGORY}   ${AP_NAME}``
+        - ``Global Search   ${AP_MAC}   ${AP_CATEGORY}   ${AP_NAME}``
 
         :param search_value: Info to be searched ie AP Mac Address
         :param category: Category of the information
@@ -82,7 +82,7 @@ class GlobalSearch:
         - Get client details ie Client Name ,Mac Address and Client IP address
         - Flow : Click Global search Box--> Search String
         - Keyword Usage
-         - ``Get Client Details      ${SEARCH_RESULT_STRING}``
+        - ``Get Client Details      ${SEARCH_RESULT_STRING}``
 
         :param search_result: Expected Client Information String displaying on Search Result
         :return: Client name, client MAC, client IP
@@ -109,7 +109,7 @@ class GlobalSearch:
         - Get AP details ie AP Host Name ,Mac Address,IP address and Serial Number
         - Flow : Click Global search Box--> Search String
         - Keyword Usage
-         - ``Get AP Details      ${SEARCH_RESULT_STRING}``
+        - ``Get AP Details      ${SEARCH_RESULT_STRING}``
 
         :param search_result: Expected AP Information String displaying on Search Result
         :return: Host Name, AP serial number, AP MAC, AP IP
@@ -144,7 +144,7 @@ class GlobalSearch:
         - Get Network Policy details ie Network Policy Name and SSID
         - Flow : Click Global search Box--> Search String
         - Keyword Usage
-         - ``Net Policy Details      ${SEARCH_RESULT_STRING}``
+        - ``Net Policy Details      ${SEARCH_RESULT_STRING}``
 
         :param search_result: Expected Network Policy Information String displaying on Search Result
         :return: Network Policy name and SSID
@@ -169,7 +169,7 @@ class GlobalSearch:
         - This Keyword uses to view all the organizations Details in the Account
         - Flow : View Organization --> Select All Organization
         - Keyword Usage
-         - ``View All Organizations``
+        - ``View All Organizations``
 
         :return: 1 if Viewing All organization Details Successfully
         """
@@ -190,7 +190,7 @@ class GlobalSearch:
         """
         - This Keyword uses to get application details Based on Search Results string
         - Keyword Usage
-         - ``Application Details  ${SEARCH_RESULT_STRING}``
+        - ``Application Details  ${SEARCH_RESULT_STRING}``
 
         :param search_result: Expected Application Information String displaying on Search Result
         :return: Application Name And Category
@@ -214,7 +214,7 @@ class GlobalSearch:
         """
         - This Keyword Gets AP name in Row Text
         - Keyword Usage
-         - ``Get Sim AP``
+        - ``Get Sim AP``
         :return: Access Point Name
         """
         sleep(5)
@@ -232,7 +232,7 @@ class GlobalSearch:
         - This Keyword Gets AP name in Row Text
         - Assumes that Already Navigated to Manage--> Devices Page
         - Keyword Usage
-         - ``Get AP Row``
+        - ``Get AP Row``
 
         :return: ap device presented row information
         """

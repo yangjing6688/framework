@@ -12,10 +12,10 @@ class XIQSE_AnalyticsConfigurationDeleteEngine(AnalyticsConfigurationDeleteEngin
 
     def xiqse_delete_engine_dialog_click_yes(self):
         """
-            - This keyword clicks Yes in the Delete Engine dialog.
-            - It is assumed the dialog is already opened.
-            - Keyword Usage
-             - ``XIQSE Delete Engine Dialog Click Yes``
+        - This keyword clicks Yes in the Delete Engine dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Delete Engine Dialog Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -34,10 +34,10 @@ class XIQSE_AnalyticsConfigurationDeleteEngine(AnalyticsConfigurationDeleteEngin
 
     def xiqse_delete_engine_dialog_click_no(self):
         """
-         - This keyword clicks No in the Delete Engine dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Delete Engine Dialog Click No``
+        - This keyword clicks No in the Delete Engine dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Delete Engine Dialog Click No``
 
         :return: 1 if action was successful, else -1
         """
@@ -53,4 +53,3 @@ class XIQSE_AnalyticsConfigurationDeleteEngine(AnalyticsConfigurationDeleteEngin
             ret_val = -1
 
         return ret_val
-

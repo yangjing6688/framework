@@ -65,8 +65,8 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         - Create open network express network policy
         - Checks the policy already exists, if it is not exist then create the network policy
         - Keyword Usage:
-         - ``Create Open Auth Express Network Policy  ${POLICY_NAME}   ${SSID_NAME}``
-         - ``Create Open Auth Express Network Policy  ${POLICY_NAME}   ${SSID_NAME}   ${CWP_NAME}``
+        - ``Create Open Auth Express Network Policy  ${POLICY_NAME}   ${SSID_NAME}``
+        - ``Create Open Auth Express Network Policy  ${POLICY_NAME}   ${SSID_NAME}   ${CWP_NAME}``
 
         :param policy_name: Policy Name
         :param ssid_name: SSID name
@@ -229,7 +229,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         """
         - Create  network express network policy (no wireless)
         - Keyword Usage:
-         - ``Create Express Network Policy No Wireless  ${POLICY_NAME}``
+        - ``Create Express Network Policy No Wireless  ${POLICY_NAME}``
         :param policy_name: Policy Name
         :return: 1
         """

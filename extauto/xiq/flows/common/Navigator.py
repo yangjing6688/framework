@@ -18,9 +18,9 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_manage_tab(self):
         """
-         - This keyword Navigates to Manage Tab
-         - Keyword Usage
-          - ``Navigate To Manage Tab``
+        - This keyword Navigates to Manage Tab
+        - Keyword Usage
+        - ``Navigate To Manage Tab``
 
         :return: 1 if Navigation Successful to Monitor Tab else return -1
         """
@@ -44,9 +44,9 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_ml_insight_tab(self):
         """
-         - This keyword Navigates to ML Insight tab
-         - Keyword Usage
-          - ``Navigate To ML Insight tab``
+        - This keyword Navigates to ML Insight tab
+        - Keyword Usage
+        - ``Navigate To ML Insight tab``
 
         :return: 1 if Navigation Successful to ML Insight tab else return -1
         """
@@ -61,9 +61,9 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_configure_tab(self):
         """
-         - This keyword Navigates to configure tab
-         - Keyword Usage
-          - ``Navigate To Configure tab``
+        - This keyword Navigates to configure tab
+        - Keyword Usage
+        - ``Navigate To Configure tab``
 
         :return: 1 if Navigation Successful to configure tab else return -1
         """
@@ -78,9 +78,9 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_tools_sub_tab(self):
         """
-         - This keyword Navigates to Tools Sub tab on Monitor Tab
-         - Keyword Usage
-          - ``Navigate To Tools Sub Tab``
+        - This keyword Navigates to Tools Sub tab on Monitor Tab
+        - Keyword Usage
+        - ``Navigate To Tools Sub Tab``
 
         :return: 1 if Navigation Successful to Tools Sub tab on Monitor Tab else return -1
         """
@@ -95,10 +95,10 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_auto_provision(self):
         """
-         - This keyword Navigates to Auto Provisioning on Common Objects
-         - Flow Configure --> Common Objects --> Policy --> Auto Provisioning
-         - Keyword Usage
-          - ``Navigate To Auto Provision``
+        - This keyword Navigates to Auto Provisioning on Common Objects
+        - Flow Configure --> Common Objects --> Policy --> Auto Provisioning
+        - Keyword Usage
+        - ``Navigate To Auto Provision``
 
         :return: 1 if Navigation Successful
         """
@@ -121,10 +121,10 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_devices(self, **kwargs):
         """
-         - This keyword Navigates to Devices on Manage Menu
-         - Flow Manage--> Devices
-         - Keyword Usage
-          - ``Navigate To Devices``
+        - This keyword Navigates to Devices on Manage Menu
+        - Flow Manage--> Devices
+        - Keyword Usage
+        - ``Navigate To Devices``
 
         :return: 1 if Navigation Successful to Devices Sub tab on Monitor Tab else return -1
         """
@@ -153,7 +153,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to SSIDs Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> SSIDs
         - Keyword Usage
-         - ``Navigate To SSIDs``
+        - ``Navigate To SSIDs``
 
         :return: 1 if Navigation Successful
         """
@@ -178,7 +178,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to Tools Page on Monitor Menu
         - Flow MANAGE->Tools
         - Keyword Usage
-         - ``Navigate To Tools Page``
+        - ``Navigate To Tools Page``
 
         :return:  1 if Navigation Successful to Tools Sub tab on Monitor Tab else return -1
         """
@@ -188,10 +188,10 @@ class Navigator(NavigatorWebElements):
 
     def navigate_configure_network_policies(self):
         """
-         - This keyword Navigates to Network Policies On Configure Menu
-         - Flow Configure--> Network Policies
-         - Keyword Usage
-          - ``Navigate Configure Network Policies``
+        - This keyword Navigates to Network Policies On Configure Menu
+        - Flow Configure--> Network Policies
+        - Keyword Usage
+        - ``Navigate Configure Network Policies``
 
         :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
         """
@@ -209,7 +209,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to Common Objects On Configure Menu
         - Flow: Configure --> Common Objects
         - Keyword Usage
-         - ``Navigate Configure Common Objects``
+        - ``Navigate Configure Common Objects``
 
         :return: -1 if Navigation Not Successful to Configure Menu else return None
         """
@@ -221,9 +221,9 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_network_policies_tab(self, **kwargs):
         """
-         - This keyword Navigates to Network Policies
-         - Keyword Usage
-          - ``Navigate To Network Policies Tab``
+        - This keyword Navigates to Network Policies
+        - Keyword Usage
+        - ``Navigate To Network Policies Tab``
 
         :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
         """
@@ -252,9 +252,9 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_clients_tab(self, **kwargs):
         """
-         - This keyword Navigates to Client 360 Tab on Manage Menu
-         - Keyword Usage
-          - ``Navigate To Clients Tab``
+        - This keyword Navigates to Client 360 Tab on Manage Menu
+        - Keyword Usage
+        - ``Navigate To Clients Tab``
 
         :return: 1 if Navigation Successful to Clients On Manage Menu else return -1
         """
@@ -275,7 +275,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to Clients On Manage Menu
         - Flow: Manage --> Client 360
         - Keyword Usage
-         - ``Navigate To Clients``
+        - ``Navigate To Clients``
 
         :return: 1 if Navigation Successful to Clients Tab on Monitor else return -1
         :return: -2 if Navigation Not Successful to Monitor Tab
@@ -297,7 +297,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Client Mode Profile on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->Basic-->Client Mode Profiles
         - Keyword Usage:
-         - ``Navigate To Client Mode Profiles``
+        - ``Navigate To Client Mode Profiles``
         :return: 1 if Navigation Successful
         """
         self.navigate_configure_common_objects()
@@ -311,7 +311,7 @@ class Navigator(NavigatorWebElements):
         """
         - This keyword Navigates to User Account Menu
         - Keyword Usage
-         - ``Navigate To User Account``
+        - ``Navigate To User Account``
 
         :return: 1 if Navigation Successful to User Account Menu else return -1
         """
@@ -347,7 +347,7 @@ class Navigator(NavigatorWebElements):
         """
         - This keyword Navigates to Global Settings on User Account Menu which is already Navigated
         - Keyword Usage
-         - ``Navigate To Configure User Sub Tab``
+        - ``Navigate To Configure User Sub Tab``
 
         :return: 1 if Navigation Successful to Global Settings on User Account Menu else return -1
         """
@@ -365,7 +365,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to Global Settings On User Account Menu
         - Flow: User Account Menu --> Global Settings
         - Keyword Usage
-         - ``Navigate To Global Settings Page``
+        - ``Navigate To Global Settings Page``
 
         :return: 1 if Navigation Successful to Clients Tab on Monitor else return -1
         :return: -2 if Navigation Not Successful to Monitor Tab
@@ -378,7 +378,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to User Groups On Configure Menu
         - Flow: Configure --> Users --> User Management --> User Groups
         - Keyword Usage
-         - ``Navigate To Configure User Groups``
+        - ``Navigate To Configure User Groups``
 
         :return: 1 if Navigation Successful
         """
@@ -401,7 +401,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigate to the Authentication Logs Slider Menu
         - Flow: Authentication Logs
         - Keyword Usage
-         - ``Navigate To Authentication Logs Menu``
+        - ``Navigate To Authentication Logs Menu``
 
         :return: 1 if Navigation Successful to Authentication Logs Slider Menu else return -1
         """
@@ -420,7 +420,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigate to the Accounting Logs Slider Menu
         - Flow: Accounting Logs
         - Keyword Usage
-         - ``Navigate To Accounting Logs Menu``
+        - ``Navigate To Accounting Logs Menu``
 
         :return: 1 if Navigation Successful to Accounting Logs Slider
         """
@@ -438,7 +438,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigate to the Authentication Logs Slider Menu
         - Flow: User account --> Global Settings --> LOGS--> Authentication Logs
         - Keyword Usage
-         - ``Navigate To Authentication Logs Menu``
+        - ``Navigate To Authentication Logs Menu``
 
         :return: 1 if Navigation Successful to Authentication Logs Slider Menu else return -1
         """
@@ -450,7 +450,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigate to the Accounting Logs Slider Menu
         - Flow: User account --> Global Settings --> LOGS--> Accounting Logs
         - Keyword Usage
-         - ``Navigate To Accounting Logs Menu``
+        - ``Navigate To Accounting Logs Menu``
 
         :return: 1 if Navigation Successful to Accounting Logs Slider else return -1
         """
@@ -463,7 +463,7 @@ class Navigator(NavigatorWebElements):
         - Assumes that already navigated to the configure --> common object
         - Flow: Authentication
         - Keyword Usage
-         - ``Navigate To Common Object Authentication Tab``
+        - ``Navigate To Common Object Authentication Tab``
 
         :return: 1 if Navigation Successful
         """
@@ -477,7 +477,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigate to the captive web portal tab on common objects
         - FLow: Configure --> Common Object --> Authentication --> Captive Web Portal
         - Keyword Usage
-         - ``Navigate To Captive Web Portal``
+        - ``Navigate To Captive Web Portal``
 
         :return: 1 if Navigation Successful
         """
@@ -495,7 +495,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to AAA server Settings on common objects
         - Flow: Configure --> Common Object --> Authentication --> AAA Server Settings
         - Keyword Usage
-         - ``Navigate To AAA Server Settings``
+        - ``Navigate To AAA Server Settings``
 
         :return: 1 if Navigation Successful
         """
@@ -513,7 +513,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to AD servers on common objects
         - Flow: Configure --> Common Object --> Authentication --> Ad Servers
         - Keyword Usage
-         - ``Navigate To Ad Servers``
+        - ``Navigate To Ad Servers``
 
         :return: 1 if Navigation Successful
         """
@@ -531,7 +531,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to External Radius Server on common objects
         - Flow: Configure --> Common Object --> Authentication --> External Radius Server
         - Keyword Usage
-         - ``Navigate To External Radius Server``
+        - ``Navigate To External Radius Server``
 
         :return: 1 if Navigation Successful
         """
@@ -548,7 +548,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to A3 menu
         - Keyword Usage
-         - ``Navigate To A3 Menu``
+        - ``Navigate To A3 Menu``
         :return: 1 if Navigation Successful
         """
         self.utils.print_info("Clicking on A3 Icon")
@@ -561,7 +561,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Extreme Networks A3 on common objects
         - Flow: Configure --> Common Object --> Authentication --> Extreme Networks A3
         - Keyword Usage
-         - ``Navigate To Extreme Networks A3``
+        - ``Navigate To Extreme Networks A3``
 
         :return: 1 if Navigation Successful
         """
@@ -579,7 +579,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Servers on common objects
         - Flow: Configure --> Common Object --> Authentication --> Servers
         - Keyword Usage
-         - ``Navigate To Servers``
+        - ``Navigate To Servers``
 
         :return: 1 if Navigation Successful
         """
@@ -597,7 +597,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to LDAP Servers on common objects
         - Flow: Configure --> Common Object --> Authentication --> LDAP Servers
         - Keyword Usage
-         - ``Navigate To Ldap Servers``
+        - ``Navigate To Ldap Servers``
 
         :return: 1 if Navigation Successful
         """
@@ -615,7 +615,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to the Security option on Monitor Tab
         - Flow: Security
         - Keyword Usage
-         - ``Navigate To Security Option``
+        - ``Navigate To Security Option``
 
         :return: 1 if Navigation Successful to Security tab on Monitor Menu else return -1
         """
@@ -633,7 +633,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Manage --> Security
         - Flow: Manage--->Security
         - Keyword Usage
-          - ``Navigate Manage Security``
+        - ``Navigate Manage Security``
 
         :return: 1 if Navigation Successful to Security tab on Monitor Menu else return -1
         """
@@ -648,7 +648,7 @@ class Navigator(NavigatorWebElements):
         - Assumes that already navigated to the configure --> common object
         - Flow: Security
         - Keyword Usage
-         - ``Navigate To Common Object Security Tab``
+        - ``Navigate To Common Object Security Tab``
 
         :return: 1 if Navigation Successful to Security tab on common Objects else return -1
         :return:
@@ -662,7 +662,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to WIPS Policies on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
         - Keyword Usage:
-         - ``Navigate To Security Wips Policies``
+        - ``Navigate To Security Wips Policies``
 
         :return: 1 if Navigation Successful
         """
@@ -681,7 +681,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Policies option Menu on Common Objects
         - Assumes that already navigated to the configure --> common object
         - Keyword Usage:
-         - ``Navigate To Common Object Policy Tab``
+        - ``Navigate To Common Object Policy Tab``
 
         :return: 1 if Navigation Successful
         """
@@ -696,7 +696,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to AP Templates on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->AP Templates
         - Keyword Usage:
-         - ``Navigate To Policy Ap Template``
+        - ``Navigate To Policy Ap Template``
 
         :return: 1 if Navigation Successful
         """
@@ -715,7 +715,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Reports on Manage Menu
         - Flow: Manage --> Reports
         - Keyword Usage:
-         - ``Navigate To Manage Reports``
+        - ``Navigate To Manage Reports``
 
         :return: 1 if Navigation Successful
         """
@@ -731,7 +731,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Port Types On Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->POLICIES-->PORT TYPES
         - Keyword Usage:
-         - ``Navigate To Policy Port Types``
+        - ``Navigate To Policy Port Types``
 
         :return: 1 if Navigation Successful
         """
@@ -757,7 +757,7 @@ class Navigator(NavigatorWebElements):
         - Assumes that already navigated to the configure --> common object
         - Flow: Networks
         - Keyword Usage:
-          - ``Navigate To Common Object Network Tab``
+        - ``Navigate To Common Object Network Tab``
 
         :return: 1 if Navigation Successful
         """
@@ -771,7 +771,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to SubNetwork Space Tab On Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
         - Keyword Usage:
-         - ``Navigate To Network Subnetwork Space``
+        - ``Navigate To Network Subnetwork Space``
 
         :return: 1 if Navigation Successful
         """
@@ -791,7 +791,7 @@ class Navigator(NavigatorWebElements):
         - Assumes that already navigated to the configure --> common object
         - Flow: Basic
         - Keyword Usage:
-         - ``Navigate To Common Object Basic Tab``
+        - ``Navigate To Common Object Basic Tab``
 
         :return: 1 if Navigation Successful
         """
@@ -805,7 +805,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Vlans Tabs On Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Keyword Usage:
-         - ``Navigate To Basic Vlans Tab``
+        - ``Navigate To Basic Vlans Tab``
 
         :return: 1 if Navigation Successful
         """
@@ -823,7 +823,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Supplemental CLI Objects On Common Objects
         - Flow: Configure --> Common Objects --> Basic --> Supplemental CLI Objects
         - Keyword Usage:
-         - ``Navigate To Basic Supplemental CLI Objects Tab``
+        - ``Navigate To Basic Supplemental CLI Objects Tab``
 
         :return: 1 if Navigation Successful
         """
@@ -841,7 +841,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Alarms on manage Menu
         - Flow: Manage --> Alarms
         - Keyword Usage:
-         - `` Navigate To Manage Alarms``
+        - `` Navigate To Manage Alarms``
 
         :return: 1 if Navigation Successful
         """
@@ -857,7 +857,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Client360 on ML Insights Menu
         - Flow: ML Insights --> Client 360
         - Keyword Usage:
-         - ``Navigate To Client360``
+        - ``Navigate To Client360``
 
         :return: 1 if Navigation Successful
         """
@@ -872,7 +872,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to network360plan on Manage Menu
         - Flow: Manage --> Network360Plan
         - Keyword Usage:
-         - ``Navigate To Network360Plan``
+        - ``Navigate To Network360Plan``
 
         :return: 1 if Navigation Successful
         """
@@ -887,7 +887,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to network360monitor on ML Insights Menu
         - Flow: ML Insights --> Network360Monitor
         - Keyword Usage:
-         - ``Navigate To Network360Monitor``
+        - ``Navigate To Network360Monitor``
 
         :return: 1 if Navigation Successful
         """
@@ -902,7 +902,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to network scorecard on ML Insights Menu
         - Flow: ML Insights --> Network Scorecard
         - Keyword Usage:
-         - ``Navigate To Network Scorecard``
+        - ``Navigate To Network Scorecard``
 
         :return: 1 if Navigation Successful
         """
@@ -917,7 +917,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to retail dashboard on ML Insights Menu
         - Flow: ML Insights --> Retail Dashboard
         - Keyword Usage:
-         - ``Navigate To Retail Dashboard``
+        - ``Navigate To Retail Dashboard``
 
         :return: 1 if Navigation Successful
         """
@@ -932,7 +932,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigate to policies list view page
         - Flow: Configure --> Network Policies --> List View Tab
         - Keyword Usage:
-         - ``Navigate To Network Policies List View Page``
+        - ``Navigate To Network Policies List View Page``
 
         :return: 1
         """
@@ -952,7 +952,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword navigate to the policies card view page
         - Flow: Configure --> Network Policies --> Card View Tab
         - Keyword Usage:
-         - ``Navigate To Network Policies Card View Page``
+        - ``Navigate To Network Policies Card View Page``
         :return: 1 in Navigated to network Policy Card View else None
         """
         self.navigate_configure_network_policies()
@@ -965,7 +965,7 @@ class Navigator(NavigatorWebElements):
         - Flow: Manage --> Device --> Select Multiple Device --> Click on Edit button
         - This keyword is navigate to the devices configuration page
         - Keyword Usage:
-         - Navigate To Multiple Device Configuration Page    device_serials=${DEVICE1_SER},${DEVICE2_SER}``
+        - Navigate To Multiple Device Configuration Page    device_serials=${DEVICE1_SER},${DEVICE2_SER}``
 
         :param device_serials: device serial number with comma separated
         :return: 1 if Navigation Successful
@@ -984,7 +984,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to the device360 window
         - FLow: Manage --> Device --> Click on either device MAC hyper link
         - Keyword Usage:
-         - ``Navigate To Device360 With MAC   ${DEVICE_MAC}``
+        - ``Navigate To Device360 With MAC   ${DEVICE_MAC}``
 
         :param device_mac:  device MAC number
         :return: 1 if navigated else -1
@@ -998,7 +998,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to the device360 window
         - FLow: Manage --> Device --> Click on either device host name hyper link
         - Keyword Usage:
-         - ``Navigate To Device360 With MAC   ${DEVICE_MAC}``
+        - ``Navigate To Device360 With MAC   ${DEVICE_MAC}``
 
         :param device_host:  device MAC number
         :return: 1 if navigated else -1
@@ -1012,7 +1012,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to the device360 window
         - FLow: Manage --> Device --> searches for the row with passed device serial and clicks on client hyperlink.
         - Keyword Usage:
-         - ``Navigate To Device360 With Client   ${DEVICE_SERIAL}``
+        - ``Navigate To Device360 With Client   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if navigated else -1
@@ -1024,12 +1024,12 @@ class Navigator(NavigatorWebElements):
         """
         - This keyword is used to navigate to single/multiple device cli access window
         - Flow:
-         - Navigate to Manage --> Device
-         - Select the device/devices row based on the passed device serials
-         - Click on Action --> Advanced --> CLI Access
+        - Navigate to Manage --> Device
+        - Select the device/devices row based on the passed device serials
+        - Click on Action --> Advanced --> CLI Access
         - Keyword Usage:
-         - ``Navigate To Device Cli Access    ${DEVICE1_SERIAL}``
-         - ``Navigate To Device Cli Access    device_serials=${DEVICE1_SERIAL},${DEVICE2_SERIAL}``
+        - ``Navigate To Device Cli Access    ${DEVICE1_SERIAL}``
+        - ``Navigate To Device Cli Access    device_serials=${DEVICE1_SERIAL},${DEVICE2_SERIAL}``
 
         :param device_serials: comma separated device serial numbers
         :return: 1 if Navigation Successful else -1
@@ -1059,7 +1059,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to utilities status menu
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Utilities Status``
+        - ``Navigate To Device Utilities Status``
         :return: 1 if Navigation Successful else -1
         """
         if not self.get_device_utilities_status_menu_item().is_displayed():
@@ -1088,7 +1088,7 @@ class Navigator(NavigatorWebElements):
         - Select the device row based on the passed device serial
         - Click on Utilities --> Status --> Interface
         - Keyword Usage:
-         - ``Navigate To Status Interface    ${DEVICE1_SERIAL}``
+        - ``Navigate To Status Interface    ${DEVICE1_SERIAL}``
 
         :param device_serial: serial number of the device
         :return: 1 if Navigation Successful
@@ -1112,7 +1112,7 @@ class Navigator(NavigatorWebElements):
         - Select the device row based on the passed device serial
         - Click on Utilities --> Status --> Advanced Channel Selection
         - Keyword Usage:
-         - ``Navigate To Advance Channel Selection   ${DEVICE_SERIAL}``
+        - ``Navigate To Advance Channel Selection   ${DEVICE_SERIAL}``
 
         :param device_serial: serial number of the device
         :return: 1 if Navigation Successful
@@ -1136,7 +1136,7 @@ class Navigator(NavigatorWebElements):
         - Select the device row based on the passed device serial
         - Click on Utilities --> Status --> Wifi Status Summary
         - Keyword Usage:
-         - ``Navigate To Wifi Status Summary   ${DEVICE_SERIAL}``
+        - ``Navigate To Wifi Status Summary   ${DEVICE_SERIAL}``
 
         :param device_serial: serial number of the device
         :return: 1 if Navigation Successful
@@ -1158,7 +1158,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to Switch Templates Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> Switch Templates
         - Keyword Usage
-         - ``Navigate To Switch Templates``
+        - ``Navigate To Switch Templates``
         :return: 1 if Navigation Successful
         """
         self.navigate_to_configure_tab()
@@ -1181,7 +1181,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate the "API Token Management"
         - Flows XIQ User Menu(Account Info) --> Global Settings --> API Token Management
         - Keyword Usage:
-         - ``Navigate To Api Token Mngment``
+        - ``Navigate To Api Token Mngment``
 
         :return: 1 if Navigation Successful
         """
@@ -1196,7 +1196,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to A3 --> Inventory
         - Flow: A3--->Inventory
         - Keyword Usage
-          - ``Navigate A3 Inventory``
+        - ``Navigate A3 Inventory``
 
         :return: 1 if Navigation Successful to Inventory tab on A3 Menu else None
         """
@@ -1211,7 +1211,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to A3 --> Reporting
         - Flow: A3--->Reporting
         - Keyword Usage
-          - ``Navigate A3 Reporting``
+        - ``Navigate A3 Reporting``
 
         :return: 1 if Navigation Successful to Reporting tab on A3 Menu else None
         """
@@ -1225,7 +1225,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Essentials Menu
         - Keyword Usage
-          - ``Navigate To Essentials Menu``
+        - ``Navigate To Essentials Menu``
         :return: 1 if Navigation Successful to Essentials Menu
         """
         self.utils.print_info("Clicking on Essentials Icon")
@@ -1238,7 +1238,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Extreme AirDefence Menu
         - Flow: Extreme AirDefence
         - Keyword Usage
-          - ``Navigate To Extreme AirDefence``
+        - ``Navigate To Extreme AirDefence``
 
         :return: 1 if Navigation Successful to Extreme AirDefence Menu
         """
@@ -1250,9 +1250,9 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_onboard_tab(self):
         """
-         - This keyword Navigates to Onboard Tab
-         - Keyword Usage
-          - ``Navigate To onboard Tab``
+        - This keyword Navigates to Onboard Tab
+        - Keyword Usage
+        - ``Navigate To onboard Tab``
 
         :return: 1 if Navigation Successful to onboard Tab else return -1
         """
@@ -1290,7 +1290,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to communications menu in Global settings page
         - Keyword Usage
-          - ``Navigate To Communications Page``
+        - ``Navigate To Communications Page``
 
         :return: 1 if Navigation Successful to Communications
         """
@@ -1308,7 +1308,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Extreme IOT Essentials Page
         - Keyword Usage
-          - ``Navigate To Extreme IOT Menu``
+        - ``Navigate To Extreme IOT Menu``
 
         :return: 1 if Navigation Successful to Extreme IOT Essentials Menu
         """
@@ -1323,7 +1323,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Clients Page on Extreme IOT Essentials Page
         - Keyword Usage
-          - ``Navigate To Extreme IOT Clients Page``
+        - ``Navigate To Extreme IOT Clients Page``
 
         :return: 1 if Navigation Successful to Clients Menu on Extreme IOT Essentials Menu
         """
@@ -1351,7 +1351,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Devices Page on Extreme IOT Essentials Page
         - Keyword Usage
-          - ``Navigate To Extreme IOT Devices Page``
+        - ``Navigate To Extreme IOT Devices Page``
 
         :return: 1 if Navigation Successful to Devices Menu on Extreme IOT Essentials Menu
         """
@@ -1379,7 +1379,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to user profiles Page on Extreme IOT Essentials Page
         - Keyword Usage
-          - ``Navigate To Extreme IOT User Profiles Page``
+        - ``Navigate To Extreme IOT User Profiles Page``
 
         :return: 1 if Navigation Successful to user profiles Menu on Extreme IOT Essentials Menu
         """
@@ -1407,7 +1407,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to policy groups Page on Extreme IOT Essentials Page
         - Keyword Usage
-          - ``Navigate To Extreme IOT Policy Groups Page``
+        - ``Navigate To Extreme IOT Policy Groups Page``
 
         :return: 1 if Navigation Successful to policy groups Menu on Extreme IOT Essentials Menu
         """
@@ -1435,7 +1435,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Dashboard Page on Extreme IOT Essentials Page
         - Keyword Usage
-          - ``Navigate To Extreme IOT Dashboard Page``
+        - ``Navigate To Extreme IOT Dashboard Page``
 
         :return: 1 if Navigation Successful to Dashboard Menu on Extreme IOT Essentials Menu
         """
@@ -1463,7 +1463,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Extreme guest Page
         - Keyword Usage
-          - ``Navigate To Extreme Guest Menu``
+        - ``Navigate To Extreme Guest Menu``
 
         :return: 1 if Navigation Successful to Extreme Guest Menu
         """
@@ -1478,7 +1478,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Extreme Location Page
         - Keyword Usage
-          - ``Navigate To Extreme Location Menu``
+        - ``Navigate To Extreme Location Menu``
 
         :return: 1 if Navigation Successful to Extreme Location Menu
         """
@@ -1493,7 +1493,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Dashboard Menu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Dashboard Menu``
+        - ``Navigate To Extreme Location Dashboard Menu``
 
         :return: 1 if Navigation Successful to Dashboard Menu on Extreme Location
         """
@@ -1505,7 +1505,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Sites Menu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Sites Menu``
+        - ``Navigate To Extreme Location Sites Menu``
 
         :return: 1 if Navigation Successful to Sites Menu on Extreme Location
         """
@@ -1517,7 +1517,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Category Menu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Category Menu``
+        - ``Navigate To Extreme Location Category Menu``
 
         :return: 1 if Navigation Successful to Category Menu on Extreme Location
         """
@@ -1529,7 +1529,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Access Points Menu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Access Points Menu``
+        - ``Navigate To Extreme Location Access Points Menu``
 
         :return: 1 if Navigation Successful to Access Points Menu on Extreme Location
         """
@@ -1541,7 +1541,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Beacons Menu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Beacons Menu``
+        - ``Navigate To Extreme Location Beacons Menu``
 
         :return: 1 if Navigation Successful to Beacons Menu on Extreme Location
         """
@@ -1553,7 +1553,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Beacons Menu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Asset Management Menu``
+        - ``Navigate To Extreme Location Asset Management Menu``
 
         :return: 1 if Navigation Successful to Asset Management Menu on Extreme Location
         """
@@ -1565,7 +1565,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Assets SubMenu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Assets Submenu``
+        - ``Navigate To Extreme Location Assets Submenu``
 
         :return: 1 if Navigation Successful to Assets SubMenu on Extreme Location
         """
@@ -1577,7 +1577,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Alarms SubMenu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Alarms Submenu``
+        - ``Navigate To Extreme Location Alarms Submenu``
 
         :return: 1 if Navigation Successful to Alarms SubMenu on Extreme Location
         """
@@ -1589,7 +1589,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Devicess Menu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Devices Menu``
+        - ``Navigate To Extreme Location Devices Menu``
 
         :return: 1 if Navigation Successful to Devices Menu on Extreme Location
         """
@@ -1601,7 +1601,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Wireless Devices SubMenu on Extreme Location
         - Keyword Usage
-         - ``Navigate To Extreme Location Wireless Devices Submenu``
+        - ``Navigate To Extreme Location Wireless Devices Submenu``
 
         :return: 1 if Navigation Successful to Wireless Devices SubMenu on Extreme Location
         """
@@ -1613,7 +1613,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to BSS Devices SubMenu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location BSS Devices Submenu``
+        - ``Navigate To Extreme Location BSS Devices Submenu``
 
         :return: 1 if Navigation Successful to BSS Devices SubMenu on Extreme Location
         """
@@ -1625,7 +1625,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Settings Menu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Settings Menu``
+        - ``Navigate To Extreme Location Settings Menu``
 
         :return: 1 if Navigation Successful to Settings Menu on Extreme Location
         """
@@ -1637,7 +1637,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Device Classification SubMenu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Device Classification Submenu``
+        - ``Navigate To Extreme Location Device Classification Submenu``
 
         :return: 1 if Navigation Successful to Device Classification SubMenu on Extreme Location
         """
@@ -1649,7 +1649,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Threshold SubMenu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Threshold Submenu``
+        - ``Navigate To Extreme Location Threshold Submenu``
 
         :return: 1 if Navigation Successful to Threshold SubMenu on Extreme Location
         """
@@ -1661,7 +1661,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Third Party Configuration SubMenu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Third Party Config Submenu``
+        - ``Navigate To Extreme Location Third Party Config Submenu``
 
         :return: 1 if Navigation Successful to Third Party Config SubMenu on Extreme Location
         """
@@ -1673,7 +1673,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword Navigate to Settings Alarms SubMenu on Extreme Location
         - Keyword Usage
-          - ``Navigate To Extreme Location Settings Alarms Submenu``
+        - ``Navigate To Extreme Location Settings Alarms Submenu``
 
         :return: 1 if Navigation Successful to Settings Alarms SubMenu on Extreme Location
         """
@@ -1686,7 +1686,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to CCGs Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> Cloud Config Groups
         - Keyword Usage
-         - ``Navigate To Policy Cloud Config Group Submenu``
+        - ``Navigate To Policy Cloud Config Group Submenu``
 
         :return: 1 if Navigation Successful
         """
@@ -1711,7 +1711,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to ClassificationRule Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> Classification Rule
         - Keyword Usage
-         - ``Navigate To Policy Classification Rule Submenu``
+        - ``Navigate To Policy Classification Rule Submenu``
 
         :return: 1 if Navigation Successful
         """
@@ -1736,7 +1736,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to PPSK Classification On Configure Menu
         - Flow: Configure --> Users --> User Management --> PPSK Classification
         - Keyword Usage
-         - ``Navigate To Configure User Management PPSK Classification Submenu``
+        - ``Navigate To Configure User Management PPSK Classification Submenu``
 
         :return: 1 if Navigation Successful
         """
@@ -1759,7 +1759,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to VIQ Management Page
         - Flow: Global Settings --> VIQ Management
         - Keyword Usage:
-         - ``Navigate To Viq Management Page``
+        - ``Navigate To Viq Management Page``
         :return: 1 if Navigation Successful
         """
         self.navigate_to_global_settings_page()
@@ -1776,7 +1776,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to the MANAGE->Application
         - Flow: Manage --> application
         - Keyword Usage:
-         - ``Navigate Manage Application``
+        - ``Navigate Manage Application``
         :return: 1 If Navigated successfully else -1
         """
         self.utils.print_info("Clicking Manage Tab...")
@@ -1799,7 +1799,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to the MANAGE->EVENTS
         - Flow: Manage --> Events
         - Keyword Usage:
-         - ``Navigate Manage Events``
+        - ``Navigate Manage Events``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -1824,7 +1824,7 @@ class Navigator(NavigatorWebElements):
         - Navigate To CONFIGURE--->USERS
         - Flow: CONFIGURE--->USERS
         - Keyword Usage:
-         - ``Navigate Configure Users``
+        - ``Navigate Configure Users``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -1844,7 +1844,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to the USER ACCOUNT-> Global settings > Account Management
         - Flow: USER ACCOUNT-> Global settings > Account Management
         - Keyword Usage:
-         - ``Navigate To Account Mgmt``
+        - ``Navigate To Account Mgmt``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -1864,7 +1864,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to the USER ACCOUNT-> Global settings > Account Management
         - Flow: USER ACCOUNT-> Global settings > Account Management
         - Keyword Usage:
-         - ``Navigate To License Mgmt``
+        - ``Navigate To License Mgmt``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -1883,7 +1883,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to the USER ACCOUNT-> Global settings > Account --> Organization
         - Flow: USER ACCOUNT-> Global settings > Account --> Organization
         - Keyword Usage:
-         - ``Navigate To Accounts Organization Page``
+        - ``Navigate To Accounts Organization Page``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -1903,7 +1903,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to the USER ACCOUNT-> Global settings > Account Details
         - Flow: USER ACCOUNT-> Global settings > Account Details
         - Keyword Usage:
-         - ``Navigate To Account Details Page``
+        - ``Navigate To Account Details Page``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -1923,7 +1923,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to the USER ACCOUNT-> Global settings > Webhooks
         - Flow: USER ACCOUNT-> Global settings > Webhooks
         - Keyword Usage:
-         - ``Navigate To Webhooks Page``
+        - ``Navigate To Webhooks Page``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -1941,7 +1941,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to dashboard page by clicking top left of UI
         - Flow: Dashboard Menu
         - Keyword Usage:
-         - ``Navigate To Dashboard Page``
+        - ``Navigate To Dashboard Page``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -1961,7 +1961,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to Global settings > Credential Distribution Groups
         - Flow: Global settings > Credential Distribution Groups
         - Keyword Usage:
-         - ``Navigate To Credential Dist Groups``
+        - ``Navigate To Credential Dist Groups``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -1980,7 +1980,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to the Tools->Utilities link
         - Flow: Tools->Utilities
         - Keyword Usage:
-         - ``Navigate Tool Utility``
+        - ``Navigate Tool Utility``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -2001,7 +2001,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to SSIDs Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> Radio Profile
         - Keyword Usage
-         - ``Navigate To Radio Profile``
+        - ``Navigate To Radio Profile``
 
         :return: 1 if Navigation Successful
         """
@@ -2028,7 +2028,7 @@ class Navigator(NavigatorWebElements):
         - Select the device row based on the passed device serial
         - Click on Utilities --> Status --> Wifi Status Summary
         - Keyword Usage:
-         - ``Navigate To Wifi Status Summary   ${DEVICE_SERIAL}``
+        - ``Navigate To Wifi Status Summary   ${DEVICE_SERIAL}``
 
         :param device_serial: serial number of the device
         :return: 1 if Navigation Successful
@@ -2045,7 +2045,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigate to the Audit Logs Slider Menu
         - Flow: Authentication Logs
         - Keyword Usage
-         - ``Navigate To Authentication Logs Menu``
+        - ``Navigate To Authentication Logs Menu``
 
         :return: 1 if Navigation Successful to Authentication Logs Slider Menu else return -1
         """
@@ -2065,7 +2065,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword navigates to Copilot Menu
         - Keyword Usage:
-         - ``Navigate To Copilot Menu``
+        - ``Navigate To Copilot Menu``
         :return: 1 if Navigation Successful
         """
         self.utils.print_info("selecting and clicking on Copilot Menu...")
@@ -2078,7 +2078,7 @@ class Navigator(NavigatorWebElements):
         """
         - This Keyword navigates to Copilot Anomaly Notification Icon
         - Keyword Usage:
-         - ``Navigate To Copilot Anomaly Notification Icon``
+        - ``Navigate To Copilot Anomaly Notification Icon``
         :return: 1 if Navigation Successful
         """
         self.utils.print_info("Navigating to Anomaly Notification Icon menu..")
@@ -2086,13 +2086,13 @@ class Navigator(NavigatorWebElements):
         sleep(2)
         self.screen.save_screen_shot()
         return 1
-    
+
     def rbac_user_navigate_to_extreme_airdefence_helpdesk(self):
         """
         - This Keyword is used to check if Extreme Airdefence menu is available for RBAC helpdesk user
         - Flow: Extreme AirDefence
         - Keyword Usage
-          - ``Check for Extreme AirDefence menu ``
+        - ``Check for Extreme AirDefence menu ``
 
         :return: 1 if Navigation is not Successful to Extreme AirDefence Menu
         """
@@ -2110,7 +2110,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to PPSK Classification On Configure Menu
         - Flow: Configure --> Users --> User Management --> Users
         - Keyword Usage
-         - ``Navigate To Configure User Management Users Submenu``
+        - ``Navigate To Configure User Management Users Submenu``
 
         :return: 1 if Navigation Successful
         """
@@ -2133,7 +2133,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Imago Tag Profile on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->Imago Tag Profiles
         - Keyword Usage:
-         - ``Navigate To Policy Imago Tag Profiles``
+        - ``Navigate To Policy Imago Tag Profiles``
 
         :return: 1 if Navigation Successful
         """
@@ -2152,7 +2152,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to WIPS Policies on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->IP Firewall POLICIES
         - Keyword Usage:
-         - ``Navigate To Security IP Firewall Policies``
+        - ``Navigate To Security IP Firewall Policies``
 
         :return: 1 if Navigation Successful
         """
@@ -2176,7 +2176,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to User Profiles on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->POLICY-->USER PROFILES
         - Keyword Usage:
-         - ``Navigate To Policy User Profiles``
+        - ``Navigate To Policy User Profiles``
         :return: 1 if Navigation Successful
         """
         self.navigate_configure_common_objects()
@@ -2194,7 +2194,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Device Management Settings Page
         - Flow: Global Settings --> Device Management Settings
         - Keyword Usage:
-         - ``navigate to device management settings page``
+        - ``navigate to device management settings page``
         :return: 1 if Navigation Successful
         """
         self.navigate_to_global_settings_page()
@@ -2210,7 +2210,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to Private Client Group On Configure Menu
         - Flow: Configure --> Users --> User Management --> Private Client Groups
         - Keyword Usage
-         - ``navigate_to_configure_private_client_group``
+        - ``navigate_to_configure_private_client_group``
 
         :return: 1 if Navigation Successful
         """
@@ -2231,7 +2231,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Management Options on Common Objects
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->MANAGEMENT OPTIONS
         - Keyword Usage:
-         - ``Navigate To Common Objects Management Options``
+        - ``Navigate To Common Objects Management Options``
         :return: 1 if Navigation Successful
         """
         self.navigate_configure_common_objects()
@@ -2249,7 +2249,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to utilities tools menu
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Utilities Tools``
+        - ``Navigate To Device Utilities Tools``
         :return: 1 if Navigation Successful else -1
         """
         if not self.get_device_tools_menu_item().is_displayed():
@@ -2276,7 +2276,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device client information tool window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Client Information``
+        - ``Navigate To Device Client Information``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_tools() == -1:
@@ -2297,7 +2297,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to single/multiple device get tech data tool window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Get Tech Data``
+        - ``Navigate To Device Get Tech Data``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_tools() == -1:
@@ -2318,7 +2318,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device locate device tool window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Locate Device``
+        - ``Navigate To Device Locate Device``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_tools() == -1:
@@ -2339,7 +2339,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device l2 neighbor info tool window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Layer Neighbor Info``
+        - ``Navigate To Device Layer Neighbor Info``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_tools() == -1:
@@ -2360,7 +2360,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single packet capture tool window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Packet Capture``
+        - ``Navigate To Device Packet Capture``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_tools() == -1:
@@ -2381,7 +2381,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to single/multiple device vlan probe tool window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Vlan Probe``
+        - ``Navigate To Device Vlan Probe``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_tools() == -1:
@@ -2402,7 +2402,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to utilities diagnostics menu
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Utilities Diagnostics``
+        - ``Navigate To Device Utilities Diagnostics``
         :return: 1 if Navigation Successful else -1
         """
         self.utils.print_info("Clicking on Utilities Button")
@@ -2428,7 +2428,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device ping diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Ping``
+        - ``Navigate To Device Ping``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2449,7 +2449,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show log diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Log``
+        - ``Navigate To Device Show Log``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2470,7 +2470,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show mac table diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Mac Table``
+        - ``Navigate To Device Show Mac Table``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2491,7 +2491,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show version diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Version``
+        - ``Navigate To Device Show Version``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2512,7 +2512,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show running config diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Running Config``
+        - ``Navigate To Device Show Running Config``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2533,7 +2533,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show startup config diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Startup Config``
+        - ``Navigate To Device Show Startup Config``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2554,7 +2554,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show ip routes diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Ip Routes``
+        - ``Navigate To Device Show Ip Routes``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2575,7 +2575,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show mac routes diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Mac Routes``
+        - ``Navigate To Device Show Mac Routes``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2596,7 +2596,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show arp cache diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Arp Cache``
+        - ``Navigate To Device Show Arp Cache``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2617,7 +2617,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show roaming cache diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Roaming Cache``
+        - ``Navigate To Device Show Roaming Cache``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2638,7 +2638,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show dnxp neighbors diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Dnxp Neighbors``
+        - ``Navigate To Device Show Dnxp Neighbors``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2659,7 +2659,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show dnxp cache diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Dnxp Cache``
+        - ``Navigate To Device Show Dnxp Cache``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2680,7 +2680,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show amrp tunnel diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Amrp Tunnel``
+        - ``Navigate To Device Show Amrp Tunnel``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2701,7 +2701,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show gre tunnel diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Gre Tunnel``
+        - ``Navigate To Device Show Gre Tunnel``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2722,7 +2722,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show ike event diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Ike Event``
+        - ``Navigate To Device Show Ike Event``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2743,7 +2743,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show ike sa diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Ike Sa``
+        - ``Navigate To Device Show Ike Sa``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2764,7 +2764,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show ipsec sa diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Ipsec Sa``
+        - ``Navigate To Device Show Ipsec Sa``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2785,7 +2785,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show ipsec tunnel diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Ipsec Tunnel``
+        - ``Navigate To Device Show Ipsec Tunnel``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2806,7 +2806,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show vpn tunnel diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Vpn Tunnel``
+        - ``Navigate To Device Show Vpn Tunnel``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2827,7 +2827,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show cpu diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Cpu``
+        - ``Navigate To Device Show Cpu``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2848,7 +2848,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show memory diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Memory``
+        - ``Navigate To Device Show Memory``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2869,7 +2869,7 @@ class Navigator(NavigatorWebElements):
         - This keyword is used to navigate to a single device show pse diagnostic window
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Navigate To Device Show Pse``
+        - ``Navigate To Device Show Pse``
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
@@ -2890,7 +2890,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Locked Users Page
         - Flow: Configure --> Users --> User Management --> Locked Users
         - Keyword Usage:
-          - 'Navigate to Locked Users page'
+        - 'Navigate to Locked Users page'
         :return: 1 if Navigation Successful
         """
         self.navigate_to_configure_tab()
@@ -2916,7 +2916,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Unbind Device Page
         - Flow: Configure --> Users --> User Management --> Unbind Device
         - Keyword Usage:
-          - 'Navigate to Unbind Device page'
+        - 'Navigate to Unbind Device page'
         :return: 1 if Navigation Successful
         """
         self.navigate_to_configure_tab()
@@ -2942,7 +2942,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Client Monitor and Diagnosis Page
         - Flow: Manage --> Client Monitor & Diagnosis
         - Keyword Usage:
-          - 'Navigate To Client Monitor And Diagnosis Tab'
+        - 'Navigate To Client Monitor And Diagnosis Tab'
         :return: 1 if Navigation Successful
         """
         self.navigate_to_manage_tab()
@@ -2963,7 +2963,7 @@ class Navigator(NavigatorWebElements):
         - Navigate to the MANAGE->ALERTS
         - Flow: Manage --> Alerts
         - Keyword Usage:
-         - ``Navigate Manage Alerts``
+        - ``Navigate Manage Alerts``
 
         :return: 1 If Navigated successfully else -1
         """
@@ -2988,7 +2988,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to Applications Page
         - Flow: Manage --> Applications
         - Keyword Usage:
-          - 'Navigate to Applications page'
+        - 'Navigate to Applications page'
         :return: 1 if Navigation Successful
         """
         self.navigate_to_manage_tab()
@@ -3006,10 +3006,10 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_manage_summary(self):
         """
-         - This keyword Navigates to Summary on Manage Menu
-         - Flow Manage--> Summary
-         - Keyword Usage
-          - ``Navigate To Manage Summary``
+        - This keyword Navigates to Summary on Manage Menu
+        - Flow Manage--> Summary
+        - Keyword Usage
+        - ``Navigate To Manage Summary``
 
         :return: 1 if Navigation Successful to Summary Sub tab on Monitor Tab else return -1
         """
@@ -3027,10 +3027,10 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_manage_users(self):
         """
-         - This keyword Navigates to Users on Manage Menu
-         - Flow Manage--> Users
-         - Keyword Usage
-          - ``Navigate To Manage Users``
+        - This keyword Navigates to Users on Manage Menu
+        - Flow Manage--> Users
+        - Keyword Usage
+        - ``Navigate To Manage Users``
 
         :return: 1 if Navigation Successful to Users Sub tab on Monitor Tab else return -1
         """
@@ -3048,10 +3048,10 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_configure_guest_essentials_users(self):
         """
-         - This keyword Navigates to Guest Essentials Users on Configure Menu
-         - Flow Configure--> Guest Essentials Users
-         - Keyword Usage
-          - ``Navigate To Configure Guest Essentials Users``
+        - This keyword Navigates to Guest Essentials Users on Configure Menu
+        - Flow Configure--> Guest Essentials Users
+        - Keyword Usage
+        - ``Navigate To Configure Guest Essentials Users``
 
         :return: 1 if Navigation Successful to Guest Essentials Users Sub tab on Configure Tab else return -1
         """
@@ -3072,7 +3072,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword Navigate to VPN Management Page
         - Flow: Manage --> VPN Management
         - Keyword Usage:
-          - 'Navigate to VPN Management Tab'
+        - 'Navigate to VPN Management Tab'
         :return: 1 if Navigation Successful, else -1
         """
         self.navigate_to_manage_tab()
@@ -3092,7 +3092,7 @@ class Navigator(NavigatorWebElements):
         - This Keyword point client hyperlink to Client 360 page in ML Insights
         - Flow: Client Hyperlink --> ML Insights --> Client 360
         - Keyword Usage:
-          - 'Point Client Hyperlink To Client360'
+        - 'Point Client Hyperlink To Client360'
         :return: 1 if Navigation Successful, else -1
         """
 
@@ -3111,7 +3111,7 @@ class Navigator(NavigatorWebElements):
         - Flow: Assume that already navigated to Configure > Common Objects > Network tab
                 Then navigate to VPN Services page
         - Keyword Usage:
-          - 'Navigate to VPN Services Tab'
+        - 'Navigate to VPN Services Tab'
         :return: 1 if Navigation Successful, else -1
         """
 
@@ -3123,13 +3123,13 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to navigate to VPN Services Page")
             self.screen.save_screen_shot()
             return -1
-    
+
     def navigate_to_manage_events(self):
         """
-         - This keyword Navigates to Events on Manage Menu
-         - Flow Manage--> Events
-         - Keyword Usage
-          - ``Navigate To Events``
+        - This keyword Navigates to Events on Manage Menu
+        - Flow Manage--> Events
+        - Keyword Usage
+        - ``Navigate To Events``
         :return: 1 if Navigation Successful to Devices Sub tab on Monitor Tab else return -1
         """
         if self.navigate_to_manage_tab() == 1:
@@ -3146,8 +3146,8 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_port_configuration_d360(self, **kwargs):
         """
-         - Assumes that D360 poge is already open
-         - Flow: Clicks 'Configure' button -> Scrolls down -> Clicks 'Port Configuration" ->
+        - Assumes that D360 poge is already open
+        - Flow: Clicks 'Configure' button -> Scrolls down -> Clicks 'Port Configuration" ->
                  Waits for the port rows to load
         :return: 1 if 'Port Configuration' has been clicked and the port rows have been loaded on the page
                  -1 if elements are not found along the way
@@ -3189,10 +3189,10 @@ class Navigator(NavigatorWebElements):
 
     def enable_page_size(self, page_size='50', **kwargs):
         """
-            - This keyword clicks the page size of that page
-                 - Flow Manage--> Common --> Navigator
-                 - Keyword Usage
-                  - ``enable_page_size  page_size=20``
+        - This keyword clicks the page size of that page
+        - Flow Manage--> Common --> Navigator
+        - Keyword Usage
+        - ``enable_page_size  page_size=20``
 
                 :return: 1 if enabling page size successfully else returns -1
         """

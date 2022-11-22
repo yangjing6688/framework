@@ -60,7 +60,7 @@ class Login:
         """
         - Get the title of the page
         - Keyword Usage:
-         - ``Get Page Title``
+        - ``Get Page Title``
 
         :return: page title
         """
@@ -70,7 +70,7 @@ class Login:
         """
         - Get the index of the window handle for this session
         - Keyword Usage:
-         - ``Get Window Index``
+        - ``Get Window Index``
 
         :return: index of window handle
         """
@@ -80,7 +80,7 @@ class Login:
         """
         - for Exos switch to appear in UI we need to load the provided url
         - Keyword Usage:
-         - ``Enable Exos Status On Xiq   ${URL}``
+        - ``Enable Exos Status On Xiq   ${URL}``
 
         :param url: url to load for enabling exos on cloud UI
         :return: 1 if loaded the url successfully
@@ -99,9 +99,9 @@ class Login:
         - Login to Xiq account with username and password (we will try up to 3 times)
         - By default url will load from the topology file
         - keyword Usage:
-         - ``Login User   ${USERNAME}   ${PASSWORD}``
-         - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
-         - ``Login User   ${USERNAME}   ${PASSWORD}    co_pilot_status=True``
+        - ``Login User   ${USERNAME}   ${PASSWORD}``
+        - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
+        - ``Login User   ${USERNAME}   ${PASSWORD}    co_pilot_status=True``
 
         :param username: login account username
         :param password: login account password
@@ -303,7 +303,7 @@ class Login:
         if capture_version:
             self._capture_xiq_version()
         kwargs['pass_msg'] = "User has been logged in"
-        
+
         try:
             if self.login_web_elements.get_right_arrow().is_displayed():
                 self.utils.print_info("Clicking welcome popup")
@@ -342,7 +342,7 @@ class Login:
         """
         - Logout the current user
         - Keyword Usage:
-         - ``Logout User``
+        - ``Logout User``
 
         :return: 1 if logout success
         """
@@ -369,7 +369,7 @@ class Login:
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
         - Keyword Usage:
-         - ``Quit Browser``
+        - ``Quit Browser``
 
         :param _driver
         :return: 1 if success
@@ -451,7 +451,7 @@ class Login:
         """
         - Loads web page with the passed URL
         - Keyword Usage:
-         - ``Load Web Page    ${URL}``
+        - ``Load Web Page    ${URL}``
 
         :param url: Proper URL
         :return: creates global driver object & returns
@@ -466,7 +466,7 @@ class Login:
         - Assumes that set password url is already opened
         - Set new password for the account
         - Keyword Usage:
-         - ``Set Password   ${NEW_PASSWORD}``
+        - ``Set Password   ${NEW_PASSWORD}``
 
         :param new_pwd: New Password string to set
         :return: 1 if Able to Set the Password Successfully for the Account else None
@@ -501,7 +501,7 @@ class Login:
         - Assumes that reset password url browser is opened
         - Reset the user account password
         - Keyword Usage:
-         - `` Reset Password  ${NEW_PASSWORD}``
+        - `` Reset Password  ${NEW_PASSWORD}``
 
         :param new_pwd:
         :return: 1 if able to Reset the Password Successfully
@@ -527,7 +527,7 @@ class Login:
         """
         - Get the link to set the forget password
         - Keyword Usage:
-         - ``Forget Password   ${EMAIL}``
+        - ``Forget Password   ${EMAIL}``
 
         :param _email: Email Address
         :param url: Forget Password URL
@@ -613,7 +613,7 @@ class Login:
         """
         - Reset password for xiq account with passed reset password url link
         - Keyword Usage:
-         - ``Reset Password For New Account  ${RESET_PASSWORD}   ${RESET_URL_LINK}``
+        - ``Reset Password For New Account  ${RESET_PASSWORD}   ${RESET_URL_LINK}``
 
         :param password:  password to reset
         :param url: reset password url link
@@ -644,7 +644,7 @@ class Login:
         """
         - This keyword Get Switch Connection Host
         - Keyword Usage
-         - ``Get Switch Connection Host``
+        - ``Get Switch Connection Host``
         :return: returns switch connection host info else fails keyword
         """
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
@@ -677,7 +677,7 @@ class Login:
         """
         - This method is used to get the build id or owner id
         - Keyword Usage:
-         - ``Get Viq Owner Id``
+        - ``Get Viq Owner Id``
 
         :return: viq id
         """
@@ -701,7 +701,8 @@ class Login:
         """
         - This Keyword is used to get the url of current loaded page
         - Keyword Usage:
-         - ``Get Base URL Of Current Page``
+        - ``Get Base URL Of Current Page``
+
         :return: current page url
         """
         base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', CloudDriver().cloud_driver.current_url)
@@ -711,18 +712,19 @@ class Login:
         """
         - This Keyword returns URL of current page
         - Keyword Usage:
-         - ``Get Current Page URL``
+        - ``Get Current Page URL``
+
         :return: current page url
         """
         return CloudDriver().cloud_driver.current_url
 
     def skip_if_account_90_days(self):
         """
-            - This keyword detects a license of 90 days and clicks on the option of 90 days
-            - Keyword Usage:
-             - ``skip_if_account_90_days``
+        - This keyword detects a license of 90 days and clicks on the option of 90 days
+        - Keyword Usage:
+        - ``skip_if_account_90_days``
 
-            :return: None
+        :return: None
         """
         self.utils.print_info(" Select the option of 90 days trial if exists")
         status = self.login_web_elements.get_30_days_trial_txt()
@@ -745,7 +747,7 @@ class Login:
 
     def get_xiq_version(self):
         """
-         - Get XIQ Build version details
+        - Get XIQ Build version details
 
         :return: xiq_version
         """
@@ -774,7 +776,7 @@ class Login:
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
         - Keyword Usage:
-         - ``XIQ Quit Browser``
+        - ``XIQ Quit Browser``
 
         :param _driver: specific driver to use; if not specified, default driver will be used
         :return: None
@@ -801,7 +803,7 @@ class Login:
         """
         - Obtain the Child Window Index List
         - Keyword Usage:
-          - ``XIQ Get Child Window List``
+        - ``XIQ Get Child Window List``
         :param:  win_index - Index of the window to close
         :return: Return List containing the Child Window Indexes
         """
@@ -838,9 +840,9 @@ class Login:
         - Login Xiq account with username and password
         - By default url will load from the topology file
         - keyword Usage:
-         - ``Login User   ${USERNAME}   ${PASSWORD}``
-         - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
-         - $login_type} : trial, connect, extremecloudiq license, legacy license
+        - ``Login User   ${USERNAME}   ${PASSWORD}``
+        - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
+        - $login_type} : trial, connect, extremecloudiq license, legacy license
 
         :param username: login account username
         :param password: login account password
@@ -928,7 +930,7 @@ class Login:
 
     def select_welcome_page_option(self, login_option, ekey, sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid):
         """
-            - This keyword selects login option on welcome page as indicated by login_option
+        - This keyword selects login option on welcome page as indicated by login_option
         :return: None
         """
         if login_option is not None:
@@ -1124,13 +1126,14 @@ class Login:
 
     def login_for_first_time(self):
         """
-            - This keyword used to login for the first time user based on option provided in test case
-            - If option is not specified, default option of "30-days trial" is selected.
-            - Getting started with license is not supported through Automation as it depends on Gemalto license.
-            - Assumes that user already in login option selection page
-            - Keyword Usage:
-             - ``Login For First Time``
-            :return: 1
+        - This keyword used to login for the first time user based on option provided in test case
+        - If option is not specified, default option of "30-days trial" is selected.
+        - Getting started with license is not supported through Automation as it depends on Gemalto license.
+        - Assumes that user already in login option selection page
+        - Keyword Usage:
+        - ``Login For First Time``
+
+        :return: 1
         """
 
         login_option = BuiltIn().get_variable_value("${LOGIN_OPTION}")
@@ -1725,7 +1728,7 @@ class Login:
     def get_portal_url(self, sw_connection_host):
         """
         :param sw_connection_host: the url of the RDC
-        :return: the url of portal page ; else -1 
+        :return: the url of portal page ; else -1
         """
 
         pattern1 = "(\\w+)r\\d+."
@@ -1807,7 +1810,7 @@ class Login:
         """
         - XIQ uses a URL to enable or disable a 'soft launch' (beta) feature.
         - Keyword Usage:
-         - ``XIQ Soft Launch Feature URL   ${URL}``
+        - ``XIQ Soft Launch Feature URL   ${URL}``
         :param url: full url to load to enable or disable the 'hidden' feature
         :return: 1 if loaded the url successfully
         """

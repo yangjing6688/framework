@@ -24,7 +24,7 @@ class AccountManagement(AccntMgmtWebElements):
         - Search the management account in accounts grid
         - Flow : User account image-->Global Settings--> Account Management
         - Keyword Usage
-         - ``Search Management Account  ${ACCOUNT_EMAIL}``
+        - ``Search Management Account  ${ACCOUNT_EMAIL}``
 
         :param email_addr: Email Address Of the Account
         :return: row if Exists else None
@@ -39,7 +39,8 @@ class AccountManagement(AccntMgmtWebElements):
         - Search the guest management accounts in accounts grid
         - Flow : User account image-->Global Settings--> Account Management
         - Keyword Usage
-         - ``Search Management Account ``
+        - ``Search Management Account ``
+
         :return: row if Exists else None
         """
         row_guest = []
@@ -53,7 +54,7 @@ class AccountManagement(AccntMgmtWebElements):
         - Search the management account in accounts grid
         - Flow : User account image-->Global Settings--> Account Management
         - Keyword Usage
-         - ``Search Management Account  ${ACCOUNT_EMAIL}``
+        - ``Search Management Account  ${ACCOUNT_EMAIL}``
 
         :param email_addr: Email Address Of the Account
         :return: row if Exists else None
@@ -71,7 +72,7 @@ class AccountManagement(AccntMgmtWebElements):
         - &{OPERATOR_ROLE}, &{MONITOR_ROLE}, &{HELPDESK_ROLE}, &{Guest_Management_Role}, &{Observer_Role}
         - Flow : User account image-->Global Settings--> Account Management
         - Keyword Usage
-         - ``Create Role Based Account  &{ACCOUNT_CONFIGS}``
+        - ``Create Role Based Account  &{ACCOUNT_CONFIGS}``
 
         :param accnt_config: (dict) include email, name, timeout, role, organization, location
         :return: 1 if there is no error
@@ -154,7 +155,7 @@ class AccountManagement(AccntMgmtWebElements):
         - if exist delete the account
         - Flow : User account image-->Global Settings--> Account Management
         - Keyword Usage
-         - ``Delete Management Account  ${ACCOUNT_EMAIL}``
+        - ``Delete Management Account  ${ACCOUNT_EMAIL}``
 
         :param email_addr: email address to search the account
         :return: 1 if Account found on grid and got deleted successfully else None
@@ -179,7 +180,8 @@ class AccountManagement(AccntMgmtWebElements):
         - if exist delete the account
         - Flow : User account image-->Global Settings--> Account Management
         - Keyword Usage
-         - ``Delete Management Account ``
+        - ``Delete Management Account ``
+
         :return: 1 if Account found on grid and got deleted successfully else None
         """
         self.utils.print_info("Navigating to the account Management page..")
@@ -204,7 +206,7 @@ class AccountManagement(AccntMgmtWebElements):
         - if exist delete the account
         - Flow : User account image-->Global Settings--> Account Management
         - Keyword Usage
-         - ``Delete Management Account  ${ACCOUNT_EMAIL}``
+        - ``Delete Management Account  ${ACCOUNT_EMAIL}``
 
         :param email_addr: email address to search the account
         :return: 1 if Account found on grid and got deleted successfully else None
@@ -226,10 +228,10 @@ class AccountManagement(AccntMgmtWebElements):
 
     def open_account_mgmt_page(self):
         """
-         - Navigates to Account Management Page
-         - Flow : User account image-->Global Settings--> Account Management
-         - Keyword Usage
-          - ``Open Account Mgmt Page``
+        - Navigates to Account Management Page
+        - Flow : User account image-->Global Settings--> Account Management
+        - Keyword Usage
+        - ``Open Account Mgmt Page``
 
         :return: 1 if no issues in opening Account Management page else returns -2
         """
@@ -244,7 +246,7 @@ class AccountManagement(AccntMgmtWebElements):
         - Navigates to License Management Page
         - Flow : User account image-->Global Settings--> ADMINISTRATION-->License Management
         - Keyword Usage
-          - ``Open License Mgmt Page``
+        - ``Open License Mgmt Page``
 
         :return: 1 if no issues in opening License Management page else returns -2
         """
@@ -260,7 +262,7 @@ class AccountManagement(AccntMgmtWebElements):
         - Navigates to Tools Page on Monitor Menu Option
         - Flow : Manage-->Tools
         - Keyword Usage
-          - ``Open Tools Page``
+        - ``Open Tools Page``
 
         :return: 1 if no issues in opening Tools page else returns -2
         """
@@ -278,7 +280,7 @@ class AccountManagement(AccntMgmtWebElements):
         """
         - Navigates to Dashboard Page
         - Keyword Usage
-         - ``Open Dashboard Page``
+        - ``Open Dashboard Page``
 
         :return: 1 if no issues in opening Dashboard page else returns -2
         """
@@ -292,7 +294,7 @@ class AccountManagement(AccntMgmtWebElements):
         """
         - Check for Dashboard Page
         - Keyword Usage
-         - ``Check For Dashboard Page``
+        - ``Check For Dashboard Page``
 
         :return: 1 if no issues in opening page else returns -2
         """
@@ -309,7 +311,7 @@ class AccountManagement(AccntMgmtWebElements):
         - Navigates to Guest Management Page
         - Flow : Global settings > Credential Distribution Groups
         - Keyword Usage
-          - ``Open Guest Mgmt Page``
+        - ``Open Guest Mgmt Page``
 
         :return: 1 if no issues in opening Guest Management page else returns -2
         """
@@ -324,8 +326,8 @@ class AccountManagement(AccntMgmtWebElements):
         """
         - Navigates to Packet Capture option Page
         - Flow : Manage > Tools-->Packet Capture
-         - Keyword Usage
-          - ``Check Packet Capture Option``
+        - Keyword Usage
+        - ``Check Packet Capture Option``
 
         :return: 1 if no issues in opening Tools --> Packet Capture page else returns -2
         """
@@ -344,7 +346,7 @@ class AccountManagement(AccntMgmtWebElements):
         """
         - Check for Errors while Saving Configurations on XIQ
         - Keyword Usage
-         - ``Check Config Error``
+        - ``Check Config Error``
 
         :return: 1 if no error message after saving the config else returns -2
         """

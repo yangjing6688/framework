@@ -18,10 +18,10 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_set_description(self, the_value):
         """
-         - This keyword enters the Description value in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Set Description    my_cli_cred``
+        - This keyword enters the Description value in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Set Description    my_cli_cred``
 
         :param the_value: value to enter in the Description field
         :return: 1 if action was successful, else -1
@@ -41,10 +41,10 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_set_user_name(self, the_value):
         """
-         - This keyword enters the User Name value in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Set User Name    admin``
+        - This keyword enters the User Name value in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Set User Name    admin``
 
         :param the_value: value to enter in the User Name field
         :return: 1 if action was successful, else -1
@@ -64,10 +64,10 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_select_telnet(self):
         """
-         - This keyword selects Telnet from the Type dropdown in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Select Telnet``
+        - This keyword selects Telnet from the Type dropdown in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Select Telnet``
 
         :return: 1 if action was successful, else -1
         """
@@ -75,10 +75,10 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_select_ssh(self):
         """
-         - This keyword selects SSH from the Type dropdown in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Select SSH``
+        - This keyword selects SSH from the Type dropdown in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Select SSH``
 
         :return: 1 if action was successful, else -1
         """
@@ -86,11 +86,11 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_select_type(self, the_value):
         """
-         - This keyword selects the CLI Version value in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Select Type    Telnet``
-          - ``XIQSE Add CLI Credential Dialog Select Type    SSH``
+        - This keyword selects the CLI Version value in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Select Type    Telnet``
+        - ``XIQSE Add CLI Credential Dialog Select Type    SSH``
 
         :param the_value: value to select in the Type field
         :return: 1 if action was successful, else -1
@@ -132,10 +132,10 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_set_login_password(self, the_value):
         """
-         - This keyword enters the Login Password value in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Set Login Password    abc123``
+        - This keyword enters the Login Password value in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Set Login Password    abc123``
 
         :param the_value: value to enter in the Login Password field
         :return: 1 if action was successful, else -1
@@ -155,10 +155,10 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_set_enable_password(self, the_value):
         """
-         - This keyword enters the Login Password value in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Set Enable Password    abc123``
+        - This keyword enters the Login Password value in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Set Enable Password    abc123``
 
         :param the_value: value to enter in the Enable Password field
         :return: 1 if action was successful, else -1
@@ -178,10 +178,10 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_set_configuration_password(self, the_value):
         """
-         - This keyword enters the Configuration Password value in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Set Configuration Password    abc123``
+        - This keyword enters the Configuration Password value in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Set Configuration Password    abc123``
 
         :param the_value: value to enter in the Configuration Password field
         :return: 1 if action was successful, else -1
@@ -201,10 +201,10 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_click_save(self):
         """
-         - This keyword clicks Save in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Click Save``
+        - This keyword clicks Save in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Click Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -240,10 +240,10 @@ class XIQSE_AdminProfilesCLICredentialsAddCred(AdminProfilesCLICredentialsAddCre
 
     def xiqse_add_cli_credential_dialog_click_cancel(self):
         """
-         - This keyword clicks Cancel in the Add CLI Credential dialog.
-         - It is assumed the Add CLI Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add CLI Credential Dialog Click Cancel``
+        - This keyword clicks Cancel in the Add CLI Credential dialog.
+        - It is assumed the Add CLI Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add CLI Credential Dialog Click Cancel``
 
         :return: 1 if action was successful, else -1
         """

@@ -35,7 +35,7 @@ class MuCaptivePortal(MuCPWebElement):
         """
         - Accept User Acceptance page to get network access
         - Keyword Usage:
-         - ``Accept User Acceptance Page``
+        - ``Accept User Acceptance Page``
 
         :return: 1 If successfully Accept User page Acceptance to get network access else -1
         """
@@ -51,7 +51,7 @@ class MuCaptivePortal(MuCPWebElement):
         """
         - Cancel User page Acceptance Policy for getting network access
         - Keyword Usage:
-         - ``Cancel User Acceptance Policy``
+        - ``Cancel User Acceptance Policy``
 
         :return: 1 if cancel user acceptance Policy for getting network access else None
         """
@@ -63,8 +63,8 @@ class MuCaptivePortal(MuCPWebElement):
         """
         - User Self Registration on captive web portal
         - Keyword Usage:
-         - ``User Self Registration   &{USER_INFO}``
-         - &{USER_INFO}    first_name=${FIRST_NAME}   last_name=${LAST_NAME}  email=${USERS_CRED_EMAIL}
+        - ``User Self Registration   &{USER_INFO}``
+        - &{USER_INFO}    first_name=${FIRST_NAME}   last_name=${LAST_NAME}  email=${USERS_CRED_EMAIL}
            ...             ccode=${CCODE}   ph_num=${PHONE_NUMBER}    visitor_email=${VISITOR_EMAIL}
 
         :param user_info: user registration parameters ie First and Last Name, Email,Mobile number,visitor Email address
@@ -114,7 +114,7 @@ class MuCaptivePortal(MuCPWebElement):
         - When user register with open network cwp and returning to aerohive ppsk network
         - Get the pass code from user self registration page
         - Keyword Usage:
-         - ``Get PPSK Passcode User Registration``
+        - ``Get PPSK Passcode User Registration``
 
         :return: if success ppsk pass code else -1
         """
@@ -127,7 +127,7 @@ class MuCaptivePortal(MuCPWebElement):
         """
         - Accept the user acceptance button with social login types to get access to the network
         - Keyword Usage:
-         - ``Social Login User Acceptance Page``
+        - ``Social Login User Acceptance Page``
 
         :return: 1 if user acceptance button clicked else None
         """
@@ -142,7 +142,7 @@ class MuCaptivePortal(MuCPWebElement):
         """
         - Get the social login cwp page title
         - Keyword Usage:
-         - ``Check Social Login Page Title``
+        - ``Check Social Login Page Title``
 
         :return: 1 if social login page loaded else None
         """
@@ -157,7 +157,7 @@ class MuCaptivePortal(MuCPWebElement):
         - Once social login successful it will redirect the url given while registration.
         - Check the page title of the loaded url
         - Keyword Usage:
-         - ``Check Successful Page Title``
+        - ``Check Successful Page Title``
 
         :return: 1 if successfully loaded else -1
         """
@@ -174,7 +174,7 @@ class MuCaptivePortal(MuCPWebElement):
         - Register network via facebook login CWP
         - Validate Captive Web Portal social login with facebook credentials
         - Keyword Usage:
-         - ``Validate CWP Social Login With Facebook  ${FACEBOOK_USERNAME}   ${FACEBOOK_PASSWORD}``
+        - ``Validate CWP Social Login With Facebook  ${FACEBOOK_USERNAME}   ${FACEBOOK_PASSWORD}``
 
         :return: 1 if successfully connected with internet with social login type facebook else -1
         """
@@ -227,7 +227,7 @@ class MuCaptivePortal(MuCPWebElement):
         - Register network via google login CWP
         - Validate Captive Web Portal social login with google credentials
         - Keyword Usage:
-         - ``Validate CWP Social Login With Facebook  ${GMAIL_USERNAME}   ${GMAIL_PASSWORD}``
+        - ``Validate CWP Social Login With Facebook  ${GMAIL_USERNAME}   ${GMAIL_PASSWORD}``
 
         :return: 1 if successfully connected with internet with social login type google else -1
         """
@@ -288,7 +288,7 @@ class MuCaptivePortal(MuCPWebElement):
         - Register network via Linkdin login CWP
         - Validate Captive Web Portal social login with linkdin credentials
         - Keyword Usage:
-         - ``Validate CWP Social Login With Facebook  ${LINKDIN_USERNAME}   ${LINKDIN_PASSWORD}``
+        - ``Validate CWP Social Login With Facebook  ${LINKDIN_USERNAME}   ${LINKDIN_PASSWORD}``
 
         :return: 1 if successfully connected with internet with social login type Linkedin else -1
         """
@@ -328,8 +328,8 @@ class MuCaptivePortal(MuCPWebElement):
         """
         - Register the Guest User to access the network
         - Keyword Usage:
-         - ``Guest USer Self Registration   &{GUEST_USER}``
-         - &{GUEST_USER}   user_name=${USER_NAME}   email=${EMAIL}  ccode=${CCODE}  ph_num=${PHONE_NUMB}
+        - ``Guest USer Self Registration   &{GUEST_USER}``
+        - &{GUEST_USER}   user_name=${USER_NAME}   email=${EMAIL}  ccode=${CCODE}  ph_num=${PHONE_NUMB}
            ...             visitor_email=${VISITOR_EMAIL}
 
         :param guest_user: guest user registration dictionary
@@ -389,7 +389,7 @@ class MuCaptivePortal(MuCPWebElement):
         """
         - Login the the guest Access network using username and password
         - Keyword Usage:
-         - ``Login Guest User  ${USER_NAME}   ${PASSWORD}``
+        - ``Login Guest User  ${USER_NAME}   ${PASSWORD}``
 
         :param user_name: username to login to network
         :param password: password to login the network
@@ -412,11 +412,10 @@ class MuCaptivePortal(MuCPWebElement):
         - Enter the email id to get the cloud pin
         - cloud pin will get the the entered email ID
         - Keyword Usage:
-         - ``Config Cloud Pin Email Id   ${EMAIL}``
+        - ``Config Cloud Pin Email Id   ${EMAIL}``
 
         :param email: Email address
-        :return: - 1 if "Success! Check your email for your new PIN"
-                 - else error message
+        :return: - 1 if "Success! Check your email for your new PIN" - else error message
         """
         msg = ''
         self.utils.print_info("enter your email to get a PIN:{}".format(email))
@@ -443,7 +442,7 @@ class MuCaptivePortal(MuCPWebElement):
         """
         - Enter the cloud pin to authenticate user
         - Keyword Usage:
-         - ``Enter Cloud Pin  ${CLOUD_PIN}``
+        - ``Enter Cloud Pin  ${CLOUD_PIN}``
 
         :param pin: clodu pin got from email
         :return: 1 if Entered Cloud Pin Successfully else None
@@ -483,8 +482,8 @@ class MuCaptivePortal(MuCPWebElement):
         - By loading url check the internet connectivity
         - By default url is https://www.extremenetworks.com/
         - Keyword Usage:
-         - ``Check Internet Connectivity   ${MU_IP}``
-         - ``Check Internet Connectivity   ${MU_IP}   url=${URL}``
+        - ``Check Internet Connectivity   ${MU_IP}``
+        - ``Check Internet Connectivity   ${MU_IP}   url=${URL}``
 
         :param mu_ip: mu ip to load the url
         :param url: url to load on the browser
@@ -498,7 +497,7 @@ class MuCaptivePortal(MuCPWebElement):
         """
         - Check Captive Web Portal social login term and condition page
         - Keyword Usage:
-         - ``check cwp social login term and condition page``
+        - ``check cwp social login term and condition page``
 
         :return: 1 if successfully get the term and condition page text else -1
         """

@@ -36,7 +36,7 @@ class CommonObjects(object):
         """
         - FLow: CONFIGURE-->COMMON OBJECTS-->BASIC-->IP Objects / HostNames
         - Keyword Usage:
-         - ``Navigate To Basic Ip Object Hostname```
+        - ``Navigate To Basic Ip Object Hostname```
 
         :return: None
         """
@@ -143,7 +143,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete SSID from the ssid grid
         - Keyword Usage:
-         - ``Delete SSID  ${SSID_NAME}``
+        - ``Delete SSID  ${SSID_NAME}``
 
         :param ssid_name: Name of the ssid_name
         :return: 1 if deleted else -1
@@ -184,7 +184,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete ssid's from ssid grid
         - Keyword Usage:
-         - ``Delete ssids  ${SSID1}  ${SSID2}  ${SSID3}``
+        - ``Delete ssids  ${SSID1}  ${SSID2}  ${SSID3}``
 
         :param ssids: (list) list of ssid's to delete
         :return: 1 if deleted else -1
@@ -255,7 +255,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete all SSIDs from the grid expect exclude_list SSIDs
         - Keyword Usage:
-         - ``Delete All ssids   `
+        - ``Delete All ssids   `
 
         :return: 1 if deleted else -1
         """
@@ -280,7 +280,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Delete captive web portal from the grid
         - Keyword Usage:
-         - ``Delete Captive Web Portal  ${CWP_NAME}``
+        - ``Delete Captive Web Portal  ${CWP_NAME}``
 
         :param cwp_name: Name of the Captive Web portal
         :return: 1 deleted
@@ -309,7 +309,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Delete captive web portals from the grid
         - Keyword Usage:
-         - ``Delete Captive Web Portals   ${CWP_NAME1}  ${CWP_NAME2}   ${CWP_NAME3}``
+        - ``Delete Captive Web Portals   ${CWP_NAME1}  ${CWP_NAME2}   ${CWP_NAME3}``
 
         :param cwp_names: Name of the Captive Web portal
         :return: 1 deleted
@@ -349,7 +349,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Delete captive web portals from the grid
         - Keyword Usage:
-         - ``Delete All Captive Web Portals   exclude_list=${cwp1},${cwp2}``
+        - ``Delete All Captive Web Portals   exclude_list=${cwp1},${cwp2}``
         :param exclude_list: list of cwps to exclude from delete
         :return: 1 deleted
                 -1 cannot be removed because it is used by another object
@@ -379,7 +379,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> External radius server
         - Delete external radius server from grid
         - Keyword Usage:
-         - ``Delete External Radius Server   ${RADIUS_SERVER_NAME}``
+        - ``Delete External Radius Server   ${RADIUS_SERVER_NAME}``
 
         :param radius_server: radius server name
         :return: 1 if deleted
@@ -405,7 +405,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName
         - Delete the ip object or hostname from Basic-->IP Objects/ Hostname
         - Keyword Usage:
-         - ``Delete IP Object Hostname  ${IP_OR_HOSTNAME}``
+        - ``Delete IP Object Hostname  ${IP_OR_HOSTNAME}``
 
         :param object_name: Ip object or hostname
         :return: 1 if deleted
@@ -452,7 +452,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Disable the employee approval in captive web portal configuration
         - Keyword Usage:
-         - ``Disable Cwp Employee Approval  ${CWP_NAME}``
+        - ``Disable Cwp Employee Approval  ${CWP_NAME}``
 
         :param cwp_name: name of the captive web portal
         :return:
@@ -474,7 +474,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Edit social login captive web portal from the grid
         - Keyword Usage:
-         - ``Edit Captive Web Portal Social Login Configuration   &{CWP_TEMPLATE_CONFIG}``
+        - ``Edit Captive Web Portal Social Login Configuration   &{CWP_TEMPLATE_CONFIG}``
 
         :param cwp_template_config: social login cwp edit variables
         :return: 1 edited
@@ -574,7 +574,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->AUTHENTICATION-->AAA SERVER SETTINGS
         - Delete AAA server profile from the grid
         -Keyword Usage:
-         - ``Delete AAA Server Profile  ${AAA_PROFILE_NAME}``
+        - ``Delete AAA Server Profile  ${AAA_PROFILE_NAME}``
 
         :param aaa_profile_name: Name of AAA Profile
         :return: 1 if aaa profile deleted successfully else returns -1
@@ -603,7 +603,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
         - Delete Port Type from the grid
         - Keyword Usage:
-         - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
+        - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
 
         :param port_type_name: Name of Port Tye
         :return: 1 if Port Type deleted successfully, else returns -1
@@ -671,7 +671,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
         - Delete Sub Network in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Sub Network Profile   ${SUB_NETWORK_NAME}``
+        - ``Delete Sub Network Profile   ${SUB_NETWORK_NAME}``
 
         :param sub_network_name: Name of SubNetwork Space
         :return: 1 if SubNetwork Space deleted successfully else returns -1
@@ -710,7 +710,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Delete Vlans in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Vlan Profile  ${VLAN_NAME}``
+        - ``Delete Vlan Profile  ${VLAN_NAME}``
 
         :param vlan_name: Name of Vlan
         :return: 1 if vlan name deleted successfully else returns -1
@@ -750,7 +750,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Delete Vlans in Common Object from the grid
         - Keyword Usage:
-         - ``Delete All Vlan Profiles``
+        - ``Delete All Vlan Profiles``
         :return: 1 if vlans deleted successfully else returns -1
         """
         exclude_list = ['1', 'Mgmt-4048']
@@ -779,7 +779,7 @@ class CommonObjects(object):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
         - Keyword Usage:
-         - ``Navigate To Security Wips Policies``
+        - ``Navigate To Security Wips Policies``
 
         :return: None
         """
@@ -804,7 +804,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
         - Delete wips_policys in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Wips Policy Profile   ${WIPS_POLICY_NAME}``
+        - ``Delete Wips Policy Profile   ${WIPS_POLICY_NAME}``
 
         :param wips_policy_name: Name of wips policy name
         :return: 1 if wips policy name deleted successfully else returns -1
@@ -834,7 +834,7 @@ class CommonObjects(object):
         -->COMMON OBJECTS-->AP Templates
         - Delete ap_template_name in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Ap Template Profile  ${AP_TEMPLATE_NAME}``
+        - ``Delete Ap Template Profile  ${AP_TEMPLATE_NAME}``
 
         :param ap_template_name: Name of AP Template
         :return: 1 if ap template name deleted successfully else returns -1
@@ -942,7 +942,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Switch Template
         - Delete specified switch template from the Switch Templates grid
         - Keyword Usage:
-         - ``Delete Switch Template  ${TEMPLATE_NAME}``
+        - ``Delete Switch Template  ${TEMPLATE_NAME}``
         :param template_name: Name of the switch template
         :return: 1 if deleted else -1
         """
@@ -1032,7 +1032,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> Supplemental CLI Objects
         - Delete specified supplemental cli profile from the Supplemental CLI Objects grid
         - Keyword Usage:
-         - ``Delete Supplemental Cli Profile  ${SUPPLEMENTAL_CLI_NAME}``
+        - ``Delete Supplemental Cli Profile  ${SUPPLEMENTAL_CLI_NAME}``
         :param supplemental_cli_name: Name of the supplemental cli profile
         :return: 1 if deleted else -1
         """
@@ -1186,7 +1186,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Create Open SSID from the ssid grid
         - Keyword Usage:
-         - ``Create Open SSID In Common Objects  ${SSID_NAME}``
+        - ``Create Open SSID In Common Objects  ${SSID_NAME}``
 
         :param ssid_name: Name of the ssid_name
         :return: 1 if Created Open SSID Successfully else -1
@@ -1221,7 +1221,7 @@ class CommonObjects(object):
         self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
         self.screen.save_screen_shot()
         sleep(2)
-        
+
         #Commented due to getting mismatch error in xpath once xpath gets updated it will used
         # sleep(5)
         # tool_tp_text = tool_tip.tool_tip_text
@@ -1246,7 +1246,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Clone Open SSID from the Existing ssid grid
         - Keyword Usage:
-         - ``Clone Open SSID In Common Objects  ${SSID_NAME}  ${CLONE_SSID_NAME}``
+        - ``Clone Open SSID In Common Objects  ${SSID_NAME}  ${CLONE_SSID_NAME}``
 
         :param ssid_name: Copy of SSID to clone
         :param clone_ssid_name: Clone SSID name
@@ -1291,7 +1291,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Radio Profile
         - Create Radio profile from the radio grid
         - Keyword Usage:
-         - ``Create Radio Profile        ${RADIO_PROFILE_NAME}       ${RADIO_MODE}``
+        - ``Create Radio Profile        ${RADIO_PROFILE_NAME}       ${RADIO_MODE}``
 
         :param profile_name: Name of the Radio profile
         :param radio_mode : Select the radio mode ("ax (5GHz)" or "ax (2.4GHz)" or  "ac" or  "a/n")
@@ -1355,7 +1355,7 @@ class CommonObjects(object):
             elif "Radio profile cannot be saved" in value:
                 return -2
         return -1
- 
+
     def add_ap_template_from_common_object(self, ap_model, ap_template_name, **wifi_interface_config):
         """"
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
@@ -1363,7 +1363,7 @@ class CommonObjects(object):
         - Checking the AP template presence in the AP Templates Grid
         - If it is not there add New AP Template
         - Keyword Usage
-         - ``Add AP Template From Common Object   ${AP_MODEL}   ${AP_TEMPLATE_NAME}     &{AP_TEMPLATE_CONFIG}``
+        - ``Add AP Template From Common Object   ${AP_MODEL}   ${AP_TEMPLATE_NAME}     &{AP_TEMPLATE_CONFIG}``
 
         :param ap_model: Model of the AP like AP630, AP410C etc
         :param ap_template_name: AP Template Name ie AP630-TEMPLATE,AP410C-TEMPLATE etc
@@ -1903,7 +1903,7 @@ class CommonObjects(object):
         """
         - Configure the WIFI0 configuration on AP Template
         - Keyword Usage
-         - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
+        - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
 
         :param wifi0_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi0 Profile Configured Successfully else None
@@ -2030,7 +2030,7 @@ class CommonObjects(object):
         """
         - Configure the WIFI1 configuration on AP Template
         - Keyword Usage
-         - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
+        - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
 
         :param wifi1_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi1 Profile Configured Successfully else None
@@ -2176,7 +2176,7 @@ class CommonObjects(object):
             if self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_mesh_link())
 
-        """ 
+        """
         ##### APC-44337 UI Changes #####
         adsp_primary_server_ip = wifi2_profile.get('primary_server_ip', '1.1.1.1')
         adsp_primary_server_port = wifi2_profile.get('primary_server_port', '11')
@@ -2284,7 +2284,7 @@ class CommonObjects(object):
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
         - Checking the AP template presence in the AP Templates Grid
         - Keyword Usage
-         - ``Check AP Template In Common Object   ${AP_TEMPLATE_NAME}``
+        - ``Check AP Template In Common Object   ${AP_TEMPLATE_NAME}``
 
         :param ap_template_name: AP Template Name ie AP630-TEMPLATE,AP410C-TEMPLATE etc
         :return: 1 if AP Template Found else -1
@@ -2312,7 +2312,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy --> AP Templates
         - Delete Templates from Template grid
         - Keyword Usage:
-         - ``Delete AP Templates  ${Template1}  ${Template2}  ${Template3}``
+        - ``Delete AP Templates  ${Template1}  ${Template2}  ${Template3}``
 
         :param templates: (list) list of template's to delete
         :return: 1 if deleted else -1
@@ -2350,7 +2350,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy --> AP Templates
         - Delete All ap templates except default template from Template grid
         - Keyword Usage:
-         - ``Delete All AP Templates``
+        - ``Delete All AP Templates``
         :return: 1 if deleted else -1
         """
         self.utils.print_info("Navigate to Configure->Common Objects->Policy->AP Template.")
@@ -2391,7 +2391,8 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> Client Mode Profiles
         - Delete all client mode profiles from Client Mode Profiles grid
         - Keyword Usage:
-         - ``Delete All Client Mode Profiles``
+        - ``Delete All Client Mode Profiles``
+
         :return: 1 if deleted else -1
         """
         self.utils.print_info("Navigate to Configure->Common Objects-> Basic->Client Mode Profiles.")
@@ -2419,32 +2420,34 @@ class CommonObjects(object):
                 return -1
 
     def radio_phy_mode_fiveghz(self, model):
-            """
-                - Flow: Configure --> Common Objects --> Policy -->Radio Profile
-                - Map the Radio phy mode based on the AP
-                - Keyword Usage:
-                - ``${RADIO_MODE}      Radio Phy Mode Fiveghz      ${AP1_MODEL}``
-                - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}   True``
-                :param model: Name of the model being used our Test
-                :return: Radio phy mode based on AP model ("ax (5GHz)" or  "ac" )
-            """
-            AP = "AP150W", "AP250", "AP30", "AP122", "AP245X", "AP230", "AP1130"
-            if model in AP:
-                self.utils.print_info("DUT model is : ", model, ". So Picked phy_mode as 11AC")
-                return "ac"
-            else:
-                self.utils.print_info("DUT model is : ", model, ". So Picked phy_mode as 11AX")
-                return "ax (5GHz)"
+        """
+        - Flow: Configure --> Common Objects --> Policy -->Radio Profile
+        - Map the Radio phy mode based on the AP
+        - Keyword Usage:
+        - ``${RADIO_MODE}      Radio Phy Mode Fiveghz      ${AP1_MODEL}``
+        - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}   True``
+
+        :param model: Name of the model being used our Test
+        :return: Radio phy mode based on AP model ("ax (5GHz)" or  "ac" )
+        """
+        AP = "AP150W", "AP250", "AP30", "AP122", "AP245X", "AP230", "AP1130"
+        if model in AP:
+            self.utils.print_info("DUT model is : ", model, ". So Picked phy_mode as 11AC")
+            return "ac"
+        else:
+            self.utils.print_info("DUT model is : ", model, ". So Picked phy_mode as 11AX")
+            return "ax (5GHz)"
 
     def radio_phy_mode_twoghz(self, model):
         """
-            - Flow: Configure --> Common Objects --> Policy -->Radio Profile
-            - Map the Radio phy mode based on the AP
-            - Keyword Usage:
-             - ``${RADIO_MODE}      Radio Phy Mode Twoghz      ${AP1_MODEL}``
-             - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}``
-            :param model: Name of the model being used our Test
-            :return: Radio phy mode based on AP model ("ax (2.4GHz)" or "g/n")
+        - Flow: Configure --> Common Objects --> Policy -->Radio Profile
+        - Map the Radio phy mode based on the AP
+        - Keyword Usage:
+        - ``${RADIO_MODE}      Radio Phy Mode Twoghz      ${AP1_MODEL}``
+        - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}``
+
+        :param model: Name of the model being used our Test
+        :return: Radio phy mode based on AP model ("ax (2.4GHz)" or "g/n")
         """
         AP = "AP150W", "AP250", "AP30", "AP122", "AP245X", "AP230", "AP1130"
         if model in AP:
@@ -2459,9 +2462,9 @@ class CommonObjects(object):
         - This keyword will create image Tag profile under Common Objects.
         - Flow: Configure --> Common Objects --> Policy -->ImagoTag Profiles
         - Keyword Usage:
-         - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}``
-         - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL} server_port=${PORT}``
-         - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
+        - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}``
+        - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL} server_port=${PORT}``
+        - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
 
         :param profile_name: Imago Tag Profile name
         :param channel: Channel Number
@@ -2546,7 +2549,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Imago Tag Profile
         - Delete specified Imago Tag Profile from the Imago Tag Profile grid
         - Keyword Usage:
-         - ``Delete Imago Tag Profile  ${PROFILE_NAME}``
+        - ``Delete Imago Tag Profile  ${PROFILE_NAME}``
         :param profile_name: Image Tag Profile Name
         :return: 1 if deleted else -1
         """
@@ -2574,10 +2577,10 @@ class CommonObjects(object):
         - This keyword will Edit Existing image Tag profile under Common Objects.
         - Flow: Configure --> Common Objects --> Policy -->Select ImagoTag Profile --> Edit
         - Keyword Usage:
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER}``
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  channel=${CHANNEL}``
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  server_port=${SERVER_PORT}``
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER}``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  channel=${CHANNEL}``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  server_port=${SERVER_PORT}``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
 
         :param profile_name: Imago Tag Profile name
         :param channel: Channel Number
@@ -2665,11 +2668,11 @@ class CommonObjects(object):
     def create_ip_firewall_policy_for_applications(self, policy_name, application='', source_ip='Any',
                                                    destination_ip='Any', action='Permit'):
         """
-         - This Keyword will Create IP Firewall Policy for Application Access.
-         - Flow: Configure --> Common Objects --> Security -->IP Firewall Policies --> Add
-         - Keyword Usage:
-          - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME}  action=${ACTION}``
-          - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME1},${APP_NAME2}
+        - This Keyword will Create IP Firewall Policy for Application Access.
+        - Flow: Configure --> Common Objects --> Security -->IP Firewall Policies --> Add
+        - Keyword Usage:
+        - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME}  action=${ACTION}``
+        - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME1},${APP_NAME2}
           action=${ACTION}``
 
         :param policy_name: IP Firewall Policy Name
@@ -2755,8 +2758,8 @@ class CommonObjects(object):
         """
         - This Keyword will Select Configured IP Firewall Policy Under New User Profile.
         - Flow: Configure --> Common Objects --> Policy --> User Profiles
-         - Keyword Usage:
-          - ``Select IP Firewall Policy For New User Profile   user_profile_name=${PROFILE_NAME}
+        - Keyword Usage:
+        - ``Select IP Firewall Policy For New User Profile   user_profile_name=${PROFILE_NAME}
           firewall_policy_name=${FW_POLICY_NAME}``
 
         :param user_profile_name: User Profile Name
@@ -2832,7 +2835,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Network -->Management Options-->Delete Management Option Name
         - Delete specified Management Options Name from the Management Options Grid
         - Keyword Usage:
-         - ``Delete Management Options  ${NAME}``
+        - ``Delete Management Options  ${NAME}``
         :param management_options_name: Management Options Name
         :return: 1 if deleted else -1
         """
@@ -2858,9 +2861,10 @@ class CommonObjects(object):
     def add_network_management_options(self,  option_name="management_option_1", enable_legacy_http_redirect="True"):
         """
         - Adds new network management option(s)
-        -Flow: Configure --> Common Objects --> Network -->Management Options
-           - Keyword Usage:
-            - ``Add Network Management Options``
+        - Flow: Configure --> Common Objects --> Network -->Management Options
+        - Keyword Usage:
+        - ``Add Network Management Options``
+
         :param option_name : name of the management option
         :param enable_legacy_http_redirect: determines if enable legacy http redirect should be clicked or not
         :return: 1
@@ -2904,9 +2908,9 @@ class CommonObjects(object):
     def delete_user_profile(self, profile="user004"):
         """
         - It deletes user profile
-        -Flow: Configure --> Common Objects --> User Profile
-           - Keyword Usage:
-            - ``Delete User Profile       profile=${PROFILE}``
+        - Flow: Configure --> Common Objects --> User Profile
+        - Keyword Usage:
+        - ``Delete User Profile       profile=${PROFILE}``
 
         :param profile : profile name
         :return: 1
@@ -2960,9 +2964,10 @@ class CommonObjects(object):
     def delete_all_user_profiles(self, **kwargs):
         """
         - It deletes all user profiles
-        -Flow: Configure --> Common Objects --> User Profile
-           - Keyword Usage:
-            - ``Delete All User Profiles``
+        - Flow: Configure --> Common Objects --> User Profile
+        - Keyword Usage:
+        - ``Delete All User Profiles``
+
         :return: 1 if successfully created else -1
         """
         exclude_list = ['default-profile', 'default-guest-profile']
@@ -2994,7 +2999,7 @@ class CommonObjects(object):
         - Delete specified IP Firewall Policy Name from the Grid
         - Keyword Usage:
         - Flow: Flow: Configure --> Common Objects --> Security -->IP Firewall Policies
-         - ``Delete Ip Firewall Policy  ${NAME}``
+        - ``Delete Ip Firewall Policy  ${NAME}``
         :param ip_firewall_policy_name: IP Firewall Policy Name
         :return: 1 if deleted else -1
         """
@@ -3018,7 +3023,8 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with IP Address
         - Create ip object profile with ip address
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP or Hostname     ${name}     ${type}     ${global_item}    @{classify_items}``
+        - ``Add IP Object Hostname With IP or Hostname     ${name}     ${type}     ${global_item}    @{classify_items}``
+
         :param name: The profile name
         :param type: "IP Address", or "Host Name", or "Wildcard Host Name"
         :param global_item:   Unclassified IP address, or unclassified Hostname, or unclassified wildcard hostname
@@ -3089,7 +3095,8 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with Networks
         - Create ip object profile with ip networks
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP Network    ${name}     ${type}     ${global_network}     ${netmask}    @{classify_network}``
+        - ``Add IP Object Hostname With IP Network    ${name}     ${type}     ${global_network}     ${netmask}    @{classify_network}``
+
         :param name: The profile name
         :param type: "Network", or "Wildcard"
         :param global_network:   Unclassified Network, or unclassified Wildcard network
@@ -3148,15 +3155,15 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with IP Range
         - Create ip object profile with IP Range
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP Range    ${name}     ${global_range_start}       ${ip_range_gap}     @{classify_range_start}``
+        - ``Add IP Object Hostname With IP Range    ${name}     ${global_range_start}       ${ip_range_gap}     @{classify_range_start}``
 
         :param name: The profile name
         :param global_range_start: The unclassified start IP address
         :param ip_range_gap:
-            - The gap flag between start IP and end IP.
-            - For example:
-            - start IP is 192.168.1.1, the gap is 00, and the end IP is 192.168.1.100
-            - end IP = string "192.168.1.1" + string "00" = string "192.168.1.100"
+            The gap flag between start IP and end IP.
+            For example:
+            start IP is 192.168.1.1, the gap is 00, and the end IP is 192.168.1.100
+            end IP = string "192.168.1.1" + string "00" = string "192.168.1.100"
         :param classify_range_start:    Classified start IP list
         :return: success return 1
         """
@@ -3506,7 +3513,8 @@ class CommonObjects(object):
         - Delete IP Object profile
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Delete it
         - Keyword Usage:
-            - ``IP Object Hostname Delete Object Profile    ${ip_object_profile_name}``
+        - ``IP Object Hostname Delete Object Profile    ${ip_object_profile_name}``
+
         :param ip_object_profile_name: IP Object profile name
         :return: Find and delete successfully return 1 else return -1
         """
@@ -3534,7 +3542,8 @@ class CommonObjects(object):
         - Edit and Add new items for existed IP Object profile
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Edit it and Add new items
         - Keyword Usage:
-            - ``IP Object Hostname Update Object Profile    ${ip_object_profile_name}    ${netmask}    ${ip_range_gap}      ${classified_items_list_1}``
+        - ``IP Object Hostname Update Object Profile    ${ip_object_profile_name}    ${netmask}    ${ip_range_gap}      ${classified_items_list_1}``
+
         :param ip_object_profile_name: IP Object profile name
         :param netmask: Netmask, for the profile with type IP address and Hostname related, the netmask is None, for Network and Wildcard Network, the netmask is needed
         :param ip_range_gap: Only for IP Range, keep it as None value if NOT IP Range
@@ -3570,7 +3579,8 @@ class CommonObjects(object):
         - Find all the items for existed IP Object profile, and return a list
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Edit it --> Click 100 items per page --> Get item row by row
         - Keyword Usage:
-            - ``IP Object Hostname List All Objects In Profile    ${ip_object_profile_name}``
+        - ``IP Object Hostname List All Objects In Profile    ${ip_object_profile_name}``
+
         :param ip_object_profile_name: IP Object profile name
         :return: success return a list else return -1
         """
@@ -3611,8 +3621,8 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Switch Template
         - Delete specified switch template from the Switch Templates grid
         - Keyword Usage:
-         - ``Delete Switch Template  ${TEMPLATE_NAME}``
-         - ``Delete Switch Template  template_1,template_2`
+        - ``Delete Switch Template  ${TEMPLATE_NAME}``
+        - ``Delete Switch Template  template_1,template_2`
         :param template_name: A list of templates which will be deleted. Or a string with templates names separated by comma
         :return: 1 if deleted else -1
         """
@@ -3709,7 +3719,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
         - Delete Port Type from the grid
         - Keyword Usage:
-         - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
+        - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
          ``Delete Port Type Profile  ${PORT_TYPE_NAME1},${PORT_TYPE_NAME2}``
         :param port_type_name: A list of port type profiles which will be deleted. Or a string with profiles names separated by comma
         :return: 1 if Port Type deleted successfully, else returns -1

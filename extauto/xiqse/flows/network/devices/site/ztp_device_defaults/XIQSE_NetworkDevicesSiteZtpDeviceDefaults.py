@@ -23,14 +23,14 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_toggle_section(self, the_section="Basic Management"):
         """
-         - This keyword toggles (collapses or expands) the specified section in the Site > ZTP+ Device Defaults view.
-         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-         - The Section name value is case-sensitive.
-         - Keyword Usage
-          - ``XIQSE Site Ztp Collapse Section   Basic Management``
-          - ``XIQSE Site Ztp Collapse Section   Configuration/Upgrade``
-          - ``XIQSE Site Ztp Collapse Section   Device Protocols``
-          - ``XIQSE Site Ztp Collapse Section   Global IP to Site Mapping``
+        - This keyword toggles (collapses or expands) the specified section in the Site > ZTP+ Device Defaults view.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - The Section name value is case-sensitive.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Collapse Section   Basic Management``
+        - ``XIQSE Site Ztp Collapse Section   Configuration/Upgrade``
+        - ``XIQSE Site Ztp Collapse Section   Device Protocols``
+        - ``XIQSE Site Ztp Collapse Section   Global IP to Site Mapping``
         :param the_section: the title of the section that should be toggled.
         :return: 1 if action was successful, else -1
         """
@@ -54,13 +54,13 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_use_discovered(self, use_discovered="Disabled"):
         """
-         - This keyword sets the Use Discovered value in the Site > ZTP+ Device Defaults tab
-         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-         - Keyword Usage
-          - ``XIQSE Site Ztp Set Use Discovered  Disabled``
-          - ``XIQSE Site Ztp Set Use Discovered  IP``
-          - ``XIQSE Site Ztp Set Use Discovered  IP and Management Interface``
-          - ``XIQSE Site Ztp Set Use Discovered  Management Interface``
+        - This keyword sets the Use Discovered value in the Site > ZTP+ Device Defaults tab
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Use Discovered  Disabled``
+        - ``XIQSE Site Ztp Set Use Discovered  IP``
+        - ``XIQSE Site Ztp Set Use Discovered  IP and Management Interface``
+        - ``XIQSE Site Ztp Set Use Discovered  Management Interface``
         :param use_discovered: value to select for the Use Discovered field
          (Disabled, IP, IP and Management Interface, Management Interface)
         :return: 1 if action was successful, else -1
@@ -102,10 +102,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_subnet_address(self, subnet_address):
         """
-          - This keyword sets the Subnet Address value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set Subnet Address  Subnet_Address``
+        - This keyword sets the Subnet Address value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Subnet Address  Subnet_Address``
          :param subnet_address: value to set for the Subnet Address
          :return: 1 if action was successful, else -1
          """
@@ -124,10 +124,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_starting_ip_address(self, starting_ip_address):
         """
-          - This keyword sets the Starting IP Address value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set Starting IP Address  starting_ip_address``
+        - This keyword sets the Starting IP Address value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Starting IP Address  starting_ip_address``
          :param starting_ip_address: value to set for the Starting IP Address
          :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
@@ -151,10 +151,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_ending_ip_address(self, ending_ip_address):
         """
-          - This keyword sets the Ending IP Address value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set Ending IP Address  ending_ip_address``
+        - This keyword sets the Ending IP Address value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Ending IP Address  ending_ip_address``
          :param ending_ip_address: value to set for the Ending IP Address
          :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
@@ -178,10 +178,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_gateway_address(self, gateway_address):
         """
-          - This keyword sets the Gateway Address value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set Gateway Address  gateway_address``
+        - This keyword sets the Gateway Address value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Gateway Address  gateway_address``
          :param gateway_address: value to set for the Gateway Address
          :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
@@ -205,12 +205,12 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_management_interface(self, management_interface="Default"):
         """
-         - This keyword sets the Management Interface value in the Site > ZTP+ Device Defaults tab.
-         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-         - Keyword Usage
-          - ``XIQSE Site Ztp Set Management Interface  Out-Of-Band``
-          - ``XIQSE Site Ztp Set Management Interface  Default``
-          - ``XIQSE Site Ztp Set Management Interface  <VlAN-NAME>``
+        - This keyword sets the Management Interface value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Management Interface  Out-Of-Band``
+        - ``XIQSE Site Ztp Set Management Interface  Default``
+        - ``XIQSE Site Ztp Set Management Interface  <VlAN-NAME>``
         :param management_interface: value to select for the Management Interface field
                (Out-Of-Band || Default || VlAN-NAME)
         :return: 1 if action was successful, 2 if the field is disabled, else -1
@@ -257,13 +257,13 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_cli_recovery_mode_only_checkbox(self, state="Disable"):
         """
-             - This keyword sets the Basic Management CLI Recovery Mode Only value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Note: This field will be enabled when the Poll Type is set to ZTP+.
+        - This keyword sets the Basic Management CLI Recovery Mode Only value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Note: This field will be enabled when the Poll Type is set to ZTP+.
              -
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Cli Recovery Mode Only Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Cli Recovery Mode Only Checkbox  Disable``
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Cli Recovery Mode Only Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Cli Recovery Mode Only Checkbox  Disable``
             :param state: value to set for the Basic Management CLI Recovery Mode Only checkbox (Enable || Disable)
             :return: 1 if action was successful, 2 if the field is disabled, else -1
             """
@@ -296,10 +296,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_domain_name(self, domain_name):
         """
-          - This keyword sets the Domain Name value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set Domain Name  domain_name``
+        - This keyword sets the Domain Name value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Domain Name  domain_name``
          :param domain_name: value to set for the Domain Name
          :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
@@ -323,10 +323,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_dns_server(self, dns_server):
         """
-          - This keyword sets the DNS Server value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set DNS Server  dns_server``
+        - This keyword sets the DNS Server value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set DNS Server  dns_server``
          :param dns_server: value to set for the DNS Server
          :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
@@ -350,10 +350,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_dns_server_two(self, dns_server):
         """
-          - This keyword sets the DNS Server 2 value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set DNS Server Two  dns_server``
+        - This keyword sets the DNS Server 2 value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set DNS Server Two  dns_server``
          :param dns_server: value to set for the DNS Server 2
          :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
@@ -377,10 +377,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_dns_server_three(self, dns_server):
         """
-          - This keyword sets the DNS Server 3 value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set DNS Server Three  dns_server``
+        - This keyword sets the DNS Server 3 value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set DNS Server Three  dns_server``
          :param dns_server: value to set for the DNS Server 3
          :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
@@ -404,10 +404,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_dns_search_suffix(self, dns_search_suffix):
         """
-          - This keyword sets the DNS Search Suffix value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set DNS Search Suffix  dns_search_suffix``
+        - This keyword sets the DNS Search Suffix value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set DNS Search Suffix  dns_search_suffix``
          :param dns_search_suffix: value to set for the DNS Search Suffix
          :return: 1 if action was successful, 2 if the field is disabled, else -1
          """
@@ -431,10 +431,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_ntp_server(self, ntp_server):
         """
-          - This keyword sets the NTP Server value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set NTP Server  ntp_server``
+        - This keyword sets the NTP Server value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set NTP Server  ntp_server``
          :param ntp_server: value to set for the NTP Server
          :return: 1 if action was successful, else -1
          """
@@ -453,10 +453,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_ntp_server_two(self, ntp_server):
         """
-          - This keyword sets the NTP Server 2 value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set NTP Server 2  ntp_server``
+        - This keyword sets the NTP Server 2 value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set NTP Server 2  ntp_server``
          :param ntp_server: value to set for the NTP Server 2
          :return: 1 if action was successful, else -1
          """
@@ -475,10 +475,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_system_contact(self, system_contact):
         """
-          - This keyword sets the System Contact value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set System Contact  system_contact``
+        - This keyword sets the System Contact value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set System Contact  system_contact``
          :param system_contact: value to set for the System Contact
          :return: 1 if action was successful, else -1
          """
@@ -497,10 +497,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_system_location(self, system_location):
         """
-          - This keyword sets the System Location value in the Site > ZTP+ Device Defaults tab.
-          - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-          - Keyword Usage
-           - ``XIQSE Site Ztp Set System Location  system_location``
+        - This keyword sets the System Location value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set System Location  system_location``
          :param system_location: value to set for the System Location
          :return: 1 if action was successful, else -1
          """
@@ -519,10 +519,10 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_admin_profile(self, admin_profile):
         """
-         - This keyword sets the Admin Profile value in the Site > ZTP+ Device Defaults tab.
-         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-         - Keyword Usage
-          - ``XIQSE Site Ztp Set Admin Profile  admin_profile``
+        - This keyword sets the Admin Profile value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Admin Profile  admin_profile``
         :param admin_profile: value to select for the Admin Profile field
         :return: 1 if action was successful, else -1
         """
@@ -563,12 +563,12 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_poll_group(self, poll_group):
         """
-         - This keyword sets the Poll Group value in the Site > ZTP+ Device Defaults tab.
-         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-         - Keyword Usage
-          - ``XIQSE Site Ztp Set Poll Group  More Frequent``
-          - ``XIQSE Site Ztp Set Poll Group  Default``
-          - ``XIQSE Site Ztp Set Poll Group  Less Frequent``
+        - This keyword sets the Poll Group value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Poll Group  More Frequent``
+        - ``XIQSE Site Ztp Set Poll Group  Default``
+        - ``XIQSE Site Ztp Set Poll Group  Less Frequent``
         :param poll_group: value to select for the Poll Group field
         :return: 1 if action was successful, else -1
         """
@@ -609,14 +609,14 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_poll_type(self, poll_type):
         """
-         - This keyword sets the Poll Type value in the Site > ZTP+ Device Defaults tab.
-         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-         - Keyword Usage
-          - ``XIQSE Site Ztp Set Poll Type  Not Polled``
-          - ``XIQSE Site Ztp Set Poll Type  Ping``
-          - ``XIQSE Site Ztp Set Poll Type  SNMP``
-          - ``XIQSE Site Ztp Set Poll Type  Maintenance``
-          - ``XIQSE Site Ztp Set Poll Type  ZTP+``
+        - This keyword sets the Poll Type value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Poll Type  Not Polled``
+        - ``XIQSE Site Ztp Set Poll Type  Ping``
+        - ``XIQSE Site Ztp Set Poll Type  SNMP``
+        - ``XIQSE Site Ztp Set Poll Type  Maintenance``
+        - ``XIQSE Site Ztp Set Poll Type  ZTP+``
         :param poll_type: value to select for the Poll Type field
         :return: 1 if action was successful, else -1
         """
@@ -657,15 +657,15 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_site_precedence(self, site_precedence):
         """
-         - This keyword sets the Site Assignment Precedence value in the Site > ZTP+ Device Defaults tab.
-         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-         - Note: This field is only enabled when the World site is selected.
-         - Keyword Usage
-          - ``XIQSE Site Ztp Set Site Precedence  IP Range, LLDP``
-          - ``XIQSE Site Ztp Set Site Precedence  LLDP, IP Range``
-          - ``XIQSE Site Ztp Set Site Precedence  LLDP Only``
-          - ``XIQSE Site Ztp Set Site Precedence  IP Range Only``
-          - ``XIQSE Site Ztp Set Site Precedence  None``
+        - This keyword sets the Site Assignment Precedence value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Note: This field is only enabled when the World site is selected.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Site Precedence  IP Range, LLDP``
+        - ``XIQSE Site Ztp Set Site Precedence  LLDP, IP Range``
+        - ``XIQSE Site Ztp Set Site Precedence  LLDP Only``
+        - ``XIQSE Site Ztp Set Site Precedence  IP Range Only``
+        - ``XIQSE Site Ztp Set Site Precedence  None``
         :param site_precedence: value to select for the Site Assignment Precedent field
         :return: 1 if action was successful, 2 if the field is disabled, else -1
         """
@@ -715,11 +715,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
     # Device Protocols section
     def xiqse_site_ztp_set_device_protocols_telnet_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols Telnet value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Telnet Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Telnet Checkbox  Disable``
+        - This keyword sets the Device Protocols Telnet value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Telnet Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Telnet Checkbox  Disable``
             :param state: value to set for the Device Protocols Telnet checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -747,11 +747,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_ssh_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols SSH value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Ssh Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Ssh Checkbox  Disable``
+        - This keyword sets the Device Protocols SSH value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Ssh Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Ssh Checkbox  Disable``
             :param state: value to set for the Device Protocols SSH checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -779,11 +779,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_http_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols HTTP value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Http Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Http Checkbox  Disable``
+        - This keyword sets the Device Protocols HTTP value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Http Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Http Checkbox  Disable``
             :param state: value to set for the Device Protocols HTTP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -811,11 +811,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_https_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols HTTPS value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Https Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Https Checkbox  Disable``
+        - This keyword sets the Device Protocols HTTPS value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Https Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Https Checkbox  Disable``
             :param state: value to set for the Device Protocols HTTPS checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -843,11 +843,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_ftp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols FTP value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Ftp Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Ftp Checkbox  Disable``
+        - This keyword sets the Device Protocols FTP value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Ftp Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Ftp Checkbox  Disable``
             :param state: value to set for the Device Protocols FTP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -875,11 +875,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_snmp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols SNMP value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Snmp Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Snmp Checkbox  Disable``
+        - This keyword sets the Device Protocols SNMP value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Snmp Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Snmp Checkbox  Disable``
             :param state: value to set for the Device Protocols SNMP checkbox (Enable || Disable)
             :return: 1 if action was successful, 2 if the field is read-only, else -1
             """
@@ -912,11 +912,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_lacp_checkbox(self, state="Disable"):
         """
-             - This keyword sets the Device Protocols LACP value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Lacp Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Lacp Checkbox  Disable``
+        - This keyword sets the Device Protocols LACP value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Lacp Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Lacp Checkbox  Disable``
             :param state: value to set for the Device Protocols LACP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -944,11 +944,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_lldp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols LLDP value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Lldp Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Lldp Checkbox  Disable``
+        - This keyword sets the Device Protocols LLDP value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Lldp Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Lldp Checkbox  Disable``
             :param state: value to set for the Device Protocols LLDP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -976,11 +976,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_mvrp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols MVRP value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Mvrp Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Mvrp Checkbox  Disable``
+        - This keyword sets the Device Protocols MVRP value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Mvrp Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Mvrp Checkbox  Disable``
             :param state: value to set for the Device Protocols MVRP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -1008,11 +1008,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_mstp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols MSTP value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Mstp Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Mstp Checkbox  Disable``
+        - This keyword sets the Device Protocols MSTP value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Mstp Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Mstp Checkbox  Disable``
             :param state: value to set for the Device Protocols MSTP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -1040,11 +1040,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_poe_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols POE value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Poe Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Poe Checkbox  Disable``
+        - This keyword sets the Device Protocols POE value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Poe Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Poe Checkbox  Disable``
             :param state: value to set for the Device Protocols POE checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -1072,11 +1072,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
 
     def xiqse_site_ztp_set_device_protocols_vxlan_checkbox(self, state="Disable"):
         """
-             - This keyword sets the Device Protocols VXLAN value in the Site > ZTP+ Device Defaults tab.
-             - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-             - Keyword Usage
-              - ``XIQSE Site Ztp Set Device Protocols Vxlan Checkbox  Enable``
-              - ``XIQSE Site Ztp Set Device Protocols Vxlan Checkbox  Disable``
+        - This keyword sets the Device Protocols VXLAN value in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Set Device Protocols Vxlan Checkbox  Enable``
+        - ``XIQSE Site Ztp Set Device Protocols Vxlan Checkbox  Disable``
             :param state: value to set for the Device Protocols VXLAN checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -1105,11 +1105,11 @@ class XIQSE_NetworkDevicesSiteZtpDeviceDefaults(NetworkDevicesSiteZtpDeviceDefau
     # Global IP to Site Mapping section
     def xiqse_site_ztp_global_ip_to_site_mapping_state(self):
         """
-         - This keyword obtains the state of the Global IP to Site Mapping table in the Site > ZTP+ Device Defaults tab.
-         - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
-         - Note: This table is only read-write when the World site is selected.
-         - Keyword Usage
-          - ``XIQSE Site Ztp Global Ip To Site Mapping State``
+        - This keyword obtains the state of the Global IP to Site Mapping table in the Site > ZTP+ Device Defaults tab.
+        - It is assumed the view is already navigated to Network > Devices > Site > ZTP+ Device Defaults.
+        - Note: This table is only read-write when the World site is selected.
+        - Keyword Usage
+        - ``XIQSE Site Ztp Global Ip To Site Mapping State``
         :return: 1 if the table is read-write, 2 if the table is read-only, else -1
         """
         ret_val = -1
