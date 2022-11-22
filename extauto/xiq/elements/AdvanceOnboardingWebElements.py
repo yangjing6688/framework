@@ -57,6 +57,12 @@ class AdvanceOnboardingWebElements(AdvanceOnboardingDefinitions):
     def get_devices_make_drop_down_options(self):
         return self.weh.get_elements(self.device_make_drop_down_options)
 
+    def get_devices_make_exos_radio_button(self):
+        return self.weh.get_elements(self.device_make_exos_radio_button)
+
+    def get_devices_make_voss_radio_button(self):
+        return self.weh.get_elements(self.device_make_voss_radio_button)
+
     def get_assign_location_select_button(self):
         return self.weh.get_element(self.assign_location_select_button)
 

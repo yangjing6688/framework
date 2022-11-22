@@ -580,3 +580,7 @@ class RouterTemplate(RouterTemplateWebElements):
         :return: return True if Config Successful
         """
         pass
+
+    def create_routing_network(self, policy, **wireless_profile):
+        self.navigate_to_router_settings_tab(policy)
+        self.add_router_template(policy, **wireless_profile)

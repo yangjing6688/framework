@@ -276,13 +276,13 @@ class A3Inventory(A3InventoryWebElements):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _expand_a3_server_node(self, a3_host_name, **kwargs):
+    def _expand_a3_server_node(self, a3_host_name):
         """
         - This keyword will Expand A3 Server Nodes using Host Name
         - Assumes that already navigated to the A3 --> Inventory
 
         :param a3_host_name: A3 Server host name
-        :return: 1 if A3 Server Node Expanded Successfully else -1
+        :return: 1 if A3 Server Node Expanded Successfully else False
         """
         self._goto_a3_inventory_page()
         sleep(2)
@@ -299,13 +299,8 @@ class A3Inventory(A3InventoryWebElements):
                     self.auto_actions.click(self.get_a3_device_expanded_button(row))
                     self.screen.save_screen_shot()
                     sleep(2)
-                kwargs['pass_msg'] = "A3 Server Node Expanded Successfully"
-                self.common_validation.passed(**kwargs)
                 return 1
-
-        kwargs['fail_msg'] = "_expand_a3_server_node() failed. Unable to expand A3 Server Node!"
-        self.common_validation.fault(**kwargs)
-        return -1
+        return False
 
     def get_a3_node_status(self, a3_server_name, a3_node_name, **kwargs):
         """
@@ -339,13 +334,13 @@ class A3Inventory(A3InventoryWebElements):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _access_go_to_a3_button(self, a3_host_name, **kwargs):
+    def _access_go_to_a3_button(self, a3_host_name):
         """
         - This keyword will access Go To A3 Button on A3 Server host
         - Assumes that already navigated to the A3 --> Inventory
 
         :param a3_host_name: A3 Server Host Name
-        :return: 1 if able to access go to A3 button else -1
+        :return: 1 if able to access go to A3 button else False
         """
         self._goto_a3_inventory_page()
         sleep(2)
@@ -363,22 +358,17 @@ class A3Inventory(A3InventoryWebElements):
                     sleep(5)
                     self.utils.print_info("Clicking Go To A3 Button")
                     self.auto_actions.click(self.get_go_to_a3_button(row))
-                kwargs['pass_msg'] = "Successfully access Go To A3 Button on A3 Server host!"
-                self.common_validation.passed(**kwargs)
                 return 1
+        return False
 
-        kwargs['fail_msg'] = "_access_go_to_a3_button() failed. Failed to access Go To A3 Button on A3 Server host!"
-        self.common_validation.fault(**kwargs)
-        return -1
-
-    def _access_a3_node_go_to_a3_button(self, a3_server_name, a3_node_name, **kwargs):
+    def _access_a3_node_go_to_a3_button(self, a3_server_name, a3_node_name):
         """
         - This keyword will Access Go To A3 Button on A3 Node Host
         - Assumes that already navigated to the A3 --> Inventory
 
         :param a3_node_name: A3 Node Host Name
         :param a3_server_name: A3 server Host Name
-        :return: 1 if able to access go to A3 button else -1
+        :return: 1 if able to access go to A3 button else False
         """
         self._expand_a3_server_node(a3_server_name)
         sleep(5)
@@ -390,13 +380,8 @@ class A3Inventory(A3InventoryWebElements):
             if a3_node_name in row.text:
                 self.utils.print_info("Clicking Go To A3 Button")
                 self.auto_actions.click(self.get_a3_node_go_to_a3_button(row))
-                kwargs['pass_msg'] = "Able to access go to A3 button"
-                self.common_validation.passed(**kwargs)
                 return 1
-
-        kwargs['fail_msg'] = "_access_a3_node_go_to_a3_button() failed. Unable to access go to A3 button"
-        self.common_validation.fault(**kwargs)
-        return -1
+        return False
 
     def verify_a3_server_login_on_xiq(self, a3_host_name, a3_login_username, a3_login_password):
         """
@@ -509,7 +494,7 @@ class A3Inventory(A3InventoryWebElements):
             sleep(2)
             return unlink_page_text
         else:
-            if self.search_a3_device(a3_host_name, expect_failure=True) == 1:
+            if self.search_a3_device(a3_host_name, ignore_failure=True) == 1:
                 kwargs['fail_msg'] = "validate_a3_page_after_unlink() failed. " \
                                      "A3 page still having the A3 cluster node entries"
                 self.common_validation.failed(**kwargs)

@@ -319,7 +319,7 @@ class ClassificationRule(object):
 
         name_select_flag = None
         for name in names:
-            if not self._search_multiple_classification_rule(name, expect_failure=True):
+            if not self._search_multiple_classification_rule(name, ignore_failure=True):
                 self.utils.print_info("Classification Rule does not exist in the list")
                 continue
             else:
@@ -398,7 +398,7 @@ class ClassificationRule(object):
         - This method is used to select location tree node
 
         :param location_config: Contains details like the organization, Country , Building and Floor of the AP
-        :return: 1 if able to select the Location else return -1
+        :return: True if able to select the Location else return False
         """
         loc_node = location_config.get('loc_node')
         country_node = location_config.get('country_node')
@@ -415,7 +415,7 @@ class ClassificationRule(object):
             location_config['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
                                           f"Country node {country_node} is not present..."
             self.common_validation.fault(**location_config)
-            return -1
+            return False
         sleep(1)
 
         self.utils.print_info("Click on location node open icon")
@@ -424,7 +424,7 @@ class ClassificationRule(object):
             location_config['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
                                           f"Location node {loc_node} not present"
             self.common_validation.fault(**location_config)
-            return -1
+            return False
         sleep(1)
 
         self.utils.print_info("Click on building node open icon")
@@ -433,7 +433,7 @@ class ClassificationRule(object):
             location_config['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
                                           f"Building node {building_node} not present"
             self.common_validation.fault(**location_config)
-            return -1
+            return False
         sleep(1)
 
         self.utils.print_info("Select the floor to assign device")
@@ -442,15 +442,13 @@ class ClassificationRule(object):
             location_config['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
                                           f"Floor node {floor_node} not present"
             self.common_validation.fault(**location_config)
-            return -1
+            return False
         sleep(1)
 
         self.utils.print_info("Click on location assign button")
         self.auto_actions.click_reference(self.classification_rule_web_elements.select_loc_assign_button)
         sleep(2)
 
-        location_config['pass_msg'] = "Able to select the Location"
-        self.common_validation.passed(**location_config)
         return 1
 
     def _open_location_tree_nodes(self, nodes, search_string):
@@ -489,7 +487,7 @@ class ClassificationRule(object):
         - Assign Ip Address Rule to the ClassificationRule based on AP's IP , Subnet or Range
 
         :param ip_address_rule: IP Rule Details
-        :return: 1 if created else -1
+        :return: 1 if created else False
         """
         ip_name = ip_address_rule.get('ip_object_name')
         ip_address = ip_address_rule.get('ip')
@@ -518,21 +516,15 @@ class ClassificationRule(object):
                 self.utils.print_info("Click on Continue Button")
                 self.auto_actions.click_reference(self.classification_rule_web_elements.get_continue_button)
                 sleep(1)
-                ip_address_rule['pass_msg'] = "Successfully assigned Ip Address Rule to the Classification Rule"
-                self.common_validation.passed(**ip_address_rule)
                 return 1
-
-        ip_address_rule['fail_msg'] = "_assign_ip_address_to_classification_rule() failed." \
-                                      "Unable to assign Ip Address Rule to the Classification Rule"
-        self.common_validation.failed(**ip_address_rule)
-        return -1
+        return False
 
     def _assign_ip_subnet_to_classification_rule(self, **ip_subnet_rule):
         """
         - This is the common method used to asssign IP Subnet Config to Classification Rule
 
         :param ip_subnet_rule: Provide IP Subnet Information
-        :return: 1 is assigned else -1
+        :return: 1 is assigned else False
         """
         ip_name = ip_subnet_rule.get('ip_object_name')
         ip_subnet = ip_subnet_rule.get('network')
@@ -566,21 +558,15 @@ class ClassificationRule(object):
                 self.utils.print_info("Click on Continue Button")
                 self.auto_actions.click_reference(self.classification_rule_web_elements.get_continue_button)
                 sleep(1)
-                ip_subnet_rule['pass_msg'] = "Successfully assigned ip subnet to classification rule"
-                self.common_validation.passed(**ip_subnet_rule)
                 return 1
-
-        ip_subnet_rule['fail_msg'] = "_assign_ip_subnet_to_classification_rule() failed." \
-                                     "Failed to assign ip subnet to classification rule"
-        self.common_validation.failed(**ip_subnet_rule)
-        return -1
+        return False
 
     def _assign_ip_range_to_classification_rule(self, **ip_subnet_rule):
         """
         - This is the common method used to asssign IP Range Config to Classification Rule
 
         :param ip_subnet_rule: Provide IP Subnet Information
-        :return: 1 if assigned else -1
+        :return: 1 if assigned else False
         """
         ip_name = ip_subnet_rule.get('ip_object_name')
         ip_range_from = ip_subnet_rule.get('ip_range_from')
@@ -614,14 +600,8 @@ class ClassificationRule(object):
                 self.utils.print_info("Click on Continue Button")
                 self.auto_actions.click_reference(self.classification_rule_web_elements.get_continue_button)
                 sleep(1)
-                ip_subnet_rule['pass_msg'] = "Successfully assigned ip range to classification rule"
-                self.common_validation.passed(**ip_subnet_rule)
                 return 1
-
-        ip_subnet_rule['fail_msg'] = "_assign_ip_range_to_classification_rule() failed." \
-                                     "Failed to assign ip range to classification rule"
-        self.common_validation.failed(**ip_subnet_rule)
-        return -1
+        return False
 
     def add_classification_rule_to_ssid(self, policy_name, ssid_name, classification_rule, **kwargs):
         """
@@ -727,7 +707,7 @@ class ClassificationRule(object):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def _select_classification_rule_for_ssid(self, ssid, classification_rule, **kwargs):
+    def _select_classification_rule_for_ssid(self, ssid, classification_rule):
         """
         - This method is used to select the correct classification rule from list of rules to SSiD
 
@@ -765,23 +745,16 @@ class ClassificationRule(object):
                 sleep(1)
 
                 self.auto_actions.click_reference(self.classification_rule_web_elements.get_next_button)
-
-                kwargs['pass_msg'] = "Selected the correct classification rule for ssid"
-                self.common_validation.passed(**kwargs)
                 return 1
+        return False
 
-        kwargs['fail_msg'] = "_select_classification_rule_for_ssid() failed. " \
-                             "Not able to select classification rule for ssid"
-        self.common_validation.failed(**kwargs)
-        return -1
-
-    def _verify_classification_rule_for_ssid(self, ssid, classification_rule, **kwargs):
+    def _verify_classification_rule_for_ssid(self, ssid, classification_rule):
         """
         - This method is used to Verify the correct classification rule from list of rules to SSiD
 
         :param ssid: SSID Name
         :param classification_rule: Name of the Classification Rule
-        :return: 1 if success else return -1
+        :return: 1 if success else return False
         """
         self.utils.print_info("Searching SSID: ", ssid)
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_tab)
@@ -795,16 +768,11 @@ class ClassificationRule(object):
                 classification_rules_data = self.classification_rule_web_elements.get_classification_rule(row)
                 for classification_rule_data in classification_rules_data:
                     if classification_rule in classification_rule_data.text:
-                        kwargs['pass_msg'] = f"Found classification rule {classification_rule} attached to ssid {ssid}"
-                        self.common_validation.passed(**kwargs)
+                        self.utils.print_info(f"Found classification rule {classification_rule} attached to ssid {ssid}")
                         return 1
+                return False
 
-                kwargs['fail_msg'] = f"_verify_classification_rule_for_ssid() failed. " \
-                                     f"Classification rule {classification_rule} is not attached to ssid {ssid}"
-                self.common_validation.failed(**kwargs)
-                return -1
-
-    def _delete_classification_rule_from_ssid(self, ssid, classification_rule, **kwargs):
+    def _delete_classification_rule_from_ssid(self, ssid, classification_rule):
         """
         - This method is used to Delete the correct classification rule from list of rules to SSiD
 
@@ -824,14 +792,8 @@ class ClassificationRule(object):
                 sleep(2)
 
                 self.auto_actions.click_reference(self.classification_rule_web_elements.get_confirmation_dialog_yes_button)
-                kwargs['pass_msg'] = "Deleted the correct classification rule"
-                self.common_validation.passed(**kwargs)
                 return 1
-
-        kwargs['fail_msg'] = "_delete_classification_rule_from_ssid() failed. " \
-                             "Failed to Delete the correct classification rule"
-        self.common_validation.failed(**kwargs)
-        return -1
+        return False
 
     def search_classification_rule(self, name, **kwargs):
         """
@@ -864,7 +826,7 @@ class ClassificationRule(object):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _search_multiple_classification_rule(self, name, **kwargs):
+    def _search_multiple_classification_rule(self, name):
         """
         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
         - Search Single Classification Rule
@@ -872,26 +834,14 @@ class ClassificationRule(object):
          :param name: Name of the Classification Rule
          :return: 1 if found else return -1
          """
-        # self.navigator.navigate_to_classification_rule()
-        # sleep(3)
-        #
-        # if view_all_pages := self.classification_rule_web_elements.view_all_pages():
-        #     if view_all_pages.is_displayed():
-        #         self.utils.print_info("Click Full pages button")
-        #         self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
-        #         sleep(2)
 
         get_all_classification_rule = self.classification_rule_web_elements.view_all_classification_rule()
         for rule in get_all_classification_rule:
             if name in rule.text:
                 sleep(5)
-                kwargs['pass_msg'] = f"Found classification rule: {name}"
-                self.common_validation.passed(**kwargs)
+                self.utils.print_info(f"Found classification rule: {name}")
                 return 1
-
-        kwargs['fail_msg'] = "_search_multiple_classification_rule() failed. Multiple classification rule NOT found"
-        self.common_validation.failed(**kwargs)
-        return -1
+        return False
 
     def select_classification_rule(self, name, **kwargs):
         """
@@ -927,13 +877,13 @@ class ClassificationRule(object):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _select_multiple_classification_rule(self, name, **kwargs):
+    def _select_multiple_classification_rule(self, name):
         """
         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
         - Select multiple Classification Rule
 
          :param name: Name of the Classification Rule
-         :return: 1 if able to select else return -1
+         :return: 1 if able to select else return False
          """
         get_all_classification_rule = self.classification_rule_web_elements.view_all_classification_rule()
         for rule in get_all_classification_rule:
@@ -942,10 +892,5 @@ class ClassificationRule(object):
                 self.auto_actions.click(self.classification_rule_web_elements.
                                         select_classification_rule_from_common_object(rule))
                 sleep(2)
-                kwargs['pass_msg'] = f"Selected classification rule: {name}"
-                self.common_validation.passed(**kwargs)
                 return 1
-
-        kwargs['fail_msg'] = "_select_multiple_classification_rule() failed. Failed to select classification rule"
-        self.common_validation.failed(**kwargs)
-        return -1
+        return False
