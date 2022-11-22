@@ -143,8 +143,8 @@ class Copilot(CopilotWebElements):
         self.auto_actions.move_to_element(self.get_wifi_capacity_widget())
         self.screen.save_screen_shot()
         try:
-            wifi_capacity_status=self.get_wifi_capacity_status()
-            self.utils.print_info("status of muted button in wifi capacity widget:",wifi_capacity_status.text)
+            wifi_capacity_status = self.get_wifi_capacity_status()
+            self.utils.print_info("status of muted button in wifi capacity widget:", wifi_capacity_status.text)
             return wifi_capacity_status.text
         except Exception as e:
             kwargs['fail_msg'] = "'get_wifi_capacity_widget_status()' -> Unable to get status of muted button in " \
@@ -430,7 +430,7 @@ class Copilot(CopilotWebElements):
                             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             kwargs['pass_msg'] = f"'pin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
-                                                 f"Pinned Anomaly successfully for the AP : {ap_name} in Location "
+                                                 f"Pinned Anomaly successfully for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -439,13 +439,13 @@ class Copilot(CopilotWebElements):
                             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
                             kwargs['pass_msg'] = f"'pin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
-                                                 f"Already Pinned Anomaly for the AP : {ap_name} in Location "
-                                                  f"{location_name}"
+                                                 f"Already Pinned Anomaly for the AP : {ap_name} in Location " \
+                                                 f"{location_name}"
                             self.common_validation.passed(**kwargs)
                             return 1
 
         kwargs['fail_msg'] = f"'pin_individual_ap_for_location_in_wifi_capacity_widget()' -> Not found AP row " \
-                             f"{ap_name} with Location:{location_name}
+                             f"{ap_name} with Location:{location_name}"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -501,7 +501,7 @@ class Copilot(CopilotWebElements):
                             return 1
 
         kwargs['fail_msg'] = f"'unpin_individual_ap_for_location_in_wifi_capacity_widget()' -> Not found AP row " \
-                             f"{ap_name} with Location:{location_name}
+                             f"{ap_name} with Location:{location_name}"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -726,7 +726,7 @@ class Copilot(CopilotWebElements):
         self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
         self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
-        return docs_url_list , video_url_list
+        return docs_url_list, video_url_list
 
     def validate_loading_additional_resources_documentation_links_in_wifi_capacity(self, **kwargs):
         """
@@ -816,7 +816,7 @@ class Copilot(CopilotWebElements):
         self.utils.print_info(f"Validating YouTube Links Present In WiFi Capacity Additional Resources ")
         video_urls = self.get_wifi_capacity_additional_resources_video_links()
         if video_urls:
-            loaded_video_flag= False
+            loaded_video_flag = False
             for url in video_urls:
                 video_url = url.get_attribute('src')
                 self.utils.print_info(f"Validating Youtube Video Link : {video_url} ")
@@ -1325,7 +1325,7 @@ class Copilot(CopilotWebElements):
          - ``Show Muted DFS Recurrence Anomalies``
         :return: returns 1 if successfully pressed SHOW MUTED button else -1
         """
-        #if navigate:
+        # if navigate:
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -1437,7 +1437,7 @@ class Copilot(CopilotWebElements):
                 device_count = 0
                 pinned = False
                 muted = False
-                #self.utils.print_info("Anomaly Location match found: ", anomaly_location)
+                # self.utils.print_info("Anomaly Location match found: ", anomaly_location)
 
                 if re.search(r'We detected problems with channels changing too often across (\d+) devices', anomaly_summary):
                     device_count = re.search(r'We detected problems with channels changing too often across (\d+) devices', anomaly_summary).group(1)
@@ -1974,7 +1974,7 @@ class Copilot(CopilotWebElements):
                     for row1 in self.get_dfs_recurrence_widget_location_grid_rows():
                         if location_name in row1.text:
                             kwargs['fail_msg'] = f"'dismiss_anomaly_for_location_in_dfs_recurrence_widget()' -> " \
-                                                 f"Location name : {location_name} in DFS Recurrence Widget Not "
+                                                 f"Location name : {location_name} in DFS Recurrence Widget Not " \
                                                  f"Dismissed Successfully"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.failed(**kwargs)
@@ -2034,8 +2034,8 @@ class Copilot(CopilotWebElements):
                             self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             kwargs['pass_msg'] = f"'pin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
-                                                 f"Pinned Anomaly successfully for the AP : {ap_name} in Location "
-                                                  f"{location_name}"
+                                                 f"Pinned Anomaly successfully for the AP : {ap_name} in Location " \
+                                                 f"{location_name}"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -2097,14 +2097,14 @@ class Copilot(CopilotWebElements):
                             self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             kwargs['pass_msg'] = f"'unpin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
-                                                 f"UnPinned Anomaly successfully for the AP : {ap_name} in Location "
+                                                 f"UnPinned Anomaly successfully for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.fault(**kwargs)
                             return 1
                         else:
                             kwargs['pass_msg'] = f"'unpin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
-                                                 f"Already Unpinned Anomaly for the AP : {ap_name} in Location "
+                                                 f"Already Unpinned Anomaly for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.utils.print_info(f"Closing Detailed view")
                             self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
@@ -2260,7 +2260,7 @@ class Copilot(CopilotWebElements):
                     sleep(5)
 
                     kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> " \
-                                         f"Successfully UnPinned Anomaly for the location : {location_name} "
+                                         f"Successfully UnPinned Anomaly for the location : {location_name} " \
                                          f"in Adverse Traffic Patterns Widget"
                     self.common_validation.passed(**kwargs)
                     return 1
@@ -2775,8 +2775,7 @@ class Copilot(CopilotWebElements):
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             return adverse_traffic_patterns_summary, buildings, aps
 
-    def click_wifi_capacity_anomaly_location_row(self, location_name,**kwargs):
-
+    def click_wifi_capacity_anomaly_location_row(self, location_name, **kwargs):
         """
         - This Keyword will click the Location (location name) displaying the list of APs
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
@@ -2784,20 +2783,19 @@ class Copilot(CopilotWebElements):
          - ``Click Wifi Capacity Anomaly Location Row ${LOCATION_NAME}``
 
         :param location_name: Location name
-        :return: 1 if sucessfully clicking the row else return -1
+        :return: 1 if successfully clicking the row else return -1
         """
-        return_value = self.display_wifi_capacity_anomaly_ap_rows(location_name,**kwargs)
+        return_value = self.display_wifi_capacity_anomaly_ap_rows(location_name, **kwargs)
         return return_value
 
-    def wifi_capacity_anomaly_ap_individual_details(self, location_name, ap_name):
-
+    def wifi_capacity_anomaly_ap_individual_details(self, location_name, ap_name, **kwargs):
         """
         - This Keyword will get details of issue and recommended actions from individual aps APs
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
         - Keyword Usage:
         - ``Wifi Capacity Anomaly Ap Individual Details``
 
-        :return: 1 if sucessfully clicking the row else return -1
+        :return: 1 if successfully clicking the row else return -1
         """
         self.click_wifi_capacity_anomaly_location_row(location_name)
         self.click_wifi_capacity_anomaly_ap_row(ap_name)
@@ -2807,16 +2805,15 @@ class Copilot(CopilotWebElements):
         if issue_details and recommended_actions_details:
             self.utils.print_info("Issue :", issue_details.text)
             self.utils.print_info("Recommended Actions :", recommended_actions_details.text)
-            return issue_details.text,recommended_actions_details.text
             self.utils.switch_to_default(CloudDriver().cloud_driver)
+            return issue_details.text, recommended_actions_details.text
         else:
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             kwargs['fail_msg'] = "'wifi_capacity_anomaly_ap_individual_details()' -> Unsuccessfully clicking the row"
             self.common_validation.failed(**kwargs)
             return -1
 
-    def display_wifi_capacity_anomaly_ap_rows(self, location_name,**kwargs):
-
+    def display_wifi_capacity_anomaly_ap_rows(self, location_name, **kwargs):
         """
         - This Keyword will click the Location (location name) displaying the list of APs
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
@@ -2824,7 +2821,7 @@ class Copilot(CopilotWebElements):
          - ``Display Wifi Capacity Anomaly Ap Rows  ${LOCATION_NAME}``
 
         :param location_name: Location name
-        :return: 1 if sucessfully clicking the row else return -1
+        :return: 1 if successfully clicking the row else return -1
         """
         return_value = -1
         searching_for_location_row = -1
@@ -2835,7 +2832,7 @@ class Copilot(CopilotWebElements):
         self.navigator.navigate_to_copilot_menu()
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(5)
-        wifi_cap_widget =  self.get_wifi_capacity_widget()
+        wifi_cap_widget = self.get_wifi_capacity_widget()
         if not wifi_cap_widget:
             self.utils.print_info("Unable to get WIFI capacty widget")
             fail_message = "Unable to get WIFI capacty widget"
@@ -2870,7 +2867,6 @@ class Copilot(CopilotWebElements):
         return return_value
 
     def click_wifi_capacity_anomaly_ap_row(self, ap_name, **kwargs):
-
         """
         - This Keyword will click the AP (ap name) based on the list of APs under a Location
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and click it
@@ -2882,7 +2878,7 @@ class Copilot(CopilotWebElements):
         """
 
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-        self.utils.print_info("Attempting to gather all APs from loacation" )
+        self.utils.print_info("Attempting to gather all APs from loacation")
         internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
         if not internal_rows:
             self.utils.print_info("Unable to get APs from location")
@@ -2901,7 +2897,7 @@ class Copilot(CopilotWebElements):
                     kwargs['pass_msg'] = "Successfully clicked on AP : " + ap_name
                     self.common_validation.passed(**kwargs)
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
-                    return  1
+                    return 1
         self.utils.print_info("Unable to find AP : " + ap_name)
         kwargs['fail_msg'] = "Unable to find AP : " + ap_name
         self.common_validation.failed(**kwargs)
@@ -2909,7 +2905,6 @@ class Copilot(CopilotWebElements):
         return -1
 
     def wifi_capacity_anomaly_ap_like_button(self, location_name, ap_name, **kwargs):
-
         """
         - This Keyword will click like button in WiFi Capacity widget specific location and access point.
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click AP---> Click like Button
@@ -2952,9 +2947,7 @@ class Copilot(CopilotWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-
     def is_wifi_capacity_anomaly_ap_i_icon_present(self, ap_name, **kwargs):
-
         """
         - This Keyword will check to see if the i icon is present on  the AP (ap name) row
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and see if the i icon is present
@@ -2977,20 +2970,20 @@ class Copilot(CopilotWebElements):
         for ap_row in internal_rows:
             self.utils.print_info("Current location :" + ap_row.text)
             if ap_name in ap_row.text:
-               self.utils.print_info("AP name : " + ap_name + " found")
-               self.utils.print_info("Checking for i ICON Presence")
-               if "info"  in ap_row.text:
-                  self.utils.print_info("i ICON Found in AP row")
-                  kwargs['pass_msg'] = "i ICON Found in AP row"
-                  self.common_validation.passed(**kwargs)
-                  self.utils.switch_to_default(CloudDriver().cloud_driver)
-                  return 1
-               else:
-                  self.utils.print_info("i ICON NOT Found in AP row")
-                  kwargs['fail_msg'] = "i ICON NOT Found in AP row"
-                  self.common_validation.failed(**kwargs)
-                  self.utils.switch_to_default(CloudDriver().cloud_driver)
-                  return -1
+                self.utils.print_info("AP name : " + ap_name + " found")
+                self.utils.print_info("Checking for i ICON Presence")
+                if "info" in ap_row.text:
+                    self.utils.print_info("i ICON Found in AP row")
+                    kwargs['pass_msg'] = "i ICON Found in AP row"
+                    self.common_validation.passed(**kwargs)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
+                    return 1
+                else:
+                    self.utils.print_info("i ICON NOT Found in AP row")
+                    kwargs['fail_msg'] = "i ICON NOT Found in AP row"
+                    self.common_validation.failed(**kwargs)
+                    self.utils.switch_to_default(CloudDriver().cloud_driver)
+                    return -1
         self.utils.print_info("Unable to find AP : " + ap_name)
         kwargs['fail_msg'] = "Unable to find AP : " + ap_name
         self.common_validation.failed(**kwargs)
@@ -2998,7 +2991,6 @@ class Copilot(CopilotWebElements):
         return -1
 
     def get_hover_over_details_for_wifi_capacity_anomaly_ap_level(self, ap_name, **kwargs):
-
         """
         - This Keyword will get the text that is displayed when the i icon is hovered over
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and hover over the i (info) icon
@@ -3066,7 +3058,6 @@ class Copilot(CopilotWebElements):
         return -1
 
     def dislike_wifi_capacity_anomaly_location_ap(self, location_name, ap_name, feedback="Need improvement", **kwargs):
-
         """
         - This Keyword will click dislike button in WiFi Capacity widget specific location and access point.
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click AP---> Click Dislike Button
@@ -3138,7 +3129,6 @@ class Copilot(CopilotWebElements):
             return -1
 
     def get_wifi_capacity_detailed_view(self, location_name, **kwargs):
-
         """
         - This Keyword will get detailed view data from the Location at the building level
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get detailed view data from location
@@ -3150,7 +3140,7 @@ class Copilot(CopilotWebElements):
         """
 
         fail_message = ""
-        detail_view_data = '\n' + "***Building*** : " +  '\n'
+        detail_view_data = '\n' + "***Building*** : " + '\n'
         self.utils.print_info("Navigating to Copilot menu..")
         if not self.get_copilot_branded_image():
             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -3190,7 +3180,7 @@ class Copilot(CopilotWebElements):
                             self.common_validation.failed(**kwargs)
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return -1
-                        detail_view_data = detail_view_data + '\n' + "***General Description***"+ '\n' + "Description->" + (overall_desc.text).replace('\n', ' ')
+                        detail_view_data = detail_view_data + '\n' + "***General Description***" + '\n' + "Description->" + (overall_desc.text).replace('\n', ' ')
 
                         self.utils.print_info("Attempting to gather all APs from loacation")
                         internal_rows = self.get_wifi_capacity_widget_location_grid_internal_rows()
@@ -3201,7 +3191,7 @@ class Copilot(CopilotWebElements):
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             return -1
                         else:
-                            detail_view_data = detail_view_data + '\n' +"***APs*** : "
+                            detail_view_data = detail_view_data + '\n' + "***APs*** : "
                             for ap_row in internal_rows:
                                 sleep(2)
                                 detail_view_data = detail_view_data + '\n' + "AP -> " + (ap_row.text).replace('\n', ' ')
@@ -3221,7 +3211,6 @@ class Copilot(CopilotWebElements):
                 return -1
 
     def navigate_wirless_clientexp_widget_by_location(self, location_name, parameter, **kwargs):
-
         """
         - This Keyword will navigate to wireless client experience and click on the location {building name}
         - Flow: CoPilot--> Wireless Client Experience ---> Click the Location name
@@ -3239,10 +3228,10 @@ class Copilot(CopilotWebElements):
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(2)
 
-        ### Move to Wireless client experience widget
+        # Move to Wireless client experience widget
         self.auto_actions.move_to_element(self.get_wireless_connectivity_experience_widget())
 
-        ### Select the option of location/ssid/ostype from the dropdown
+        # Select the option of location/ssid/ostype from the dropdown
         self.utils.print_info("Clicking view by options.")
         self.auto_actions.click(self.get_view_by_wireless_clientexp_option())
         self.screen.save_screen_shot()
@@ -3290,9 +3279,7 @@ class Copilot(CopilotWebElements):
 
         return return_value
 
-
     def get_wirless_clientexp_quality_index_by_location(self, location_name, parameter="Location", durationType="Last 24 Hours", **kwargs):
-
         """
         - This Keyword will get the Quality index values from Wireless client experience by location and Duration Tupe
         - Flow: CoPilot--> Wireless Client Experience ---> Click the Location name
@@ -3304,7 +3291,7 @@ class Copilot(CopilotWebElements):
         :param durationType: Last 1 hrs , Last 24 hrs
         :return: Quality index values if sucessfully clicking the row else return NA
         """
-        ### will navigate to wireless client experience widget and click on location
+        # will navigate to wireless client experience widget and click on location
         navigation_return = self.navigate_wirless_clientexp_widget_by_location(location_name, parameter, **kwargs)
 
         if navigation_return == -1:
@@ -3330,7 +3317,6 @@ class Copilot(CopilotWebElements):
             return quality_index.split("/")[0]
 
     def navigate_wirless_clientexp_widget_by_ssid(self, ssid_name, parameter, **kwargs):
-
         """
         - This Keyword will navigate to wireless client experience and click on the ssid {ssid name}
         - Flow: CoPilot--> Wireless Client Experience ---> Click the SSID
@@ -3348,10 +3334,10 @@ class Copilot(CopilotWebElements):
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         sleep(2)
 
-        ### Move to Wireless client experience widget
+        # Move to Wireless client experience widget
         self.auto_actions.move_to_element(self.get_wireless_connectivity_experience_widget())
 
-        ### Select the option of location/ssid/ostype from the dropdown
+        # Select the option of location/ssid/ostype from the dropdown
         self.utils.print_info("Clicking view by options.")
         self.auto_actions.click(self.get_view_by_wireless_clientexp_option())
         self.screen.save_screen_shot()
@@ -3401,19 +3387,18 @@ class Copilot(CopilotWebElements):
         return return_value
 
     def get_wirless_clientexp_quality_index_by_ssid(self, ssid_name, parameter="SSID", durationType="Last 24 Hours", **kwargs):
-
         """
         - This Keyword will get the Quality index values from Wireless client experience by location and Duration Tupe
         - Flow: CoPilot--> Wireless Client Experience ---> Click the ssid name
         - Keyword Usage:
         - ``Click wireless clientexp widget by location {$ssid_name}``
 
-        :param location_name: ssid name
+        :param ssid_name: ssid name
         :param parameter: filter type Location, SSID, OSType
         :param durationType: Last 1 hrs , Last 24 hrs
         :return: Quality index values if sucessfully clicking the row else return NA
         """
-        ### will navigate to wireless client experience widget and click on location
+        # will navigate to wireless client experience widget and click on location
         navigation_return = self.navigate_wirless_clientexp_widget_by_ssid(ssid_name, parameter, **kwargs)
 
         if navigation_return == -1:
