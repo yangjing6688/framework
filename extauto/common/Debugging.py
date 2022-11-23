@@ -9,8 +9,7 @@ class Debugging(object):
         self.utils = Utils()
         self.common_validation = CommonValidation()
         self.default_command_list = '_debug capwap cli,_debug capwap hvcom,_debug capwap basic,_debug capwap info'
-        self.log_command_list = 'show capwap client,show idm,_show capwap event'
-        self.log_command_list2 = 'show capwap client,show idm,show logging buffered,_show capwap event,'+\
+        self.log_command_list = 'show capwap client,show idm,show logging buffered,_show capwap event,'+\
                                 '_show capwap event buff,_show capwap cli buffer,_show capwap alarms buffer,'+\
                                 '_show capwap hvcom status,show tech'
 
@@ -50,7 +49,7 @@ class Debugging(object):
         if cli_output:
             kwargs['pass_msg'] = "Commands successfully sent to device"
             self.common_validation.passed(**kwargs)
-            return 1
+            return cli_output
 
     def log_debug_commands(self, ip, port, username, password, cli_type, commands=None, **kwargs):
         """
@@ -88,4 +87,4 @@ class Debugging(object):
         if cli_output:
             kwargs['pass_msg'] = "Commands successfully sent to device"
             self.common_validation.passed(**kwargs)
-            return 1
+            return cli_output
