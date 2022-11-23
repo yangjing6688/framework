@@ -319,7 +319,7 @@ class ClassificationRule(object):
 
         name_select_flag = None
         for name in names:
-            if not self._search_multiple_classification_rule(name, ignore_failure=True):
+            if not self._search_multiple_classification_rule(name):
                 self.utils.print_info("Classification Rule does not exist in the list")
                 continue
             else:
