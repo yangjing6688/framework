@@ -2025,7 +2025,7 @@ class Devices:
                           'neighbour_serial': '06301908310556',
                           'neighbour_mac': '7C95B1005700'}
                 }
-        :param policy_name: Name of policy that would be used when onbaording a device
+        :param policy_name: Name of policy that would be used when onboarding a device
         :return:  1 if onboarding success
         :return: -1 for errors
         """
@@ -2066,7 +2066,6 @@ class Devices:
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
-        quick_add_devices_button = ''
         attempt_count = 3
         while attempt_count > 0:
             if attempt_count != 3:
@@ -2099,11 +2098,12 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            list_initial_serial_dt = self.get_device_serial_numbers(device_model)
+            # Modified the "get_device_serial_numbers" call to use os_persona until the bug XIQ-11770 is solved.
+            list_initial_serial_dt = self.get_device_serial_numbers(os_persona)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
-        if location:
+        if location and device_type.lower() != "digital twin":
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
             self.screen.save_screen_shot()
@@ -2117,7 +2117,6 @@ class Devices:
             self.auto_actions.select_drop_down_options(self.devices_web_elements.
                                                        get_devices_quick_add_policy_drop_down_items(), policy_name)
             sleep(2)
-
 
         self.utils.print_info("Clicking on ADD DEVICES button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
@@ -2197,28 +2196,25 @@ class Devices:
                     return 1
 
         elif "digital twin" in device_type.lower():
-            models = device_model.split(",")
-            self.utils.print_info("Models: ", models)
-            sleep(100)  # this sleep is put until the bug XIQ-11770 is solved, then I will review the code and delete this sleep
             self.refresh_devices_page()
-            for model in models:
-                list_final_dt_serial = self.get_device_serial_numbers(model)
-                dt_global_variable = "${" + name + ".serial}"
-                for i in list_final_dt_serial:
-                    if i not in list_initial_serial_dt:
-                        BuiltIn().set_global_variable(dt_global_variable, i)
-                if len(list_final_dt_serial) - len (list_initial_serial_dt) == 1:
-                    kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device with model : {models}"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-                elif len(list_final_dt_serial) - len (list_initial_serial_dt) == 0:
-                    kwargs['fail_msg'] = f"Failed to onboard device {device_make} with {models}"
-                    self.common_validation.failed(**kwargs)
-                    return -1
-                elif len(list_final_dt_serial) - len (list_initial_serial_dt) >1:
-                    kwargs['fail_msg'] = "Failed to determine serial number because multiple devices have been onboarded."
-                    self.common_validation.failed(**kwargs)
-                    return -1
+            # Modified the "get_device_serial_numbers" call to use os_persona until the bug XIQ-11770 is solved.
+            list_final_dt_serial = self.get_device_serial_numbers(os_persona)
+            dt_global_variable = "${" + name + ".serial}"
+            for i in list_final_dt_serial:
+                if i not in list_initial_serial_dt:
+                    BuiltIn().set_global_variable(dt_global_variable, i)
+            if len(list_final_dt_serial) - len(list_initial_serial_dt) == 1:
+                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device with model : {device_model}"
+                self.common_validation.passed(**kwargs)
+                return 1
+            elif len(list_final_dt_serial) - len(list_initial_serial_dt) == 0:
+                kwargs['fail_msg'] = f"Failed to onboard device {device_make} with {device_model}"
+                self.common_validation.failed(**kwargs)
+                return -1
+            elif len(list_final_dt_serial) - len(list_initial_serial_dt) > 1:
+                kwargs['fail_msg'] = "Failed to determine serial number because multiple devices have been onboarded."
+                self.common_validation.failed(**kwargs)
+                return -1
 
     def check_onboard_device_quick_parameters(self, device_type, entry_type, device_serial, device_make, location,
                                               csv_location, device_model, os_version, os_persona, **kwargs):

@@ -37,9 +37,8 @@ class GlobalSettingWebElementDefinitions:
 
     global_settings_account_organizations_add_button = \
         {
-            'CSS_SELECTOR': '.table-action-buttons.table-action-icons.table-add',
-            'wait_for': 5,
-            'index': 1
+            'CSS_SELECTOR': '.table-action-icons.table-add',
+            'wait_for': 5
         }
 
     global_settings_account_organization_name_inputfield = \
