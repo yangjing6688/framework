@@ -206,7 +206,7 @@ class SideNavMenu(NavigatorWebElements):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_nav_menu_item_visible(self, tag):
+    def verify_nav_menu_item_visible(self, tag, **kwargs):
         """
         - This keyword verifies if the nav menu item is visible
         - Keyword Usage:

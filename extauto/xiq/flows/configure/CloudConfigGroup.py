@@ -544,7 +544,7 @@ class CloudConfigGroup(object):
         for i in range(1, int(num) + 1):
             self.utils.print_info(type(i))
             policy = policy_name + "_" + str(i)
-            if not self._search_multiple_ccg_group_from_common_object(policy, ignore_failure=True):
+            if not self._search_multiple_ccg_group_from_common_object(policy):
                 self.utils.print_info("CCG Group does not exist in the list")
                 continue
             else:
@@ -617,7 +617,7 @@ class CloudConfigGroup(object):
 
         policy_select_flag = None
         for policy in policys:
-            if not self._search_multiple_ccg_group_from_common_object(policy, ignore_failure=True):
+            if not self._search_multiple_ccg_group_from_common_object(policy):
                 self.utils.print_info("CCG Group does not exist in the list")
                 continue
             else:

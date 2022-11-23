@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestUsersWebElemets import ExtremeGuestUsersWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
 
 
 class ExtremeGuestUsers(object):
@@ -18,6 +19,8 @@ class ExtremeGuestUsers(object):
         self.auto_actions = AutoActions()
         self.user_web_elem = ExtremeGuestUsersWebElements()
         self.ext_guest = ExtremeGuest()
+        self.guest_web_elem = ExtremeGuestWebElements()
+
 
     def select_location_for_create_bulk_vouchers_page(self, sel_loc):
         """
@@ -265,6 +268,28 @@ class ExtremeGuestUsers(object):
             for row in self.user_web_elem.get_extreme_guest_users_grid_rows():
                 count += 1
         return count
+
+    def get_extreme_social_users_count(self,social_name):
+        """
+        Getting the social users count in Extreme Guest Users Page
+        - Keyword Usage:
+         - ``Get Extreme Guest Users Count``
+        :return: User Count
+        """
+        self.utils.print_info("Clicking on Extreme Guest Analyze Page")
+        self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_analyze_page)
+        sleep(2)
+        self.screen.save_screen_shot()
+        sleep(2)
+        if social_name == "Facebook":
+            self.utils.print_info("Getting Facebook count")
+            count = self.user_web_elem.get_extreme_facebook_guest_users()
+            return count
+
+        if social_name == "Linkedin":
+            self.utils.print_info("Getting Linkedin count")
+            count = self.user_web_elem.get_extreme_linkedin_guest_users()
+            return count
 
     def _get_extreme_guest_users_page_user_row(self, search_string):
         """

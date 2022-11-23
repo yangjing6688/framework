@@ -12,6 +12,7 @@ from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.common.CommonValidation import CommonValidation
 
 
+
 class AdvanceOnboarding(AdvanceOnboardingWebElements):
     def __init__(self):
         super().__init__()
@@ -23,6 +24,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         self.navigator = Navigator()
         self.devices = Devices()
         self.commonValidation = CommonValidation()
+        self.devices_web_elements = DevicesWebElements()
 
     def advance_onboard_device(self, device_serial, device_make="", dev_location="", device_type="Real",
                                entry_type="Manual", csv_location='', create_location=False, device_mac=None, **kwargs):
@@ -198,14 +200,14 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                             self.commonValidation.failed(**kwargs)
                             return -1
                     else:
-                        kwargs['fail_msg'] =">>> CSV file was not specified\n"
-                        kwargs['fail_msg'] +=">>> Clicking Cancel and exiting - device NOT on-boarded"
+                        kwargs['fail_msg'] = ">>> CSV file was not specified\n"
+                        kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
                         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                         self.commonValidation.failed(**kwargs)
                         return -1
 
             else:
-                kwargs['fail_msg'] =">>> Unsupported device type " + device_make + "\n"
+                kwargs['fail_msg'] = ">>> Unsupported device type " + device_make + "\n"
                 kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
                 self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                 self.commonValidation.failed(**kwargs)
@@ -269,21 +271,21 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         serials = device_serial.split(",")
         self.utils.print_info("Device Serials Numbers: ", serials)
 
-        max_retires = 3
+        max_retries = 3
         count = 0
         ret_value = -1
-        while max_retires != count:
+        while max_retries != count:
             for serial in serials:
                 if self.devices.search_device(device_serial=serial) == 1:
                     kwargs['pass_msg'] = f"Found the device for Serial: {device_serial}"
                     self.commonValidation.passed(**kwargs)
                     return 1
                 else:
-                    if count != max_reties:
-                        self.utils.print_info("fThe {serial} was not found, sleeping for 10 seconds")
+                    if count != max_retries:
+                        self.utils.print_info(f"The {serial} was not found, sleeping for 10 seconds")
                         sleep(10)
                         count += 1
-                        self.utils.print_info(f"new count value {count} of max reties {max_reties}")
+                        self.utils.print_info(f"new count value {count} of max reties {max_retries}")
 
         kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serial}"
         self.commonValidation.failed(**kwargs)

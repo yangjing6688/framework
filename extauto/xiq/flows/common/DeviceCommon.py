@@ -562,7 +562,7 @@ class DeviceCommon(DeviceCommonElements):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_client_link_available(self, tag):
+    def verify_client_link_available(self, tag, **kwargs):
         """
         - This keyword verifies if client hyperlink is available
         - Keyword Usage:
@@ -618,7 +618,7 @@ class DeviceCommon(DeviceCommonElements):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_hostname_link_available(self, tag):
+    def verify_hostname_link_available(self, tag, **kwargs):
         """
         - This keyword verifies if host name hyperlink is available
         - Keyword Usage:
@@ -674,7 +674,7 @@ class DeviceCommon(DeviceCommonElements):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_mac_link_available(self, tag):
+    def verify_mac_link_available(self, tag, **kwargs):
         """
         - This keyword verifies if mac hyperlink is available
         - Keyword Usage:
@@ -730,7 +730,7 @@ class DeviceCommon(DeviceCommonElements):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_policy_link_available(self, tag):
+    def verify_policy_link_available(self, tag, **kwargs):
         """
         - This keyword verifies if network policy hyperlink is available
         - Keyword Usage:
@@ -786,7 +786,7 @@ class DeviceCommon(DeviceCommonElements):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_location_link_available(self, tag):
+    def verify_location_link_available(self, tag, **kwargs):
         """
         - This keyword verifies if location hyperlink is available
         - Keyword Usage:
