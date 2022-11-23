@@ -216,7 +216,7 @@ class DeviceConfigDefs:
 
     wireless_interface_wifi2_channel_options = \
         {
-            'XPATH': '//div[@class="grid_10 column"]//*[@data-automation-tag="automation-interface-settings-wifi2-radio-profile-chzn-results-ctn"]//li',
+            'XPATH': '//div[@class="grid_10 column"]//*[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-results-ctn"]//li',
             'wait_for': 5
         }
 
