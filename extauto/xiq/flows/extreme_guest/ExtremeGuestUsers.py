@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestUsersWebElemets import ExtremeGuestUsersWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
 from extauto.common.CommonValidation import CommonValidation
 
 
@@ -19,6 +20,8 @@ class ExtremeGuestUsers(object):
         self.auto_actions = AutoActions()
         self.user_web_elem = ExtremeGuestUsersWebElements()
         self.ext_guest = ExtremeGuest()
+        self.guest_web_elem = ExtremeGuestWebElements()
+
         self.common_validation = CommonValidation()
 
     def select_location_for_create_bulk_vouchers_page(self, sel_loc, **kwargs):
@@ -249,10 +252,13 @@ class ExtremeGuestUsers(object):
         self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_ok_button)
         self.screen.save_screen_shot()
         try:
-            self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_ok_button_duplicate)
-            self.utils.print_info("Click OK Button")
+            if self.user_web_elem.get_extreme_guest_users_delete_ok_button_duplicate().is_displayed():
+                self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_ok_button_duplicate)
+                self.screen.save_screen_shot()
+                self.utils.print_info("Click Duplicate OK Button")
         except Exception as e:
             self.utils.print_info("OK Button is already clicked")
+            self.screen.save_screen_shot()
             pass
         sleep(2)
         self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_delete_status_ok_button)
@@ -275,6 +281,28 @@ class ExtremeGuestUsers(object):
             for row in self.user_web_elem.get_extreme_guest_users_grid_rows():
                 count += 1
         return count
+
+    def get_extreme_social_users_count(self,social_name):
+        """
+        Getting the social users count in Extreme Guest Users Page
+        - Keyword Usage:
+         - ``Get Extreme Guest Users Count``
+        :return: User Count
+        """
+        self.utils.print_info("Clicking on Extreme Guest Analyze Page")
+        self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_analyze_page)
+        sleep(2)
+        self.screen.save_screen_shot()
+        sleep(2)
+        if social_name == "Facebook":
+            self.utils.print_info("Getting Facebook count")
+            count = self.user_web_elem.get_extreme_facebook_guest_users()
+            return count
+
+        if social_name == "Linkedin":
+            self.utils.print_info("Getting Linkedin count")
+            count = self.user_web_elem.get_extreme_linkedin_guest_users()
+            return count
 
     def _get_extreme_guest_users_page_user_row(self, search_string):
         """

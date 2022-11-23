@@ -1,6 +1,4 @@
 from sys import builtin_module_names
-
-from cupshelpers import Printer
 from extauto.xiq.defs.extreme_guest.ExtremeGuestAnalyzeUsersWebElementsDefs import ExtremeGuestAnalyzeUsersWebElementsDefs
 from extauto.common.WebElementHandler import *
 
@@ -17,7 +15,6 @@ class ExtremeGuestAnalyzeUsersWebElements(ExtremeGuestAnalyzeUsersWebElementsDef
         location = site.strip() + '/' + building.strip() + '/' + floor.strip()
         cell = self.weh.get_element(self.extreme_guest_analyze_users_grid_location_column)
         if location in cell.text:
-            print(location)
             return cell
 
     def get_extreme_guest_analyze_users_grid_username(self, search_string):

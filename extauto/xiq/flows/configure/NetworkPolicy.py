@@ -24,6 +24,7 @@ from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.flows.configure.UserGroups import UserGroups
 from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
+import extauto.xiq.flows.configure.SwitchTemplate
 
 
 class NetworkPolicy(object):
@@ -49,6 +50,7 @@ class NetworkPolicy(object):
         self.user_group_elements = UserGroupsWebElements()
         self.use_existing_policy = False
         # self.driver = extauto.common.CloudDriver.cloud_driver
+        self.switch_template = extauto.xiq.flows.configure.SwitchTemplate.SwitchTemplate()
 
     def select_network_policy_row(self, policy):
         """
@@ -133,7 +135,7 @@ class NetworkPolicy(object):
         out = self.create_network_policy(policy, wireless_profile)
         return out
 
-    def create_network_policy(self, policy, **wireless_profile):
+    def create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
         """
         - Create the network policy from CONFIGURE-->NETWORK POLICIES
         - This keyword will create the network policy and wireless network
@@ -145,6 +147,7 @@ class NetworkPolicy(object):
 
         :param policy: Name of the network policy to create
         :param wireless_profile: (dict) wireless network creation profile parameters
+        :param cli_type: Device type of the DUT
         :return: 1 if network policy creation is success
         """
         self.navigator.navigate_to_devices()
@@ -193,7 +196,22 @@ class NetworkPolicy(object):
                 self.utils.print_info(f"{tip_text}")
                 return -3
 
-        return self.wireless_nw.create_wireless_network(**wireless_profile)
+            if cli_type.upper() == 'AH-AP':
+                return self.wireless_nw.create_wireless_network(**wireless_profile)
+            if cli_type.upper() == 'VOSS' or cli_type.upper() == 'EXOS':
+                switch_template_name = wireless_profile.get('switch_template_name')
+                if not switch_template_name:
+                    self.utils.print_info("No template information in dictionary")
+                    return 1
+                self.switch_template.create_switching_network(policy, wireless_profile, **kwargs)
+            if cli_type.upper() == 'AH-XR':
+                router_template_name = wireless_profile.get('template_name')
+                if not router_template_name:
+                    self.utils.print_info("No template information in dictionary")
+                    return 1
+                from extauto.xiq.flows.configure.RouterTemplate import RouterTemplate
+                router_template = RouterTemplate()
+                return router_template.create_routing_network(policy, **wireless_profile)
 
     def delete_network_policy(self, policy, **kwargs):
         """
@@ -273,7 +291,7 @@ class NetworkPolicy(object):
         select_flag = None
         if pages.is_displayed():
             last_page = int(pages.text[-1])
-            page_counter = 1
+            page_counter = 0
             self.utils.print_info(f"There are {last_page} page(s) to check")
             while page_counter < last_page:
                 for policy in policies:
@@ -612,8 +630,8 @@ class NetworkPolicy(object):
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif retry_count >= int(max_config_push_wait):
-                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait}seconds")
-                kwargs['fail_msg'] = f"Config push to AP taking more than {max_config_push_wait}seconds"
+                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait} seconds")
+                kwargs['fail_msg'] = f"Config push to AP taking more than {max_config_push_wait} seconds"
                 self.common_validation.failed(**kwargs)
                 return -1
             sleep(30)

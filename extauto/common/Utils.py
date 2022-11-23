@@ -822,6 +822,11 @@ class Utils:
         self.print_info("Current time in milliseconds: ", timestamp)
         return timestamp
 
+    def get_time_in_milliseconds(self, diff=0):
+        time_millies = int(round(time.time() * 1000) - diff)
+
+        return time_millies
+
     def convert_time_to_milliseconds(self, time_str):
         """
         - This keyword converts given time to milliseconds.
@@ -1065,3 +1070,25 @@ class Utils:
             return int(group)
         except ValueError:
             return group
+
+    @staticmethod
+    def dut_model_edit(sw_model):
+        """
+        Function used to modify the model name from yaml file to accommodate the format used when creating a new template.
+        :return: Modified switch template model.
+        """
+        if ('SwitchEngine' in sw_model or 'FabricEngine' in sw_model) and sw_model.count('_') == 1:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)$', r'\1 \2 \3-\4', sw_model)
+        elif ('SwitchEngine' in sw_model or 'FabricEngine' in sw_model) and sw_model.count('_') == 2:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)_(\d*[A-Z]*)$',
+                          r'\1 \2 \3-\4-\5', sw_model)
+        elif ('SwitchEngine' in sw_model or 'FabricEngine' in sw_model) and sw_model.count('_') == 3:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)_(\d*[A-Z]*)_(\d*[A-Z]*)$',
+                          r'\1 \2 \3-\4-\5-\6', sw_model)
+        elif ('SwitchEngine' not in sw_model or 'FabricEngine' not in sw_model) and sw_model.count('_') == 1:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)$', r'\1 \2 \3-\4', sw_model)
+        elif ('SwitchEngine' not in sw_model or 'FabricEngine' not in sw_model) and sw_model.count('_') == 2:
+            return re.sub(r'(^[A-Z][a-z]*\d*)_(\d*[A-Z]*|\d*)_(\d*[A-Z]*|\d*)$', r'\1-\2-\3', sw_model)
+        elif ('SwitchEngine' in sw_model or 'FabricEngine' in sw_model) and sw_model.count('_') == 3:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)_(\d*[A-Z]*)_(\d*[A-Z]*)$',
+                          r'\1 \2 \3-\4-\5-\6', sw_model)

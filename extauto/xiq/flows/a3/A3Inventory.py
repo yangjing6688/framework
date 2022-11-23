@@ -1,24 +1,21 @@
 import json
 import requests
-from time import sleep
-from extauto.common.CloudDriver import CloudDriver
-from extauto.common.Utils import Utils
-from extauto.common.Screen import Screen
 from extauto.common.AutoActions import *
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.A3InventoryWebElements import A3InventoryWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class A3Inventory(A3InventoryWebElements):
     def __init__(self):
         super().__init__()
         self.utils = Utils()
-        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
 
-    def enable_ssh_access_on_a3_node(self, a3_addr, account, password, ssh_pass, duration):
+    def enable_ssh_access_on_a3_node(self, a3_addr, account, password, ssh_pass, duration, **kwargs):
         """
         - This Keyword Will enable SSH Access for A3 Version 3.2 Nodes
         - Keyword Usage
@@ -54,7 +51,9 @@ class A3Inventory(A3InventoryWebElements):
                 headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + auth_result["token"]}
                 req = requests.post(url, headers=headers, data=json.dumps(ssh_cfg), verify=False)
                 if req.status_code != 200:
-                    self.utils.print_info('SSH configuration change failed: ' + req.status_code)
+                    kwargs['fail_msg'] = f"enable_ssh_access_on_a3_node() failed. " \
+                                         f"SSH configuration change failed: {req.status_code}"
+                    self.common_validation.failed(**kwargs)
                     return -1
                 if ssh_cfg['enable'] == 'yes':
                     self.utils.print_info(
@@ -64,14 +63,20 @@ class A3Inventory(A3InventoryWebElements):
                     self.utils.print_info('SSH access has been disabled, existing ssh session is still working until '
                                           'it disconnect')
             else:
-                self.utils.print_info('Getting current SSH configuration failed: ' + req.status_code)
+                kwargs['fail_msg'] = f"enable_ssh_access_on_a3_node() failed." \
+                                     f"Getting current SSH configuration failed: {req.status_code}"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info('Login to A3 failed: ' + req.status_code)
+            kwargs['fail_msg'] = f"enable_ssh_access_on_a3_node() failed. Login to A3 failed: {req.status_code}"
+            self.common_validation.fault(**kwargs)
             return -1
+
+        kwargs['pass_msg'] = "SSH enabled successfully on A3 Node!"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def link_a3_nodes_to_xiq(self, spawn, username, password, url="https://cloud.aerohive.com", timeout=40):
+    def link_a3_nodes_to_xiq(self, spawn, username, password, url="https://cloud.aerohive.com", timeout=40, **kwargs):
         """
         - This Keyword Executes Curl Command to Link A3 Node to XIQ
         - It assumes that already opened SSH spawn of A3 Node.
@@ -84,9 +89,9 @@ class A3Inventory(A3InventoryWebElements):
         :param timeout: Spawn command timeout in seconds
         :return: output of the Executed Curl Command
         """
-        data = {"url":url ,"user":username,"pass":password}
+        data = {"url": url, "user": username, "pass": password}
         json_data = json.dumps(data)
-        exec_command = 'curl -d ' "'"+ str(json_data)+"'" ' http://127.0.0.1:10000/api/v1/configuration/cloud' \
+        exec_command = 'curl -d ' "'" + str(json_data)+"'" ' http://127.0.0.1:10000/api/v1/configuration/cloud' \
                                                       ' -X POST'
         try:
             stdin, stdout, stderr = spawn.exec_command(exec_command, timeout=timeout)
@@ -96,9 +101,11 @@ class A3Inventory(A3InventoryWebElements):
             return output
         except Exception as e:
             print(e)
-            self.utils.print_info("Failed to execute the Curl command")
+            kwargs['fail_msg'] = "link_a3_nodes_to_xiq(). Failed to execute the Curl command"
+            self.common_validation.fault(**kwargs)
+            return -1
 
-    def unlink_a3_nodes_from_xiq(self, spawn, timeout=30):
+    def unlink_a3_nodes_from_xiq(self, spawn, timeout=30, **kwargs):
         """
         - This keyword executes Curl command to UnLink A3 Node to XIQ
         - It assumes that already opened SSH spawn of A3 Node.
@@ -108,9 +115,9 @@ class A3Inventory(A3InventoryWebElements):
         :param timeout: Spawn command timeout in seconds
         :return: output of the Executed Curl Command
         """
-        data = {"url":""}
+        data = {"url": ""}
         json_data = json.dumps(data)
-        exec_command = 'curl -d ' "'"+ str(json_data)+"'" ' http://127.0.0.1:10000/api/v1/configuration/cloud' \
+        exec_command = 'curl -d ' "'" + str(json_data)+"'" ' http://127.0.0.1:10000/api/v1/configuration/cloud' \
                                                       ' -X POST'
         try:
             stdin, stdout, stderr = spawn.exec_command(exec_command, timeout=timeout)
@@ -120,7 +127,9 @@ class A3Inventory(A3InventoryWebElements):
             return output
         except Exception as e:
             print(e)
-            self.utils.print_info("Failed to execute the Curl command")
+            kwargs['fail_msg'] = "unlink_a3_nodes_from_xiq() failed. Failed to execute the Curl command"
+            self.common_validation.fault(**kwargs)
+            return -1
 
     def _goto_a3_inventory_page(self):
         """
@@ -139,7 +148,7 @@ class A3Inventory(A3InventoryWebElements):
         sleep(2)
         return True
 
-    def search_a3_device(self, a3_host_name):
+    def search_a3_device(self, a3_host_name, **kwargs):
         """
         - Searches for A3 server Host using its Host Name
         - It Assumes that its already Navigated to A3-->inventory Grid
@@ -162,11 +171,16 @@ class A3Inventory(A3InventoryWebElements):
             for row in rows:
                 self.utils.print_debug("row data: ", self.format_row(row.text))
                 if a3_host_name in row.text:
-                    self.utils.print_info("Found A3 Virtual IP Row: ", self.format_row(row.text))
+                    kwargs['pass_msg'] = f"Found A3 Virtual IP Row: {self.format_row(row.text)}"
+                    self.common_validation.passed(**kwargs)
                     return 1
                 else:
+                    kwargs['fail_msg'] = "Didn't find A3 host"
+                    self.common_validation.failed(**kwargs)
                     return -1
         else:
+            kwargs['fail_msg'] = "search_a3_device() failed. Didn't find any rows"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def format_row(self, row):
@@ -176,7 +190,7 @@ class A3Inventory(A3InventoryWebElements):
          - Keyword Usage:
           - ``Format Row  ${ROW}``
 
-         :param Row: A3 Inventory Grid Row
+         :param row: A3 Inventory Grid Row
          :return: return Formatted Row Information
          """
         cell_values = row.split("\n")
@@ -185,7 +199,7 @@ class A3Inventory(A3InventoryWebElements):
             formatted_row.append(cell_value)
         return formatted_row
 
-    def get_a3_node_row(self, a3_host_name):
+    def get_a3_node_row(self, a3_host_name, **kwargs):
         """
         - Get the A3 Node row object from the A3 Inventory grid
         - Flow  A3-->Inventory
@@ -200,13 +214,15 @@ class A3Inventory(A3InventoryWebElements):
         if rows:
             for row in rows:
                 if a3_host_name in row.text:
-                    self.utils.print_info("Found A3 Node row: ", self.format_row(row.text))
+                    kwargs['pass_msg'] = f"Found A3 Node row: {self.format_row(row.text)}"
+                    self.common_validation.passed(**kwargs)
                     return row
 
-        self.utils.print_info("Unable to find A3 Node row in grid")
+        kwargs['fail_msg'] = "get_a3_node_row(). Unable to find A3 Node row in grid"
+        self.common_validation.fault(**kwargs)
         return -1
 
-    def get_a3_server_row(self, a3_host_name):
+    def get_a3_server_row(self, a3_host_name, **kwargs):
         """
         - Get the A3 server row object from the A3 Inventory grid
         - Flow  A3-->Inventory
@@ -221,13 +237,15 @@ class A3Inventory(A3InventoryWebElements):
         if rows:
             for row in rows:
                 if a3_host_name in row.text:
-                    self.utils.print_info("Found A3 Node row: ", self.format_row(row.text))
+                    kwargs['pass_msg'] = f"Found A3 Node row: {self.format_row(row.text)}"
+                    self.common_validation.passed(**kwargs)
                     return row
 
-        self.utils.print_info("Unable to find A3 Node row in grid")
+        kwargs['fail_msg'] = "get_a3_server_row(). Unable to find A3 Node row in grid"
+        self.common_validation.fault(**kwargs)
         return -1
 
-    def get_a3_server_status(self, a3_host_name):
+    def get_a3_server_status(self, a3_host_name, **kwargs):
         """
         - This keyword returns the A3 virtual server status by searching host name
         - Flow  A3-->Inventory
@@ -250,9 +268,12 @@ class A3Inventory(A3InventoryWebElements):
             a3_status = self.get_status_cell(a3_row)
             self.utils.print_info("A3 Node status " + a3_status)
             if 'icon-status' in a3_status:
-                self.utils.print_info("A3 Node Status: Connected")
+                kwargs['pass_msg'] = "A3 Node Status: Connected"
+                self.common_validation.passed(**kwargs)
                 return 'green'
 
+        kwargs['fail_msg'] = "get_a3_server_status() failed. A3 Node Status: Disconnected"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _expand_a3_server_node(self, a3_host_name):
@@ -281,7 +302,7 @@ class A3Inventory(A3InventoryWebElements):
                 return 1
         return False
 
-    def get_a3_node_status(self, a3_server_name, a3_node_name):
+    def get_a3_node_status(self, a3_server_name, a3_node_name, **kwargs):
         """
         - This keyword returns the A3 Node status by searching host name
         - Keyword Usage:
@@ -304,9 +325,13 @@ class A3Inventory(A3InventoryWebElements):
             a3_status = self.get_status_cell(a3_row)
             self.utils.print_info("A3 Node status " + a3_status)
             if 'icon-status' in a3_status:
-                self.utils.print_info("A3 Node Status: Connected")
                 self._expand_a3_server_node(a3_server_name)
+                kwargs['pass_msg'] = f"A3 Node Status: Connected"
+                self.common_validation.passed(**kwargs)
                 return 'green'
+
+        kwargs['fail_msg'] = "get_a3_node_status() failed. A3 Node is NOT online!"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _access_go_to_a3_button(self, a3_host_name):
@@ -409,8 +434,6 @@ class A3Inventory(A3InventoryWebElements):
         - Assume that navigated to the A3 --> Inventory
         - Keyword Usage:
          - ``Verify A3 Node Login On XIQ   ${A3_SERVER_NAME}  ${A3_IP_ADDR}   ${A3_USERNAME}  ${A3_PASSWORD}``
-
-
         :param a3_server_name: A3 Server Name
         :param a3_node_name: A3 Node Name
         :param a3_login_username: A3 login name to Access A3 UI
@@ -452,12 +475,12 @@ class A3Inventory(A3InventoryWebElements):
         self.utils.print_info("Page Title is : ", a3_page_title)
         return a3_page_title
 
-    def validate_a3_page_after_unlink(self, a3_host_name):
+    def validate_a3_page_after_unlink(self, a3_host_name, **kwargs):
         """
         - This Keyword will validate the A3 page text after Unlinking A3 from XIQ
         - Keyword Usage:
          - ``Validate A3 Page After Unlink      ${A3_HOST_NAME}``
-        :return: 1 if unlinking of A3 to xiq is success
+        :return: 1 or unlink_page_text if unlinking of A3 to xiq is success else -1
         """
         self.navigator.navigate_a3_inventory()
         sleep(2)
@@ -471,11 +494,13 @@ class A3Inventory(A3InventoryWebElements):
             sleep(2)
             return unlink_page_text
         else:
-            if self.search_a3_device(a3_host_name) == 1:
-                self.utils.print_info("A3 page still having the A3 cluster node entries")
-                self.screen.save_screen_shot()
-                sleep(2)
+            if self.search_a3_device(a3_host_name, ignore_failure=True) == 1:
+                kwargs['fail_msg'] = "validate_a3_page_after_unlink() failed. " \
+                                     "A3 page still having the A3 cluster node entries"
+                self.common_validation.failed(**kwargs)
                 return -1
-        return 1
 
+        kwargs['pass_msg'] = "Unlinking of A3 to xiq is success!"
+        self.common_validation.passed(**kwargs)
+        return 1
 

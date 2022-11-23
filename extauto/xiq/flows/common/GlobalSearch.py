@@ -3,11 +3,10 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-
 from extauto.xiq.flows.manage.Devices import Devices
-
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.GlobalSearchWebElements import GlobalSearchWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class GlobalSearch:
@@ -15,13 +14,12 @@ class GlobalSearch:
         self.utils = Utils()
         self.screen = Screen()
         self.auto_actions = AutoActions()
-
         self.devices = Devices()
-
         self.global_web_elements = GlobalSearchWebElements()
         self.devices_web_elements = DevicesWebElements()
+        self.common_validation = CommonValidation()
 
-    def global_search(self, search_value, category, expect_result=""):
+    def global_search(self, search_value, category, expect_result="", **kwargs):
         """
         - This Keyword searches given search string info in global search
         - Flow : Click Global search Box--> Search String
@@ -68,12 +66,16 @@ class GlobalSearch:
                 matched_val = search_match
 
         if expect_result == "None" and matched_val == "":
+            kwargs['fail_msg'] = f"'global_search()' -> Variable 'expect_result' is None"
+            self.common_validation.fault(**kwargs)
             return -2
 
         if matched_val == "":
             self.screen.save_screen_shot()
             sleep(2)
             self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
+            kwargs['fail_msg'] = "'global_search()' -> Value was not found"
+            self.common_validation.failed(**kwargs)
             return -1
         return matched_val
 
@@ -210,36 +212,6 @@ class GlobalSearch:
         self.auto_actions.click_reference(self.global_web_elements.get_close_dialog)
         return app_name, app_cat
 
-    def sim_ap_name(self):
-        """
-        - This Keyword Uses to get AP name and if no AP is present then it onboards the AP and gets its name.
-        - Keyword Usage
-         - ``Sim AP Name``
-
-        :return: Access Point Name
-        """
-      
-        row_text = self.get_sim_ap()
-
-        if row_text != "":
-            res = row_text.split("\n")
-            ap_name = res[0]
-            self.utils.print_info("AP Name is : ", ap_name)
-            return ap_name
-        else:
-            self.utils.print_info("No  Device present.")
-            self.devices.onboard_simulated_device("AP460Cs")
-            
-            self.utils.print_info("Simulated Device Onboarded.")
-            sleep(5)
-
-            row_text = self.get_sim_ap()
-
-            res = row_text.split("\n")
-            ap_name = res[0]
-            self.utils.print_info("AP Name is : ", ap_name)
-            return ap_name
-
     def get_sim_ap(self):
         """
         - This Keyword Gets AP name in Row Text
@@ -256,31 +228,6 @@ class GlobalSearch:
                 row_text = row.text
                 break
         return row_text
-
-    def get_ap_name(self):
-        """
-        - This Keyword Gets AP name and if no AP is present then it onboards the AP and gets its name.
-        - Keyword Usage
-         - ``Get Ap Name``
-
-        :return: Access Point Name
-        """
-        row_text = self.get_ap_row()
-        if row_text != "":
-            res = row_text.split("\n")
-            ap_name = res[0]
-            self.utils.print_info("AP Name is : ", ap_name)
-            return ap_name
-        else:
-            self.utils.print_info("No  Device present.")
-            self.devices.onboard_simulated_device("AP460Cs")
-            self.utils.print_info("Simulated Device Onboarded.")
-            sleep(5)
-            row_text = self.get_ap_row()
-            res = row_text.split("\n")
-            ap_name = res[0]
-            self.utils.print_info("AP Name is : ", ap_name)
-            return ap_name
 
     def get_ap_row(self):
         """

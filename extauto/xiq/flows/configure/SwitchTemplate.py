@@ -6,7 +6,6 @@ from extauto.common.Screen import Screen
 
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
-from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 from extauto.xiq.flows.manage.Tools import Tools
 
 from selenium.webdriver.common.keys import Keys
@@ -22,6 +21,7 @@ from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 import re
 
+
 class SwitchTemplate(object):
 
     def __init__(self):
@@ -31,8 +31,7 @@ class SwitchTemplate(object):
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.np_web_elements = NetworkPolicyWebElements()
-        self.nw_policy = NetworkPolicy()
-        self.legacy_port_type_editor = SwTemplateLegacyPortTypeWebElements();
+        self.legacy_port_type_editor = SwTemplateLegacyPortTypeWebElements()
         self.dev360 = Device360WebElements()
         self.alarm = AlarmsWebElements()
         self.screen = Screen()
@@ -114,7 +113,8 @@ class SwitchTemplate(object):
         self.navigator.navigate_configure_network_policies()
         sleep(1)
 
-        self.nw_policy.select_network_policy_in_card_view(nw_policy)
+        self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
+
         sleep(2)
 
         self.utils.print_info("Click on Device Template tab button")
@@ -1967,7 +1967,7 @@ class SwitchTemplate(object):
         self.navigator.navigate_to_devices()
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
-        if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
+        if self.select_network_policy_in_card_view_using_network_web_elements(nw_policy) == -1:
             self.utils.print_info("Not found the network policy. Make sure that it was created")
             kwargs['fail_msg'] = f"Policy: {nw_policy} has not been found."
             self.screen.save_screen_shot()
@@ -2194,8 +2194,6 @@ class SwitchTemplate(object):
             return 1
         return -1
 
-
-    
     def generate_template_name(self,platform,serial,model, slots = ""):
         """
         This method is to generate template name based on the testbed file given
@@ -2265,3 +2263,1626 @@ class SwitchTemplate(object):
         else:
             self.utils.print_info("Unable to gather the list of the devices in the stack")
             return -1
+
+    def create_switching_network(self, policy, switch_profile, **kwargs):
+        """
+        - Configure switching template options
+        :param policy: name of the policy to create
+        :param switch_profile: used to get options for configuring switching template
+        :return: 1 if exists else -1
+        """
+        sw_template_name = switch_profile.get('switch_template_name')
+        if not sw_template_name:
+            self.utils.print_info()
+            kwargs["fail_msg"] = "Template name required...Unable to continue"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        return_value = self.create_new_switch_template(switch_profile, **kwargs)
+        if return_value == -1:
+            kwargs["fail_msg"] = "Unable to create new switch template"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        return_value = self.select_or_create_port_type(policy, sw_template_name, switch_profile, **kwargs)
+        if return_value == -1:
+            kwargs["fail_msg"] = "Unable to complete configuration of switch template"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Save switch template")
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_save_button_adv_tab)
+        kwargs["pass_msg"] = "Configuring switching template options complete"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def select_network_policy_in_card_view_using_network_web_elements(self, policy_name):
+        """
+        - Selects the existing network polices card view
+
+        :param policy_name: name of the policy to search
+        :return: 1 if exists else -1
+        """
+
+        self.utils.print_info("Selecting Network Policy: ", policy_name)
+
+        self.utils.print_info("Click on Network Policy card view button")
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
+        # sleep(5)
+        self.utils.wait_till(self.np_web_elements.get_network_policy_card_items)
+        policy_cards = self.np_web_elements.get_network_policy_card_items()
+        for policy_card in policy_cards:
+            if policy_name.upper() in policy_card.text.upper():
+                self.utils.print_info(policy_card.text)
+                self.auto_actions.click(self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
+                sleep(4)
+                return 1
+        return -1
+
+    def select_or_create_port_type(self, nw_policy, sw_template, switch_profile, **kwargs):
+        """
+        - Assume that already on the Switch Template
+            :return: Returns 1 if successfully navigates to the Port Configuration Tab
+                     Else returns -1
+        """
+        combo_selected = -1
+        port_details_dictionary = switch_profile.get('port_details')
+        port_details_interface_value = port_details_dictionary.get('interface')
+        port_details_port_type = port_details_dictionary.get('port_type')
+        port_name_and_usage_dictionary = port_details_port_type.get('port_name_and_usage')
+        port_details_port_type_name_value = port_name_and_usage_dictionary.get('name')
+
+        self.utils.print_info("Navigate to  Network Policies menu")
+        self.navigator.navigate_configure_network_policies()
+        self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
+        self.utils.wait_till(self.device_template_web_elements.get_add_device_template_menu)
+
+        self.utils.print_info("Click on Device Template tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_tab_button)
+
+        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        if tab.is_displayed():
+            self.utils.print_info("Click on Switch Templates tab")
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_tab_button)
+            self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
+
+        h_link = self.get_sw_template_row_hyperlink(sw_template)
+        self.auto_actions.click(h_link)
+
+        self.utils.print_info("Click on Port Configuration tab")
+        port_configuration = self.sw_template_web_elements.port_config_template()
+        if port_configuration:
+            self.utils.print_info("The Port Configuration button was found")
+            self.auto_actions.click_reference(self.sw_template_web_elements.port_config_template)
+            self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
+
+        self.utils.print_info("Select port type " + port_details_port_type_name_value + " from list of port types")
+        combo_selected = self._select_port_type(port_details_interface_value, port_details_port_type_name_value)
+        if combo_selected != 1:
+            self.utils.print_info("Port type " + port_details_port_type_name_value + " not found")
+            self.utils.print_info("Attempting to create new Port type " + port_details_port_type_name_value)
+            created = self.create_new_port_type(port_details_interface_value, port_details_port_type_name_value, switch_profile)
+            if created == 1:
+                self.utils.print_info("Make another attempt to select port type " + port_details_port_type_name_value + " from list of port types")
+                combo_selected = self._select_port_type(port_details_interface_value, port_details_port_type_name_value)
+
+        return combo_selected
+
+    def _select_port_type(self, port_details_interface_value, port_details_port_type_value):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+        if port_details_port_type_value and port_details_interface_value:
+            list_of_interface_elements = self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows()
+            if list_of_interface_elements:
+                int_index = -1
+                for an_interface_element in list_of_interface_elements:
+                    int_index = int_index + 1
+                    a_port_string = self.sw_template_web_elements.get_sw_template_port_details_row_interface_value(an_interface_element)
+                    if a_port_string.text == port_details_interface_value:
+                        port_type_element = self.sw_template_web_elements.get_sw_template_port_details_row_combo(an_interface_element)
+                        self.auto_actions.click(port_type_element[int_index])
+                        combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+                        for a_combo_element in combo_box_value_elements:
+                            if a_combo_element.text == port_details_port_type_value:
+                                self.auto_actions.click(a_combo_element)
+                                return 1
+        return -1
+
+    def create_new_port_type(self, port_details_interface_value, port_details_port_type_value, switch_profile, **kwargs):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+
+        self.utils.print_info("Open port type pop up dialog")
+        results = self.open_port_type_pop_up(port_details_interface_value, port_details_port_type_value, switch_profile, **kwargs)
+        if results == -1:
+            self.utils.print_info("Unable to configure new port type")
+            return -1
+
+        self.utils.print_info("Processing Port Name and Usage tab")
+        self.create_new_port_type_port_name_and_usage(port_details_interface_value, port_details_port_type_value, switch_profile, **kwargs)
+
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_next)
+        new_port_type_saved = False
+        prevent_infinite_loop = 10
+
+        active_tab = self._get_active_port_type_tab()
+
+        while not new_port_type_saved and prevent_infinite_loop > 0:
+            prevent_infinite_loop = prevent_infinite_loop - 1
+            # process tab
+            if active_tab == 'unknown':
+                self.utils.print_info("Unable to process current tab")
+            if active_tab == 'port_name_and_usage':
+                self.utils.print_info("Processing the Port Name and Usage tab has already been completed")
+            if active_tab == 'transmission_settings':
+                self.utils.print_info("Processing the Transmission Settings tab")
+                self.create_new_port_type_transmission_settings(port_details_interface_value,
+                                                              port_details_port_type_value, switch_profile, **kwargs)
+            if active_tab == 'storm_control':
+                self.utils.print_info("Processing the Storm Control tab")
+                self.create_new_port_type_storm_control(port_details_interface_value,
+                                                                port_details_port_type_value, switch_profile, **kwargs)
+            if active_tab == 'vlan':
+                self.utils.print_info("Processing the Vlan tab")
+                self.create_new_port_type_vlan(port_details_interface_value,
+                                                        port_details_port_type_value, switch_profile, **kwargs)
+            if active_tab == 'stp':
+                self.utils.print_info("Processing the STP tab")
+                self.create_new_port_type_stp(port_details_interface_value,
+                                                        port_details_port_type_value, switch_profile, **kwargs)
+            if active_tab == 'summary':
+                self.utils.print_info("Processing the Summary tab")
+                self.utils.print_info("Saving New Port Type")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_save)
+                new_port_type_saved = True
+
+            if not new_port_type_saved:
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_next)
+                sleep(2)
+                active_tab = self._get_active_port_type_tab()
+
+        if new_port_type_saved:
+            return 1
+        else:
+            return -1
+
+    def create_new_switch_template(self, wireless_network_conf, **kwargs):
+        """
+        - Assume that the network policy has already been selected
+            :param wireless_network_conf: Dictionary contains information needed to configure templates
+            :return: Returns 1 if configuration is successful
+                     Else Returns -1
+        """
+        device_model = wireless_network_conf.get('device_model')
+        switch_template_name = wireless_network_conf.get('switch_template_name')
+
+        self.utils.print_info("Click on  Device Templates tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_tab_button)
+
+        self.utils.print_info("Click on  Switch Templates tab")
+        self.auto_actions.click(self.sw_template_web_elements.get_sw_template_tab_button())
+
+        self.utils.print_info("Click on Select button/drop down")
+        select_button = self.sw_template_web_elements.get_device_switch_select_button()
+        if not select_button:
+            self.utils.print_info("Unable to locate select button")
+            return -1
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_device_switch_select_button)
+
+        self.utils.print_info("Enter " + switch_template_name + " into the Search text field")
+        filter_text = self.sw_template_web_elements.get_sw_template_selection_search_textfield()
+        if not filter_text:
+            kwargs["fail_msg"] = "Unable to locate the search text field"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.send_keys(filter_text, switch_template_name)
+
+        self.utils.print_info("Click on Search button")
+        search_button = self.sw_template_web_elements.get_sw_template_selection_search_button()
+        if not search_button:
+            kwargs["fail_msg"] = "Unable to locate search button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_search_button)
+
+        self.utils.print_info("Attempting to locate Device Template table")
+        search_table = self.sw_template_web_elements.get_sw_template_selection_grid()
+        if not search_table:
+            kwargs["fail_msg"] = "Unable to locate table"
+            self.common_validation.failed(**kwargs)
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_cancel_button)
+            return -1
+
+        self.utils.print_info("Verify that switch template " +  switch_template_name + " does not exist")
+        search_table_rows = self.sw_template_web_elements.get_sw_template_table_rows(search_table)
+        if search_table_rows:
+            kwargs["fail_msg"] = "Switch template already exist"
+            self.common_validation.failed(**kwargs)
+            self.auto_actions.click(search_table_rows)
+            return -1
+
+        self.utils.print_info("Switch template does NOT exist")
+        self.utils.print_info("Close Device Template Pop-up Window")
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_selection_cancel_button)
+
+        self.utils.print_info("Clicking Add button")
+        add_button = self.device_template_web_elements.get_switch_template_add_button()
+        if not add_button:
+            kwargs["fail_msg"] = "Unable to locate add button"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_add_button)
+
+        self.utils.print_info("Enter " + device_model + " into filter text field")
+        device_switch_filter_text = self.device_template_web_elements.get_device_switch_template_menue_filter()
+        if not device_switch_filter_text:
+            kwargs["fail_msg"] = "Unable to locate filter text field"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.send_keys(device_switch_filter_text, device_model)
+        sleep(4)
+
+        self.utils.print_info("Select " + device_model + "from the model list")
+        device_switch_template_list = self.device_template_web_elements.get_switch_template_platform_from_drop_down()
+        if not device_switch_template_list:
+            kwargs["fail_msg"] = "Unable to get switch template list"
+            self.common_validation.failed(**kwargs)
+            return -1
+        sleep(4)
+        for dev_sw_templ in device_switch_template_list:
+            self.auto_actions.click(dev_sw_templ)
+
+        self.utils.print_info("Enter " + switch_template_name + " into the name field")
+        switch_template_name_field = self.sw_template_web_elements.get_sw_template_adv_tab_textfield()
+        if not switch_template_name_field:
+            kwargs["fail_msg"] = "Unable to locate filter text field"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.auto_actions.send_keys(switch_template_name_field, switch_template_name)
+
+        result = self.configure_switch_template_spanning_tree(wireless_network_conf, **kwargs)
+        if result == -1:
+            kwargs["fail_msg"] = "Unable to configure spanning tree values"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        result = self.configure_switch_igmp_setting(wireless_network_conf, **kwargs)
+        if result == -1:
+            kwargs["fail_msg"] = "Unable to configure igmp values"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        result = self.configure_switch_template_mtu_setting(wireless_network_conf, **kwargs)
+        if result == -1:
+            kwargs["fail_msg"] = "Unable to configure mtu values"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Save switch template")
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_save_button_adv_tab)
+        kwargs["pass_msg"] = "Switch template has been saved"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def configure_switch_template_spanning_tree(self, wireless_network_conf, **kwargs):
+        """
+        - Assume that the network policy has already been selected
+            :param wireless_network_conf: Dictionary contains information needed to configure templates
+            :return: Returns 1 if configuration is successful
+                     Else Returns -1
+        """
+
+        device_model = wireless_network_conf.get('device_model')
+        switch_template_name = wireless_network_conf.get('switch_template_name')
+
+        # spanning tree
+        spanning_dictionary = wireless_network_conf.get('stp_config')
+        if not spanning_dictionary:
+            kwargs["pass_msg"] = "No spanning data in the dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        span_tree_mode_value = spanning_dictionary.get('stp_mode')
+
+        span_tree_mode_web_element = self.sw_template_web_elements.get_sw_template_enable_spanningtree()
+        if not span_tree_mode_web_element:
+            kwargs["fail_msg"] = "Unable to locate spanning tree mode button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        if span_tree_mode_value.lower() == 'on' and not span_tree_mode_web_element.is_selected():
+            self.utils.print_info("Turning spanning tree mode ON")
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_spanningtree)
+
+        if span_tree_mode_value.lower() == 'off' and span_tree_mode_web_element.is_selected():
+            self.utils.print_info("Turning spanning tree mode OFF")
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_spanningtree)
+
+        if span_tree_mode_web_element.is_selected():
+            span_tree_protocol_value = ''
+            span_tree_bridge_priority_value = ''
+            span_tree_forward_delay_value = ''
+            span_tree_max_age_value = ''
+
+            span_tree_protocol_value = spanning_dictionary.get('stp_protocol')
+
+            if span_tree_protocol_value:
+                self.utils.print_info("Configuring Spanning Tree Protocol options")
+                if span_tree_protocol_value.lower() == 'stp':
+                    self.utils.print_info("Selecting STP option button")
+                    stp_web_element = self.sw_template_web_elements.get_sw_template_enable_stp()
+                    if not stp_web_element:
+                        kwargs["fail_msg"] = "Unable to locate spanning tree protocol STP option button"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_stp)
+
+                if span_tree_protocol_value.lower() == 'rstp':
+                    self.utils.print_info("Selecting RSTP(Rapid STP) option button")
+                    stp_web_element = self.sw_template_web_elements.get_sw_template_enable_rstp()
+                    if not stp_web_element:
+                        kwargs["fail_msg"] = "Unable to locate spanning tree protocol RSTP option button"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_rstp)
+
+                if span_tree_protocol_value.lower() == 'mstp':
+                    self.utils.print_info("Selecting MSTP(Multiple STP) option button")
+                    stp_web_element = self.sw_template_web_elements.get_sw_template_enable_mstp()
+                    if not stp_web_element:
+                        kwargs["fail_msg"] = "Unable to locate spanning tree protocol MSTP option button"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_mstp)
+
+            span_tree_bridge_priority_value = spanning_dictionary.get('stp_bridge_priority')
+            if span_tree_bridge_priority_value:
+                span_tree_bridge_priority_element = self.sw_template_web_elements.priority_dropdown()
+                if not span_tree_bridge_priority_element:
+                    kwargs["fail_msg"] = "Unable to locate spanning tree priority option drop down"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                self.auto_actions.click(span_tree_bridge_priority_element)
+                span_tree_bridge_priority_element_container = self.sw_template_web_elements.get_priority_items_select_container()
+                span_tree_bridge_priority_element_list = self.sw_template_web_elements.priority_items(span_tree_bridge_priority_element_container)
+
+                for priority_option in span_tree_bridge_priority_element_list:
+                    if priority_option.text == span_tree_bridge_priority_value:
+                        self.auto_actions.click(priority_option)
+                        break
+
+            span_tree_forward_delay_value = spanning_dictionary.get('stp_forward_delay')
+            if span_tree_forward_delay_value:
+                span_tree_forward_delay_element = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items()
+                if not span_tree_forward_delay_element:
+                    kwargs["fail_msg"] = "Unable to locate spanning tree forward delay drop down"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                self.auto_actions.click(span_tree_forward_delay_element)
+                span_tree_forward_delay_container = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items_container()
+                span_tree_forward_delay_element_all_items = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_items_all_items(span_tree_forward_delay_container)
+
+                for span_tree_forward_delay_option in span_tree_forward_delay_element_all_items:
+                    if span_tree_forward_delay_option.get_attribute('textContent') == span_tree_forward_delay_value:
+                        self.auto_actions.click(span_tree_forward_delay_option)
+                        break
+
+            span_tree_max_age_value = spanning_dictionary.get('stp_max_age')
+            if span_tree_max_age_value:
+                span_tree_max_age_element = self.sw_template_web_elements.get_sw_template_device_max_age_drop_down_items()
+                if not span_tree_max_age_element:
+                    kwargs["fail_msg"] = "Unable to locate spanning tree max age drop down"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                self.auto_actions.click(span_tree_max_age_element)
+                span_tree_max_age_container = self.sw_template_web_elements.get_sw_template_device_max_age_delay_items_container()
+                span_tree_max_age_element_all_items = self.sw_template_web_elements.get_sw_template_device_max_age_drop_down_all_items(span_tree_max_age_container)
+
+                for span_tree_max_age_option in span_tree_max_age_element_all_items:
+                    if span_tree_max_age_option.get_attribute('textContent') == span_tree_max_age_value:
+                        self.auto_actions.click(span_tree_max_age_option)
+                        break
+
+        kwargs["pass_msg"] = "Spanning tree configuration was successful"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def configure_switch_igmp_setting(self, wireless_network_conf, **kwargs):
+        """
+        - Assume that the network policy has already been selected
+            :param wireless_network_conf: Dictionary contains information needed to configure templates
+            :return: Returns 1 if configuration is successful
+                     Else Returns -1
+        """
+
+        igmp_dictionary = wireless_network_conf.get('igmp_setting')
+        if not igmp_dictionary:
+            kwargs["pass_msg"] = "No igmp data in the dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        igmp_snooping_value = igmp_dictionary.get('igmp_snooping')
+        enable_immediate_leave_value = igmp_dictionary.get('enable_immediate_leave')
+        supress_redundant_value = igmp_dictionary.get('supress_redundant')
+
+        igmp_snooping_value_element = self.sw_template_web_elements.get_switch_template_device_configuration_igmp_settings()
+        if not igmp_snooping_value_element:
+            kwargs["fail_msg"] = "Unable to locate IGMP mode button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Configuring IGMP Settings")
+        if igmp_snooping_value.lower() == 'on' and not igmp_snooping_value_element.is_selected():
+            self.utils.print_info("Turning igmp snooping ON")
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_settings)
+
+        if igmp_snooping_value.lower() == 'off' and igmp_snooping_value_element.is_selected():
+            self.utils.print_info("Turning igmp snooping OFF")
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_settings)
+
+        if igmp_snooping_value_element.is_selected():
+
+            if enable_immediate_leave_value:
+                enable_immediate_leave_element = self.sw_template_web_elements.get_switch_template_device_configuration_igmp_immediate_leave()
+                if not enable_immediate_leave_element:
+                    kwargs["fail_msg"] = "Unable to locate igmp immediate leave option button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                if enable_immediate_leave_value.lower() == 'enable' and not enable_immediate_leave_element.is_selected():
+                    self.utils.print_info("Enabling IGMP Immediate Leave")
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_immediate_leave)
+                if enable_immediate_leave_value.lower() != 'enable' and enable_immediate_leave_element.is_selected():
+                    self.utils.print_info("Disabling IGMP Immediate Leave")
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_immediate_leave)
+
+            if supress_redundant_value:
+                supress_redundant_value_element = self.sw_template_web_elements.get_switch_template_device_configuration_igmp_suppress_independent()
+                if not supress_redundant_value_element:
+                    kwargs["fail_msg"] = "Unable to locate igmp suppress independent option button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                if supress_redundant_value == 'enable' and not supress_redundant_value_element.is_selected():
+                    self.utils.print_info("Enabling IGMP Suppress Independent Membership")
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_suppress_independent)
+                if supress_redundant_value != 'enable' and supress_redundant_value_element.is_selected():
+                    self.utils.print_info("Disabling IGMP Suppress Independent Membership")
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_igmp_suppress_independent)
+
+        kwargs["pass_msg"] = "Configuration of IGMP setting complete"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def configure_switch_template_mtu_setting(self, wireless_network_conf, **kwargs):
+        """
+        - Assume that the network policy has already been selected
+            :param wireless_network_conf: Dictionary contains information needed to configure templates
+            :return: Returns 1 if configuration is successful
+                     Else Returns -1
+        """
+
+        mtu_value = wireless_network_conf.get('mtu')
+        if mtu_value:
+            self.utils.print_info("Configuring MTU Values")
+
+        if mtu_value == '1522':
+            mtu_element = self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1522()
+            if not mtu_element:
+                kwargs["fail_msg"] = "Unable to locate MTU 1522 radio button"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1522)
+
+        if mtu_value == '1950':
+            mtu_element = self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1950()
+            if not mtu_element:
+                kwargs["fail_msg"] = "Unable to locate MTU 1950 radio button"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_mtu_1950)
+
+        if mtu_value == '9600':
+            mtu_element = self.sw_template_web_elements.get_switch_template_device_configuration_mtu_9600()
+            if not mtu_element:
+                kwargs["fail_msg"] = "Unable to locate MTU 9600 radio button"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_template_device_configuration_mtu_9600)
+
+        return 1
+
+    def open_port_type_pop_up(self, port_details_interface_value, port_details_port_type_value, switch_profile, **kwargs):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+        if port_details_port_type_value and port_details_interface_value:
+            list_of_interface_elements = self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows()
+            if list_of_interface_elements:
+                for an_interface_element in list_of_interface_elements:
+                    a_port_string = self.sw_template_web_elements.get_sw_template_port_details_row_interface_value(an_interface_element)
+                    if a_port_string.text == port_details_interface_value:
+                        add_button = self.sw_template_web_elements.get_port_details_row_add_button(an_interface_element)
+                        self.auto_actions.click(add_button)
+                        sleep(4)
+                        kwargs["pass_msg"] = "Configuration of IGMP setting complete"
+                        self.common_validation.passed(**kwargs)
+                        return 1
+
+        kwargs["fail_msg"] = "Unable to open port type pop-up"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def create_new_port_type_port_name_and_usage(self, port_details_interface_value, port_type_name, switch_profile, **kwargs):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+
+        port_type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
+
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        if not port_type_dictionary:
+            kwargs["pass_msg"] = "No port details data in the dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        port_name_and_usage_dictionary = port_type_dictionary.get('port_name_and_usage')
+        status_value = port_name_and_usage_dictionary.get('status')
+        auto_sense_value = port_name_and_usage_dictionary.get('auto_sense')
+        access_value = port_name_and_usage_dictionary.get('access_port')
+        trunk_value = port_name_and_usage_dictionary.get('trunk_port')
+        description_value = port_name_and_usage_dictionary.get('description')
+
+        description_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_description()
+        status_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status()
+        auto_sense_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_auto_sense_status()
+        access_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_access()
+        trunk_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_trunk()
+        type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
+
+        if port_type_name:
+            if not type_name_field:
+                kwargs["fail_msg"] = "Unable to locate name field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.send_keys(type_name_field, port_type_name)
+        if description_value:
+            if not description_element:
+                kwargs["fail_msg"] = "Unable to locate description field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.send_keys(description_element, description_value)
+        if status_value:
+            if not status_element:
+                kwargs["fail_msg"] = "Unable to locate status field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if status_value.lower() == 'on' and not status_element.is_selected():
+                self.utils.print_info("Clicking status button to ON")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status)
+            if status_value.lower() == 'off' and status_element.is_selected():
+                self.utils.print_info("Clicking status button to OFF")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status)
+        if auto_sense_value:
+            if not auto_sense_element:
+                kwargs["fail_msg"] = "Unable to locate auto sense field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if auto_sense_value.lower() == 'on' and not auto_sense_element.is_selected():
+                self.utils.print_info("Clicking status button to ON")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_auto_sense_status)
+            if auto_sense_value.lower() == 'off' and auto_sense_element.is_selected():
+                self.utils.print_info("Clicking status button to OFF")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_auto_sense_status)
+        if access_value:
+            if not access_element:
+                kwargs["fail_msg"] = "Unable to locate access field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if access_value.lower() == 'enable' and not access_element.is_selected():
+                self.utils.print_info("Clicking access port option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_access)
+        if trunk_value:
+            if not trunk_element:
+                kwargs["fail_msg"] = "Unable to locate trunk field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if trunk_value.lower() == 'enable' and not trunk_element.is_selected():
+                self.utils.print_info("Clicking trunk port option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_trunk)
+
+        kwargs["pass_msg"] = "Able to configure new port type (port name and usage)"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def _get_active_port_type_tab(self):
+        """
+        - Assume that already on the Port Type Popup
+            :return: Returns string representing the active tab (if known)
+                     Else returns unknown
+        """
+
+        port_usage_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_port_name_and_usage_tab()
+        trans_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_transmission_tab()
+        storm_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_storm_control_tab()
+        summary_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_summary_tab()
+        vlan_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_vlan_tab()
+        stp_tab = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_stp_tab()
+
+        results = port_usage_tab.get_attribute('class')
+        if 'active' in results:
+            return 'port_name_and_usage'
+
+        results = trans_tab.get_attribute('class')
+        if 'active' in results:
+            return 'transmission_settings'
+
+        results = storm_tab.get_attribute('class')
+        if 'active' in results:
+            return 'storm_control'
+
+        results = summary_tab.get_attribute('class')
+        if 'active' in results:
+            return 'summary'
+
+        results = vlan_tab.get_attribute('class')
+        if 'active' in results:
+            return 'vlan'
+
+        results = stp_tab.get_attribute('class')
+        if 'active' in results:
+            return 'stp'
+
+        return 'unknown'
+
+    def create_new_port_type_transmission_settings(self, port_details_interface_value, port_details_port_type_value, switch_profile, **kwargs):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        transmission_setting_dictionary = port_type_dictionary.get('transmission_setting')
+        if not transmission_setting_dictionary:
+            kwargs["pass_msg"] = "No transmission setting data in dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        type_value = transmission_setting_dictionary.get('type')
+        speed_value = transmission_setting_dictionary.get('speed')
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow, timeout=20, delay=4)
+        duplex_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow()
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow,
+                             timeout=20, delay=4)
+        speed_arrow_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow()
+        if type_value:
+            if not duplex_arrow_element:
+                kwargs["fail_msg"] = "Unable to locate duplex field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.utils.print_info("Selecting " + type_value + " option in the duplex combo box")
+
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(duplex_arrow_element),
+                exp_func_resp=True,
+                delay=4
+            )
+            combo_box_value_container = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_options_container()
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_duplex_arrow_options(combo_box_value_container)
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == type_value:
+                    self.auto_actions.click(a_combo_element)
+        if speed_value:
+            if not speed_arrow_element:
+                kwargs["fail_msg"] = "Unable to locate speed field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.utils.print_info("Selecting " + speed_value + " option in the speed combo box")
+
+            self.utils.wait_till(
+                func=lambda: self.auto_actions.click(speed_arrow_element),
+                exp_func_resp=True,
+                delay=4
+            )
+            combo_box_value_container = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_options_container()
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_speed_arrow_options(combo_box_value_container)
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == speed_value:
+                    self.auto_actions.click(a_combo_element)
+
+        kwargs["pass_msg"] = "Able to configure new port type (transmission settings)"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def create_new_port_type_vlan(self, port_details_interface_value, port_details_port_type_value, switch_profile, **kwargs):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        if not port_type_dictionary:
+            kwargs["pass_msg"] = "No port type data in dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        vlan_dictionary = port_type_dictionary.get('vlan')
+        if not vlan_dictionary:
+            kwargs["pass_msg"] = "No vlan data in dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        native_vlan_value = vlan_dictionary.get('native_vlan')
+        allowed_vlans_value = vlan_dictionary.get('allowed_vlans')
+        native_vlan_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_description()
+        allowed_vlans_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_status()
+
+        if native_vlan_value:
+            if not native_vlan_element:
+                kwargs["fail_msg"] = "Unable to locate native vlan field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.send_keys(native_vlan_element, native_vlan_value)
+
+        if allowed_vlans_value:
+            if not allowed_vlans_element:
+                kwargs["fail_msg"] = "Unable to locate allowed vlan field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.click(allowed_vlans_element)
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == port_details_port_type_value:
+                    self.auto_actions.click(a_combo_element)
+
+        kwargs["pass_msg"] = "Able to configure new port type (vlan)"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def create_new_port_type_storm_control(self, port_details_interface_value, port_details_port_type_value,
+                                           switch_profile, **kwargs):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        if not port_type_dictionary:
+            kwargs["pass_msg"] = "No port type data in dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        storm_control_dictionary = port_type_dictionary.get('storm_control')
+        if not storm_control_dictionary:
+            kwargs["pass_msg"] = "No storm control data in dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        broadcast_value = storm_control_dictionary.get('broadcast')
+        unicast_value = storm_control_dictionary.get('unicast')
+        multicast_value = storm_control_dictionary.get('multicast')
+        rate_limit_value = storm_control_dictionary.get('rate_limit_value')
+
+        sc_broadcast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast()
+        sc_unicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast()
+        sc_multicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast()
+        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+        sc_rate_limit_type_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
+        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+        sc_rate_limit_value_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_value()
+
+        if broadcast_value:
+            if not sc_broadcast_element:
+                kwargs["fail_msg"] = "Unable to locate broadcast field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if broadcast_value.lower() == 'enable' and not sc_broadcast_element.is_selected():
+                self.utils.print_info("Enabling broadcast option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast)
+            if broadcast_value.lower() == 'disable' and sc_broadcast_element.is_selected():
+                self.utils.print_info("Disabling broadcast option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast)
+
+        if unicast_value:
+            if not sc_unicast_element:
+                kwargs["fail_msg"] = "Unable to locate unicast field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if unicast_value.lower() == 'enable' and not sc_unicast_element.is_selected():
+                self.utils.print_info("Enabling unicast option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast)
+            if unicast_value.lower() == 'disable' and sc_unicast_element.is_selected():
+                self.utils.print_info("Disabling unicast option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast)
+
+        if multicast_value:
+            if not sc_multicast_element:
+                kwargs["fail_msg"] = "Unable to locate multicast field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if multicast_value.lower() == 'enable' and not sc_multicast_element.is_selected():
+                self.utils.print_info("Enabling multicast option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast)
+            if multicast_value.lower() == 'disable' and sc_multicast_element.is_selected():
+                self.utils.print_info("Disabling multicast option")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast)
+
+        if rate_limit_value:
+            if not sc_rate_limit_value_element:
+                kwargs["fail_msg"] = "Unable to locate rate limit field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.utils.print_info("Setting rate limit value to " + rate_limit_value)
+            self.auto_actions.send_keys(sc_rate_limit_value_element, rate_limit_value)
+
+        kwargs["pass_msg"] = "Able to configure new port type (storm control)"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def create_new_port_type_stp(self, port_details_interface_value, port_details_port_type_value,
+                                           switch_profile, **kwargs):
+        """
+        - Assume that already on the Switch Template (Port Configuration)
+            :return: Returns 1 if successfully navigates to the Port Details Tab
+                     Else returns -1
+        """
+
+        port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
+        if not port_type_dictionary:
+            kwargs["pass_msg"] = "No port type data in dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        port_type_stp_dictionary = port_type_dictionary.get('port_type_stp_config')
+        if not port_type_stp_dictionary:
+            kwargs["pass_msg"] = "No stp data in dictionary"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        stp_enabled_value = port_type_stp_dictionary.get('stp_enabled')
+        edge_port_value = port_type_stp_dictionary.get('edge_port')
+        bpdu_protection_value = port_type_stp_dictionary.get('bpdu_protection')
+        priority_value = port_type_stp_dictionary.get('priority')
+        path_cost_value = port_type_stp_dictionary.get('path_cost')
+
+        stp_enabled_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_stp_enable()
+        edge_port_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable()
+        bpdu_protection_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_bdu_protection()
+        priority_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_priority()
+        path_cost_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_path_cost()
+
+        if stp_enabled_value:
+            if not stp_enabled_element:
+                kwargs["fail_msg"] = "Unable to locate stp enable field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if stp_enabled_value.lower() == 'on' and not stp_enabled_element.is_selected():
+                self.utils.print_info("Turning STP Enabled on")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_stp_enable)
+            if stp_enabled_value.lower() == 'off' and stp_enabled_element.is_selected():
+                self.utils.print_info("Turning STP Enabled off")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_stp_enable)
+
+        if edge_port_value:
+            if not edge_port_element:
+                kwargs["fail_msg"] = "Unable to locate edge port field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            if edge_port_value.lower() == 'enable' and not edge_port_element.is_selected():
+                self.utils.print_info("Turning Edge Port on")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable)
+            if edge_port_value.lower() == 'disable' and edge_port_element.is_selected():
+                self.utils.print_info("Turning Edge Port off")
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable)
+
+        if path_cost_value:
+            if not path_cost_element:
+                kwargs["fail_msg"] = "Unable to locate port cost field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.send_keys(path_cost_element, path_cost_value)
+
+        if bpdu_protection_value:
+            if not bpdu_protection_element:
+                kwargs["fail_msg"] = "Unable to locate bdu protection field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_bdu_protection)
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == port_details_port_type_value:
+                    self.auto_actions.click(a_combo_element)
+        if priority_value:
+            if not priority_element:
+                kwargs["fail_msg"] = "Unable to locate priority field"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_spanning_tree_priority)
+            combo_box_value_elements = self.sw_template_web_elements.get_sw_template_port_details_row_port_type_list()
+            for a_combo_element in combo_box_value_elements:
+                if a_combo_element.text == port_details_port_type_value:
+                    self.auto_actions.click(a_combo_element)
+
+        kwargs["pass_msg"] = "Able to configure new port type (stp)"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def verify_upload_config_auto_button(self, option="OFF", **kwargs):
+        """
+        This function is used to verify the `Upload configuration automatically` button from Advanced Settings tab
+        based on an option given as parameter
+        :param option: name of policy
+        :return: 1 - if the button is equal with option was successful ; -1 - if not
+        """
+        verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg()
+
+        if not verify_upload_cfg_auto:
+            kwargs["fail_msg"] = "Failed to get the verify_upload_cfg_auto button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the verify_upload_cfg_auto button"
+        self.common_validation.passed(**kwargs)
+
+        verify_upload_cfg_auto = verify_upload_cfg_auto.is_selected()
+
+        if not verify_upload_cfg_auto and option == "OFF":
+            kwargs["pass_msg"] = "Auto configuration button is on OFF!"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        elif verify_upload_cfg_auto and option == "ON":
+            kwargs["pass_msg"] = "Auto configuration button is on ON!"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        kwargs["fail_msg"] = "Auto configuration button is not in the expected state"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def verify_enable_auto_revert_option(self, **kwargs):
+        """
+        This function is used to verify if the `Reboot and revert Extreme Networks switch configuration if IQAgent is
+        unresponsive after configuration update.` button from Advanced Settings tab is present or not
+        :return: 1 - if the button is present ; -1 - if not
+        """
+        enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
+
+        if not enable_auto_revert or not enable_auto_revert.is_displayed():
+            kwargs["fail_msg"] = "Enable Auto Revert button is not present!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Enable Auto Revert button is present!"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def set_upload_config_auto_button(self, **kwargs):
+        """
+        This function is used to set the `Upload configuration automatically` button from Advanced Settings tab
+        :return: 1 - if the button is set successfully ; -1 - if not
+        """
+        verify_upload_cfg_auto = self.sw_template_web_elements.get_sw_template_auto_cfg()
+
+        if not verify_upload_cfg_auto:
+            kwargs["fail_msg"] = "Failed to get the verify_upload_cfg_auto button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully got the verify_upload_cfg_auto button"
+        self.common_validation.passed(**kwargs)
+
+        verify_upload_cfg_auto_is_selected = verify_upload_cfg_auto.is_selected()
+
+        if not verify_upload_cfg_auto_is_selected:
+            kwargs["pass_msg"] = "Auto configuration button is by default on OFF!"
+            self.common_validation.passed(**kwargs)
+
+        else:
+            kwargs["fail_msg"] = "Auto configuration button is already on ON!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on Upload configuration automatically button")
+        if self.auto_actions.click(verify_upload_cfg_auto) != 1:
+            kwargs["fail_msg"] = "Failed to click the verify_upload_cfg_auto button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked on the verify_upload_cfg_auto button"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def check_text_enable_auto_revert_option(self, **kwargs):
+        """
+        This function is used to verify the `Reboot and revert Extreme Networks switch configuration if IQAgent is
+        unresponsive after configuration update.` button text from Advanced Settings tab based on an option given as
+        parameter
+        :return: 1 - if the button text is the one expected ; -1 - if not
+        """
+        enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg()
+
+        if not enable_auto_revert_message:
+            kwargs["fail_msg"] = "Failed to get enable_auto_revert_message element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully got the enable_auto_revert_message element"
+        self.common_validation.passed(**kwargs)
+
+        enable_auto_revert_message = enable_auto_revert_message.text
+
+        if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
+                                            "unresponsive after configuration update.":
+            kwargs["fail_msg"] = f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        return 1
+
+    def set_enable_auto_revert_option(self, **kwargs):
+        """
+        This function is used to set/check the `Reboot and revert Extreme Networks switch configuration if IQAgent is
+        unresponsive after configuration update.` button under the `Upload configuration automatically` button
+        from Advanced Settings tab
+        :return: 1 - if the button is set successfully ; -1 - if not
+        """
+        enable_auto_revert_message = self.sw_template_web_elements.get_sw_template_auto_revert_msg()
+
+        if not enable_auto_revert_message:
+            kwargs["fail_msg"] = "Failed to get enable_auto_revert_message element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully got the enable_auto_revert_message element"
+        self.common_validation.passed(**kwargs)
+
+        enable_auto_revert_message = enable_auto_revert_message.text
+
+        if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
+                                            "unresponsive after configuration update.":
+            kwargs["fail_msg"] = f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
+
+        if not enable_auto_revert:
+            kwargs["fail_msg"] = "Enable Auto Revert button is not present!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Enable Auto Revert button is present!"
+        self.common_validation.passed(**kwargs)
+
+        if not enable_auto_revert.is_selected():
+            kwargs["pass_msg"] = "Enable Auto Revert button is by default unchecked!"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs["fail_msg"] = "Enable Auto Revert button is already checked!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on Enable Auto Revert button")
+        if self.auto_actions.click(enable_auto_revert) != 1:
+            kwargs["fail_msg"] = "Failed to click the enable_auto_revert button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the enable_auto_revert button"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def save_template_with_popup(self, **kwargs):
+        """
+        This function is used to save the current device template with a pop-up displayed
+        :return: 1 - if the save was successful ; -1 - if not
+        """
+        save_template_button = self.sw_template_web_elements.get_switch_temp_save_button()
+
+        if not save_template_button.is_displayed():
+            kwargs["fail_msg"] = "SAVE button is not displayed"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully found the SAVE button"
+        self.common_validation.passed(**kwargs)
+
+        self.utils.print_info("Click on SAVE button")
+        if self.auto_actions.click(save_template_button) != 1:
+            kwargs["fail_msg"] = "Failed to click the SAVE button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the SAVE button"
+        self.common_validation.passed(**kwargs)
+
+        sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
+
+        if not sw_yes_button or not sw_yes_button.is_displayed():
+            kwargs["fail_msg"] = "YES button is not displayed"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on SAVE button")
+        if self.auto_actions.click(sw_yes_button) != 1:
+            kwargs["fail_msg"] = "Failed to click the sw_yes_button button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the sw_yes_button button"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+
+    def click_on_port_details_tab(self, **kwargs):
+        """Method that click on the STP port details button in the Template Configuration
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        stp_tab_button, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_port_details_tab,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if stp_tab_button is None:
+            kwargs["fail_msg"] = "Failed to get the STP port details button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the STP port details button")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(stp_tab_button),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res == 1:
+            kwargs["pass_msg"] = "Successfully clicked the STP port details button"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        kwargs["fail_msg"] = "Failed to click the STP port details button"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def revert_port_configuration_template_level(self, port_type, **kwargs):
+        """Method that reverts all the ports to a specific port type.
+
+        Args:
+            port_type (str): the port type name
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        try:
+            select_all_ports, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.all_ports_selected,
+                silent_failure=True,
+                exp_func_resp=True
+            )
+
+            if not select_all_ports:
+                kwargs["fail_msg"] = "Failed to get the select_all_ports button"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the select_all_ports button")
+
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(select_all_ports),
+                exp_func_resp=True,
+                delay=4
+            )
+            if res == 1:
+                self.utils.print_info("Successfully clicked the select_all_ports button")
+            else:
+                kwargs["fail_msg"] = "Failed to click the select_all_ports button"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            assign_to_all_ports_selected, _ = self.utils.wait_till(
+                func=
+                self.sw_template_web_elements.assign_all_ports_selected,
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            )
+
+            if not assign_to_all_ports_selected:
+                kwargs["fail_msg"] = "Failed to get the assign_to_all_ports_selected button"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
+            self.utils.print_info("Successfully got the assign_to_all_ports_selected button")
+            
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(assign_to_all_ports_selected),
+                exp_func_resp=True,
+                delay=4
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the assign_to_all_ports_selected button"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
+            self.utils.print_info("Successfully clicked the assign_to_all_ports_selected button")
+
+            assign_button, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_assign_choose_existing,
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            )
+
+            if not assign_button:
+                kwargs["fail_msg"] = "Failed to get the assign_button button"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the assign_button button")
+
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(assign_button),
+                exp_func_resp=True,
+                delay=4
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the assign_button button"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully clicked the assign_button button")
+
+            radio_buttons, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_all_port_type_list_radio,
+                silent_failure=True,
+                exp_func_resp=True,
+                timeout=40,
+                delay=5
+            )
+
+            if not radio_buttons:
+                kwargs["fail_msg"] = "Failed to get the radio_buttons"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the radio_buttons")
+
+            radio_buttons_labels, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_all_port_type_list_label,
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+
+            )
+
+            if not radio_buttons_labels:
+                kwargs["fail_msg"] = "Failed to get the radio_buttons_labels"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the radio_buttons_labels")
+
+            for btn, label in zip(radio_buttons, radio_buttons_labels):
+                if label.text == port_type:
+                    self.utils.wait_till(
+                        func=lambda: self.auto_actions.click(btn),
+                        exp_func_resp=True,
+                        delay=4
+                    )
+                    break
+            else:
+                kwargs["fail_msg"] = "Failed to find the correct button for port type"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            kwargs["pass_msg"] = "Successfully reverted the port configuration"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        finally:
+
+            save_button, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_port_type_list_save_button,
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            )
+
+            if save_button:
+                self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(save_button),
+                    exp_func_resp=True,
+                    silent_failure=True
+                )
+
+    def click_on_stp_tab(self, **kwargs):
+        """Method that click on the STP tab in the Template Configuration page
+
+            Returns:
+                int: 1 if the function call has succeeded else -1
+        """
+        stp_tab_button, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_stp_tab,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if not stp_tab_button:
+            kwargs["fail_msg"] = "Failed to get the STP tab button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the STP tab button")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(stp_tab_button),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=4
+        )
+
+        if res == 1:
+            kwargs["pass_msg"] = "Successfully clicked the STP tab button"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        kwargs["fail_msg"] = "Failed to click the STP tab button"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def get_stp_port_configuration_rows(self, **kwargs):
+        """Method that returns the port configuration rows in the Template Configuration page
+
+        Returns:
+            list: a list that contains all the STP port configuration rows
+        """
+        rows, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_stp_port_rows,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if not rows:
+            kwargs["fail_msg"] = "Failed to get the STP port configuration rows"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully got the STP port configuration rows"
+        self.common_validation.passed(**kwargs)
+        return rows
+
+    def get_stp_port_configuration_row(self, port, **kwargs):
+        """Method that returns a specific STP port configuration row based on the given port value.
+
+        Args:
+            port (string): the port of the switch
+
+        Returns:
+            _type_: the STP row configuration of the given port
+        """
+        rows = self.get_stp_port_configuration_rows()
+        row = [r for r in rows if re.search(f"^{port}\n", r.text)]
+
+        if not row:
+            kwargs["fail_msg"] = f"Failed to find the row port for port='{port}'"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = f"Successfully found the row port for port='{port}'"
+        self.common_validation.passed(**kwargs)
+        return row[0]
+
+    def navigate_to_slot_template(self, slot, **kwargs):
+        """Method that navigates to the template configuration of a given stack slot.
+
+        Args:
+            slot (int): the stack slot
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        template_slot = self.sw_template_web_elements.get_template_slot(slot=slot)
+        if not template_slot:
+            kwargs["fail_msg"] = f"Failed to get the template for slot {slot}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info(f"Successfully got the template for slot {slot}")
+
+        if self.auto_actions.click(template_slot) != 1:
+            kwargs["fail_msg"] = f"Failed to click on the tempalte slot {slot}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = f"Successfully clicked on the template slot {slot}"
+        self.common_validation.passed(**kwargs)
+
+        self.utils.wait_till(timeout=5)
+        return 1
+
+    def get_path_cost_value_from_stp_port_configuration_row(self, port, **kwargs):
+        """Method that returns the path cost value of a given port.
+
+        Args:
+            port (str): the name of the port
+
+        Returns:
+            int: the path cost
+        """
+        row = self.get_stp_port_configuration_row(port=port)
+
+        cost_element, _ = self.utils.wait_till(
+            func=lambda:
+            self.sw_template_web_elements.get_sw_template_path_cost_row(row),
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if not cost_element:
+            kwargs["fail_msg"] = f"Failed to get path cost element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = f"Successfully got the path cost element"
+        self.common_validation.passed(**kwargs)
+
+        return cost_element.get_attribute("value")
+
+    def verify_path_cost_in_port_configuration_stp_tab(self, template_switch, network_policy, port, path_cost, slot=None, **kwargs):
+        """Method that verifies the path cost of a given port.
+
+        Args:
+            template_switch (str): the name of the template switch
+            network_policy (str): the name of the network policy
+            port (str): the port of the switch
+            path_cost (): the expected path cost value
+            slot (str, optional): the stack slot. Defaults to None.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+
+        """
+
+        self.utils.print_info(f"Go to the port configuration of {template_switch} template")
+        self.select_sw_template(
+            network_policy, template_switch)
+        self.go_to_port_configuration()
+
+        if slot is not None:
+            required_slot = template_switch + "-" + slot
+            self.navigate_to_slot_template(required_slot)
+
+        self.click_on_stp_tab()
+
+        found_path_cost_value = self.get_path_cost_value_from_stp_port_configuration_row(
+            port)
+
+        if str(found_path_cost_value) != str(path_cost):
+            kwargs["fail_msg"] = f"In XIQ port configuration: Expected path cost for port='{port}' is {path_cost} " \
+                                 f"but found '{found_path_cost_value}'"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = f"Successfully found the expected path cost for port='{port}': {path_cost}"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def set_stp(self, enable=True, **kwargs):
+        """Method that enables the STP in Template Configuration.
+
+        Args:
+            enable (bool, optional): If it is True then it will enable STP; if it is False then it will disable STP. Defaults to True.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        button, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_enable_spanningtree,
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5
+        )
+
+        if not button:
+            kwargs["fail_msg"] = f"Failed to get stp button element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info(f"Successfully got the stp button element")
+
+        if (not button.is_selected() and enable) or (
+            button.is_selected() and not enable):
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(button),
+                exp_func_resp=True,
+                delay=4
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = f"Failed to click stp button element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            kwargs["pass_msg"] = f"Successfully clicked the stp button element"
+            self.common_validation.passed(**kwargs)
+
+        return 1
+
+    def choose_stp_mode(self, mode, **kwargs):
+        """Method that choses the STP mode in Template Configuration.
+
+        Args:
+            mode (str): the STP mode
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        if mode == "stp":
+            button, _ = self.utils.wait_till(
+                func=self.get_sw_template_enable_stp,
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+        elif mode == "rstp":
+            button, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_enable_rstp,
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+        elif mode == "mstp":
+            button, _ = self.utils.wait_till(
+                func=self.sw_template_web_elements.get_sw_template_enable_mstp,
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+        )
+
+        if not button:
+            kwargs["fail_msg"] = f"Failed to get the {mode} stp mode button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info(f"Successfully got the {mode} stp mode button")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(button),
+            exp_func_resp=True,
+            delay=4
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = f"Failed to click the {mode} stp mode button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = f"Successfully clicked the {mode} stp mode button"
+        self.common_validation.passed(**kwargs)
+        return 1

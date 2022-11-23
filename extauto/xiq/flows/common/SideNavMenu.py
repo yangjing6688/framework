@@ -1,6 +1,7 @@
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.WebElementHandler import *
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 
 
@@ -8,6 +9,7 @@ class SideNavMenu(NavigatorWebElements):
     def __init__(self):
         super().__init__()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def get_order_number_of_main_nav_tab(self, tab_tag):
@@ -40,7 +42,7 @@ class SideNavMenu(NavigatorWebElements):
         """
         return self.get_side_nav_panel_2_menu_order_number(menu_item_tag)
 
-    def is_nav_menu_item_visible(self, tag):
+    def _is_nav_menu_item_visible(self, tag, **kwargs):
         """
         - This Keyword checks if the specified nav menu item is visible
         - Keyword Usage:
@@ -197,12 +199,44 @@ class SideNavMenu(NavigatorWebElements):
                 if self.get_vpn_management_tab().is_displayed():
                     return 1
 
-            return -1
+            return False
 
         except Exception as e:
+            kwargs['fail_msg'] = f"'is_nav_menu_item_visible()' -> {e}"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def is_nav_menu_item_enabled(self, tag):
+    def verify_nav_menu_item_visible(self, tag, **kwargs):
+        """
+        - This keyword verifies if the nav menu item is visible
+        - Keyword Usage:
+         - ``Verify Nav Menu Item Visible``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if visible, -1 if error occurs
+        """
+
+        return self._is_nav_menu_item_visible(tag, **kwargs)
+
+    def verify_nav_menu_item_not_visible(self, tag, **kwargs):
+        """
+        - This keyword verifies if the nav menu item is not visible
+        - Keyword Usage:
+         - ``Verify Nav Menu Item NOT Visible``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if not visible else -1
+        """
+
+        if self._is_nav_menu_item_visible(tag, **kwargs):
+            kwargs['fail_msg'] = "'verify_nav_menu_item_not_visible()' -> Nav Menu Item is Visible"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Nav Menu Item is NOT Visible"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+
+    def _is_nav_menu_item_enabled(self, tag):
         """
         - This Keyword checks if the specified nav menu item is enabled
         - Keyword Usage:
@@ -334,9 +368,37 @@ class SideNavMenu(NavigatorWebElements):
             if self.get_vpn_management_tab().is_enabled():
                 return 1
 
-        return -1
+        return False
 
-    def has_main_nav_tab_the_expected_image(self, tab_tag, expected_class):
+    def verify_nav_menu_item_enabled(self, tag, **kwargs):
+        """
+        - This keyword verifies if the nav menu item is visible
+        - Keyword Usage:
+         - ``Verify Nav Menu Item Enabled``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if visible, -1 if error occurs
+        """
+
+        return self._is_nav_menu_item_enabled(tag, **kwargs)
+
+    def verify_nav_menu_item_not_enabled(self, tag, **kwargs):
+        """
+        - This keyword verifies if the nav menu item is not visible
+        - Keyword Usage:
+         - ``Veerify Nav Menu Item Not Enabled``
+        :param tag: automation tag for the nav menu item
+        :return: 1 if not visible else -1
+        """
+        if self._is_nav_menu_item_enabled(tag, **kwargs):
+            kwargs['fail_msg'] = "'verify_nav_menu_item_not_visible()' -> Nav Menu Item is Enabled"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = "Nav Menu Item is NOT Enabled"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+    def has_main_nav_tab_the_expected_image(self, tab_tag, expected_class, **kwargs):
         """
         - This Keyword checks if the expected class of the specified main nav tab exists
         - Keyword Usage:
@@ -369,9 +431,12 @@ class SideNavMenu(NavigatorWebElements):
             if expected_class in self.get_a3_tab_img_class():
                 return 1
 
+        kwargs['fail_msg'] = "'has_main_nav_tab_the_expected_image()' -> The expected class of the specified main" \
+                             " nav tab does not exists"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def is_the_expected_url(self, expected_url):
+    def is_the_expected_url(self, expected_url, **kwargs):
         """
         - This Keyword checks if the expected url of the specified main nav tab is loaded
         - Keyword Usage:
@@ -383,4 +448,6 @@ class SideNavMenu(NavigatorWebElements):
         if expected_url in CloudDriver().cloud_driver.current_url:
             return 1
 
+        kwargs['fail_msg'] = "'is_the_expected_url()' -> The expected url of the specified main nav tab is not loaded"
+        self.common_validation.failed(**kwargs)
         return -1

@@ -165,6 +165,20 @@ class SplashTemplate(object):
         :return: 1 if success
         """
         self.go_to_configure_splash_system_template_tab()
+
+        sleep(2)
+
+        if self.guest_web_elem.get_extreme_guest_configure_preview_button().is_displayed():
+            self.utils.print_info("Clicking preview Button")
+            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_preview_button())
+            sleep(2)
+        else:
+            self.utils.print_info("No preview button available")
+            sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+        
         self.utils.print_info("Clicking the Clone icon on Device_Registration_with_Social_WiFi Template")
         self.auto_actions.click_reference(
             self.splash_web_elem.get_extreme_guest_clone_device_registration_with_social_wifi_icon)
@@ -288,6 +302,20 @@ class SplashTemplate(object):
         :return: 1 if success
         """
         self.go_to_configure_splash_system_template_tab()
+
+        sleep(2)
+
+        if self.guest_web_elem.get_extreme_guest_configure_preview_button().is_displayed():
+            self.utils.print_info("Clicking preview Button")
+            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_preview_button())
+            sleep(2)
+        else:
+            self.utils.print_info("No preview button available")
+            sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+        
         self.utils.print_info("Clicking the Clone icon on Social_WiFi_with_all Template")
         self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_social_wifi_with_all_icon)
         sleep(2)
@@ -397,6 +425,20 @@ class SplashTemplate(object):
         :return: 1 if success
         """
         self.go_to_configure_splash_system_template_tab()
+
+        sleep(2)
+
+        if self.guest_web_elem.get_extreme_guest_configure_preview_button().is_displayed():
+            self.utils.print_info("Clicking preview Button")
+            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_preview_button())
+            sleep(2)
+        else:
+            self.utils.print_info("No preview button available")
+            sleep(2)
+
+        self.screen.save_screen_shot()
+        sleep(2)
+        
         self.utils.print_info("Clicking the Clone icon on User_Registration_with_Social_WiFi Template")
         self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_user_registration_with_social_wifi_icon)
         sleep(2)
@@ -611,3 +653,4 @@ class SplashTemplate(object):
             self.common_validation.failed(**kwargs)
 
         return ret_val
+

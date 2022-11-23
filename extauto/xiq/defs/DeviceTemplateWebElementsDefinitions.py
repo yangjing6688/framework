@@ -448,3 +448,19 @@ class DeviceTemplateWebElementDefinitions:
                      '//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
             'wait_for': 20
         }
+
+    device_switch_template_menue_filter = \
+        {
+            'XPATH': "//*[@automation-tag='automation-switch-device-templates-menu-filter']"
+        }
+
+    switch_template_device_configuration_igmp_settings = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-igmp-toggle']"
+        }
+
+    device_ap_template_search_inputfield = \
+        {
+            'XPATH': '//input[@automation-tag="automation-wireless-device-templates-menu-filter"]',
+            'wait_for': 15
+        }
