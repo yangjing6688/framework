@@ -2038,9 +2038,11 @@ class Devices:
         device_make = device_dict.get("make")
         device_mac = device_dict.get("mac")
         location = device_dict.get("location")
+        device_platform = device_dict.get("platform")
         service_tag = device_dict.get("service_tag")  # argument for Real device ---> Dell
         csv_location = device_dict.get("csv_location")
         device_os = device_dict.get("os")
+
 
         # Arguments for device_type == "Simulated"
         device_model = device_dict.get("model")
@@ -2157,18 +2159,30 @@ class Devices:
             self.utils.print_info("No Dialog box")
 
         if "real" in device_type.lower():
-            if entry_type.lower() == "manual":
-                serials = device_serial.split(",")
-                self.utils.print_info("Serials: ", serials)
-                for serial in serials:
-                    if self.search_device(device_serial=serial) == 1:
-                        kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
-                        self.common_validation.passed(**kwargs)
-                        return 1
-                    else:
-                        kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
-                        self.common_validation.failed(**kwargs)
-                        return -1
+            '''
+            Nov 22, 2022 - JPS
+            The following check is a hack, this was put here until we understand how to work with exos stack devices
+            The whole if/else should be removed once we understand how to handle exos stacks
+            The current assumption made now, is the device was added to cloud without an error.
+            '''
+
+            if device_platform.lower() != "stack":
+                if entry_type.lower() == "manual":
+                    serials = device_serial.split(",")
+                    self.utils.print_info("Serials: ", serials)
+                    for serial in serials:
+                        if self.search_device(device_serial=serial) == 1:
+                            kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
+                            self.common_validation.passed(**kwargs)
+                            return 1
+                        else:
+                            kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+            else:
+                kwargs['pass_msg'] = f"Successfully Onboarded a stack of exos Device(s) with serial numbers {device_serial}"
+                self.common_validation.passed(**kwargs)
+                return 1
 
         elif "simulated" in device_type.lower():
             models = device_model.split(",")
