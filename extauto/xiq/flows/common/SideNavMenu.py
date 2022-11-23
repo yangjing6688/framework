@@ -16,7 +16,7 @@ class SideNavMenu(NavigatorWebElements):
         """
         - This Keyword gets the order number of the specified main nav tab
         - Keyword Usage:
-         - ``Get Order Number Of Main Nav Tab``
+        - ``Get Order Number Of Main Nav Tab``
         :param tab_tag: automation tag for the nav tab
         :return: number if match else -1
         """
@@ -26,7 +26,7 @@ class SideNavMenu(NavigatorWebElements):
         """
         - This Keyword gets the order number of the specified side nav menu item
         - Keyword Usage:
-         - ``Get Order Number Of Side Nav Menu Item``
+        - ``Get Order Number Of Side Nav Menu Item``
         :param menu_item_tag: automation tag for the side nav menu item
         :return: number if match else -1
         """
@@ -36,7 +36,7 @@ class SideNavMenu(NavigatorWebElements):
         """
         - This Keyword gets the order number of the specified side nav sub menu item
         - Keyword Usage:
-         - ``Get Order Number Of Side Nav Sub Menu Item``
+        - ``Get Order Number Of Side Nav Sub Menu Item``
         :param menu_item_tag: automation tag for the side nav menu item
         :return: number if match else -1
         """
@@ -46,7 +46,7 @@ class SideNavMenu(NavigatorWebElements):
         """
         - This Keyword checks if the specified nav menu item is visible
         - Keyword Usage:
-         - ``Is Nav Menu Item Visible``
+        - ``Is Nav Menu Item Visible``
         :param tag: automation tag for the nav menu item
         :return: 1 if visible, -1 if not
         """
@@ -240,7 +240,7 @@ class SideNavMenu(NavigatorWebElements):
         """
         - This Keyword checks if the specified nav menu item is enabled
         - Keyword Usage:
-         - ``Is Nav Menu Item Enabled``
+        - ``Is Nav Menu Item Enabled``
         :param tag: automation tag for the nav menu item
         :return: 1 if visible, -1 if not
         """
@@ -402,7 +402,7 @@ class SideNavMenu(NavigatorWebElements):
         """
         - This Keyword checks if the expected class of the specified main nav tab exists
         - Keyword Usage:
-         - ``Has Main Nav Tab The Expected Image``
+        - ``Has Main Nav Tab The Expected Image``
         :param tab_tag: automation tag for the nav tab
         :param expected_class: expected class name
         :return: 1 if exists, else -1
@@ -440,7 +440,7 @@ class SideNavMenu(NavigatorWebElements):
         """
         - This Keyword checks if the expected url of the specified main nav tab is loaded
         - Keyword Usage:
-         - ``Is The Expected Url``
+        - ``Is The Expected Url``
         :param expected_url: expected url
         :return: 1 if exists, else -1
         """

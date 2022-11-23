@@ -19,10 +19,10 @@ class XIQSE_AdminProfilesEditProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_edit_profile_dialog_select_read(self, the_value):
         """
-         - This keyword selects the Read value in the Edit Profile dialog.
-         - It is assumed the Edit Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Edit Profile Dialog Select Read    public_v1``
+        - This keyword selects the Read value in the Edit Profile dialog.
+        - It is assumed the Edit Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Edit Profile Dialog Select Read    public_v1``
 
         :param the_value: value to select in the Read field
         :return: 1 if action was successful, else -1
@@ -64,10 +64,10 @@ class XIQSE_AdminProfilesEditProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_edit_profile_dialog_select_write(self, the_value):
         """
-         - This keyword selects the Write value in the Edit Profile dialog.
-         - It is assumed the Edit Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Edit Profile Dialog Select Write    public_v1``
+        - This keyword selects the Write value in the Edit Profile dialog.
+        - It is assumed the Edit Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Edit Profile Dialog Select Write    public_v1``
 
         :param the_value: value to select in the Write field
         :return: 1 if action was successful, else -1
@@ -109,10 +109,10 @@ class XIQSE_AdminProfilesEditProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_edit_profile_dialog_select_max_access(self, the_value):
         """
-         - This keyword selects the Max Access value in the Edit Profile dialog.
-         - It is assumed the Edit Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Edit Profile Dialog Select Max Access    public_v1``
+        - This keyword selects the Max Access value in the Edit Profile dialog.
+        - It is assumed the Edit Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Edit Profile Dialog Select Max Access    public_v1``
 
         :param the_value: value to select in the Max Access field
         :return: 1 if action was successful, else -1
@@ -154,12 +154,12 @@ class XIQSE_AdminProfilesEditProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_edit_profile_dialog_select_read_security(self, the_value):
         """
-         - This keyword selects the Read Security value in the Edit Profile dialog.
-         - It is assumed the Edit Profile dialog is open and the version is SNMPv3.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select Read Security   NoAuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Read Security   AuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Read Security   AuthPriv``
+        - This keyword selects the Read Security value in the Edit Profile dialog.
+        - It is assumed the Edit Profile dialog is open and the version is SNMPv3.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select Read Security   NoAuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Read Security   AuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Read Security   AuthPriv``
 
         :param the_value: value to select in the Read Securityfield
         :return: 1 if action was successful, else -1
@@ -200,12 +200,12 @@ class XIQSE_AdminProfilesEditProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_edit_profile_dialog_select_write_security(self, the_value):
         """
-         - This keyword selects the Write Security value in the Edit Profile dialog.
-         - It is assumed the Edit Profile dialog is open and the version is SNMPv3.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select Write Security   NoAuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Write Security   AuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Write Security   AuthPriv``
+        - This keyword selects the Write Security value in the Edit Profile dialog.
+        - It is assumed the Edit Profile dialog is open and the version is SNMPv3.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select Write Security   NoAuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Write Security   AuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Write Security   AuthPriv``
 
         :param the_value: value to select in the Write Security field
         :return: 1 if action was successful, else -1
@@ -246,12 +246,12 @@ class XIQSE_AdminProfilesEditProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_edit_profile_dialog_select_max_security(self, the_value):
         """
-         - This keyword selects the Max Security value in the Edit Profile dialog.
-         - It is assumed the Edit Profile dialog is open and the version is SNMPv3.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select Max Security   NoAuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Max Security   AuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Max Security   AuthPriv``
+        - This keyword selects the Max Security value in the Edit Profile dialog.
+        - It is assumed the Edit Profile dialog is open and the version is SNMPv3.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select Max Security   NoAuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Max Security   AuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Max Security   AuthPriv``
 
         :param the_value: value to select in the Max Security field
         :return: 1 if action was successful, else -1
@@ -292,10 +292,10 @@ class XIQSE_AdminProfilesEditProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_edit_profile_dialog_select_cli(self, the_value):
         """
-         - This keyword selects the CLI Credential value in the Edit Profile dialog.
-         - It is assumed the Edit Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Edit Profile Dialog Select CLI    Default``
+        - This keyword selects the CLI Credential value in the Edit Profile dialog.
+        - It is assumed the Edit Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Edit Profile Dialog Select CLI    Default``
 
         :param the_value: value to select in the CLI Credential field
         :return: 1 if action was successful, else -1
@@ -337,10 +337,10 @@ class XIQSE_AdminProfilesEditProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_edit_profile_dialog_click_save(self):
         """
-         - This keyword clicks Save in the Edit Profile dialog.
-         - It is assumed the Edit Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Edit Profile Dialog Click Save``
+        - This keyword clicks Save in the Edit Profile dialog.
+        - It is assumed the Edit Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Edit Profile Dialog Click Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -376,10 +376,10 @@ class XIQSE_AdminProfilesEditProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_edit_profile_dialog_click_cancel(self):
         """
-         - This keyword clicks Cancel in the Edit Profile dialog.
-         - It is assumed the Edit Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Edit Profile Dialog Click Cancel``
+        - This keyword clicks Cancel in the Edit Profile dialog.
+        - It is assumed the Edit Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Edit Profile Dialog Click Cancel``
 
         :return: 1 if action was successful, else -1
         """

@@ -41,7 +41,7 @@ class Network360Plan:
         """
         - This keyword searches for the floor in Network360 Plan
         - Keyword Usage:
-         - ``${SEARCH_MATCHES}=     Search Floor in Network360Plan              floor_name=floor_02``
+        - ``${SEARCH_MATCHES}=     Search Floor in Network360Plan              floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :return: returns list of search matches. -1 if no matches
@@ -71,7 +71,7 @@ class Network360Plan:
         """
         - This keyword gets devices name from Network360 Plan page
         - Keyword Usage:
-         - ``${AP_MATCHES}=          Get APs From Network360Plan Floor           floor_name=floor_02``
+        - ``${AP_MATCHES}=          Get APs From Network360Plan Floor           floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :param device_type: optional - type of device - AP/switch/router/VGVA/router
@@ -164,7 +164,7 @@ class Network360Plan:
         """
         - This keyword will Import Map file in Network360 Plan page
         - Keyword Usage:
-         - Import Map In Network360Plan    ${MAP_FILE_NAME}
+        - Import Map In Network360Plan    ${MAP_FILE_NAME}
 
         :param map_file_name: Map File Name to import from /testsuites/xiq/functional/import_map_files directory
         :return: 1 if map uploaded successfully on Network360 Plan else -1

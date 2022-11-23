@@ -6,6 +6,6 @@
 #
 
 
-class NetworkCommonConfigureDeviceServicesWebElementsDefinitions:
+# class NetworkCommonConfigureDeviceServicesWebElementsDefinitions:
 
-    # Services Tab Fields
+#     # Services Tab Fields

@@ -25,9 +25,9 @@ class AirDefenceAlarms(AdspWebElements):
         - Flow: Extreme AirDefense--> More Insights
         - Get Adsp Alarm details based on search string
         - Keyword Usage:
-         - ``Get ADSP Alarm Details   ${SENSOR_MAC}``
-         - ``Get ADSP Alarm Details   ${DEVICE_MAC}``
-         - ``Get ADSP Alarm Details   ${ALARM_TYPE}``
+        - ``Get ADSP Alarm Details   ${SENSOR_MAC}``
+        - ``Get ADSP Alarm Details   ${DEVICE_MAC}``
+        - ``Get ADSP Alarm Details   ${ALARM_TYPE}``
 
         :param page_size: Paging Size
         :param search_string: str to search the alarm in grid ex: it may be Alarm type, Sensor mac, Device mac
@@ -74,7 +74,7 @@ class AirDefenceAlarms(AdspWebElements):
         - This Keyword Will check new location assigned to AP in ADESS Sensor page
         - Flow: Extreme AirDefense--> More Insights--> Sensor page--> New location assigned to AP
         - Keyword Usage:
-         - ``Check Location Assigned to AP in ADESS     ${AP1_SERIAL}       ${NEW_LOCATION}``
+        - ``Check Location Assigned to AP in ADESS     ${AP1_SERIAL}       ${NEW_LOCATION}``
 
         :param device_serial: serial number of access point
         :param dev_location: location hierarchy in terms of location, building, floor
@@ -135,7 +135,7 @@ class AirDefenceAlarms(AdspWebElements):
         - This Keyword Will check for Auth Error in ADESS Page When ADESS is not Enabled
         - Flow: Extreme AirDefense--> Open New Tab--> Load ADESS URL--> Check Auth Error
         - Keyword Usage:
-         - ``Check Error Msg When ADESS Not Enabled     ${URL}``
+        - ``Check Error Msg When ADESS Not Enabled     ${URL}``
 
         :param url: url of AD Essential application
         :param incognito_mode: set to False by default
@@ -173,7 +173,7 @@ class AirDefenceAlarms(AdspWebElements):
         - This Keyword Will check new location assigned to AP in ADESS Sensor page
         - Flow: Extreme AirDefense--> More Insights--> Sensor page--> New location assigned to AP
         - Keyword Usage:
-         - ``Check AP in ADESS Device View Page     ${AP1_SERIAL}``
+        - ``Check AP in ADESS Device View Page     ${AP1_SERIAL}``
 
         :param device_serial: serial number of access point
         :return: 1 if serial number of AP is successfully seen in ADESS Sensor page else -1
@@ -216,7 +216,7 @@ class AirDefenceAlarms(AdspWebElements):
 
     def _go_to_adsp_alarm_page(self):
         """
-        -This keyword Will Navigate to Extreme AirDefence Alarm page
+        - This keyword Will Navigate to Extreme AirDefence Alarm page
         - Flow: Extreme AirDefense--> More Insights
 
         :return:
@@ -263,8 +263,8 @@ class AirDefenceAlarms(AdspWebElements):
         - This Keyword Will Clear all ADSP Alarms generated in the past
         - Flow: Extreme AirDefense--> More Insights
         - Keyword Usage:
-         - ``Clear All ADSP Alarms  ${search_filter}``
-         - ``Clear All ADSP Alarms  ${search_filter}  page_size=100``
+        - ``Clear All ADSP Alarms  ${search_filter}``
+        - ``Clear All ADSP Alarms  ${search_filter}  page_size=100``
 
         :param search_filter: str to search the alarm in grid ex: it may be Alarm type, Sensor mac, Device mac
         :param page_size: No.of Alarm entries to see per Page
@@ -328,7 +328,7 @@ class AirDefenceAlarms(AdspWebElements):
         - This Keyword Will Get Total ADSP Alarms count details from Extreme AirDefense Widget
         - Flow: Extreme AirDefense
         - Keyword Usage:
-         - ``Get Total ADSP Alarm Count ``
+        - ``Get Total ADSP Alarm Count ``
 
         :return: Total Alarm Count
         """
@@ -352,7 +352,7 @@ class AirDefenceAlarms(AdspWebElements):
         - This Keyword Will Get adsp alarms overview count details from Extreme AirDefense Widget
         - Flow: Extreme AirDefense
         - Keyword Usage:
-         - ``Check ADSP Alarms Overview Widget Count ``
+        - ``Check ADSP Alarms Overview Widget Count ``
 
         :return: Total Alarm Count
         """
@@ -383,7 +383,7 @@ class AirDefenceAlarms(AdspWebElements):
         - This Keyword Will Get ADSP alarms by severity count details from Extreme AirDefense Widget
         - Flow: Extreme AirDefense
         - Keyword Usage:
-         - ``Check ADSP Alarm By Severity Count ``
+        - ``Check ADSP Alarm By Severity Count ``
 
         :return: Total Alarm Count
         """
@@ -411,7 +411,7 @@ class AirDefenceAlarms(AdspWebElements):
 
     def _go_to_adsp_settings_page(self):
         """
-        -This keyword will navigate to Extreme AirDefence settings page
+        - This keyword will navigate to Extreme AirDefence settings page
         - Flow: Extreme AirDefense--> Settings
 
         :return:
@@ -433,7 +433,7 @@ class AirDefenceAlarms(AdspWebElements):
         - Selects the WIPS Policy row and changes the wireless thread detection Status
         - Flow: Extreme AirDefense---> Settings
         - Keyword USage:
-         - ``change wireless thread detection status   ${WIPS_POLICY_NAME}   ${STATUS}``
+        - ``change wireless thread detection status   ${WIPS_POLICY_NAME}   ${STATUS}``
 
         :param wips_policy_name: WIPS Policy name
         :param status: wireless thread detection status to change either ON/OFF
@@ -488,7 +488,7 @@ class AirDefenceAlarms(AdspWebElements):
         - Flow: Extreme AirDefense--> Settings page
         - Check the Read Only status of WIPS profile button in settings page
         - Keyword Usage:
-         - ``Rbac user wips profile_click_status   ${user} ${WIPS_POLICY_NAME}``
+        - ``Rbac user wips profile_click_status   ${user} ${WIPS_POLICY_NAME}``
         :param user: Monitor,operator etc
         :param wips_policy_name: WIPS policy name
         :return: WIPS profile button click status(Enabled/Disabled)
@@ -520,11 +520,11 @@ class AirDefenceAlarms(AdspWebElements):
 
     def get_total_adsp_alarm_count_helpdesk(self):
         """
-          - This Keyword Will Get Total ADSP Alarms count details from Extreme AirDefense Widget for helpdesk user
+        - This Keyword Will Get Total ADSP Alarms count details from Extreme AirDefense Widget for helpdesk user
              after launching the adess url directly.
-          - Flow: Extreme AirDefense
-          - Keyword Usage:
-                  - ``Get Total ADSP Alarm Count Helpdesk ``
+        - Flow: Extreme AirDefense
+        - Keyword Usage:
+        - ``Get Total ADSP Alarm Count Helpdesk ``
           :return: Total Alarm Count
        """
         alarm_count = self.get_total_adsp_alarm_count_on_grid().text
@@ -533,11 +533,11 @@ class AirDefenceAlarms(AdspWebElements):
 
     def adsp_user_role_not_supported_page(self):
         """
-          - This Keyword Will Get "User role not supported message" for helpdesk user
+        - This Keyword Will Get "User role not supported message" for helpdesk user
              after launching the adess url directly.
-          - Flow: Extreme AirDefense
-          - Keyword Usage:
-                  - ``ADSP USER ROLE NOT SUPPORTED PAGE ``
+        - Flow: Extreme AirDefense
+        - Keyword Usage:
+        - ``ADSP USER ROLE NOT SUPPORTED PAGE ``
           :return: USER ROLE NOT SUPPORTED PAGE
        """
 
@@ -553,11 +553,11 @@ class AirDefenceAlarms(AdspWebElements):
 
     def subscribe_adess_essentials(self):
         """
-        -This keyword Will Subscribe ADESS essentials, In wips policy the "enable Airdefense essentials" button should be ON
+        - This keyword Will Subscribe ADESS essentials, In wips policy the "enable Airdefense essentials" button should be ON
         - Flow: ADESS--> Subscribe-->Apply
         - Keyword Usage:
-                  - ``Subscribe Adess Essentials ``
-          :return: return 1 after ADESS is subscribed 
+        - ``Subscribe Adess Essentials ``
+          :return: return 1 after ADESS is subscribed
         """
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         sleep(5)
@@ -587,7 +587,7 @@ class AirDefenceAlarms(AdspWebElements):
 
     def check_subscription_of_ADEssentials_page(self, **kwargs):
         """
-        -This keyword Will Check Extreme AD Essentials Page is Subscribed or Not after Reset VIQ
+        - This keyword Will Check Extreme AD Essentials Page is Subscribed or Not after Reset VIQ
         - Flow: Login to XIQ -> Click Extreme Airdefense Icon -> Check Subscription Status
 
         :return: 1 if not subscribed, else -1

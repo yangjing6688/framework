@@ -6,6 +6,6 @@
 #
 
 
-class NetworkCommonConfigureDevicePortsWebElementsDefinitions:
+# class NetworkCommonConfigureDevicePortsWebElementsDefinitions:
 
-    # Ports Tab Fields
+#     # Ports Tab Fields

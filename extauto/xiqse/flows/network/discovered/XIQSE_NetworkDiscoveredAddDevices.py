@@ -13,9 +13,9 @@ class XIQSE_NetworkDiscoveredAddDevices(NetworkDiscoveredAddDevicesWebElements):
 
     def xiqse_discovered_add_devices_dialog_click_add(self):
         """
-         - This keyword clicks 'Add' in the Add Device dialog.
-         - Keyword Usage
-          - ``XIQSE Discovered Add Devices Dialog Click Add``
+        - This keyword clicks 'Add' in the Add Device dialog.
+        - Keyword Usage
+        - ``XIQSE Discovered Add Devices Dialog Click Add``
 
         :return:   1 if action was successful, else -1
         """

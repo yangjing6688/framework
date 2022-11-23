@@ -29,9 +29,9 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
     def advance_onboard_device(self, device_serial, device_make="", dev_location="", device_type="Real",
                                entry_type="Manual", csv_location='', create_location=False, device_mac=None, **kwargs):
         """
-         - This keyword is used to onboard Device using Advance Onboarding Method
-         - Keyword Usage:
-          - ``Onboard Device  ${DEVICE_SERIAL}   device_make=${device1.make}   dev_location=${LOCATION}``
+        - This keyword is used to onboard Device using Advance Onboarding Method
+        - Keyword Usage:
+        - ``Onboard Device  ${DEVICE_SERIAL}   device_make=${device1.make}   dev_location=${LOCATION}``
 
         :param device_serial: serial number of Device
         :param device_make: Model of the Device ex:Extreme-aerohive,ExOS,VOSS,DELL
@@ -295,7 +295,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         """
         - This method is used to navigate to the device advanced on board tab
         - Flow:
-         - Manage --> Devices --> Click on Device Add Button(+) --> Advanced Onboarding
+        - Manage --> Devices --> Click on Device Add Button(+) --> Advanced Onboarding
         :return:
         """
         self.navigator.navigate_to_onboard_tab()
