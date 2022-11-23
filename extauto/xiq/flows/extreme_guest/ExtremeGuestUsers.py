@@ -112,7 +112,7 @@ class ExtremeGuestUsers(object):
                 self.utils.print_info(e)
                 self.utils.print_info("Unable to select location")
                 kwargs['fail_msg'] = "'select_location_for_create_bulk_vouchers_page()' -> Unable to select location"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
         else:
             self.utils.print_info("Cannot select location - location not specified in Create Bulk Users Page")
             kwargs['fail_msg'] = "'select_location_for_create_bulk_vouchers_page()' -> Cannot select location - " \
@@ -138,6 +138,8 @@ class ExtremeGuestUsers(object):
         """
         self.ext_guest.go_to_configure_users_page()
         if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
+            kwargs['pass_msg'] = "Users Bulk Vouchers Created Successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         kwargs['fail_msg'] = "'create_bulk_vouchers()' -> Unable to create Bulk Vouchers in Eguest users Page"
@@ -161,6 +163,8 @@ class ExtremeGuestUsers(object):
         """
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
+            kwargs['pass_msg'] = "Users Bulk Vouchers Created Successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         kwargs['fail_msg'] = "'create_guest_management_role_bulk_vouchers()' -> Unable to create Bulk Vouchers in" \

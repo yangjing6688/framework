@@ -80,7 +80,7 @@ class SplashTemplate(object):
 
         return 1
 
-    def clone_accept_connect_template(self, template_name=None):
+    def clone_accept_connect_template(self, template_name=None, **kwargs):
         """
         - This keyword will clone the accept and connect template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -114,6 +114,8 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully cloned the the accept and connect template"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def clone_accept_connect_terms_template(self, template_name=None):
@@ -153,7 +155,7 @@ class SplashTemplate(object):
 
         return 1
 
-    def clone_device_registration_with_social_wifi_template(self, template_name=None):
+    def clone_device_registration_with_social_wifi_template(self, template_name=None, **kwargs):
         """
         - This keyword will clone the Device Registration With Social Wifi Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -215,9 +217,11 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully cloned the Device Registration With Social Wifi Template"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def clone_email_access_template(self, template_name=None):
+    def clone_email_access_template(self, template_name=None, **kwargs):
         """
         - This keyword will clone the Email Access Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -251,9 +255,11 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully cloned the Email Access Template"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def clone_social_wifi_with_facebook_and_googleplus_template(self, template_name=None):
+    def clone_social_wifi_with_facebook_and_googleplus_template(self, template_name=None, **kwargs):
         """
         - This keyword will clone the Social Wifi With Facebook And Googleplus Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -288,9 +294,11 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully cloned the Social Wifi With Facebook And Googleplus Template"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def clone_social_wifi_with_all_template(self, template_name=None):
+    def clone_social_wifi_with_all_template(self, template_name=None, **kwargs):
         """
         - This keyword will clone the Social Wifi With All Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -338,9 +346,11 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully cloned the Social Wifi With All Template"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def clone_sponsored_guest_access_template(self, template_name=None):
+    def clone_sponsored_guest_access_template(self, template_name=None, **kwargs):
         """
         - This keyword will clone the Sponsored Guest Access Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -374,9 +384,11 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully cloned the Sponsored Guest Access Template"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def clone_user_reg_with_social_forgot_passcode_template(self, template_name=None):
+    def clone_user_reg_with_social_forgot_passcode_template(self, template_name=None, **kwargs):
         """
         - This keyword will clone the User Reg With Social Forgot Passcode Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -411,9 +423,11 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully cloned the User Reg With Social Forgot Passcode Template"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def clone_user_registration_with_social_wifi_template(self, template_name=None):
+    def clone_user_registration_with_social_wifi_template(self, template_name=None, **kwargs):
         """
         - This keyword will clone the User Registration With Social Wifi Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -461,9 +475,11 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully cloned the User Registration With Social Wifi Template"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def apply_network_to_user_template(self, network_name=None, template_name=None, location=None):
+    def apply_network_to_user_template(self, network_name=None, template_name=None, location=None, **kwargs):
         """
         - This keyword will Apply the Network and Location To User Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -511,9 +527,11 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Applied the Network and Location To User Template"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def remove_network_from_user_template(self, template_name=None):
+    def remove_network_from_user_template(self, template_name=None, **kwargs):
         """
         - This keyword will Apply the Network and Location To User Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
@@ -551,6 +569,8 @@ class SplashTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Applied the Network and Location To User Template"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def select_location_for_apply_user_template_page(self, sel_loc, **kwargs):
@@ -650,7 +670,7 @@ class SplashTemplate(object):
             self.utils.print_info("Cannot select location - location not specified in User Template apply page Page")
             kwargs['fail_msg'] = "'select_location_for_apply_user_template_page()' -> Cannot select location -" \
                                  " location not specified in User Template apply page Page"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
 
         return ret_val
 

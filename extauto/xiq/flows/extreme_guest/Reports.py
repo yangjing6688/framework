@@ -63,7 +63,7 @@ class Reports(object):
                 return 1
 
         kwargs['fail_msg'] = "'_select_extreme_guest_manage_page_user_row_cell()' -> Unable to get row"
-        self.common_validation.failed(**kwargs)
+        self.common_validation.fault(**kwargs)
         return 0
 
     def _get_extreme_guest_generated_reports_page_user_row(self, search_string):
@@ -206,7 +206,7 @@ class Reports(object):
                     return 1
 
         kwargs['fail_msg'] = "'_add_edit_manage_guest_report()' -> Unable to create/edit report"
-        self.common_validation.failed(**kwargs)
+        self.common_validation.fault(**kwargs)
         return 0
 
     def select_scope_for_add_manage_report_page(self, scope, **kwargs):
@@ -301,7 +301,7 @@ class Reports(object):
             self.utils.print_info("Cannot select location - location not specified")
             kwargs['fail_msg'] = "'select_scope_for_add_manage_report_page()' -> Cannot select location - location not" \
                                  " specified"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
 
         return ret_val
 
@@ -344,6 +344,7 @@ class Reports(object):
             self.utils.print_info("Clicking OK")
             self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             return 1
+
         return 0
 
     def delete_extreme_guest_generated_report(self, report_name):

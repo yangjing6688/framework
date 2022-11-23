@@ -142,6 +142,8 @@ class Onboarding(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully navigated to onboarding policy page and added policy"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def select_location_for_add_onboarding_rule_page(self, sel_loc, **kwargs):
@@ -234,11 +236,11 @@ class Onboarding(object):
             self.utils.print_info("Cannot select location - location not specified in Eguest Onboarding Add Rule Page")
             kwargs['fail_msg'] = "'select_location_for_add_onboarding_rule_page()' -> Cannot select location - location" \
                                  " not specified in Eguest Onboarding Add Rule Page"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
 
         return ret_val
 
-    def add_onboarding_rule(self, rule_name=None, policy_name=None, network_name="All Networks", location_name=None):
+    def add_onboarding_rule(self, rule_name=None, policy_name=None, network_name="All Networks", location_name=None, **kwargs):
         """
         - This keyword will navigate to onboarding rules page and add rule
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Onboarding > Rules
@@ -291,11 +293,13 @@ class Onboarding(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully navigated to onboarding rules page and added rule"
+        self.common_validation.passed(**kwargs)
         return 1
 
 
     def add_onboarding_policy_existing_one(self, policy_name=None, group_name=None, condition_type="Any", condition_value="Any", action_type="Register "
-                                                "Client", user_notifpolicy = "UserNotificationPolicy", sponsor_notifpolicy = "SPApprovalNotificationPolicy"):
+                                                "Client", user_notifpolicy = "UserNotificationPolicy", sponsor_notifpolicy = "SPApprovalNotificationPolicy", **kwargs):
         """
         - This keyword will navigate to onboarding policy page and add policy
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Onboarding > Policy
@@ -382,4 +386,6 @@ class Onboarding(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully navigated to onboarding policy page and added policy"
+        self.common_validation.passed(**kwargs)
         return 1

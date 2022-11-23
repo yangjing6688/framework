@@ -99,7 +99,7 @@ class ExtremeGuest(object):
 
         return 1
 
-    def go_to_extreme_guest_page(self):
+    def go_to_extreme_guest_page(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Menu Window
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
@@ -119,6 +119,8 @@ class ExtremeGuest(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Navigated to Extreme Guest Menu Window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def go_to_extreme_guest_monitor_page(self):
@@ -140,7 +142,7 @@ class ExtremeGuest(object):
 
         return 1
 
-    def go_to_extreme_guest_monitor_dashboard_page(self):
+    def go_to_extreme_guest_monitor_dashboard_page(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Menu Window
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window-- Monitor--> dashboard
@@ -156,6 +158,8 @@ class ExtremeGuest(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Navigated to Extreme Guest Menu Window"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def go_back_to_xiq(self):
@@ -171,7 +175,7 @@ class ExtremeGuest(object):
 
         return 1
 
-    def go_to_configure_page(self):
+    def go_to_configure_page(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Configure Menu Window
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure
@@ -188,9 +192,11 @@ class ExtremeGuest(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Navigated to Extreme Guest Configure Menu Window"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def go_to_configure_users_page(self):
+    def go_to_configure_users_page(self, **kwargs):
         """
         -This keyword Will Navigate to Extreme Guest Configure Users Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Users
@@ -207,6 +213,8 @@ class ExtremeGuest(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Navigated to Extreme Guest Configure Users Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def check_help_information(self, **kwargs):
@@ -220,7 +228,8 @@ class ExtremeGuest(object):
         """
         self.go_to_extreme_guest_subscribe_page()
         if self.guest_web_elem.get_extreme_guest_subscription_page_help_information().is_displayed():
-            self.utils.print_info("Help information is displayed")
+            kwargs['pass_msg'] = "Help information is displayed"
+            self.common_validation.passed(**kwargs)
             return 1
 
         kwargs['fail_msg'] = "'check_help_information()' -> Help information is not displayed"
@@ -243,9 +252,8 @@ class ExtremeGuest(object):
                         return row
 
         self.utils.print_info(f"common object row {search_string} not present")
-        kwargs['fail_msg'] = f"'_get_extreme_guest_subscription_page_open_ssid_row()' -> common object row " \
-                             f"{search_string} not present"
-        self.common_validation.failed(**kwargs)
+        kwargs['fail_msg'] = f"'_get_extreme_guest_subscription_page_open_ssid_row()' -> common object row {search_string} not present"
+        self.common_validation.fault(**kwargs)
         return False
 
     def _search_extreme_guest_subscription_page_open_ssid(self, search_string):
@@ -259,7 +267,7 @@ class ExtremeGuest(object):
             self.utils.print_info(f"{search_string} object present in grid row")
             return 1
 
-    def _select_extreme_guest_subscription_page_open_ssid_row(self, search_string, **kwargs):
+    def _select_extreme_guest_subscription_page_open_ssid_row(self, search_string):
         """
         Select the passed search string object in grid rows
         :param search_string:
@@ -272,8 +280,6 @@ class ExtremeGuest(object):
             sleep(2)
             return 1
 
-        kwargs['fail_msg'] = "'_select_extreme_guest_subscription_page_open_ssid_row()' -> Row is not present"
-        self.common_validation.failed(**kwargs)
         return 0
 
     def apply_selected_open_ssid(self, search_string, **kwargs):
@@ -291,13 +297,15 @@ class ExtremeGuest(object):
             self.utils.print_info("Click Extreme Guest Subscribe Apply button")
             self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button)
             sleep(3)
+            kwargs['pass_msg'] = "Uccessfully selected and applied an open SSID"
+            self.common_validation.passed(**kwargs)
             return 1
 
         kwargs['fail_msg'] = "'apply_selected_open_ssid()' -> Row is not present"
         self.common_validation.failed(**kwargs)
         return 0
 
-    def check_created_ssid_table(self, ssid_name=None):
+    def check_created_ssid_table(self, ssid_name=None, **kwargs):
         """
         -This keyword Will check for an open SSID name
         - Flow: Flow: Extreme Guest--> Subscribe--> Page
@@ -311,13 +319,16 @@ class ExtremeGuest(object):
             sleep(5)
             if self._search_extreme_guest_subscription_page_open_ssid(ssid_name):
                 self.utils.print_info("SSID is available in the list")
+                kwargs['pass_msg'] = "SSID is available in the list"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("SSID is not available in the list")
         else:
             self.utils.print_info("SSID list is not available for selection ")
 
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = "'check_created_ssid_table()' -> SSID list is not available for selection"
+        self.common_validation.failed(**kwargs)
         return 0
 
     def send_wg_cmd_to_ap(self, ssid_name, *cli_objs):
@@ -410,6 +421,8 @@ class ExtremeGuest(object):
         if self.guest_web_elem.get_extreme_guest_subscription_page().is_displayed():
             self.screen.save_screen_shot()
             sleep(2)
+            kwargs['pass_msg'] = "Successfully Navigated to Extreme Guest Subscription Page"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("User Already Subscribed Extreme Guest Page")

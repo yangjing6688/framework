@@ -225,6 +225,8 @@ class Dashboard(object):
             all_displayed = False
 
         if all_displayed:
+            kwargs['pass_msg'] = "The newly created dashboard is displaying all the widgets"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = f"'check_dashboard_page_widgets()' -> {all_displayed}"

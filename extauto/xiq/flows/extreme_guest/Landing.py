@@ -73,6 +73,8 @@ class Landing(object):
             all_displayed = False
 
         if all_displayed:
+            kwargs['pass_msg'] = "Successfully Navigated to Extreme Guest Page and check all widgets"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = f"'check_all_landing_page_widgets()' -> {all_displayed}"
@@ -97,7 +99,9 @@ class Landing(object):
             print("New Users Yesterday: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_yesterday('New Users').text)
             print("Return Users Today: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_today('Return Users').text)
             print("Return Users Yesterday: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_yesterday('Return Users').text)
-            self.screen.save_screen_shot()
+
+            kwargs['pass_msg'] = "Successfully Navigated to Extreme Guest Page and check map widget marker"
+            self.common_validation.passed(**kwargs)
             return 1
 
         kwargs['fail_msg'] = "'check_map_location_widget()' -> Widget is not displayed"

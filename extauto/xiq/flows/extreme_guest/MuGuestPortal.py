@@ -201,6 +201,8 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_default_template_page_company_logo().is_displayed():
             self.utils.print_info("Default template is displayed")
             self.get_gp_page_screen_shot()
+            kwargs['pass_msg'] = "Default template is displayed"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'validate_eguest_default_template_with_no_mapping()' -> Default template is displayed"
@@ -261,6 +263,8 @@ class MuGuestPortal(MuGuestPortalWebElements):
             self.utils.print_info("Clicking Login Button")
             self.auto_actions.click_reference(self.get_sponsor_guest_access_register_guest_sponsorlogin)
             sleep(2)
+            kwargs['pass_msg'] = "Registration Successful!"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(self.get_sponsor_guest_access_register_guest_registration_status_text())
@@ -314,6 +318,8 @@ class MuGuestPortal(MuGuestPortalWebElements):
         sleep(2)
 
         if self.get_sponsor_guest_access_login_success_page():
+            kwargs['pass_msg'] = "Validated the Sponsor Action on the Guest Access"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'validate_sponsored_guest_access()' -> Registration was not Successful!"
@@ -389,6 +395,8 @@ class MuGuestPortal(MuGuestPortalWebElements):
             self.utils.print_info("Clicking Login Button")
             self.auto_actions.click_reference(self.get_login_btn)
             sleep(2)
+            kwargs['pass_msg'] = "Registration Successful!"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(self.get_sponsor_guest_access_register_guest_registration_status_text())
@@ -424,6 +432,8 @@ class MuGuestPortal(MuGuestPortalWebElements):
         sleep(2)
 
         if self.get_sponsor_guest_access_login_success_page():
+            kwargs['pass_msg'] = "Successfully registered"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "'register_device_with_email_for_guest_access()' -> Registration was not Successful!"
