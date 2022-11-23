@@ -3784,7 +3784,7 @@ class Device360WebElementDefs:
 
     add_port_type_port_usage_multi_edit = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-port-details-multi-edit-multi-edit-add-new-vlan"]',
+            'XPATH': '//span[@data-automation-tag="automation-port-details-multi-edit-multi-edit-add-new-vlan"]',
             'wait_for': 5
         }
 
