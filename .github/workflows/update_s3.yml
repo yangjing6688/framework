@@ -84,4 +84,5 @@ jobs:
         ls ${BUILD_DIR}
 
     - name: Upload Metadata
-      run: aws s3 sync --delete --exclude "_source" --dryrun ${DOCS_DIR}/${BUILD_DIR}/html s3://extreme-automation-framework-documentation
+      # use --dryrun to test changes
+      run: aws s3 sync --delete --exclude "_sources" ${DOCS_DIR}/${BUILD_DIR}/html s3://extreme-automation-framework-documentation
