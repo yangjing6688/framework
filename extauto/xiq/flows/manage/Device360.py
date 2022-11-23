@@ -10665,22 +10665,15 @@ class Device360(Device360WebElements):
          - Flow: Click max page number
          It Assumes That Already Navigated to Device360 Page
         """
-        try:
-            sleep(2)
-            pagination_size = max(self.dev360.get_device360_ports_table_pagination_sizes(),
-                                key=lambda x: int(x.text))
-            pagination_size.location_once_scrolled_into_view
-            self.auto_actions.click(pagination_size)
-            print(f"Selected the max pagination size: {pagination_size.text}")
-            sleep(5)
-            # return 1
-            kwargs['pass_msg'] = f"Selected the max pagination size: {pagination_size.text}"
-            self.common_validation.passed(**kwargs)
-        except Exception as exc:
-            print(repr(exc))
-            # return -1
-            kwargs['fail_msg'] = f"'select_max_pagination_size()' failed. Max pagination was not selected"
-            self.common_validation.failed(**kwargs)
+        sleep(2)
+        pagination_size = max(self.dev360.get_device360_ports_table_pagination_sizes(),
+                            key=lambda x: int(x.text))
+        pagination_size.location_once_scrolled_into_view
+        self.auto_actions.click(pagination_size)
+        print(f"Selected the max pagination size: {pagination_size.text}")
+        sleep(5)
+        kwargs['pass_msg'] = f"Selected the max pagination size: {pagination_size.text}"
+        self.common_validation.passed(**kwargs)
 
     def select_pagination_size(self, int_size, **kwargs):
         """
@@ -10688,21 +10681,14 @@ class Device360(Device360WebElements):
          - Flow: Click specific page number
          It Assumes That Already Navigated to Device360 Page
         """
-        try:
-            sleep(2)
-            paginations = self.dev360.get_device360_ports_table_pagination_sizes()
-            [pg_size] = [pg for pg in paginations if pg.text == int_size]
-            self.auto_actions.click(pg_size)
-            sleep(5)
-            # return 1
-            kwargs['pass_msg'] = f"Selected the specific pagination size"
-            self.common_validation.passed(**kwargs)
-            return 1
-        except Exception as exc:
-            print(repr(exc))
-            # return -1
-            kwargs['fail_msg'] = f"'select_pagination_size()' failed with the following exception: {exc}. Specific pagination was not selected."
-            self.common_validation.failed(**kwargs)
+        sleep(2)
+        paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+        [pg_size] = [pg for pg in paginations if pg.text == int_size]
+        self.auto_actions.click(pg_size)
+        sleep(5)
+        kwargs['pass_msg'] = f"Selected the specific pagination size"
+        self.common_validation.passed(**kwargs)
+        return 1
 
     def get_device360_port_table_rows(self, **kwargs):
         """
@@ -10788,6 +10774,10 @@ class Device360(Device360WebElements):
         return 2
 
     def list_port_element(self, xiq, port_no, **kwargs):
+        """
+         - This keyword will get port details info
+         It Assumes That Already Navigated to Device360 Page
+        """
         rows = xiq.xflowscommonDevices.devices_web_elements.get_port_details_info()
         matchers = ['Type', 'LACP Status', 'Port Mode', 'Port Status',
                     'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
@@ -10805,25 +10795,28 @@ class Device360(Device360WebElements):
                         # return -1
                         kwargs['fail_msg'] = f"'list_port_element()' failed."
                         self.common_validation.fault(**kwargs)
-            # return 1
             kwargs['pass_msg'] = f"Success"
             self.common_validation.passed(**kwargs)
+            return 1
         else:
-            # return -1
             kwargs['fail_msg'] = f"'list_port_element()' failed."
             self.common_validation.failed(**kwargs)
 
-    def enter_port_transmission_mode(self, port, transmission_mode):
+    def enter_port_transmission_mode(self, port, transmission_mode, **kwargs):
         """
          - This keyword will enter port transimission mode
-        :return: results
+        Args:
+            port
+            transmission_mode: ex. "Half-Duplex"
         """
-
         sleep(10)
         configure_port_btn = self.dev360.get_d360_configure_port_settings_aggregation_tab_button()
         if not configure_port_btn:
             configure_port_btn = self.dev360.weh.get_element({"XPATH": '//div[@data-automation-tag="automation-port-configuration-port-settings"]'})
-        assert configure_port_btn, "Could not find element port configuration button"
+        # assert configure_port_btn, "Could not find element port configuration button"
+        if not configure_port_btn:
+            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Could not find element port configuration button"
+            self.common_validation.fault(**kwargs)
         self.utils.print_info("Click Port Settings Tab")
         self.auto_actions.click(configure_port_btn)
         sleep(3)
@@ -10831,7 +10824,10 @@ class Device360(Device360WebElements):
         rows = self.dev360.get_device360_configure_port_settings_aggregation_rows()
         if not rows:
             rows = self.dev360.weh.get_elements({"XPATH": '//div[@class="port-details-entry line clearfix"]'})
-        assert rows, "Could not get the port settings aggregation rows"
+        # assert rows, "Could not get the port settings aggregation rows"
+        if not rows:
+            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Could not get the port settings aggregation rows"
+            self.common_validation.fault(**kwargs)
 
         for port_row in rows:
             if re.search(f"{port}\n", port_row.text):
@@ -10846,8 +10842,10 @@ class Device360(Device360WebElements):
             drop_down_button = self.dev360.weh.get_element({
                 "XPATH": ".//div[@data-automation-tag='automation-automation-port-settings-port-transmission-type-chzn-container-ctn']"
             }, parent=port_row)
-            assert self.auto_actions.click(drop_down_button) == 1, f"Failed to open transmission type drop down"
-
+            # assert self.auto_actions.click(drop_down_button) == 1, f"Failed to open transmission type drop down"
+            if not self.auto_actions.click(drop_down_button) == 1:
+                kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Failed to open transmission type drop down."
+                self.common_validation.fault(**kwargs)
         sleep(2)
 
         drop_down_options = self.dev360.get_device360_port_settings_transmission_mode_drop_down_options(port_row)
@@ -10855,11 +10853,16 @@ class Device360(Device360WebElements):
             drop_down_options = self.dev360.weh.get_elements({
                 "XPATH": './/li[contains(@data-automation-tag, "automation-automation-port-settings-port-transmission-type-chzn-option")]'
             })
-        assert drop_down_options
+        # assert drop_down_options
+        if not drop_down_options:
+            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Assert drop_down_option"
+            self.common_validation.fault(**kwargs)
         drop_down_options = [opt for opt in drop_down_options if opt.text]
         self.utils.print_info(f"Selecting Transmission Mode Option : {transmission_mode}")
         self.auto_actions.select_drop_down_options(drop_down_options, transmission_mode)
         sleep(2)
+        kwargs['pass_msg'] = f"enter_port_transmission_mode() passed."
+        self.common_validation.passed(**kwargs)
 
     def generate_vlan_id(self, rng=range(1024, 4096)):
         """
@@ -12827,9 +12830,12 @@ class Device360(Device360WebElements):
         kwargs["pass_msg"] = "All ports displayed by default are from Slot 1"
         self.common_validation.passed(**kwargs)
 
-    def check_device360_LLDP_neighbors_with_hyperlink(self, isl_ports_dut, hyperlinks=False):
+    def check_device360_LLDP_neighbors_with_hyperlink(self, isl_ports_dut, hyperlinks=False, **kwargs):
         """
-        Check Device360 LLDP neighbors with hyperlink.
+        Check Device360 LLDP neighbors with hyperlink in D360 table.
+        Args:
+            isl_ports_dut: create_list_of_netelem_isl_ports("netelem1")
+            hyperlinks: True -> to return the LLDP neighbors hyperlinks from D360 table
         """
         header_row = self.dev360.get_device360_ports_description_table_row()
         ths = self.dev360.weh.get_elements(
@@ -12866,12 +12872,18 @@ class Device360(Device360WebElements):
 
         assert is_hyperlink == len(
             isl_ports_dut), "LLDP column displays the sysname without hyperlink for at least one port"
+        kwargs["pass_msg"] = "Successfully checked Device360 LLDP neighbors with hyperlink."
+        self.common_validation.passed(**kwargs)
         if hyperlinks:
+            kwargs["pass_msg"] = f"Hyperlinks: {hyperlinks_dut}"
+            self.common_validation.passed(**kwargs)
             return hyperlinks_dut
 
-    def check_device360_LLDP_neighbors_without_hyperlink(self, isl_ports):
+    def check_device360_LLDP_neighbors_without_hyperlink(self, isl_ports, **kwargs):
         """
-        Check Device360 LLDP neighbors without hyperlink.
+        Check Device360 LLDP neighbors without hyperlink in D360 table.
+        Args:
+            isl_ports_dut: create_list_of_netelem_isl_ports("netelem1")
         """
         header_row = self.dev360.get_device360_ports_description_table_row()
         ths = self.dev360.weh.get_elements(
@@ -12905,92 +12917,93 @@ class Device360(Device360WebElements):
 
         assert no_hyperlink == len(
             isl_ports), "LLDP column displays the sysname with hyperlink/sysname missing for at least one port"
+        kwargs["pass_msg"] = "Successfully checked Device360 LLDP neighbors without hyperlink."
+        self.common_validation.passed(**kwargs)
 
-    def verify_lacp_status_for_port_device_in_360_table(self, logger, port, check_value):
+    def verify_lacp_status_for_port_device_in_360_table(self, logger, port, check_value, **kwargs):
+        """
+        Check Device360 LACP status for port device in D360 table.
+        Args:
+            port: dut1.isl.port_a.ifname
+            check_value: 'true'/'false'
+        """
+        self.select_max_pagination_size()
 
-        try:
+        logger.info("Select LACP Status column if is not selected in column picker")
+        checkbox_button = self.dev360.get_device360_columns_toggle_button()
+        checkbox_button.location_once_scrolled_into_view
 
-            self.select_max_pagination_size()
+        self.auto_actions.click(checkbox_button)
 
-            logger.info("Select LACP Status column if is not selected in column picker")
-            checkbox_button = self.dev360.get_device360_columns_toggle_button()
+        sleep(2)
+        all_checkboxes = self.dev360.get_device360_all_checkboxes()
+        default_disabled = [k for k, v in all_checkboxes.items() if v["is_selected"] is False]
+
+        for checkbox_name, stats in all_checkboxes.items():
+            if checkbox_name.upper() == "LACP STATUS" and checkbox_name in default_disabled \
+                    and stats["is_selected"] is False:
+                self.auto_actions.click(stats["element"])
+                break
+
+        ports_table = self.dev360.get_device360_ports_table()
+        [port_row] = [row for row in ports_table if row["PORT NAME"] == port]
+        lacp_status = port_row["LACP STATUS"]
+        logger.info(f"LACP status = {lacp_status}")
+
+        if not lacp_status == check_value:
+            kwargs["failed_msg"] = f"verify_lacp_status_for_port_device_in_360_table() failed. Default LACP Status for port: {port} is not {check_value}"
+            self.common_validation.fault(**kwargs)
+
+        logger.info("Select LACP Status column if is not selected in column picker")
+        checkbox_button = self.dev360.get_device360_columns_toggle_button()
+        if checkbox_button:
             checkbox_button.location_once_scrolled_into_view
 
-            try:
-                self.auto_actions.click(checkbox_button)
+            self.auto_actions.click(checkbox_button)
+            sleep(2)
 
-                sleep(2)
-                all_checkboxes = self.dev360.get_device360_all_checkboxes()
-                default_disabled = [k for k, v in all_checkboxes.items() if v["is_selected"] is False]
+            all_checkboxes = self.dev360.get_device360_all_checkboxes()
 
-                for checkbox_name, stats in all_checkboxes.items():
-                    if checkbox_name.upper() == "LACP STATUS" and checkbox_name in default_disabled \
-                            and stats["is_selected"] is False:
-                        self.auto_actions.click(stats["element"])
-                        break
-            finally:
-                # Close column picker
-                self.auto_actions.click(checkbox_button)
-                sleep(2)
+            for checkbox_name, stats in all_checkboxes.items():
+                if checkbox_name.upper() == "LACP STATUS" and stats["is_selected"] is True:
+                    self.auto_actions.click(stats["element"])
+                    break
+        self.select_pagination_size("10")
+        self.close_device360_window()
+        kwargs["pass_msg"] = "Successfully verified lacp status for port device in D360 table"
+        self.common_validation.passed(**kwargs)
 
-            ports_table = self.dev360.get_device360_ports_table()
-            [port_row] = [row for row in ports_table if row["PORT NAME"] == port]
-            lacp_status = port_row["LACP STATUS"]
-            logger.info(f"LACP status = {lacp_status}")
-
-            assert lacp_status == check_value, f"Default LACP Status for port: {port} is not {check_value}"
-
-        finally:
-
-            logger.info("Select LACP Status column if is not selected in column picker")
-            checkbox_button = self.dev360.get_device360_columns_toggle_button()
-            if checkbox_button:
-                checkbox_button.location_once_scrolled_into_view
-
-                try:
-                    self.auto_actions.click(checkbox_button)
-                    sleep(2)
-
-                    all_checkboxes = self.dev360.get_device360_all_checkboxes()
-
-                    for checkbox_name, stats in all_checkboxes.items():
-                        if checkbox_name.upper() == "LACP STATUS" and stats["is_selected"] is True:
-                            self.auto_actions.click(stats["element"])
-                            break
-                finally:
-                    # Close column picker
-                    self.auto_actions.click(checkbox_button)
-                    sleep(2)
-
-            self.select_pagination_size("10")
-            self.close_device360_window()
-
-    def check_lld_neighbour_field_with_value_and_with_hyperlink(self, ports_isl, real_ports, logger):
+    def check_lld_neighbour_field_with_value_and_with_hyperlink(self, ports_isl, real_ports, logger, **kwargs):
+        """
+        Check LLDP neighbor field with value and with hyperlink.
+        Args:
+            ports_isl: ex. create_list_of_netelem_isl_ports("netelem1")
+            real_ports: device_360_web_elements.get_ports_from_device360_up()
+        """
         lldp_neighbour = {}
         success = 1
         for port in ports_isl:
             logger.info("PORT =  {}".format(port))
-            try:
-                self.auto_actions.click(real_ports[port - 1])
-                elem = Device360WebElements().get_ports_from_device360_up_lldp_neighbour()
-                if not elem:
-                    elem = Device360WebElements().weh.get_element(
-                        {"XPATH": '//div[contains(@class, "port-info port-lldp-neighbor")]'})
-                lldp_neighbour[port] = elem
-                logger.info("lldp_neighbour =  {}".format(lldp_neighbour[port].text))
-                lldp_hyper_link = Device360WebElements().get_cell_href(lldp_neighbour[port])
-                logger.info("lldp_neighbour href =  {}".format(lldp_hyper_link is not None))
-                str1 = lldp_neighbour[port].text
-                splits = str1.split()
-                for split in splits:
-                    logger.info("SPLIT = {}".format(split))
-                if (lldp_neighbour[port].text is not None and lldp_neighbour[port].text != "" and len(
-                        splits) > 2) and lldp_hyper_link is not None:
-                    success = 1
-                else:
-                    success = 0
-                    break
-                sleep(5)
-            except IndexError:
-                logger.error("PORT =  {} does not exists".format(port))
+            self.auto_actions.click(real_ports[port - 1])
+            elem = Device360WebElements().get_ports_from_device360_up_lldp_neighbour()
+            if not elem:
+                elem = Device360WebElements().weh.get_element(
+                    {"XPATH": '//div[contains(@class, "port-info port-lldp-neighbor")]'})
+            lldp_neighbour[port] = elem
+            logger.info("lldp_neighbour =  {}".format(lldp_neighbour[port].text))
+            lldp_hyper_link = Device360WebElements().get_cell_href(lldp_neighbour[port])
+            logger.info("lldp_neighbour href =  {}".format(lldp_hyper_link is not None))
+            str1 = lldp_neighbour[port].text
+            splits = str1.split()
+            for split in splits:
+                logger.info("SPLIT = {}".format(split))
+            if (lldp_neighbour[port].text is not None and lldp_neighbour[port].text != "" and len(
+                    splits) > 2) and lldp_hyper_link is not None:
+                success = 1
+            else:
+                success = 0
+                break
+            sleep(5)
+        kwargs["pass_msg"] = f"Successfully checked LLDP neighbor field with value and with hyperlink: {success}"
+        self.common_validation.passed(**kwargs)
         return success

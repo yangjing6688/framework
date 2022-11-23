@@ -1599,89 +1599,82 @@ class Cli(object):
          - This keyword gets the number of ports for EXOS and VOSS from CLI
         :return: the number of ports
         """
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
-        try:
-            self.close_connection_with_error_handling(dut)
-            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+        if dut.cli_type.upper() == "VOSS":
 
-            if dut.cli_type.upper() == "VOSS":
+            self.networkElementCliSend.send_cmd(dut.name, 'enable',
+                                                max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig int | no-more',
+                                                         max_wait=10, interval=2)
+            p = re.compile(r'^\d+\/\d+\/?\d*', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+            no_ports = len(match_port)
+            no_ports = int(no_ports)
 
-                self.networkElementCliSend.send_cmd(dut.name, 'enable',
-                                                    max_wait=10, interval=2)
-                output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig int | no-more',
-                                                             max_wait=10, interval=2)
-                p = re.compile(r'^\d+\/\d+\/?\d*', re.M)
-                match_port = re.findall(p, output[0].return_text)
-                print(f"{match_port}")
-                no_ports = len(match_port)
-                no_ports = int(no_ports)
+        elif dut.cli_type.upper() == "EXOS":
+            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging',
+                                                max_wait=10)
+            output = self.networkElementCliSend.send_cmd(dut.name, f'show ports vlan',
+                                                         max_wait=10)
+            output = output[0].return_text
+            match_port = re.findall(r'(\d+)\s+\w+', output)
+            no_ports = len(match_port)
+            no_ports = int(no_ports)
 
-            elif dut.cli_type.upper() == "EXOS":
-                self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging',
-                                                    max_wait=10)
-                output = self.networkElementCliSend.send_cmd(dut.name, f'show ports vlan',
-                                                             max_wait=10)
-                output = output[0].return_text
-                match_port = re.findall(r'(\d+)\s+\w+', output)
-                no_ports = len(match_port)
-                no_ports = int(no_ports)
+        print(f'Number of ports for this switch is {no_ports}')
+        self.close_connection_with_error_handling(dut)
+        kwargs['pass_msg'] = f'Number of ports for this switch is {no_ports}'
+        self.commonValidation.passed(**kwargs)
+        return no_ports
 
-            print(f'Number of ports for this switch is {no_ports}')
-            kwargs['pass_msg'] = f'Number of ports for this switch is {no_ports}'
-            self.commonValidation.passed(**kwargs)
-            return no_ports
-
-        finally:
-            self.close_connection_with_error_handling(dut)
 
     def verify_vlan_config_on_switch(self, onboarded_switch, port_vlan_mapping, logger, **kwargs):
         """
          - This keyword will verify vlan config on switch in CLI
         :return: Device ports speed dictionary
         """
-        try:
-            self.close_connection_with_error_handling(onboarded_switch)
-            self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
+        self.close_connection_with_error_handling(onboarded_switch)
+        self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
 
-            logger.info("Wait 120 seconds for the configuration of the ports to update on the dut")
-            start_time = time.time()
-            while time.time() - start_time < 120:
+        logger.info("Wait 120 seconds for the configuration of the ports to update on the dut")
+        start_time = time.time()
+        while time.time() - start_time < 120:
 
-                if onboarded_switch.cli_type.upper() == "EXOS":
-                    try:
-                        for port, vlan in port_vlan_mapping.items():
-                            output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show vlan ports {port}',
-                                                          max_wait=10, interval=2)[0].return_text
-                            assert re.search(fr"\r\nVLAN_{str(vlan).zfill(4)}\s+{vlan}\s+", output)
-                    except Exception as exc:
-                        logger.info(f"Sleep 10s...\n{repr(exc)}")
+            if onboarded_switch.cli_type.upper() == "EXOS":
+
+                for port, vlan in port_vlan_mapping.items():
+                    output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show vlan ports {port}',
+                                                  max_wait=10, interval=2)[0].return_text
+                    if not re.search(fr"\r\nVLAN_{str(vlan).zfill(4)}\s+{vlan}\s+", output):
+                        logger.info("Sleep 10s")
                         time.sleep(10)
                     else:
                         logger.info("Configuration successfully updated on the dut")
                         break
 
-                elif onboarded_switch.cli_type.upper() == "VOSS":
-                    try:
-                        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show vlan members',
-                                                      max_wait=10, interval=2)[0].return_text
+            elif onboarded_switch.cli_type.upper() == "VOSS":
 
-                        for port, vlan in port_vlan_mapping.items():
-                            assert re.search(fr"\r\n{vlan}\s+{port}\s+", output)
+                output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show vlan members',
+                                              max_wait=10, interval=2)[0].return_text
 
-                    except Exception as exc:
-                        logger.info(f"Sleep 10s...\n{repr(exc)}")
+                for port, vlan in port_vlan_mapping.items():
+                    if not re.search(fr"\r\n{vlan}\s+{port}\s+", output):
+                        logger.info(f"Sleep 10s")
                         time.sleep(10)
                     else:
                         logger.info("Configuration successfully updated on the dut")
                         break
-            else:
-                # raise AssertionError("The configuration did not update on the dut after 120 seconds")
-                kwargs["fail_msg"] = "verify_vlan_config_on_switch() failed."
-                self.commonValidation.failed(**kwargs)
-        finally:
-            self.close_connection_with_error_handling(onboarded_switch)
-            kwargs['pass_msg'] = f'verify_vlan_config_on_switch() keyword passed'
-            self.commonValidation.passed(**kwargs)
+        else:
+            # raise AssertionError("The configuration did not update on the dut after 120 seconds")
+            kwargs["fail_msg"] = "verify_vlan_config_on_switch() failed."
+            self.commonValidation.failed(**kwargs)
+
+        self.close_connection_with_error_handling(onboarded_switch)
+        kwargs['pass_msg'] = f'verify_vlan_config_on_switch() keyword passed'
+        self.commonValidation.passed(**kwargs)
 
     def no_channel_enable_on_all_ports(self, onboarded_switch):
         """
@@ -2094,32 +2087,47 @@ class Cli(object):
         kwargs["fail_msg"] = "get_master_slot() failed."
         self.commonValidation.failed(**kwargs)
 
-    def set_lacp(self, dut, mlt, key, port):
-        try:
-            self.close_connection_with_error_handling(dut)
-            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+    def set_lacp(self, dut, mlt, key, port, **kwargs):
+        """Method that configures lacp.
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            mlt: ex. 70
+            key: ex. 7
+            port: dut1.isl.port_a.ifname
+        """
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
-            if dut.cli_type.upper() == "EXOS":
-                self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"{port}", f"{port}-{port}", '')
-            elif dut.cli_type.upper() == "VOSS":
-                self.networkElementMltGenKeywords.mlt_create_id(dut.name, mlt)
-                self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, f"interface gigabitEthernet {port}", max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, "no auto-sense enable", max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
-                self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"gigabitEthernet {port}", port,
-                                                                                key)
-                self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, f"interface mlt {mlt}", max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, f"lacp key {key}", max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, "lacp enable", max_wait=10, interval=2)
-                self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
-                self.networkElementLacpGenKeywords.lacp_enable_global(dut.name)
-        finally:
-            self.close_connection_with_error_handling(dut)
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"{port}", f"{port}-{port}", '')
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementMltGenKeywords.mlt_create_id(dut.name, mlt)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, f"interface gigabitEthernet {port}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "no auto-sense enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
+            self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"gigabitEthernet {port}", port,
+                                                                            key)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, f"interface mlt {mlt}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, f"lacp key {key}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "lacp enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
+            self.networkElementLacpGenKeywords.lacp_enable_global(dut.name)
 
-    def cleanup_lacp(self, dut, mlt, port):
+        self.close_connection_with_error_handling(dut)
+        kwargs["pass_msg"] = "set_lacp() passed."
+        self.commonValidation.passed(**kwargs)
+
+    def cleanup_lacp(self, dut, mlt, port, **kwargs):
+        """Cleanup lacp.
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            mlt: ex. 70
+            key: ex. 7
+            port: dut1.isl.port_a.ifname
+        """
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
@@ -2138,6 +2146,8 @@ class Cli(object):
             self.networkElementMltGenKeywords.mlt_delete_id(dut.name, mlt)
 
         self.close_connection_with_error_handling(dut)
+        kwargs["pass_msg"] = "cleanup_lacp() passed."
+        self.commonValidation.passed(**kwargs)
 
 if __name__ == '__main__':
     from pytest_testconfig import *
