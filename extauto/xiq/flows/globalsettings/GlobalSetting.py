@@ -216,7 +216,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if device_details:
             return device_details['authdate']
 
-    def create_organization(self, organization_name, colour_name):
+    def create_organization(self, organization_name, colour_name="Default"):
         """
         - This Keyword Uses To Create Organization
         - Flow : User account image-->Global Settings--> Organization
@@ -232,14 +232,17 @@ class GlobalSetting(GlobalSettingWebElements):
 
         self.utils.print_info("Click Add button")
         self.auto_actions.click_reference(self.get_global_settings_account_organizations_add_button)
+        self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Entering Organization name: ", organization_name)
         self.auto_actions.send_keys(self.get_global_settings_account_organization_name_inputfield(), organization_name)
+        self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click colour scroll down box")
         self.auto_actions.click_reference(self.get_organization_drop_down_button)
+        self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Select Colour for Organization")
@@ -248,11 +251,13 @@ class GlobalSetting(GlobalSettingWebElements):
             if colour_name.upper() in item.text.upper():
                 self.utils.print_info("Selecting Colour from drop down")
                 self.auto_actions.click(item)
+                self.screen.save_screen_shot()
                 sleep(2)
                 break
 
         self.utils.print_info("Click Add button")
         self.auto_actions.click_reference(self.get_global_settings_account_organizations_save_button)
+        self.screen.save_screen_shot()
 
         return 1
 
@@ -268,6 +273,7 @@ class GlobalSetting(GlobalSettingWebElements):
         """
         self.utils.print_info("Navigating to the global settings--->organization")
         self.navigate.navigate_to_accounts_organization_page()
+        self.screen.save_screen_shot()
 
         sleep(5)
         self.utils.print_info("Getting organization rows")

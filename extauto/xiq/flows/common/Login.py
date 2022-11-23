@@ -22,6 +22,7 @@ from extauto.xiq.elements.MspWebElements import MspWebElements
 import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
+import extauto.xiq.flows.globalsettings.GlobalSetting
 
 
 
@@ -76,7 +77,7 @@ class Login:
         """
         return self.window_index
 
-    def enable_exos_status_on_xiq(self, url):
+    def enable_exos_status_on_xiq(self, url, **kwargs):
         """
         - for Exos switch to appear in UI we need to load the provided url
         - Keyword Usage:
@@ -89,6 +90,8 @@ class Login:
         CloudDriver().cloud_driver.get(url)
         CloudDriver().cloud_driver.refresh()
         sleep(5)
+        kwargs['pass_msg'] = "The url was loaded successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
@@ -139,7 +142,7 @@ class Login:
                                           **kwargs)
                 count = count + 1
         if result != 1:
-            kwargs['fail_msg'] = "Login was not successful"
+            kwargs['fail_msg'] = "'login_user()' -> Login was not successful"
             self.common_validation.failed(**kwargs)
         else:
             kwargs['pass_msg'] = "Login was successful"
@@ -149,7 +152,7 @@ class Login:
     def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   recover_login=True, map_override=None, ignore_map=False,**kwargs):
+                   recover_login=True, map_override=None, ignore_map=False, **kwargs):
         if url == "default":
             self._init(incognito_mode=incognito_mode)
         else:
@@ -185,11 +188,51 @@ class Login:
             check_error = self.login_web_elements.get_login_portal_check_error()
             if check_error:
                 self.utils.print_info("Error is displayed at loging : ", check_error.text)
+                kwargs['fail_msg'] = f"'_login_user()' -> Error is displayed at loging : {check_error.text}"
+                self.common_validation.fault(**kwargs)
                 return -1
             else:
                 pass
             sleep(5)
+            kwargs['pass_msg'] = "Login successful"
+            self.common_validation.passed(**kwargs)
             return 1
+
+        if 'sso' in url or 'tinyurl' in url:
+            self.utils.print_info("SSO Login Page found")
+            sso_username = BuiltIn().get_variable_value("${sso_username}")
+            sso_password = BuiltIn().get_variable_value("${sso_password}")
+
+            if sso_username and sso_password:
+                self.screen.save_screen_shot()
+                self.utils.print_info("Entering SSO Username")
+                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_username_text(), sso_username)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Entering SSO Password")
+                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_password_text(), sso_password)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Clicking on SSO Sign In button")
+                self.auto_actions.click_reference(self.login_web_elements.get_login_sso_page_login_button)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Check for wrong credentials in SSO Login Page..")
+                sign_in_error_message = self.login_web_elements.get_login_sso_page_sign_in_error_message()
+                self.utils.print_info("Wrong Credential Message: ", sign_in_error_message)
+                if 'No Message' in sign_in_error_message:
+                    kwargs['pass_msg'] = "No Error Message Found in SSO Login Page"
+                    self.common_validation.passed(**kwargs)
+                else:
+                    if "Incorrect user ID or password" in sign_in_error_message:
+                        kwargs['fail_msg'] = "SSO Login Failed.Wrong Credentials. Try Again"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+            else:
+                kwargs['fail_msg'] = f"SSO Username or Password Not Found"
+                self.common_validation.failed(**kwargs)
+                return -1
+
         self.utils.print_info("Entering Username...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
 
@@ -212,7 +255,8 @@ class Login:
         else:
             if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
                 # self.utils.print_info("Wrong Credentials. Try Again")
-                kwargs['fail_msg'] = "Wrong Credentials. Try Again"
+                kwargs['fail_msg'] = "'_login_user()' -> Wrong Credentials. Try Again"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         page_still_loading = True
@@ -258,7 +302,19 @@ class Login:
                     self.utils.print_info(f"Devices page not found.Navigating to Manage-->Devices Page")
                     local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
                     local_navigator.navigate_to_devices()
-                msp_module.select_organization(organization_name=org_name)
+
+                global_settings = extauto.xiq.flows.globalsettings.GlobalSetting.GlobalSetting()
+                if global_settings.search_organization_name(org_name) == 1:
+                    self.utils.print_info(f"Organization name {org_name} Already exists in MSP")
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
+                    msp_module.select_organization(organization_name=org_name)
+                else:
+                    self.utils.print_info(f"Organization name {org_name} Not exists in MSP.So Creating organization")
+                    global_settings.create_organization(org_name)
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
+                    msp_module.select_organization(organization_name=org_name)
             else:
                 self.utils.print_info(f"Continuing with own organization")
                 self.screen.save_screen_shot()
@@ -266,7 +322,8 @@ class Login:
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid,
                                     recover_login=recover_login, map_override=map_override) == -1:
-            kwargs['fail_msg'] = "Wrong Credentials. Try Again"
+            kwargs['fail_msg'] = "'_login_user()' -> Can not login with option. Try Again"
+            self.common_validation.fault(**kwargs)
             return -1
 
         if quick:
@@ -285,7 +342,8 @@ class Login:
             if self.login_web_elements.get_wips_dialog_message():
                 if "Please update existing WIPS policies" in wips_warnings:
                     self.utils.print_info("Clicking Don't show again Checkbox")
-                    self.auto_actions.click_reference(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox)
+                    self.auto_actions.click_reference(
+                        self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox)
                     sleep(2)
 
                     self.utils.print_info("Clicking Close button")
@@ -301,7 +359,7 @@ class Login:
         # if self.login_web_elements.get_devices_list_check().is_displayed():
         #     self.utils.print_info("webelement exists in the mainpage")
 
-        #self.get_version()
+        # self.get_version()
         if co_pilot_status:
             url = BuiltIn().get_variable_value("${TEST_URL}")
             copilot_url = f"{url}/hm-webapp/?copilotBeta=true"
@@ -312,8 +370,7 @@ class Login:
 
         if capture_version:
             self._capture_xiq_version()
-        kwargs['pass_msg'] = "User has been logged in"
-        
+
         try:
             if self.login_web_elements.get_right_arrow().is_displayed():
                 self.utils.print_info("Clicking welcome popup")
@@ -330,6 +387,9 @@ class Login:
         else:
             self.utils.print_info("Current page is not the Manage Devices Page...login process not completed")
             if not recover_login:
+                kwargs['fail_msg'] = "'_login_user()' -> Current page is not the Manage Devices Page...login process" \
+                                     " not completed"
+                self.common_validation.fault(**kwargs)
                 return -1
 
             self.utils.print_info("Attempting to load Map...")
@@ -344,11 +404,13 @@ class Login:
             if device_page_found:
                 return 1
             else:
+                kwargs['fail_msg'] = "'_login_user()' -> Device page not found"
+                self.common_validation.fault(**kwargs)
                 return -1
+
         return 1
 
-
-    def logout_user(self):
+    def logout_user(self, **kwargs):
         """
         - Logout the current user
         - Keyword Usage:
@@ -371,10 +433,15 @@ class Login:
             self.auto_actions.click_reference(self.login_web_elements.get_logout_link)
         except Exception as e:
             self.utils.print_debug("Error: ", e)
+            kwargs['fail_msg'] = f"'logout_user()' -> Error: {e}"
+            self.common_validation.failed(**kwargs)
             return -1
+
+        kwargs['pass_msg'] = "Logout Successful"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def quit_browser(self, _driver=None):
+    def quit_browser(self, _driver=None, **kwargs):
         """
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
@@ -387,6 +454,8 @@ class Login:
 
         if _driver:
             _driver.quit()
+            kwargs['pass_msg'] = "Quit browser Successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         # stop tool tip text capture thread
@@ -394,9 +463,13 @@ class Login:
             if self.t1.is_alive():
                 self.t1.do_run = False
                 sleep(10)
+            kwargs['pass_msg'] = "Quit browser Successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
+            kwargs['fail_msg'] = f"'quit_browser()' -> Error: {e}"
+            self.common_validation.failed(**kwargs)
             return -1
         finally:
             CloudDriver().close_browser()
@@ -471,7 +544,7 @@ class Login:
         else:
             return self._init(url)
 
-    def set_password(self, new_pwd):
+    def set_password(self, new_pwd, **kwargs):
         """
         - Assumes that set password url is already opened
         - Set new password for the account
@@ -504,9 +577,11 @@ class Login:
 
         self.screen.save_screen_shot()
         sleep(2)
+        kwargs['pass_msg'] = "Set the Password Successfully for the Account"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def reset_password(self, new_pwd):
+    def reset_password(self, new_pwd, **kwargs):
         """
         - Assumes that reset password url browser is opened
         - Reset the user account password
@@ -531,9 +606,11 @@ class Login:
         self.auto_actions.click_reference(self.pw_web_elements.get_reset_password_button)
         sleep(2)
 
+        kwargs['pass_msg'] = "Reset the Password Successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def forgot_password(self, _email, url='default'):
+    def forgot_password(self, _email, url='default', **kwargs):
         """
         - Get the link to set the forget password
         - Keyword Usage:
@@ -566,9 +643,13 @@ class Login:
         if reset_message:
             if "sent you an email" in reset_message:
                 if "with instructions for resetting your password" in reset_message:
+                    kwargs['pass_msg'] = f"{reset_message}"
+                    self.common_validation.passed(**kwargs)
                     return 1
 
         self.utils.print_info("Unable to find the reset message")
+        kwargs['fail_msg'] = "'forgot_password()' -> Unable to find the reset message"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _capture_data_center_name(self):
@@ -619,7 +700,7 @@ class Login:
 
         return xiq_version
 
-    def reset_password_for_new_customer(self, password, url="default",):
+    def reset_password_for_new_customer(self, password, url="default", **kwargs):
         """
         - Reset password for xiq account with passed reset password url link
         - Keyword Usage:
@@ -648,6 +729,8 @@ class Login:
 
         got_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title on Reset password Page: ", got_title)
+        kwargs['pass_msg'] = "Reset the Password For New Account Successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def get_switch_connection_host(self, **kwargs):
@@ -675,15 +758,17 @@ class Login:
         self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
         sleep(2)
 
-        if  switch_connection_host:
+        if switch_connection_host:
             kwargs['pass_msg'] = f" Switch Connection Host Is: '{switch_connection_host} '"
             self.common_validation.passed(**kwargs)
             return switch_connection_host
         else:
-            kwargs['fail_msg'] = f"'get_switch_connection_host()' failed. Switch Connection host info was no found: The following was found '{switch_connection_host}'"
+            kwargs[
+                'fail_msg'] = f"'get_switch_connection_host()' failed. Switch Connection host info was no found:" \
+                              f" The following was found '{switch_connection_host}'"
             self.common_validation.failed(**kwargs)
 
-    def get_viq_id(self):
+    def get_viq_id(self, **kwargs):
         """
         - This method is used to get the build id or owner id
         - Keyword Usage:
@@ -705,9 +790,11 @@ class Login:
         self.utils.print_info("Close About Extreme cloudIQ Link Dialogue Page")
         self.auto_actions.click_reference(self.login_web_elements.get_cancel_about_extremecloudiq_dialogue)
 
+        kwargs['pass_msg'] = "Got the build id or owner id successfully"
+        self.common_validation.passed(**kwargs)
         return viq_id
 
-    def get_base_url_of_current_page(self):
+    def get_base_url_of_current_page(self, **kwargs):
         """
         - This Keyword is used to get the url of current loaded page
         - Keyword Usage:
@@ -715,6 +802,8 @@ class Login:
         :return: current page url
         """
         base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', CloudDriver().cloud_driver.current_url)
+        kwargs['pass_msg'] = "Got the url of current loaded page successfully"
+        self.common_validation.passed(**kwargs)
         return base_url.group()
 
     def get_current_page_url(self):
@@ -726,7 +815,7 @@ class Login:
         """
         return CloudDriver().cloud_driver.current_url
 
-    def skip_if_account_90_days(self):
+    def skip_if_account_90_days(self, **kwargs):
         """
             - This keyword detects a license of 90 days and clicks on the option of 90 days
             - Keyword Usage:
@@ -742,6 +831,8 @@ class Login:
                 self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
                 self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
         except:
+            kwargs['fail_msg'] = "'skip_if_account_90_days()' -> Could not select the option of 90 days trial "
+            self.common_validation.failed(**kwargs)
             return -1, "Could not select the option of 90 days trial "
         return str(1), None
 
@@ -779,7 +870,7 @@ class Login:
         """
         CloudDriver().close_window(win_index)
 
-    def xiq_quit_browser(self, _driver=None):
+    def xiq_quit_browser(self, _driver=None, **kwargs):
         """
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
@@ -791,6 +882,8 @@ class Login:
         """
         if _driver:
             _driver.quit()
+            kwargs['pass_msg'] = "Closed all the browser windows and ends the WebDriver session successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         try:
@@ -800,11 +893,14 @@ class Login:
             self.utils.print_info("Resetting cloud driver to -1")
             # extauto.common.CloudDriver.cloud_driver = -1
             # CloudDriver().cloud_driver = None
+            kwargs['pass_msg'] = "Closed all the browser windows and ends the WebDriver session successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         except Exception as e:
-            self.utils.print_info("Error: ", e)
             self.utils.print_debug("Error: ", e)
+            kwargs['fail_msg'] = f"'xiq_quit_browser()' -> Error: {e}"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def xiq_get_child_window_list(self, win_index):
@@ -843,7 +939,9 @@ class Login:
         sleep(5)
         return 1
 
-    def welcome_page_login(self, username, password, login_option, ekey=None, sfdc_user_type=None, sfdc_email=None, sfdc_pwd=None, shared_cuid=None, capture_version=False, code="default", url="default", incognito_mode="False"):
+    def welcome_page_login(self, username, password, login_option, ekey=None, sfdc_user_type=None, sfdc_email=None,
+                           sfdc_pwd=None, shared_cuid=None, capture_version=False, code="default", url="default",
+                           incognito_mode="False", **kwargs):
         """
         - Login Xiq account with username and password
         - By default url will load from the topology file
@@ -897,6 +995,8 @@ class Login:
         self.utils.print_info("Wrong Credential Message: ", credential_warnings)
         if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
             self.utils.print_info("Wrong Credentials. Try Again")
+            kwargs['fail_msg'] = "'welcome_page_login()' -> Wrong Credentials. Try Again"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Check for welcome page options..")
@@ -917,7 +1017,8 @@ class Login:
         if self.login_web_elements.get_wips_dialog_message():
             if "Please update existing WIPS policies" in wips_warnings:
                 self.utils.print_info("Clicking Don't show again Checkbox")
-                self.auto_actions.click_reference(self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox)
+                self.auto_actions.click_reference(
+                    self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox)
                 sleep(2)
 
                 self.utils.print_info("Clicking Close button")
@@ -934,9 +1035,13 @@ class Login:
 
         if capture_version:
             self._capture_xiq_version()
+
+        kwargs['pass_msg'] = "Login Xiq account with username and password successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def select_welcome_page_option(self, login_option, ekey, sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid):
+    def select_welcome_page_option(self, login_option, ekey, sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid,
+                                   **kwargs):
         """
             - This keyword selects login option on welcome page as indicated by login_option
         :return: None
@@ -959,6 +1064,8 @@ class Login:
                     sleep(5)
                     self.utils.print_info("trial option is selected.")
                 else:
+                    kwargs['fail_msg'] = "'select_welcome_page_option()' -> Trial option is not displayed"
+                    self.common_validation.failed(**kwargs)
                     return -2
 
             elif login_option.lower() == 'extremecloudiqlicense':
@@ -976,6 +1083,8 @@ class Login:
                     if tp.is_displayed():
                         self.utils.print_info("ExtremeCloud IQ License option is selected.")
                     else:
+                        kwargs['fail_msg'] = "'select_welcome_page_option()' -> Tooltip is not displayed"
+                        self.common_validation.failed(**kwargs)
                         return -2
 
             elif login_option.lower() == 'legacylicense':
@@ -988,6 +1097,8 @@ class Login:
                     self.auto_actions.send_keys(self.login_web_elements.get_legacy_ek_input_box(), ekey)
                     sleep(5)
                 else:
+                    kwargs['fail_msg'] = "'select_welcome_page_option()' -> Legacy License option is not displayed"
+                    self.common_validation.failed(**kwargs)
                     return -2
 
             elif login_option.lower() == 'connect':
@@ -998,9 +1109,13 @@ class Login:
                     self.utils.print_info("Extreme Connect option is selected.")
                     sleep(5)
                 else:
+                    kwargs['fail_msg'] = "'select_welcome_page_option()' -> Extreme Connect option is not displayed"
+                    self.common_validation.failed(**kwargs)
                     return -2
             else:
                 self.utils.print_info("Not a valid login option.")
+                kwargs['fail_msg'] = "'select_welcome_page_option()' -> Not a valid login option."
+                self.common_validation.fault(**kwargs)
                 return -1
 
             gs_btn = self.login_web_elements.get_get_started_button()
@@ -1020,6 +1135,8 @@ class Login:
                         self.utils.print_info("License Error has occurred...")
                         ek_err = self.login_web_elements.get_legacy_ek_invalid_err().text
                         self.utils.print_info(str(ek_err))
+                        kwargs['fail_msg'] = "'select_welcome_page_option()' -> License Error has occurred..."
+                        self.common_validation.fault(**kwargs)
                         return -1
                 except Exception as e:
                     pass
@@ -1036,16 +1153,22 @@ class Login:
                     self.utils.print_info("Click on I Agree and Submit on Second TOS...")
                     self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_agree)
                     self.auto_actions.click_reference(self.login_web_elements.get_cloud_tos_submit)
+                kwargs['pass_msg'] = "Login is successful"
+                self.common_validation.passed(**kwargs)
                 return 1
             except Exception as e:
                 pass
             self.utils.print_info(login_option + " login is successful.")
+            kwargs['pass_msg'] = "Login is successful"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Not a valid login option.")
+            kwargs['fail_msg'] = "'select_welcome_page_option()' -> Not a valid login option."
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_upgrade_option_for_connect_user(self):
+    def verify_upgrade_option_for_connect_user(self, **kwargs):
         """
         - This keyword checks if upgrade button is displayed and clicking on upgrade button
         navigates connect user to license management UI
@@ -1060,12 +1183,17 @@ class Login:
             self.auto_actions.click_reference(self.login_web_elements.get_upgrade_link)
             sleep(5)
             self.utils.print_info("Clicking on Upgrade btn, navigates user to license management.")
+            kwargs['pass_msg'] = "Upgrade button is displayed and clicking on upgrade button"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Upgrade Button is not shown for Connect User.")
+            kwargs['fail_msg'] = "'verify_upgrade_option_for_connect_user()' -> Upgrade Button is not shown for" \
+                                 " Connect User."
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def link_xiq_to_extreme_portal(self, sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid=None):
+    def link_xiq_to_extreme_portal(self, sfdc_user_type, sfdc_email, sfdc_pwd, shared_cuid=None, **kwargs):
         self.utils.print_info("Redirected to SFDC to complete oauth...")
         sfdc_url = self.get_base_url_of_current_page()
         self.utils.print_info("Completing OAuth...", sfdc_url)
@@ -1079,6 +1207,8 @@ class Login:
                 if sfdc_login_err.is_displayed():
                     sfdc_login_err_txt = self.login_web_elements.get_sfdc_login_err().text
                     self.utils.print_info("SFDC login Failed...", sfdc_login_err_txt)
+                    kwargs['fail_msg'] = f"'link_xiq_to_extreme_portal()' -> SFDC login Failed...{sfdc_login_err_txt}"
+                    self.common_validation.fault(**kwargs)
                     return -1
             except Exception as e:
                 pass
@@ -1126,13 +1256,18 @@ class Login:
                     sleep(3)
             except Exception as e:
                 pass
+            kwargs['pass_msg'] = "Linking is successful."
+            self.common_validation.passed(**kwargs)
             return 1
 
         else:
             self.utils.print_info("Redirection to Extreme Portal ERROR. Linking is not successful.")
+            kwargs['fail_msg'] = "'link_xiq_to_extreme_portal()' -> Redirection to Extreme Portal ERROR. " \
+                                 "Linking is not successful."
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def login_for_first_time(self):
+    def login_for_first_time(self, **kwargs):
         """
             - This keyword used to login for the first time user based on option provided in test case
             - If option is not specified, default option of "30-days trial" is selected.
@@ -1205,6 +1340,8 @@ class Login:
 
         self.screen.save_screen_shot()
         sleep(2)
+        kwargs['pass_msg'] = "Login for the first time is sucessful"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
@@ -1265,7 +1402,7 @@ class Login:
             self.utils.print_info("No selecting menu ")
             return 1
 
-    def _extreme_cloud_iq_license(self, salesforce_username, salesforce_password, saleforce_shared_cuid):
+    def _extreme_cloud_iq_license(self, salesforce_username, salesforce_password, saleforce_shared_cuid, **kwargs):
         self.utils.print_info("Selecting ExtremeCloud IQ License...")
         self.auto_actions.click_reference(self.login_web_elements.get_option_extr_cloudiq_license)
         sleep(2)
@@ -1301,12 +1438,15 @@ class Login:
                 self.auto_actions.click(submit_shared_cuid)
             else:
                 self.utils.print_info("submit button not found ")
+                kwargs['fail_msg'] = "'_extreme_cloud_iq_license()' -> submit button not found "
+                self.common_validation.fault(**kwargs)
                 return -1
             check_error_shared_cuid = self.login_web_elements.get_check_error_shared_cuid()
             if check_error_shared_cuid:
                 self.utils.print_info("The below error was displayed when enter shared CUID:",
                                       check_error_shared_cuid.text)
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"'_extreme_cloud_iq_license()' -> The below error was displayed when enter shared CUID: {check_error_shared_cuid.text}"
+                self.common_validation.fault(**kwargs)
                 return -1
             else:
                 return 1
@@ -1319,9 +1459,11 @@ class Login:
         self._agree_data_privacy_and_protection()
         sleep(5)
 
+        kwargs['pass_msg'] = "ExtremeCloud IQ License login is successful"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def _legacy_entitlement_key(self, entitlement_key):
+    def _legacy_entitlement_key(self, entitlement_key, **kwargs):
         self.utils.print_info("Entering entitlement key: ", entitlement_key)
         sleep(5)
 
@@ -1340,6 +1482,8 @@ class Login:
 
         self._agree_cloud_terms_and_conditions()
         if self._check_legacy_entitlement_key_errors() == -1:
+            kwargs['fail_msg'] = "'_legacy_entitlement_key()' -> Check for entitlement key errors"
+            self.common_validation.fault(**kwargs)
             return -1
         self._agree_data_privacy_and_protection()
 
@@ -1380,7 +1524,7 @@ class Login:
         sleep(5)
         return 1
 
-    def _agree_cloud_terms_and_conditions(self):
+    def _agree_cloud_terms_and_conditions(self, **kwargs):
         self.utils.print_info("Accepting Cloud Terms of Service..")
         try:
             agree_checkbox = self.login_web_elements.get_agree_checkbox()
@@ -1399,7 +1543,7 @@ class Login:
         except Exception as e:
             self.utils.print_info(e)
 
-    def _agree_data_privacy_and_protection(self):
+    def _agree_data_privacy_and_protection(self, **kwargs):
         self.utils.print_info("Accepting Data Privacy and Protection..")
         try:
             agree_data = self.login_web_elements.get_cloud_tos_agree()
@@ -1419,13 +1563,16 @@ class Login:
         except Exception as e:
             self.utils.print_info(e)
 
-    def _check_legacy_entitlement_key_errors(self):
+    def _check_legacy_entitlement_key_errors(self, **kwargs):
         self.utils.print_info("Checking for entitlement key errors")
         try:
             entitlement_error = self.login_web_elements.get_entitlement_key_error()
             if "This entitlement key has already been used by another system" in entitlement_error.text:
                 self.screen.save_screen_shot()
                 self.utils.print_info("This entitlement key has already been used by another system")
+                kwargs['fail_msg'] = "'_check_legacy_entitlement_key_errors()' -> This entitlement key has already" \
+                                     " been used by another system"
+                self.common_validation.fault(**kwargs)
                 return -1
         except Exception as e:
             self.utils.print_debug(e)
@@ -1460,7 +1607,7 @@ class Login:
             pass
 
     def create_new_user_portal(self, customer_name, admin_first_name, admin_last_name, admin_password,
-                               sw_connection_host):
+                               sw_connection_host, **kwargs):
         """
         Creates a fresh new user in portal
         :param customer_name: the name of the customer, written as an email
@@ -1482,12 +1629,16 @@ class Login:
             elif check == -1:
                 if cnt == 2:
                     self.utils.print_info("the users already existed")
+                    kwargs['fail_msg'] = "'create_new_user_portal()' -> the users already existed"
+                    self.common_validation.failed(**kwargs)
                     return -1
                 else:
                     self.utils.print_info("the user already existed . Try again")
             else:
                 if cnt == 2:
                     self.utils.print_info("Error")
+                    kwargs['fail_msg'] = "'create_new_user_portal()' -> Error"
+                    self.common_validation.fault(**kwargs)
                     return -1
                 else:
                     pass
@@ -1511,6 +1662,8 @@ class Login:
             sleep(20)
         if not found_page:
             self.utils.print_info("ADD BUTTON NOT FOUND")
+            kwargs['fail_msg'] = "'create_new_user_portal()' -> ADD BUTTON NOT FOUND"
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(5)
         self.screen.save_screen_shot()
@@ -1521,8 +1674,8 @@ class Login:
             self.utils.print_info("Inserting customer name: " + user)
             self.auto_actions.send_keys(customer_name_field, user)
         else:
-            self.utils.print_info("Unable to find customer name field.")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'create_new_user_portal()' -> Unable to find customer name field."
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Inserting admin first name in the field...")
@@ -1532,8 +1685,8 @@ class Login:
             self.utils.print_info("Inserting admin first name: " + admin_first_name)
             self.auto_actions.send_keys(first_name_field, admin_first_name)
         else:
-            self.utils.print_info("Unable to find admin first name field.")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'create_new_user_portal()' -> Unable to find admin first name field."
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Inserting admin last name in the field...")
@@ -1545,6 +1698,8 @@ class Login:
         else:
             self.utils.print_info("Unable to find admin last name field.")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'create_new_user_portal()' -> Unable to find admin last name field."
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Inserting admin email in the field...")
@@ -1556,6 +1711,8 @@ class Login:
         else:
             self.utils.print_info("Unable to find admin email field.")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'create_new_user_portal()' -> Unable to find admin email field."
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Inserting admin password in the field...")
@@ -1567,6 +1724,8 @@ class Login:
         else:
             self.utils.print_info("Unable to find admin password field.")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'create_new_user_portal()' -> Unable to find admin password field."
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(5)
         self.utils.print_info("Clicking on Data Center dropdown...")
@@ -1599,15 +1758,23 @@ class Login:
                     if cancel_button:
                         self.utils.print_info("Found Cancel button!")
                         self.auto_actions.click(cancel_button)
+                        kwargs['fail_msg'] = "'create_new_user_portal()' -> Found Cancel button!"
+                        self.common_validation.fault(**kwargs)
                         return -1
                     else:
                         self.utils.print_info("Unable to find the cancel button.")
+                        kwargs['fail_msg'] = "'create_new_user_portal()' -> Unable to find the cancel button."
+                        self.common_validation.fault(**kwargs)
                         return -1
             else:
                 self.utils.print_info("Unable to find dropdown options.")
+                kwargs['fail_msg'] = "'create_new_user_portal()' -> Unable to find dropdown options."
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
             self.utils.print_info("Unable to find the dropdown menu.")
+            kwargs['fail_msg'] = "'create_new_user_portal()' -> Unable to find the dropdown menu."
+            self.common_validation.fault(**kwargs)
             return -1
         self.utils.print_info("Clicking on submit button...")
         self.screen.save_screen_shot()
@@ -1620,9 +1787,11 @@ class Login:
             return user
         else:
             self.utils.print_info("Unable to find submit button.")
+            kwargs['fail_msg'] = "'create_new_user_portal()' -> Unable to find submit button."
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def delete_user_portal(self, customer_name, check_delete_devices=-1):
+    def delete_user_portal(self, customer_name, check_delete_devices=-1, **kwargs):
         """
         This function deletes the account created in portal
         :param customer_name:   the name of the customer under which the account was created
@@ -1630,8 +1799,8 @@ class Login:
         """
         sleep(20)
         if check_delete_devices == -1:
-            print("There are still devices on this account!!!!")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'delete_user_portal()' -> There are still devices on this account!!!!"
+            self.common_validation.failed(**kwargs)
             return -1
         self.screen.save_screen_shot()
         self.utils.print_info("Clicking on name cell menu button ...")
@@ -1650,24 +1819,24 @@ class Login:
                     self.utils.print_info("Found filter dropdown option: Equals")
                     self.auto_actions.click(filter_dropdown_option_equals)
                 else:
-                    self.utils.print_info("Unable to find dropdown option: Equals")
-                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "'delete_user_portal()' -> Unable to find dropdown option: Equals"
+                    self.common_validation.fault(**kwargs)
                     return -1
             else:
-                self.utils.print_info("Unable to click filter type dropdown.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "delete_user_portal()' -> Unable to click filter type dropdown."
+                self.common_validation.fault(**kwargs)
                 return -1
             filter_text_box = self.login_web_elements.get_filter_text_box()
             if filter_text_box:
                 self.utils.print_info("Found the filter text box!")
                 self.auto_actions.send_keys(filter_text_box, customer_name)
             else:
-                self.utils.print_info("Unable to find the filter text box!")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "delete_user_portal()' -> Unable to find the filter text box!"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Unable to find cell menu button.")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "delete_user_portal()' -> Unable to find cell menu button."
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(3)
         user_found = self.login_web_elements.get_user_found()
@@ -1679,8 +1848,8 @@ class Login:
                 self.utils.print_info("Deleting user...")
                 self.auto_actions.click(user_found[0])
             else:
-                self.utils.print_info("Multiple users were found ")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "delete_user_portal()' -> Multiple users were found "
+                self.common_validation.failed(**kwargs)
                 return -1
             delete_button = self.login_web_elements.get_delete_button()
             if delete_button:
@@ -1695,6 +1864,8 @@ class Login:
                     self.auto_actions.click(confirmation_option_yes)
                 else:
                     self.utils.print_info("Unable to find confirmation option!")
+                    kwargs['fail_msg'] = "delete_user_portal()' -> Unable to find confirmation option!"
+                    self.common_validation.fault(**kwargs)
                     return -1
                 sleep(5)
                 self.screen.save_screen_shot()
@@ -1706,16 +1877,19 @@ class Login:
                 else:
                     self.utils.print_info("Confirmation hasn't been found!")
             else:
-                self.utils.print_info("Unable to find delete button.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "delete_user_portal()' -> Unable to find delete button."
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("The user has already been deleted or it hasn't been created.")
-            self.screen.save_screen_shot()
+            kwargs['pass_msg'] = "The user has already been deleted or it hasn't been created."
+            self.common_validation.passed(**kwargs)
             return 1
+
+        kwargs['pass_msg'] = "The account is deleted"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def log_out_portal(self):
+    def log_out_portal(self, **kwargs):
         """
         This function logs out from portal
         :return: returns 1 if logging out was succesfull or -1 if otherwise
@@ -1727,12 +1901,16 @@ class Login:
             self.utils.print_info("Found LOGOUT button!")
             self.auto_actions.click(log_out_button_portal)
             self.utils.print_info("Successfully logged out!")
+            kwargs['pass_msg'] = "Successfully logged out!"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to find LOGOUT button.")
+            kwargs['fail_msg'] = "'log_out_portal()' -> Unable to find LOGOUT button."
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def get_portal_url(self, sw_connection_host):
+    def get_portal_url(self, sw_connection_host, **kwargs):
         """
         :param sw_connection_host: the url of the RDC
         :return: the url of portal page ; else -1 
@@ -1747,11 +1925,15 @@ class Login:
                 self.utils.print_info("url is : ", url)
                 return url
             else:
+                kwargs['fail_msg'] = "'get_portal_url()' -> Can not return url of RDC"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "'get_portal_url()' -> Could not get gdc"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def check_if_xiq_user_exists(self, customer_name):
+    def check_if_xiq_user_exists(self, customer_name, **kwargs):
         """
         This function check if the XIQ user exists into portal page
         :param customer_name:   the name of the customer under which the account was created
@@ -1775,24 +1957,24 @@ class Login:
                     self.utils.print_info("Found filter dropdown option: Equals")
                     self.auto_actions.click(filter_dropdown_option_equals)
                 else:
-                    self.utils.print_info("Unable to find dropdown option: Equals")
-                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "'check_if_xiq_user_exists()' -> Unable to find dropdown option: Equals"
+                    self.common_validation.fault(**kwargs)
                     return -1
             else:
-                self.utils.print_info("Unable to click filter type dropdown.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "check_if_xiq_user_exists()' -> Unable to click filter type dropdown."
+                self.common_validation.fault(**kwargs)
                 return -1
             filter_text_box = self.login_web_elements.get_filter_text_box()
             if filter_text_box:
                 self.utils.print_info("Found the filter text box!")
                 self.auto_actions.send_keys(filter_text_box, customer_name)
             else:
-                self.utils.print_info("Unable to find the filter text box!")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "check_if_xiq_user_exists()' -> Unable to find the filter text box!"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Unable to find cell menu button.")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "check_if_xiq_user_exists()' -> Unable to find cell menu button."
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(3)
         user_found = self.login_web_elements.get_user_found()
@@ -1800,19 +1982,21 @@ class Login:
             if len(user_found) == 1:
                 self.utils.print_info(user_found[0].text)
                 sleep(5)
-                self.utils.print_info("Found user!")
+                kwargs['fail_msg'] = "'check_if_xiq_user_exists()' -> Found user!"
+                self.common_validation.failed(**kwargs)
                 return -1
             else:
-                self.utils.print_info("Multiple users were found ")
+                kwargs['fail_msg'] = "'check_if_xiq_user_exists()' -> Multiple users were found"
+                self.common_validation.failed(**kwargs)
                 self.screen.save_screen_shot()
                 return -1
         else:
-            self.utils.print_info("The user has already been deleted or it hasn't been created.")
-            self.screen.save_screen_shot()
+            kwargs['pass_msg'] = "The user has already been deleted or it hasn't been created."
+            self.common_validation.passed(**kwargs)
             return 1
         # return 1 < This code is unreachable?
 
-    def xiq_soft_launch_feature_url(self, url):
+    def xiq_soft_launch_feature_url(self, url, **kwargs):
         # xiq_enable_hidden_feature
         """
         - XIQ uses a URL to enable or disable a 'soft launch' (beta) feature.
@@ -1824,6 +2008,8 @@ class Login:
         self.utils.print_info(f"Load Page: {url}")
         CloudDriver().cloud_driver.get(url)
         sleep(5)
+        kwargs['pass_msg'] = "The url was loaded successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def switch_to_extreme_guest_window(self, win_index=1):
