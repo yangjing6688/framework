@@ -34,7 +34,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
         - Get the client360 details in client grid
         - Client Details include "STATUS HEALTH", "HOST-NAME", "SSID" etc
         - Keyword Usage:
-         - ``Get Real Time Client360 Details``
+        - ``Get Real Time Client360 Details``
 
         :param search_string: string parameter to search the client in client grid ie. client mac, hostname etc
         :return: client360 details dict
@@ -74,7 +74,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
         - FLow: ML Insights --> Client 360 --> Click on either device MAC hyper link or Host name hyper link
         - Client Details include "STATUS HEALTH", "HOST-NAME", "SSID" etc
         - Keyword Usage:
-         - ``Get Client360 Current Connection Status        search_string``
+        - ``Get Client360 Current Connection Status        search_string``
 
         :param search_string: string parameter to search the client in client grid ie. client mac, hostname etc
         :return: current connection status

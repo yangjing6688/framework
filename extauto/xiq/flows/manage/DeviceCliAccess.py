@@ -20,9 +20,9 @@ class DeviceCliAccess(DeviceCliAccessElements):
         - This keyword is used to execute the command on device advanced cli window
         - It will Return the executed command output in str format
         - Flow:
-         - Navigate to Manage --> Device --> Select Device --> Actions --> Advanced --> CLi Access
+        - Navigate to Manage --> Device --> Select Device --> Actions --> Advanced --> CLi Access
         -  Keyword Usage:
-         - ``Send Cmd On Device Advanced Cli   ${DEVICE1_SERIAL}   cmd=${CMD}``
+        - ``Send Cmd On Device Advanced Cli   ${DEVICE1_SERIAL}   cmd=${CMD}``
 
         :param device_serial: device serial number
         :param cmd: cmd to execute on the device advanced cli
@@ -62,7 +62,7 @@ class DeviceCliAccess(DeviceCliAccessElements):
         - This keyword is used to validate the CFD-4322
         - To check The CLI Access output for the previous AP is displayed for the current AP if the Apply button is clicked too quickly
         - Keyword Usage:
-         - Check Clo Output Of Previous Ap In Current Ap Cli Output   device_serials=${AP1_SERIAL},${AP2_SERIAL}``
+        - Check Clo Output Of Previous Ap In Current Ap Cli Output   device_serials=${AP1_SERIAL},${AP2_SERIAL}``
 
         :param device_host_names: comma separated host names of the devices to select device rows
         :param cmd: cmd to execute
@@ -105,14 +105,15 @@ class DeviceCliAccess(DeviceCliAccessElements):
 
     def verify_command(self, ui_output="default", cli_output="default", cmd="default"):
         """
-             - This keyword  verifies whether UI output and CLI output match.
-             - Keyword Usage:
-              - ``${RESULT}=        Verify UI Command         ${UI_OUTPUT}      ${CLI_OUTPUT}       ${CMD}  ``
-             :param ui_output: output of command in UI
-             :param cli_output: output of command in cli
-             :param cmd: command that is executed
-             :return: returns 1 if successful
-             """
+        - This keyword  verifies whether UI output and CLI output match.
+        - Keyword Usage:
+        - ``${RESULT}=        Verify UI Command         ${UI_OUTPUT}      ${CLI_OUTPUT}       ${CMD}  ``
+
+        :param ui_output: output of command in UI
+        :param cli_output: output of command in cli
+        :param cmd: command that is executed
+        :return: returns 1 if successful
+        """
         try:
             if ui_output != "default" and cli_output != "default":
                 ui_output = ui_output.strip()
@@ -152,16 +153,16 @@ class DeviceCliAccess(DeviceCliAccessElements):
 
     def ap_operating_channel(self, cli_op):
         """
-            - Verifing the Ap Operating channel
-            - Keyword Usage:
+        - Verifing the Ap Operating channel
+        - Keyword Usage:
                 =>  ${channel}=     Ap Operating Channel     ${cli_output}
 
         Note : before executing this method, we have to get the AP interface details like below
                 =>  ${cli_output}=		Send		${SPAWN}    sho interface | in Wifi1.1
 
-            :param cli_op: get the channel information from send command
-            :return: will return the current operating channel if AP is UP,
-                        else return -1 """
+        :param cli_op: get the channel information from send command
+        :return: will return the current operating channel if AP is UP,
+                    else return -1 """
 
         if cli_op.find(" U ") != -1:
             self.utils.print_info("AP is up now, checking the operation channel")

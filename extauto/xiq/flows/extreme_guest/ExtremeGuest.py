@@ -23,7 +23,7 @@ class ExtremeGuest(object):
 
     def go_to_extreme_guest_subscribe_page(self):
         """
-        -This keyword Will Navigate to Extreme Guest Subscription Page
+        - This keyword Will Navigate to Extreme Guest Subscription Page
         - Flow: Extreme Guest--> Subscribe--> Page
         - Keyword Usage:
             ''Go To Extreme Guest subscribe Page''
@@ -53,7 +53,7 @@ class ExtremeGuest(object):
 
     def go_to_extreme_guest_landing_page(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Window
+        - This keyword Will Navigate to Extreme Guest Window
         - Flow: XIQ--> Extreme Guest
         - Keyword Usage:
             ''Go To Extreme Guest Page''
@@ -101,7 +101,7 @@ class ExtremeGuest(object):
 
     def go_to_extreme_guest_page(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Menu Window
+        - This keyword Will Navigate to Extreme Guest Menu Window
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
             ''Go To Extreme Guest Page''
@@ -125,7 +125,7 @@ class ExtremeGuest(object):
 
     def go_to_extreme_guest_monitor_page(self):
         """
-        -This keyword Will Navigate to Extreme Guest Menu Window
+        - This keyword Will Navigate to Extreme Guest Menu Window
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window-- Monitor
         - Keyword Usage:
             ''Go To Extreme Guest Monitor Page''
@@ -144,7 +144,7 @@ class ExtremeGuest(object):
 
     def go_to_extreme_guest_monitor_dashboard_page(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Menu Window
+        - This keyword Will Navigate to Extreme Guest Menu Window
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window-- Monitor--> dashboard
         - Keyword Usage:
             ''Go To Extreme Guest Monitor Dashboard Page''
@@ -164,7 +164,7 @@ class ExtremeGuest(object):
 
     def go_back_to_xiq(self):
         """
-        -This keyword Will Navigate back to XIQ Window
+        - This keyword Will Navigate back to XIQ Window
         - Keyword Usage:
             ''Go Back To Xiq''
 
@@ -177,7 +177,7 @@ class ExtremeGuest(object):
 
     def go_to_configure_page(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Configure Menu Window
+        - This keyword Will Navigate to Extreme Guest Configure Menu Window
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure
         - Keyword Usage:
             ''Go To Configure Page''
@@ -198,7 +198,7 @@ class ExtremeGuest(object):
 
     def go_to_configure_users_page(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Configure Users Page
+        - This keyword Will Navigate to Extreme Guest Configure Users Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Users
         - Keyword Usage:
             ''Go To Configure Users Page''
@@ -219,7 +219,7 @@ class ExtremeGuest(object):
 
     def check_help_information(self, **kwargs):
         """
-        -This keyword Will check if help information is available to create open SSID
+        - This keyword Will check if help information is available to create open SSID
         - Flow: Extreme Guest--> Subscribe--> Page
         - Keyword Usage:
             ''check help information''
@@ -239,6 +239,7 @@ class ExtremeGuest(object):
     def _get_extreme_guest_subscription_page_open_ssid_row(self, search_string, **kwargs):
         """
         Getting the row in Open SSID is same for all the objects
+
         :param search_string:
         :return:
         """
@@ -259,6 +260,7 @@ class ExtremeGuest(object):
     def _search_extreme_guest_subscription_page_open_ssid(self, search_string):
         """
         Search the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -270,6 +272,7 @@ class ExtremeGuest(object):
     def _select_extreme_guest_subscription_page_open_ssid_row(self, search_string):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -284,7 +287,7 @@ class ExtremeGuest(object):
 
     def apply_selected_open_ssid(self, search_string, **kwargs):
         """
-        -This keyword Will select and apply an open SSID
+        - This keyword Will select and apply an open SSID
         - Flow: Flow: Extreme Guest--> Subscribe--> Page
         - Keyword Usage:
             ''apply selected open ssid''
@@ -307,7 +310,7 @@ class ExtremeGuest(object):
 
     def check_created_ssid_table(self, ssid_name=None, **kwargs):
         """
-        -This keyword Will check for an open SSID name
+        - This keyword Will check for an open SSID name
         - Flow: Flow: Extreme Guest--> Subscribe--> Page
         - Keyword Usage:
             ''check_created_ssid_table''
@@ -335,7 +338,7 @@ class ExtremeGuest(object):
         """
         - This Keyword used to send CLI command to AP1 of Topology used to configure or Monitor
         - Keyword Usage:
-         - ``Send Command To AP1     ${COMMAND}``
+        - ``Send Command To AP1     ${COMMAND}``
 
         :param ssid_name:
         :param cli_objs: CLI command to be execute on AP1
@@ -367,10 +370,11 @@ class ExtremeGuest(object):
 
     def go_to_analyze_page(self):
         """
-        -This keyword Will Navigate to Extreme Guest Configure Menu Window
+        - This keyword Will Navigate to Extreme Guest Configure Menu Window
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure
         - Keyword Usage:
             ''Go To Analyze Page''
+
         :return: 1 if success
         """
         self.go_to_extreme_guest_page()
@@ -385,10 +389,11 @@ class ExtremeGuest(object):
 
     def go_to_analyze_manage_reports_page(self):
         """
-        -This keyword Will Navigate to Extreme Guest Analyze Reports Page
+        - This keyword Will Navigate to Extreme Guest Analyze Reports Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Users
         - Keyword Usage:
             ''Go To Analyze Manage Reports Page''
+
         :return: 1 if success
         """
         self.go_to_analyze_page()
@@ -400,10 +405,10 @@ class ExtremeGuest(object):
         sleep(2)
 
         return 1
-    
+
     def check_guest_subscription(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Subscription Page
+        - This keyword Will Navigate to Extreme Guest Subscription Page
         - Flow: Extreme Guest--> Subscribe--> Page
         - Keyword Usage:
             ''Check Guest Subscription''

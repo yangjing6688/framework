@@ -1,0 +1,3 @@
+sphinx              # Documentation generator
+# sphinx-rtd-theme    # Theme for html output of sphinx
+m2r2                 # Converts md files to rst for sphinx

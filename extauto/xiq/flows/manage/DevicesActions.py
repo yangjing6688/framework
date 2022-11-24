@@ -38,7 +38,7 @@ class DevicesActions:
         - This keyword checks if the 'Actions' button is enabled within Manage > Devices view.
         - It is assumed that the Manage > Device view is open.
         - Keyword Usage
-         - ``Is Actions Button Enabled``
+        - ``Is Actions Button Enabled``
         :return: True if the button is enabled, False if the button is disabled, else -1
         """
         ret_val = -1
@@ -66,7 +66,7 @@ class DevicesActions:
         - Assumes that already navigated to Manage --> Devices
         - This method Clear Audit Mismatch for the device matching the serial(s)
         - Keyword Usage:
-         - ``clear_audit_mismatch_on_device  ${DEVICE_SERIAL}``
+        - ``clear_audit_mismatch_on_device  ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number
         :return: None
@@ -95,7 +95,7 @@ class DevicesActions:
         - Select all devices in rows
         - Click Utilities --> Reset Device to Default
         - Keyword Usage:
-         - ``Reset Devices To Default``
+        - ``Reset Devices To Default``
         :return: 1 if Reset is Successful else -1
         """
         device_list = []
@@ -126,7 +126,7 @@ class DevicesActions:
         - Click Utilities --> Reset Device to Default
         - Handles device reset pop up and validates reset dialogue box message.
         - Keyword Usage:
-         - ``Reset Device to Default     ${AP1_SERIAL}   ${AP2_SERIAL}``
+        - ``Reset Device to Default     ${AP1_SERIAL}   ${AP2_SERIAL}``
         :param device_list: serial numbers of the devices
         :return: 1 if Reset is Successful else -1
         """
@@ -165,7 +165,7 @@ class DevicesActions:
         - Click on Utilities --> Status --> Reset Device to Default
         - Handles device reset pop up and validates reset dialogue box message.
         - Keyword Usage:
-         - ``Perform Device Factory Reset     ${AP1_SERIAL}   ${AP2_SERIAL}``
+        - ``Perform Device Factory Reset     ${AP1_SERIAL}   ${AP2_SERIAL}``
 
         :param device_list: serial numbers of the devices
         :return: 1 if Reset is Successful else -1
@@ -244,7 +244,7 @@ class DevicesActions:
         - This Keyword selects device utilities
         - Select the device row based on the passed device serial --> clicks on Utilities
         - Keyword Usage:
-         - ``Select Device Utilities   ${DEVICE_SERIAL}``
+        - ``Select Device Utilities   ${DEVICE_SERIAL}``
 
         :param device_list: Device list
         :return: 1 if selecting Utilities is successful
@@ -271,7 +271,7 @@ class DevicesActions:
         - This keyword checks if the ACTIONS > Relaunch Digital Twin menu option is visible
         - It is assumed that the Manage > Device window is open and that a device is selected.
         - Keyword Usage
-         - ``Is Actions Relaunch Digital Twin Visible``
+        - ``Is Actions Relaunch Digital Twin Visible``
         :return: True if visible, False if not visible, else -1
         """
         self.utils.print_info("Opening Actions menu")
@@ -302,7 +302,7 @@ class DevicesActions:
         - This keyword clicks on the ACTIONS > Relaunch Digital Twin
         - It is assumed that the Manage > Device window is open and a Digital Twin device is selected.
         - Keyword Usage
-         - ``Actions Relaunch Digital Twin    confirm="no"``
+        - ``Actions Relaunch Digital Twin    confirm="no"``
         :param confirm: Click Yes or No button within the confirmation panel
         :return: 1 if action was successful, else -1
         """
@@ -345,7 +345,7 @@ class DevicesActions:
         - This keyword checks if the ACTIONS > Shutdown Digital Twin menu option is visible
         - It is assumed that the Manage > Device window is open and that a device is selected.
         - Keyword Usage
-         - ``Is Actions Shutdown Digital Twin Visible``
+        - ``Is Actions Shutdown Digital Twin Visible``
         :return: True if visible, False if not visible, else -1
         """
         self.utils.print_info("Opening Actions menu")
@@ -376,7 +376,7 @@ class DevicesActions:
         - This keyword clicks on the ACTIONS > Shutdown Digital Twin
         - It is assumed that the Manage > Device window is open and a Digital Twin device is selected.
         - Keyword Usage
-         - ``Actions Shutdown Digital Twin    confirm="no"``
+        - ``Actions Shutdown Digital Twin    confirm="no"``
         :param confirm: Click Yes or No button within the confirmation panel
         :return: 1 if action was successful, else -1
         """

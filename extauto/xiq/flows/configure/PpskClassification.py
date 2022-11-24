@@ -149,7 +149,7 @@ class PpskClassification(object):
         - Select mentioned network from dropdowm
         - Select the row and verify PPSK Classification Rule for the mentioned user
         - Keyword Usage
-         - ``Verify Ppsk Classification rule to User     ${NETWORK_NAME}     ${PPSK_USER}      ${CLASSIFICATION_RULE}``
+        - ``Verify Ppsk Classification rule to User     ${NETWORK_NAME}     ${PPSK_USER}      ${CLASSIFICATION_RULE}``
 
         :param network_name: Name of the Network Policy
         :param user_name: Name of the PPSK User created in the User Group
@@ -195,7 +195,7 @@ class PpskClassification(object):
         - Select mentioned network from dropdown
         - Delete all the PPSK classification users entries for the mentioned network
         - Keyword Usage
-         - ``Delete all PPSK Classification rule User     ${NETWORK_NAME} ``
+        - ``Delete all PPSK Classification rule User     ${NETWORK_NAME} ``
 
         :param network_name: Name of the Network Policy
         :return: 1 if success

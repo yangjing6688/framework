@@ -25,7 +25,7 @@ class SplashTemplate(object):
 
     def go_to_configure_splash_template_tab(self):
         """
-        -This keyword Will Navigate to Extreme Guest Splash Template
+        - This keyword Will Navigate to Extreme Guest Splash Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Splash Template
         - Keyword Usage:
             ''Go To Configure Splash Template Tab''
@@ -43,7 +43,7 @@ class SplashTemplate(object):
 
     def go_to_configure_splash_system_template_tab(self):
         """
-        -This keyword Will Navigate to Extreme Guest System Splash Template
+        - This keyword Will Navigate to Extreme Guest System Splash Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
                 Splash Template--> System Template
         - Keyword Usage:
@@ -63,11 +63,11 @@ class SplashTemplate(object):
 
     def go_to_configure_splash_user_template_tab(self):
         """
-        -This keyword Will Navigate to Extreme Guest User Splash Template
+        - This keyword Will Navigate to Extreme Guest User Splash Template
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure-->
                 Splash Template--> User Template
         - Keyword Usage:
-            ''Go To Configure Splash User Template Tab''	
+            ''Go To Configure Splash User Template Tab''
 
         :return: 1 if success
         """
@@ -180,7 +180,7 @@ class SplashTemplate(object):
 
         self.screen.save_screen_shot()
         sleep(2)
-        
+
         self.utils.print_info("Clicking the Clone icon on Device_Registration_with_Social_WiFi Template")
         self.auto_actions.click_reference(
             self.splash_web_elem.get_extreme_guest_clone_device_registration_with_social_wifi_icon)
@@ -196,12 +196,12 @@ class SplashTemplate(object):
         self.utils.print_info("Adding Login tab")
         self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_icon)
         self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_login_item)
-        
+
         self.utils.print_info("Drag and Drop Layout1 to Login tab")
         self.auto_actions.drag_and_drop_element(
             self.splash_web_elem.get_extreme_guest_clone_system_template_theme_layout1(),
             self.splash_web_elem.get_extreme_guest_clone_system_template_main_droppanel())
-        
+
         self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_selectwidget_icon)
         self.auto_actions.drag_and_drop_element(
             self.splash_web_elem.get_extreme_guest_clone_system_template_loginform_widget_icon(),
@@ -323,7 +323,7 @@ class SplashTemplate(object):
 
         self.screen.save_screen_shot()
         sleep(2)
-        
+
         self.utils.print_info("Clicking the Clone icon on Social_WiFi_with_all Template")
         self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_social_wifi_with_all_icon)
         sleep(2)
@@ -452,7 +452,7 @@ class SplashTemplate(object):
 
         self.screen.save_screen_shot()
         sleep(2)
-        
+
         self.utils.print_info("Clicking the Clone icon on User_Registration_with_Social_WiFi Template")
         self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_user_registration_with_social_wifi_icon)
         sleep(2)
@@ -579,10 +579,9 @@ class SplashTemplate(object):
         - It is assumed that location is already created
         - Flow : Eguest Essentials --> More Insights --> Settings -->Splash Templates -->user Templates-->apply --> Location
         - Keyword Usage:
-         - ``Select Location For Apply User Template Page ${LOCATION}``
+        - ``Select Location For Apply User Template Page ${LOCATION}``
 
-        :param sel_loc: location to select, in a comma-separated list format;
-               e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
+        :param sel_loc: location to select, in a comma-separated list format (e.g., Extreme Networks,Bangalore,Ecospace,Floor 1)
         :return: 1 if location is selected, else -1'
         """
         ret_val = -1
@@ -673,4 +672,3 @@ class SplashTemplate(object):
             self.common_validation.fault(**kwargs)
 
         return ret_val
-

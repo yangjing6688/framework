@@ -45,12 +45,12 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_navigate_and_create_snmp_credential(self, name, version, comm_str):
         """
-         - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
-         - creates a new SNMPv1 or SNMPv2 credential in XIQ-SE.
-         - Please use xiqse_navigate_and_create_snmpv3_credential to create an SNMPv3 credential.
-         - Keyword Usage
-          - ``XIQSE Navigate and Create SNMP Credential  test_cred_1  SNMPv1  public``
-          - ``XIQSE Navigate and Create SNMP Credential  test_cred_2  SNMPv2  private``
+        - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
+        - creates a new SNMPv1 or SNMPv2 credential in XIQ-SE.
+        - Please use xiqse_navigate_and_create_snmpv3_credential to create an SNMPv3 credential.
+        - Keyword Usage
+        - ``XIQSE Navigate and Create SNMP Credential  test_cred_1  SNMPv1  public``
+        - ``XIQSE Navigate and Create SNMP Credential  test_cred_2  SNMPv2  private``
 
         :param name: value to enter in the Credential Name field
         :param version: value to select for the SNMP Version field (SNMPv1, SNMPv2)
@@ -67,10 +67,10 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_navigate_and_create_snmpv1_credential(self, name, comm_str):
         """
-         - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
-         - creates a new SNMPv1 credential in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Create SNMPv1 Credential  test_cred_1  public``
+        - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
+        - creates a new SNMPv1 credential in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Create SNMPv1 Credential  test_cred_1  public``
 
         :param name: value to enter in the Credential Name field
         :param comm_str: value to enter in the Community Name field
@@ -86,10 +86,10 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_navigate_and_create_snmpv2_credential(self, name, comm_str):
         """
-         - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
-         - creates a new SNMPv2 credential in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Create SNMP Credential  test_cred_2   private``
+        - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
+        - creates a new SNMPv2 credential in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Create SNMP Credential  test_cred_2   private``
 
         :param name: value to enter in the Credential Name field
         :param comm_str: value to enter in the Community Name field
@@ -106,13 +106,13 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
     def xiqse_navigate_and_create_snmpv3_credential(self, name, user_name, auth_type="None", auth_pwd=None,
                                                     priv_type=None, priv_pwd=None):
         """
-         - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
-         - creates a new SNMPv3 credential in XIQ-SE.
-         - Please use xiqse_navigate_and_create_credential to create an SNMPv1 or SNMPv2 credential
-         - Keyword Usage
-          - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_1  admin``
-          - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_2  my_user   auth_type=MD5  auth_pwd=auth_pwd``
-          - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_2  my_user   auth_type=SHA  auth_pwd=auth_pwd  priv_type=AES  priv_pwd=priv_pwd``
+        - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
+        - creates a new SNMPv3 credential in XIQ-SE.
+        - Please use xiqse_navigate_and_create_credential to create an SNMPv1 or SNMPv2 credential
+        - Keyword Usage
+        - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_1  admin``
+        - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_2  my_user   auth_type=MD5  auth_pwd=auth_pwd``
+        - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_2  my_user   auth_type=SHA  auth_pwd=auth_pwd  priv_type=AES  priv_pwd=priv_pwd``
 
         :param name: value to enter in the Credential Name field
         :param user_name: value to enter in the User Name field
@@ -132,10 +132,10 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_navigate_and_select_snmp_credential(self, name):
         """
-         - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
-         - selects an existing SNMP credential in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Select SNMP Credential  test_cred_1``
+        - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
+        - selects an existing SNMP credential in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Select SNMP Credential  test_cred_1``
 
         :param name: name of the SNMP credential to select
         :return: 1 if action was successful, else -1
@@ -150,10 +150,10 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_navigate_and_delete_snmp_credential(self, name):
         """
-         - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
-         - deletes an existing SNMP credential in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Delete SNMP Credential  test_cred_1``
+        - This keyword navigates to the Administration> Profiles> SNMP Credentials tab and
+        - deletes an existing SNMP credential in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Delete SNMP Credential  test_cred_1``
 
         :param name: name of the SNMP credential to delete
         :return: 1 if action was successful, else -1
@@ -168,12 +168,12 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_create_snmp_credential(self, name, version, comm_str):
         """
-         - This keyword creates a new SNMPv1 or SNMPv2 credential in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
-         - Please use xiqse_create_snmpv3_credential to create an SNMPv3 credential
-         - Keyword Usage
-          - ``XIQSE Create SNMP Credential  test_cred_1  SNMPv1  public``
-          - ``XIQSE Create SNMP Credential  test_cred_2  SNMPv2  private``
+        - This keyword creates a new SNMPv1 or SNMPv2 credential in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
+        - Please use xiqse_create_snmpv3_credential to create an SNMPv3 credential
+        - Keyword Usage
+        - ``XIQSE Create SNMP Credential  test_cred_1  SNMPv1  public``
+        - ``XIQSE Create SNMP Credential  test_cred_2  SNMPv2  private``
 
         :param name: value to enter in the Credential Name field
         :param version: value to select for the SNMP Version field (SNMPv1, SNMPv2, SNMPv3)
@@ -215,10 +215,10 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_create_snmpv1_credential(self, name, comm_str):
         """
-         - This keyword creates a new SNMPv1 credential in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
-         - Keyword Usage
-          - ``XIQSE Create SNMP Credential  test_cred_1  public``
+        - This keyword creates a new SNMPv1 credential in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
+        - Keyword Usage
+        - ``XIQSE Create SNMP Credential  test_cred_1  public``
 
         :param name: value to enter in the Credential Name field
         :param comm_str: value to enter in the Community Name field
@@ -228,10 +228,10 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_create_snmpv2_credential(self, name, comm_str):
         """
-         - This keyword creates a new SNMPv2 credential in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
-         - Keyword Usage
-          - ``XIQSE Create SNMP Credential  test_cred_2  private``
+        - This keyword creates a new SNMPv2 credential in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
+        - Keyword Usage
+        - ``XIQSE Create SNMP Credential  test_cred_2  private``
 
         :param name: value to enter in the Credential Name field
         :param comm_str: value to enter in the Community Name field
@@ -242,13 +242,13 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
     def xiqse_create_snmpv3_credential(self, name, user_name, auth_type="None", auth_pwd=None,
                                        priv_type=None, priv_pwd=None):
         """
-         - This keyword creates a new SNMPv3 credential in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
-         - Please use xiqse_create_snmp_credential to create an SNMPv1 or SNMPv2 credential
-         - Keyword Usage
-          - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_1  admin``
-          - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_2  my_user   auth_type=MD5  auth_pwd=auth_pwd``
-          - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_2  my_user   auth_type=SHA  auth_pwd=auth_pwd  priv_type=AES  priv_pwd=priv_pwd``
+        - This keyword creates a new SNMPv3 credential in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
+        - Please use xiqse_create_snmp_credential to create an SNMPv1 or SNMPv2 credential
+        - Keyword Usage
+        - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_1  admin``
+        - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_2  my_user   auth_type=MD5  auth_pwd=auth_pwd``
+        - ``XIQSE Navigate and Create SNMPv3 Credential  test_cred_2  my_user   auth_type=SHA  auth_pwd=auth_pwd  priv_type=AES  priv_pwd=priv_pwd``
 
         :param name: value to enter in the Credential Name field
         :param user_name: value to enter in the User Name field
@@ -318,10 +318,10 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_delete_snmp_credential(self, name):
         """
-         - This keyword deletes an existing SNMP credential in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
-         - Keyword Usage
-          - ``XIQSE Delete SNMP Credential  test_cred_1``
+        - This keyword deletes an existing SNMP credential in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
+        - Keyword Usage
+        - ``XIQSE Delete SNMP Credential  test_cred_1``
 
         :param name: name of the SNMP credential to delete
         :return: 1 if action was successful, else -1
@@ -384,10 +384,10 @@ class XIQSE_AdminProfilesSNMPCredentials(AdminProfilesSNMPCredentialsWebElements
 
     def xiqse_select_snmp_credential(self, name):
         """
-         - This keyword selects an existing SNMP credential in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
-         - Keyword Usage
-          - ``XIQSE Select SNMP Credential  test_cred_1``
+        - This keyword selects an existing SNMP credential in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles> SNMP Credentials.
+        - Keyword Usage
+        - ``XIQSE Select SNMP Credential  test_cred_1``
 
         :param name: name of the SNMP credential to select
         :return: 1 if action was successful, else -1

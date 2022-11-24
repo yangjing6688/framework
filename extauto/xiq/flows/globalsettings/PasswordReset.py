@@ -21,7 +21,7 @@ class PasswordReset:
         - Adding administrative account
         - Flow Global Settings --> Account Management
         - Keyword Usage:
-         - ``Add Account  ${NAME}   ${EMAIL``
+        - ``Add Account  ${NAME}   ${EMAIL``
 
         :param name:
         :param _email:
@@ -78,7 +78,7 @@ class PasswordReset:
         """
         - Get the url link for password set to new account sent to email
         - Keyword Usage:
-         - ``Get Link   ${EMAIL}   ${PASSWORD}``
+        - ``Get Link   ${EMAIL}   ${PASSWORD}``
 
         :param _email:
         :param _password:
@@ -94,7 +94,7 @@ class PasswordReset:
         - Create administrative account and get the password reset link
         -  Flow Global Settings --> Account Management
         - Keyword Usage:
-         - ``Password Reset   ${NAME}   ${EMAIL}   ${PASSWORD}
+        - ``Password Reset   ${NAME}   ${EMAIL}   ${PASSWORD}
 
         :param name:
         :param _email:

@@ -22,10 +22,10 @@ class Summary(object):
 
     def check_all_summary_page_widgets(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check all widgets
+        - This keyword Will Navigate to Extreme Guest Summary and check all widgets
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check all summary page widgets''
+        -    ''check all summary page widgets''
 
         :return: 1 if all widgets are displayed
         """
@@ -83,10 +83,10 @@ class Summary(object):
 
     def check_summary_page_visitor_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check visitor widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check visitor widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page visitor widget data''
+        -    ''check summary page visitor widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -112,10 +112,10 @@ class Summary(object):
 
     def check_summary_page_new_user_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check new user widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check new user widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page new user widget data''
+        -    ''check summary page new user widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -141,10 +141,10 @@ class Summary(object):
 
     def check_summary_page_conversion_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check conversion widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check conversion widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page conversion widget data''
+        -    ''check summary page conversion widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -170,10 +170,10 @@ class Summary(object):
 
     def check_summary_page_gender_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check gender widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check gender widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page gender widget data''
+        -    ''check summary page gender widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -196,10 +196,10 @@ class Summary(object):
 
     def check_summary_page_facebook_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check facebook widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check facebook widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page facebook widget data''
+        -    ''check summary page facebook widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -222,10 +222,10 @@ class Summary(object):
 
     def check_summary_page_google_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check google widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check google widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page google widget data''
+        -    ''check summary page google widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -248,10 +248,10 @@ class Summary(object):
 
     def check_summary_page_linkedin_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page linkedin widget data''
+        -    ''check summary page linkedin widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -274,10 +274,10 @@ class Summary(object):
 
     def check_summary_page_total_users_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page total users widget data''
+        -    ''check summary page total users widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -300,10 +300,10 @@ class Summary(object):
 
     def check_summary_page_online_users_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page online users widget data''
+        -    ''check summary page online users widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -326,10 +326,10 @@ class Summary(object):
 
     def check_summary_page_total_clients_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page total clients widget data''
+        -   ''check summary page total clients widget data''
 
         :return: 1 if all widgets are displayed
         """
@@ -352,10 +352,10 @@ class Summary(object):
     
     def check_summary_page_online_clients_widget_data(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
+        - This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window
         - Keyword Usage:
-            ''check summary page total clients widget data''
+        -    ''check summary page total clients widget data''
 
         :return: 1 if all widgets are displayed
         """

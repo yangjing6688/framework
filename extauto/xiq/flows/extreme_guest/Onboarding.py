@@ -23,7 +23,7 @@ class Onboarding(object):
 
     def go_to_configure_onboarding_policy_tab(self):
         """
-        -This keyword Will Navigate to Extreme Guest Onboarding Policy Page
+        - This keyword Will Navigate to Extreme Guest Onboarding Policy Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Onboarding > Policy
         - Keyword Usage:
             ''Go To Configure Onboarding Policy Tab''
@@ -42,7 +42,7 @@ class Onboarding(object):
 
     def go_to_configure_onboarding_rules_tab(self):
         """
-        -This keyword Will Navigate to Extreme Guest Onboarding Rules Page
+        - This keyword Will Navigate to Extreme Guest Onboarding Rules Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Onboarding > Rules
         - Keyword Usage:
             ''Go To Configure Onboarding Rules Tab''
@@ -152,7 +152,7 @@ class Onboarding(object):
         - It is assumed that location is already created
         - Flow : Eguest Essentials --> More Insights --> Settings --> Onboarding --> Rules --> Add Rule --> Location
         - Keyword Usage:
-         - ``Select Location For Add Onboarding Rule Page ${LOCATION}``
+        - ``Select Location For Add Onboarding Rule Page ${LOCATION}``
 
         :param sel_loc: location to select, in a comma-separated list format;
                e.g., Extreme Networks,Bangalore,Ecospace,Floor 1

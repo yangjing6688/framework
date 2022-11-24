@@ -23,14 +23,14 @@ class AnalyzeUsers(object):
 
     def go_to_analyze_users_page(self):
         """
-        -This keyword Will Navigate to Extreme Guest Analyze Users Page
+        - This keyword Will Navigate to Extreme Guest Analyze Users Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Analyze--> Users
         - Keyword Usage:
             ''Go to Analyze Users Page''
 
         :return: 1 if success
         """
-        
+
         self.utils.print_info("Clicking on Extreme Guest Analyze > Users Page")
         self.auto_actions.click_reference(self.users_web_elem.get_extreme_guest_analyze_users_tab)
         sleep(2)
@@ -42,7 +42,7 @@ class AnalyzeUsers(object):
 
     def check_if_the_user_exists(self, username, location, **kwargs):
         """
-        -This keyword Will Check if the mac address is present in the Extreme Guest Analyze Users Page
+        - This keyword Will Check if the mac address is present in the Extreme Guest Analyze Users Page
         - Keyword Usage:
             ''Check If The User Exists        ${USERNAME}        ${LOCATION_TREE}''
 

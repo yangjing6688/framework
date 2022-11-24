@@ -14,17 +14,17 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Tab    Profiles``
-          - ``XIQSE Administration Select Tab    Users``
-          - ``XIQSE Administration Select Tab    Server Information``
-          - ``XIQSE Administration Select Tab    Certificates``
-          - ``XIQSE Administration Select Tab    Options``
-          - ``XIQSE Administration Select Tab    Device Types``
-          - ``XIQSE Administration Select Tab    Backup/Restore``
-          - ``XIQSE Administration Select Tab    Diagnostics``
-          - ``XIQSE Administration Select Tab    Client API Access``
+        - This keyword selects the specified tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Tab    Profiles``
+        - ``XIQSE Administration Select Tab    Users``
+        - ``XIQSE Administration Select Tab    Server Information``
+        - ``XIQSE Administration Select Tab    Certificates``
+        - ``XIQSE Administration Select Tab    Options``
+        - ``XIQSE Administration Select Tab    Device Types``
+        - ``XIQSE Administration Select Tab    Backup/Restore``
+        - ``XIQSE Administration Select Tab    Diagnostics``
+        - ``XIQSE Administration Select Tab    Client API Access``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -66,9 +66,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_profiles_tab(self):
         """
-         - This keyword selects the Profiles tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Profiles Tab``
+        - This keyword selects the Profiles tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Profiles Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -77,9 +77,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_users_tab(self):
         """
-         - This keyword selects the Users tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Users Tab``
+        - This keyword selects the Users tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Users Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -88,9 +88,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_server_information_tab(self):
         """
-         - This keyword selects the Server Information tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Server Information Tab``
+        - This keyword selects the Server Information tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Server Information Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -99,9 +99,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_licenses_tab(self):
         """
-         - This keyword selects the Licenses tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Licenses Tab``
+        - This keyword selects the Licenses tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Licenses Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -110,9 +110,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_certificates_tab(self):
         """
-         - This keyword selects the Certificates tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Certificates Tab``
+        - This keyword selects the Certificates tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Certificates Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -121,9 +121,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_options_tab(self):
         """
-         - This keyword selects the Options tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Options Tab``
+        - This keyword selects the Options tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Options Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -132,9 +132,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_device_types_tab(self):
         """
-         - This keyword selects the Device Types tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Device Types Tab``
+        - This keyword selects the Device Types tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Device Types Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -143,9 +143,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_backup_restore_tab(self):
         """
-         - This keyword selects the Backup/Restore tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Backup Restore Tab``
+        - This keyword selects the Backup/Restore tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Backup Restore Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -154,9 +154,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_diagnostics_tab(self):
         """
-         - This keyword selects the Diagnostics tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Diagnostics Tab``
+        - This keyword selects the Diagnostics tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Diagnostics Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -165,9 +165,9 @@ class XIQSE_Administration(AdministrationWebElements):
 
     def xiqse_admin_select_client_api_access_tab(self):
         """
-         - This keyword selects the Client API Access tab of the Administration page
-         - Keyword Usage
-          - ``XIQSE Administration Select Client API Access Tab``
+        - This keyword selects the Client API Access tab of the Administration page
+        - Keyword Usage
+        - ``XIQSE Administration Select Client API Access Tab``
 
         :return: 1 if action was successful, else -1
         """

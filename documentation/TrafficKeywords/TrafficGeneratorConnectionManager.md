@@ -1,0 +1,22 @@
+# TrafficGeneratorConnectionManager
+Library Scope: test suite<br>
+Named Arguments: Supported
+
+## Introduction
+Documentation for test library TrafficGeneratorConnectionManager.
+
+## Shortcuts
+[Close Connection To All Traffic Generators](#Close_Connection_To_All_Traffic_Generators) | [Close Connection To Traffic Generator](#Close_Connection_To_Traffic_Generator) | [Close Connection To Traffic Generators](#Close_Connection_To_Traffic_Generators) | [Connect To All Traffic Generators](#Connect_To_All_Traffic_Generators) | [Connect To Traffic Generator](#Connect_To_Traffic_Generator) | [Connect To Traffic Generators](#Connect_To_Traffic_Generators) | [Disable Traffic Generator Debug Output](#Disable_Traffic_Generator_Debug_Output) | [Enable Traffic Generator Debug Output](#Enable_Traffic_Generator_Debug_Output)
+***
+
+## Keywords
+| Keyword | Arguments | Documentation |
+|---------|-----------|---------------|
+| <a name="Close_Connection_To_All_Traffic_Generators"></a>Close Connection To All Traffic Generators | **kwargs | Disconnects from all traffic generators present in the variables of a robot test case. |
+| <a name="Close_Connection_To_Traffic_Generator"></a>Close Connection To Traffic Generator | traffic_gen_name, **kwargs | Keyword Arguments:<br>[traffic_gen_name] - The name of the traffic generator that should be disconnected from.<br><br>Closes the connection to a given traffic generator. |
+| <a name="Close_Connection_To_Traffic_Generators"></a>Close Connection To Traffic Generators | traffic_gen_dicts, **kwargs | Keyword Arguments:<br>[traffic_gen_dicts] - This must be a list of traffic generator dictionaries. The format of<br>                      the traffic generator dictionary is as follows.<br><br>Traffic Generator Dictionary Format:<br>{traffic_gen_name: <name>,<br> vendor:           <vendor>,<br> chassis_ip:       <ip>,<br> vm_ip:            <ip>*,<br> username:         <username>*,<br> connection_port:  <port>*<br> }<br><br>* Means that the key is optional.<br><br>Disconnects to all traffic generators present in the traffic_gen_dicts list. |
+| <a name="Connect_To_All_Traffic_Generators"></a>Connect To All Traffic Generators | max_wait=30, **kwargs | Keyword Arguments:<br>[max_wait] - How long the keyword should wait for a successful connection to each traffic generator.<br><br>Connects to all traffic generators present in the variables of a robot test case. |
+| <a name="Connect_To_Traffic_Generator"></a>Connect To Traffic Generator | traffic_gen_name, vendor, chassis_ip, vm_ip=None, username=None, connection_port=None, max_wait=240, **kwargs | Keyword Arguments:<br>[traffic_gen_name] - The string name of the chassis.<br>[vendor] - The vendor of the chassis being connected to. Current options are "ixia", "spirent", and "ostinato".<br>[chassis_ip] - The IP address of the traffic generator chassis.<br>[vm_ip] - IP of the server running HLTAPI, TCL server, and TPB socket listener.<br>[username] - Username to take ownership of ports under.<br>[connection_port] - The port the Ixia socket listener is running on.<br>[max_wait] - How long the keyword should wait for a successful connection.<br><br>Connects to a single traffic generator. |
+| <a name="Connect_To_Traffic_Generators"></a>Connect To Traffic Generators | traffic_gen_dicts, max_wait=30, **kwargs | Keyword Arguments:<br>[traffic_gen_dicts] - This must be a list of traffic generator dictionaries. The format of<br>                      the traffic generator dictionary is as follows.<br>[max_wait] - How long the keyword should wait for a successful connection to each traffic generator.<br><br>Traffic Generator Dictionary Format:<br>{traffic_gen_name: <name>,<br> vendor:           <vendor>,<br> chassis_ip:       <ip>,<br> vm_ip:            <ip>*,<br> username:         <username>*,<br> connection_port:  <port>*<br> }<br><br>* Means that the key is optional.<br><br>Connects to each of the traffic generators present in the list. |
+| <a name="Disable_Traffic_Generator_Debug_Output"></a>Disable Traffic Generator Debug Output | traffic_gen_name, **kwargs | Keyword Arguments:<br>[traffic_gen_name] - The name of the traffic generator to disable debug output on.<br><br>Disables debug output on a given traffic generator. |
+| <a name="Enable_Traffic_Generator_Debug_Output"></a>Enable Traffic Generator Debug Output | traffic_gen_name, **kwargs | Keyword Arguments:<br>[traffic_gen_name] - The name of the traffic generator to enable debug output on.<br><br>Enables debug output on a given traffic generator. |

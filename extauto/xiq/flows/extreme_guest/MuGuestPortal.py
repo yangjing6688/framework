@@ -19,7 +19,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         - Register network via facebook login CWP
         - Validate Captive Web Portal social login with facebook credentials
         - Keyword Usage:
-         - ``Validate EGuest Social Login With Facebook  ${FACEBOOK_USERNAME}   ${FACEBOOK_PASSWORD}``
+        - ``Validate EGuest Social Login With Facebook  ${FACEBOOK_USERNAME}   ${FACEBOOK_PASSWORD}``
 
         :param username: Facebook Username
         :param password: Facebook Password
@@ -61,7 +61,8 @@ class MuGuestPortal(MuGuestPortalWebElements):
         - Register network via Linkedin login CWP
         - Validate Captive Web Portal social login with Linkedin credentials
         - Keyword Usage:
-         - ``Validate EGuest Social Login With Linkedin  ${Linkedin_USERNAME}   ${Linkedin_PASSWORD}``
+        - ``Validate EGuest Social Login With Linkedin  ${Linkedin_USERNAME}   ${Linkedin_PASSWORD}``
+
         :param username: Linkedin Username
         :param password: Linkedin Password
         :return: 1 if successfully connected with internet with social login type Linkedin else -1
@@ -107,7 +108,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         - Register network via google login CWP
         - Validate Captive Web Portal social login with facebook credentials
         - Keyword Usage:
-         - ``Validate EGuest Social Login With Google  ${GOOGLE_USERNAME}   ${GOOGLE_PASSWORD}``
+        - ``Validate EGuest Social Login With Google  ${GOOGLE_USERNAME}   ${GOOGLE_PASSWORD}``
 
         :param username: Google username
         :param password: Google password
@@ -152,7 +153,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         - Register network via google login CWP
         - Validate Captive Web Portal social login with facebook credentials
         - Keyword Usage:
-         - ``validate eguest user login with voucher credentials   ${CREDENTIALS}``
+        - ``validate eguest user login with voucher credentials   ${CREDENTIALS}``
 
         :param credentials: Voucher credential dictionary
         :return: 1 if successfully connected with internet with social login type facebook else -1
@@ -193,7 +194,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         - Register network via google login CWP
         - Validate Captive Web Portal social login with facebook credentials
         - Keyword Usage:
-         - ``validate eguest default template with no mapping``
+        - ``validate eguest default template with no mapping``
 
         :return: 1 if successfully connected with internet with social login type facebook else -1
         """
@@ -214,7 +215,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         - Register network via Sponsor Action CWP
         - Register User with Captive Web Portal Sponsor Form
         - Keyword Usage:
-         - ``Register Sponsor Guest User  ${VISITOR_NAME}   ${VISITOR_EMAIL} ${VISITOR_MOBILE}  ${SPONSOR_NAME}     ${SPONSOR_EMAIL}     ${ACCESS_PURPOSE}``
+        - ``Register Sponsor Guest User  ${VISITOR_NAME}   ${VISITOR_EMAIL} ${VISITOR_MOBILE}  ${SPONSOR_NAME}     ${SPONSOR_EMAIL}     ${ACCESS_PURPOSE}``
 
         :param visitor_name: Visitor Name
         :param visitor_email: Visitor Email
@@ -278,7 +279,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         - Validate the Sponsor Action on the Guest Access
         - Validate User with Captive Web Portal Sponsor Form Login
         - Keyword Usage:
-         - ``Validate Sponsored Guest Access  ${USER_EMAL}   ${USER_PASSWORD} ${ONBOARDING_ACTION}  ${LOGIN_EMAIL}``
+        - ``Validate Sponsored Guest Access  ${USER_EMAL}   ${USER_PASSWORD} ${ONBOARDING_ACTION}  ${LOGIN_EMAIL}``
 
         :param email: email to retrieve passcode
         :param password: email password
@@ -330,7 +331,8 @@ class MuGuestPortal(MuGuestPortalWebElements):
         """
         - Check if the sponsor mobile field is present in Sponsor Form
         - Keyword Usage:
-         - ``Check If Sponsor Mobile Is Displayed``
+        - ``Check If Sponsor Mobile Is Displayed``
+
         :return: 1 if sponsor field is not present else -1
         """
         self.utils.print_info("Click Guest Register button")
@@ -348,7 +350,8 @@ class MuGuestPortal(MuGuestPortalWebElements):
         """
         - Check the Approval Success Text
         - Keyword Usage:
-         - ``Check Approval Success Text``
+        - ``Check Approval Success Text``
+
         :return: success text
         """
         success_text = driver.find_element_by_xpath('//*[@class="success_text"]')
@@ -360,7 +363,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         - Register Device via Device registration CWP
         - Register Device with Captive Web Portal Device Registration Form
         - Keyword Usage:
-         - ``Register Device for Guest Access  ${VISITOR_NAME}   ${VISITOR_EMAIL}``
+        - ``Register Device for Guest Access  ${VISITOR_NAME}   ${VISITOR_EMAIL}``
 
         :param visitor_name: Visitor Name
         :param visitor_email: Visitor Email
@@ -410,7 +413,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         - Register Device with email to receive offers
         - Register Device with Captive Web Portal Email Access Form
         - Keyword Usage:
-         - ``Register Device with Email for Guest Access  ${VISITOR_EMAIL}``
+        - ``Register Device with Email for Guest Access  ${VISITOR_EMAIL}``
 
         :param email: Visitor Email
         :return: 1 if successfully registered else -1

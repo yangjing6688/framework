@@ -93,7 +93,7 @@ class ExpirationSettings(ExpSettingsWebElements):
         - For different combination of config parameters creation refer private_pre-shared_key_config.robot
         - Assumes that user already navigated to User group edit page or called along with user group creation
         - Keyword Usage
-         - ``Config Expiration Settings   &{EXPIRATION_CONFIG}``
+        - ``Config Expiration Settings   &{EXPIRATION_CONFIG}``
 
         :param config: configuration dict
         :return: 1 if successfully configured

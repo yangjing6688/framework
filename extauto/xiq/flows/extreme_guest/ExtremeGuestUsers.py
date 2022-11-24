@@ -30,7 +30,7 @@ class ExtremeGuestUsers(object):
         - It is assumed that location is already created
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
+        - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
 
         :param sel_loc: location to select, in a comma-separated list format;
                e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
@@ -126,7 +126,7 @@ class ExtremeGuestUsers(object):
         - This Keyword will create Bulk Vouchers in Eguest users Page
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+        - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
 
         :param print_users:
         :param number_of_vouchers: No. Of Vouchers Value
@@ -151,7 +151,7 @@ class ExtremeGuestUsers(object):
         - This Keyword will create Bulk Vouchers in Guest Mangement Users Page
         - Flow : Guest Management Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Create Guest Management Role Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+        - ``Create Guest Management Role Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
 
         :param print_users:
         :param number_of_vouchers: No. Of Vouchers Value
@@ -177,7 +177,7 @@ class ExtremeGuestUsers(object):
         - This Keyword will create Bulk Vouchers in Eguest users Page
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+        - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
 
         :param print_users:
         :param number_of_vouchers: No. Of Vouchers Value
@@ -187,7 +187,7 @@ class ExtremeGuestUsers(object):
 
         :return: 1 if Users Bulk Vouchers Created Successfully
         """
-        
+
         self.utils.print_info("Clicking Add User Button ")
         self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_add_button)
         sleep(2)
@@ -274,7 +274,8 @@ class ExtremeGuestUsers(object):
         """
         Getting the row count in Extreme Guest Users Page
         - Keyword Usage:
-         - ``Get Extreme Guest Users Count``
+        - ``Get Extreme Guest Users Count``
+
         :param search_string:
         :return: User Count
         """
@@ -311,6 +312,7 @@ class ExtremeGuestUsers(object):
     def _get_extreme_guest_users_page_user_row(self, search_string):
         """
         Getting the row in Open SSID is same for all the objects
+
         :param search_string:
         :return:
         """
@@ -325,6 +327,7 @@ class ExtremeGuestUsers(object):
     def _select_extreme_guest_users_page_user_row(self, search_string):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -377,8 +380,8 @@ class ExtremeGuestUsers(object):
         """
         - Get first username from the list of credentials
         - Keyword Usage:
-         - ``Get Username from vouchers   ${CREDENTIALS}``
-        
+        - ``Get Username from vouchers   ${CREDENTIALS}``
+
         """
         username = list(credentials.keys())[0]
         return username
