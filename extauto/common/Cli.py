@@ -1678,7 +1678,7 @@ class Cli(object):
         kwargs['pass_msg'] = f'verify_vlan_config_on_switch() keyword passed'
         self.commonValidation.passed(**kwargs)
 
-    def no_channel_enable_on_all_ports(self, onboarded_switch):
+    def no_channel_enable_on_all_ports(self, onboarded_switch, **kwargs):
         """
          - This keyword sends 'no channelize enable' on all ports in CLI
         :return:
@@ -1695,8 +1695,10 @@ class Cli(object):
                 self.networkElementCliSend.send_cmd(onboarded_switch.name, 'no channelize enable',
                                      confirmation_phrases='Do you wish to continue (y/n) ?',
                                      confirmation_args='y')
+        kwargs['pass_msg'] = f'no_channel_enable_on_all_ports() passed'
+        self.commonValidation.passed(**kwargs)
 
-    def get_device_port_status(self, networkElementCliSend=None, dut=None):
+    def get_device_port_status(self, networkElementCliSend=None, dut=None, **kwargs):
         """
          - This keyword gets device ports status from CLI
         :return: Device ports status dictionary
@@ -1732,7 +1734,8 @@ class Cli(object):
 
         print("****************** Device ports status dictionary: ******************")
         print(cli_ports_status)
-
+        kwargs['pass_msg'] = f'get_device_port_status() passed. Device ports status dictionary: {cli_ports_status}'
+        self.commonValidation.passed(**kwargs)
         return cli_ports_status
 
     def get_device_ports_speed(self, networkElementCliSend=None, dut=None, **kwargs):
@@ -1933,6 +1936,7 @@ class Cli(object):
 
     def close_connection_with_error_handling(self, dut):
         """Method that makes sure the connection to a dut is closed.
+
         Args:
             dut (dict): the dut, e.g. tb.dut1
         """
