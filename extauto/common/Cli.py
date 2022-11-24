@@ -1630,7 +1630,6 @@ class Cli(object):
         self.commonValidation.passed(**kwargs)
         return no_ports
 
-
     def verify_vlan_config_on_switch(self, onboarded_switch, port_vlan_mapping, logger, **kwargs):
         """
          - This keyword will verify vlan config on switch in CLI
@@ -1644,33 +1643,34 @@ class Cli(object):
         while time.time() - start_time < 120:
 
             if onboarded_switch.cli_type.upper() == "EXOS":
-
-                for port, vlan in port_vlan_mapping.items():
-                    output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show vlan ports {port}',
-                                                  max_wait=10, interval=2)[0].return_text
-                    if not re.search(fr"\r\nVLAN_{str(vlan).zfill(4)}\s+{vlan}\s+", output):
-                        logger.info("Sleep 10s")
-                        time.sleep(10)
-                    else:
-                        logger.info("Configuration successfully updated on the dut")
-                        break
+                try:
+                    for port, vlan in port_vlan_mapping.items():
+                        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show vlan ports {port}',
+                                                      max_wait=10, interval=2)[0].return_text
+                        assert re.search(fr"\r\nVLAN_{str(vlan).zfill(4)}\s+{vlan}\s+", output)
+                except Exception as exc:
+                    logger.info(f"Sleep 10s...\n{repr(exc)}")
+                    time.sleep(10)
+                else:
+                    logger.info("Configuration successfully updated on the dut")
+                    break
 
             elif onboarded_switch.cli_type.upper() == "VOSS":
+                try:
+                    output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show vlan members',
+                                                  max_wait=10, interval=2)[0].return_text
 
-                output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show vlan members',
-                                              max_wait=10, interval=2)[0].return_text
+                    for port, vlan in port_vlan_mapping.items():
+                        assert re.search(fr"\r\n{vlan}\s+{port}\s+", output)
 
-                for port, vlan in port_vlan_mapping.items():
-                    if not re.search(fr"\r\n{vlan}\s+{port}\s+", output):
-                        logger.info(f"Sleep 10s")
-                        time.sleep(10)
-                    else:
-                        logger.info("Configuration successfully updated on the dut")
-                        break
+                except Exception as exc:
+                    logger.info(f"Sleep 10s...\n{repr(exc)}")
+                    time.sleep(10)
+                else:
+                    logger.info("Configuration successfully updated on the dut")
+                    break
         else:
-            # raise AssertionError("The configuration did not update on the dut after 120 seconds")
-            kwargs["fail_msg"] = "verify_vlan_config_on_switch() failed."
-            self.commonValidation.failed(**kwargs)
+            raise AssertionError("The configuration did not update on the dut after 120 seconds")
 
         self.close_connection_with_error_handling(onboarded_switch)
         kwargs['pass_msg'] = f'verify_vlan_config_on_switch() keyword passed'
@@ -1733,7 +1733,7 @@ class Cli(object):
 
         return cli_ports_status
 
-    def get_device_ports_speed(self, networkElementCliSend=None, dut=None):
+    def get_device_ports_speed(self, networkElementCliSend=None, dut=None, **kwargs):
         """
          - This keyword gets device ports speed from CLI
         :return: Device ports speed dictionary
@@ -1800,13 +1800,17 @@ class Cli(object):
 
         print("****************** Device ports speed dictionary: ******************")
         print(device_ports_speed)
-
+        kwargs['pass_msg'] = f'get_device_ports_speed() passed. Device ports speed dictionary:{device_ports_speed}'
+        self.commonValidation.passed(**kwargs)
         return device_ports_speed
 
-    def clear_counters(self, dut, first_port=None, second_port=None):
+    def clear_counters(self, dut, first_port=None, second_port=None, **kwargs):
         """
          - This keyword will clear counters for EXOS and VOSS in CLI
-        :return:
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
         """
         if dut.cli_type.upper() == "EXOS":
             self.networkElementCliSend.send_cmd(
@@ -1814,11 +1818,17 @@ class Cli(object):
         elif dut.cli_type.upper() == "VOSS":
             self.networkElementCliSend.send_cmd(
                 dut.name, f"clear-stats port {first_port},{second_port}", max_wait=10, interval=2)
+        kwargs['pass_msg'] = f'clear_counters() passed.'
+        self.commonValidation.passed(**kwargs)
 
-    def get_received_traffic_list_from_dut(self, dut, first_port, second_port):
+    def get_received_traffic_list_from_dut(self, dut, first_port, second_port, **kwargs):
         """
-         - This keyword gets the received traffic from ports visible in CLI
-        :return: received traffic list
+        This keyword gets the received traffic from ports visible in CLI
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
+        return: received traffic list
         """
 
         if dut.cli_type.upper() == "VOSS":
@@ -1860,13 +1870,18 @@ class Cli(object):
 
             print(f"received_traffic for port {first_port} is {match_port[0][5]} octets")
             print(f"received_traffic for port {second_port} is {match_port[1][5]} octets")
-
+        kwargs['pass_msg'] = f'get_received_traffic_list_from_dut() passed. Received traffic list: {received_traffic_list}'
+        self.commonValidation.passed(**kwargs)
         return received_traffic_list
 
     def get_transmitted_traffic_list_from_dut(
-            self, dut, first_port, second_port):
+            self, dut, first_port, second_port, **kwargs):
         """
          - This keyword gets the transmitted traffic from ports visible in CLI
+         Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
         :return: transmitted traffic list
         """
 
@@ -1910,12 +1925,12 @@ class Cli(object):
 
             print(f"transmitted_traffic_list for port {first_port} is {match_port[0][3]} octets")
             print(f"transmitted_traffic_list for port {second_port} is {match_port[1][3]} octets")
-
+        kwargs['pass_msg'] = f'get_transmitted_traffic_list_from_dut() passed.'
+        self.commonValidation.passed(**kwargs)
         return transmitted_traffic_list
 
     def close_connection_with_error_handling(self, dut):
         """Method that makes sure the connection to a dut is closed.
-
         Args:
             dut (dict): the dut, e.g. tb.dut1
         """

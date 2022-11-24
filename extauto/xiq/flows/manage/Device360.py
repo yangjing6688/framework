@@ -10874,166 +10874,169 @@ class Device360(Device360WebElements):
     def device360_display_traffic_received_from_xiq_and_return_traffic_list(self, dut, first_port, second_port, **kwargs):
         """
          - This keyword will display the received traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
-        :return: -1 if error
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
         """
-        try:
-            paginations = self.dev360.get_device360_ports_table_pagination_sizes()
-            assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
 
-            [pagination] = [pg for pg in paginations if pg.text == '10']
+        paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+        assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
+
+        [pagination] = [pg for pg in paginations if pg.text == '10']
+        sleep(5)
+        AutoActions().click(pagination)
+        sleep(3)
+
+        if dut.cli_type.upper() == "VOSS":
+            x = self.dev360.get_device360_ports_table()
+            print("Displaying the traffic received value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
             sleep(5)
             AutoActions().click(pagination)
             sleep(3)
 
-            if dut.cli_type.upper() == "VOSS":
-                x = self.dev360.get_device360_ports_table()
-                print("Displaying the traffic received value for the first 10 entries in the table")
-                for i in x:
-                    traffic_received = i["TRAFFIC RECEIVED (RX)"]
-                    port_name = i["PORT NAME"]
-                    if port_name == first_port or port_name == second_port:
-                        print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
-                sleep(5)
+            x = self.dev360.get_device360_ports_table()
 
-                [pagination] = [pg for pg in paginations if pg.text == '100']
-                sleep(5)
-                AutoActions().click(pagination)
-                sleep(3)
+            traffic_list_xiq = []
 
-                x = self.dev360.get_device360_ports_table()
+            print(" Displaying the traffic received value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
+        elif dut.cli_type.upper() == "EXOS":
+            x = self.dev360.get_device360_ports_table()
 
-                traffic_list_xiq = []
+            print("x pentru exos 67 este: ", x)
+            print("Displaying the traffic received value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+            sleep(5)
 
-                print(" Displaying the traffic received value for pagination 100")
-                for i in x:
-                    traffic_received = i["TRAFFIC RECEIVED (RX)"]
-                    port_name = i["PORT NAME"]
-                    if port_name == first_port or port_name == second_port:
-                        print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
-                        traffic_list_xiq.append(traffic_received)
-                sleep(5)
-                kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
-                self.common_validation.passed(**kwargs)
-                return traffic_list_xiq
-            elif dut.cli_type.upper() == "EXOS":
-                x = self.dev360.get_device360_ports_table()
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
 
-                print("x pentru exos 67 este: ", x)
-                print("Displaying the traffic received value for the first 10 entries in the table")
-                for i in x:
-                    traffic_received = i["TRAFFIC RECEIVED (RX)"]
-                    port_name = i["PORT NAME"]
-                    if port_name == first_port or port_name == second_port:
-                        print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
-                sleep(5)
+            x = self.dev360.get_device360_ports_table()
 
-                [pagination] = [pg for pg in paginations if pg.text == '100']
-                sleep(5)
-                AutoActions().click(pagination)
-                sleep(3)
+            traffic_list_xiq = []
 
-                x = self.dev360.get_device360_ports_table()
+            print(" Displaying the traffic received value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
 
-                traffic_list_xiq = []
-
-                print(" Displaying the traffic received value for pagination 100")
-                for i in x:
-                    traffic_received = i["TRAFFIC RECEIVED (RX)"]
-                    port_name = i["PORT NAME"]
-                    if port_name == first_port or port_name == second_port:
-                        print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
-                        traffic_list_xiq.append(traffic_received)
-                sleep(5)
-                kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
-                self.common_validation.passed(**kwargs)
-                return traffic_list_xiq
-
-        except Exception as e:
-            # return -1
-            kwargs['fail_msg'] = f"'device360_display_traffic_received_from_xiq_and_return_traffic_list()' failed with the following exception: {e}."
-            self.common_validation.failed(**kwargs)
+        kwargs['fail_msg'] = f"'device360_display_traffic_received_from_xiq_and_return_traffic_list()' failed."
+        self.common_validation.failed(**kwargs)
 
     def device360_display_traffic_transmitted_from_xiq_and_return_traffic_list(
         self, dut, first_port, second_port, **kwargs):
         """
          - This keyword will display the transmitted traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
-        :return: -1 if error
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
         """
-        try:
-            paginations = self.dev360.get_device360_ports_table_pagination_sizes()
-            assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
 
-            [pagination] = [pg for pg in paginations if pg.text == '10']
+        paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+        assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
+
+        [pagination] = [pg for pg in paginations if pg.text == '10']
+        sleep(5)
+        AutoActions().click(pagination)
+        sleep(3)
+
+        if dut.cli_type.upper() == "VOSS":
+            x = self.dev360.get_device360_ports_table()
+            print("Displaying the traffic transmitted value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
             sleep(5)
             AutoActions().click(pagination)
             sleep(3)
 
-            if dut.cli_type.upper() == "VOSS":
-                x = self.dev360.get_device360_ports_table()
-                print("Displaying the traffic transmitted value for the first 10 entries in the table")
-                for i in x:
-                    traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
-                    port_name = i["PORT NAME"]
-                    if port_name == first_port or port_name == second_port:
-                        print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
-                sleep(5)
+            x = self.dev360.get_device360_ports_table()
 
-                [pagination] = [pg for pg in paginations if pg.text == '100']
-                sleep(5)
-                AutoActions().click(pagination)
-                sleep(3)
+            traffic_list_xiq = []
 
-                x = self.dev360.get_device360_ports_table()
+            print(" Displaying the traffic transmitted value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
 
-                traffic_list_xiq = []
+        elif dut.cli_type.upper() == "EXOS":
+            x = self.dev360.get_device360_ports_table()
 
-                print(" Displaying the traffic transmitted value for pagination 100")
-                for i in x:
-                    traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
-                    port_name = i["PORT NAME"]
-                    if port_name == first_port or port_name == second_port:
-                        print(f"TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
-                        traffic_list_xiq.append(traffic_received)
-                sleep(5)
-                kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
-                self.common_validation.passed(**kwargs)
-                return traffic_list_xiq
+            print("Displaying the traffic transmitted value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+            sleep(5)
 
-            elif dut.cli_type.upper() == "EXOS":
-                x = self.dev360.get_device360_ports_table()
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
 
-                print("Displaying the traffic transmitted value for the first 10 entries in the table")
-                for i in x:
-                    traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
-                    port_name = i["PORT NAME"]
-                    if port_name == first_port or port_name == second_port:
-                        print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
-                sleep(5)
+            x = self.dev360.get_device360_ports_table()
 
-                [pagination] = [pg for pg in paginations if pg.text == '100']
-                sleep(5)
-                AutoActions().click(pagination)
-                sleep(3)
+            traffic_list_xiq = []
 
-                x = self.dev360.get_device360_ports_table()
+            print(" Displaying the traffic transmitted value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
 
-                traffic_list_xiq = []
-
-                print(" Displaying the traffic transmitted value for pagination 100")
-                for i in x:
-                    traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
-                    port_name = i["PORT NAME"]
-                    if port_name == first_port or port_name == second_port:
-                        print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
-                        traffic_list_xiq.append(traffic_received)
-                sleep(5)
-                kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
-                self.common_validation.passed(**kwargs)
-                return traffic_list_xiq
-        except Exception as e:
-            # return -1
-            kwargs['fail_msg'] = f"'device360_display_traffic_transmitted_from_xiq_and_return_traffic_list()' failed with the following exception: {e}."
-            self.common_validation.failed(**kwargs)
+        kwargs['fail_msg'] = f"'device360_display_traffic_transmitted_from_xiq_and_return_traffic_list()' failed."
+        self.common_validation.failed(**kwargs)
 
     def check_power_values(self, ports_power_xiq, ports_power_cli, **kwargs):
         """
