@@ -12338,12 +12338,23 @@ class Devices:
     def clone_device_quick_onboard(self, device_serial, replacement_device_type, replacement_serial,
                                    force_quick_onboard=False, perform_update=False, option="disable", **kwargs):
         """
-        - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device level config to another same type SKU switch.
-        :param device_serial: Select the device (first device) that you want to clone the configuration for the replacement device (second device)
-        :param replacement_device_type: Select the type option for replacement device in Cloning process ('Onboarded' , 'Quick Onboard')
-        :param replacement_serial: Select the serial number for replacement device
+        - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device
+        level config to another same type SKU switch.
+        :param device_serial: Select the device (first device) that you want to clone the configuration for
+                              the replacement device (second device)
+        :param replacement_device_type: Select the type option for replacement device in Cloning process
+                                        ('Onboarded', 'Quick Onboard')
+        :param replacement_serial: The serial number for replacement device
+        :param force_quick_onboard: if True, the replacement device is forced to be cloned using quick onboard option
+                                    instead of onboarded option if it is not connected to cloud within 20 seconds after
+                                    the first attempt. By default is False
+        :param perform_update: if True, the config cloned will be pushed to device. By default is false.
+        :param option: "enable"/"disable" the checkbox for reboot and rollback the configuration if the IQagent loses
+                        connectivity during updating the configuration. Used only if perform_update=True.
+                        By default is "disable"
         :return: 1 if the cloning process is done else -1
         """
+
         self.utils.print_info("Navigate to Manage-->Devices")
         def _navigate_to_devices():
             return self.navigator.navigate_to_devices()
