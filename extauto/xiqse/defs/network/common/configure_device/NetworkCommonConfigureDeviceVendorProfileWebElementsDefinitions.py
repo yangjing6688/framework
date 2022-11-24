@@ -6,6 +6,6 @@
 #
 
 
-class NetworkCommonConfigureDeviceVendorProfileWebElementsDefinitions:
+# class NetworkCommonConfigureDeviceVendorProfileWebElementsDefinitions:
 
-    # Vendor Profile Tab Fields
+#     # Vendor Profile Tab Fields

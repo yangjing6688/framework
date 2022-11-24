@@ -16,10 +16,10 @@ class XIQSE_NetworkArchivesCreateArchive(NetworkArchivesCreateArchiveWebElements
 
     def xiqse_archives_create_dialog_enter_name(self, value):
         """
-         - This keyword populates the Name field of the Create Archive dialog
-         - It is assumed the Create Archive dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Archives Create Enter Name  MY_ARCHIVE``
+        - This keyword populates the Name field of the Create Archive dialog
+        - It is assumed the Create Archive dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Archives Create Enter Name  MY_ARCHIVE``
 
         :param value: name of the archive to create
         :return: 1 if action was successful, else -1
@@ -38,10 +38,10 @@ class XIQSE_NetworkArchivesCreateArchive(NetworkArchivesCreateArchiveWebElements
 
     def xiqse_archives_create_dialog_expand_all_devices(self):
         """
-         - This keyword expands the All Devices node in the Select Devices tree of the Create Archive dialog
-         - It is assumed the Create Archive dialog is already open and on the device selection page.
-         - Keyword Usage
-          - ``XIQSE Archives Create Expand All Devices``
+        - This keyword expands the All Devices node in the Select Devices tree of the Create Archive dialog
+        - It is assumed the Create Archive dialog is already open and on the device selection page.
+        - Keyword Usage
+        - ``XIQSE Archives Create Expand All Devices``
 
         :return: 1 if action was successful, else -1
         """
@@ -59,11 +59,11 @@ class XIQSE_NetworkArchivesCreateArchive(NetworkArchivesCreateArchiveWebElements
 
     def xiqse_archives_create_dialog_move_device_to_archive_members(self, ip):
         """
-         - This keyword moves the specified device in the Select Devices tree of the Create Archive dialog to
-         - the Archive Members list.
-         - It is assumed the Create Archive dialog is already open and on the device selection page.
-         - Keyword Usage
-          - ``XIQSE Archives Create Move Device to Archive Members    1.2.3.4``
+        - This keyword moves the specified device in the Select Devices tree of the Create Archive dialog to
+        - the Archive Members list.
+        - It is assumed the Create Archive dialog is already open and on the device selection page.
+        - Keyword Usage
+        - ``XIQSE Archives Create Move Device to Archive Members    1.2.3.4``
 
         :param ip: IP address of the device to select and move to the Archive Members list
         :return: 1 if action was successful, else -1
@@ -82,11 +82,11 @@ class XIQSE_NetworkArchivesCreateArchive(NetworkArchivesCreateArchiveWebElements
 
     def xiqse_archives_create_dialog_select_device_and_move_to_archive_members(self, ip):
         """
-         - This keyword selects the specified device in the Create Archive dialog and moves it to the
-         - Archive Members list.
-         - It is assumed the Create Archive dialog is already open and on the device selection page.
-         - Keyword Usage
-          - ``XIQSE Archives Create Select Device and Move to Archive Members    1.2.3.4``
+        - This keyword selects the specified device in the Create Archive dialog and moves it to the
+        - Archive Members list.
+        - It is assumed the Create Archive dialog is already open and on the device selection page.
+        - Keyword Usage
+        - ``XIQSE Archives Create Select Device and Move to Archive Members    1.2.3.4``
 
         :param ip: IP address of the device to select and move to the Archive Members list
         :return: 1 if action was successful, else -1
@@ -107,15 +107,15 @@ class XIQSE_NetworkArchivesCreateArchive(NetworkArchivesCreateArchiveWebElements
 
     def xiqse_archives_create_dialog_select_frequency(self, the_value):
         """
-         - This keyword selects the value in the Frequency dropdown of the Create Archive dialog.
-         - It is assumed the Create Archive dialog is already open and on the page containing the Frequency field.
-         - Keyword Usage
-          - ``XIQSE Archives Create Dialog Select Frequency    Daily``
-          - ``XIQSE Archives Create Dialog Select Frequency    Never``
-          - ``XIQSE Archives Create Dialog Select Frequency    Now``
-          - ``XIQSE Archives Create Dialog Select Frequency    On Startup``
-          - ``XIQSE Archives Create Dialog Select Frequency    Once``
-          - ``XIQSE Archives Create Dialog Select Frequency    Weekly``
+        - This keyword selects the value in the Frequency dropdown of the Create Archive dialog.
+        - It is assumed the Create Archive dialog is already open and on the page containing the Frequency field.
+        - Keyword Usage
+        - ``XIQSE Archives Create Dialog Select Frequency    Daily``
+        - ``XIQSE Archives Create Dialog Select Frequency    Never``
+        - ``XIQSE Archives Create Dialog Select Frequency    Now``
+        - ``XIQSE Archives Create Dialog Select Frequency    On Startup``
+        - ``XIQSE Archives Create Dialog Select Frequency    Once``
+        - ``XIQSE Archives Create Dialog Select Frequency    Weekly``
 
         :param the_value: frequency to select
         :return: 1 if action was successful, else -1
@@ -156,10 +156,10 @@ class XIQSE_NetworkArchivesCreateArchive(NetworkArchivesCreateArchiveWebElements
 
     def xiqse_archives_create_dialog_click_next(self):
         """
-         - This keyword clicks Next in the Create Archive dialog
-         - It is assumed the Create Archive dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Archives Create Click Next``
+        - This keyword clicks Next in the Create Archive dialog
+        - It is assumed the Create Archive dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Archives Create Click Next``
 
         :return: 1 if action was successful, else -1
         """
@@ -183,10 +183,10 @@ class XIQSE_NetworkArchivesCreateArchive(NetworkArchivesCreateArchiveWebElements
 
     def xiqse_archives_create_dialog_click_finish(self):
         """
-         - This keyword clicks Finish in the Create Archive dialog
-         - It is assumed the Create Archive dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Archives Create Click Finish``
+        - This keyword clicks Finish in the Create Archive dialog
+        - It is assumed the Create Archive dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Archives Create Click Finish``
 
         :return: 1 if action was successful, else -1
         """
@@ -210,10 +210,10 @@ class XIQSE_NetworkArchivesCreateArchive(NetworkArchivesCreateArchiveWebElements
 
     def xiqse_archives_create_dialog_click_cancel(self):
         """
-         - This keyword clicks Cancel in the Create Archive dialog
-         - It is assumed the Create Archive dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Archives Create Click Cancel``
+        - This keyword clicks Cancel in the Create Archive dialog
+        - It is assumed the Create Archive dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Archives Create Click Cancel``
 
         :return: 1 if action was successful, else -1
         """

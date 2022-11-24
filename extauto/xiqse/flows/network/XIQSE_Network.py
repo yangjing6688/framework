@@ -14,15 +14,15 @@ class XIQSE_Network(NetworkWebElements):
 
     def xiqse_network_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Network page
-         - Keyword Usage
-          - ``XIQSE Network Select Tab    Dashboard``
-          - ``XIQSE Network Select Tab    Devices``
-          - ``XIQSE Network Select Tab    Discovered``
-          - ``XIQSE Network Select Tab    Firmware``
-          - ``XIQSE Network Select Tab    Archives``
-          - ``XIQSE Network Select Tab    Configuration Templates``
-          - ``XIQSE Network Select Tab    Reports``
+        - This keyword selects the specified tab of the Network page
+        - Keyword Usage
+        - ``XIQSE Network Select Tab    Dashboard``
+        - ``XIQSE Network Select Tab    Devices``
+        - ``XIQSE Network Select Tab    Discovered``
+        - ``XIQSE Network Select Tab    Firmware``
+        - ``XIQSE Network Select Tab    Archives``
+        - ``XIQSE Network Select Tab    Configuration Templates``
+        - ``XIQSE Network Select Tab    Reports``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -58,9 +58,9 @@ class XIQSE_Network(NetworkWebElements):
 
     def xiqse_network_select_dashboard_tab(self):
         """
-         - This keyword selects the Dashboard tab of the Network page
-         - Keyword Usage
-          - ``XIQSE Network Select Dashboard Tab``
+        - This keyword selects the Dashboard tab of the Network page
+        - Keyword Usage
+        - ``XIQSE Network Select Dashboard Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -69,9 +69,9 @@ class XIQSE_Network(NetworkWebElements):
 
     def xiqse_network_select_devices_tab(self):
         """
-         - This keyword selects the Devices tab of the Network page
-         - Keyword Usage
-          - ``XIQSE Network Select Devices Tab``
+        - This keyword selects the Devices tab of the Network page
+        - Keyword Usage
+        - ``XIQSE Network Select Devices Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -80,9 +80,9 @@ class XIQSE_Network(NetworkWebElements):
 
     def xiqse_network_select_discovered_tab(self):
         """
-         - This keyword selects the Discovered tab of the Network page
-         - Keyword Usage
-          - ``XIQSE Network Select Discovered Tab``
+        - This keyword selects the Discovered tab of the Network page
+        - Keyword Usage
+        - ``XIQSE Network Select Discovered Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -91,9 +91,9 @@ class XIQSE_Network(NetworkWebElements):
 
     def xiqse_network_select_firmware_tab(self):
         """
-         - This keyword selects the Firmware tab of the Network page
-         - Keyword Usage
-          - ``XIQSE Network Select Firmware Tab``
+        - This keyword selects the Firmware tab of the Network page
+        - Keyword Usage
+        - ``XIQSE Network Select Firmware Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -102,9 +102,9 @@ class XIQSE_Network(NetworkWebElements):
 
     def xiqse_network_select_archives_tab(self):
         """
-         - This keyword selects the Archives tab of the Network page
-         - Keyword Usage
-          - ``XIQSE Network Select Archives Tab``
+        - This keyword selects the Archives tab of the Network page
+        - Keyword Usage
+        - ``XIQSE Network Select Archives Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -113,9 +113,9 @@ class XIQSE_Network(NetworkWebElements):
 
     def xiqse_network_select_configuration_templates_tab(self):
         """
-         - This keyword selects the Configuration Templates tab of the Network page
-         - Keyword Usage
-          - ``XIQSE Network Select Configuration Templates Tab``
+        - This keyword selects the Configuration Templates tab of the Network page
+        - Keyword Usage
+        - ``XIQSE Network Select Configuration Templates Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -124,9 +124,9 @@ class XIQSE_Network(NetworkWebElements):
 
     def xiqse_network_select_reports_tab(self):
         """
-         - This keyword selects the Reports tab of the Network page
-         - Keyword Usage
-          - ``XIQSE Network Select Reports Tab``
+        - This keyword selects the Reports tab of the Network page
+        - Keyword Usage
+        - ``XIQSE Network Select Reports Tab``
 
         :return: 1 if action was successful, else -1
         """

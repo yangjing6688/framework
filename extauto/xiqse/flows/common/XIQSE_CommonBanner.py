@@ -14,9 +14,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_confirm_license_limit_warning_message_displayed(self):
         """
-         - This keyword confirms the "License Limit Warning: Device(s) Not Added" banner message is displayed
-         - Keyword Usage
-          - ``XIQSE Confirm License Limit Warning Message Displayed``
+        - This keyword confirms the "License Limit Warning: Device(s) Not Added" banner message is displayed
+        - Keyword Usage
+        - ``XIQSE Confirm License Limit Warning Message Displayed``
 
         :return: 1 if banner is displayed, else -1
         """
@@ -32,9 +32,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_license_limit_warning_message(self):
         """
-         - This keyword closes the "License Limit Warning: Device(s) Not Added" banner message, if it is open
-         - Keyword Usage
-          - ``XIQSE Close License Limit Warning Message``
+        - This keyword closes the "License Limit Warning: Device(s) Not Added" banner message, if it is open
+        - Keyword Usage
+        - ``XIQSE Close License Limit Warning Message``
 
         :return: 1 if action successful, else -1
         """
@@ -57,9 +57,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_confirm_licensed_device_limit_exceeded_message_displayed(self):
         """
-         - This keyword confirms the "Licensed Device Limit Exceeded" banner message is displayed
-         - Keyword Usage
-          - ``XIQSE Confirm Licensed Device Limit Exceeded Message Displayed``
+        - This keyword confirms the "Licensed Device Limit Exceeded" banner message is displayed
+        - Keyword Usage
+        - ``XIQSE Confirm Licensed Device Limit Exceeded Message Displayed``
 
         :return: 1 if banner is displayed, else -1
         """
@@ -75,9 +75,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_licensed_device_limit_exceeded_message(self):
         """
-         - This keyword closes the "Licensed Device Limit Exceeded" banner message, if it is open
-         - Keyword Usage
-          - ``XIQSE Close Licensed Device Limit Exceeded Message``
+        - This keyword closes the "Licensed Device Limit Exceeded" banner message, if it is open
+        - Keyword Usage
+        - ``XIQSE Close Licensed Device Limit Exceeded Message``
 
         :return: 1 if action successful, else -1
         """
@@ -100,9 +100,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_connection_lost_with_xiq_message(self):
         """
-         - This keyword closes the "Connected Lost with ExtremeCloud IQ" banner message, if it is open
-         - Keyword Usage
-          - ``XIQSE Close Connection Lost with XIQ Message``
+        - This keyword closes the "Connected Lost with ExtremeCloud IQ" banner message, if it is open
+        - Keyword Usage
+        - ``XIQSE Close Connection Lost with XIQ Message``
 
         :return: 1 if action successful, else -1
         """
@@ -125,9 +125,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_license_expiration_message(self):
         """
-         - This keyword closes the "License Expiration" banner message, if it is open
-         - Keyword Usage
-          - ``XIQSE Close License Expiration Message``
+        - This keyword closes the "License Expiration" banner message, if it is open
+        - Keyword Usage
+        - ``XIQSE Close License Expiration Message``
 
         :return: 1 if action successful, else -1
         """
@@ -151,9 +151,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_license_enforcement_message(self):
         """
-         - This keyword closes the "License Enforcement Warning" banner message, if it is open
-         - Keyword Usage
-          - ``XIQSE Close License Enforcement Message``
+        - This keyword closes the "License Enforcement Warning" banner message, if it is open
+        - Keyword Usage
+        - ``XIQSE Close License Enforcement Message``
 
         :return: 1 if action successful, else -1
         """
@@ -177,9 +177,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_location_data_unavailable_message(self):
         """
-         - This keyword closes the "Location Data Unavailable" banner message, if it is open
-         - Keyword Usage
-          - ``XIQSE Close Location Data Unavailable Message``
+        - This keyword closes the "Location Data Unavailable" banner message, if it is open
+        - Keyword Usage
+        - ``XIQSE Close Location Data Unavailable Message``
 
         :return: 1 if action successful, else -1
         """
@@ -203,9 +203,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_no_data_available_message(self):
         """
-         - This keyword closes the "No Data Available" banner message, if it is open
-         - Keyword Usage
-          - ``XIQSE Close No Data Available Message``
+        - This keyword closes the "No Data Available" banner message, if it is open
+        - Keyword Usage
+        - ``XIQSE Close No Data Available Message``
 
         :return: 1 if action successful, else -1
         """
@@ -229,9 +229,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_motd_window(self):
         """
-         - This keyword checks for the Message of the Day (motd) window, and closes it if it exists
-         - Keyword Usage
-             - ``XIQSE Close MOTD Window``
+        - This keyword checks for the Message of the Day (motd) window, and closes it if it exists
+        - Keyword Usage
+        - ``XIQSE Close MOTD Window``
         :return: 1 if action successful or window not present, else -1
         """
         result = 1
@@ -254,9 +254,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_login_banner_messages(self):
         """
-         - This keyword closes banner messages which may appear at login, if any are open (e.g., License Expiration, Connection Lost with XIQ)
-         - Keyword Usage
-          - ``XIQSE Close Login Banner Messages``
+        - This keyword closes banner messages which may appear at login, if any are open (e.g., License Expiration, Connection Lost with XIQ)
+        - Keyword Usage
+        - ``XIQSE Close Login Banner Messages``
 
         :return: 1 if action successful, else -1
         """
@@ -272,9 +272,9 @@ class XIQSE_CommonBanner(CommonBannerWebElements):
 
     def xiqse_close_all_banner_messages(self):
         """
-         - This keyword closes all banner messages, if any are open (e.g., License Expiration, Connection Lost with XIQ)
-         - Keyword Usage
-          - ``XIQSE Close All Banner Messages``
+        - This keyword closes all banner messages, if any are open (e.g., License Expiration, Connection Lost with XIQ)
+        - Keyword Usage
+        - ``XIQSE Close All Banner Messages``
 
         :return: 1 if action successful, else -1
         """

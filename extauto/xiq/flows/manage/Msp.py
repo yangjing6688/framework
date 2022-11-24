@@ -22,7 +22,7 @@ class Msp(MspWebElements):
         - Flow: Manage--> View Organizations
         - This keyword will select Organization in MSP account
         - Keyword Usage:
-         - ``Select Organization  organization_name=${ORG_NAME}   ``
+        - ``Select Organization  organization_name=${ORG_NAME}   ``
 
         :param organization_name: Organization Name
         :return: 1 if Mentioned organization Name is Selected Successfully else -1

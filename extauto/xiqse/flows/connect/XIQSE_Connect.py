@@ -14,11 +14,11 @@ class XIQSE_Connect(ConnectWebElements):
 
     def xiqse_connect_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Connect page
-         - Keyword Usage
-          - ``XIQSE Connect Select Tab    Configuration``
-          - ``XIQSE Connect Select Tab    Diagnostics``
-          - ``XIQSE Connect Select Tab    Services API``
+        - This keyword selects the specified tab of the Connect page
+        - Keyword Usage
+        - ``XIQSE Connect Select Tab    Configuration``
+        - ``XIQSE Connect Select Tab    Diagnostics``
+        - ``XIQSE Connect Select Tab    Services API``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -46,9 +46,9 @@ class XIQSE_Connect(ConnectWebElements):
 
     def xiqse_connect_select_configuration_tab(self):
         """
-         - This keyword selects the Configuration tab of the Connect page
-         - Keyword Usage
-          - ``XIQSE Connect Select Configuration Tab``
+        - This keyword selects the Configuration tab of the Connect page
+        - Keyword Usage
+        - ``XIQSE Connect Select Configuration Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -57,9 +57,9 @@ class XIQSE_Connect(ConnectWebElements):
 
     def xiqse_connect_select_diagnostics_tab(self):
         """
-         - This keyword selects the Diagnostics tab of the Connect page
-         - Keyword Usage
-          - ``XIQSE Connect Select Diagnostics Tab``
+        - This keyword selects the Diagnostics tab of the Connect page
+        - Keyword Usage
+        - ``XIQSE Connect Select Diagnostics Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -68,9 +68,9 @@ class XIQSE_Connect(ConnectWebElements):
 
     def xiqse_connect_select_services_api_tab(self):
         """
-         - This keyword selects the Services API tab of the Connect page
-         - Keyword Usage
-          - ``XIQSE Connect Select Services API Tab``
+        - This keyword selects the Services API tab of the Connect page
+        - Keyword Usage
+        - ``XIQSE Connect Select Services API Tab``
 
         :return: 1 if action was successful, else -1
         """

@@ -15,9 +15,9 @@ class XIQSE_CommonView(CommonViewWebElements):
 
     def xiqse_wait_for_refresh_to_complete(self, retry_duration=2, retry_count=30):
         """
-         - This keyword waits for the refresh to complete in the view
-         - Keyword Usage
-          - ``XIQSE Wait For Refresh To Complete``
+        - This keyword waits for the refresh to complete in the view
+        - Keyword Usage
+        - ``XIQSE Wait For Refresh To Complete``
 
         :param retry_duration: amount of time to wait in between each check for the refresh to be complete
         :param retry_count:    number of times to check for the search to be complete

@@ -20,16 +20,16 @@ class XIQSE_NetworkDevicesTreePanel(NetworkDevicesTreePanelWebElements):
 
     def xiqse_devices_select_device_tree_context(self, the_value):
         """
-         - This keyword selects the device tree context in the left tree panel on the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Select Device Tree Context   by Contact``
-          - ``XIQSE Devices Select Device Tree Context   by Device Type``
-          - ``XIQSE Devices Select Device Tree Context   by IP``
-          - ``XIQSE Devices Select Device Tree Context   by Location``
-          - ``XIQSE Devices Select Device Tree Context   Extended Bridges``
-          - ``XIQSE Devices Select Device Tree Context   Sites``
-          - ``XIQSE Devices Select Device Tree Context   User Device Groups``
-          - ``XIQSE Devices Select Device Tree Context   Wireless Controllers``
+        - This keyword selects the device tree context in the left tree panel on the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Select Device Tree Context   by Contact``
+        - ``XIQSE Devices Select Device Tree Context   by Device Type``
+        - ``XIQSE Devices Select Device Tree Context   by IP``
+        - ``XIQSE Devices Select Device Tree Context   by Location``
+        - ``XIQSE Devices Select Device Tree Context   Extended Bridges``
+        - ``XIQSE Devices Select Device Tree Context   Sites``
+        - ``XIQSE Devices Select Device Tree Context   User Device Groups``
+        - ``XIQSE Devices Select Device Tree Context   Wireless Controllers``
 
         :param the_value: tree context to select
         :return: 1 if action was successful, else -1
@@ -69,9 +69,9 @@ class XIQSE_NetworkDevicesTreePanel(NetworkDevicesTreePanelWebElements):
 
     def xiqse_devices_select_site_tree_node(self, site):
         """
-         - This keyword selects the specified site tree node on the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Select Site Tree Node   ${SITE}``
+        - This keyword selects the specified site tree node on the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Select Site Tree Node   ${SITE}``
 
         :param site: name of site tree node to select
         :return: 1 if action was successful, else -1
@@ -90,9 +90,9 @@ class XIQSE_NetworkDevicesTreePanel(NetworkDevicesTreePanelWebElements):
 
     def xiqse_devices_create_site(self, site):
         """
-         - This keyword creates the specified site on the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Create Site   ${SITE}``
+        - This keyword creates the specified site on the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Create Site   ${SITE}``
 
         :param site: name of site to create
         :return: 1 if action was successful, else -1
@@ -137,9 +137,9 @@ class XIQSE_NetworkDevicesTreePanel(NetworkDevicesTreePanelWebElements):
 
     def xiqse_devices_delete_site(self, site):
         """
-         - This keyword deletes the specified site from the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Delete Site   ${SITE}``
+        - This keyword deletes the specified site from the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Delete Site   ${SITE}``
 
         :param site: name of site to delete
         :return: 1 if action was successful, else -1

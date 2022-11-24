@@ -34,7 +34,7 @@ class ClientMode:
         """
         - Login to client mode account with username and password
         - keyword Usage:
-         - ``Client Mode Login User   ${USERNAME}   ${PASSWORD}``
+        - ``Client Mode Login User   ${USERNAME}   ${PASSWORD}``
         :param username: login account username
         :param password: login account password
         """
@@ -71,7 +71,7 @@ class ClientMode:
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
         - Keyword Usage:
-         - ``Quit Browser Client Mode``
+        - ``Quit Browser Client Mode``
 
         :param _driver
         :return: 1 if success
@@ -126,4 +126,3 @@ class ClientMode:
         kwargs['fail_msg'] = f"'manual_passphrase_ssid_connect()' -> Status: disconnected -> {wifi_status}"
         self.common_validation.failed(**kwargs)
         return [-1, wifi_status]
-

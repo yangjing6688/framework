@@ -18,9 +18,9 @@ class XIQSE_NetworkFirmware(NetworkFirmwareWebElements):
 
     def xiqse_firmware_open_search(self):
         """
-         - This keyword opens the search box on the Network > Firmware Tab
-         - Keyword Usage
-          - ``XIQSE Firmware Open Search``
+        - This keyword opens the search box on the Network > Firmware Tab
+        - Keyword Usage
+        - ``XIQSE Firmware Open Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -44,9 +44,9 @@ class XIQSE_NetworkFirmware(NetworkFirmwareWebElements):
 
     def xiqse_firmware_enter_search_text(self, value):
         """
-         - This keyword enters text into the search field on the Network > Firmware Tab
-         - Keyword Usage
-          - ``XIQSE Firmware Enter Search Text    My Firmware To Find``
+        - This keyword enters text into the search field on the Network > Firmware Tab
+        - Keyword Usage
+        - ``XIQSE Firmware Enter Search Text    My Firmware To Find``
 
         :param value: string to enter in the search box
         :return: 1 if action was successful, else -1
@@ -70,9 +70,9 @@ class XIQSE_NetworkFirmware(NetworkFirmwareWebElements):
 
     def xiqse_firmware_trigger_search(self):
         """
-         - This keyword clicks the search button in the search box on the Network > Firmware Tab to perform the search
-         - Keyword Usage
-          - ``XIQSE Firmware Trigger Search``
+        - This keyword clicks the search button in the search box on the Network > Firmware Tab to perform the search
+        - Keyword Usage
+        - ``XIQSE Firmware Trigger Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -96,9 +96,9 @@ class XIQSE_NetworkFirmware(NetworkFirmwareWebElements):
 
     def xiqse_firmware_clear_search(self):
         """
-         - This keyword clicks the clear button in the search box on the Network > Firmware Tab to perform the search
-         - Keyword Usage
-          - ``XIQSE Firmware Clear Search``
+        - This keyword clicks the clear button in the search box on the Network > Firmware Tab to perform the search
+        - Keyword Usage
+        - ``XIQSE Firmware Clear Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -122,9 +122,9 @@ class XIQSE_NetworkFirmware(NetworkFirmwareWebElements):
 
     def xiqse_firmware_wait_for_search_to_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits for the search to complete on the Network > Firmware Tab
-         - Keyword Usage
-          - ``XIQSE Firmware Wait For Search To Complete``
+        - This keyword waits for the search to complete on the Network > Firmware Tab
+        - Keyword Usage
+        - ``XIQSE Firmware Wait For Search To Complete``
 
         :param retry_duration: amount of time to wait in between each check for the search to be complete
         :param retry_count:    number of times to check for the search to be complete
@@ -148,10 +148,10 @@ class XIQSE_NetworkFirmware(NetworkFirmwareWebElements):
 
     def xiqse_firmware_perform_search(self, value, retry_duration=10, retry_count=30):
         """
-         - This keyword performs a search on the Network > Firmware Tab
-         - Keyword Usage
-          - ``XIQSE Firmware Perform Search   My Search String``
-          - ``XIQSE Firmware Perform Search   My Search String  retry_duration=5  retry_count=10``
+        - This keyword performs a search on the Network > Firmware Tab
+        - Keyword Usage
+        - ``XIQSE Firmware Perform Search   My Search String``
+        - ``XIQSE Firmware Perform Search   My Search String  retry_duration=5  retry_count=10``
 
         :param value:          string to search for
         :param retry_duration: amount of time to wait in between each check for the search to be complete
@@ -201,10 +201,10 @@ class XIQSE_NetworkFirmware(NetworkFirmwareWebElements):
 
     def xiqse_select_firmware_image_filename(self, firmware_image_filename):
         """
-         - This keyword selects the specified firmware image.
-         - It is assumed the user is already on the Network > Firmware tab.
-         - Keyword Usage
-          - ``XIQSE Select Firmware Image  My_Firmware_Image_Name``
+        - This keyword selects the specified firmware image.
+        - It is assumed the user is already on the Network > Firmware tab.
+        - Keyword Usage
+        - ``XIQSE Select Firmware Image  My_Firmware_Image_Name``
 
         :param firmware_image_filename: firmware image to select
         :return: 1 if action was successful, else -1
@@ -406,10 +406,10 @@ class XIQSE_NetworkFirmware(NetworkFirmwareWebElements):
 
     def xiqse_open_firmware_context_menu(self, firmware_image_filename):
         """
-         - This keyword right-clicks the specified firmware image.
-         - It is assumed the user is already on the Network > Firmware tab.
-         - Keyword Usage
-          - ``XIQSE Right-Click Firmware Image  My_Firmware_Image_Name``
+        - This keyword right-clicks the specified firmware image.
+        - It is assumed the user is already on the Network > Firmware tab.
+        - Keyword Usage
+        - ``XIQSE Right-Click Firmware Image  My_Firmware_Image_Name``
 
         :param firmware_image_filename: firmware image to select
         :return: 1 if action was successful, else -1

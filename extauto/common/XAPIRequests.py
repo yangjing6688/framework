@@ -1,11 +1,7 @@
-import ast
 import json
-import base64
 import requests
 import subprocess
 
-from io import BytesIO
-from io import StringIO
 from robot.libraries.BuiltIn import BuiltIn
 
 from extauto.common.Utils import Utils
@@ -21,6 +17,7 @@ class RestRequest:
     def generate_access_token(self, username, password, path="login"):
         """
         - This Keyword is used to get the access token
+
         :param username: username
         :param password: password
         :param path: API Endpoint path
@@ -65,6 +62,7 @@ class RestRequest:
     def rest_api_get(self, path, access_token="default"):
         """
         - This Keyword is used to get the access token
+
         :param access_token: access token
         :param path: API Endpoint path
         :return: returns access_token
@@ -103,6 +101,7 @@ class RestRequest:
     def rest_api_post(self, path, post_data, access_token = "default", return_output="default", result_code="default", role="default"):
         """
         - This Keyword is used for REST API post
+
         :param path: URL Path
         :param post_data: data to post
         :param access_token: access token

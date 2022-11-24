@@ -23,11 +23,11 @@ class XIQSE_ControlPolicyDomainDelete(ControlPolicyDomainDeleteWebElements):
 
     def xiqse_control_policy_delete_domain(self, domain_name):
         """
-         - This keyword selects the "Delete Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -   and delete the specified policy domain
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse control policy delete domain      <domain_name>
+        - This keyword selects the "Delete Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -   and delete the specified policy domain
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse control policy delete domain      <domain_name>
 
         :return: 1 if action was successful, else -1
         """

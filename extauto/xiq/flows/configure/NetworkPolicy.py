@@ -142,9 +142,9 @@ class NetworkPolicy(object):
         - This keyword will create the network policy and wireless network
         - Wireless network includes open, ppsk, psk and enterprise network
         - Keyword Usage:
-         - ``Create Network Policy   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
-         - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
-         - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
+        - ``Create Network Policy   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
+        - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
+        - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
 
         :param policy: Name of the network policy to create
         :param wireless_profile: (dict) wireless network creation profile parameters
@@ -153,18 +153,23 @@ class NetworkPolicy(object):
         """
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
-            return -2
+            kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
+            self.common_validation.fault(**kwargs)
+            return -1
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Checking for network policy add button")
         if self.np_web_elements.check_np_add_button() == -2:
-            self.utils.print_info("Add button is not enabled for the user")
-            return -2
+            kwargs['fail_msg'] = "create_network_policy() failed. Add button is not enabled for the user"
+            self.common_validation.fault(**kwargs)
+            return -1
 
         if self._search_network_policy_in_list_view(policy) == 1:
-            self.utils.print_info(f"Network policy {policy} already exists in the network polices list")
+            kwargs['fail_msg'] = f"create_network_policy() failed. " \
+                                           f"Network policy {policy} already exists in the network polices list"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Click on network policy add button")
@@ -186,16 +191,21 @@ class NetworkPolicy(object):
 
         for tip_text in reversed(tool_tp_text):
             if "The Network Policy cannot be saved because" in tip_text:
-                self.utils.print_info(f"{tip_text}")
+                kwargs['fail_msg'] = f"create_network_policy() failed." \
+                                               f"The Network Policy cannot be saved because {tip_text}"
+                self.common_validation.fault(**kwargs)
                 return -1
             if "Your account does not have permission to perform that action" in tip_text:
-                self.utils.print_info(f"{tip_text}")
-                return -2
+                kwargs['fail_msg'] = f"create_network_policy() failed." \
+                                               f"Your account does not have permission to perform that action {tip_text}"
+                self.common_validation.fault(**kwargs)
+                return -1
 
             if "Unable to access data" in tip_text:
-                self.utils.print_info("not able to save the network policy")
-                self.utils.print_info(f"{tip_text}")
-                return -3
+                kwargs['fail_msg'] = f"create_network_policy() failed." \
+                                               f"Not able to save the network policy {tip_text}"
+                self.common_validation.fault(**kwargs)
+                return -1
 
             if cli_type.upper() == 'AH-AP':
                 return self.wireless_nw.create_wireless_network(**wireless_profile)
@@ -218,15 +228,15 @@ class NetworkPolicy(object):
         """
         - Delete Network Policy from network policy Grid
         - Keyword Usage:
-         - ``Delete Network Policy    ${POLICY_NAME}``
+        - ``Delete Network Policy    ${POLICY_NAME}``
 
         :param policy: Name of the policy to delete
         :return: 1 if deleted else -1
         """
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
-            kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
-            self.common_validation.failed(**kwargs)
-            return -2
+            kwargs['fail_msg'] = "delete_network_policy() failed. Couldn't Navigate to policies list view page"
+            self.common_validation.fault(**kwargs)
+            return -1
 
         if self._search_network_policy_in_list_view(policy) == -1:
             kwargs['pass_msg'] = f"Network policy {policy} doesn't exist in the network policies list"
@@ -247,26 +257,26 @@ class NetworkPolicy(object):
                 self.common_validation.passed(**kwargs)
                 return 1
             elif "The Network Policy cannot be removed " in value:
-                kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}!"
-                self.common_validation.failed(**kwargs)
+                kwargs['fail_msg'] = f"delete_network_policy() failed. The Network Policy cannot be removed, {value}!"
+                self.common_validation.fault(**kwargs)
                 return -1
             elif "An unknown error has occurred" in value:
-                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
-                self.common_validation.failed(**kwargs)
-                return -2
+                kwargs['fail_msg'] = f" delete_network_policy() failed. Unable to delete the network policy, {value}!"
+                self.common_validation.fault(**kwargs)
+                return -1
 
         # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
         # if it's gone assume success. Retry if it still appears b/c apparrently policy still appears after delete
         #    for a few moments.
         for chk in range(2):
             if chk == 2:
-                kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
+                kwargs['fail_msg'] = f"delete_network_policy() failed. " \
+                                     f"Unable to perform the delete for network policy {policy}!"
                 self.common_validation.failed(**kwargs)
                 return -1
             if self._search_network_policy_in_list_view(policy) == 1:
                 self.utils.print_info("Network policy still visible. Wait 5 seconds and try again")
                 sleep(5)
-
 
         kwargs['pass_msg'] = f"Successfully deleted Network Policy {policy}!"
         self.common_validation.passed(**kwargs)
@@ -276,7 +286,7 @@ class NetworkPolicy(object):
         """
         - Deleting the network policies based on the passed list of policies
         - Keyword Usage:
-         - ``Delete Network Policies   ${POLICY1}   ${POLICY2}``
+        - ``Delete Network Policies   ${POLICY1}   ${POLICY2}``
 
         :param policies: list of network polices to delete
         :return: 1 if deleted successfully else -1
@@ -333,7 +343,7 @@ class NetworkPolicy(object):
             return 1
 
         self.screen.save_screen_shot()
-        
+
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
@@ -366,7 +376,7 @@ class NetworkPolicy(object):
         """
         - Delete all network policies from the grid expect exclude_list policies
         - keyword Usage:
-          - ``Delete All Network Policies  exclude_list=${POLICY1},${POLICY2)``
+        - ``Delete All Network Policies  exclude_list=${POLICY1},${POLICY2)``
 
         :param exclude_list: list of policies to exclude from delete
         :return: 1 if deleted successfully else -1
@@ -387,7 +397,7 @@ class NetworkPolicy(object):
         - Flow: Navigate to the network policy -- > click on network policy card view
                 --> click on SSID --> Edit SSID
         - Keyword Usage:
-         - ``Edit Network Policy SSID   ${POLICY_NAME}   ${SSID_NAME}   ${NEW_SSID_NAME}``
+        - ``Edit Network Policy SSID   ${POLICY_NAME}   ${SSID_NAME}   ${NEW_SSID_NAME}``
 
         :param policy_name: Name of the network policy
         :param ssid_name: name of the ssid already exist on that network policy
@@ -501,10 +511,10 @@ class NetworkPolicy(object):
         - If want to perform different type of config push, pass the appropriate parameter values
         - If already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}``
-         - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  update_type=complete``
-         - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  next_reboot=True``
-         - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  _date=${DATE}  _time=${TIME}``
+        - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}``
+        - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  update_type=complete``
+        - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  next_reboot=True``
+        - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  _date=${DATE}  _time=${TIME}``
 
         :param policy_name: Name of the policy
         :param devices: Device serial number
@@ -536,15 +546,15 @@ class NetworkPolicy(object):
         self.utils.print_info(tool_tp_text)
         for tip_text in tool_tp_text:
             if "An unknown error has" in tip_text:
-                self.screen.save_screen_shot()
-                sleep(2)
-                self.robot_built_in.fail(f"{tip_text} occurred while assigning nw policy")
+                kwargs['fail_msg'] = f"deploy_network_policy() failed. {tip_text} occurred while assigning nw policy"
+                self.common_validation.fault(**kwargs)
+                return -1
 
         if not self._select_device_row(devices):
-            self.utils.print_info("Device is not available in the deploy policy page")
-            kwargs['fail_msg'] = f"Device is not available in the deploy policy page"
-            self.common_validation.failed(**kwargs)
+            kwargs['fail_msg'] = f"deploy_network_policy() failed. Device is not available in the deploy policy page"
+            self.common_validation.fault(**kwargs)
             return -1
+
         self.screen.save_screen_shot()
         sleep(5)
         self.utils.print_info("Click on the policy deploy upload button")
@@ -640,13 +650,12 @@ class NetworkPolicy(object):
 
         network_policy = self.device.get_ap_network_policy(devices)
         if network_policy == policy_name:
-            self.utils.print_info("Network Policy in Devices grid matches...")
             kwargs['pass_msg'] = "Network Policy in Devices grid matches..."
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Network Policy in Devices grid does not matches with the deployed one...")
-            kwargs['fail_msg'] = "Network Policy in Devices grid does not matches with the deployed one..."
+            kwargs['fail_msg'] = "deploy_network_policy() failed." \
+                                 "Network Policy in Devices grid does not matches with the deployed one..."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -668,10 +677,8 @@ class NetworkPolicy(object):
             self.utils.print_info("Network policy list view button found! Clicking... ")
             self.auto_actions.click_reference(self.np_web_elements.get_network_policy_list_view)
         else:
-            self.utils.print_info("List view button not found!")
             kwargs['fail_msg'] = "List view button not found!"
-            self.screen.save_screen_shot()
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Searching for network policy 100 rows per page button...")
@@ -710,21 +717,16 @@ class NetworkPolicy(object):
                                 self.utils.print_info("Clicking on network policy Edit button...")
                                 np_edit_button = self.np_web_elements.get_np_edit_button()
                                 if np_edit_button:
-                                    self.utils.print_info("Found the Edit button!")
                                     self.auto_actions.click(np_edit_button)
                                     kwargs['pass_msg'] = "Found the Edit button!"
                                     self.common_validation.passed(**kwargs)
                                     return 1
                                 else:
-                                    self.utils.print_info("Edit button not found!")
-                                    kwargs['fail_msg'] = "Edit button not found!"
-                                    self.screen.save_screen_shot()
-                                    self.common_validation.failed(**kwargs)
+                                    kwargs['fail_msg'] = "navigate_to_np_edit_tab() failed. Edit button not found!"
+                                    self.common_validation.fault(**kwargs)
                                     return -1
                 else:
-                    self.utils.print_info("Rows were not found!")
-                    kwargs['fail_msg'] = "Rows were not found!"
-                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "navigate_to_np_edit_tab() failed. Rows were not found!"
                     self.common_validation.failed(**kwargs)
                     return -1
             except selenium.common.exceptions.StaleElementReferenceException as e:
@@ -739,11 +741,9 @@ class NetworkPolicy(object):
                     self.auto_actions.click_reference(self.np_web_elements.get_next_page_element)
                     current_page += 1
                 else:
-                    self.utils.print_info(f"This is the last page: {current_page}. Network policy was not found in all "
-                                          f"{current_page} pages. It was deleted or not created at all.")
-                    kwargs['fail_msg'] = f"This is the last page: {current_page}. Network policy was not found in " \
+                    kwargs['fail_msg'] = f"navigate_to_np_edit_tab() failed. " \
+                                         f"This is the last page: {current_page}. Network policy was not found in " \
                                          f"all {current_page} pages. It was deleted or not created at all."
-                    self.screen.save_screen_shot()
                     self.common_validation.failed(**kwargs)
                     return -1
 
@@ -753,9 +753,9 @@ class NetworkPolicy(object):
         - Flow: Navigate to Network policy-->Select List View-->Select Network Policy ROW-->
           Edit-->Select wireless nw tab-->Add other wireless network
         - Keyword Usage:
-         - ``Add Wireless Nw To Network Policy    ${POLICY_NAME}    &{WIRELESS_NW_PROFILE}``
-         - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
-         - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
+        - ``Add Wireless Nw To Network Policy    ${POLICY_NAME}    &{WIRELESS_NW_PROFILE}``
+        - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
+        - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
 
         :param policy_name: name of the network policy
         :param wireless_profile: (dict) wireless network profile config parameters
@@ -765,7 +765,7 @@ class NetworkPolicy(object):
         self.navigate_to_np_edit_tab(policy_name)
         return self.wireless_nw.create_wireless_network(**wireless_profile)
 
-    def delete_network_policy_with_ssid(self, ssid_name):
+    def delete_network_policy_with_ssid(self, ssid_name, **kwargs):
         """
         - Deleting the network policy based on SSID name attached to it
         - list all network policy from card view, get the ssid name of each policy , if any policy consists passed
@@ -785,7 +785,8 @@ class NetworkPolicy(object):
         if policy_name:
             return self.delete_network_policy(policy_name)
         else:
-            self.utils.print_info("Unable to find policy with SSID: ", ssid_name)
+            kwargs['fail_msg'] = f"delete_network_policy_with_ssid() failed. Unable to find policy with SSID {ssid_name}"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def _get_network_policy_with_ssid(self, ssid_name):
@@ -821,7 +822,7 @@ class NetworkPolicy(object):
         - This will reboot the Device
         - if already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy With Complete Update   ${POLICY_NAME}    ${DEVICE_MAC}``
+        - ``Deploy Network Policy With Complete Update   ${POLICY_NAME}    ${DEVICE_MAC}``
 
         :param policy_name: Name of the policy
         :param devices: Device serial number
@@ -834,8 +835,8 @@ class NetworkPolicy(object):
         - Config push network policy in next reboot
         - this will do completed config push for the next reboot of device
         - if already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
-         - Keyword Usage:
-         - ``Deploy Network Policy With Next Reboot   ${POLICY_NAME}    ${DEVICE_MAC}``
+        - Keyword Usage:
+        - ``Deploy Network Policy With Next Reboot   ${POLICY_NAME}    ${DEVICE_MAC}``
 
         :param policy_name: Name of the policy
         :param devices: Device serial number
@@ -849,7 +850,7 @@ class NetworkPolicy(object):
         - it will config push at specific date and at specific time
         - if already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy At Specific Time   ${POLICY_NAME}  ${DEVICE_MAC}  ${UPDATE_DATE}  ${UPDATE_TIME}``
+        - ``Deploy Network Policy At Specific Time   ${POLICY_NAME}  ${DEVICE_MAC}  ${UPDATE_DATE}  ${UPDATE_TIME}``
 
         :param policy_name:  Name of the policy
         :param devices:  Device serial number
@@ -870,7 +871,7 @@ class NetworkPolicy(object):
         - delta config push of network policy
         - if already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy With Delta Update   ${POLICY_NAME}   ${DEVICE_MAC}``
+        - ``Deploy Network Policy With Delta Update   ${POLICY_NAME}   ${DEVICE_MAC}``
 
         :param policy_name: Name of the policy
         :param devices: Device serial number
@@ -902,7 +903,7 @@ class NetworkPolicy(object):
         else:
             return -2
 
-    def navigate_wireless_ssid(self, policy_name, ssid):
+    def navigate_wireless_ssid(self, policy_name, ssid, **kwargs):
         """
         - Flow: Configure --> Network Policies--> Select the policy-->Wireless tab--> Select SSID
 
@@ -912,7 +913,8 @@ class NetworkPolicy(object):
         """
         self.navigate_to_np_edit_tab(policy_name)
         if not self._select_ssid(ssid) == 1:
-            self.utils.print_info("SSID:{} not selected".format(ssid))
+            kwargs['fail_msg'] = f"navigate_wireless_ssid() failed. SSID: {ssid} not selected"
+            self.common_validation.failed(**kwargs)
             return -1
         return 1
 
@@ -923,7 +925,7 @@ class NetworkPolicy(object):
           --> add ssid --> select enterprise network --> click on radius server select button
           --> select the radius server group and delete it
         - Keyword Usage:
-         - ``Delete Radius Group    ${POLICY_NAME}   ${RADIUS_SERVER_GROUP_NAME}``
+        - ``Delete Radius Group    ${POLICY_NAME}   ${RADIUS_SERVER_GROUP_NAME}``
 
         :param network_policy_name: Network Policy Name
         :param radius_group_name: Name of the radius group to delete
@@ -981,7 +983,7 @@ class NetworkPolicy(object):
 
         return ssid_list, ssid_name
 
-    def delete_all_ssid_in_policy(self, policy):
+    def delete_all_ssid_in_policy(self, policy, **kwargs):
         """ delete all ssids in the policy
             :param: policy: name of the policy
             :return 1 if deletion of ssids is success
@@ -1004,22 +1006,26 @@ class NetworkPolicy(object):
                 self.utils.print_info(f"Failed to go to Wireless Networks tab, try {try_cnt} times")
                 sleep(1)
                 if try_cnt == 10:
-                    self.utils.print_info(f"Max {try_cnt}  times to switch to Wireless Networks tab, but still failed, need figure out issue manually")
+                    kwargs['fail_msg'] = f"delete_all_ssid_in_policy() failed. " \
+                                         f"Max {try_cnt} times to switch to Wireless Networks tab, " \
+                                         f"but still failed, need figure out issue manually"
+                    self.common_validation.fault(**kwargs)
                     return -1
-        self.utils.print_info(" Get all ssids in the policy")
+        self.utils.print_info("Get all ssids in the policy")
         ssids = self.wireless_element.get_ssid_list()
         self.utils.print_info(f"The SSIDs in the policy: {ssids}")
         if not ssids:
-            self.utils.print_info(" There are no SSIDs configured on policy  " + str(policy))
+            self.utils.print_info("There are no SSIDs configured on policy  " + str(policy))
         else:
-            self.utils.print_info(" Select all SSIDs to be deleted")
+            self.utils.print_info("Select all SSIDs to be deleted")
             for ssid in ssids:
-                self.utils.print_info(" Selecting  ssid : " + ssid.text)
+                self.utils.print_info("Selecting  ssid : " + ssid.text)
                 check_box = self.wireless_element.get_ssid_chkbox(ssid)
                 if check_box:
                     self.auto_actions.click(check_box)
                 else:
-                    self.utils.print_info(" Unable to select row")
+                    kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to select row"
+                    self.common_validation.fault(**kwargs)
                     return -1
 
             delete_button = self.wireless_element.get_wireless_delete_button()
@@ -1032,11 +1038,13 @@ class NetworkPolicy(object):
                     self.screen.save_screen_shot()
                     sleep(5)
                 else:
-                    self.utils.print_info(" Unable click the corfirm Yes button")
+                    kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable click the confirm Yes button"
+                    self.common_validation.fault(**kwargs)
                     return -1
             else:
-                 self.utils.print_info(" Unable to click the Delete button")
-                 return -1
+                kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to click the Delete button"
+                self.common_validation.fault(**kwargs)
+                return -1
         reuse_button = self.wireless_element.get_wireless_re_use_button()
         if reuse_button:
             self.auto_actions.click(reuse_button)
@@ -1050,7 +1058,8 @@ class NetworkPolicy(object):
                         if check_box_reusable:
                             self.auto_actions.click(check_box_reusable)
                         else:
-                            self.utils.print_info(" Unable to select SSID ")
+                            kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to select SSID"
+                            self.common_validation.fault(**kwargs)
                             return -1
                 self.utils.print_info(" Clicking  delete button ")
                 re_use_delete_button = self.wireless_element.get_wireless_re_use_delete_button()
@@ -1065,25 +1074,31 @@ class NetworkPolicy(object):
                         self.utils.print_info(" Closing SSID pop-up window ")
                         self.auto_actions.click_reference(self.wireless_element.get_wireless_re_use_cancel_button)
                         if "deleted successfully" in str(tool_tp_text):
-                            self.utils.print_info(" SSIDs were successfully deleted ")
+                            kwargs['pass_msg'] = "SSIDs were successfully deleted"
+                            self.common_validation.passed(**kwargs)
                             return 1
                         else:
-                            self.screen.save_screen_shot()
-                            self.utils.print_info(" SSIDs were NOT successfully deleted ")
+                            kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. SSIDs were NOT successfully deleted"
+                            self.common_validation.failed(**kwargs)
                             return -1
                     else:
-                        self.utils.print_info(" Unable to click on confirm yes button ")
+                        kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to click on confirm yes button"
+                        self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    self.utils.print_info(" Unable to click the delete button ")
+                    kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to click the delete button"
+                    self.common_validation.fault(**kwargs)
                     return -1
             else:
-                self.utils.print_info(" Unable to gather SSID rows ")
+                kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to gather SSID rows"
+                self.common_validation.fault(**kwargs)
                 return -1
-        self.utils.print_info(" Error : Unable to delete all SSIDs")
+
+        kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to delete all SSIDs"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def delete_single_ssid_in_policy(self, policy, ssid_name):
+    def delete_single_ssid_in_policy(self, policy, ssid_name, **kwargs):
         """ delete all ssids in the policy
             :param: policy: name of the policy
             :return 1 if deletion of ssids is success
@@ -1098,7 +1113,8 @@ class NetworkPolicy(object):
         self.utils.print_info(" Get all ssids in the policy")
         ssids = self.wireless_element.get_ssid_list()
         if not ssids:
-            self.utils.print_info(" There are no SSIDs configured on policy  " + str(policy))
+            kwargs['pass_msg'] = f"There are no SSIDs configured on policy {str(policy)}"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(" Select the SSID to be deleted")
@@ -1108,7 +1124,8 @@ class NetworkPolicy(object):
                     if check_box:
                         self.auto_actions.click(check_box)
                     else:
-                        self.utils.print_info(" Unable to select row")
+                        kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. Unable to select row"
+                        self.common_validation.fault(**kwargs)
                         return -1
 
             delete_button = self.wireless_element.get_wireless_delete_button()
@@ -1133,7 +1150,8 @@ class NetworkPolicy(object):
                                         if check_box_reusable:
                                             self.auto_actions.click(check_box_reusable)
                                         else:
-                                            self.utils.print_info(" Unable to select SSID ")
+                                            kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. Unable to select SSID"
+                                            self.common_validation.fault(**kwargs)
                                             return -1
                             self.utils.print_info(" Clicking  delete button ")
                             re_use_delete_button = self.wireless_element.get_wireless_re_use_delete_button()
@@ -1148,30 +1166,44 @@ class NetworkPolicy(object):
                                     self.utils.print_info(" Closing SSID pop-up window ")
                                     self.auto_actions.click_reference(self.wireless_element.get_wireless_re_use_cancel_button)
                                     if "deleted successfully" in str(tool_tp_text):
-                                        self.utils.print_info(" SSIDs were successfully deleted ")
+                                        kwargs['pass_msg'] = "SSIDs were successfully deleted"
+                                        self.common_validation.passed(**kwargs)
                                         return 1
                                     else:
-                                        self.utils.print_info(" SSIDs were NOT successfully deleted ")
+                                        kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
+                                                             "SSIDs were NOT successfully deleted"
+                                        self.common_validation.failed(**kwargs)
                                         return -1
                                 else:
-                                    self.utils.print_info(" Unable to click on confirm yes button ")
+                                    kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
+                                                         "Unable to click on confirm yes button"
+                                    self.common_validation.fault(**kwargs)
                                     return -1
                             else:
-                                self.utils.print_info(" Unable to click the delete button ")
+                                kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
+                                                     "Unable to click the delete button"
+                                self.common_validation.fault(**kwargs)
                                 return -1
                         else:
-                            self.utils.print_info(" Unable to gather SSID rows ")
+                            kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
+                                                 "Unable to gather SSID rows"
+                            self.common_validation.fault(**kwargs)
                             return -1
                     else:
-                        self.utils.print_info(" Unable click the reusable [select] button")
+                        kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
+                                             "Unable click the reusable [select] button"
+                        self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    self.utils.print_info(" Unable click the corfirm Yes button")
+                    kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
+                                         "Unable click the confirm Yes button"
+                    self.common_validation.fault(**kwargs)
                     return -1
             else:
-                 self.utils.print_info(" Unable to click the Delete button")
-                 return -1
-        self.utils.print_info(" Error : Unable to delete all SSIDs")
+                kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
+                                  "Unable to click the Delete button"
+                self.common_validation.fault(**kwargs)
+                return -1
         return -1
 
     def enable_nw_presence_analytics(self, nw_policy):
@@ -1179,7 +1211,7 @@ class NetworkPolicy(object):
         - This keyword is used to enable the presence analytics
         - Flow: Configure --> Network Policy --> select the Policy --> Enable Presence Analytics
         - Keyword Usage:
-         - ``Enable NW Presence Analytics  ${POLICY_NAME}``
+        - ``Enable NW Presence Analytics  ${POLICY_NAME}``
 
         :param nw_policy: name of the policy
         :return: None
@@ -1198,13 +1230,13 @@ class NetworkPolicy(object):
         self.utils.print_info("Click on network policy save button")
         self.auto_actions.click_reference(self.np_web_elements.get_np_save_button)
 
-    def enable_ibeacon_service_in_network_policy(self, nw_policy, service_name, uuid, monitoring):
+    def enable_ibeacon_service_in_network_policy(self, nw_policy, service_name, uuid, monitoring, **kwargs):
         """
         - This keyword is used to enable Ibeacon Service in Network Policy
         - Flow: Configure --> Network Policy --> select the Policy -->Advance Settings-->IBeacon Services
         - Keyword Usage:
-         - ''Enable IBeacon Service In Network Policy  ${POLICY_NAME}  ${service_name}  ${uuid} monitoring=enable ''
-         - ''Enable IBeacon Service In Network Policy  ${POLICY_NAME}  ${service_name}  ${uuid} monitoring=disable ''
+        - ''Enable IBeacon Service In Network Policy  ${POLICY_NAME}  ${service_name}  ${uuid} monitoring=enable ''
+        - ''Enable IBeacon Service In Network Policy  ${POLICY_NAME}  ${service_name}  ${uuid} monitoring=disable ''
 
         :param nw_policy: name of the policy
         :param service_name: IBeacon Service Name
@@ -1276,16 +1308,20 @@ class NetworkPolicy(object):
         self.utils.print_info("Observed Message: ", observed_nwpolicy_message)
 
         if "iBeacon settings saved successfully" in observed_nwpolicy_message:
+            kwargs['pass_msg'] = "iBeacon settings saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "enable_ibeacon_service_in_network_policy() failed. Failed to enable ibeacon service"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def disable_ibeacon_service_in_network_policy(self, nw_policy):
+    def disable_ibeacon_service_in_network_policy(self, nw_policy, **kwargs):
         """
         - This keyword is used to disable Ibeacon Service in Network Policy
         - Flow: Configure --> Network Policy --> select the Policy -->Advance Settings-->IBeacon Services
         - Keyword Usage:
-         - ``Disable IBeacon Service In Network Policy  ${POLICY_NAME}''
+        - ``Disable IBeacon Service In Network Policy  ${POLICY_NAME}''
 
         :param nw_policy: name of the policy for disabling the iBeacon
         :return: None
@@ -1323,11 +1359,15 @@ class NetworkPolicy(object):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "iBeacon settings saved successfully" in tool_tip_text:
+            kwargs['pass_msg'] = "iBeacon settings saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "disable_ibeacon_service_in_network_policy() failed. Failed to disable ibeacon service"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def configure_access_security_pre_authentication_status(self, status, policy_name, ssid):
+    def configure_access_security_pre_authentication_status(self, status, policy_name, ssid, **kwargs):
         """
         - configure Pre Authentication based on status for the wireless Network
         :param status: (str) status is either enable or disable
@@ -1374,8 +1414,13 @@ class NetworkPolicy(object):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "SSID was saved successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "SSID was saved successfully."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "configure_access_security_pre_authentication_status() failed. " \
+                                 "Failed to configure access security pre authentication"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def edit_network_policy_ssid_authentication(self, policy_name, ssid_name, new_auth_method):
@@ -1383,7 +1428,7 @@ class NetworkPolicy(object):
         - This keyword will Change SSID Authentication to Open in the network policy
         - Flow: network policy -- > click on network policy card view --> click on SSID --> Edit SSID Authentication
         - Keyword Usage:
-         - ``Edit Network Policy SSID Authentication   ${POLICY_NAME}   ${SSID_NAME}   ${NEW_AUTH_METHOD}``
+        - ``Edit Network Policy SSID Authentication   ${POLICY_NAME}   ${SSID_NAME}   ${NEW_AUTH_METHOD}``
 
         :param policy_name: Name of the network policy
         :param ssid_name: name of the ssid already exist on that network policy
@@ -1403,28 +1448,34 @@ class NetworkPolicy(object):
 
         return 1
 
-    def create_switching_routing_network_policy(self, policy_name):
+    def create_switching_routing_network_policy(self, policy_name, **kwargs):
         """
         - Create Switching and Routing network policy
         - Checks the policy already exists, if it is not exist then create the network policy
         - Routing and Switching checkbox selected and wireless checkbox unselected while creating policy for EXOS
         - Keyword Usage:
-         - ``Create Switching Routing Network Policy  ${POLICY_NAME}``
+        - ``Create Switching Routing Network Policy  ${POLICY_NAME}``
 
         :param policy_name: Policy Name
         :return: 1 if network policy created successfully else returns -1.
         """
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+            kwargs['fail_msg'] = "create_switching_routing_network_policy() failed. " \
+                                 "Failed to navigate to network policies list."
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Checking for network policy add button")
         if self.np_web_elements.check_np_add_button() == -2:
-            self.utils.print_info("Add button is not enabled for the user")
+            kwargs['fail_msg'] = "create_switching_routing_network_policy() failed. " \
+                                 "Add button is not enabled for the user."
+            self.common_validation.fault(**kwargs)
             return -1
 
         if self._search_network_policy_in_list_view(policy_name) == 1:
-            self.utils.print_info("Network policy {} already exists in the network polices list".format(policy_name))
+            kwargs['pass_msg'] = f"Network policy {policy_name} already exists in the network polices list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Click on network policy add button")
@@ -1450,29 +1501,35 @@ class NetworkPolicy(object):
 
         for tip_text in tool_tp_text:
             if "The Network Policy cannot be saved because" in tip_text:
-                self.utils.print_info(f"{tip_text}")
+                kwargs['pass_msg'] = f"The Network Policy cannot be saved because {tip_text}"
+                self.common_validation.passed(**kwargs)
                 return 1
             if "Your account does not have permission to perform that action" in tip_text:
-                self.utils.print_info(f"{tip_text}")
+                kwargs['fail_msg'] = f"create_switching_routing_network_policy() failed. " \
+                                     f"Your account does not have permission to perform that action {tip_text}"
+                self.common_validation.fault(**kwargs)
                 return -1
 
             if "Unable to access data" in tip_text:
-                self.utils.print_info("not able to save the network policy")
-                self.utils.print_info(f"{tip_text}")
+                kwargs['fail_msg'] = f"create_switching_routing_network_policy() failed. " \
+                                     f"not able to save the network policy {tip_text}"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         self.utils.print_info("Click on network policy exit button")
         self.auto_actions.click_reference(self.np_web_elements.get_np_exit_button)
         sleep(2)
 
+        kwargs['pass_msg'] = "Network policy created successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def edit_network_policy_type(self, nw_policy, options_params):
+    def edit_network_policy_type(self, nw_policy, options_params, **kwargs):
         """
         - This keyword is used to select the type of policy option we are creating, i.e.., Routing, switching, wireless
         - Flow: Configure --> Network Policy --> select the Policy -->enable/disable different policy type options above
         - Keyword Usage:
-         - ``Edit Network Policy Type  ${POLICY_NAME}   ${OPTION_PARAMS}``
+        - ``Edit Network Policy Type  ${POLICY_NAME}   ${OPTION_PARAMS}``
 
         :param nw_policy: name of the policy
         :param options_params: wireless=enable,switches=disable,routing=enable
@@ -1520,18 +1577,22 @@ class NetworkPolicy(object):
         self.utils.print_info("Observed Message: ", observed_nwpolicy_message)
 
         if "Network Policy was saved successfully" in observed_nwpolicy_message:
+            kwargs['pass_msg'] = "Network Policy was saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "edit_network_policy_type() failed. Failed to edit network policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name, firmwareUpdate = False):
+    def deploy_stack_network_policy(self, device_mac, policy_name, sw_template_name, firmwareUpdate=False, **kwargs):
         """
         - Deploy the network policy to the particular device
         - By default it will do delta config push
         - If want to perform different type of config push, pass the appropriate parameter values
         - If already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy     ${DEVICE_MAC}  ${POLICY_NAME} ${Switch_template}
+        - ``Deploy Network Policy     ${DEVICE_MAC}  ${POLICY_NAME} ${Switch_template}
 
 
         :param policy_name: Name of the policy
@@ -1554,7 +1615,7 @@ class NetworkPolicy(object):
             self.utils.print_info("Click on eligible device button")
             self.auto_actions.click_reference(self.np_web_elements.get_eligible_device_button)
         _click_eligible()
-        
+
         def _check_device_rows():
             return self._get_device_rows(device_mac)
         self.utils.wait_till(_check_device_rows, delay=0.2, is_logging_enabled=True, silent_failure=False)
@@ -1563,12 +1624,16 @@ class NetworkPolicy(object):
         self.utils.print_info(tool_tp_text)
         for tip_text in tool_tp_text:
             if "An unknown error has" in tip_text:
-                self.screen.save_screen_shot()
-                sleep(2)
-                self.robot_built_in.fail(f"{tip_text} occurred while assigning nw policy")
-        
+                kwargs['fail_msg'] = f"deploy_stack_network_policy() failed. " \
+                                     f"{tip_text} occurred while assigning nw policy"
+                self.common_validation.fault(**kwargs)
+                return -1
+
         if not self._select_device_row(device_mac):
             self.utils.print_info("Device is not available in the deploy policy page")
+            kwargs['fail_msg'] = "deploy_stack_network_policy() failed. " \
+                                 "Device is not available in the deploy policy page"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.screen.save_screen_shot()
@@ -1609,8 +1674,8 @@ class NetworkPolicy(object):
         if not uptd.is_selected():
             self.utils.print_info(f"Click on the update configuration checkbox")
             self.auto_actions.click(uptd)
-            
-        # Uncheck the firmware update checkbox if it is checked 
+
+        # Uncheck the firmware update checkbox if it is checked
         firmware_update = self.devices_web_elements.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
         if not firmwareUpdate:
             if firmware_update.is_selected():
@@ -1620,7 +1685,7 @@ class NetworkPolicy(object):
                 self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already unchecked")
         else:
             if firmware_update.is_selected():
-                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked")  
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked")
             else:
                 self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is not checked - Checking")
                 self.auto_actions.click(firmware_update)
@@ -1628,28 +1693,29 @@ class NetworkPolicy(object):
         # Perform the update
         self.screen.save_screen_shot()
         sleep(5)
-        
+
         # Captute tool tip msg before pressing the perform update button
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
-        
+
         # Press perform update button
         self.utils.print_info("Checking for the perform update button presence")
         if self.np_web_elements.get_perform_update_policy_button():
             self.utils.print_info("Click on perform update button ")
             self.auto_actions.click_reference(self.np_web_elements.get_perform_update_policy_button)
         else:
-            self.utils.print_info("The perform update button was not found")
+            kwargs['fail_msg'] = "deploy_stack_network_policy() failed. The perform update button was not found"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.screen.save_screen_shot()
         sleep(5)
-        
+
         # Capture the tool tip after pressing the perform update button
         tool_tp_text_after = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_after)
-       
-        # Print and return the displayed tool tip msg if any 
+
+        # Print and return the displayed tool tip msg if any
         for item_after in tool_tp_text_after:
             if item_after in tool_tp_text_before:
                 pass
@@ -1659,11 +1725,11 @@ class NetworkPolicy(object):
                 return item_after
         return 1
 
-    def select_ssid_in_policy(self, policy, ssid):
+    def select_ssid_in_policy(self, policy, ssid, **kwargs):
         """
         - Selects existing SSID in the policy
         - Keyword Usage:
-         - ``Select SSID In Policy     ${POLICY}  ${SSID} ``
+        - ``Select SSID In Policy     ${POLICY}  ${SSID} ``
         :param policy: Name of the policy
         :param ssid : SSID to select
         :return: True if selection is success else False
@@ -1689,12 +1755,16 @@ class NetworkPolicy(object):
                 sleep(2)
                 self.auto_actions.click_reference(self.wireless_element.get_wireless_ssid_select_option_button)
                 self.screen.save_screen_shot()
+                kwargs['pass_msg'] = "Selected SSID in policy"
+                self.common_validation.passed(**kwargs)
                 return True
-        self.utils.print_info(f"SSID: {ssid} not present !!!")
+
         self.auto_actions.click_reference(self.wireless_element.get_wireless_ssid_select_cancel_button)
+        kwargs['fail_msg'] = f"select_ssid_in_policy() failed. SSID: {ssid} not present"
+        self.common_validation.failed(**kwargs)
         return False
 
-    def enable_classifier_maps(self, nw_policy, classifier_name):
+    def enable_classifier_maps(self, nw_policy, classifier_name, **kwargs):
         """
         - This keyword is used to enable Classifier Maps which Maps anonymous incoming traffic into the Extreme Networks classification system.
         - Flow: Configure --> Network Policy --> select the Policy -->Advance Settings-->QoS Options --> Classifier Maps
@@ -1808,18 +1878,22 @@ class NetworkPolicy(object):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Classifier Maps Additional Settings saved successfully" in tool_tip_text:
+            kwargs['pass_msg'] = "Classifier Maps Additional Settings saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "enable_classifier_maps() failed"
+            self.common_validation.failed(**kwargs)
             return -1
-    
-    def enable_marker_maps(self, nw_policy, **MarkerMap_dict):
+
+    def enable_marker_maps(self, nw_policy, MarkerMap_dict, **kwargs):
         """
         - This keyword is used to enable Marker Maps which Marks the outgoing or upstream traffic with the specified traffic priority markers.
         - Flow: Configure --> Network Policy --> select the Policy -->Advance Settings-->QoS Options --> Marker Maps
         - Keyword Usage:
         -``Enable Marker Maps   ${AP_NETWORK_POLICY}  &{MarkerMap_dict}''
         :param nw_policy: name of the policy for enabling the Marker Maps
-        :param **MarkerMap_dict: A dictionary that will contains all values required for Marker Maps Configuration
+        :param MarkerMap_dict: A dictionary that will contains all values required for Marker Maps Configuration
         Marker Values for 802.1p : NC_8021P, CL_8021P, E_8021P, BF2_8021P
         Marker Values for diffServ : NC_diffServ, Voice_diffServ, Video_diffServ, BG_diffServ
         :return: 1 if successfully updated ; else -1
@@ -1837,17 +1911,17 @@ class NetworkPolicy(object):
         self.navigator.navigate_to_devices()
         self.navigate_to_np_edit_tab(nw_policy)
         sleep(2)
-        
+
         self.utils.print_info("Clicking on Additional Settings Tab")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_additional_settings_tab)
         sleep(2)
 
         self.np_web_elements.get_additional_settings_marker_maps().is_displayed()
-        
+
         self.utils.print_info("Scroll to the Marker Maps Option")
         self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_marker_maps)
         sleep(2)
-        
+
         self.utils.print_info("Click on Marker Maps")
         self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_marker_maps)
         sleep(2)
@@ -1915,11 +1989,15 @@ class NetworkPolicy(object):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Marker Maps Settings saved successfully" in tool_tip_text:
+            kwargs['pass_msg'] = "Marker Maps Settings saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "enable_marker_maps() failed."
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def enable_QoS_Overview_DAS(self, nw_policy):
+    def enable_QoS_Overview_DAS(self, nw_policy, **kwargs):
         """
         - This keyword is used to enable Marker Maps which Marks the outgoing or upstream traffic with the specified traffic priority markers.
         - Flow: Configure --> Network Policy --> select the Policy -->Advance Settings-->QoS Options --> QoS Overview --> DAS
@@ -1954,21 +2032,25 @@ class NetworkPolicy(object):
 
         self.utils.print_info("Click on Save button")
         self.auto_actions.click_reference(self.np_web_elements.get_QoS_services_save_button)
-        
+
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "QoS Overview Settings are saved successfully" in tool_tip_text:
+            kwargs['pass_msg'] = "QoS Overview Settings are saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "enable_QoS_Overview_DAS() failed."
+            self.common_validation.failed(**kwargs)
             return -1
-          
-    def create_owe_ssid(self, nw_policy, ssid, WiFi2):
+
+    def create_owe_ssid(self, nw_policy, ssid, WiFi2, **kwargs):
         """
         - This keyword is ONLY used for OWE SSID testing purposes.
         - Flow: Configure --> Network Policy --> select the Policy -->Wireless Setings -->Add SSID
         - Keyword Usage:
-         - ''Create OWE SSID  ${POLICY_NAME}  ${SSID}   WiFi2=enable ''
-         - ''Create OWE SSID  ${POLICY_NAME}  ${SSID}   WiFi2=disable ''
+        - ''Create OWE SSID  ${POLICY_NAME}  ${SSID}   WiFi2=enable ''
+        - ''Create OWE SSID  ${POLICY_NAME}  ${SSID}   WiFi2=disable ''
 
         :param nw_policy: name of the policy
         :param SSID: Enter SSID
@@ -2007,6 +2089,8 @@ class NetworkPolicy(object):
             self.utils.print_info("Click on Save Button")
             self.auto_actions.click_reference(self.np_web_elements.get_save_enhanced_open_ssid)
             sleep(3)
+            kwargs['pass_msg'] = "OWE SSID is saved and configured successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         elif WiFi2 == 'disable':
@@ -2024,9 +2108,13 @@ class NetworkPolicy(object):
             self.utils.print_info("Click on Save Button")
             self.auto_actions.click_reference(self.np_web_elements.get_save_enhanced_open_ssid)
             sleep(3)
+            kwargs['pass_msg'] = "OWE SSID is saved and configured successfully"
+            self.common_validation.passed(**kwargs)
             return 1
 
         else:
+            kwargs['fail_msg'] = "create_owe_ssid() failed. Failed to configure OWE SSID"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def create_ssid_to_policy(self, nw_policy, **wireless_profile):
@@ -2035,9 +2123,9 @@ class NetworkPolicy(object):
         - Wireless network includes open, ppsk, psk, enhanced, and enterprise network
         - Flow: Configure --> Network Policies --> select exist Policy --> select Wireless Networks tab --> Add(+) SSID
         - Keyword Usage:
-         - ''Create SSID to Policy   ${SSID}   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
-         - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
-         - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
+        - ''Create SSID to Policy   ${SSID}   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
+        - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
+        - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
 
         :param nw_policy: name of exist policy
         :param SSID: extra new SSID to create
@@ -2050,7 +2138,7 @@ class NetworkPolicy(object):
 
         return self.wireless_nw.create_wireless_network(**wireless_profile)
 
-    def enable_mgmt_option_http_redirect(self, nw_policy, mgmt_option_name):
+    def enable_mgmt_option_http_redirect(self, nw_policy, mgmt_option_name, **kwargs):
         """
         - This keyword is used to enable HTTP Redirect under enable Management Options.
         - Flow: Configure --> Network Policy --> edit the Policy --> Additional Settings --> Management Options > Http Redirect
@@ -2093,11 +2181,15 @@ class NetworkPolicy(object):
         self.utils.print_info(tool_tip_text)
 
         if "Managements options were saved successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "Managements options were saved successfully."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "enable_mgmt_option_http_redirect() failed"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def select_network_policy_management_option(self, nw_policy, mgmt_option_name):
+    def select_network_policy_management_option(self, nw_policy, mgmt_option_name, **kwargs):
         """
         - This keyword is used to select a Management Options under a Network Policy.
         - Flow: Configure --> Network Policy --> edit the Policy --> Additional Settings --> Management Options
@@ -2147,33 +2239,45 @@ class NetworkPolicy(object):
                                     self.auto_actions.click(select_button)
                                     self.utils.print_info("Save changes to policy ")
                                     self.auto_actions.click_reference(self.np_web_elements.save_management_option_button)
+                                    kwargs['pass_msg'] = "Select network policy option"
+                                    self.common_validation.passed(**kwargs)
                                     return 1
                                 else:
-                                    self.utils.print_info("Unable to click on the Select button")
+                                    kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
+                                                         "Unable to click on the Select button"
+                                    self.common_validation.fault(**kwargs)
                                     return -1
                             else:
-                                self.utils.print_info("Unable to select row " + row.text)
+                                kwargs['fail_msg'] = f"select_network_policy_management_option() failed. " \
+                                                     f"Unable to select row {row.text}"
+                                self.common_validation.fault(**kwargs)
                                 return -1
                 else:
-                    self.utils.print_info("Unable to locate gather the Management Options")
+                    kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
+                                         "Unable to locate gather the Management Options"
+                    self.common_validation.fault(**kwargs)
                     return -1
             else:
-                self.utils.print_info("Unable to locate Re-Use Management Options button")
+                kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
+                                     "Unable to locate Re-Use Management Options button"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Unable to locate management options on/off button")
+            kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
+                                 "Unable to locate management options on/off button"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def add_user_group_to_network_policy_ssid(self, policy_name, ssid_name, **auth_profile):
+    def add_user_group_to_network_policy_ssid(self, policy_name, ssid_name, auth_profile, **kwargs):
         """
         - This keyword will add user group to the SSID which have user group item in a Network Policy
         - Flow: network policy -- > click on network policy card view --> click on SSID --> Add user group
         - Keyword Usage:
-         - ``Add User Group To Network Policy Ssid   ${POLICY_NAME}   ${SSID_NAME}   &{AUTH_PROFILE}``
+        - ``Add User Group To Network Policy Ssid   ${POLICY_NAME}   ${SSID_NAME}   &{AUTH_PROFILE}``
 
         :param policy_name: Name of the network policy
         :param ssid_name: name of the ssid already exist on that network policy
-        :param **auth_profile: PPSK or 8021x auth profile in file ../CFD/Resource/wireless_networks_related_config.robot
+        :param auth_profile: PPSK or 8021x auth profile in file ../CFD/Resource/wireless_networks_related_config.robot
         :return: 1 if successfully else -1
         """
         user_group_config = auth_profile.get('user_group_config', 'None')
@@ -2194,10 +2298,14 @@ class NetworkPolicy(object):
                         else:
                             db_loc = user_group_config.get('db_loc')
                             if not self.user_group.select_wireless_user_group(usr_group_name, db_loc, 'PPSK'):
-                                self.utils.print_info(f"User group:{usr_group_name} not created !!!")
+                                kwargs['fail_msg'] = f"add_user_group_to_network_policy_ssid() failed. " \
+                                                           f"User group:{usr_group_name} not created !"
+                                self.common_validation.failed(**kwargs)
                                 return -1
                 else:
-                    self.utils.print_info("No User Group item found in the SSID...")
+                    kwargs['fail_msg'] = f"add_user_group_to_network_policy_ssid() failed. " \
+                                               f"No User Group item found in the SSID."
+                    self.common_validation.failed(**kwargs)
                     return -1
 
         self.utils.print_info("Clicking on Network Save button..")
