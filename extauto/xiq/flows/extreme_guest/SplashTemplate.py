@@ -315,7 +315,7 @@ class SplashTemplate(object):
 
         if self.guest_web_elem.get_extreme_guest_configure_preview_button().is_displayed():
             self.utils.print_info("Clicking preview Button")
-            self.auto_actions.click(self.guest_web_elem.get_extreme_guest_configure_preview_button())
+            self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_configure_preview_button)
             sleep(2)
         else:
             self.utils.print_info("No preview button available")

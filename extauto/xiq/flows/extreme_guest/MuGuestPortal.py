@@ -199,7 +199,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         :return: 1 if successfully connected with internet with social login type facebook else -1
         """
 
-        if self.get_default_template_page_company_logo().is_displayed():
+        if self.get_default_template_page_company_logo():
             self.utils.print_info("Default template is displayed")
             self.get_gp_page_screen_shot()
             kwargs['pass_msg'] = "Default template is displayed"

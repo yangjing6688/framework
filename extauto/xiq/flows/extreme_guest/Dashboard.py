@@ -30,8 +30,8 @@ class Dashboard(object):
 
         :return: 1 if navigation success
         """
-        self.ext_guest.go_to_extreme_guest_monitor_dashboard_page()
-        return 1
+
+        return self.ext_guest.go_to_extreme_guest_monitor_dashboard_page()
 
     def create_new_extreme_guest_dashboard(self, dashboard_name="automation_db1"):
         """
