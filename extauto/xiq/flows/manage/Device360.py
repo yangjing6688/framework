@@ -8583,6 +8583,7 @@ class Device360(Device360WebElements):
                     ret.append(asic[-1])
         return ret
 
+
     def port_info_bounce_port(self, port, **kwargs):
         """
         - This keyword will bounce a port in D360
@@ -8619,10 +8620,36 @@ class Device360(Device360WebElements):
             self.utils.print_info("'Bounce Port' clicked!")
 
             def _check_successful_message():
+                self.utils.print_info("Captured tool tip: ", tool_tip.tool_tip_text)
+                if f'Bounce Port {port} successful' in tool_tip.tool_tip_text:
+                    self.utils.print_info(f"Found Bounce Port successful message: {tool_tip.tool_tip_text}")
+                    return True
+
                 for tool_tp in tool_tip.tool_tip_text:
-                    if f'Bounce Port {port} successful' in tool_tp:
-                        self.utils.print_info(f"Found Bounce Port successful message: {tool_tp}")
-                        return True
+                    if "Unable to bounce port: " in tool_tp:
+                        self.utils.print_info("RequestError message found: ", tool_tp)
+                        self.utils.print_info("Saving screenshot...")
+                        self.screen.save_screen_shot()
+                        self.device360_refresh_page()
+                        port_search = self.get_device360_overview_port(port)
+                        if port_search:
+                            self.auto_actions.click(port_search)
+                        else:
+                            self.utils.print_info(
+                                f"Cannot find the port: {port}; Check that port exists in the overview page.")
+                            kwargs['fail_msg'] = f"Cannot find the port: {port}; " \
+                                                 f"Check that port exists in the overview page. Saving screenshot..."
+                            self.screen.save_screen_shot()
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        self.utils.print_info("Searching for the 'Bounce Port' button...")
+                        bounce_port_button = self.get_device360_overview_port_info_bounce_port()
+                        if bounce_port_button:
+                            self.utils.print_info("Found 'Bounce Port' button. Clicking...")
+                            self.auto_actions.click(bounce_port_button)
+                            self.utils.print_info("'Bounce Port' clicked!")
+                        return False
                 self.utils.print_info("Did not find Bounce port successful message yet. Retrying...")
                 return False
             message = self.utils.wait_till(_check_successful_message, timeout=10, delay=1, silent_failure=True,
@@ -8674,10 +8701,34 @@ class Device360(Device360WebElements):
             self.utils.print_info("'Bounce PoE' clicked!")
 
             def _check_successful_message():
+                self.utils.print_info("Tool tip captured: ", tool_tip.tool_tip_text)
+                if f'Bounce PoE Port {port} successful' in tool_tip.tool_tip_text:
+                    self.utils.print_info(f"Found Bounce PoE successful message: {tool_tip.tool_tip_text}")
+                    return True
                 for tool_tp in tool_tip.tool_tip_text:
-                    if f'Bounce PoE Port {port} successful' in tool_tp:
-                        self.utils.print_info(f"Found Bounce PoE successful message: {tool_tp}")
-                        return True
+                    if 'Unable to bounce PoE port: ' in tool_tp:
+                        self.utils.print_info("RequestError found. Retrying bouncing PoE...")
+                        self.utils.print_info("Saving screenshot...")
+                        self.screen.save_screen_shot()
+                        port_search = self.get_device360_overview_port(port)
+                        if port_search:
+                            self.auto_actions.click(port_search)
+                        else:
+                            self.utils.print_info(
+                                f"Cannot find the port: {port}; Check that port exists in the overview page.")
+                            kwargs[
+                                'fail_msg'] = f"Cannot find the port: {port}; " \
+                                              f"Check that port exists in the overview page. Saving screenshot..."
+                            self.screen.save_screen_shot()
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        self.utils.print_info("Searching for the 'Bounce PoE' button...")
+                        bounce_poe_button = self.get_device360_overview_port_info_bounce_poe()
+                        if bounce_poe_button:
+                            self.utils.print_info("Found 'Bounce PoE' button. Clicking...")
+                            self.auto_actions.click(bounce_poe_button)
+                            self.utils.print_info("'Bounce PoE' clicked!")
                 self.utils.print_info("Did not find Bounce PoE successful message yet. Retrying...")
                 print(tool_tip.tool_tip_text)
                 return False
