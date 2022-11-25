@@ -1579,9 +1579,11 @@ class Cli(object):
         finally:
             self.close_connection_with_error_handling(dut)
 
-    def get_stacking_details_cli(self, dut):
+    def get_stacking_details_cli(self, dut, **kwargs):
         """
         - This keyword gets stacking details from CLI(Mac add, Slot number and Role -for each unit)
+
+        :param dut: The dut object of the device
         :return: a list of tuples
         """
         units_list = []
@@ -1595,19 +1597,21 @@ class Cli(object):
             units_list.append(stacking_details)
 
             kwargs['pass_msg'] = f"Stacking details found"
-            self.common_validation.passed(**kwargs)
+            self.commonValidation.passed(**kwargs)
 
             return units_list
 
         kwargs['fail_msg'] = f"get_stacking_details_cli() failed"
-        self.common_validation.fault(**kwargs)
+        self.commonValidation.fault(**kwargs)
 
         # elif dut.cli_type.upper() == "VOSS":
         #     pytest.skip("To be done")
 
-    def get_info_from_stack(self, dut):
+    def get_info_from_stack(self, dut, **kwargs):
         """
         - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
+
+        :param dut: the dut object
         :return: a list of tuples
         """
         info_list = []
@@ -1694,19 +1698,21 @@ class Cli(object):
             info_list.append(iqagent_version_cli)
 
             kwargs['pass_msg'] = f"Stacking details found"
-            self.common_validation.passed(**kwargs)
+            self.commonValidation.passed(**kwargs)
 
             return info_list
 
         kwargs['fail_msg'] = f"get_info_from_stack() failed"
-        self.common_validation.fault(**kwargs)
+        self.commonValidation.fault(**kwargs)
 
         # elif dut.cli_type.upper() == "VOSS":
         #     pytest.skip("To be done")
 
-    def get_info_from_stack(self, dut):
+    def get_info_from_stack(self, dut, **kwargs):
         """
         - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
+
+        :param dut: the dut object
         :return: a list of tuples
         """
         info_list = []
@@ -1793,18 +1799,18 @@ class Cli(object):
             info_list.append(iqagent_version_cli)
 
             kwargs['pass_msg'] = f"get_info_from_stack() passed"
-            self.common_validation.passed(**kwargs)
+            self.commonValidation.passed(**kwargs)
 
             return info_list
 
         kwargs['fail_msg'] = f"get_info_from_stack() failed"
-        self.common_validation.fault(**kwargs)
+        self.commonValidation.fault(**kwargs)
 
         # elif dut.cli_type.upper() == "VOSS":
         #     pytest.skip("To be done")
 
 
-    def get_virtual_router(self, dut):
+    def get_virtual_router(self, dut, **kwargs):
         global vrName
 
         result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
@@ -1825,18 +1831,18 @@ class Cli(object):
 
             if int(match.group(9)) > 0:
                 kwargs['pass_msg'] = f"get_virtual_router() passed"
-                self.common_validation.passed(**kwargs)
+                self.commonValidation.passed(**kwargs)
 
                 return match.group(12)
             else:
                 kwargs[
                     'fail_msg'] = f"get_virtual_router() failed; There is no active port in the mgmt vlan {match.group(1)}"
-                self.common_validation.fault(**kwargs)
+                self.commonValidation.fault(**kwargs)
 
                 return -1
         else:
             kwargs['fail_msg'] = f"get_virtual_router() failed; Pattern not found, unable to get virtual router info!"
-            self.common_validation.fault(**kwargs)
+            self.commonValidation.fault(**kwargs)
 
             return -1
 

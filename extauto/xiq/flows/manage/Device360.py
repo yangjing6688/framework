@@ -12467,33 +12467,17 @@ class Device360(Device360WebElements):
         self.utils.wait_till(timeout=10)
         return 1
 
-    def get_stacking_details_cli(self, dut):
-        """
-        - This keyword gets stacking details from CLI(Mac add, Slot number and Role -for each unit)
-        :return: a list of tuples
-        """
-        units_list = []
-
-        if dut.cli_type.upper() == "EXOS":
-            self.devCmd.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
-
-            stacking_details_output = self.devCmd.send_cmd(dut.name, f'show stacking', max_wait=10, interval=2)
-            p = re.compile(r"((?:[0-9a-fA-F]:?){12})\s+(\d)\s+[^\s]+\s+([^\s]+)", re.M)
-            stacking_details = re.findall(p, stacking_details_output[0].return_text)
-            units_list.append(stacking_details)
-
-            kwargs['pass_msg'] = f"Stacking details found"
-            self.common_validation.passed(**kwargs)
-
-            return units_list
-
-        elif dut.cli_type.upper() == "VOSS":
-            pytest.skip("To be done")
-
-    def navigate_to_unit_options_from_xiq_diagnostics_page(self, unit, unit_role):
+    def navigate_to_unit_options_from_xiq_diagnostics_page(self, unit, unit_role, **kwargs):
         """
         - This keyword navigates to unit options from Device360 - Diagnostics Page
         - It is assumed that the Device360 window is open in Monitor-Diagnostics
+        - Keyword Usage:
+            stacking_info_cli = cli.get_stacking_details_cli(dut)
+            res = self.xiq.xflowsmanageDevice360.navigate_to_unit_options_from_xiq_diagnostics_page(stacking_info_cli[0][0][1],
+                                                                          stacking_info_cli[0][0][2].upper())
+
+        :param unit: the unit you wish to search for
+        :param unit_role: the stack role that the unit has
         """
     
         ok = 1
@@ -12526,13 +12510,16 @@ class Device360(Device360WebElements):
     
         return 1
 
-    def check_all_the_individual_devices_in_the_stack_monitor_diagnostics(self, dut):
+    def check_all_the_individual_devices_in_the_stack_monitor_diagnostics(self, dut, stacking_info_cli, **kwargs):
         """
         - This keyword checks the dropdown in Device360 Monitor Diagnostics.
         - It is assumed that the Device360 window is open in Monitor-Diagnostics
+
+        :param dut: the dut object
+        :apram stacking_info_cli: the cli info of the stack to check against
         :return:
         """
-        stacking_info_cli = self.get_stacking_details_cli(dut)
+
         print(f"Print a list with mac add, number of slot and role for each stack unit: {stacking_info_cli}")
 
         mac_add_list_cli = []
@@ -12546,7 +12533,7 @@ class Device360(Device360WebElements):
         print("Navigate to through units and make mac add check")
         for i in range(1, len(stacking_info_cli[0])):
             if stacking_info_cli[0][i][2].upper() == 'STANDBY':
-                self.Utils.wait_till(
+                self.utils.wait_till(
                     lambda: self.navigate_to_unit_options_from_xiq_diagnostics_page(
                         stacking_info_cli[0][i][1], 'MEMBER'),
                     delay=8, exp_func_resp=True)
@@ -12559,7 +12546,7 @@ class Device360(Device360WebElements):
                     self.common_validation.failed(**kwargs)
 
                     return -1
-            self.Utils.wait_till(delay=5)
+            self.utils.wait_till(delay=5)
             mac_address_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_mac_address_stack_active_unit(
                 mac_add_list_cli[i])
             if not mac_address_xiq:
@@ -12580,7 +12567,7 @@ class Device360(Device360WebElements):
 
             return -1
 
-        self.Utils.wait_till(delay=5)
+        self.utils.wait_till(delay=5)
         mac_address_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_mac_address_stack_active_unit(
             mac_add_list_cli[0])
         if not mac_address_xiq:
@@ -12596,47 +12583,52 @@ class Device360(Device360WebElements):
 
         return 1
 
-    def navigate_to_unit_1_n_and_hover_over_top_bar_information_stack(self, dut):
+    def navigate_to_unit_1_n_and_hover_over_top_bar_information_stack(self, dut, stacking_info_cli, **kwargs):
         """
         - This keyword gets information from the top bar of the Device360 view.
         - It is assumed that the Device360 window is open in Diagnostics Page.
-        - Keyword Usage
+
+        :param dut: the dut object
+        :apram stacking_info_cli: the cli info of the stack to check against
         :return: dictionary of information obtained from the top bar of the Device360 view
         """
         print("Verify the first seven icons from the top bar for each unit")
-        stacking_info_cli = self.get_stacking_details_cli(dut)
         for i in range(1, len(stacking_info_cli[0])):
             if stacking_info_cli[0][i][2].upper() == 'STANDBY':
-                self.Utils.wait_till(
+                self.utils.wait_till(
                     lambda: self.navigate_to_unit_options_from_xiq_diagnostics_page(
                         stacking_info_cli[0][i][1], 'MEMBER'),
                     delay=8, exp_func_resp=True)
             else:
                 self.navigate_to_unit_options_from_xiq_diagnostics_page(
                     stacking_info_cli[0][i][1], stacking_info_cli[0][i][2].upper())
-            self.Utils.wait_till(delay=5)
+            self.utils.wait_till(delay=5)
             self.device360_get_top_bar_information_stack()
 
         kwargs['pass_msg'] = f"navigate_to_unit_1_n_and_hover_over_top_bar_information_stack() passed"
         self.common_validation.passed(**kwargs)
 
-    def match_info_stack_cli_with_xiq(self, dut, slot=1):
+    def match_info_stack_cli_with_xiq(self, dut, stack_info, slot=1, **kwargs):
         """
         - This keyword Verifies if the device information(ip, mac address, software version, model, serial, make, iqagent version) from the header side is displayed correctly according to the cli
         It is assumed that the Device360 window is open in Diagnostics Page and the dropdown is showing the wanted unit. Default is MASTER.
         If the results
+
+        :param dut: the dut object
+        :param stack_info: the cli info of the stack to check against
+        :param slot: The slot numer of the unit
         :return:
         """
         slot = int(slot)
-        list = self.get_info_from_stack(dut)
-        if not list:
+
+        if not stack_info:
             kwargs['fail_msg'] = f"match_info_stack_cli_with_xiq() failed; Unable to get info from dut"
             self.common_validation.failed(**kwargs)
 
             return -1
 
-        print(f"List of info from CLI: {list}")
-        ip_address_cli = list[0][0]
+        print(f"List of info from CLI: {stack_info}")
+        ip_address_cli = stack_info[0][0]
         print(f"Ip Add from CLI: {ip_address_cli}")
         ip_address_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_ip_address_stack_active_unit(
             ip_address_cli)
@@ -12647,7 +12639,7 @@ class Device360(Device360WebElements):
 
             return -1
 
-        mac_address_cli = list[1][slot - 1]
+        mac_address_cli = stack_info[1][slot - 1]
         print(f"MAC Add from CLI: {mac_address_cli}")
         mac_address_cli_mapped = mac_address_cli.replace(':', '')
         mac_address_cli_final_mapped = mac_address_cli_mapped.upper()
@@ -12662,7 +12654,7 @@ class Device360(Device360WebElements):
 
             return -1
 
-        soft_version_cli = list[2][slot - 1]
+        soft_version_cli = stack_info[2][slot - 1]
         print(f"Soft version from CLI: {soft_version_cli}")
         soft_version_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_soft_version_stack_active_unit(
             soft_version_cli)
@@ -12673,16 +12665,16 @@ class Device360(Device360WebElements):
 
             return -1
 
-        model_cli = list[3][slot - 1]
+        model_cli = stack_info[3][slot - 1]
         print(f"Dut Model from CLI: {model_cli}")
         if "EXOS" in model_cli:
             model_cli = model_cli.replace("-EXOS", "")
-        if list[5][0] == "ExtremeXOS":
-            list[5][0] = "Switch Engine"
-        if list[5][0] == "Extreme Networks Switch Engine":
-            list[5][0] = "Switch Engine"
+        if stack_info[5][0] == "ExtremeXOS":
+            stack_info[5][0] = "Switch Engine"
+        if stack_info[5][0] == "Extreme Networks Switch Engine":
+            stack_info[5][0] = "Switch Engine"
         # model_cli_mapped = 'Switch Engine ' + model_cli
-        model_cli_mapped = list[5][0] + ' ' + model_cli
+        model_cli_mapped = stack_info[5][0] + ' ' + model_cli
         print(f"Dut Model from CLI mapped to match XIQ: {model_cli_mapped}")
         model_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_model_stack_active_unit(
             model_cli_mapped)
@@ -12693,7 +12685,7 @@ class Device360(Device360WebElements):
 
             return -1
 
-        serial_number_cli = list[4][slot - 1]
+        serial_number_cli = stack_info[4][slot - 1]
         print(f"Serial number from CLI: {serial_number_cli}")
         serial_number_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_serial_number_stack_active_unit(
             serial_number_cli)
@@ -12705,10 +12697,10 @@ class Device360(Device360WebElements):
             return -1
 
         # make_cli = "Switch Engine"
-        if list[5][0] == "ExtremeXOS":
-            list[5][0] = "Switch Engine"
+        if stack_info[5][0] == "ExtremeXOS":
+            stack_info[5][0] = "Switch Engine"
         else:
-            make_cli = list[5][0]
+            make_cli = stack_info[5][0]
         print(f"Make from CLI: {make_cli}")
         make_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_make_stack_active_unit(
             make_cli)
@@ -12719,7 +12711,7 @@ class Device360(Device360WebElements):
 
             return -1
 
-        iqagent_version_cli = list[6][0]
+        iqagent_version_cli = stack_info[6][0]
         print(f"Iqagent version from CLI: {iqagent_version_cli}")
         iqagent_version_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit(
             iqagent_version_cli)
@@ -12735,7 +12727,7 @@ class Device360(Device360WebElements):
 
         return 1
 
-    def device360_get_top_bar_information_stack(self):
+    def device360_get_top_bar_information_stack(self, **kwargs):
         """
         - This keyword gets information from the top bar of the Device360 view.
         - It is assumed that the Device360 window is open.
@@ -12761,7 +12753,7 @@ class Device360(Device360WebElements):
 
         if cpu_el:
             self.auto_actions.move_to_element(cpu_el)
-            time.sleep(2)
+            sleep(2)
             tt_content = self.dev360.get_tooltip_content()
             if tt_content:
                 tt_text = tt_content.text
@@ -12782,7 +12774,7 @@ class Device360(Device360WebElements):
 
         if mem_el:
             self.auto_actions.move_to_element(mem_el)
-            time.sleep(2)
+            sleep(2)
             tt_content = self.dev360.get_tooltip_content()
             if tt_content:
                 tt_text = tt_content.text
@@ -12803,7 +12795,7 @@ class Device360(Device360WebElements):
 
         if mac_el:
             self.auto_actions.move_to_element(mac_el)
-            time.sleep(2)
+            sleep(2)
             tt_content = self.dev360.get_tooltip_content()
             if tt_content:
                 tt_text = tt_content.text
@@ -12824,7 +12816,7 @@ class Device360(Device360WebElements):
 
         if uptime_el:
             self.auto_actions.move_to_element(uptime_el)
-            time.sleep(2)
+            sleep(2)
             tt_content = self.dev360.get_tooltip_content()
             if tt_content:
                 tt_text = tt_content.text
@@ -12851,7 +12843,7 @@ class Device360(Device360WebElements):
 
         if temp_el:
             self.auto_actions.move_to_element(temp_el)
-            time.sleep(2)
+            sleep(2)
             tt_content = self.dev360.get_tooltip_content()
             if tt_content:
                 tt_text = tt_content.text
@@ -12872,7 +12864,7 @@ class Device360(Device360WebElements):
 
         if power_el:
             self.auto_actions.move_to_element(power_el)
-            time.sleep(2)
+            sleep(2)
             tt_content = self.dev360.get_tooltip_content()
             if tt_content:
                 power_el_text = tt_content.text
