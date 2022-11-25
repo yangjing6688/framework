@@ -602,7 +602,7 @@ class Device360WebElementDefs:
 
     device360_refresh_page_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="pageRefresh"]',
+            'XPATH': '//div[@class="entity-page-actions"]//div[@data-dojo-attach-point="pageRefresh"]',
             'wait_for': 5
         }
 
