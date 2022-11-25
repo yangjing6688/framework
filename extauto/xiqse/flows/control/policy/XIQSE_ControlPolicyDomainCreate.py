@@ -27,12 +27,12 @@ class XIQSE_ControlPolicyDomainCreate(ControlPolicyDomainCreateWebElements):
 
     def xiqse_control_policy_create_domain(self, domain_name):
         """
-         - This keyword selects the "Create Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -   and create a new policy domain
-         -   NOTE:  If the domain exists, then it will get deleted and then re-created.
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse control policy create domain      <domain_name>
+        - This keyword selects the "Create Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -   and create a new policy domain
+        -   NOTE:  If the domain exists, then it will get deleted and then re-created.
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse control policy create domain      <domain_name>
 
         :return: 1 if action was successful, else -1
         """

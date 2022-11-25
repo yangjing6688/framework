@@ -18,7 +18,7 @@ class XIQSE_NetworkDevicesDevicesUpgradeFirmware(NetworkDevicesDevicesUpgradeFir
         - This keyword opens the Assign Firmware Image selector by selecting "Assign Firmware..." from the Upgrade Firmware dialog.
         - It assumes the Upgrade Firmware dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Open Assign Firmware Image``
+        - ``XIQSE Open Assign Firmware Image``
 
         :return: 1 if action is successful, else -1
         """
@@ -40,7 +40,7 @@ class XIQSE_NetworkDevicesDevicesUpgradeFirmware(NetworkDevicesDevicesUpgradeFir
         - This keyword opens the Inventory Settings dialog by selecting "Inventory Settings" from the Upgrade Firmware dialog.
         - It assumes the Upgrade Firmware dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Open Inventory Settings``
+        - ``XIQSE Open Inventory Settings``
 
         :return: 1 if action is successful, else -1
         """
@@ -59,10 +59,10 @@ class XIQSE_NetworkDevicesDevicesUpgradeFirmware(NetworkDevicesDevicesUpgradeFir
 
     def xiqse_click_upgrade_firmware_start_button(self):
         """
-         - Clicks the Start button on the Upgrade Firmware Dialog to accept choices
-         - It assumes the Firmware Selection dialog is already open
-         - Keyword Usage
-            - ``XIQSE Click Upgrade Firmware Start Button``
+        - Clicks the Start button on the Upgrade Firmware Dialog to accept choices
+        - It assumes the Firmware Selection dialog is already open
+        - Keyword Usage
+        - ``XIQSE Click Upgrade Firmware Start Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -82,10 +82,10 @@ class XIQSE_NetworkDevicesDevicesUpgradeFirmware(NetworkDevicesDevicesUpgradeFir
 
     def xiqse_click_upgrade_firmware_close_button(self):
         """
-         - Clicks the Cancel button on the Upgrade Firmware Dialog to discard choices
-         - It assumes the Upgrade Firmware dialog is already open
-         - Keyword Usage
-            - ``XIQSE Click Upgrade Firmware Close Button``
+        - Clicks the Cancel button on the Upgrade Firmware Dialog to discard choices
+        - It assumes the Upgrade Firmware dialog is already open
+        - Keyword Usage
+        - ``XIQSE Click Upgrade Firmware Close Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -105,10 +105,10 @@ class XIQSE_NetworkDevicesDevicesUpgradeFirmware(NetworkDevicesDevicesUpgradeFir
 
     def xiqse_click_begin_downloading_firmware_yes_button(self):
         """
-         - Clicks the Yes button on the Begin Downloading Firmware Dialog to discard choices
-         - It assumes the Begin Downloading Firmware dialog is already open
-         - Keyword Usage
-            - ``XIQSE Click Begin Downloading Firmware Yes Button``
+        - Clicks the Yes button on the Begin Downloading Firmware Dialog to discard choices
+        - It assumes the Begin Downloading Firmware dialog is already open
+        - Keyword Usage
+        - ``XIQSE Click Begin Downloading Firmware Yes Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -128,10 +128,10 @@ class XIQSE_NetworkDevicesDevicesUpgradeFirmware(NetworkDevicesDevicesUpgradeFir
 
     def xiqse_click_begin_downloading_firmware_no_button(self):
         """
-         - Clicks the No button on the Begin Downloading Firmware Dialog to discard choices
-         - It assumes the Begin Downloading Firmware dialog is already open
-         - Keyword Usage
-            - ``XIQSE Click Begin Downloading Firmware No Button``
+        - Clicks the No button on the Begin Downloading Firmware Dialog to discard choices
+        - It assumes the Begin Downloading Firmware dialog is already open
+        - Keyword Usage
+        - ``XIQSE Click Begin Downloading Firmware No Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -151,10 +151,10 @@ class XIQSE_NetworkDevicesDevicesUpgradeFirmware(NetworkDevicesDevicesUpgradeFir
 
     def xiqse_wait_for_processed_no_failures_text(self, seconds=900):
         """
-         - Institutes a loop waiting for "Processed 1 of 1 devices with 0 failures" text to appear in the Dialog
-         - It assumes the dialog is already open
-         - Keyword Usage
-            - ``XIQSE Wait for Processed No Failures Text``
+        - Institutes a loop waiting for "Processed 1 of 1 devices with 0 failures" text to appear in the Dialog
+        - It assumes the dialog is already open
+        - Keyword Usage
+        - ``XIQSE Wait for Processed No Failures Text``
 
         :return: 1 if action was successful, else -1
         """

@@ -302,7 +302,7 @@ class ClassificationRule(object):
         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
         - Select Multiple Classification Rule and Click on Delete
         - Keyword Usage
-         - ``Delete Classification rules      ${Classification_Rule_NAME}``
+        - ``Delete Classification rules      ${Classification_Rule_NAME}``
 
         :param names: Name of the Classification Rule
         :return: 1 if deleted else return -1
@@ -319,7 +319,7 @@ class ClassificationRule(object):
 
         name_select_flag = None
         for name in names:
-            if not self._search_multiple_classification_rule(name, ignore_failure=True):
+            if not self._search_multiple_classification_rule(name):
                 self.utils.print_info("Classification Rule does not exist in the list")
                 continue
             else:
@@ -346,10 +346,10 @@ class ClassificationRule(object):
 
     def delete_single_classification_rule(self, name, **kwargs):
         """
-         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
-         - Select Single Classification Rule and Click on Delete
-         - Keyword Usage
-          - ``Delete Single Classification rule      ${Classification_Rule_NAME}``
+        - Flow: Configure --> Common Objects --> Policy --> Classification Rule
+        - Select Single Classification Rule and Click on Delete
+        - Keyword Usage
+        - ``Delete Single Classification rule      ${Classification_Rule_NAME}``
 
          :param name: Name of the Classification Rule
          :return: 1 if created else return -1
@@ -797,10 +797,10 @@ class ClassificationRule(object):
 
     def search_classification_rule(self, name, **kwargs):
         """
-         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
-         - Search Single Classification Rule
-         - Keyword Usage
-          - ``Search Classification rule      ${Classification_Rule_NAME}``
+        - Flow: Configure --> Common Objects --> Policy --> Classification Rule
+        - Search Single Classification Rule
+        - Keyword Usage
+        - ``Search Classification rule      ${Classification_Rule_NAME}``
 
          :param name: Name of the Classification Rule
          :return: 1 if found else return -1
@@ -828,8 +828,8 @@ class ClassificationRule(object):
 
     def _search_multiple_classification_rule(self, name):
         """
-         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
-         - Search Single Classification Rule
+        - Flow: Configure --> Common Objects --> Policy --> Classification Rule
+        - Search Single Classification Rule
 
          :param name: Name of the Classification Rule
          :return: 1 if found else return -1
@@ -845,10 +845,10 @@ class ClassificationRule(object):
 
     def select_classification_rule(self, name, **kwargs):
         """
-         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
-         - Select Single Classification Rule
-         - Keyword Usage
-          - ``Select Classification rule      ${Classification_Rule_NAME}``
+        - Flow: Configure --> Common Objects --> Policy --> Classification Rule
+        - Select Single Classification Rule
+        - Keyword Usage
+        - ``Select Classification rule      ${Classification_Rule_NAME}``
 
          :param name: Name of the Classification Rule
          :return: 1 if able to select else return -1
@@ -879,8 +879,8 @@ class ClassificationRule(object):
 
     def _select_multiple_classification_rule(self, name):
         """
-         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
-         - Select multiple Classification Rule
+        - Flow: Configure --> Common Objects --> Policy --> Classification Rule
+        - Select multiple Classification Rule
 
          :param name: Name of the Classification Rule
          :return: 1 if able to select else return False

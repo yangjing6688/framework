@@ -15,8 +15,8 @@ class PasswdSettings(PasswdSettingsWebElements):
         """
         - If password type is PPSK we have to mention the psk generation method
         - PSK Generation method takes below two values
-         - Password Only
-         - User String Password
+        - Password Only
+        - User String Password
 
         :param psk_gen_method:  PSK gen method
         :param concatenating_str: concatenate the user string to password
@@ -42,8 +42,8 @@ class PasswdSettings(PasswdSettingsWebElements):
         - This keyword is called along with user group creation
         - For standalone call, assumes that navigated to configure-->users-->user groups --> add user
         - Keyword Usage:
-         - ``Config Password Settings   &{PASSWORD_CONFIG}``
-         - for &{PASSWORD_CONFIG} creation refer user_groups_config.robot "Password Settings" section
+        - ``Config Password Settings   &{PASSWORD_CONFIG}``
+        - for &{PASSWORD_CONFIG} creation refer user_groups_config.robot "Password Settings" section
 
         :param passwd_config: password config parameters
         :return: 1 if configured else None

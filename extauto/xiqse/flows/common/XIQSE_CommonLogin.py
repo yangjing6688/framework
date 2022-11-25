@@ -80,9 +80,9 @@ class XIQSE_CommonLogin():
 
     def xiqse_confirm_login_page_displayed(self):
         """
-         - This keyword confirms the XIQ-SE Login page is being displayed.
-         - Keyword Usage
-          - ``XIQSE Confirm Login Page Displayed``
+        - This keyword confirms the XIQ-SE Login page is being displayed.
+        - Keyword Usage
+        - ``XIQSE Confirm Login Page Displayed``
 
         :return: 1 if action successful, else -1
         """
@@ -121,9 +121,9 @@ class XIQSE_CommonLogin():
 
     def xiqse_confirm_user_logged_in(self):
         """
-         - This keyword confirms the user has successfully logged into XIQSE.
-         - Keyword Usage
-          - ``XIQSE Confirm User Logged In``
+        - This keyword confirms the user has successfully logged into XIQSE.
+        - Keyword Usage
+        - ``XIQSE Confirm User Logged In``
 
         :return: 1 if user is logged in, else -1
         """
@@ -143,7 +143,7 @@ class XIQSE_CommonLogin():
         - Loads the specified URL.
         - By default url will load from the topology file
         - keyword Usage:
-         - ``XIQSE Load Page   ${URL}``
+        - ``XIQSE Load Page   ${URL}``
 
         :param url: url to load
         :param incognito_mode: indicates whether or not to open the browser in incognito/private mode
@@ -171,11 +171,11 @@ class XIQSE_CommonLogin():
         - Load the Login page specified by the passed URL, and enter login credentials.
         - By default url will load from the topology file
         - keyword Usage:
-         - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}``
-         - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}   ${URL}``
-         - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}    incognito_mode=True``
-         - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}   ${URL}   incognito_mode=True``
-         - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}   ${URL}   incognito_mode=True   check_credentials=True``
+        - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}``
+        - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}   ${URL}``
+        - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}    incognito_mode=True``
+        - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}   ${URL}   incognito_mode=True``
+        - ``XIQSE Load Page and Log In   ${USERNAME}   ${PASSWORD}   ${URL}   incognito_mode=True   check_credentials=True``
 
         :param username: login account username
         :param password: login account password
@@ -191,8 +191,8 @@ class XIQSE_CommonLogin():
         """
         - Log into the XIQ-SE account with the specified username and password
         - keyword Usage:
-         - ``XIQSE Login User   ${USERNAME}   ${PASSWORD}``
-         - ``XIQSE Login User   ${USERNAME}   ${PASSWORD}   check_credentials=True``
+        - ``XIQSE Login User   ${USERNAME}   ${PASSWORD}``
+        - ``XIQSE Login User   ${USERNAME}   ${PASSWORD}   check_credentials=True``
 
         :param username: login account username
         :param password: login account password
@@ -226,7 +226,7 @@ class XIQSE_CommonLogin():
         """
         - Logout the current user
         - Keyword Usage:
-         - ``XIQSE Logout User``
+        - ``XIQSE Logout User``
 
         :return: None
         """
@@ -258,7 +258,7 @@ class XIQSE_CommonLogin():
         """
         - Closes the "Connection to server lost" error dialog, if displayed, and logs the user back in.
         - Keyword Usage:
-         - ``XIQSE Handle Connection Lost Error   ${USERNAME}   ${PASSWORD}``
+        - ``XIQSE Handle Connection Lost Error   ${USERNAME}   ${PASSWORD}``
 
         :param username: login account username
         :param password: login account password
@@ -293,7 +293,7 @@ class XIQSE_CommonLogin():
         - Closes all the browser windows and ends the WebDriver session gracefully.
         - if the driver object is passed, quits and returns
         - Keyword Usage:
-         - ``XIQSE Quit Browser``
+        - ``XIQSE Quit Browser``
 
         :param _driver: specific driver to use; if not specified, default driver will be used
         :return: None
@@ -368,7 +368,7 @@ class XIQSE_CommonLogin():
         """
         - Logout the XIQ-SE user from a session opened in a Child Window.
         - Keyword Usage:
-         - ``XIQSE Logout User Child Window   win_index``
+        - ``XIQSE Logout User Child Window   win_index``
 
         :param win_index: Index of the XIQ-SE Child Window
         :return: 1 if successful else -1
@@ -406,7 +406,7 @@ class XIQSE_CommonLogin():
         - A list of Child Window Index(es) is returned.
         - Each Child Window is initialized.
         - Keyword Usage:
-          - ``XIQSE Child Window Indexes``
+        - ``XIQSE Child Window Indexes``
 
         :param:  win_index - Index of the parent window
         :return: Return List containing the Child Window Indexes
@@ -423,7 +423,7 @@ class XIQSE_CommonLogin():
         - This method initializes the driver object and makes it global.
         - This initialization is specific to XIQ-SE.
         - Keyword Usage:
-          - ``XIQSE Init Child Window   win_index``
+        - ``XIQSE Init Child Window   win_index``
 
         :param win_index: child window index that will be initialized
         """
@@ -432,9 +432,9 @@ class XIQSE_CommonLogin():
 
     def xiqse_get_username(self):
         """
-         - This keyword obtains the user logged into XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Get Username``
+        - This keyword obtains the user logged into XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Get Username``
 
         :return: XIQ-SE Username if found, else None
         """
@@ -453,9 +453,9 @@ class XIQSE_CommonLogin():
 
     def xiqse_get_authorization_group(self):
         """
-         - This keyword obtains the Authorization Group for the XIQ-SE User.
-         - Keyword Usage
-          - ``XIQSE Get Authorization Group``
+        - This keyword obtains the Authorization Group for the XIQ-SE User.
+        - Keyword Usage
+        - ``XIQSE Get Authorization Group``
 
         :return: XIQ-SE Authorization Group if found, else None
         """

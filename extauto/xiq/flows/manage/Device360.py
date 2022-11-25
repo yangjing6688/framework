@@ -43,7 +43,7 @@ class Device360(Device360WebElements):
         """
         - This keyword gets system information from device360 page
         - Keyword Usage
-         - ``Get System Info``
+        - ``Get System Info``
 
         :return: dictionary of system information
         """
@@ -85,7 +85,7 @@ class Device360(Device360WebElements):
         - This keyword gets hostname from device360 page by clicking on hyperlink(MAC/hostname)
         -Flow: Manage -->Devices --> click on device MAC or Host name hyperlink.
         - Keyword Usage:
-         - ``${HOST_NAME}=                Get Hostname Name From Device 360           ${DEVICE_MAC}``
+        - ``${HOST_NAME}=                Get Hostname Name From Device 360           ${DEVICE_MAC}``
 
         :param device_mac: MAC of the device
         :param device_name: Host name of the device
@@ -106,8 +106,8 @@ class Device360(Device360WebElements):
         - This keyword gets Device system information from device360 page using Device Mac and Name
         - Flow : Manage--> Devices -->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Get Device System Information  device_mac=${AP1_MAC}``
-         - ``Get Device System Information  device_name=${AP1_NAME}``
+        - ``Get Device System Information  device_mac=${AP1_MAC}``
+        - ``Get Device System Information  device_name=${AP1_NAME}``
 
         :return: dictionary of system information
         """
@@ -126,7 +126,7 @@ class Device360(Device360WebElements):
         - Flow : Manage --> Devices--> Enter Search String on Devices Search Field
         - Select the device and give the System information details
         - Keyword Usage:
-         - ``Check Devices By Search Field  ${AP_NAME_PART_STRING1}   device_name=${AP1_NAME}``
+        - ``Check Devices By Search Field  ${AP_NAME_PART_STRING1}   device_name=${AP1_NAME}``
 
         :param search_string: Partial String of AP Name
         :param device_mac: Device MAC Address
@@ -159,15 +159,15 @@ class Device360(Device360WebElements):
 
     def check_client_in_device360(self, device_serial=None, client_mac=None):
         """
-           - This keyword is used to check the client in device360 page based on passed client mac address
-           -Flow: Manage --> Devices --> click on the Clients hyperlink which is present in Device grid row based on device serial
-           - Keyword Usage:
-            - ``${RESULT}=        Check Client In Device360          ${DEVICE_SERIAL}       ${CLIENT _MAC}``
+        - This keyword is used to check the client in device360 page based on passed client mac address
+        - Flow: Manage --> Devices --> click on the Clients hyperlink which is present in Device grid row based on device serial
+        - Keyword Usage:
+        - ``${RESULT}=        Check Client In Device360          ${DEVICE_SERIAL}       ${CLIENT _MAC}``
 
-           :param device_serial: serial of the device
-           :param client_mac:  MAC of the client
-           :return: 1 if successful else -1
-           """
+        :param device_serial: serial of the device
+        :param client_mac:  MAC of the client
+        :return: 1 if successful else -1
+        """
         self.utils.print_info("Navigate to Mange-->Devices")
         self.navigator.navigate_to_device360_with_client(device_serial)
         sleep(5)
@@ -187,14 +187,14 @@ class Device360(Device360WebElements):
 
     def get_status_interface_list(self, device_serial=None):
         """
-           - This keyword  gets interfaces list
-           -Flow: Manage --> Devices --> Select the device row based on the passed device serial --> Utilities --> Status --> Interface --> interface menu
-           - Keyword Usage:
-            - ``${RESULT}=        Get Status Interface         ${DEVICE_SERIAL}``
+        - This keyword  gets interfaces list
+        - Flow: Manage --> Devices --> Select the device row based on the passed device serial --> Utilities --> Status --> Interface --> interface menu
+        - Keyword Usage:
+        - ``${RESULT}=        Get Status Interface         ${DEVICE_SERIAL}``
 
-           :param device_serial: serial of the device
-           :return: returns the list of interface names
-           """
+        :param device_serial: serial of the device
+        :return: returns the list of interface names
+        """
         if device_serial:
             self.navigator.navigate_to_status_interface(device_serial)
             sleep(5)
@@ -211,15 +211,15 @@ class Device360(Device360WebElements):
 
     def get_status_interface(self, device_serial=None, interface_name=None):
         """
-           - This keyword  gets status interface
-           -Flow: Manage --> Devices --> Select the device row based on the passed device serial --> Utilities --> Status --> Interface --> select interface and get the output
-           - Keyword Usage:
-            - ``${RESULT}=        Get Status Interface         ${DEVICE_SERIAL}       ${INTERFACE}``
+        - This keyword  gets status interface
+        - Flow: Manage --> Devices --> Select the device row based on the passed device serial --> Utilities --> Status --> Interface --> select interface and get the output
+        - Keyword Usage:
+        - ``${RESULT}=        Get Status Interface         ${DEVICE_SERIAL}       ${INTERFACE}``
 
-           :param device_serial: serial of the device
-           :param interface_name: name of the interface
-           :return: returns the output of the interface
-           """
+        :param device_serial: serial of the device
+        :param interface_name: name of the interface
+        :return: returns the output of the interface
+        """
         if device_serial and interface_name:
             self.navigator.navigate_to_status_interface(device_serial)
             sleep(5)
@@ -292,8 +292,8 @@ class Device360(Device360WebElements):
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Get Device360 Enable SSH CLI Connectivity  device_mac=${AP1_MAC}    run_time=5``
-         - ``Get Device360 Enable SSH CLI Connectivity  device_name=${AP1_NAME}  run_time=10``
+        - ``Get Device360 Enable SSH CLI Connectivity  device_mac=${AP1_MAC}    run_time=5``
+        - ``Get Device360 Enable SSH CLI Connectivity  device_name=${AP1_NAME}  run_time=10``
 
         :param device_mac: The device MAC address
         :param device_name: The device Name
@@ -389,8 +389,8 @@ class Device360(Device360WebElements):
         - This keyword enables SSH CLI Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Device360 Enable SSH Web Connectivity  device_mac=${AP1_MAC}    run_time=5``
-         - ``Device360 Enable SSH Web Connectivity  device_name=${AP1_NAME}  run_time=10``
+        - ``Device360 Enable SSH Web Connectivity  device_mac=${AP1_MAC}    run_time=5``
+        - ``Device360 Enable SSH Web Connectivity  device_name=${AP1_NAME}  run_time=10``
 
         :return: SSH String
         """
@@ -449,8 +449,8 @@ class Device360(Device360WebElements):
         - This keyword verifies if SSH Web Connectivity is enabled
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Device360 Is SSH Enabled  device_mac=${AP1_MAC}``
-         - ``Device360 Is SSH Enabled  device_name=${AP1_NAME}``
+        - ``Device360 Is SSH Enabled  device_mac=${AP1_MAC}``
+        - ``Device360 Is SSH Enabled  device_name=${AP1_NAME}``
         :param device_mac: device MAC address
         :param device_name: device name
         :return: 1 if is enabled, else -1
@@ -482,8 +482,8 @@ class Device360(Device360WebElements):
         - This keyword verifies if SSH Web Connectivity is disabled
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Device360 Is SSH Disabled  device_mac=${AP1_MAC}``
-         - ``Device360 Is SSH Disabled  device_name=${AP1_NAME}``
+        - ``Device360 Is SSH Disabled  device_mac=${AP1_MAC}``
+        - ``Device360 Is SSH Disabled  device_name=${AP1_NAME}``
         :param device_mac: device MAC address
         :param device_name: device name
         :return: 1 if is disabled, else -1
@@ -516,7 +516,7 @@ class Device360(Device360WebElements):
         - It Assumes That Already Navigated to Device360 Page
         - Flow : Device 360 Page
         - Keyword Usage
-         - ``Get Switch Information``
+        - ``Get Switch Information``
 
         :return: dictionary of Switch information
         """
@@ -562,8 +562,8 @@ class Device360(Device360WebElements):
         - This keyword gets Switch information from device360 page ie Model,Serial Number etc
         - Flow : Manage-->Devices-->click on Switch hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Get ExOS Switch 360 Information   device_name=${SW1_NAME}``
-         - ``Get ExOS Switch 360 Information   device_mac=${SW1_MAC}``
+        - ``Get ExOS Switch 360 Information   device_name=${SW1_NAME}``
+        - ``Get ExOS Switch 360 Information   device_mac=${SW1_MAC}``
 
         :param device_mac:  Switch MAC Address
         :param device_name:  Switch Name
@@ -591,14 +591,14 @@ class Device360(Device360WebElements):
 
     def advance_channel_selection(self, device_serial=None):
         """
-            - This keyword  gets advance channel selection details
-            -Flow: Manage --> Devices --> Select the device row based on the passed device serial -->Utilities --> Status --> Advanced Channel Selection
-            - Keyword Usage:
-             - ``${RESULT}=        Advance Channel Selection         ${DEVICE_SERIAL} ``
+        - This keyword  gets advance channel selection details
+        - Flow: Manage --> Devices --> Select the device row based on the passed device serial -->Utilities --> Status --> Advanced Channel Selection
+        - Keyword Usage:
+        - ``${RESULT}=        Advance Channel Selection         ${DEVICE_SERIAL} ``
 
-            :param device_serial: serial of the device
-            :return: returns the output of the advance channel selection
-            """
+        :param device_serial: serial of the device
+        :return: returns the output of the advance channel selection
+        """
         if device_serial:
             self.navigator.navigate_to_advance_channel_selection(device_serial)
             content = self.dev360.get_utilities_status_adv_channel_sel_contents().text
@@ -611,14 +611,14 @@ class Device360(Device360WebElements):
 
     def wifi_status_summary(self, device_serial=None):
         """
-            - This keyword  gets wifi status summary
-            -Flow: Manage --> Devices -->Select the device row based on the passed device serial --> Click on Utilities --> Status --> Wifi Status Summary --> station
-            - Keyword Usage:
-             - ``${RESULT}=        Wifi Status Summary         ${DEVICE_SERIAL}  ``
+        - This keyword  gets wifi status summary
+        - Flow: Manage --> Devices -->Select the device row based on the passed device serial --> Click on Utilities --> Status --> Wifi Status Summary --> station
+        - Keyword Usage:
+        - ``${RESULT}=        Wifi Status Summary         ${DEVICE_SERIAL}  ``
 
-            :param device_serial: serial of the device
-            :return: returns the output of the wifi status summary
-            """
+        :param device_serial: serial of the device
+        :return: returns the output of the wifi status summary
+        """
         if device_serial:
             self.navigator.navigate_to_wifi_status_summary(device_serial)
             sleep(5)
@@ -643,7 +643,7 @@ class Device360(Device360WebElements):
         - It is assumed that the Device360 window is open and on the Monitor> Overview page
         - Flow : Device 360 Page -> Monitor -> Overview
         - Keyword Usage
-         - ``Get VOSS Overview Information``
+        - ``Get VOSS Overview Information``
         :return: dictionary of VOSS Switch information obtained from the Monitor> Overview page of the Device360 view
         """
 
@@ -678,7 +678,7 @@ class Device360(Device360WebElements):
         - It is assumed that the Device360 window is open and on the Configure> Device Configuration page
         - Flow : Device 360 Page -> Configure -> Device Configuration
         - Keyword Usage
-         - ``Get VOSS Device Configuration Information``
+        - ``Get VOSS Device Configuration Information``
         :return: dictionary of VOSS Switch information obtained from the Configure> Device Configuration page of the Device360 view
         """
 
@@ -702,8 +702,8 @@ class Device360(Device360WebElements):
         - This keyword gets VOSS Switch information from device360 page ie Model,Serial Number etc
         - Flow : Manage-->Devices-->click on VOSS Switch hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Get VOSS Switch 360 Information   device_mac=${SW1_MAC}``
-         - ``Get VOSS Switch 360 Information   device_name=${SW1_NAME}``
+        - ``Get VOSS Switch 360 Information   device_mac=${SW1_MAC}``
+        - ``Get VOSS Switch 360 Information   device_name=${SW1_NAME}``
         :param device_mac: VOSS Switch MAC Address
         :param device_name:  VOSS SWitch Name
         :return: dictionary of VOSS Switch information
@@ -740,8 +740,8 @@ class Device360(Device360WebElements):
         - This keyword gets VOSS Switch information from device360 page ie Model,Serial Number etc
         - Flow : Manage-->Devices-->click on VOSS Switch hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Get VOSS Switch 360 Information   device_mac=${SW1_MAC}``
-         - ``Get VOSS Switch 360 Information   device_name=${SW1_NAME}``
+        - ``Get VOSS Switch 360 Information   device_mac=${SW1_MAC}``
+        - ``Get VOSS Switch 360 Information   device_name=${SW1_NAME}``
         :param device_mac: VOSS Switch MAC Address
         :param device_name:  VOSS SWitch Name
         :return: dictionary of VOSS Switch information
@@ -803,7 +803,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open.
         - Flow: Device 360 Window --> Click "Configure" tab
         - Keyword Usage:
-         - ``Select Configure Tab``
+        - ``Select Configure Tab``
         :return: 1 if the Configure tab was clicked, else -1
         """
         conf_tab = self.get_device360_configure_button()
@@ -822,7 +822,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Configure tab.
         - Flow: Device 360 Window --> Configure tab --> Click "Device Configuration" link
         - Keyword Usage:
-         - ``Select Device Configuration View``
+        - ``Select Device Configuration View``
         :return: 1 if the Device Configuration view was selected, else -1
         """
         dev_conf_link = self.get_device360_device_configuration_button()
@@ -842,7 +842,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open.
         - Flow: Device 360 Window --> Click "Configure" tab --> Click "Device Configuration" link
         - Keyword Usage:
-         - ``Device360 Navigate to Device Configuration``
+        - ``Device360 Navigate to Device Configuration``
         :return: 1 if navigation was successful, else -1
         """
         ret_val = self.select_configure_tab()
@@ -857,7 +857,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Configure> Device Configuration page.
         - Flow: Device 360 Window --> Configure tab --> Device Configuration page --> Click Cancel
         - Keyword Usage:
-         - ``Device360 Device Configuration Click Cancel``
+        - ``Device360 Device Configuration Click Cancel``
         :return: 1 if navigation was successful, else -1
         """
         cancel_btn = self.get_device360_configure_device_cancel_button()
@@ -877,7 +877,7 @@ class Device360(Device360WebElements):
           button cannot be found, a message is printed.
         - Flow: Device 360 Window --> Click "X" to close Device360 Window
         - Keyword Usage:
-         - ``Close Device360 Window``
+        - ``Close Device360 Window``
         :return: 1 if the device 360 window was closed, else -1
         """
         close_btn = self.dev360.get_close_dialog()
@@ -895,8 +895,8 @@ class Device360(Device360WebElements):
         - This keyword disables SSH Connectivity for the specified device
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname) -> Click Disable SSH button
         - Keyword Usage
-         - ``Device360 Disable SSH CLI Connectivity  device_mac=${AP1_MAC}``
-         - ``Device360 Disable SSH CLI Connectivity  device_name=${AP1_NAME}``
+        - ``Device360 Disable SSH CLI Connectivity  device_mac=${AP1_MAC}``
+        - ``Device360 Disable SSH CLI Connectivity  device_name=${AP1_NAME}``
         :return: SSH String
         """
         if device_mac:
@@ -936,8 +936,8 @@ class Device360(Device360WebElements):
         - This keyword disables SSH WEB Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Device360 Disable SSH Web Connectivity  device_mac=${AP1_MAC}``
-         - ``Device360 Disable SSH Web Connectivity  device_name=${AP1_NAME}``
+        - ``Device360 Disable SSH Web Connectivity  device_mac=${AP1_MAC}``
+        - ``Device360 Disable SSH Web Connectivity  device_name=${AP1_NAME}``
 
         :return: 1 if passed else -1
         """
@@ -979,8 +979,8 @@ class Device360(Device360WebElements):
         - This keyword confirms if SSH is enabled for the specified device
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname) -> check if SSH is enabled
         - Keyword Usage
-         - ``Device360 Confirm SSH Enabled  device_mac=${AP1_MAC}``
-         - ``Device360 Confirm SSH Enabled  device_name=${AP1_NAME}``
+        - ``Device360 Confirm SSH Enabled  device_mac=${AP1_MAC}``
+        - ``Device360 Confirm SSH Enabled  device_name=${AP1_NAME}``
 
         :return: 1 if SSH enabled, -1 if SSH is disabled
         """
@@ -1017,7 +1017,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Monitor tab.
         - Flow: Device 360 Window --> Monitor tab --> Click "Events" link
         - Keyword Usage:
-         - ``Device360 Select Events View``
+        - ``Device360 Select Events View``
         :return: 1 if the Events view was selected, else -1
         """
         events_link = self.get_device360_events_link()
@@ -1036,7 +1036,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Monitor tab.
         - Flow: Device 360 Window --> Monitor tab --> Click "Alarms" link
         - Keyword Usage:
-         - ``Device360 Select Alarms View``
+        - ``Device360 Select Alarms View``
         :return: 1 if the Alarms view was selected, else -1
         """
         alarms_link = self.get_device360_alarms_link()
@@ -1055,8 +1055,8 @@ class Device360(Device360WebElements):
           specified time. If no time is specified, it just confirms the event is present.
           It assumes the Device360 Window is open and on the Monitor> Events tab.
         - Keyword Usage:
-         - ``Device360 Confirm Event Exists  ${EVENT}  ${AFTER_TIME}``
-         - ``Device360 Confirm Event Exists  ${EVENT}``
+        - ``Device360 Confirm Event Exists  ${EVENT}  ${AFTER_TIME}``
+        - ``Device360 Confirm Event Exists  ${EVENT}``
         :param  event_str:      String to look for in the event description
         :param  after_time:     Indicates at which point in time to start searching for the existence of the event
                                 (if not specified, it just checks for the existence of the event in general)
@@ -1103,8 +1103,8 @@ class Device360(Device360WebElements):
           If no time is specified, it just confirms the alarm is present.
           It assumes the Device360 Window is open and on the Monitor> Alarms tab.
         - Keyword Usage:
-         - ``Device360 Confirm Alarm CategoryExists  ${ALARM}  ${AFTER_TIME}``
-         - ``Device360 Confirm Alarm CategoryExists  ${ALARM}``
+        - ``Device360 Confirm Alarm CategoryExists  ${ALARM}  ${AFTER_TIME}``
+        - ``Device360 Confirm Alarm CategoryExists  ${ALARM}``
         :param  alarm_cat:      Alarm category to look for
         :param  after_time:     Indicates at which point in time to start searching for the existence of the alarm
                                 (if not specified, it just checks for the existence of the alarm in general)
@@ -1150,7 +1150,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Configure tab.
         - Flow: Device 360 Window --> Configure tab --> Click "Port Configuration" link
         - Keyword Usage:
-         - ``Select Port Configuration View``
+        - ``Select Port Configuration View``
         :return: 1 if the Port Configuration view was selected, else -1
         """
         port_conf_link = self.get_device360_port_configuration_button()
@@ -1169,7 +1169,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open.
         - Flow: Device 360 Window --> Click "Configure" tab --> Click "Port Configuration" link
         - Keyword Usage:
-         - ``Device360 Navigate to Port Configuration``
+        - ``Device360 Navigate to Port Configuration``
         :return: 1 if navigation was successful, else -1
         """
 
@@ -1185,7 +1185,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and navigated to the Configure> Port Configuration view.
         - Flow: Device 360 Window --> Click "Configure" tab --> Click "Port Configuration" link --> Confirm specified port is enabled/on
         - Keyword Usage:
-         - ``Device360 Confirm Port Enabled  ${PORT_NAME}``
+        - ``Device360 Confirm Port Enabled  ${PORT_NAME}``
         :param  port_name:  name of the port to confirm the state of
         :return: 1 if port is enabled, else -1
         """
@@ -1219,7 +1219,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and navigated to the Configure> Port Configuration view.
         - Flow: Device 360 Window --> Click "Configure" tab --> Click "Port Configuration" link --> Confirm specified port is disabled/off
         - Keyword Usage:
-         - ``Device360 Confirm Port Disabled  ${PORT_NAME}``
+        - ``Device360 Confirm Port Disabled  ${PORT_NAME}``
         :param  port_name:  name of the port to confirm the state of
         :return: 1 if port is disabled, else -1
         """
@@ -1253,7 +1253,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and navigated to the Configure> Port Configuration view.
         - Flow: Device 360 Window --> Click "Configure" tab --> Click "Port Configuration" link --> Toggle Port State to Off
         - Keyword Usage:
-         - ``Device360 Disable Port  ${PORT_NAME}``
+        - ``Device360 Disable Port  ${PORT_NAME}``
         :param  port_name:  name of the port to disable
         :return: 1 if port was disabled, 2 if port was already disabled, else -1
         """
@@ -1340,7 +1340,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open.
         - Flow: Device 360 Window --> Click "Monitor" tab
         - Keyword Usage:
-         - ``Select Monitor Tab``
+        - ``Select Monitor Tab``
         :return: 1 if the Monitor tab was clicked, else -1
         """
         monitor_tab = self.get_device360_monitor_button()
@@ -1358,7 +1358,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Monitor tab.
         - Flow: Device 360 Window --> Monitor tab --> Click "Overview" button
         - Keyword Usage:
-         - ``Select Monitor Overview``
+        - ``Select Monitor Overview``
         :return: 1 if Monitor> Overview was selected, else -1
         """
         overview_btn = self.get_device360_monitor_overview_button()
@@ -1377,7 +1377,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open.
         - Flow: Device 360 Window --> Click "Monitor" tab --> Click "Overview" button
         - Keyword Usage:
-         - ``Device360 Navigate to Monitor Overview``
+        - ``Device360 Navigate to Monitor Overview``
         :return: 1 if navigation was successful, else -1
         """
         ret_val = self.select_monitor_tab()
@@ -1393,7 +1393,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Monitoring view for a switch.
         - Flow: Device 360 Window --> Click "System Information" button
         - Keyword Usage:
-         - ``Select Switch System Information``
+        - ``Select Switch System Information``
         :return: 1 if System Information was selected, else -1
         """
         sys_btn = self.get_device360_switch_system_info_button()
@@ -1412,7 +1412,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open for a switch.
         - Flow: Device 360 Window --> Click "System Information" button
         - Keyword Usage:
-         - ``Device360 Navigate to Switch System Information``
+        - ``Device360 Navigate to Switch System Information``
         :return: 1 if navigation was successful, else -1
         """
         ret_val = self.select_switch_system_information()
@@ -1425,7 +1425,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Monitor tab.
         - Flow: Device 360 Window --> Monitor tab --> Click "Clients" button
         - Keyword Usage:
-         - ``Select Monitor Clients``
+        - ``Select Monitor Clients``
         :return: 1 if Monitor> Clients was selected, else -1
         """
         clients_btn = self.get_device360_monitor_clients_button()
@@ -1444,7 +1444,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open.
         - Flow: Device 360 Window --> Click "Monitor" tab --> Click "Clients" button
         - Keyword Usage:
-         - ``Device360 Navigate to Monitor Clients``
+        - ``Device360 Navigate to Monitor Clients``
         :return: 1 if navigation was successful, else -1
         """
         ret_val = self.select_monitor_tab()
@@ -1459,7 +1459,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Monitor tab.
         - Flow: Device 360 Window --> Monitor tab --> Click "Diagnostics" button
         - Keyword Usage:
-         - ``Select Monitor Diagnostics``
+        - ``Select Monitor Diagnostics``
         :return: 1 if Monitor> Diagnostics was selected, else -1
         """
         diag_btn = self.get_device360_monitor_diagnostics_button()
@@ -1478,7 +1478,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open.
         - Flow: Device 360 Window --> Click "Monitor" tab --> Click "Diagnostics" button
         - Keyword Usage:
-         - ``Device360 Navigate to Monitor Diagnostics``
+        - ``Device360 Navigate to Monitor Diagnostics``
         :return: 1 if navigation was successful, else -1
         """
         ret_val = self.select_monitor_tab()
@@ -1492,7 +1492,7 @@ class Device360(Device360WebElements):
         - This keyword confirms the chart on the Monitor> Overview page in the Device360 dialog window is displayed.
           It assumes the Device360 Window is open and on the Monitor> Overview tab.
         - Keyword Usage:
-         - ``Confirm Device360 Monitor Overview Chart Displayed``
+        - ``Confirm Device360 Monitor Overview Chart Displayed``
         :return: 1 if the chart is displayed, else -1
         """
         the_chart = self.get_device360_monitor_overview_chart_graph()
@@ -1514,7 +1514,7 @@ class Device360(Device360WebElements):
         - This keyword confirms the chart on the Monitor> Clients page in the Device360 dialog window is displayed.
           It assumes the Device360 Window is open and on the Monitor> Clients tab.
         - Keyword Usage:
-         - ``Confirm Device360 Monitor Clients Chart Displayed``
+        - ``Confirm Device360 Monitor Clients Chart Displayed``
         :return: 1 if the chart is displayed, else -1
         """
         the_chart = self.get_device360_monitor_clients_chart_graph()
@@ -1536,7 +1536,7 @@ class Device360(Device360WebElements):
         - This keyword confirms the chart on the Monitor> Diagnostics page in the Device360 dialog window is displayed.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
         - Keyword Usage:
-         - ``Confirm Device360 Monitor Diagnostics Chart Displayed``
+        - ``Confirm Device360 Monitor Diagnostics Chart Displayed``
         :return: 1 if the chart is displayed, else -1
         """
         the_chart = self.get_device360_monitor_diagnostics_chart_graph()
@@ -1558,9 +1558,9 @@ class Device360(Device360WebElements):
         - This keyword selects the specified time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on a tab with the Time Range drop down selector.
         - Keyword Usage:
-         - ``Device360 Select Time Range    Day``
-         - ``Device360 Select Time Range    Week``
-         - ``Device360 Select Time Range    Month``
+        - ``Device360 Select Time Range    Day``
+        - ``Device360 Select Time Range    Week``
+        - ``Device360 Select Time Range    Month``
         :param  time_range  indicates which time range value to select (e.g., Day, Week, Month)
         :return: 1 if the specified time range was selected, else -1
         """
@@ -1595,9 +1595,9 @@ class Device360(Device360WebElements):
         - This keyword confirms the specified time range is selected in the Device360 dialog window.
           It assumes the Device360 Window is open and on a tab with the Time Range drop down selector.
         - Keyword Usage:
-         - ``Confirm Device360 Time Range Selected    Day``
-         - ``Confirm Device360 Time Range Selected    Week``
-         - ``Confirm Device360 Time Range Selected    Month``
+        - ``Confirm Device360 Time Range Selected    Day``
+        - ``Confirm Device360 Time Range Selected    Week``
+        - ``Confirm Device360 Time Range Selected    Month``
         :param  time_range  indicates which time range value to check for (e.g., Day, Week, Month)
         :return: 1 if the specified time range is currently selected, else -1
         """
@@ -1619,7 +1619,7 @@ class Device360(Device360WebElements):
         - This keyword selects the 'Day' time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on a tab with the Time Range drop down selector.
         - Keyword Usage:
-         - ``Device360 Select Day Time Range``
+        - ``Device360 Select Day Time Range``
         :return: 1 if selection was successful, else -1
         """
         return self.device360_select_time_range("Day")
@@ -1629,7 +1629,7 @@ class Device360(Device360WebElements):
         - This keyword selects the 'Week' time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on a tab with the Time Range drop down selector.
         - Keyword Usage:
-         - ``Device360 Select Week Time Range``
+        - ``Device360 Select Week Time Range``
         :return: 1 if selection was successful, else -1
         """
         return self.device360_select_time_range("Week")
@@ -1639,7 +1639,7 @@ class Device360(Device360WebElements):
         - This keyword selects the 'Month' time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on a tab with the Time Range drop down selector.
         - Keyword Usage:
-         - ``Device360 Select Month Time Range``
+        - ``Device360 Select Month Time Range``
         :return: 1 if selection was successful, else -1
         """
         return self.device360_select_time_range("Month")
@@ -1649,11 +1649,11 @@ class Device360(Device360WebElements):
         - This keyword selects the specified Day time range hours button in the Device360 dialog window.
           It assumes the Device360 Window is open and a Day time range is selected.
         - Keyword Usage:
-         - ``Device360 Select Day Time Range Hours Button    1``
-         - ``Device360 Select Day Time Range Hours Button    2``
-         - ``Device360 Select Day Time Range Hours Button    4``
-         - ``Device360 Select Day Time Range Hours Button    8``
-         - ``Device360 Select Day Time Range Hours Button    24``
+        - ``Device360 Select Day Time Range Hours Button    1``
+        - ``Device360 Select Day Time Range Hours Button    2``
+        - ``Device360 Select Day Time Range Hours Button    4``
+        - ``Device360 Select Day Time Range Hours Button    8``
+        - ``Device360 Select Day Time Range Hours Button    24``
         :param  hours_value  string indicating which hours value to select (e.g., 1, 2, 4, 8, 24)
         :return: 1 if the specified button was clicked, else -1
         """
@@ -1691,7 +1691,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '1 Hour' Day time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Day" time range.
         - Keyword Usage:
-         - ``Device360 Select Day Time Range One Hour``
+        - ``Device360 Select Day Time Range One Hour``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_day_time_range_hours_button("1")
@@ -1701,7 +1701,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '2 Hours' Day time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Day" time range.
         - Keyword Usage:
-         - ``Device360 Select Day Time Range Two Hours``
+        - ``Device360 Select Day Time Range Two Hours``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_day_time_range_hours_button("2")
@@ -1711,7 +1711,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '4 Hours' Day time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Day" time range.
         - Keyword Usage:
-         - ``Device360 Select Day Time Range Four Hours``
+        - ``Device360 Select Day Time Range Four Hours``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_day_time_range_hours_button("4")
@@ -1721,7 +1721,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '8 Hours' Day time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Day" time range.
         - Keyword Usage:
-         - ``Device360 Select Day Time Range Eight Hours``
+        - ``Device360 Select Day Time Range Eight Hours``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_day_time_range_hours_button("8")
@@ -1731,7 +1731,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '24 Hours' Day time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Day" time range.
         - Keyword Usage:
-         - ``Device360 Select Day Time Range Twenty Four Hours``
+        - ``Device360 Select Day Time Range Twenty Four Hours``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_day_time_range_hours_button("24")
@@ -1741,9 +1741,9 @@ class Device360(Device360WebElements):
         - This keyword selects the specified Week time range days button in the Device360 dialog window.
           It assumes the Device360 Window is open and a Week time range is selected.
         - Keyword Usage:
-         - ``Device360 Select Week Time Range Days Button    1``
-         - ``Device360 Select Week Time Range Days Button    2``
-         - ``Device360 Select Week Time Range Days Button    7``
+        - ``Device360 Select Week Time Range Days Button    1``
+        - ``Device360 Select Week Time Range Days Button    2``
+        - ``Device360 Select Week Time Range Days Button    7``
         :param  days_value  string indicating which days value to select (e.g., 1, 2, 7)
         :return: 1 if the specified button was clicked, else -1
         """
@@ -1777,7 +1777,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '1 Day' Week time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Week" time range.
         - Keyword Usage:
-         - ``Device360 Select Week Time Range One Day``
+        - ``Device360 Select Week Time Range One Day``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_week_time_range_days_button("1")
@@ -1787,7 +1787,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '2 Days' Week time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Week" time range.
         - Keyword Usage:
-         - ``Device360 Select Week Time Range Two Days``
+        - ``Device360 Select Week Time Range Two Days``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_week_time_range_days_button("2")
@@ -1797,7 +1797,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '7 Days' Week time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Week" time range.
         - Keyword Usage:
-         - ``Device360 Select Week Time Range Seven Days``
+        - ``Device360 Select Week Time Range Seven Days``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_week_time_range_days_button("7")
@@ -1807,10 +1807,10 @@ class Device360(Device360WebElements):
         - This keyword selects the specified Month time range days button in the Device360 dialog window.
           It assumes the Device360 Window is open and a Month time range is selected.
         - Keyword Usage:
-         - ``Device360 Select Month Time Range Days Button    7``
-         - ``Device360 Select Month Time Range Days Button    14``
-         - ``Device360 Select Month Time Range Days Button    30``
-         - ``Device360 Select Month Time Range Days Button    90``
+        - ``Device360 Select Month Time Range Days Button    7``
+        - ``Device360 Select Month Time Range Days Button    14``
+        - ``Device360 Select Month Time Range Days Button    30``
+        - ``Device360 Select Month Time Range Days Button    90``
         :param  days_value  string indicating which days value to select (e.g., 7, 14, 30, 90)
         :return: 1 if the specified button was clicked, else -1
         """
@@ -1846,7 +1846,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '7 Days' Month time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Month" time range.
         - Keyword Usage:
-         - ``Device360 Select Month Time Range Seven Days``
+        - ``Device360 Select Month Time Range Seven Days``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_month_time_range_days_button("7")
@@ -1856,7 +1856,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '14 Days' time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Month" time range.
         - Keyword Usage:
-         - ``Device360 Select Month Time Range Fourteen Days``
+        - ``Device360 Select Month Time Range Fourteen Days``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_month_time_range_days_button("14")
@@ -1866,7 +1866,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '30 Days' time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Month" time range.
         - Keyword Usage:
-         - ``Device360 Select Month Time Range Thirty Days``
+        - ``Device360 Select Month Time Range Thirty Days``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_month_time_range_days_button("30")
@@ -1876,7 +1876,7 @@ class Device360(Device360WebElements):
         - This keyword selects the '90 Days' time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on the "Month" time range.
         - Keyword Usage:
-         - ``Device360 Select Month Time Range Ninety Days``
+        - ``Device360 Select Month Time Range Ninety Days``
         :return: 1 if button was clicked, else -1
         """
         return self.device360_select_month_time_range_days_button("90")
@@ -1886,7 +1886,7 @@ class Device360(Device360WebElements):
         - This keyword clicks the 'Select All Ports' button on the Port Diagnostics page in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
         - Keyword Usage:
-         - ``Device360 Port Diagnostics Select All Ports``
+        - ``Device360 Port Diagnostics Select All Ports``
         :return: 1 if button was clicked, else -1
         """
         sel_btn = self.get_device360_port_diagnostics_select_all_ports_button()
@@ -1905,7 +1905,7 @@ class Device360(Device360WebElements):
         - This keyword clicks the 'Deselect All Ports' button on the Port Diagnostics page in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
         - Keyword Usage:
-         - ``Device360 Port Diagnostics Deselect All Ports``
+        - ``Device360 Port Diagnostics Deselect All Ports``
         :return: 1 if button was clicked, else -1
         """
         desel_btn = self.get_device360_port_diagnostics_deselect_all_ports_button()
@@ -1924,7 +1924,7 @@ class Device360(Device360WebElements):
         - This keyword selects the specified port on the Monitor> Diagnostics page.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
         - Keyword Usage:
-         - ``Device360 Port Diagnostics Select Port    3``
+        - ``Device360 Port Diagnostics Select Port    3``
         :param  port_num    specifies which port to select
         :return: none
         """
@@ -1938,7 +1938,7 @@ class Device360(Device360WebElements):
         - This keyword deselects the specified port on the Monitor> Diagnostics page.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
         - Keyword Usage:
-         - ``Device360 Port Diagnostics Deselect Port    3``
+        - ``Device360 Port Diagnostics Deselect Port    3``
         :param  port_num    specifies which port to deselect
         :return: none
         """
@@ -1972,7 +1972,7 @@ class Device360(Device360WebElements):
         - This keyword confirms all ports on the Monitor> Diagnostics page are selected in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
         - Keyword Usage:
-         - ``Confirm Device360 Port Diagnostics All Ports Selected``
+        - ``Confirm Device360 Port Diagnostics All Ports Selected``
         :return: 1 if all ports are selected, else -1
         """
         port_list = self.get_device360_port_diagnostics_deselected_ports()
@@ -1992,7 +1992,7 @@ class Device360(Device360WebElements):
         - This keyword confirms all ports on the Monitor> Diagnostics page are deselected in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
         - Keyword Usage:
-         - ``Confirm Device360 Port Diagnostics All Ports Deselected``
+        - ``Confirm Device360 Port Diagnostics All Ports Deselected``
         :return: 1 if all ports are deselected, else -1
         """
         port_list = self.get_device360_port_diagnostics_selected_ports()
@@ -2012,7 +2012,7 @@ class Device360(Device360WebElements):
         - This keyword confirms the specified port on the Monitor> Diagnostics page is selected.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
         - Keyword Usage:
-         - ``Confirm Device360 Port Diagnostics Port Selected    3``
+        - ``Confirm Device360 Port Diagnostics Port Selected    3``
         :param  port_num    specifies which port should be selected
         :return: 1 if the specified ports are selected, else -1
         """
@@ -2044,7 +2044,7 @@ class Device360(Device360WebElements):
         - This keyword confirms the specified port on the Monitor> Diagnostics page is deselected.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
         - Keyword Usage:
-         - ``Confirm Device360 Port Diagnostics Port Deselected    3``
+        - ``Confirm Device360 Port Diagnostics Port Deselected    3``
         :param  port_num    specifies which port should be deselected
         :return: 1 if the specified ports are selected, else -1
         """
@@ -2076,8 +2076,8 @@ class Device360(Device360WebElements):
         - This keyword gets information from device360 page eg Model, Serial Number, etc
         - Flow : Manage-->Devices-->click on XMC hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Get Device360 Overview Information   device_mac=${MAC}``
-         - ``Get Device360 Overview Information   device_name=${DEVICE_NAME}``
+        - ``Get Device360 Overview Information   device_mac=${MAC}``
+        - ``Get Device360 Overview Information   device_name=${DEVICE_NAME}``
         :param device_mac: MAC Address of the device to access the D360 view for
         :param device_name:  Host Name of the device to access the D360 view for
         :return: dictionary of information from the Overview tab of the Device360 view
@@ -2114,7 +2114,7 @@ class Device360(Device360WebElements):
         - It is assumed that the Device360 window is open and on the Monitor> Overview page
         - Flow : Device 360 Page -> Monitor -> Overview
         - Keyword Usage
-         - ``Get Overview Information``
+        - ``Get Overview Information``
         :return: dictionary of information obtained from the Monitor> Overview page of the Device360 view
         """
 
@@ -2188,8 +2188,8 @@ class Device360(Device360WebElements):
         - It is assumed that the Device360 window is open.
         - Flow : Device 360 Page -> Configure -> Device Configuration
         - Keyword Usage
-         - ``Device360 Set Device Function  AP``
-         - ``Device360 Set Device Function  ApAsRouter``
+        - ``Device360 Set Device Function  AP``
+        - ``Device360 Set Device Function  ApAsRouter``
         :return: 1 if the selection was made, -1 if not
         """
         if self.device360_navigate_to_device_configuration():
@@ -2225,7 +2225,7 @@ class Device360(Device360WebElements):
         - It is assumed that the Device360 window is open and on the Device Configuration page.
         - Flow : Device 360 Page -> Configure -> Device Configuration -> Save Device Configuration
         - Keyword Usage
-         - ``Device360 Save Device Configuration``
+        - ``Device360 Save Device Configuration``
         :return: 1 if the button was clicked, -1 if not
         """
         save_btn = self.dev360.get_device360_configure_device_save_button()
@@ -2244,7 +2244,7 @@ class Device360(Device360WebElements):
         """
         - This keyword obtains the value of the device title in the Device360 view.
         - Keyword Usage
-         - ``Device360 Get Device Title``
+        - ``Device360 Get Device Title``
         :return: value of the device title in the Device360 view
         """
         ret_val = ""
@@ -2262,7 +2262,7 @@ class Device360(Device360WebElements):
         - This keyword gets information from the left sidebar of the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Get Side Bar Information``
+        - ``Device360 Get Side Bar Information``
         :return: dictionary of information obtained from the left side bar of the Device360 view
         """
 
@@ -2365,7 +2365,7 @@ class Device360(Device360WebElements):
         """
         - This keyword obtains the value of the CPU Usage from the left sidebar in the Device360 view.
         - Keyword Usage
-         - ``Device360 Get Side Bar CPU Usage``
+        - ``Device360 Get Side Bar CPU Usage``
         :return: value of the CPU Usage field from the left sidebar in the Device360 view
         """
         ret_val = ""
@@ -2383,7 +2383,7 @@ class Device360(Device360WebElements):
         """
         - This keyword obtains the value of the Memory Usage from the left sidebar in the Device360 view.
         - Keyword Usage
-         - ``Device360 Get Side Bar Memory Usage``
+        - ``Device360 Get Side Bar Memory Usage``
         :return: value of the Memory Usage field from the left sidebar in the Device360 view
         """
         ret_val = ""
@@ -2402,7 +2402,7 @@ class Device360(Device360WebElements):
         - This keyword gets the Active Since information from the left sidebar of the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Get Side Bar Active Since Information``
+        - ``Device360 Get Side Bar Active Since Information``
         :return: dictionary of "Active Since" information obtained from the left side bar of the Device360 view
         """
 
@@ -2468,7 +2468,7 @@ class Device360(Device360WebElements):
         - This keyword gets information from the top bar of the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Get Top Bar Information``
+        - ``Device360 Get Top Bar Information``
         :return: dictionary of information obtained from the top bar of the Device360 view
         """
 
@@ -2639,7 +2639,7 @@ class Device360(Device360WebElements):
         """
         - This keyword obtains the value of the CPU Usage from the top bar in the Device360 view.
         - Keyword Usage
-         - ``Device360 Get Top Bar CPU Usage``
+        - ``Device360 Get Top Bar CPU Usage``
         :return: value of the CPU Usage field from the top bar in the Device360 view
         """
         ret_val = ""
@@ -2674,7 +2674,7 @@ class Device360(Device360WebElements):
         """
         - This keyword obtains the value of the Memory Usage from the top bar in the Device360 view.
         - Keyword Usage
-         - ``Device360 Get Top Bar Memory Usage``
+        - ``Device360 Get Top Bar Memory Usage``
         :return: value of the Memory Usage field from the top bar in the Device360 view
         """
         ret_val = ""
@@ -2710,7 +2710,7 @@ class Device360(Device360WebElements):
         - This keyword gets information from the left sidebar of the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Get Top Bar Last Update Time``
+        - ``Device360 Get Top Bar Last Update Time``
         :return: last update time if successful, otherwise None
         """
         ret_val = ""
@@ -2755,7 +2755,7 @@ class Device360(Device360WebElements):
         """
         - This keyword obtains the value of the Temperature field from the top bar in the Device360 view.
         - Keyword Usage
-         - ``Device360 Get Top Bar Temperature``
+        - ``Device360 Get Top Bar Temperature``
         :return: value of the Temperature field from the top bar in the Device360 view
         """
         ret_val = ""
@@ -2773,7 +2773,7 @@ class Device360(Device360WebElements):
         - This keyword gets the number of port icons displayed in the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Get Port Icon Count``
+        - ``Device360 Get Port Icon Count``
         :return: number of port icons displayed in the Device360 view
         """
         ret_val = 0
@@ -2794,7 +2794,7 @@ class Device360(Device360WebElements):
         - This keyword determines if the port details table is displayed in the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Is Port Details Table Displayed``
+        - ``Device360 Is Port Details Table Displayed``
         :return: 1 if port table is displayed, else 0
         """
         ret_val = 0
@@ -2817,7 +2817,7 @@ class Device360(Device360WebElements):
         - This keyword gets the total active alarms displayed in the Active Alarms panel of the Device360 view.
         - It is assumed that the Device360 window is open and on the Overview tab.
         - Keyword Usage
-         - ``Device360 Get Total Active Alarms Count``
+        - ``Device360 Get Total Active Alarms Count``
         :return: total number of active alarms displayed in the Device360 view
         """
         ret_val = 0
@@ -2866,7 +2866,7 @@ class Device360(Device360WebElements):
         - This keyword gets the values from the system information page of the Device360 view for a switch.
         - It is assumed that the Device360 window is open for a switch.
         - Keyword Usage
-         - ``Device360 Get Switch System Information``
+        - ``Device360 Get Switch System Information``
         :return: dictionary of information obtained from the System Information page of the Device360 view
         """
 
@@ -2953,8 +2953,8 @@ class Device360(Device360WebElements):
         - This keyword Clicks SSID or Device Template on system information from device360 page using DeviceMac or Name
         - Flow : Manage--> Devices --> Monitor --> SystemInformation --> click on hyperlink(MAC/hostname)
         - Keyword Usage
-         - ``Click HyperLink on System Information  device_mac=${AP1_MAC} Clickon=Template``
-         - ``Click HyperLink on System Information  device_name=${AP1_NAME} Clickon=SSID``
+        - ``Click HyperLink on System Information  device_mac=${AP1_MAC} Clickon=Template``
+        - ``Click HyperLink on System Information  device_name=${AP1_NAME} Clickon=SSID``
 
         :return: Name of device Template or SSID after navigation by clicking on hyperlink or -1 in case of error
         """
@@ -2992,7 +2992,7 @@ class Device360(Device360WebElements):
         """
         - This keyword gets the value of snmp location from device configuration page of D360
         - Keyword Usage
-         - ``Device360 Device Config Snmp Location``
+        - ``Device360 Device Config Snmp Location``
         :return: assigned snmp location
         """
 
@@ -3005,7 +3005,7 @@ class Device360(Device360WebElements):
         """
         - This keyword gets the value of snmp location from device configuration page of D360
         - Keyword Usage
-         - ``Device360 Device Config Snmp Location``
+        - ``Device360 Device Config Snmp Location``
         :return: assigned snmp location
         """
 
@@ -3158,8 +3158,8 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Monitor> Events tab.
           After search is done it confirms that the log is present only on first page of event list. If more logs are matching it returns the number of them
         - Keyword Usage:
-         - ``Device360 Search Event And Confirm Event Description Contains  ${EVENT}  ${AFTER_TIME}``
-         - ``Device360 Search Event And Confirm Event Description Contains  ${EVENT}``
+        - ``Device360 Search Event And Confirm Event Description Contains  ${EVENT}  ${AFTER_TIME}``
+        - ``Device360 Search Event And Confirm Event Description Contains  ${EVENT}``
         :param  event_str:      String to look for in the event description
         :param  after_time:     Indicates at which point in time to start searching for the existence of the event
                                 (if not specified, it just checks for the existence of the event in general)
@@ -3253,9 +3253,9 @@ class Device360(Device360WebElements):
         """
         This keyword press the revert button for the specific row and column into device360 Port Configuration window
         select_column : - Port Details : 'port state' , 'port usage' , 'vlan' , 'description'
-                        - Port Settings & Aggregation: 'transmission' , 'speed' , 'flow' , 'transmit' , 'receive' , 'cdp' , 'client reporting'
-                        - STP: 'stp status' , 'edge port' , 'bpdu protection' , 'priority' , 'path cost'
-                        - Storm Control: 'broadcast' , 'unknown unicast' , 'multicast' , 'value'
+            Port Settings & Aggregation: 'transmission' , 'speed' , 'flow' , 'transmit' , 'receive' , 'cdp' , 'client reporting'
+            STP: 'stp status' , 'edge port' , 'bpdu protection' , 'priority' , 'path cost'
+            Storm Control: 'broadcast' , 'unknown unicast' , 'multicast' , 'value'
         port_name: Number of port . e.g 1/1 ; 2:1
         E.g. :
         device360_revert_port_configuration          flow        1:3
@@ -3364,9 +3364,9 @@ class Device360(Device360WebElements):
         """
         This keyword click on checkbox for the specific row and column into device360 Port Configuration window
         select_column : - Port Details : 'port state'
-                        - Port Settings & Aggregation: 'transmit' , 'receive' , 'cdp' , 'client reporting'
-                        - STP: 'stp status' , 'edge port'
-                        - Storm Control: 'broadcast' , 'unknown unicast' , 'multicast'
+            Port Settings & Aggregation: 'transmit' , 'receive' , 'cdp' , 'client reporting'
+            STP: 'stp status' , 'edge port'
+            Storm Control: 'broadcast' , 'unknown unicast' , 'multicast'
         port_name: Number of port . e.g 1/1 ; 2:1
         E.g. :
         device360_revert_port_configuration          flow        1:3
@@ -3446,7 +3446,7 @@ class Device360(Device360WebElements):
         - This keyword clicks on the SAVE PORT CONFIGURATION button
         - It is assumed that the Device360 window is open in Configure in Port Configuration section.
         - Keyword Usage
-         - ``Device360 Port Configuration Click Save Button``
+        - ``Device360 Port Configuration Click Save Button``
         :return: Click on SAVE PORT CONFIGURATION
         """
         ret_val = None
@@ -3465,7 +3465,7 @@ class Device360(Device360WebElements):
         - This keyword clicks on the OPEN SITE ENGINE link
         - It is assumed that the Device360 window is open and the Overview panel is selected.
         - Keyword Usage
-         - ``Device360 Click Open Site Engine Link``
+        - ``Device360 Click Open Site Engine Link``
         :return: 1 if action was successful (or the field is disabled), else -1
         """
         ret_val = -1
@@ -3494,8 +3494,8 @@ class Device360(Device360WebElements):
         - This keyword gets EXOS/VOSS Switch Port table information from device360 page
         - Flow : Manage --> Devices--> Select Device-->Device 360 Page
         - Keyword Usage
-         - ``Get Switch Device360 Port Table Information  device_mac={DEVICE_MAC}  port_number={PORT_NUMBER} ``
-         - ``Get Switch Device360 Port Table Information  device_name={DEVICE_NAME}  port_number={PORT_NUMBER} ``
+        - ``Get Switch Device360 Port Table Information  device_mac={DEVICE_MAC}  port_number={PORT_NUMBER} ``
+        - ``Get Switch Device360 Port Table Information  device_name={DEVICE_NAME}  port_number={PORT_NUMBER} ``
          :param device_mac: Device Mac Address
          :param device_name: Device Name
          :param port_number: Port Number of the Switch
@@ -3730,11 +3730,13 @@ class Device360(Device360WebElements):
 
     def transmission_mode_right_click_menu(self, interface):
         """
-        This keyword checks the status of transmission mode for an interface by click on interface in Device360
+        - This keyword checks the status of transmission mode for an interface by click on interface in Device360
+        - Keyword Usage:
+        -  transmission_mode_right_click_menu        20
+        -  transmission_mode_right_click_menu        mgmt
+
         :param interface: a string with the number(index) of interface
-        -Keyword Usage:
-            -  transmission_mode_right_click_menu        20
-            -  transmission_mode_right_click_menu        mgmt
+
         :return: a string with the status of transmission mode ("Full-Duplex/Half-Duplex")
                 -1 the interface was not found
         """
@@ -3895,13 +3897,13 @@ class Device360(Device360WebElements):
 
     def interface_transmission_mode(self, interface):
         """
-        This keyword checks the status of transmission mode for an interface by right click on interface in Device360
+        - This keyword checks the status of transmission mode for an interface by right click on interface in Device360
+        - Keyword Usage:
+        -  interface transmission mode        20
+        -  interface transmission mode        mgmt
+
         :param interface: a string with the number(index) of interface
-        -Keyword Usage:
-            -  interface transmission mode        20
-            -  interface transmission mode        mgmt
-        :return: a string with the status of transmission mode ("Full-Duplex/Half-Duplex")
-                -1 the interface was not found
+        :return: a string with the status of transmission mode ("Full-Duplex/Half-Duplex"), -1 the interface was not found
         """
         list_items = self.get_items()
         if list_items:
@@ -3926,13 +3928,14 @@ class Device360(Device360WebElements):
 
     def interface_port_speed(self, port):
         """
-        This keyword checks the status of speed for an interface by right click on interface in Device360
+        -This keyword checks the status of speed for an interface by right click on interface in Device360
+
+        - Keyword Usage:
+        -  interface_port_speed        20
+        -  interface_port_speed        mgmt
+
         :param port: a string with the number(index) of interface
-        -Keyword Usage:
-            -  interface_port_speed        20
-            -  interface_port_speed        mgmt
-        :return: a string with the status of speed
-                -1 the interface was not found
+        :return: a string with the status of speed, -1 the interface was not found
         """
         list_items = self.get_items()
         self.utils.print_info(len(list_items))
@@ -3983,7 +3986,7 @@ class Device360(Device360WebElements):
         - This keyword clicks on port icon in the Device360 view based on the specified port.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Click On Port Icon``
+        - ``Device360 Click On Port Icon``
         :port: Specifies the port value
         :return: Displayed Port icon name in the Device360 view
         """
@@ -4136,8 +4139,8 @@ class Device360(Device360WebElements):
         - This keyword will Enable/Disable Port Status in Device360 Page
         - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration--> Port State to OFF/ON
         - Keyword Usage:
-         - ``Device360 Configure Device Port Status  device_mac=${MAC_ADDRESS}  port_number=${PORT_NUMBER}   port_status=${PORT_STATUS}``
-         - ``Device360 Configure Device Port Status  device_NAME=${NAME}  port_number=${PORT_NUMBER}   port_status=${PORT_STATUS}``
+        - ``Device360 Configure Device Port Status  device_mac=${MAC_ADDRESS}  port_number=${PORT_NUMBER}   port_status=${PORT_STATUS}``
+        - ``Device360 Configure Device Port Status  device_NAME=${NAME}  port_number=${PORT_NUMBER}   port_status=${PORT_STATUS}``
 
          :param device_mac: Device Mac Address
          :param device_name: Device Name
@@ -4237,8 +4240,8 @@ class Device360(Device360WebElements):
         - This keyword will Configure Device switch Port Access Vlan in Device360 Page.
         - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration--> interface --> Port Usage and Vlan
         - Keyword Usage:
-         - ``Device360 Configure Port Access Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
-         - ``Device360 Configure Port Access Vlan  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
+        - ``Device360 Configure Port Access Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
+        - ``Device360 Configure Port Access Vlan  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
 
          :param device_mac: Device Mac Address
          :param device_name: Device Name
@@ -4334,8 +4337,8 @@ class Device360(Device360WebElements):
         - This keyword will Configure Device switch Port Trunk Vlan in Device360 Page.
         - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration--> interface --> Port Usage and Vlan
         - Keyword Usage:
-         - ``Device360 Configure Port Trunk Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
-         - ``Device360 Configure Port Trunk Vlan  device_name=${NAME}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
+        - ``Device360 Configure Port Trunk Vlan  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
+        - ``Device360 Configure Port Trunk Vlan  device_name=${NAME}  port_number=${PORT_NUMBER}  access_vlan_id=${VLAN_ID}``
 
          :param device_mac: Device Mac Address
          :param device_name: Device Name
@@ -4447,9 +4450,9 @@ class Device360(Device360WebElements):
         - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration-->
                 Port settings --> Interface --> Transmission Mode and Speed
         - Keyword Usage:
-         - `` device360 configure port transmission mode and speed  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}
+        - `` device360 configure port transmission mode and speed  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}
          transmission_mode=${MODE}  speed=${SPEED}``
-         - `` device360 configure port transmission mode and speed  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}
+        - `` device360 configure port transmission mode and speed  device_name=${DEVICE_NAME}  port_number=${PORT_NUMBER}
          transmission_mode=${MODE}  speed=${SPEED}``
 
          :param device_mac: Device Mac Address
@@ -4548,8 +4551,8 @@ class Device360(Device360WebElements):
         - This keyword will Enable/Disable Port POE Status and POE Profile in Device360 Page
         - Flow: Click Device -->Device 360 Window --> Configure --> Port Configuration--> PSE--> POE Status and Profile
         - Keyword Usage:
-         - ``Device360 Configure Device Port POE Status And Profile  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}   poe_profile=${POE_PROFILE}    poe_status=${POE_STATUS}``
-         - ``Device360 Configure Device Port POE Status And Profile  device_NAME=${DEVICE_NAME}  port_number=${PORT_NUMBER}   poe_profile=${POE_PROFILE}    poe_status=${POE_STATUS}``
+        - ``Device360 Configure Device Port POE Status And Profile  device_mac=${DEVICE_MAC}  port_number=${PORT_NUMBER}   poe_profile=${POE_PROFILE}    poe_status=${POE_STATUS}``
+        - ``Device360 Configure Device Port POE Status And Profile  device_NAME=${DEVICE_NAME}  port_number=${PORT_NUMBER}   poe_profile=${POE_PROFILE}    poe_status=${POE_STATUS}``
 
          :param device_mac: Device Mac Address
          :param device_name: Device Name
@@ -4658,8 +4661,8 @@ class Device360(Device360WebElements):
         - This keyword will get Wireframe CPU Utilization for VOSS Device in Device360 Page
         - Flow: Click Device -->Device 360 Window -->CPU Usage ICON
         - Keyword Usage:
-         - ``Device360 Get VOSS Wireframe CPU Utilization  device_mac=${DEVICE_MAC}``
-         - ``Device360 Get VOSS Wireframe CPU Utilization  device_name=${DEVICE_NAME}``
+        - ``Device360 Get VOSS Wireframe CPU Utilization  device_mac=${DEVICE_MAC}``
+        - ``Device360 Get VOSS Wireframe CPU Utilization  device_name=${DEVICE_NAME}``
 
         :param device_mac:  Device Mac Address
         :param device_name:  Device Name
@@ -4717,8 +4720,8 @@ class Device360(Device360WebElements):
         - This keyword will get Wireframe Memory Utilization for VOSS Device in Device360 Page
         - Flow: Click Device -->Device 360 Window -->Memory Usage ICON
         - Keyword Usage:
-         - ``Device360 Get VOSS Wireframe Memory Utilization  device_mac=${DEVICE_MAC}``
-         - ``Device360 Get VOSS Wireframe Memory Utilization  device_name=${DEVICE_NAME}``
+        - ``Device360 Get VOSS Wireframe Memory Utilization  device_mac=${DEVICE_MAC}``
+        - ``Device360 Get VOSS Wireframe Memory Utilization  device_name=${DEVICE_NAME}``
 
         :param device_mac:  Device Mac Address
         :param device_name:  Device Name
@@ -4955,7 +4958,7 @@ class Device360(Device360WebElements):
         """
         This keyword will add or edit a supplemental cli profile with cli commands in D360
         - Keyword Usage
-         - ``Get supplemental cli       ${NAME_CLI}     ${CLI_COMMANDS}``
+        - ``Get supplemental cli       ${NAME_CLI}     ${CLI_COMMANDS}``
         :param name_s_cli: Name of the supplemental cli profile
         :param cli_commands: list of CLI commands separated by comma
         :return: 1 if supplemental cli profile save successfully else -1
@@ -5039,11 +5042,11 @@ class Device360(Device360WebElements):
 
     def device360_power_details(self, device_mac="", device_name=""):
         """
-         - This keyword will get Power Supply Details in Device 360 from thunderbolt icon
-         - Flow: Click Device -->Device 360 Window -->Thunderbolt ICON
-         - Keyword Usage:
-         - ``Device360 Power Details      device_mac=${DEVICE_MAC}``
-         - ``Device360 Power Details      device_name=${DEVICE_NAME}``
+        - This keyword will get Power Supply Details in Device 360 from thunderbolt icon
+        - Flow: Click Device -->Device 360 Window -->Thunderbolt ICON
+        - Keyword Usage:
+        - ``Device360 Power Details      device_mac=${DEVICE_MAC}``
+        - ``Device360 Power Details      device_name=${DEVICE_NAME}``
         :param device_mac: Device Mac Address
         :param device_name: Device Name
         :return: list with power supply details
@@ -5090,11 +5093,11 @@ class Device360(Device360WebElements):
 
     def device360_configure_poe_threshold_value(self, threshold_value, device_mac="", device_name=""):
         """
-         - This keyword will configure the POE threshold value in Device 360
-         - Flow: Click Device --> Device 360 Window --> Port Configuration --> PSE --> PSE SETTINGS FOR DEVICE
-         - Keyword Usage:
-         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}   device_mac=${DEVICE_MAC}``
-         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}   device_name=${DEVICE_NAME}``
+        - This keyword will configure the POE threshold value in Device 360
+        - Flow: Click Device --> Device 360 Window --> Port Configuration --> PSE --> PSE SETTINGS FOR DEVICE
+        - Keyword Usage:
+        - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}   device_mac=${DEVICE_MAC}``
+        - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}   device_name=${DEVICE_NAME}``
         :param threshold_value: value for threshold between 1 and 99
         :param device_mac: Device Mac Address
         :param device_name: Device Name
@@ -5164,9 +5167,9 @@ class Device360(Device360WebElements):
     def device360_check_wired_client(self, device_serial=None, device_mac=None, client_mac=None, sleep_time=30,
                                      iteration=15):
         """
-           - This keyword is used to check the client exist in device360 page based on passed client mac address
-           -Flow: Manage --> Devices --> check on the Clients which is present in Device grid row based on Client MAC
-           - Keyword Usage:
+        - This keyword is used to check the client exist in device360 page based on passed client mac address
+        - Flow: Manage --> Devices --> check on the Clients which is present in Device grid row based on Client MAC
+        - Keyword Usage:
 
         :param device_serial: Serial Number of the Device
         :param device_mac: Mac address of the Device
@@ -5426,7 +5429,7 @@ class Device360(Device360WebElements):
           button cannot be found, a message is printed.
         - Flow: Client 360 Window --> Click "X" to close Device360 Window
         - Keyword Usage:
-         - ``Close Client360 Window``
+        - ``Close Client360 Window``
         :return: 1 if the Client 360 window was closed, else -1
         """
         close_btn = self.dev360.get_client360_close_dialog()
@@ -5470,7 +5473,7 @@ class Device360(Device360WebElements):
         - It is assumed that the Device360 window is open.
         - Flow : Device 360 Page -> Configure -> Device Configuration
         - Keyword Usage
-         - ``device360_set_network_policy  network_policy=PPSK_POL``
+        - ``device360_set_network_policy  network_policy=PPSK_POL``
         :return: 1 if the selection was made, -1 if not
         """
         self.utils.print_info(f"select '{network_policy}' from drop down")
@@ -5494,7 +5497,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Configure tab.
         - Flow: Device 360 Window --> Configure tab --> Click "DHCP & IP Address" link
         - Keyword Usage:
-         - ``select_dhcp_ip_address_view``
+        - ``select_dhcp_ip_address_view``
         :return: 1 if the select_dhcp_ip_address_view was selected, else -1
         """
         dhcp_ip_link = self.get_device360_configure_dhcp_ip_address_link()
@@ -5515,7 +5518,7 @@ class Device360(Device360WebElements):
           It assumes the Device360 Window is open and on the Configure tab.
         - Flow: Device 360 Window --> Configure tab --> Click "DHCP & IP Address" link
         - Keyword Usage:
-         - ``search_for_vlan_subnetworks_type_in_row_table   192.168.167.0/25  MGMT  10``
+        - ``search_for_vlan_subnetworks_type_in_row_table   192.168.167.0/25  MGMT  10``
         :param  *searched_values: list of searched values
         :return: 1 if all values are found in table
         """
@@ -5558,7 +5561,7 @@ class Device360(Device360WebElements):
         """
         - This keyword confirms the list of columns are all selected in the column picker
         - Keyword Usage:
-            - `Confirm Column Picker Column Selected  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
+        - `Confirm Column Picker Column Selected  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
 
         :param columns: list of device columns that should be selected
         :return: returns 1 if all columns are selected in the column picker; else, -1
@@ -6106,7 +6109,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(close_port_type_box)
                 self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
                                      silent_failure=True, msg="Checking that create new port type profile has been"
-                                                              "dialog box has been closed...")               
+                                                              "dialog box has been closed...")
             else:
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
                 return -1
@@ -6898,7 +6901,7 @@ class Device360(Device360WebElements):
 
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
                     self.utils.print_info(" Selected into dropdown value : ", pse_profile_name)
-                    
+
                     if edit_flag:
                         self.utils.print_info(f"Editing PSE profile {value['pse_profile_name']}")
                         get_pse_profile_edit_button = self.get_select_element_port_type("pse_profile_edit")
@@ -6929,7 +6932,7 @@ class Device360(Device360WebElements):
                     self.utils.print_info(
                         f"PSE profile: {value['pse_profile_name']} not found in the dropdown items. "
                         f"Closing dropdown...")
-                  
+
                     self.auto_actions.click(get_pse_profile)
                     get_pse_profile_add = self.get_select_element_port_type("pse_profile_add")
                     if get_pse_profile_add:
@@ -7434,11 +7437,11 @@ class Device360(Device360WebElements):
 
     def device360_configure_poe_threshold_value_stack(self, threshold_value, slot, device_mac="", device_name=""):
         """
-         - This keyword will configure the POE threshold value in Device 360
-         - Flow: Click Device --> Device 360 Window --> Port Configuration --> PSE --> PSE SETTINGS FOR DEVICE
-         - Keyword Usage:
-         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}  slot=${SLOT} device_mac=${DEVICE_MAC}``
-         - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}  slot=${SLOT}  device_name=${DEVICE_NAME}``
+        - This keyword will configure the POE threshold value in Device 360
+        - Flow: Click Device --> Device 360 Window --> Port Configuration --> PSE --> PSE SETTINGS FOR DEVICE
+        - Keyword Usage:
+        - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}  slot=${SLOT} device_mac=${DEVICE_MAC}``
+        - ``Device360 Configure POE Threshold value    threshold_value=${THRESHOLD_POE}  slot=${SLOT}  device_name=${DEVICE_NAME}``
         :param threshold_value: value for threshold between 1 and 99
         :param slot: The slot which supported POE
         :param device_mac: Device Mac Address
@@ -7506,11 +7509,11 @@ class Device360(Device360WebElements):
 
     def device360_power_details_stack(self, slot, device_mac="", device_name=""):
         """
-         - This keyword will get Power Supply Details in Device 360 from thunderbolt icon
-         - Flow: Click Device -->Device 360 Window -->Thunderbolt ICON
-         - Keyword Usage:
-         - ``Device360 Power Details      device_mac=${DEVICE_MAC}``
-         - ``Device360 Power Details      device_name=${DEVICE_NAME}``
+        - This keyword will get Power Supply Details in Device 360 from thunderbolt icon
+        - Flow: Click Device -->Device 360 Window -->Thunderbolt ICON
+        - Keyword Usage:
+        - ``Device360 Power Details      device_mac=${DEVICE_MAC}``
+        - ``Device360 Power Details      device_name=${DEVICE_NAME}``
         :param device_mac: Device Mac Address
         :param device_name: Device Name
         :return: list with power supply details; else -1
@@ -7569,7 +7572,7 @@ class Device360(Device360WebElements):
         - This keyword checks if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
-         - ``Is Device360 Relaunch Digital Twin Button Visible``
+        - ``Is Device360 Relaunch Digital Twin Button Visible``
         :return: True if visible, False if not visible, else -1
         """
         relaunch_link = self.dev360.get_device360_digital_twin_relaunch_button()
@@ -7594,7 +7597,7 @@ class Device360(Device360WebElements):
         - This keyword clicks the 'Relaunch Digital Twin' button in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
-         - ``Device360 Relaunch Digital Twin Device   confirm="no"``
+        - ``Device360 Relaunch Digital Twin Device   confirm="no"``
         :param confirm: Click Yes or No button within the confirmation panel
         :return: 1 if action was successful, else -1
         """
@@ -7631,7 +7634,7 @@ class Device360(Device360WebElements):
         - This keyword checks if the 'Shutdown Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
-         - ``Is Device360 Shutdown Digital Twin Button Visible``
+        - ``Is Device360 Shutdown Digital Twin Button Visible``
         :return: True if visible, False if not visible, else -1
         """
         shutdown_link = self.dev360.get_device360_digital_twin_shutdown_button()
@@ -7656,7 +7659,7 @@ class Device360(Device360WebElements):
         - This keyword clicks the 'Shutdown Digital Twin' button in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
-         - ``Device360 Shutdown Digital Twin Device   confirm="no"``
+        - ``Device360 Shutdown Digital Twin Device   confirm="no"``
         :param confirm: Click Yes or No button within the confirmation panel
         :return: 1 if action was successful, else -1
         """
@@ -7693,7 +7696,7 @@ class Device360(Device360WebElements):
         - This keyword obtains the Digital Twin status icon within the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
         - Keyword Usage
-         - ``Get Device360 Digital Twin Device Status``
+        - ``Get Device360 Digital Twin Device Status``
         :return:
             'connected' if Device Status icon is 'Digital Twin' and status is 'connected'
             'disconnected' if Device Status icon is 'Digital Twin' and status is 'disconnected'
@@ -7731,7 +7734,7 @@ class Device360(Device360WebElements):
         - This keyword by default loops every 30 seconds for 20 times to check the device status.
         - It is assumed that the Device 360 window is already opened for the Device.
         - Keyword Usage:
-         - ``Device360 Wait Until Device Online       retry_duration=10       retry_count=12``
+        - ``Device360 Wait Until Device Online       retry_duration=10       retry_count=12``
 
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -7779,7 +7782,7 @@ class Device360(Device360WebElements):
         - This keyword by default loops every 30 seconds for 20 times to check the device status.
         - It is assumed that the Device 360 window is already opened for the Device.
         - Keyword Usage:
-         - ``Device360 Wait Until Device Offline       retry_duration=10       retry_count=12``
+        - ``Device360 Wait Until Device Offline       retry_duration=10       retry_count=12``
 
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -10114,7 +10117,7 @@ class Device360(Device360WebElements):
         self.auto_actions.click(close_button)
 
         return ret
-    
+
     def device360_voip_get_port_row(self, port_name):
         """
         - Get the port row object matching the specified port_name from Device360 --> Configure --> Port Configuration
@@ -10652,42 +10655,1817 @@ class Device360(Device360WebElements):
         '''
         This keyword returns the web elements returned by get_select_element_port_type function from Device360WebElements.py
         :param element: Specify the element. See get_select_element_port_type function
-        :return: web element if it has been found; None if element was not found 
+        :return: web element if it has been found; None if element was not found
         '''
         return self.get_select_element_port_type(element)
 
-    def select_port_details_tab(self):
-        """
-        - This keyword clicks the PortDetails tab under Diagnostics button on the Monitor tab in the Device360 dialog window.
-          It assumes the Device360 Window is open and on the Monitor tab.
-        - Flow: Device 360 Window --> Monitor tab --> Click "Diagnostics" button --> Click "Port Details" tab
-        - Keyword Usage:
-         - ``Select POrt Details Tab``
-        :return: 1 if Monitor> Diagnostics< POrt Details  was selected, else -1
-        """
-        port_details_btn = self.get_device360_port_details_button()
-        if port_details_btn:
-            self.utils.print_info("Clicking Port Details tab under Diagnostics button on the Device360 Monitor tab")
-            self.auto_actions.click(port_details_btn)
-            return 1
-        else:
-            self.utils.print_info(
-                "Could not find Port Details tab under Diagnostics button - make sure Device360 window is open and on Monitor tab")
-            return -1
+    def go_to_last_page(self, **kwargs):
+        """Method that goes to the last page of the honeycomb port type editor.
 
-    def port_diagnostics_select_ports(self, ports, **kwargs):
-        self.device360_navigate_to_monitor_diagnostics()
-        sleep(5)
-        self.select_port_details_tab()
-        sleep(5)
-        self.device360_port_diagnostics_deselect_all_ports()
-        sleep(5)
-        for port in ports.split(','):
-            port_search = self.get_device360_diagnostics_port(port)
-            if port_search:
-                self.auto_actions.click(port_search)
-            else:
-                self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
-                kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+
+        self.utils.print_info("Go to the last page and save the port type")
+        for _ in range(10):
+
+            get_next_button, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("next_button"),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not get_next_button:
+                kwargs["fail_msg"] = "Failed to get the next button"
                 self.common_validation.failed(**kwargs)
                 return -1
+
+            self.utils.print_info("Successfully got the next button")
+
+            if get_next_button.is_enabled():
+                res, _ = self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(get_next_button),
+                    exp_func_resp=True,
+                    delay=4,
+                    silent_failure=True,
+                )
+
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to click the next button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                self.utils.print_info("Successfully clicked the next page button")
+            else:
+                break
+
+        kwargs["pass_msg"] = "Successfully went to the last page"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def go_to_next_editor_tab(self, **kwargs):
+        """Method that goes to the next page of the honeycomb port editor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        get_next_button, _ = self.utils.wait_till(
+            lambda: self.get_select_element_port_type("next_button"),
+            exp_func_resp=True,
+            delay=5,
+            silent_failure=True)
+
+        if not get_next_button:
+            kwargs["fail_msg"] = "Failed to get the next button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the next button")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(get_next_button),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True)
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the next button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the next button"
+        self.common_validation.passed(**kwargs)
+
+        return 1
+
+    def configure_port_name_usage_tab(self, port_type_name, description="test", status=True, port_type="access", **kwargs):
+        """Method that configures the first page of the honeycomb port type editor.
+
+        Args:
+            port_type_name (str): the name of the port type
+            description (str, optional): the description of the port type. Defaults to "test".
+            status (bool, optional): the port status. Defaults to True.
+            port_type (str, optional): the port type. Defaults to "access".
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        name_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("name"),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5)
+
+        if not name_element:
+            kwargs["fail_msg"] = "Failed to find port name element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully found port name element")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.send_keys(name_element, port_type_name),
+            exp_func_resp=True,
+            delay=4
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to send keys to port name element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully sent keys to port name element")
+
+        description_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("description"),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5)
+
+        if not description_element:
+            kwargs["fail_msg"] = "Failed to find port description element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully found port description element")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.send_keys(description_element, description),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to send keys to port description element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully sent keys to port description element")
+
+        status_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("status"),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5
+        )
+
+        if not status_element:
+            kwargs["fail_msg"] = "Failed to find port status element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully found port status element")
+
+        if (not status_element.is_selected() and status) or (
+            status_element.is_selected() and not status):
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(status_element),
+                exp_func_resp=True,
+                delay=4
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the status button"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully clicked the status button")
+
+        auto_sense, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("auto-sense"),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5
+        )
+
+        if auto_sense:
+            if auto_sense.is_selected():
+                res, _ = self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(auto_sense),
+                    exp_func_resp=True,
+                    delay=4
+                )
+
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to click the auto sense button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                self.utils.print_info("Successfully clicked the auto sense button")
+
+        port_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("port usage", f"{port_type} port"),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5
+        )
+
+        if not port_element:
+            kwargs["fail_msg"] = "Failed to get the port type element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the port type element")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(port_element),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the port type element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the port type element"
+        self.common_validation.passed(**kwargs)
+
+        self.utils.wait_till(timeout=2)
+        return 1
+
+    def open_new_port_type_editor(self, port, device_360=False, **kwargs):
+        """Method that opens the honeycomb port type editor for given port.
+
+        Args:
+            port (str): the name of the port
+            device_360 (bool, optional): True if the browser is in the device 360 window. Defaults to False.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        self.utils.wait_till(timeout=10)
+
+        if not device_360:
+            rows, _ = self.utils.wait_till(
+                func=self.get_policy_configure_port_rows,
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not rows:
+                kwargs["fail_msg"] = "Failed to get the rows"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the rows")
+
+            for row in rows:
+                if re.search(f'{port}\n', row.text):
+                    d360_create_port_type, _ = self.utils.wait_till(
+                        func=lambda: self.get_d360_create_port_type(row),
+                        exp_func_resp=True,
+                        silent_failure=True,
+                        delay=5
+                    )
+
+                    if not d360_create_port_type:
+                        kwargs["fail_msg"] = "Failed to get the d360_create_port_type button"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    self.utils.print_info("Successfully got the d360_create_port_type button")
+
+                    res, _ = self.utils.wait_till(
+                        func=lambda: self.auto_actions.click(d360_create_port_type),
+                        exp_func_resp=True,
+                        silent_failure=True,
+                        delay=4
+                    )
+
+                    if res != 1:
+                        kwargs["fail_msg"] = "Failed to click the d360_create_port_type button"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    self.utils.print_info("Successfully clicked the d360_create_port_type button")
+                    self.utils.wait_till(timeout=10)
+                    break
+        else:
+
+            port_conf_content, _ = self.utils.wait_till(
+                func=self.get_device360_port_configuration_content,
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not port_conf_content:
+                kwargs["fail_msg"] = "Failed to get the port_conf_content element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the port_conf_content element")
+
+            port_row, _ = self.utils.wait_till(
+                func=lambda: self.device360_get_port_row(port),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+            if not re.search(f"{port}\n", port_row.text):
+                port_row, _ = self.utils.wait_till(
+                    func=lambda: self.device360_get_port_row(f"{port}\n"),
+                    exp_func_resp=True,
+                    silent_failure=True
+                )
+                if not re.search(f"{port}\n", port_row.text):
+                    self.utils.print_info("Port was not found")
+                    port_row = None
+
+            if port_row:
+                self.utils.print_debug("Found row for port: ", port_row.text)
+
+                d360_create_port_type, _ = self.utils.wait_till(
+                    func=lambda: self.get_d360_create_port_type(port_row),
+                    silent_failure=True,
+                    exp_func_resp=True,
+                    delay=5
+                )
+
+                if not d360_create_port_type:
+                    kwargs["fail_msg"] = "Failed to get the d360_create_port_type button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                self.utils.print_info("Successfully got the d360_create_port_type button")
+
+                res, _ = self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(d360_create_port_type),
+                    exp_func_resp=True,
+                    delay=4
+                )
+
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to click the d360_create_port_type button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                kwargs["pass_msg"] = "Successfully clicked the d360_create_port_type button"
+                self.common_validation.passed(**kwargs)
+                self.utils.wait_till(timeout=10)
+        return 1
+
+    def save_port_type_config(self, **kwargs):
+        """Method that press the save button in the honeycomb port type edtitor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        save_button, _ = self.utils.wait_till(
+            func=self.get_close_port_type_box,
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5
+        )
+
+        if not save_button:
+            kwargs["fail_msg"] = "Failed to get the save button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the save button")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(save_button),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=4
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the save button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the save button"
+        self.common_validation.passed(**kwargs)
+
+        self.utils.wait_till(timeout=10)
+        return 1
+
+    def close_port_type_config(self, **kwargs):
+        """Method that press the close button in the honeycomb port type edtitor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        close_button, _ = self.utils.wait_till(
+            func=self.get_cancel_port_type_box,
+            exp_func_resp=True,
+            delay=5,
+            silent_failure=True
+        )
+
+        if not close_button:
+            kwargs["fail_msg"] = "Failed to get the close button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the close button")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(close_button),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the next button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the next button"
+        self.common_validation.passed(**kwargs)
+
+        self.utils.wait_till(timeout=10)
+        return 1
+
+    def click_on_stp_tab(self, **kwargs):
+        """Method that click the STP configure port stb tab button in the device 360 window.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        stp_tab_button, _ = self.utils.wait_till(
+            func=self.get_d360_configure_port_stp_tab_button,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if not stp_tab_button:
+            kwargs["fail_msg"] = "Failed to get the stp tab button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the stp tab button")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(stp_tab_button),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=4
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the stp tab button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully clicked the stp tab button"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def get_stp_port_configuration_rows(self, **kwargs):
+        """Method that returns the STP port configuration rows in the device 360 window.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        rows, _ = self.utils.wait_till(
+            func=self.get_device360_configure_stp_rows,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if not rows:
+            kwargs["fail_msg"] = "Failed to get rows"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully got the rows"
+        self.common_validation.passed(**kwargs)
+        return rows
+
+    def get_stp_port_configuration_row(self, port, **kwargs):
+        """Method that returns a specific STP port configuration row from the device 360 window.
+        """
+        rows = self.get_stp_port_configuration_rows()
+        for row in rows:
+            if re.search(f"^{port}\n", row.text):
+                self.utils.print_info(f"Successfully found the row port for port='{port}'")
+                return row
+        else:
+            kwargs["fail_msg"] = f"Failed to find the row port for port='{port}'"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def get_path_cost_value_from_stp_port_configuration_row(self, port, **kwargs):
+        """Method that returns the path cost value of a specific port from device 360.
+
+        Args:
+            port (str): the port of the switch
+
+        Returns:
+            int: the path cost value
+        """
+        row = self.get_stp_port_configuration_row(port=port)
+
+        cost_element, _ = self.utils.wait_till(
+            func=lambda: self.get_device360_port_configuration_path_cost_stp(row),
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if not cost_element:
+            kwargs["fail_msg"] = "Failed to get the path cost element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully got the path cost element"
+        self.common_validation.passed(**kwargs)
+
+        return cost_element.get_attribute("value")
+
+    def get_stp_settings_summary(self):
+        """Method that returns the STP settings from the honeycomb summary tab.
+
+        Returns:
+            dict: the summary
+        """
+        self.utils.wait_till(timeout=5)
+        summary = {}
+
+        for row_name, row_value in zip(
+            ["STP", "Edge Port", "BPDU Protection", "Priority", "Path Cost"],
+            ["stp", "edge port", "bpdu protection", "priority", "path cost"]
+        ):
+            try:
+                summary[row_name]  = self.dev360.get_select_element_port_type_summary(row_value).text
+            except:
+                summary[row_name] = ""
+        return summary
+
+    def verify_stp_settings_in_honeycomb_summary(self, stp_settings_summary, stp_enabled=None, edge_port=None,
+                                                 bpdu_protection=None, priority=None, path_cost=None, **kwargs):
+        """Method that verifies the STP settings of the summary tab in the honeycomb port type editor.
+
+        Args:
+            stp_settings_summary (dict): the summary returned by the get_stp_settings_summary method
+            stp_enabled (bool, optional): True or False Defaults to None.
+            edge_port (bool, optional): True or False. Defaults to None.
+            bpdu_protection (int, optional): The pbdu protection value. Defaults to None.
+            priority (int, optional): the priority value. Defaults to None.
+            path_cost (int, optional): the path cost value. Defaults to None.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        if stp_enabled is not None:
+
+            stp_enabled = "Enabled" if stp_enabled is True else "Disabled"
+
+            if stp_enabled != stp_settings_summary["STP"]:
+                kwargs["fail_msg"] = f'Expected STP Enabled to be "{stp_enabled}" but found "{stp_settings_summary["STP"]}"'
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info(f'Successfully found STP Enabled as "{stp_enabled}"')
+
+        if edge_port is not None:
+
+            edge_port = "Enabled" if edge_port is True else "Disabled"
+
+            if edge_port != stp_settings_summary["Edge Port"]:
+                kwargs["fail_msg"] = f'Expected Edge Port to be "{edge_port}" but found "{stp_settings_summary["Edge Port"]}"'
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info(f"Successfully found Edge Port as {edge_port}")
+
+        if bpdu_protection is not None:
+
+            if bpdu_protection != stp_settings_summary["BPDU Protection"]:
+                kwargs["fail_msg"] = f'Expected BPDU Protection to be "{bpdu_protection}" ' \
+                                    f'but found "{stp_settings_summary["BPDU Protection"]}"'
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info(f"Successfully found BPDU Protection as {bpdu_protection}")
+
+        if priority is not None:
+
+            if int(priority) != int(stp_settings_summary["Priority"]):
+                kwargs["fail_msg"] = f'Expected Priority to be "{priority}" but found "{stp_settings_summary["Priority"]}"'
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info(f"Successfully found Priority as {priority}")
+
+        if path_cost is not None:
+
+            if int(path_cost) != int(stp_settings_summary["Path Cost"]):
+                kwargs["fail_msg"] = f'Expected Path Cost enabled to be "{path_cost}" but found "{stp_settings_summary["Path Cost"]}"'
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info(f"Successfully found path cost as {path_cost}")
+
+        kwargs["pass_msg"] = "Successfully verified the given stp settings"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def go_to_stp_settings_tab_in_honeycomb(self, **kwargs):
+        """Method that goes to the STP settings tab in the honeycomb port editor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        self.utils.print_info("Go to the STP settings page")
+
+        for _ in range(5):
+
+            stp_page, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("stpPage"),
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            )
+
+            if not stp_page:
+                kwargs["fail_msg"] = "Failed to get the stp page element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the stp page element")
+
+            if "active" in stp_page.get_attribute("class"):
+                break
+
+            get_next_button, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("next_button"),
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            )
+
+            if not get_next_button:
+                kwargs["fail_msg"] = "Failed to get the next button"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the next button")
+
+            if get_next_button.is_enabled():
+
+                res, _ = self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(get_next_button),
+                    exp_func_resp=True,
+                    silent_failure=True,
+                    delay=4
+                )
+
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to click the next button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                self.utils.print_info("Successfully clicked the next button")
+                self.utils.wait_till(timeout=2)
+
+            else:
+                break
+
+        kwargs["pass_msg"] = "Successfully went to the stp settings tab in the hoenycomb port type editor"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def get_one_port_from_each_asic_flow(self, dut, order, slot=None):
+        """Method that returns one port from each asic in the device360 window.
+
+        Args:
+            dut (dict): the dut
+            order (int): the order in asic of the port
+            slot (int, optional): the slot of the stack if the device is a stack. Defaults to None.
+
+        Returns:
+            list: a list with the selected ports
+        """
+        self.utils.wait_till(timeout=5)
+        self.dev._goto_devices()
+
+        try:
+            self.utils.wait_till(timeout=5)
+            self.deviceCommon.go_to_device360_window(device_mac=dut.mac)
+            self.utils.wait_till(timeout=5)
+
+            if slot:
+                return self.get_one_port_from_each_asic_stack(order=order, slot=slot)
+
+            return self.get_one_port_from_each_asic(order=order)
+
+        finally:
+            self.utils.wait_till(timeout=5)
+            self.close_device360_window()
+
+    def verify_port_type_editor_still_in_stp_tab(self, **kwargs):
+        """Method that verifies if the browser is still in the STP tab of the honeycomb port editor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        stp_page, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("stpPage"),
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if not stp_page:
+            kwargs["fail_msg"] = "Failed to get the stp page element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the stp page element")
+
+        if "active" not in stp_page.get_attribute("class"):
+            kwargs["fail_msg"] = "Currently not in the STP tab"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Currently in the STP tab"
+        self.common_validation.passed(**kwargs)
+
+        return 1
+
+    def set_path_cost_in_honeycomb(self, path_cost, **kwargs):
+        """Method that sets the path cost in the honeycomb port type editor.
+
+        Args:
+            path_cost (int): the path cost value
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        path_cost_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("path cost"),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5
+        )
+
+        if not path_cost_element:
+            kwargs["fail_msg"] = "Failed to get the path cost element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the path cost element")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.send_keys(path_cost_element, str(path_cost)),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to send keys to the path cost element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        kwargs["pass_msg"] = "Successfully sent keys to the path cost element"
+        self.common_validation.passed(**kwargs)
+        self.utils.wait_till(timeout=5)
+
+        return 1
+
+    def verify_path_cost_field_is_editable(self, **kwargs):
+        """Method that verifies if the path cost field in editable in the honeycomb port type editor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        path_cost_element, _ = self.utils.wait_till(
+            func=lambda: self.get_select_element_port_type("path cost"),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5
+        )
+
+        if not path_cost_element:
+            kwargs["fail_msg"] = "Failed to get the path cost element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully got the path cost element")
+
+        if path_cost_element.is_enabled() is True:
+            kwargs["pass_msg"] = "Successfully verified that the path cost field is editable"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        kwargs["fail_msg"] = "The path cost element is not editable"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def configure_stp_settings_tab_in_honeycomb(self, stp_enabled=None, edge_port=None, bpdu_protection=None,
+                                                path_cost=None, priority=None, **kwargs):
+        """Method that configures the STP settings tab in the honeycomb port type editor.
+
+        Args:
+            stp_enabled (bool, optional): the STP status. Defaults to None.
+            edge_port (bool, optional): the edge port status. Defaults to None.
+            bpdu_protection (int, optional): the bpdu protection value. Defaults to None.
+            path_cost (int, optional): the path cost value. Defaults to None.
+            priority (int, optional): the priority value. Defaults to None.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        if stp_enabled is not None:
+            stp_enabled_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("stp enable"),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not stp_enabled_element:
+                kwargs["fail_msg"] = "Failed to get the stp_enabled"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the stp_enabled")
+
+            if (not stp_enabled_element.is_selected() and stp_enabled) or (
+                stp_enabled_element.is_selected() and not stp_enabled):
+
+                res, _ = self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(stp_enabled_element),
+                    exp_func_resp=True,
+                    silent_failure=True,
+                    delay=4
+                )
+
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to click the stp_enabled button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                self.utils.print_info("Successfully clicked the stp_enabled button")
+
+        if edge_port is not None:
+            edge_port_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("edge port"),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not edge_port_element:
+                kwargs["fail_msg"] = "Failed to get the edge_port_element button"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the edge_port_element button")
+
+            if (not edge_port_element.is_selected() and edge_port) or (
+                edge_port_element.is_selected() and not edge_port):
+
+                res, _ = self.utils.wait_till(
+                    func=lambda: self.auto_actions.click(edge_port_element),
+                    exp_func_resp=True,
+                    silent_failure=True,
+                    delay=4
+                )
+
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to click the edge_port_element button"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                self.utils.print_info("Successfully clicked the edge_port_element button")
+
+        if bpdu_protection is not None:
+            bpdu_protection_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("bpdu protection"),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not bpdu_protection_element:
+                kwargs["fail_msg"] = "Failed to get the bpdu_protection_element button"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the bpdu_protection_element button")
+
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(bpdu_protection_element),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=4
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the bpdu_protection_element button"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully clicked the bpdu_protection_element button")
+
+            get_bpdu_protection_items, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("bpdu_protection_items"),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not get_bpdu_protection_items:
+                kwargs["fail_msg"] = "Failed to get get_bpdu_protection_items"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got get_bpdu_protection_items")
+
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.select_drop_down_options(
+                get_bpdu_protection_items, bpdu_protection),
+                exp_func_resp=True,
+                silent_failure=True,
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to select from dropdown"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully selected from dropdown")
+
+        if path_cost is not None:
+
+            path_cost_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("path cost"),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not path_cost_element:
+                kwargs["fail_msg"] = "Failed to get the path_cost_element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the path_cost_element")
+
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.send_keys(path_cost_element, str(path_cost)),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=4
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to send keys to the path_cost_element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully sent keys to the path_cost_element")
+
+        if priority:
+            priority_element, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("priority"),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not priority_element:
+                kwargs["fail_msg"] = "Failed to get the priority_element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the priority_element")
+
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(priority_element),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=4
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the priority_element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully clicked the priority_element")
+
+            get_priority_items, _ = self.utils.wait_till(
+                func=lambda: self.get_select_element_port_type("priority_items"),
+                exp_func_resp=True,
+                silent_failure=True,
+                delay=5
+            )
+
+            if not get_priority_items:
+                kwargs["fail_msg"] = "Failed to get the priority_items"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully got the priority_items")
+
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.select_drop_down_options(get_priority_items, str(priority)),
+                exp_func_resp=True,
+                silent_failure=True
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to select from dropdown"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully selected from dropdown")
+
+        kwargs["pass_msg"] = "Successfully configured the stp settings"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def get_vlan_settings_summary(self):
+        """Method that returns the vlan settings from the summary tab of the honeycomb port type editor.
+
+        Returns:
+            dict: the vlan settings
+        """
+        self.utils.wait_till(timeout=5)
+        summary = {}
+
+        for row_name, row_value in zip(
+            ["Port Usage", "Native VLAN", "Allowed VLANs", "VLAN"],
+            ["port usage", "native vlan","allowed vlans", "vlan"]
+        ):
+            try:
+                summary[row_name] = self.get_select_element_port_type_summary(row_value).text
+            except:
+                summary[row_name] = ""
+        return summary
+
+    def configure_port_name_usage_tab(self, port_type_name, description="test",
+                                      status=True, port_type="access", **kwargs):
+        """Method that configures the first tab of the honeycomb port type editor.
+
+        Args:
+            port_type_name (str): the name of the port type
+            description (str, optional): the description of the port type. Defaults to "test".
+            status (bool, optional): the status of the port. Defaults to True.
+            port_type (str, optional): the type of port. Defaults to "access".
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        name_element = self.get_select_element_port_type("name")
+
+        if not name_element:
+            kwargs["fail_msg"] = "Failed to find the port name element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully found the port name element")
+
+        if self.auto_actions.send_keys(name_element, port_type_name) != 1:
+            kwargs["fail_msg"] = "Failed to send keys to the port name element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully sent keys to the port name element")
+        self.utils.wait_till(timeout=2)
+
+        description_element = self.get_select_element_port_type("description")
+
+        if not description_element:
+            kwargs["fail_msg"] = "Failed to get the description element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the description element")
+
+        if self.auto_actions.send_keys(description_element, description) != 1:
+            kwargs["fail_msg"] = "Failed to send keys to the description element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.wait_till(timeout=2)
+        self.utils.print_info("Successfully sent keys to the description element")
+
+        status_element = self.get_select_element_port_type("status")
+
+        if not status_element:
+            kwargs["fail_msg"] = "Failed to get the status element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.wait_till(timeout=2)
+        self.utils.print_info("Successfully got the status element")
+
+        if (not status_element.is_selected() and status) or (
+            status_element.is_selected() and not status):
+
+            if self.auto_actions.click(status_element) != 1:
+                kwargs["fail_msg"] = "Failed to click the status element"
+                self.common_validation.fault(**kwargs)
+
+            self.utils.wait_till(timeout=2)
+            self.utils.print_info("Successfully clicked the status element")
+
+        auto_sense = self.get_select_element_port_type("auto-sense")
+        if auto_sense:
+            # disable autosense if found in initial tab
+            if auto_sense.is_selected():
+
+                if self.auto_actions.click(auto_sense) != 1:
+                    kwargs["fail_msg"] = "Failed to click the autosense button"
+                    self.common_validation.fault(**kwargs)
+
+                self.utils.print_info("Successfully clicked the autosense button")
+                self.utils.wait_till(timeout=2)
+
+        port_element = self.get_select_element_port_type("port usage", f"{port_type} port")
+
+        if not port_element:
+            kwargs["fail_msg"] = "Failed to get the port usage element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the port usage element")
+
+        if self.auto_actions.click(port_element) != 1:
+            kwargs["fail_msg"] = "Failed to click the port usage element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully clicked the port usage element")
+
+        kwargs["pass_msg"] = "Successfully configured the initial tab of the honeycomb port type editor"
+        self.common_validation.passed(**kwargs)
+        self.utils.wait_till(timeout=2)
+        return 1
+
+    def set_vlan_id(self, vlan_id, **kwargs):
+        """Method that sets the vlan id in the vlan tab of honeycomb port type editor.
+        If the vlan is not found in the dropdown then it will be created.
+
+        Args:
+            vlan_id (int): the vlan
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        get_select_button = self.get_select_element_port_type("select_button")
+
+        if not get_select_button:
+            kwargs["fail_msg"] = "Failed to get the select_button element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the select_button element")
+
+        if self.auto_actions.click(get_select_button) != 1:
+            kwargs["fail_msg"] = "Failed to click the select_button element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.wait_till(timeout=2)
+
+        get_dropdown_items = self.get_select_element_port_type("dropdown_items")
+
+        if not get_dropdown_items:
+            kwargs["fail_msg"] = "Failed to get the dropdown_items elements"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the dropdown_items elements")
+
+        if self.auto_actions.select_drop_down_options(get_dropdown_items, str(vlan_id)) == 1:
+            kwargs["pass_msg"] = f"Selected into dropdown value: {vlan_id}"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        self.utils.print_info("vlan {vlan_id} is not found so it will be created")
+
+        get_add_vlan = self.get_select_element_port_type("add_vlan")
+
+        if not get_add_vlan:
+            kwargs["fail_msg"] = "Failed to get the add_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the add_vlan element")
+
+        if self.auto_actions.click(get_add_vlan) != 1:
+            kwargs["fail_msg"] = "Failed to click the get_add_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully clicked the add_vlan element")
+        self.utils.wait_till(timeout=2)
+
+        get_name_vlan = self.get_select_element_port_type("name_vlan")
+
+        if not get_name_vlan:
+            kwargs["fail_msg"] = "Failed to get the name_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the name_vlan element")
+
+        if self.auto_actions.send_keys(get_name_vlan, str(vlan_id)) != 1:
+            kwargs["fail_msg"] = "Failed to send keys to name_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully sent keys to the name_vlan element")
+        self.utils.wait_till(timeout=2)
+
+        get_id_vlan = self.dev360.get_select_element_port_type("id_vlan")
+
+        if not get_id_vlan:
+            kwargs["fail_msg"] = "Failed to get the id_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the id_vlan element")
+
+        if self.auto_actions.send_keys(get_id_vlan, str(vlan_id)) != 1:
+            kwargs["fail_msg"] = "Failed to send keys to the id_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully sent keys to the id_vlan element")
+        self.utils.wait_till(timeout=2)
+
+        get_save_vlan = self.get_select_element_port_type("save_vlan")
+
+        if not get_save_vlan:
+            kwargs["fail_msg"] = "Failed to get the save_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the save_vlan element")
+
+        if self.auto_actions.click(get_save_vlan) != 1:
+            kwargs["fail_msg"] = "Failed to click the save_vlan element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully clicked the save_vlan element")
+
+        kwargs["pass_msg"] = "Successfully configured the vlan"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def set_native_vlan_id(self, native_vlan_id, **kwargs):
+        """Method that sets the native vlan id in the vlan tab of honeycomb port type editor.
+        If the vlan is not found in the dropdown then it will be created.
+
+        Args:
+            native_vlan_id (int): the vlan
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        get_select_button = self.get_select_element_port_type("native_vlan_select_button")
+
+        if not get_select_button:
+            kwargs["fail_msg"] = "Failed to get the select_button"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the select_button element")
+
+        if self.auto_actions.click(get_select_button) != 1:
+            kwargs["fail_msg"] = "Failed to click the select_button element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully clicked the select_button element")
+        self.utils.wait_till(timeout=2)
+
+        get_dropdown_items = self.get_select_element_port_type("native_vlan_dropdown_items")
+
+        if not get_dropdown_items:
+            kwargs["fail_msg"] = "Failed to get the get_dropdown_items elements"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the get_dropdown_items elements")
+
+        if self.auto_actions.select_drop_down_options(get_dropdown_items, str(native_vlan_id)) == 1:
+            kwargs["pass_msg"] = f"Selected into dropdown value: {native_vlan_id}"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        self.utils.print_info("vlan {native_vlan_id} is not found so it will be created")
+
+        get_add_vlan = self.get_select_element_port_type("native_vlan_add_vlan")
+
+        if not get_add_vlan:
+            kwargs["fail_msg"] = "Failed to get the native_vlan_add_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the native_vlan_add_vlan element")
+
+        if self.auto_actions.click(get_add_vlan) != 1:
+            kwargs["fail_msg"] = "Failed to click the native_vlan_add_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully clicked the native_vlan_add_vlan element")
+        self.utils.wait_till(timeout=2)
+
+        get_name_vlan = self.get_select_element_port_type("native_vlan_name_vlan")
+
+        if not get_name_vlan:
+            kwargs["fail_msg"] = "Failed to get the native_vlan_name_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully found the native_vlan_name_vlan element")
+
+        if self.auto_actions.send_keys(get_name_vlan, str(native_vlan_id)) != 1:
+            kwargs["fail_msg"] = "Failed to send keys to name_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully clicked the native_vlan_name_vlan element")
+
+        get_id_vlan = self.get_select_element_port_type("native_vlan_id_vlan")
+
+        if not get_id_vlan:
+            kwargs["fail_msg"] = "Failed to get the native_vlan_id_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully found the native_vlan_id_vlan element")
+
+        if self.auto_actions.send_keys(get_id_vlan, str(native_vlan_id)) != 1:
+            kwargs["fail_msg"] = "Failed to send keys to the native_vlan_id_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully sent keys to the native_vlan_id_vlan element")
+        self.utils.wait_till(timeout=2)
+
+        get_save_vlan = self.get_select_element_port_type("save_vlan")
+
+        if not get_save_vlan:
+            kwargs["fail_msg"] = "Failed to get the save_vlan element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the save_vlan element")
+
+        if self.auto_actions.click(get_save_vlan) != 1:
+            kwargs["fail_msg"] = "Failed to click the save_vlan element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully clicked the save_vlan element")
+
+        kwargs["pass_msg"] = "Successfully configured the native vlan"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def create_port_type_with_custom_vlan_values(
+        self, port, port_type_name, port_type="access", vlan_id=None, native_vlan_id=None, allowed_vlans=None,
+        device_360=False, **kwargs):
+        """Method that creates a new port type with custom values for the vlan tab of the port type editor.
+        All the other fields remain with the default values.
+
+        Args:
+            port (str): the name of the port
+            port_type_name (str): the name of the port type
+            port_type (str, optional): type of port - acces/trunk. Defaults to "access".
+            vlan_id (str, optional): the vlan id. Defaults to None.
+            native_vlan_id (str, optional): the native vlan id. Defaults to None.
+            allowed_vlans (str, optional): the allowed vlans. Defaults to None.
+            device_360 (bool, optional): True if the configuration is at device level. Defaults to False.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        try:
+            self.utils.wait_till(timeout=4)
+
+            self.open_new_port_type_editor(port=port, device_360=device_360)
+
+            self.configure_port_name_usage_tab(port_type_name=port_type_name, port_type=port_type)
+
+            self.go_to_next_editor_tab()
+
+            if vlan_id:
+                self.utils.wait_till(timeout=2)
+                self.set_vlan_id(vlan_id=vlan_id)
+                self.utils.wait_till(timeout=2)
+
+            if native_vlan_id:
+                self.utils.wait_till(timeout=2)
+                self.set_native_vlan_id(native_vlan_id=native_vlan_id)
+                self.utils.wait_till(timeout=2)
+
+            if allowed_vlans:
+                self.utils.wait_till(timeout=2)
+                self.set_allowed_vlans(allowed_vlans_value=allowed_vlans)
+                self.utils.wait_till(timeout=2)
+
+            kwargs["pass_msg"] = "Successfully created the new port type"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        except:
+            kwargs["fail_msg"] = "Failed to create the new port type"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        finally:
+            self.go_to_last_page()
+            self.save_port_type_config()
+
+    def set_allowed_vlans(self, allowed_vlans_value, **kwargs):
+        """Method that sets the allowed vlans field in vlan tab of the honeycomb port type editor.
+
+        Args:
+            allowed_vlans_value (str): the allowed vlans value
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        allowed_vlans = self.get_select_element_port_type("allowed vlans")
+
+        if not allowed_vlans:
+            kwargs["fail_msg"] = "Failed to get allowed vlans element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the allowed vlans element")
+
+        if self.auto_actions.send_keys(allowed_vlans, allowed_vlans_value) != 1:
+            kwargs["fail_msg"] = "Failed to send keys to the allowed vlans element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully sent keys to the allowed vlans element")
+
+        kwargs["pass_msg"] = "Successfully configured the allowed vlans field"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def go_to_device_360_port_config(self, dut, slot=None, **kwargs):
+        """Method that goes to the port configuration tab of the device 360 window.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            slot (str): the slot/unit of the stack
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        self.utils.wait_till(timeout=2)
+        self.dev._goto_devices()
+        self.utils.wait_till(timeout=2)
+
+        self.utils.wait_till(timeout=2)
+        self.deviceCommon.go_to_device360_window(device_mac=dut.mac)
+        self.utils.wait_till(timeout=2)
+
+        config_button = self.get_device360_configure_button()
+
+        if not config_button:
+            kwargs["fail_msg"] = "Failed to get the config_button element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the config_button element")
+
+        if not config_button.is_selected():
+
+            if self.auto_actions.click(config_button) != 1:
+                kwargs["fail_msg"] = "Failed to click the config_button element"
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully clicked the config_button element")
+            self.utils.wait_till(timeout=5)
+
+        port_config_button = self.get_device360_configure_port_configuration_button()
+
+        if not port_config_button:
+            kwargs["fail_msg"] = "Failed to get the port_config_button element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the port_config_button element")
+
+        if self.auto_actions.click(port_config_button) != 1:
+            kwargs["fail_msg"] = "Failed to click the port_config_button element"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully clicked the port_config_button element")
+
+        if slot is not None:
+            self.select_stack_unit(slot)
+
+        kwargs["pass_msg"] = "Successfully went to the port configuration tab of the device 360 window"
+        self.common_validation.passed(**kwargs)
+        self.utils.wait_till(timeout=20)
+        return 1
+
+    def verify_none_vlan_id_appears_in_device_view(self, dut, port, **kwargs):
+        """Method that verifies if 'None' appear as access vlan in the device 360 window after the vlan is
+        set as 'none' in the honeycomb port type editor for given port.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            port (str): the port of the dut
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        try:
+
+            self.dev.refresh_devices_page()
+            self.utils.wait_till(timeout=10)
+
+            self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+            self.utils.wait_till(timeout=8)
+
+            self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
+            self.utils.wait_till(timeout=4)
+
+            rows = self.get_d360_switch_ports_table_grid_rows()[1:]
+
+            if not rows:
+                kwargs["fail_msg"] = "Failed to get the port rows from device 360"
+                self.common_validation.fault(**kwargs)
+
+            [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
+
+            if not re.search(rf"{port}.*None", port_row.text):
+                kwargs["fail_msg"] = f"Failed to find 'None' set as access vlan to the given port '{port}'"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            kwargs["pass_msg"] = f"Successfully found 'None' set as access vlan to the given port '{port}'"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        finally:
+            self.exit_d360_Page()
+
+    def save_device_360_port_config(self, **kwargs):
+        """ Method that saves the device 360 port config window.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        self.utils.wait_till(timeout=5)
+
+        save_btn = self.get_device360_configure_port_save_button()
+        if not save_btn:
+            kwargs["fail_msg"] = "Failed to get the save button"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the save button")
+
+        if self.auto_actions.click(save_btn) != 1:
+            kwargs["fail_msg"] = "Failed to click the save button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully clicked the save button")
+
+        kwargs["pass_msg"] = "Successfully saved the device 360 port config"
+        self.common_validation.passed(**kwargs)
+        self.utils.wait_till(timeout=10)
+        return 1
+
+    def get_vlan_data_from_device_360_tabular_view(self, dut, port, **kwargs):
+        """Method that returns from device 360 the port_mode, port_access_vlan and port_tagged_vlan fields of a given port.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            port (str): the port of the dut
+
+        Returns:
+            dict|int: a dict if the function call has succeeded else -1
+        """
+        try:
+
+            self.dev.refresh_devices_page()
+            self.utils.wait_till(timeout=10)
+
+            self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+            self.utils.wait_till(timeout=8)
+
+            self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
+            self.utils.wait_till(timeout=4)
+
+            rows = self.get_d360_switch_ports_table_grid_rows()[1:]
+            assert rows, "Failed to get the port rows from device 360"
+
+            [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
+
+            data =  {
+                "port_mode": self.get_device360_switch_port_table_port_mode(port_row).text,
+                "port_access_vlan": self.get_device360_switch_port_table_access_vlan(port_row).text,
+                "port_tagged_vlan": self.get_device360_switch_port_table_tagged_vlans(port_row).text
+            }
+
+            kwargs["pass_msg"] = "Successfully got the port info from the device 360"
+            self.common_validation.passed(**kwargs)
+            return data
+
+        except:
+            kwargs["fail_msg"] = "Failed to get the port info from the device 360"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        finally:
+            self.exit_d360_Page()
+
+    def get_vlan_data_from_device_360_tabular_for_all_ports(self, dut, **kwargs):
+        """Method that returns from device 360 the port_mode, port_access_vlan and port_tagged_vlan fields for all the ports of a dut.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+
+        Returns:
+            dict|int: a dict if the function call has succeeded else -1
+        """
+        try:
+
+            self.dev.refresh_devices_page()
+            self.utils.wait_till(timeout=10)
+
+            self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+            self.utils.wait_till(timeout=8)
+
+            self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
+            self.utils.wait_till(timeout=4)
+
+            rows = self.get_d360_switch_ports_table_grid_rows()[1:]
+            assert rows, "Failed to get the port rows from device 360"
+
+            ports = [row.text.split(" ")[0] for row in rows]
+
+            ret = {}
+
+            for port in ports:
+
+                [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
+
+                ret[port] = {
+                    "port_mode": self.get_device360_switch_port_table_port_mode(port_row).text,
+                    "port_access_vlan": self.get_device360_switch_port_table_access_vlan(port_row).text,
+                    "port_tagged_vlan": self.get_device360_switch_port_table_tagged_vlans(port_row).text
+                }
+
+            kwargs["pass_msg"] = "Successfully got the port info from device 360"
+            self.common_validation.passed(**kwargs)
+            return ret
+
+        except:
+            kwargs["fail_msg"] = "Failed to get the port info from the device 360"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        finally:
+            self.exit_d360_Page()
+
+    def enter_port_type_and_vlan_id(
+        self, port, port_type=None, access_vlan_id=None, native_vlan=None,
+        allowed_vlans=None, device_os="EXOS", **kwargs):
+        """Method that configures the vlan and port type in the device 360 port configuration window.
+
+        Args:
+            port (str): the port
+            port_type (str, optional): the port type. Defaults to None.
+            access_vlan_id (str, optional):the access vlan id. Defaults to None.
+            native_vlan (str, optional): the native vlan id. Defaults to None.
+            allowed_vlans (str, optional): the allowed vlans. Defaults to None.
+            device_os (str, optional): the cli_type field of dut. Defaults to "EXOS".
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        self.utils.wait_till(timeout=8)
+        port_row = self.device360_get_port_row(port)
+
+        if not port_row:
+            kwargs["fail_msg"] = "Failed to get the port_row element"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_debug("Found row for port: ", port_row.text)
+
+        if port_type:
+
+            drop_down = self.get_device360_configure_port_usage_drop_down_button(port_row)
+
+            if not drop_down:
+                kwargs["fail_msg"] = "Failed to get the drop_down button"
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully got the drop_down button")
+
+            if self.auto_actions.click(drop_down) != 1:
+                kwargs["fail_msg"] = "Failed to click the drop_down button"
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully clicked the drop_down button")
+            self.utils.wait_till(timeout=2)
+
+            self.utils.print_info("Selecting Port Usage")
+            dropdown_options = self.get_device360_configure_port_usage_drop_down_options(port_row)
+
+            if not dropdown_options:
+                kwargs["fail_msg"] = "Failed to get the dropdown_options elements"
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully got the dropdown_options elements")
+
+            if self.auto_actions.select_drop_down_options(dropdown_options, port_type) != 1:
+                kwargs["fail_msg"] = "Failed to select options from the dropdown_options elements"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully selected options from the dropdown_options elements")
+            self.utils.wait_till(timeout=2)
+
+        if access_vlan_id:
+
+            if device_os == "EXOS":
+                input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield(port_row)
+            else:
+                input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield_VOSS(port_row)
+
+            if not input_field_access_vlan_id:
+                kwargs["fail_msg"] = "Failed to get the input_field_access_vlan_id element"
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully got the input_field_access_vlan_id element")
+
+            if self.auto_actions.send_keys(input_field_access_vlan_id, Keys.BACK_SPACE * 10 + access_vlan_id + Keys.ENTER) != 1:
+                kwargs["fail_msg"] = "Failed to sent keys to the input_field_access_vlan_id element"
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully sent keys to the input_field_access_vlan_id element")
+            self.utils.wait_till(timeout=2)
+
+        if native_vlan:
+
+            if device_os == "EXOS":
+                input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield(port_row)
+            else:
+                input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield_VOSS(port_row)
+
+            if not input_field_trunk_native:
+                kwargs["fail_msg"] = "Failed to get the input_field_trunk_native element"
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully got the input_field_trunk_native element")
+
+            if self.auto_actions.send_keys(input_field_trunk_native, Keys.BACK_SPACE * 10 + native_vlan + Keys.ENTER) != 1:
+                kwargs["fail_msg"] = "Failed to send keys to the input_field_trunk_native element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully sent keys to the input_field_trunk_native element")
+            self.utils.wait_till(timeout=2)
+
+        if allowed_vlans:
+
+            if device_os == "EXOS":
+                input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
+            else:
+                input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield_VOSS(port_row)
+
+            if not input_field_allowed_vlans:
+                kwargs["fail_msg"] = "Failed to get the input_field_allowed_vlans element"
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully got the input_field_allowed_vlans element")
+
+            if self.auto_actions.send_keys(input_field_allowed_vlans, Keys.BACK_SPACE * 10 + allowed_vlans + Keys.ENTER) != 1:
+                kwargs["fail_msg"] = "Failed to send keys to the input_field_allowed_vlans element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            self.utils.print_info("Successfully sent keys to the input_field_allowed_vlans element")
+
+        kwargs["pass_msg"] = f"Successfully configured the vlan fields of the port '{port}'"
+        self.common_validation.passed(**kwargs)
+        self.utils.wait_till(timeout=8)
+        return 1
+
+    def close_port_type_config(self, **kwargs):
+        """Method that closed the honeycomb port type editor.
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        close_button = self.get_device_d360_cancel_port_configuration()
+
+        if not close_button:
+            kwargs["fail_msg"] = "Failed to get the close button"
+            self.common_validation.fault(**kwargs)
+
+        self.utils.print_info("Successfully got the close button")
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(close_button),
+            exp_func_resp=True,
+            delay=3
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the close button"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Successfully clicked the close button")
+
+        kwargs["pass_msg"] = "Successfully closed the honeycomb port type editor"
+        self.common_validation.passed(**kwargs)
+        self.utils.wait_till(timeout=10)
+        return 1

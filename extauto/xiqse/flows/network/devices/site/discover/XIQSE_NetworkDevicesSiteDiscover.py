@@ -18,10 +18,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_click_add_address_button(self):
         """
-         - This keyword clicks the Add button in the Addresses panel on the Network> Devices> Site> Discover Tab
-         - It is assumed the view is already navigated to the Discover tab.
-         - Keyword Usage
-          - ``XIQSE Discover Click Add Address Button``
+        - This keyword clicks the Add button in the Addresses panel on the Network> Devices> Site> Discover Tab
+        - It is assumed the view is already navigated to the Discover tab.
+        - Keyword Usage
+        - ``XIQSE Discover Click Add Address Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -39,10 +39,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_addresses_add_subnet(self, subnet_mask):
         """
-         - This keyword adds the specified subnet address on the Network> Devices> Site> Discover Tab.
-         - It is assumed the view is currently navigated to the Discover tab.
-         - Keyword Usage
-          - ``XIQSE Discover Addresses Add Subnet   1.2.3.4/24`
+        - This keyword adds the specified subnet address on the Network> Devices> Site> Discover Tab.
+        - It is assumed the view is currently navigated to the Discover tab.
+        - Keyword Usage
+        - ``XIQSE Discover Addresses Add Subnet   1.2.3.4/24`
 
         :param subnet_mask: subnet/mask value to enter
         :return: 1 if action was successful, else -1
@@ -75,10 +75,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_addresses_add_seed_address(self, seed_address):
         """
-         - This keyword adds the specified seed address on the Network> Devices> Site> Discover Tab.
-         - It is assumed the view is currently navigated to the Discover tab.
-         - Keyword Usage
-          - ``XIQSE Discover Addresses Add Seed Address   1.2.3.4`
+        - This keyword adds the specified seed address on the Network> Devices> Site> Discover Tab.
+        - It is assumed the view is currently navigated to the Discover tab.
+        - Keyword Usage
+        - ``XIQSE Discover Addresses Add Seed Address   1.2.3.4`
 
         :param seed_address: seed address to enter
         :return: 1 if action was successful, else -1
@@ -109,10 +109,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_addresses_add_address_range(self, start_address, end_address):
         """
-         - This keyword adds the specified address range on the Network> Devices> Site> Discover Tab.
-         - It is assumed the view is currently navigated to the Discover tab.
-         - Keyword Usage
-          - ``XIQSE Discover Add Address Range   1.2.3.1    1.2.3.255`
+        - This keyword adds the specified address range on the Network> Devices> Site> Discover Tab.
+        - It is assumed the view is currently navigated to the Discover tab.
+        - Keyword Usage
+        - ``XIQSE Discover Add Address Range   1.2.3.1    1.2.3.255`
 
         :param start_address: value to enter for the starting IP address range
         :param end_address: value to enter for the ending IP address range
@@ -144,10 +144,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_addresses_select_subnet(self, subnet_mask):
         """
-         - This keyword selects the specified subnet address in the Addresses panel.
-         - It is assumed the Site> Discover tab is visible.
-         - Keyword Usage
-          - ``XIQSE Discover Addresses Select Subnet    1.2.3.1/24``
+        - This keyword selects the specified subnet address in the Addresses panel.
+        - It is assumed the Site> Discover tab is visible.
+        - Keyword Usage
+        - ``XIQSE Discover Addresses Select Subnet    1.2.3.1/24``
 
         :param subnet_mask: value of the subnet/mask to select
         :return: 1 if action was successful, else -1
@@ -179,10 +179,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_addresses_select_seed_address(self, seed_address):
         """
-         - This keyword selects the specified seed address in the Addresses panel.
-         - It is assumed the Site> Discover tab is visible.
-         - Keyword Usage
-          - ``XIQSE Discover Addresses Select Seed Address    1.2.3.4``
+        - This keyword selects the specified seed address in the Addresses panel.
+        - It is assumed the Site> Discover tab is visible.
+        - Keyword Usage
+        - ``XIQSE Discover Addresses Select Seed Address    1.2.3.4``
 
         :param seed_address: value of the seed address to select
         :return: 1 if action was successful, else -1
@@ -214,10 +214,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_addresses_select_address_range(self, start_address, end_address):
         """
-         - This keyword selects the specified address range in the Addresses panel.
-         - It is assumed the Site> Discover tab is visible.
-         - Keyword Usage
-          - ``XIQSE Discover Addresses Select Address Range    1.2.3.4    1.2.3.5``
+        - This keyword selects the specified address range in the Addresses panel.
+        - It is assumed the Site> Discover tab is visible.
+        - Keyword Usage
+        - ``XIQSE Discover Addresses Select Address Range    1.2.3.4    1.2.3.5``
 
         :param start_address: value of the starting IP address range to select
         :param end_address: value of the ending IP address range to select
@@ -251,10 +251,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_addresses_delete_subnet(self, subnet_mask):
         """
-         - This keyword selects the specified subnet/mask in the Addresses panel and clicks the Delete toolbar button.
-         - It is assumed the Site> Discover tab is visible.
-         - Keyword Usage
-          - ``XIQSE Discover Addresses Delete Seed Address    1.2.3.4``
+        - This keyword selects the specified subnet/mask in the Addresses panel and clicks the Delete toolbar button.
+        - It is assumed the Site> Discover tab is visible.
+        - Keyword Usage
+        - ``XIQSE Discover Addresses Delete Seed Address    1.2.3.4``
 
         :param subnet_mask: value of the subnet/mask to delete
         :return: 1 if action was successful, else -1
@@ -274,10 +274,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_addresses_delete_seed_address(self, seed_address):
         """
-         - This keyword selects the specified seed address in the Addresses panel and clicks the Delete toolbar button.
-         - It is assumed the Site> Discover tab is visible.
-         - Keyword Usage
-          - ``XIQSE Discover Addresses Delete Seed Address    1.2.3.4``
+        - This keyword selects the specified seed address in the Addresses panel and clicks the Delete toolbar button.
+        - It is assumed the Site> Discover tab is visible.
+        - Keyword Usage
+        - ``XIQSE Discover Addresses Delete Seed Address    1.2.3.4``
 
         :param seed_address: value of the seed address to delete
         :return: 1 if action was successful, else -1
@@ -297,10 +297,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_addresses_delete_address_range(self, start_address, end_address):
         """
-         - This keyword selects the specified address range in the Addresses panel and clicks the Delete toolbar button.
-         - It is assumed the Site> Discover tab is visible.
-         - Keyword Usage
-          - ``XIQSE Discover Addresses Delete Address Range    1.2.3.4    1.2.3.5``
+        - This keyword selects the specified address range in the Addresses panel and clicks the Delete toolbar button.
+        - It is assumed the Site> Discover tab is visible.
+        - Keyword Usage
+        - ``XIQSE Discover Addresses Delete Address Range    1.2.3.4    1.2.3.5``
 
         :param start_address: value of the starting IP address range to delete
         :param end_address: value of the ending IP address range to delete
@@ -321,10 +321,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_delete_selected_address(self):
         """
-         - This keyword deletes the currently-selected address in the Addresses panel.
-         - It is assumed the Site> Discover tab is visible and the address entry to delete is selected.
-         - Keyword Usage
-          - ``XIQSE Discover Delete Selected Address``
+        - This keyword deletes the currently-selected address in the Addresses panel.
+        - It is assumed the Site> Discover tab is visible and the address entry to delete is selected.
+        - Keyword Usage
+        - ``XIQSE Discover Delete Selected Address``
 
         :return: 1 if action was successful, else -1
         """
@@ -343,10 +343,10 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_clear_all_profile_selections(self):
         """
-         - This keyword clears the selected state of the Accept and Reject columns for all profiles in the Profiles panel.
-         - It is assumed the Site> Discover tab is visible.
-         - Keyword Usage
-          - ``XIQSE Discover Clear All Profile Selections``
+        - This keyword clears the selected state of the Accept and Reject columns for all profiles in the Profiles panel.
+        - It is assumed the Site> Discover tab is visible.
+        - Keyword Usage
+        - ``XIQSE Discover Clear All Profile Selections``
         """
         accept_cbs = self.get_profile_selected_accept_check_buttons()
         if accept_cbs:
@@ -368,11 +368,11 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_set_accept_profile(self, profile_name, accept_val="true"):
         """
-         - This keyword sets the selected state of the Accept column for the specified profile in the Profiles panel.
-         - It is assumed the Site> Discover tab is visible.
-         - Keyword Usage
-          - ``XIQSE Discover Set Accept Profile  public_v1_Profile  true``
-          - ``XIQSE Discover Set Accept Profile  public_v2_Profile  false``
+        - This keyword sets the selected state of the Accept column for the specified profile in the Profiles panel.
+        - It is assumed the Site> Discover tab is visible.
+        - Keyword Usage
+        - ``XIQSE Discover Set Accept Profile  public_v1_Profile  true``
+        - ``XIQSE Discover Set Accept Profile  public_v2_Profile  false``
 
         :param profile_name: name of the profile to mark
         :param accept_val: indicates whether to select or deselect the Accept check box
@@ -415,11 +415,11 @@ class XIQSE_NetworkDevicesSiteDiscover(NetworkDevicesSiteDiscoverWebElements):
 
     def xiqse_discover_set_reject_profile(self, profile_name, reject_val="true"):
         """
-         - This keyword checks the Reject column for the specified profile in the Profiles panel.
-         - It is assumed the Site> Discover tab is visible.
-         - Keyword Usage
-          - ``XIQSE Discover Set Reject Profile  public_v1_Profile  true``
-          - ``XIQSE Discover Set Reject Profile  public_v2_Profile  false``
+        - This keyword checks the Reject column for the specified profile in the Profiles panel.
+        - It is assumed the Site> Discover tab is visible.
+        - Keyword Usage
+        - ``XIQSE Discover Set Reject Profile  public_v1_Profile  true``
+        - ``XIQSE Discover Set Reject Profile  public_v2_Profile  false``
 
         :param profile_name: name of the profile to mark
         :param reject_val: indicates whether to select or deselect the Reject check box

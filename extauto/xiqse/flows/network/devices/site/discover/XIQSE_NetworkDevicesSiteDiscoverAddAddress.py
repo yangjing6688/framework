@@ -15,12 +15,12 @@ class XIQSE_NetworkDevicesSiteDiscoverAddAddress(NetworkDevicesSiteDiscoverAddAd
 
     def xiqse_discover_add_address_dialog_select_type(self, type):
         """
-         - This keyword selects the Discover Type in the Add Address dialog.
-         - It is assumed the Add Address dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Discover Add Address Dialog Select Type    Address Range``
-          - ``XIQSE Discover Add Address Dialog Select Type    Seed Address``
-          - ``XIQSE Discover Add Address Dialog Select Type    Subnet``
+        - This keyword selects the Discover Type in the Add Address dialog.
+        - It is assumed the Add Address dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Discover Add Address Dialog Select Type    Address Range``
+        - ``XIQSE Discover Add Address Dialog Select Type    Seed Address``
+        - ``XIQSE Discover Add Address Dialog Select Type    Subnet``
 
         :param type: value to select in the Discover Type dropdown (Address Range, Seed Address, Subnet)
         :return: 1 if action was successful, else -1
@@ -61,10 +61,10 @@ class XIQSE_NetworkDevicesSiteDiscoverAddAddress(NetworkDevicesSiteDiscoverAddAd
 
     def xiqse_discover_add_address_dialog_set_address_range(self, start_val, end_val):
         """
-         - This keyword sets the Start Address and End Address values in the Add Address dialog.
-         - It is assumed the dialog is already opened and on the Address Range discover type.
-         - Keyword Usage
-          - ``XIQSE Discover Add Address Dialog Set Address Range  ${START_IP}  ${END_IP}``
+        - This keyword sets the Start Address and End Address values in the Add Address dialog.
+        - It is assumed the dialog is already opened and on the Address Range discover type.
+        - Keyword Usage
+        - ``XIQSE Discover Add Address Dialog Set Address Range  ${START_IP}  ${END_IP}``
 
         :param start_val: Start Address value to enter in the Add Address dialog
         :param end_val:   End Address value to enter in the Add Address dialog
@@ -79,10 +79,10 @@ class XIQSE_NetworkDevicesSiteDiscoverAddAddress(NetworkDevicesSiteDiscoverAddAd
 
     def xiqse_discover_add_address_dialog_set_start_address(self, the_val):
         """
-         - This keyword sets the Start Address value in the Add Address dialog.
-         - It is assumed the dialog is already opened and on the Address Range discover type.
-         - Keyword Usage
-          - ``XIQSE Discover Add Address Dialog Set Start Address  ${START_IP}``
+        - This keyword sets the Start Address value in the Add Address dialog.
+        - It is assumed the dialog is already opened and on the Address Range discover type.
+        - Keyword Usage
+        - ``XIQSE Discover Add Address Dialog Set Start Address  ${START_IP}``
 
         :param the_val: Start Address value to enter in the Add Address dialog
         :return: 1 if action was successful, else -1
@@ -104,10 +104,10 @@ class XIQSE_NetworkDevicesSiteDiscoverAddAddress(NetworkDevicesSiteDiscoverAddAd
 
     def xiqse_discover_add_address_dialog_set_end_address(self, the_val):
         """
-         - This keyword sets the End Address value in the Add Address dialog.
-         - It is assumed the dialog is already opened and on the Address Range discover type.
-         - Keyword Usage
-          - ``XIQSE Discover Add Address Dialog Set End Address  ${END_IP}``
+        - This keyword sets the End Address value in the Add Address dialog.
+        - It is assumed the dialog is already opened and on the Address Range discover type.
+        - Keyword Usage
+        - ``XIQSE Discover Add Address Dialog Set End Address  ${END_IP}``
 
         :param the_val: End Address value to enter in the Add Address dialog
         :return: 1 if action was successful, else -1
@@ -129,10 +129,10 @@ class XIQSE_NetworkDevicesSiteDiscoverAddAddress(NetworkDevicesSiteDiscoverAddAd
 
     def xiqse_discover_add_address_dialog_set_subnet_mask(self, the_val):
         """
-         - This keyword sets the Subnet/Mask value in the Add Address dialog.
-         - It is assumed the dialog is already opened and on the Subnet discover type.
-         - Keyword Usage
-          - ``XIQSE Discover Add Address Dialog Set Subnet Mask  ${Subnet/Mask}``
+        - This keyword sets the Subnet/Mask value in the Add Address dialog.
+        - It is assumed the dialog is already opened and on the Subnet discover type.
+        - Keyword Usage
+        - ``XIQSE Discover Add Address Dialog Set Subnet Mask  ${Subnet/Mask}``
 
         :param the_val: Subnet/Mask value to enter in the Add Address dialog
         :return: 1 if action was successful, else -1
@@ -154,10 +154,10 @@ class XIQSE_NetworkDevicesSiteDiscoverAddAddress(NetworkDevicesSiteDiscoverAddAd
 
     def xiqse_discover_add_address_dialog_set_seed_address(self, the_val):
         """
-         - This keyword sets the Seed Address value in the Add Address dialog.
-         - It is assumed the dialog is already opened and on the Seed Address discover type.
-         - Keyword Usage
-          - ``XIQSE Discover Add Address Dialog Set Seed Address  ${SEED_IP}``
+        - This keyword sets the Seed Address value in the Add Address dialog.
+        - It is assumed the dialog is already opened and on the Seed Address discover type.
+        - Keyword Usage
+        - ``XIQSE Discover Add Address Dialog Set Seed Address  ${SEED_IP}``
 
         :param the_val: Seed Address value to enter in the Add Address dialog
         :return: 1 if action was successful, else -1
@@ -179,10 +179,10 @@ class XIQSE_NetworkDevicesSiteDiscoverAddAddress(NetworkDevicesSiteDiscoverAddAd
 
     def xiqse_discover_add_address_dialog_click_ok(self):
         """
-         - This keyword clicks the OK button in the Add Address dialog.
-         - It is assumed the Add Address dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Discover Add Address Dialog Click OK``
+        - This keyword clicks the OK button in the Add Address dialog.
+        - It is assumed the Add Address dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Discover Add Address Dialog Click OK``
 
         :return: 1 if action was successful, else -1
         """
@@ -277,10 +277,10 @@ class XIQSE_NetworkDevicesSiteDiscoverAddAddress(NetworkDevicesSiteDiscoverAddAd
 
     def xiqse_discover_add_address_dialog_click_cancel(self):
         """
-         - This keyword clicks the Cancel button in the Add Address dialog.
-         - It is assumed the Add Address dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Discover Add Address Dialog Click Cancel``
+        - This keyword clicks the Cancel button in the Add Address dialog.
+        - It is assumed the Add Address dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Discover Add Address Dialog Click Cancel``
 
         :return: 1 if action was successful, else -1
         """

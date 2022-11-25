@@ -14,11 +14,11 @@ class XIQSE_Reports(ReportsWebElements):
 
     def xiqse_reports_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Reports page
-         - Keyword Usage
-          - ``XIQSE Reports Select Tab    Reports``
-          - ``XIQSE Reports Select Tab    Custom Report``
-          - ``XIQSE Reports Select Tab    Report Designer``
+        - This keyword selects the specified tab of the Reports page
+        - Keyword Usage
+        - ``XIQSE Reports Select Tab    Reports``
+        - ``XIQSE Reports Select Tab    Custom Report``
+        - ``XIQSE Reports Select Tab    Report Designer``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -46,9 +46,9 @@ class XIQSE_Reports(ReportsWebElements):
 
     def xiqse_reports_select_reports_tab(self):
         """
-         - This keyword selects the Reports tab of the Reports page
-         - Keyword Usage
-          - ``XIQSE Reports Select Reports Tab``
+        - This keyword selects the Reports tab of the Reports page
+        - Keyword Usage
+        - ``XIQSE Reports Select Reports Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -57,9 +57,9 @@ class XIQSE_Reports(ReportsWebElements):
 
     def xiqse_reports_select_custom_report_tab(self):
         """
-         - This keyword selects the Custom Report tab of the Reports page
-         - Keyword Usage
-          - ``XIQSE Reports Select Custom Report Tab``
+        - This keyword selects the Custom Report tab of the Reports page
+        - Keyword Usage
+        - ``XIQSE Reports Select Custom Report Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -68,9 +68,9 @@ class XIQSE_Reports(ReportsWebElements):
 
     def xiqse_reports_select_report_designer_tab(self):
         """
-         - This keyword selects the Report Designer tab of the Reports page
-         - Keyword Usage
-          - ``XIQSE Reports Select Report Designer Tab``
+        - This keyword selects the Report Designer tab of the Reports page
+        - Keyword Usage
+        - ``XIQSE Reports Select Report Designer Tab``
 
         :return: 1 if action was successful, else -1
         """

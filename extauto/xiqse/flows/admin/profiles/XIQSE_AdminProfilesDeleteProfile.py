@@ -14,10 +14,10 @@ class XIQSE_AdminProfilesDeleteProfile(AdminProfilesDeleteProfileWebElements):
 
     def xiqse_delete_profile_confirm_delete(self):
         """
-         - This keyword confirms the Profile deletion.
-         - It is assumed the Confirm Delete dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Delete Profile Confirm Delete``
+        - This keyword confirms the Profile deletion.
+        - It is assumed the Confirm Delete dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Delete Profile Confirm Delete``
 
         :return: 1 if action was successful, else -1
         """
@@ -35,10 +35,10 @@ class XIQSE_AdminProfilesDeleteProfile(AdminProfilesDeleteProfileWebElements):
 
     def xiqse_delete_profile_confirm_dialog_click_yes(self):
         """
-         - This keyword clicks the Yes button in the Confirm Delete dialog.
-         - It is assumed the confirmation dialog for deleting the SNMP Credential is already open.
-         - Keyword Usage
-          - ``XIQSE Delete Site Click Yes``
+        - This keyword clicks the Yes button in the Confirm Delete dialog.
+        - It is assumed the confirmation dialog for deleting the SNMP Credential is already open.
+        - Keyword Usage
+        - ``XIQSE Delete Site Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -57,10 +57,10 @@ class XIQSE_AdminProfilesDeleteProfile(AdminProfilesDeleteProfileWebElements):
 
     def xiqse_delete_profile_confirm_dialog_click_no(self):
         """
-         - This keyword clicks the No button in the Confirm Delete dialog.
-         - It is assumed the confirmation dialog for deleting the SNMP Credential is already open.
-         - Keyword Usage
-          - ``XIQSE Delete Site Click No``
+        - This keyword clicks the No button in the Confirm Delete dialog.
+        - It is assumed the confirmation dialog for deleting the SNMP Credential is already open.
+        - Keyword Usage
+        - ``XIQSE Delete Site Click No``
 
         :return: 1 if action was successful, else -1
         """
@@ -79,10 +79,10 @@ class XIQSE_AdminProfilesDeleteProfile(AdminProfilesDeleteProfileWebElements):
 
     def xiqse_delete_profile(self, name):
         """
-         - This keyword deletes an existing profile in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles.
-         - Keyword Usage
-          - ``XIQSE Delete Profile  test_profile_1``
+        - This keyword deletes an existing profile in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles.
+        - Keyword Usage
+        - ``XIQSE Delete Profile  test_profile_1``
 
         :param name: name of the profile to delete
         :return: 1 if action was successful, else -1

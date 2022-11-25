@@ -11,7 +11,8 @@ class WindowsMU:
         """
         - This keyword is used to connect a window platform MU to a wifi
         - Keyword Usage:
-         - ``Connect Window MU To Wifi     ${spawn}      ${ssid}``
+        -  ``Connect Window MU To Wifi     ${spawn}      ${ssid}``
+
         :param spawn: spawn, ssh by default
         :param ssid: SSID name
         :param user_name:string | wifi user name
@@ -40,7 +41,8 @@ class WindowsMU:
         """
         This keyword Disconnects a window platform MU from wifi
         - Keyword Usage:
-         - ``Disconnect Windown MU Wifi  ${spawn}``
+        -  ``Disconnect Windown MU Wifi  ${spawn}``
+
         :param spawn: spawn by default ssh
         :return: 1 if success
         """
