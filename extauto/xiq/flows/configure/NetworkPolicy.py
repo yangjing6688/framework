@@ -24,6 +24,7 @@ from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.flows.configure.UserGroups import UserGroups
 from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
 
 class NetworkPolicy(object):
@@ -47,6 +48,7 @@ class NetworkPolicy(object):
         self.common_validation = CommonValidation()
         self.user_group = UserGroups()
         self.user_group_elements = UserGroupsWebElements()
+        self.dev360 = Device360WebElements()
         self.use_existing_policy = False
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
@@ -2204,3 +2206,446 @@ class NetworkPolicy(object):
             self.utils.print_info("VOSS common settings contain the required parameters")
             return True
 
+    def get_port_types_section(self):
+        """
+        - This keyword will navigate to Port Types section in Network Policies tab
+        - Assumption: Already Opened Network Policy
+        - Flow: Switching tab --> Click on Port Types
+        - Keyword Usage:
+
+        :return: 1 if successfully else -1
+        """
+        self.auto_actions.click_reference(self.np_web_elements.get_port_types_section)
+        self.screen.save_screen_shot()
+        title = self.np_web_elements.get_port_types_title_page()
+        title_text = title.text
+        if 'Port Types' in title_text:
+            self.utils.print_info("Port types section displayed")
+            return 1
+        else:
+            return -1
+
+    def configure_port_type(self, port_type_name, path_cost=None, description=None, status=None,
+                                       port_usage="access", priority=None, bpdu_protection=None, stp_enabled=None,
+                                       edge_port=None, save=True):
+        """
+        - This keyword will configures/edits a new port Type section using the Port Types section in Network Policies tab
+        - Assumption: Already Opened Port type Configuration window
+        - Flow: Switching tab --> Click on Port Types
+        The only mandatory arguments are switch_port, port_type_name. All the other arguments are optional.
+
+        The function will return a tuple that contains the status of the function and the summary of the newly created port type.
+
+        args:
+            :switch_port:        str  - the name of the port
+            :port_type_name:     str  - the name of the port type
+
+        kwargs:
+            :description:        str  - the description|None for no action
+            :status:             bool - True for enabled|False for disabled|None for no action
+            :port_usage:         str  - "access"|"trunk"|None for no action
+            :priority:           int  - 0, 16, 32, ...|None for no action
+            :bpdu_protection:    str  - "Disabled"|"Guard"|None for no action
+            :stp_enabled:        bool - True for enabled|False for disabled|None for no action
+            :edge_port:          bool - True for enabled|False for disabled|None for no action
+            :save:               bool - True for saving the port type at the end|False for not saving
+            :path_cost:          int  - the value of path cost
+
+        return: if the function succeeds it will return (1, {...})
+                if the function fails it will return (-1, {})
+
+        usage:
+
+            status, summary = self.xiq.xflowsconfigureNetworkPolicy.create_new_port_type("VOSS", testing_port_type_1",
+            1111, description="description", status=True, port_usage="access", priority=64, bpdu_protection="Disabled",
+             stp_enabled=True, edge_port=True)
+            >>> status
+            1
+            >>> summary
+            {'STP': 'Enabled', 'Edge Port': 'Enabled', 'BPDU Protection': 'Disabled', 'Priority': '64', 'Path Cost': '1111'}
+            >>>
+        """
+
+        name_element = self.dev360.get_select_element_port_type("name")
+        if not name_element:
+            self.utils.print_info("Port name element was not found")
+            return -1, {}
+
+        if self.auto_actions.send_keys(name_element, port_type_name) == 1:
+            self.utils.print_info("Successfully configured the name field")
+            sleep(2)
+        else:
+            self.utils.print_info("Failed to configure the name field")
+            return -1, {}
+
+        if description is not None:
+            description_element = self.dev360.get_select_element_port_type("description")
+            if not description_element:
+                self.utils.print_info("Port description element was not found")
+                return -1, {}
+
+            if self.auto_actions.send_keys(description_element, description) == 1:
+                self.utils.print_info("Successfully configured the description field")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to configure the description field")
+                return -1, {}
+
+        if status is not None:
+            status_element = self.dev360.get_select_element_port_type("status")
+            if not status_element:
+                self.utils.print_info("Port status element was not found")
+                return -1, {}
+
+            if (not status_element.is_selected() and status) or (
+                    status_element.is_selected() and not status):
+
+                if self.auto_actions.click(status_element) == 1:
+                    self.utils.print_info("Successfully clicked on the status element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the status element")
+                    return -1, {}
+
+        auto_sense = self.dev360.get_select_element_port_type("auto-sense")
+        if auto_sense:
+            if auto_sense.is_selected():
+                if self.auto_actions.click(auto_sense) == 1:
+                    self.utils.print_info("Successfully disabled the auto sense on chosen port")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to disable the auto sense on chosen port")
+                    return -1, {}
+
+        port_element = self.dev360.get_select_element_port_type("port usage", f"{port_usage} port")
+        if not port_element:
+            self.utils.print_info(f"{port_usage} port type element was not found")
+            return -1, {}
+
+        if self.auto_actions.click(port_element) == 1:
+            self.utils.print_info("Successfully chose the port usage field")
+            sleep(2)
+        else:
+            self.utils.print_info("Failed to chose the port usage field")
+            return -1, {}
+
+        self.utils.print_info("Go to the STP settings page")
+        for _ in range(5):
+            if "active" in self.dev360.get_select_element_port_type("stpPage").get_attribute("class"):
+                break
+            get_next_button = self.dev360.get_select_element_port_type("next_button")
+            if get_next_button:
+                if get_next_button.is_enabled():
+                    self.auto_actions.click(get_next_button)
+                    sleep(2)
+                else:
+                    break
+            else:
+                self.utils.print_info("get_next_button not found")
+                return -1, {}
+
+        if stp_enabled is not None:
+            stp_enabled_element = self.dev360.get_select_element_port_type("stp enable")
+
+            if not stp_enabled_element:
+                self.utils.print_info("STP Enabled element was not found")
+                return -1, {}
+
+            if (not stp_enabled_element.is_selected() and stp_enabled) or (
+                stp_enabled_element.is_selected() and not stp_enabled):
+
+                if self.auto_actions.click(stp_enabled_element) == 1:
+                    self.utils.print_info("Successfully clicked on the STP enabled element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the STP Enabled element")
+                    return -1, {}
+
+        if edge_port is not None:
+            edge_port_element = self.dev360.get_select_element_port_type("edge port")
+
+            if not edge_port_element:
+                self.utils.print_info("Edge Port element was not found")
+                return -1, {}
+
+            if (not edge_port_element.is_selected() and edge_port) or (
+                edge_port_element.is_selected() and not edge_port):
+
+                if self.auto_actions.click(edge_port_element) == 1:
+                    self.utils.print_info("Successfully clicked on the Edge Port element")
+                    sleep(2)
+                else:
+                    self.utils.print_info("Failed to click on the Edge Port element")
+                    return -1, {}
+
+        if bpdu_protection is not None:
+            bpdu_protection_element = self.dev360.get_select_element_port_type("bpdu protection")
+
+            if not bpdu_protection_element:
+                self.utils.print_info("BPDU Protection element was not found")
+                return -1, {}
+
+            if self.auto_actions.click(bpdu_protection_element) == 1:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                sleep(5)
+            else:
+                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                return -1, {}
+
+            get_bpdu_protection_items = self.dev360.get_select_element_port_type("bpdu_protection_items")
+
+            if not get_bpdu_protection_items:
+                self.utils.print_info("BPDU Protection list elements not found")
+                return -1, {}
+
+            if self.auto_actions.select_drop_down_options(get_bpdu_protection_items, bpdu_protection):
+                self.utils.print_info("Selected into dropdown value : ", bpdu_protection)
+            else:
+                self.utils.print_info("Failed to select from BPDU Protection dropdown")
+                return -1, {}
+
+        if path_cost:
+            path_cost_element = self.dev360.get_select_element_port_type("path cost")
+
+            if not path_cost_element:
+                self.utils.print_info("Path Cost element was not found")
+                return -1, {}
+
+            if self.auto_actions.send_keys(path_cost_element, str(path_cost)) == 1:
+                self.utils.print_info("Successfully configured the path cost field")
+                sleep(2)
+            else:
+                self.utils.print_info("Failed to configure the path cost field")
+                return -1, {}
+
+        if priority:
+            priority_element = self.dev360.get_select_element_port_type("priority")
+
+            if not priority_element:
+                self.utils.print_info("Priority element was not found")
+                return -1, {}
+
+            if self.auto_actions.click(priority_element) == 1:
+                self.utils.print_info("Successfully clicked on the priority element")
+                sleep(5)
+            else:
+                self.utils.print_info("Failed to click on the priority element")
+                return -1, {}
+
+            get_priority_items = self.dev360.get_select_element_port_type("priority_items")
+            if not get_priority_items:
+                self.utils.print_info("Priority dropdown elements not found")
+                return -1, {}
+
+            if self.auto_actions.select_drop_down_options(get_priority_items, str(priority)):
+                self.utils.print_info("Selected into dropdown value : ", priority)
+            else:
+                self.utils.print_info("Failed to select item from priority dropdown")
+                return -1, {}
+
+        self.utils.print_info("Go to the last page")
+        for _ in range(5):
+            if "active" in self.dev360.get_select_element_port_type("summaryPage").get_attribute("class"):
+                break
+            get_next_button = self.dev360.get_select_element_port_type("next_button")
+            if get_next_button:
+                if get_next_button.is_enabled():
+                    self.auto_actions.click(get_next_button)
+                    sleep(2)
+                else:
+                    break
+            else:
+                self.utils.print_info("get_next_button not found")
+                return -1, {}
+
+        summary = {}
+
+        for row_name, row_value in zip(
+            ["STP", "VLAN", "Status", "Port Usage"],
+            ["stp", "vlan", "status", "port usage"]
+        ):
+            try:
+                summary[row_name] = self.dev360.get_select_element_port_type_summary(row_value).text
+            except:
+                summary[row_name] = ""
+
+        if save:
+            save_button = self.dev360.get_close_port_type_box()
+
+            if not save_button:
+                self.utils.print_info("save button not found")
+                return -1, {}
+
+            if self.auto_actions.click(save_button) == 1:
+                self.utils.print_info("Successfully clicked on the Save element")
+            else:
+                self.utils.print_info("Failed to click on the Save element")
+                return -1, {}
+
+        return 1, summary
+
+    def create_new_port_type(self, cli_type):
+        """
+        - This keyword will open the window for creating a new port Type section using the Port Types section in Network Policies tab
+        - Assumption: Already Opened Port Types Section
+        - Flow: Switching tab --> Click on Port Types
+        """
+        self.auto_actions.click_reference(self.np_web_elements.get_add_new_port_type)
+        self.screen.save_screen_shot()
+        cli_type = cli_type.upper()
+        if cli_type is not None:
+            if cli_type == "VOSS":
+                self.auto_actions.click_reference(self.np_web_elements.get_select_platform_voss)
+                self.utils.print_info("Selected Platform VOSS")
+                self.screen.save_screen_shot()
+                return 1
+            elif cli_type == "EXOS":
+                self.auto_actions.click_reference(self.np_web_elements.get_select_platform_exos)
+                self.utils.print_info("Selected Platform EXOS")
+                self.screen.save_screen_shot()
+                return 1
+        else:
+            self.utils.print_info("Platform type not Found. Only VOSS or EXOS supported")
+            return -1
+
+    # def _get_port_types_row(self, port_type_name):
+    #     """
+    #     Get the port-type row element
+    #     :param port_type_name: name of the port-type
+    #     :return:
+    #     """
+    #     self.utils.print_info("Getting the network policy rows")
+    #     rows = self.np_web_elements.get_port_types_rows()
+    #     for row in rows:
+    #         cell = self.np_web_elements.get_port_type_row_cell(row, 'field-name')
+    #         if cell.text == port_type_name:
+    #             return row
+
+    def edit_port_type(self, port_type_name):
+        """Method that selects and edits a non-default port-type from Port Types Tabel.
+        :param port_type_name: name of the port-type
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+
+        if self.dev360.get_d360_switch_port_view_all_pages_button():
+            self.auto_actions.scroll_down()
+            self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.screen.save_screen_shot()
+        sleep(2)
+        if port_type_name is not None:
+            port_type_table_item = self.get_port_type_row(port_type_name)
+            sleep(3)
+            self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
+            self.auto_actions.scroll_down()
+            self.auto_actions.click(self.np_web_elements.get_port_type_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.screen.save_screen_shot()
+            sleep(3)
+            self.utils.print_info(f"Editing port_type {port_type_name} ")
+            self.auto_actions.click(self.np_web_elements.get_edit_port_type)
+            self.screen.save_screen_shot()
+            # self.auto_actions.click(self.dev360.get_select_element_port_type_summary(port_type_parameter))
+            return 1
+        else:
+            self.utils.print_info("No port-type name specified")
+            return -1
+
+    def delete_port_type(self, port_type_name):
+        """Method that selects and deletes a non-default port-type from Port Types Tabel
+        :param port_type_name: name of the port-type
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        if self.dev360.get_d360_switch_port_view_all_pages_button():
+            self.auto_actions.scroll_down()
+            self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.screen.save_screen_shot()
+        sleep(2)
+        if port_type_name is not None:
+            port_type_table_item = self.get_port_type_row(port_type_name)
+            sleep(2)
+            self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
+            self.auto_actions.click(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.screen.save_screen_shot()
+            self.utils.print_info(f"Deleting port_type {port_type_name} ")
+            self.auto_actions.click(self.np_web_elements.get_delete_port_type)
+            self.screen.save_screen_shot()
+            return 1
+        else:
+            self.utils.print_info("No port-type name specified")
+            return -1
+
+    def get_port_type_row(self, search_string):
+        """
+        - Get the device row object from the Network Policies --> Port Types Section
+        - Based on the search string it will search the device row
+        - Search string should be port-type name
+
+        :param search_string: it should be anything which is searched on the row cell
+        :return: row element if row exists else return None
+        """
+        self.utils.print_info("Getting the Port Types rows from Network policy page")
+        rows = self.np_web_elements.get_port_types_rows()
+        sleep(5)
+        if not rows:
+            self.utils.print_info(f"Port type rows are not available in the Port Types Section")
+        for row in rows:
+            print(row.text)
+            if search_string in row.text:
+                return row
+        return False
+
+    def get_port_type_row_details(self, search_string, col_list):
+        """
+        - Gets a dictionary of port-type row values based on the passed column label list
+        - The column list should be a comma-separated list of column headers, like NAME, PORT STATUS
+        - Keyword Usage:
+         - ``@{DEVICE_VALUES}=  Get Port Type Row Values  ${DEVICE_SERIAL}  NAME, PORT STATUS``
+
+        :param search_string: string to uniquely identify the row in the device grid
+        :param col_list: comma-separated list of column headers (e.g., NAME)
+        :return: dictionary containing the values for each of the specified columns else -1 if method unsuccesful
+        """
+        label_map = {'NAME': 'name',
+                     'DEVICE FAMILY*': 'deviceFamily',
+                     'DESCRIPTION': 'description',
+                     'PORT STATUS': 'enabled',
+                     'VLAN': 'vlan',
+                     'STP': 'stpSettings',
+                     'ELRP': 'elrpSettings',
+                     'MAC LOCKING': 'macLockingSettings',
+                     'PSE PROFILE': 'pseProfile',
+                     'USED BY': 'usedBy',
+                     }
+
+        port_type_detail_dict = dict()
+
+        port_type_row = self.get_port_type_row(search_string)
+        if port_type_row:
+            col_labels = col_list.split(",")
+            self.utils.print_info("Obtaining data for Column Labels: ", col_labels)
+
+            cells = self.np_web_elements.get_port_type_row_cells(port_type_row)
+            for cell in cells:
+                if re.search(r'field-\w*', cell.get_attribute("class")):
+                    label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
+                    for label_str in col_labels:
+                        map_value = label_map.get(label_str)
+                        if label == map_value:
+                            if label == "productType":
+                                if cell.text:
+                                    self.utils.print_debug(f"Got Data {cell.text} For Column {label_str}")
+                                    port_type_detail_dict[label_str] = cell.text
+                            else:
+                                self.utils.print_debug(f"Got Data {cell.text} For Column {label_str}")
+                                port_type_detail_dict[label_str] = cell.text
+                            break
+        else:
+            self.utils.print_info(f"Could not find port-type row matching the search parameter {search_string}")
+            return -1
+
+        self.utils.print_info(f"****************** DEVICE ROW VALUES ************************")
+        for key, value in port_type_detail_dict.items():
+            self.utils.print_info(f"{key}:{value}")
+
+        return port_type_detail_dict
