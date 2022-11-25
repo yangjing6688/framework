@@ -19,7 +19,7 @@ class Network360Plan:
         self.navigator = Navigator()
         self.auto_actions = AutoActions()
         self.n360_elements = Network360PlanElements()
-        self.commonValidation = CommonValidation()
+        self.common_validation = CommonValidation()
         self.default_map = 'auto_location_01_1595321828282.tar.gz'
 
         """
@@ -118,7 +118,7 @@ class Network360Plan:
                         if not ap_list:
                             self.utils.print_info("AP Count: 0")
                             kwargs['fail_msg'] = "AP Count: 0"
-                            self.commonValidation.failed(**kwargs)
+                            self.common_validation.failed(**kwargs)
                             return 0
 
                         for ap in ap_list:
@@ -138,13 +138,13 @@ class Network360Plan:
                             self.utils.print_info("Unable to find AP Count")
 
                         kwargs['pass_msg'] = f"AP was Found {aps_on_floor}"
-                        self.commonValidation.passed(**kwargs)
+                        self.common_validation.passed(**kwargs)
                         return aps_on_floor
                     else:
                         self.utils.print_info("No search matches found: ")
             else:
                 kwargs['fail_msg'] = f"No search matches found"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
         except Exception as e:
@@ -156,7 +156,7 @@ class Network360Plan:
                 return self.get_aps_from_network360plan_floor(floor_name, device_type, retries, **kwargs)
             else:
                 kwargs['fail_msg'] = f"Exception Caught: {e}, max retries reached {retries}"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
 
