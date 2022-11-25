@@ -669,3 +669,27 @@ class LoginWebElementsDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="multipleVHMsFilter"]',
             'wait_for': 20,
         }
+
+    login_sso_page_username_text = \
+        {
+            'XPATH': '//input[@name="UserName"]',
+            'wait_for': 15,
+        }
+
+    login_sso_page_password_text = \
+        {
+            'XPATH': '//input[@name="Password"]',
+            'wait_for': 15,
+        }
+
+    login_sso_page_login_button = \
+        {
+            'XPATH': '//*[@id="submitButton"]',
+            'wait_for': 15,
+        }
+
+    login_sso_page_login_error_message = \
+        {
+            'XPATH': '//*[@id="error"]//*[@id="errorText"]',
+            'wait_for': 15,
+        }

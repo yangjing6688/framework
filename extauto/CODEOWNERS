@@ -1,7 +1,7 @@
-/extauto/xiq/**           @rgeesala @rvellasamy priyatham111
-/extauto/xca/**           @rgeesala @rvellasamy priyatham111
-/extauto/common/**        @akaheidia @rgeesala @rvellasamy priyatham111
-/extauto/xiqse/**         @akaheidia @rgeesala @rvellasamy priyatham111
+/extauto/xiq/**           @rgeesala @rvellasamy
+/extauto/xca/**           @rgeesala @rvellasamy
+/extauto/common/**        @akaheidia @rgeesala @rvellasamy
+/extauto/xiqse/**         @akaheidia @rgeesala @rvellasamy
 
 
 # Order is important; the last matching pattern takes the most
@@ -14,6 +14,6 @@
 # used to look up users just like we do for commit author
 # emails.
 
-#*.py rgeesala@extremenetworks.com, hwhite@extremenetworks.com
-#*.robot rgeesala@extremenetworks.com, hwhite@extremenetworks.com
-#*.csv rgeesala@extremenetworks.com, hwhite@extremenetworks.com
+#*.py rgeesala@extremenetworks.com
+#*.robot rgeesala@extremenetworks.com
+#*.csv rgeesala@extremenetworks.com

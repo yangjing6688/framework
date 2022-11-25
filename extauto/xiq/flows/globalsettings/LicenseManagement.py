@@ -29,10 +29,10 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def open_license_management_page(self):
         """
-         - Navigates to License Management Page
-         - Flow : User account image-->Global Settings--> License Management
-         - Keyword Usage
-          - ``Open License Management Page``
+        - Navigates to License Management Page
+        - Flow : User account image-->Global Settings--> License Management
+        - Keyword Usage
+        - ``Open License Management Page``
 
         :return: 1 if License Management page was opened, else -1
         """
@@ -45,10 +45,10 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def is_entitlements_table_empty(self):
         """
-         - Checks if the Entitlements table is empty.
-         - Assumes the License Management page is already being displayed.
-         - Keyword Usage
-          - ``Is Entitlements Table Empty``
+        - Checks if the Entitlements table is empty.
+        - Assumes the License Management page is already being displayed.
+        - Keyword Usage
+        - ``Is Entitlements Table Empty``
 
         :return: 1 if Entitlements Table is empty ("No records found." is displayed), else -1
         """
@@ -66,10 +66,10 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def is_legacy_table_empty(self):
         """
-         - Checks if the Legacy Entitlements table is empty.
-         - Assumes the License Management page is already being displayed.
-         - Keyword Usage
-          - ``Is Legacy Table Empty``
+        - Checks if the Legacy Entitlements table is empty.
+        - Assumes the License Management page is already being displayed.
+        - Keyword Usage
+        - ``Is Legacy Table Empty``
 
         :return: 1 if Legacy Entitlements Table is empty ("No data" is displayed), else -1
         """
@@ -83,10 +83,10 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def confirm_entitlements_table_contains_data(self):
         """
-         - Checks if the Entitlements table contains data.
-         - Assumes the License Management page is already being displayed.
-         - Keyword Usage
-          - ``Confirm Entitlements Table Contains Data``
+        - Checks if the Entitlements table contains data.
+        - Assumes the License Management page is already being displayed.
+        - Keyword Usage
+        - ``Confirm Entitlements Table Contains Data``
 
         :return: 1 if Entitlements Table is not empty, else -1
         """
@@ -100,10 +100,10 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def confirm_legacy_table_contains_data(self):
         """
-         - Checks if the Legacy Entitlements table contains data.
-         - Assumes the License Management page is already being displayed.
-         - Keyword Usage
-          - ``Confirm Legacy Table Contains Data``
+        - Checks if the Legacy Entitlements table contains data.
+        - Assumes the License Management page is already being displayed.
+        - Keyword Usage
+        - ``Confirm Legacy Table Contains Data``
 
         :return: 1 if Legacy Entitlements Table is not empty, else -1
         """
@@ -117,9 +117,10 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def verify_ek_in_legacy_ek_table(self, ekey):
         """
-                 - Checks if legacy ek exists in the legacy ek table
-                 - pass the ek as input parameter to verify the ek to be checked
-                :return: 1 if ek exists , else -1
+        - Checks if legacy ek exists in the legacy ek table
+        - pass the ek as input parameter to verify the ek to be checked
+
+        :return: 1 if ek exists , else -1
         """
         if ekey is not None:
             self.utils.switch_to_iframe_with_attr(CloudDriver().cloud_driver,'@id="iframeIdForLicenseInfo"')
@@ -151,6 +152,7 @@ class LicenseManagement(LicenseManagementWebElements):
     def verify_xiq_linked_to_extr_portal(self):
         """
         verify XIQ is linked to extreme portal
+
         :return:
         """
         unlink_extr_portal_btn = self.lic_mgt_web_elements.get_unlink_xiq_from_extr_portal_btn()
@@ -176,6 +178,7 @@ class LicenseManagement(LicenseManagementWebElements):
     def verify_xiq_not_linked_to_extr_portal(self):
         """
         verify XIQ is not linked to extreme portal
+
         :return:
         """
         link_extr_portal_btn = self.lic_mgt_web_elements.get_link_to_extr_portal_btn()
@@ -200,7 +203,8 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def unlink_xiq_from_extr_portal(self):
         """
-            - Unlink XIQ from extreme portal
+        - Unlink XIQ from extreme portal
+
         :return: 1 if unlinked else -1
         """
         unlink_btn = self.lic_mgt_web_elements.get_unlink_xiq_from_extr_portal_btn()
@@ -237,10 +241,10 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def link_to_extreme_portal(self,portal_username, portal_password, **kwargs):
         """
-         - Links to Extreme Portal
-         - Assumes the License Management Link to Portal button has already been pushed
-         - Keyword Usage
-          - ``Link To Extreme Portal``
+        - Links to Extreme Portal
+        - Assumes the License Management Link to Portal button has already been pushed
+        - Keyword Usage
+        - ``Link To Extreme Portal``
 
         :return: 1 if Successful, else -1
         """
@@ -279,12 +283,13 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def initiate_link_xiq_to_extr_portal_from_lic_mgt(self, sfdc_user_type=None, sfdc_email=None, sfdc_pwd=None, shared_cuid=None):
         """
-             - links XIQ to extreme SFDC portal to get gemalto licenses
-             - pass the below parameters as the keyword input:
-             - sfdc user type (customer or parter)
-             - sfdc customer/partner login email and password
-             - shared cuid if parter login is used
-            :return: 1 linking is successful , else -1
+        - links XIQ to extreme SFDC portal to get gemalto licenses
+        - pass the below parameters as the keyword input:
+        - sfdc user type (customer or parter)
+        - sfdc customer/partner login email and password
+        - shared cuid if parter login is used
+
+        :return: 1 linking is successful , else -1
         """
         self.utils.print_info("link to extr portal...")
         link_to_extr_portal_btn = self.lic_mgt_web_elements.get_link_to_extr_portal_btn()
@@ -312,10 +317,10 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - Navigates to the License Management page and returns counts from the Entitlements table as a dictionary.
         - Keyword Usage:
-         - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature``
-         - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    PRD-XIQ-PIL-S-C``
-         - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    PRD-XIQ-NAV-S-C``
-         - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature``
+        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    PRD-XIQ-PIL-S-C``
+        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    PRD-XIQ-NAV-S-C``
+        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    PRD-XIQ-NAC-S``
 
         :return: Returns counts from the Entitlements table as a dictionary
         """
@@ -329,10 +334,10 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - Gets the entitlement "Device Count" for the specified feature.
         - Keyword Usage:
-         - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature``
-         - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature    PRD-XIQ-PIL-S-C``
-         - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature    PRD-XIQ-NAV-S-C``
-         - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature``
+        - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature    PRD-XIQ-PIL-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature    PRD-XIQ-NAV-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature    PRD-XIQ-NAC-S``
 
         :param feature: feature to return the device count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
         :return: total number of devices allotted to the specified feature
@@ -347,10 +352,10 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - Gets the entitlement "Available" count for the specified feature.
         - Keyword Usage:
-         - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature``
-         - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    PRD-XIQ-PIL-S-C``
-         - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    PRD-XIQ-NAV-S-C``
-         - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature``
+        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    PRD-XIQ-PIL-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    PRD-XIQ-NAV-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    PRD-XIQ-NAC-S``
 
         :param feature: feature to return the available count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
         :return: total number of available licenses allotted to the specified feature
@@ -365,10 +370,10 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - Gets the entitlement "Activated" count for the specified feature.
         - Keyword Usage:
-         - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature``
-         - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    PRD-XIQ-PIL-S-C``
-         - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    PRD-XIQ-NAV-S-C``
-         - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature``
+        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    PRD-XIQ-PIL-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    PRD-XIQ-NAV-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    PRD-XIQ-NAC-S``
 
         :param feature: feature to return the activated count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
         :return: total number of activations allotted to the specified feature
@@ -383,10 +388,11 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - Returns counts of the specified feature from the Entitlements table as a dictionary
         - Keyword Usage
-         - ``${COUNTS}=   Get Entitlement Counts For Feature``
-         - ``${COUNTS}=   Get Entitlement Counts For Feature    PRD-XIQ-PIL-S-C``
-         - ``${COUNTS}=   Get Entitlement Counts For Feature    PRD-XIQ-NAV-S-C``
-         - ``${COUNTS}=   Get Entitlement Counts For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNTS}=   Get Entitlement Counts For Feature``
+        - ``${COUNTS}=   Get Entitlement Counts For Feature    PRD-XIQ-PIL-S-C``
+        - ``${COUNTS}=   Get Entitlement Counts For Feature    PRD-XIQ-NAV-S-C``
+        - ``${COUNTS}=   Get Entitlement Counts For Feature    PRD-XIQ-NAC-S``
+
         :return: Returns counts for the specified feature from the Entitlements table as a dictionary
         """
         licenses = dict()
@@ -442,10 +448,10 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - Gets the entitlement "Devices" value for the specified feature.
         - Keyword Usage:
-         - ``${COUNT}=   Get Entitlement Device Count For Feature``
-         - ``${COUNT}=   Get Entitlement Device Count For Feature    PRD-XIQ-PIL-S-C``
-         - ``${COUNT}=   Get Entitlement Device Count For Feature    PRD-XIQ-NAV-S-C``
-         - ``${COUNT}=   Get Entitlement Device Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Get Entitlement Device Count For Feature``
+        - ``${COUNT}=   Get Entitlement Device Count For Feature    PRD-XIQ-PIL-S-C``
+        - ``${COUNT}=   Get Entitlement Device Count For Feature    PRD-XIQ-NAV-S-C``
+        - ``${COUNT}=   Get Entitlement Device Count For Feature    PRD-XIQ-NAC-S``
 
         :param feature: feature to return the device count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
         :return: total number of devices allotted to the specified feature
@@ -477,10 +483,10 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - Gets the entitlement "Available" value for the specified feature.
         - Keyword Usage:
-         - ``${COUNT}=   Get Entitlement Available Count For Feature``
-         - ``${COUNT}=   Get Entitlement Available Count For Feature    PRD-XIQ-PIL-S-C``
-         - ``${COUNT}=   Get Entitlement Available Count For Feature    PRD-XIQ-NAV-S-C``
-         - ``${COUNT}=   Get Entitlement Available Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Get Entitlement Available Count For Feature``
+        - ``${COUNT}=   Get Entitlement Available Count For Feature    PRD-XIQ-PIL-S-C``
+        - ``${COUNT}=   Get Entitlement Available Count For Feature    PRD-XIQ-NAV-S-C``
+        - ``${COUNT}=   Get Entitlement Available Count For Feature    PRD-XIQ-NAC-S``
 
         :param feature: feature to return the available count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
         :return: total number of available licenses allotted to the specified feature
@@ -512,10 +518,10 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - Gets the entitlement "Activated" value for the specified feature.
         - Keyword Usage:
-         - ``${COUNT}=   Get Entitlement Activated Count For Feature``
-         - ``${COUNT}=   Get Entitlement Activated Count For Feature    PRD-XIQ-PIL-S-C``
-         - ``${COUNT}=   Get Entitlement Activated Count For Feature    PRD-XIQ-NAV-S-C``
-         - ``${COUNT}=   Get Entitlement Activated Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Get Entitlement Activated Count For Feature``
+        - ``${COUNT}=   Get Entitlement Activated Count For Feature    PRD-XIQ-PIL-S-C``
+        - ``${COUNT}=   Get Entitlement Activated Count For Feature    PRD-XIQ-NAV-S-C``
+        - ``${COUNT}=   Get Entitlement Activated Count For Feature    PRD-XIQ-NAC-S``
 
         :param feature: feature to return the activated count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
         :return: total number of activated licenses for the specified feature
@@ -548,11 +554,10 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - This keyword is used to wait until the entitlement counts (Available, Activated, Devices) for the specified
         - feature match the expected value.
-        -
         - Keyword Usage:
-         - ``Wait Until Entitlement Counts For Feature Matches    PRD-XIQ-PIL-S-C    9    1       1``
-         - ``Wait Until Entitlement Counts For Feature Matches    PRD-XIQ-NAV-S-C    2    0       0``
-         - ``Wait Until Entitlement Counts For Feature Matches    PRD-XIQ-NAC-S      0    1000    1000``
+        - ``Wait Until Entitlement Counts For Feature Matches    PRD-XIQ-PIL-S-C    9    1       1``
+        - ``Wait Until Entitlement Counts For Feature Matches    PRD-XIQ-NAV-S-C    2    0       0``
+        - ``Wait Until Entitlement Counts For Feature Matches    PRD-XIQ-NAC-S      0    1000    1000``
 
         :param feature: type of license entitlement to check the counts of (PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S)
         :param expected_available: expected value for the "Available" column for the specified license entitlement feature
@@ -612,14 +617,13 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - This keyword is used to wait until the device count for the specified license entitlement matches the
         - expected value.
-        -
         - Keyword Usage:
-         - ``Wait Until Entitlement Device Count For Feature Matches    1``
-         - ``Wait Until Entitlement Device Count For Feature Matches    0  feature=PRD-XIQ-NAV-S-C``
-         - ``Wait Until Entitlement Device Count For Feature Matches    3  retry_duration=10    retry_count=12``
-         - ``Wait Until Entitlement Device Count For Feature Matches    2  feature=PRD-XIQ-PIL-S-C    retry_duration=60    retry_count=5``
-         - ``Wait Until Entitlement Device Count For Feature Matches    1  feature=PRD-XIQ-NAV-S-C    retry_duration=30    retry_count=10``
-         - ``Wait Until Entitlement Device Count For Feature Matches    1  feature=PRD-XIQ-NAC-S      retry_duration=15    retry_count=8``
+        - ``Wait Until Entitlement Device Count For Feature Matches    1``
+        - ``Wait Until Entitlement Device Count For Feature Matches    0  feature=PRD-XIQ-NAV-S-C``
+        - ``Wait Until Entitlement Device Count For Feature Matches    3  retry_duration=10    retry_count=12``
+        - ``Wait Until Entitlement Device Count For Feature Matches    2  feature=PRD-XIQ-PIL-S-C    retry_duration=60    retry_count=5``
+        - ``Wait Until Entitlement Device Count For Feature Matches    1  feature=PRD-XIQ-NAV-S-C    retry_duration=30    retry_count=10``
+        - ``Wait Until Entitlement Device Count For Feature Matches    1  feature=PRD-XIQ-NAC-S      retry_duration=15    retry_count=8``
 
         :param expected: expected number of devices for specified license entitlement feature
         :param feature: type of license entitlement to check the device count of (e.g., PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S)
@@ -659,14 +663,13 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - This keyword is used to wait until the available count for the specified license entitlement matches the
         - expected value.
-        -
         - Keyword Usage:
-         - ``Wait Until Entitlement Available Count For Feature Matches    1``
-         - ``Wait Until Entitlement Available Count For Feature Matches    0  feature=PRD-XIQ-NAV-S-C``
-         - ``Wait Until Entitlement Available Count For Feature Matches    3  retry_duration=10    retry_count=12``
-         - ``Wait Until Entitlement Available Count For Feature Matches    2  feature=PRD-XIQ-PIL-S-C    retry_duration=60    retry_count=5``
-         - ``Wait Until Entitlement Available Count For Feature Matches    1  feature=PRD-XIQ-NAV-S-C    retry_duration=30    retry_count=10``
-         - ``Wait Until Entitlement Available Count For Feature Matches    1  feature=PRD-XIQ-NAC-S      retry_duration=15    retry_count=8``
+        - ``Wait Until Entitlement Available Count For Feature Matches    1``
+        - ``Wait Until Entitlement Available Count For Feature Matches    0  feature=PRD-XIQ-NAV-S-C``
+        - ``Wait Until Entitlement Available Count For Feature Matches    3  retry_duration=10    retry_count=12``
+        - ``Wait Until Entitlement Available Count For Feature Matches    2  feature=PRD-XIQ-PIL-S-C    retry_duration=60    retry_count=5``
+        - ``Wait Until Entitlement Available Count For Feature Matches    1  feature=PRD-XIQ-NAV-S-C    retry_duration=30    retry_count=10``
+        - ``Wait Until Entitlement Available Count For Feature Matches    1  feature=PRD-XIQ-NAC-S      retry_duration=15    retry_count=8``
 
         :param expected: expected number of available licenses for specified license entitlement feature
         :param feature: type of license entitlement to check the available count of (e.g., PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S)
@@ -706,14 +709,13 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         - This keyword is used to wait until the activated count for the specified license entitlement matches the
         - expected value.
-        -
         - Keyword Usage:
-         - ``Wait Until Entitlement Activated Count For Feature Matches    1``
-         - ``Wait Until Entitlement Activated Count For Feature Matches    0  feature=PRD-XIQ-NAV-S-C``
-         - ``Wait Until Entitlement Activated Count For Feature Matches    3  retry_duration=10    retry_count=12``
-         - ``Wait Until Entitlement Activated Count For Feature Matches    2  feature=PRD-XIQ-PIL-S-C    retry_duration=60    retry_count=5``
-         - ``Wait Until Entitlement Activated Count For Feature Matches    1  feature=PRD-XIQ-NAV-S-C    retry_duration=30    retry_count=10``
-         - ``Wait Until Entitlement Activated Count For Feature Matches    1  feature=PRD-XIQ-NAC-S      retry_duration=15    retry_count=8``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    1``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    0  feature=PRD-XIQ-NAV-S-C``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    3  retry_duration=10    retry_count=12``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    2  feature=PRD-XIQ-PIL-S-C    retry_duration=60    retry_count=5``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    1  feature=PRD-XIQ-NAV-S-C    retry_duration=30    retry_count=10``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    1  feature=PRD-XIQ-NAC-S      retry_duration=15    retry_count=8``
 
         :param expected: expected number of activated licenses for specified license entitlement feature
         :param feature: type of license entitlement to check the activated count of (e.g., PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S)
@@ -751,12 +753,11 @@ class LicenseManagement(LicenseManagementWebElements):
     def wait_until_entitlements_table_empty(self, retry_duration=30, retry_count=30):
         """
         - This keyword is used to wait until the Entitlements table is empty.
-        -
         - Keyword Usage:
-         - ``Wait Until Entitlements Table Empty``
-         - ``Wait Until Entitlements Table Empty    retry_duration=10    retry_count=12``
-         - ``Wait Until Entitlements Table Empty    retry_duration=60``
-         - ``Wait Until Entitlements Table Empty    retry_count=10``
+        - ``Wait Until Entitlements Table Empty``
+        - ``Wait Until Entitlements Table Empty    retry_duration=10    retry_count=12``
+        - ``Wait Until Entitlements Table Empty    retry_duration=60``
+        - ``Wait Until Entitlements Table Empty    retry_count=10``
 
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -790,12 +791,12 @@ class LicenseManagement(LicenseManagementWebElements):
 
     def confirm_entitlements_table_contains_feature(self, feature="PRD-XIQ-PIL-S-C"):
         """
-         - Checks if the Entitlements table contains feature
-         - Assumes the License Management page is already being displayed.
-         - Keyword Usage
-          - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-PIL-S-C``
-          - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-C0PILOT-S-C``
-          - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-NAV-S-C``
+        - Checks if the Entitlements table contains feature
+        - Assumes the License Management page is already being displayed.
+        - Keyword Usage
+        - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-PIL-S-C``
+        - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-C0PILOT-S-C``
+        - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-NAV-S-C``
 
         :param feature: feature to search for in table;  PRD-XIQ-PIL-S-C, PRD-XIQ-COPILOT-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
         :return: 1 if Entitlements Table contains feature, else -1

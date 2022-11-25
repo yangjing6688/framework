@@ -36,7 +36,7 @@ class Tools:
         - Keywword requires that the device is already onboarded
         - Used to get neighbor information
         - Keyword Usage:
-            - ``Get Neighbor Info   ${SERIAL}  ${MAC}``
+        - ``Get Neighbor Info   ${SERIAL}  ${MAC}``
 
         :param SERIAL: serial number of device
         :param MAC: mac address of device
@@ -51,7 +51,7 @@ class Tools:
         - Keywword requires that the device is already onboarded
         - Used to get l2 neighbor information
         - Keyword Usage:
-            - ``Get l2 Neighbor Info   ${SERIAL}  ${MAC}``
+        - ``Get l2 Neighbor Info   ${SERIAL}  ${MAC}``
 
         :param SERIAL: serial number of device
         :param MAC: mac address of device
@@ -127,7 +127,7 @@ class Tools:
         - Keywword requires that the device is already onboarded
         - Used to get device diagnostics ping
         - Keyword Usage:
-          - ``Device Diagnostics Ping   ${SERIAL}``
+        - ``Device Diagnostics Ping   ${SERIAL}``
 
         :param SERIAL: serial number of device
         :return: 1 if successful else -1
@@ -252,7 +252,7 @@ class Tools:
         """
         - Used to run ssh availability on ap
         - Keyword Usage:
-            - ``Run Ssh Availability On Ap   ${SERIAL}  ${TIME_LIM}``
+        - ``Run Ssh Availability On Ap   ${SERIAL}  ${TIME_LIM}``
 
         :param SERIAL: serial number of device
         :param TIME_LIM: time lim
@@ -342,7 +342,8 @@ class Tools:
         """
         - Used to ui ssh status check
         - Keyword Usage:
-            - ``Ui Ssh Status Check``
+        - ``Ui Ssh Status Check``
+
         :return: status if successful else -1
         """
         self.utils.print_info("SSH status checking in UI")
@@ -371,7 +372,8 @@ class Tools:
         """
         - Used to ui tools ssh status check
         - Keyword Usage:
-          - ``Ui Tools Ssh Status Check``
+        - ``Ui Tools Ssh Status Check``
+
         :return: status if successful else -1
         """
         self.utils.print_info("SSH status checking in UI")
@@ -391,13 +393,14 @@ class Tools:
     def lock_device(self, host, username, passwd, ssid, ssid_passwd="FFLJLSP09865"):
         # https://jira.aerohive.com/browse/APC-36061
         """
-             Lock Device with 10 invalid logins
-            :param host: mac station ip
-            :param username: mac user login
-            :param passwd: mac user password
-            :param ssid:      global ssid in the network policy
-            :param ssid_pass: password of ssid
-            :return: return a hostname of mac station
+        Lock Device with 10 invalid logins
+
+        :param host: mac station ip
+        :param username: mac user login
+        :param passwd: mac user password
+        :param ssid:      global ssid in the network policy
+        :param ssid_pass: password of ssid
+        :return: return a hostname of mac station
 
         Usage:
             ${host}    lock device  ${MAC_STA_IP}  ${MAC_STA_USERID}  ${MAC_STA_PASS}  ${SSID}
@@ -408,10 +411,12 @@ class Tools:
 
     def verify_device_lock(self, host):
         # https://jira.aerohive.com/browse/APC-36061
-        """ Prequis: AP should be onboared and mac station is availabe to connect to a WIFI
-             Verification device is locked
-            :param host: mac station ip
-            :return:     return a hostname of mac station
+        """
+        Prequis: AP should be onboared and mac station is availabe to connect to a WIFI
+        Verification device is locked
+
+        :param host: mac station ip
+        :return:     return a hostname of mac station
 
         Usage:
             ${host}    verify_device_lock  host
@@ -429,15 +434,18 @@ class Tools:
         # Unlock a device   feature is broken and not able to move forward
 
     def utility_device_info(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of the visiblity of the devices in the device list section of utilities
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : name of ap
-            :return: None
+        """
+        Prequis: AP should be onboared
+        Verification of the visiblity of the devices in the device list section of utilities
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : name of ap
+        :return: None
+
         Usage:
             util_device_info  online  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
             util_device_info  offline ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}}
@@ -468,16 +476,18 @@ class Tools:
             self.cli.capwap_ap_on_off(ap_ip, ap_usr, ap_pass, "on")
 
     def utility_device_client_info(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_mac, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of visibility of client information by selecting an AP
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : ap model
-            :param ap_mac   : mac address
-            :return         : None
+        """
+        Prequis: AP should be onboared
+        Verification of visibility of client information by selecting an AP
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : ap model
+        :param ap_mac   : mac address
+        :return         : None
 
         usage:  util_device_client_info  online   ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_MAC}  ${AP1_NAME}
                 util_device_client_info  offline  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_MAC}  ${AP1_NAME}
@@ -506,18 +516,21 @@ class Tools:
             self.cli.capwap_ap_on_off(ap_ip, ap_usr, ap_pass, "on")
 
     def make_wifi_connection(self, host, username, passwd, ssid, ssid_passwd):
-        """  Prequis: AP should be onboared and mac station is availabe to connect to a WIFI
-             Make a wifi connection
-            :param host: mac station ip
-            :param username: mac user login
-            :param passwd: mac user password
-            :param ssid:      global ssid a network policy
-            :param ssid_pass: password of ssid
-            :param wifi_port: mac wifi port
-            :param mode: pass : make a succesful wifi connection
-                         fail : make a failed wifi connection
-            :param ntimes     : number of times to authenticate in order to be in locked state
-            :return: return a hostname of mac station
+        """
+        Prequis: AP should be onboared and mac station is availabe to connect to a WIFI
+        Make a wifi connection
+
+        :param host: mac station ip
+        :param username: mac user login
+        :param passwd: mac user password
+        :param ssid:      global ssid a network policy
+        :param ssid_pass: password of ssid
+        :param wifi_port: mac wifi port
+        :param mode: pass : make a succesful wifi connection
+                        fail : make a failed wifi connection
+        :param ntimes     : number of times to authenticate in order to be in locked state
+        :return: return a hostname of mac station
+
         usage:
             make wifi connection  ${MAC_STA_IP}  ${MAC_STA_USERID}  ${MAC_STA_PASS}  ${SSID}  ${SSID_PASSWD}
         """
@@ -526,14 +539,17 @@ class Tools:
         return self.cli.get_mac_hostname(host, username, passwd)
 
     def verify_util_client_cnx(self, ssid, ap_name, client_mac, client_name="default", conn_type="WIRELESS"):
-        """ Prequis: AP should be onboared and mac station for a WIFI
-            Verification of the visibility of client information
-            :param ssid     : ssid from a policy
-            :param ap_name  : ap name
-            :param client_mac  : mac addr of mac station
-            :param client_name : name of mac station
-            :param conn_type   : a conntection type - WIRELESS / WIRED
-            :return: None
+        """
+        Prequis: AP should be onboared and mac station for a WIFI
+        Verification of the visibility of client information
+
+        :param ssid     : ssid from a policy
+        :param ap_name  : ap name
+        :param client_mac  : mac addr of mac station
+        :param client_name : name of mac station
+        :param conn_type   : a conntection type - WIRELESS / WIRED
+        :return: None
+
         usage:
             verify util client cnx    ${SSID}  ${AP1_NAME}  ${MAC_MAC_ADDR}
         """
@@ -554,15 +570,18 @@ class Tools:
                                      "CONNECTED") == 1, "connection type is not matched"
 
     def utility_device_diagnostic(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of the diagnostic functionalities of the device
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : ap name
-            :return: None   :
+        """
+        Prequis: AP should be onboared
+        Verification of the diagnostic functionalities of the device
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : ap name
+        :return: None   :
+
         usage:
             utility device diagnostic  online   ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
             utility device diagnostic  offline  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
@@ -599,15 +618,18 @@ class Tools:
             self.cli.capwap_ap_on_off(ap_ip, ap_usr, ap_pass, "on")
 
     def utility_vlan_probe(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of visibility of client information by selecting an AP
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : ap name
-            :return: None   :
+        """
+        Prequis: AP should be onboared
+        Verification of visibility of client information by selecting an AP
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : ap name
+        :return: None   :
+
         usage:
              utility_vlan_probe  online   ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
              utility_vlan_probe  offline  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
@@ -639,15 +661,18 @@ class Tools:
             self.cli.capwap_ap_on_off(ap_ip, ap_usr, ap_pass, "on")
 
     def utility_get_tech_data(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of the downloading of the tech data of an AP
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : ap name
-            :return: None   :
+        """
+        Prequis: AP should be onboared
+        Verification of the downloading of the tech data of an AP
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : ap name
+        :return: None   :
+
         usage:
             utility_get_tech_data  online   ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
             utility_get_tech_data  offline  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
@@ -681,11 +706,12 @@ class Tools:
 
     def get_value_in_tbl(self, grids, field):
         """
+        Get value from table list
 
-            Get value from table list
-            :param grids    : list of rows in table
-            :param field    : a column / cell
-            :return         : true / false
+        :param grids    : list of rows in table
+        :param field    : a column / cell
+        :return         : true / false
+
         usage:
             get_value_in_tbl(grid1, column)
         """
@@ -697,11 +723,14 @@ class Tools:
         return -1
 
     def wait_til_elements_avail(self, locator, seconds=60, elements=True):
-        """ wait until elements or element is present. If it is a table, there is a least one row
-            :param locator    : element's locator
-            :param seconds    : number of seconds to wait
-            :param true if element is a grid, false if element is not a grid
-            :return:  true / false
+        """
+        wait until elements or element is present. If it is a table, there is a least one row
+
+        :param locator    : element's locator
+        :param seconds    : number of seconds to wait
+        :param true if element is a grid, false if element is not a grid
+        :return:  true / false
+
         usage:
             self.wait_til_elements_avail(self.tool_utils.client_info_list, False)
         """
@@ -723,12 +752,15 @@ class Tools:
         return -1
 
     def wait_til_ap_change_status(self, ap_sn, ap_name, seconds, exp_status):
-        """ Wait until a device is connected or disconnected
-            :param ap_sn      : ap serial number
-            :param ap_name    : ap name
-            :param seconds    : number of seconds for waiting
-            :param exp_status : expected either connected or disconnected
-            :return:  true / false
+        """
+        Wait until a device is connected or disconnected
+
+        :param ap_sn      : ap serial number
+        :param ap_name    : ap name
+        :param seconds    : number of seconds for waiting
+        :param exp_status : expected either connected or disconnected
+        :return:  true / false
+
         usage:
             self.wait_til_ap_change_status(ap_sn, ap_name, 180, "green")
         """
@@ -746,12 +778,14 @@ class Tools:
 
     def enable_disable_device(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
         """
-            Enable / disable a capwap device
-            :param ap_sn      : ap serial number
-            :param ap_name    : ap name
-            :param seconds    : number of seconds for waiting
-            :param exp_status : expected status either connected or disconnected
-            :return:  true / false
+        Enable / disable a capwap device
+
+        :param ap_sn      : ap serial number
+        :param ap_name    : ap name
+        :param seconds    : number of seconds for waiting
+        :param exp_status : expected status either connected or disconnected
+        :return:  true / false
+
         usage:
             self.wait_til_ap_change_status(ap_sn, ap_name, 180, "green")
         """
@@ -763,11 +797,15 @@ class Tools:
             self.wait_til_ap_change_status(ap_sn, ap_name, 180, "red")
 
     def click_til_element_avail(self, element, seconds=30):
-        """ Click on a webelement until element is ready
-            Enable an ap device  connected or disconnected
-            :param element      : Web Element
-            :param seconds      : a duration of waited time
-            :return:  None
+        """
+        Click on a webelement until element is ready
+        Enable an ap device  connected or disconnected
+
+        :param element      : Web Element
+        :param seconds      : a duration of waited time
+
+        :return:  None
+
         usage:
             self.click_til_element_avail(self.tool_utils.get_tech_data_btn())
         """
@@ -783,8 +821,9 @@ class Tools:
         """
         - This keyword is for testing Ping utility from Installer Role
         - Flow: Installer Role -> Select a device ->  Utilities -> Diagnostics -> Ping
-         - Keyword Usage:
-          - 'Installer Role Diagnostics Ping'
+        - Keyword Usage:
+        - 'Installer Role Diagnostics Ping'
+
         :return: 1 if operation is successful
         """
         self.utils.print_info("Clicking Utilities...")
@@ -813,5 +852,3 @@ class Tools:
             return 1
 
         return -1
-
-        

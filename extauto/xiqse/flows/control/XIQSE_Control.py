@@ -15,13 +15,13 @@ class XIQSE_Control(ControlWebElements):
 
     def xiqse_control_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Control page
-         - Keyword Usage
-          - ``XIQSE Control Select Tab    Dashboard``
-          - ``XIQSE Control Select Tab    Policy``
-          - ``XIQSE Control Select Tab    Access Control``
-          - ``XIQSE Control Select Tab    End-Systems``
-          - ``XIQSE Control Select Tab    Reports``
+        - This keyword selects the specified tab of the Control page
+        - Keyword Usage
+        - ``XIQSE Control Select Tab    Dashboard``
+        - ``XIQSE Control Select Tab    Policy``
+        - ``XIQSE Control Select Tab    Access Control``
+        - ``XIQSE Control Select Tab    End-Systems``
+        - ``XIQSE Control Select Tab    Reports``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -53,9 +53,9 @@ class XIQSE_Control(ControlWebElements):
 
     def xiqse_control_select_dashboard_tab(self):
         """
-         - This keyword selects the Dashboard tab of the Control page
-         - Keyword Usage
-          - ``XIQSE Control Select Dashboard Tab``
+        - This keyword selects the Dashboard tab of the Control page
+        - Keyword Usage
+        - ``XIQSE Control Select Dashboard Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -64,9 +64,9 @@ class XIQSE_Control(ControlWebElements):
 
     def xiqse_control_select_policy_tab(self):
         """
-         - This keyword selects the Policy tab of the Control page
-         - Keyword Usage
-          - ``XIQSE Control Select Policy Tab``
+        - This keyword selects the Policy tab of the Control page
+        - Keyword Usage
+        - ``XIQSE Control Select Policy Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -75,9 +75,9 @@ class XIQSE_Control(ControlWebElements):
 
     def xiqse_control_select_access_control_tab(self):
         """
-         - This keyword selects the Access Control tab of the Control page
-         - Keyword Usage
-          - ``XIQSE Control Select Access Control Tab``
+        - This keyword selects the Access Control tab of the Control page
+        - Keyword Usage
+        - ``XIQSE Control Select Access Control Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -86,9 +86,9 @@ class XIQSE_Control(ControlWebElements):
 
     def xiqse_control_select_end_systems_tab(self):
         """
-         - This keyword selects the End Systems tab of the Control page
-         - Keyword Usage
-          - ``XIQSE Control Select End systems Tab``
+        - This keyword selects the End Systems tab of the Control page
+        - Keyword Usage
+        - ``XIQSE Control Select End systems Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -97,9 +97,9 @@ class XIQSE_Control(ControlWebElements):
 
     def xiqse_control_select_reports_tab(self):
         """
-         - This keyword selects the Reports tab of the Control page
-         - Keyword Usage
-          - ``XIQSE Control Select Reports Tab``
+        - This keyword selects the Reports tab of the Control page
+        - Keyword Usage
+        - ``XIQSE Control Select Reports Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -108,11 +108,11 @@ class XIQSE_Control(ControlWebElements):
 
     def xiqse_control_select_title_header(self, title):
         """
-         - This keyword selects the title header on the Control> Policy or Access Control tab.
-         - You need to be in the correct page (i.e. Policy or Access Control) to use this keyword.
-         - Keyword Usage
-          - ``XIQSE Control Select Title Header   ${TITLE Header}``
-          -  Examples:
+        - This keyword selects the title header on the Control> Policy or Access Control tab.
+        - You need to be in the correct page (i.e. Policy or Access Control) to use this keyword.
+        - Keyword Usage
+        - ``XIQSE Control Select Title Header   ${TITLE Header}``
+        -  Examples:
                 For Policy,
                     XIQSE Control Select Title Header     Roles/Services
                     XIQSE Control Select Title Header     Class of Service

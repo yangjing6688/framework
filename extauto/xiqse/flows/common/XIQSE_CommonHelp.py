@@ -14,9 +14,9 @@ class XIQSE_CommonHelp(CommonHelpWebElements):
 
     def xiqse_close_help_panel(self):
         """
-         - This keyword closes the Context Help panel, if it is open
-         - Keyword Usage
-          - ``XIQSE Close Help Panel``
+        - This keyword closes the Context Help panel, if it is open
+        - Keyword Usage
+        - ``XIQSE Close Help Panel``
 
         :return: 1 if action successful, else -1
         """

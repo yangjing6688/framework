@@ -13,9 +13,9 @@ class XIQSE_AdminProfilesCLICredentialsSaveFailed(AdminProfilesCLICredentialsSav
 
     def xiqse_save_failed_dialog_handle_failure(self):
         """
-         - This keyword handles a failure saving a credential in the Add CLI Credential dialog.
-         - Keyword Usage
-          - ``XIQSE Save Failed Dialog Handle Failure``
+        - This keyword handles a failure saving a credential in the Add CLI Credential dialog.
+        - Keyword Usage
+        - ``XIQSE Save Failed Dialog Handle Failure``
 
         :return: 1 if no failure occurred, 2 if the failure is due to the entry already existing, else -1
         """

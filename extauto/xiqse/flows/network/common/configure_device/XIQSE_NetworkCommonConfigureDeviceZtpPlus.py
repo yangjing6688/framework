@@ -25,10 +25,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
     # ZTP+ DEVICE SETTINGS TAB
     def xiqse_configure_device_dialog_ztp_verify_serial_number(self, serial_number):
         """
-         - This keyword verifies the Serial Number value in the Configure Device dialog (ZTP+ Device Settings tab).
-         - It assumes the dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Configure Device Dialog Ztp Verify Serial Number  Serial Number``
+        - This keyword verifies the Serial Number value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Verify Serial Number  Serial Number``
         :param serial_number: value to test in the Serial Number field
         :return: 1 if action was successful, else -1
         """
@@ -62,13 +62,13 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_use_discovered(self, use_discovered):
         """
-         - This keyword sets the Use Discovered value in the Configure Device dialog (ZTP+ Device Settings tab).
-         - It assumes the dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Configure Device Dialog Ztp Set Use Discovered  Disabled``
-          - ``XIQSE Configure Device Dialog Ztp Set Use Discovered  IP``
-          - ``XIQSE Configure Device Dialog Ztp Set Use Discovered  IP and Management Interface``
-          - ``XIQSE Configure Device Dialog Ztp Set Use Discovered  Management Interface``
+        - This keyword sets the Use Discovered value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Use Discovered  Disabled``
+        - ``XIQSE Configure Device Dialog Ztp Set Use Discovered  IP``
+        - ``XIQSE Configure Device Dialog Ztp Set Use Discovered  IP and Management Interface``
+        - ``XIQSE Configure Device Dialog Ztp Set Use Discovered  Management Interface``
         :param use_discovered: value to select for the Use Discovered field
          (Disabled, IP, IP and Management Interface, Management Interface)
         :return: 1 if action was successful, else -1
@@ -110,11 +110,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_ip_address_and_subnet(self, ip_address):
         """
-          - This keyword sets the IP Address / Subnet value in the Configure Device dialog (ZTP+ Device Settings tab).
-          - It assumes the view is already open.
-          - If only the IP Address is provided, then XIQ-SE defaults the Subnet value to /24
-          - Keyword Usage
-           - ``XIQSE Configure Device Dialog Ztp Set Starting IP Address  ip_address``
+        - This keyword sets the IP Address / Subnet value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - If only the IP Address is provided, then XIQ-SE defaults the Subnet value to /24
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Starting IP Address  ip_address``
          :param ip_address: value to set for the IP Address/Subnet Mask
          :return: 1 if action was successful (or the field is disabled), else -1
          """
@@ -136,10 +136,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_gateway_address(self, gateway_address):
         """
-          - This keyword sets the Gateway Address value in the Configure Device dialog (ZTP+ Device Settings tab).
-          - It assumes the view is already open.
-          - Keyword Usage
-           - ``XIQSE Configure Device Dialog Ztp Set Gateway Address  gateway_address``
+        - This keyword sets the Gateway Address value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Gateway Address  gateway_address``
          :param gateway_address: value to set for the Gateway Address
          :return: 1 if action was successful (or the field is disabled), else -1
          """
@@ -161,12 +161,12 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_management_interface(self, management_interface):
         """
-         - This keyword sets the Management Interface value in the Configure Device dialog (ZTP+ Device Settings tab).
-         - It assumes the view is already open.
-         - Keyword Usage
-          - ``XIQSE Configure Device Dialog Ztp Set Management Interface  Out-Of-Band``
-          - ``XIQSE Configure Device Dialog Ztp Set Management Interface  Default``
-          - ``XIQSE Configure Device Dialog Ztp Set Management Interface  <VlAN-NAME>``
+        - This keyword sets the Management Interface value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Management Interface  Out-Of-Band``
+        - ``XIQSE Configure Device Dialog Ztp Set Management Interface  Default``
+        - ``XIQSE Configure Device Dialog Ztp Set Management Interface  <VlAN-NAME>``
         :param management_interface: value to select for the Use Discovered field
                (Out-Of-Band || Default || VlAN-NAME)
         :return: 1 if action was successful (or the field is disabled), else -1
@@ -214,11 +214,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_cli_recovery_mode_only_checkbox(self, state="Disable"):
         """
-             - This keyword sets the Basic Management CLI Recovery Mode Only value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Cli Recovery Mode Only Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Cli Recovery Mode Only Checkbox  Disable``
+        - This keyword sets the Basic Management CLI Recovery Mode Only value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Cli Recovery Mode Only Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Cli Recovery Mode Only Checkbox  Disable``
             :param state: value to set for the Basic Management CLI Recovery Mode Only checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -245,10 +245,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_domain_name(self, domain_name):
         """
-          - This keyword sets the Domain Name value in the Configure Device dialog (ZTP+ Device Settings tab).
-          - It assumes the view is already open.
-          - Keyword Usage
-           - ``XIQSE Configure Device Dialog Ztp Set Domain Name  domain_name``
+        - This keyword sets the Domain Name value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Domain Name  domain_name``
          :param domain_name: value to set for the Domain Name
          :return: 1 if action was successful (or the field is disabled), else -1
          """
@@ -270,10 +270,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_dns_server(self, dns_server):
         """
-          - This keyword sets the DNS Server value in the Configure Device dialog (ZTP+ Device Settings tab).
-          - It assumes the view is already open.
-          - Keyword Usage
-           - ``XIQSE Configure Device Dialog Ztp Set DNS Server  dns_server``
+        - This keyword sets the DNS Server value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set DNS Server  dns_server``
          :param dns_server: value to set for the DNS Server
          :return: 1 if action was successful (or the field is disabled), else -1
          """
@@ -295,10 +295,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_dns_server_two(self, dns_server):
         """
-          - This keyword sets the DNS Server 2 value in the Configure Device dialog (ZTP+ Device Settings tab).
-          - It assumes the view is already open.
-          - Keyword Usage
-           - ``XIQSE Configure Device Dialog Ztp Set DNS Server Two  dns_server``
+        - This keyword sets the DNS Server 2 value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set DNS Server Two  dns_server``
          :param dns_server: value to set for the DNS Server 2
          :return: 1 if action was successful (or the field is disabled), else -1
          """
@@ -320,10 +320,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_dns_server_three(self, dns_server):
         """
-          - This keyword sets the DNS Server 3 value in the Configure Device dialog (ZTP+ Device Settings tab).
-          - It assumes the view is already open.
-          - Keyword Usage
-           - ``XIQSE Configure Device Dialog Ztp Set DNS Server Three  dns_server``
+        - This keyword sets the DNS Server 3 value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set DNS Server Three  dns_server``
          :param dns_server: value to set for the DNS Server 3
          :return: 1 if action was successful (or the field is disabled), else -1
          """
@@ -345,10 +345,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_dns_search_suffix(self, dns_search_suffix):
         """
-          - This keyword sets the DNS Search Suffix value in the Configure Device dialog (ZTP+ Device Settings tab).
-          - It assumes the view is already open.
-          - Keyword Usage
-           - ``XIQSE Configure Device Dialog Ztp Set DNS Search Suffix  dns_search_suffix``
+        - This keyword sets the DNS Search Suffix value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set DNS Search Suffix  dns_search_suffix``
          :param dns_search_suffix: value to set for the DNS Search Suffix
          :return: 1 if action was successful (or the field is disabled), else -1
          """
@@ -370,10 +370,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_ntp_server(self, ntp_server):
         """
-          - This keyword sets the NTP Server value in the Configure Device dialog (ZTP+ Device Settings tab).
-          - It assumes the view is already open.
-          - Keyword Usage
-           - ``XIQSE Configure Device Dialog Ztp Set NTP Server  ntp_server``
+        - This keyword sets the NTP Server value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set NTP Server  ntp_server``
          :param ntp_server: value to set for the NTP Server
          :return: 1 if action was successful, else -1
          """
@@ -391,10 +391,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_ntp_server_two(self, ntp_server):
         """
-          - This keyword sets the NTP Server 2 value in the Configure Device dialog (ZTP+ Device Settings tab).
-          - It assumes the view is already open.
-          - Keyword Usage
-           - ``XIQSE Configure Device Dialog Ztp Set NTP Server 2  ntp_server``
+        - This keyword sets the NTP Server 2 value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set NTP Server 2  ntp_server``
          :param ntp_server: value to set for the NTP Server 2
          :return: 1 if action was successful, else -1
          """
@@ -416,11 +416,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
     # Device Protocols section
     def xiqse_configure_device_dialog_ztp_set_device_protocols_telnet_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols Telnet value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Telnet Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Telnet Checkbox  Disable``
+        - This keyword sets the Device Protocols Telnet value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Telnet Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Telnet Checkbox  Disable``
             :param state: value to set for the Device Protocols Telnet checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -447,11 +447,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_ssh_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols SSH value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Ssh Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Ssh Checkbox  Disable``
+        - This keyword sets the Device Protocols SSH value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Ssh Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Ssh Checkbox  Disable``
             :param state: value to set for the Device Protocols SSH checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -478,11 +478,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_http_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols HTTP value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Http Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Http Checkbox  Disable``
+        - This keyword sets the Device Protocols HTTP value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Http Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Http Checkbox  Disable``
             :param state: value to set for the Device Protocols HTTP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -509,11 +509,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_https_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols HTTPS value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Https Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Https Checkbox  Disable``
+        - This keyword sets the Device Protocols HTTPS value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Https Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Https Checkbox  Disable``
             :param state: value to set for the Device Protocols HTTPS checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -540,11 +540,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_ftp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols FTP value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Ftp Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Ftp Checkbox  Disable``
+        - This keyword sets the Device Protocols FTP value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Ftp Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Ftp Checkbox  Disable``
             :param state: value to set for the Device Protocols FTP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -571,11 +571,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_snmp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols SNMP value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Snmp Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Snmp Checkbox  Disable``
+        - This keyword sets the Device Protocols SNMP value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Snmp Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Snmp Checkbox  Disable``
             :param state: value to set for the Device Protocols SNMP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -602,11 +602,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_lacp_checkbox(self, state="Disable"):
         """
-             - This keyword sets the Device Protocols LACP value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Lacp checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Lacp checkbox  Disable``
+        - This keyword sets the Device Protocols LACP value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Lacp checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Lacp checkbox  Disable``
             :param state: value to set for the Device Protocols LACP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -633,11 +633,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_lldp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols LLDP value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Lldp Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Lldp Checkbox  Disable``
+        - This keyword sets the Device Protocols LLDP value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Lldp Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Lldp Checkbox  Disable``
             :param state: value to set for the Device Protocols LLDP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -664,11 +664,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_mvrp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols MVRP value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Mvrp Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Mvrp Checkbox  Disable``
+        - This keyword sets the Device Protocols MVRP value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Mvrp Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Mvrp Checkbox  Disable``
             :param state: value to set for the Device Protocols MVRP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -695,11 +695,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_mstp_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols MSTP value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Mstp Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Mstp Checkbox  Disable``
+        - This keyword sets the Device Protocols MSTP value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Mstp Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Mstp Checkbox  Disable``
             :param state: value to set for the Device Protocols MSTP checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -726,11 +726,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_poe_checkbox(self, state="Enable"):
         """
-             - This keyword sets the Device Protocols POE value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Poe Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Poe Checkbox  Disable``
+        - This keyword sets the Device Protocols POE value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Poe Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Poe Checkbox  Disable``
             :param state: value to set for the Device Protocols POE checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -757,11 +757,11 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
 
     def xiqse_configure_device_dialog_ztp_set_device_protocols_vxlan_checkbox(self, state="Disable"):
         """
-             - This keyword sets the Device Protocols VXLAN value in the Configure Device dialog (ZTP+ Device Settings tab).
-             - It assumes the view is already open.
-             - Keyword Usage
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Vxlan Checkbox  Enable``
-              - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Vxlan Checkbox  Disable``
+        - This keyword sets the Device Protocols VXLAN value in the Configure Device dialog (ZTP+ Device Settings tab).
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Vxlan Checkbox  Enable``
+        - ``XIQSE Configure Device Dialog Ztp Set Device Protocols Vxlan Checkbox  Disable``
             :param state: value to set for the Device Protocols VXLAN checkbox (Enable || Disable)
             :return: 1 if action was successful, else -1
             """
@@ -789,10 +789,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
     # COMMON FUNCTION TO TEST IF THE FIELD IS DISABLED
     def orig_xiqse_is_field_disabled(self, field_element):
         """
-         - This keyword tests if the field is disabled.
-         - It assumes the view is already open.
-         - Keyword Usage
-          - ``XIQSE is Field Disabled  field``
+        - This keyword tests if the field is disabled.
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE is Field Disabled  field``
         :param field_element: field
         :return: True if disabled else None
         """
@@ -805,10 +805,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
     # COMMON FUNCTION TO TEST IF THE FIELD IS READ-ONLY
     def orig_xiqse_is_field_readonly(self, field_element):
         """
-         - This keyword tests if the field is read only.
-         - It assumes the view is already open.
-         - Keyword Usage
-          - ``XIQSE is Field Readonly  field``
+        - This keyword tests if the field is read only.
+        - It assumes the view is already open.
+        - Keyword Usage
+        - ``XIQSE is Field Readonly  field``
         :param field_element: field
         :return: True if readonly else None
         """

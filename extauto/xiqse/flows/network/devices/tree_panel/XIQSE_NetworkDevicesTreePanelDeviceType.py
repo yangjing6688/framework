@@ -17,9 +17,9 @@ class XIQSE_NetworkDevicesTreePanelDeviceType(NetworkDevicesTreePanelDeviceTypeW
 
     def xiqse_select_device_type_node(self, device_type):
         """
-         - This keyword selects the specified device type node on the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Select Device Type Node   ${DEVICE_TYPE}``
+        - This keyword selects the specified device type node on the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Select Device Type Node   ${DEVICE_TYPE}``
 
         :param device_type: name of device type node to select
         :return: 1 if action was successful, else -1

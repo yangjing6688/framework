@@ -29,7 +29,7 @@ class Device360Stack(Device360WebElements):
         """
         - This keyword obtains the value of the Stack Members in device title in the Device360 view.
         - Keyword Usage
-         - ``Device360 Get Title Stack Info``
+        - ``Device360 Get Title Stack Info``
         :return: value of Stack Members in the device title in the Device360 view
         """
         ret_val = ""
@@ -47,7 +47,7 @@ class Device360Stack(Device360WebElements):
         - This keyword gets information from the the Device through cli.
         - It is assumed that the Device spawn is open.
         - Keyword Usage
-         - ``Get Stack Port Information on Device  ${SW_SPAWN}    1:4``
+        - ``Get Stack Port Information on Device  ${SW_SPAWN}    1:4``
         :return: dictionary of information obtained from the Device
         """
 
@@ -77,7 +77,7 @@ class Device360Stack(Device360WebElements):
         - This keyword gets information from the left sidebar of the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Get Stack Side Bar Information``
+        - ``Device360 Get Stack Side Bar Information``
         :return: dictionary of information obtained from the left side bar of the Device360 view
         """
 
@@ -181,7 +181,7 @@ class Device360Stack(Device360WebElements):
         - This keyword gets information from the top bar of the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Get Stack Slot Overview Information   1``
+        - ``Device360 Get Stack Slot Overview Information   1``
         :return: dictionary of information obtained from the top bar of the Device360 view
         """
 
@@ -392,7 +392,7 @@ class Device360Stack(Device360WebElements):
         """
         - This keyword obtains the value of the Temperature field from the top bar in the Device360 view.
         - Keyword Usage
-         - ``Device360 Get Stack Slot Top Bar Temperature   1``
+        - ``Device360 Get Stack Slot Top Bar Temperature   1``
         :return: value of the Temperature field from the top bar in the Device360 view
         """
         ret_val = ""
@@ -411,7 +411,7 @@ class Device360Stack(Device360WebElements):
         - This keyword gets information from the left sidebar of the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Get Stack Slot Top Bar Last Update Time     1``
+        - ``Device360 Get Stack Slot Top Bar Last Update Time     1``
         :return: last update time if successful, otherwise None
         """
         ret_val = ""
@@ -459,7 +459,7 @@ class Device360Stack(Device360WebElements):
         - It Assumes That Already Navigated to Device360 Page
         - Flow : Device 360 Page
         - Keyword Usage
-         - ``Get Stack System Information   1``
+        - ``Get Stack System Information   1``
 
         :return: dictionary of Stack Switch information
         """
@@ -539,7 +539,7 @@ class Device360Stack(Device360WebElements):
         - This keyword gets the number of port icons displayed for Stack in the Device360 view.
         - It is assumed that the Device360 window is open.
         - Keyword Usage
-         - ``Device360 Stack Get Port Icon Count``
+        - ``Device360 Stack Get Port Icon Count``
         :return: number of port icons displayed in the Device360 view
         """
         ret_val = 0
@@ -560,7 +560,7 @@ class Device360Stack(Device360WebElements):
         - This keyword selects the specified port on the Monitor> Diagnostics page.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
         - Keyword Usage:
-         - ``Device360 Stack Overview Select Port    3``
+        - ``Device360 Stack Overview Select Port    3``
         :param  port_num    specifies which port to select
         :return: none
         """
@@ -582,7 +582,7 @@ class Device360Stack(Device360WebElements):
         - It Assumes That Already Navigated to Device360 Page and Port is selected
         - Flow : Device 360 Page
         - Keyword Usage
-         - ``Get Stack Port Table Information``
+        - ``Get Stack Port Table Information``
 
         :return: dictionary of Stack Switch information
         """
@@ -627,8 +627,8 @@ class Device360Stack(Device360WebElements):
         - This keyword gets EXOS/VOSS Switch stack Port table information from device360 page
         - Flow : Manage --> Devices--> Select Device stack-->Device stack 360 Page
         - Keyword Usage
-         - ``Get Switch Stack Device360 Port Table Information  device_mac={DEVICE_MAC}  port_number={PORT_NUMBER} ``
-         - ``Get Switch Stack Device360 Port Table Information  device_name={DEVICE_NAME}  port_number={PORT_NUMBER} ``
+        - ``Get Switch Stack Device360 Port Table Information  device_mac={DEVICE_MAC}  port_number={PORT_NUMBER} ``
+        - ``Get Switch Stack Device360 Port Table Information  device_name={DEVICE_NAME}  port_number={PORT_NUMBER} ``
          :param device_mac: Device Stack Mac Address
          :param device_name: Device Stack Name
          :param port_number: Port Number of the Switch Stack

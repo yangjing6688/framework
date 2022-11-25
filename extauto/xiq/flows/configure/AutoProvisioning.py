@@ -18,7 +18,7 @@ class AutoProvisioning:
         """
         - This keyword creates auto provision basic settings
         - Keyword Usage:
-         - ``Auto Provision Basic Settings    ${APP_POLICY_NAME}    ${AP_COUNTRY}    &{APP_CONFIG_DICTIONARY}``
+        - ``Auto Provision Basic Settings    ${APP_POLICY_NAME}    ${AP_COUNTRY}    &{APP_CONFIG_DICTIONARY}``
         :param policy_name: app policy name
         :param country_code: country code
         :param auto_provision_profile: policy_name, device_function, device_model, service_tags, ip sub networks,
@@ -89,7 +89,7 @@ class AutoProvisioning:
         """
         - This keyword creates auto provision advanced settings
         - Keyword Usage:
-         - ``Auto Provision Advanced Settings   &{APP_CONFIG_DICTIONARY}``
+        - ``Auto Provision Advanced Settings   &{APP_CONFIG_DICTIONARY}``
         :param: upload_firmware,upload_configuration,reboot,Firmware_version
         :return: None
         """
@@ -125,7 +125,7 @@ class AutoProvisioning:
         """
         - This keyword adds auto provision device credentials if status is enabled on device_credential dictionary
         - Keyword Usage:
-         - ``Auto Provision Device Credential  &{DEVICE_CREDENTIAL_DICTIONARY}``
+        - ``Auto Provision Device Credential  &{DEVICE_CREDENTIAL_DICTIONARY}``
         :param: device credentials dict : device_credential,root_admin_name,root_admin_password,read_only_admin_name,
                 read_only_admin_password
         :return: None
@@ -152,7 +152,7 @@ class AutoProvisioning:
         """
         - This keyword creates auto provision CAPWAP configuration
         - Keyword Usage:
-         - ``Auto Provision capwap configurations &{CAPWAP_CONFIGURATION_DICTIONARY}``
+        - ``Auto Provision capwap configurations &{CAPWAP_CONFIGURATION_DICTIONARY}``
         :param: capwap_configuration: CAPWAP configuration values
         :return: None
         """
@@ -221,7 +221,7 @@ class AutoProvisioning:
         """
         - This keyword saves and enables auto provision profile
         - Keyword Usage:
-         - ``Save and Enable Auto Provision Policy   ${APP_POLICY_NAME}``
+        - ``Save and Enable Auto Provision Policy   ${APP_POLICY_NAME}``
         :param: policy_name : auto provision policy name
         :return: None
         """
@@ -238,7 +238,7 @@ class AutoProvisioning:
         """
         - Enables a auto provision policy
         - Keyword Usage:
-         - ``Auto Provision Enable Policy Row   ${APP_POLICY_NAME}``
+        - ``Auto Provision Enable Policy Row   ${APP_POLICY_NAME}``
         :param: auto provision policy name which is to be searched
         :return: None
         """
@@ -254,7 +254,7 @@ class AutoProvisioning:
         """
         - This keyword chooses auto provision network policy
         - Keyword Usage
-         - ``Choose Auto Provision Network Policy   ${NETWORK_POLICY_NAME}``
+        - ``Choose Auto Provision Network Policy   ${NETWORK_POLICY_NAME}``
         :param: network policy : Network Policy Name to be apply for autoprovision policy
         :return: 1 if network policy found, else -1
         """
@@ -284,7 +284,7 @@ class AutoProvisioning:
         """
         - This keyword verifies if the device is updated with auto configuration policy
         - Keyword Usage
-         - ``verify auto provision_policy_update   ${NETWORK_POLICY_NAME}``
+        - ``verify auto provision_policy_update   ${NETWORK_POLICY_NAME}``
         :param: serial : serial number of device
         :param: auto_provision_policy: (Config Dict) device_function(AP or Switch), network_policy_name
         :return: 1 Auto Provision Policy Update Successful else -1
@@ -329,7 +329,7 @@ class AutoProvisioning:
         """
         - This keyword uses to configure Auto Provisioning Policy Name
         - Keyword Usage
-         - ``Enter Auto Provision Policy Name   ${APP_NAME}``
+        - ``Enter Auto Provision Policy Name   ${APP_NAME}``
         :param: policy_name : Auto Provisioning Policy Name
         :return: None
         """
@@ -341,7 +341,7 @@ class AutoProvisioning:
         """
         - This keyword chooses auto provision device function
         - Keyword Usage
-         - ``Choose Auto Provision Device Function   ${DEVICE_FUNCTION}``
+        - ``Choose Auto Provision Device Function   ${DEVICE_FUNCTION}``
         :param: device_function : device function to be selected
         :return: 1 if Device Function Selected Successfully else -1
         """
@@ -371,7 +371,7 @@ class AutoProvisioning:
         """
         - This keyword chooses auto provision device model
         - Keyword Usage
-         - ``Choose Auto Provision Device Model   ${DEVICE_PLATFORM}   ${DEVICE_FUNCTION}``
+        - ``Choose Auto Provision Device Model   ${DEVICE_PLATFORM}   ${DEVICE_FUNCTION}``
         :param: device model : Device Platform
         :param: device function : Device Function Name ie AP,Switches
         :return:None
@@ -417,7 +417,7 @@ class AutoProvisioning:
         """
         - This keyword chooses auto provision country
         - Keyword Usage
-         - ``Choose Auto Provision Country Code   ${COUNTRY_CODE}``
+        - ``Choose Auto Provision Country Code   ${COUNTRY_CODE}``
         :param: country_code : Country Code to Configure for Auto Provisioning Policy
         :return: 1 if Country Code Successfully configured else -1
         """
@@ -450,7 +450,7 @@ class AutoProvisioning:
         """
         - Delete a Auto Provisioning Policy
         - Keyword Usage
-         - ``Delete Auto Provisioning Policy   ${APP_NAME}``
+        - ``Delete Auto Provisioning Policy   ${APP_NAME}``
         :param policy_name: Auto Provisioning policy Name
         :return: 1 if successfully deleted Auto Provisioning Policy else -1
         """
@@ -487,7 +487,7 @@ class AutoProvisioning:
         """
         - Delete all Auto Provisioning Policies
         - Keyword Usage
-         - ``Delete All Auto Provision Policies``
+        - ``Delete All Auto Provision Policies``
         :return: 1 if successfully deleted All Auto Provisioning Policies else -1
         """
 
@@ -528,7 +528,7 @@ class AutoProvisioning:
         """
         - Search a Auto Provisioning Policy
         - Keyword Usage
-         - ``Search Auto Provisioning Policy   ${APP_NAME}``
+        - ``Search Auto Provisioning Policy   ${APP_NAME}``
         :param policy_name: Auto Provision Policy
         :return: 1 if Auto Provision Policy found On Grid else -1
         """
@@ -558,7 +558,7 @@ class AutoProvisioning:
         """
         - navigates to auto provisioning policy page
         - Keyword Usage
-         - ``Goto Auto Provisioning Policy``
+        - ``Goto Auto Provisioning Policy``
         :return: 1 if Navigate to Auto Provisioning Policy Successful else None
         """
         self.navigator.navigate_configure_common_objects()
@@ -572,7 +572,7 @@ class AutoProvisioning:
         """
         - Returns the count of auto provision policies
         - Keyword Usage
-         - ``Get Auto Provision Policy Count``
+        - ``Get Auto Provision Policy Count``
         :return: number of auto provision policies
         """
         rows = self.app_web_elements.get_auto_provision_grid_rows()
