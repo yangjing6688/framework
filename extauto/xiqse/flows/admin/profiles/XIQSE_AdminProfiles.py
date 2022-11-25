@@ -24,11 +24,11 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_profiles_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Administration> Profiles page
-         - Keyword Usage
-          - ``XIQSE Profiles Select Tab    SNMP Credentials``
-          - ``XIQSE Profiles Select Tab    CLI Credentials``
-          - ``XIQSE Profiles Select Tab    Device Mapping``
+        - This keyword selects the specified tab of the Administration> Profiles page
+        - Keyword Usage
+        - ``XIQSE Profiles Select Tab    SNMP Credentials``
+        - ``XIQSE Profiles Select Tab    CLI Credentials``
+        - ``XIQSE Profiles Select Tab    Device Mapping``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -56,10 +56,10 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_profiles_select_snmp_credentials_tab(self):
         """
-         - This keyword selects the SNMP Credentials tab on the Administration> Profiles page.
-         - It is assumed the Administration> Profiles page is currently being displayed.
-         - Keyword Usage
-          - ``XIQSE Profiles Select SNMP Credentials Tab``
+        - This keyword selects the SNMP Credentials tab on the Administration> Profiles page.
+        - It is assumed the Administration> Profiles page is currently being displayed.
+        - Keyword Usage
+        - ``XIQSE Profiles Select SNMP Credentials Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -68,10 +68,10 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_profiles_select_cli_credentials_tab(self):
         """
-         - This keyword selects the CLI Credentials tab on the Administration> Profiles page.
-         - It is assumed the Administration> Profiles page is currently being displayed.
-         - Keyword Usage
-          - ``XIQSE Profiles Select CLI Credentials Tab``
+        - This keyword selects the CLI Credentials tab on the Administration> Profiles page.
+        - It is assumed the Administration> Profiles page is currently being displayed.
+        - Keyword Usage
+        - ``XIQSE Profiles Select CLI Credentials Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -80,10 +80,10 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_profiles_select_device_mapping_tab(self):
         """
-         - This keyword selects the Device Mapping tab on the Administration> Profiles page.
-         - It is assumed the Administration> Profiles page is currently being displayed.
-         - Keyword Usage
-          - ``XIQSE Profiles Select Device Mapping Tab``
+        - This keyword selects the Device Mapping tab on the Administration> Profiles page.
+        - It is assumed the Administration> Profiles page is currently being displayed.
+        - Keyword Usage
+        - ``XIQSE Profiles Select Device Mapping Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -113,10 +113,10 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_navigate_and_create_profile(self, name, version="SNMPv1", read=None, write=None, max=None, cli=None):
         """
-         - This keyword navigates to the Administration> Profiles tab and creates a new profile in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Create Profile  test_profile_1``
-          - ``XIQSE Navigate and Create Profile  test_profile_2  SNMPv2  public_v1  private_v1  private_v1  Default``
+        - This keyword navigates to the Administration> Profiles tab and creates a new profile in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Create Profile  test_profile_1``
+        - ``XIQSE Navigate and Create Profile  test_profile_2  SNMPv2  public_v1  private_v1  private_v1  Default``
 
         :param name: value to enter in the Profile Name field
         :param version: value to select for the SNMP Version field (SNMPv1, SNMPv2, SNMPv3)
@@ -135,9 +135,9 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_navigate_and_select_profile(self, name):
         """
-         - This keyword navigates to the Administration> Profiles tab and selects an existing profile in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Select Profile  test_profile_1``
+        - This keyword navigates to the Administration> Profiles tab and selects an existing profile in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Select Profile  test_profile_1``
 
         :param name: name of the profile to select
         :return: 1 if action was successful, else -1
@@ -151,9 +151,9 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_navigate_and_delete_profile(self, name):
         """
-         - This keyword navigates to the Administration> Profiles tab and deletes an existing profile in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Delete Profile  test_profile_1``
+        - This keyword navigates to the Administration> Profiles tab and deletes an existing profile in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Delete Profile  test_profile_1``
 
         :param name: name of the profile to delete
         :return: 1 if action was successful, else -1
@@ -168,11 +168,11 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
     def xiqse_create_profile(self, name, version="SNMPv1", read=None, write=None, max=None, cli=None,
                               read_sec=None, write_sec=None, max_sec=None):
         """
-         - This keyword creates a new profile in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles.
-         - Keyword Usage
-          - ``XIQSE Create Profile  test_profile_1``
-          - ``XIQSE Create Profile  test_profile_2  SNMPv2  public_v1  private_v1  private_v1  Default``
+        - This keyword creates a new profile in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles.
+        - Keyword Usage
+        - ``XIQSE Create Profile  test_profile_1``
+        - ``XIQSE Create Profile  test_profile_2  SNMPv2  public_v1  private_v1  private_v1  Default``
 
         :param name: value to enter in the Profile Name field
         :param version: value to select for the SNMP Version field (SNMPv1, SNMPv2, SNMPv3)
@@ -247,11 +247,11 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_edit_profile(self, name, read=None, write=None, max=None, cli=None):
         """
-         - This keyword edits the specified profile in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles.
-         - Keyword Usage
-          - ``XIQSE Edit Profile  test_profile_1  cli=MY_CLI``
-          - ``XIQSE Edit Profile  test_profile_2  read=public_v1  write=private_v1  max=private_v1  cli=Default``
+        - This keyword edits the specified profile in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles.
+        - Keyword Usage
+        - ``XIQSE Edit Profile  test_profile_1  cli=MY_CLI``
+        - ``XIQSE Edit Profile  test_profile_2  read=public_v1  write=private_v1  max=private_v1  cli=Default``
 
         :param name: name of the profile to edit
         :param read: value to select for the Read field
@@ -311,10 +311,10 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_delete_profile(self, name):
         """
-         - This keyword deletes an existing profile in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles.
-         - Keyword Usage
-          - ``XIQSE Delete Profile  test_profile_1``
+        - This keyword deletes an existing profile in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles.
+        - Keyword Usage
+        - ``XIQSE Delete Profile  test_profile_1``
 
         :param name: name of the profile to delete
         :return: 1 if action was successful, else -1
@@ -342,10 +342,10 @@ class XIQSE_AdminProfiles(AdminProfilesWebElements):
 
     def xiqse_select_profile(self, name):
         """
-         - This keyword selects an existing profile in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles.
-         - Keyword Usage
-          - ``XIQSE Select Profile  test_profile_1``
+        - This keyword selects an existing profile in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles.
+        - Keyword Usage
+        - ``XIQSE Select Profile  test_profile_1``
 
         :param name: name of the profile to select
         :return: 1 if action was successful, else -1

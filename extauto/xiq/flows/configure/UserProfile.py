@@ -21,9 +21,9 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
     def add_user_profile(self, profile="user004", vlan_name="vlan004", vlan_id="004"):
         """
         - It adds user profile and VLAN
-        -Flow: Configure --> Common Objects --> User Profile
-           - Keyword Usage:
-            - ``Add User Profile       profile=${PROFILE}    vlan_name=${VLAN_NAME}   vlan_id=${VLAN_ID}``
+        - Flow: Configure --> Common Objects --> User Profile
+        - Keyword Usage:
+        - ``Add User Profile       profile=${PROFILE}    vlan_name=${VLAN_NAME}   vlan_id=${VLAN_ID}``
 
         :param profile : profile name
         :param vlan_name: VLAN name
@@ -57,9 +57,9 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
     def add_classification_rule_to_user_profile(self, userprofile, vlanid, classificationrule, **kwargs):
         """
         - Add exist classification rule to exist user profile
-        -Flow: Configure --> Common Objects --> User Profile
-            - Keyword Usage:
-             - ``Add Classification Rule to User Profile   ${userprofile}   ${classificationrule}``
+        - Flow: Configure --> Common Objects --> User Profile
+        - Keyword Usage:
+        - ``Add Classification Rule to User Profile   ${userprofile}   ${classificationrule}``
 
         :param userprofile: User Profile Name
         :param vlanid: VLAN ID
@@ -179,9 +179,9 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
     def apply_different_user_profile_to_various_clients(self, ssidName, **userprofile):
         """
         - Add user profile, and VLAN with assignment rules to exist ssid name and exist assignment rules
-        -Flow: Configure --> Common Objects --> SSIDs
-           - Keyword Usage:
-            - ``Apply Different User Profile to Various Clients   ${ssid}   &{upserprofile}``
+        - Flow: Configure --> Common Objects --> SSIDs
+        - Keyword Usage:
+        - ``Apply Different User Profile to Various Clients   ${ssid}   &{upserprofile}``
 
         :param ssidName: SSID Name
         :param upserprofileName: dict{profile_name, vlan_name, vlan_id, assignment_rule}

@@ -1,5 +1,4 @@
 import re
-import sys
 import time
 import shlex
 import pexpect
@@ -7,7 +6,6 @@ import paramiko
 import subprocess
 import uuid
 from platform import system
-from netmiko import ConnectHandler
 from extauto.xiq.configs.device_commands import *
 from robot.libraries.BuiltIn import BuiltIn
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
@@ -43,7 +41,7 @@ class Cli(object):
         """
         - Closes a device spawn
         - Keyword Usage:
-         - ``Close Spawn``
+        - ``Close Spawn``
 
         :param spawn: device spawn
         :return: 1 if the connection is closed.  Note: an error will be raised if the connection fails to close
@@ -66,21 +64,21 @@ class Cli(object):
                    pxssh_sync_multiplier=5, **kwargs):
         """
         - This Keyword used to access device/host Prompt Using IP Address,port number, username,password and cli_type
-        # Device type:
-            - VOSS
-            - EXOS
-            - WING-AP
-            - AH-FASTPATH
-            - AH-AP
-            - AH-XR
-        # Endsystem:
-            - MU-WINDOWS
-            - MU-MAC
-            - MU-LINUX
-            - A3
+        - Device type:
+        -   VOSS
+        -   EXOS
+        -   WING-AP
+        -   AH-FASTPATH
+        -   AH-AP
+        -   AH-XR
+        - Endsystem:
+        -   MU-WINDOWS
+        -   MU-MAC
+        -   MU-LINUX
+        -   A3
         - Keyword Usage:
-         - ``Open Spawn     ${IP}   ${PORT}  ${USERNAME}  ${PASSWORD}   ${cli_type}``
-         - ``Open Spawn     ${IP}   ${PORT}  ${USERNAME}  ${PASSWORD}   ${cli_type}  pxssh=True``
+        -  ``Open Spawn     ${IP}   ${PORT}  ${USERNAME}  ${PASSWORD}   ${cli_type}``
+        -  ``Open Spawn     ${IP}   ${PORT}  ${USERNAME}  ${PASSWORD}   ${cli_type}  pxssh=True``
 
         :param ip: Device IP address
         :param port: port number for spawn access
@@ -131,7 +129,7 @@ class Cli(object):
         - This Keyword used to send CLI command to AP1 of Topology used to configure or Monitor
         - Default timeout is 60 seconds
         - Keyword Usage:
-         - ``Send   ${SPAWN}        ${COMMAND}``
+        -  ``Send   ${SPAWN}        ${COMMAND}``
 
         :param spawn: Device Spawn to execute command
         :param line: CLI command to be execute
@@ -193,8 +191,8 @@ class Cli(object):
         - This method pings from the script host to the destination.
         - default count is 3
         - Keyword Usage:
-         - ``Ping From     ${DESTINATION_IP}``
-         - ``Ping From     ${DESTINATION_IP}  count=10``
+        -  ``Ping From     ${DESTINATION_IP}``
+        -  ``Ping From     ${DESTINATION_IP}  count=10``
 
         :param destination: IP or host name
         :param count: Number of ping requests. Default is 3
@@ -219,8 +217,8 @@ class Cli(object):
         - This method pings from the spawn to the destination.
         - default count is 3
         - Keyword Usage:
-         - ``Ping From Spawn   ${SPAWN}  ${DESTINATION_IP}``
-         - ``Ping From Spawn   ${SPAWN}  ${DESTINATION_IP}   count=10``
+        -  ``Ping From Spawn   ${SPAWN}  ${DESTINATION_IP}``
+        -  ``Ping From Spawn   ${SPAWN}  ${DESTINATION_IP}   count=10``
 
         :param _spawn: spawn of DUT/host from where ping should start
         :param destination: IP or host name
@@ -246,9 +244,9 @@ class Cli(object):
         - This method pings from the spawn to the destination.
         - default count is 3
         - Keyword Usage:
-         - ``Httping From   ${SPAWN}  ${DESTINATION_IP}``
-         - ``Httping From   ${SPAWN}  ${DESTINATION_IP}   count=10``
-         - ``Httping From   ${SPAWN}  ${DESTINATION_IP}   count=10   timeout=10``
+        -  ``Httping From   ${SPAWN}  ${DESTINATION_IP}``
+        -  ``Httping From   ${SPAWN}  ${DESTINATION_IP}   count=10``
+        -  ``Httping From   ${SPAWN}  ${DESTINATION_IP}   count=10   timeout=10``
 
         :param _spawn: spawn of DUT/host from where ping should start
         :param destination: IP or host name
@@ -270,7 +268,7 @@ class Cli(object):
         """
         - Sends multiple commands separated by a ","
         - Keyword Usage:
-         - ``Send Commands   ${SPAWN}  ${COMMAND_LIST}``
+        -  ``Send Commands   ${SPAWN}  ${COMMAND_LIST}``
 
         :param spawn: spawn of DUT/host
         :param commands_list: list of DUT/Lunux commands separated by comma
@@ -294,7 +292,7 @@ class Cli(object):
         """
         - Executes a shell command
         - Keyword Usage:
-         - ``Exec Shell Command  ${SHELL_COMMAND}``
+        -  ``Exec Shell Command  ${SHELL_COMMAND}``
 
         :param exec_shell_command: Any shell command
         :return: output of the command
@@ -310,22 +308,22 @@ class Cli(object):
     def open_pxssh_spawn(self, host, username, password, _port=22, prompt_reset=False,
                          disable_strict_host_key_checking=False, sync_multiplier=5):
         """
-               - Opens a pxssh spawn
-               - Keyword Usage:
-                - ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}``
-                - ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}   disable_strict_host_key_checking=True``
+        - Opens a pxssh spawn
+        - Keyword Usage:
+        -  ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}``
+        -  ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}   disable_strict_host_key_checking=True``
 
-               :param host: IP or host name
-               :param username: username of host
-               :param password: password of host
-               :param _port: port number
-               :param prompt_reset: prompt reset boolean
-               :param disable_strict_host_key_checking : Either True/False .Based on these two flags it will Changes
-                                                 strict_host_key_checking value of ssh_config on server.
-                                                 By default(False) server will check ssh key of the device on remote host.
-               :param sync_multiplier: sync_multiplier
-               :return: returns 1 if 0 packet loss else -1
-               """
+        :param host: IP or host name
+        :param username: username of host
+        :param password: password of host
+        :param _port: port number
+        :param prompt_reset: prompt reset boolean
+        :param disable_strict_host_key_checking : Either True/False .Based on these two flags it will Changes
+                                            strict_host_key_checking value of ssh_config on server.
+                                            By default(False) server will check ssh key of the device on remote host.
+        :param sync_multiplier: sync_multiplier
+        :return: returns 1 if 0 packet loss else -1
+        """
 
         return self.__open_pxssh_spawn(host, username, password, _port=_port, prompt_reset=prompt_reset,
                          disable_strict_host_key_checking=disable_strict_host_key_checking, sync_multiplier=sync_multiplier)
@@ -335,8 +333,8 @@ class Cli(object):
         """
         - Opens a pxssh spawn
         - Keyword Usage:
-         - ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}``
-         - ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}   disable_strict_host_key_checking=True``
+        -  ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}``
+        -  ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}   disable_strict_host_key_checking=True``
 
         :param host: IP or host name
         :param username: username of host
@@ -377,7 +375,8 @@ class Cli(object):
         """
         - Closes a pxssh spawn
         - Keyword Usage:
-         - ``Close Pxssh Spawn  ${PXSSH_SPAWN}``
+        -  ``Close Pxssh Spawn  ${PXSSH_SPAWN}``
+
         :param pxssh_spawn: pxssh spawn to close
         :return: -1 in case of error else 1
         """
@@ -387,7 +386,8 @@ class Cli(object):
         """
         - Closes a pxssh spawn
         - Keyword Usage:
-         - ``Close Pxssh Spawn  ${PXSSH_SPAWN}``
+        -  ``Close Pxssh Spawn  ${PXSSH_SPAWN}``
+
         :param pxssh_spawn: pxssh spawn to close
         :return: -1 in case of error else 1
         """
@@ -409,8 +409,8 @@ class Cli(object):
         - Sends a command to pxssh spawn
         - Default Timeout value is 3 seconds
         - Keyword Usage:
-         - ``Send Pxssh  ${PXSSH_SPAWN}  ${COMMAND}``
-         - ``Send Pxssh  ${PXSSH_SPAWN}  ${COMMAND}  ${TIMEOUT}=10``
+        -  ``Send Pxssh  ${PXSSH_SPAWN}  ${COMMAND}``
+        -  ``Send Pxssh  ${PXSSH_SPAWN}  ${COMMAND}  ${TIMEOUT}=10``
 
         :param pxssh_spawn: pxssh spawn
         :param command: command to send
@@ -440,7 +440,7 @@ class Cli(object):
         """
         - Creating ssh spawn object
         - Keyword Usage:
-         - ``Open Paramiko SSH Spawn   ${HOST}  ${USERNAME}  ${PASSWORD}``
+        -  ``Open Paramiko SSH Spawn   ${HOST}  ${USERNAME}  ${PASSWORD}``
 
         :param host: IP or host name of DUT
         :param username: username to access Spawn
@@ -475,8 +475,8 @@ class Cli(object):
         """
         - Execute the commands on ssh spawn
         - Keyword Usage:
-         - ``Send Paramiko Cmd   ${SPAWN}  ${COMMAND}``
-         - ``Send Paramiko Cmd   ${SPAWN}  ${COMMAND}  timeout=${TIMEOUT_VALUE}``
+        -  ``Send Paramiko Cmd   ${SPAWN}  ${COMMAND}``
+        -  ``Send Paramiko Cmd   ${SPAWN}  ${COMMAND}  timeout=${TIMEOUT_VALUE}``
 
         :param spawn: Paramiko spawn
         :param cmd: command to send
@@ -496,7 +496,7 @@ class Cli(object):
         """
         - Closes paramiko spawn object
         - Keyword Usage:
-         - ``Close Paramiko Spawn   ${SPAWN}``
+        -  ``Close Paramiko Spawn   ${SPAWN}``
 
         :param spawn: paramiko spawn
         :return: returns -1 if there is any exception
@@ -512,7 +512,7 @@ class Cli(object):
         """
         - Get the throughput value from and to air
         - Keyword Usage:
-          - ``Get Thput Value   ${IP}    ${CLI_SPAWN}   ${SERVER_SPAWN}``
+        -  ``Get Thput Value   ${IP}    ${CLI_SPAWN}   ${SERVER_SPAWN}``
 
         :param ip: IP address
         :param cli_spawn: CLI Spawn
@@ -541,7 +541,7 @@ class Cli(object):
         """
         - Closing netmiko spawn object
         - Keyword Usage:
-         - ``Close Netmiko Spawn   ${SPAWN}``
+        -  ``Close Netmiko Spawn   ${SPAWN}``
 
         :param spawn: netmiko spawn
         :return: returns -1 if there is any exception
@@ -557,7 +557,7 @@ class Cli(object):
         """
         - This method returns the AP HiveOs version
         - Keyword Usage:
-         - ``Get AP Version``
+        -  ``Get AP Version``
 
         :param spawn: spawn to AP
         :return: returns the version if success else -1
@@ -577,7 +577,7 @@ class Cli(object):
         """
         - This method returns device interface ipv4 address based on cli type
         - Keyword Usage:
-         - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${CLI_TYPE}  ${Interface_name}``
+        - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${CLI_TYPE}  ${Interface_name}``
 
         :param spawn: spawn to device
         :param cli_type: Currently this function just support AH-AP cli type, others cli types can be developed in the future
@@ -607,7 +607,7 @@ class Cli(object):
         """
         - This Keyword will enable/disable capwap mode
         - Keyword Usage:
-         - ``Capwap AP On Off``
+        -  ``Capwap AP On Off``
 
         :param ip: IP Address of AP
         :param usr: user name
@@ -629,8 +629,8 @@ class Cli(object):
         """
         - This Keyword will establish WiFi Connection in MAC PC/Laptop
         - Keyword Usage:
-         - ``mac_wifi_connection  ${IP}  ${USERNAME}  {PASSWORD}  ${SSID}``
-         - ``mac_wifi_connection  ${IP}  ${USERNAME}  {PASSWORD}  ${SSID}  ssid_pass=${SSID_PASSWORD}``
+        -  ``mac_wifi_connection  ${IP}  ${USERNAME}  {PASSWORD}  ${SSID}``
+        -  ``mac_wifi_connection  ${IP}  ${USERNAME}  {PASSWORD}  ${SSID}  ssid_pass=${SSID_PASSWORD}``
 
         :param ip: IP Address of MAC book
         :param usr: username of MAC book
@@ -691,7 +691,7 @@ class Cli(object):
         """
         - This keyword will get the Host Name of Mac book
         - Keyword Usage:
-         - ``Get MAC Hostname  ${IP}  ${USERNAME}  {PASSWORD}``
+        -  ``Get MAC Hostname  ${IP}  ${USERNAME}  {PASSWORD}``
 
         :param ip: IP Address of MAC book
         :param userid:  username of MAC book
@@ -752,7 +752,7 @@ class Cli(object):
         """
         - This keyword will clear the SSH key
         - Keyword Usage:
-         - ``clear ssh host key``
+        -  ``clear ssh host key``
 
         :return: None
         """
@@ -763,9 +763,9 @@ class Cli(object):
     # This needs to be fixed in order to use the new spawn
     # def reboot_switch(self, spawn, expected_output, option):
     #     """
-    #     -This Keyword will reboot the switch
+    #     - This Keyword will reboot the switch
     #     - Keyword Usage:
-    #      - ``Reboot Switch   ${SPAWN}  ${EXPECTED_OUTPUT}  ${OPTION}``
+    #     -  ``Reboot Switch   ${SPAWN}  ${EXPECTED_OUTPUT}  ${OPTION}``
     #
     #     :param spawn: Switch Spawn
     #     :param expected_output: Expected Output
@@ -839,7 +839,7 @@ class Cli(object):
     #     """
     #     This method disables or enables IQAgent on EXOS Switch based on operation input
     #     - Keyword Usage:
-    #      - ``Enable Disable IQAgent on Exos   ${SPAWN}  disable``
+    #     -  ``Enable Disable IQAgent on Exos   ${SPAWN}  disable``
     #
     #     :param spawn:       spawn to exos switch
     #     :param operation:   perform IQAgent disable or enable.
@@ -880,7 +880,7 @@ class Cli(object):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
-         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
+        -  ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
 
         :param cli_type: Device Cli Type
         :param connection: The open connection
@@ -917,7 +917,7 @@ class Cli(object):
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(connection, f'configure iqagent server ipaddress {server_name}')
             self.send(connection, f'configure iqagent server vr {vr}')
-        
+
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(connection, f'enable')
             self.send(connection, f'configure terminal')
@@ -952,7 +952,7 @@ class Cli(object):
         """
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
-         - ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
+        -  ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
 
         :param cli_type: Device Cli Type
         :param server_name: Cloud Server Name to connect the device
@@ -1040,9 +1040,9 @@ class Cli(object):
 
     def downgrade_iqagent(self, cli_type, connection, **kwargs):
         """
-       - This Keyword will downgrade iqagent
-       - Keyword Usage:
-        - ``Downgrade Iqagent       ${CLI_TYPE}     ${CONNECTION}
+        - This Keyword will downgrade iqagent
+        - Keyword Usage:
+        -  ``Downgrade Iqagent       ${CLI_TYPE}     ${CONNECTION}
 
        :param cli_type: Device Cli Type
        :param connection: The open connection
@@ -1071,7 +1071,7 @@ class Cli(object):
         """
         - This Keyword will downgrade iqagent for VOSS devices
         - Keyword Usage:
-         - ``downgrade iqagent voss     ${CLI_TYPE}  ${CONNECTION}``
+        -  ``downgrade iqagent voss     ${CLI_TYPE}  ${CONNECTION}``
 
         :param cli_type: The cli type
         :param connection: The open connection
@@ -1097,7 +1097,7 @@ class Cli(object):
         """
         - This Keyword will downgrade iqagent for EXOS devices
         - Keyword Usage:
-         - ``downgrade iqagent exos    ${CLI_TYPE}  ${CONNECTION}``
+        -  ``downgrade iqagent exos    ${CLI_TYPE}  ${CONNECTION}``
 
         :param cli_type: The cli type
         :param connection: The open connection
@@ -1233,7 +1233,7 @@ class Cli(object):
         """
         - This Keyword Disconnect Device From Cloud
         - Keyword Usage:
-         - ``disconnect device from cloud  ${CLI_TYPE}  ${CONNECTION}``
+        -  ``disconnect device from cloud  ${CLI_TYPE}  ${CONNECTION}``
 
         :param cli_type: The cli type
         :param connection: The open connection
@@ -1346,9 +1346,10 @@ class Cli(object):
         - Retry duration by default 30 seconds
         - Retry Count by default 10
         - Keyword Usage:
-         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}``
-         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60``
-         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60  ${COUNT}=15``
+        -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}``
+        -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60``
+        -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60  ${COUNT}=15``
+
         :param spawn: Device Spawn
         :param cmd: Command to Execute
         :param expected_output: Expected CLI Output
@@ -1374,8 +1375,8 @@ class Cli(object):
         """
         - This Keyword enables debug mode for IQagent for VOSS/EXOS
         - Keyword Usage:
-         - ``Enable Debug Mode Iqagent   ${IP}  ${PORT}  ${USERNAME}  ${PASSWORD}
-                                                    ${CLI_TYPE}``
+        -  ``Enable Debug Mode Iqagent   ${IP}  ${PORT}  ${USERNAME}  ${PASSWORD}  ${CLI_TYPE}``
+
         :param ip: IP Address of the Device
         :param port: Port
         :param username: username to access console
@@ -1408,7 +1409,8 @@ class Cli(object):
         - This Keyword used to gets the output from CLI
         - Default timeout is 90 seconds
         - Keyword Usage:
-         - ``Send line and_wait   ${SPAWN}   ${LINE}     ${COMMAND}``
+        -  ``Send line and_wait   ${SPAWN}   ${LINE}     ${COMMAND}``
+
         :param spawn: Device Spawn to execute command
         :param line: CLI command to be execute
         :param wait: Collect the information in a certain time
@@ -1453,19 +1455,19 @@ class Cli(object):
         """
         for _ in range(retries):
             try:
-                
+
                 self.close_connection_with_error_handling(device)
                 self.networkElementConnectionManager.connect_to_network_element_name(device.name)
-                
+
                 if NetworkElementConstants.OS_AHFASTPATH in device.cli_type.upper():
-                    
+
                     output = self.networkElementCliSend.send_cmd(
                         device.name, f'show spanning-tree mst port detailed 0 {port}', max_wait=10, interval=2)[
                         0].return_text
                     path_cost_match = re.search(rf"\r\nPort Path Cost\.+\s+(\d+)", output)
                     external_path_cost_match = re.search(rf"\r\nExternal Port Path Cost\.+\s+(\d+)", output)
                     assert path_cost_match or external_path_cost_match
-                    
+
                     for path_cost_match in [path_cost_match, external_path_cost_match]:
                         try:
                             found_path_cost = int(path_cost_match.group(1))
@@ -1481,9 +1483,9 @@ class Cli(object):
                             return 1
                     else:
                         assert False, "Failed to find the path cost correctly configure for port='{port}'"
-                
+
                 else:
-                    
+
                     if NetworkElementConstants.OS_VOSS in device.cli_type.upper():
                         output = self.networkElementCliSend.send_cmd(
                             device.name, f'show spanning-tree {mode} port config {port}', max_wait=10, interval=2)[
@@ -1495,19 +1497,19 @@ class Cli(object):
                             device.name, f'show stpd s0 ports {port} detail', max_wait=10, interval=2)[
                             0].return_text
                         path_cost_match = re.search(fr"\tPath Cost:\s(\d+)\r\n", output)
-                    
+
                     assert path_cost_match, f"Failed to match get the path cost of port='{port}' from dut {device.name}"
                     found_path_cost = int(path_cost_match.group(1))
                     self.utils.print_info(f"Found path_cost='{found_path_cost}' for port='{port}'")
-                    
+
                     assert int(expected_path_cost) == found_path_cost, \
                         f"Found path cost for port='{port}' is {found_path_cost}" \
                         f" but expected {expected_path_cost}"
-                    
+
                     kwargs["pass_msg"] = f"Successfully found the path cost correctly set on port='{port}' to {expected_path_cost}"
                     self.commonValidation.passed(**kwargs)
                     return 1
-                
+
             except Exception as exc:
                 self.utils.print_info(repr(exc))
                 self.utils.wait_till(timeout=step)
@@ -1535,7 +1537,7 @@ class Cli(object):
         try:
             self.close_connection_with_error_handling(dut)
             self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
-            
+
             if NetworkElementConstants.OS_EXOS in dut.cli_type.upper():
                 if port_type == "access":
                     try:
@@ -1548,21 +1550,21 @@ class Cli(object):
                         assert expected_error_message in output
 
                 elif port_type == "trunk":
-                    
+
                     output = self.networkElementCliSend.send_cmd(
                         dut.name, f'show vlan ports {port}', max_wait=10, interval=2)[0].return_text
-                    
+
                     if allowed_vlans != "all":
                         assert re.search(fr"\r\nVLAN_{allowed_vlans.zfill(4)}\s+{allowed_vlans}\s+", output)
                     else:
                         assert re.search(fr"\r\nDefault\s+1\s", output)
 
             elif NetworkElementConstants.OS_VOSS in dut.cli_type.upper():
-                
+
                 output = self.networkElementCliSend.send_cmd(dut.name, 'show vlan members',
                                               max_wait=10, interval=2)[0].return_text
                 assert not re.search(fr"\r\n{vlan}\s+{port}\s+", output)
-                
+
                 if allowed_vlans != "all":
                     assert re.search(fr"\r\n{allowed_vlans}\s+{port}\s+", output)
 
@@ -1570,12 +1572,12 @@ class Cli(object):
             kwargs["fail_msg"] = "Failed to verify that given port is removed from any configured vlan"
             self.commonValidation.failed(**kwargs)
             return -1
-        
+
         else:
             kwargs["pass_msg"] = "Successfully verified that given port is removed from any configured vlan"
             self.commonValidation.passed(**kwargs)
             return 1
-        
+
         finally:
             self.close_connection_with_error_handling(dut)
 
@@ -1863,9 +1865,9 @@ if __name__ == '__main__':
         - Retry duration by default 30 seconds
         - Retry Count by default 10
         - Keyword Usage:
-         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}``
-         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60``
-         - ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60  ${COUNT}=15``
+        -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}``
+        -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60``
+        -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60  ${COUNT}=15``
 
         :param spawn: Device Spawn
         :param cmd: Command to Execute

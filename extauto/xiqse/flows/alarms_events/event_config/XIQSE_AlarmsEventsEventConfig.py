@@ -14,10 +14,10 @@ class XIQSE_AlarmsEventsEventConfig(AlarmsEventsEventConfigWebElements):
 
     def xiqse_event_configuration_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Alarms & Events> Event Configuration page
-         - Keyword Usage
-          - ``XIQSE Event Configuration Select Tab    Event Logs``
-          - ``XIQSE Event Configuration Select Tab    Event Patterns``
+        - This keyword selects the specified tab of the Alarms & Events> Event Configuration page
+        - Keyword Usage
+        - ``XIQSE Event Configuration Select Tab    Event Logs``
+        - ``XIQSE Event Configuration Select Tab    Event Patterns``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -43,9 +43,9 @@ class XIQSE_AlarmsEventsEventConfig(AlarmsEventsEventConfigWebElements):
 
     def xiqse_event_configuration_select_event_logs_tab(self):
         """
-         - This keyword selects the Event Logs tab on the Alarms & Events> Event Configuration Tab
-         - Keyword Usage
-          - ``XIQSE Event Configuration Select Event Logs Tab``
+        - This keyword selects the Event Logs tab on the Alarms & Events> Event Configuration Tab
+        - Keyword Usage
+        - ``XIQSE Event Configuration Select Event Logs Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -54,9 +54,9 @@ class XIQSE_AlarmsEventsEventConfig(AlarmsEventsEventConfigWebElements):
 
     def xiqse_event_configuration_select_event_patterns_tab(self):
         """
-         - This keyword selects the Event Patterns tab on the Alarms & Events> Event Configuration Tab
-         - Keyword Usage
-          - ``XIQSE Event Configuration Select Event Patterns Tab``
+        - This keyword selects the Event Patterns tab on the Alarms & Events> Event Configuration Tab
+        - Keyword Usage
+        - ``XIQSE Event Configuration Select Event Patterns Tab``
 
         :return: 1 if action was successful, else -1
         """

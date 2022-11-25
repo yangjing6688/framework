@@ -20,7 +20,7 @@ class Reports(ReportsWebElements):
         - Flow: Manage --> Reports
         - Default summary report will generate the reports with default options
         - Keyword Usage:
-         - ``Get Default Network Summary Report  @{EMAIL_LIST}``
+        - ``Get Default Network Summary Report  @{EMAIL_LIST}``
 
         :param email_list: list of the emails to send the reports
         :return: 1

@@ -70,7 +70,7 @@ class RadiusServer(RSWebElements):
         - Create new external radius server
         - refer "Creating Radius Server group profile" for rs_config dict in captive_web_portal_config.robot
         - Keyword Usage:
-         - ``Create New External Radius Server   &{RS_CONFIG}``
+        - ``Create New External Radius Server   &{RS_CONFIG}``
 
         :param rs_config: configuration dictionary to create new external radius server
         :return: True if created
@@ -153,7 +153,7 @@ class RadiusServer(RSWebElements):
         - refer "Creating RADIUS Server group profile" section for ext_server_config dict in
         captive_web_portal_config.robot
         - Keyword Usage:
-         - ``Config External RADIUS Server   &{EXT_SERVER_CONFIG}``
+        - ``Config External RADIUS Server   &{EXT_SERVER_CONFIG}``
 
         :param ext_server_config: dict to create the external RADIUS server
         :return: 1 if external RADIUS server group created else -1
@@ -242,7 +242,7 @@ class RadiusServer(RSWebElements):
         """
         - Select the RADIUS server group and delete it
         - Keyword Usage:
-         - ``Delete RADIUS Server Group   ${RS_GROUP_NAME}``
+        - ``Delete RADIUS Server Group   ${RS_GROUP_NAME}``
 
         :param rs_group_name:
         :return: True if deleted else False
@@ -295,7 +295,7 @@ class RadiusServer(RSWebElements):
         - refer "Creating RADIUS Server group profile" section for ext_server_config dict in
             enterprise_dot11x_config.robot
         - Keyword Usage:
-         - ``Config Extreme Network RADIUS Server   &{extreme_networks_server_config}``
+        - ``Config Extreme Network RADIUS Server   &{extreme_networks_server_config}``
 
         :param extreme_networks_server_config: dict to create the extreme radius server
         :return: 1 if external RADIUS server group created else -1
@@ -543,6 +543,3 @@ class RadiusServer(RSWebElements):
         self.utils.print_info("User group:{} not present in select window ".format(group_name))
         self.auto_actions.click_reference(self.get_user_group_dialog_cancel_button)
         return -1
-
-
-

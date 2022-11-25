@@ -721,6 +721,7 @@ class Xapi:
     def get_index_id_from_list_json(self, json_data, index):
         """
          - This Keyword is used to get the specific id for the specified index of list json
+
          :param json_data:  the list of json data
          :param index: the index of list
          :return: returns id
@@ -860,6 +861,7 @@ class Xapi:
     def get_index_nw_policy_name_from_list_json(self, json_data, index):
         """
          - This Keyword is used to get the specific network policy name for the specified index of list json
+
          :param json_data:  the list of json data
          :param index: the index of list
          :return: returns id
@@ -870,6 +872,7 @@ class Xapi:
     def get_index_device_admin_state_from_list_json(self, json_data, index):
         """
         - This Keyword is used to get the specific device admin state for the specified index of list json
+
         :param json_data:  the list of json data
         :param index: the index of list
         :return: returns id
@@ -879,6 +882,7 @@ class Xapi:
     def get_index_connected_status_from_list_json(self, json_data, index):
         """
         - This Keyword is used to get the specific connected status of the device for the specified index of list json
+
         :param json_data:  the list of json data
         :param index: the index of list
         :return: returns id

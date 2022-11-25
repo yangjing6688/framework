@@ -14,12 +14,12 @@ class XIQSE_WirelessThreats(WirelessThreatsWebElements):
 
     def xiqse_wireless_threats_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Wireless> Threats page
-         - Keyword Usage
-          - ``XIQSE Wireless Threats Select Tab    Threats``
-          - ``XIQSE Wireless Threats Select Tab    Threat Events``
-          - ``XIQSE Wireless Threats Select Tab    Interference``
-          - ``XIQSE Wireless Threats Select Tab    Interference Events``
+        - This keyword selects the specified tab of the Wireless> Threats page
+        - Keyword Usage
+        - ``XIQSE Wireless Threats Select Tab    Threats``
+        - ``XIQSE Wireless Threats Select Tab    Threat Events``
+        - ``XIQSE Wireless Threats Select Tab    Interference``
+        - ``XIQSE Wireless Threats Select Tab    Interference Events``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -49,9 +49,9 @@ class XIQSE_WirelessThreats(WirelessThreatsWebElements):
 
     def xiqse_wireless_threats_select_threats_tab(self):
         """
-         - This keyword selects the Threats tab on the Wireless> Threats Tab
-         - Keyword Usage
-          - ``XIQSE Wireless Threats Select Threats Tab``
+        - This keyword selects the Threats tab on the Wireless> Threats Tab
+        - Keyword Usage
+        - ``XIQSE Wireless Threats Select Threats Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -60,9 +60,9 @@ class XIQSE_WirelessThreats(WirelessThreatsWebElements):
 
     def xiqse_wireless_threats_select_threat_events_tab(self):
         """
-         - This keyword selects the Threat Events tab on the Wireless> Threats Tab
-         - Keyword Usage
-          - ``XIQSE Wireless Threats Select Threat Events Tab``
+        - This keyword selects the Threat Events tab on the Wireless> Threats Tab
+        - Keyword Usage
+        - ``XIQSE Wireless Threats Select Threat Events Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -71,9 +71,9 @@ class XIQSE_WirelessThreats(WirelessThreatsWebElements):
 
     def xiqse_wireless_threats_select_interference_tab(self):
         """
-         - This keyword selects the Interference tab on the Wireless> Threats Tab
-         - Keyword Usage
-          - ``XIQSE Wireless Threats Select Interference Tab``
+        - This keyword selects the Interference tab on the Wireless> Threats Tab
+        - Keyword Usage
+        - ``XIQSE Wireless Threats Select Interference Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -82,9 +82,9 @@ class XIQSE_WirelessThreats(WirelessThreatsWebElements):
 
     def xiqse_wireless_threats_select_interference_events_tab(self):
         """
-         - This keyword selects the Interference Events tab on the Wireless> Threats Tab
-         - Keyword Usage
-          - ``XIQSE Wireless Threats Select Interference Events Tab``
+        - This keyword selects the Interference Events tab on the Wireless> Threats Tab
+        - Keyword Usage
+        - ``XIQSE Wireless Threats Select Interference Events Tab``
 
         :return: 1 if action was successful, else -1
         """

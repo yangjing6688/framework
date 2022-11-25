@@ -16,11 +16,11 @@ class XIQSE_NetworkFirmwareTreePanel(NetworkFirmwareWebElements):
 
     def xiqse_select_firmware_type_node(self, firmware_type):
         """
-         - This keyword selects the specified firmware type node on the Network > Firmware Tab
-         - Keyword Usage
-          - ``XIQSE Select Firmware Type Node   ${FIRMWARE_TYPE}``
-          - ``XIQSE Select Firmware Type Node   DEVICE TYPE
-          - ``XIQSE Select Firmware Type Node   ALL FIRMWARE
+        - This keyword selects the specified firmware type node on the Network > Firmware Tab
+        - Keyword Usage
+        - ``XIQSE Select Firmware Type Node   ${FIRMWARE_TYPE}``
+        - ``XIQSE Select Firmware Type Node   DEVICE TYPE
+        - ``XIQSE Select Firmware Type Node   ALL FIRMWARE
 
         :param firmware_type: name of firmware node to select in the tree
         :return: 1 if action was successful, else -1

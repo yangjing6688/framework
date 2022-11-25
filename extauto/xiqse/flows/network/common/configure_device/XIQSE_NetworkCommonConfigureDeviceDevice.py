@@ -29,7 +29,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the System Name field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set System Name  My_System_Name``
+        - ``XIQSE Configure Device Dialog Set System Name  My_System_Name``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -52,7 +52,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Contact field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Contact  Contact Person``
+        - ``XIQSE Configure Device Dialog Set Contact  Contact Person``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -75,7 +75,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Location field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Location  My Location``
+        - ``XIQSE Configure Device Dialog Set Location  My Location``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -98,7 +98,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Administration Profile field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Admin Profile  public_v2_Profile``
+        - ``XIQSE Configure Device Dialog Set Admin Profile  public_v2_Profile``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -141,7 +141,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Replacement Serial Number field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Replacement Serial  Abc123xyZ``
+        - ``XIQSE Configure Device Dialog Set Replacement Serial  Abc123xyZ``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -164,7 +164,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword enables the Remove From Service checkbox in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Enable Remove From Service``
+        - ``XIQSE Configure Device Dialog Enable Remove From Service``
 
         :return: 1 if action is successful, else -1
         """
@@ -186,7 +186,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword disables the Remove From Service checkbox in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Disable Remove From Service``
+        - ``XIQSE Configure Device Dialog Disable Remove From Service``
 
         :return: 1 if action is successful, else -1
         """
@@ -208,7 +208,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword enables the Use Default WebView URL checkbox in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Enable Use Default WebView URL``
+        - ``XIQSE Configure Device Dialog Enable Use Default WebView URL``
 
         :return: 1 if action is successful, else -1
         """
@@ -230,7 +230,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword disables the Use Default WebView URL checkbox in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Disable Use Default WebView URL``
+        - ``XIQSE Configure Device Dialog Disable Use Default WebView URL``
 
         :return: 1 if action is successful, else -1
         """
@@ -252,7 +252,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the WebView URL field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set WebView URL  http://%IP``
+        - ``XIQSE Configure Device Dialog Set WebView URL  http://%IP``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -279,7 +279,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Default Site field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Default Site  /World``
+        - ``XIQSE Configure Device Dialog Set Default Site  /World``
 
         :param the_value: Value to enter into the field
         :param import_site: Indicates whether to answer yes or no in the Import Site Configuration dialog (Yes/No)
@@ -326,9 +326,9 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Poll Group field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Poll Group  Default``
-         - ``XIQSE Configure Device Dialog Set Poll Group  More Frequent``
-         - ``XIQSE Configure Device Dialog Set Poll Group  Less Frequent``
+        - ``XIQSE Configure Device Dialog Set Poll Group  Default``
+        - ``XIQSE Configure Device Dialog Set Poll Group  More Frequent``
+        - ``XIQSE Configure Device Dialog Set Poll Group  Less Frequent``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -371,10 +371,10 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Poll Type field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Poll Type  SNMP``
-         - ``XIQSE Configure Device Dialog Set Poll Type  Ping``
-         - ``XIQSE Configure Device Dialog Set Poll Type  Not Polled``
-         - ``XIQSE Configure Device Dialog Set Poll Type  Maintenance``
+        - ``XIQSE Configure Device Dialog Set Poll Type  SNMP``
+        - ``XIQSE Configure Device Dialog Set Poll Type  Ping``
+        - ``XIQSE Configure Device Dialog Set Poll Type  Not Polled``
+        - ``XIQSE Configure Device Dialog Set Poll Type  Maintenance``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -417,7 +417,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the SNMP Timeout field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set SNMP Timeout  5``
+        - ``XIQSE Configure Device Dialog Set SNMP Timeout  5``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -440,7 +440,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the SNMP Retries field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set SNMP Retries  3``
+        - ``XIQSE Configure Device Dialog Set SNMP Retries  3``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -463,20 +463,20 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Topology Layer field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Topology Layer  L2 Access``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  L2 Leaf``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Access``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Leaf``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Spine``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Core``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Distribution``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  Firewall``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  Load Balancer``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  Gateway``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  WAN Access``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  Appliance``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  Server``
-         - ``XIQSE Configure Device Dialog Set Topology Layer  Hypervisor Host``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  L2 Access``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  L2 Leaf``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Access``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Leaf``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Spine``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Core``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  L3 Distribution``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  Firewall``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  Load Balancer``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  Gateway``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  WAN Access``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  Appliance``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  Server``
+        - ``XIQSE Configure Device Dialog Set Topology Layer  Hypervisor Host``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -519,9 +519,9 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Collection Mode field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Collection Mode  Historical``
-         - ``XIQSE Configure Device Dialog Set Collection Mode  Threshold Alarms``
-         - ``XIQSE Configure Device Dialog Set Collection Mode  None``
+        - ``XIQSE Configure Device Dialog Set Collection Mode  Historical``
+        - ``XIQSE Configure Device Dialog Set Collection Mode  Threshold Alarms``
+        - ``XIQSE Configure Device Dialog Set Collection Mode  None``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -566,7 +566,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the Collection Interval field in the Configure Device dialog (Device tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Collection Interval  15``
+        - ``XIQSE Configure Device Dialog Set Collection Interval  15``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -592,7 +592,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
         - This keyword sets the fields on the Device tab in the Configure Device dialog.
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Set Device Tab Values  system_name=SYSTEM_NAME  profile=EXTR_v2_Profile  timeout=10``
+        - ``XIQSE Configure Device Set Device Tab Values  system_name=SYSTEM_NAME  profile=EXTR_v2_Profile  timeout=10``
 
         :param system_name:          Value to enter into the System Name field
         :param contact:              Value to enter into the Contact field

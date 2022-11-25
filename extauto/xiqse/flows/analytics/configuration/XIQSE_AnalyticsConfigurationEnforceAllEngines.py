@@ -14,10 +14,10 @@ class XIQSE_AnalyticsConfigurationEnforceAllEngines(AnalyticsConfigurationEnforc
 
     def xiqse_enforce_all_engines_dialog_click_yes(self):
         """
-            - This keyword clicks Yes in the Enforce Engines dialog.
-            - It is assumed the dialog is already opened.
-            - Keyword Usage
-             - ``XIQSE Enforce All Engines Dialog Click Yes``
+        - This keyword clicks Yes in the Enforce Engines dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Enforce All Engines Dialog Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -37,10 +37,10 @@ class XIQSE_AnalyticsConfigurationEnforceAllEngines(AnalyticsConfigurationEnforc
 
     def xiqse_enforce_all_engines_dialog_click_no(self):
         """
-            - This keyword clicks No in the Enforce Engines dialog.
-            - It is assumed the dialog is already opened.
-            - Keyword Usage
-             - ``XIQSE Enforce All Engines Dialog Click No``
+        - This keyword clicks No in the Enforce Engines dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Enforce All Engines Dialog Click No``
 
         :return: 1 if action was successful, else -1
         """
@@ -59,9 +59,9 @@ class XIQSE_AnalyticsConfigurationEnforceAllEngines(AnalyticsConfigurationEnforc
 
     def xiqse_close_enforce_engines_error_dialog(self):
         """
-         - This keyword closes the Enforce Engines Error dialog which may appear when an error has occurred while enforcing an engine
-         - Keyword Usage
-          - ``XIQSE Close Enforce Engines Error Dialog``
+        - This keyword closes the Enforce Engines Error dialog which may appear when an error has occurred while enforcing an engine
+        - Keyword Usage
+        - ``XIQSE Close Enforce Engines Error Dialog``
 
         :return: 1 if action successful, else -1
         """
