@@ -1607,9 +1607,6 @@ class Cli(object):
             kwargs['fail_msg'] = f"get_stacking_details_cli() failed, VOSS no timplemented"
             self.commonValidation.fault(**kwargs)
 
-        kwargs['fail_msg'] = f"get_stacking_details_cli() failed"
-        self.commonValidation.fault(**kwargs)
-
     def get_info_from_stack(self, dut, **kwargs):
         """
         - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
@@ -1709,9 +1706,6 @@ class Cli(object):
             kwargs['fail_msg'] = f"get_info_from_stack() failed, VOSS no timplemented"
             self.commonValidation.fault(**kwargs)
 
-        kwargs['fail_msg'] = f"get_info_from_stack() failed"
-        self.commonValidation.fault(**kwargs)
-
     def get_info_from_stack(self, dut, **kwargs):
         """
         - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
@@ -1810,9 +1804,6 @@ class Cli(object):
         elif dut.cli_type.upper() == "VOSS":
             kwargs['fail_msg'] = f"get_info_from_stack() failed, VOSS no timplemented"
             self.commonValidation.fault(**kwargs)
-
-        kwargs['fail_msg'] = f"get_info_from_stack() failed"
-        self.commonValidation.fault(**kwargs)
 
     def get_virtual_router(self, dut, **kwargs):
         global vrName
