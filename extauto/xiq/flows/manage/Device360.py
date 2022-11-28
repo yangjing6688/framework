@@ -12520,7 +12520,6 @@ class Device360(Device360WebElements):
 
         :param dut: the dut object
         :apram stacking_info_cli: the cli info of the stack to check against
-        :return:
         """
 
         print(f"Print a list with mac add, number of slot and role for each stack unit: {stacking_info_cli}")
@@ -12620,7 +12619,6 @@ class Device360(Device360WebElements):
         :param dut: the dut object
         :param stack_info: the cli info of the stack to check against
         :param slot: The slot numer of the unit
-        :return:
         """
         slot = int(slot)
 

@@ -1603,12 +1603,12 @@ class Cli(object):
 
             return units_list
 
-        kwargs['fail_msg'] = f"get_stacking_details_cli() failed"
-        self.commonValidation.fault(**kwargs)
-
         elif dut.cli_type.upper() == "VOSS":
             kwargs['fail_msg'] = f"get_stacking_details_cli() failed, VOSS no timplemented"
             self.commonValidation.fault(**kwargs)
+
+        kwargs['fail_msg'] = f"get_stacking_details_cli() failed"
+        self.commonValidation.fault(**kwargs)
 
     def get_info_from_stack(self, dut, **kwargs):
         """
@@ -1705,12 +1705,12 @@ class Cli(object):
 
             return info_list
 
-        kwargs['fail_msg'] = f"get_info_from_stack() failed"
-        self.commonValidation.fault(**kwargs)
-
         elif dut.cli_type.upper() == "VOSS":
             kwargs['fail_msg'] = f"get_info_from_stack() failed, VOSS no timplemented"
             self.commonValidation.fault(**kwargs)
+
+        kwargs['fail_msg'] = f"get_info_from_stack() failed"
+        self.commonValidation.fault(**kwargs)
 
     def get_info_from_stack(self, dut, **kwargs):
         """
@@ -1807,12 +1807,12 @@ class Cli(object):
 
             return info_list
 
-        kwargs['fail_msg'] = f"get_info_from_stack() failed"
-        self.commonValidation.fault(**kwargs)
-
         elif dut.cli_type.upper() == "VOSS":
             kwargs['fail_msg'] = f"get_info_from_stack() failed, VOSS no timplemented"
             self.commonValidation.fault(**kwargs)
+
+        kwargs['fail_msg'] = f"get_info_from_stack() failed"
+        self.commonValidation.fault(**kwargs)
 
     def get_virtual_router(self, dut, **kwargs):
         global vrName
