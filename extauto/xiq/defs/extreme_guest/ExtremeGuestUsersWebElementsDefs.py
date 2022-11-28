@@ -118,6 +118,18 @@ class ExtremeGuestUsersWebElementsDefs:
             
         }
 
+    extreme_facebook_guest_users = \
+        {
+            'XPATH': '//div[contains(@data-automation-tag, "eguest-key-metrics-facebook-btn")]//span[@class="eguest-metrics-text count eguest-facebook-count"]',
+            'wait_for': 2
+        }
+
+    extreme_linkedin_guest_users = \
+        {
+            'XPATH': '//div[contains(@data-automation-tag, "eguest-key-metrics-linkedin-btn")]//span[@class="eguest-metrics-text count eguest-linkedin-count"]',
+            'wait_for': 2
+        }
+
     extreme_guest_users_grid_row_cells = \
         {
             'XPATH': '//td[contains(@class,"x-grid-cell-gridcolumn")]',

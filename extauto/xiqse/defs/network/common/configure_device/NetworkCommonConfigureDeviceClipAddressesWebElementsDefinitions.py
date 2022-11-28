@@ -6,6 +6,6 @@
 #
 
 
-class NetworkCommonConfigureDeviceClipAddressesWebElementsDefinitions:
+# class NetworkCommonConfigureDeviceClipAddressesWebElementsDefinitions:
 
-    # CLIP Addresses Tab Fields
+#     # CLIP Addresses Tab Fields

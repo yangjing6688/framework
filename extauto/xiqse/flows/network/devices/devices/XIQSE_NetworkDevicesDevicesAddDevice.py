@@ -17,10 +17,10 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
 
     def xiqse_add_device_dialog_set_ip(self, the_value):
         """
-         - This keyword sets the IP Address value in the Add Device dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Device Dialog Set IP  ${IP}``
+        - This keyword sets the IP Address value in the Add Device dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Device Dialog Set IP  ${IP}``
 
         :param the_value:  IP address value to enter in the Add Device dialog
         :return: 1 if action was successful, else -1
@@ -40,10 +40,10 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
 
     def xiqse_add_device_dialog_select_profile(self, the_value):
         """
-         - This keyword sets the IP Address value in the Add Device dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Device Dialog Select Profile  public_v2_Profile``
+        - This keyword sets the IP Address value in the Add Device dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Device Dialog Select Profile  public_v2_Profile``
 
         :param the_value:  profile value to select in the Add Device dialog
         :return: 1 if action was successful, else -1
@@ -83,10 +83,10 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
 
     def xiqse_add_device_dialog_set_nickname(self, the_value):
         """
-         - This keyword sets the Nickname value in the Add Device dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Device Dialog Set Nickname  ${device_nickname}``
+        - This keyword sets the Nickname value in the Add Device dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Device Dialog Set Nickname  ${device_nickname}``
 
         :param the_value:  nickname value to enter in the Add Device dialog
         :return: 1 if action was successful, else -1
@@ -109,12 +109,12 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
 
     def xiqse_add_device_dialog_set_poll_status_only(self, the_value="true"):
         """
-         - This keyword sets the value of the Poll Status Only checkbox in the Add Device dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Device Dialog Set Poll Status Only``
-          - ``XIQSE Add Device Dialog Set Poll Status Only  true``
-          - ``XIQSE Add Device Dialog Set Poll Status Only  false``
+        - This keyword sets the value of the Poll Status Only checkbox in the Add Device dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Device Dialog Set Poll Status Only``
+        - ``XIQSE Add Device Dialog Set Poll Status Only  true``
+        - ``XIQSE Add Device Dialog Set Poll Status Only  false``
 
         :param the_value:  true/false to indicate if the checkbox should be selected or not
         :return: 1 if action was successful, else -1
@@ -138,13 +138,13 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
 
     def xiqse_add_device_dialog_set_run_site_add_actions(self, the_value="true"):
         """
-         - This keyword sets the value of the Run Site's Add Action checkbox in the Add Device dialog.
-         - It is assumed the dialog is already opened.
-         - This feature is supported in XIQ Site Engine versions 21.11.x or later.
-         - Keyword Usage
-          - ``XIQSE Add Device Dialog Set Run Site Add Actions``
-          - ``XIQSE Add Device Dialog Set Run Site Add Actions  true``
-          - ``XIQSE Add Device Dialog Set Run Site Add Actions  false``
+        - This keyword sets the value of the Run Site's Add Action checkbox in the Add Device dialog.
+        - It is assumed the dialog is already opened.
+        - This feature is supported in XIQ Site Engine versions 21.11.x or later.
+        - Keyword Usage
+        - ``XIQSE Add Device Dialog Set Run Site Add Actions``
+        - ``XIQSE Add Device Dialog Set Run Site Add Actions  true``
+        - ``XIQSE Add Device Dialog Set Run Site Add Actions  false``
 
         :param the_value:  true/false to indicate if the checkbox should be selected or not
         :return: 1 if action was successful or if the option is not supported, else -1
@@ -174,10 +174,10 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
 
     def xiqse_add_device_dialog_click_ok(self):
         """
-         - This keyword clicks OK in the Add Device dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Device Dialog Click OK``
+        - This keyword clicks OK in the Add Device dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Device Dialog Click OK``
 
         :return: 1 if action was successful, else -1
         """
@@ -212,10 +212,10 @@ class XIQSE_NetworkDevicesDevicesAddDevice(NetworkDevicesDevicesAddDeviceWebElem
 
     def xiqse_add_device_dialog_click_close(self):
         """
-         - This keyword clicks Close in the Add Device dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Device Dialog Click Close``
+        - This keyword clicks Close in the Add Device dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Device Dialog Click Close``
 
         :return: 1 if action was successful, else -1
         """

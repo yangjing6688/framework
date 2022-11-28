@@ -29,7 +29,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the Authentication Logs from Global Settings Page
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Row   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Row   ${SEARCH_STRING}``
 
         :param search_string:  it should be anything which is searched on the row cell
                                example search_string be like user_name, auth_type,client etc
@@ -49,7 +49,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the Accounting Logs from Global Settings Page
         - Flow : User account image-->Global Settings--> Accounting Logs
         - Keyword Usage
-         - ``Get Accounting Logs Row   ${SEARCH_STRING}``
+        - ``Get Accounting Logs Row   ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
                               example search_string be like user_name, auth_type,client etc
@@ -70,7 +70,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Gets all authentication details from the row
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Details   ${SEARCH_STRING}    ${SEARCH_FILTER``
+        - ``Get Authentication Logs Details   ${SEARCH_STRING}    ${SEARCH_FILTER``
 
         :param search_filter:  filter string
         :param search_string:  row search string i.e client mac or user name
@@ -153,7 +153,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the username Field on authentication Logs grid
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Username   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Username   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs User Name Field Text
@@ -166,7 +166,7 @@ class GlobalSetting(GlobalSettingWebElements):
         """
         - Get the ssid Field on authentication Logs grid
         - Keyword Usage
-         - ``Get Authentication Logs SSID   ${SEARCH_STRING}``
+        - ``Get Authentication Logs SSID   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs SSID Field Text
@@ -180,7 +180,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the Authentication method Field on authentication Logs grid
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Auth Method   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Auth Method   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs Authentication Method Field Text
@@ -193,7 +193,7 @@ class GlobalSetting(GlobalSettingWebElements):
         """
         - Get the Client Details on authentication Logs grid
         - Keyword Usage
-         - ``Get Authentication Logs Client Detail   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Client Detail   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs callingStationId Field Text
@@ -207,7 +207,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the date Field on authentication Logs grid
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Date   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Date   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs AuthDate Field Text
@@ -221,7 +221,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - This Keyword Uses To Create Organization
         - Flow : User account image-->Global Settings--> Organization
         - Keyword Usage
-         - ``Create Organization   ${ORGANIZATION_NAME}  ${ORGANIZATION_COLOUR}``
+        - ``Create Organization   ${ORGANIZATION_NAME}  ${ORGANIZATION_COLOUR}``
 
         :param organization_name: Name of the Organization
         :param colour_name: Organization Colour
@@ -266,7 +266,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Search the Organization Name From Global Settings Page
         - Flow : User account image-->Global Settings--> Organization
         - Keyword Usage
-         - ``Search Organization Name   ${ORGANIZATION_NAME}``
+        - ``Search Organization Name   ${ORGANIZATION_NAME}``
 
         :param  organization_name: Name of the Organization
         :return: 1 If Organization found on Grid else -1
@@ -306,7 +306,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Enable MSP Feature in the Account
         - Flow : User account image-->Global Settings--> Account Details--> Enable HIQ Button
         - Keyword Usage
-         - ``Enable Account HIQ``
+        - ``Enable Account HIQ``
 
         :return: 1 If HIQ Enabled Successfully in the Account else -1
         """
@@ -345,7 +345,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get accounts detailed logs from the row
         - Flow : User account image-->Global Settings--> Accounting Logs
         - Keyword Usage:
-         - ``Get Accounting Logs Details   ${SEARCH_STRING}   ${SEARCH_FILTER}``
+        - ``Get Accounting Logs Details   ${SEARCH_STRING}   ${SEARCH_FILTER}``
 
         :param search_filter: String to filter the accounting log rows
         :param search_string: String to search the row
@@ -399,7 +399,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Change the Device Password String on Global Settings-->Device Management Page.
         - Flow : User account image-->Global Settings--> Device Management Settings
         - Keyword Usage:
-         - ``Change Device password   ${LANGUAGE}``
+        - ``Change Device password   ${LANGUAGE}``
 
         :param password: Password String
         :return: 1 if XIQ Account Language Changed Successfully else -1
@@ -438,7 +438,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Change the language of the account
         - Flow : User account image-->Global Settings--> Account Details--> Select Language-->Apply
         - Keyword Usage:
-         - ``Change Xiq Account Language   ${LANGUAGE}``
+        - ``Change Xiq Account Language   ${LANGUAGE}``
 
         :param language: Language Name ie English
         :return: 1 if XIQ Account Language Changed Successfully else -1
@@ -463,7 +463,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Change the time zone of the account
         - Flow : User account image-->Global Settings--> Account Details--> Select Time Zone-->Apply
         - Keyword Usage:
-         - ``Change XIQ Account Time Zone   ${TIMEZONE}``
+        - ``Change XIQ Account Time Zone   ${TIMEZONE}``
 
         :param time_zone: Time zone to select e.g., UTC, EST5EDT, etc
         :return: 1 if XIQ Account Time Zone was changed successfully, else -1
@@ -489,7 +489,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - Enabling SSH availability in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Enable SSH Availability``
+        - ``Enable SSH Availability``
+
         :return: 1 after successfully enabling SSH
         """
 
@@ -515,7 +516,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - Disabling SSH availability in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Disable SSH Availability``
+        - ``Disable SSH Availability``
+
         :return: 1 after successfully disabling SSH
         """
 
@@ -542,7 +544,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Flow:
         - Global Settings --> API Token Management
         - Keyword Usage:
-         - ``Get API Access Token Details  ${SEARCH_STRING}``
+        - ``Get API Access Token Details  ${SEARCH_STRING}``
 
         :param search_string: Search string is the access token generated from the curl command
         :return: access token row detail dict
@@ -571,7 +573,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - This keyword is used to delete the all generated access tokens
         - Flow: Global Settings --> API Token Management --> Select all rows --> Delete
         - Keyword Usage:
-         - ``Delete Api Access Tokens```
+        - ``Delete Api Access Tokens```
 
         :return: None
         """
@@ -597,7 +599,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - This Keyword will Backup the current VIQ Data
         - Flow : User account icon-->Global Settings--> VIQ Management ---> Backup Now
         - Keyword Usage:
-         - `` Backup VIQ Data ``
+        - `` Backup VIQ Data ``
+
         :return: 1 after successfully Backup the VIQ data else -1
         """
         self.navigate.navigate_to_viq_management_page()
@@ -653,7 +656,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - This Keyword will Delete the VIQ Data
         - Flow : User account icon-->Global Settings--> VIQ Management ---> Reset VIQ
         - Keyword Usage:
-         - `` Reset VIQ ``
+        - `` Reset VIQ ``
+
         :return: 1 after successfully Resetting VIQ data else -1
         """
         self.navigate.navigate_to_viq_management_page()
@@ -697,7 +701,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the audit log rows based on category and search_string provided
         - Flow : User account image-->Global Settings--> Audit Logs
         - Keyword Usage
-         - ``Get Audit Logs Details   ${CATEGORY}    ${SEARCH_STRING}``
+        - ``Get Audit Logs Details   ${CATEGORY}    ${SEARCH_STRING}``
 
         :param category:  Category field(Eg: ADMIN, MONITORING)
         :param search_string:  Search string(Eg: Delete, Reset, Reboot)
@@ -736,6 +740,7 @@ class GlobalSetting(GlobalSettingWebElements):
     def _sort_audit_log_columns(self, field, direction):
         """
         - sort the audit log grid column to ascending or descending direction based on the field name
+
         :param field: column header field name
         :param direction: ascending or descending
         :return: True if sorted based on the direction else False
@@ -769,9 +774,10 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the Audit log row with provided search arguments
         - Assumes that Already in Audit logs page
         - Keyword Usage
-         - ``Get Audit Logs Row    ${CATEGORY}       ${SEARCH_STRING}``
+        - ``Get Audit Logs Row    ${CATEGORY}       ${SEARCH_STRING}``
         - Example of Keyword Usage
-         - ``Get Audit Logs Row    MONITORING      Reset device ${AP1_NAME}``
+        - ``Get Audit Logs Row    MONITORING      Reset device ${AP1_NAME}``
+
         :param category: Category of Audit log, eg: ADMIN,CONFIG,MONITORING
         :param search_string:  it should be anything which is searched on the row cell
                                eg: Reset device ${AP1_NAME}, Added device, Deleted
@@ -800,7 +806,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - This Keyword will set Industry type on xiq side
         - Flow : User account icon-->Global Settings--> Account Details ---> Industry
         - Keyword Usage:
-         - `` Reset VIQ ``
+        - `` Reset VIQ ``
+
         :return: 1 after successfully Resetting VIQ data else -1
         """
         self.utils.print_info("Navigating to the global settings--->Account details")
@@ -826,7 +833,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - This Keyword will Export the current VIQ Data
         - Flow : User account icon-->Global Settings--> VIQ Management ---> Export VIQ
         - Keyword Usage:
-         - `` Export VIQ ``
+        - `` Export VIQ ``
+
         :return: 1 after successfully exporting the VIQ data else -1
         """
         self.utils.switch_to_default(self.auto_actions.driver)
@@ -883,7 +891,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Enable/Disable Opt out of Copilot BETA
         - Flow : User account image-->Global Settings--> Account Details--> Opt-out of copilot BETA
         - Keyword Usage
-         - ``Set Opt Out Copilot BETA     ${OPTION}``
+        - ``Set Opt Out Copilot BETA     ${OPTION}``
 
         :param option: option to enable/disable Opt out of Copilot BETA
         :return: 1 If setting opt_out of Copilot BETA is Successful
@@ -921,7 +929,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get Opt out of Copilot beta status
         - Flow : User account image-->Global Settings--> Account Details--> Opt-out of Copilot BETA
         - Keyword Usage
-         - ``Get Opt Out Status Copilot BETA``
+        - ``Get Opt Out Status Copilot BETA``
 
         :return: Current status(Enable/Disable) of opt-out Copilot BETA
         """
@@ -944,7 +952,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - This Keyword will Enable/Disable Supplemental CLI in Global Settings
         - Flow : User account image-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Get supplemental cli option     ${OPTION}``
+        - ``Get supplemental cli option     ${OPTION}``
+
         :param option: Choose an option for supplemental CLI "enable"\"disable"
         :return: 1 If setting option Supplemental_cli is Successful
         """
@@ -975,7 +984,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - This Keyword will Enable/Disable device management settings for EXOS switches.
         - Flow : User account image-->Global Settings--> Device Management Settings
         - Keyword Usage
-         - ``Change exos device management settings     ${OPTION}   {DUT_PLATFORM}``
+        - ``Change exos device management settings     ${OPTION}   {DUT_PLATFORM}``
+
         :param option: Choose an option for Device management settings for EXOS switches:"enable"\"disable"
         :param platform: Choose the platform:  EXOS/VOSS
         :return: 1 If device management settings for EXOS switches is Successful
@@ -1161,7 +1171,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - Enabling CoPilot Feature in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Enable CoPilot feature for this VIQ``
+        - ``Enable CoPilot feature for this VIQ``
+
         :return: 1 after successfully enabling CoPilot feature, else -1
         """
 
@@ -1196,7 +1207,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - Disabling CoPilot Feature in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Disable CoPilot feature for this VIQ``
+        - ``Disable CoPilot feature for this VIQ``
+
         :return: 1 after successfully disabling CoPilot feature
         """
 

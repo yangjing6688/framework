@@ -25,7 +25,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         This keyword set a custom network policy on the private client group page
         - Flow: Configure --> Users --> User Management --->Private Client Group
         - Keyword Usage:
-         - ``set_custom_network_policy  policy=ANC_ppsk``
+        - ``set_custom_network_policy  policy=ANC_ppsk``
 
         :param policy: an existing policy name
 
@@ -49,15 +49,15 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
     def enable_disable_ap_based_group(self, mode='default'):
         """
-            This keyword enables or disables the enable ap based group
-            - Flow: Configure --> Users --> User Management --->Private Client Group
-            - Keyword Usage:
-             - ``${rc}=   enable_disable_ap_based_groups   mode=enable ``
-             - ``${rc}=   enable_disable_ap_based_groups   mode=disable  ``
+        - This keyword enables or disables the enable ap based group
+        - Flow: Configure --> Users --> User Management --->Private Client Group
+        - Keyword Usage:
+        - ``${rc}=   enable_disable_ap_based_groups   mode=enable ``
+        - ``${rc}=   enable_disable_ap_based_groups   mode=disable  ``
 
-            :param mode: enabling or disable=ing
+        :param mode: enabling or disable=ing
 
-            :return: 1 or -1
+        :return: 1 or -1
 
         """
         self.auto_actions.click_reference(self.get_private_client_grp_ap_based_groups_tab)
@@ -88,16 +88,16 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
     def enable_disable_key_based_group(self, mode='default'):
         """
-            This keyword enables or disables the key based group
-            - Flow: Configure --> Users --> User Management --->Private Client Group
+        - This keyword enables or disables the key based group
+        - Flow: Configure --> Users --> User Management --->Private Client Group
 
-            - Keyword Usage:
-             - ``${rc}=   enable_disable_key_based_groups   mode=enable ``
-             - ``${rc}=   enable_disable_key_based_groups   mode=disable  ``
+        - Keyword Usage:
+        - ``${rc}=   enable_disable_key_based_groups   mode=enable ``
+        - ``${rc}=   enable_disable_key_based_groups   mode=disable  ``
 
-            :param mode: enabling or disabling
+        :param mode: enabling or disabling
 
-            :return: 1 or -1
+        :return: 1 or -1
 
         """
         self.auto_actions.click_reference(self.get_private_client_grp_key_based_groups_tab)
@@ -128,16 +128,16 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
     def get_based_grp_enabled_status(self, mode):
         """
-            This keyword get a staus of the enable based groups button when the current status is on or off
-            - Flow: Configure --> Users --> User Management --->Private Client Group
+        - This keyword get a staus of the enable based groups button when the current status is on or off
+        - Flow: Configure --> Users --> User Management --->Private Client Group
 
-            - Keyword Usage:
-             - ``get_based_grp_enabled_status  ap``
-             - ``get_based_grp_enabled_status  key``
+        - Keyword Usage:
+        - ``get_based_grp_enabled_status  ap``
+        - ``get_based_grp_enabled_status  key``
 
-             :param  mode: key for the key based group or ap for the ap based group
+        :param  mode: key for the key based group or ap for the ap based group
 
-            :return: ON is active or OFF is not active
+        :return: ON is active or OFF is not active
 
         """
 
@@ -166,13 +166,13 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
     def delete_all_rooms_ap_based_group(self):
         """
-            This keyword deletes all rooms in the ap based group table
-            - Flow: Configure --> Users --> User Management --->Private Client Group
+        - This keyword deletes all rooms in the ap based group table
+        - Flow: Configure --> Users --> User Management --->Private Client Group
 
-            - Keyword Usage:
-             - ``delete_all_rooms_ap_based_group``
+        - Keyword Usage:
+        - ``delete_all_rooms_ap_based_group``
 
-            :return: 1 is for a successful deletion or -1 not a successful deletion
+        :return: 1 is for a successful deletion or -1 not a successful deletion
 
         """
         if not self.get_private_client_grp_all_rooms_checkbox().is_selected():
@@ -203,13 +203,13 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
     def delete_all_user_keys_based_group(self):
         """
-            This keyword deletes all user keys in the user key based group table
-            - Flow: Configure --> Users --> User Management --->Private Client Group
+        - This keyword deletes all user keys in the user key based group table
+        - Flow: Configure --> Users --> User Management --->Private Client Group
 
-            - Keyword Usage:
-             - ``delete_all_user_keys_based_group``
+        - Keyword Usage:
+        - ``delete_all_user_keys_based_group``
 
-            :return: 1 is for a successful deletion or -1 not a successful deletion
+        :return: 1 is for a successful deletion or -1 not a successful deletion
 
         """
         if not self.get_private_key_based_delete_checkbox_all().is_selected():
@@ -240,13 +240,14 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
     def delete_specific_room_ap_based_group(self, room):
         """
-            This keyword deletes a specific room in the ap based group table
-            - Flow: Configure --> Users --> User Management --->Private Client Group
+        - This keyword deletes a specific room in the ap based group table
+        - Flow: Configure --> Users --> User Management --->Private Client Group
 
-            - Keyword Usage:
-             - ``delete_specific_room_ap_based_group  room=room1``
-            :param   room: room name
-            :return: 1 or -1
+        - Keyword Usage:
+        - ``delete_specific_room_ap_based_group  room=room1``
+
+        :param   room: room name
+        :return: 1 or -1
 
         """
 
@@ -291,14 +292,14 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
     def delete_specific_user_key_based_group(self, user):
         """
-            This keyword deletes a specific room in the user key base group table
-            - Flow: Configure --> Users --> User Management --->Private Client Group
+        - This keyword deletes a specific room in the user key base group table
+        - Flow: Configure --> Users --> User Management --->Private Client Group
 
-            - Keyword Usage:
-             - ``delete_specific_user_key_based_group  user=alex``
+        - Keyword Usage:
+        - ``delete_specific_user_key_based_group  user=alex``
 
-            :param   user: user name
-            :return: 1 or -1
+        :param   user: user name
+        :return: 1 or -1
 
         """
         sleep(5)
@@ -344,18 +345,18 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
     def add_room_ap_based_group(self, room='default', user='default', user_position=1):
         """
-            This keyword adds a romm in the ap based group
-            - Flow: Configure --> Users --> User Management --->Private Client Group
+        - This keyword adds a romm in the ap based group
+        - Flow: Configure --> Users --> User Management --->Private Client Group
 
-            - Keyword Usage:
-             - ``add_room_ap_based_group  room=abcdefefFFF  user=user22  user_position=0``
+        - Keyword Usage:
+        - ``add_room_ap_based_group  room=abcdefefFFF  user=user22  user_position=0``
 
 
-            :param : room: room name
-            :param : user: exisiting user name
-            :param : user_position: which user in the dropdown list
+        :param : room: room name
+        :param : user: exisiting user name
+        :param : user_position: which user in the dropdown list
 
-            :return: 1 or 0
+        :return: 1 or 0
 
         """
         position = int(user_position)
@@ -405,15 +406,15 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
     def add_user_key_based_group(self, user='default'):
         """
-            This keyword adds a existing user in the key based group
-            - Flow: Configure --> Users --> User Management --->Private Client Group
+        - This keyword adds a existing user in the key based group
+        - Flow: Configure --> Users --> User Management --->Private Client Group
 
-            - Keyword Usage:
-             - ``add_user_key_based_group    user=alex``
+        - Keyword Usage:
+        - ``add_user_key_based_group    user=alex``
 
-            :param : user: exisiting key user name
+        :param : user: exisiting key user name
 
-            :return: 1 or 0
+        :return: 1 or 0
 
         """
 
@@ -450,13 +451,13 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
     def search_in_table(self, no_columns_per_row, cells, searched_value):
 
         """
-            - This function searches a value in a table and return a selected row
+        - This function searches a value in a table and return a selected row
 
-            :param  no_columns_per_row: total columns
-            :param  cells: total cells
-            :param  searched_value: value to be searched
+        :param  no_columns_per_row: total columns
+        :param  cells: total cells
+        :param  searched_value: value to be searched
 
-            :return: a selected check box of row  or -1
+        :return: a selected check box of row  or -1
 
         """
         row_text = []

@@ -66,8 +66,8 @@ class UserGroups(UserGroupsWebElements):
         """
         - Add bulk users to User Groups
         - Keyword Usage:
-         - ``Add Bulk User To User Group    &{USER_INFO}``
-         - For creating the &{USER_INFO} dict refer user_group_config.robot
+        - ``Add Bulk User To User Group    &{USER_INFO}``
+        - For creating the &{USER_INFO} dict refer user_group_config.robot
 
         :param user_info:(dict)  buk user config parameters
         :return: True if created else False
@@ -109,8 +109,8 @@ class UserGroups(UserGroupsWebElements):
         - Add the single user to User Groups
         - single users options are different based on password_db_loc
         - Keyword Usage:
-         - ``Add Single User To User Group    ${PASSWORD_DB_LOC}    &{USER_INFO}``
-         - For creating &{USER_INFO} refer user_group_config.robot
+        - ``Add Single User To User Group    ${PASSWORD_DB_LOC}    &{USER_INFO}``
+        - For creating &{USER_INFO} refer user_group_config.robot
 
         :param user_info: (dict)  Single user config parameters
         :param password_db_loc:  it will take either local or cloud
@@ -387,8 +387,8 @@ class UserGroups(UserGroupsWebElements):
         - Flow: Configure --> Users --> User Groups
         - Create User Groups and add users to user Groups
         - Keyword Usage
-         - ``Create User Group   group_name=${GROUP_NAME}   user_group_profile=&{USER_GROUP_PROFILE}``
-         - for supported combination of  &{USER_GROUP_PROFILE} creation refer  "user_group_config.robot"
+        - ``Create User Group   group_name=${GROUP_NAME}   user_group_profile=&{USER_GROUP_PROFILE}``
+        - for supported combination of  &{USER_GROUP_PROFILE} creation refer  "user_group_config.robot"
 
         :param group_name: Name of the user group
         :param user_group_profile: (dict)  configuration parameter
@@ -456,7 +456,7 @@ class UserGroups(UserGroupsWebElements):
         - Flow Configure --> Users --> User Groups
         - Delete the User Groups form User Groups grid
         - Keyword Usage:
-         - ``Delete User Group   ${USER_GROUP_NAME}``
+        - ``Delete User Group   ${USER_GROUP_NAME}``
 
         :param user_group_name: Name of the user group
         :return: 1 if deleted successfully else -1
@@ -476,7 +476,7 @@ class UserGroups(UserGroupsWebElements):
         """
         - Delete the multiple user groups form user groups grid
         - Keyword Usage:
-         - ``Delete User Groups    ${GROUP_NAME1}   ${GROUP_NAME2}``
+        - ``Delete User Groups    ${GROUP_NAME1}   ${GROUP_NAME2}``
 
         :param groups: groups names
         :return: 1 if deleted successfully else -1
@@ -506,9 +506,9 @@ class UserGroups(UserGroupsWebElements):
 
     def select_wireless_user_group(self, group_name, passwd_db_loc='None', passwd_type='None'):
         """
-         - Select the wireless user group from select window if it already created
-         - Keyword Usage:
-         - ``Select Wireless User Group   group_name=${GROUP_NAME}   passwd_db_loc=&{PASSWD_DB_LOC}
+        - Select the wireless user group from select window if it already created
+        - Keyword Usage:
+        - ``Select Wireless User Group   group_name=${GROUP_NAME}   passwd_db_loc=&{PASSWD_DB_LOC}
                                           passwd_type=${PASSWD_TYPE}''
         :param group_name: name of the user group
         :param passwd_db_loc: password DB location
@@ -546,7 +546,7 @@ class UserGroups(UserGroupsWebElements):
         - there are two ways to call this keyword
         - standalone: Assumes that already navigated to the wireless network tab
         - Keyword Usage:
-         - ``Add Wireless Nw User Group   ${GROUP_NAME}   &{USER_GROUP_PROFILE}``
+        - ``Add Wireless Nw User Group   ${GROUP_NAME}   &{USER_GROUP_PROFILE}``
 
         :param group_name: (str)  Name of the group to create
         :param user_group_profile: (dict)  Config Parameters to create the user groups refer user_groups_config for
@@ -570,8 +570,8 @@ class UserGroups(UserGroupsWebElements):
         - Add the multiple user to User Group
         - multiple users options are different based on password_db_loc
         - Keyword Usage:
-         - ``Add Multiple User To User Group    ${PASSWORD_DB_LOC}    &{USER_INFO}``
-         - For creating &{USER_INFO} refer user_group_config.robot
+        - ``Add Multiple User To User Group    ${PASSWORD_DB_LOC}    &{USER_INFO}``
+        - For creating &{USER_INFO} refer user_group_config.robot
 
         :param user_info: (dict)  Multiple user config parameters
         :param password_db_loc:  it will take either local or cloud
@@ -660,8 +660,8 @@ class UserGroups(UserGroupsWebElements):
         """
         - Add the single user to existing User Groups
         - Keyword Usage:
-         - ``Create Add User To User Group    ${user_group}    &{USER_INFO}``
-         - For creating &{USER_INFO} refer user_group_config.robot
+        - ``Create Add User To User Group    ${user_group}    &{USER_INFO}``
+        - For creating &{USER_INFO} refer user_group_config.robot
 
         :param user_info: (dict)  Single user config parameters
         :param user_group:  Existing User Group name to which the user will be added
@@ -750,13 +750,13 @@ class UserGroups(UserGroupsWebElements):
 
     def delete_single_user(self, user):
         """
-                - Delete single user from existing User Group
-                - Keyword Usage:
-                 - ``Delete single User    ${user}``
+        - Delete single user from existing User Group
+        - Keyword Usage:
+        - ``Delete single User    ${user}``
 
-                :param user:  username
-                :return: 1 if deleted else -1
-                """
+        :param user:  username
+        :return: 1 if deleted else -1
+        """
 
         self.utils.print_info("Navigating to the configure users")
         self.navigator.navigate_to_configure_users_subtab_users()
@@ -804,14 +804,14 @@ class UserGroups(UserGroupsWebElements):
 
     def edit_single_user_password(self, user, password):
         """
-                - Edit and change password of single user from existing User Group
-                - Keyword Usage:
-                 - ``Edit Single User Password   ${user}    ${password}``
+        - Edit and change password of single user from existing User Group
+        - Keyword Usage:
+        - ``Edit Single User Password   ${user}    ${password}``
 
-                :param user:  username
-                :param password:  password
-                :return: 1 if edited else -1
-                """
+        :param user:  username
+        :param password:  password
+        :return: 1 if edited else -1
+        """
         self.utils.print_info("Navigating to the configure users")
         self.navigator.navigate_to_configure_users_subtab_users()
 
@@ -864,9 +864,9 @@ class UserGroups(UserGroupsWebElements):
 
     def select_wireless_user_profile(self, profile_name):
         """
-         - Select the wireless user Profile from select window if it already created
-         - Keyword Usage:
-         - ``Select Wireless User Group   profile_name=${PROFILE_NAME}''
+        - Select the wireless user Profile from select window if it already created
+        - Keyword Usage:
+        - ``Select Wireless User Group   profile_name=${PROFILE_NAME}''
         :param Profile_name: name of the user group
         :return: True if User profile selected Successfully else False
         """
@@ -884,7 +884,7 @@ class UserGroups(UserGroupsWebElements):
         self.utils.print_info(f"User Profile:{profile_name} not present !!!")
         self.auto_actions.click_reference(self.get_wireless_usr_profile_select_wind_cancel_button)
         return False
-    
+
     def delete_all_user_groups(self, **kwargs):
         """
         - Delete all custom user groups
@@ -933,7 +933,7 @@ class UserGroups(UserGroupsWebElements):
             kwargs['fail_msg'] = "Not able to select the exclusive user group "
             self.common_validation.failed(**kwargs)
             return -1
-        
+
         if self._perform_user_group_delete() == -1:
             kwargs['fail_msg'] = "Unable to delete all custom users "
             self.common_validation.failed(**kwargs)

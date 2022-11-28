@@ -13,10 +13,10 @@ class XIQSE_NetworkDevicesDevicesBackupConfiguration(NetworkDevicesDevicesBackup
 
     def xiqse_confirm_backup_configuration_click_yes(self):
         """
-         - This keyword clicks Yes in the Backup Configuration dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Confirm Backup Configuration Click Yes``
+        - This keyword clicks Yes in the Backup Configuration dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Confirm Backup Configuration Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -33,10 +33,10 @@ class XIQSE_NetworkDevicesDevicesBackupConfiguration(NetworkDevicesDevicesBackup
 
     def xiqse_confirm_backup_configuration_click_no(self):
         """
-         - This keyword clicks No in the Backup Configuration dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Confirm Backup Configuration Click No``
+        - This keyword clicks No in the Backup Configuration dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Confirm Backup Configuration Click No``
 
         :return: 1 if action was successful, else -1
         """
@@ -53,10 +53,10 @@ class XIQSE_NetworkDevicesDevicesBackupConfiguration(NetworkDevicesDevicesBackup
 
     def xiqse_confirm_backup_configuration_click_ok(self):
         """
-         - This keyword clicks OK in the Backup Configuration dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Confirm Backup Configuration Click OK``
+        - This keyword clicks OK in the Backup Configuration dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Confirm Backup Configuration Click OK``
 
         :return: 1 if action was successful, else -1
         """

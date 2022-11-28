@@ -20,14 +20,14 @@ class AnalyzeClients(object):
 
     def go_to_analyze_clients_page(self):
         """
-        -This keyword Will Navigate to Extreme Guest Analyze Clients Page
+        - This keyword Will Navigate to Extreme Guest Analyze Clients Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Analyze--> Clients
         - Keyword Usage:
             ''Go to Analyze Clients Page''
 
         :return: 1 if success
         """
-        
+
         self.utils.print_info("Clicking on Extreme Guest Analyze > Clients Page")
         self.auto_actions.click_reference(self.clients_web_elem.get_extreme_guest_analyze_clients_tab)
         sleep(2)
@@ -39,7 +39,7 @@ class AnalyzeClients(object):
 
     def check_if_the_client_exists(self, mac, location):
         """
-        -This keyword Will Check if the mac address is present in the Extreme Guest Analyze Clients Page
+        - This keyword Will Check if the mac address is present in the Extreme Guest Analyze Clients Page
         - Keyword Usage:
             ''Check If The Client Exists        ${AP_MAC}        ${LOCATION_TREE}''
 

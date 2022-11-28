@@ -21,9 +21,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_select_site_engine_general_option(self):
         """
-         - This keyword selects the Site Engine - General option in the Options tree.
-         - Keyword Usage
-          - ``XIQSE Select Site Engine General Option``
+        - This keyword selects the Site Engine - General option in the Options tree.
+        - Keyword Usage
+        - ``XIQSE Select Site Engine General Option``
 
         :return: 1 if selection was made, else -1
         """
@@ -42,9 +42,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_select_xiq_connection_option(self):
         """
-         - This keyword selects the XIQ Connection option in the Options tree.
-         - Keyword Usage
-          - ``XIQSE Select XIQ Connection Option``
+        - This keyword selects the XIQ Connection option in the Options tree.
+        - Keyword Usage
+        - ``XIQSE Select XIQ Connection Option``
 
         :return: 1 if selection was made, else -1
         """
@@ -65,7 +65,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         """
         - This keyword selects the Alam/Event Logs and Tables option in the options tree.
         - Keyword Usage
-         - ``XIQSE Select Alarm Event Option``
+        - ``XIQSE Select Alarm Event Option``
         :return:  1 if selection was made, else -1
         """
         ret_val = -1
@@ -82,9 +82,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_select_web_server_option(self):
         """
-         - This keyword selects the Web Server option in the Options tree.
-         - Keyword Usage
-          - ``XIQSE Select Web Server Option``
+        - This keyword selects the Web Server option in the Options tree.
+        - Keyword Usage
+        - ``XIQSE Select Web Server Option``
 
         :return: 1 if selection was made, else -1
         """
@@ -103,11 +103,11 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_save_options(self):
         """
-         - This keyword clicks the Save button to save any unsaved options.
+        - This keyword clicks the Save button to save any unsaved options.
            If the button is disabled, there are no unsaved options and this is a no-op.
            It is assumed the view is already navigated to the Administration> Options tab.
-         - Keyword Usage
-          - ``XIQSE Save Options``
+        - Keyword Usage
+        - ``XIQSE Save Options``
 
         :return: 1 if options were saved (or button is disabled/no changes to save), else -1
         """
@@ -141,12 +141,12 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_restore_default_options(self):
         """
-         - This keyword clicks the Restore Defaults button on the Options page.
+        - This keyword clicks the Restore Defaults button on the Options page.
            If the button is disabled, the options are already at the defaults and this is a no-op.
            It is assumed the view is already navigated to the Administration> Options tab and to
            the specific option to be restored.
-         - Keyword Usage
-          - ``XIQSE Restore Default Options``
+        - Keyword Usage
+        - ``XIQSE Restore Default Options``
 
         :return: 1 if options were restored to defaults (or button is disabled), else -1
         """
@@ -170,12 +170,12 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_restore_default_options_and_save(self):
         """
-         - This keyword clicks the Restore Defaults button on the Options page and then clicks Save.
+        - This keyword clicks the Restore Defaults button on the Options page and then clicks Save.
            If the button is disabled, the options are already at the defaults and this is a no-op.
            It is assumed the view is already navigated to the Administration> Options tab and to
            the specific option to be restored.
-         - Keyword Usage
-          - ``XIQSE Restore Default Options and Save``
+        - Keyword Usage
+        - ``XIQSE Restore Default Options and Save``
 
         :return: 1 if options were restored to defaults (or button is disabled), else -1
         """
@@ -197,12 +197,12 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_reset_options(self):
         """
-         - This keyword clicks the Reset button on the Options page.
+        - This keyword clicks the Reset button on the Options page.
            If the button is disabled, the options are already at the last-saved values and this is a no-op.
            It is assumed the view is already navigated to the Administration> Options tab and to
            the specific option to be reset.
-         - Keyword Usage
-          - ``XIQSE Reset Options``
+        - Keyword Usage
+        - ``XIQSE Reset Options``
 
         :return: 1 if options were restored to defaults (or button is disabled), else -1
         """
@@ -226,10 +226,10 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_confirm_xiq_connection_enable_sharing_option(self, expected_value="true"):
         """
-         - This keyword confirms the expected value of the Enable Sharing field for the XIQ Connection option.
-         - It is assumed the view is already navigated to the XIQ Connection option on the Administration> Options tab.
-         - Keyword Usage
-          - ``XIQSE Confirm XIQ Connection Enable Sharing Option  true``
+        - This keyword confirms the expected value of the Enable Sharing field for the XIQ Connection option.
+        - It is assumed the view is already navigated to the XIQ Connection option on the Administration> Options tab.
+        - Keyword Usage
+        - ``XIQSE Confirm XIQ Connection Enable Sharing Option  true``
             ``XIQSE Confirm XIQ Connection Enable Sharing Option  false``
 
         :param expected_value: indicates whether the Enable Sharing option is expected to be selected (true) or not (false)
@@ -258,10 +258,10 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_xiq_connection_enable_sharing_option(self, value="true"):
         """
-         - This keyword sets the value of the Enable Sharing field for the XIQ Connection option.
-         - It is assumed the view is already navigated to the XIQ Connection option on the Administration> Options tab.
-         - Keyword Usage
-          - ``XIQSE Set XIQ Connection Enable Sharing Option  true``
+        - This keyword sets the value of the Enable Sharing field for the XIQ Connection option.
+        - It is assumed the view is already navigated to the XIQ Connection option on the Administration> Options tab.
+        - Keyword Usage
+        - ``XIQSE Set XIQ Connection Enable Sharing Option  true``
             ``XIQSE Set XIQ Connection Enable Sharing Option  false``
 
         :param value: indicates whether to select (true) or deselect (false) the Enable Sharing option
@@ -292,8 +292,8 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_xiq_connection_option_and_save(self, enable="true"):
         """
-         - This keyword sets the value of the XIQ Connection option and saves the changes
-         - Keyword Usage
+        - This keyword sets the value of the XIQ Connection option and saves the changes
+        - Keyword Usage
             ``XIQSE Set XIQ Connection Option and Save  true``
             ``XIQSE Set XIQ Connection Option and Save  false``
 
@@ -328,9 +328,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_disable_xiq_connection_sharing_and_save(self):
         """
-         - This keyword deselects the XIQ Connection "Enable Sharing" option and saves the changes
-         - Keyword Usage
-          - ``XIQSE Disable XIQ Connection Sharing and Save``
+        - This keyword deselects the XIQ Connection "Enable Sharing" option and saves the changes
+        - Keyword Usage
+        - ``XIQSE Disable XIQ Connection Sharing and Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -362,9 +362,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_enable_xiq_connection_sharing_and_save(self):
         """
-         - This keyword selects the XIQ Connection "Enable Sharing" option and saves the changes
-         - Keyword Usage
-          - ``XIQSE Enable XIQ Connection Sharing and Save``
+        - This keyword selects the XIQ Connection "Enable Sharing" option and saves the changes
+        - Keyword Usage
+        - ``XIQSE Enable XIQ Connection Sharing and Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -396,9 +396,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_restore_default_xiq_connection_options_and_save(self):
         """
-         - This keyword restores the default values of the XIQ Connection options and saves the changes
-         - Keyword Usage
-          - ``XIQSE Restore Default XIQ Connection Options and Save``
+        - This keyword restores the default values of the XIQ Connection options and saves the changes
+        - Keyword Usage
+        - ``XIQSE Restore Default XIQ Connection Options and Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -417,10 +417,10 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def get_xiqse_serial_number_label_value(self):
         """
-         - This keyword returns the XIQ-SE serial number, found on the XIQ Connection options page.
-         - It is assumed the view is already navigated to the XIQ Connection option on the Administration> Options tab.
-         - Keyword Usage
-          - ``Get XIQSE Serial Number Label Value``
+        - This keyword returns the XIQ-SE serial number, found on the XIQ Connection options page.
+        - It is assumed the view is already navigated to the XIQ Connection option on the Administration> Options tab.
+        - Keyword Usage
+        - ``Get XIQSE Serial Number Label Value``
 
         :return: XIQ-SE serial number, if found;  else, empty string
         """
@@ -447,10 +447,10 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def get_xiqse_serial_number(self):
         """
-         - This keyword navigates to the XIQ Connection option on the Administration> Options tab and
-         - returns the XIQ-SE serial number.
-         - Keyword Usage
-          - ``Get XIQSE Serial Number``
+        - This keyword navigates to the XIQ Connection option on the Administration> Options tab and
+        - returns the XIQ-SE serial number.
+        - Keyword Usage
+        - ``Get XIQSE Serial Number``
 
         :return: XIQ-SE serial number, if found;  else, -1
         """
@@ -472,11 +472,11 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_web_server_session_timeout_value(self, value="20"):
         """
-         - This keyword sets the Timeout value for the Web Server HTTP Session Timeout option.
-         - It is assumed the view is already navigated to the Web Server option on the Administration> Options tab.
-         - Keyword Usage
-          - ``XIQSE Set Web Server Session Timeout Value  20``
-          - ``XIQSE Set Web Server Session Timeout Value  7``
+        - This keyword sets the Timeout value for the Web Server HTTP Session Timeout option.
+        - It is assumed the view is already navigated to the Web Server option on the Administration> Options tab.
+        - Keyword Usage
+        - ``XIQSE Set Web Server Session Timeout Value  20``
+        - ``XIQSE Set Web Server Session Timeout Value  7``
 
         :param value: Value to enter in the HTTP Session Timeout option field
         :return: 1 if value was set, else -1
@@ -496,12 +496,12 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_web_server_session_timeout_units(self, units="min(s)"):
         """
-         - This keyword sets the Timeout units for the Web Server HTTP Session Timeout option.
-         - It is assumed the view is already navigated to the Web Server option on the Administration> Options tab.
-         - Keyword Usage
-          - ``XIQSE Set Web Server Session Timeout Units  min(s)``
-          - ``XIQSE Set Web Server Session Timeout Units  hr(s)``
-          - ``XIQSE Set Web Server Session Timeout Units  day(s)``
+        - This keyword sets the Timeout units for the Web Server HTTP Session Timeout option.
+        - It is assumed the view is already navigated to the Web Server option on the Administration> Options tab.
+        - Keyword Usage
+        - ``XIQSE Set Web Server Session Timeout Units  min(s)``
+        - ``XIQSE Set Web Server Session Timeout Units  hr(s)``
+        - ``XIQSE Set Web Server Session Timeout Units  day(s)``
 
         :param units: time units to select for the HTTP Session Timeout option (min(s), hr(s), day(s))
         :return: 1 if value was set, else -1
@@ -631,9 +631,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_web_server_session_timeout_and_save(self, value="20", units="min(s)"):
         """
-         - This keyword sets the value of the Web Server Session Timeout option (value and units) and saves the changes
-         - Keyword Usage
-          - ``XIQSE Set Web Server Session Timeout and Save  20  min(s)``
+        - This keyword sets the value of the Web Server Session Timeout option (value and units) and saves the changes
+        - Keyword Usage
+        - ``XIQSE Set Web Server Session Timeout and Save  20  min(s)``
             ``XIQSE Set Web Server Session Timeout and Save   8  hr(s)``
             ``XIQSE Set Web Server Session Timeout and Save   7  day(s)``
 
@@ -671,9 +671,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_restore_default_web_server_options_and_save(self):
         """
-         - This keyword restores the default values of the Web Server options and saves the changes
-         - Keyword Usage
-          - ``XIQSE Restore Default Web Server Options and Save``
+        - This keyword restores the default values of the Web Server options and saves the changes
+        - Keyword Usage
+        - ``XIQSE Restore Default Web Server Options and Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -692,13 +692,13 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_device_tree_name_format(self, value="IP Address"):
         """
-         - This keyword sets the Device Tree Name Format value for the Site Engine - General option.
-         - It is assumed the view is already navigated to the Site Engine - General option on the
-         - Administration> Options tab.
-         - Keyword Usage
-          - ``XIQSE Set Device Tree Name Format Value    IP Address``
-          - ``XIQSE Set Device Tree Name Format Value    Nickname``
-          - ``XIQSE Set Device Tree Name Format Value    System Name``
+        - This keyword sets the Device Tree Name Format value for the Site Engine - General option.
+        - It is assumed the view is already navigated to the Site Engine - General option on the
+        - Administration> Options tab.
+        - Keyword Usage
+        - ``XIQSE Set Device Tree Name Format Value    IP Address``
+        - ``XIQSE Set Device Tree Name Format Value    Nickname``
+        - ``XIQSE Set Device Tree Name Format Value    System Name``
 
         :param value: value to select in the Device Tree Name Format dropdown field
         :return: 1 if value was set, else -1
@@ -741,12 +741,12 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_device_tree_name_format_and_save(self, value="IP Address"):
         """
-         - This keyword sets the value of the Site Engine - General's Device Tree Name Format option
-         - and saves the changes
-         - Keyword Usage
-          - ``XIQSE Set Device Tree Name Format and Save  IP Address``
-          - ``XIQSE Set Device Tree Name Format and Save  Nickname``
-          - ``XIQSE Set Device Tree Name Format and Save  System Name``
+        - This keyword sets the value of the Site Engine - General's Device Tree Name Format option
+        - and saves the changes
+        - Keyword Usage
+        - ``XIQSE Set Device Tree Name Format and Save  IP Address``
+        - ``XIQSE Set Device Tree Name Format and Save  Nickname``
+        - ``XIQSE Set Device Tree Name Format and Save  System Name``
 
         :param value: value to select in the Device Tree Name Format dropdown field
         :return: 1 if action was successful, else -1
@@ -779,9 +779,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_restore_default_site_engine_general_options_and_save(self):
         """
-         - This keyword restores the default values of the Site Engine - General options and saves the changes
-         - Keyword Usage
-          - ``XIQSE Restore Default Site Engine General Options and Save``
+        - This keyword restores the default values of the Site Engine - General options and saves the changes
+        - Keyword Usage
+        - ``XIQSE Restore Default Site Engine General Options and Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -800,9 +800,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_restore_default_inventory_manager_options_and_save(self):
         """
-         - This keyword restores the default values of the Inventory Manager options and saves the changes
-         - Keyword Usage
-          - ``XIQSE Restore Default Inventory Manager Options and Save``
+        - This keyword restores the default values of the Inventory Manager options and saves the changes
+        - Keyword Usage
+        - ``XIQSE Restore Default Inventory Manager Options and Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -1021,11 +1021,11 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_status_polling_group_2_interval_value(self, value="5"):
         """
-         - This keyword sets the value of the Status Polling Group 2 Interval option.
-         - It is assumed the view is already navigated to the Status Polling option on the Administration> Options tab.
-         - Keyword Usage
-          - ``XIQSE Set Status Polling Group 2 Interval Value  5``
-          - ``XIQSE Set Status Polling Group 2 Interval Value  2``
+        - This keyword sets the value of the Status Polling Group 2 Interval option.
+        - It is assumed the view is already navigated to the Status Polling option on the Administration> Options tab.
+        - Keyword Usage
+        - ``XIQSE Set Status Polling Group 2 Interval Value  5``
+        - ``XIQSE Set Status Polling Group 2 Interval Value  2``
 
         :param value: Value to enter in the Group 2 Interval option field
         :return: 1 if value was set, else -1
@@ -1045,10 +1045,10 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_status_polling_group_2_interval_value_and_save(self, value="5"):
         """
-         - This keyword sets the value of the Status Polling Group 2 Interval option and saves the changes
-         - Keyword Usage
-          - ``XIQSE Set Status Polling Group 2 Interval Value and Save  5``
-          - ``XIQSE Set Status Polling Group 2 Interval Value and Save  2``
+        - This keyword sets the value of the Status Polling Group 2 Interval option and saves the changes
+        - Keyword Usage
+        - ``XIQSE Set Status Polling Group 2 Interval Value and Save  5``
+        - ``XIQSE Set Status Polling Group 2 Interval Value and Save  2``
 
         :param value: Value to enter in the Group 2 Interval option field
         :return: 1 if action was successful, else -1
@@ -1080,9 +1080,9 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_restore_default_status_polling_options_and_save(self):
         """
-         - This keyword restores the default values of the Status Polling options and saves the changes
-         - Keyword Usage
-          - ``XIQSE Restore Default Status Polling Options and Save``
+        - This keyword restores the default values of the Status Polling options and saves the changes
+        - Keyword Usage
+        - ``XIQSE Restore Default Status Polling Options and Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -1098,4 +1098,3 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
             self.screen.save_screen_shot()
 
         return ret_val
-

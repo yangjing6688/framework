@@ -18,6 +18,7 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
     def _search_cred_distr_group(self, group_name):
         """
         - Search the credentials distribution group
+
         :param group_name:
         :return: row if exists else None
         """
@@ -32,7 +33,7 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
         - Search the credentials distribution group
         - If exists delete the group
         - Keyword Usage:
-         - ``Delete Cred Distr Group   ${GROUP_NAME}``
+        - ``Delete Cred Distr Group   ${GROUP_NAME}``
 
         :param group_name: group name
         :return: 1 if deleted
@@ -58,8 +59,8 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
         - There are two admin account type need to include the cred distribution groups
         - 1. Guest Management Role User. 2.Active directory User
         - Keyword Usage:
-         - ``Create Cred Distribution Groups  &{CRED_DISTR_GROUPS_CONFIG}``
-         - For Creation of &{CRED_DISTR_GROUPS_CONFIG}  refer emails_reports_config.robot file
+        - ``Create Cred Distribution Groups  &{CRED_DISTR_GROUPS_CONFIG}``
+        - For Creation of &{CRED_DISTR_GROUPS_CONFIG}  refer emails_reports_config.robot file
 
         :param group_config: (dict) configuration parameters
         :return: 1 if group created

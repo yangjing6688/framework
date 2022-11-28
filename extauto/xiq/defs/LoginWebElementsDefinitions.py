@@ -48,27 +48,27 @@ class LoginWebElementsDefinitions:
     click_about_extreme_cloudiq_link = \
         {
             'XPATH': "//*[@data-automation-tag='automation-account-menu-about-link']",
-            'wait_for': 2
+            'wait_for': 10
         }
 
     data_center_name = \
         {
             'DESC': 'Data Center Name',
             'XPATH': "//*[@data-dojo-attach-point='dataCenterName']",
-            'wait_for': 5
+            'wait_for': 10
         }
 
     user_account_nav = \
         {
             'CSS_SELECTOR': '.ah-header-account-info-username',
             'XPATH': '//*[@data-dojo-attach-point="accountInfoUsername"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     cancel_about_extremecloudiq_dialogue = {
         'CSS_SELECTOR': '.dijitDialogCloseIcon',
         'XPATH': '//*[@data-dojo-attach-point="closeButtonNode"]',
-        'wait_for': 5
+        'wait_for': 15
     }
 
     switch_connection_host = \

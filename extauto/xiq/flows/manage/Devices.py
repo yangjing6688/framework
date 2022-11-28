@@ -62,7 +62,7 @@ class Devices:
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
         - Keyword Usage:
-         - ``Onboard Ap   ${AP_SERIAL}   ${AP_TYPE}``
+        - ``Onboard Ap   ${AP_SERIAL}   ${AP_TYPE}``
 
         :param ap_serial: serial number of AP
         :param device_make: Model of the AP i.e aerohive
@@ -180,9 +180,9 @@ class Devices:
         """
         - This keyword returns the AP's status by searching AP using serial, name or mac address
         - Keyword Usage:
-         - ``Get Ap Status    ap_serial=${AP_SERIAL}``
-         - ``Get Ap Status    ap_name=${AP_NAME}``
-         - ``Get Ap Status    ap_mac=${AP_MAC}``
+        - ``Get Ap Status    ap_serial=${AP_SERIAL}``
+        - ``Get Ap Status    ap_name=${AP_NAME}``
+        - ``Get Ap Status    ap_mac=${AP_MAC}``
 
         :param ap_serial: AP Serial
         :param ap_name: AP Name ie AP Host name in GUI ex: AH-2aa840
@@ -376,9 +376,9 @@ class Devices:
         """
         - Get the AP row object from the Devices grid
         - Keyword Usage:
-         - ``Get AP Row With Search Option  ap_serial=${AP_SERIAL}``
-         - ``Get AP Row With Search Option  ap_name=${AP_NAME}``
-         - ``Get AP Row With Search Option  ap_mac=${AP_MAC}``
+        - ``Get AP Row With Search Option  ap_serial=${AP_SERIAL}``
+        - ``Get AP Row With Search Option  ap_name=${AP_NAME}``
+        - ``Get AP Row With Search Option  ap_mac=${AP_MAC}``
 
         :param ap_serial: AP Serial
         :param ap_name: AP Name
@@ -426,9 +426,9 @@ class Devices:
         """
         - Get the AP row object from the Devices grid
         - Keyword Usage:
-         - ``Get AP Row Without Search Option  ap_serial=${AP_SERIAL}``
-         - ``Get AP Row Without Search Option  ap_name=${AP_NAME}``
-         - ``Get AP Row Without Search Option  ap_mac=${AP_MAC}``
+        - ``Get AP Row Without Search Option  ap_serial=${AP_SERIAL}``
+        - ``Get AP Row Without Search Option  ap_name=${AP_NAME}``
+        - ``Get AP Row Without Search Option  ap_mac=${AP_MAC}``
 
         :param ap_serial: AP Serial
         :param ap_name: AP Name
@@ -459,9 +459,9 @@ class Devices:
         """
         - Get the AP row object from the Devices grid
         - Keyword Usage:
-         - ``Get AP Row  ap_serial=${AP_SERIAL}``
-         - ``Get AP Row  ap_name=${AP_NAME}``
-         - ``Get AP Row  ap_mac=${AP_MAC}``
+        - ``Get AP Row  ap_serial=${AP_SERIAL}``
+        - ``Get AP Row  ap_name=${AP_NAME}``
+        - ``Get AP Row  ap_mac=${AP_MAC}``
 
         :param ap_serial: AP Serial
         :param ap_name: AP Name
@@ -518,9 +518,9 @@ class Devices:
         """
         - Searches for the AP matching either one of serial, name or MAC
         - Keyword Usage:
-         - ``Search AP  ap_serial=${AP_SERIAL}``
-         - ``Search AP  ap_name=${AP_NAME}``
-         - ``Search AP  ap_mac=${AP_MAC}``
+        - ``Search AP  ap_serial=${AP_SERIAL}``
+        - ``Search AP  ap_name=${AP_NAME}``
+        - ``Search AP  ap_mac=${AP_MAC}``
 
         :param ap_serial: AP Serial
         :param ap_name: AP Name
@@ -542,7 +542,7 @@ class Devices:
         """
         - Searches for AP matching AP's Serial Number
         - Keyword Usage:
-         - ``Search AP Serial  ${AP_SERIAL}``
+        - ``Search AP Serial  ${AP_SERIAL}``
 
         :param ap_serial: AP's Serial Number
         :return: return 1 if AP found else False
@@ -574,7 +574,7 @@ class Devices:
         """
         - Searches for AP matching AP's MAC
         - Keyword Usage
-         - ``Search Ap Mac   ${AP_MAC}``
+        - ``Search Ap Mac   ${AP_MAC}``
 
         :param ap_mac: AP's MAC
         :return: return 1 if AP found else -1
@@ -605,7 +605,7 @@ class Devices:
         """
         - Searches for AP matching AP's Host NAME
         - Keyword Usage:
-         - ``Search AP Name  ${AP_NAME}``
+        - ``Search AP Name  ${AP_NAME}``
 
         :param ap_name: AP's Name
         :return: return 1 if AP found
@@ -636,7 +636,7 @@ class Devices:
         """
         - Searches for AP matching AP's Model
         - Keyword Usage:
-         - ``Search AP Model ${AP_MODEL}``
+        - ``Search AP Model ${AP_MODEL}``
 
         :param ap_model: AP's Name
         :return: return 1 if AP found else -1
@@ -657,9 +657,9 @@ class Devices:
         - Assumes that already navigated to manage --> Devices Page
         - Deletes AP matching either one of serial, name, MAC
         - Keyword Usage:
-         - ``Delete AP   ap_serial=${AP_SERIAL}``
-         - ``Delete AP   ap_name=${AP_NAME}``
-         - ``Delete AP   ap_mac=${AP_MAC}``
+        - ``Delete AP   ap_serial=${AP_SERIAL}``
+        - ``Delete AP   ap_name=${AP_NAME}``
+        - ``Delete AP   ap_mac=${AP_MAC}``
 
         :param ap_serial: ap serial number
         :param ap_name: host name of the AP
@@ -718,7 +718,7 @@ class Devices:
         """
         - Selects the AP row marching with AP's Serial Number
         - Keyword USage:
-         - ``Select AP   ${AP_SERIAL}``
+        - ``Select AP   ${AP_SERIAL}``
 
         :param ap_serial: AP's Serial Number
         :param ap_name: host name of the AP
@@ -820,10 +820,10 @@ class Devices:
         - Supported label_str are Column headers like IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
         - If the Column is not visible also it will get the value for particular  column header
         - Keyword Usage:
-         - ``${POLICY}        Get Device Details    ${AP1_MAC}     POLICY``
-         - ``${UPDATED}       Get Device Details    ${AP1_MAC}     UPDATED``
-         - ``${MGT_IP_ADDR}   Get Device Details    ${AP1_MAC}     MGT IP ADDRESS``
-         - ``${MAC}           Get Device Details    ${AP1_MAC}     MAC``
+        - ``${POLICY}        Get Device Details    ${AP1_MAC}     POLICY``
+        - ``${UPDATED}       Get Device Details    ${AP1_MAC}     UPDATED``
+        - ``${MGT_IP_ADDR}   Get Device Details    ${AP1_MAC}     MGT IP ADDRESS``
+        - ``${MAC}           Get Device Details    ${AP1_MAC}     MAC``
 
         :param search_string: string to uniquely identify the row in device grid
         :param label_str: supported labels are Column headers ex: LOCATION, IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
@@ -912,9 +912,9 @@ class Devices:
         """
         - Get the network policy deployed to the AP
         - Keyword Usage:
-         - ``Get Ap Network Policy   ap_serial=${AP_SERIAL}``
-         - ``Get Ap Network Policy   ap_name=${AP_NAME}``
-         - ``Get Ap Network Policy   ap_mac=${AP_MAC}``
+        - ``Get Ap Network Policy   ap_serial=${AP_SERIAL}``
+        - ``Get Ap Network Policy   ap_name=${AP_NAME}``
+        - ``Get Ap Network Policy   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -937,7 +937,7 @@ class Devices:
         """
         - check device reboot status
         - keyword Usage:
-         - ``Check Device Reboot Message   ${DEVICE_SERIAL}   ${CFG_UPDATE_OPT}   ${REBOOT_MSG}``
+        - ``Check Device Reboot Message   ${DEVICE_SERIAL}   ${CFG_UPDATE_OPT}   ${REBOOT_MSG}``
 
         :param device_serial:  device serial number
         :param config_update_option: Config update option Delta/Full Config update
@@ -996,7 +996,7 @@ class Devices:
         """
         - This Keyword will Onboard Multiple Devices with Serial Numbers and Device Make
         - Keyword Usage:
-         - `Onboard Multiple Devices  ${SERIALS}  ${DEVICE_MAKE}``
+        - `Onboard Multiple Devices  ${SERIALS}  ${DEVICE_MAKE}``
 
         :param serials: Serial Numbers separated by comma
         :param device_make: Device Make ie aerohive,wing
@@ -1013,8 +1013,8 @@ class Devices:
         - Assumes that already navigated to Manage --> Devices
         - Delete the multiple AP one by one
         - Keyword Usage:
-         - ``Delete APs   ap_serials=${AP1_SERIAL},${AP2_SERIAL}``
-         - ``Delete APs   ap_serials=${AP1_SERIAL}``
+        - ``Delete APs   ap_serials=${AP1_SERIAL},${AP2_SERIAL}``
+        - ``Delete APs   ap_serials=${AP1_SERIAL}``
 
         :param ap_serials: AP serial number
         :param ap_names: Host name of the AP
@@ -1041,8 +1041,8 @@ class Devices:
         """
         - onboard multiple simulated devices of same type and returns their serial number(s)
         - Keyword Usage:
-         - ``Onboard Simulated Device  ${DEVICE_TYPE}   count=2``
-         - For supported ${DEVICE_TYPE} look the device type drop down in quick add
+        - ``Onboard Simulated Device  ${DEVICE_TYPE}   count=2``
+        - For supported ${DEVICE_TYPE} look the device type drop down in quick add
 
         :param device_model: device model to onboard
         :param count: number of devices to onboard
@@ -1115,7 +1115,7 @@ class Devices:
         """
         - gets all existing devices serials with the same device_type
         - Keyword Usage:
-         - ``Get Device Serial Numbers   ${DEVICE_TYPE}``
+        - ``Get Device Serial Numbers   ${DEVICE_TYPE}``
 
         :param device_type: type of device to
         :return: serial number(s) with same device type
@@ -1164,7 +1164,7 @@ class Devices:
         """
         - Deletes Simulated AP from the device grid based on ap model
         - Keyword Usage:
-         - ``Delete Simulated Aps    ${AP_MODEL}``
+        - ``Delete Simulated Aps    ${AP_MODEL}``
 
         :param ap_model: model of the AP
         :return: 1 if deleted successfully else -1
@@ -1387,8 +1387,8 @@ class Devices:
         - Actions-->Assign Network Policy -->Select the network policy to assign
         - select Switch -->Update device
         - Keyword Usage:
-         - ``Assign and Update Network Policy To EXOS   policy_name=${POLICY_NAME}    serial=${SW1_SERIAL}``
-         - ``Assign and Update Network Policy To EXOS   policy_name=${POLICY_NAME}    serial=${SW1_SERIAL}  update_method=Complete``
+        - ``Assign and Update Network Policy To EXOS   policy_name=${POLICY_NAME}    serial=${SW1_SERIAL}``
+        - ``Assign and Update Network Policy To EXOS   policy_name=${POLICY_NAME}    serial=${SW1_SERIAL}  update_method=Complete``
         :param policy_name: name of the network to deploy
         :param serial: serial number of the switch to select
         :param update_method: Perform Complete update or delta update
@@ -1495,8 +1495,8 @@ class Devices:
         - Actions-->Assign Network Policy -->Select the network policy to assign
         - select AP-->Update device
         - Keyword Usage:
-         - ``Update Network Policy To Ap   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}``
-         - ``Update Network Policy To Ap   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}  update_method=Complete``
+        - ``Update Network Policy To Ap   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}``
+        - ``Update Network Policy To Ap   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}  update_method=Complete``
 
         :param policy_name: name of the network to deploy
         :param ap_serial: serial number of the ap to select
@@ -1537,14 +1537,14 @@ class Devices:
         - This keyword is used to update/config push the network policy to the multiple AP's
         - By default this keyword do delta config push
         - Procedure:
-         - Navigate to the Manage --> Device page
-         - Select the multiple AP's rows
-         - Click on ACTIONS --> Assign Network Policy --> Select the network policy from drop down --> Assign
-         - select the multiple AP's
-         - click on UPDATE DEVICES --> Update the delta or complete configuration update based on update method
+        - Navigate to the Manage --> Device page
+        - Select the multiple AP's rows
+        - Click on ACTIONS --> Assign Network Policy --> Select the network policy from drop down --> Assign
+        - select the multiple AP's
+        - click on UPDATE DEVICES --> Update the delta or complete configuration update based on update method
         - Keyword Usage:
-         - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serials=${AP1_SERIAL},${AP2_SERIALS}``
-         - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serials=${AP1_SERIAL},${AP2_SERIALS}   update_method=Complete``
+        - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serials=${AP1_SERIAL},${AP2_SERIALS}``
+        - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serials=${AP1_SERIAL},${AP2_SERIALS}   update_method=Complete``
 
         :param policy_name: name of the network to deploy
         :param ap_serial: comma separated ap serial numbers
@@ -1585,7 +1585,7 @@ class Devices:
         - In case of SKU incompatibility, following is an example error we get
         - The region code AH-13ad80 is set for "world", and cannot be changed on an FCC coded device.
         - Keyword Usage:
-         - ``Change Country    ${AP1_SERIAL}    ${COUNTRY}``
+        - ``Change Country    ${AP1_SERIAL}    ${COUNTRY}``
 
         :param ap_serial: AP Serial Number
         :param country: Country Code
@@ -1648,7 +1648,7 @@ class Devices:
         """
         - This method gets the country cell element from Devices page and saves the screenshot of it.
         - Keyword Usage:
-         - ``Get AP Flag    ${AP_SERIAL}``
+        - ``Get AP Flag    ${AP_SERIAL}``
 
         :param ap_serial: ap serial number
         :return: 1 if flag saved else -1
@@ -1676,7 +1676,7 @@ class Devices:
         """
         - This method gets the country name from country cell from Devices page.
         - Keyword Usage:
-         - ``Get Ap Country   ${AP_SERIAL}``
+        - ``Get Ap Country   ${AP_SERIAL}``
 
         :param ap_serial: serial number of AP
         :return: country name
@@ -1700,7 +1700,7 @@ class Devices:
         - Assumes that already navigated to Manage --> Devices
         - This method reboots a device matching the serial(s)
         - Keyword Usage:
-         - ``Reboot Device  ${DEVICE_SERIAL}``
+        - ``Reboot Device  ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number
         :return: None
@@ -1725,7 +1725,7 @@ class Devices:
         """
         - This method update device(s) to latest version from the dropdown
         - Keyword Usage:
-         - ``Upgrade Device To Latest Version   ${DEVICE_SERIAL}``
+        - ``Upgrade Device To Latest Version   ${DEVICE_SERIAL}``
 
         :param device_serial: serial number(s) of the device(s)
         :return: 1 if success else -1
@@ -1772,10 +1772,10 @@ class Devices:
 
     def xiq_upgrade_device_to_latest_version(self, device_serial, action="perform upgrade"):
         """
-        - This method update device(s) to latest version from the XIQ 
+        - This method update device(s) to latest version from the XIQ
         - Keyword Usage:
-         - ``XIQ Upgrade Device To Latest Version   ${DEVICE_SERIAL}``
-         - xiq_upgrade_device_to_latest_version(device_serial, action = "perform upgrade")
+        - ``XIQ Upgrade Device To Latest Version   ${DEVICE_SERIAL}``
+        - xiq_upgrade_device_to_latest_version(device_serial, action = "perform upgrade")
 
         :param device_serial: serial number(s) of the device(s)
         :return: Latest firmware version if success else -1
@@ -1818,7 +1818,7 @@ class Devices:
             elif action == "close":
                 self.utils.print_info("Selecting Cancel and Close button...")
                 self.auto_actions.click_reference(self.device_update.get_update_close_button)
-            
+
             else:
                 self.utils.print_error("Selected action {action} is unavailable, hence closing the update window...")
                 self.auto_actions.click_reference(self.device_update.get_update_close_button)
@@ -1829,7 +1829,7 @@ class Devices:
         """
         - This method update device(s) to specific version from the dropdown
         - keyword Usage:
-         - ``Upgrade Device To Specific Version    ${DEVICE_SERIAL}   version=${VERSION}``
+        - ``Upgrade Device To Specific Version    ${DEVICE_SERIAL}   version=${VERSION}``
 
         :param device_serial: serial number(s) of the device(s)
         :param version: version to which device(s) should get upgraded
@@ -1874,7 +1874,7 @@ class Devices:
         """
         - This method update device(s) to specific version from the dropdown
         - keyword Usage:
-         - ``XIQ Upgrade Device To Specific Version    ${DEVICE_SERIAL}   version=${VERSION}``
+        - ``XIQ Upgrade Device To Specific Version    ${DEVICE_SERIAL}   version=${VERSION}``
 
         :param device_serial: serial number(s) of the device(s)
         :param version: version to which device(s) should get upgraded
@@ -1922,7 +1922,7 @@ class Devices:
         """
         - This Keyword will Refresh the Devices Page
         - keyword Usage:
-         - ``Refresh Devices Page``
+        - ``Refresh Devices Page``
 
         :return: 1 if device page refreshed successfully else -1
         """
@@ -1951,7 +1951,7 @@ class Devices:
         """
         - Edits AP matching either any of either one of serial, name, MAC
         - Keyword Usage:
-         - ``Edit Ap Description   ${AP_DESC}   ap_serial=${AP_SERIAL}``
+        - ``Edit Ap Description   ${AP_DESC}   ap_serial=${AP_SERIAL}``
 
         :param ap_desc: AP's Description
         :param ap_serial: AP Serial
@@ -1985,7 +1985,7 @@ class Devices:
         """
         - This keyword onboards: an aerohive device [AP or Switch], Exos Switch and Voss devices using Quick onboarding flow.
         - Keyword Usage:
-         - ``Onboard Device Quick  ${ap1}``
+        - ``Onboard Device Quick  ${ap1}``
                 {ap1} - dictionary from .yaml file of the testbed ( 'ap1' is only an example )
                 Example:
                 {'name': 'bui-flo-1996',
@@ -2038,9 +2038,11 @@ class Devices:
         device_make = device_dict.get("make")
         device_mac = device_dict.get("mac")
         location = device_dict.get("location")
+        device_platform = device_dict.get("platform")
         service_tag = device_dict.get("service_tag")  # argument for Real device ---> Dell
         csv_location = device_dict.get("csv_location")
         device_os = device_dict.get("os")
+
 
         # Arguments for device_type == "Simulated"
         device_model = device_dict.get("model")
@@ -2103,6 +2105,11 @@ class Devices:
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
+        if 'Extreme - Aerohive' in device_make:
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
+            self.auto_actions.select_drop_down_options(
+                self.devices_web_elements.get_device_make_drop_down_options(), device_make)
+
         if location and device_type.lower() != "digital twin":
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
@@ -2157,18 +2164,30 @@ class Devices:
             self.utils.print_info("No Dialog box")
 
         if "real" in device_type.lower():
-            if entry_type.lower() == "manual":
-                serials = device_serial.split(",")
-                self.utils.print_info("Serials: ", serials)
-                for serial in serials:
-                    if self.search_device(device_serial=serial) == 1:
-                        kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
-                        self.common_validation.passed(**kwargs)
-                        return 1
-                    else:
-                        kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
-                        self.common_validation.failed(**kwargs)
-                        return -1
+            '''
+            Nov 22, 2022 - JPS
+            The following check is a hack, this was put here until we understand how to work with exos stack devices
+            The whole if/else should be removed once we understand how to handle exos stacks
+            The current assumption made now, is the device was added to cloud without an error.
+            '''
+
+            if device_platform.lower() != "stack":
+                if entry_type.lower() == "manual":
+                    serials = device_serial.split(",")
+                    self.utils.print_info("Serials: ", serials)
+                    for serial in serials:
+                        if self.search_device(device_serial=serial) == 1:
+                            kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
+                            self.common_validation.passed(**kwargs)
+                            return 1
+                        else:
+                            kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+            else:
+                kwargs['pass_msg'] = f"Successfully Onboarded a stack of exos Device(s) with serial numbers {device_serial}"
+                self.common_validation.passed(**kwargs)
+                return 1
 
         elif "simulated" in device_type.lower():
             models = device_model.split(",")
@@ -2467,8 +2486,8 @@ class Devices:
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick on boarding flow.
         - Keyword Usage:
-         - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
-         - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}  device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}``
+        - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
+        - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}  device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}``
 
         :param device_serial: serial number of Device
         :param device_make: Model of the Device ex:aerohive
@@ -2745,8 +2764,8 @@ class Devices:
         """
         - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick onboarding flow.
         - Keyword Usage:
-         - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
-         - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}  device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}``
+        - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
+        - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}  device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}``
 
         :param device_serial: comma separated string of Device serial number(s)
         :param device_make: Model of the Device ex:Extreme - Aerohive
@@ -2926,10 +2945,10 @@ class Devices:
         """
         - This keyword onboards a VOSS device using Quick on boarding flow.
         - Keyword Usage:
-         - ``Onboard VOSS Device  ${DEVICE_SERIAL}``
-         - ``Onboard VOSS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
-         - ``Onboard VOSS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    policy_name=${POLICY_NAME}    loc_name=${LOCATION_NAME}``
-         - ``Onboard VOSS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}
+        - ``Onboard VOSS Device  ${DEVICE_SERIAL}``
+        - ``Onboard VOSS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
+        - ``Onboard VOSS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    policy_name=${POLICY_NAME}    loc_name=${LOCATION_NAME}``
+        - ``Onboard VOSS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}
 
         :param device_serial: serial number of Device
         :param device_make: Model of the Device (e.g., voss, etc.)
@@ -2949,10 +2968,10 @@ class Devices:
         """
         - This keyword onboards an EXOS device using Quick on boarding flow.
         - Keyword Usage:
-         - ``Onboard EXOS Device  ${DEVICE_SERIAL}``
-         - ``Onboard EXOS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
-         - ``Onboard EXOS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    policy_name=${POLICY_NAME}    loc_name=${LOCATION_NAME}``
-         - ``Onboard EXOS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}
+        - ``Onboard EXOS Device  ${DEVICE_SERIAL}``
+        - ``Onboard EXOS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
+        - ``Onboard EXOS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    policy_name=${POLICY_NAME}    loc_name=${LOCATION_NAME}``
+        - ``Onboard EXOS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}
 
         :param device_serial: serial number of Device
         :param device_make: Model of the Device (e.g., exos, etc.)
@@ -3065,10 +3084,10 @@ class Devices:
         """
         - This keyword onboards a switch device (exos/voss) using Quick on boarding flow.
         - Keyword Usage:
-         - ``Onboard Switch Device  ${DEVICE_SERIAL}   EXOS``
-         - ``Onboard Switch Device  ${DEVICE_SERIAL}   VOSS``
-         - ``Onboard Switch Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    policy_name=${POLICY_NAME}    loc_name=${LOCATION_NAME}``
-         - ``Onboard Switch Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}
+        - ``Onboard Switch Device  ${DEVICE_SERIAL}   EXOS``
+        - ``Onboard Switch Device  ${DEVICE_SERIAL}   VOSS``
+        - ``Onboard Switch Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    policy_name=${POLICY_NAME}    loc_name=${LOCATION_NAME}``
+        - ``Onboard Switch Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}
 
         :param device_serial: serial number of Device
         :param device_make: Model of the Device (e.g., exos, voss, etc.)
@@ -3200,7 +3219,7 @@ class Devices:
         """
         - This keyword on boards an XIQ Site Engine using the Quick Add Devices flow.
         - Keyword Usage:
-         - ``Onboard XIQ Site Engine  ${XIQSE_SERIAL}
+        - ``Onboard XIQ Site Engine  ${XIQSE_SERIAL}
 
         :param xiqse_serial: serial number of the XIQ Site Engine
         :return: 1
@@ -3271,10 +3290,10 @@ class Devices:
         - This keyword waits for the device to finish updates
         - This keyword by default loop over every 10 seconds for up to 5 minutes to check the device updated status
         - Flow:
-         - check the device status for a device based on passed device serial/device mac/device_name
+        - check the device status for a device based on passed device serial/device mac/device_name
         - Keyword Usage:
-         - ``wait_for_device_to_finish_update       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
-         - ``wait_for_device_to_finish_update       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
+        - ``wait_for_device_to_finish_update       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
+        - ``wait_for_device_to_finish_update       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
 
         :param device_serial: device serial number to check the device update status
         :param device_mac: device mac to check the device update status
@@ -3313,7 +3332,7 @@ class Devices:
         """
         - Deletes Device matching either any of either one of serial, name, MAC
         - Keyword Usage:
-         - ``Delete Device    device_serial=${DEVICE_SERIAL}``
+        - ``Delete Device    device_serial=${DEVICE_SERIAL}``
 
         :param device_serial: device serial number
         :param device_name: name of the device
@@ -3394,7 +3413,7 @@ class Devices:
         """
         - Deletes the list of devices denoted by serial numbers
         - Keyword Usage:
-         - ``Delete Devices    ${DEVICE_SERIAL1}  ${DEVICE_SERIAL2}  ${DEVICE_SERIAL3}``
+        - ``Delete Devices    ${DEVICE_SERIAL1}  ${DEVICE_SERIAL2}  ${DEVICE_SERIAL3}``
 
         :param device_list: list of device serial numbers to delete
         :return: 1 if devices deleted successfully or are already deleted/do not exist, else -1
@@ -3460,8 +3479,7 @@ class Devices:
         # navigate to devices page
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
-        self.utils.print_info("inside serial number procedure")
-        
+
         # reset the page number to 1
         pageOne = self.devices_web_elements.get_devices_page_number_one()
         if pageOne != None:
@@ -3538,9 +3556,9 @@ class Devices:
         """
         - Selects the device matching device's Serial Number,Device Mac address and device mane
         - Keyword Usage:
-         - ``Select Device      device_serial=${DEVICE_SERIAL}``
-         - ``Select Device      device_name=${DEVICE_NAME}``
-         - ``Select Device      device_mac=${DEVICE_MAC}``
+        - ``Select Device      device_serial=${DEVICE_SERIAL}``
+        - ``Select Device      device_name=${DEVICE_NAME}``
+        - ``Select Device      device_mac=${DEVICE_MAC}``
 
         :param device_serial: device Serial
         :param device_name: device host name
@@ -3606,10 +3624,10 @@ class Devices:
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
-         - ``Get Device Status   device_serial=${DEVICE_SERIAL}``
-         - ``Get Device Status   device_name=${DEVICE_NAME}``
-         - ``Get Device Status   device_mac=${DEVICE_MAC}``
-         - ``Get Device Status   device_serial=${DEVICE_SERIAL}  device_mac=${DEVICE_MAC}``
+        - ``Get Device Status   device_serial=${DEVICE_SERIAL}``
+        - ``Get Device Status   device_name=${DEVICE_NAME}``
+        - ``Get Device Status   device_mac=${DEVICE_MAC}``
+        - ``Get Device Status   device_serial=${DEVICE_SERIAL}  device_mac=${DEVICE_MAC}``
 
         :param device_serial: device Serial
         :param device_name: device host name
@@ -3727,9 +3745,9 @@ class Devices:
         """
         - This keyword returns 1 if device status expected matches the status passed as argument
         - Keyword Usage:
-         - ``Verify Device Status   device_serial=${DEVICE_SERIAL}    status=green``
-         - ``Verify Device Status   device_name=${DEVICE_NAME}    status=green``
-         - ``Verify Device Status   device_mac=${DEVICE_MAC}    status=green``
+        - ``Verify Device Status   device_serial=${DEVICE_SERIAL}    status=green``
+        - ``Verify Device Status   device_name=${DEVICE_NAME}    status=green``
+        - ``Verify Device Status   device_mac=${DEVICE_MAC}    status=green``
 
         :param device_serial: device Serial
         :param device_name: device Name
@@ -3799,7 +3817,7 @@ class Devices:
         """
         - Searches for Device matching Device's name in device grid
         - Keyword Usage:
-         - ``Search Device Model  ${DEVICE_MODEL}``
+        - ``Search Device Model  ${DEVICE_MODEL}``
 
         :param device_model: Device's Name
         :return: return 1 if Device found
@@ -3848,8 +3866,8 @@ class Devices:
         - select AP-->Update device
         - By default Delta config push will happen
         - Keyword Usage:
-         - ``Update Network Policy To Router   policy_name=${POLICY_NAME}``
-         - ``Update Network Policy To Router   router_serial=${ROUTER_SERIAL}``
+        - ``Update Network Policy To Router   policy_name=${POLICY_NAME}``
+        - ``Update Network Policy To Router   router_serial=${ROUTER_SERIAL}``
 
         :param policy_name: name of the network to deploy
         :param router_serial: serial number of the ap to select
@@ -3878,7 +3896,7 @@ class Devices:
         self.auto_actions.click_reference(self.devices_web_elements.get_actions_assign_network_policy_drop_down_router)
         self.auto_actions.scroll_down()
         sleep(2)
-        
+
         self.auto_actions.click_reference(self.devices_web_elements.get_nw_policy_drop)
         network_policy_items = self.devices_web_elements.get_actions_network_policy_drop_down_items()
         policy_status = False
@@ -3962,9 +3980,9 @@ class Devices:
         """
         - Get router network policy applied to the router
         - Keyword Usage:
-         - ``Get Router Network Policy  router_serial=${ROUTER_SERIAL}``
-         - ``Get ROuter Network Policy  router_name=${ROUTER_NAME}``
-         - ``Get ROuter Network Policy  router_mac=${ROUTER_MAC}``
+        - ``Get Router Network Policy  router_serial=${ROUTER_SERIAL}``
+        - ``Get ROuter Network Policy  router_name=${ROUTER_NAME}``
+        - ``Get ROuter Network Policy  router_mac=${ROUTER_MAC}``
 
         :param router_serial: router serial number
         :param router_name: router host name
@@ -3986,9 +4004,9 @@ class Devices:
         - This keyword returns the device updated status by searching device row using serial, name or mac address
         - Assumes that already navigated to the manage-->device page
         - Keyword Usage:
-         - ``Get Device Updated Status   device_serial=${DEVICE_SERIAL}``
-         - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
-         - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
+        - ``Get Device Updated Status   device_serial=${DEVICE_SERIAL}``
+        - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
+        - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
 
         :param device_serial: device Serial
         :param device_name: device Name
@@ -4053,7 +4071,7 @@ class Devices:
         """
         - This keyword checks the device column picker if it is not checked
         -  Keyword Usage:
-         - ``Column Picker Select        Zone   Branch ID   Host Name   Network Policy``
+        - ``Column Picker Select        Zone   Branch ID   Host Name   Network Policy``
          -``Column Picker Select        Stack Unit``
 
         :param columns: list of device columns that can be checked
@@ -4063,7 +4081,7 @@ class Devices:
         selected_columns = []
         unselected_columns = []
 
-        # To extract the list of columns if 'columns' arg vaule is ist or tuple 
+        # To extract the list of columns if 'columns' arg vaule is ist or tuple
         if isinstance(columns, tuple) and (isinstance(columns[0], list) or isinstance(columns[0], tuple)):
             columns = columns[0]
 
@@ -4119,7 +4137,7 @@ class Devices:
         """
         - This keyword unchecks the device column picker if it is checked
         -  Keyword Usage:
-         - ``Column Picker Unselect      Branch ID  Host Name   Cloud Config Groups``
+        - ``Column Picker Unselect      Branch ID  Host Name   Cloud Config Groups``
          -``Column Picker Unselect       Network Policy``
 
         :param columns: list of device columns that can be unchecked
@@ -4129,10 +4147,10 @@ class Devices:
         selected_columns = []
         unselected_columns = []
 
-        # To extract the list of columns if 'columns' arg vaule is ist or tuple 
+        # To extract the list of columns if 'columns' arg vaule is ist or tuple
         if isinstance(columns, tuple) and (isinstance(columns[0], list) or isinstance(columns[0], tuple)):
             columns = columns[0]
-        
+
         self.utils.print_info("Clicking on Column Picker")
         # Handle the case where a tooltip / popup is covering the column picker icon
         self.close_last_refreshed_tooltip()
@@ -4200,7 +4218,7 @@ class Devices:
         """
         - This keyword gets country code of AP from CLI output
         - Keyword Usage:
-         - ``Get Ap Country Cli    ${CLI_OUTPUT}``
+        - ``Get Ap Country Cli    ${CLI_OUTPUT}``
 
         :param cli_output: output of show boot-param command
         :return: returns country code
@@ -4214,7 +4232,7 @@ class Devices:
         """
         - This Keyword will Delete All the Devices in the Manage--> Devices Grid
         - Keyword Usage:
-         - ``Delete All devices``
+        - ``Delete All devices``
 
         :return: 1 if Devices Deleted Successfully else -1
         """
@@ -4236,7 +4254,7 @@ class Devices:
 
         if self.devices_web_elements.get_device_page_size_100() != None:
             self.auto_actions.click_reference(self.devices_web_elements.get_device_page_size_100)
-            
+
         if self.get_device_count() == 0:
             self.utils.print_info("No devices present in the Devices grid")
             return 1
@@ -4246,7 +4264,7 @@ class Devices:
                 sleep(20)
 
                 # grid = self.devices_web_elements.get_grid()
-                
+
                 self.utils.print_info("Selecting Device grid checkbox...")
                 # self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(grid))
                 self.auto_actions.click_reference(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox)
@@ -4274,8 +4292,8 @@ class Devices:
         - Actions-->Assign Network Policy -->Select the network policy to assign
         - Select All Devices--> Update device
         - Keyword Usage:
-         - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}``
-         - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}  update_method=Complete``
+        - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}``
+        - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}  update_method=Complete``
 
         :param policy_name: name of the network to deploy
         :param update_method: Perform Complete update or delta update
@@ -4309,9 +4327,9 @@ class Devices:
         """
         - Get the Wifi0 power applied on AP using AP's serial number,Name or Mac address.
         - Keyword Usage:
-         - ``Get Ap WIFI0 Power   ap_serial=${AP_SERIAL}``
-         - ``Get Ap WIFI0 Power   ap_name=${AP_NAME}``
-         - ``Get Ap WIFI0 Power   ap_mac=${AP_MAC}``
+        - ``Get Ap WIFI0 Power   ap_serial=${AP_SERIAL}``
+        - ``Get Ap WIFI0 Power   ap_name=${AP_NAME}``
+        - ``Get Ap WIFI0 Power   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -4333,9 +4351,9 @@ class Devices:
         - Get the Wifi1 power applied on AP using AP's serial number,Name or Mac address.
         - Flow : Manage ---> Devices
         - Keyword Usage:
-         - ``Get Ap WIFI1 Power   ap_serial=${AP_SERIAL}``
-         - ``Get Ap WIFI1 Power   ap_name=${AP_NAME}``
-         - ``Get Ap WIFI1 Power   ap_mac=${AP_MAC}``
+        - ``Get Ap WIFI1 Power   ap_serial=${AP_SERIAL}``
+        - ``Get Ap WIFI1 Power   ap_name=${AP_NAME}``
+        - ``Get Ap WIFI1 Power   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -4355,9 +4373,9 @@ class Devices:
         """
         - Get the Wifi0 Channel applied on AP using AP's serial number,Name or Mac address.
         - Keyword Usage:
-         - ``Get Ap WIFI0 Channel   ap_serial=${AP_SERIAL}``
-         - ``Get Ap WIFI0 Channel   ap_name=${AP_NAME}``
-         - ``Get Ap WIFI0 Channel   ap_mac=${AP_MAC}``
+        - ``Get Ap WIFI0 Channel   ap_serial=${AP_SERIAL}``
+        - ``Get Ap WIFI0 Channel   ap_name=${AP_NAME}``
+        - ``Get Ap WIFI0 Channel   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -4377,9 +4395,9 @@ class Devices:
         """
         - Get the Wifi1 Channel applied on AP using AP's serial number,Name or Mac address.
         - Keyword Usage:
-         - ``Get Ap WIFI1 Channel   ap_serial=${AP_SERIAL}``
-         - ``Get Ap WIFI1 Channel   ap_name=${AP_NAME}``
-         - ``Get Ap WIFI1 Channel   ap_mac=${AP_MAC}``
+        - ``Get Ap WIFI1 Channel   ap_serial=${AP_SERIAL}``
+        - ``Get Ap WIFI1 Channel   ap_name=${AP_NAME}``
+        - ``Get Ap WIFI1 Channel   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -4402,9 +4420,9 @@ class Devices:
         - By default this keyword do delta config push
         - Flow: MANAGE-->Devices-->Select Multiple Devices -->Update Devices
         - Keyword Usage:
-         - ``Update Override Configuration To Multiple Devices   device_serials=${AP1_SERIAL},${AP2_SERIAL}``
-         - ``Update Override Configuration To Multiple Devices   device_serials=${AP1_SERIAL},${AP2_SERIAL}   update_method=Delta``
-         - ``Update Override Configuration To Multiple Devices   device_serials=${AP1_SERIAL},${AP2_SERIAL}   update_method=Complete``
+        - ``Update Override Configuration To Multiple Devices   device_serials=${AP1_SERIAL},${AP2_SERIAL}``
+        - ``Update Override Configuration To Multiple Devices   device_serials=${AP1_SERIAL},${AP2_SERIAL}   update_method=Delta``
+        - ``Update Override Configuration To Multiple Devices   device_serials=${AP1_SERIAL},${AP2_SERIAL}   update_method=Complete``
 
         :param device_serials: device serial  numbers
         :param update_method: Perform Complete update or delta update
@@ -4442,9 +4460,9 @@ class Devices:
         - By default this keyword do delta config push
         - Flow: MANAGE-->Devices-->Select a Device -->Update Devices
         - Keyword Usage:
-         - ``Update Override Configuration To Device   ap_serial=${AP1_SERIAL}``
-         - ``Update Override Configuration To Device   ap_serial=${AP1_SERIAL}  update_method=Delta``
-         - ``Update Override Configuration To Device   ap_serial=${AP1_SERIAL}  update_method=Complete``
+        - ``Update Override Configuration To Device   ap_serial=${AP1_SERIAL}``
+        - ``Update Override Configuration To Device   ap_serial=${AP1_SERIAL}  update_method=Delta``
+        - ``Update Override Configuration To Device   ap_serial=${AP1_SERIAL}  update_method=Complete``
 
         :param device_serial: device serial number to update the override policy
         :param update_method: Perform Complete update or delta update
@@ -4473,7 +4491,7 @@ class Devices:
         """
         - Gets the device count from the Devices grid
         - Keyword Usage:
-         - ``Get Device Count``
+        - ``Get Device Count``
 
         :return: returns the number of devices in the table
         """
@@ -4491,7 +4509,7 @@ class Devices:
         - Gets the total device count using the "Showing X of Y" label at the top of the view (since more devices
         - may exist than are currently being displayed).
         - Keyword Usage:
-         - ``Get Total Device Count``
+        - ``Get Total Device Count``
 
         :return: returns the total number of devices
         """
@@ -4512,7 +4530,7 @@ class Devices:
         """
         - Gets the number of selected devices from the Devices grid
         - Keyword Usage:
-         - ``Get Selected Device Count``
+        - ``Get Selected Device Count``
 
         :return: returns the number of selected rows
         """
@@ -4529,7 +4547,7 @@ class Devices:
         """
         - Gets the number of deselected devices from the Devices grid
         - Keyword Usage:
-         - ``Get Deselected Device Count``
+        - ``Get Deselected Device Count``
 
         :return: returns the number of deselected rows
         """
@@ -4639,16 +4657,16 @@ class Devices:
         - This sorting apply the all device present in the device grid
         - By default this keyword sort the device grid in ascending order
         - Flow:
-         - Navigate to the Device page
-         - Click on MGT IP ADDRESS Column to sort up or sort down based on the sorting parameter
+        - Navigate to the Device page
+        - Click on MGT IP ADDRESS Column to sort up or sort down based on the sorting parameter
         - Keyword Usage:
-         - ``Sort Device Grid With Mgmt Ip Address  ascending``
-         - ``Sort Device Grid With Mgmt Ip Address  descending``
+        - ``Sort Device Grid With Mgmt Ip Address  ascending``
+        - ``Sort Device Grid With Mgmt Ip Address  descending``
 
         :param sort: sorting method i.e ascending, descending
         :return:
         - sorted list values if sorting is matched with GUI sorted the grid values by logic sorted values
-         - - Here "logic sorted values" means taking the unsorted device grid values and applying the sort method over those values
+        - - Here "logic sorted values" means taking the unsorted device grid values and applying the sort method over those values
         - -1 if  sorting is not matched with GUI sorted the grid values by logic sorted values
         """
         self.navigator.navigate_to_devices()
@@ -4668,16 +4686,16 @@ class Devices:
         - This sorting apply the all device present in the device grid
         - By default this keyword sort the device grid in ascending order
         - Flow:
-         - Navigate to the Device page
-         - Click on "UPDATED" column to sort ascending or sort descending based on the sorting parameter
+        - Navigate to the Device page
+        - Click on "UPDATED" column to sort ascending or sort descending based on the sorting parameter
         - Keyword Usage:
-         - ``Sort Device Grid With Updated  ascending``
-         - ``Sort Device Grid With Updated  descending``
+        - ``Sort Device Grid With Updated  ascending``
+        - ``Sort Device Grid With Updated  descending``
 
         :param sort: sorting method i.e ascending, descending
         :return:
         - sorted list values if sorting is matched with GUI sorted grid values with logic sorted values
-         - Here "logic sorted values" means taking the unsorted device grid values and applying the sort method over those values
+        - Here "logic sorted values" means taking the unsorted device grid values and applying the sort method over those values
         - -1 if  sorting is not matched with GUI sorted grid values with logic sorted values
         """
         self.navigator.navigate_to_devices()
@@ -4695,11 +4713,11 @@ class Devices:
         """
         - This keyword is used to reboot the device from Actions --> Reboot
         - Flow:
-         - Navigate to Manage --> Devices
-         - Select the device row based on the passed device serial number
-         - Click on ACTIONS --> Reboot
+        - Navigate to Manage --> Devices
+        - Select the device row based on the passed device serial number
+        - Click on ACTIONS --> Reboot
         - Keyword Usage:
-         - ``Device Reboot   ${DEVICE_SERIAL}``
+        - ``Device Reboot   ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number to reboot
         :return: 1
@@ -4725,7 +4743,7 @@ class Devices:
         """
         - This keyword on-boards an WiNG device [AP or Switch] using Quick on-boarding flow.
         - Keyword Usage:
-         - ``Onboard Ap   ${AP_SERIAL}   ${AP_MAC}``
+        - ``Onboard Ap   ${AP_SERIAL}   ${AP_MAC}``
 
         :param device_serial: serial number of AP
         :param device_make: Model of the AP i.e WiNG
@@ -4821,10 +4839,10 @@ class Devices:
         - This keyword loop over every 30 seconds to check the device connected status
         - This will wait maximum ${XIQ_DEVICE_CONNECT_WAIT} defined in waits.robot to check the device connected status
         - Flow:
-         - Navigate to Manage --> Devices
-         - check the device status for a device based on passed device serial
+        - Navigate to Manage --> Devices
+        - check the device status for a device based on passed device serial
         - Keyword Usage:
-         - ``Get Device Connected Status   ${DEVICE_SERIAL}``
+        - ``Get Device Connected Status   ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number to check the device connected status
         :return: 1 if device connected within ${XIQ_DEVICE_CONNECT_WAIT} time else -1
@@ -4854,8 +4872,8 @@ class Devices:
         """
         - This keyword is used to get the column data for the device
         - Keyword Usage:
-         - ``@{column_list}=    Create List    MGT IP ADDRESS    MAC``
-         - ``get_device_column_information   ${DEVICE_SERIAL}  ${column_array}``
+        - ``@{column_list}=    Create List    MGT IP ADDRESS    MAC``
+        - ``get_device_column_information   ${DEVICE_SERIAL}  ${column_array}``
 
         :param device_serial: device serial number to check the device connected status
         :param column_array: The device array of columns to get data for
@@ -4877,9 +4895,9 @@ class Devices:
         """
         - This keyword is used to get the device configuration audit status
         - Flow:
-         - Navigate to Manage --> Devices  --> Get the configuration audit status under status column of the device row
+        - Navigate to Manage --> Devices  --> Get the configuration audit status under status column of the device row
         - Keyword Usage:
-         - ``Get Device Configuration Audit Status    ${DEVICE_SERIAL}``
+        - ``Get Device Configuration Audit Status    ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number to check the device configuration audit status
         :return:
@@ -4914,12 +4932,12 @@ class Devices:
         - After Configuring the CAPWAP client server in device cli, check the device connected status
         - This keyword by default loop over every 30 seconds for 10 times to check the device connected status
         - Flow:
-         - Navigate to Manage --> Devices
-         - check the device status for a device based on passed device serial
+        - Navigate to Manage --> Devices
+        - check the device status for a device based on passed device serial
         - Keyword Usage:
-         - ``Wait Until Device Online       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
-         - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
-         - ``Wait Until Device Online       device_serial=${DEVICE_SERIAL}    access_token=${ACCESS_TOKEN}``
+        - ``Wait Until Device Online       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
+        - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
+        - ``Wait Until Device Online       device_serial=${DEVICE_SERIAL}    access_token=${ACCESS_TOKEN}``
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
@@ -5029,11 +5047,11 @@ class Devices:
         - After Configuring the CAPWAP client server in device cli, check the device connected status
         - This keyword by default loop over every 30 seconds for 10 times to check the device connected status
         - Flow:
-         - Navigate to Manage --> Devices
-         - check the device status for a device based on passed device serial
+        - Navigate to Manage --> Devices
+        - check the device status for a device based on passed device serial
         - Keyword Usage:
-         - ``Wait Until Device Offline       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
-         - ``Wait Until Device Offline       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
+        - ``Wait Until Device Offline       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
+        - ``Wait Until Device Offline       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
@@ -5096,8 +5114,8 @@ class Devices:
         """
         - This Keyword will Update Device Configuration based on device serial number
         - Keyword Usage:
-         - ``Update Device Delta Configuration  ${DEVICE_SERIAL}``
-         - ``Update Device Delta Configuration  ${DEVICE_SERIAL}  ${UPDATE_METHOD}=Complete``
+        - ``Update Device Delta Configuration  ${DEVICE_SERIAL}``
+        - ``Update Device Delta Configuration  ${DEVICE_SERIAL}  ${UPDATE_METHOD}=Complete``
 
         :param device_serial: Device Serial Number
         :param update_method: Delta/Complete
@@ -5137,7 +5155,7 @@ class Devices:
         """
         - This Keyword will wait until device reboots based on device update status message
         - Keyword Usage:
-         - `` Wait Until Device Reboots  ${DEVICE_SERIAL}``
+        - `` Wait Until Device Reboots  ${DEVICE_SERIAL}``
 
         :param device_serial: Device Serial Number
         :param retry_duration: duration between each retry
@@ -5167,7 +5185,7 @@ class Devices:
         """
         - This Keyword will wait until device finishes Discovering Country Code based on device update status message
         - Keyword Usage:
-         - `` Wait Until Country Discovered  ${DEVICE_SERIAL}``
+        - `` Wait Until Country Discovered  ${DEVICE_SERIAL}``
 
         :param device_serial: Device Serial Number
         :param retry_duration: duration between each retry
@@ -5209,7 +5227,7 @@ class Devices:
         - Actions-->Assign Network Policy -->Select the network policy to assign
         - Select Switch-->Update device
         - Keyword Usage:
-         - ``Assign Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}``
+        - ``Assign Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}``
 
         :param policy_name: name of the network policy to deploy
         :param serial: serial number of the switch to select
@@ -5247,10 +5265,10 @@ class Devices:
         - Actions-->Assign Network Policy -->Select the network policy to assign
         - Select Switch-->Update device
         - Keyword Usage:
-         - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}``
-         - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}  update_method=PolicyAndConfig``
-         - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}  update_method=EngineAndImages``
-         - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}  update_method=Complete``
+        - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}``
+        - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}  update_method=PolicyAndConfig``
+        - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}  update_method=EngineAndImages``
+        - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}  update_method=Complete``
 
         :param policy_name: name of the network policy to deploy
         :param serial: serial number of the switch to select
@@ -5284,9 +5302,9 @@ class Devices:
         """
         - Get the Location Assigned to the AP
         - Keyword Usage:
-         - ``Get Ap Assigned Location   ap_serial=${AP_SERIAL}``
-         - ``Get Ap Assigned Location   ap_name=${AP_NAME}``
-         - ``Get Ap Assigned Location   ap_mac=${AP_MAC}``
+        - ``Get Ap Assigned Location   ap_serial=${AP_SERIAL}``
+        - ``Get Ap Assigned Location   ap_name=${AP_NAME}``
+        - ``Get Ap Assigned Location   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -5307,7 +5325,7 @@ class Devices:
         """
         - This keyword selects the specified location in the Select Location dialog
         - Keyword Usage:
-         - ``Location Dialog Select Location    San Jose, building_01, floor_02``
+        - ``Location Dialog Select Location    San Jose, building_01, floor_02``
         :param dev_location: location where the device is to be assigned in the above format
         """
         location_list = dev_location.split(',')
@@ -5367,7 +5385,7 @@ class Devices:
         - Go To Manage-->Devices-->Select switch row to apply the network policy
         - Select Switch-->Update device
         - Keyword Usage:
-         - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
+        - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
         :param serial: serial number of the switch to update
         :return: 1
         """
@@ -5387,7 +5405,7 @@ class Devices:
         - Go To Manage-->Devices-->Select switch row to apply the network policy
         - Select Switch-->Update device
         - Keyword Usage:
-         - ``Update Switch IQ Engine and Images  ${SWITCH_SERIAL}``
+        - ``Update Switch IQ Engine and Images  ${SWITCH_SERIAL}``
 
         :param serial: serial number of the switch to update
         :return: 1
@@ -5407,7 +5425,7 @@ class Devices:
         - Go To Manage-->Devices-->Select switch row to apply the network policy
         - Select Switch-->Update device
         - Keyword Usage:
-         - ``Update Switch Complete  ${SWITCH_SERIAL}``
+        - ``Update Switch Complete  ${SWITCH_SERIAL}``
 
         :param serial: serial number of the switch to update
         :return: 1
@@ -5609,7 +5627,7 @@ class Devices:
         - Assumes already navigated to Manage --> Devices
         - This method accesses the "Revert Device to Template" action for a device matching the specified serial
         - Keyword Usage:
-         - ``Revert Device to Template  ${DEVICE_SERIAL}``
+        - ``Revert Device to Template  ${DEVICE_SERIAL}``
 
         :param device_serial: serial number of the device to perform the action on
         :return: 1 if action succeeds, else -1
@@ -5665,7 +5683,7 @@ class Devices:
         """
         - This keyword confirms the list of columns are all present in the column picker
         - Keyword Usage:
-            - `Confirm Column Picker Contains Column  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
+        - `Confirm Column Picker Contains Column  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
 
         :param columns: list of device columns that should be present in the column picker list
         :return: returns 1 if all columns are present in the column picker; else, -1
@@ -5711,7 +5729,7 @@ class Devices:
         """
         - This keyword confirms the list of columns are NOT present in the column picker
         - Keyword Usage:
-            - `Confirm Column Picker Does Not Contain Column  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
+        - `Confirm Column Picker Does Not Contain Column  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
 
         :param columns: list of device columns that should not be present in the column picker list
         :return: returns 1 if none of the columns are present in the column picker; else, -1
@@ -5757,7 +5775,7 @@ class Devices:
         """
         - This keyword confirms the list of columns are all selected in the column picker
         - Keyword Usage:
-            - `Confirm Column Picker Column Selected  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
+        - `Confirm Column Picker Column Selected  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
 
         :param columns: list of device columns that should be selected
         :return: returns 1 if all columns are selected in the column picker; else, -1
@@ -5816,7 +5834,7 @@ class Devices:
         """
         - This keyword confirms the list of columns are all unselected in the column picker
         - Keyword Usage:
-            - `Confirm Column Picker Column Unselected  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
+        - `Confirm Column Picker Column Unselected  ${COLUMN_1}  ${COLUMN_2}  ${COLUMN_3}`
 
         :param columns: list of device columns that should be selected - passed in as multiple arguments
         :return: returns 1 if all columns are selected in the column picker; else, -1
@@ -5875,7 +5893,7 @@ class Devices:
         """
         - This keyword selects the view type for the Manage> Devices view.
         - Keyword Usage:
-            - `Select Table View Type   ${VIEW_TYPE}`
+        - `Select Table View Type   ${VIEW_TYPE}`
 
         :param view_type: view type to select (Default View, Wireless View, LAN View, WAN View)
         :return: returns 1 if the specified view type was selected; else, -1
@@ -5985,7 +6003,7 @@ class Devices:
         """
         - This keyword selects all devices in the table by clicking the Select All check box column header
         - Keyword Usage:
-            - `Select All Devices`
+        - `Select All Devices`
 
         :param None
         :return: returns 1 if the Select All checkbox was clicked; else, -1
@@ -6014,7 +6032,7 @@ class Devices:
           it if it is already selected, or clicking the Select All check button twice (once to select all, once to deselect
           all) if it is not already selected.
         - Keyword Usage:
-            - `Deselect All Devices`
+        - `Deselect All Devices`
 
         :param None
         :return: returns 1 if the action was successful; else, -1
@@ -6041,7 +6059,7 @@ class Devices:
         """
         - This keyword confirms the list of devices are all selected in the table
         - Keyword Usage:
-            - `Confirm Devices Selected  ${SERIAL_1}  ${SERIAL_2}  ${SERIAL_3}`
+        - `Confirm Devices Selected  ${SERIAL_1}  ${SERIAL_2}  ${SERIAL_3}`
 
         :param device_list: list of device serial numbers to check the selection state of
         :return: returns 1 if all specified devices are selected; else, -1
@@ -6086,7 +6104,7 @@ class Devices:
         """
         - This keyword confirms the list of devices are all deselected in the table
         - Keyword Usage:
-            - `Confirm Devices Deselected  ${SERIAL_1}  ${SERIAL_2}  ${SERIAL_3}`
+        - `Confirm Devices Deselected  ${SERIAL_1}  ${SERIAL_2}  ${SERIAL_3}`
 
         :param device_list: list of device serial numbers to check the selection state of
         :return: returns 1 if all specified devices are deselected; else, -1
@@ -6131,7 +6149,7 @@ class Devices:
         """
         - This keyword confirms all devices in the table are selected
         - Keyword Usage:
-            - `Confirm All Devices Selected`
+        - `Confirm All Devices Selected`
 
         :return: returns 1 if all devices are selected; else, -1
         """
@@ -6153,7 +6171,7 @@ class Devices:
         """
         - This keyword confirms all devices in the table are deselected
         - Keyword Usage:
-            - `Confirm All Devices Unselected`
+        - `Confirm All Devices Unselected`
 
         :return: returns 1 if no devices are selected; else, -1
         """
@@ -6176,12 +6194,12 @@ class Devices:
         - This keyword is used to wait for the device to show up in XIQ.
         - This keyword by default loops 10 times every 30 seconds to check if the device exists
         - Flow:
-         - Navigate to Manage --> Devices
-         - search for the device based on specified device criteria
+        - Navigate to Manage --> Devices
+        - search for the device based on specified device criteria
         - Keyword Usage:
-         - ``Wait Until Device Added    device_serial=${DEVICE_SERIAL}    retry_duration=15    retry_count=20``
-         - ``Wait Until Device Added    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
-         - ``Wait Until Device Added    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
+        - ``Wait Until Device Added    device_serial=${DEVICE_SERIAL}    retry_duration=15    retry_count=20``
+        - ``Wait Until Device Added    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
+        - ``Wait Until Device Added    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
         :param device_serial: device serial number to look for
         :param device_name: device name to look for
         :param device_mac: device MAC address to look for
@@ -6250,12 +6268,12 @@ class Devices:
         - This keyword is used to wait for the device to be removed from extauto.xiq.
         - This keyword by default loops 10 times every 30 seconds to check if the device exists
         - Flow:
-         - Navigate to Manage --> Devices
-         - search for the device based on specified device criteria
+        - Navigate to Manage --> Devices
+        - search for the device based on specified device criteria
         - Keyword Usage:
-         - ``Wait Until Device Removed    device_serial=${DEVICE_SERIAL}    retry_duration=15    retry_count=20``
-         - ``Wait Until Device Removed    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
-         - ``Wait Until Device Removed    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
+        - ``Wait Until Device Removed    device_serial=${DEVICE_SERIAL}    retry_duration=15    retry_count=20``
+        - ``Wait Until Device Removed    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
+        - ``Wait Until Device Removed    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
 
         :param device_serial: device serial number to look for
         :param device_name: device name to look for
@@ -6326,10 +6344,10 @@ class Devices:
         - This keyword waits until the MANAGED column for the specified device to contains 'Managed' state.
         - This keyword by default loops every 30 seconds for 10 times to check the MANAGED column data
         - Flow:
-         - Navigate to Manage --> Devices
-         - check the specified device MANAGED column for data
+        - Navigate to Manage --> Devices
+        - check the specified device MANAGED column for data
         - Keyword Usage:
-         - ``Wait Until Device Managed  ${DEVICE_SERIAL}   retry_duration=10    retry_count=12``
+        - ``Wait Until Device Managed  ${DEVICE_SERIAL}   retry_duration=10    retry_count=12``
 
         :param device_serial: device serial number to check the device 'managed' state
         :param retry_duration: duration between each retry
@@ -6367,10 +6385,10 @@ class Devices:
         - This keyword waits until the specified column for the specified device contains data.
         - This keyword by default loops every 30 seconds for 10 times to check the column data
         - Flow:
-         - Navigate to Manage --> Devices
-         - check the specified device column for data
+        - Navigate to Manage --> Devices
+        - check the specified device column for data
         - Keyword Usage:
-         - ``Wait Until Device Data Present  ${DEVICE_SERIAL}    MAC    retry_duration=10    retry_count=12``
+        - ``Wait Until Device Data Present  ${DEVICE_SERIAL}    MAC    retry_duration=10    retry_count=12``
 
         :param device_serial: device serial number to check the device connected status
         :param col: column name to check for data
@@ -6403,10 +6421,10 @@ class Devices:
         - This keyword waits until the Manage > Devices 'loading' mask is cleared.
         - This keyword by default loops every 1 second for 180 times to check for the 'loading' mask.
         - Flow:
-         - Assumes that the 'Manage --> Devices' view is already visible.
-         - check for the 'loading' mask
+        - Assumes that the 'Manage --> Devices' view is already visible.
+        - check for the 'loading' mask
         - Keyword Usage:
-         - ``Wait Until Devices Load Mask Cleared   retry_duration=1    retry_count=180``
+        - ``Wait Until Devices Load Mask Cleared   retry_duration=1    retry_count=180``
 
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -6432,9 +6450,9 @@ class Devices:
         """
         - Get Management IP Assigned to the AP
         - Keyword Usage:
-         - ``Get Ap Management IP Address   ap_serial=${AP_SERIAL}``
-         - ``Get Ap Management IP Address   ap_name=${AP_NAME}``
-         - ``Get Ap Management IP Address   ap_mac=${AP_MAC}``
+        - ``Get Ap Management IP Address   ap_serial=${AP_SERIAL}``
+        - ``Get Ap Management IP Address   ap_name=${AP_NAME}``
+        - ``Get Ap Management IP Address   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -6454,9 +6472,9 @@ class Devices:
         """
         - This keyword confirms the device is disconnected
         - Keyword Usage:
-         - ``Confirm Device Disconnected   device_serial=${DEVICE_SERIAL}``
-         - ``Confirm Device Disconnected   device_name=${DEVICE_NAme}``
-         - ``Confirm Device Disconnected   device_mac=${DEVICE_MAC}``
+        - ``Confirm Device Disconnected   device_serial=${DEVICE_SERIAL}``
+        - ``Confirm Device Disconnected   device_name=${DEVICE_NAme}``
+        - ``Confirm Device Disconnected   device_mac=${DEVICE_MAC}``
 
         :param device_serial: device Serial
         :param device_name: device host name
@@ -6499,7 +6517,7 @@ class Devices:
         - Gets a dictionary of device row values based on the passed column label list
         - The column list should be a comma-separated list of column headers, like HOST NAME,MGT IP ADDRESS,MAC
         - Keyword Usage:
-         - ``@{DEVICE_VALUES}=  Get Device Row Values   ${DEVICE_SERIAL}  HOST NAME,MGT IP ADDRESS,MAKE,MODEL``
+        - ``@{DEVICE_VALUES}=  Get Device Row Values   ${DEVICE_SERIAL}  HOST NAME,MGT IP ADDRESS,MAKE,MODEL``
 
         :param search_string: string to uniquely identify the row in the device grid
         :param col_list: comma-separated list of column headers (e.g., LOCATION,MAC,MGT IP ADDRESS)
@@ -6624,7 +6642,7 @@ class Devices:
         - This keyword attempts to onboard a device which is currently managed by XIQ-SE and confirms the appropriate
         - error is displayed.
         - Keyword Usage:
-         - ``Confirm XIQSE Managed Device Not Onboarded By XIQ    ${SERIAL}  ${MAKE}  ${LOCATION"``
+        - ``Confirm XIQSE Managed Device Not Onboarded By XIQ    ${SERIAL}  ${MAKE}  ${LOCATION"``
 
         :param device_serial: serial number of Device
         :param device_make: Model of the Device (e.g., aerohive, voss, exos, etc.)
@@ -6703,7 +6721,7 @@ class Devices:
         """
         - This Keyword will validate whether given Tooltip Message Displayed on Manage--> Devices Page
         - Keyword Usage:
-         - ``check tooltip message presence  ${TOOLTIP_MESSAGE}``
+        - ``check tooltip message presence  ${TOOLTIP_MESSAGE}``
 
         :param tooltip_message: Tooltip message to check on devices page
         :return: 1 if tooltip message appears, else -1
@@ -6725,9 +6743,9 @@ class Devices:
         """
         - Get the Wifi0 Radio Profile applied on AP using AP's serial number,Name or Mac address.
         - Keyword Usage:
-         - ``Get Ap WIFI0 Radio Profile   ap_serial=${AP_SERIAL}``
-         - ``Get Ap WIFI0 Radio Profile   ap_name=${AP_NAME}``
-         - ``Get Ap WIFI0 Radio Profile   ap_mac=${AP_MAC}``
+        - ``Get Ap WIFI0 Radio Profile   ap_serial=${AP_SERIAL}``
+        - ``Get Ap WIFI0 Radio Profile   ap_name=${AP_NAME}``
+        - ``Get Ap WIFI0 Radio Profile   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -6748,9 +6766,9 @@ class Devices:
         """
         - Get the Wifi1 Radio Profile applied on AP using AP's serial number,Name or Mac address.
         - Keyword Usage:
-         - ``Get Ap WIFI1 Radio Profile   ap_serial=${AP_SERIAL}``
-         - ``Get Ap WIFI1 Radio Profile   ap_name=${AP_NAME}``
-         - ``Get Ap WIFI1 Radio Profile   ap_mac=${AP_MAC}``
+        - ``Get Ap WIFI1 Radio Profile   ap_serial=${AP_SERIAL}``
+        - ``Get Ap WIFI1 Radio Profile   ap_name=${AP_NAME}``
+        - ``Get Ap WIFI1 Radio Profile   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -6771,9 +6789,9 @@ class Devices:
         """
         - Get AP Public IP address using AP's serial number,Name or Mac address.
         - Keyword Usage:
-         - ``Get Ap Public IP Address   ap_serial=${AP_SERIAL}``
-         - ``Get Ap Public IP Address   ap_name=${AP_NAME}``
-         - ``Get Ap Public IP Address   ap_mac=${AP_MAC}``
+        - ``Get Ap Public IP Address   ap_serial=${AP_SERIAL}``
+        - ``Get Ap Public IP Address   ap_name=${AP_NAME}``
+        - ``Get Ap Public IP Address   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -6795,8 +6813,8 @@ class Devices:
         """
         - This Keyword will Onboard Multiple Exos Devices with Serial Numbers
         - Keyword Usage:
-         - `Onboard Multiple Exos Devices  ${SERIAL1},${SERIAL2},${SERIALS3}  {DEVICE_MAKE}``
-         - `Onboard Multiple Exos Devices  ${SERIAL1},${SERIAL2},${SERIALS3}``
+        - `Onboard Multiple Exos Devices  ${SERIAL1},${SERIAL2},${SERIALS3}  {DEVICE_MAKE}``
+        - `Onboard Multiple Exos Devices  ${SERIAL1},${SERIAL2},${SERIALS3}``
 
         :param device_serials: Serial Numbers seperated by comma
         :param device_make: Device Make Type ie EXOS
@@ -6811,11 +6829,11 @@ class Devices:
         - Assuming that config push will take a maximum of fiften minutes
 
         - Flow:
-         - Navigate to Manage --> Devices
-         - check the device status and device update prograss for a device based on passed device serial
+        - Navigate to Manage --> Devices
+        - check the device status and device update prograss for a device based on passed device serial
 
         - Keyword Usage:
-         - `Device Update Progress       ${DEVICE_SERIAL}   retry_duration=30       retry_count=800``
+        - `Device Update Progress       ${DEVICE_SERIAL}   retry_duration=30       retry_count=800``
 
         :param device_serial: device serial number to check the config push status
         :param retry_duration: duration between each retry
@@ -6870,7 +6888,7 @@ class Devices:
         if device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac)
-        
+
         if device_row:
             sleep(5)
             stack_status = self.devices_web_elements.get_stack_status_cell(device_row)
@@ -6887,7 +6905,7 @@ class Devices:
 
     def get_exos_stack_status(self, device_mac='default'):
         """
-        - This keyword returns the EXOS Stack icon status is blue or red 
+        - This keyword returns the EXOS Stack icon status is blue or red
         - 'blue' means all the stack members are in managed state
         - 'red' means one or more slot is not in managed state
         - '-1' means the device is not a stack device
@@ -6932,10 +6950,10 @@ class Devices:
         - This keyword waits until the specified column for the specified device contains managed state.
         - This keyword by default loops every 30 seconds for 10 times to check the column data
         - Flow:
-         - Navigate to Manage --> Devices
-         - check the specified device column for data
+        - Navigate to Manage --> Devices
+        - check the specified device column for data
         - Keyword Usage:
-         - ``Verify Stack Devices Managed  ${STACK_MAC}  ${SLOT_SERIAL_LIST} ``
+        - ``Verify Stack Devices Managed  ${STACK_MAC}  ${SLOT_SERIAL_LIST} ``
 
         :param stack_mac: stack mac in use with which stack is onboarded
         :param slot_serial_list: list of serial numbers of stack devices to check the devices managed status
@@ -7119,8 +7137,8 @@ class Devices:
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
-         - ``Get Device Stack Status   device_serial=${DEVICE_SERIAL}``
-         - ``Get Device Stack Status   device_mac=${DEVICE_MAC}``
+        - ``Get Device Stack Status   device_serial=${DEVICE_SERIAL}``
+        - ``Get Device Stack Status   device_mac=${DEVICE_MAC}``
 
         :param device_serial: device Serial
         :param device_mac: device MAC address
@@ -7217,7 +7235,7 @@ class Devices:
         """
         - This method update device to specific version from the dropdown
         - keyword Usage:
-         - Select Version And Upgrade Device To Specific Version    ${DEVICE_SERIAL}   version=${VERSION}
+        - Select Version And Upgrade Device To Specific Version    ${DEVICE_SERIAL}   version=${VERSION}
 
         :param device_serial: serial number(s) of the device(s)
         :param version: version to which device(s) should get upgraded. This string should be contains into image name . e.g : 5520.8.3.0.0
@@ -7287,7 +7305,7 @@ class Devices:
         - This keyword clicks on the ACTIONS > OPEN SITE ENGINE link
         - It is assumed that the Manage > Device window is open and an XIQ-SE managed device is selected.
         - Keyword Usage
-         - ``Actions XIQSE Open Site Engine``
+        - ``Actions XIQSE Open Site Engine``
         :return: 1 if action was successful (or the field is disabled), else -1
         """
         ret_val = -1
@@ -7319,7 +7337,7 @@ class Devices:
         - This keyword checks if the 'Maximum 5 Site Engine > Device View' message banner is displayed.
         - The message banner will be closed, if displayed.
         - Keyword Usage
-         - ``Is XIQSE Maximum Site Engine Message Displayed``
+        - ``Is XIQSE Maximum Site Engine Message Displayed``
         :return: True if the message banner is displayed, else False
         """
         self.utils.print_info("Checking for the 'Maximum 5 Site Engine > Device View...` message")
@@ -7342,7 +7360,7 @@ class Devices:
         - This keyword checks if the ACTIONS menu is disabled in the Manage > Devices table.
         - It is assumed that the Manage > Device window is open.
         - Keyword Usage
-         - ``Actions Menu Disabled``
+        - ``Actions Menu Disabled``
         :return: 1 if the field is disabled, else -1
         """
         ret_val = -1
@@ -7368,7 +7386,7 @@ class Devices:
         """
         - Searches for AP matching AP's Serial Number based on
         - Keyword Usage:
-         - ``Search AP Serial  ${AP_SERIAL}``
+        - ``Search AP Serial  ${AP_SERIAL}``
 
         :param ap_serial: AP's Serial Number
         :return: return 1 if AP found else False
@@ -7397,7 +7415,7 @@ class Devices:
         - This keyword selects a location in the location dialog and clicks the "Assign" button.
           It is assumed the location dialog is already open.
         - Keyword Usage:
-         - ``Select Location  ${LOCATION}``
+        - ``Select Location  ${LOCATION}``
 
         :param sel_loc: location to select, in a comma-separated list format; e.g., San Jose, building_01, floor_02
         :return: 1 if location is selected, else -1'
@@ -7518,7 +7536,7 @@ class Devices:
         - This keyword selects a location in the location dialog and clicks the "Select" button.
           It is assumed the location dialog is already open.
         - Keyword Usage:
-         - ``Select Location  ${LOCATION}
+        - ``Select Location  ${LOCATION}
         :param sel_loc: location to select, in a comma-separated list format; e.g., San Jose, building_01, floor_02
         :return: 1 if location is selected, else -1'
         """
@@ -7597,7 +7615,7 @@ class Devices:
         Can on boards an aerohive device [AP or Switch], Universal APs , Exos Switch, Exos Stack and Voss devices
         using Quick onboarding flow.
         - Keyword Usage:
-         - quick_onboarding_cloud_manual          ${DUT_SERIAL}    voss      Bucharest,address,Floor 1
+        - quick_onboarding_cloud_manual          ${DUT_SERIAL}    voss      Bucharest,address,Floor 1
         :param device_sn: serial number of Device; single SN or a list of SNs
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
         :param location: The location, building and floor separated by comma ; e.g. Bucharest,address,Floor 1
@@ -7772,7 +7790,7 @@ class Devices:
         Can on boards an aerohive device [AP or Switch], Universal APs , Exos Switch, Exos Stack and Voss devices
         using Quick onboarding flow.
         - Keyword Usage:
-         - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
+        - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
         :param device_sn: serial number of Device; single SN or a list of SNs
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
         :param location: The location, building and floor separated by comma ; e.g. Bucharest,address,Floor 1
@@ -7932,7 +7950,7 @@ class Devices:
         Can on boards an Universal APs, Exos Switch, Exos Stack and Voss devices
         using Quick onboarding flow.
         - Keyword Usage:
-         - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
+        - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
         :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message
          will be returned ; else -1
@@ -8062,7 +8080,7 @@ class Devices:
         Can on boards an Wing device, Exos Switch, Exos Stack and Voss devices
         using Quick onboarding flow.
         - Keyword Usage:
-         - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
+        - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
         :param csv_location: csv file path
         e.g. ${DUT_CSV_FILE}             /automation/xiq/cw_automation/testsuites/xiq/topologies/${TESTBED}/MultipleVossDevices.csv
@@ -8196,7 +8214,7 @@ class Devices:
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
-         - ``Get Template Status   device_mac=${DEVICE_MAC}``
+        - ``Get Template Status   device_mac=${DEVICE_MAC}``
 
         :param device_mac: device MAC address
         :param duration_retry : duration of retry in seconds
@@ -8240,8 +8258,8 @@ class Devices:
         """
         - This Keyword will create EXOS Stack Auto Template after assigned a policy to the stack
         - Keyword Usage
-         - ``Get Template Status   device_mac=${DEVICE_MAC}``
-         - ``Name Stack Template   ${Stack_TEMPLATE_NAME}``
+        - ``Get Template Status   device_mac=${DEVICE_MAC}``
+        - ``Name Stack Template   ${Stack_TEMPLATE_NAME}``
 
         :param device_mac: device MAC address
         :param name_stack_template: Name of the stack_template
@@ -8298,7 +8316,7 @@ class Devices:
         - Actions-->Assign Network Policy -->Select the network policy to assign
         - Select Switch-->Update device
         - Keyword Usage:
-         - ``Assign Policy To Switch  policy_name=${POLICY_NAME}  mac=${SWITCH_MAC}``
+        - ``Assign Policy To Switch  policy_name=${POLICY_NAME}  mac=${SWITCH_MAC}``
 
         :param policy_name: name of the network policy to deploy
         :param mac: mac number of the switch to select
@@ -8364,9 +8382,9 @@ class Devices:
         - Get the Wifi2 power applied on AP using AP's serial number,Name or Mac address.
         - Flow : Manage ---> Devices
         - Keyword Usage:
-         - ``Get Ap WIFI2 Power   ap_serial=${AP_SERIAL}``
-         - ``Get Ap WIFI2 Power   ap_name=${AP_NAME}``
-         - ``Get Ap WIFI2 Power   ap_mac=${AP_MAC}``
+        - ``Get Ap WIFI2 Power   ap_serial=${AP_SERIAL}``
+        - ``Get Ap WIFI2 Power   ap_name=${AP_NAME}``
+        - ``Get Ap WIFI2 Power   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -8386,9 +8404,9 @@ class Devices:
         """
         - Get the Wifi2 Channel applied on AP using AP's serial number,Name or Mac address.
         - Keyword Usage:
-         - ``Get Ap WIFI2 Channel   ap_serial=${AP_SERIAL}``
-         - ``Get Ap WIFI2 Channel   ap_name=${AP_NAME}``
-         - ``Get Ap WIFI2 Channel   ap_mac=${AP_MAC}``
+        - ``Get Ap WIFI2 Channel   ap_serial=${AP_SERIAL}``
+        - ``Get Ap WIFI2 Channel   ap_name=${AP_NAME}``
+        - ``Get Ap WIFI2 Channel   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -8408,9 +8426,9 @@ class Devices:
         """
         - Get the Wifi2 Radio Profile applied on AP using AP's serial number,Name or Mac address.
         - Keyword Usage:
-         - ``Get Ap WIFI2 Radio Profile   ap_serial=${AP_SERIAL}``
-         - ``Get Ap WIFI2 Radio Profile   ap_name=${AP_NAME}``
-         - ``Get Ap WIFI2 Radio Profile   ap_mac=${AP_MAC}``
+        - ``Get Ap WIFI2 Radio Profile   ap_serial=${AP_SERIAL}``
+        - ``Get Ap WIFI2 Radio Profile   ap_name=${AP_NAME}``
+        - ``Get Ap WIFI2 Radio Profile   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
         :param ap_name: Ap name Ex: AP1130
@@ -8432,10 +8450,10 @@ class Devices:
         - Enters the search string value into the Search box on the Manage> Devices page.
         - Note: currently, search is only supported for Serial Number, MAC Address, Host Name, or Ip Address.
         - Keyword Usage:
-         - ``Perform Search On Devices Table  ${SERIAL}``
-         - ``Perform Search On Devices Table  ${HOST_NAME}``
-         - ``Perform Search On Devices Table  ${MAC}``
-         - ``Perform Search On Devices Table  ${IP_ADDRESS}``
+        - ``Perform Search On Devices Table  ${SERIAL}``
+        - ``Perform Search On Devices Table  ${HOST_NAME}``
+        - ``Perform Search On Devices Table  ${MAC}``
+        - ``Perform Search On Devices Table  ${IP_ADDRESS}``
 
         :param the_value: value to enter in the search box above the Devices table (Serial, MAC Address, or Host Name)
         :return  1 if action was successful, else -1
@@ -8457,7 +8475,7 @@ class Devices:
         """
         - Clears the search field on the Manage> Devices page, if it is populated.
         - Keyword Usage:
-         - ``Clear Search On Devices Table``
+        - ``Clear Search On Devices Table``
 
         :return  1 if action was successful, else -1
         """
@@ -8607,9 +8625,9 @@ class Devices:
 
     def get_update_devices_reboot_rollback(self, policy_name, option, device_serial=None, device_mac=None):
         """
-        -This Keyword will Update Device Configuration with Reboot/Rollback option if the IQagent loses connectivity with XIQ during configuration
+        - This Keyword will Update Device Configuration with Reboot/Rollback option if the IQagent loses connectivity with XIQ during configuration
         - Keyword Usage:
-         - ``Get update devices reboot rollback   ${POLICY_NAME}   ${OPTION}  ${DEVICE_SERIAL}  ${DEVICE_MAC}``
+        - ``Get update devices reboot rollback   ${POLICY_NAME}   ${OPTION}  ${DEVICE_SERIAL}  ${DEVICE_MAC}``
         :param policy_name: Assign a policy for device
         :param option: Enable/Disable reboot/rollback option in Update Devices
         :param device_serial: serial number(s) of the device(s)
@@ -8730,8 +8748,8 @@ class Devices:
         """
         This keyword gets information of the update failed status in XIQ for a device after reboot/rollback configuration
         - Keyword Usage:
-         - ``Get check update failed after reboot   ${DEVICE_SERIAL} ``
-         - ``Get check update failed after reboot   ${DEVICE_MAC} ``
+        - ``Get check update failed after reboot   ${DEVICE_SERIAL} ``
+        - ``Get check update failed after reboot   ${DEVICE_MAC} ``
         :param device_serial: Gets the information of the update failed status based on serial number
         :param device_mac:  Gets the information of the update failed status based on address MAC
         :return: 1 if the information was found else -1
@@ -8752,9 +8770,9 @@ class Devices:
 
     def check_pop_up_message_reboot_revert(self, policy_name, option, device_serial=None, device_mac=None):
         """
-        -This Keyword will check the Reboot/Rollback option in Update Device Configuration has a pop-up message
+        - This Keyword will check the Reboot/Rollback option in Update Device Configuration has a pop-up message
         - Keyword Usage:
-         - ``Check pop up message reboot revert   ${POLICY_NAME}   ${OPTION}  ${DEVICE_SERIAL}  ${DEVICE_MAC}``
+        - ``Check pop up message reboot revert   ${POLICY_NAME}   ${OPTION}  ${DEVICE_SERIAL}  ${DEVICE_MAC}``
         :param policy_name: Assign a policy for device
         :param option: Enable/Disable reboot/rollback option in Update Devices
         :param device_serial: serial number(s) of the device(s)
@@ -8856,9 +8874,9 @@ class Devices:
 
     def check_double_verification_display_rollback(self, policy_name, option, device_serial=None, device_mac=None):
         """
-        -This Keyword will check the double verification is displayed for the Reboot/Rollback option in Update Device Configuration
+        - This Keyword will check the double verification is displayed for the Reboot/Rollback option in Update Device Configuration
         - Keyword Usage:
-         - ``Check pop up message reboot revert   ${POLICY_NAME}   ${OPTION}  ${DEVICE_SERIAL}  ${DEVICE_MAC}``
+        - ``Check pop up message reboot revert   ${POLICY_NAME}   ${OPTION}  ${DEVICE_SERIAL}  ${DEVICE_MAC}``
         :param policy_name: Assign a policy for device
         :param option: Enable/Disable reboot/rollback option in Update Devices
         :param device_serial: serial number(s) of the device(s)
@@ -10263,7 +10281,7 @@ class Devices:
         """
         - This Keyword checks if the delete button is visible
         - Keyword Usage:
-         - ``Is Delete Button Visible``
+        - ``Is Delete Button Visible``
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10279,7 +10297,7 @@ class Devices:
         """
         - This Keyword checks if the download button is visible
         - Keyword Usage:
-         - ``Is Download Button Visible``
+        - ``Is Download Button Visible``
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10295,7 +10313,7 @@ class Devices:
         """
         - This Keyword checks if the bulk edit button is visible
         - Keyword Usage:
-         - ``Is Bulk Edit Button Visible``
+        - ``Is Bulk Edit Button Visible``
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10311,7 +10329,7 @@ class Devices:
         """
         - This Keyword checks if the add button is visible
         - Keyword Usage:
-         - ``Is Add Button Visible``
+        - ``Is Add Button Visible``
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10327,7 +10345,7 @@ class Devices:
         """
         - This Keyword checks if the device update button is visible
         - Keyword Usage:
-         - ``Is Update Device Button Visible``
+        - ``Is Update Device Button Visible``
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10343,7 +10361,7 @@ class Devices:
         """
         - This Keyword checks if the actions button is visible
         - Keyword Usage:
-         - ``Is Actions Button Visible``
+        - ``Is Actions Button Visible``
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10359,7 +10377,7 @@ class Devices:
         """
         - This Keyword checks if the utilities button is visible
         - Keyword Usage:
-         - ``Is Utilities Button Visible``
+        - ``Is Utilities Button Visible``
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10450,8 +10468,8 @@ class Devices:
                     self.auto_actions.click(config_download_checkbox)
                 else:
                     self.utils.print_info("Update Network Policy and Configuration checkbox is already unchecked")
-                
-                # Check if the Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked                   
+
+                # Check if the Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked
                 checkbox_status = self.device_update.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
                 if checkbox_status == "true":  # If checkbox is selected we get string "true" otherwise we get None
                     self.utils.print_info(f"Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
@@ -10479,12 +10497,12 @@ class Devices:
                             self.utils.print_info("Selecting perform upgrade if the versions are the same checkbox")
                             self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
                     else:
-                        if forceDownloadImage_checkbox_status is not None: 
+                        if forceDownloadImage_checkbox_status is not None:
                             self.utils.print_info(f"Perform upgrade if the versions are the same checkbox is checked - Unchecking")
                             self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
                         else:
                             self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
-                    sleep(2)	
+                    sleep(2)
 
                     if saveDefault.lower() == "true":
                         self.utils.print_info("Selecting Save Default button...")
@@ -10524,7 +10542,7 @@ class Devices:
                     self.utils.print_info("Selecting upgrade to specific version radio button")
                     self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_radio)
                     sleep(5)
-                    
+
                     # This is needed to get the list from the dropdown box
                     self.utils.print_info("Selecting perform upgrade if the versions are the same")
                     self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
@@ -10643,7 +10661,7 @@ class Devices:
                         self.utils.print_info(f"Selected update version from drop down :{updateToVersion}")
                         if saveDefault.lower() == "true":
                             self.utils.print_info("Selecting Save Default button...")
-                        
+
                         # Perform upgrade if the versions are the same is true and the option is unchecked then enable the checkbox
                         forceDownloadImage_checkbox_status = self.device_update.get_perform_upgrade_if_the_versions_are_the_same_checkbox_status()
                         if forceDownloadImage.lower() == "true":
@@ -10658,7 +10676,7 @@ class Devices:
                                 self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_same_checkbox)
                             else:
                                 self.utils.print_info("Perform upgrade if the versions are the same checkbox is already unchecked")
-                            
+
                         if performUpgrade.lower() == "true":
                             self.screen.save_screen_shot()
                             self.utils.print_info("Selecting Perform Update button...")
@@ -10813,14 +10831,15 @@ class Devices:
                 count += 30
                 os_version = self.get_device_row_values(device_mac, 'OS VERSION')
                 deviceImageVersion = '-'.join(os_version['OS VERSION'].split(" "))
-             
+
     def wait_until_all_devices_update_done(self, wait_time_in_min, **kwargs):
         """
-            - This Keyword checks if all devices are done with updating
-            - Keyword Usage:
-            - ``wait_until_all_devices_update_done``
-                   :param  wai_time_in_min: time to wait
-                   :return: 1 if done, -1 if not
+        - This Keyword checks if all devices are done with updating
+        - Keyword Usage:
+        - ``wait_until_all_devices_update_done``
+
+        :param  wai_time_in_min: time to wait
+        :return: 1 if done, -1 if not
         """
         n_time = 0
         complete = False
@@ -10840,7 +10859,7 @@ class Devices:
         """
         - This keyword checks if the expected device is done with updating
         - Keyword Usage:
-         - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
+        - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
 
         :param device_serial: Serial number of AP Ex:11301810220048
         :param wait_time_in_min: time to wait in mins
@@ -10888,7 +10907,7 @@ class Devices:
             -- Select the network policy from drop down window
             -- Assign
         - Keyword Usage:
-         - ``Assign Network Policy To All Devices    ${policy_name}``
+        - ``Assign Network Policy To All Devices    ${policy_name}``
         :param policy_name: policy name to be applied
         :return: Success 1 else -1
         """
@@ -10945,7 +10964,7 @@ class Devices:
             -- Put them to a ssid dictionary, as example {'wifi0':['ssid1','ssid2'], 'wifi1':['ssid1','ssid2']}
             -- return the ssid dictionary
         - Keyword Usage:
-         - ``Get Ap Wifi0and1 Configured Ssids    ${ap_name}``
+        - ``Get Ap Wifi0and1 Configured Ssids    ${ap_name}``
         :param ap_name: AP hostname
         :return: Success ssid dictionary whatever it is null
         """
@@ -11110,9 +11129,9 @@ class Devices:
         """
         This Keyword changes the management status of the device.
         - Keyword Usage:
-         - ``Change Manage Device Status    MANAGE      device_serial=${DEVICE_SERIAL}``
-         - ``Change Manage Device Status    UNMANAGE    device_mac=${DEVICE_MAC}``
-         - ``Change Manage Device Status    MANAGE    device_mac=${DEVICE_NAME}``
+        - ``Change Manage Device Status    MANAGE      device_serial=${DEVICE_SERIAL}``
+        - ``Change Manage Device Status    UNMANAGE    device_mac=${DEVICE_MAC}``
+        - ``Change Manage Device Status    MANAGE    device_mac=${DEVICE_NAME}``
 
         :param device_serial: device Serial
         :param device_mac: device MAC address
@@ -11414,9 +11433,9 @@ class Devices:
         - This keyword returns the device updated status in percentage by searching device row using serial, name or mac address
         - Assumes that already navigated to the manage-->device page
         - Keyword Usage:
-         - ``Get Device Updated Status   device_serial=${DEVICE_SERIAL}``
-         - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
-         - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
+        - ``Get Device Updated Status   device_serial=${DEVICE_SERIAL}``
+        - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
+        - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
 
         :param device_serial: device Serial
         :param device_name: device Name
@@ -11753,7 +11772,7 @@ class Devices:
         :return: 1 if Devices Deleted Successfully else -1
         """
         return self.delete_all_devices()
-        
+
     def update_device_policy_config_simple(self, device_serial):
         self.utils.print_info("Select Device row")
         self.select_device(device_serial)
@@ -11763,7 +11782,7 @@ class Devices:
 
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
-        
+
         # self.auto_actions.click_reference(self.devices_web_elements.get_devices_update_yes_btn)
 
     def update_device_policy_config_reboot(self, device_serial):
@@ -11831,7 +11850,7 @@ class Devices:
         - Assumes that already navigated to Manage --> Devices
         - This method reboots a device matching the serial(s)
         - Keyword Usage:
-         - ``Reboot Device  ${DEVICE_SERIAL}``
+        - ``Reboot Device  ${DEVICE_SERIAL}``
         :param device_serial: device serial number
         :return: None
         """
@@ -11854,7 +11873,7 @@ class Devices:
         - Assumes that already navigated to Manage --> Devices
         - This method checks if License action is available for a device matching the serial(s)
         - Keyword Usage:
-         - ``Check Device License Action ${DEVICE_SERIAL}``
+        - ``Check Device License Action ${DEVICE_SERIAL}``
         :param device_serial: device serial number
         :return: int
         """
@@ -11876,7 +11895,7 @@ class Devices:
         - Assumes that already navigated to Manage --> Devices
         - This method checks if License action is available for a device matching the serial(s)
         - Keyword Usage:
-         - ``Check Device License Action ${DEVICE_SERIAL}``
+        - ``Check Device License Action ${DEVICE_SERIAL}``
         :param device_serial: device serial number
         :return: int
         """
@@ -11900,9 +11919,9 @@ class Devices:
         - Go To Manage-->Devices-->Select switch row to apply the network policy
         - Select Switch-->Update device
         - Keyword Usage:
-         - ``Update Policy and Configuration  ${SWITCH_SERIAL}``
-         - ``Update Policy and Configuration  ${SWITCH_MAC}``
-         - ``Update Policy and Configuration  ${SWITCH_NAME}``
+        - ``Update Policy and Configuration  ${SWITCH_SERIAL}``
+        - ``Update Policy and Configuration  ${SWITCH_MAC}``
+        - ``Update Policy and Configuration  ${SWITCH_NAME}``
         :param  device_serial_mac_or_name: device serial number, mac or name  of the switch to update
         :return: 1 if config push success else -1
         """
@@ -12055,7 +12074,7 @@ class Devices:
             -- Select the network policy from drop-down window
             -- Assign
         - Keyword Usage:
-         - ``Assign Network Policy To A Device  ${device_serial}   ${policy_name}``
+        - ``Assign Network Policy To A Device  ${device_serial}   ${policy_name}``
         :param policy_name: policy name to be applied
         :param device_serial: serial number of the device
         :return: Success 1 else -1
@@ -12083,7 +12102,7 @@ class Devices:
         - This Keyword checks if the Digital Twin option is visible within the 'Quick Add Devices' panel.
         - The 'Quick Add Devices' panel will be closed.
         - Keyword Usage:
-         - ``Is Digital Twin Option Visible``
+        - ``Is Digital Twin Option Visible``
         :return: True if visible, False if not visible, else -1
         """
         ret_val = -1
@@ -12118,7 +12137,7 @@ class Devices:
         """
         - This keyword returns the Device Status icon.
         - Keyword Usage:
-         - ``Get Device Status Icon   device_serial=${DEVICE_SERIAL}``
+        - ``Get Device Status Icon   device_serial=${DEVICE_SERIAL}``
         :param device_serial: device serial number
         :return:
         - 'digital_twin' if Device Status icon is 'Digital Twin'.
@@ -12163,7 +12182,7 @@ class Devices:
         - This Keyword clicks the Cancel button within the 'Quick Add Devices' panel.
         - It is assumed that the 'Quick Add Devices' panel is already visible.
         - Keyword Usage:
-         - ``Cancel Quick Add Devices Panel``
+        - ``Cancel Quick Add Devices Panel``
         :return: 1 if successful, -1 if not
         """
         self.utils.print_info("Check if the Quick Add Devices panel is visible.")
@@ -12327,9 +12346,9 @@ class Devices:
 
     def confirm_not_enough_copilot_licenses_message_displayed(self):
         """
-         - This keyword confirms if the "Not enough CoPilot licenses" banner message is displayed or not
-         - Keyword Usage
-          - ``Confirm Not Enough CoPilot Licenses Message Displayed``
+        - This keyword confirms if the "Not enough CoPilot licenses" banner message is displayed or not
+        - Keyword Usage
+        - ``Confirm Not Enough CoPilot Licenses Message Displayed``
 
         :return: true if banner is displayed and return false if banner is not displayed
         """
@@ -12425,14 +12444,14 @@ class Devices:
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
-            
+
 
     def revert_device_to_template_but_donot_update(self, device_mac):
         """
         - Assumes already navigated to Manage --> Devices
         - This method accesses the "Revert Device to Template" action but it will not deploy for a device matching the specified serial
         - Keyword Usage:
-         - ``Revert Device to Template  ${DEVICE_SERIAL}``
+        - ``Revert Device to Template  ${DEVICE_SERIAL}``
         :param device_serial: serial number of the device to perform the action on
         :return: 1 if action succeeds, else -1
         """

@@ -6,6 +6,6 @@
 #
 
 
-class NetworkCommonConfigureDeviceVlanWebElementsDefinitions:
+# class NetworkCommonConfigureDeviceVlanWebElementsDefinitions:
 
-    # VLAN Definitions Tab Fields
+#     # VLAN Definitions Tab Fields

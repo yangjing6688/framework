@@ -133,9 +133,9 @@ class DeviceCommon(DeviceCommonElements):
         - This keyword is used to select the single device row in Manage --> Device page
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Select Device Row   device_serial=${DEVICE_SERIAL}``
-         - ``Select Device Row   device_mac=${DEVICE_MAC}``
-         - ``Select Device Row   device_name=${DEVICE_NAME}``
+        - ``Select Device Row   device_serial=${DEVICE_SERIAL}``
+        - ``Select Device Row   device_mac=${DEVICE_MAC}``
+        - ``Select Device Row   device_name=${DEVICE_NAME}``
 
         :param device_serial: serial number of the device
         :param device_mac: MAC Address of the device
@@ -185,9 +185,9 @@ class DeviceCommon(DeviceCommonElements):
         - This keyword is used to select the multiple device row in Manage --> Device page
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Select Device Rows   device_serials=${DEVICE1_SERIAL},${DEVICE2_SERIAL}``
-         - ``Select Device Rows   device_macs=${DEVICE1_MAC},${DEVICE2_MAC}``
-         - ``Select Device Rows   device_names=${DEVICE1_NAME},${DEVICE2_NAME}``
+        - ``Select Device Rows   device_serials=${DEVICE1_SERIAL},${DEVICE2_SERIAL}``
+        - ``Select Device Rows   device_macs=${DEVICE1_MAC},${DEVICE2_MAC}``
+        - ``Select Device Rows   device_names=${DEVICE1_NAME},${DEVICE2_NAME}``
 
         :param device_serials:  comma separated list of device serial numbers
         :param device_macs:  comma separated list of device MAC addresses
@@ -232,7 +232,7 @@ class DeviceCommon(DeviceCommonElements):
         - This keyword is used to select the single device and click on the edit but in Manage --> Device page
         - Assumes that navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Edit Device   ${DEVICE_SERIAL}``
+        - ``Edit Device   ${DEVICE_SERIAL}``
 
         :param device_serial:
         :return: 1 if device selected in grid and able to click edit button else -1
@@ -251,7 +251,7 @@ class DeviceCommon(DeviceCommonElements):
         - This keyword is used to select the multiple device and click on the edit but in Manage --> Device page
         - Assumes that navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Edit Device   device_serials=${DEVICE1_SERIAL},${DEVICE2_SERIAL}``
+        - ``Edit Device   device_serials=${DEVICE1_SERIAL},${DEVICE2_SERIAL}``
 
         :param device_serials: device serial numbers with comma separated
         :return: 1 if Multiple devices selected in grid and able to click edit button else -1
@@ -267,8 +267,8 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword click on device MAC or device host name hyper link based on the passed args
         - Keyword Usage:
-         - ``Go To Device360 Window   ${DEVICE_MAC}``
-         - ``Go To Device360 Window   ${DEVICE_HOST}``
+        - ``Go To Device360 Window   ${DEVICE_MAC}``
+        - ``Go To Device360 Window   ${DEVICE_HOST}``
 
         :param device_mac: device MAC
         :param device_host: Device host name
@@ -314,7 +314,7 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and clicks on client hyperlink.
         - Keyword Usage:
-         - ``Goto Device360 With Client   ${DEVICE_SERIAL}``
+        - ``Goto Device360 With Client   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if navigated to client page from manage devices grid else -1
@@ -345,7 +345,7 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and clicks on MAC hyperlink.
         - Keyword Usage:
-         - ``Goto Device360 With Mac   ${DEVICE_SERIAL}``
+        - ``Goto Device360 With Mac   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if navigated to D360 page from manage devices grid else -1
@@ -377,7 +377,7 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and clicks on host name hyperlink.
         - Keyword Usage:
-         - ``Goto Device360 With Hostname   ${DEVICE_SERIAL}``
+        - ``Goto Device360 With Hostname   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if navigated to D360 page from manage devices grid else -1
@@ -409,7 +409,7 @@ class DeviceCommon(DeviceCommonElements):
         - This keyword is used to select the single device row in Manage --> Device page
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Select Device Row   ${DEVICE_SERIAL}``
+        - ``Select Device Row   ${DEVICE_SERIAL}``
 
         :param device_serial: serial number of the device
         :return: 1 if device row selected, -1 if device row not found in grid
@@ -459,7 +459,7 @@ class DeviceCommon(DeviceCommonElements):
         - This keyword is used to click on select all check box and validate devices are selected
         - Assumes that already navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Check Select All Devices Checkbox Status   device_serials=${DEVICE1_SERIAL},${DEVICE2_SERIAL}``
+        - ``Check Select All Devices Checkbox Status   device_serials=${DEVICE1_SERIAL},${DEVICE2_SERIAL}``
 
         :param device_serials:  device serial numbers with comma separated
         :return: 1 if all Devices Selected Successfully else -1
@@ -484,7 +484,7 @@ class DeviceCommon(DeviceCommonElements):
         """
         - This keyword is used to obtain the number of devices that are displayed per page.
         - Keyword Usage:
-          - ``Get Devices Per Page``
+        - ``Get Devices Per Page``
         :return: the current Devices Per Page value, else -1
         """
         ret_val = -1
@@ -512,7 +512,7 @@ class DeviceCommon(DeviceCommonElements):
         """
         - This keyword is used to select the number of devices that are displayed on the page.
         - Keyword Usage:
-          - ``Update Devices Per Page  ${DEVICE_COUNT}``
+        - ``Update Devices Per Page  ${DEVICE_COUNT}``
         :param device_count: the number of devices displayed per page - 10, 20, 50, or 100
         :return: None
         """
@@ -539,7 +539,7 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if client hyperlink is available
         - Keyword Usage:
-         - ``Is Client Link Available   ${DEVICE_SERIAL}``
+        - ``Is Client Link Available   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if available else -1
@@ -595,7 +595,7 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if host name hyperlink is available
         - Keyword Usage:
-         - ``Is Hostname Link Available   ${DEVICE_SERIAL}``
+        - ``Is Hostname Link Available   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if available else -1
@@ -651,7 +651,7 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if mac hyperlink is available
         - Keyword Usage:
-         - ``Is Mac Link Available   ${DEVICE_SERIAL}``
+        - ``Is Mac Link Available   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if available else -1
@@ -707,7 +707,7 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if network policy hyperlink is available
         - Keyword Usage:
-         - ``Is Policy Link Available   ${DEVICE_SERIAL}``
+        - ``Is Policy Link Available   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if available else -1
@@ -763,7 +763,7 @@ class DeviceCommon(DeviceCommonElements):
         - Assume that navigated to the Manage --> Device
         - This keyword searches for the row with passed device serial and checks if location hyperlink is available
         - Keyword Usage:
-         - ``Is Location Link Available   ${DEVICE_SERIAL}``
+        - ``Is Location Link Available   ${DEVICE_SERIAL}``
 
         :param device_serial:  device serial number
         :return: 1 if available else -1

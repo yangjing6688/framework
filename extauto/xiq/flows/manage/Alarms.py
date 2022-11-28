@@ -35,7 +35,7 @@ class Alarms(AlarmsWebElements):
         - Flow: Manage--> Alarms
         - Clear the generated alarms based on the search string
         - Keyword Usage:
-         - ``Clear Alarm   ${DEVICE_MAC}``
+        - ``Clear Alarm   ${DEVICE_MAC}``
 
         :param search_string: str to search the alarm in grid ex: it may be severity, host name, Device mac, category
         :return: 1 if alarm Cleared Successfully else -1
@@ -66,7 +66,7 @@ class Alarms(AlarmsWebElements):
         - Flow: Manage--> Alarms
         - Get the alarms count from the status bar , based on alarms type
         - Keyword Usage:
-         - ``Get Alarms Count From Status Card    ${ALARM_TYPE}``
+        - ``Get Alarms Count From Status Card    ${ALARM_TYPE}``
 
         :param alarm_type: it will be critical, minor, major
         :return: Total alarm Count
@@ -88,7 +88,7 @@ class Alarms(AlarmsWebElements):
         - Flow: Manage--> Alarms
         - Get Alarm details based on search string
         - Keyword Usage:
-         - ``Get Alarm Details   ${DEVICE_MAC}``
+        - ``Get Alarm Details   ${DEVICE_MAC}``
 
         :param search_string: str to search the alarm in grid ex: it may be severity, host name, Device mac, category
         :return: Alarm details in a dictionary
