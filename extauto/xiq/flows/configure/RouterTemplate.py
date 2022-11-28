@@ -26,7 +26,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Check the router template in Router template Grid
         - Keyword Usage
-         - ``Check router Template  ${ROUTER_TEMPLATE_NAME}``
+        - ``Check router Template  ${ROUTER_TEMPLATE_NAME}``
 
         :param router_template: Router Template Name ie XR200P,XR600P
         :return: True if Router Template Found on Grid else False
@@ -44,7 +44,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - To Navigate to Existing Network Policy's Router Settings Tab
         - Keyword Usage
-         - ``Navigate To Router Settings Tab  ${NETWORK_POLICY_NAME}``
+        - ``Navigate To Router Settings Tab  ${NETWORK_POLICY_NAME}``
 
         :param  nw_policy: Network Policy Name
         :return: True If Navigation successful else None
@@ -67,7 +67,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Create New Router Template on Network Policy Router Settings If Not exists already
         - Keyword Usage
-         - ``Add Router Template     ${NW_POLICY_NAME}     &{ROUTER_TEMPLATE_CONFIG}``
+        - ``Add Router Template     ${NW_POLICY_NAME}     &{ROUTER_TEMPLATE_CONFIG}``
 
         :param  nw_policy: Network Policy Name
         :param  template_config_settings: (Config Dict) router_model,template_name,interface_name,new_port_type_config,
@@ -158,7 +158,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Selects the Router Interface To Configure New Port Type.
         - Keyword Usage
-         - ``Select Interface To Add New Port Type     ${INTERFACE_NAME}``
+        - ``Select Interface To Add New Port Type     ${INTERFACE_NAME}``
 
         :param interface_name: Router Interface Name ie ETH0,ETH1,ETH2
         :return: return 1 if Router Interface selected correctly else -1
@@ -178,7 +178,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Configure New Port type on Router Interface
         - Keyword Usage
-         - ``Configure New Port Type   &{PORT_TYPE_CONFIG}``
+        - ``Configure New Port Type   &{PORT_TYPE_CONFIG}``
 
         :param port_type_settings: (Config Dict) port_type_name,description,port_status,port_usage_config,
                                     traffic_filter_settings
@@ -240,7 +240,7 @@ class RouterTemplate(RouterTemplateWebElements):
 
         - This keyword is used to do port type configuration
         - Keyword Usage
-         - ``Configure Port Type Config   &{PORT_USAGE_CONFIG}``
+        - ``Configure Port Type Config   &{PORT_USAGE_CONFIG}``
 
         :param port_usage_configuration: (Configuration Dictionary) Port Usage Configuration ie Access,Trunk,WAN
         :return: return 1 if Configuration successful else -1
@@ -278,7 +278,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Configure New Port Traffic Filter Management ie SSH,Telnet,Ping,SNMP
         - Keyword Usage
-         - ``Configure New Port Traffic Filter Management   &{PORT_TYPE_SETTINGS}``
+        - ``Configure New Port Traffic Filter Management   &{PORT_TYPE_SETTINGS}``
 
         :param port_type_settings: (Configuration Dictionary) To enable/Disable Status of SSH,Telnet,Ping,SNMP
         :return: return True if Configuration successful
@@ -329,7 +329,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Configure Network Allocation VLAN on Router Template
         - Keyword Usage
-         - ``Configure Network Allocation VLAN   &{VLAN_CONFIG_SETTINGS}``
+        - ``Configure Network Allocation VLAN   &{VLAN_CONFIG_SETTINGS}``
 
         :param network_allocation_vlan_settings: (Config Dictionary) Vlan Name and Vlan ID
         :return: return True if Config Successful
@@ -378,7 +378,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Configure network allocation sub network on Router Template
         - Keyword Usage
-         - ``Configure Network Allocation Sub Network   &{SUB_NETWORK_SETTINGS}``
+        - ``Configure Network Allocation Sub Network   &{SUB_NETWORK_SETTINGS}``
 
         :param network_allocation_sub_network_settings: (Config Dictionary) includes Basic and Advanced sub network
                                                          Parameters
@@ -417,7 +417,7 @@ class RouterTemplate(RouterTemplateWebElements):
 
         - Configure Basic Subnetwork section on Router Template
         - Keyword Usage
-         - ``Configure Basic Subnetwork Section   &{SUB_NETWORK_BASIC_SETTINGS}``
+        - ``Configure Basic Subnetwork Section   &{SUB_NETWORK_BASIC_SETTINGS}``
 
         :param basic_config: (Config Dictionary) include sub_network_name,sub_network_description,network_type,
                               unique_subnetwork,local_ip_address_space,gateway_options
@@ -493,7 +493,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Select Router Template Name Row from Network Policy-->Router settings--> Device Template
         - Keyword Usage
-         - ``Select Router Template Row   ${ROUTER_TEMPLATE_NAME}``
+        - ``Select Router Template Row   ${ROUTER_TEMPLATE_NAME}``
 
         :param template_name: Router Template Name
         :return: return True if Router Template Name found in the Row
@@ -520,7 +520,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Delete Router Template Name Row from Network Policy-->Router settings--> Device Template
         - Keyword Usage
-         - ``Delete Router Template  ${NW_POLICY_NAME}  ${ROUTER_TEMPLATE_NAME}``
+        - ``Delete Router Template  ${NW_POLICY_NAME}  ${ROUTER_TEMPLATE_NAME}``
 
         :param nw_policy : Network Policy Name
         :param template_name: Router Template Name
@@ -574,9 +574,13 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Configure Advanced Subnetwork Section on Router Template
         - Keyword Usage
-         - ``Configure Advanced Subnetwork Section  &{SUB_NETWORK_ADVANCED_SETTINGS}``
+        - ``Configure Advanced Subnetwork Section  &{SUB_NETWORK_ADVANCED_SETTINGS}``
 
         :param advance_config: Config Dictionary Parameters of Subnetwork Advanced settings
         :return: return True if Config Successful
         """
         pass
+
+    def create_routing_network(self, policy, **wireless_profile):
+        self.navigate_to_router_settings_tab(policy)
+        self.add_router_template(policy, **wireless_profile)

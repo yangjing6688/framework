@@ -46,12 +46,12 @@ class XIQSE_AdminProfilesCLICredentials(AdminProfilesCLICredentialsWebElements):
     def xiqse_navigate_and_create_cli_credential(self, desc, user_name, type="Telnet",
                                                  login_pwd=None, enable_pwd=None, config_pwd=None):
         """
-         - This keyword navigates to the Administration> Profiles> CLI Credentials tab and
-         - creates a new CLI credential in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1``
-          - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1  type="SSH"``
-          - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1  login_pwd=abc123``
+        - This keyword navigates to the Administration> Profiles> CLI Credentials tab and
+        - creates a new CLI credential in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1``
+        - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1  type="SSH"``
+        - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1  login_pwd=abc123``
 
         :param desc: value to enter in the Description field
         :param user_name: value to enter in the User Name field
@@ -71,10 +71,10 @@ class XIQSE_AdminProfilesCLICredentials(AdminProfilesCLICredentialsWebElements):
 
     def xiqse_navigate_and_select_cli_credential(self, desc):
         """
-         - This keyword navigates to the Administration> Profiles> CLI Credentials tab and
-         - selects an existing CLI credential in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Select CLI Credential  cli_cred_1``
+        - This keyword navigates to the Administration> Profiles> CLI Credentials tab and
+        - selects an existing CLI credential in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Select CLI Credential  cli_cred_1``
 
         :param desc: name (Description column) of the CLI credential to select
         :return: 1 if action was successful, else -1
@@ -89,10 +89,10 @@ class XIQSE_AdminProfilesCLICredentials(AdminProfilesCLICredentialsWebElements):
 
     def xiqse_navigate_and_delete_cli_credential(self, desc):
         """
-         - This keyword navigates to the Administration> Profiles> CLI Credentials tab and
-         - deletes an existing CLI credential in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Delete CLI Credential  cli_cred_1``
+        - This keyword navigates to the Administration> Profiles> CLI Credentials tab and
+        - deletes an existing CLI credential in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Delete CLI Credential  cli_cred_1``
 
         :param desc: name (Description column) of the CLI credential to delete
         :return: 1 if action was successful, else -1
@@ -108,12 +108,12 @@ class XIQSE_AdminProfilesCLICredentials(AdminProfilesCLICredentialsWebElements):
     def xiqse_create_cli_credential(self, desc, user_name, type="Telnet",
                                     login_pwd=None, enable_pwd=None, config_pwd=None):
         """
-         - This keyword creates a new CLI credential in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles> CLI Credentials.
-         - Keyword Usage
-          - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1``
-          - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1  type="SSH"``
-          - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1  login_pwd=abc123``
+        - This keyword creates a new CLI credential in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles> CLI Credentials.
+        - Keyword Usage
+        - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1``
+        - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1  type="SSH"``
+        - ``XIQSE Navigate and Create CLI Credential  cli_cred_1  user_1  login_pwd=abc123``
 
         :param desc: value to enter in the Description field
         :param user_name: value to enter in the User Name field
@@ -170,10 +170,10 @@ class XIQSE_AdminProfilesCLICredentials(AdminProfilesCLICredentialsWebElements):
 
     def xiqse_delete_cli_credential(self, name):
         """
-         - This keyword deletes an existing CLI credential in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles> CLI Credentials.
-         - Keyword Usage
-          - ``XIQSE Delete CLI Credential  test_cred_1``
+        - This keyword deletes an existing CLI credential in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles> CLI Credentials.
+        - Keyword Usage
+        - ``XIQSE Delete CLI Credential  test_cred_1``
 
         :param name: name of the CLI credential to delete
         :return: 1 if action was successful, else -1
@@ -236,10 +236,10 @@ class XIQSE_AdminProfilesCLICredentials(AdminProfilesCLICredentialsWebElements):
 
     def xiqse_select_cli_credential(self, name):
         """
-         - This keyword selects an existing CLI credential in XIQ-SE.
-         - It is assumed the view is already navigated to Administration> Profiles> CLI Credentials.
-         - Keyword Usage
-          - ``XIQSE Select CLI Credential  test_cred_1``
+        - This keyword selects an existing CLI credential in XIQ-SE.
+        - It is assumed the view is already navigated to Administration> Profiles> CLI Credentials.
+        - Keyword Usage
+        - ``XIQSE Select CLI Credential  test_cred_1``
 
         :param name: name of the CLI credential to select
         :return: 1 if action was successful, else -1

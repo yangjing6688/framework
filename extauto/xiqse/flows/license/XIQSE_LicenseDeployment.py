@@ -15,9 +15,9 @@ class XIQSE_LicenseDeployment(LicenseDeploymentWebElements):
 
     def xiqse_is_license_deployment_page_displayed(self):
         """
-         - This keyword checks if the License Deployment page is being displayed.
-         - Keyword Usage
-          - ``XIQSE Is License Deployment Page Displayed``
+        - This keyword checks if the License Deployment page is being displayed.
+        - Keyword Usage
+        - ``XIQSE Is License Deployment Page Displayed``
 
         :return: 1 if page is displayed, else -1
         """
@@ -34,9 +34,9 @@ class XIQSE_LicenseDeployment(LicenseDeploymentWebElements):
 
     def xiqse_confirm_license_deployment_page_displayed(self):
         """
-         - This keyword confirms the License Deployment page is being displayed.
-         - Keyword Usage
-          - ``XIQSE Confirm License Deployment Page Displayed``
+        - This keyword confirms the License Deployment page is being displayed.
+        - Keyword Usage
+        - ``XIQSE Confirm License Deployment Page Displayed``
 
         :return: 1 if page properly displayed, else -1
         """
@@ -72,9 +72,9 @@ class XIQSE_LicenseDeployment(LicenseDeploymentWebElements):
 
     def xiqse_confirm_license_deployment_onboard_radio_selected(self):
         """
-         - This keyword confirms the Onboard to ExtremeCloud IQ radio button is selected.
-         - Keyword Usage
-          - ``XIQSE Confirm Onboard Radio Selected``
+        - This keyword confirms the Onboard to ExtremeCloud IQ radio button is selected.
+        - Keyword Usage
+        - ``XIQSE Confirm Onboard Radio Selected``
 
         :return: 1 if action successful, else -1
         """
@@ -96,9 +96,9 @@ class XIQSE_LicenseDeployment(LicenseDeploymentWebElements):
 
     def xiqse_confirm_license_deployment_airgap_radio_selected(self):
         """
-         - This keyword confirms the Airgap radio button is selected.
-         - Keyword Usage
-          - ``XIQSE Confirm Airgap Radio Selected``
+        - This keyword confirms the Airgap radio button is selected.
+        - Keyword Usage
+        - ``XIQSE Confirm Airgap Radio Selected``
 
         :return: 1 if action successful, else -1
         """
@@ -120,9 +120,9 @@ class XIQSE_LicenseDeployment(LicenseDeploymentWebElements):
 
     def xiqse_license_deployment_select_onboard_radio(self):
         """
-         - This keyword selects the Onboard radio button on the license deployment page.
-         - Keyword Usage
-          - ``XIQSE License Deployment Select Onboard Radio``
+        - This keyword selects the Onboard radio button on the license deployment page.
+        - Keyword Usage
+        - ``XIQSE License Deployment Select Onboard Radio``
 
         :return: 1 if action successful, else -1
         """
@@ -142,9 +142,9 @@ class XIQSE_LicenseDeployment(LicenseDeploymentWebElements):
 
     def xiqse_license_deployment_select_airgap_radio(self):
         """
-         - This keyword selects the Airgap radio button on the license deployment page.
-         - Keyword Usage
-          - ``XIQSE License Deployment Select Airgap Radio``
+        - This keyword selects the Airgap radio button on the license deployment page.
+        - Keyword Usage
+        - ``XIQSE License Deployment Select Airgap Radio``
 
         :return: 1 if action successful, else -1
         """
@@ -164,9 +164,9 @@ class XIQSE_LicenseDeployment(LicenseDeploymentWebElements):
 
     def xiqse_license_deployment_click_next(self):
         """
-         - This keyword clicks the Next button on the license deployment page.
-         - Keyword Usage
-          - ``XIQSE License Deployment Click Next``
+        - This keyword clicks the Next button on the license deployment page.
+        - Keyword Usage
+        - ``XIQSE License Deployment Click Next``
 
         :return: 1 if action successful, else -1
         """

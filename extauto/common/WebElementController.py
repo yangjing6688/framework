@@ -11,6 +11,7 @@ class WebElementController:
     def is_web_element_present(self, web_element):
         """
         Check to see Element is present or not.
+
         :param web_element: web element
         :return: 1 if element is present, -1 when element is not present
         """
@@ -22,9 +23,10 @@ class WebElementController:
 
     def action_method(self, action_method, get_web_element_method, retry_times=10, **kwargs):
         """
-            - This keyword is used to do a certain action using a web element
-            - In case of Stale Reference Exception, try to get the web element again
-            - Retry times = 10
+        - This keyword is used to do a certain action using a web element
+        - In case of Stale Reference Exception, try to get the web element again
+        - Retry times = 10
+
         :param action_method: The action method - e.g. click, move_to_element, etc
         :param get_web_element_method: The method used to get the web element
                                         - e.g. devices_web_elements.get_refresh_devices_page

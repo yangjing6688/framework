@@ -14,11 +14,11 @@ class XIQSE_ConnectDiagnostics(ConnectDiagnosticsWebElements):
 
     def xiqse_connect_diagnostics_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Connect> Diagnostics page
-         - Keyword Usage
-          - ``XIQSE Connect Diagnostics Select Tab    End-Systems``
-          - ``XIQSE Connect Diagnostics Select Tab    End-System Groups``
-          - ``XIQSE Connect Diagnostics Select Tab    Statistics``
+        - This keyword selects the specified tab of the Connect> Diagnostics page
+        - Keyword Usage
+        - ``XIQSE Connect Diagnostics Select Tab    End-Systems``
+        - ``XIQSE Connect Diagnostics Select Tab    End-System Groups``
+        - ``XIQSE Connect Diagnostics Select Tab    Statistics``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -52,9 +52,9 @@ class XIQSE_ConnectDiagnostics(ConnectDiagnosticsWebElements):
 
     def xiqse_connect_diagnostics_select_end_systems_tab(self):
         """
-         - This keyword selects the End-Systems tab on the Connect> Diagnostics Tab
-         - Keyword Usage
-          - ``XIQSE Connect Diagnostics Select End Systems Tab``
+        - This keyword selects the End-Systems tab on the Connect> Diagnostics Tab
+        - Keyword Usage
+        - ``XIQSE Connect Diagnostics Select End Systems Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -63,9 +63,9 @@ class XIQSE_ConnectDiagnostics(ConnectDiagnosticsWebElements):
 
     def xiqse_connect_diagnostics_select_end_system_groups_tab(self):
         """
-         - This keyword selects the End-System Groups tab on the Connect> Diagnostics Tab
-         - Keyword Usage
-          - ``XIQSE Connect Diagnostics Select End System Groups Tab``
+        - This keyword selects the End-System Groups tab on the Connect> Diagnostics Tab
+        - Keyword Usage
+        - ``XIQSE Connect Diagnostics Select End System Groups Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -74,9 +74,9 @@ class XIQSE_ConnectDiagnostics(ConnectDiagnosticsWebElements):
 
     def xiqse_connect_diagnostics_select_statistics_tab(self):
         """
-         - This keyword selects the Statistics tab on the Connect> Diagnostics Tab
-         - Keyword Usage
-          - ``XIQSE Connect Diagnostics Select Statistics Tab``
+        - This keyword selects the Statistics tab on the Connect> Diagnostics Tab
+        - Keyword Usage
+        - ``XIQSE Connect Diagnostics Select Statistics Tab``
 
         :return: 1 if action was successful, else -1
         """
