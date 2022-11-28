@@ -12484,7 +12484,7 @@ class Device360(Device360WebElements):
         """
     
         ok = 1
-        if AutoActions().click(
+        if self.auto_actions.click_reference(
                 self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit()) != 1:
             ok = 0
         else:
@@ -12497,7 +12497,7 @@ class Device360(Device360WebElements):
             return -1
     
         ok = 1
-        if AutoActions().click(
+        if self.auto_actions.click_reference(
                 self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit_options(unit, unit_role)) != 1:
             ok = 0
         else:
