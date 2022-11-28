@@ -14,12 +14,12 @@ class XIQSE_NetworkDevices(NetworkDevicesWebElements):
 
     def xiqse_devices_select_tab(self, tab_name, site="World"):
         """
-         - This keyword selects the specified tab of the Network> Devices page
-         - Keyword Usage
-          - ``XIQSE Devices Select Tab    Devices``
-          - ``XIQSE Devices Select Tab    Site Summary``
-          - ``XIQSE Devices Select Tab    Endpoint Locations``
-          - ``XIQSE Devices Select Tab    FlexReports``
+        - This keyword selects the specified tab of the Network> Devices page
+        - Keyword Usage
+        - ``XIQSE Devices Select Tab    Devices``
+        - ``XIQSE Devices Select Tab    Site Summary``
+        - ``XIQSE Devices Select Tab    Endpoint Locations``
+        - ``XIQSE Devices Select Tab    FlexReports``
 
         :param tab_name: name of the sub tab to select
         :param site:     name of site tab to select, if tab to select is Site (it changes name based on tree selection)
@@ -58,9 +58,9 @@ class XIQSE_NetworkDevices(NetworkDevicesWebElements):
 
     def xiqse_devices_select_devices_tab(self):
         """
-         - This keyword selects the Devices tab on the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Select Devices Tab``
+        - This keyword selects the Devices tab on the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Select Devices Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -69,9 +69,9 @@ class XIQSE_NetworkDevices(NetworkDevicesWebElements):
 
     def xiqse_devices_select_site_tab(self, site="World"):
         """
-         - This keyword selects the specified site tab on the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Select Site Tab   ${SITE}``
+        - This keyword selects the specified site tab on the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Select Site Tab   ${SITE}``
 
         :param site: name of site tab to select (it changes name based on tree selection)
         :return: 1 if action was successful, else -1
@@ -81,9 +81,9 @@ class XIQSE_NetworkDevices(NetworkDevicesWebElements):
 
     def xiqse_devices_select_site_summary_tab(self):
         """
-         - This keyword selects the Site Summary tab on the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Select Site Summary Tab``
+        - This keyword selects the Site Summary tab on the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Select Site Summary Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -92,9 +92,9 @@ class XIQSE_NetworkDevices(NetworkDevicesWebElements):
 
     def xiqse_devices_select_endpoint_locations_tab(self):
         """
-         - This keyword selects the Endpoint Locations tab on the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Select Endpoint Locations Tab``
+        - This keyword selects the Endpoint Locations tab on the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Select Endpoint Locations Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -103,9 +103,9 @@ class XIQSE_NetworkDevices(NetworkDevicesWebElements):
 
     def xiqse_devices_select_flexreports_tab(self):
         """
-         - This keyword selects the FlexReports tab on the Network> Devices Tab
-         - Keyword Usage
-          - ``XIQSE Devices Select FlexReports Tab``
+        - This keyword selects the FlexReports tab on the Network> Devices Tab
+        - Keyword Usage
+        - ``XIQSE Devices Select FlexReports Tab``
 
         :return: 1 if action was successful, else -1
         """

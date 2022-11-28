@@ -78,7 +78,7 @@ class CommonViewWebElements(CommonViewWebElementsDefinitions):
     def get_panel_section_button(self, the_id):
         """
         Returns the button ID for the specified section title.  Assumes the panel is already visible.
-         - The exact section title name (case-sensitive) should be provided.
+        - The exact section title name (case-sensitive) should be provided.
 
         :return: button ID for the specified section title
         """

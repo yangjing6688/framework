@@ -26,7 +26,7 @@ class Communications(CommunicationsWebElements):
         """
         - This Keyword Navigate to communications menu in Global settings page
         - Keyword Usage
-          - ``Validate Communications Page``
+        - ``Validate Communications Page``
 
         :return: 1 if Validation is Successful to Communications Page
         """
@@ -61,7 +61,7 @@ class Communications(CommunicationsWebElements):
         """
         - This Keyword Navigate to notifications page from communications page
         - Keyword Usage
-          - ``Navigate To Notifications Page``
+        - ``Navigate To Notifications Page``
 
         :return: 1 if Navigation is Successful to notification page
         """
@@ -96,7 +96,8 @@ class Communications(CommunicationsWebElements):
         """
         - This Keyword Navigate to preview page in communications
         - Keyword Usage
-          - ``Navigate To preview Page``
+        - ``Navigate To preview Page``
+
         :return: 1 if Navigation Successful to Preview Page
         """
         self.utils.print_info("Selecting preview menu on Communications page...")
@@ -128,7 +129,7 @@ class Communications(CommunicationsWebElements):
         """
         - This Keyword Navigate to New in ExtremeCLoud IQ
         - Keyword Usage
-          - ``Navigate To New In Extremecloud Page``
+        - ``Navigate To New In Extremecloud Page``
 
         :return: 1 if Navigation Successful to New in XIQ
         """
@@ -157,4 +158,3 @@ class Communications(CommunicationsWebElements):
         else:
             self.utils.print_info("New in XIQ page is not displaying. Please check Communications pages.")
             return -2
-

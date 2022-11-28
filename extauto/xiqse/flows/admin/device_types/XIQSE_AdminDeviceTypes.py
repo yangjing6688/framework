@@ -14,10 +14,10 @@ class XIQSE_AdminDeviceTypes(AdminDeviceTypesWebElements):
 
     def xiqse_device_types_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Administration> Device Types page
-         - Keyword Usage
-          - ``XIQSE Device Types Select Tab    Detection and Profiling``
-          - ``XIQSE Device Types Select Tab    MAC OUI Vendors``
+        - This keyword selects the specified tab of the Administration> Device Types page
+        - Keyword Usage
+        - ``XIQSE Device Types Select Tab    Detection and Profiling``
+        - ``XIQSE Device Types Select Tab    MAC OUI Vendors``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -43,10 +43,10 @@ class XIQSE_AdminDeviceTypes(AdminDeviceTypesWebElements):
 
     def xiqse_device_types_select_detection_and_profiling_tab(self):
         """
-         - This keyword selects the Detection and Profiling tab on the Administration> Device Types page.
-         - It is assumed the Administration> Device Types page is currently being displayed.
-         - Keyword Usage
-          - ``XIQSE Device Types Select Detection and Profiling Tab``
+        - This keyword selects the Detection and Profiling tab on the Administration> Device Types page.
+        - It is assumed the Administration> Device Types page is currently being displayed.
+        - Keyword Usage
+        - ``XIQSE Device Types Select Detection and Profiling Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -55,10 +55,10 @@ class XIQSE_AdminDeviceTypes(AdminDeviceTypesWebElements):
 
     def xiqse_device_types_select_mac_oui_vendors_tab(self):
         """
-         - This keyword selects the MAC OUI Vendors tab on the Administration> Device Types page.
-         - It is assumed the Administration> Device Types page is currently being displayed.
-         - Keyword Usage
-          - ``XIQSE Device Types Select MAC OUI Vendors Tab``
+        - This keyword selects the MAC OUI Vendors tab on the Administration> Device Types page.
+        - It is assumed the Administration> Device Types page is currently being displayed.
+        - Keyword Usage
+        - ``XIQSE Device Types Select MAC OUI Vendors Tab``
 
         :return: 1 if action was successful, else -1
         """

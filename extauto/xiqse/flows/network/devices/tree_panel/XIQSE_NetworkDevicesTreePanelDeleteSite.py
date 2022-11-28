@@ -13,10 +13,10 @@ class XIQSE_NetworkDevicesTreePanelDeleteSite(NetworkDevicesTreePanelDeleteSiteW
 
     def xiqse_delete_site_confirm_delete(self):
         """
-         - This keyword confirms the site deletion.
-         - It is assumed the Delete Site confirmation dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Delete Site Confirm Delete``
+        - This keyword confirms the site deletion.
+        - It is assumed the Delete Site confirmation dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Delete Site Confirm Delete``
 
         :return: 1 if action was successful, else -1
         """
@@ -34,10 +34,10 @@ class XIQSE_NetworkDevicesTreePanelDeleteSite(NetworkDevicesTreePanelDeleteSiteW
 
     def xiqse_delete_site_confirm_dialog_click_yes(self):
         """
-         - This keyword clicks the Yes button in the Delete Site confirmation dialog.
-         - It is assumed the Delete Site confirmation dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Delete Site Click Yes``
+        - This keyword clicks the Yes button in the Delete Site confirmation dialog.
+        - It is assumed the Delete Site confirmation dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Delete Site Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -56,10 +56,10 @@ class XIQSE_NetworkDevicesTreePanelDeleteSite(NetworkDevicesTreePanelDeleteSiteW
 
     def xiqse_delete_site_confirm_dialog_click_no(self):
         """
-         - This keyword clicks the No button in the Delete Site confirmation dialog.
-         - It is assumed the Delete Site confirmation dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Delete Site Click No``
+        - This keyword clicks the No button in the Delete Site confirmation dialog.
+        - It is assumed the Delete Site confirmation dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Delete Site Click No``
 
         :return: 1 if action was successful, else -1
         """

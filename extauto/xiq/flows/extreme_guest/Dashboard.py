@@ -21,7 +21,7 @@ class Dashboard(object):
 
     def go_to_extreme_guest_dashboard_page(self):
         """
-        -This keyword Will Navigate to Extreme Guest Dashboard Page
+        - This keyword Will Navigate to Extreme Guest Dashboard Page
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window-- Monitor--> dashboard
         - Keyword Usage:
             ''Go To Extreme Guest Dashboard Page''
@@ -33,7 +33,7 @@ class Dashboard(object):
 
     def create_new_extreme_guest_dashboard(self, dashboard_name="automation_db1"):
         """
-        -This keyword Will Create a new dashboard with theme 15 and 9 widgets
+        - This keyword Will Create a new dashboard with theme 15 and 9 widgets
         - Flow: dashboard--> create new
         - Keyword Usage:
             ''create new extreme guest dashboard''
@@ -156,7 +156,7 @@ class Dashboard(object):
 
     def check_dashboard_page_widgets(self):
         """
-        -This keyword Will check if the newly created dashboard is displaying all the widgets
+        - This keyword Will check if the newly created dashboard is displaying all the widgets
         - Flow: dashboard--> automation_db1
         - Keyword Usage:
             ''check dashboard page widgets''

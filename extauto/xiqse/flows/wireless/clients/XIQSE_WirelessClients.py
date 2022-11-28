@@ -14,13 +14,14 @@ class XIQSE_WirelessClients(WirelessClientsWebElements):
 
     def xiqse_wireless_clients_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Wireless> Clients page
-         - Keyword Usage
-          - ``XIQSE Wireless Clients Select Tab    Clients``
-          - ``XIQSE Wireless Clients Select Tab    Client Events``
-          - ``XIQSE Wireless Clients Select Tab    Event Analyzer``
+        - This keyword selects the specified tab of the Wireless> Clients page
+        - Keyword Usage
+        - ``XIQSE Wireless Clients Select Tab    Clients``
+        - ``XIQSE Wireless Clients Select Tab    Client Events``
+        - ``XIQSE Wireless Clients Select Tab    Event Analyzer``
 
         :param tab_name: name of the sub tab to select
+
         :return: 1 if action was successful, else -1
         """
         ret_val = -1
@@ -46,9 +47,9 @@ class XIQSE_WirelessClients(WirelessClientsWebElements):
 
     def xiqse_wireless_clients_select_clients_tab(self):
         """
-         - This keyword selects the Clients tab on the Wireless> Clients Tab
-         - Keyword Usage
-          - ``XIQSE Wireless Clients Select Clients Tab``
+        - This keyword selects the Clients tab on the Wireless> Clients Tab
+        - Keyword Usage
+        - ``XIQSE Wireless Clients Select Clients Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -57,9 +58,9 @@ class XIQSE_WirelessClients(WirelessClientsWebElements):
 
     def xiqse_wireless_clients_select_client_events_tab(self):
         """
-         - This keyword selects the Client Events tab on the Wireless> Clients Tab
-         - Keyword Usage
-          - ``XIQSE Wireless Clients Select Client Events Tab``
+        - This keyword selects the Client Events tab on the Wireless> Clients Tab
+        - Keyword Usage
+        - ``XIQSE Wireless Clients Select Client Events Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -68,9 +69,9 @@ class XIQSE_WirelessClients(WirelessClientsWebElements):
 
     def xiqse_wireless_clients_select_event_analyzer_tab(self):
         """
-         - This keyword selects the Event Analyzer tab on the Wireless> Clients Tab
-         - Keyword Usage
-          - ``XIQSE Wireless Clients Select Event Analyzer Tab``
+        - This keyword selects the Event Analyzer tab on the Wireless> Clients Tab
+        - Keyword Usage
+        - ``XIQSE Wireless Clients Select Event Analyzer Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -79,9 +80,9 @@ class XIQSE_WirelessClients(WirelessClientsWebElements):
 
     def xiqse_wireless_clients_close_event_collection_disabled_dialog(self):
         """
-         - This keyword closes the Event Collection Disabled dialog, if it is displayed.
-         - Keyword Usage
-          - ``XIQSE Wireless Clients Close Event Collection Disabled Dialog``
+        - This keyword closes the Event Collection Disabled dialog, if it is displayed.
+        - Keyword Usage
+        - ``XIQSE Wireless Clients Close Event Collection Disabled Dialog``
 
         :return: 1 if action was successful, else -1
         """

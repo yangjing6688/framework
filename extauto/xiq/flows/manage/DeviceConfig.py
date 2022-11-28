@@ -95,8 +95,8 @@ class DeviceConfig(DeviceConfigElements):
         - override wireless interface settings includes client mode options of radio usage
         - Flow: Manage --> Devices --> Select single device -->  Select interface setting tab --> Wireless Interfaces
         - Keyword Usage:
-         - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi0   &{client_mode_profile}``
-         - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi1   &{client_mode_profile}``
+        - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi0   &{client_mode_profile}``
+        - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi1   &{client_mode_profile}``
 
         :param device_mac:  device mac
         :param interface: device interface i.e WiFi0/WiFi1
@@ -205,10 +205,10 @@ class DeviceConfig(DeviceConfigElements):
         - Flow: Manage --> Devices --> Select the multiple device --> click on edit button --> Select the interface setting tab
         - This keyword will work only with psk network policy applied to multiple devices devices
         - Keyword Usage:
-         - ``Override PSK SSID Settings     device_serials=${DEVICE1},${DEVICE2}    &{OVERRIDE_ARGS}``
-         - ``Override PSK SSID Settings     device_serials=${DEVICE1},${DEVICE2}    interface=WiFi0    override_ssid_broadcast_name=${NEW_SSID_NAME}``
-         - ``Override PSK SSID Settings     device_serials=${DEVICE1},${DEVICE2}    interface=WiFi0    override_psk_password=${NEW_PSK_PASSWORD}``
-         - ``Override PSK SSID Settings     device_serials=${DEVICE1},${DEVICE2}    interface=WiFi0    reassign_cwp=${NEW_CWP_NAME}``
+        - ``Override PSK SSID Settings     device_serials=${DEVICE1},${DEVICE2}    &{OVERRIDE_ARGS}``
+        - ``Override PSK SSID Settings     device_serials=${DEVICE1},${DEVICE2}    interface=WiFi0    override_ssid_broadcast_name=${NEW_SSID_NAME}``
+        - ``Override PSK SSID Settings     device_serials=${DEVICE1},${DEVICE2}    interface=WiFi0    override_psk_password=${NEW_PSK_PASSWORD}``
+        - ``Override PSK SSID Settings     device_serials=${DEVICE1},${DEVICE2}    interface=WiFi0    reassign_cwp=${NEW_CWP_NAME}``
 
         :param override_args: override psk config dict
         :param device_serials: device serial number to select
@@ -273,7 +273,7 @@ class DeviceConfig(DeviceConfigElements):
         - Get the "	Override SSID Broadcast Name", "Override PSK Password", "Reassign CWP"
         - After reading ssid settings variable close the device360 window
         - Keyword Usage:
-         - ``Get Override PSK SSID Settings   ${DEVICE_MAC}    WiFi0``
+        - ``Get Override PSK SSID Settings   ${DEVICE_MAC}    WiFi0``
 
         :param device_mac: device MAC to go to device 360 page
         :param interface: interface name to get the override parameters, WiFi0, WiFi1, WiFi2
@@ -350,13 +350,13 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword is used to override the wireless channel
         - This keyword is used with multiple devices
         - Flow:
-         - Navigate to the Manage --> Devices
-         - Select the devices with passed serial numbers
-         - click on Edit button  --> Interface settings --> Wireless Interfaces
-         - Select the Interface (WiFi0/WiFi1) --> click radio status ON --> change channel
+        - Navigate to the Manage --> Devices
+        - Select the devices with passed serial numbers
+        - click on Edit button  --> Interface settings --> Wireless Interfaces
+        - Select the Interface (WiFi0/WiFi1) --> click radio status ON --> change channel
 
         - Keyword Usage:
-         -  ``Override Devices Config Wireless Channel   device_serials=${AP1_SERIAL},${AP2_SERIAL}    interface='WiFi0', override_channel='6'``
+        -  ``Override Devices Config Wireless Channel   device_serials=${AP1_SERIAL},${AP2_SERIAL}    interface='WiFi0', override_channel='6'``
 
         :param device_serials:  comma separated device serial numbers
         :param interface: device interface i.e WiFi0/WiFi1
@@ -433,7 +433,7 @@ class DeviceConfig(DeviceConfigElements):
 
     def override_single_device_config_wireless_radio_profile(self, device_serial='', interface='WiFi0', override_radio_prof='radio_ng_ng0'):
         """
-          - Override the WiFi0 interface radio profile
+        - Override the WiFi0 interface radio profile
 
         :param device_serial: Device Serial Number
         :param interface: Wifi Interface
@@ -470,13 +470,13 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword is used to override the radio profile
         - This keyword is used with multiple devices
         - Flow:
-         - Navigate to the Manage --> Devices
-         - Select the devices with passed serial numbers
-         - click on Edit button  --> Interface settings --> Wireless Interfaces
-         - Select the Interface (WiFi0/WiFi1) --> click radio status ON --> change the radio profile from drop down
+        - Navigate to the Manage --> Devices
+        - Select the devices with passed serial numbers
+        - click on Edit button  --> Interface settings --> Wireless Interfaces
+        - Select the Interface (WiFi0/WiFi1) --> click radio status ON --> change the radio profile from drop down
 
         - Keyword Usage:
-         -  ``Override Devices Config Wireless Radio Profile   device_serials=${AP1_SERIAL},${AP2_SERIAL}    interface='WiFi0', override_radio_prof='radio_ng_ng0'``
+        -  ``Override Devices Config Wireless Radio Profile   device_serials=${AP1_SERIAL},${AP2_SERIAL}    interface='WiFi0', override_radio_prof='radio_ng_ng0'``
 
         :param device_serials:  comma separated device serial numbers
         :param interface: device interface i.e WiFi0/WiFi1
@@ -572,7 +572,7 @@ class DeviceConfig(DeviceConfigElements):
         - This Keyword will Change Status(ON/OFF) of Wireless Interface for Multiple Devices
         - Flow:MANAGE-->Devices-->Select Multiple devices-->Edit-->Interface settings-->wireless interfaces-->Radio Status
         - Keyword Usage:
-         - ``Change Multiple Devices Wireless Interface Radio Status  device_serials=${AP1_SERIAL},${AP2_SERIAL}  interface_name=${INTERFACE_NAME}  status=${STATUS_ON}``
+        - ``Change Multiple Devices Wireless Interface Radio Status  device_serials=${AP1_SERIAL},${AP2_SERIAL}  interface_name=${INTERFACE_NAME}  status=${STATUS_ON}``
 
         :param device_serials: Devices Serial Numbers Seperated by Comma
         :param interface_name: Wireless Interface Name
@@ -618,15 +618,15 @@ class DeviceConfig(DeviceConfigElements):
 
     def change_single_device_wireless_interface_radio_status(self, device_serial=None, interface_name=None, status=None):
         """
-            - This Keyword will Change Status(ON/OFF) of Wireless Interface of a single device
-            - Flow:MANAGE-->Devices-->Select Multiple devices-->Edit-->Interface settings-->wireless interfaces-->Radio Status
-            - Keyword Usage:
-               - ``Change Single Device Wireless Interface Radio Status  device_serial=${AP1_SERIAL}  interface_name=${INTERFACE_NAME}  status=${STATUS_ON}``
+        - This Keyword will Change Status(ON/OFF) of Wireless Interface of a single device
+        - Flow:MANAGE-->Devices-->Select Multiple devices-->Edit-->Interface settings-->wireless interfaces-->Radio Status
+        - Keyword Usage:
+        - ``Change Single Device Wireless Interface Radio Status  device_serial=${AP1_SERIAL}  interface_name=${INTERFACE_NAME}  status=${STATUS_ON}``
 
-                :param device_serial: Device Serial Number
-                :param interface_name: Wireless Interface Name
-                :param status: WiFi interface radio status ie ON or OFF
-                :return: 1 if WiFi radio Status Updated successfully
+        :param device_serial: Device Serial Number
+        :param interface_name: Wireless Interface Name
+        :param status: WiFi interface radio status ie ON or OFF
+        :return: 1 if WiFi radio Status Updated successfully
         """
         sleep(5)
         self.device_common.edit_devices(device_serial)
@@ -667,8 +667,8 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword will Change the Host Name of the Device
         - Flow : Click AP MAC or Name Link --> Configure-->Device Configuration--> Host Name
         - Keyword Usage:
-         - ``Change Device Host Name    ${HOST_NAME}    $device_mac=${AP1_MAC}``
-          - ``Change Device Host Name    ${HOST_NAME}   $device_name=${AP1_NAME}``
+        - ``Change Device Host Name    ${HOST_NAME}    $device_mac=${AP1_MAC}``
+        - ``Change Device Host Name    ${HOST_NAME}   $device_name=${AP1_NAME}``
 
         :param new_host_name: Device Host Name to change
         :param device_mac: Device Mac Address
@@ -766,8 +766,8 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword will check WiFi interface Radio status of the Device
         - Flow : Click AP MAC Link --> Configure-->Wireless Interfaces--> WIFI interface-->Status
         - Keyword Usage:
-         - ``Check WiFi Radio Status    ${WIFI_INTERFACE_WIFI0}   device_mac=${AP1_MAC}``
-         - ``Check WiFi Radio Status    ${WIFI_INTERFACE_WIFI0}   device_name=${AP1_NAME}``
+        - ``Check WiFi Radio Status    ${WIFI_INTERFACE_WIFI0}   device_mac=${AP1_MAC}``
+        - ``Check WiFi Radio Status    ${WIFI_INTERFACE_WIFI0}   device_name=${AP1_NAME}``
 
         :param wifi_interface_name: WiFi Interface Name ie WiFi0/WiFi1
         :param device_mac: Device Mac Address
@@ -913,7 +913,7 @@ class DeviceConfig(DeviceConfigElements):
         - This Keyword will Change the Transmission of Wireless Interface
         - Go To MANAGE-->Devices-->Select All devices-->Edit-->Interface settings-->wireless interfaces
         - Keyword Usage:
-         - ``Change Transmission Power To Multiple Devices  device_serials=${AP1_SERIAL},${AP2_SERIAL}
+        - ``Change Transmission Power To Multiple Devices  device_serials=${AP1_SERIAL},${AP2_SERIAL}
              interface_name=${INTERFACE_NAME}  transmission_mode=${MANUAL}  power_value=${VALUE}``
 
         :param device_serials: Device Serial Numbers seperated by comma
@@ -967,8 +967,8 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword will Change the Template Name of the Device
         - Flow : Click AP MAC or Name Link --> Configure-->Device Configuration--> Device Template
         - Keyword Usage:
-         - ``Override Devices Config Device Template    ${TEMPLATE_NAME}    $device_mac=${AP1_MAC}``
-         - ``Override Devices Config Device Template    ${TEMPLATE_NAME}   $device_name=${AP1_NAME}``
+        - ``Override Devices Config Device Template    ${TEMPLATE_NAME}    $device_mac=${AP1_MAC}``
+        - ``Override Devices Config Device Template    ${TEMPLATE_NAME}   $device_name=${AP1_NAME}``
 
         :param template_name: Device Template to Change
         :param device_mac: Device Mac Address
@@ -1022,8 +1022,8 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword will get device template configured it on Device
         - Flow : Click AP MAC Link --> Configure-->Interface Settings--->Device Template
         - Keyword Usage:
-         - ``Check Device Configured Template  device_mac=${AP1_MAC}``
-         - ``Check Device Configured Template  device_name=${AP1_NAME}``
+        - ``Check Device Configured Template  device_mac=${AP1_MAC}``
+        - ``Check Device Configured Template  device_name=${AP1_NAME}``
 
         :param device_mac: Device Mac Address
         :param device_name: Device Host Name to change
@@ -1058,8 +1058,8 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword will Change the Template Name of the Device
         - Flow : Click SW MAC or Name Link --> Configure-->Device Configuration--> Device Template
         - Keyword Usage:
-         - ``Override Devices Config Device Template    ${TEMPLATE_NAME}    $device_mac=${SW_MAC}``
-         - ``Override Devices Config Device Template    ${TEMPLATE_NAME}   $device_name=${SW_NAME}``
+        - ``Override Devices Config Device Template    ${TEMPLATE_NAME}    $device_mac=${SW_MAC}``
+        - ``Override Devices Config Device Template    ${TEMPLATE_NAME}   $device_name=${SW_NAME}``
 
         :param template_name: Device Template to Change
         :param device_mac: Device Mac Address
@@ -1116,8 +1116,8 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword will Configure Supplemental Cli on Device
         - Flow : Click AP MAC or Name Link --> Configure-->Device Configuration--> Device Template
         - Keyword Usage:
-         - ``Configure Supplemental Cli for Device    ${CLI_NAME}    $device_mac=${AP1_MAC}``
-         - ``Configure Supplemental Cli for Device    ${CLI_NAME}    ${CLI_CMDS}     $device_name=${AP1_NAME}``
+        - ``Configure Supplemental Cli for Device    ${CLI_NAME}    $device_mac=${AP1_MAC}``
+        - ``Configure Supplemental Cli for Device    ${CLI_NAME}    ${CLI_CMDS}     $device_name=${AP1_NAME}``
 
         :param suppl_cli_name: Supplemental Cli Name
         :param suppl_cli_cmds: Supplemental Cli commands
@@ -1141,23 +1141,23 @@ class DeviceConfig(DeviceConfigElements):
             pass
         else:
             self.auto_actions.click_reference(self.get_device_override_configure_button)
-        
+
 
         self.utils.print_info("Click Device Configuration Button")
         self.auto_actions.click_reference(self.get_device_override_configure_exos_device_configuration_button)
-        
+
 
         self.utils.print_info("Click on Supplemental cli add option")
         self.auto_actions.click_reference(self.get_device_config_supplemental_cli_add_button)
-        
+
 
         self.utils.print_info(f"Entering Supplemental Cli Name:{suppl_cli_name}")
         self.auto_actions.send_keys(self.get_device_config_supplemental_cli_enter_name(), suppl_cli_name)
-        
+
 
         self.utils.print_info(f"Entering Supplemental Cli Commands:{suppl_cli_cmds}")
         self.auto_actions.send_keys(self.get_device_config_supplemental_cli_enter_commands(), suppl_cli_cmds)
-        
+
 
         self.utils.print_info(f"Saving Supplemental Cli Configs")
         self.auto_actions.click_reference(self.get_device_config_supplemental_cli_save_button)
@@ -1168,14 +1168,14 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Save Device Configuration")
         self.auto_actions.click_reference(self.get_device_override_exos_save_device_configuration)
-        
+
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
 
         self.utils.print_info("Close Dialogue Window")
         self.auto_actions.click_reference(self.get_close_dialog)
-        
+
 
         if "Device configuration was updated successfully" in tool_tip_text:
             self.utils.print_info("Device configuration was updated successfully")
@@ -1188,8 +1188,8 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword will Configure Supplemental Cli on Device
         - Flow : Click AP MAC or Name Link --> Configure-->Device Configuration--> Device Template
         - Keyword Usage:
-         - ``Select Configure Supplemental Cli for Device    ${CLI_NAME}    $device_mac=${AP1_MAC}``
-         - ``Select Configure Supplemental Cli for Device    ${CLI_NAME}    ${CLI_CMDS}     $device_name=${AP1_NAME}``
+        - ``Select Configure Supplemental Cli for Device    ${CLI_NAME}    $device_mac=${AP1_MAC}``
+        - ``Select Configure Supplemental Cli for Device    ${CLI_NAME}    ${CLI_CMDS}     $device_name=${AP1_NAME}``
 
         :param suppl_cli_name: Supplemental Cli Name
         :param device_mac: Device Mac Address
@@ -1246,7 +1246,7 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword is used to select the check device configuration in Delta in Manage --> Device page
         - Assumes that navigated to the Manage --> Device page
         - Keyword Usage:
-         - ``Check Config Audit Delta Match     serials=${DEVICE1_SERIAL} ``
+        - ``Check Config Audit Delta Match     serials=${DEVICE1_SERIAL} ``
 
         :param serial: device serial number
         :param mac: device MAC address
@@ -1292,7 +1292,7 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword will Deletes Supplemental Cli under Common objects -> Basic
         - Flow : Click AP MAC or Name Link --> Common objects -> Basic -> Supplemental Cli
         - Keyword Usage:
-         - ``Delete Common Object Supplemental Cli    ${CLI_NAME}``
+        - ``Delete Common Object Supplemental Cli    ${CLI_NAME}``
 
         :param suppl_cli_name: Supplemental Cli Name
         :return: 1 in case of success else -1
@@ -1354,8 +1354,8 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword will get device template configured on Device
         - Flow : Click AP MAC Link --> Configure-->Device Configuration --->Device Template
         - Keyword Usage:
-         - ``Check Device Template on Device Configuration Page  device_mac=${AP1_MAC}``
-         - ``Check Device Template on Device Configuration Page  device_name=${AP1_NAME}``
+        - ``Check Device Template on Device Configuration Page  device_mac=${AP1_MAC}``
+        - ``Check Device Template on Device Configuration Page  device_name=${AP1_NAME}``
 
         :param device_mac: Device Mac Address
         :param device_name: Device Host Name to change
@@ -1398,7 +1398,7 @@ class DeviceConfig(DeviceConfigElements):
         - Assumes that navigated to the Manage --> Device page --> Events page
         - Depends on the severity value, it will select in dropdown
         - Keyword Usage:
-         - ``Device360 Event Select Severity     severity=${SEVERITY} ``
+        - ``Device360 Event Select Severity     severity=${SEVERITY} ``
         - Severity values should be in the category - "Critical, Info, Show All, Minor, Major, Clear"
 
         :param severity: "Critical, Info, Show All, Minor, Major, Clear"
@@ -1428,7 +1428,7 @@ class DeviceConfig(DeviceConfigElements):
                 -->Wireless settings--> WiFi2
 
         - Keyword Usage:
-         - ``Device Override Change WiFi2 Interface Status  device_serial=${DEVICE_SERIAL}   interface_status=${STATUS} ``
+        - ``Device Override Change WiFi2 Interface Status  device_serial=${DEVICE_SERIAL}   interface_status=${STATUS} ``
 
         :param device_serial: Device serial Number
         :param interface_status: Interface status Enable/Disable
@@ -1509,8 +1509,8 @@ class DeviceConfig(DeviceConfigElements):
         - - This keyword will Configure the WiFi2 interface power status of AP4000 or AP4000U
         - Flow : Click AP MAC Link --> Configure-->Wireless Interfaces--> WiFi2 interface --> Transmission Power
         - Keyword Usage:
-         - ``Configure WiFi2 Transmission Power   'Auto' ``
-         - ``Configure WiFi2 Transmission Power   'Manual'    ${POWER_VALUE}='13' ``
+        - ``Configure WiFi2 Transmission Power   'Auto' ``
+        - ``Configure WiFi2 Transmission Power   'Manual'    ${POWER_VALUE}='13' ``
 
         :param transmission_mode : Transmission Mode ie 'Manual' or 'Auto'
         :param power_value: Enter power between 1dbm and 20dbm (Numerical value only)
@@ -1630,8 +1630,8 @@ class DeviceConfig(DeviceConfigElements):
         - - This keyword will Configure the WiFi2 interface power status of AP4000 or AP4000U
         - Flow : Click AP MAC Link --> Configure-->Wireless Interfaces--> WiFi2 interface --> Channel Dropdown
         - Keyword Usage:
-         - ``Override wifi2 channel   ${CHANNEL_INPUT}='Auto' ``
-         - ``Override wifi2 channel   ${CHANNEL_INPUT}='7' ``
+        - ``Override wifi2 channel   ${CHANNEL_INPUT}='Auto' ``
+        - ``Override wifi2 channel   ${CHANNEL_INPUT}='7' ``
 
         :param channel_input: Input AP channel ('Auto' for default configuration)
         :return: 1
@@ -1669,27 +1669,28 @@ class DeviceConfig(DeviceConfigElements):
         return 1
 
     def get_unique_clients_number(self, device_mac=""):
-            """
-            - Get the number of Unique Clients on AP using AP's serial number,Name or Mac address.
-            - Keyword Usage:
-             - ``Get Unique Client Number   ap_mac=${AP_MAC}``
-            :param ap_mac: Ap mac Ex: F09CE9F89600
-            :return: Number of unique clients as shown on device 360 page.
-            """
-            try:
-                self.utils.print_info("Navigating to device 360 page")
-                if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
-                    self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
-                    return -1
-            except:
-                self.utils.print_info("Not able to navigate to the page")
-            sleep(5)
+        """
+        - Get the number of Unique Clients on AP using AP's serial number,Name or Mac address.
+        - Keyword Usage:
+        - ``Get Unique Client Number   ap_mac=${AP_MAC}``
 
-            self.utils.print_info("Retrieve the total number of unique clients")
-            unique_clients = self.get_total_unique_clients().text
-            self.utils.print_info("Total Number of Unique Clients = ", unique_clients)
+        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :return: Number of unique clients as shown on device 360 page.
+        """
+        try:
+            self.utils.print_info("Navigating to device 360 page")
+            if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                return -1
+        except:
+            self.utils.print_info("Not able to navigate to the page")
+        sleep(5)
 
-            return unique_clients
+        self.utils.print_info("Retrieve the total number of unique clients")
+        unique_clients = self.get_total_unique_clients().text
+        self.utils.print_info("Total Number of Unique Clients = ", unique_clients)
+
+        return unique_clients
 
     def get_unique_client_details(self, device_mac, search_string):
         """
@@ -1697,6 +1698,7 @@ class DeviceConfig(DeviceConfigElements):
         - Supported search_strings are Column headers like Hostname, MAC Address and IP Address
         - Keyword Usage:
         - ``Get Unique Client Details    ${AP_MAC}     search_string=1418C347F9B4``
+
         :param search_string: Enter Client Hostname, Client MAC Address or IP Address (Client MAC Ex: 1418C347F9B4)
         :param device_mac: Device MAC Ex: F09CE9F89600
         :return: Dictionary including these keys -> TYPE, OS TYPE, CURRENT CONNECT STATUS, HEALTH STATUS,
@@ -1751,7 +1753,7 @@ class DeviceConfig(DeviceConfigElements):
         - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> Device Configuration -->dhcp
 
         - Keyword Usage:
-         - ``navigate_to_device_config_device   ${DEVICE_MAC}   Enable''
+        - ``navigate_to_device_config_device   ${DEVICE_MAC}   Enable''
 
         :param device_mac: device MAC to go to device 360 page
         :param dhcp: Enable/Disable
@@ -1794,7 +1796,7 @@ class DeviceConfig(DeviceConfigElements):
         - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> wireless --> WiFi2
 
         - Keyword Usage:
-         - ``navigate_to_device_config_interface_wireless_wifi2   ${DEVICE_MAC}  ''
+        - ``navigate_to_device_config_interface_wireless_wifi2   ${DEVICE_MAC}  ''
 
         :param device_mac: device MAC to go to device 360 page
         :param interface: interface name to get the override parameters, WiFi0, WiFi1, WiFi2
@@ -1860,7 +1862,7 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword fetches all values on the device configuration interface WiFi2 page
         - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> WiFi2
         - Keyword Usage:
-                 - ``get_device_configuration_interface_WiFi2_details  ''
+        - ``get_device_configuration_interface_WiFi2_details  ''
 
         """
         sleep(5)
@@ -1892,7 +1894,7 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword fetches all values on the device configuration interface WiFi2 page
         - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> WiFi2
         - Keyword Usage:
-                 - ``get_device_configuration_interface_WiFi2_details  ''
+        - ``get_device_configuration_interface_WiFi2_details  ''
 
         """
         sleep(5)
@@ -1920,7 +1922,7 @@ class DeviceConfig(DeviceConfigElements):
         - This keyword fetches all values on the device configuration interface WiFi0 page
         - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> WiFi0
         - Keyword Usage:
-                 - ``get_device_configuration_interface_WiFi2_details  ''
+        - ``get_device_configuration_interface_WiFi2_details  ''
 
         """
         sleep(5)
@@ -1945,7 +1947,7 @@ class DeviceConfig(DeviceConfigElements):
         """
         - This keyword will close D360 configuration page.
         - Keyword Usage:
-                 - ``close_D360_configuration_page''
+        - ``close_D360_configuration_page''
         """
         self.utils.print_info("Click on close D360 popup page")
         self.auto_actions.click_reference(self.get_close_D360_popup)
@@ -1954,15 +1956,16 @@ class DeviceConfig(DeviceConfigElements):
     def verify_page_details(self, dic1=None, dic2=None):
 
         """
-            - This keyword will validate key value pair on any page.
-            - Keyword Usage:
-                - '' &{wifi2_interface_detail}=   get_device_configuration_interface_WiFi2_details ''
-                - '' &{fields_to_check}=   Create Dictionary   radio_profile=radio_ng_11ax-6g    client_access=OFF   channel_width=80MHz ''
+        - This keyword will validate key value pair on any page.
+        - Keyword Usage:
+        - '' &{wifi2_interface_detail}=   get_device_configuration_interface_WiFi2_details ''
+        - '' &{fields_to_check}=   Create Dictionary   radio_profile=radio_ng_11ax-6g    client_access=OFF   channel_width=80MHz ''
 
-                - `` verify_page_details  ${wifi2_interface_detail}     ${fields_to_check}      ''
-                :param  dic1: a dictionary lists of key pair of page detail
-                :param  dic2: list of key and values of that page
-                :return 1 else -1
+        - `` verify_page_details  ${wifi2_interface_detail}     ${fields_to_check}      ''
+
+        :param  dic1: a dictionary lists of key pair of page detail
+        :param  dic2: list of key and values of that page
+        :return 1 else -1
 
         """
         # dic = self._get_page_configuration(page)
@@ -1994,14 +1997,14 @@ class DeviceConfig(DeviceConfigElements):
 
     def enable_radio_status(self, mode, interface='wifi2'):
         """
-            - This keyword will disable the radio status button on the page
-                    manage - device - configuration - interface - wiffi2
+        - This keyword will disable the radio status button on the page
+                manage - device - configuration - interface - wiffi2
 
-            - Keyword Usage:
-                - ``enable_radio_status  ON     interface=wifi2      ''
+        - Keyword Usage:
+        - ``enable_radio_status  ON     interface=wifi2      ''
 
-            :param  mode: ON or OFF
-            :param  interface: either inface wifi0, wifi1, wifi2
+        :param  mode: ON or OFF
+        :param  interface: either inface wifi0, wifi1, wifi2
 
         """
         self.utils.print_info("Enable the radio status ON")
@@ -2021,14 +2024,14 @@ class DeviceConfig(DeviceConfigElements):
     def disable_radio_status(self, mode, interface='wifi2'):
 
         """
-            - This keyword will enable the radio status button on the page
-                    manage - device - configuration - interface - wiffi2
+        - This keyword will enable the radio status button on the page
+                manage - device - configuration - interface - wiffi2
 
-            - Keyword Usage:
-                - ``enable_radio_status  ON     interface=wifi2      ''
+        - Keyword Usage:
+        - ``enable_radio_status  ON     interface=wifi2      ''
 
-            :param  mode: ON or OFF
-            :param  interface: either inface wifi0, wifi1, wifi2
+        :param  mode: ON or OFF
+        :param  interface: either inface wifi0, wifi1, wifi2
 
         """
         self.utils.print_info("Disable the radio status OFF")
@@ -2047,17 +2050,17 @@ class DeviceConfig(DeviceConfigElements):
 
     def make_interface_channels_included_excluded(self, channels, mode='default', interface='wifi2'):
         """
-            - The keyword excludes or includes the channels
-                    Managed - device - configuration - interface setting - wireless - wifi2
+        - The keyword excludes or includes the channels
+                Managed - device - configuration - interface setting - wireless - wifi2
 
-            - Keyword Usage:
-                - ``make_interface_channels_included_excluded  [7  23   35]  mode=included  interface=wifi1     ''
+        - Keyword Usage:
+        - ``make_interface_channels_included_excluded  [7  23   35]  mode=included  interface=wifi1     ''
 
-            :param  channels  : list of valid channels
-            :param  mode      : excluded or included
-            :param  interface : either wireless wifi2, wifi1, or wifi0 page
+        :param  channels  : list of valid channels
+        :param  mode      : excluded or included
+        :param  interface : either wireless wifi2, wifi1, or wifi0 page
 
-            :return  1 or -1
+        :return  1 or -1
 
         """
 
@@ -2098,16 +2101,16 @@ class DeviceConfig(DeviceConfigElements):
     def check_interface_channel_width_and_channels(self, channels, mode='included', channel_width='default',
                                                    interface='wifi2'):
         """
-            - The Keyword validates any valid channel on the wireless page either excluded, included, disable, enabled mode
+        - The Keyword validates any valid channel on the wireless page either excluded, included, disable, enabled mode
 
-            - Keyword Usage:
-            -``check_channel_width_and_channels  [7 12 4 5]  mode=included  channel_width=80``
+        - Keyword Usage:
+        - ``check_channel_width_and_channels  [7 12 4 5]  mode=included  channel_width=80``
 
-                :param channels: list of valid channels
-                :param mode    : excluded, included, enabled, or disabled mode
-                :param channel_width:  channel width either 80, 20, 30, 40, 160 HMz
-                :param interface: either wirless wifi0, wifi1, or wifi2 page
-                :return: 1  or -1
+        :param channels: list of valid channels
+        :param mode    : excluded, included, enabled, or disabled mode
+        :param channel_width:  channel width either 80, 20, 30, 40, 160 HMz
+        :param interface: either wirless wifi0, wifi1, or wifi2 page
+        :return: 1  or -1
         """
 
         self.utils.print_info(" Validate the channel width and channels ")
@@ -2190,16 +2193,16 @@ class DeviceConfig(DeviceConfigElements):
 
     def configure_custom_radio_profile(self, profile_name='default', interface='wifi2'):
         """
-            - The keyword selects a custom radio profile from the radio profile drop down list either on page wifi2, wifi1, wifi0
-              flow: Managed - device - configuration - interface setting - wireless - either (wifi1, wifi2, wifi0)
+        - The keyword selects a custom radio profile from the radio profile drop down list either on page wifi2, wifi1, wifi0
+            flow: Managed - device - configuration - interface setting - wireless - either (wifi1, wifi2, wifi0)
 
-            - Keyword Usage:
-                - ``configure_custom_radio_profile   radio_profile_name=${profile_name}   interface=wifi2'   ''
+        - Keyword Usage:
+        - ``configure_custom_radio_profile   radio_profile_name=${profile_name}   interface=wifi2'   ''
 
-            :param  profile_name: profile name from the radio profile drop down list
-            :param  interface: either wireless wifi0, wifi1, or wifi2 page
+        :param  profile_name: profile name from the radio profile drop down list
+        :param  interface: either wireless wifi0, wifi1, or wifi2 page
 
-            - return 1
+        :return: 1
 
         """
 
@@ -2306,9 +2309,10 @@ class DeviceConfig(DeviceConfigElements):
     def enabe_override_channel_exclusion_setting_in_radio_profile(self, interface='default'):
 
         """
-            - Enable the override the channel exclusion setting in radio profile
-                :param  interface : either wireless wifi0, wifi1, wifi2 page
-                :return: 1 or -1
+        - Enable the override the channel exclusion setting in radio profile
+
+        :param  interface : either wireless wifi0, wifi1, wifi2 page
+        :return: 1 or -1
         """
 
         self.utils.print_info(" INTERFACE " + str(interface))
@@ -2347,10 +2351,10 @@ class DeviceConfig(DeviceConfigElements):
                 -->Wired Settings --> Imagotag
 
         - Keyword Usage:
-         - ``Device Override Create Imago Tag Profile  device_serial=${DEVICE_SERIAL}  profile_name=${PROFILE}
+        - ``Device Override Create Imago Tag Profile  device_serial=${DEVICE_SERIAL}  profile_name=${PROFILE}
          server=${SERVER}  channel=${CHANNEL}``
 
-         - ``Device Override Create Imago Tag Profile  device_serial=${DEVICE_SERIAL}  profile_name=${PROFILE}
+        - ``Device Override Create Imago Tag Profile  device_serial=${DEVICE_SERIAL}  profile_name=${PROFILE}
          server=${SERVER}  channel=${CHANNEL}  server_port=${PORT}``
 
 
@@ -2792,7 +2796,7 @@ class DeviceConfig(DeviceConfigElements):
             commands (list): a list of CLI commands
             step (int): seconds to sleep between retries
             retries (int, optional): the number of retries. Defaults to 5.
-        
+
         Returns:
             int: 1 if the function call has succeeded else -1
         """
@@ -2801,21 +2805,21 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.wait_till(timeout=10)
         self.devices.refresh_devices_page()
         self.utils.wait_till(timeout=5)
-                
+
         for _ in range(retries):
             try:
                 self.devices.select_device(device_mac=dut.mac)
-                
+
                 btn, _ = self.utils.wait_till(
                     func=self.get_device_config_audit_view,
                     delay=5,
                     exp_func_resp=True,
                     silent_failure=True
                 )
-                
+
                 assert btn, "Failed to get the device_config_audit_view button"
                 self.utils.print_info("Successfully got the device_config_audit_view button")
-        
+
                 res, _ = self.utils.wait_till(
                     func=lambda: self.auto_actions.click(btn),
                     delay=4,
@@ -2825,17 +2829,17 @@ class DeviceConfig(DeviceConfigElements):
 
                 assert res == 1, "Failed to click the device_config_audit_view button"
                 self.utils.print_info("Successfully clicked the device_config_audit_view button")
-        
+
                 delta_view, _ = self.utils.wait_till(
                     func=self.get_device_config_audit_delta_view,
                     delay=5,
                     exp_func_resp=True,
                     silent_failure=True
                 )
-                
+
                 assert delta_view, "Failed to get the delta_view button"
                 self.utils.print_info("Successfully got the delta_view button")
-        
+
                 res, _ = self.utils.wait_till(
                     func=lambda: self.auto_actions.click(delta_view),
                     timeout=60,
@@ -2843,10 +2847,10 @@ class DeviceConfig(DeviceConfigElements):
                     exp_func_resp=True,
                     silent_failure=True
                 )
-                
+
                 assert res == 1, "Failed to click the delta_view button"
                 self.utils.print_info("Successfully clicked the delta_view button")
-                
+
                 self.utils.wait_till(timeout=30)
 
                 delta_configs, _ = self.utils.wait_till(
@@ -2856,28 +2860,28 @@ class DeviceConfig(DeviceConfigElements):
                     delay=5,
                     silent_failure=True
                 )
-                
+
                 assert delta_configs, "Failed to get the delta_configs element"
                 self.utils.print_info("Successfully got the delta_configs element")
-        
+
                 delta_configs = delta_configs.text
 
                 for command in commands:
-                    
+
                     assert re.search(command, delta_configs), f"Did not find this command in delta CLI: {command}"
-                    self.utils.print_info(f"Successfully found this command in delta CLI: {command}")                    
-            
+                    self.utils.print_info(f"Successfully found this command in delta CLI: {command}")
+
             except Exception as exc:
                 self.utils.print_info(repr(exc))
                 self.utils.wait_till(timeout=step)
-            
+
             else:
                 kwargs["pass_msg"] = f"Successfully found these commands in the delta cli: {commands}"
                 self.common_validation.passed(**kwargs)
                 return 1
-            
+
             finally:
-                
+
                 try:
                     close_btn, _ = self.utils.wait_till(
                         func=self.get_device_config_audit_view_close_button,
@@ -2885,7 +2889,7 @@ class DeviceConfig(DeviceConfigElements):
                         silent_failure=True,
                         delay=5
                     )
-                    
+
                     self.utils.wait_till(
                         func=lambda: self.auto_actions.click(close_btn) == 1,
                         exp_func_resp=True,

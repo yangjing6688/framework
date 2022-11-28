@@ -34,7 +34,7 @@ class Switch(SwitchWebElements):
         - This keyword onboards an Switch Device based on Switch Type(ie Exos) using Quick onboard flow.
         - Flow  Manage--> Devices--> Add --> Quick Add Devices--> Select Device Make --> Serial Number--> Add Devices
         - Keyword Usage
-         - ``Onboard Switch    ${SWITCH_SERIAL}  ${SWITCH_MAKE_TYPE}``
+        - ``Onboard Switch    ${SWITCH_SERIAL}  ${SWITCH_MAKE_TYPE}``
 
         :param switch_serial: serial number of Switch
         :param switch_make: Switch Make
@@ -68,7 +68,7 @@ class Switch(SwitchWebElements):
 
         self.utils.print_info("Checking for the Device Make dropdown or Switch/Fabric Engine selection option")
         dropdown_make = self.get_switch_make_drop_down()
-      
+
         if "VOSS" in device_os.upper() or "VOSS" in switch_make.upper():
             if dropdown_make.is_displayed():
                 self.utils.print_info("Device Make dropdown selection is displayed, selecting VOSS")
@@ -78,7 +78,7 @@ class Switch(SwitchWebElements):
             else:
                 self.utils.print_info("Switch/Fabric Engine radio options are displayed, selecting Fabric Engine")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_os_voss_radio)
-      
+
         if "EXOS" in device_os.upper() or "EXOS" in switch_make.upper():
             if dropdown_make.is_displayed():
                 self.utils.print_info("Device Make dropdown selection is displayed, selecting EXOS")
@@ -134,7 +134,7 @@ class Switch(SwitchWebElements):
         - This keyword Select Aerohive Switch based on Switch Serial Number From Devices Grid
         - Flow  Manage--> Devices--> Select Aerohive SWitch
         - Keyword Usage
-         - ``Select Switch    ${SWITCH_SERIAL}``
+        - ``Select Switch    ${SWITCH_SERIAL}``
 
         :param sw_serial: serial number of Switch
         :return: 1 if Aerohive Switch selected Successfully else -1
@@ -153,7 +153,7 @@ class Switch(SwitchWebElements):
         - This keyword return Switch Port Details ie Status based on serial Number and Port Number of the Switch
         - Flow  Manage--> Devices--> SWitch hyper Link --> Click Port Number
         - Keyword Usage
-         - ``Get Switch Port Details    ${SWITCH_SERIAL}  ${PORT_NUMBER}``
+        - ``Get Switch Port Details    ${SWITCH_SERIAL}  ${PORT_NUMBER}``
 
         :param sw_serial: serial number of Switch
         :param port_number: Port Number of the Switch
@@ -174,7 +174,7 @@ class Switch(SwitchWebElements):
         - This keyword return Switch Port Status(Enabled/Disabled) based on serial Number and Port Number of the Switch
         - Flow  Manage--> Devices--> SWitch hyper Link --> Click Port Number
         - Keyword Usage
-         - ``Get Switch Port Status   ${SWITCH_SERIAL}  ${PORT_NUMBER}``
+        - ``Get Switch Port Status   ${SWITCH_SERIAL}  ${PORT_NUMBER}``
 
         :param sw_serial: serial number of Switch
         :param port_number: Port Number of the Switch
@@ -187,9 +187,3 @@ class Switch(SwitchWebElements):
                port_status = value.split("Port Status")[-1]
                break
         return port_status
-
-
-
-
-    
-

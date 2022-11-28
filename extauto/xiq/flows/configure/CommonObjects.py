@@ -36,7 +36,7 @@ class CommonObjects(object):
         """
         - FLow: CONFIGURE-->COMMON OBJECTS-->BASIC-->IP Objects / HostNames
         - Keyword Usage:
-         - ``Navigate To Basic Ip Object Hostname```
+        - ``Navigate To Basic Ip Object Hostname```
 
         :return: None
         """
@@ -143,7 +143,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete SSID from the ssid grid
         - Keyword Usage:
-         - ``Delete SSID  ${SSID_NAME}``
+        - ``Delete SSID  ${SSID_NAME}``
 
         :param ssid_name: Name of the ssid_name
         :return: 1 if deleted else -1
@@ -162,8 +162,9 @@ class CommonObjects(object):
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
-                self.common_validation.failed(**kwargs)
+                kwargs['fail_msg'] = f"delete_ssid() failed. " \
+                                     f"Cannot be deleted because this item is still used by another item {value}"
+                self.common_validation.fault(**kwargs)
                 return -1
             elif "Deleted SSID successfully" in value:
                 kwargs['pass_msg'] = f"Successfully deleted SSID {ssid_name}"
@@ -171,7 +172,7 @@ class CommonObjects(object):
                 return 1
 
         if self._search_common_object(ssid_name):
-            kwargs['fail_msg'] = "Unsuccessfully deleted the SSID!"
+            kwargs['fail_msg'] = "delete_ssid() failed. Unsuccessfully deleted the SSID!"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -184,7 +185,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete ssid's from ssid grid
         - Keyword Usage:
-         - ``Delete ssids  ${SSID1}  ${SSID2}  ${SSID3}``
+        - ``Delete ssids  ${SSID1}  ${SSID2}  ${SSID3}``
 
         :param ssids: (list) list of ssid's to delete
         :return: 1 if deleted else -1
@@ -233,8 +234,9 @@ class CommonObjects(object):
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
-                self.common_validation.failed(**kwargs)
+                kwargs['fail_msg'] = f"delete_ssids() failed. " \
+                                     f"Cannot be deleted because this item is still used by another item {value}"
+                self.common_validation.fault(**kwargs)
                 return -1
             elif "Deleted SSID successfully" in value:
                 kwargs['pass_msg'] = "Successfully deleted SSIDs"
@@ -243,7 +245,7 @@ class CommonObjects(object):
 
         for ssid in ssids:
             if self._search_common_object(ssid):
-                kwargs['fail_msg'] = "Unsuccessfully deleted SSIDs"
+                kwargs['fail_msg'] = "delete_ssids() failed. Unsuccessfully deleted SSIDs"
                 self.common_validation.failed(**kwargs)
                 return -1
         kwargs['pass_msg'] = "Successfully deleted SSIDs"
@@ -255,7 +257,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete all SSIDs from the grid expect exclude_list SSIDs
         - Keyword Usage:
-         - ``Delete All ssids   `
+        - ``Delete All ssids   `
 
         :return: 1 if deleted else -1
         """
@@ -275,12 +277,12 @@ class CommonObjects(object):
 
         return self.delete_ssids(*delete_ssid_list)
 
-    def delete_captive_web_portal(self, cwp_name):
+    def delete_captive_web_portal(self, cwp_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Delete captive web portal from the grid
         - Keyword Usage:
-         - ``Delete Captive Web Portal  ${CWP_NAME}``
+        - ``Delete Captive Web Portal  ${CWP_NAME}``
 
         :param cwp_name: Name of the Captive Web portal
         :return: 1 deleted
@@ -289,7 +291,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_captive_web_portal()
 
         if not self._search_common_object(cwp_name):
-            self.utils.print_info("CWP Name does't exists in the list")
+            kwargs['pass_msg'] = "CWP Name doesn't exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Select and delete Captive Web Portal row")
@@ -298,18 +301,25 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
         for value in tool_tp_text:
             if "cannot be removed because it is used by another object" in value:
-                self.utils.print_info(f"value")
+                kwargs['fail_msg'] = "delete_captive_web_portal() failed. " \
+                                     "Cannot be removed because it is used by another object"
+                self.common_validation.fault(**kwargs)
                 return -1
             elif "Deleted captive web portal successfully" in value:
+                kwargs['pass_msg'] = "Deleted captive web portal successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
+
+        kwargs['fail_msg'] = "delete_captive_web_portal() failed. Failed to delete captive web portal from the grid"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def delete_captive_web_portals(self, *cwp_names):
+    def delete_captive_web_portals(self, *cwp_names, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Delete captive web portals from the grid
         - Keyword Usage:
-         - ``Delete Captive Web Portals   ${CWP_NAME1}  ${CWP_NAME2}   ${CWP_NAME3}``
+        - ``Delete Captive Web Portals   ${CWP_NAME1}  ${CWP_NAME2}   ${CWP_NAME3}``
 
         :param cwp_names: Name of the Captive Web portal
         :return: 1 deleted
@@ -328,7 +338,7 @@ class CommonObjects(object):
                 self._select_common_object_row(cwp)
                 cwp_flag = True
             else:
-                self.utils.print_info(f"cwp:{cwp} does't exists in the list")
+                self.utils.print_info(f"cwp:{cwp} doesn't exists in the list")
 
         if not cwp_flag:
             return 1
@@ -338,10 +348,17 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
         for value in tool_tp_text:
             if "cannot be removed because it is used by another object" in value:
-                self.utils.print_info(f"{value}")
+                kwargs['fail_msg'] = "delete_captive_web_portals() failed. " \
+                                     "Cannot be removed because it is used by another object"
+                self.common_validation.fault(**kwargs)
                 return -1
             elif "Deleted captive web portal successfully" in value:
+                kwargs['pass_msg'] = f"Deleted captive web portal successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
+
+        kwargs['fail_msg'] = "delete_captive_web_portals() failed. Failed to delete captive web portals from the grid"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def delete_all_captive_web_portals(self, exclude_list=''):
@@ -349,7 +366,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Delete captive web portals from the grid
         - Keyword Usage:
-         - ``Delete All Captive Web Portals   exclude_list=${cwp1},${cwp2}``
+        - ``Delete All Captive Web Portals   exclude_list=${cwp1},${cwp2}``
         :param exclude_list: list of cwps to exclude from delete
         :return: 1 deleted
                 -1 cannot be removed because it is used by another object
@@ -374,12 +391,12 @@ class CommonObjects(object):
 
         return self.delete_captive_web_portals(*delete_cwp_list)
 
-    def delete_external_radius_server(self, radius_server):
+    def delete_external_radius_server(self, radius_server, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Authentication --> External radius server
         - Delete external radius server from grid
         - Keyword Usage:
-         - ``Delete External Radius Server   ${RADIUS_SERVER_NAME}``
+        - ``Delete External Radius Server   ${RADIUS_SERVER_NAME}``
 
         :param radius_server: radius server name
         :return: 1 if deleted
@@ -388,7 +405,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_external_radius_server()
 
         if not self._search_common_object(radius_server):
-            self.utils.print_info("Radius server does't exists in the list")
+            kwargs['pass_msg'] = "Radius server doesn't exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("select  and delete radius server row")
@@ -397,15 +415,21 @@ class CommonObjects(object):
         for value in tool_tp_text[::-1]:
             if "The External RADIUS Server cannot be removed because it is used by another object" in value:
                 self.utils.print_info(value)
+                kwargs['fail_msg'] = "delete_external_radius_server() failed. " \
+                                     "The External RADIUS Server cannot be removed because it is used by another object"
+                self.common_validation.fault(**kwargs)
                 return -1
+
+        kwargs['pass_msg'] = "Radius server doesn't exists in the list"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def delete_ip_object_hostname(self, object_name):
+    def delete_ip_object_hostname(self, object_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName
         - Delete the ip object or hostname from Basic-->IP Objects/ Hostname
         - Keyword Usage:
-         - ``Delete IP Object Hostname  ${IP_OR_HOSTNAME}``
+        - ``Delete IP Object Hostname  ${IP_OR_HOSTNAME}``
 
         :param object_name: Ip object or hostname
         :return: 1 if deleted
@@ -414,7 +438,8 @@ class CommonObjects(object):
         self.navigate_to_basic_ip_object_hostname()
 
         if not self._search_common_object(object_name):
-            self.utils.print_info("Ip/Hostname object does't exists in the list")
+            kwargs['pass_msg'] = "Ip/Hostname object doesn't exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("select and delete ip/hostname object")
@@ -422,10 +447,18 @@ class CommonObjects(object):
 
         for value in tool_tp_text[::-1]:
             if "The IP Object/Hostname cannot be removed because it is used by another object" in value:
-                self.utils.print_info(value)
+                kwargs['fail_msg'] = "delete_ip_object_hostname() failed. " \
+                                     "The IP Object/Hostname cannot be removed because it is used by another object"
+                self.common_validation.fault(**kwargs)
                 return -1
             elif "IP object or host name was deleted successfully" in value:
+                kwargs['pass_msg'] = "IP object or host name was deleted successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
+
+        kwargs['fail_msg'] = "delete_ip_object_hostname() failed." \
+                             "Failed to delete the ip object or hostname from Basic-->IP Objects/ Hostname"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _edit_captive_web_portal(self, cwp_name):
@@ -452,7 +485,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Disable the employee approval in captive web portal configuration
         - Keyword Usage:
-         - ``Disable Cwp Employee Approval  ${CWP_NAME}``
+        - ``Disable Cwp Employee Approval  ${CWP_NAME}``
 
         :param cwp_name: name of the captive web portal
         :return:
@@ -474,7 +507,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Edit social login captive web portal from the grid
         - Keyword Usage:
-         - ``Edit Captive Web Portal Social Login Configuration   &{CWP_TEMPLATE_CONFIG}``
+        - ``Edit Captive Web Portal Social Login Configuration   &{CWP_TEMPLATE_CONFIG}``
 
         :param cwp_template_config: social login cwp edit variables
         :return: 1 edited
@@ -497,7 +530,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_captive_web_portal()
 
         if not self._search_common_object(temp_cwp_name):
-            self.utils.print_info("CWP Name does't exists in the list")
+            cwp_template_config['pass_msg'] = "CWP Name doesn't exists in the list"
+            self.common_validation.passed(**cwp_template_config)
             return 1
 
         self._select_common_object_row(temp_cwp_name)
@@ -565,16 +599,21 @@ class CommonObjects(object):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Captive web portal was saved successfully." in tool_tip_text:
+            cwp_template_config['pass_msg'] = "Captive web portal was saved successfully!"
+            self.common_validation.passed(**cwp_template_config)
             return 1
         else:
+            cwp_template_config['fail_msg'] = "edit_captive_web_portal_social_login_configuration() failed." \
+                                 "Failed to save captive web portal."
+            self.common_validation.failed(**cwp_template_config)
             return -1
 
-    def delete_aaa_server_profile(self, aaa_profile_name):
+    def delete_aaa_server_profile(self, aaa_profile_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->AUTHENTICATION-->AAA SERVER SETTINGS
         - Delete AAA server profile from the grid
         -Keyword Usage:
-         - ``Delete AAA Server Profile  ${AAA_PROFILE_NAME}``
+        - ``Delete AAA Server Profile  ${AAA_PROFILE_NAME}``
 
         :param aaa_profile_name: Name of AAA Profile
         :return: 1 if aaa profile deleted successfully else returns -1
@@ -583,7 +622,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_aaa_server_settings()
 
         if not self._search_common_object(aaa_profile_name):
-            self.utils.print_info("AAA Profile Name does't exists in the list")
+            kwargs['pass_msg'] = "AAA Profile Name doesn't exists in the list."
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Select and delete AAA Profile row")
@@ -595,7 +635,12 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "Deleted AAA server profile successfully" in value:
+                kwargs['pass_msg'] = "Deleted AAA server profile successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
+
+        kwargs['fail_msg'] = "delete_aaa_server_profile() failed. Failed to delete AAA server profile."
+        self.common_validation.failed(**kwargs)
         return -1
 
     def delete_port_type_profile(self, port_type_name, **kwargs):
@@ -603,7 +648,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
         - Delete Port Type from the grid
         - Keyword Usage:
-         - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
+        - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
 
         :param port_type_name: Name of Port Tye
         :return: 1 if Port Type deleted successfully, else returns -1
@@ -639,18 +684,12 @@ class CommonObjects(object):
                             self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows, delay=3)
                             current_page += 1
                         else:
-                            self.utils.print_info("Did not find next page button!")
-                            kwargs['fail_msg'] = "Did not find next page button!"
-                            self.screen.save_screen_shot()
-                            self.common_validation.failed(**kwargs)
+                            kwargs['fail_msg'] = "delete_port_type_profile() failed. Did not find next page button!"
+                            self.common_validation.fault(**kwargs)
                             return -1
                     else:
                         self.utils.print_info("This is the last page: ", str(current_page))
-                        self.utils.print_info(f"Checked all {current_page} pages for Port Type profile: "
-                                              f"{port_type_name} ; "
-                                              f"It was already deleted or it hasn't been created yet!")
-                        kwargs['pass_msg'] = f"Checked all {current_page} pages for Port Type profile: " \
-                                             f"{port_type_name} ; " \
+                        kwargs['pass_msg'] = f"Checked all {current_page} pages for Port Type profile:{port_type_name}." \
                                              f"It was already deleted or it hasn't been created yet!"
                         self.common_validation.passed(**kwargs)
                         return 1
@@ -671,7 +710,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
         - Delete Sub Network in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Sub Network Profile   ${SUB_NETWORK_NAME}``
+        - ``Delete Sub Network Profile   ${SUB_NETWORK_NAME}``
 
         :param sub_network_name: Name of SubNetwork Space
         :return: 1 if SubNetwork Space deleted successfully else returns -1
@@ -680,7 +719,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_network_subnetwork_space()
 
         if not self._search_common_object(sub_network_name):
-            self.utils.print_info("SubNetwork Space Name does't exists in the list")
+            kwargs['pass_msg'] = "SubNetwork Space Name doesn't exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Select and delete SubNetwork Space row")
@@ -692,17 +732,17 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "The subnetwork has been deleted" in value:
-                kwargs['pass_msg'] = f"SubNetwork Space Name {sub_network_name}  deleted successfully"
-                self.common_validation.validate(1, 1, **kwargs)
+                kwargs['pass_msg'] = f"SubNetwork Space Name {sub_network_name} was deleted successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
 
         if self._search_common_object(sub_network_name):
-            kwargs['fail_msg'] = "Unsuccessfully deleted the SUB NETWORK SPACE!"
-            self.common_validation.validate(-1, 1, **kwargs)
+            kwargs['fail_msg'] = "delete_sub_network_profile() failed. Unsuccessfully deleted the SUB NETWORK SPACE!"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
             kwargs['pass_msg'] = "Successfully deleted SUB NETWORK SPACE!"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
     def delete_vlan_profile(self, vlan_name, **kwargs):
@@ -710,7 +750,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Delete Vlans in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Vlan Profile  ${VLAN_NAME}``
+        - ``Delete Vlan Profile  ${VLAN_NAME}``
 
         :param vlan_name: Name of Vlan
         :return: 1 if vlan name deleted successfully else returns -1
@@ -719,8 +759,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_basic_vlans_tab()
 
         if not self._search_common_object(vlan_name):
-            kwargs['pass_msg'] = f"VLAN Object {vlan_name}  does't exists in the list"
-            self.common_validation.validate(1, 1, **kwargs)
+            kwargs['pass_msg'] = f"VLAN Object {vlan_name} doesn't exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Select and delete VLAN row")
@@ -732,17 +772,17 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "VLAN has been deleted" in value:
-                kwargs['pass_msg'] = f"Vlan object {vlan_name}  deleted successfully"
-                self.common_validation.validate(1, 1, **kwargs)
+                kwargs['pass_msg'] = f"Vlan object {vlan_name} was deleted successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
 
         if self._search_common_object(vlan_name):
-            kwargs['fail_msg'] = "Unsuccessfully deleted the Vlan object"
-            self.common_validation.validate(-1, 1, **kwargs)
+            kwargs['fail_msg'] = "delete_vlan_profile() failed. Unsuccessfully deleted the Vlan object"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
             kwargs['pass_msg'] = "Successfully deleted the vlan object"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
     def delete_all_vlan_profiles(self, **kwargs):
@@ -750,7 +790,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Delete Vlans in Common Object from the grid
         - Keyword Usage:
-         - ``Delete All Vlan Profiles``
+        - ``Delete All Vlan Profiles``
         :return: 1 if vlans deleted successfully else returns -1
         """
         exclude_list = ['1', 'Mgmt-4048']
@@ -768,10 +808,12 @@ class CommonObjects(object):
             sleep(3)
             self.utils.print_info("Clicking yes on the confirm delete popup")
             self.auto_actions.click_reference(self.user_profile_web_elements.get_user_profile_confirm_delete_yes)
+
+            kwargs['pass_msg'] = "Vlans deleted successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "Unable to gather VLANs"
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "delete_all_vlan_profiles() failed. Unable to gather VLANs"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -779,7 +821,7 @@ class CommonObjects(object):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
         - Keyword Usage:
-         - ``Navigate To Security Wips Policies``
+        - ``Navigate To Security Wips Policies``
 
         :return: None
         """
@@ -799,12 +841,12 @@ class CommonObjects(object):
 
         sleep(5)
 
-    def delete_wips_policy_profile(self, wips_policy_name):
+    def delete_wips_policy_profile(self, wips_policy_name, **kwargs):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
         - Delete wips_policys in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Wips Policy Profile   ${WIPS_POLICY_NAME}``
+        - ``Delete Wips Policy Profile   ${WIPS_POLICY_NAME}``
 
         :param wips_policy_name: Name of wips policy name
         :return: 1 if wips policy name deleted successfully else returns -1
@@ -813,7 +855,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_security_wips_policies()
 
         if not self._search_common_object(wips_policy_name):
-            self.utils.print_info("WIPS Policy Name does't exists in the list")
+            kwargs['pass_msg'] = "WIPS Policy Name doesn't exist in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Select and delete Wips Policy row")
@@ -825,16 +868,22 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item" in value:
+                kwargs['fail_msg'] = "delete_wips_policy_profile() failed. " \
+                                     "Cannot be deleted because this item is still used by another item"
+                self.common_validation.fault(**kwargs)
                 return -1
+
+        kwargs['pass_msg'] = "WIPS policy was deleted successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def delete_ap_template_profile(self, ap_template_name):
+    def delete_ap_template_profile(self, ap_template_name, **kwargs):
         """
         -
         -->COMMON OBJECTS-->AP Templates
         - Delete ap_template_name in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Ap Template Profile  ${AP_TEMPLATE_NAME}``
+        - ``Delete Ap Template Profile  ${AP_TEMPLATE_NAME}``
 
         :param ap_template_name: Name of AP Template
         :return: 1 if ap template name deleted successfully else returns -1
@@ -850,7 +899,8 @@ class CommonObjects(object):
             sleep(2)
 
         if not self._search_common_object_template(ap_template_name):
-            self.utils.print_info("AP Template Name does't exists in the list")
+            kwargs['pass_msg'] = "AP Template Name doesn't exist in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Select and delete AP Template row")
@@ -861,10 +911,18 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
 
         if "Template was successfully removed from policy." in tool_tp_text[-1]:
+            kwargs['pass_msg'] = "Template was successfully removed from policy."
+            self.common_validation.passed(**kwargs)
             return 1
         elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
+            kwargs['fail_msg'] = "delete_ap_template_profile() failed. " \
+                                 "The Device Template cannot be removed because it is used by another object"
+            self.common_validation.fault(**kwargs)
             return -1
-        return -2
+
+        kwargs['fail_msg'] = "delete_ap_template_profile() failed. Failed to delete ap template profile."
+        self.common_validation.failed(**kwargs)
+        return -1
 
     def _get_common_object_template_row(self, search_string):
         """
@@ -885,7 +943,7 @@ class CommonObjects(object):
                 return row
         return False
 
-    def _search_common_object_template(self, search_string):
+    def _search_common_object_template(self, search_string, **kwargs):
         """
         - Search the passed search string object in grid rows
         :param search_string:
@@ -926,7 +984,7 @@ class CommonObjects(object):
         self._delete_common_objects()
         sleep(5)
 
-    def search_switch_template(self, search_string):
+    def search_switch_template(self, search_string, **kwargs):
         """
         Search the passed search string object in Switch Template grid rows
         :param search_string:
@@ -934,7 +992,8 @@ class CommonObjects(object):
         """
         row = self._get_switch_template_row(search_string)
         if row:
-            self.utils.print_info(f"{search_string} object present in grid row")
+            kwargs['pass_msg'] = f"{search_string} object present in grid row"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def delete_switch_template(self, template_name, **kwargs):
@@ -942,7 +1001,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Switch Template
         - Delete specified switch template from the Switch Templates grid
         - Keyword Usage:
-         - ``Delete Switch Template  ${TEMPLATE_NAME}``
+        - ``Delete Switch Template  ${TEMPLATE_NAME}``
         :param template_name: Name of the switch template
         :return: 1 if deleted else -1
         """
@@ -975,7 +1034,8 @@ class CommonObjects(object):
                     if check_box:
                         self.auto_actions.click(check_box)
                     else:
-                        self.utils.print_info("Did not find row's check box!")
+                        kwargs['fail_msg'] = "delete_switch_template() failed. Did not find row's check box!"
+                        self.common_validation.fault(**kwargs)
                         return -1
 
                     self.utils.print_info("Clicking on delete button")
@@ -987,10 +1047,8 @@ class CommonObjects(object):
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
-                        self.utils.print_info("Didn't find the delete button!")
-                        kwargs['fail_msg'] = "Didn't find the delete button!"
-                        self.screen.save_screen_shot()
-                        self.common_validation.failed(**kwargs)
+                        kwargs['fail_msg'] = "delete_switch_template() failed. Didn't find the delete button!"
+                        self.common_validation.fault(**kwargs)
                         return -1
 
             if not found_template:
@@ -1005,24 +1063,17 @@ class CommonObjects(object):
                             self.auto_actions.click(next_page_button)
                             current_page += 1
                         else:
-                            self.utils.print_info("Did not manage to find the next page button")
-                            kwargs['fail_msg'] = "Did not manage to find the next page button"
-                            self.screen.save_screen_shot()
-                            self.common_validation.failed(**kwargs)
+                            kwargs['fail_msg'] = "delete_switch_template() failed." \
+                                                 "Did not manage to find the next page button"
+                            self.common_validation.fault(**kwargs)
                             return -1
                     else:
-                        self.utils.print_info("Did not find next page button!")
-                        kwargs['fail_msg'] = "Did not find next page button!"
-                        self.screen.save_screen_shot()
-                        self.common_validation.failed(**kwargs)
+                        kwargs['fail_msg'] = "delete_switch_template() failed. Did not find next page button!"
+                        self.common_validation.fault(**kwargs)
                         return -1
                 else:
                     self.utils.print_info("This is the last page: ", str(current_page))
-                    self.utils.print_info(f"Checked all {current_page} pages for Template Name: "
-                                          f"{template_name} ;"
-                                          f"It was already deleted or it hasn't been created yet!")
-                    kwargs['pass_msg'] = f"Checked all {current_page} pages for Template Name: " \
-                                         f"{template_name} ;" \
+                    kwargs['pass_msg'] = f"Checked all {current_page} pages for Template Name: {template_name}" \
                                          f"It was already deleted or it hasn't been created yet!"
                     self.common_validation.passed(**kwargs)
                     return 1
@@ -1032,7 +1083,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> Supplemental CLI Objects
         - Delete specified supplemental cli profile from the Supplemental CLI Objects grid
         - Keyword Usage:
-         - ``Delete Supplemental Cli Profile  ${SUPPLEMENTAL_CLI_NAME}``
+        - ``Delete Supplemental Cli Profile  ${SUPPLEMENTAL_CLI_NAME}``
         :param supplemental_cli_name: Name of the supplemental cli profile
         :return: 1 if deleted else -1
         """
@@ -1065,8 +1116,8 @@ class CommonObjects(object):
                     if check_box:
                         self.auto_actions.click(check_box)
                     else:
-                        kwargs['fail_msg'] = "Did not find row's check box!"
-                        self.common_validation.failed(**kwargs)
+                        kwargs['fail_msg'] = "delete_supplemental_cli_profile() failed. Did not find row's check box!"
+                        self.common_validation.fault(**kwargs)
                         return -1
 
                     self.utils.print_info("Clicking on delete button")
@@ -1080,18 +1131,16 @@ class CommonObjects(object):
                             self.auto_actions.click(confirm_delete_btn)
                             kwargs['pass_msg'] = f"YES button has been clicked! Supplemental Cli Profile: " \
                                                  f"{supplemental_cli_name} has been deleted!"
-                            self.common_validation.validate(1, 1, **kwargs)
+                            self.common_validation.passed(**kwargs)
                             return 1
 
                         kwargs['pass_msg'] = f"Delete button has been clicked! Supplemental Cli Profile: " \
                                              f"{supplemental_cli_name} has been deleted!"
-                        self.common_validation.validate(1, 1, **kwargs)
+                        self.common_validation.passed(**kwargs)
                         return 1
                     else:
-                        self.utils.print_info("Didn't find the delete button!")
-                        kwargs['fail_msg'] = "Didn't find the delete button!"
-                        self.screen.save_screen_shot()
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        kwargs['fail_msg'] = "delete_supplemental_cli_profile() failed. Didn't find the delete button!"
+                        self.common_validation.fault(**kwargs)
                         return -1
 
             if not found_scli:
@@ -1106,26 +1155,20 @@ class CommonObjects(object):
                             self.auto_actions.click(next_page_button)
                             current_page += 1
                         else:
-                            self.utils.print_info("Did not manage to find the next page button")
-                            kwargs['fail_msg'] = "Did not manage to find the next page button"
-                            self.screen.save_screen_shot()
-                            self.common_validation.validate(-1, 1, **kwargs)
+                            kwargs['fail_msg'] = "delete_supplemental_cli_profile() failed." \
+                                                 "Did not manage to find the next page button"
+                            self.common_validation.fault(**kwargs)
                             return -1
                     else:
-                        self.utils.print_info("Did not find next page button!")
-                        kwargs['fail_msg'] = "Did not find next page button!"
-                        self.screen.save_screen_shot()
-                        self.common_validation.validate(-1, 1, **kwargs)
+                        kwargs['fail_msg'] = "delete_supplemental_cli_profile() failed. Did not find next page button!"
+                        self.common_validation.fault(**kwargs)
                         return -1
                 else:
                     self.utils.print_info("This is the last page: ", str(current_page))
-                    self.utils.print_info(f"Checked all {current_page} pages for Supplemental Cli Profile: "
-                                          f"{supplemental_cli_name} ;"
-                                          f"It was already deleted or it hasn't been created yet!")
                     kwargs['pass_msg'] = f"Checked all {current_page} pages for Supplemental Cli Profile: " \
                                          f"{supplemental_cli_name} ;" \
                                          f"It was already deleted or it hasn't been created yet!"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return 1
 
     def _get_switch_template_row(self, search_string):
@@ -1144,7 +1187,7 @@ class CommonObjects(object):
         else:
             self.utils.print_info("No rows found")
 
-        self.utils.print_info(f"common object row '{search_string}' not present")
+        self.utils.print_info(f"Common object row '{search_string}' not present")
         return False
 
     def _select_switch_template_row(self, search_string):
@@ -1181,12 +1224,12 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
         sleep(5)
 
-    def create_open_ssid_in_common_objects(self, ssid_name):
+    def create_open_ssid_in_common_objects(self, ssid_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Create Open SSID from the ssid grid
         - Keyword Usage:
-         - ``Create Open SSID In Common Objects  ${SSID_NAME}``
+        - ``Create Open SSID In Common Objects  ${SSID_NAME}``
 
         :param ssid_name: Name of the ssid_name
         :return: 1 if Created Open SSID Successfully else -1
@@ -1195,7 +1238,8 @@ class CommonObjects(object):
         sleep(5)
 
         if self._search_common_object(ssid_name):
-            self.utils.print_info(f"SSID Name {ssid_name} already exists in the list")
+            kwargs['pass_msg'] = f"SSID Name {ssid_name} already exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.screen.save_screen_shot()
@@ -1221,7 +1265,7 @@ class CommonObjects(object):
         self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
         self.screen.save_screen_shot()
         sleep(2)
-        
+
         #Commented due to getting mismatch error in xpath once xpath gets updated it will used
         # sleep(5)
         # tool_tp_text = tool_tip.tool_tip_text
@@ -1235,18 +1279,20 @@ class CommonObjects(object):
         # return -1
 
         if self._search_common_object(ssid_name):
-            self.utils.print_info(f"SSID Name {ssid_name} created")
+            kwargs['pass_msg'] = f"SSID Name {ssid_name} created"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info(" SSID Name is not created")
+            kwargs['fail_msg'] = "create_open_ssid_in_common_objects() failed. SSID Name is not created"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def clone_open_ssid_in_common_objects(self, ssid_name, clone_ssid_name):
+    def clone_open_ssid_in_common_objects(self, ssid_name, clone_ssid_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Clone Open SSID from the Existing ssid grid
         - Keyword Usage:
-         - ``Clone Open SSID In Common Objects  ${SSID_NAME}  ${CLONE_SSID_NAME}``
+        - ``Clone Open SSID In Common Objects  ${SSID_NAME}  ${CLONE_SSID_NAME}``
 
         :param ssid_name: Copy of SSID to clone
         :param clone_ssid_name: Clone SSID name
@@ -1257,7 +1303,9 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            self.utils.print_info(f"SSID Name {ssid_name} doesn't exist in the list to clone")
+            kwargs['fail_msg'] = f"clone_open_ssid_in_common_objects() failed. " \
+                                 f"SSID Name {ssid_name} doesn't exist in the list to clone"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self._select_common_object_row(ssid_name)
@@ -1283,15 +1331,20 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "The item was copied successfully." in value:
+                kwargs['pass_msg'] = "The item was copied successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
+
+        kwargs['fail_msg'] = "clone_open_ssid_in_common_objects() failed. Failed to clone Open SSID"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def create_radio_profile(self, profile_name, radio_mode, dfs=False):
+    def create_radio_profile(self, profile_name, radio_mode, dfs=False, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy -->Radio Profile
         - Create Radio profile from the radio grid
         - Keyword Usage:
-         - ``Create Radio Profile        ${RADIO_PROFILE_NAME}       ${RADIO_MODE}``
+        - ``Create Radio Profile        ${RADIO_PROFILE_NAME}       ${RADIO_MODE}``
 
         :param profile_name: Name of the Radio profile
         :param radio_mode : Select the radio mode ("ax (5GHz)" or "ax (2.4GHz)" or  "ac" or  "a/n")
@@ -1310,7 +1363,8 @@ class CommonObjects(object):
             sleep(2)
 
         if self._search_common_object(profile_name):
-            self.utils.print_info("Radio profile ", profile_name, " already exists in the list")
+            kwargs['pass_msg'] = f"Radio profile ", profile_name, " already exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Click on Add profile Button")
@@ -1351,11 +1405,18 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "Radio profile was saved successfully." in value:
+                kwargs['pass_msg'] = "Radio profile was saved successfully."
+                self.common_validation.passed(**kwargs)
                 return 1
             elif "Radio profile cannot be saved" in value:
-                return -2
+                kwargs['fail_msg'] = "create_radio_profile() failed. Radio profile cannot be saved"
+                self.common_validation.fault(**kwargs)
+                return -1
+
+        kwargs['fail_msg'] = "create_radio_profile() failed. Failed to create radio profile"
+        self.common_validation.failed(**kwargs)
         return -1
- 
+
     def add_ap_template_from_common_object(self, ap_model, ap_template_name, **wifi_interface_config):
         """"
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
@@ -1363,7 +1424,7 @@ class CommonObjects(object):
         - Checking the AP template presence in the AP Templates Grid
         - If it is not there add New AP Template
         - Keyword Usage
-         - ``Add AP Template From Common Object   ${AP_MODEL}   ${AP_TEMPLATE_NAME}     &{AP_TEMPLATE_CONFIG}``
+        - ``Add AP Template From Common Object   ${AP_MODEL}   ${AP_TEMPLATE_NAME}     &{AP_TEMPLATE_CONFIG}``
 
         :param ap_model: Model of the AP like AP630, AP410C etc
         :param ap_template_name: AP Template Name ie AP630-TEMPLATE,AP410C-TEMPLATE etc
@@ -1384,7 +1445,8 @@ class CommonObjects(object):
             sleep(2)
 
         if self._search_common_object_template(ap_template_name):
-            self.utils.print_info("AP Template Name already exists in the list")
+            wifi_interface_config['pass_msg'] = "AP Template Name already exists in the list"
+            self.common_validation.passed(**wifi_interface_config)
             return 1
 
         self.utils.print_info("Click on AP Template add button")
@@ -1434,8 +1496,12 @@ class CommonObjects(object):
         strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
         self.utils.print_info("Tool tip Text ap template", strings_with_substring)
         if "AP template was saved successfully" in str(strings_with_substring):
+            wifi_interface_config['pass_msg'] = "AP template was saved successfully"
+            self.common_validation.passed(**wifi_interface_config)
             return 1
         else:
+            wifi_interface_config['fail_msg'] = "add_ap_template_from_common_object() failed. Failed to add AP template"
+            self.common_validation.failed(**wifi_interface_config)
             return -1
 
     def get_ap_template_wifi(self, ap_template_name, **wifi_interface_config):
@@ -1490,8 +1556,8 @@ class CommonObjects(object):
             return wifi_interface_config
 
         except Exception as e:
-            self.common_validation.failed(**wifi_interface_config)
-            self.utils.print_info(f'Actual error is :- {e}')
+            wifi_interface_config['fail_msg'] = f"get_ap_template_wifi() failed. Actual error is :- {e}"
+            self.common_validation.fault(**wifi_interface_config)
             return -1
 
     def set_ap_template_wifi(self, ap_template_name, **wifi_interface_config):
@@ -1550,9 +1616,11 @@ class CommonObjects(object):
         strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
         self.utils.print_info("Tool tip Text ap template", strings_with_substring)
         if "AP template was saved successfully" in str(strings_with_substring):
+            wifi_interface_config['pass_msg'] = "AP template was saved successfully"
             self.common_validation.passed(**wifi_interface_config)
             return 1
         else:
+            wifi_interface_config['fail_msg'] = "set_ap_template_wifi() failed. Failed to set AP template"
             self.common_validation.failed(**wifi_interface_config)
             return -1
 
@@ -1600,7 +1668,7 @@ class CommonObjects(object):
                     if not self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected():
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_mesh_link())
                 else:
-                   if self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected():
+                    if self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected():
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_mesh_link())
 
             if sensor_status_wifi0 != 'None':
@@ -1622,9 +1690,9 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_enable_sdr())
 
         except Exception as e:
-            self.utils.print_info(f'Actual error is :- {e}')
+            wifi0_profile['fail_msg'] = f"_set_ap_template_wifi0() failed. Actual error is :- {e}"
+            self.common_validation.fault(**wifi0_profile)
             return -1
-
         return 1
 
     def _set_ap_template_wifi1(self, **wifi1_profile):
@@ -1684,9 +1752,9 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor())
 
         except Exception as e:
-            self.utils.print_info(f'Actual error is :- {e}')
+            wifi1_profile['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
+            self.common_validation.fault(**wifi1_profile)
             return -1
-
         return 1
 
     def _set_ap_template_wifi2(self, **wifi2_profile):
@@ -1735,9 +1803,9 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor())
 
         except Exception as e:
-            self.utils.print_info(f'Actual error is :- {e}')
+            wifi2_profile['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
+            self.common_validation.fault(**wifi2_profile)
             return -1
-
         return 1
 
     def _get_ap_template_wifi0(self, **wifi0_profile):
@@ -1903,7 +1971,7 @@ class CommonObjects(object):
         """
         - Configure the WIFI0 configuration on AP Template
         - Keyword Usage
-         - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
+        - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
 
         :param wifi0_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi0 Profile Configured Successfully else None
@@ -2030,7 +2098,7 @@ class CommonObjects(object):
         """
         - Configure the WIFI1 configuration on AP Template
         - Keyword Usage
-         - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
+        - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
 
         :param wifi1_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi1 Profile Configured Successfully else None
@@ -2176,7 +2244,7 @@ class CommonObjects(object):
             if self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_mesh_link())
 
-        """ 
+        """
         ##### APC-44337 UI Changes #####
         adsp_primary_server_ip = wifi2_profile.get('primary_server_ip', '1.1.1.1')
         adsp_primary_server_port = wifi2_profile.get('primary_server_port', '11')
@@ -2272,19 +2340,20 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_cdp_eth1())
         except Exception as e:
             self.utils.print_info("Requested ethernet does not exist for this model of AP")
-            self.utils.print_info(f'Actual error is :- {e}')
-            return 1
+            wired_profile['fail_msg'] = f"_config_ap_template_wired() failed. Actual error is :- {e}"
+            self.common_validation.fault(**wired_profile)
+            return -1
 
         self.screen.save_screen_shot()
         self.auto_actions.scroll_up()
         return 1
 
-    def check_ap_template_in_common_object(self, ap_template_name):
+    def check_ap_template_in_common_object(self, ap_template_name, **kwargs):
         """"
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
         - Checking the AP template presence in the AP Templates Grid
         - Keyword Usage
-         - ``Check AP Template In Common Object   ${AP_TEMPLATE_NAME}``
+        - ``Check AP Template In Common Object   ${AP_TEMPLATE_NAME}``
 
         :param ap_template_name: AP Template Name ie AP630-TEMPLATE,AP410C-TEMPLATE etc
         :return: 1 if AP Template Found else -1
@@ -2300,19 +2369,22 @@ class CommonObjects(object):
             self.auto_actions.click(self.cobj_web_elements.get_common_object_policy_ap_templates_view_all_pages())
 
         if self._search_common_object_template(ap_template_name):
-            self.utils.print_info(f"AP Template {ap_template_name} found in the CommonObject")
+            kwargs['pass_msg'] = f"AP Template {ap_template_name} found in the CommonObject"
+            self.common_validation.passed(**kwargs)
             return 1
 
         else:
-            self.utils.print_info(f"AP Template {ap_template_name} not found in the CommonObject")
+            kwargs['fail_msg'] = f"check_ap_template_in_common_object() failed. " \
+                                 f"AP Template {ap_template_name} not found in the CommonObject"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def delete_ap_templates(self, *templates):
+    def delete_ap_templates(self, *templates, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy --> AP Templates
         - Delete Templates from Template grid
         - Keyword Usage:
-         - ``Delete AP Templates  ${Template1}  ${Template2}  ${Template3}``
+        - ``Delete AP Templates  ${Template1}  ${Template2}  ${Template3}``
 
         :param templates: (list) list of template's to delete
         :return: 1 if deleted else -1
@@ -2330,9 +2402,11 @@ class CommonObjects(object):
                 self._select_common_object_template_row(template)
                 select_template_flag = True
             else:
-                self.utils.print_info(f"Template {template} does't exists in the list")
+                self.utils.print_info(f"Template {template} doesn't exist in the list")
 
         if not select_template_flag:
+            kwargs['pass_msg'] = f"Template {template} doesn't exist in the list"
+            self.common_validation.passed(**kwargs)
             return 1
         self._delete_common_objects()
 
@@ -2340,17 +2414,25 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
 
         if "Template was deleted successfully." in tool_tp_text[-1]:
+            kwargs['pass_msg'] = "Template was deleted successfully."
+            self.common_validation.passed(**kwargs)
             return 1
         elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
+            kwargs['fail_msg'] = "delete_ap_templates() failed. " \
+                                 "The Device Template cannot be removed because it is used by another object"
+            self.common_validation.fault(**kwargs)
             return -1
-        return -2
 
-    def delete_all_ap_templates(self):
+        kwargs['fail_msg'] = "delete_ap_templates() failed. Failed to delete AP templates"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def delete_all_ap_templates(self, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy --> AP Templates
         - Delete All ap templates except default template from Template grid
         - Keyword Usage:
-         - ``Delete All AP Templates``
+        - ``Delete All AP Templates``
         :return: 1 if deleted else -1
         """
         self.utils.print_info("Navigate to Configure->Common Objects->Policy->AP Template.")
@@ -2362,7 +2444,8 @@ class CommonObjects(object):
         self.utils.print_info("Getting common object rows")
         rows = self.cobj_web_elements.get_common_object_grid_rows()
         if not rows:
-            self.utils.print_info("row(s) not present in the grid")
+            kwargs['pass_msg'] = "Row(s) not present in the grid"
+            self.common_validation.passed(**kwargs)
             return 1
 
         select_template_flag = None
@@ -2382,23 +2465,29 @@ class CommonObjects(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
         if 'Template was successfully removed from policy.' in tool_tp_text:
+            kwargs['pass_msg'] = "Template was successfully removed from policy."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "delete_all_ap_templates() failed. Failed to delete all ap templates"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def delete_all_client_mode_profiles(self):
+    def delete_all_client_mode_profiles(self, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Basic --> Client Mode Profiles
         - Delete all client mode profiles from Client Mode Profiles grid
         - Keyword Usage:
-         - ``Delete All Client Mode Profiles``
+        - ``Delete All Client Mode Profiles``
+
         :return: 1 if deleted else -1
         """
         self.utils.print_info("Navigate to Configure->Common Objects-> Basic->Client Mode Profiles.")
         self.navigator.navigate_to_client_mode_profiles()
         rows = self.cobj_web_elements.get_common_object_basic_client_mode_profiles_grid_rows_all()
         if not rows:
-            self.utils.print_info("Client Mode Profile(s) not present in the grid")
+            kwargs['pass_msg'] = "Client Mode Profile(s) not present in the grid"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             try:
@@ -2412,39 +2501,43 @@ class CommonObjects(object):
                 sleep(2)
                 self.screen.save_screen_shot()
 
+                kwargs['pass_msg'] = "Successfully deleted all client mode profiles"
+                self.common_validation.passed(**kwargs)
                 return 1
             except Exception as e:
-                self.screen.save_screen_shot()
-                self.utils.print_info("Unable to delete Client Mode Profiles")
+                kwargs['fail_msg'] = "delete_all_client_mode_profiles() failed. Unable to delete Client Mode Profiles"
+                self.common_validation.fault(**kwargs)
                 return -1
 
     def radio_phy_mode_fiveghz(self, model):
-            """
-                - Flow: Configure --> Common Objects --> Policy -->Radio Profile
-                - Map the Radio phy mode based on the AP
-                - Keyword Usage:
-                - ``${RADIO_MODE}      Radio Phy Mode Fiveghz      ${AP1_MODEL}``
-                - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}   True``
-                :param model: Name of the model being used our Test
-                :return: Radio phy mode based on AP model ("ax (5GHz)" or  "ac" )
-            """
-            AP = "AP150W", "AP250", "AP30", "AP122", "AP245X", "AP230", "AP1130"
-            if model in AP:
-                self.utils.print_info("DUT model is : ", model, ". So Picked phy_mode as 11AC")
-                return "ac"
-            else:
-                self.utils.print_info("DUT model is : ", model, ". So Picked phy_mode as 11AX")
-                return "ax (5GHz)"
+        """
+        - Flow: Configure --> Common Objects --> Policy --> Radio Profile
+        - Map the Radio phy mode based on the AP
+        - Keyword Usage:
+        - ``${RADIO_MODE}      Radio Phy Mode Fiveghz      ${AP1_MODEL}``
+        - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}   True``
+
+        :param model: Name of the model being used our Test
+        :return: Radio phy mode based on AP model ("ax (5GHz)" or  "ac" )
+        """
+        AP = "AP150W", "AP250", "AP30", "AP122", "AP245X", "AP230", "AP1130"
+        if model in AP:
+            self.utils.print_info("DUT model is : ", model, ". So Picked phy_mode as 11AC")
+            return "ac"
+        else:
+            self.utils.print_info("DUT model is : ", model, ". So Picked phy_mode as 11AX")
+            return "ax (5GHz)"
 
     def radio_phy_mode_twoghz(self, model):
         """
-            - Flow: Configure --> Common Objects --> Policy -->Radio Profile
-            - Map the Radio phy mode based on the AP
-            - Keyword Usage:
-             - ``${RADIO_MODE}      Radio Phy Mode Twoghz      ${AP1_MODEL}``
-             - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}``
-            :param model: Name of the model being used our Test
-            :return: Radio phy mode based on AP model ("ax (2.4GHz)" or "g/n")
+        - Flow: Configure --> Common Objects --> Policy -->Radio Profile
+        - Map the Radio phy mode based on the AP
+        - Keyword Usage:
+        - ``${RADIO_MODE}      Radio Phy Mode Twoghz      ${AP1_MODEL}``
+        - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}``
+
+        :param model: Name of the model being used our Test
+        :return: Radio phy mode based on AP model ("ax (2.4GHz)" or "g/n")
         """
         AP = "AP150W", "AP250", "AP30", "AP122", "AP245X", "AP230", "AP1130"
         if model in AP:
@@ -2454,14 +2547,14 @@ class CommonObjects(object):
             self.utils.print_info("DUT model is : ", model, ". So Picked phy_mode as 11AX")
             return "ax (2.4GHz)"
 
-    def add_imago_tag_profile(self, profile_name, server='', channel='', fcc_mode=True, server_port='default'):
+    def add_imago_tag_profile(self, profile_name, server='', channel='', fcc_mode=True, server_port='default', **kwargs):
         """
         - This keyword will create image Tag profile under Common Objects.
         - Flow: Configure --> Common Objects --> Policy -->ImagoTag Profiles
         - Keyword Usage:
-         - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}``
-         - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL} server_port=${PORT}``
-         - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
+        - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}``
+        - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL} server_port=${PORT}``
+        - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
 
         :param profile_name: Imago Tag Profile name
         :param channel: Channel Number
@@ -2533,20 +2626,25 @@ class CommonObjects(object):
         if rows:
             for row in rows:
                 if profile_name in row.text:
-                    self.utils.print_info(f"Found Imago Tag Profile {profile_name} Row in the Grid")
+                    kwargs['pass_msg'] = f"Found Imago Tag Profile {profile_name} Row in the Grid"
+                    self.common_validation.passed(**kwargs)
                     return 1
-            self.utils.print_info(f"Did not find Imago Tag Profile {profile_name} Configured")
+
+            kwargs['fail_msg'] = f"add_imago_tag_profile() failed. " \
+                                 f"Did not find Imago Tag Profile {profile_name} Configured"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
-            self.utils.print_info(f"Did not find any Imago Tag Profile Rows")
+            kwargs['fail_msg'] = "add_imago_tag_profile() failed. Did not find any Imago Tag Profile Rows"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def delete_imago_tag_profile(self, profile_name):
+    def delete_imago_tag_profile(self, profile_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy -->Imago Tag Profile
         - Delete specified Imago Tag Profile from the Imago Tag Profile grid
         - Keyword Usage:
-         - ``Delete Imago Tag Profile  ${PROFILE_NAME}``
+        - ``Delete Imago Tag Profile  ${PROFILE_NAME}``
         :param profile_name: Image Tag Profile Name
         :return: 1 if deleted else -1
         """
@@ -2564,20 +2662,23 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
 
         if "Successfully Deleted the ImagoTag Policy" in tool_tp_text[-1]:
+            kwargs['pass_msg'] = "Successfully Deleted the ImagoTag Policy"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to Delete Image Tag Policy")
+            kwargs['fail_msg'] = "delete_imago_tag_profile() failed. Unable to Delete Image Tag Policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def edit_imago_tag_profile(self, profile_name, server='', channel='', fcc_mode=True, server_port=''):
+    def edit_imago_tag_profile(self, profile_name, server='', channel='', fcc_mode=True, server_port='', **kwargs):
         """
         - This keyword will Edit Existing image Tag profile under Common Objects.
         - Flow: Configure --> Common Objects --> Policy -->Select ImagoTag Profile --> Edit
         - Keyword Usage:
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER}``
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  channel=${CHANNEL}``
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  server_port=${SERVER_PORT}``
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER}``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  channel=${CHANNEL}``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  server_port=${SERVER_PORT}``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
 
         :param profile_name: Imago Tag Profile name
         :param channel: Channel Number
@@ -2608,7 +2709,8 @@ class CommonObjects(object):
                     self.screen.save_screen_shot()
                     sleep(2)
         else:
-            self.utils.print_info(f"Imago Tag Profile Rows Not Found on Grid")
+            kwargs['fail_msg'] = "edit_imago_tag_profile() failed. Imago Tag Profile Rows Not Found on Grid"
+            self.common_validation.fault(**kwargs)
             return -1
 
         if server:
@@ -2656,20 +2758,23 @@ class CommonObjects(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        if "Succesfully Updated" in tool_tp_text[-1]:
+        if "Successfully Updated" in tool_tp_text[-1]:
+            kwargs['pass_msg'] = "Successfully Updated"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to Edit Image Tag Policy Successfully")
+            kwargs['fail_msg'] = "edit_imago_tag_profile() failed. Unable to Edit Image Tag Policy successfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def create_ip_firewall_policy_for_applications(self, policy_name, application='', source_ip='Any',
-                                                   destination_ip='Any', action='Permit'):
+                                                   destination_ip='Any', action='Permit', **kwargs):
         """
-         - This Keyword will Create IP Firewall Policy for Application Access.
-         - Flow: Configure --> Common Objects --> Security -->IP Firewall Policies --> Add
-         - Keyword Usage:
-          - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME}  action=${ACTION}``
-          - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME1},${APP_NAME2}
+        - This Keyword will Create IP Firewall Policy for Application Access.
+        - Flow: Configure --> Common Objects --> Security -->IP Firewall Policies --> Add
+        - Keyword Usage:
+        - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME}  action=${ACTION}``
+        - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME1},${APP_NAME2}
           action=${ACTION}``
 
         :param policy_name: IP Firewall Policy Name
@@ -2745,18 +2850,21 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
 
         if "IP firewall policy was saved successfully." in tool_tp_text[-1]:
-            self.utils.print_info("Successfully Created IP firewall policy with Mentioned Application/Applications")
+            kwargs['pass_msg'] = "Successfully Created IP firewall policy with Mentioned Application/Applications"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable Create IP firewall policy with Application")
+            kwargs['fail_msg'] = "create_ip_firewall_policy_for_applications() failed. " \
+                                 "Unable Create IP firewall policy with Application"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def select_ip_firewall_policy_for_new_user_profile(self, user_profile_name='', firewall_policy_name=''):
+    def select_ip_firewall_policy_for_new_user_profile(self, user_profile_name='', firewall_policy_name='', **kwargs):
         """
         - This Keyword will Select Configured IP Firewall Policy Under New User Profile.
         - Flow: Configure --> Common Objects --> Policy --> User Profiles
-         - Keyword Usage:
-          - ``Select IP Firewall Policy For New User Profile   user_profile_name=${PROFILE_NAME}
+        - Keyword Usage:
+        - ``Select IP Firewall Policy For New User Profile   user_profile_name=${PROFILE_NAME}
           firewall_policy_name=${FW_POLICY_NAME}``
 
         :param user_profile_name: User Profile Name
@@ -2793,11 +2901,11 @@ class CommonObjects(object):
 
         fw_policy_rows = self.cobj_web_elements.get_firewall_policy_select_dialog_rows()
         if not fw_policy_rows:
-            self.utils.print_info(
-                "Firewall Policy: {} doesn't exist, Please create it".format(firewall_policy_name))
             self.auto_actions.click(self.cobj_web_elements.get_firewall_policy_select_dialog_cancel_button())
-            self.screen.save_screen_shot()
             sleep(2)
+            kwargs['fail_msg'] = f"select_ip_firewall_policy_for_new_user_profile() failed." \
+                                 f"Firewall Policy: {firewall_policy_name} doesn't exist"
+            self.common_validation.fault(**kwargs)
             return -1
 
         for row in fw_policy_rows:
@@ -2821,18 +2929,21 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
 
         if "User profile was saved successfully." in tool_tp_text[-1]:
-            self.utils.print_info("Successfully Selected IP firewall policy Under New User Profile")
+            kwargs['pass_msg'] = "Successfully Selected IP firewall policy Under New User Profile"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable Select IP firewall policy Under New User Profile")
+            kwargs['fail_msg'] = "select_ip_firewall_policy_for_new_user_profile() failed. " \
+                                 "Unable to select IP firewall policy Under New User Profile"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def delete_management_options(self, management_options_name):
+    def delete_management_options(self, management_options_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Network -->Management Options-->Delete Management Option Name
         - Delete specified Management Options Name from the Management Options Grid
         - Keyword Usage:
-         - ``Delete Management Options  ${NAME}``
+        - ``Delete Management Options  ${NAME}``
         :param management_options_name: Management Options Name
         :return: 1 if deleted else -1
         """
@@ -2850,17 +2961,21 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
 
         if "Management options were deleted successfully" in tool_tp_text[-1]:
+            kwargs['pass_msg'] = "Management options were deleted successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to Delete Management options")
+            kwargs['fail_msg'] = "delete_management_options() failed. Unable to Delete Management options"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def add_network_management_options(self,  option_name="management_option_1", enable_legacy_http_redirect="True"):
+    def add_network_management_options(self,  option_name="management_option_1", enable_legacy_http_redirect="True", **kwargs):
         """
         - Adds new network management option(s)
-        -Flow: Configure --> Common Objects --> Network -->Management Options
-           - Keyword Usage:
-            - ``Add Network Management Options``
+        - Flow: Configure --> Common Objects --> Network -->Management Options
+        - Keyword Usage:
+        - ``Add Network Management Options``
+
         :param option_name : name of the management option
         :param enable_legacy_http_redirect: determines if enable legacy http redirect should be clicked or not
         :return: 1
@@ -2884,29 +2999,38 @@ class CommonObjects(object):
                     if enable_legacy_http_redirect_checkbox:
                         self.auto_actions.click(enable_legacy_http_redirect_checkbox)
                     else:
-                        self.utils.print_info("Unable to enable legacy http redirect")
+                        kwargs['fail_msg'] = "add_network_management_options() failed. " \
+                                             "Unable to enable legacy http redirect"
+                        self.common_validation.fault(**kwargs)
                         return -1
                 self.utils.print_info("Saving configuration")
                 save_button = self.network_management_options_elements.get_save_button()
                 if save_button:
                     self.auto_actions.click(save_button)
+                    kwargs['pass_msg'] = "Added new network management option(s)"
+                    self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    self.utils.print_info("Unable save configuration")
+                    kwargs['fail_msg'] = "add_network_management_options() failed. Unable to save configuration"
+                    self.common_validation.fault(**kwargs)
                     return -1
             else:
-                self.utils.print_info("Unable to set  Name field for new Add Management Options Entry")
+                kwargs['fail_msg'] = "add_network_management_options() failed. " \
+                                     "Unable to set  Name field for new Add Management Options Entry"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Unable to click on the Add Management Options Button")
-        return 1
+            kwargs['fail_msg'] = "add_network_management_options() failed. " \
+                                 "Unable to click on the Add Management Options Button"
+            self.common_validation.fault(**kwargs)
+            return -1
 
-    def delete_user_profile(self, profile="user004"):
+    def delete_user_profile(self, profile="user004", **kwargs):
         """
         - It deletes user profile
-        -Flow: Configure --> Common Objects --> User Profile
-           - Keyword Usage:
-            - ``Delete User Profile       profile=${PROFILE}``
+        - Flow: Configure --> Common Objects --> User Profile
+        - Keyword Usage:
+        - ``Delete User Profile       profile=${PROFILE}``
 
         :param profile : profile name
         :return: 1
@@ -2938,31 +3062,43 @@ class CommonObjects(object):
                             confirm_yes = self.user_profile_web_elements.get_user_profile_confirm_delete_yes()
                             if confirm_yes:
                                 self.auto_actions.click(confirm_yes)
+                                kwargs['pass_msg'] = "Clicked yes to delete user profile"
+                                self.common_validation.passed(**kwargs)
                                 return 1
                             else:
-                                self.utils.print_info("Unable to click yes on the confirm delete popup")
+                                kwargs['fail_msg'] = "delete_user_profile() failed." \
+                                                     "Unable to click yes on the confirm delete popup"
+                                self.common_validation.fault(**kwargs)
                                 return -1
                         else:
-                            self.utils.print_info("Unable to click the delete button")
+                            kwargs['fail_msg'] = "delete_user_profile() failed. Unable to click the delete button"
+                            self.common_validation.fault(**kwargs)
                             return -1
                     else:
-                        self.utils.print_info("Unable to select the row")
+                        kwargs['fail_msg'] = "delete_user_profile() failed. Unable to select the row"
+                        self.common_validation.fault(**kwargs)
                         return -1
 
             if not profile_was_located:
-                self.utils.print_info("Profile " + profile + "was NOT found")
+                kwargs['fail_msg'] = f"delete_user_profile() failed. Profile {profile} was NOT found"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Unable to gather user profiles")
+            kwargs['fail_msg'] = f"delete_user_profile() failed. Unable to gather user profiles"
+            self.common_validation.fault(**kwargs)
             return -1
+
+        kwargs['fail_msg'] = "delete_user_profile() failed. Failed to delete user profile"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def delete_all_user_profiles(self, **kwargs):
         """
         - It deletes all user profiles
-        -Flow: Configure --> Common Objects --> User Profile
-           - Keyword Usage:
-            - ``Delete All User Profiles``
+        - Flow: Configure --> Common Objects --> User Profile
+        - Keyword Usage:
+        - ``Delete All User Profiles``
+
         :return: 1 if successfully created else -1
         """
         exclude_list = ['default-profile', 'default-guest-profile']
@@ -2982,19 +3118,21 @@ class CommonObjects(object):
             sleep(3)
             self.utils.print_info("Clicking yes on the confirm delete popup")
             self.auto_actions.click_reference(self.user_profile_web_elements.get_user_profile_confirm_delete_yes)
+
+            kwargs['pass_msg'] = "Deleted all user profiles"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "Unable to gather user profiles"
-            self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
 
-    def delete_ip_firewall_policy(self, ip_firewall_policy_name):
+    def delete_ip_firewall_policy(self, ip_firewall_policy_name, **kwargs):
         """
         - Delete specified IP Firewall Policy Name from the Grid
         - Keyword Usage:
         - Flow: Flow: Configure --> Common Objects --> Security -->IP Firewall Policies
-         - ``Delete Ip Firewall Policy  ${NAME}``
+        - ``Delete Ip Firewall Policy  ${NAME}``
         :param ip_firewall_policy_name: IP Firewall Policy Name
         :return: 1 if deleted else -1
         """
@@ -3008,17 +3146,22 @@ class CommonObjects(object):
         sleep(2)
 
         if "IP firewall policy was deleted successfully" in tool_tp_text[-1]:
+            kwargs['pass_msg'] = "IP firewall policy was deleted successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info(f"Unable to Delete IP Firewall Policy {ip_firewall_policy_name}")
+            kwargs['fail_msg'] = f"delete_ip_firewall_policy() failed. " \
+                                 f"Unable to Delete IP Firewall Policy {ip_firewall_policy_name}"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def add_ip_object_hostname_with_ip_or_hostname(self, name, type, global_item, *classify_items):
+    def add_ip_object_hostname_with_ip_or_hostname(self, name, type, global_item, *classify_items, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with IP Address
         - Create ip object profile with ip address
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP or Hostname     ${name}     ${type}     ${global_item}    @{classify_items}``
+        - ``Add IP Object Hostname With IP or Hostname     ${name}     ${type}     ${global_item}    @{classify_items}``
+
         :param name: The profile name
         :param type: "IP Address", or "Host Name", or "Wildcard Host Name"
         :param global_item:   Unclassified IP address, or unclassified Hostname, or unclassified wildcard hostname
@@ -3026,7 +3169,7 @@ class CommonObjects(object):
         :return: success return 1 else return -1
         """
         if not self.cobj_web_elements.get_ip_object_hostname_page():
-            self.utils.print_info("Not in IP Object mangement page, need navigate to the page first.")
+            self.utils.print_info("Not in IP Object management page, need navigate to the page first.")
             self.navigate_to_basic_ip_object_hostname()
         else:
             self.utils.print_info("Already in IP Object management page, go ahead for next steps ...")
@@ -3053,7 +3196,11 @@ class CommonObjects(object):
                 if classified_items == -1:
                     self.utils.print_info("Click SAVE button to save IP Object profile ...")
                     self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+
+                kwargs['pass_msg'] = "Added IP Object with IP Address"
+                self.common_validation.passed(**kwargs)
                 return 1
+
             elif type == "Host Name":
                 self._ip_object_hostname_choose_type(type)
                 self.utils.print_info(f"Add ip object name: {name} ...")
@@ -3066,7 +3213,11 @@ class CommonObjects(object):
                 if classified_items == -1:
                     self.utils.print_info("Click SAVE button to save IP Object profile ...")
                     self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+
+                kwargs['pass_msg'] = "Added IP Object with Hostname"
+                self.common_validation.passed(**kwargs)
                 return 1
+
             elif type == "Wildcard Host Name":
                 self._ip_object_hostname_choose_type(type)
                 self.utils.print_info(f"Add ip object name: {name} ...")
@@ -3078,18 +3229,27 @@ class CommonObjects(object):
                 if classified_items == -1:
                     self.utils.print_info("Click SAVE button to save IP Object profile ...")
                     self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+
+                kwargs['pass_msg'] = "Added IP Object with Wildcard Host Name"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
+                kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_or_hostname() failed." \
+                                     "Failed to add IP Object with IP or Host Name"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_or_hostname() failed. Add button didn't found"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def add_ip_object_hostname_with_ip_network(self, name, type, global_network, netmask, *classify_network):
+    def add_ip_object_hostname_with_ip_network(self, name, type, global_network, netmask, *classify_network, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with Networks
         - Create ip object profile with ip networks
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP Network    ${name}     ${type}     ${global_network}     ${netmask}    @{classify_network}``
+        - ``Add IP Object Hostname With IP Network    ${name}     ${type}     ${global_network}     ${netmask}    @{classify_network}``
+
         :param name: The profile name
         :param type: "Network", or "Wildcard"
         :param global_network:   Unclassified Network, or unclassified Wildcard network
@@ -3125,6 +3285,9 @@ class CommonObjects(object):
                 if classified_items == -1:
                     self.utils.print_info("Click SAVE button to save IP Object profile ...")
                     self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+
+                kwargs['pass_msg'] = "Added IP Object with IP Network"
+                self.common_validation.passed(**kwargs)
                 return 1
             elif type == "Wildcard":
                 self._ip_object_hostname_choose_type(type)
@@ -3137,26 +3300,34 @@ class CommonObjects(object):
                 if classified_items == -1:
                     self.utils.print_info("Click SAVE button to save IP Object profile ...")
                     self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+
+                kwargs['pass_msg'] = "Added IP Object with IP Wildcard"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
+                kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_network() failed." \
+                                     "Failed to add IP Object with IP Network"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_network() failed. Add button didn't found"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def add_ip_object_hostname_with_ip_range(self, name, global_range_start, ip_range_gap, *classify_range_start):
+    def add_ip_object_hostname_with_ip_range(self, name, global_range_start, ip_range_gap, *classify_range_start, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with IP Range
         - Create ip object profile with IP Range
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP Range    ${name}     ${global_range_start}       ${ip_range_gap}     @{classify_range_start}``
+        - ``Add IP Object Hostname With IP Range    ${name}     ${global_range_start}       ${ip_range_gap}     @{classify_range_start}``
 
         :param name: The profile name
         :param global_range_start: The unclassified start IP address
         :param ip_range_gap:
-            - The gap flag between start IP and end IP.
-            - For example:
-            - start IP is 192.168.1.1, the gap is 00, and the end IP is 192.168.1.100
-            - end IP = string "192.168.1.1" + string "00" = string "192.168.1.100"
+            The gap flag between start IP and end IP.
+            For example:
+            start IP is 192.168.1.1, the gap is 00, and the end IP is 192.168.1.100
+            end IP = string "192.168.1.1" + string "00" = string "192.168.1.100"
         :param classify_range_start:    Classified start IP list
         :return: success return 1
         """
@@ -3188,15 +3359,20 @@ class CommonObjects(object):
             if classified_items == -1:
                 self.utils.print_info("Click SAVE button to save IP Object profile ...")
                 self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
+
+            kwargs['pass_msg'] = "Added IP Object Hostname With IP Range"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_range() failed. Add button didn't found"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def _ip_object_hostname_choose_type(self, object_type):
         """
         - It is internal function for choose object type
         - Flow: IP Object creating page --> Click drop down of object type --> Select the type
-        :param object_type: The tyoe of IP Object profile
+        :param object_type: The type of IP Object profile
         :return: success return 1 else return -1
         """
         self.utils.print_info("Click on ip object type drop down")
@@ -3205,6 +3381,7 @@ class CommonObjects(object):
         self.utils.print_info(f"The object type is: {object_type} ...")
         type_choose_result = self.auto_actions.select_drop_down_options(object_types, object_type)
         if type_choose_result:
+            self.utils.print_info("Successfully choose ip object")
             return 1
         else:
             return -1
@@ -3273,7 +3450,7 @@ class CommonObjects(object):
         -- Else: Add objects based on *classify_range_start --> Fillin values in blank area without value --> Select classification rule for each object --> Save object profile
         :param ip_range_gap: The string to flag the gap between IP range start and IP range end, use it to generate IP range end
         :param *classify_range_start: The classified IP Range start list
-        :return: success return 1 else return -1
+        :return: success return 1 else return False
         """
         add_items_result = self._ip_object_hostname_add_objects_sub_add_blank_row(*classify_range_start)
         if add_items_result:
@@ -3293,7 +3470,7 @@ class CommonObjects(object):
             self.auto_actions.click(self.cobj_web_elements.get_ip_object_save_button())
             return 1
         else:
-            return -1
+            return False
 
     def _ip_object_hostname_add_objects_sub_add_blank_row(self, *classified_items_list):
         """
@@ -3302,7 +3479,7 @@ class CommonObjects(object):
         -- If *classify_range_start is none, not execute this function
         -- Else: Add blank rows based on *classify_range_start list
         :param *classified_items_list:
-        :return: success return 1 else return -1
+        :return: success return 1 else return False
         """
         if classified_items_list is not None:
             more_items_list_len = len(classified_items_list)
@@ -3314,9 +3491,10 @@ class CommonObjects(object):
                     self.auto_actions.click(self.cobj_web_elements.get_ip_object_confirm_message_window_yes_button())
             return 1
         else:
-            return -1
+            return False
 
-    def _ip_object_hostname_add_objects_sub_fillin_ip_address(self, row_loop_num, blank_row_loop_num, row, *classified_ipaddress_list):
+    def _ip_object_hostname_add_objects_sub_fillin_ip_address(self, row_loop_num, blank_row_loop_num, row,
+                                                              *classified_ipaddress_list):
         """
         - It is internal function fillin IP address values to blank row
         :param row_loop_num: For row loop to find all items in the profile
@@ -3325,20 +3503,18 @@ class CommonObjects(object):
         :param *classified_ipaddress_list: The classified IP Address list
         :return: success return 1 else return -1
         """
-        # self.utils.print_info(f"The row loop num: {row_loop_num}. The Row is that: {self.cobj_web_elements.get_ip_object_ip_address_textfield_row(row)}")
         self.utils.print_info(f"IP address value: {self.cobj_web_elements.get_ip_object_ip_address_textfield_row(row).get_dom_attribute('value')}")
         if not self.cobj_web_elements.get_ip_object_ip_address_textfield_row(row).get_dom_attribute('value'):
             self.utils.print_info(f"Input IP{blank_row_loop_num} address: {classified_ipaddress_list[blank_row_loop_num]}")
-            # self.utils.print_info(f"The Row is that : {self.cobj_web_elements.get_ip_object_ip_address_textfield_row(row)}")
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_address_textfield_row(row), classified_ipaddress_list[blank_row_loop_num])
             sleep(2)
             self._ip_object_hostname_add_objects_sub_select_cls_rule(row_loop_num, row)
-
             return 1
         else:
             return -1
 
-    def _ip_object_hostname_add_objects_sub_fillin_hostname(self, row_loop_num, blank_row_loop_num, row, *classified_hostname_list):
+    def _ip_object_hostname_add_objects_sub_fillin_hostname(self, row_loop_num, blank_row_loop_num, row,
+                                                            *classified_hostname_list):
         """
         - It is internal function fillin hostname values to blank row
         :param row_loop_num: For row loop to find all items in the profile
@@ -3347,21 +3523,19 @@ class CommonObjects(object):
         :param *classified_hostname_list: The classified Hostname list
         :return: success return 1 else return -1
         """
-        # self.utils.print_info(f"The row loop num: {row_loop_num}. The Row is that: {self.cobj_web_elements.get_ip_object_hostname_textfield_row(row)}")
         self.utils.print_info(
             f"IP address value: {self.cobj_web_elements.get_ip_object_hostname_textfield_row(row).get_dom_attribute('value')}")
         if not self.cobj_web_elements.get_ip_object_hostname_textfield_row(row).get_dom_attribute('value'):
             self.utils.print_info(f"Input IP{blank_row_loop_num} address: {classified_hostname_list[blank_row_loop_num]}")
-            # self.utils.print_info(f"The Row is that : {self.cobj_web_elements.get_ip_object_hostname_textfield_row(row)}")
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_textfield_row(row), classified_hostname_list[blank_row_loop_num])
             sleep(2)
             self._ip_object_hostname_add_objects_sub_select_cls_rule(row_loop_num, row)
-
             return 1
         else:
             return -1
 
-    def _ip_object_hostname_add_objects_sub_fillin_wildcard_hostname(self, row_loop_num, blank_row_loop_num, row, *classified_wildcardhostname_list):
+    def _ip_object_hostname_add_objects_sub_fillin_wildcard_hostname(self, row_loop_num, blank_row_loop_num, row,
+                                                                     *classified_wildcardhostname_list):
         """
         - It is internal function fillin wildcard hostname values to blank row
         :param row_loop_num: For row loop to find all items in the profile
@@ -3370,20 +3544,18 @@ class CommonObjects(object):
         :param *classified_wildcardhostname_list: The classified Wildcard Hostname list
         :return: success return 1 else return -1
         """
-        # self.utils.print_info(f"The row loop num: {row_loop_num}. The Row is that: {self.cobj_web_elements.get_ip_object_hostname_textfield_row(row)}")
         self.utils.print_info(
             f"IP address value: {self.cobj_web_elements.get_ip_object_wildcard_hostname_textfield_row(row).get_dom_attribute('value')}")
         if not self.cobj_web_elements.get_ip_object_wildcard_hostname_textfield_row(row).get_dom_attribute('value'):
             self.utils.print_info(f"Input IP{blank_row_loop_num} address: {classified_wildcardhostname_list[blank_row_loop_num]}")
-            # self.utils.print_info(f"The Row is that : {self.cobj_web_elements.get_ip_object_hostname_textfield_row(row)}")
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_wildcard_hostname_textfield_row(row), classified_wildcardhostname_list[blank_row_loop_num])
             self._ip_object_hostname_add_objects_sub_select_cls_rule(row_loop_num, row)
-
             return 1
         else:
             return -1
 
-    def _ip_object_hostname_add_objects_sub_fillin_ip_network(self, row_loop_num, blank_row_loop_num, row, netmask, *classified_network_list):
+    def _ip_object_hostname_add_objects_sub_fillin_ip_network(self, row_loop_num, blank_row_loop_num, row, netmask,
+                                                              *classified_network_list):
         """
         - It is internal function fillin IP Network values to blank row
         :param row_loop_num: For row loop to loop all items in the profile
@@ -3393,7 +3565,6 @@ class CommonObjects(object):
         :param *classified_network_list: The classified Network list
         :return: success return 1 else return -1
         """
-        # self.utils.print_info(f"The row loop num: {row_loop_num}. The Row is that : {self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield_row(row)}")
         self.utils.print_info(f"Subnet value: {self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield_row(row).get_dom_attribute('value')}")
         if not self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield_row(row).get_dom_attribute('value'):
             self.utils.print_info(f"Input Subnet{blank_row_loop_num} : {classified_network_list[blank_row_loop_num]}")
@@ -3414,7 +3585,7 @@ class CommonObjects(object):
         :param *classify_range_start: The classified IP Range start list
         :return: success return 1 else return -1
         """
-        # self.utils.print_info(f"The row loop num: {row_loop_num}. The Row is that : {self.cobj_web_elements.get_ip_object_ip_network_subnet_textfield_row(row)}")
+
         self.utils.print_info(f"Subnet value: {self.cobj_web_elements.get_ip_object_ip_range_start_textfield_row(row).get_dom_attribute('value')}")
         if not self.cobj_web_elements.get_ip_object_ip_range_start_textfield_row(row).get_dom_attribute('value'):
             self.utils.print_info(f"Input Subnet{blank_row_loop_num} : {classify_range_start[blank_row_loop_num]}")
@@ -3422,12 +3593,11 @@ class CommonObjects(object):
             self.utils.print_info(f"Input Subnet{blank_row_loop_num} :", classify_range_start[blank_row_loop_num] + ip_range_gap)
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_range_end_textfield_row(row), classify_range_start[blank_row_loop_num] + ip_range_gap)
             self._ip_object_hostname_add_objects_sub_select_cls_rule(row_loop_num, row)
-
             return 1
         else:
             return -1
 
-    def _ip_object_hostname_add_objects_sub_select_cls_rule(self, row_loop_num, row):
+    def _ip_object_hostname_add_objects_sub_select_cls_rule(self, row_loop_num, row, **kwargs):
         """
         - It is internal function select classification rule
         :param row_loop_num: For row loop to loop all items in the profile
@@ -3447,7 +3617,9 @@ class CommonObjects(object):
                 self.utils.print_info(f"Click LINK button {row_loop_num + 1} times ...")
                 self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_link_button())
                 if row_loop_num > max_cls_rules:
-                    self.utils.print_info("There is no any more classified rule can be selected...")
+                    kwargs['fail_msg'] = "_ip_object_hostname_add_objects_sub_select_cls_rule() failed." \
+                                         "There is no any more classified rule can be selected"
+                    self.common_validation.fault(**kwargs)
                     return -1
             return 1
         else:
@@ -3501,12 +3673,13 @@ class CommonObjects(object):
             self.utils.print_info(f"The IP object profile {ip_object_profile_name} is NOT found or NOT Selected...")
             return -1
 
-    def ip_object_hostname_delete_object_profile(self, ip_object_profile_name):
+    def ip_object_hostname_delete_object_profile(self, ip_object_profile_name, **kwargs):
         """
         - Delete IP Object profile
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Delete it
         - Keyword Usage:
-            - ``IP Object Hostname Delete Object Profile    ${ip_object_profile_name}``
+        - ``IP Object Hostname Delete Object Profile    ${ip_object_profile_name}``
+
         :param ip_object_profile_name: IP Object profile name
         :return: Find and delete successfully return 1 else return -1
         """
@@ -3520,21 +3693,27 @@ class CommonObjects(object):
             self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
             if self.cobj_web_elements.get_ip_object_hostname_delete_confirm_win():
                 self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_delete_confirm_win_yes())
-                self.utils.print_info(f"{ip_object_profile_name} is already deleted")
+                kwargs['pass_msg'] = f"{ip_object_profile_name} is already deleted"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info("Select NO button to cancel the deleting operation")
+                kwargs['fail_msg'] = "ip_object_hostname_delete_object_profile() failed." \
+                                     "Select NO button to cancel the deleting operation"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("There is no IP object profile finding")
+            kwargs['fail_msg'] = "ip_object_hostname_delete_object_profile() failed. There is no IP object profile finding"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def ip_object_hostname_update_object_profile(self, ip_object_profile_name, netmask=None, ip_range_gap=None, *classified_items_list_1):
+    def ip_object_hostname_update_object_profile(self, ip_object_profile_name, netmask=None, ip_range_gap=None,
+                                                 *classified_items_list_1, **kwargs):
         f"""
         - Edit and Add new items for existed IP Object profile
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Edit it and Add new items
         - Keyword Usage:
-            - ``IP Object Hostname Update Object Profile    ${ip_object_profile_name}    ${netmask}    ${ip_range_gap}      ${classified_items_list_1}``
+        - ``IP Object Hostname Update Object Profile    ${ip_object_profile_name}    ${netmask}    ${ip_range_gap}      ${classified_items_list_1}``
+
         :param ip_object_profile_name: IP Object profile name
         :param netmask: Netmask, for the profile with type IP address and Hostname related, the netmask is None, for Network and Wildcard Network, the netmask is needed
         :param ip_range_gap: Only for IP Range, keep it as None value if NOT IP Range
@@ -3561,16 +3740,21 @@ class CommonObjects(object):
             else:
                 self.utils.print_info(f"The updated object list: {classified_items_list_1}")
                 self._ip_object_hostname_add_objects(object_type, netmask, *classified_items_list_1)
+                kwargs['pass_msg'] = "Edited and Added new items for existed IP Object profile"
+                self.common_validation.passed(**kwargs)
                 return 1
         else:
+            kwargs['fail_msg'] = "ip_object_hostname_update_object_profile() failed. Didn't find IP Object"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def ip_object_hostname_list_all_objects_in_profile(self, ip_object_profile_name):
+    def ip_object_hostname_list_all_objects_in_profile(self, ip_object_profile_name, **kwargs):
         """
         - Find all the items for existed IP Object profile, and return a list
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Edit it --> Click 100 items per page --> Get item row by row
         - Keyword Usage:
-            - ``IP Object Hostname List All Objects In Profile    ${ip_object_profile_name}``
+        - ``IP Object Hostname List All Objects In Profile    ${ip_object_profile_name}``
+
         :param ip_object_profile_name: IP Object profile name
         :return: success return a list else return -1
         """
@@ -3602,7 +3786,9 @@ class CommonObjects(object):
             self.utils.print_info(f"The items list of object profile: {object_items_list}")
             return object_items_list
         else:
-            self.utils.print_info(f"The IP Object profile {ip_object_profile_name} is NOT found, can NOT list the items")
+            kwargs['fail_msg'] = f"ip_object_hostname_list_all_objects_in_profile() failed." \
+                                 f"The IP Object profile {ip_object_profile_name} is NOT found, can NOT list the items"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def delete_switch_templates(self, template_name, **kwargs):
@@ -3611,8 +3797,8 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Switch Template
         - Delete specified switch template from the Switch Templates grid
         - Keyword Usage:
-         - ``Delete Switch Template  ${TEMPLATE_NAME}``
-         - ``Delete Switch Template  template_1,template_2`
+        - ``Delete Switch Template  ${TEMPLATE_NAME}``
+        - ``Delete Switch Template  template_1,template_2`
         :param template_name: A list of templates which will be deleted. Or a string with templates names separated by comma
         :return: 1 if deleted else -1
         """
@@ -3663,6 +3849,9 @@ class CommonObjects(object):
                                 self.auto_actions.click(check_box)
                             else:
                                 self.utils.print_info("Did not find row's check box!")
+                                kwargs[
+                                    'fail_msg'] = "delete_switch_templates() failed. Did not find row's check box!"
+                                self.common_validation.fault(**kwargs)
                                 return -1
                             self.utils.print_info("Clicking on delete button")
                             delete_button = self.cobj_web_elements.get_common_objects_delete_button()
@@ -3674,10 +3863,8 @@ class CommonObjects(object):
                                 found_template = True
                                 break
                             else:
-                                self.utils.print_info("Didn't find the delete button!")
-                                kwargs['fail_msg'] = "Didn't find the delete button!"
-                                self.screen.save_screen_shot()
-                                self.common_validation.failed(**kwargs)
+                                kwargs['fail_msg'] = "delete_switch_templates() failed. Didn't find the delete button!"
+                                self.common_validation.fault(**kwargs)
                                 return -1
                         else:
                             pass
@@ -3686,21 +3873,27 @@ class CommonObjects(object):
                 if not found_template:
                     self.utils.print_info('len', len(page_number), cnt_page )
                     if len(page_number) == cnt_page:
-                        self.utils.print_info(f"Template Name: {template_name} is not present on all pages. Last page is: ",cnt_page)
+                        self.utils.print_info(f"Last page is {cnt_page}")
+                        kwargs['fail_msg'] = f"delete_switch_templates() failed." \
+                                             f"Template Name: {template_name} is not present on all pages."
+                        self.common_validation.failed(**kwargs)
                         return -1
                     self.utils.print_info(f"Template Name: {template_name} is not present on page: ")
                     next_button = self.cobj_web_elements.get_next_page_element()
-                        #self.cobj_web_elements.get_common_object_policy_next_page_number()
                     if next_button:
                         self.utils.print_info(f"Select next page")
                         self.auto_actions.click(next_button)
                     else:
-                        self.utils.print_info(f"Next button not found ")
+                        kwargs['fail_msg'] = "delete_switch_templates() failed. Next button not found "
+                        self.common_validation.fault(**kwargs)
                         return -1
                 else:
                     self.utils.print_info("")
                     break
                 cnt_page = cnt_page + 1
+
+        kwargs['pass_msg'] = "Successfully deleted switch templates"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def delete_port_type_profiles(self, port_type_name, **kwargs):
@@ -3709,7 +3902,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
         - Delete Port Type from the grid
         - Keyword Usage:
-         - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
+        - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
          ``Delete Port Type Profile  ${PORT_TYPE_NAME1},${PORT_TYPE_NAME2}``
         :param port_type_name: A list of port type profiles which will be deleted. Or a string with profiles names separated by comma
         :return: 1 if Port Type deleted successfully, else returns -1
@@ -3749,16 +3942,11 @@ class CommonObjects(object):
                                 self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows, delay=3)
                                 current_page += 1
                             else:
-                                self.utils.print_info("Did not find next page button!")
-                                kwargs['fail_msg'] = "Did not find next page button!"
-                                self.screen.save_screen_shot()
-                                self.common_validation.failed(**kwargs)
+                                kwargs['fail_msg'] = "delete_port_type_profiles() failed. Did not find next page button!"
+                                self.common_validation.fault(**kwargs)
                                 return -1
                         else:
                             self.utils.print_info("This is the last page: ", str(current_page))
-                            self.utils.print_info(f"Checked all {current_page} pages for Port Type profile: "
-                                                  f"{port_type_name} ; "
-                                                  f"It was already deleted or it hasn't been created yet!")
                             kwargs['pass_msg'] = f"Checked all {current_page} pages for Port Type profile: " \
                                                  f"{port_type_name} ; " \
                                                  f"It was already deleted or it hasn't been created yet!"
@@ -3775,4 +3963,6 @@ class CommonObjects(object):
                     self.utils.print_info("Got the following error: ", e)
                     self.utils.print_info("Trying to get the rows again on page: ", str(current_page))
                     continue
+        kwargs['pass_msg'] = "Successfully deleted port type profiles"
+        self.common_validation.passed(**kwargs)
         return 1
