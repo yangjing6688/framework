@@ -426,6 +426,10 @@ class A3Inventory(A3InventoryWebElements):
 
         a3_page_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title is : ", a3_page_title)
+
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
+        sleep(2)
+
         return a3_page_title
 
     def verify_a3_node_login_on_xiq(self, a3_server_name, a3_node_name, a3_login_username, a3_login_password):
