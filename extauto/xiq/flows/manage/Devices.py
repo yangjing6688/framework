@@ -3479,7 +3479,6 @@ class Devices:
         # navigate to devices page
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
-        self.utils.print_info("inside serial number procedure")
 
         # reset the page number to 1
         pageOne = self.devices_web_elements.get_devices_page_number_one()
