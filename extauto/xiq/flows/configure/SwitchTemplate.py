@@ -6,6 +6,7 @@ from extauto.common.Screen import Screen
 
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
+import extauto.xiq.flows.configure.NetworkPolicy
 from extauto.xiq.flows.manage.Tools import Tools
 
 from selenium.webdriver.common.keys import Keys
@@ -31,6 +32,7 @@ class SwitchTemplate(object):
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.np_web_elements = NetworkPolicyWebElements()
+        self.nw_policy = None
         self.legacy_port_type_editor = SwTemplateLegacyPortTypeWebElements()
         self.dev360 = Device360WebElements()
         self.alarm = AlarmsWebElements()
@@ -222,6 +224,8 @@ class SwitchTemplate(object):
         :param sw_template: Name of the sw_template
         :return: 1 If successfully Selected Switch template
         """
+        self._set_nw_policy_if_needed()
+
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
         self.utils.print_info("Click on Device Template tab button")
@@ -253,6 +257,8 @@ class SwitchTemplate(object):
         self.utils.print_info("Navigating to Network Policies")
         self.navigator.navigate_configure_network_policies()
         sleep(1)
+
+        self._set_nw_policy_if_needed()
 
         self.nw_policy.select_network_policy_in_card_view(nw_policy)
         sleep(2)
@@ -505,6 +511,8 @@ class SwitchTemplate(object):
         else:
             var_type="X440-G2-"
 
+        self._set_nw_policy_if_needed()
+
         if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
             self.utils.print_info("Not found the network policy. Make sure that it was created before ")
             return -1
@@ -727,6 +735,8 @@ class SwitchTemplate(object):
         self.navigator.navigate_configure_network_policies()
         sleep(1)
 
+        self._set_nw_policy_if_needed()
+
         if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
             self.utils.print_info("Not found the network policy. Make sure that it was created")
             return -1
@@ -836,6 +846,8 @@ class SwitchTemplate(object):
 
         self.utils.print_info("Navigate to devices")
         self.navigator.navigate_to_devices()
+
+        self._set_nw_policy_if_needed()
 
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
@@ -1123,6 +1135,8 @@ class SwitchTemplate(object):
         :param POWER_MODE      -> Value chosen from the following options  802.3af or 802.3at or 802.3bt     any other is not accepted by the function
         :return: 1 if the pse profile is created and saved else -1 ;
         """
+        self._set_nw_policy_if_needed()
+
         self.nw_policy.create_switching_routing_network_policy(network_policy_name)
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
@@ -1313,6 +1327,8 @@ class SwitchTemplate(object):
         :param POE_STATUS       -> String, could be "on", "On", "off" or "Off"
         :return: 1 if poe status is turned off else -1 ;
         """
+        self._set_nw_policy_if_needed()
+
         self.nw_policy.create_switching_routing_network_policy(network_policy_name)
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
@@ -1451,6 +1467,8 @@ class SwitchTemplate(object):
         :param POE_STATUS       -> String, could be "on", "On", "off" or "Off"
         :return: 1 if poe status is turned off else -1 ;
         """
+        self._set_nw_policy_if_needed()
+
         self.nw_policy.create_switching_routing_network_policy(network_policy_name)
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
@@ -1885,6 +1903,8 @@ class SwitchTemplate(object):
         self.navigator.navigate_configure_network_policies()
         sleep(1)
 
+        self._set_nw_policy_if_needed()
+
         if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
             self.utils.print_info("Not found the network policy. Make sure that it was created before ")
             return -1
@@ -2167,6 +2187,8 @@ class SwitchTemplate(object):
         self.navigator.navigate_to_devices()
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
+
+        self._set_nw_policy_if_needed()
 
         if self.nw_policy.select_network_policy_in_card_view(nw_policy) == -1:
             self.utils.print_info("Not found the network policy. Make sure that it was created before ")
@@ -3886,3 +3908,12 @@ class SwitchTemplate(object):
         kwargs["pass_msg"] = f"Successfully clicked the {mode} stp mode button"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def _set_nw_policy_if_needed(self):
+        """
+        Method sets up self.nw_policy if necessary
+        :return:
+        """
+        if not self.nw_policy:
+            self.nw_policy = extauto.xiq.flows.configure.NetworkPolicy.NetworkPolicy()
+
