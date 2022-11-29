@@ -131,29 +131,31 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             sleep(2)
 
             if device_make:
-                # if 'exos' in device_make.lower():
-                #     self.utils.print_info(f"Select {device_make} Radio Button")
-                #     self.auto_actions.click_reference(self.get_devices_make_exos_radio_button)
-                #     sleep(2)
-                #
-                #     self.screen.save_screen_shot()
-                #     sleep(2)
-                # elif 'voss' in device_make.lower():
-                #     self.utils.print_info(f"Select {device_make} Radio Button")
-                #     self.auto_actions.click_reference(self.get_devices_make_voss_radio_button)
-                #     sleep(2)
-                #
-                #     self.screen.save_screen_shot()
-                #     sleep(2)
-                # else:
-                self.utils.print_info(f"Clicking Device Make Type Drop Down")
                 if self.get_device_make_aerohive_dropdown().is_displayed():
+                    self.utils.print_info(f"Clicking Device Make Type Drop Down")
                     self.auto_actions.click_reference(self.get_device_make_aerohive_dropdown)
                     sleep(3)
 
                     self.utils.print_info(f"Selecting Device Make Type Option : {device_make}")
-                    self.auto_actions.select_drop_down_options(self.get_devices_make_drop_down_options(), device_make)
+                    self.auto_actions.select_drop_down_options(self.get_devices_make_drop_down_options(),
+                                                               device_make)
                     sleep(3)
+
+                    self.screen.save_screen_shot()
+                    sleep(2)
+                else:
+                    # Some serial number for VOSS / EXOS will show a radio button
+                    if 'exos' in device_make.lower():
+                        self.utils.print_info(f"Select {device_make} Radio Button")
+                        self.auto_actions.click_reference(self.get_devices_make_exos_radio_button)
+                        sleep(2)
+
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                    elif 'voss' in device_make.lower():
+                        self.utils.print_info(f"Select {device_make} Radio Button")
+                        self.auto_actions.click_reference(self.get_devices_make_voss_radio_button)
+                        sleep(2)
 
                     self.screen.save_screen_shot()
                     sleep(2)
