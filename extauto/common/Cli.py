@@ -1583,14 +1583,15 @@ class Cli(object):
 
     def get_stacking_details_cli(self, dut, **kwargs):
         """
-        - This keyword gets stacking details from CLI(Mac add, Slot number and Role -for each unit)
-
+        This keyword gets stacking details from CLI (Mac add, Slot number and Role -for each unit).
+        This keyword is implemented only for EXOS STACK.
+        
         :param dut: The dut object of the device
         :return: a list of tuples
         """
         units_list = []
 
-        if dut.cli_type.upper() == "EXOS":
+        if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
             self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
 
             stacking_details_output = self.networkElementCliSend.send_cmd(dut.name, f'show stacking', max_wait=10, interval=2)
@@ -1600,23 +1601,23 @@ class Cli(object):
 
             kwargs['pass_msg'] = f"Stacking details found"
             self.commonValidation.passed(**kwargs)
-
             return units_list
-
-        elif dut.cli_type.upper() == "VOSS":
-            kwargs['fail_msg'] = f"get_stacking_details_cli() failed, VOSS no timplemented"
-            self.commonValidation.fault(**kwargs)
+        
+        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        self.commonValidation.failed(**kwargs)
+        return -1
 
     def get_info_from_stack(self, dut, **kwargs):
         """
         - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
-
+        This keyword is implemented only for EXOS STACK.
+        
         :param dut: the dut object
         :return: a list of tuples
         """
         info_list = []
 
-        if dut.cli_type.upper() == "EXOS":
+        if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
             self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
             ip_list_cli = []
             ip_list = []
@@ -1699,12 +1700,11 @@ class Cli(object):
 
             kwargs['pass_msg'] = f"Stacking details found"
             self.commonValidation.passed(**kwargs)
-
             return info_list
 
-        elif dut.cli_type.upper() == "VOSS":
-            kwargs['fail_msg'] = f"get_info_from_stack() failed, VOSS no timplemented"
-            self.commonValidation.fault(**kwargs)
+        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        self.commonValidation.failed(**kwargs)
+        return -1
 
     def get_info_from_stack(self, dut, **kwargs):
         """
@@ -1798,48 +1798,12 @@ class Cli(object):
 
             kwargs['pass_msg'] = f"get_info_from_stack() passed"
             self.commonValidation.passed(**kwargs)
-
             return info_list
 
-        elif dut.cli_type.upper() == "VOSS":
-            kwargs['fail_msg'] = f"get_info_from_stack() failed, VOSS no timplemented"
-            self.commonValidation.fault(**kwargs)
+        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        self.commonValidation.failed(**kwargs)
+        return -1
 
-    def get_virtual_router(self, dut, **kwargs):
-        global vrName
-
-        result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
-
-        output = result[0].cmd_obj.return_text
-
-        pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
-
-        match = re.search(pattern, output)
-
-        if match:
-            print(f"Mgmt Vlan Name : {match.group(1)}")
-            print(f"Vlan ID        : {match.group(3)}")
-            print(f"Mgmt IPaddress : {match.group(5)}")
-            print(f"Active ports   : {match.group(9)}")
-            print(f"Total ports    : {match.group(11)}")
-            print(f"Virtual router : {match.group(12)}")
-
-            if int(match.group(9)) > 0:
-                kwargs['pass_msg'] = f"get_virtual_router() passed"
-                self.commonValidation.passed(**kwargs)
-
-                return match.group(12)
-            else:
-                kwargs[
-                    'fail_msg'] = f"get_virtual_router() failed; There is no active port in the mgmt vlan {match.group(1)}"
-                self.commonValidation.fault(**kwargs)
-
-                return -1
-        else:
-            kwargs['fail_msg'] = f"get_virtual_router() failed; Pattern not found, unable to get virtual router info!"
-            self.commonValidation.fault(**kwargs)
-
-            return -1
 
 if __name__ == '__main__':
     from pytest_testconfig import *
