@@ -22,7 +22,7 @@ class Applications(object):
         - This keyword will create Custom Application under Manage > Applications.
         - Flow: Manage --> Applications --> Manage Applications --> ADD CUSTOM
         - Keyword Usage:
-         - ``Add Custom Applications  ${APPLICATION_NAME}  ${GROUP_NAME}``
+        - ``Add Custom Applications  ${APPLICATION_NAME}  ${GROUP_NAME}``
 
         :param application_name: Custom application name
         :param group_name: group name
@@ -76,7 +76,7 @@ class Applications(object):
         - This keyword will modify Custom Application under Manage > Applications.
         - Flow: Manage --> Applications --> Manage Applications --> Search and select an application --> Edit application
         - Keyword Usage:
-         - ``Edit Custom Application  ${APPLICATION_NAME}  ${APPLICATION_NAME_MODIFIED}``
+        - ``Edit Custom Application  ${APPLICATION_NAME}  ${APPLICATION_NAME_MODIFIED}``
 
         :param application_name: Custom application name
         :param application_name_modified: Modified application name
@@ -130,7 +130,7 @@ class Applications(object):
         - This keyword will delete Custom Application under Manage > Applications.
         - Flow: Manage --> Applications --> Manage Applications --> Search and select an application --> Delete application
         - Keyword Usage:
-         - ``Delete Custom Applications  ${APPLICATION_NAME_MODIFIED}``
+        - ``Delete Custom Applications  ${APPLICATION_NAME_MODIFIED}``
 
         :param application_name_modified: Modified application name
         :return: 1 if success and -1 if fails

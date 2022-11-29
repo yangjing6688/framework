@@ -89,6 +89,12 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         """
         return self.weh.get_element(self.sw_template_selection_grid)
 
+    def get_sw_template_table_rows(self, table):
+        """
+        :return: all the rows in the specified switch template selection grid
+        """
+        return self.weh.get_elements(self.sw_template_table_rows, parent=table)
+
     def get_sw_template_selection_grid_rows(self, table):
         """
         :return: all the rows in the specified switch template selection grid
@@ -348,7 +354,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.pse_power_limit)
 
     def priority_dropdown(self):
-        return self.weh.get_elements(self.priority_options)
+        return self.weh.get_element(self.priority_options)
 
     def low_value(self):
         return self.weh.get_elements(self.low_value_option)
@@ -359,8 +365,11 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def critical_value(self):
         return self.weh.get_elements(self.critical_value_option)
 
-    def priority_items(self):
-        return self.weh.get_elements(self.priority_items_select)
+    def get_priority_items_select_container(self):
+        return self.weh.get_element(self.priority_items_select_container)
+
+    def priority_items(self, table):
+        return self.weh.get_elements(self.priority_items_select, parent=table)
 
     def power_mode_items(self):
         return self.weh.get_elements(self.power_mode_items_select)
@@ -464,6 +473,12 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_device_sett_forward_delay_drop_down_items(self):
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_items)
 
+    def get_sw_template_device_sett_forward_delay_drop_down_items_container(self):
+        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_items_container)
+
+    def get_sw_template_device_sett_forward_delay_drop_down_items_all_items(self, parent):
+        return self.weh.get_elements(self.sw_template_device_sett_forward_delay_drop_down_items_all_items, parent=parent)
+
     def get_sw_template_adv_settings_download_specific_firmware_drop_down_button(self):
         return self.weh.get_elements(self.sw_template_adv_settings_download_specific_firmware_drop_down_button)
 
@@ -496,7 +511,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_save_button_bottom(self):
         return self.weh.get_elements(self.sw_template_save_btn_bottom)
-
 
     def get_sw_template_stp_tab(self):
         return self.weh.get_element(self.sw_template_stp_tab)
@@ -549,3 +563,184 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         if len(rez) != 0:
             return rez
         return None
+
+    def get_sw_template_port_details_interface_all_rows(self):
+        return self.weh.get_elements(self.sw_template_port_details_interface_all_rows)
+
+    def get_sw_template_port_details_row_combo(self, parent):
+        return self.weh.get_elements(self.sw_template_port_details_row_combo, parent)
+
+    def get_sw_template_port_details_row_interface_value(self, parent):
+        return self.weh.get_element(self.sw_template_port_details_row_interface_value, parent)
+
+    def get_sw_template_port_details_combo_list(self, parent):
+        return self.weh.get_elements(self.sw_template_port_details_combo_list, parent)
+
+    def get_sw_template_port_details_row_port_type_list(self):
+        return self.weh.get_elements(self.sw_template_port_details_row_port_type_list)
+
+    def get_sw_template_port_details_port_type_editor_name(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_name)
+
+    def get_sw_template_port_details_port_type_editor_description(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_description)
+
+    def get_sw_template_port_details_port_type_editor_status(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_status)
+
+    def get_sw_template_port_details_port_type_editor_auto_sense_status(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_auto_sense_status)
+
+    def get_sw_template_port_details_port_type_editor_access(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_access)
+
+    def get_sw_template_port_details_port_type_editor_trunk(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_trunk)
+
+    def get_sw_template_port_details_port_type_editor_cancel(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_cancel)
+
+    def get_sw_template_port_details_port_type_editor_previous(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_previous)
+
+    def get_sw_template_port_details_port_type_editor_next(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_next)
+
+    def get_sw_template_port_details_port_type_editor_save(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_save)
+
+    def get_sw_template_port_details_port_type_editor_duplex_arrow(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_duplex_arrow)
+
+    def get_sw_template_port_details_port_type_editor_duplex_option(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_options)
+
+    def get_sw_template_port_details_port_type_editor_speed_arrow(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_speed_arrow)
+
+    def get_sw_template_port_details_port_type_editor_speed_option(self, parent):
+        return self.weh.get_element(self.sw_template_port_details_port_type_options, parent)
+
+    def get_sw_template_port_details_port_type_editor_client_reporting(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_client_reporting)
+
+    def get_sw_template_port_details_port_type_editor_cdp_receive(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_cdp_receive)
+
+    def get_sw_template_port_details_port_type_editor_lldp_transmit(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_lldp_transmit)
+
+    def get_sw_template_port_details_port_type_editor_lldp_receive(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_lldp_receive)
+
+    def get_sw_template_port_details_port_type_editor_sc_broadcast(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_sc_broadcast)
+
+    def get_sw_template_port_details_port_type_editor_sc_unicast(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_sc_unicast)
+
+    def get_sw_template_port_details_port_type_editor_sc_multicast(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_sc_multicast)
+
+    def get_sw_template_port_details_port_type_editor_sc_threshold(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_sc_threshold)
+
+    def get_sw_template_port_details_port_type_editor_sc_rate_limit_type(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_sc_rate_limit_type)
+
+    def get_sw_template_port_details_port_type_editor_sc_rate_limit_value(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_sc_rate_limit_value)
+
+    def get_device_switch_select_button(self):
+        """
+
+        :return:
+        """
+        return self.weh.get_element(self.device_switch_select_button)
+
+    def get_sw_template_port_details_port_type_editor_port_name_and_usage_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_port_name_and_usage_tab)
+
+    def get_sw_template_port_details_port_type_editor_transmission_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_transmission_tab)
+
+    def get_sw_template_port_details_port_type_editor_storm_control_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_storm_control_tab)
+
+    def get_sw_template_port_details_port_type_editor_summary_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_summary_tab)
+
+    def get_sw_template_port_details_port_type_editor_vlan_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_vlan_tab)
+
+    def get_sw_template_port_details_port_type_editor_stp_tab(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_stp_tab)
+
+    def get_switch_template_device_configuration_igmp_settings(self):
+        return self.weh.get_element(self.switch_template_device_configuration_igmp_settings)
+
+    def get_switch_template_device_configuration_igmp_immediate_leave(self):
+        return self.weh.get_element(self.switch_template_device_configuration_igmp_immediate_leave)
+
+    def get_switch_template_device_configuration_igmp_suppress_independent(self):
+        return self.weh.get_element(self.switch_template_device_configuration_igmp_suppress_independent)
+
+    def get_switch_template_device_configuration_mtu_1522(self):
+        return self.weh.get_element(self.switch_template_device_configuration_mtu_1522)
+
+    def get_switch_template_device_configuration_mtu_1950(self):
+        return self.weh.get_element(self.switch_template_device_configuration_mtu_1950)
+
+    def get_switch_template_device_configuration_mtu_9600(self):
+        return self.weh.get_element(self.switch_template_device_configuration_mtu_9600)
+
+    def get_switch_template_device_configuration_pse_enable(self):
+        return self.weh.get_element(self.switch_template_device_configuration_pse_enable)
+
+    def get_switch_template_device_configuration_pse_budget(self):
+        return self.weh.get_element(self.switch_template_device_configuration_pse_budget)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_stp_enable(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_spanning_tree_stp_enable)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_path_cost(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_spanning_tree_path_cost)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_bdu_protection(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_spanning_tree_bdu_protection)
+
+    def get_sw_template_port_details_port_type_editor_spanning_tree_priority(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_spanning_tree_priority)
+
+    def get_sw_template_port_details_port_type_editor_vlan_native_vlan(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_vlan_native_vlan)
+
+    def get_sw_template_port_details_port_type_editor_vlan_add_button(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_vlan_add_button)
+
+    def get_sw_template_port_details_port_type_editor_vlan_allowed_vlans(self):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_vlan_allowed_vlans)
+
+    def get_sw_template_port_details_port_type_editor_duplex_options_container(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_duplex_options_container)
+
+    def get_sw_template_port_details_port_type_editor_duplex_arrow_options(self, table):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_duplex_arrow_options, parent=table)
+
+    def get_sw_template_port_details_port_type_editor_speed_options_container(self):
+        return self.weh.get_element(self.sw_template_port_details_port_type_editor_speed_options_container)
+
+    def get_sw_template_port_details_port_type_editor_speed_arrow_options(self, table):
+        return self.weh.get_elements(self.sw_template_port_details_port_type_editor_speed_arrow_options, parent=table)
+
+    def get_sw_template_device_max_age_drop_down_items(self):
+        return self.weh.get_element(self.sw_template_device_max_age_drop_down_items)
+
+    def get_sw_template_device_max_age_delay_items_container(self):
+        return self.weh.get_element(self.sw_template_device_max_age_delay_items_container)
+
+    def get_sw_template_device_max_age_drop_down_all_items(self, table):
+        return self.weh.get_elements(self.sw_template_device_max_age_drop_down_all_items, parent=table)

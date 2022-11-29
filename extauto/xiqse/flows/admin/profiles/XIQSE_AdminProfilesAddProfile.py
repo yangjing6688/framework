@@ -18,10 +18,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_set_profile_name(self, the_value):
         """
-         - This keyword enters the Profile Name value in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Set Profile Name    my_profile``
+        - This keyword enters the Profile Name value in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Set Profile Name    my_profile``
 
         :param the_value: value to enter in the Profile Name field
         :return: 1 if action was successful, else -1
@@ -41,10 +41,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_snmpv1(self):
         """
-         - This keyword selects SNMP Version SNMPv1 in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select SNMPv1``
+        - This keyword selects SNMP Version SNMPv1 in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select SNMPv1``
 
         :return: 1 if action was successful, else -1
         """
@@ -52,10 +52,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_snmpv2(self):
         """
-         - This keyword selects SNMP Version SNMPv2 in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select SNMPv2``
+        - This keyword selects SNMP Version SNMPv2 in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select SNMPv2``
 
         :return: 1 if action was successful, else -1
         """
@@ -63,10 +63,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_snmpv3(self):
         """
-         - This keyword selects SNMP Version SNMPv3 in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select SNMPv3``
+        - This keyword selects SNMP Version SNMPv3 in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select SNMPv3``
 
         :return: 1 if action was successful, else -1
         """
@@ -74,12 +74,12 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_snmp_version(self, the_value):
         """
-         - This keyword selects the SNMP Version value in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select SNMP Version    SNMPv1``
-          - ``XIQSE Add Profile Dialog Select SNMP Version    SNMPv2``
-          - ``XIQSE Add Profile Dialog Select SNMP Version    SNMPv3``
+        - This keyword selects the SNMP Version value in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select SNMP Version    SNMPv1``
+        - ``XIQSE Add Profile Dialog Select SNMP Version    SNMPv2``
+        - ``XIQSE Add Profile Dialog Select SNMP Version    SNMPv3``
 
         :param the_value: value to select in the SNMP Version field
         :return: 1 if action was successful, else -1
@@ -120,10 +120,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_read(self, the_value):
         """
-         - This keyword selects the Read value in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select Read    public_v1``
+        - This keyword selects the Read value in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select Read    public_v1``
 
         :param the_value: value to select in the Read field
         :return: 1 if action was successful, else -1
@@ -164,10 +164,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_write(self, the_value):
         """
-         - This keyword selects the Write value in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select Write    public_v1``
+        - This keyword selects the Write value in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select Write    public_v1``
 
         :param the_value: value to select in the Write field
         :return: 1 if action was successful, else -1
@@ -208,10 +208,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_max_access(self, the_value):
         """
-         - This keyword selects the Max Access value in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select Max Access    public_v1``
+        - This keyword selects the Max Access value in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select Max Access    public_v1``
 
         :param the_value: value to select in the Max Access field
         :return: 1 if action was successful, else -1
@@ -252,12 +252,12 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_read_security(self, the_value):
         """
-         - This keyword selects the Read Security value in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open and the version is SNMPv3.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select Read Security   NoAuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Read Security   AuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Read Security   AuthPriv``
+        - This keyword selects the Read Security value in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open and the version is SNMPv3.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select Read Security   NoAuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Read Security   AuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Read Security   AuthPriv``
 
         :param the_value: value to select in the Read Securityfield
         :return: 1 if action was successful, else -1
@@ -298,12 +298,12 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_write_security(self, the_value):
         """
-         - This keyword selects the Write Security value in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open and the version is SNMPv3.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select Write Security   NoAuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Write Security   AuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Write Security   AuthPriv``
+        - This keyword selects the Write Security value in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open and the version is SNMPv3.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select Write Security   NoAuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Write Security   AuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Write Security   AuthPriv``
 
         :param the_value: value to select in the Write Security field
         :return: 1 if action was successful, else -1
@@ -344,12 +344,12 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_max_security(self, the_value):
         """
-         - This keyword selects the Max Security value in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open and the version is SNMPv3.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select Max Security   NoAuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Max Security   AuthNoPriv``
-          - ``XIQSE Add Profile Dialog Select Max Security   AuthPriv``
+        - This keyword selects the Max Security value in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open and the version is SNMPv3.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select Max Security   NoAuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Max Security   AuthNoPriv``
+        - ``XIQSE Add Profile Dialog Select Max Security   AuthPriv``
 
         :param the_value: value to select in the Max Security field
         :return: 1 if action was successful, else -1
@@ -390,10 +390,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_select_cli(self, the_value):
         """
-         - This keyword selects the CLI Credential value in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Select CLI    Default``
+        - This keyword selects the CLI Credential value in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Select CLI    Default``
 
         :param the_value: value to select in the CLI Credential field
         :return: 1 if action was successful, else -1
@@ -434,10 +434,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_click_save(self):
         """
-         - This keyword clicks Save in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Click Save``
+        - This keyword clicks Save in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Click Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -474,10 +474,10 @@ class XIQSE_AdminProfilesAddProfile(AdminProfilesAddProfileWebElements):
 
     def xiqse_add_profile_dialog_click_cancel(self):
         """
-         - This keyword clicks Cancel in the Add Profile dialog.
-         - It is assumed the Add Profile dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add Profile Dialog Click Cancel``
+        - This keyword clicks Cancel in the Add Profile dialog.
+        - It is assumed the Add Profile dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add Profile Dialog Click Cancel``
 
         :return: 1 if action was successful, else -1
         """

@@ -23,7 +23,7 @@ class AdditionalSettings(AdditionalSettingsWebElements):
         - This keyword will check Single NTP server Classification Entry in Network Policy's NTP Server configuration page.
         - Flow: Configure --> Edit Network Policy->Additional Settings --> NTP Server
         - Keyword Usage
-         - ``Search Ntp Server Classification Entry     ${NETWORK_POLICY_NAME}     ${NTP_SERVER_NAME}``
+        - ``Search Ntp Server Classification Entry     ${NETWORK_POLICY_NAME}     ${NTP_SERVER_NAME}``
 
         :param nw_policy:  Network Policy Name to check ntp server classification entry
         :param ntp_server_name: NTP Server Name for classification entry
@@ -61,8 +61,8 @@ class AdditionalSettings(AdditionalSettingsWebElements):
           configuration page.
         - Flow: Configure --> Edit Network Policy->Additional Settings --> NTP Server
         - Keyword Usage
-         - ``Search Ntp Server Classification Entry  ${NETWORK_POLICY_NAME}   ${NTP_SERVER_NAME}``
-         - ``Search Ntp Server Classification Entry  ${NETWORK_POLICY_NAME}   ${NTP_SERVER_NAME}   ${NTP_SERVER_NAME2}``
+        - ``Search Ntp Server Classification Entry  ${NETWORK_POLICY_NAME}   ${NTP_SERVER_NAME}``
+        - ``Search Ntp Server Classification Entry  ${NETWORK_POLICY_NAME}   ${NTP_SERVER_NAME}   ${NTP_SERVER_NAME2}``
 
         :param nw_policy:  Network Policy Name to check ntp server classification entry
         :param ntp_server_names: NTP Server Names for classification entry
@@ -108,7 +108,7 @@ class AdditionalSettings(AdditionalSettingsWebElements):
         - This keyword will check Total counts of NTP server Classification Entry in Network Policy's NTP Server configuration page.
         - Flow: Configure --> Edit Network Policy->Additional Settings --> NTP Server
         - Keyword Usage
-         - ``get total counts of ntp server classification entry     ${NETWORK_POLICY_NAME}``
+        - ``get total counts of ntp server classification entry     ${NETWORK_POLICY_NAME}``
 
         :param nw_policy:  Network Policy Name to check total ntp server classification entry
         :return: total number of rows if NTP server Classification Entry rows found on Network Policy else -1

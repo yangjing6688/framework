@@ -17,11 +17,11 @@ class XIQSE_AccessControlPanel(ControlAccessControlPanelWebElements):
 
     def xiqse_get_nac_status_in_panel(self):
         """
-         - This keyword gets NAC status via Control> Access Control Tab
-         - First you will need to select the NAC appliance in the tree node
-         - If NAC status shows 'OK', the keyword is successful and return 1.
-         - Keyword Usage
-          - XIQSE GET NAC STATUS IN PANEL
+        - This keyword gets NAC status via Control> Access Control Tab
+        - First you will need to select the NAC appliance in the tree node
+        - If NAC status shows 'OK', the keyword is successful and return 1.
+        - Keyword Usage
+        - XIQSE GET NAC STATUS IN PANEL
         :return: 1 if action was successful, else -1
         """
         ret_val = 1
@@ -37,11 +37,11 @@ class XIQSE_AccessControlPanel(ControlAccessControlPanelWebElements):
 
     def xiqse_get_nac_status(self):
         """
-         - This keyword gets NAC status via Control> Access Control Tab
-         - First you will need to select the NAC appliance in the tree node.
-         - This keyword returns a status in text format (i.e. OK, Not Reachable and etc)
-         - Keyword Usage
-          - XIQSE GET NAC STATUS
+        - This keyword gets NAC status via Control> Access Control Tab
+        - First you will need to select the NAC appliance in the tree node.
+        - This keyword returns a status in text format (i.e. OK, Not Reachable and etc)
+        - Keyword Usage
+        - XIQSE GET NAC STATUS
         :return: nac status text if action was successful, else None
         """
         nac_status_text = None

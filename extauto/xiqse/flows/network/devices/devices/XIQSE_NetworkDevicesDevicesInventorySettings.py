@@ -15,13 +15,13 @@ class XIQSE_NetworkDevicesDevicesInventorySettings(NetworkDevicesDevicesInventor
 
     def xiqse_inventory_settings_dialog_select_file_transfer_mode(self, the_value):
         """
-         - This keyword selects the File Transfer Mode in the Inventory Settings dialog.
-         - It is assumed the Inventory Settings dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Inventory Settings Dialog Select File Transfer Mode    TFTP``
-          - ``XIQSE Inventory Settings Dialog Select File Transfer Mode    SCP``
-          - ``XIQSE Inventory Settings Dialog Select File Transfer Mode    FTP``
-          - ``XIQSE Inventory Settings Dialog Select File Transfer Mode    SFTP``
+        - This keyword selects the File Transfer Mode in the Inventory Settings dialog.
+        - It is assumed the Inventory Settings dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Inventory Settings Dialog Select File Transfer Mode    TFTP``
+        - ``XIQSE Inventory Settings Dialog Select File Transfer Mode    SCP``
+        - ``XIQSE Inventory Settings Dialog Select File Transfer Mode    FTP``
+        - ``XIQSE Inventory Settings Dialog Select File Transfer Mode    SFTP``
 
         :param the_value: value to select in the File Transfer Mode dropdown (TFTP,SCP,FTP,SFTP)
         :return: 1 if action was successful, else -1
@@ -61,10 +61,10 @@ class XIQSE_NetworkDevicesDevicesInventorySettings(NetworkDevicesDevicesInventor
 
     def xiqse_inventory_settings_dialog_select_device_family_definition_filename(self, the_value):
         """
-         - This keyword selects the File Definition Family Name in the Inventory Settings dialog.
-         - It is assumed the Inventory Settings dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Inventory Settings Dialog Select Device Family Definition Filename   Extreme Control Upgrade - SCP``
+        - This keyword selects the File Definition Family Name in the Inventory Settings dialog.
+        - It is assumed the Inventory Settings dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Inventory Settings Dialog Select Device Family Definition Filename   Extreme Control Upgrade - SCP``
 
         :param the_value: value to select in the Device Family Definition Filename dropdown
         :return: 1 if action was successful, else -1
@@ -105,11 +105,11 @@ class XIQSE_NetworkDevicesDevicesInventorySettings(NetworkDevicesDevicesInventor
 
     def xiqse_inventory_settings_dialog_select_firmware_download_mib(self, the_value):
         """
-         - This keyword selects the Firmware Download MIB type in the Inventory Settings dialog.
-         - It is assumed the Inventory Settings dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Firmware Download MIB Type    Disabled``
-          - ``XIQSE Firmware Download MIB Type    Script```
+        - This keyword selects the Firmware Download MIB type in the Inventory Settings dialog.
+        - It is assumed the Inventory Settings dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Firmware Download MIB Type    Disabled``
+        - ``XIQSE Firmware Download MIB Type    Script```
 
         :param the_value: value to select in the Firmware Download MIB dropdown (Disabled,Script)
         :return: 1 if action was successful, else -1
@@ -149,11 +149,11 @@ class XIQSE_NetworkDevicesDevicesInventorySettings(NetworkDevicesDevicesInventor
 
     def xiqse_inventory_settings_dialog_select_configuration_download_mib(self, the_value):
         """
-         - This keyword selects the Configuration Download MIB type in the Inventory Settings dialog.
-         - It is assumed the Inventory Settings dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Configuration Download MIB Type    Disabled``
-          - ``XIQSE Configuration Download MIB Type    Script```
+        - This keyword selects the Configuration Download MIB type in the Inventory Settings dialog.
+        - It is assumed the Inventory Settings dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Configuration Download MIB Type    Disabled``
+        - ``XIQSE Configuration Download MIB Type    Script```
 
         :param the_value: value to select in the Configuration Download MIB dropdown (Disabled,Script)
         :return: 1 if action was successful, else -1
@@ -193,10 +193,10 @@ class XIQSE_NetworkDevicesDevicesInventorySettings(NetworkDevicesDevicesInventor
 
     def xiqse_click_inventory_settings_ok_button(self):
         """
-         - Clicks the OK button on the Inventory Settings Dialog to accept choices
-         - It assumes the Inventory Settings dialog is already open
-         - Keyword Usage
-            - ``XIQSE Click Inventory Settings OK Button``
+        - Clicks the OK button on the Inventory Settings Dialog to accept choices
+        - It assumes the Inventory Settings dialog is already open
+        - Keyword Usage
+        - ``XIQSE Click Inventory Settings OK Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -216,10 +216,10 @@ class XIQSE_NetworkDevicesDevicesInventorySettings(NetworkDevicesDevicesInventor
 
     def xiqse_click_inventory_settings_cancel_button(self):
         """
-         - Clicks the Cancel button for the Inventory Settings Dialog to close the dialog.
-         - It assumes the Inventory Settings dialog is already open.
-         - Keyword Usage
-            - ``XIQSE Click Inventory Settings Cancel Button``
+        - Clicks the Cancel button for the Inventory Settings Dialog to close the dialog.
+        - It assumes the Inventory Settings dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Click Inventory Settings Cancel Button``
 
         :return: 1 if action was successful, else -1
         """

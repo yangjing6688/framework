@@ -14,10 +14,10 @@ class XIQSE_Compliance(ComplianceWebElements):
 
     def xiqse_compliance_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Compliance page
-         - Keyword Usage
-          - ``XIQSE Compliance Select Tab    Dashboard``
-          - ``XIQSE Compliance Select Tab    Audit Tests``
+        - This keyword selects the specified tab of the Compliance page
+        - Keyword Usage
+        - ``XIQSE Compliance Select Tab    Dashboard``
+        - ``XIQSE Compliance Select Tab    Audit Tests``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -43,9 +43,9 @@ class XIQSE_Compliance(ComplianceWebElements):
 
     def xiqse_compliance_select_dashboard_tab(self):
         """
-         - This keyword selects the Dashboard tab of the Compliance page
-         - Keyword Usage
-          - ``XIQSE Compliance Select Dashboard Tab``
+        - This keyword selects the Dashboard tab of the Compliance page
+        - Keyword Usage
+        - ``XIQSE Compliance Select Dashboard Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -54,9 +54,9 @@ class XIQSE_Compliance(ComplianceWebElements):
 
     def xiqse_compliance_select_audit_tests_tab(self):
         """
-         - This keyword selects the Audit Tests tab of the Compliance page
-         - Keyword Usage
-          - ``XIQSE Compliance Select Audit Tests Tab``
+        - This keyword selects the Audit Tests tab of the Compliance page
+        - Keyword Usage
+        - ``XIQSE Compliance Select Audit Tests Tab``
 
         :return: 1 if action was successful, else -1
         """
