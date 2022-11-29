@@ -12469,3 +12469,19 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         self.utils.wait_till(timeout=10)
         return 1
+
+    def select_monitor_diagnostics_port_details(self, **kwargs):
+        """
+        - This keyword clicks the Port Details button on the Monitor --> Diagnostics tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor --> Diagnostics tab.
+        - Flow: Device 360 Window --> Monitor tab --> "Diagnostics" --> Port Details button
+        - Keyword Usage:
+        - ``Select Monitor Diagnostics Port Details``
+        :return: 1 if Monitor> Diagnostics was selected, else -1
+        """
+        port_details_btn = self.get_device360_port_details_button()
+        if port_details_btn:
+            kwargs["pass_msg"] = "Successfully navigated to Port Details page"
+            self.auto_actions.click(port_details_btn)
+        else:
+            kwargs['fail_msg'] = f"Missing the Port Details button, can't navigate to Port Details page"
