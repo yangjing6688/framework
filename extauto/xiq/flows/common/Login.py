@@ -419,6 +419,8 @@ class Login:
         :return: 1 if logout success
         """
         # stop tool tip text capture thread
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         try:
             self.t1.do_run = False
             sleep(10)
