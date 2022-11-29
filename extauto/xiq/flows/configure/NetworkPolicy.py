@@ -151,6 +151,7 @@ class NetworkPolicy(object):
         :param cli_type: Device type of the DUT
         :return: 1 if network policy creation is success
         """
+        
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
@@ -207,22 +208,22 @@ class NetworkPolicy(object):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-            if cli_type.upper() == 'AH-AP':
-                return self.wireless_nw.create_wireless_network(**wireless_profile)
-            if cli_type.upper() == 'VOSS' or cli_type.upper() == 'EXOS':
-                switch_template_name = wireless_profile.get('switch_template_name')
-                if not switch_template_name:
-                    self.utils.print_info("No template information in dictionary")
-                    return 1
-                self.switch_template.create_switching_network(policy, wireless_profile, **kwargs)
-            if cli_type.upper() == 'AH-XR':
-                router_template_name = wireless_profile.get('template_name')
-                if not router_template_name:
-                    self.utils.print_info("No template information in dictionary")
-                    return 1
-                from extauto.xiq.flows.configure.RouterTemplate import RouterTemplate
-                router_template = RouterTemplate()
-                return router_template.create_routing_network(policy, **wireless_profile)
+        if cli_type.upper() == 'AH-AP':
+            return self.wireless_nw.create_wireless_network(**wireless_profile)
+        if cli_type.upper() == 'VOSS' or cli_type.upper() == 'EXOS':
+            switch_template_name = wireless_profile.get('switch_template_name')
+            if not switch_template_name:
+                self.utils.print_info("No template information in dictionary")
+                return 1
+            self.switch_template.create_switching_network(policy, wireless_profile)
+        if cli_type.upper() == 'AH-XR':
+            router_template_name = wireless_profile.get('template_name')
+            if not router_template_name:
+                self.utils.print_info("No template information in dictionary")
+                return 1
+            from extauto.xiq.flows.configure.RouterTemplate import RouterTemplate
+            router_template = RouterTemplate()
+            return router_template.create_routing_network(policy, wireless_profile)
 
     def delete_network_policy(self, policy, **kwargs):
         """
