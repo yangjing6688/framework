@@ -4020,18 +4020,18 @@ class Devices:
 
         self.utils.print_info(f"Refresh the devices page")
         self.utils.wait_till(self.refresh_devices_page)
-        self.utils.print_info('Getting device Updated Status using')
+        self.utils.print_info('Getting device Updated Status using ', *[x for x in {device_serial, device_name,device_mac} if x is not None])
         if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
-            device_row = self.get_device_row(device_serial)
+            device_row = self.get_device_row(device_serial=device_serial)
 
         if device_name:
             self.utils.print_info("Getting Updated status of device with name: ", device_name)
-            device_row = self.get_device_row(device_name)
+            device_row = self.get_device_row(device_name=device_name)
 
         if device_mac:
             self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            device_row = self.get_device_row(device_mac=device_mac)
         # get a snap shot of the object at this instant, so values can't change or become undefined.
         device_row = copy.copy(device_row)
 
@@ -4891,7 +4891,7 @@ class Devices:
             return_array_data[column.replace(' ', "_")] = data
         return return_array_data
 
-    def get_device_configuration_audit_status(self, device_serial):
+    def get_device_configuration_audit_status(self, device_serial='default', device_name='default', device_mac='default'):
         """
         - This keyword is used to get the device configuration audit status
         - Flow:
@@ -4900,6 +4900,8 @@ class Devices:
         - ``Get Device Configuration Audit Status    ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number to check the device configuration audit status
+        :param device_name: device Name
+        :param device_mac: device MAC
         :return:
         - audit match : if configuration audit matched
         - audit mismatch : if configuration audit mismatch
@@ -4908,7 +4910,7 @@ class Devices:
 
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
-        device_row = self.get_device_row(device_serial)
+        device_row = self.get_device_row(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
         if device_row:
             audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
@@ -4920,7 +4922,8 @@ class Devices:
                 self.utils.print_info("device configuration audit mismatched")
                 return "audit mismatch"
 
-        self.utils.print_info(f"device with serial:{device_serial} not found in the device grid rows")
+        self.utils.print_info("Device with ", *[x for x in {device_serial, device_name, device_mac} if x != 'default'],
+                              " not found in the device grid rows")
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -5378,7 +5381,7 @@ class Devices:
                         floor_set = True
                         sleep(5)
 
-    def update_switch_policy_and_configuration(self, serial):
+    def update_switch_policy_and_configuration(self, device_serial=None, device_name=None, device_mac=None):
         """
         - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
           check button in the Device Update dialog.
@@ -5386,17 +5389,19 @@ class Devices:
         - Select Switch-->Update device
         - Keyword Usage:
         - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
-        :param serial: serial number of the switch to update
+        :param device_serial: serial number of the switch to update
+        :param device_name: device Name
+        :param device_mac: device MAC
         :return: 1
         """
         self.utils.print_info("Select Switch row")
-        self.select_device(serial)
+        self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
         self._update_switch(update_method="PolicyAndConfig")
 
         self.screen.save_screen_shot()
 
-        return self._check_device_update_status(serial)
+        return self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
     def update_switch_iq_engine_and_images(self, serial):
         """
@@ -5599,7 +5604,7 @@ class Devices:
 
         return ret_val
 
-    def _check_device_update_status(self,  device_serial_mac_or_name):
+    def _check_device_update_status(self,  device_serial=None, device_name=None, device_mac=None):
         """
         - This keyword is used to check the status of the device update
         - It will poll the "update status" every 30 seconds
@@ -5609,7 +5614,7 @@ class Devices:
         """
         retry_count = 0
         while retry_count <= 300:
-            device_update_status = self.get_device_updated_status(device_serial_mac_or_name)
+            device_update_status = self.get_device_updated_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif device_update_status == "Device Update Failed":
