@@ -85,13 +85,13 @@ class AdvanceOnboardingDefinitions:
     device_make_aerohive_dropdown = \
         {
             'XPATH': '//div[@data-dojo-attach-point="manualDeviceMakeCtn"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_make_select_one_dropdown = \
         {
             'XPATH': '//*[@class="chzn-container chzn-container-single"]//span[contains(text(), "Select One")]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_make_exos_radio_button = \
@@ -110,7 +110,7 @@ class AdvanceOnboardingDefinitions:
         {
             'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]'
                      '//ul[@class="chzn-results qa-chzn-results-manualdevicemake"]//li',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_select_button = \
