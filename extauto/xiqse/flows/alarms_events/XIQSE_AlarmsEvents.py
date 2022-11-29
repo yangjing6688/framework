@@ -14,12 +14,12 @@ class XIQSE_AlarmsEvents(AlarmsEventsWebElements):
 
     def xiqse_alarmsevents_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Alarms & Events page
-         - Keyword Usage
-          - ``XIQSE AlarmsEvents Select Tab    Alarms``
-          - ``XIQSE AlarmsEvents Select Tab    Alarm Configuration``
-          - ``XIQSE AlarmsEvents Select Tab    Events``
-          - ``XIQSE AlarmsEvents Select Tab    Event Configuration``
+        - This keyword selects the specified tab of the Alarms & Events page
+        - Keyword Usage
+        - ``XIQSE AlarmsEvents Select Tab    Alarms``
+        - ``XIQSE AlarmsEvents Select Tab    Alarm Configuration``
+        - ``XIQSE AlarmsEvents Select Tab    Events``
+        - ``XIQSE AlarmsEvents Select Tab    Event Configuration``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -49,9 +49,9 @@ class XIQSE_AlarmsEvents(AlarmsEventsWebElements):
 
     def xiqse_alarmsevents_select_alarms_tab(self):
         """
-         - This keyword selects the Alarms tab of the Alarms & Events page
-         - Keyword Usage
-          - ``XIQSE AlarmsEvents Select Alarms Tab``
+        - This keyword selects the Alarms tab of the Alarms & Events page
+        - Keyword Usage
+        - ``XIQSE AlarmsEvents Select Alarms Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -60,9 +60,9 @@ class XIQSE_AlarmsEvents(AlarmsEventsWebElements):
 
     def xiqse_alarmsevents_select_alarm_configuration_tab(self):
         """
-         - This keyword selects the Alarm Configuration tab of the Alarms & Events page
-         - Keyword Usage
-          - ``XIQSE AlarmsEvents Select Alarm Configuration Tab``
+        - This keyword selects the Alarm Configuration tab of the Alarms & Events page
+        - Keyword Usage
+        - ``XIQSE AlarmsEvents Select Alarm Configuration Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -71,9 +71,9 @@ class XIQSE_AlarmsEvents(AlarmsEventsWebElements):
 
     def xiqse_alarmsevents_select_events_tab(self):
         """
-         - This keyword selects the Events tab of the Alarms & Events page
-         - Keyword Usage
-          - ``XIQSE AlarmsEvents Select Events Tab``
+        - This keyword selects the Events tab of the Alarms & Events page
+        - Keyword Usage
+        - ``XIQSE AlarmsEvents Select Events Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -82,9 +82,9 @@ class XIQSE_AlarmsEvents(AlarmsEventsWebElements):
 
     def xiqse_alarmsevents_select_event_configuration_tab(self):
         """
-         - This keyword selects the Event Configuration tab of the Alarms & Events page
-         - Keyword Usage
-          - ``XIQSE AlarmsEvents Select Event Configuration Tab``
+        - This keyword selects the Event Configuration tab of the Alarms & Events page
+        - Keyword Usage
+        - ``XIQSE AlarmsEvents Select Event Configuration Tab``
 
         :return: 1 if action was successful, else -1
         """

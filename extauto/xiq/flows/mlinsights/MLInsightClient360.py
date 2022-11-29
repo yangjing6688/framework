@@ -5,6 +5,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.MLInsightsClients360WebElements import MLInsightsClients360WebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class MLInsightClient360(MLInsightsClients360WebElements):
@@ -14,6 +15,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
 
     def _get_real_time_grid_rows(self, search_string):
         """
@@ -32,7 +34,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
         - Get the client360 details in client grid
         - Client Details include "STATUS HEALTH", "HOST-NAME", "SSID" etc
         - Keyword Usage:
-         - ``Get Real Time Client360 Details``
+        - ``Get Real Time Client360 Details``
 
         :param search_string: string parameter to search the client in client grid ie. client mac, hostname etc
         :return: client360 details dict
@@ -66,13 +68,13 @@ class MLInsightClient360(MLInsightsClients360WebElements):
 
                 return client360_details
 
-    def get_client360_current_connection_status(self, search_string):
+    def get_client360_current_connection_status(self, search_string, **kwargs):
         """
         - Get the client360 current connection status
         - FLow: ML Insights --> Client 360 --> Click on either device MAC hyper link or Host name hyper link
         - Client Details include "STATUS HEALTH", "HOST-NAME", "SSID" etc
         - Keyword Usage:
-         - ``Get Client360 Current Connection Status        search_string``
+        - ``Get Client360 Current Connection Status        search_string``
 
         :param search_string: string parameter to search the client in client grid ie. client mac, hostname etc
         :return: current connection status
@@ -114,6 +116,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
                     self.auto_actions.click_reference(self.client_360_close_current_connection_status)
                     return client360_status
         else:
-            self.utils.print_info(f"Device not found in the grid with: {search_string}")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = f"'get_client360_current_connection_status()' -> Device not found in the " \
+                                 f"grid with: {search_string}"
+            self.common_validation.fault(**kwargs)
             return -1

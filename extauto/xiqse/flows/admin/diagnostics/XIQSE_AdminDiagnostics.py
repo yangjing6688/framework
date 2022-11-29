@@ -21,9 +21,9 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
 
     def xiqse_set_level_advanced(self):
         """
-         - This keyword sets the Level dropdown to Advanced.
-         - Keyword Usage
-          - ``XIQSE Set Level Advanced``
+        - This keyword sets the Level dropdown to Advanced.
+        - Keyword Usage
+        - ``XIQSE Set Level Advanced``
 
         :return: 1 if action was successful, else -1
         """
@@ -50,9 +50,9 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
 
     def xiqse_expand_server_tree_node(self):
         """
-         - This keyword expands the Server tree node in the panel on the left if not already expanded.
-         - Keyword Usage
-          - ``XIQSE Expand Server Tree Node``
+        - This keyword expands the Server tree node in the panel on the left if not already expanded.
+        - Keyword Usage
+        - ``XIQSE Expand Server Tree Node``
 
         :return: 1 if action was successful, else -1
         """
@@ -75,9 +75,9 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
 
     def xiqse_expand_system_tree_node(self):
         """
-         - This keyword expands the System tree node in the panel on the left if not already expanded.
-         - Keyword Usage
-          - ``XIQSE Expand System Tree Node``
+        - This keyword expands the System tree node in the panel on the left if not already expanded.
+        - Keyword Usage
+        - ``XIQSE Expand System Tree Node``
 
         :return: 1 if action was successful, else -1
         """
@@ -100,10 +100,10 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
 
     def xiqse_select_server_log_tree_node(self):
         """
-         - This keyword selects the Server Log tree node in the panel on the left.
-         - If the parent "Server" node is not expanded, it will expand it first.
-         - Keyword Usage
-          - ``XIQSE Select Server Log Tree Node``
+        - This keyword selects the Server Log tree node in the panel on the left.
+        - If the parent "Server" node is not expanded, it will expand it first.
+        - Keyword Usage
+        - ``XIQSE Select Server Log Tree Node``
 
         :return: 1 if action was successful, else -1
         """
@@ -126,10 +126,10 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
 
     def xiqse_server_log_clear(self):
         """
-         - This keyword clicks the Clear button in the Server Log view.
-         - Assumes already navigated to the Administration> Diagnostics> Server> Server Log view.
-         - Keyword Usage
-          - ``XIQSE Server Log Clear``
+        - This keyword clicks the Clear button in the Server Log view.
+        - Assumes already navigated to the Administration> Diagnostics> Server> Server Log view.
+        - Keyword Usage
+        - ``XIQSE Server Log Clear``
 
         :return: 1 if action was successful, else -1
         """
@@ -153,10 +153,10 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
 
     def xiqse_server_log_refresh(self):
         """
-         - This keyword clicks the Refresh button in the Server Log view.
-         - Assumes already navigated to the Administration> Diagnostics> Server> Server Log view.
-         - Keyword Usage
-          - ``XIQSE Server Log Refresh``
+        - This keyword clicks the Refresh button in the Server Log view.
+        - Assumes already navigated to the Administration> Diagnostics> Server> Server Log view.
+        - Keyword Usage
+        - ``XIQSE Server Log Refresh``
 
         :return: 1 if action was successful, else -1
         """
@@ -180,10 +180,10 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
 
     def xiqse_confirm_server_log_contents_contains_string(self, value):
         """
-         - This keyword checks for the specified string in the contents of the Server Log view.
-         - Assumes already navigated to the Administration> Diagnostics> Server> Server Log view.
-         - Keyword Usage
-          - ``XIQSE Confirm Server Log Contents Contains String  ${STRING_TO_FIND}``
+        - This keyword checks for the specified string in the contents of the Server Log view.
+        - Assumes already navigated to the Administration> Diagnostics> Server> Server Log view.
+        - Keyword Usage
+        - ``XIQSE Confirm Server Log Contents Contains String  ${STRING_TO_FIND}``
 
         :param value: string to look for in the server log
         :return: 1 if action was successful, else -1
@@ -218,10 +218,10 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
 
     def xiqse_select_xiq_device_message_details_tree_node(self):
         """
-         - This keyword selects the XIQ Device Message Details tree node in the panel on the left.
-         - If the parent "System" node is not expanded, it will expand it first.
-         - Keyword Usage
-          - ``XIQSE Select XIQ Device Message Details Tree Node``
+        - This keyword selects the XIQ Device Message Details tree node in the panel on the left.
+        - If the parent "System" node is not expanded, it will expand it first.
+        - Keyword Usage
+        - ``XIQSE Select XIQ Device Message Details Tree Node``
 
         :return: 1 if action was successful, else -1
         """
@@ -251,7 +251,7 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
         - This keyword shows the specified list of columns if they are currently hidden.
         - Assumes already navigated to the Administration> Diagnostics> System> XIQ Device Message Details view.
         -  Keyword Usage:
-         - ``XIQSE XIQ Device Message Details Show Columns        Onboard Status  Onboard``
+        - ``XIQSE XIQ Device Message Details Show Columns        Onboard Status  Onboard``
 
         :param columns: list of columns to show
         :return: returns 1 if successful. else -1
@@ -276,7 +276,7 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
         - This keyword hides the specified list of columns if they are currently shown.
         - Assumes already navigated to the Administration> Diagnostics> System> XIQ Device Message Details view.
         -  Keyword Usage:
-         - ``XIQSE XIQ Device Message Details Hide Columns        Onboard Status  Onboard``
+        - ``XIQSE XIQ Device Message Details Hide Columns        Onboard Status  Onboard``
 
         :param columns: list of columns to hide
         :return: returns 1 if successful. else -1
@@ -692,22 +692,28 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
         :param pwd_value:   Value to enter into the Password field
         :return: 1 if successful, else -1
         """
-        ret_val = self.xiqse_nav.xiqse_navigate_to_admin_diagnostics_tab()
-        if ret_val != -1:
+        retry = 1;
+        while retry < 3:
+            ret_val = self.xiqse_nav.xiqse_navigate_to_admin_diagnostics_tab()
             sleep(2)
-            ret_val = self.xiqse_select_xiq_device_message_details_tree_node()
             if ret_val != -1:
+                ret_val = self.xiqse_select_xiq_device_message_details_tree_node()
                 sleep(2)
-                ret_val = self.xiqse_xiq_device_message_details_auto_onboard_xiqse(email_value, pwd_value)
-                if ret_val == -1:
-                    self.utils.print_info("Unable to onboard XIQ-SE to XIQ")
+                if ret_val != -1:
+                    ret_val = self.xiqse_xiq_device_message_details_auto_onboard_xiqse(email_value, pwd_value)
+                    if ret_val == -1:
+                        self.utils.print_info("Unable to onboard XIQ-SE to XIQ")
+                        self.screen.save_screen_shot()
+                else:
+                    self.utils.print_info("Unable to select the XIQ Device Message Details node")
                     self.screen.save_screen_shot()
             else:
-                self.utils.print_info("Unable to select the XIQ Device Message Details node")
+                self.utils.print_info("Unable to navigate to the Diagnostics tab")
                 self.screen.save_screen_shot()
-        else:
-            self.utils.print_info("Unable to navigate to the Diagnostics tab")
-            self.screen.save_screen_shot()
+            if ret_val != -1:
+                break;
+            retry += 1
+            self.utils.print_info("Retrying to Navigate to XIQ Admin - Diags tab");
 
         return ret_val
 
@@ -720,8 +726,8 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
         - It is assumed the Administration> Diagnostics tab is already selected and on the System> ExtremeCloud IQ Device
         - Message Details view.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Has Expected Onboard Status   1.1.1.1  X460-G2-48t-10G4  DEVICE_ALREADY_ONBOARDED``
-         - ``XIQSE Wait Until Device Has Expected Onboard Status   2.2.2.2  XIQ_SE  SUCCESS  retry_duration=10  retry_count=12``
+        - ``XIQSE Wait Until Device Has Expected Onboard Status   1.1.1.1  X460-G2-48t-10G4  DEVICE_ALREADY_ONBOARDED``
+        - ``XIQSE Wait Until Device Has Expected Onboard Status   2.2.2.2  XIQ_SE  SUCCESS  retry_duration=10  retry_count=12``
 
         :param device_ip: device IP to check the Onboard Status of
         :param device_type:  Device Type of the device to obtain the information for

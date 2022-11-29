@@ -22,9 +22,9 @@ class Adsp(AdspWebElements):
         - Get Alarm details based on search string
         - Flow: Manage--> Alarms
         - Keyword Usage:
-         - ``Get Alarm Details   ${DEVICE_MAC}``
-         - ``Get Alarm Details   ${DEVICE_NAME}``
-         - ``Get Alarm Details   ${ALARM_CATEGORY}``
+        - ``Get Alarm Details   ${DEVICE_MAC}``
+        - ``Get Alarm Details   ${DEVICE_NAME}``
+        - ``Get Alarm Details   ${ALARM_CATEGORY}``
 
         :param search_string: str to search the alarm in grid ex: it may be severity, host name, Device mac, category
         :return:(dict) Alarm Details in dictionary Format
@@ -64,5 +64,3 @@ class Adsp(AdspWebElements):
         for row in self.get_adsp_alarm_grid_rows():
             if search_string in row.text:
                 return row
-
-

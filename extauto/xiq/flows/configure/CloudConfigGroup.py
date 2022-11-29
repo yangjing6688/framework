@@ -31,13 +31,13 @@ class CloudConfigGroup(object):
         self.classification_rule_web_elements = ClassificationRuleWebElements()
         self.common_validation = CommonValidation()
 
-    def _select_ccg_policy(self, policy_name, option, **kwargs):
+    def _select_ccg_policy(self, policy_name, option):
         """
         This Keyword is used to select ccg policy from Manage --> Devices --> Select AP --> Actions --> Add to Cloud Config Group
         Select CCG Policy from the list
         :param policy_name: CCG Policy Name
         :param option: Cancel/Continue based on the requirement
-        :return: 1 if CCG policy is selected else return -1
+        :return: 1 if CCG policy is selected else return False
         """
         self.utils.print_info("Click on actions button")
         self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
@@ -59,9 +59,8 @@ class CloudConfigGroup(object):
         if self.auto_actions.select_drop_down_options(ccg_policy_items, policy_name):
             self.utils.print_info(f"Selected CCG policy from drop down:{policy_name}")
         else:
-            kwargs['fail_msg'] = "_select_ccg_policy() failed. CCG policy is not present in drop down"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.utils.print_info("CCG policy is not present in drop down")
+            return False
 
         self.screen.save_screen_shot()
         sleep(5)
@@ -69,14 +68,11 @@ class CloudConfigGroup(object):
         if option == "Cancel":
             self.auto_actions.click_reference(self.ccg_web_elements.get_actions_ccg_policy_cancel_button)
             sleep(5)
-            kwargs['pass_msg'] = "Clicked on cancel button"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info("Click on cancel button")
             return 1
 
         self.auto_actions.click_reference(self.ccg_web_elements.get_actions_ccg_policy_contimue_button)
         sleep(5)
-        kwargs['pass_msg'] = "Clicked on ccg policy continue button"
-        self.common_validation.passed(**kwargs)
         return 1
 
     def assign_cloud_config_group(self, policy_name=None, update_method="Delta", option="Continue", *ap_serials, **kwargs):
@@ -86,7 +82,7 @@ class CloudConfigGroup(object):
         - Actions-->Add to Cloud Config group -->Select the CCG policy to assign
         - select AP-->Continue
         - Keyword Usage:
-         - ``assign cloud config group       ${CCG_NAME}        ${Update_method}       ${Option}      ${AP_SERIAL}``
+        - ``assign cloud config group       ${CCG_NAME}        ${Update_method}       ${Option}      ${AP_SERIAL}``
 
         :param policy_name: name of the CCG Policy
         :param update_method: Perform Complete update or delta update
@@ -169,20 +165,17 @@ class CloudConfigGroup(object):
 
         ccg_members = self.device_ccg_members(device_serial)
         if policy_name in ccg_members:
-            kwargs['pass_msg'] = f"CCG Group {policy_name} got configured to AP with serial: {device_serial}"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info(f"CCG Group {policy_name} got configured to AP with serial :{device_serial}")
             return 1
 
-        kwargs['fail_msg'] = f"_check_update_ccg_policy_status() failed." \
-                             f"CCG Group {policy_name} did not get configured to AP with serial: {device_serial}"
-        self.common_validation.failed(**kwargs)
+        self.utils.print_info(f"CCG Group {policy_name} did not get configured to AP with serial :{device_serial}")
         return -1
 
     def device_ccg_members(self, device_serial, **kwargs):
         """
         This keyword is used to get the list of CLoud Config Groups that the AP is member of
         - Keyword Usage:
-         - ``Device CCG Members     ${DEVICE_SERIAL}``
+        - ``Device CCG Members     ${DEVICE_SERIAL}``
         :param device_serial: serial_number of the AP
         :return: List of Cloud Config Groups that the AP is attached to, else -1
         """
@@ -219,7 +212,7 @@ class CloudConfigGroup(object):
         - Create Cloud Config Group and include APs to the group
         - Same Keyword can be used to add single or multiple APs to the CCG Group
         - Keyword Usage
-         - ``Add Cloud Config Group      ${CCG_NAME}        ${CCG_DESCRIPTION}        ${AP_SERIAL}``
+        - ``Add Cloud Config Group      ${CCG_NAME}        ${CCG_DESCRIPTION}        ${AP_SERIAL}``
 
         :param policy: Name of the CCG Group
         :param description: Description of the Group
@@ -290,7 +283,7 @@ class CloudConfigGroup(object):
         - Flow: Manage --> Devices --> Select AP -> Actions -> Add to CLoud Config Group
         - Create Cloud Config Group and include APs to the group
         - Keyword Usage
-         - ``Add Cloud Config Group From Manage     ${CCG_NAME}        ${CCG_DESCRIPTION}        ${AP_SERIAL}``
+        - ``Add Cloud Config Group From Manage     ${CCG_NAME}        ${CCG_DESCRIPTION}        ${AP_SERIAL}``
 
         :param policy: Name of the CCG Group
         :param description: Description of the Group
@@ -367,7 +360,7 @@ class CloudConfigGroup(object):
         - Create Cloud Config Group and include AP to the group
         - This Keyword is used to create CCG in bulk.
         - Keyword Usage
-         - ``Create Bulk Cloud Config Group      ${CCG_NAME}        ${AP_SERIAL}        ${NUMBER_of_CCG_Policy}``
+        - ``Create Bulk Cloud Config Group      ${CCG_NAME}        ${AP_SERIAL}        ${NUMBER_of_CCG_Policy}``
 
         :param policy_name: Name of the CCG Group
         :param ap_serial:AP who are members of the Group
@@ -435,7 +428,7 @@ class CloudConfigGroup(object):
         - Select Cloud Config Group and Click on Edit
         - Same Keyword can be used to add/remove single or multiple APs to the CCG Group
         - Keyword Usage
-         - ``Edit Cloud Config Group      ${CCG_NAME}        ${Option}        ${AP_SERIAL}``
+        - ``Edit Cloud Config Group      ${CCG_NAME}        ${Option}        ${AP_SERIAL}``
 
         :param policy: Name of the CCG Group
         :param option: Whether to add new APs or remove AP from the CCG Group.
@@ -529,7 +522,7 @@ class CloudConfigGroup(object):
         - Delete Cloud Config Group
         - This Keyword is used to delete CCG in bulk.
         - Keyword Usage
-         - ``Delete Bulk Cloud Config Group      ${CCG_NAME}        ${AP_SERIAL}        ${NUMBER_of_CCG_Policy}``
+        - ``Delete Bulk Cloud Config Group      ${CCG_NAME}        ${AP_SERIAL}        ${NUMBER_of_CCG_Policy}``
 
         :param policy_name: Name of the CCG Group
         :param num: Number of the CCG Policy to be configured
@@ -551,7 +544,7 @@ class CloudConfigGroup(object):
         for i in range(1, int(num) + 1):
             self.utils.print_info(type(i))
             policy = policy_name + "_" + str(i)
-            if not self._search_multiple_ccg_group_from_common_object(policy, ignore_failure=True):
+            if not self._search_multiple_ccg_group_from_common_object(policy):
                 self.utils.print_info("CCG Group does not exist in the list")
                 continue
             else:
@@ -574,7 +567,7 @@ class CloudConfigGroup(object):
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         - Select Cloud Config Group and Click on Delete
         - Keyword Usage
-         - ``Delete Cloud Config Group      ${CCG_NAME}``
+        - ``Delete Cloud Config Group      ${CCG_NAME}``
 
         :param policy: Name of the CCG Group
         :return: 1 if created else return -1
@@ -607,7 +600,7 @@ class CloudConfigGroup(object):
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         - Select Cloud Config Group and Click on Delete
         - Keyword Usage
-         - ``Delete Cloud Config Groups      ${CCG_NAMES}``
+        - ``Delete Cloud Config Groups      ${CCG_NAMES}``
 
         :param policys: Names of the CCG Group
         :return: 1 if created else return -1
@@ -624,7 +617,7 @@ class CloudConfigGroup(object):
 
         policy_select_flag = None
         for policy in policys:
-            if not self._search_multiple_ccg_group_from_common_object(policy, ignore_failure=True):
+            if not self._search_multiple_ccg_group_from_common_object(policy):
                 self.utils.print_info("CCG Group does not exist in the list")
                 continue
             else:
@@ -645,7 +638,7 @@ class CloudConfigGroup(object):
         """
         - Selects the AP row marching with AP's Serial Number
         - Keyword USage:
-         - ``Select AP For CCG   ${AP_SERIAL}``
+        - ``Select AP For CCG   ${AP_SERIAL}``
 
         :param ap_serial: AP's Serial Number
         :return: return 1 if AP found and selected else -1
@@ -669,7 +662,7 @@ class CloudConfigGroup(object):
         """
         - Selects the AP row marching with AP's Serial Number
         - Keyword USage:
-         - ``Select AP For CCG Manage Page   ${AP_SERIAL}``
+        - ``Select AP For CCG Manage Page   ${AP_SERIAL}``
 
         :param ap_serial: AP's Serial Number
         :return: return 1 if AP found and selected else -1
@@ -756,7 +749,7 @@ class CloudConfigGroup(object):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _search_multiple_ccg_group_from_common_object(self, policy, **kwargs):
+    def _search_multiple_ccg_group_from_common_object(self, policy):
         """
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         This keyword Checks if the CCG Policy is available in CCG List
@@ -764,32 +757,22 @@ class CloudConfigGroup(object):
         :return: 1 if found else -1
         """
 
-        # if view_all_pages := self.classification_rule_web_elements.view_all_pages():
-        #     if view_all_pages.is_displayed():
-        #         self.utils.print_info("Click Full pages button")
-        #         self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
-        #         sleep(2)
-
         self.utils.print_info(f"Searching CCG Group with name:{policy}")
         rows = self.ccg_web_elements.get_ccg_grid_rows()
         for row in rows:
             ccg = self.ccg_web_elements.get_ccg_row_name(row)
             if policy == ccg.text.strip():
-                kwargs['pass_msg'] = f"Found CCG Group with name:{policy}"
-                self.common_validation.passed(**kwargs)
+                self.utils.print_debug("Found CCG Group with name:{policy}")
+                sleep(2)
                 return 1
-
-        kwargs['fail_msg'] = f"_search_multiple_ccg_group_from_common_object() failed. " \
-                             f"Didn't find CCG Group with name: {policy}"
-        self.common_validation.failed(**kwargs)
-        return -1
+        return False
 
     def select_ccg_group_from_common_object(self, policy, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         This keyword Selects if the CCG Policy is available in CCG List
         :param policy: CCG Policy name
-        :return: 1 if found else -1
+        :return: 1 if found else False
         """
 
         self.navigator.navigate_to_cloud_config_groups()
@@ -816,24 +799,15 @@ class CloudConfigGroup(object):
         kwargs['fail_msg'] = f"select_ccg_group_from_common_object() failed. " \
                              f"Didn't find CCG Group with name: {policy}"
         self.common_validation.failed(**kwargs)
-        return -1
+        return False
 
-    def _select_multiple_ccg_group_from_common_object(self, policy, **kwargs):
+    def _select_multiple_ccg_group_from_common_object(self, policy):
         """
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         This keyword Selects if the CCG Policy is available in CCG List
         :param policy: CCG Policy name
         :return: 1 if found else -1
         """
-
-        # self.navigator.navigate_to_cloud_config_groups()
-        # sleep(2)
-        #
-        # if view_all_pages := self.classification_rule_web_elements.view_all_pages():
-        #     if view_all_pages.is_displayed():
-        #         self.utils.print_info("Click Full pages button")
-        #         self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
-        #         sleep(2)
 
         self.utils.print_info(f"Searching CCG Group with name:{policy}")
         rows = self.ccg_web_elements.get_ccg_grid_rows()
@@ -842,21 +816,16 @@ class CloudConfigGroup(object):
             ccg = self.ccg_web_elements.get_ccg_row_name(row)
             if policy == ccg.text.strip():
                 self.auto_actions.click(self.ccg_web_elements.get_ccg_select_checkbox(row))
+                self.utils.print_debug("Found CCG Group with name:{policy}")
                 sleep(2)
-                kwargs['pass_msg'] = f"Selected CCG Group with name:{policy}"
-                self.common_validation.passed(**kwargs)
                 return 1
-
-        kwargs['fail_msg'] = f"_select_multiple_ccg_group_from_common_object() failed. " \
-                             f"Didn't find CCG Group with name: {policy}"
-        self.common_validation.failed(**kwargs)
-        return -1
+        return False
 
     def get_ccg_group_members(self, policy, **kwargs):
         """
         This keyword is used to get the list of  APs which are members of the CCG Policy
         - Keyword Usage:
-         - ``Get CCG Group Members   ${POLICY_NAME}``
+        - ``Get CCG Group Members   ${POLICY_NAME}``
         :param policy: CCG Policy
         :return: List of APs that are member of CCG Policy
         """
@@ -911,5 +880,4 @@ class CloudConfigGroup(object):
         kwargs['fail_msg'] = "get_ccg_group_members() failed. " \
                              "Failed to get the list of  APs which are members of the CCG Policy"
         self.common_validation.failed(**kwargs)
-        return -1
-
+        return False

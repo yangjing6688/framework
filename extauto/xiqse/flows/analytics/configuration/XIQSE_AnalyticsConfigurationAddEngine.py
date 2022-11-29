@@ -15,10 +15,10 @@ class XIQSE_AnalyticsConfigurationAddEngine(AnalyticsConfigurationAddEngineWebEl
 
     def xiqse_add_analytics_engine_dialog_set_ip(self, the_value):
         """
-         - This keyword sets the IP Address value in the Add Application Analytics Engine dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Analytics Engine Dialog Set IP  ${IP}``
+        - This keyword sets the IP Address value in the Add Application Analytics Engine dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Analytics Engine Dialog Set IP  ${IP}``
 
         :param the_value:  IP address value to enter in the Add Application Analytics Engine dialog
         :return: 1 if action was successful, else -1
@@ -38,10 +38,10 @@ class XIQSE_AnalyticsConfigurationAddEngine(AnalyticsConfigurationAddEngineWebEl
 
     def xiqse_add_analytics_engine_dialog_set_name(self, the_value):
         """
-         - This keyword sets the Name value in the Add Application Analytics Engine dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Analytics Engine Dialog Set Name  ${IP}``
+        - This keyword sets the Name value in the Add Application Analytics Engine dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Analytics Engine Dialog Set Name  ${IP}``
 
         :param the_value:  Name value to enter in the Add Application Analytics Engine dialog
         :return: 1 if action was successful, else -1
@@ -61,10 +61,10 @@ class XIQSE_AnalyticsConfigurationAddEngine(AnalyticsConfigurationAddEngineWebEl
 
     def xiqse_add_analytics_engine_dialog_set_profile(self, the_value):
         """
-         - This keyword sets the Profile value in the Add Application Analytics Engine dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Analytics Engine Dialog Set Profile  ${DEVICE_PROFILE}``
+        - This keyword sets the Profile value in the Add Application Analytics Engine dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Analytics Engine Dialog Set Profile  ${DEVICE_PROFILE}``
 
         :param the_value:  Profile value to enter in the Add Application Analytics Engine dialog
         :return: 1 if action was successful, else -1
@@ -105,10 +105,10 @@ class XIQSE_AnalyticsConfigurationAddEngine(AnalyticsConfigurationAddEngineWebEl
 
     def xiqse_add_engine_dialog_click_ok(self):
         """
-            - This keyword clicks OK in the Add Application Analytics Engine dialog.
-            - It is assumed the dialog is already opened.
-            - Keyword Usage
-             - ``XIQSE Add Engine Dialog Click OK``
+        - This keyword clicks OK in the Add Application Analytics Engine dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Engine Dialog Click OK``
 
         :return: 1 if action was successful, else -1
         """
@@ -155,10 +155,10 @@ class XIQSE_AnalyticsConfigurationAddEngine(AnalyticsConfigurationAddEngineWebEl
 
     def xiqse_add_engine_dialog_click_cancel(self):
         """
-         - This keyword clicks Cancel in the Add Application Analytics Engine dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Engine Dialog Click Cancel``
+        - This keyword clicks Cancel in the Add Application Analytics Engine dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Engine Dialog Click Cancel``
 
         :return: 1 if action was successful, else -1
         """

@@ -4,7 +4,6 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.MspWebElements import MspWebElements
-from extauto.xiq.flows.manage.Devices import *
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.common.CommonValidation import CommonValidation
 
@@ -23,7 +22,7 @@ class Msp(MspWebElements):
         - Flow: Manage--> View Organizations
         - This keyword will select Organization in MSP account
         - Keyword Usage:
-         - ``Select Organization  organization_name=${ORG_NAME}   ``
+        - ``Select Organization  organization_name=${ORG_NAME}   ``
 
         :param organization_name: Organization Name
         :return: 1 if Mentioned organization Name is Selected Successfully else -1

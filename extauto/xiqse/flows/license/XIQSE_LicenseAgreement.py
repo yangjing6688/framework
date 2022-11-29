@@ -15,9 +15,9 @@ class XIQSE_LicenseAgreement(LicenseAgreementWebElements):
 
     def xiqse_confirm_license_agreement_page_displayed(self):
         """
-         - This keyword confirms the License Agreement page is being displayed.
-         - Keyword Usage
-          - ``XIQSE Confirm License Agreement Page Displayed``
+        - This keyword confirms the License Agreement page is being displayed.
+        - Keyword Usage
+        - ``XIQSE Confirm License Agreement Page Displayed``
 
         :return: 1 if action successful, else -1
         """
@@ -50,9 +50,9 @@ class XIQSE_LicenseAgreement(LicenseAgreementWebElements):
 
     def xiqse_confirm_accept_license_agreement_checkbox_deselected(self):
         """
-         - This keyword confirms the checkbox to select the license agreement is deselected.
-         - Keyword Usage
-          - ``XIQSE Confirm Accept License Agreement Checkbox Deselected``
+        - This keyword confirms the checkbox to select the license agreement is deselected.
+        - Keyword Usage
+        - ``XIQSE Confirm Accept License Agreement Checkbox Deselected``
 
         :return: 1 if action successful, else -1
         """
@@ -74,9 +74,9 @@ class XIQSE_LicenseAgreement(LicenseAgreementWebElements):
 
     def xiqse_confirm_accept_license_agreement_checkbox_selected(self):
         """
-         - This keyword confirms the checkbox to select the license agreement is selected.
-         - Keyword Usage
-          - ``XIQSE Confirm Accept License Agreement Checkbox Selected``
+        - This keyword confirms the checkbox to select the license agreement is selected.
+        - Keyword Usage
+        - ``XIQSE Confirm Accept License Agreement Checkbox Selected``
 
         :return: 1 if action successful, else -1
         """
@@ -98,9 +98,9 @@ class XIQSE_LicenseAgreement(LicenseAgreementWebElements):
 
     def xiqse_confirm_license_agreement_next_button_disabled(self):
         """
-         - This keyword confirms the Next button is disabled.
-         - Keyword Usage
-          - ``XIQSE Confirm License Agreement Next Button Disabled``
+        - This keyword confirms the Next button is disabled.
+        - Keyword Usage
+        - ``XIQSE Confirm License Agreement Next Button Disabled``
 
         :return: 1 if action successful, else -1
         """
@@ -122,9 +122,9 @@ class XIQSE_LicenseAgreement(LicenseAgreementWebElements):
 
     def xiqse_confirm_license_agreement_next_button_enabled(self):
         """
-         - This keyword confirms the Next button is enabled.
-         - Keyword Usage
-          - ``XIQSE Confirm License Agreement Next Button Enabled``
+        - This keyword confirms the Next button is enabled.
+        - Keyword Usage
+        - ``XIQSE Confirm License Agreement Next Button Enabled``
 
         :return: 1 if action successful, else -1
         """
@@ -146,9 +146,9 @@ class XIQSE_LicenseAgreement(LicenseAgreementWebElements):
 
     def xiqse_accept_license_agreement(self):
         """
-         - This keyword selects the "I accept the License Agreement" checkbox.
-         - Keyword Usage
-          - ``XIQSE Accept License Agreement``
+        - This keyword selects the "I accept the License Agreement" checkbox.
+        - Keyword Usage
+        - ``XIQSE Accept License Agreement``
 
         :return: 1 if action successful, else -1
         """
@@ -168,9 +168,9 @@ class XIQSE_LicenseAgreement(LicenseAgreementWebElements):
 
     def xiqse_decline_license_agreement(self):
         """
-         - This keyword deselects the "I accept the License Agreement" checkbox.
-         - Keyword Usage
-          - ``XIQSE Decline License Agreement``
+        - This keyword deselects the "I accept the License Agreement" checkbox.
+        - Keyword Usage
+        - ``XIQSE Decline License Agreement``
 
         :return: 1 if action successful, else -1
         """
@@ -190,9 +190,9 @@ class XIQSE_LicenseAgreement(LicenseAgreementWebElements):
 
     def xiqse_accept_license_agreement_and_click_next(self):
         """
-         - This keyword selects the "I accept the License Agreement" checkbox and clicks Next.
-         - Keyword Usage
-          - ``XIQSE Accept License Agreement and Click Next``
+        - This keyword selects the "I accept the License Agreement" checkbox and clicks Next.
+        - Keyword Usage
+        - ``XIQSE Accept License Agreement and Click Next``
 
         :return: 1 if action successful, else -1
         """

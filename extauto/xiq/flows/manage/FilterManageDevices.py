@@ -31,8 +31,8 @@ class FilterManageDevices():
         """ Verification of the filtering of the devices by the network policy
             prequist: Require at least two onboard APs with each policy
             Usage of test case:
-            Test1:  Filter Device By Policy
-                    filter device by policy
+            Test1: Filter Device By Policy
+            filter device by policy
         """
         sn_list, policy_list = self.check_available_devices()
         self.expand_and_collapse_filters(self.filter_element.get_network_policy_filter_link())
@@ -77,8 +77,8 @@ class FilterManageDevices():
             prequist: Require at least one real device and one simulated device
             Usage of test case:
             Test1: Filter Device By Device Type
-                   filter by device type  real device
-                   filter by device type  simulated device
+            filter by device type  real device
+            filter by device type  simulated device
         """
         self.utils.print_info(" -----  Filter the " + filter + " ---- ")
         total_sim_devices, total_real_devices = self.check_available_devices('device type')
@@ -142,7 +142,7 @@ class FilterManageDevices():
             Usage of test case:
 
             Test1: Filter By Device Production Type
-                   filter device production type
+            filter device production type
         """
         self.clear_all_filters()
         self.expand_default_filters()
@@ -182,8 +182,8 @@ class FilterManageDevices():
             prequist: Require at least one AP and one Fasthpath / Hive OS switch
             Ussage of test case:
             Test1: Filter By Device Function
-                   filter device by function  ap model
-                   filter device by function  sw model
+            filter device by function  ap model
+            filter device by function  sw model
         """
         self.utils.print_info(" ----- Filter the " + filter + " ----- ")
         ap_lst, sw_lst = self.check_available_devices()
@@ -213,8 +213,8 @@ class FilterManageDevices():
         """ Verification of the devices by the device mangement state
             prequist: Require at least one or more onboard devices
             Usage of test case:
-                Test1: Filter By Device Management State
-                       filter device by management state
+            Test1: Filter By Device Management State
+            filter device by management state
         """
         sn_list, host_list = self.check_available_devices(real_device=True)
         if sn_list == -1: return -1, host_list
@@ -249,8 +249,8 @@ class FilterManageDevices():
         """ verification of the devices by software version
             prequist: Require at least two or more onboard different hardware devices
             usage of test case:
-                Test1: Filter By Device Software Version
-                       filter device by software version
+            Test1: Filter By Device Software Version
+            filter device by software version
         """
         soft_lst = self.check_available_devices('firmware version')
         if soft_lst == -1: return -1, error
@@ -279,9 +279,9 @@ class FilterManageDevices():
 
         """ Verification of the filtering of the devices by audit status
             prequist: Require at least two or more onboard devices with a different policy
-            usage of test case :
-                 Test1: Filter By Device audit status
-                        filter device by audit status
+            usage of test case
+            Test1: Filter By Device audit status
+            filter device by audit status
         """
         sn_list, policy_list = self.check_available_devices(real_device=True)
         if sn_list == -1: return -1, policy_list
@@ -317,9 +317,10 @@ class FilterManageDevices():
         """ Verification of the filtering of the devices by ssid
             prequist: Require at least two onboard devices with with two different wireless networks
             usage of test case:
-                Test1: Filter Device By ssid
-                       filter device by ssid
-                Jira: APC-39526 - The SSID list in the SSID filter does not update accordingly
+            Test1: Filter Device By ssid
+            filter device by ssid
+
+            Jira: APC-39526 - The SSID list in the SSID filter does not update accordingly
         """
         sn_list, policy_list = self.check_available_devices(real_device=True, ap_type=True)
         if sn_list == -1: return -1, policy_list
@@ -350,9 +351,9 @@ class FilterManageDevices():
         """ Verification of the filtering of the devices by user profiles
             prequist: Require at least one onboard devices with a network policy
             usage of test case:
-                Test1: Filter By Device user profile
-                       filter device by user profiles  guest
-                       filter device by user profiles  profile
+            Test1: Filter By Device user profile
+            filter device by user profiles  guest
+            filter device by user profiles  profile
         """
         self.utils.print_info(" ----- Filter the " + filter + " -----")
         sn_list, policy_list = self.check_available_devices(real_device=True, ap_type=True)
@@ -395,10 +396,10 @@ class FilterManageDevices():
 
         """ Verification of the filtering of the clients based on the device function
             prequist: AP and switch need to be onboarded and need one client to switch and one client connect to AP
-                Usage of test case:
-                    Test1: Filter Client By Device Function
-                        client.filter client by device function  client ap
-                        client.filter client by device function  client switch
+            Usage of test case:
+            Test1: Filter Client By Device Function
+            client.filter client by device function  client ap
+            client.filter client by device function  client switch
             Jira: APC - 3741
         """
         self.utils.print_info(" ----- Filter the " + filter + " -----")
@@ -449,8 +450,8 @@ class FilterManageDevices():
         """ Verification of the clients based on the os type
             prequist: One or two clients should be connected via Wifi either Windows, Mac OS
             Usage of test case:
-                Test1: Filter Client By OS Type
-                       filter client by os type
+            Test1: Filter Client By OS Type
+            filter client by os type
         """
 
         self.utils.print_info(" ----- Filter the " + filter  + "-----" )
@@ -489,8 +490,8 @@ class FilterManageDevices():
         """ Verification of the Clients based on the SSID
             prequist: 1 Ap should be onboarded with wireless network
             Usage of test case:
-              Test1: Filter Client By Client SSID
-                     filter client by ssid
+            Test1: Filter Client By Client SSID
+            filter client by ssid
         """
         self.utils.print_info("----- filter the " + filter + " ------ " )
         if filter in ['client ssid']:
@@ -523,9 +524,9 @@ class FilterManageDevices():
         """ Verification of the filtering of the Clients based on the SSID
             prequist: 1 Ap should be onboarded with wireless network
             Usage of test case:
-              Test1: Filter Client By User Profiles
-                filter client by user profiles  ${ssid_name}   client guess profile
-                filter client by user profiles  ${ssid_name}   client default profile
+            Test1: Filter Client By User Profiles
+            filter client by user profiles  ${ssid_name}   client guess profile
+            filter client by user profiles  ${ssid_name}   client default profile
         """
 
         if filter in ['client guest profile']:
@@ -571,16 +572,17 @@ class FilterManageDevices():
         return str(1), None
 
     def set_device_type_filter(self, filter='All', select='true'):
-        """ Sets the device type filter to the specified value
-            Usage of test case:
-                Set Device Type Filter  All  true
-                Set Device Type Filter  Plan Devices  true
-                Set Device Type Filter  Real Devices  true
-                Set Device Type Filter  Simulated Devices  true
-                Set Device Type Filter  All  false
-                Set Device Type Filter  Plan Devices  false
-                Set Device Type Filter  Real Devices  false
-                Set Device Type Filter  Simulated Devices  false
+        """
+        Sets the device type filter to the specified value
+        Usage of test case:
+            Set Device Type Filter  All  true
+            Set Device Type Filter  Plan Devices  true
+            Set Device Type Filter  Real Devices  true
+            Set Device Type Filter  Simulated Devices  true
+            Set Device Type Filter  All  false
+            Set Device Type Filter  Plan Devices  false
+            Set Device Type Filter  Real Devices  false
+            Set Device Type Filter  Simulated Devices  false
 
         :param filter: name of the filter to set
         :param select: indicates whether the filter check box should be selected (true) or deselected (false)
@@ -611,16 +613,17 @@ class FilterManageDevices():
         return self.toggle_filter_check_box(element, select)
 
     def set_device_connection_state_filter(self, filter='All', select='true'):
-        """ Sets the device connection state filter to the specified value
-            Usage of test case:
-                Set Device Connection State Filter  All  true
-                Set Device Connection State Filter  Connected  true
-                Set Device Connection State Filter  Disconnected  true
-                Set Device Connection State Filter  Pre-Provisioned  true
-                Set Device Connection State Filter  All  false
-                Set Device Connection State Filter  Connected  false
-                Set Device Connection State Filter  Disconnected  false
-                Set Device Connection State Filter  Pre-Provisioned  false
+        """
+        Sets the device connection state filter to the specified value
+        Usage of test case:
+            Set Device Connection State Filter  All  true
+            Set Device Connection State Filter  Connected  true
+            Set Device Connection State Filter  Disconnected  true
+            Set Device Connection State Filter  Pre-Provisioned  true
+            Set Device Connection State Filter  All  false
+            Set Device Connection State Filter  Connected  false
+            Set Device Connection State Filter  Disconnected  false
+            Set Device Connection State Filter  Pre-Provisioned  false
 
         :param filter: name of the filter to set
         :param select: indicates whether the filter check box should be selected (true) or deselected (false)
@@ -909,6 +912,7 @@ class FilterManageDevices():
     # supported functions
     def clear_all_filters(self, navigator='device filter'):
         """ Clearing all applied and saved filters
+
             :param navigator: navigator to a filtered page
         """
         self.utils.print_info("Start --> Clear all filters ")
@@ -948,6 +952,7 @@ class FilterManageDevices():
 
     def expand_and_collapse_filters(self, element, filter_type='policy', collapse=False):
         """ expand and collapse the filter links
+
             :param element : link of filter
             :param filter_type: page contains the filters
             :param collapse: collapse the filter toggle when it is true
@@ -969,6 +974,7 @@ class FilterManageDevices():
 
     def select_filter_by(self, *locators, filter_name = 'default', reset=False):
         """ expand and collapse the filter links
+
             :param locators : list of checkboxs
             :param reset : clear the checkbox when it is true
         """
@@ -993,6 +999,7 @@ class FilterManageDevices():
     def save_filter(self):
 
         """ create a filter and save the filter
+
         :param: None
         :return filter_name (name of filter)
         """
@@ -1011,6 +1018,7 @@ class FilterManageDevices():
     def get_column_values_from_device_page(self, filter='default'):
 
         """ verify if the polices are assigned to all devices
+
             :param  grid : a list of column values on the device page
             :return list of column values
         """
@@ -1070,6 +1078,7 @@ class FilterManageDevices():
 
     def get_elements_text(self, elements):
         """ get_elements_text
+
             :param: list of elements
             :return list of texts
         """
@@ -1086,6 +1095,7 @@ class FilterManageDevices():
 
     def action_change_managed_state(self, ap, state="managed"):
         """ change a managed state of ap
+
             :param: ap: ap's serial number
             :param: state is either managed or unmanaged
             :return True
@@ -1169,6 +1179,7 @@ class FilterManageDevices():
     def user_profile_filter_error(self, user_profile=None):
         """
         - Checks for error after selecting user profile which is not assigned to any device, ie, it should not throw error "can not get the required device list"
+
         :param user_profile: name of the user profile
         :return: 1 if successful
         """

@@ -19,7 +19,7 @@ class A3Inventory(A3InventoryWebElements):
         """
         - This Keyword Will enable SSH Access for A3 Version 3.2 Nodes
         - Keyword Usage
-         - ``Enable Ssh Access On A3 Node   ${A3_ADDR}    ${ACCOUNT}     ${PASSWORD}    ${SSH_PWD}     ${DURATION}``
+        - ``Enable Ssh Access On A3 Node   ${A3_ADDR}    ${ACCOUNT}     ${PASSWORD}    ${SSH_PWD}     ${DURATION}``
         :param a3_addr: A3 Node IP Address
         :param account: A3 Login username
         :param password: A3 Login Password
@@ -81,7 +81,7 @@ class A3Inventory(A3InventoryWebElements):
         - This Keyword Executes Curl Command to Link A3 Node to XIQ
         - It assumes that already opened SSH spawn of A3 Node.
         - Keyword Usage:
-         - ``Link A3 Nodes To Xiq   ${SPAWN}    ${USERNAME}     ${PASSWORD}``
+        - ``Link A3 Nodes To Xiq   ${SPAWN}    ${USERNAME}     ${PASSWORD}``
         :param spawn: A3 Node ssh Spawn
         :param username: XIQ User Name
         :param password: XIQ Password
@@ -110,7 +110,7 @@ class A3Inventory(A3InventoryWebElements):
         - This keyword executes Curl command to UnLink A3 Node to XIQ
         - It assumes that already opened SSH spawn of A3 Node.
         - Keyword Usage:
-         - ``Unlink A3 Nodes From Xiq    ${SPAWN} ``
+        - ``Unlink A3 Nodes From Xiq    ${SPAWN} ``
         :param spawn: A3 Node ssh Spawn
         :param timeout: Spawn command timeout in seconds
         :return: output of the Executed Curl Command
@@ -154,7 +154,7 @@ class A3Inventory(A3InventoryWebElements):
         - It Assumes that its already Navigated to A3-->inventory Grid
         - Flow  A3-->inventory Grid
         - Keyword Usage:
-         - ``Search A3 Device  ${A3_HOST_NAME}``
+        - ``Search A3 Device  ${A3_HOST_NAME}``
 
         :param a3_host_name: A3 server Host Name
         :return: return 1 if A3 host found on A3 Inventory Grid else -1
@@ -185,10 +185,10 @@ class A3Inventory(A3InventoryWebElements):
 
     def format_row(self, row):
         """
-         - This Keyword will give formatted row data
-         - Flow  A3-->Inventory
-         - Keyword Usage:
-          - ``Format Row  ${ROW}``
+        - This Keyword will give formatted row data
+        - Flow  A3-->Inventory
+        - Keyword Usage:
+        - ``Format Row  ${ROW}``
 
          :param row: A3 Inventory Grid Row
          :return: return Formatted Row Information
@@ -204,7 +204,7 @@ class A3Inventory(A3InventoryWebElements):
         - Get the A3 Node row object from the A3 Inventory grid
         - Flow  A3-->Inventory
         - Keyword Usage:
-         - ``Get A3 Node Row  ${A3_HOST_NAME}``
+        - ``Get A3 Node Row  ${A3_HOST_NAME}``
 
         :param a3_host_name: A3 Node  Host Name
         :return: returns the row object
@@ -227,7 +227,7 @@ class A3Inventory(A3InventoryWebElements):
         - Get the A3 server row object from the A3 Inventory grid
         - Flow  A3-->Inventory
         - Keyword Usage:
-         - ``Get A3 Server Row  ${A3_HOST_NAME}``
+        - ``Get A3 Server Row  ${A3_HOST_NAME}``
 
         :param a3_host_name: A3 server Host Name
         :return: returns the row object
@@ -250,7 +250,7 @@ class A3Inventory(A3InventoryWebElements):
         - This keyword returns the A3 virtual server status by searching host name
         - Flow  A3-->Inventory
         - Keyword Usage:
-         - ``Get A3 Server Status    ${A3_HOST_NAME}``
+        - ``Get A3 Server Status    ${A3_HOST_NAME}``
 
         :param a3_host_name: A3 Server host Name
         :return: 'green' if the A3 Server is online else return -1
@@ -276,13 +276,13 @@ class A3Inventory(A3InventoryWebElements):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _expand_a3_server_node(self, a3_host_name, **kwargs):
+    def _expand_a3_server_node(self, a3_host_name):
         """
         - This keyword will Expand A3 Server Nodes using Host Name
         - Assumes that already navigated to the A3 --> Inventory
 
         :param a3_host_name: A3 Server host name
-        :return: 1 if A3 Server Node Expanded Successfully else -1
+        :return: 1 if A3 Server Node Expanded Successfully else False
         """
         self._goto_a3_inventory_page()
         sleep(2)
@@ -299,19 +299,14 @@ class A3Inventory(A3InventoryWebElements):
                     self.auto_actions.click(self.get_a3_device_expanded_button(row))
                     self.screen.save_screen_shot()
                     sleep(2)
-                kwargs['pass_msg'] = "A3 Server Node Expanded Successfully"
-                self.common_validation.passed(**kwargs)
                 return 1
-
-        kwargs['fail_msg'] = "_expand_a3_server_node() failed. Unable to expand A3 Server Node!"
-        self.common_validation.fault(**kwargs)
-        return -1
+        return False
 
     def get_a3_node_status(self, a3_server_name, a3_node_name, **kwargs):
         """
         - This keyword returns the A3 Node status by searching host name
         - Keyword Usage:
-         - ``Get A3 Node Status    ${A3_HOST_NAME}``
+        - ``Get A3 Node Status    ${A3_HOST_NAME}``
 
         :param a3_server_name: A3 Server Host Name
         :param a3_node_name: A3 Node Host Name
@@ -339,13 +334,13 @@ class A3Inventory(A3InventoryWebElements):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _access_go_to_a3_button(self, a3_host_name, **kwargs):
+    def _access_go_to_a3_button(self, a3_host_name):
         """
         - This keyword will access Go To A3 Button on A3 Server host
         - Assumes that already navigated to the A3 --> Inventory
 
         :param a3_host_name: A3 Server Host Name
-        :return: 1 if able to access go to A3 button else -1
+        :return: 1 if able to access go to A3 button else False
         """
         self._goto_a3_inventory_page()
         sleep(2)
@@ -363,22 +358,17 @@ class A3Inventory(A3InventoryWebElements):
                     sleep(5)
                     self.utils.print_info("Clicking Go To A3 Button")
                     self.auto_actions.click(self.get_go_to_a3_button(row))
-                kwargs['pass_msg'] = "Successfully access Go To A3 Button on A3 Server host!"
-                self.common_validation.passed(**kwargs)
                 return 1
+        return False
 
-        kwargs['fail_msg'] = "_access_go_to_a3_button() failed. Failed to access Go To A3 Button on A3 Server host!"
-        self.common_validation.fault(**kwargs)
-        return -1
-
-    def _access_a3_node_go_to_a3_button(self, a3_server_name, a3_node_name, **kwargs):
+    def _access_a3_node_go_to_a3_button(self, a3_server_name, a3_node_name):
         """
         - This keyword will Access Go To A3 Button on A3 Node Host
         - Assumes that already navigated to the A3 --> Inventory
 
         :param a3_node_name: A3 Node Host Name
         :param a3_server_name: A3 server Host Name
-        :return: 1 if able to access go to A3 button else -1
+        :return: 1 if able to access go to A3 button else False
         """
         self._expand_a3_server_node(a3_server_name)
         sleep(5)
@@ -390,20 +380,15 @@ class A3Inventory(A3InventoryWebElements):
             if a3_node_name in row.text:
                 self.utils.print_info("Clicking Go To A3 Button")
                 self.auto_actions.click(self.get_a3_node_go_to_a3_button(row))
-                kwargs['pass_msg'] = "Able to access go to A3 button"
-                self.common_validation.passed(**kwargs)
                 return 1
-
-        kwargs['fail_msg'] = "_access_a3_node_go_to_a3_button() failed. Unable to access go to A3 button"
-        self.common_validation.fault(**kwargs)
-        return -1
+        return False
 
     def verify_a3_server_login_on_xiq(self, a3_host_name, a3_login_username, a3_login_password):
         """
         - This keyword will verify A3 Server Access from XIQ UI using Go To A3 Button and Check A3 Login via XIQ
         - Assume that navigated to the A3 --> Inventory
         - Keyword Usage:
-         - ``Verify A3 Server Login On XIQ   ${A3_IP_ADDR}   ${A3_USERNAME}  ${A3_PASSWORD}``
+        - ``Verify A3 Server Login On XIQ   ${A3_IP_ADDR}   ${A3_USERNAME}  ${A3_PASSWORD}``
 
         :param a3_host_name: A3 Server host name
         :param a3_login_username: A3 Login Name to Access A3 UI
@@ -441,6 +426,10 @@ class A3Inventory(A3InventoryWebElements):
 
         a3_page_title = CloudDriver().cloud_driver.title
         self.utils.print_info("Page Title is : ", a3_page_title)
+
+        CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
+        sleep(2)
+
         return a3_page_title
 
     def verify_a3_node_login_on_xiq(self, a3_server_name, a3_node_name, a3_login_username, a3_login_password):
@@ -448,7 +437,7 @@ class A3Inventory(A3InventoryWebElements):
         - This keyword will verify A3 Node Access from XIQ UI using Go To A3 Button and check A3 login via XIQ
         - Assume that navigated to the A3 --> Inventory
         - Keyword Usage:
-         - ``Verify A3 Node Login On XIQ   ${A3_SERVER_NAME}  ${A3_IP_ADDR}   ${A3_USERNAME}  ${A3_PASSWORD}``
+        - ``Verify A3 Node Login On XIQ   ${A3_SERVER_NAME}  ${A3_IP_ADDR}   ${A3_USERNAME}  ${A3_PASSWORD}``
         :param a3_server_name: A3 Server Name
         :param a3_node_name: A3 Node Name
         :param a3_login_username: A3 login name to Access A3 UI
@@ -494,7 +483,7 @@ class A3Inventory(A3InventoryWebElements):
         """
         - This Keyword will validate the A3 page text after Unlinking A3 from XIQ
         - Keyword Usage:
-         - ``Validate A3 Page After Unlink      ${A3_HOST_NAME}``
+        - ``Validate A3 Page After Unlink      ${A3_HOST_NAME}``
         :return: 1 or unlink_page_text if unlinking of A3 to xiq is success else -1
         """
         self.navigator.navigate_a3_inventory()
@@ -509,7 +498,7 @@ class A3Inventory(A3InventoryWebElements):
             sleep(2)
             return unlink_page_text
         else:
-            if self.search_a3_device(a3_host_name, expect_failure=True) == 1:
+            if self.search_a3_device(a3_host_name, ignore_failure=True) == 1:
                 kwargs['fail_msg'] = "validate_a3_page_after_unlink() failed. " \
                                      "A3 page still having the A3 cluster node entries"
                 self.common_validation.failed(**kwargs)
@@ -518,4 +507,3 @@ class A3Inventory(A3InventoryWebElements):
         kwargs['pass_msg'] = "Unlinking of A3 to xiq is success!"
         self.common_validation.passed(**kwargs)
         return 1
-

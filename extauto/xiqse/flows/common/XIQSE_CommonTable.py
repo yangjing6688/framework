@@ -21,7 +21,7 @@ class XIQSE_CommonTable(CommonTableWebElements):
         """
         - This keyword opens the column header menu using the anchor column specified.
         -  Keyword Usage:
-         - ``XIQSE Table Open Column Header Menu        Status``
+        - ``XIQSE Table Open Column Header Menu        Status``
 
         :param anchor_col: column to access the menu from; different depending on which view the table is in
         :return: returns 1 if successful. else -1
@@ -52,7 +52,7 @@ class XIQSE_CommonTable(CommonTableWebElements):
         """
         - This keyword opens the column selection menu from the column header using the anchor column specified.
         -  Keyword Usage:
-         - ``XIQSE Table Open Column Selection Menu        Status``
+        - ``XIQSE Table Open Column Selection Menu        Status``
 
         :param anchor_col: column to access the column menu from; different depending on which view the table is in
         :return: returns 1 if successful. else -1
@@ -78,7 +78,7 @@ class XIQSE_CommonTable(CommonTableWebElements):
         """
         - This keyword shows the specified list of columns if they are currently hidden.
         -  Keyword Usage:
-         - ``XIQSE Table Show Columns        Status      Admin Profile  Context``
+        - ``XIQSE Table Show Columns        Status      Admin Profile  Context``
 
         :param anchor_col: column to access the column menu from; different depending on which view the table is in
         :param columns: list of columns to show
@@ -113,7 +113,7 @@ class XIQSE_CommonTable(CommonTableWebElements):
         """
         - This keyword hides the specified list of columns if they are currently hidden.
         -  Keyword Usage:
-         - ``XIQSE Table Hide Columns        Status      Admin Profile  Context``
+        - ``XIQSE Table Hide Columns        Status      Admin Profile  Context``
 
         :param anchor_col: column to access the column menu from; different depending on which view the table is in
         :param columns: list of columns to hide
@@ -146,10 +146,10 @@ class XIQSE_CommonTable(CommonTableWebElements):
 
     def xiqse_table_sort_ascending(self, anchor_col):
         """
-         - This keyword selects the Sort Ascending menu option for the column.
-         - Provide the Web Element for the specified column.
-         - Keyword Usage
-          - ``XIQSE Table Sort Ascending  Serial Number``
+        - This keyword selects the Sort Ascending menu option for the column.
+        - Provide the Web Element for the specified column.
+        - Keyword Usage
+        - ``XIQSE Table Sort Ascending  Serial Number``
 
         :param anchor_col: column web element to access the column menu from; different depending on which view the table is in
         :return: 1 if action was successful, else -1
@@ -174,10 +174,10 @@ class XIQSE_CommonTable(CommonTableWebElements):
 
     def xiqse_table_sort_descending(self, anchor_col):
         """
-         - This keyword selects the Sort Descending menu option for the column.
-         - Provide the Web Element for the specified column.
-         - Keyword Usage
-          - ``XIQSE Table Sort Descending  Serial Number``
+        - This keyword selects the Sort Descending menu option for the column.
+        - Provide the Web Element for the specified column.
+        - Keyword Usage
+        - ``XIQSE Table Sort Descending  Serial Number``
 
         :param anchor_col: column web element to access the column menu from; different depending on which view the table is in
         :return: 1 if action was successful, else -1
@@ -209,10 +209,10 @@ class XIQSE_CommonTable(CommonTableWebElements):
         - xiqse_table_add_column_filter() should be called for as many filters as needed, and then the dialog
         - should be closed.
         -  Keyword Usage:
-         - ``XIQSE Table Set Column Filter     Source          ${DEVICE_IP}``
-         - ``XIQSE Table Set Column Filter     Admin Profile   EXTR_v2_Profile   filter_type=Text``
-         - ``XIQSE Table Set Column Filter     Archived        True              filter_type=Radio``
-         - ``XIQSE Table Set Column Filter     Severity        Critical,Error    filter_type=Checkbox``
+        - ``XIQSE Table Set Column Filter     Source          ${DEVICE_IP}``
+        - ``XIQSE Table Set Column Filter     Admin Profile   EXTR_v2_Profile   filter_type=Text``
+        - ``XIQSE Table Set Column Filter     Archived        True              filter_type=Radio``
+        - ``XIQSE Table Set Column Filter     Severity        Critical,Error    filter_type=Checkbox``
 
         :param column_name: name of the column to add a filter on
         :param filter_value: value to enter for the filter field
@@ -246,10 +246,10 @@ class XIQSE_CommonTable(CommonTableWebElements):
         - This keyword assumes the dialog is already open, and can be used to add multiple filters.
         - Use xiqse_table_set_column_filter() to open, add one filter, and close the dialog in one shot.
         -  Keyword Usage:
-         - ``XIQSE Table Add Column Filter     Source          ${DEVICE_IP}``
-         - ``XIQSE Table Add Column Filter     Admin Profile   EXTR_v2_Profile   filter_type=Text``
-         - ``XIQSE Table Add Column Filter     Archived        True              filter_type=Radio``
-         - ``XIQSE Table Add Column Filter     Severity        Critical,Error    filter_type=Checkbox``
+        - ``XIQSE Table Add Column Filter     Source          ${DEVICE_IP}``
+        - ``XIQSE Table Add Column Filter     Admin Profile   EXTR_v2_Profile   filter_type=Text``
+        - ``XIQSE Table Add Column Filter     Archived        True              filter_type=Radio``
+        - ``XIQSE Table Add Column Filter     Severity        Critical,Error    filter_type=Checkbox``
 
         :param column_name: name of the column to add a filter on
         :param filter_value: value to enter for the filter field
@@ -278,7 +278,7 @@ class XIQSE_CommonTable(CommonTableWebElements):
         """
         - This keyword removes the specified filter from the Column Filters dialog.
         -  Keyword Usage:
-         - ``XIQSE Table Remove Column Filter     Source``
+        - ``XIQSE Table Remove Column Filter     Source``
 
         :param the_value: name of the filter to remove
         :return: returns 1 if successful. else -1
@@ -308,7 +308,7 @@ class XIQSE_CommonTable(CommonTableWebElements):
         """
         - This keyword removes the specified filters from the Column Filters dialog.
         -  Keyword Usage:
-         - ``XIQSE Table Remove Column Filter     Source,Event Type,Client``
+        - ``XIQSE Table Remove Column Filter     Source,Event Type,Client``
 
         :param the_values: list of filters to remove
         :return: returns 1 if successful. else -1
@@ -343,9 +343,9 @@ class XIQSE_CommonTable(CommonTableWebElements):
 
     def xiqse_table_open_column_filters_dialog(self):
         """
-         - This keyword clicks the toolbar button to open the Column Filters dialog.
-         - Keyword Usage
-          - ``XIQSE Table Close Column Filters Dialog``
+        - This keyword clicks the toolbar button to open the Column Filters dialog.
+        - Keyword Usage
+        - ``XIQSE Table Close Column Filters Dialog``
 
         :return: 1 if action was successful, else -1
         """
@@ -365,9 +365,9 @@ class XIQSE_CommonTable(CommonTableWebElements):
 
     def xiqse_table_close_column_filters_dialog(self):
         """
-         - This keyword clicks the toolbar button to open the Column Filters dialog.
-         - Keyword Usage
-          - ``XIQSE Table Close Column Filters Dialog``
+        - This keyword clicks the toolbar button to open the Column Filters dialog.
+        - Keyword Usage
+        - ``XIQSE Table Close Column Filters Dialog``
 
         :return: 1 if action was successful, else -1
         """
@@ -375,9 +375,9 @@ class XIQSE_CommonTable(CommonTableWebElements):
 
     def xiqse_refresh_table(self):
         """
-         - This keyword clicks the refresh icon under the table.
-         - Keyword Usage
-          - ``XIQSE Refresh Table``
+        - This keyword clicks the refresh icon under the table.
+        - Keyword Usage
+        - ``XIQSE Refresh Table``
 
         :return: 1 if action was successful, else -1
         """
@@ -395,10 +395,10 @@ class XIQSE_CommonTable(CommonTableWebElements):
 
     def xiqse_reset_table(self):
         """
-         - This keyword clicks the Reset icon under the table, which clears the search field, filters, and refreshes
-         - the table.
-         - Keyword Usage
-          - ``XIQSE Reset Table``
+        - This keyword clicks the Reset icon under the table, which clears the search field, filters, and refreshes
+        - the table.
+        - Keyword Usage
+        - ``XIQSE Reset Table``
 
         :return: 1 if action was successful, else -1
         """

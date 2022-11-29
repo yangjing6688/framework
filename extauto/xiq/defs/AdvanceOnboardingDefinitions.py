@@ -2,13 +2,13 @@ class AdvanceOnboardingDefinitions:
     deploy_devices_to_cloud_radio_button = \
         {
             'XPATH': '//input[@data-dojo-attach-point="cloudButton"]',
-            'wait_for': 5
+            'wait_for': 15
          }
 
     deploy_devices_locally_radio_button = \
         {
             'XPATH': '//input[@data-dojo-attach-point="localButton"]',
-            'wait_for': 5
+            'wait_for': 15
          }
 
     deploy_devices_get_started_button = \
@@ -85,12 +85,24 @@ class AdvanceOnboardingDefinitions:
     device_make_aerohive_dropdown = \
         {
             'XPATH': '//div[@data-dojo-attach-point="manualDeviceMakeCtn"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_make_select_one_dropdown = \
         {
             'XPATH': '//*[@class="chzn-container chzn-container-single"]//span[contains(text(), "Select One")]',
+            'wait_for': 15
+        }
+
+    device_make_exos_radio_button = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-zero-day-onboard-exos-option"]',
+            'wait_for': 5
+        }
+
+    device_make_voss_radio_button = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-zero-day-onboard-voss-option"]',
             'wait_for': 5
         }
 
@@ -98,7 +110,7 @@ class AdvanceOnboardingDefinitions:
         {
             'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]'
                      '//ul[@class="chzn-results qa-chzn-results-manualdevicemake"]//li',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_select_button = \
@@ -194,6 +206,12 @@ class AdvanceOnboardingDefinitions:
     advance_onboard_mac_address_textfield = \
         {
             'XPATH': '//*[@data-dojo-attach-point="macSerials"]',
+            'wait_for': 5
+        }
+
+    advance_onboard_choose_org_continue_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="continueBtn"]',
             'wait_for': 5
         }
 

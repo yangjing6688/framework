@@ -33,7 +33,7 @@ class DeviceTemplate(object):
         """
         - Check the AP template in th AP template Grid
         - Keyword Usage
-         - ``Check AP Template  ${AP_TEMPLATE_NAME}``
+        - ``Check AP Template  ${AP_TEMPLATE_NAME}``
 
         :param ap_template: Ap Template Name ie AP630,AP410C
         :return: True if AP Template Found on Grid else False
@@ -57,7 +57,7 @@ class DeviceTemplate(object):
         - If it is not there add New AP Template
         - WiFi2 config was removed as per jira ticket EXTAUTO-113 and APC-44337.
         - Keyword Usage
-         - ``Add AP Template  ${AP_TEMPLATE_NAME}   &{AP_TEMPLATE_CONFIG}``
+        - ``Add AP Template  ${AP_TEMPLATE_NAME}   &{AP_TEMPLATE_CONFIG}``
 
         :param ap_template_name: AP Template Name ie prod_sanity_ap410ctemplate
         :param ap_model: AP MODEL ie AP630,AP410C
@@ -133,7 +133,7 @@ class DeviceTemplate(object):
         """
         - Selects the given network policy and edit, selects the AP Template and edit wifi2 and disable
         - Keyword Usage
-         - ``Edit AP Net Policy Template Wifi2   ${POLICY_NAME}``
+        - ``Edit AP Net Policy Template Wifi2   ${POLICY_NAME}``
 
         :param policy_name: Network Policy Name
         :param ap_template: Ap Template Name ie AP630,AP410C
@@ -179,7 +179,7 @@ class DeviceTemplate(object):
         """
         - Configure the WIFI0 configuration on AP Template
         - Keyword Usage
-         - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
+        - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
 
         :param wifi0_profile: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
         :return: 1 if WiFi0 Profile Configured Successfully else None
@@ -250,7 +250,7 @@ class DeviceTemplate(object):
         """
         - Configure the WIFI1 configuration on AP Template
         - Keyword Usage
-         - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
+        - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
 
         :param wifi1_profile: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
         :return: 1 if WiFi1 Profile Configured Successfully else None
@@ -314,7 +314,7 @@ class DeviceTemplate(object):
         """
         - Configure the WIFI2 configuration on AP Template
         - Keyword Usage
-         - ``Config AP Template WiFi2  &{WIFI2_CONFIG}``
+        - ``Config AP Template WiFi2  &{WIFI2_CONFIG}``
 
         :param wifi2_profile: (Config Dict) WiFi2 ADSP server Config ie primary server ip and port
         :return: 1 if WiFi2 Profile Configured Successfully else None
@@ -379,11 +379,11 @@ class DeviceTemplate(object):
                 self.auto_actions.click_reference(self.device_template_web_elements.get_sensor_checkbox_wifi2)
                 sleep(5)
 
-        """ 
+        """
         ##### APC-44337 UI Changes #####
         adsp_primary_server_ip = wifi2_profile.get('primary_server_ip', '1.1.1.1')
         adsp_primary_server_port = wifi2_profile.get('primary_server_port', '11')
-        
+
         wifi2_primary_server_ip = self.device_template_web_elements.get_wifi2_primary_server_ip_textfield()
         wifi2_primary_server_port = self.device_template_web_elements.get_wifi2_primary_server_port_textfield()
 
@@ -410,7 +410,7 @@ class DeviceTemplate(object):
         """
         - Select/Attach the AP template to the Network Policy
         - Keyword Usage
-         - ``Select AP Template From NP  ${AP_TEMPLATE_NAME}``
+        - ``Select AP Template From NP  ${AP_TEMPLATE_NAME}``
 
         :param ap_template: Ap Template Name ie AP630,AP410C
         :return: 1 if AP Template Found on Grid else -1
@@ -450,7 +450,7 @@ class DeviceTemplate(object):
         """
         - Clicks the Select Rule button which appears for second AP Template of same AP model
         - Keyword Usage
-         - ``Click Select Rule to AP Template  ${AP_TEMPLATE}``
+        - ``Click Select Rule to AP Template  ${AP_TEMPLATE}``
 
         :param ap_template: Ap Template Name ie AP630,AP410C
         :return: True if Select Rule Button Found on Grid else False
@@ -467,7 +467,7 @@ class DeviceTemplate(object):
         """
         - Select Rule button for second AP Template of same AP model
         - Keyword Usage
-         - ``Select Rule to AP Template  ${AP_TEMPLATE}``
+        - ``Select Rule to AP Template  ${AP_TEMPLATE}``
 
         :param rule: Rule is the classification Rule
         :return: True if Rule Found else False
@@ -490,7 +490,7 @@ class DeviceTemplate(object):
         - Checking the AP template presence in the AP Templates Grid
         - If not there, then select AP Template from the list
         - Keyword Usage
-         - ``Add AP Template To Network Policy   ${AP_TEMPLATE_NAME}       ${NETWORK_POLICY_NAME}``
+        - ``Add AP Template To Network Policy   ${AP_TEMPLATE_NAME}       ${NETWORK_POLICY_NAME}``
 
         :param ap_template_name: AP Template Name ie AP630,AP410C etc
         :param policy_name: Name of the Network policy to attach the template
@@ -514,7 +514,7 @@ class DeviceTemplate(object):
         - Checking the AP template present in the AP Templates Grid
         - If it is not there add New AP Template
         - Keyword Usage
-         - ``Add AP Template  ${AP_TEMPLATE_NAME}   &{AP_TEMPLATE_CONFIG}``
+        - ``Add AP Template  ${AP_TEMPLATE_NAME}   &{AP_TEMPLATE_CONFIG}``
 
         :param ap_template: AP Template Name ie AP630,AP410C
         :param wifi_interface_config: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
@@ -539,7 +539,7 @@ class DeviceTemplate(object):
         - Select Classification Rule button will only appear in case of second AP Template for same model
         - Selecting the Classification Rule from the list
         - Keyword Usage
-         - ``Add Classification Rule to AP Template    ${AP_TEMPLATE_NAME}   ${CLASSIFICATION_RULE}``
+        - ``Add Classification Rule to AP Template    ${AP_TEMPLATE_NAME}   ${CLASSIFICATION_RULE}``
 
         :param ap_template_name: AP Template Name ie AP630-Template,AP410C-Template
         :param classification_rule: Classification Rule to be added to AP Template
@@ -570,7 +570,7 @@ class DeviceTemplate(object):
         - Checking the AP template presence in the AP Templates Grid
         - If it is not there return -1 else delete the template
         - Keyword Usage
-         - ``Remove AP Template From Network Policy   ${AP_TEMPLATE_NAME}       ${NETWORK_POLICY_NAME}``
+        - ``Remove AP Template From Network Policy   ${AP_TEMPLATE_NAME}       ${NETWORK_POLICY_NAME}``
 
         :param ap_template_name: AP Template Name ie AP630,AP410C
         :param policy_name: Name of the Network policy to remove the template
@@ -608,7 +608,7 @@ class DeviceTemplate(object):
         else:
             return -3
 
-        """        
+        """
         self.utils.print_info("Click on AP Template Add button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_add_button)
         sleep(2)
@@ -666,7 +666,7 @@ class DeviceTemplate(object):
         - This Keyword creates Supplemental CLI inside the AP Template
         - Flow: Network Policies --> Device Template --> AP Template --> Advanced Settings --> Supplemental CLI
         - Keyword Usage:
-         - ``Enable Supplemental CLI in AP Template   ${POLICY_NAME}    ${AP_MODEL}    ${AP_TEMPLATE_NAME}   ${SUPPL_CLI_NAME}     ${SUPPL_CLI_CMDS}``
+        - ``Enable Supplemental CLI in AP Template   ${POLICY_NAME}    ${AP_MODEL}    ${AP_TEMPLATE_NAME}   ${SUPPL_CLI_NAME}     ${SUPPL_CLI_CMDS}``
 
         :param policy_name: Name of the Network policy
         :param ap_model: AP Model
@@ -769,7 +769,7 @@ class DeviceTemplate(object):
         - This Keyword creates Supplemental CLI inside the Switch Template
         - Flow: Network Policies --> Device Template --> Switch Template --> Advanced Settings --> Supplemental CLI
         - Keyword Usage:
-         - ``Enable Supplemental CLI in Switch Template   ${POLICY_NAME}    ${SWITCH_MODEL}    ${SWITCH_TEMPLATE_NAME}   ${SUPPL_CLI_NAME}     ${SUPPL_CLI_CMDS}``
+        - ``Enable Supplemental CLI in Switch Template   ${POLICY_NAME}    ${SWITCH_MODEL}    ${SWITCH_TEMPLATE_NAME}   ${SUPPL_CLI_NAME}     ${SUPPL_CLI_CMDS}``
 
         :param policy_name: Name of the Network policy
         :param switch_model: Switch Model
@@ -876,7 +876,7 @@ class DeviceTemplate(object):
         - This Keyword is to create Country Code in AP Template
         - Flow: Network Policies --> Device Template --> AP Template --> Advanced Settings --> Country Code
         - Keyword Usage:
-         - ``Choose Country Code in AP Template   ${POLICY_NAME}    ${AP_MODEL}    ${AP_TEMPLATE_NAME}   ${COUNTRY}``
+        - ``Choose Country Code in AP Template   ${POLICY_NAME}    ${AP_MODEL}    ${AP_TEMPLATE_NAME}   ${COUNTRY}``
 
         :param policy_name: Name of the Network policy
         :param ap_model: AP Model
