@@ -2105,7 +2105,7 @@ class Devices:
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
-        if 'Extreme - Aerohive' in device_make:
+        if 'Extreme - Aerohive' in device_make  and 'Simulated' not in device_type:
             self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
             self.auto_actions.select_drop_down_options(
                 self.devices_web_elements.get_device_make_drop_down_options(), device_make)
