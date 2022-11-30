@@ -30,9 +30,10 @@ class Location:
     def assign_location_with_hyperlink(self, device_serial=None, dev_location=None):
         """
         - This keyword assigns location to device by clicking on Assign Location hyperlink in Devices page.
-        -Flow: Manage --> Devices --> based on device serial clicks on the Assign Location hyperlink present in Devices grid.
+        - Flow: Manage --> Devices --> based on device serial clicks on the Assign Location hyperlink present in Devices grid.
         - Keyword Usage:
-         - ``Assign Location With Hyperlink    ${AP1_SERIAL}              San Jose, building_01, floor_02``
+        - ``Assign Location With Hyperlink    ${AP1_SERIAL}              San Jose, building_01, floor_02``
+
         :param device_serial: device serial number
         :param dev_location: location where the device is to be assigned in the above format
         :return: 1 if success else -1
@@ -61,9 +62,10 @@ class Location:
     def assign_location_with_device_actions(self, device_serial=None, dev_location=None):
         """
         - This keyword assigns location to device by clicking on Actions button in Devices page.
-        -Flow: Manage --> Devices --> selects the device based on serial number --> Actions --> Assign Location
+        - Flow: Manage --> Devices --> selects the device based on serial number --> Actions --> Assign Location
         - Keyword Usage:
-         - ``Assign Location With Device Actions    ${AP1_SERIAL}              San Jose, building_01, floor_02``
+        - ``Assign Location With Device Actions    ${AP1_SERIAL}              San Jose, building_01, floor_02``
+
         :param device_serial: device serial number
         :param dev_location: location where the device is to be assigned in the above format
         :return: 1 if success else -1
@@ -89,6 +91,7 @@ class Location:
     def _assign_location(self, device_serial='default', dev_location='default'):
         """
         - This keyword assigns the specified location to the specified device and confirms the assignment was successful.
+
         :param device_serial: device serial number
         :param dev_location: location to select, in a comma-separated list format; e.g., San Jose, building_01, floor_02
         :return: 1 if success, else -1
@@ -118,7 +121,7 @@ class Location:
         - This keyword selects a location in the location dialog and clicks the "Assign" button.
           It is assumed the location dialog is already open.
         - Keyword Usage:
-         - ``Select Location  ${LOCATION}``
+        - ``Select Location  ${LOCATION}``
 
         :param sel_loc: location to select, in a comma-separated list format; e.g., San Jose, building_01, floor_02
         :return: 1 if location is selected, else -1'
@@ -200,6 +203,7 @@ class Location:
     def _verify_device_location(self, device_serial="default", location_floor='default'):
         """
         - This keyword  verifies the location of device
+
         :param device_serial: Device serial number
         :param location_floor: floor of the location where AP has been assigned
         :return: 1 if success else -1
@@ -224,6 +228,7 @@ class Location:
         """
         - This keyword returns the location of a device
         - location string format: auto_location_01 >> San Jose >> building_01 >> floor_01
+
         :param device_serial: client name
         :return: returns location string if success else -1
         """
@@ -232,6 +237,7 @@ class Location:
     def _verify_client_location(self, client_name='default', location_floor='default'):
         """
         - This keyword verifies the location of client
+
         :param client_name: client name
         :param location_floor: floor of the location where AP has been assigned
         :return: 1 if success else -1
@@ -256,6 +262,7 @@ class Location:
         - Pre-condition - this keyword assumes that location already assigned to device
         - Clicks on device location link
         - Returns the floor, which is highlighted from the location popup
+
         :param device_serial: Device Serial
         :return: floor highlighted if success else -1
         """
@@ -265,7 +272,8 @@ class Location:
 
     def create_location_building_floor(self, location, building, floor, width="50", height="50"):
         """
-        -This function is to create location, building and floor in MLInsights >> N360plan
+        - This function is to create location, building and floor in MLInsights >> N360plan
+
         :param location:
         :param building:
         :param floor:
@@ -320,7 +328,8 @@ class Location:
 
     def delete_location_building_floor(self, location, building, floor):
         """
-        -This function is to delete location, building and floor in MLInsights >> N360plan
+        - This function is to delete location, building and floor in MLInsights >> N360plan
+
         :param location:
         :param building:
         :param floor:
@@ -425,9 +434,10 @@ class Location:
     def assign_location_using_hostname(self, device_host, dev_location=None):
         """
         - This keyword assigns location to device by clicking on Assign Location hyperlink in Devices page.
-        -Flow: Manage --> Devices --> based on hostname clicks on the Assign Location hyperlink present in Devices grid.
+        - Flow: Manage --> Devices --> based on hostname clicks on the Assign Location hyperlink present in Devices grid.
         - Keyword Usage:
-         - ``Assign Location With Hostname    ${SW_HOST}              San Jose, building_01, floor_02``
+        - ``Assign Location With Hostname    ${SW_HOST}              San Jose, building_01, floor_02``
+
         :param device_serial: switch host
         :param dev_location: location where the device is to be assigned in the above format
         :return: 1 if success else -1
@@ -457,6 +467,7 @@ class Location:
         """
         - This keyword returns the location of a device
         - location string format: auto_location_01 >> San Jose >> building_01 >> floor_01
+
         :param device_serial: client name
         :return: returns location string if success else -1
         """
@@ -465,9 +476,10 @@ class Location:
     def assign_location_with_device_actions_using_hostname(self, device_name="default", dev_location=None):
         """
         - This keyword assigns location to device by clicking on Actions button in Devices page.
-        -Flow: Manage --> Devices --> selects the device based on host name --> Actions --> Assign Location
+        - Flow: Manage --> Devices --> selects the device based on host name --> Actions --> Assign Location
         - Keyword Usage:
-         - ``Assign Location With Device Actions    ${SW_HOST}              San Jose, building_01, floor_02``
+        - ``Assign Location With Device Actions    ${SW_HOST}              San Jose, building_01, floor_02``
+
         :param device_serial: device host name
         :param dev_location: location where the device is to be assigned in the above format
         :return: 1 if success else -1
@@ -494,6 +506,7 @@ class Location:
         """
         - This keyword is used to input new value to SNMP location in D360 >> device config
         - location string format: auto_location_01 >> San Jose >> building_01 >> floor_01
+
         :param loction name
         :return: returns 1 if success else -1
         """
@@ -509,7 +522,8 @@ class Location:
         '''
         This keyword create new organization if this isn't created
         - Keyword Usage:
-                create_first_organization                     Luxoft       Doftanei        Bucuresti     Romania
+        - create_first_organization                     Luxoft       Doftanei        Bucuresti     Romania
+
         :param organization: name of organization
         :param street: name of street
         :param city: name of city

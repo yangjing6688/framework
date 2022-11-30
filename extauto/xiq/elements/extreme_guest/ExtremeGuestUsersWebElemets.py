@@ -65,6 +65,12 @@ class ExtremeGuestUsersWebElements(ExtremeGuestUsersWebElementsDefs):
     def get_extreme_guest_users_grid_rows(self):
         return self.weh.get_elements(self.extreme_guest_users_grid_rows)
 
+    def get_extreme_facebook_guest_users(self):
+        return self.weh.get_element(self.extreme_facebook_guest_users).text
+
+    def get_extreme_linkedin_guest_users(self):
+        return self.weh.get_element(self.extreme_linkedin_guest_users).text
+
     def get_extreme_guest_users_grid_row_cells(self, search_string):
         cells = self.weh.get_elements(self.extreme_guest_users_grid_row_cells)
         for cell in cells:

@@ -18,10 +18,10 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_set_credential_name(self, the_value):
         """
-         - This keyword enters the Credential Name value in the Add SNMP Credential dialog.
-         - It is assumed the Add SNMP Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Set Credential Name    my_snmp_cred``
+        - This keyword enters the Credential Name value in the Add SNMP Credential dialog.
+        - It is assumed the Add SNMP Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Set Credential Name    my_snmp_cred``
 
         :param the_value: value to enter in the Credential Name field
         :return: 1 if action was successful, else -1
@@ -41,10 +41,10 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_select_snmpv1(self):
         """
-         - This keyword selects SNMP Version SNMPv1 in the Add SNMP Credential dialog.
-         - It is assumed the Add SNMP Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Select SNMPv1``
+        - This keyword selects SNMP Version SNMPv1 in the Add SNMP Credential dialog.
+        - It is assumed the Add SNMP Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Select SNMPv1``
 
         :return: 1 if action was successful, else -1
         """
@@ -52,10 +52,10 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_select_snmpv2(self):
         """
-         - This keyword selects SNMP Version SNMPv2 in the Add SNMP Credential dialog.
-         - It is assumed the Add SNMP Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Select SNMPv2``
+        - This keyword selects SNMP Version SNMPv2 in the Add SNMP Credential dialog.
+        - It is assumed the Add SNMP Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Select SNMPv2``
 
         :return: 1 if action was successful, else -1
         """
@@ -63,10 +63,10 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_select_snmpv3(self):
         """
-         - This keyword selects SNMP Version SNMPv3 in the Add SNMP Credential dialog.
-         - It is assumed the Add SNMP Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Select SNMPv3``
+        - This keyword selects SNMP Version SNMPv3 in the Add SNMP Credential dialog.
+        - It is assumed the Add SNMP Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Select SNMPv3``
 
         :return: 1 if action was successful, else -1
         """
@@ -74,12 +74,12 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_select_snmp_version(self, the_value):
         """
-         - This keyword selects the SNMP Version value in the Add SNMP Credential dialog.
-         - It is assumed the Add SNMP Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Select SNMP Version    SNMPv1``
-          - ``XIQSE Add SNMP Credential Dialog Select SNMP Version    SNMPv2``
-          - ``XIQSE Add SNMP Credential Dialog Select SNMP Version    SNMPv3``
+        - This keyword selects the SNMP Version value in the Add SNMP Credential dialog.
+        - It is assumed the Add SNMP Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Select SNMP Version    SNMPv1``
+        - ``XIQSE Add SNMP Credential Dialog Select SNMP Version    SNMPv2``
+        - ``XIQSE Add SNMP Credential Dialog Select SNMP Version    SNMPv3``
 
         :param the_value: value to select in the SNMP Version field
         :return: 1 if action was successful, else -1
@@ -121,12 +121,12 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_set_community_name(self, the_value):
         """
-         - This keyword enters the Community Name value in the Add SNMP Credential dialog.
-         - It is assumed the Add SNMP Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Set Community Name    public``
-          - ``XIQSE Add SNMP Credential Dialog Set Community Name    private``
-          - ``XIQSE Add SNMP Credential Dialog Set Community Name    ${MY_COMMUNITY}``
+        - This keyword enters the Community Name value in the Add SNMP Credential dialog.
+        - It is assumed the Add SNMP Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Set Community Name    public``
+        - ``XIQSE Add SNMP Credential Dialog Set Community Name    private``
+        - ``XIQSE Add SNMP Credential Dialog Set Community Name    ${MY_COMMUNITY}``
 
         :param the_value: value to enter in the Community Name field
         :return: 1 if action was successful, else -1
@@ -146,10 +146,10 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_set_user_name(self, the_value):
         """
-         - This keyword enters the User Name value in the Add SNMP Credential dialog for SNMPv3.
-         - It is assumed the Add SNMP Credential dialog is open and the version is set to SNMPv3.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Set User Name    admin``
+        - This keyword enters the User Name value in the Add SNMP Credential dialog for SNMPv3.
+        - It is assumed the Add SNMP Credential dialog is open and the version is set to SNMPv3.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Set User Name    admin``
 
         :param the_value: value to enter in the User Name field
         :return: 1 if action was successful, else -1
@@ -168,12 +168,12 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_select_authentication_type(self, the_value):
         """
-         - This keyword selects the Authentication Type value in the Add SNMP Credential dialog for SNMPv3.
-         - It is assumed the Add SNMP Credential dialog is open and the version is set to SNMPv3.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Select Authentication Type    None``
-          - ``XIQSE Add SNMP Credential Dialog Select Authentication Type    MD5``
-          - ``XIQSE Add SNMP Credential Dialog Select Authentication Type    SHA``
+        - This keyword selects the Authentication Type value in the Add SNMP Credential dialog for SNMPv3.
+        - It is assumed the Add SNMP Credential dialog is open and the version is set to SNMPv3.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Select Authentication Type    None``
+        - ``XIQSE Add SNMP Credential Dialog Select Authentication Type    MD5``
+        - ``XIQSE Add SNMP Credential Dialog Select Authentication Type    SHA``
 
         :param the_value: value to select in the Authentication Type field
         :return: 1 if action was successful, else -1
@@ -219,11 +219,11 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_set_authentication_password(self, the_value):
         """
-         - This keyword enters the Authentication Password value in the Add SNMP Credential dialog for SNMPv3.
-         - It is assumed the Add SNMP Credential dialog is open, the version is set to SNMPv3, and the
-         - Authentication Type is something other than "None".
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Set Authentication Password    ${PASSWORD}``
+        - This keyword enters the Authentication Password value in the Add SNMP Credential dialog for SNMPv3.
+        - It is assumed the Add SNMP Credential dialog is open, the version is set to SNMPv3, and the
+        - Authentication Type is something other than "None".
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Set Authentication Password    ${PASSWORD}``
 
         :param the_value: value to enter in the Authentication Password field
         :return: 1 if action was successful, else -1
@@ -250,13 +250,13 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_select_privacy_type(self, the_value):
         """
-         - This keyword selects the Privacy Type value in the Add SNMP Credential dialog for SNMPv3.
-         - It is assumed the Add SNMP Credential dialog is open, the version is set to SNMPv3, and the
-         - Authentication Type is something other than "None".
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Select Privacy Type    None``
-          - ``XIQSE Add SNMP Credential Dialog Select Privacy Type    AES``
-          - ``XIQSE Add SNMP Credential Dialog Select Privacy Type    DES``
+        - This keyword selects the Privacy Type value in the Add SNMP Credential dialog for SNMPv3.
+        - It is assumed the Add SNMP Credential dialog is open, the version is set to SNMPv3, and the
+        - Authentication Type is something other than "None".
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Select Privacy Type    None``
+        - ``XIQSE Add SNMP Credential Dialog Select Privacy Type    AES``
+        - ``XIQSE Add SNMP Credential Dialog Select Privacy Type    DES``
 
         :param the_value: value to select in the Privacy Type field
         :return: 1 if action was successful, else -1
@@ -308,11 +308,11 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_set_privacy_password(self, the_value):
         """
-         - This keyword enters the Privacy Password value in the Add SNMP Credential dialog for SNMPv3.
-         - It is assumed the Add SNMP Credential dialog is open, the version is set to SNMPv3, and the
-         - Privacy Type is something other than "None".
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Set Authentication Password    ${PASSWORD}``
+        - This keyword enters the Privacy Password value in the Add SNMP Credential dialog for SNMPv3.
+        - It is assumed the Add SNMP Credential dialog is open, the version is set to SNMPv3, and the
+        - Privacy Type is something other than "None".
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Set Authentication Password    ${PASSWORD}``
 
         :param the_value: value to enter in the Authentication Password field
         :return: 1 if action was successful, else -1
@@ -339,10 +339,10 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_click_save(self):
         """
-         - This keyword clicks Save in the Add SNMP Credential dialog.
-         - It is assumed the Add SNMP Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Click Save``
+        - This keyword clicks Save in the Add SNMP Credential dialog.
+        - It is assumed the Add SNMP Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Click Save``
 
         :return: 1 if action was successful, else -1
         """
@@ -377,10 +377,10 @@ class XIQSE_AdminProfilesSNMPCredentialsAddCred(AdminProfilesSNMPCredentialsAddC
 
     def xiqse_add_snmp_credential_dialog_click_cancel(self):
         """
-         - This keyword clicks Cancel in the Add SNMP Credential dialog.
-         - It is assumed the Add SNMP Credential dialog is open.
-         - Keyword Usage
-          - ``XIQSE Add SNMP Credential Dialog Click Cancel``
+        - This keyword clicks Cancel in the Add SNMP Credential dialog.
+        - It is assumed the Add SNMP Credential dialog is open.
+        - Keyword Usage
+        - ``XIQSE Add SNMP Credential Dialog Click Cancel``
 
         :return: 1 if action was successful, else -1
         """

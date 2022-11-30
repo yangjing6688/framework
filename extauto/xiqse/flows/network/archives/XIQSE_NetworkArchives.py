@@ -20,10 +20,10 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
 
     def xiqse_archives_click_create(self):
         """
-         - This keyword clicks the Create button on the Network> Archives Tab
-         - It is assumed the view is already navigated to the Archives tab.
-         - Keyword Usage
-          - ``XIQSE Archives Click Create``
+        - This keyword clicks the Create button on the Network> Archives Tab
+        - It is assumed the view is already navigated to the Archives tab.
+        - Keyword Usage
+        - ``XIQSE Archives Click Create``
 
         :return: 1 if action was successful, else -1
         """
@@ -41,10 +41,10 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
 
     def xiqse_archives_click_refresh(self):
         """
-         - This keyword clicks the Refresh button on the Network> Archives Tab
-         - It is assumed the view is already navigated to the Archives tab.
-         - Keyword Usage
-          - ``XIQSE Archives Click Refresh``
+        - This keyword clicks the Refresh button on the Network> Archives Tab
+        - It is assumed the view is already navigated to the Archives tab.
+        - Keyword Usage
+        - ``XIQSE Archives Click Refresh``
 
         :return: 1 if action was successful, else -1
         """
@@ -62,12 +62,12 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
 
     def xiqse_archives_create_archive(self, name, device_ips, frequency=None):
         """
-         - This keyword creates an archive with the specified name for the specified device.
-         - It is assumed the Network> Archives view is currently displayed.
-         - Keyword Usage
-          - ``XIQSE Archives Create Archive    MY_ARCHIVE  1.2.3.4``
-          - ``XIQSE Archives Create Archive    MY_ARCHIVE  1.2.3.4  Daily``
-          - ``XIQSE Archives Create Archive    MY_ARCHIVE  1.2.3.4  Never``
+        - This keyword creates an archive with the specified name for the specified device.
+        - It is assumed the Network> Archives view is currently displayed.
+        - Keyword Usage
+        - ``XIQSE Archives Create Archive    MY_ARCHIVE  1.2.3.4``
+        - ``XIQSE Archives Create Archive    MY_ARCHIVE  1.2.3.4  Daily``
+        - ``XIQSE Archives Create Archive    MY_ARCHIVE  1.2.3.4  Never``
 
         :param name:          name to use when creating the archive
         :param device_ips:    comma-separated list of IP addresses to add to the archive
@@ -126,10 +126,10 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
 
     def xiqse_archives_select_archive(self, name):
         """
-         - This keyword selects the specified archive in the Archives tree.
-         - It is assumed the Network> Archives view is currently displayed.
-         - Keyword Usage
-          - ``XIQSE Archives Select Archive    MY_ARCHIVE``
+        - This keyword selects the specified archive in the Archives tree.
+        - It is assumed the Network> Archives view is currently displayed.
+        - Keyword Usage
+        - ``XIQSE Archives Select Archive    MY_ARCHIVE``
 
         :param name: name of the archive to select
         :return: 1 if action was successful, else -1
@@ -149,10 +149,10 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
 
     def xiqse_archives_stamp_new_version(self, name):
         """
-         - This keyword selects "Stamp New Version" from the context menu of the specified archive in the Archives tree.
-         - It is assumed the Network> Archives view is currently displayed.
-         - Keyword Usage
-          - ``XIQSE Archives Stamp New Version    MY_ARCHIVE``
+        - This keyword selects "Stamp New Version" from the context menu of the specified archive in the Archives tree.
+        - It is assumed the Network> Archives view is currently displayed.
+        - Keyword Usage
+        - ``XIQSE Archives Stamp New Version    MY_ARCHIVE``
 
         :param name: name of the archive to stamp a new version on
         :return: 1 if action was successful, else -1
@@ -184,10 +184,10 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
 
     def xiqse_archives_delete_archive(self, name):
         """
-         - This keyword deletes the specified archive in the Archives tree.
-         - It is assumed the Network> Archives view is currently displayed.
-         - Keyword Usage
-          - ``XIQSE Archives Delete Archive    MY_ARCHIVE``
+        - This keyword deletes the specified archive in the Archives tree.
+        - It is assumed the Network> Archives view is currently displayed.
+        - Keyword Usage
+        - ``XIQSE Archives Delete Archive    MY_ARCHIVE``
 
         :param name: name of the archive to delete
         :return: 1 if action was successful, 2 if archive was not found (already deleted?), else -1
@@ -228,10 +228,10 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
 
     def xiqse_confirm_archive_exists(self, name, exists="true"):
         """
-         - This keyword confirms the specified archive is present in the Archives tree.
-         - It is assumed the Network> Archives view is currently displayed.
-         - Keyword Usage
-          - ``XIQSE Confirm Archive Exists    MY_ARCHIVE``
+        - This keyword confirms the specified archive is present in the Archives tree.
+        - It is assumed the Network> Archives view is currently displayed.
+        - Keyword Usage
+        - ``XIQSE Confirm Archive Exists    MY_ARCHIVE``
 
         :param name:   name of the archive to look for
         :param exists: indicates whether the archive should be present or not (true/false)
@@ -266,7 +266,7 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
         - This keyword by default loops 24 times every 5 seconds to check if the archive exists.
         - It is assumed the Network> Archives tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Archive Added    ${ARCHIVE_MAME}    retry_duration=15    retry_count=10``
+        - ``XIQSE Wait Until Archive Added    ${ARCHIVE_MAME}    retry_duration=15    retry_count=10``
 
         :param name: name of the archive to look for
         :param retry_duration: duration between each retry
@@ -300,7 +300,7 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
         - This keyword by default loops 24 times every 5 seconds to check if the archive exists.
         - It is assumed the Network> Archives tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Archive Removed    ${ARCHIVE_MAME}    retry_duration=15    retry_count=10``
+        - ``XIQSE Wait Until Archive Removed    ${ARCHIVE_MAME}    retry_duration=15    retry_count=10``
 
         :param name: name of the archive to look for
         :param retry_duration: duration between each retry
@@ -329,11 +329,11 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
 
     def xiqse_wait_until_archive_complete(self, retry_duration=30, retry_count=10):
         """
-         - This keyword waits until the archive has completed by checking the Inventory Audit entry in the
-         - Operations panel for progress value of 100%.
-         - Keyword Usage
-          - ``XIQSE Wait Until Archive Complete``
-          - ``XIQSE Wait Until Archive Complete    retry_duration=10  retry_count=60``
+        - This keyword waits until the archive has completed by checking the Inventory Audit entry in the
+        - Operations panel for progress value of 100%.
+        - Keyword Usage
+        - ``XIQSE Wait Until Archive Complete``
+        - ``XIQSE Wait Until Archive Complete    retry_duration=10  retry_count=60``
 
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -344,11 +344,11 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
 
     def xiqse_wait_until_restore_complete(self, retry_duration=30, retry_count=20):
         """
-         - This keyword waits until the restore has completed by checking the Inventory Audit entry in the
-         - Operations panel for progress value of 100%.
-         - Keyword Usage
-          - ``XIQSE Wait Until Restore Complete``
-          - ``XIQSE Wait Until Restore Complete    retry_duration=10  retry_count=60``
+        - This keyword waits until the restore has completed by checking the Inventory Audit entry in the
+        - Operations panel for progress value of 100%.
+        - Keyword Usage
+        - ``XIQSE Wait Until Restore Complete``
+        - ``XIQSE Wait Until Restore Complete    retry_duration=10  retry_count=60``
 
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -356,4 +356,3 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
         """
         return self.operations_panel.xiqse_operations_wait_until_operation_complete("Inventory Audit",
                                                                                     retry_duration, retry_count)
-

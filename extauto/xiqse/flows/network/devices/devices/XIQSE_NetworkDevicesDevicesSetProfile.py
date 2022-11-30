@@ -15,10 +15,10 @@ class XIQSE_NetworkDevicesDevicesSetProfile(NetworkDevicesDevicesSetProfileWebEl
 
     def xiqse_set_profile_dialog_select_profile(self, the_value):
         """
-         - This keyword sets the IP Address value in the Add Device dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Add Device Dialog Select Profile  public_v2_Profile``
+        - This keyword sets the IP Address value in the Add Device dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Add Device Dialog Select Profile  public_v2_Profile``
 
         :param the_value:  profile value to select in the Set Device Profile dialog
         :return: 1 if action was successful, else -1
@@ -57,10 +57,10 @@ class XIQSE_NetworkDevicesDevicesSetProfile(NetworkDevicesDevicesSetProfileWebEl
 
     def xiqse_set_profile_dialog_click_ok(self):
         """
-         - This keyword clicks OK in the Set Device Profile dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Set Profile Dialog Click OK``
+        - This keyword clicks OK in the Set Device Profile dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Set Profile Dialog Click OK``
 
         :return: 1 if action was successful, else -1
         """
@@ -79,10 +79,10 @@ class XIQSE_NetworkDevicesDevicesSetProfile(NetworkDevicesDevicesSetProfileWebEl
 
     def xiqse_set_profile_dialog_click_cancel(self):
         """
-         - This keyword clicks Cancel in the Set Device Profile dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Set Profile Dialog Click Cancel``
+        - This keyword clicks Cancel in the Set Device Profile dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Set Profile Dialog Click Cancel``
 
         :return: 1 if action was successful, else -1
         """

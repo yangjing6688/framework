@@ -328,8 +328,8 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         - 1. called by create_open_network_captive_web_portal
         - 2. standalone call. for this pre-condition is already navigated to the wireless network tab
         - Keyword Usage:
-         - ``Create Cloud Social Login CWP  &{SOCIAL_LOGIN_CWP_PROFILE}``
-         - For creation of different combination &{SOCIAL_LOGIN_CWP_PROFILE} dict refer social_login_config.robot
+        - ``Create Cloud Social Login CWP  &{SOCIAL_LOGIN_CWP_PROFILE}``
+        - For creation of different combination &{SOCIAL_LOGIN_CWP_PROFILE} dict refer social_login_config.robot
 
         :param social_cwp_profile: (dict) configuration profile
         :return: 1 if created else -1
@@ -363,7 +363,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         - 1. called by create_open_network_captive_web_portal
         - 2. standalone call. for this pre-condition is already navigated to the wireless network tab
         - Keyword Usage:
-         - ``Create Cloud Social Login EGE  &{SOCIAL_LOGIN_CWP_PROFILE}``
+        - ``Create Cloud Social Login EGE  &{SOCIAL_LOGIN_CWP_PROFILE}``
 
         :param social_cwp_profile: (dict) configuration profile
         :return: 1 if created else -1
@@ -481,7 +481,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         - 1. called by create_open_network_captive_web_portal
         - 2. standalone, Assumption is already navigated to the wireless network tab
         - Keyword Usage:
-         - ``Create Default Captive Web Portal  &{DEFAULT_CWP_CONFIG}``
+        - ``Create Default Captive Web Portal  &{DEFAULT_CWP_CONFIG}``
 
         :param cwp_config: (dict) captive web portal config parameters
         :return: 1 if config success else -1
@@ -528,20 +528,20 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
     def create_open_network_captive_web_portal(self, **cwp_profile):
         """
         - If Authentication type is open, below are ways to create the CWP
-         - default captive web portal
-          - This consists of below 4 options
-           - User Auth on Captive Web Portal
-           - Enable Self-Registration
-           - Return Aerohive Private PSK
-           - Enable UPA
+        - default captive web portal
+        - This consists of below 4 options
+            User Auth on Captive Web Portal
+            Enable Self-Registration
+            Return Aerohive Private PSK
+            Enable UPA
 
-         - cloud captive web portal
-          - It consists Social Login CWP, Cloud Pin CWP
+        - cloud captive web portal
+        - It consists Social Login CWP, Cloud Pin CWP
         - Based on passed cwp-profile dict create the cwp for open network
         - Assumes that already navigated to the wireless network page
         - Keyword Usage:
-         - ``Create Open Network Captive Web Portal    &{CWP_PROFILE}``
-         - For &{CWP_PROFILE} creation refer social_login_config.robot, cloud_pin_config.robot
+        - ``Create Open Network Captive Web Portal    &{CWP_PROFILE}``
+        - For &{CWP_PROFILE} creation refer social_login_config.robot, cloud_pin_config.robot
 
         :param cwp_profile: (dict) configuration profile dictionary
         :return: 1 if created else -1
@@ -606,7 +606,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         - This is called as part of PPSK wireless network creation
         - For standalone call assumes that already navigated to the wireless network page, selected the PPSK auth type
         - Keyword Usage:
-         - ``Create PPSK Wireless Network CWP    &{CWP_CONFIG}``
+        - ``Create PPSK Wireless Network CWP    &{CWP_CONFIG}``
 
         :param cwp_config: (dict) configuration
         :return: 1 if created else -1
@@ -634,7 +634,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         - For standalone call assumes that already navigated to the wireless network page,
           selected the enterprise auth type
         - Keyword Usage:
-         - ``Create Enterprise Wireless Network Cwp    &{CWP_CONFIG}``
+        - ``Create Enterprise Wireless Network Cwp    &{CWP_CONFIG}``
 
         :param cwp_config: (dict) configuration
         :return: 1 if created else -1
@@ -919,8 +919,8 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         - there are two ways to call this keyword
         - 1. standalone, for this assumption is already navigated to the wireless network tab
         - Keyword Usage:
-         - ``Create Cloud Pin CWP   &{CLOUD_PIN_CWP_PROFILE}``
-         - For &{CLOUD_PIN_CWP_PROFILE}  dict creation refer cloud_pin_config.robot
+        - ``Create Cloud Pin CWP   &{CLOUD_PIN_CWP_PROFILE}``
+        - For &{CLOUD_PIN_CWP_PROFILE}  dict creation refer cloud_pin_config.robot
         - 2. called by "create_open_network_captive_web_portal"
 
         :param cloud_pin_cwp_profile: (dict) configuration parameters to create cloud pin based cwp
@@ -958,7 +958,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         - Assuming that navigated up to cloud pin cwp dialog window
         - It is used to edit the already existed CWP
         - Keyword Usage:
-         - ```Edit Cloud Pin CWP    ${EDIT_CONFIG}``
+        - ```Edit Cloud Pin CWP    ${EDIT_CONFIG}``
 
         :param edit_config: (dict) edit configuration parameters
         :return: 1 if success else -1
@@ -1000,7 +1000,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         - This is called as part of psk wireless network creation
         - For standalone call assumes that already navigated to the wireless network page, selected the psk auth type
         - Keyword Usage:
-         - ``Create Psk Wireless Network CWP    &{CWP_CONFIG}``
+        - ``Create Psk Wireless Network CWP    &{CWP_CONFIG}``
 
         :param cwp_config: (dict) configuration
         :return: 1 if created else -1

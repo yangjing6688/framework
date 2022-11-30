@@ -82,7 +82,7 @@ class CloudConfigGroup(object):
         - Actions-->Add to Cloud Config group -->Select the CCG policy to assign
         - select AP-->Continue
         - Keyword Usage:
-         - ``assign cloud config group       ${CCG_NAME}        ${Update_method}       ${Option}      ${AP_SERIAL}``
+        - ``assign cloud config group       ${CCG_NAME}        ${Update_method}       ${Option}      ${AP_SERIAL}``
 
         :param policy_name: name of the CCG Policy
         :param update_method: Perform Complete update or delta update
@@ -175,7 +175,7 @@ class CloudConfigGroup(object):
         """
         This keyword is used to get the list of CLoud Config Groups that the AP is member of
         - Keyword Usage:
-         - ``Device CCG Members     ${DEVICE_SERIAL}``
+        - ``Device CCG Members     ${DEVICE_SERIAL}``
         :param device_serial: serial_number of the AP
         :return: List of Cloud Config Groups that the AP is attached to, else -1
         """
@@ -212,7 +212,7 @@ class CloudConfigGroup(object):
         - Create Cloud Config Group and include APs to the group
         - Same Keyword can be used to add single or multiple APs to the CCG Group
         - Keyword Usage
-         - ``Add Cloud Config Group      ${CCG_NAME}        ${CCG_DESCRIPTION}        ${AP_SERIAL}``
+        - ``Add Cloud Config Group      ${CCG_NAME}        ${CCG_DESCRIPTION}        ${AP_SERIAL}``
 
         :param policy: Name of the CCG Group
         :param description: Description of the Group
@@ -283,7 +283,7 @@ class CloudConfigGroup(object):
         - Flow: Manage --> Devices --> Select AP -> Actions -> Add to CLoud Config Group
         - Create Cloud Config Group and include APs to the group
         - Keyword Usage
-         - ``Add Cloud Config Group From Manage     ${CCG_NAME}        ${CCG_DESCRIPTION}        ${AP_SERIAL}``
+        - ``Add Cloud Config Group From Manage     ${CCG_NAME}        ${CCG_DESCRIPTION}        ${AP_SERIAL}``
 
         :param policy: Name of the CCG Group
         :param description: Description of the Group
@@ -360,7 +360,7 @@ class CloudConfigGroup(object):
         - Create Cloud Config Group and include AP to the group
         - This Keyword is used to create CCG in bulk.
         - Keyword Usage
-         - ``Create Bulk Cloud Config Group      ${CCG_NAME}        ${AP_SERIAL}        ${NUMBER_of_CCG_Policy}``
+        - ``Create Bulk Cloud Config Group      ${CCG_NAME}        ${AP_SERIAL}        ${NUMBER_of_CCG_Policy}``
 
         :param policy_name: Name of the CCG Group
         :param ap_serial:AP who are members of the Group
@@ -428,7 +428,7 @@ class CloudConfigGroup(object):
         - Select Cloud Config Group and Click on Edit
         - Same Keyword can be used to add/remove single or multiple APs to the CCG Group
         - Keyword Usage
-         - ``Edit Cloud Config Group      ${CCG_NAME}        ${Option}        ${AP_SERIAL}``
+        - ``Edit Cloud Config Group      ${CCG_NAME}        ${Option}        ${AP_SERIAL}``
 
         :param policy: Name of the CCG Group
         :param option: Whether to add new APs or remove AP from the CCG Group.
@@ -522,7 +522,7 @@ class CloudConfigGroup(object):
         - Delete Cloud Config Group
         - This Keyword is used to delete CCG in bulk.
         - Keyword Usage
-         - ``Delete Bulk Cloud Config Group      ${CCG_NAME}        ${AP_SERIAL}        ${NUMBER_of_CCG_Policy}``
+        - ``Delete Bulk Cloud Config Group      ${CCG_NAME}        ${AP_SERIAL}        ${NUMBER_of_CCG_Policy}``
 
         :param policy_name: Name of the CCG Group
         :param num: Number of the CCG Policy to be configured
@@ -544,7 +544,7 @@ class CloudConfigGroup(object):
         for i in range(1, int(num) + 1):
             self.utils.print_info(type(i))
             policy = policy_name + "_" + str(i)
-            if not self._search_multiple_ccg_group_from_common_object(policy, ignore_failure=True):
+            if not self._search_multiple_ccg_group_from_common_object(policy):
                 self.utils.print_info("CCG Group does not exist in the list")
                 continue
             else:
@@ -567,7 +567,7 @@ class CloudConfigGroup(object):
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         - Select Cloud Config Group and Click on Delete
         - Keyword Usage
-         - ``Delete Cloud Config Group      ${CCG_NAME}``
+        - ``Delete Cloud Config Group      ${CCG_NAME}``
 
         :param policy: Name of the CCG Group
         :return: 1 if created else return -1
@@ -600,7 +600,7 @@ class CloudConfigGroup(object):
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         - Select Cloud Config Group and Click on Delete
         - Keyword Usage
-         - ``Delete Cloud Config Groups      ${CCG_NAMES}``
+        - ``Delete Cloud Config Groups      ${CCG_NAMES}``
 
         :param policys: Names of the CCG Group
         :return: 1 if created else return -1
@@ -617,7 +617,7 @@ class CloudConfigGroup(object):
 
         policy_select_flag = None
         for policy in policys:
-            if not self._search_multiple_ccg_group_from_common_object(policy, ignore_failure=True):
+            if not self._search_multiple_ccg_group_from_common_object(policy):
                 self.utils.print_info("CCG Group does not exist in the list")
                 continue
             else:
@@ -638,7 +638,7 @@ class CloudConfigGroup(object):
         """
         - Selects the AP row marching with AP's Serial Number
         - Keyword USage:
-         - ``Select AP For CCG   ${AP_SERIAL}``
+        - ``Select AP For CCG   ${AP_SERIAL}``
 
         :param ap_serial: AP's Serial Number
         :return: return 1 if AP found and selected else -1
@@ -662,7 +662,7 @@ class CloudConfigGroup(object):
         """
         - Selects the AP row marching with AP's Serial Number
         - Keyword USage:
-         - ``Select AP For CCG Manage Page   ${AP_SERIAL}``
+        - ``Select AP For CCG Manage Page   ${AP_SERIAL}``
 
         :param ap_serial: AP's Serial Number
         :return: return 1 if AP found and selected else -1
@@ -825,7 +825,7 @@ class CloudConfigGroup(object):
         """
         This keyword is used to get the list of  APs which are members of the CCG Policy
         - Keyword Usage:
-         - ``Get CCG Group Members   ${POLICY_NAME}``
+        - ``Get CCG Group Members   ${POLICY_NAME}``
         :param policy: CCG Policy
         :return: List of APs that are member of CCG Policy
         """
@@ -881,4 +881,3 @@ class CloudConfigGroup(object):
                              "Failed to get the list of  APs which are members of the CCG Policy"
         self.common_validation.failed(**kwargs)
         return False
-

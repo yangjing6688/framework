@@ -13,10 +13,10 @@ class XIQSE_AdminProfilesCLICredentialsDeleteCred(AdminProfilesCLICredentialsDel
 
     def xiqse_delete_cli_credential_confirm_delete(self):
         """
-         - This keyword confirms the CLI Credential deletion.
-         - It is assumed the Confirm Delete dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Delete CLI Credential Confirm Delete``
+        - This keyword confirms the CLI Credential deletion.
+        - It is assumed the Confirm Delete dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Delete CLI Credential Confirm Delete``
 
         :return: 1 if action was successful, else -1
         """
@@ -34,10 +34,10 @@ class XIQSE_AdminProfilesCLICredentialsDeleteCred(AdminProfilesCLICredentialsDel
 
     def xiqse_delete_cli_credential_confirm_dialog_click_yes(self):
         """
-         - This keyword clicks the Yes button in the Confirm Delete dialog.
-         - It is assumed the confirmation dialog for deleting the CLI Credential is already open.
-         - Keyword Usage
-          - ``XIQSE Delete CLI Credential Confirm Dialog Click Yes``
+        - This keyword clicks the Yes button in the Confirm Delete dialog.
+        - It is assumed the confirmation dialog for deleting the CLI Credential is already open.
+        - Keyword Usage
+        - ``XIQSE Delete CLI Credential Confirm Dialog Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -56,10 +56,10 @@ class XIQSE_AdminProfilesCLICredentialsDeleteCred(AdminProfilesCLICredentialsDel
 
     def xiqse_delete_cli_credential_confirm_dialog_click_no(self):
         """
-         - This keyword clicks the No button in the Confirm Delete dialog.
-         - It is assumed the confirmation dialog for deleting the CLI Credential is already open.
-         - Keyword Usage
-          - ``XIQSE Delete CLI Credential Confirm Dialog Click No``
+        - This keyword clicks the No button in the Confirm Delete dialog.
+        - It is assumed the confirmation dialog for deleting the CLI Credential is already open.
+        - Keyword Usage
+        - ``XIQSE Delete CLI Credential Confirm Dialog Click No``
 
         :return: 1 if action was successful, else -1
         """

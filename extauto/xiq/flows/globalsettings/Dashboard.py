@@ -18,7 +18,7 @@ class Dashboard:
         """
         - This keyword will get total Application usage in Dashboard Page
         - Keyword Usage
-         - ``Dashboard Stats Total Application Usage``
+        - ``Dashboard Stats Total Application Usage``
 
         :return: if success return total Application usage Count else -1
         """
@@ -45,7 +45,7 @@ class Dashboard:
         """
         - This keyword will get total Connection status online count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Connection Status Online Count``
+        - ``Dashboard Cards Connection Status Online Count``
 
         :return: if success return Connection Status Online Count else -1
         """
@@ -65,7 +65,7 @@ class Dashboard:
         """
         - This keyword will get total Connection status offline count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Connection Status offline Count``
+        - ``Dashboard Cards Connection Status offline Count``
 
         :return: if success return Connection Status Online Count else -1
         """
@@ -85,7 +85,7 @@ class Dashboard:
         """
         - This keyword will get total aps count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Total Application Count``
+        - ``Dashboard Cards Total Application Count``
 
         :return: if success return total aps Count else -1
         """
@@ -105,7 +105,7 @@ class Dashboard:
         """
         - This keyword will get total clients count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Total Clients Count``
+        - ``Dashboard Cards Total Clients Count``
 
         :return: if success return total clients Count else -1
         """
@@ -125,7 +125,7 @@ class Dashboard:
         """
         - This keyword will get total Users count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Total Users Count``
+        - ``Dashboard Cards Total Users Count``
 
         :return: if success return total Users Count else -1
         """
@@ -145,7 +145,7 @@ class Dashboard:
         """
         - This keyword will get total critical alarm count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Total Critical Alarm Count``
+        - ``Dashboard Cards Total Critical Alarm Count``
 
         :return: if success return total critical alarm count else -1
         """
@@ -165,7 +165,7 @@ class Dashboard:
         """
         - This keyword will get total Major alarm count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Total Major Alarm Count``
+        - ``Dashboard Cards Total Major Alarm Count``
 
         :return: if success return total Major alarm count else -1
         """
@@ -185,7 +185,7 @@ class Dashboard:
         """
         - This keyword will get total Minor alarm count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Total Minor Alarm Count``
+        - ``Dashboard Cards Total Minor Alarm Count``
 
         :return: if success return total Minor alarm count else -1
         """
@@ -205,7 +205,7 @@ class Dashboard:
         """
         - This keyword will get total Rogue Aps Count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Total Rogue Aps Count``
+        - ``Dashboard Cards Total Rogue Aps Count``
 
         :return: if success return Rogue Aps Count else -1
         """
@@ -225,7 +225,7 @@ class Dashboard:
         """
         - This keyword will get total Rogue Aps Count in dashboard health card
         - Keyword Usage
-         - ``Dashboard Cards Total Rogue clients Count``
+        - ``Dashboard Cards Total Rogue clients Count``
 
         :return: if success return Rogue clients Count else -1
         """

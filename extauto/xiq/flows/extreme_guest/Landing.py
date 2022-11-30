@@ -22,7 +22,7 @@ class Landing(object):
 
     def check_all_landing_page_widgets(self):
         """
-        -This keyword Will Navigate to Extreme Guest Page and check all widgets
+        - This keyword Will Navigate to Extreme Guest Page and check all widgets
         - Flow: XIQ--> Extreme Guest
         - Keyword Usage:
             ''check all landing page widgets''
@@ -77,7 +77,7 @@ class Landing(object):
 
     def check_map_location_widget(self):
         """
-        -This keyword Will Navigate to Extreme Guest Page and check map widget marker
+        - This keyword Will Navigate to Extreme Guest Page and check map widget marker
         - Flow: XIQ--> Extreme Guest
         - Keyword Usage:
             ''Check Map Location Widget''

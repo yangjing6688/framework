@@ -17,7 +17,7 @@ class GuestPasswdSetting(GuestPasswdSettingElements):
         - For password_setting configuration variable refer the user_group_config robot file password setting section
         - Configure the password settings
         - keyword Usage:
-         - ``Config Password Setting  &{PASSWORD_CONFIG}``
+        - ``Config Password Setting  &{PASSWORD_CONFIG}``
 
         :param passwd_config:
         :return: 1 if password config setting is success

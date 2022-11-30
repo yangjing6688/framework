@@ -27,7 +27,7 @@ class RadioProfile (RadioProfileWebElements):
         - Flow: Configure --> Common Objects --> Policy --> Radio Profile
         - This keyword is to Add a Radio profile from the radio grid
         - Keyword Usage:
-         - ``Add Radio Profile  ${RADIO_PROFILE_NAME}``
+        - ``Add Radio Profile  ${RADIO_PROFILE_NAME}``
 
         :param radio_profile_name: Name of the Radio profile
         :return: 1 if Radio profile named successfully else -1
@@ -49,7 +49,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword is to configure radio mode in the radio profile
         - Keyword Usage:
-         - ``Choose Radio Profile Radio Mode ${RADIO_MODE}``
+        - ``Choose Radio Profile Radio Mode ${RADIO_MODE}``
 
         :param radio_mode: Select the radio mode ("b/g" or "g/n" or  "ax (2.4GHz)" or "a" or "a/n" or "ac" or
                                                                                                     "ax (5GHz)")
@@ -69,7 +69,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword is to configure the maximum transmit power in radio profile
         - Keyword Usage:
-         - ``Config Radio Profile Max Transmit Power ${MAX_TRANSMIT_POWER}``
+        - ``Config Radio Profile Max Transmit Power ${MAX_TRANSMIT_POWER}``
 
         :param max_transmit_power: Configure maximum transmit power
         :return: 1 if success else -1
@@ -83,7 +83,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword is to configure the transmission power floor in radio profile
         - Keyword Usage:
-         - ``Config Radio Profile Tx Power Floor ${TX_PWR_FLOOR}``
+        - ``Config Radio Profile Tx Power Floor ${TX_PWR_FLOOR}``
 
         :param tx_power_floor: Configure transmission power floor
         :return: 1 if success else -1
@@ -97,7 +97,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword is to configure the transmission power max drop in radio profile
         - Keyword Usage:
-         - ``Config Transmission Power Max Drop ${TX_PWR_MAX_DROP}``
+        - ``Config Transmission Power Max Drop ${TX_PWR_MAX_DROP}``
 
         :param tx_power_max_drop: Configure transmission power max drop in the radio profile
         :return: 1 if success else -1
@@ -111,7 +111,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword is to configure max no of clients in the radio profile
         - Keyword Usage:
-         - ``Config Radio Profile Max No Of Clients ${MAX_CLIENTS}``
+        - ``Config Radio Profile Max No Of Clients ${MAX_CLIENTS}``
 
         :param max_no_of_clients: Configure maximum number of clients in the radio profile
         :return: 1 if success else -1
@@ -128,7 +128,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This Keyword is to configure the Background Scan Interval and its parameters
         - Keyword Usage:
-         - ``Config Radio Profile BG Scan Interval ${BG_SCAN_INTERVAL}``
+        - ``Config Radio Profile BG Scan Interval ${BG_SCAN_INTERVAL}``
 
         :param bg_scan_interval: Enable/Disable Background Scan, Background Scan Interval
         :return: 1 if success else -1
@@ -143,7 +143,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This Keyword is to configure the Background Scan Interval Unit
         - Keyword Usage:
-         - ``Config BG Scan Int Unit ${BG_SCAN_INT_UNIT}``
+        - ``Config BG Scan Int Unit ${BG_SCAN_INT_UNIT}``
 
         :param bg_scan_interval_unit: Background Scan Interval Unit
         :return: 1 if success else -1
@@ -160,7 +160,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This Keyword is to Skip the Background Scan when clients are connected
         - Keyword Usage:
-         - ``Skip BG Scan When Clients Connected ${CLIENTS_CONNECTED}``
+        - ``Skip BG Scan When Clients Connected ${CLIENTS_CONNECTED}``
 
         :param skip_bg_scan_clients_connected: Skip background scan when clients are connected
         :return: 1 if success else -1
@@ -175,7 +175,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This Keyword is to Skip the Background Scan when clients are in power save mode
         - Keyword Usage:
-         - ``Skip BG Scan When Clients are in Power Save Mode ${CLIENTS_PWR_SAVE_MODE}``
+        - ``Skip BG Scan When Clients are in Power Save Mode ${CLIENTS_PWR_SAVE_MODE}``
 
         :param skip_bg_scan_pwr_save:Skip background scan when clients are in Power Save Mode
         :return: 1 if success else -1
@@ -190,7 +190,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This Keyword is to Skip the Background Scan when clients has Network Voice Priority
         - Keyword Usage:
-         - ``Skip BG Scan When Clients has network voice priority ${CLIENTS_NW_VOICE_PRIORITY}``
+        - ``Skip BG Scan When Clients has network voice priority ${CLIENTS_NW_VOICE_PRIORITY}``
 
         :param skip_bg_scan_nw_voice_priority: Skip background scan when clients has network voice priority
         :return: 1 if success else -1
@@ -208,7 +208,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword is to configure channel in the radio profile
         - Keyword Usage:
-            - ``Choose Radio Profile Channel ${CHANNEL}``
+        - ``Choose Radio Profile Channel ${CHANNEL}``
 
         :param channel_selection: Select any channel ("1-14" or "36-165")
         :return: 1 if channel is chosen Successfully else -1
@@ -231,7 +231,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword is to configure channel width in the radio profile
         - Keyword Usage:
-            - ``Choose Radio Profile Channel Width ${CHANNEL_WIDTH} ``
+        - ``Choose Radio Profile Channel Width ${CHANNEL_WIDTH} ``
 
         :param channel_width : Select any channel width("20MHz" or "40MHz" or "80MHz")
         :return: 1 if channel_width is chosen Successfully else -1
@@ -252,7 +252,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword is to Enable Exclude Channels option in the radio profile
         - Keyword Usage:
-         - ``Enable Exclude Channels Button ${EXCLUDE_CHANNELS_BUTTON} ``
+        - ``Enable Exclude Channels Button ${EXCLUDE_CHANNELS_BUTTON} ``
 
         :param exclude_channels_btn : Enable Exclude Channels option
         :return: 1 if channels are chosen for exclusion Successfully else -1
@@ -279,7 +279,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword is to Disable Exclude Channels option in the radio profile
         - Keyword Usage:
-         - ``Disable Exclude Channels Button ${EXCLUDE_CHANNELS_BUTTON} ``
+        - ``Disable Exclude Channels Button ${EXCLUDE_CHANNELS_BUTTON} ``
 
         :param disable_exclude_channels_opt:
         :return: 1 if exclude channels button is disabled successfully else -1
@@ -392,14 +392,15 @@ class RadioProfile (RadioProfileWebElements):
 
     def verify_radio_profile_channel_width_and_channels(self, channels, mode='included', channel_width='default'):
         """
-            - This keyword validates the channels to be exclusive, inclusive, by default and not by default
-            - Keyword Usage:
-                @channels    7 12 4 5
-            -``check_radio_profile_channel_width_and_channels  $channels  mode=included  channel_width=80``
-                :param channels: list of valid channels
-                :param mode: channel is either enabled, disabled, included, excluded channel
-                :param channel_width: channel width
-                :return: 1  else - 1
+        - This keyword validates the channels to be exclusive, inclusive, by default and not by default
+        - Keyword Usage:
+            @channels    7 12 4 5
+        - ``check_radio_profile_channel_width_and_channels  $channels  mode=included  channel_width=80``
+
+        :param channels: list of valid channels
+        :param mode: channel is either enabled, disabled, included, excluded channel
+        :param channel_width: channel width
+        :return: 1  else - 1
         """
         sleep(5)
         element = None
@@ -456,12 +457,13 @@ class RadioProfile (RadioProfileWebElements):
 
     def select_radio_profile_excluded_channels(self, channels):
         """
-            - This Keyword selects the valid channels to be exclusive
-                - Keyword Usage:
-                  @channels   7 12 4 5
-                -``select_excluded_channels  $channels   ``
-                    :param channels: list of valid channels
-                    :return: 1  else -1
+        - This Keyword selects the valid channels to be exclusive
+        - Keyword Usage:
+            @channels   7 12 4 5
+        -``select_excluded_channels  $channels   ``
+
+        :param channels: list of valid channels
+        :return: 1  else -1
         """
 
         for channel in channels:
@@ -489,7 +491,7 @@ class RadioProfile (RadioProfileWebElements):
         - This keyword will retrieve the all fields in the device configuration interface WiFi2 page
         - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> WiFi2
         - Keyword Usage:
-                 - ``get_device_configuration_interface_WiFi2_details  ''
+        - ``get_device_configuration_interface_WiFi2_details  ''
 
         """
 
@@ -588,14 +590,15 @@ class RadioProfile (RadioProfileWebElements):
     def verify_uni_group_channels(self, channels, group_channel, mode='excluded', radio_modes='5GHz',
                                             channel_width='20MHZ'):
         """
-            - This keyword verifies a excluded channels group of Uni for the 80 Mhz, 40 Mhz and 20 MHz
-            - Keyword Usage:
-                - ``verify_uni_group_exclusded_channels  [5,12,5,6]  group_channel=uni-1   mode=excluded  ''
-            :param  channels: list of channels in Uni group
-            :param  group_channel: either uni-1, uni-2, uni-3, uni-4, uni-5, uni-6, uni-7, uni-8
-            :param  mode: excluded or included, disabled, enabled
-            :param  radio_modes: either 5GHz or 6GHz
-            :param  channel_width: either 20, 40, 80 MHz
+        - This keyword verifies a excluded channels group of Uni for the 80 Mhz, 40 Mhz and 20 MHz
+        - Keyword Usage:
+        - ``verify_uni_group_exclusded_channels  [5,12,5,6]  group_channel=uni-1   mode=excluded  ''
+
+        :param  channels: list of channels in Uni group
+        :param  group_channel: either uni-1, uni-2, uni-3, uni-4, uni-5, uni-6, uni-7, uni-8
+        :param  mode: excluded or included, disabled, enabled
+        :param  radio_modes: either 5GHz or 6GHz
+        :param  channel_width: either 20, 40, 80 MHz
         """
 
         self.utils.print_info("Group Channel Not able to click " + str(group_channel))
@@ -631,11 +634,12 @@ class RadioProfile (RadioProfileWebElements):
 
     def delete_radio_profile(self, profile_name='default'):
         """
-            - This keyword deletes a radio profile in radio profile table
-            - Keyword Usage:
-             - ``delete_radio_profile   profile_name=abc_20MHz``
-            :param  profile_name: radio profile name
-            :return: 1
+        - This keyword deletes a radio profile in radio profile table
+        - Keyword Usage:
+        - ``delete_radio_profile   profile_name=abc_20MHz``
+
+        :param  profile_name: radio profile name
+        :return: 1
         """
 
         radio_profile_table_header = self.get_radio_profile_table_header()
@@ -723,7 +727,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         - This keyword will enable DFS channel selection.
         - Keyword Usage:
-                 - ``enable_DFS_selection''
+        - ``enable_DFS_selection''
         """
         self.utils.print_info("Enable Dynamic Frequency Selection on radio profile")
         self.auto_actions.click_reference(self.get_enable_DFS_selection)

@@ -6,6 +6,6 @@
 #
 
 
-class NetworkCommonConfigureDeviceVrfWebElementsDefinitions:
+# class NetworkCommonConfigureDeviceVrfWebElementsDefinitions:
 
-    # VRF Definitions Tab Fields
+#     # VRF Definitions Tab Fields
