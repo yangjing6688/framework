@@ -56,3 +56,6 @@ class ApplicationsWebElements(ApplicationsWebElementsDefs):
 
     def get_application_dialogbox_close_button(self):
         return self.weh.get_element(self.application_dialogbox_close_button)
+
+    def get_application_dialogbox_close_tab(self):
+        return self.weh.get_element(self.application_dialogbox_close_tab)
