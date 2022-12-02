@@ -462,12 +462,13 @@ class Login:
 
         # stop tool tip text capture thread
         try:
-            if self.t1.is_alive():
-                self.t1.do_run = False
-                sleep(10)
-            kwargs['pass_msg'] = "Quit browser Successfully"
-            self.common_validation.passed(**kwargs)
-            return 1
+            if self.t1 is not None:
+                if self.t1.is_alive():
+                    self.t1.do_run = False
+                    sleep(10)
+                kwargs['pass_msg'] = "Quit browser Successfully"
+                self.common_validation.passed(**kwargs)
+                return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
             kwargs['fail_msg'] = f"'quit_browser()' -> Error: {e}"
