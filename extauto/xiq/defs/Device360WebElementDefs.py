@@ -3650,3 +3650,24 @@ class Device360WebElementDefs:
             'XPATH': '//div[@data-automation-tag="automation-port-$index"]',
             'index': 1
         }
+
+    device360_monitor_diagnostics_port_details_table = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridDiagnostics"]',
+        }
+
+    device360_monitor_diagnostics_port_details_table_empty = \
+        {
+            'XPATH': '//div[@id="hcgrid_1"]//div[@class="dgrid-no-data"]',
+        }
+
+    device360_monitor_diagnostics_port_details_table_rows = \
+        {
+            'XPATH': 'div[@data-dojo-attach-point="gridDiagnostics"]//div[@class="dgrid-scroller"]//div[contains(@class,"dgrid-row")]',
+        }
+
+    device360_monitor_diagnostics_select_all_ports_button = \
+        {
+            'XPATH': '//div[@class="switch-ports-panel-ctn"]//button[@data-dojo-attach-point="selectAllButton"]',
+            'wait_for': 5
+        }

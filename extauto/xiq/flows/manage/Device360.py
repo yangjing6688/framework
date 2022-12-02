@@ -12485,3 +12485,18 @@ class Device360(Device360WebElements):
             self.auto_actions.click(port_details_btn)
         else:
             kwargs['fail_msg'] = f"Missing the Port Details button, can't navigate to Port Details page"
+
+    def device360_monitor_diagnostics_select_all_ports(self, **kwargs):
+        """
+        - This keyword clicks the 'Select All Ports' button on the Port Diagnostics page in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
+        - Keyword Usage:
+        - ``Device360 Port Diagnostics Select All Ports``
+        :return: 1 if button was clicked, else -1
+        """
+        sel_btn = self.get_device360_monitor_diagnostics_select_all_ports_button()
+        if sel_btn:
+            kwargs["pass_msg"] ="Clicking 'Select All Ports' button"
+            self.auto_actions.click(sel_btn)
+        else:
+            kwargs['fail_msg'] = "Unable to find 'Select All Ports' button"
