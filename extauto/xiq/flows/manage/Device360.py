@@ -10940,6 +10940,48 @@ class Device360(Device360WebElements):
                 self.utils.print_info("get_multi_edit_description cannot be completed ")
                 return -1
 
+    def check_fileds_from_multi_edit_tab(self, **kwargs):
+        '''
+        This function select Port Usage, Port State and Description from Multi Edit tab.
+        :return: pass message if successfully
+        :return: fail message if error
+        '''
+        checkbox_port_type = self.get_multi_edit_checkbox_port_type()
+        sleep(5)
+        if checkbox_port_type:
+            if checkbox_port_type.is_selected():
+                print("The Port Usage is checked!")
+            else:
+                print("Click on Port Usage checkbox")
+                AutoActions().click(checkbox_port_type)
+                kwargs['pass_msg'] = f"The multi edit Port Usage was successfully checked!"
+                self.common_validation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"The multi edit Port Usage cannot be checked!"
+            self.common_validation.failed(**kwargs)
+
+        checkbox_port_state = self.get_multi_edit_checkbox_status()
+        sleep(5)
+        if checkbox_port_state:
+            print("Click on checkbox")
+            AutoActions().click(checkbox_port_state)
+            kwargs['pass_msg'] = f"The multi edit Port State was successfully checked!"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"The multi edit Port State cannot be checked!"
+            self.common_validation.failed(**kwargs)
+
+        checkbox_description = self.get_multi_edit_checkbox_port_description()
+        sleep(5)
+        if checkbox_description:
+            print("Click on checkbox")
+            AutoActions().click(checkbox_description)
+            kwargs['pass_msg'] = f"The multi edit Description was successfully checked!"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"The multi edit Description cannot be checked!"
+            self.common_validation.failed(**kwargs)
+
     def d360_save_multi_edit_button(self, **kwargs):
         '''
         This keyword push the save button from Multi Edit tab.
