@@ -955,6 +955,48 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+    common_object_ap_template_eth0_port_type = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portTypeDiv"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 0,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth1_port_type = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portTypeDiv"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 1,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth0_transmission_type = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="transmissionType"]/../*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 0,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth1_transmission_type = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="transmissionType"]/../*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 1,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth0_speed = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="transmissionSpeed"]/../*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 0,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth1_speed = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="transmissionSpeed"]/../*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 1,
+            'wait_for': 3
+        }
+
     common_object_wifi2_primary_server_ip = \
         {
             'XPATH': '//input[@data-dojo-attach-point="airDefensePrimaryServerIP"]',
