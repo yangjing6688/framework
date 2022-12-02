@@ -2165,9 +2165,12 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_monitor_diagnostics_port_details_table_rows(self):
         return self.weh.get_elements(self.device360_monitor_diagnostics_port_details_table_rows)
-B
+
     def get_device360_monitor_diagnostics_select_all_ports_button(self):
         """
         :return: 'Select All Ports' button of the Port Diagnostics page in the device360 view
         """
         return self.weh.get_element(self.device360_monitor_diagnostics_select_all_ports_button)
+
+    def get_device360_diagnostics_ports_table_scroll(self):
+        return self.weh.get_element(self.device360_diagnostics_ports_table_scroll)

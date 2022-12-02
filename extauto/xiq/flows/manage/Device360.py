@@ -12931,3 +12931,37 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
 
         return device360_info
+
+    def select_monitor_diagnostics_port_details(self, **kwargs):
+        """
+        - This keyword clicks the Port Details button on the Monitor ->Diagnostics tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details``
+        :return: 1 if Monitor> Diagnostics> Port Details was selected, else -1
+        """
+        port_details_btn = self.get_device360_port_details_button()
+        if port_details_btn:
+            self.utils.print_info("Clicking Port Details button on the Device360 Monitor Diagnostics tab")
+            self.auto_actions.click(port_details_btn)
+        else:
+            kwargs['fail_msg'] = f"Can't find Port Details button"
+            self.common_validation.failed(**kwargs)
+
+    def select_diagnostics_port_details_table(self, **kwargs):
+        """
+        - This keyword clicks the Port Details table on the Monitor ->Diagnostics ->Port Details tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics ->Port Details tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button --> click Port Details table
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details table``
+        """
+
+        port_details_table = self.get_device360_monitor_diagnostics_port_details_table()
+        if port_details_table:
+            self.utils.print_info("Clicking Port Details table on the Device360 Monitor Diagnostics tab")
+            self.auto_actions.click(port_details_table)
+        else:
+            kwargs['fail_msg'] = f"Can't find Port Details table"
+            self.common_validation.failed(**kwargs)

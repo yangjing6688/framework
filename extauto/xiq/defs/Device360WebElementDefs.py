@@ -3663,11 +3663,16 @@ class Device360WebElementDefs:
 
     device360_monitor_diagnostics_port_details_table_rows = \
         {
-            'XPATH': 'div[@data-dojo-attach-point="gridDiagnostics"]//div[@class="dgrid-scroller"]//div[contains(@class,"dgrid-row")]',
+            'XPATH': '//div[@data-dojo-attach-point="gridDiagnostics"]//div[@class="dgrid-scroller"]//div[contains(@class,"dgrid-row")]',
         }
 
     device360_monitor_diagnostics_select_all_ports_button = \
         {
             'XPATH': '//div[@class="switch-ports-panel-ctn"]//button[@data-dojo-attach-point="selectAllButton"]',
+            'wait_for': 5
+        }
+    device360_diagnostics_ports_table_scroll = \
+        {
+            "XPATH": "//div[@data-dojo-attach-point='gridDiagnostics']//div[@class='dgrid-scroller']",
             'wait_for': 5
         }
