@@ -3799,7 +3799,7 @@ class Devices:
                                 return row
                         if device_mac != 'default':
                             self.utils.print_debug(f"Looking at Device MAC {device_mac}")
-                            if device_mac in row.text:
+                            if device_mac.upper() in row.text:
                                 self.utils.print_info("Found device row: ", self.format_row(row.text))
                                 return row
                     # Device row not found in table so break out of the StaleElementException loop
@@ -12418,36 +12418,30 @@ class Devices:
         """
 
         if self.navigator.navigate_to_devices() != 1:
-            self.utils.print_info("Failed on navigating to the Devices page.")
             kwargs['fail_msg'] = "Failed on navigating to the Devices page."
-            self.screen.save_screen_shot()
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
+
+        # Enable the 'Model' Column
+        self.column_picker_select('Model')
 
         self.utils.print_info(f"Searching for the device row with mac address: {mac}")
         device_row = self.get_device_row(device_mac=mac)
         if device_row:
             self.utils.print_info(f'Found the device row with mac address: {mac}')
-            device_model = self.devices_web_elements.get_device_model(device_row)
+            device_model = self.devices_web_elements.get_device_model(device_row).text
             print("Device model: ", device_model)
             if device_model:
-                self.utils.print_info(f"Found the device model: {device_model.text} for the device with "
-                                      f"MAC address: {mac}")
-                kwargs['pass_msg'] = f"Found the device model: {device_model.text} for the device with " \
+                kwargs['pass_msg'] = f"Found the device model: {device_model} for the device with " \
                                      f"MAC address: {mac}"
                 self.common_validation.passed(**kwargs)
-                return device_model.text
+                return device_model
             else:
-                self.utils.print_info(f"Failed on getting the device model from the device with mac: {mac} ")
-
                 kwargs['fail_msg'] = f"Failed on getting the device model from the device with mac: {mac} "
-                self.screen.save_screen_shot()
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info(f"Did not find any rows with mac address: {mac}")
             kwargs['fail_msg'] = f"Did not find any rows with mac address: {mac}"
-            self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
 
