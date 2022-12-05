@@ -1537,12 +1537,12 @@ class DeviceConfig(DeviceConfigElements):
         self.get_close_device360_dialog_window().click()
         return 1
 
-    def override_ap_config_wireless_channel(self, device_mac='', interface='WiFi0', override_channel='6'):
+    def override_ap_config_wireless_channel(self, device_mac, interface='WiFi0', override_channel='6'):
         """
         - This keyword will configure the WiFi0-1-2 interface channel
         - Flow : Manage --> Device --> Click AP MAC Link --> Configure--> Interface Settings --> Wireless Interface
         - Keyword Usage:
-        - ``Override AP Config Wireless Channel   device_serial=${AP1_SERIAL}   interface='WiFi0'  override_channel='6' ``
+        - ``Override AP Config Wireless Channel   device_mac=${AP1_MAC}   interface='WiFi0'  override_channel='6' ``
 
         :param device_mac:  device_mac address
         :param interface: device interface i.e WiFi0/WiFi1/WIFI2
@@ -1605,12 +1605,12 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Not able to navigate/set to the page")
             return -1
 
-    def get_override_ap_configure_wifi_details(self, device_mac='', **wifi_interface_config):
+    def get_override_ap_configure_wifi_details(self, device_mac, wifi_interface_config, **kwargs):
         """
         - This keyword will get ap configure WiFi0-1-2 interface
         - Flow : Manage --> Device --> Click AP MAC Link --> Configure--> Interface Settings --> Wireless Interface
         - Keyword Usage
-        - ``Get Override AP Configure Wifi Details     device_serial=${AP1_SERIAL}    &{AP_TEMPLATE_CONFIG}``
+        - ``Get Override AP Configure Wifi Details     device_mac=${AP1_MAC}    ${AP_TEMPLATE_CONFIG}``
 
         :param device_mac:  device_mac address
         :param wifi_interface_config: (Get Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor etc
@@ -1624,7 +1624,8 @@ class DeviceConfig(DeviceConfigElements):
         try:
             self.utils.print_info("Navigating to device page")
             if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
-                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                kwargs['fail_msg'] = f"Device not found in the device row grid with mac: {device_mac}"
+                self.common_validation.fault(**kwargs)
                 return -1
             self.utils.print_info("click on configuration tab")
             self.auto_actions.click_reference(self.get_configuration_tab)
@@ -1658,19 +1659,18 @@ class DeviceConfig(DeviceConfigElements):
             self.auto_actions.click_reference(self.get_manage_device_edit_wireless_interface_cancel_button)
             self.utils.print_info("Click close dialog window")
             self.auto_actions.click_reference(self.get_close_device360_dialog_window)
-            self.common_validation.passed(**wifi_interface_config)
+            kwargs['pass_msg'] = "Successful to get device configure details"
+            self.common_validation.passed(**kwargs)
             return wifi_interface_config
 
         except Exception as e:
-            wifi_interface_config['fail_msg'] = f"get_ap_template_wifi() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wifi_interface_config)
+            kwargs['fail_msg'] = f"get_ap_template_wifi() failed. Actual error is : - {e} -"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def _get_ap_configure_wifi0_details(self, **wifi0_profile):
         """
-        - Get the WIFI0 configuration in device configure
-        - Keyword Usage
-        - ``Get AP Configure WiFi0 Details   &{WIFI0_CONFIG}``
+        - Get the WIFI0 configuration in device configure details
 
         :param wifi0_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: wifi0_profile if Get WiFi0 Profile Successfully else None
@@ -1733,9 +1733,7 @@ class DeviceConfig(DeviceConfigElements):
 
     def _get_ap_configure_wifi1_details(self, **wifi1_profile):
         """
-        - Get the WIFI1 configuration in device configure
-        - Keyword Usage
-        - ``Get AP Configure WiFi1 Details   &{WIFI0_CONFI1}``
+        - Get the WIFI1 configuration in device configure details
 
         :param wifi1_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: wifi1_profile if Get WiFi1 Profile Successfully else None
@@ -1793,9 +1791,7 @@ class DeviceConfig(DeviceConfigElements):
 
     def _get_ap_configure_wifi2_details(self, **wifi2_profile):
         """
-        - Get the WIFI2 configuration in device configure
-        - Keyword Usage
-        - ``Get AP Configure WiFi2 Details   &{WIFI0_CONFI2}``
+        - Get the WIFI2 configuration in device configure details
 
         :param wifi2_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: wifi2_profile if Get WiFi2 Profile Successfully else None
@@ -1850,9 +1846,7 @@ class DeviceConfig(DeviceConfigElements):
 
     def _get_ap_configure_wired_details(self, **wired_profile):
         """
-        - Get the Wired Interfaces in device configure
-        - Keyword Usage
-        - ``Get AP Configure Wired Details   &{WIRED_CONFIG}``
+        - Get the Wired Interfaces in device configure details
 
         :param wired_profile: (Get Dict) Enable/Disable Eth0, Eth1, and etc
         :return: wired_profile if Successfully else None
