@@ -70,6 +70,7 @@ class CommonObjects(object):
                 retries += 1
                 return _get_common_object_row(search_string, retries)
         self.utils.print_info(f"common object row {search_string} not present")
+        self.screen.save_screen_shot()
         return False
 
     def _search_common_object(self, search_string):
@@ -91,6 +92,7 @@ class CommonObjects(object):
         """
         row = self._get_common_object_row(search_string)
         self.auto_actions.click(self.cobj_web_elements.get_common_object_grid_row_cells(row, 'dgrid-selector'))
+        self.screen.save_screen_shot()
         sleep(2)
 
     def _delete_common_objects(self):
@@ -100,14 +102,19 @@ class CommonObjects(object):
         :return:
         """
         self.utils.print_info("Clicking on delete button")
-        self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
+        delete_button = self.cobj_web_elements.get_common_objects_delete_button()
+        if delete_button:
+           self.utils.print_info("Clicking on delete button")
+           self.auto_actions.click(delete_button)
+        self.screen.save_screen_shot()
         sleep(2)
 
         confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirm Yes button")
             self.auto_actions.click(confirm_delete_btn)
-            sleep(3)
+        self.screen.save_screen_shot()
+        sleep(3)
 
     def _select_delete_common_object(self, object_name):
         """
@@ -149,6 +156,7 @@ class CommonObjects(object):
         :return: 1 if deleted else -1
         """
         self.navigator.navigate_to_ssids()
+        self.screen.save_screen_shot()
         sleep(5)
 
         if not self._search_common_object(ssid_name):
@@ -192,11 +200,13 @@ class CommonObjects(object):
         """
 
         self.navigator.navigate_to_ssids()
+        self.screen.save_screen_shot()
         sleep(5)
 
         self.utils.print_info("Click on full page view")
         if self.cobj_web_elements.get_paze_size_element():
             self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
+            self.screen.save_screen_shot()
             sleep(5)
 
         # Get the total pages
@@ -226,6 +236,7 @@ class CommonObjects(object):
 
         if not select_ssid_flag:
             kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"
+            self.screen.save_screen_shot()
             self.common_validation.passed(**kwargs)
             return 1
 
