@@ -2424,7 +2424,10 @@ class CommonObjects(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        if "Template was deleted successfully." in tool_tp_text[-1]:
+        expected_tooltip1 = "Template was deleted successfully."
+        expected_tooltip2 = "Template was successfully removed from policy."
+
+        if expected_tooltip1 in tool_tp_text[-1] or expected_tooltip2 in tool_tp_text[-1]:
             kwargs['pass_msg'] = "Template was deleted successfully."
             self.common_validation.passed(**kwargs)
             return 1
