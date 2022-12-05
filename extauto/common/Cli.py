@@ -2170,6 +2170,230 @@ class Cli(object):
         kwargs["pass_msg"] = "cleanup_lacp() passed."
         self.commonValidation.passed(**kwargs)
 
+    def get_stacking_details_cli(self, dut, **kwargs):
+        """
+        This keyword gets stacking details from CLI (Mac add, Slot number and Role -for each unit).
+        This keyword is implemented only for EXOS STACK.
+        
+        :param dut: The dut object of the device
+        :return: a list of tuples
+        """
+        units_list = []
+
+        if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
+            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+
+            stacking_details_output = self.networkElementCliSend.send_cmd(dut.name, f'show stacking', max_wait=10, interval=2)
+            p = re.compile(r"((?:[0-9a-fA-F]:?){12})\s+(\d)\s+[^\s]+\s+([^\s]+)", re.M)
+            stacking_details = re.findall(p, stacking_details_output[0].return_text)
+            units_list.append(stacking_details)
+
+            kwargs['pass_msg'] = f"Stacking details found"
+            self.commonValidation.passed(**kwargs)
+            return units_list
+        
+        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        self.commonValidation.failed(**kwargs)
+        return -1
+
+    def get_info_from_stack(self, dut, **kwargs):
+        """
+        - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
+        This keyword is implemented only for EXOS STACK.
+        
+        :param dut: the dut object
+        :return: a list of tuples
+        """
+        info_list = []
+
+        if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
+            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+            ip_list_cli = []
+            ip_list = []
+            ip_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Interface', max_wait=10, interval=2)
+            p = re.compile(r"(Source\sInterface)\s+(\d+.\d+.\d+.\d+)", re.M)
+            ip_dut_list = re.findall(p, ip_output[0].return_text)
+            ip_list.append(ip_dut_list)
+            for i in range(0, len(ip_list[0])):
+                unit_i_ip = ip_list[0][i][1]
+                ip_list_cli.append(unit_i_ip)
+            info_list.append(ip_list_cli)
+
+            stacking_info_cli = self.get_stacking_details_cli(dut)
+            print(f"Stacking details cli: {stacking_info_cli}")
+            stacking_info_cli_list_of_tuples= stacking_info_cli[0]
+            sorted_by_second = sorted(stacking_info_cli_list_of_tuples, key=lambda tup: tup[1])
+            print(f"Stacking details cli sorted_by_second: {sorted_by_second}")
+            mac_add_list_cli = []
+            for i in range(0, len(sorted_by_second)):
+                unit_i_mac_address = sorted_by_second[i][0]
+                unit_i_mac_address_mapped = unit_i_mac_address.replace(':', '')
+                unit_i_mac_address_final_mapped = unit_i_mac_address_mapped.upper()
+                mac_add_list_cli.append(unit_i_mac_address_final_mapped)
+            info_list.append(mac_add_list_cli)
+
+            soft_version_list_cli = []
+            soft_version_list = []
+            soft_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+\s+.[^\s]+\W([^\s]+)", re.M)
+            soft_version_dut_list = re.findall(p, soft_version_output[0].return_text)
+            soft_version_list.append(soft_version_dut_list)
+            for i in range(0, len(soft_version_list[0])):
+                unit_i_soft_version = soft_version_list[0][i][1]
+                soft_version_list_cli.append(unit_i_soft_version)
+            info_list.append(soft_version_list_cli)
+
+            type_list_cli = []
+            type_list = []
+            type_output = self.networkElementCliSend.send_cmd(dut.name, f'show slot', max_wait=10, interval=2)
+            p = re.compile(r"(Slot-\d)\s{5}([^\s]+)", re.M)
+            type_dut_list = re.findall(p, type_output[0].return_text)
+            type_list.append(type_dut_list)
+            for i in range(0, len(type_list[0])):
+                unit_i_type = type_list[0][i][1]
+                type_list_cli.append(unit_i_type)
+            info_list.append(type_list_cli)
+
+            serial_list_cli = []
+            serial_list = []
+            serial_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.([^\s]+)", re.M)
+            serial_number_list = re.findall(p, serial_output[0].return_text)
+            serial_list.append(serial_number_list)
+            for i in range(0, len(serial_list[0])):
+                unit_i_serial_number = serial_list[0][i][1]
+                serial_list_cli.append(unit_i_serial_number)
+            info_list.append(serial_list_cli)
+
+            make_list_cli = []
+            make_list = []
+            make_output =  self.networkElementCliSend.send_cmd(dut.name, f'show version | include Image', max_wait=10, interval=2)
+            p = re.compile(r"(Image\s+\W)\s+(.*)\sversion", re.M)
+            make_dut_list = re.findall(p, make_output[0].return_text)
+            make_list.append(make_dut_list)
+            for i in range(0, len(make_list[0])):
+                unit_i_make = make_list[0][i][1]
+                make_list_cli.append(unit_i_make)
+            info_list.append(make_list_cli)
+
+            iqagent_version_cli = []
+            iqagent_version_list = []
+            iqagent_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Version', max_wait=10,interval=2)
+            p = re.compile(r"(Version)\s+([^\s]+)", re.M)
+            iqagent_version_dut = re.findall(p, iqagent_version_output[0].return_text)
+            iqagent_version_list.append(iqagent_version_dut)
+            for i in range(0, len(iqagent_version_list[0])):
+                unit_i_iqagent_version = iqagent_version_list[0][i][1]
+                iqagent_version_cli.append(unit_i_iqagent_version)
+            info_list.append(iqagent_version_cli)
+
+            kwargs['pass_msg'] = f"Stacking details found"
+            self.commonValidation.passed(**kwargs)
+            return info_list
+
+        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        self.commonValidation.failed(**kwargs)
+        return -1
+
+    def get_info_from_stack(self, dut, **kwargs):
+        """
+        - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
+
+        :param dut: the dut object
+        :return: a list of tuples
+        """
+        info_list = []
+
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+            ip_list_cli = []
+            ip_list = []
+            ip_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Interface', max_wait=10, interval=2)
+            p = re.compile(r"(Source\sInterface)\s+(\d+.\d+.\d+.\d+)", re.M)
+            ip_dut_list = re.findall(p, ip_output[0].return_text)
+            ip_list.append(ip_dut_list)
+            for i in range(0, len(ip_list[0])):
+                unit_i_ip = ip_list[0][i][1]
+                ip_list_cli.append(unit_i_ip)
+            info_list.append(ip_list_cli)
+
+            stacking_info_cli = self.get_stacking_details_cli(dut)
+            print(f"Stacking details cli: {stacking_info_cli}")
+            stacking_info_cli_list_of_tuples= stacking_info_cli[0]
+            sorted_by_second = sorted(stacking_info_cli_list_of_tuples, key=lambda tup: tup[1])
+            print(f"Stacking details cli sorted_by_second: {sorted_by_second}")
+            mac_add_list_cli = []
+            for i in range(0, len(sorted_by_second)):
+                unit_i_mac_address = sorted_by_second[i][0]
+                unit_i_mac_address_mapped = unit_i_mac_address.replace(':', '')
+                unit_i_mac_address_final_mapped = unit_i_mac_address_mapped.upper()
+                mac_add_list_cli.append(unit_i_mac_address_final_mapped)
+            info_list.append(mac_add_list_cli)
+
+            soft_version_list_cli = []
+            soft_version_list = []
+            soft_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+\s+.[^\s]+\W([^\s]+)", re.M)
+            soft_version_dut_list = re.findall(p, soft_version_output[0].return_text)
+            soft_version_list.append(soft_version_dut_list)
+            for i in range(0, len(soft_version_list[0])):
+                unit_i_soft_version = soft_version_list[0][i][1]
+                soft_version_list_cli.append(unit_i_soft_version)
+            info_list.append(soft_version_list_cli)
+
+            type_list_cli = []
+            type_list = []
+            type_output = self.networkElementCliSend.send_cmd(dut.name, f'show slot', max_wait=10, interval=2)
+            p = re.compile(r"(Slot-\d)\s{5}([^\s]+)", re.M)
+            type_dut_list = re.findall(p, type_output[0].return_text)
+            type_list.append(type_dut_list)
+            for i in range(0, len(type_list[0])):
+                unit_i_type = type_list[0][i][1]
+                type_list_cli.append(unit_i_type)
+            info_list.append(type_list_cli)
+
+            serial_list_cli = []
+            serial_list = []
+            serial_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.([^\s]+)", re.M)
+            serial_number_list = re.findall(p, serial_output[0].return_text)
+            serial_list.append(serial_number_list)
+            for i in range(0, len(serial_list[0])):
+                unit_i_serial_number = serial_list[0][i][1]
+                serial_list_cli.append(unit_i_serial_number)
+            info_list.append(serial_list_cli)
+
+            make_list_cli = []
+            make_list = []
+            make_output =  self.networkElementCliSend.send_cmd(dut.name, f'show version | include Image', max_wait=10, interval=2)
+            p = re.compile(r"(Image\s+\W)\s+(.*)\sversion", re.M)
+            make_dut_list = re.findall(p, make_output[0].return_text)
+            make_list.append(make_dut_list)
+            for i in range(0, len(make_list[0])):
+                unit_i_make = make_list[0][i][1]
+                make_list_cli.append(unit_i_make)
+            info_list.append(make_list_cli)
+
+            iqagent_version_cli = []
+            iqagent_version_list = []
+            iqagent_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Version', max_wait=10,interval=2)
+            p = re.compile(r"(Version)\s+([^\s]+)", re.M)
+            iqagent_version_dut = re.findall(p, iqagent_version_output[0].return_text)
+            iqagent_version_list.append(iqagent_version_dut)
+            for i in range(0, len(iqagent_version_list[0])):
+                unit_i_iqagent_version = iqagent_version_list[0][i][1]
+                iqagent_version_cli.append(unit_i_iqagent_version)
+            info_list.append(iqagent_version_cli)
+
+            kwargs['pass_msg'] = f"get_info_from_stack() passed"
+            self.commonValidation.passed(**kwargs)
+            return info_list
+
+        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        self.commonValidation.failed(**kwargs)
+        return -1
+
+
 if __name__ == '__main__':
     from pytest_testconfig import *
     config['${TEST_NAME}'] = 'bob'
