@@ -3919,6 +3919,8 @@ class SwitchTemplate(object):
 
 
     def create_modify_lag_in_template(self, main_lag_port, port, **kwargs):
+
+
         """
         This keyword is used to create or verify and existing LAG port. It first verify if LAG was created and
          add a new port to it. Assuming navigation to port configuration is done.
@@ -3950,8 +3952,8 @@ class SwitchTemplate(object):
             self.common_validation.passed(**kwargs)
         else:
             self.utils.print_info(f"Add port {port} to lag group {main_lag_port}")
-            AutoActions().move_to_element(lag_link)
-            AutoActions().click(lag_link)
+            AutoActions().move_to_element(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
+            AutoActions().click(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
             sleep(3)
             AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
             AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
@@ -3983,9 +3985,10 @@ class SwitchTemplate(object):
             kwargs["fail_msg"] = f"{lag_text} wasn't found"
             self.common_validation.failed(**kwargs)
         for port in ports:
-            AutoActions().click(self.sw_template_web_elements.get_selected_port(port=port))
+            if not self.sw_template_web_elements.get_selected_port(port=port).is_selected():
+                AutoActions().click(self.sw_template_web_elements.get_selected_port(port=port))
             AutoActions().click(self.sw_template_web_elements.get_lag_remove_port_button())
-        sleep(2)
+            sleep(2)
         AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
         AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
         kwargs["pass_msg"] = f"Successfully removed {ports} from lag {main_lag_port}"

@@ -12681,106 +12681,133 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return False
 
-    def device360_remove_stack_ports_slots(self, ports, **kwargs):
+    def device360_add_remove_stack_ports_slots(self, master_port, ports, action='add', **kwargs):
         """
            This keyword is used to remove port aggregation
            It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
 
            :param ports: list of ports: ex: ["1:1", "2:1", "3:2"]
+           :param master_port: master port of LAG
+           :param action: add or remove ports from LAG
            :return: True if successful or False on failure
            """
-        if not self.device360_change_slot_view(ports[0].split(":")[0]):
+        if not self.device360_change_slot_view(master_port.split(":")[0]):
             kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed. Change slot failed."
             self.common_validation.failed(**kwargs)
             return False
-
-        aggregated_ports = self.get_device360_lacp_label(port=ports[0])
-        if aggregated_ports:
-            self.utils.print_info("Clicking on aggregated ports label")
-            self.auto_actions.click(aggregated_ports)
-        else:
-            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to find aggregated port."
-            self.common_validation.failed(**kwargs)
-            return False
-
-        # Get cancel button reference
-        cancel_button = self.get_device360_lag_cancel_button()
-        if not cancel_button:
-            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Could not find cancel button."
-            self.common_validation.failed(**kwargs)
-            return False
-
-        selected_port = self.get_device360_aggregate_selected_port(ports[0])
-        if selected_port:
-            self.utils.print_info("Choosing second selected port")
-            self.auto_actions.click(selected_port)
-        else:
-            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to choose second selected port."
-            self.common_validation.failed(**kwargs)
-            self.auto_actions.click(cancel_button)
-            return False
-
-        # Remove ports from aggregation
-        for i in range(len(ports)):
-            # Remove the next port
-            remove_port_from_lacp = self.get_device360_aggregate_remove_button()
-            if remove_port_from_lacp:
-                self.utils.print_info("Clicking on remove port")
-                self.auto_actions.click(remove_port_from_lacp)
+        if action == 'remove':
+            aggregated_ports = self.get_device360_lacp_label(port=master_port)
+            if aggregated_ports:
+                self.utils.print_info("Clicking on aggregated ports label")
+                self.auto_actions.click(aggregated_ports)
             else:
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Remove port not found."
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to find aggregated port."
+                self.common_validation.failed(**kwargs)
+                return False
+
+            # Get cancel button reference
+            cancel_button = self.get_device360_lag_cancel_button()
+            if not cancel_button:
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Could not find cancel button."
+                self.common_validation.failed(**kwargs)
+                return False
+
+            selected_port = self.get_device360_aggregate_selected_port(ports[0])
+            if selected_port:
+                self.utils.print_info("Choosing second selected port")
+                self.auto_actions.click(selected_port)
+            else:
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to choose second selected port."
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
 
-        # Save
-        lag_save_button = self.get_device360_lag_save_button()
-        if lag_save_button:
-            self.utils.print_info("Clicking Save button")
-            self.auto_actions.click(lag_save_button)
-            sleep(5)
-        else:
-            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Save button not found."
-            self.common_validation.failed(**kwargs)
-            self.auto_actions.click(cancel_button)
-            return False
+            # Remove ports from aggregation
+            for i in range(len(ports)):
+                # Remove the next port
+                remove_port_from_lacp = self.get_device360_aggregate_remove_button()
+                if remove_port_from_lacp:
+                    self.utils.print_info("Clicking on remove port")
+                    self.auto_actions.click(remove_port_from_lacp)
+                else:
+                    kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Remove port not found."
+                    self.common_validation.failed(**kwargs)
+                    self.auto_actions.click(cancel_button)
+                    return False
 
-        # Save port Config
-        save_port_config = self.get_device360_save_port_config()
-        if save_port_config:
-            self.utils.print_info("Clicking Save port config button")
-            self.auto_actions.click(save_port_config)
-            sleep(5)
-        else:
-            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Save port config button not found."
-            self.common_validation.failed(**kwargs)
-            return False
+            # Save
+            lag_save_button = self.get_device360_lag_save_button()
+            if lag_save_button:
+                self.utils.print_info("Clicking Save button")
+                self.auto_actions.click(lag_save_button)
+                sleep(5)
+            else:
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Save button not found."
+                self.common_validation.failed(**kwargs)
+                self.auto_actions.click(cancel_button)
+                return False
 
-        # Check lacp formed in Device360
-        if self.get_device360_lacp_label(port=ports[0]):
-            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Aggregation remove failed."
-            self.common_validation.failed(**kwargs)
-            return False
-        kwargs['pass_msg'] = f"Ports {ports} were removed from LAG."
-        self.common_validation.passed(**kwargs)
-        return True
+            # Save port Config
+            save_port_config = self.get_device360_save_port_config()
+            if save_port_config:
+                self.utils.print_info("Clicking Save port config button")
+                self.auto_actions.click(save_port_config)
+                sleep(5)
+            else:
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Save port config button not found."
+                self.common_validation.failed(**kwargs)
+                return False
 
-    def device360_remove_port_from_lag(self, master_port, **kwargs):
-        """
-        This keyword is used to remove 2 LAG ports from Device360
-        It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+            # Check lacp formed in Device360
+            if self.get_device360_lacp_label(port=ports[0]):
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Aggregation remove failed."
+                self.common_validation.failed(**kwargs)
+                return False
+            kwargs['pass_msg'] = f"Ports {ports} were removed from LAG."
+            self.common_validation.passed(**kwargs)
+            return True
+        elif action == 'add':
+            for port in ports:
+                AutoActions().click(self.get_device360_lacp_label(port=master_port))
+                AutoActions().click(self.get_device360_aggregate_available_port(port=port))
+                AutoActions().click(self.get_device360_aggregate_add_button())
+            AutoActions().click(self.get_device360_lag_save_button())
+            AutoActions().click(self.get_device360_save_port_config())
+            kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
+            self.common_validation.passed(**kwargs)
+            return 1
 
-        :param master_port
-        """
-
-        AutoActions().click(self.get_device360_lacp_label(port=master_port))
-        AutoActions().click(self.get_device360_aggregate_selected_port(port=master_port))
-        for i in range(0, 2):
-            AutoActions().click(self.get_device360_aggregate_remove_button())
-            sleep(2)
-        AutoActions().click(self.get_device360_lag_save_button())
-        AutoActions().click(self.get_device360_save_port_config())
-        kwargs['pass_msg'] = f"Ports {master_port} were removed from LAG."
-        self.common_validation.passed(**kwargs)
-        return 1
+    # def device360_add_remove_port_from_lag(self, master_port, ports, action='add', **kwargs):
+    #     """
+    #     This keyword is used to remove or add LAG ports from a LAG previously created.
+    #     It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+    #
+    #     :param master_port - master port of the LAG
+    #     :param ports - list of ports to be added or removed
+    #     :param action - add or remove ports from LAG
+    #     """
+    #     if action == 'remove':
+    #         AutoActions().click(self.get_device360_lacp_label(port=master_port))
+    #         AutoActions().click(self.get_device360_aggregate_selected_port(port=master_port))
+    #         for i in range(0, len(ports)):
+    #             AutoActions().click(self.get_device360_aggregate_remove_button())
+    #             sleep(1)
+    #         AutoActions().click(self.get_device360_lag_save_button())
+    #         AutoActions().click(self.get_device360_save_port_config())
+    #         kwargs['pass_msg'] = f"Ports {master_port} were removed from LAG."
+    #         self.common_validation.passed(**kwargs)
+    #         return 1
+    #     elif action == 'add':
+    #         for port in ports:
+    #             AutoActions().click(self.get_device360_lacp_label(port=master_port))
+    #             AutoActions().click(self.get_device360_aggregate_available_port(port=port))
+    #             AutoActions().click(self.get_device360_aggregate_add_button())
+    #         AutoActions().click(self.get_device360_lag_save_button())
+    #         AutoActions().click(self.get_device360_save_port_config())
+    #         kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
+    #         self.common_validation.passed(**kwargs)
+    #         return 1
+    #     else:
+    #         kwargs['fail_msg'] = f"'device360_add_remove_port_from_lag()' failed.Invalid argument {action}"
+    #         self.common_validation.failed(**kwargs)
 
