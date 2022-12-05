@@ -97,13 +97,13 @@ class CloudConfigGroup(object):
             self.utils.print_info("Select row for ap with serial",ap_serial)
             if not self.device.select_device(ap_serial):
                 kwargs['fail_msg'] = f"assign_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.fault(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
         sleep(2)
 
         if not self._select_ccg_policy(policy_name, option):
             kwargs['fail_msg'] = f"assign_cloud_config_group() failed. CCG {policy_name} is not present in the CCG List"
-            self.common_validation.fault(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(5)
 
@@ -112,7 +112,7 @@ class CloudConfigGroup(object):
                 self.utils.print_info("Select row for ap with serial", ap_serial)
                 if not self.device.select_device(ap_serial):
                     kwargs['fail_msg'] = f"assign_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                    self.common_validation.fault(**kwargs)
+                    self.common_validation.failed(**kwargs)
                     return -1
                 sleep(2)
 
@@ -158,7 +158,7 @@ class CloudConfigGroup(object):
             elif retry_count >= int(max_config_push_wait):
                 kwargs['fail_msg'] = f"_check_update_ccg_policy_status() failed." \
                                      f"Config push to AP taking more than {max_config_push_wait} seconds"
-                self.common_validation.fault(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             sleep(30)
             retry_count += 30
@@ -237,8 +237,8 @@ class CloudConfigGroup(object):
         for ap_serial in ap_serials:
             if not self.select_ap_for_ccg(ap_serial):
                 kwargs['fail_msg'] = f"add_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.fault(**kwargs)
-                return -1
+                self.common_validation.failed(**kwargs)
+
         sleep(2)
 
         self.utils.print_info("Clicking on CCG Group Save Button")
@@ -250,8 +250,9 @@ class CloudConfigGroup(object):
                 self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                 kwargs['fail_msg'] = "add_cloud_config_group() failed. Entering CCG Name is Mandatory. " \
                                      "Clicked on CCG Group Cancel Button"
-                self.common_validation.fault(**kwargs)
+                self.common_validation.validate(-2,- 2, **kwargs)
                 return -2
+
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
@@ -260,15 +261,15 @@ class CloudConfigGroup(object):
             if "already exists" in tip_text:
                 sleep(1)
                 kwargs['fail_msg'] = f"add_cloud_config_group() failed. {tip_text}"
-                self.common_validation.fault(**kwargs)
-                return -3
+                self.common_validation.failed(**kwargs)
+
         if self.search_ccg_group_from_common_object(policy):
             ccg_group_members = self.get_ccg_group_members(policy)
             for ap_serial in ap_serials:
                 if ap_serial not in ccg_group_members:
                     kwargs['fail_msg'] = f"add_cloud_config_group() failed. {ap_serial} not in {ccg_group_members}"
                     self.common_validation.failed(**kwargs)
-                    return -1
+
             kwargs['pass_msg'] = "Created Cloud Config Group and included APs to the group."
             self.common_validation.passed(**kwargs)
             return 1
@@ -276,7 +277,7 @@ class CloudConfigGroup(object):
         kwargs['fail_msg'] = "add_cloud_config_group() failed. " \
                              "Unable to Create Cloud Config Group and to include APs to the group. "
         self.common_validation.failed(**kwargs)
-        return -1
+
 
     def add_cloud_config_group_from_manage(self, policy, description, *ap_serials, **kwargs):
         """
@@ -299,8 +300,8 @@ class CloudConfigGroup(object):
             if not self.device.select_ap(ap_serial):
                 kwargs['fail_msg'] = f"add_cloud_config_group_from_manage() failed. " \
                                      f"AP {ap_serial} is not present in the grid"
-                self.common_validation.fault(**kwargs)
-                return -1
+                self.common_validation.failed(**kwargs)
+
         sleep(2)
 
         self.utils.print_info(f"AP {ap_serials} to be added to CCG Group {policy}")
@@ -346,13 +347,13 @@ class CloudConfigGroup(object):
                     kwargs['fail_msg'] = f"add_cloud_config_group_from_manage() failed. " \
                                          f"{ap_serial} not in {ccg_group_members}"
                     self.common_validation.failed(**kwargs)
-                    return -1
+
             kwargs['pass_msg'] = "Added Cloud Config Group from manage"
             self.common_validation.passed(**kwargs)
             return 1
         kwargs['fail_msg'] = "add_cloud_config_group_from_manage() failed. Unable to add Cloud Config Group from manage"
         self.common_validation.failed(**kwargs)
-        return -1
+
 
     def create_bulk_cloud_config_group(self, policy_name, ap_serial, num, **kwargs):
         """
@@ -387,8 +388,8 @@ class CloudConfigGroup(object):
 
             if not self.select_ap_for_ccg(ap_serial):
                 kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.fault(**kwargs)
-                return -1
+                self.common_validation.failed(**kwargs)
+
             sleep(2)
 
             self.utils.print_info("Clicking on CCG Group Save Button")
@@ -400,8 +401,8 @@ class CloudConfigGroup(object):
                     self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                     kwargs['fail_msg'] = "create_bulk_cloud_config_group() failed. Entering CCG Name is Mandatory. " \
                                          "Clicked on CCG Group Cancel Button"
-                    self.common_validation.fault(**kwargs)
-                    return -2
+                    self.common_validation.failed(**kwargs)
+
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
@@ -410,17 +411,17 @@ class CloudConfigGroup(object):
                 if "already exists" in tip_text:
                     sleep(1)
                     kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. {tip_text}"
-                    self.common_validation.fault(**kwargs)
-                    return -3
+                    self.common_validation.failed(**kwargs)
+
 
             if not self.search_ccg_group_from_common_object(policy):
                 kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. Didn't find CCG group"
                 self.common_validation.failed(**kwargs)
-                return -1
+
 
         kwargs['pass_msg'] = "Created bulk Cloud Config Group"
         self.common_validation.passed(**kwargs)
-        return 1
+
 
     def edit_cloud_config_group(self, policy, option="add", *ap_serials, **kwargs):
         """
@@ -449,8 +450,8 @@ class CloudConfigGroup(object):
         self.utils.print_info(f"Selecting CCG Group with name:{policy}")
         if not self.select_ccg_group_from_common_object(policy):
             kwargs['fail_msg'] = f"edit_cloud_config_group() failed. Not able to find CCG Group with name:{policy}"
-            self.common_validation.fault(**kwargs)
-            return -1
+            self.common_validation.failed(**kwargs)
+
         sleep(3)
 
         self.utils.print_info("Clicking on CCG Edit Button")
@@ -460,16 +461,16 @@ class CloudConfigGroup(object):
             for ap_serial in ap_serials:
                 if not self.select_ap_for_ccg(ap_serial):
                     kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                    self.common_validation.fault(**kwargs)
-                    return -1
+                    self.common_validation.failed(**kwargs)
+
         else:
             sleep(2)
             for device_hostname in device_hostnames:
                 if not self._remove_device_ccg(device_hostname, policy):
                     kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {device_hostname} " \
                                          f"is not present in the grid"
-                    self.common_validation.fault(**kwargs)
-                    return -1
+                    self.common_validation.failed(**kwargs)
+
 
         sleep(2)
 
@@ -484,19 +485,19 @@ class CloudConfigGroup(object):
                     if ap_serial not in ccg_members:
                         kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} did not " \
                                              f"get added to CCG Group"
-                        self.common_validation.fault(**kwargs)
-                        return -1
+                        self.common_validation.failed(**kwargs)
+
             else:
                 for ap_serial in ap_serials:
                     if ap_serial in ccg_members:
                         kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} did not " \
                                              f"get removed from CCG Group"
-                        self.common_validation.fault(**kwargs)
-                        return -1
+                        self.common_validation.failed(**kwargs)
+
 
         else:
             kwargs['fail_msg'] = f"edit_cloud_config_group() failed. CCG Group {policy} is not found in  CCG List"
-            self.common_validation.fault(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         for ap_serial in ap_serials:
@@ -506,7 +507,7 @@ class CloudConfigGroup(object):
             sleep(5)
             if not self.device.select_device(ap_serial):
                 kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.fault(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
             sleep(2)
 
@@ -575,7 +576,7 @@ class CloudConfigGroup(object):
 
         if not self.select_ccg_group_from_common_object(policy):
             kwargs['fail_msg'] = f"delete_cloud_config_group() failed. Not able to find CCG Group with name:{policy}"
-            self.common_validation.fault(**kwargs)
+            self.common_validation.validate(-1,-1, **kwargs)
             return -1
         sleep(3)
 
@@ -588,11 +589,11 @@ class CloudConfigGroup(object):
 
         if self.search_ccg_group_from_common_object(policy):
             kwargs['fail_msg'] = "delete_cloud_config_group() failed. CCG Still Not Deleted"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.validate(-1,-1, **kwargs)
             return -1
         else:
             kwargs['pass_msg'] = "CCG Deleted Successfully"
-            self.common_validation.passed(**kwargs)
+            self.common_validation.validate(1,1, **kwargs)
             return 1
 
     def delete_cloud_config_groups(self, *policys):
@@ -742,11 +743,11 @@ class CloudConfigGroup(object):
             ccg = self.ccg_web_elements.get_ccg_row_name(row)
             if policy == ccg.text.strip():
                 kwargs['pass_msg'] = f"Found CCG Group with name:{policy}"
-                self.common_validation.passed(**kwargs)
+                self.common_validation.validate(1, 1, **kwargs)
                 return 1
 
         kwargs['fail_msg'] = f"search_ccg_group_from_common_object() failed. Didn't find CCG Group with name: {policy}"
-        self.common_validation.failed(**kwargs)
+        self.common_validation.validate(-1,- 1, **kwargs)
         return -1
 
     def _search_multiple_ccg_group_from_common_object(self, policy):
