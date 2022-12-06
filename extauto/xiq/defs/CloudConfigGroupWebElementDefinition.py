@@ -108,7 +108,7 @@ class CloudConfigGroupWebElementDefinition:
         {
             'XPATH': '//div[@class="cloud-config-groups"]//div[@data-dojo-attach-point="gridContent"]'
                      '//table[@class="dgrid-row-table"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     ccg_row_name = \
@@ -120,13 +120,13 @@ class CloudConfigGroupWebElementDefinition:
     get_ccg_name = \
         {
             'XPATH': '//*[@data-dojo-attach-point="name"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     get_ccg_description = \
         {
             'XPATH': '//*[@data-dojo-attach-point="description"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     get_form_error = \
