@@ -1108,7 +1108,10 @@ class Utils:
     def file_exists(self,file_name):
         """
           - This function will check whether mentioned file_name exists in the directory or not
+          - Keyword Usage:
+            `` File Exists  ${FILE_PATH}``
 
-        :param file_name: True if file exist else False
+        :param file_name:  File Name in Current Directory or File Path
+        :return: True if file exist else False
         """
         return os.path.isfile(file_name)
