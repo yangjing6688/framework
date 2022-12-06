@@ -475,7 +475,7 @@ class CloudConfigGroup(object):
 
 
         sleep(3)
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         self.utils.print_info("Clicking on CCG Group Save Button")
         #save_button = self.ccg_web_elements.get_ccg_save_button()
         #self.auto_actions.scroll_by(save_button)
