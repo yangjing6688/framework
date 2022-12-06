@@ -455,9 +455,9 @@ class CloudConfigGroup(object):
         sleep(3)
 
         self.utils.print_info("Clicking on CCG Edit Button")
-        self.screen.save_screen_shot()
+       #self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
-        self.screen.save_screen_shot()
+        #self.screen.save_screen_shot()
         #import pdb; pdb.set_trace()
         if option == "add":
             for ap_serial in ap_serials:
@@ -478,6 +478,7 @@ class CloudConfigGroup(object):
 
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
+        self.screen.save_screen_shot()
         sleep(5)
 
         if self.search_ccg_group_from_common_object(policy):
