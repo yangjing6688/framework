@@ -76,7 +76,7 @@ class CloudConfigGroupWebElementDefinition:
     ccg_select_check_box_common_object = \
         {
             'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',
-            'wait_for': 10
+            'wait_for': 15
         }
 
     ccg_members_hostname = \
