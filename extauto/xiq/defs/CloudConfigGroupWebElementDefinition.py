@@ -88,7 +88,7 @@ class CloudConfigGroupWebElementDefinition:
     edit_ccg_button = \
         {
             'XPATH': '//*[@class="cloud-config-groups"]//span[@class="table-action-icons table-edit"]',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     delete_ccg_button = \
