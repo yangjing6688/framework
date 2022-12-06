@@ -144,19 +144,19 @@ class CloudConfigGroupWebElementDefinition:
     ccg_save_button = \
         {
             'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     ccg_cancel_button = \
         {
             'XPATH': '//button[@class="btn btn-small btn-cancel cancelButton"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     ccg_select_cancel_button = \
         {
             'XPATH': '//button[@class="btn btn-small btn-cancel"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     ccg_continue_button = \
