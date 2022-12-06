@@ -657,7 +657,7 @@ class CloudConfigGroup(object):
                 self.screen.save_screen_shot()
                 sleep(5)
                 kwargs['pass_msg'] = "Found AP Row"
-                self.common_validation.passed(**kwargs)
+                self.common_validation.passed(1, 1, **kwargs)
                 return 1
         kwargs['fail_msg'] = "select_ap_for_ccg() failed. Didn't Find AP Row"
         self.common_validation.failed(**kwargs)
