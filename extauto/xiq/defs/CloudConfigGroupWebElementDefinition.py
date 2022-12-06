@@ -57,7 +57,7 @@ class CloudConfigGroupWebElementDefinition:
     ccg_add_button = \
         {
             'XPATH': '//*[@class="cloud-config-groups"]//*[@data-tip="Add"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     ccg_page_grid_rows = \
@@ -88,19 +88,19 @@ class CloudConfigGroupWebElementDefinition:
     edit_ccg_button = \
         {
             'XPATH': '//*[@class="cloud-config-groups"]//span[@class="table-action-icons table-edit"]',
-            'wait_for': 10
+            'wait_for': 15
         }
 
     delete_ccg_button = \
         {
             'XPATH': '//*[@class="cloud-config-groups"]//span[@class="table-action-icons table-remove"]',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     delete_ccg_yes_button = \
         {
             'XPATH': '//button[@data-dojo-attach-point="yesBtn"]',
-            'wait_for': 2
+            'wait_for': 10
         }
 
 
