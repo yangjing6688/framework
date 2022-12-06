@@ -14,6 +14,7 @@ class XapiHelper():
         configuration =  self.builtin.get_variable_value('${XAPI_CONFIGRATION}')
         if not configuration:
             raise ('The XAPI configuration was not set, please use the "login_user" method in the Login class with the kwarg XAPI_ENABLED set to True')
+        return configuration
 
     def get_xapi_url(self):
         xapi_url = self.builtin.get_variable_value("${XAPI_URL}")

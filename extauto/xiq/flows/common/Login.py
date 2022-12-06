@@ -106,6 +106,10 @@ class Login:
         - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
         - ``Login User   ${USERNAME}   ${PASSWORD}    co_pilot_status=True``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLED=True
+
         :param username: login account username
         :param password: login account password
         :param capture_version: true if want capture the xiq build version

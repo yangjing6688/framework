@@ -3,7 +3,7 @@ import time
 from extauto.xiq.xapi.XapiHelper import XapiHelper
 
 try:
-    import extremecloudiq2
+    import extremecloudiq
     from extremecloudiq.rest import ApiException
 except:
     pprint('WARNING: The library for ExtremecloudIQ cannot be loaded, please ensure this libaray is installed if you are trying to use the XAPI')
@@ -13,7 +13,6 @@ class XapiGlobalSettings:
 
     def __init__(self):
         self.xapiHelper = XapiHelper()
-        self.common_validation = CommonValidation()
 
     def get_viq_info(self, **kwargs):
         """
@@ -24,7 +23,7 @@ class XapiGlobalSettings:
         """
 
         # Get the configuration from the Global varibles
-
+        configuration = self.xapiHelper.get_xapi_configuration()
 
         api_response = None
         # Check that the access_token is in
