@@ -318,7 +318,7 @@ class Xapi:
         if put_data == "default":
             curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
         else:
-            curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + put_data
+            curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'  -d '" + put_data + "'"
 
         # curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d "  + put_data
 
