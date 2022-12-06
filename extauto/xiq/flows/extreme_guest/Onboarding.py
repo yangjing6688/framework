@@ -59,7 +59,7 @@ class Onboarding(object):
         return 1
 
     def add_onboarding_policy(self, policy_name=None, group_name=None, condition_type="Any", condition_value="Any", action_type="Register "
-                                                "Client", user_notifpolicy = "UserNotificationPolicy", sponsor_notifpolicy = "SPApprovalNotificationPolicy"):
+                                                "Client", user_notifpolicy = "UserNotificationPolicy", sponsor_notifpolicy = "SPApprovalNotificationPolicy", **kwargs):
         """
         - This keyword will navigate to onboarding policy page and add policy
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Onboarding > Policy
