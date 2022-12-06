@@ -70,7 +70,7 @@ class CloudConfigGroupWebElementDefinition:
     device_select_check_box_common_object = \
         {
             'CSS_SELECTOR': '.ccg-device-select',
-            'wait_for':    10
+            'wait_for':    15
         }
 
     ccg_select_check_box_common_object = \

@@ -652,7 +652,9 @@ class CloudConfigGroup(object):
         rows = self.devices_web_elements.get_grid_rows()
         for row in rows:
             if ap_serial in row.text:
+                self.screen.save_screen_shot()
                 self.auto_actions.click(self.ccg_web_elements.get_ap_select_checkbox_ccg(row))
+                self.screen.save_screen_shot()
                 sleep(5)
                 kwargs['pass_msg'] = "Found AP Row"
                 self.common_validation.passed(**kwargs)
