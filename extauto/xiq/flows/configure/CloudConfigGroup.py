@@ -458,7 +458,7 @@ class CloudConfigGroup(object):
         self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
         self.screen.save_screen_shot()
-        import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         if option == "add":
             for ap_serial in ap_serials:
                 if not self.select_ap_for_ccg(ap_serial):
