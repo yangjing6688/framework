@@ -4022,6 +4022,7 @@ class Devices:
         """
         device_row = -1
 
+        self.navigator.enable_page_size()
         self.utils.print_info(f"Enable the Updated On column")
         self.column_picker_select("Updated On")
 

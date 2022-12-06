@@ -3758,15 +3758,13 @@ class Navigator(NavigatorWebElements):
             try:
                 page_size_element = self.get_page_size()
                 if page_size_element != None:
-                    self.utils.print_info("Clicking on page size...")
+                    self.utils.print_info(f'Clicking on page size of {page_size_element.text}')
                     if self.auto_actions.click(page_size_element) == 1:
-                        self.screen.save_screen_shot()
-                        kwargs['pass_msg'] = " Clicked on page size"
+                        kwargs['pass_msg'] = f" Clicked on page size of {page_size_element.text}"
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
                         if counter == 5:
-                            self.screen.save_screen_shot()
                             kwargs['fail_msg'] = "enable_device_page_size, Not able to click on page size "
                             self.common_validation.failed(**kwargs)
                             return -1
