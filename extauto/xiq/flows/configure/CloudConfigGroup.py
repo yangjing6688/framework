@@ -482,10 +482,11 @@ class CloudConfigGroup(object):
         #self.auto_actions.click_reference(save_button)
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
         self.screen.save_screen_shot()
-        sleep(5)
+        sleep(10)
 
         if self.search_ccg_group_from_common_object(policy):
             ccg_members = self.get_ccg_group_members(policy)
+            self.utils.print_info("CCG Members :", ccg_members)
             if option == "add":
                 for ap_serial in ap_serials:
                     if ap_serial not in ccg_members:
