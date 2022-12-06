@@ -452,12 +452,12 @@ class CloudConfigGroup(object):
             kwargs['fail_msg'] = f"edit_cloud_config_group() failed. Not able to find CCG Group with name:{policy}"
             self.common_validation.failed(**kwargs)
 
-        sleep(3)
+        sleep(5)
 
         self.utils.print_info("Clicking on CCG Edit Button")
-       #self.screen.save_screen_shot()
+        self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
-        #self.screen.save_screen_shot()
+        self.screen.save_screen_shot()
         #import pdb; pdb.set_trace()
         if option == "add":
             for ap_serial in ap_serials:
@@ -474,7 +474,7 @@ class CloudConfigGroup(object):
                     self.common_validation.failed(**kwargs)
 
 
-        sleep(5)
+        sleep(3)
 
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
