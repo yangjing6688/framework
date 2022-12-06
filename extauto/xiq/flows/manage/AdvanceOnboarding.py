@@ -131,9 +131,9 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             sleep(2)
 
             if device_make:
-                if self.get_device_make_aerohive_dropdown().is_displayed():
+                if self.get_devices_make_drop_down_options().is_displayed():
                     self.utils.print_info(f"Clicking Device Make Type Drop Down")
-                    self.auto_actions.click_reference(self.get_device_make_aerohive_dropdown)
+                    self.auto_actions.click_reference(self.get_devices_make_drop_down_options)
                     sleep(3)
 
                     self.utils.print_info(f"Selecting Device Make Type Option : {device_make}")
