@@ -655,10 +655,10 @@ class CloudConfigGroup(object):
                 self.auto_actions.click(self.ccg_web_elements.get_ap_select_checkbox_ccg(row))
                 sleep(5)
                 kwargs['pass_msg'] = "Found AP Row"
-                self.common_validation.passed(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
         kwargs['fail_msg'] = "select_ap_for_ccg() failed. Didn't Find AP Row"
-        self.common_validation.failed(-1,- 1, **kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def select_ap_for_ccg_manage_page(self, ap_serial, **kwargs):
