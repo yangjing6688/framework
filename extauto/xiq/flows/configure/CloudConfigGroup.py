@@ -271,7 +271,7 @@ class CloudConfigGroup(object):
                     self.common_validation.failed(**kwargs)
 
             kwargs['pass_msg'] = "Created Cloud Config Group and included APs to the group."
-            self.common_validation.passed(**kwargs)
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
         kwargs['fail_msg'] = "add_cloud_config_group() failed. " \
