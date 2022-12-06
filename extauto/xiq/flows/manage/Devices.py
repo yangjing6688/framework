@@ -1261,6 +1261,12 @@ class Devices:
         :param update_method:  Delta, Complete
         :return:
         """
+        update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
+        update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
+                              "you must select a Complete Configuration Update."
+        update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
+        update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
@@ -1275,10 +1281,6 @@ class Devices:
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
-            update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
-            update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
-                                  "you must select a Complete Configuration Update."
-            update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
             if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
                 self.utils.print_info('Convert to Complete. Delta not supported')
                 update_method = "Complete"
@@ -1303,7 +1305,6 @@ class Devices:
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
-            update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
 
             if update_tooltip_msg in tool_tp_text:
                 self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
@@ -1317,6 +1318,11 @@ class Devices:
 
         self.screen.save_screen_shot()
         sleep(2)
+
+        tool_tp_text = tool_tip.tool_tip_text
+        for tooltip_msg in [update_tooltip_msg, update_tooltip_msg1, update_tooltip_msg2, update_tooltip_msg3]:
+            if tooltip_msg in tool_tp_text:
+                tool_tp_text.remove(tooltip_msg)
 
         kwargs['pass_msg'] = f"Device update Successfully Triggered"
         self.common_validation.passed(**kwargs)
