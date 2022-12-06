@@ -474,11 +474,11 @@ class CloudConfigGroup(object):
                     self.common_validation.failed(**kwargs)
 
 
-        sleep(2)
+        sleep(5)
 
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
-        sleep(3)
+        sleep(5)
 
         if self.search_ccg_group_from_common_object(policy):
             ccg_members = self.get_ccg_group_members(policy)
