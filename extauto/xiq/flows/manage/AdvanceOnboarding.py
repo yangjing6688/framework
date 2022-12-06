@@ -133,7 +133,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             if device_make:
                 # Let's see if the radio button is displayed
                 # (both exos and voss will be there, but we only need to check one).
-                if self.self.get_devices_make_exos_radio_button().is_displayed():
+                if self.get_devices_make_exos_radio_button().is_displayed():
                     self.utils.print_info(f"Clicking Device Make Type Drop Down")
                     self.auto_actions.click_reference(self.get_devices_make_drop_down_options)
                     sleep(3)
