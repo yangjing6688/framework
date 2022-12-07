@@ -15,7 +15,7 @@ class Ap:
         """
         - Load Cloud Certificate on Access Point
         - Keyword Usage:
-         - ``Load Cloud Certificate On AP    ${AP_SPAWN}   ${MAC_ADDRESS}``
+        - ``Load Cloud Certificate On AP    ${AP_SPAWN}   ${MAC_ADDRESS}``
 
         :param spawn: AP Spawn to Open Console
         :param mac: Wing AP Mac Address
@@ -79,7 +79,7 @@ class Ap:
         """
         - This keyword will Get Wing AP Last used Root Password
         - Keyword Usage:
-         - ``Get AP Last Root Password    ${AP_SPAWN}``
+        - ``Get AP Last Root Password    ${AP_SPAWN}``
 
         :param ap_spawn: AP Spawn to Open Console
         :return: Last used Password of Wing AP else -1
@@ -99,7 +99,7 @@ class Ap:
         """
         - This keyword will Get Wing AP Root Prompt
         - Keyword Usage:
-         - ``Access AP Root Prompt    ${AP_SPAWN}   ${AP_MAC}``
+        - ``Access AP Root Prompt    ${AP_SPAWN}   ${AP_MAC}``
 
         :param ap_spawn: AP Spawn to Open Console
         :param ap_mac: AP Mac Address
@@ -124,7 +124,7 @@ class Ap:
         """
         - This keyword will uses to send CLI Command to Win g AP
         - Keyword Usage:
-         - ``Send Command To AP Root    ${AP_SPAWN}   ${AP_MAC}   ${CLI_COMMAND}``
+        - ``Send Command To AP Root    ${AP_SPAWN}   ${AP_MAC}   ${CLI_COMMAND}``
 
         :param ap_spawn: AP Spawn to Open Console
         :param ap_mac: AP Mac Address

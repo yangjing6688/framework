@@ -36,7 +36,7 @@ class CommonObjects(object):
         """
         - FLow: CONFIGURE-->COMMON OBJECTS-->BASIC-->IP Objects / HostNames
         - Keyword Usage:
-         - ``Navigate To Basic Ip Object Hostname```
+        - ``Navigate To Basic Ip Object Hostname```
 
         :return: None
         """
@@ -70,6 +70,7 @@ class CommonObjects(object):
                 retries += 1
                 return _get_common_object_row(search_string, retries)
         self.utils.print_info(f"common object row {search_string} not present")
+        self.screen.save_screen_shot()
         return False
 
     def _search_common_object(self, search_string):
@@ -91,6 +92,7 @@ class CommonObjects(object):
         """
         row = self._get_common_object_row(search_string)
         self.auto_actions.click(self.cobj_web_elements.get_common_object_grid_row_cells(row, 'dgrid-selector'))
+        self.screen.save_screen_shot()
         sleep(2)
 
     def _delete_common_objects(self):
@@ -100,14 +102,19 @@ class CommonObjects(object):
         :return:
         """
         self.utils.print_info("Clicking on delete button")
-        self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
+        delete_button = self.cobj_web_elements.get_common_objects_delete_button()
+        if delete_button:
+           self.utils.print_info("Clicking on delete button")
+           self.auto_actions.click(delete_button)
+        self.screen.save_screen_shot()
         sleep(2)
 
         confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirm Yes button")
             self.auto_actions.click(confirm_delete_btn)
-            sleep(3)
+        self.screen.save_screen_shot()
+        sleep(3)
 
     def _select_delete_common_object(self, object_name):
         """
@@ -143,12 +150,13 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete SSID from the ssid grid
         - Keyword Usage:
-         - ``Delete SSID  ${SSID_NAME}``
+        - ``Delete SSID  ${SSID_NAME}``
 
         :param ssid_name: Name of the ssid_name
         :return: 1 if deleted else -1
         """
         self.navigator.navigate_to_ssids()
+        self.screen.save_screen_shot()
         sleep(5)
 
         if not self._search_common_object(ssid_name):
@@ -185,18 +193,20 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete ssid's from ssid grid
         - Keyword Usage:
-         - ``Delete ssids  ${SSID1}  ${SSID2}  ${SSID3}``
+        - ``Delete ssids  ${SSID1}  ${SSID2}  ${SSID3}``
 
         :param ssids: (list) list of ssid's to delete
         :return: 1 if deleted else -1
         """
 
         self.navigator.navigate_to_ssids()
+        self.screen.save_screen_shot()
         sleep(5)
 
         self.utils.print_info("Click on full page view")
         if self.cobj_web_elements.get_paze_size_element():
             self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
+            self.screen.save_screen_shot()
             sleep(5)
 
         # Get the total pages
@@ -226,6 +236,7 @@ class CommonObjects(object):
 
         if not select_ssid_flag:
             kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"
+            self.screen.save_screen_shot()
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -257,7 +268,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Delete all SSIDs from the grid expect exclude_list SSIDs
         - Keyword Usage:
-         - ``Delete All ssids   `
+        - ``Delete All ssids   `
 
         :return: 1 if deleted else -1
         """
@@ -282,7 +293,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Delete captive web portal from the grid
         - Keyword Usage:
-         - ``Delete Captive Web Portal  ${CWP_NAME}``
+        - ``Delete Captive Web Portal  ${CWP_NAME}``
 
         :param cwp_name: Name of the Captive Web portal
         :return: 1 deleted
@@ -319,7 +330,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Delete captive web portals from the grid
         - Keyword Usage:
-         - ``Delete Captive Web Portals   ${CWP_NAME1}  ${CWP_NAME2}   ${CWP_NAME3}``
+        - ``Delete Captive Web Portals   ${CWP_NAME1}  ${CWP_NAME2}   ${CWP_NAME3}``
 
         :param cwp_names: Name of the Captive Web portal
         :return: 1 deleted
@@ -366,7 +377,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Delete captive web portals from the grid
         - Keyword Usage:
-         - ``Delete All Captive Web Portals   exclude_list=${cwp1},${cwp2}``
+        - ``Delete All Captive Web Portals   exclude_list=${cwp1},${cwp2}``
         :param exclude_list: list of cwps to exclude from delete
         :return: 1 deleted
                 -1 cannot be removed because it is used by another object
@@ -396,7 +407,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> External radius server
         - Delete external radius server from grid
         - Keyword Usage:
-         - ``Delete External Radius Server   ${RADIUS_SERVER_NAME}``
+        - ``Delete External Radius Server   ${RADIUS_SERVER_NAME}``
 
         :param radius_server: radius server name
         :return: 1 if deleted
@@ -429,7 +440,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName
         - Delete the ip object or hostname from Basic-->IP Objects/ Hostname
         - Keyword Usage:
-         - ``Delete IP Object Hostname  ${IP_OR_HOSTNAME}``
+        - ``Delete IP Object Hostname  ${IP_OR_HOSTNAME}``
 
         :param object_name: Ip object or hostname
         :return: 1 if deleted
@@ -485,7 +496,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Disable the employee approval in captive web portal configuration
         - Keyword Usage:
-         - ``Disable Cwp Employee Approval  ${CWP_NAME}``
+        - ``Disable Cwp Employee Approval  ${CWP_NAME}``
 
         :param cwp_name: name of the captive web portal
         :return:
@@ -507,7 +518,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Edit social login captive web portal from the grid
         - Keyword Usage:
-         - ``Edit Captive Web Portal Social Login Configuration   &{CWP_TEMPLATE_CONFIG}``
+        - ``Edit Captive Web Portal Social Login Configuration   &{CWP_TEMPLATE_CONFIG}``
 
         :param cwp_template_config: social login cwp edit variables
         :return: 1 edited
@@ -613,7 +624,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->AUTHENTICATION-->AAA SERVER SETTINGS
         - Delete AAA server profile from the grid
         -Keyword Usage:
-         - ``Delete AAA Server Profile  ${AAA_PROFILE_NAME}``
+        - ``Delete AAA Server Profile  ${AAA_PROFILE_NAME}``
 
         :param aaa_profile_name: Name of AAA Profile
         :return: 1 if aaa profile deleted successfully else returns -1
@@ -648,7 +659,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
         - Delete Port Type from the grid
         - Keyword Usage:
-         - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
+        - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
 
         :param port_type_name: Name of Port Tye
         :return: 1 if Port Type deleted successfully, else returns -1
@@ -710,7 +721,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->NETWORK-->Subnetwork Space
         - Delete Sub Network in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Sub Network Profile   ${SUB_NETWORK_NAME}``
+        - ``Delete Sub Network Profile   ${SUB_NETWORK_NAME}``
 
         :param sub_network_name: Name of SubNetwork Space
         :return: 1 if SubNetwork Space deleted successfully else returns -1
@@ -750,7 +761,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Delete Vlans in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Vlan Profile  ${VLAN_NAME}``
+        - ``Delete Vlan Profile  ${VLAN_NAME}``
 
         :param vlan_name: Name of Vlan
         :return: 1 if vlan name deleted successfully else returns -1
@@ -790,7 +801,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->BASIC-->VLAN's
         - Delete Vlans in Common Object from the grid
         - Keyword Usage:
-         - ``Delete All Vlan Profiles``
+        - ``Delete All Vlan Profiles``
         :return: 1 if vlans deleted successfully else returns -1
         """
         exclude_list = ['1', 'Mgmt-4048']
@@ -821,7 +832,7 @@ class CommonObjects(object):
         """
         - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
         - Keyword Usage:
-         - ``Navigate To Security Wips Policies``
+        - ``Navigate To Security Wips Policies``
 
         :return: None
         """
@@ -846,7 +857,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->SECURITY-->WIPS POLICIES
         - Delete wips_policys in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Wips Policy Profile   ${WIPS_POLICY_NAME}``
+        - ``Delete Wips Policy Profile   ${WIPS_POLICY_NAME}``
 
         :param wips_policy_name: Name of wips policy name
         :return: 1 if wips policy name deleted successfully else returns -1
@@ -883,7 +894,7 @@ class CommonObjects(object):
         -->COMMON OBJECTS-->AP Templates
         - Delete ap_template_name in Common Object from the grid
         - Keyword Usage:
-         - ``Delete Ap Template Profile  ${AP_TEMPLATE_NAME}``
+        - ``Delete Ap Template Profile  ${AP_TEMPLATE_NAME}``
 
         :param ap_template_name: Name of AP Template
         :return: 1 if ap template name deleted successfully else returns -1
@@ -1001,7 +1012,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Switch Template
         - Delete specified switch template from the Switch Templates grid
         - Keyword Usage:
-         - ``Delete Switch Template  ${TEMPLATE_NAME}``
+        - ``Delete Switch Template  ${TEMPLATE_NAME}``
         :param template_name: Name of the switch template
         :return: 1 if deleted else -1
         """
@@ -1083,7 +1094,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> Supplemental CLI Objects
         - Delete specified supplemental cli profile from the Supplemental CLI Objects grid
         - Keyword Usage:
-         - ``Delete Supplemental Cli Profile  ${SUPPLEMENTAL_CLI_NAME}``
+        - ``Delete Supplemental Cli Profile  ${SUPPLEMENTAL_CLI_NAME}``
         :param supplemental_cli_name: Name of the supplemental cli profile
         :return: 1 if deleted else -1
         """
@@ -1229,7 +1240,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Create Open SSID from the ssid grid
         - Keyword Usage:
-         - ``Create Open SSID In Common Objects  ${SSID_NAME}``
+        - ``Create Open SSID In Common Objects  ${SSID_NAME}``
 
         :param ssid_name: Name of the ssid_name
         :return: 1 if Created Open SSID Successfully else -1
@@ -1265,7 +1276,7 @@ class CommonObjects(object):
         self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
         self.screen.save_screen_shot()
         sleep(2)
-        
+
         #Commented due to getting mismatch error in xpath once xpath gets updated it will used
         # sleep(5)
         # tool_tp_text = tool_tip.tool_tip_text
@@ -1292,7 +1303,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->SSIDs
         - Clone Open SSID from the Existing ssid grid
         - Keyword Usage:
-         - ``Clone Open SSID In Common Objects  ${SSID_NAME}  ${CLONE_SSID_NAME}``
+        - ``Clone Open SSID In Common Objects  ${SSID_NAME}  ${CLONE_SSID_NAME}``
 
         :param ssid_name: Copy of SSID to clone
         :param clone_ssid_name: Clone SSID name
@@ -1344,7 +1355,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Radio Profile
         - Create Radio profile from the radio grid
         - Keyword Usage:
-         - ``Create Radio Profile        ${RADIO_PROFILE_NAME}       ${RADIO_MODE}``
+        - ``Create Radio Profile        ${RADIO_PROFILE_NAME}       ${RADIO_MODE}``
 
         :param profile_name: Name of the Radio profile
         :param radio_mode : Select the radio mode ("ax (5GHz)" or "ax (2.4GHz)" or  "ac" or  "a/n")
@@ -1416,7 +1427,7 @@ class CommonObjects(object):
         kwargs['fail_msg'] = "create_radio_profile() failed. Failed to create radio profile"
         self.common_validation.failed(**kwargs)
         return -1
- 
+
     def add_ap_template_from_common_object(self, ap_model, ap_template_name, **wifi_interface_config):
         """"
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
@@ -1424,7 +1435,7 @@ class CommonObjects(object):
         - Checking the AP template presence in the AP Templates Grid
         - If it is not there add New AP Template
         - Keyword Usage
-         - ``Add AP Template From Common Object   ${AP_MODEL}   ${AP_TEMPLATE_NAME}     &{AP_TEMPLATE_CONFIG}``
+        - ``Add AP Template From Common Object   ${AP_MODEL}   ${AP_TEMPLATE_NAME}     &{AP_TEMPLATE_CONFIG}``
 
         :param ap_model: Model of the AP like AP630, AP410C etc
         :param ap_template_name: AP Template Name ie AP630-TEMPLATE,AP410C-TEMPLATE etc
@@ -1518,6 +1529,7 @@ class CommonObjects(object):
         wifi0_config = wifi_interface_config.get('wifi0_configuration', 'None')
         wifi1_config = wifi_interface_config.get('wifi1_configuration', 'None')
         wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
+        wired_config = wifi_interface_config.get('wired_configuration', 'None')
 
         try:
             self.utils.print_info("Navigate to Policy--> AP Templates")
@@ -1535,23 +1547,27 @@ class CommonObjects(object):
                     break
 
             if wifi0_config != 'None':
-                self.utils.print_info("Get WiFI0 Interface Status")
+                self.utils.print_info("Get WiFI0 Interface details")
                 wifi_interface_config['wifi0_configuration'] = self._get_ap_template_wifi0(**wifi0_config)
                 self.screen.save_screen_shot()
 
             if wifi1_config != 'None':
-                self.utils.print_info("Get WiFI1 Interface Status")
+                self.utils.print_info("Get WiFI1 Interface details")
                 wifi_interface_config['wifi1_configuration'] = self._get_ap_template_wifi1(**wifi1_config)
                 self.screen.save_screen_shot()
 
             if wifi2_config != 'None':
-                self.utils.print_info("Get WiFI2 Interface Status")
+                self.utils.print_info("Get WiFI2 Interface details")
                 wifi_interface_config['wifi2_configuration'] = self._get_ap_template_wifi2(**wifi2_config)
+                self.screen.save_screen_shot()
+
+            if wired_config != "None":
+                self.utils.print_info("Get Wired Interfaces details")
+                wifi_interface_config['wired_configuration'] = self._get_ap_template_wired(**wired_config)
                 self.screen.save_screen_shot()
 
             self.utils.print_info("Click on the cancel template button")
             self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_cancel_button())
-
             self.common_validation.passed(**wifi_interface_config)
             return wifi_interface_config
 
@@ -1829,9 +1845,10 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi0_tab())
 
         if radio_status_wifi0 != 'None':
-            wifi0_profile['radio_status'] = self.cobj_web_elements.get_common_object_wifi0_radio_status_button().is_selected()
+            wifi0_profile['radio_status'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_wifi0_radio_status_button().is_selected())
             self.utils.print_info("Get Radio Status on WiFi0 Interface: ", wifi0_profile['radio_status'])
-            if not wifi0_profile['radio_status']:
+            if wifi0_profile['radio_status'] == 'Off':
                 return wifi0_profile
         self.auto_actions.scroll_down()
 
@@ -1840,28 +1857,33 @@ class CommonObjects(object):
             self.utils.print_info("Get Radio Profile status on WiFi0 Interface: ",  wifi0_profile['radio_profile'])
 
         if client_mode_status_wifi0 != 'None':
-            wifi0_profile['client_mode'] = self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected()
+            wifi0_profile['client_mode'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected())
             self.utils.print_info("Get Client Mode Checkbox on WiFi0 Interface: ", wifi0_profile['client_mode'])
 
         if client_access_status_wifi0 != 'None':
-            wifi0_profile['client_access'] = self.cobj_web_elements.get_common_object_wifi0_client_access().is_selected()
+            wifi0_profile['client_access'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi0_client_access().is_selected())
             self.utils.print_info("Get Client Access Checkbox on WiFi0 Interface: ", wifi0_profile['client_access'])
 
         if backhaul_mesh_status_wifi0 != 'None':
-            wifi0_profile['backhaul_mesh_link'] = self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected()
+            wifi0_profile['backhaul_mesh_link'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected())
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi0 Interface: ", wifi0_profile['backhaul_mesh_link'])
 
         try:
             if sensor_status_wifi0 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
-                wifi0_profile['sensor'] = 'Disable'
+                wifi0_profile['sensor'] = 'UIDisable'
         except:
-            wifi0_profile['sensor'] = self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected()
+            wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected())
         finally:
             self.utils.print_info("Get Sensor Checkbox on WiFi0 Interface: ", wifi0_profile['sensor'])
 
         if enable_SDR_wifi0 != 'None':
-            wifi0_profile['enable_SDR'] = self.cobj_web_elements.get_common_object_ap_template_enable_sdr().is_selected()
+            wifi0_profile['enable_SDR'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_enable_sdr().is_selected())
             self.utils.print_info("Get Enable SDR Checkbox on WiFi0 Interface: ", wifi0_profile['enable_SDR'])
 
         return wifi0_profile
@@ -1870,7 +1892,7 @@ class CommonObjects(object):
         """
         - Get the WIFI1 configuration on AP Template
         - Keyword Usage
-        - ``Get AP Template WiFi1    &{WIFI0_CONFI1}``
+        - ``Get AP Template WiFi1    &{WIFI1_CONFI1G}``
 
         :param wifi1_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: wifi1_profile if Get WiFi1 Profile Successfully else None
@@ -1886,9 +1908,10 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi1_tab())
 
         if radio_status_wifi1 != 'None':
-            wifi1_profile['radio_status'] = self.cobj_web_elements.get_common_object_wifi1_radio_status_button().is_selected()
+            wifi1_profile['radio_status'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_wifi1_radio_status_button().is_selected())
             self.utils.print_info("Get Radio Status on WiFi1 Interface: ", wifi1_profile['radio_status'])
-            if not wifi1_profile['radio_status']:
+            if wifi1_profile['radio_status'] == 'Off':
                 return wifi1_profile
         self.auto_actions.scroll_down()
 
@@ -1897,24 +1920,28 @@ class CommonObjects(object):
             self.utils.print_info("Get Radio Profile status on WiFi1 Interface: ", wifi1_profile['radio_profile'])
 
         if client_mode_status_wifi1 != 'None':
-            wifi1_profile['client_mode'] = self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected()
+            wifi1_profile['client_mode'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected())
             self.utils.print_info("Get Client Mode Checkbox on WiFi1 Interface: ", wifi1_profile['client_mode'])
 
         if client_access_status_wifi1 != 'None':
             wifi1_profile[
-                'client_access'] = self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected()
+                'client_access'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected())
             self.utils.print_info("Get Client Access Checkbox on WiFi1 Interface: ", wifi1_profile['client_access'])
 
         if backhaul_mesh_status_wifi1 != 'None':
-            wifi1_profile['backhaul_mesh_link'] = self.cobj_web_elements.get_common_object_wifi1_mesh_link().is_selected()
+            wifi1_profile['backhaul_mesh_link'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi1_mesh_link().is_selected())
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi1 Interface: ", wifi1_profile['backhaul_mesh_link'])
 
         try:
             if sensor_status_wifi1 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
-                wifi1_profile['sensor'] = 'Disable'
+                wifi1_profile['sensor'] = 'UIDisable'
         except:
-            wifi1_profile['sensor'] = self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected()
+            wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected())
         finally:
             self.utils.print_info("Get Sensor Checkbox on WiFi1 Interface: ", wifi1_profile['sensor'])
 
@@ -1924,7 +1951,7 @@ class CommonObjects(object):
         """
         - Get the WIFI2 configuration on AP Template
         - Keyword Usage
-        - ``Get AP Template WiFi2    &{WIFI0_CONFI2}``
+        - ``Get AP Template WiFi2    &{WIFI2_CONFIG}``
 
         :param wifi2_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: wifi2_profile if Get WiFi2 Profile Successfully else None
@@ -1935,16 +1962,17 @@ class CommonObjects(object):
         backhaul_mesh_status_wifi2 = wifi2_profile.get('backhaul_mesh_link', 'None')
         sensor_status_wifi2        = wifi2_profile.get('sensor'            , 'None')
 
-        self.utils.print_info("Click on WiFi2 Tab on AP Template page")
         try:
+            self.utils.print_info("Click on WiFi2 Tab on AP Template page")
             self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi2_tab())
         except:
             return wifi2_profile
 
         if radio_status_wifi2 != 'None':
-            wifi2_profile['radio_status'] = self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected()
+            wifi2_profile['radio_status'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected())
             self.utils.print_info("Get Radio Status on WiFi2 Interface: ", wifi2_profile['radio_status'])
-            if not wifi2_profile['radio_status']:
+            if  wifi2_profile['radio_status'] == 'Off':
                 return wifi2_profile
         self.auto_actions.scroll_down()
 
@@ -1953,25 +1981,128 @@ class CommonObjects(object):
             self.utils.print_info("Get Radio Profile status on WiFi2 Interface: ", wifi2_profile['radio_profile'])
 
         if client_access_status_wifi2 != 'None':
-            wifi2_profile['client_access'] = self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected()
+            wifi2_profile['client_access'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected())
             self.utils.print_info("Get Client Access Checkbox on WiFi2 Interface: ", wifi2_profile['client_access'])
 
         if backhaul_mesh_status_wifi2 != 'None':
             wifi2_profile[
-                'backhaul_mesh_link'] = self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected()
+                'backhaul_mesh_link'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected())
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi2 Interface: ", wifi2_profile['backhaul_mesh_link'])
 
-        if sensor_status_wifi2 != 'None':
-            wifi2_profile['sensor'] = self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected()
+        try:
+            if sensor_status_wifi2 != 'None':
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable())
+                wifi2_profile['sensor'] = 'UIDisable'
+        except:
+            wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected())
+        finally:
             self.utils.print_info("Get Sensor Checkbox on WiFi2 Interface: ", wifi2_profile['sensor'])
 
         return wifi2_profile
+
+    def _get_ap_template_wired(self, **wired_profile):
+        """
+        - Get the Wired Interfaces on AP Template
+        - Keyword Usage
+        - ``Get AP Template Wired    &{WIRED_CONFIG}``
+
+        :param wired_profile: (Get Dict) Enable/Disable Eth0, Eth1, and etc
+        :return: wired_profile if Successfully else None
+        """
+        eth0 = wired_profile.get('eth0', 'None')   # eth0=get or yes
+        eth1 = wired_profile.get('eth1', 'None')
+        port_type_eth0 = wired_profile.get('port_type_eth0', 'None')
+        port_type_eth1 = wired_profile.get('port_type_eth1', 'None')
+        transmission_type_eth0 = wired_profile.get('transmission_type_eth0', 'None')
+        transmission_type_eth1 = wired_profile.get('transmission_type_eth1', 'None')
+        speed_eth0 = wired_profile.get('speed_eth0', 'None')
+        speed_eth1 = wired_profile.get('speed_eth0', 'None')
+        lldp_eth0 = wired_profile.get('lldp_eth0', 'None')
+        lldp_eth1 = wired_profile.get('lldp_eth1', 'None')
+        cdp_eth0 = wired_profile.get('cdp_eth0', 'None')
+        cdp_eth1 = wired_profile.get('cdp_eth1', 'None')
+
+        self.auto_actions.scroll_down()
+        if eth0 != 'None':
+            wired_profile['eth0'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_ap_template_eth0_status().is_selected())
+            self.utils.print_info('Eth0 status: ', wired_profile['eth0'])
+
+        if eth1 != 'None':
+            wired_profile['eth1'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_ap_template_eth1_status().is_selected())
+            self.utils.print_info('Eth1 status: ', wired_profile['eth1'])
+
+        if port_type_eth0 != 'None':
+            wired_profile['port_type_eth0'] = self.cobj_web_elements.get_common_object_ap_template_eth0_port_type().text
+            self.utils.print_info('Port type eth0 status: ', wired_profile['port_type_eth0'])
+
+        if port_type_eth1 != 'None':
+            wired_profile['port_type_eth1'] = self.cobj_web_elements.get_common_object_ap_template_eth1_port_type().text
+            self.utils.print_info('Port type eth1 status: ', wired_profile['port_type_eth1'])
+
+        if transmission_type_eth0 != 'None':
+            wired_profile['transmission_type_eth0'] = self.cobj_web_elements.get_common_object_ap_template_eth0_transmission_type().text
+            self.utils.print_info('Transmission type eth0 status: ', wired_profile['transmission_type_eth0'])
+
+        if transmission_type_eth1 != 'None':
+            wired_profile['transmission_type_eth1'] = self.cobj_web_elements.get_common_object_ap_template_eth1_transmission_type().text
+            self.utils.print_info('Transmission type eth1 status: ', wired_profile['transmission_type_eth1'])
+
+        if speed_eth0 != 'None':
+            wired_profile['speed_eth0'] = self.cobj_web_elements.get_common_object_ap_template_eth0_speed().text
+            self.utils.print_info('Speed eth0 status: ', wired_profile['speed_eth0'])
+
+        if speed_eth1 != 'None':
+            wired_profile['speed_eth1'] = self.cobj_web_elements.get_common_object_ap_template_eth1_speed().text
+            self.utils.print_info('Speed eth1 status: ', wired_profile['speed_eth1'])
+
+        if lldp_eth0 != 'None':
+            wired_profile['lldp_eth0'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_lldp_eth0().is_selected())
+            self.utils.print_info('LLDP eth0 status: ', wired_profile['lldp_eth0'])
+
+        if lldp_eth1 != 'None':
+            wired_profile['lldp_eth1'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_lldp_eth1().is_selected())
+            self.utils.print_info('LLDP eth1 status: ', wired_profile['lldp_eth1'])
+
+        if cdp_eth0 != 'None':
+            wired_profile['cdp_eth0'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_cdp_eth0().is_selected())
+            self.utils.print_info('CDP eth0 status: ', wired_profile['cdp_eth0'])
+
+        if cdp_eth1 != 'None':
+            wired_profile['cdp_eth1'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_cdp_eth1().is_selected())
+            self.utils.print_info('CDP eth1 status: ', wired_profile['cdp_eth1'])
+
+        return wired_profile
+
+    def _convert_boolean_to_enable_disable(self, boolean):
+        """
+        - Convert boolean to Enable or Disable
+        :param boolean : True or False
+        :return: Enable or Disable
+        """
+        return 'Enable' if boolean else 'Disable'
+
+    def _convert_boolean_to_on_off(self, boolean):
+        """
+        - Convert boolean to On or Off
+        :param boolean : True or False
+        :return: Enable or Disable
+        """
+        return 'On' if boolean else 'Off'
 
     def _config_ap_template_wifi0(self, **wifi0_profile):
         """
         - Configure the WIFI0 configuration on AP Template
         - Keyword Usage
-         - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
+        - ``Config AP Template WiFi0  &{WIFI0_CONFIG}``
 
         :param wifi0_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi0 Profile Configured Successfully else None
@@ -2098,7 +2229,7 @@ class CommonObjects(object):
         """
         - Configure the WIFI1 configuration on AP Template
         - Keyword Usage
-         - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
+        - ``Config AP Template WiFi1  &{WIFI1_CONFIG}``
 
         :param wifi1_profile: (Config Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: 1 if WiFi1 Profile Configured Successfully else None
@@ -2244,7 +2375,7 @@ class CommonObjects(object):
             if self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_mesh_link())
 
-        """ 
+        """
         ##### APC-44337 UI Changes #####
         adsp_primary_server_ip = wifi2_profile.get('primary_server_ip', '1.1.1.1')
         adsp_primary_server_port = wifi2_profile.get('primary_server_port', '11')
@@ -2300,7 +2431,7 @@ class CommonObjects(object):
             self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_lldp_eth0())
 
         if cdp_eth0_status.upper() == "DISABLE" and self.cobj_web_elements. \
-                common_object_ap_template_cdp_eth0().is_selected():
+                get_common_object_ap_template_cdp_eth0().is_selected():
             self.utils.print_info("Disabling cdp Eth0")
             self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_cdp_eth0())
 
@@ -2353,7 +2484,7 @@ class CommonObjects(object):
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
         - Checking the AP template presence in the AP Templates Grid
         - Keyword Usage
-         - ``Check AP Template In Common Object   ${AP_TEMPLATE_NAME}``
+        - ``Check AP Template In Common Object   ${AP_TEMPLATE_NAME}``
 
         :param ap_template_name: AP Template Name ie AP630-TEMPLATE,AP410C-TEMPLATE etc
         :return: 1 if AP Template Found else -1
@@ -2384,7 +2515,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy --> AP Templates
         - Delete Templates from Template grid
         - Keyword Usage:
-         - ``Delete AP Templates  ${Template1}  ${Template2}  ${Template3}``
+        - ``Delete AP Templates  ${Template1}  ${Template2}  ${Template3}``
 
         :param templates: (list) list of template's to delete
         :return: 1 if deleted else -1
@@ -2413,7 +2544,10 @@ class CommonObjects(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        if "Template was deleted successfully." in tool_tp_text[-1]:
+        expected_tooltip1 = "Template was deleted successfully."
+        expected_tooltip2 = "Template was successfully removed from policy."
+
+        if expected_tooltip1 in tool_tp_text[-1] or expected_tooltip2 in tool_tp_text[-1]:
             kwargs['pass_msg'] = "Template was deleted successfully."
             self.common_validation.passed(**kwargs)
             return 1
@@ -2432,7 +2566,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy --> AP Templates
         - Delete All ap templates except default template from Template grid
         - Keyword Usage:
-         - ``Delete All AP Templates``
+        - ``Delete All AP Templates``
         :return: 1 if deleted else -1
         """
         self.utils.print_info("Navigate to Configure->Common Objects->Policy->AP Template.")
@@ -2478,7 +2612,8 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> Client Mode Profiles
         - Delete all client mode profiles from Client Mode Profiles grid
         - Keyword Usage:
-         - ``Delete All Client Mode Profiles``
+        - ``Delete All Client Mode Profiles``
+
         :return: 1 if deleted else -1
         """
         self.utils.print_info("Navigate to Configure->Common Objects-> Basic->Client Mode Profiles.")
@@ -2510,13 +2645,14 @@ class CommonObjects(object):
 
     def radio_phy_mode_fiveghz(self, model):
         """
-            - Flow: Configure --> Common Objects --> Policy -->Radio Profile
-            - Map the Radio phy mode based on the AP
-            - Keyword Usage:
-            - ``${RADIO_MODE}      Radio Phy Mode Fiveghz      ${AP1_MODEL}``
-            - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}   True``
-            :param model: Name of the model being used our Test
-            :return: Radio phy mode based on AP model ("ax (5GHz)" or  "ac" )
+        - Flow: Configure --> Common Objects --> Policy --> Radio Profile
+        - Map the Radio phy mode based on the AP
+        - Keyword Usage:
+        - ``${RADIO_MODE}      Radio Phy Mode Fiveghz      ${AP1_MODEL}``
+        - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}   True``
+
+        :param model: Name of the model being used our Test
+        :return: Radio phy mode based on AP model ("ax (5GHz)" or  "ac" )
         """
         AP = "AP150W", "AP250", "AP30", "AP122", "AP245X", "AP230", "AP1130"
         if model in AP:
@@ -2528,13 +2664,14 @@ class CommonObjects(object):
 
     def radio_phy_mode_twoghz(self, model):
         """
-            - Flow: Configure --> Common Objects --> Policy -->Radio Profile
-            - Map the Radio phy mode based on the AP
-            - Keyword Usage:
-             - ``${RADIO_MODE}      Radio Phy Mode Twoghz      ${AP1_MODEL}``
-             - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}``
-            :param model: Name of the model being used our Test
-            :return: Radio phy mode based on AP model ("ax (2.4GHz)" or "g/n")
+        - Flow: Configure --> Common Objects --> Policy -->Radio Profile
+        - Map the Radio phy mode based on the AP
+        - Keyword Usage:
+        - ``${RADIO_MODE}      Radio Phy Mode Twoghz      ${AP1_MODEL}``
+        - ``${CREATE_RADIO_PROFILE}    Create Radio Profile    ${RADIO_PROFILE_NAME}   ${RADIO_MODE}``
+
+        :param model: Name of the model being used our Test
+        :return: Radio phy mode based on AP model ("ax (2.4GHz)" or "g/n")
         """
         AP = "AP150W", "AP250", "AP30", "AP122", "AP245X", "AP230", "AP1130"
         if model in AP:
@@ -2549,9 +2686,9 @@ class CommonObjects(object):
         - This keyword will create image Tag profile under Common Objects.
         - Flow: Configure --> Common Objects --> Policy -->ImagoTag Profiles
         - Keyword Usage:
-         - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}``
-         - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL} server_port=${PORT}``
-         - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
+        - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}``
+        - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL} server_port=${PORT}``
+        - ``Add Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
 
         :param profile_name: Imago Tag Profile name
         :param channel: Channel Number
@@ -2641,7 +2778,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Imago Tag Profile
         - Delete specified Imago Tag Profile from the Imago Tag Profile grid
         - Keyword Usage:
-         - ``Delete Imago Tag Profile  ${PROFILE_NAME}``
+        - ``Delete Imago Tag Profile  ${PROFILE_NAME}``
         :param profile_name: Image Tag Profile Name
         :return: 1 if deleted else -1
         """
@@ -2672,10 +2809,10 @@ class CommonObjects(object):
         - This keyword will Edit Existing image Tag profile under Common Objects.
         - Flow: Configure --> Common Objects --> Policy -->Select ImagoTag Profile --> Edit
         - Keyword Usage:
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER}``
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  channel=${CHANNEL}``
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  server_port=${SERVER_PORT}``
-         - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER}``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  channel=${CHANNEL}``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  server_port=${SERVER_PORT}``
+        - ``Edit Imago Tag profile  ${PROFILE_NAME}  server=${SERVER} channel=${CHANNEL}  fcc_mode=False``
 
         :param profile_name: Imago Tag Profile name
         :param channel: Channel Number
@@ -2767,11 +2904,11 @@ class CommonObjects(object):
     def create_ip_firewall_policy_for_applications(self, policy_name, application='', source_ip='Any',
                                                    destination_ip='Any', action='Permit', **kwargs):
         """
-         - This Keyword will Create IP Firewall Policy for Application Access.
-         - Flow: Configure --> Common Objects --> Security -->IP Firewall Policies --> Add
-         - Keyword Usage:
-          - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME}  action=${ACTION}``
-          - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME1},${APP_NAME2}
+        - This Keyword will Create IP Firewall Policy for Application Access.
+        - Flow: Configure --> Common Objects --> Security -->IP Firewall Policies --> Add
+        - Keyword Usage:
+        - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME}  action=${ACTION}``
+        - ``Create IP Firewall Policy For Applications    ${POLICY_NAME}  application=${APP_NAME1},${APP_NAME2}
           action=${ACTION}``
 
         :param policy_name: IP Firewall Policy Name
@@ -2860,8 +2997,8 @@ class CommonObjects(object):
         """
         - This Keyword will Select Configured IP Firewall Policy Under New User Profile.
         - Flow: Configure --> Common Objects --> Policy --> User Profiles
-         - Keyword Usage:
-          - ``Select IP Firewall Policy For New User Profile   user_profile_name=${PROFILE_NAME}
+        - Keyword Usage:
+        - ``Select IP Firewall Policy For New User Profile   user_profile_name=${PROFILE_NAME}
           firewall_policy_name=${FW_POLICY_NAME}``
 
         :param user_profile_name: User Profile Name
@@ -2940,7 +3077,7 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Network -->Management Options-->Delete Management Option Name
         - Delete specified Management Options Name from the Management Options Grid
         - Keyword Usage:
-         - ``Delete Management Options  ${NAME}``
+        - ``Delete Management Options  ${NAME}``
         :param management_options_name: Management Options Name
         :return: 1 if deleted else -1
         """
@@ -2969,9 +3106,10 @@ class CommonObjects(object):
     def add_network_management_options(self,  option_name="management_option_1", enable_legacy_http_redirect="True", **kwargs):
         """
         - Adds new network management option(s)
-        -Flow: Configure --> Common Objects --> Network -->Management Options
-           - Keyword Usage:
-            - ``Add Network Management Options``
+        - Flow: Configure --> Common Objects --> Network -->Management Options
+        - Keyword Usage:
+        - ``Add Network Management Options``
+
         :param option_name : name of the management option
         :param enable_legacy_http_redirect: determines if enable legacy http redirect should be clicked or not
         :return: 1
@@ -3024,9 +3162,9 @@ class CommonObjects(object):
     def delete_user_profile(self, profile="user004", **kwargs):
         """
         - It deletes user profile
-        -Flow: Configure --> Common Objects --> User Profile
-           - Keyword Usage:
-            - ``Delete User Profile       profile=${PROFILE}``
+        - Flow: Configure --> Common Objects --> User Profile
+        - Keyword Usage:
+        - ``Delete User Profile       profile=${PROFILE}``
 
         :param profile : profile name
         :return: 1
@@ -3091,9 +3229,10 @@ class CommonObjects(object):
     def delete_all_user_profiles(self, **kwargs):
         """
         - It deletes all user profiles
-        -Flow: Configure --> Common Objects --> User Profile
-           - Keyword Usage:
-            - ``Delete All User Profiles``
+        - Flow: Configure --> Common Objects --> User Profile
+        - Keyword Usage:
+        - ``Delete All User Profiles``
+
         :return: 1 if successfully created else -1
         """
         exclude_list = ['default-profile', 'default-guest-profile']
@@ -3127,7 +3266,7 @@ class CommonObjects(object):
         - Delete specified IP Firewall Policy Name from the Grid
         - Keyword Usage:
         - Flow: Flow: Configure --> Common Objects --> Security -->IP Firewall Policies
-         - ``Delete Ip Firewall Policy  ${NAME}``
+        - ``Delete Ip Firewall Policy  ${NAME}``
         :param ip_firewall_policy_name: IP Firewall Policy Name
         :return: 1 if deleted else -1
         """
@@ -3155,7 +3294,8 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with IP Address
         - Create ip object profile with ip address
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP or Hostname     ${name}     ${type}     ${global_item}    @{classify_items}``
+        - ``Add IP Object Hostname With IP or Hostname     ${name}     ${type}     ${global_item}    @{classify_items}``
+
         :param name: The profile name
         :param type: "IP Address", or "Host Name", or "Wildcard Host Name"
         :param global_item:   Unclassified IP address, or unclassified Hostname, or unclassified wildcard hostname
@@ -3242,7 +3382,8 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with Networks
         - Create ip object profile with ip networks
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP Network    ${name}     ${type}     ${global_network}     ${netmask}    @{classify_network}``
+        - ``Add IP Object Hostname With IP Network    ${name}     ${type}     ${global_network}     ${netmask}    @{classify_network}``
+
         :param name: The profile name
         :param type: "Network", or "Wildcard"
         :param global_network:   Unclassified Network, or unclassified Wildcard network
@@ -3312,15 +3453,15 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Click + to add an ip object profile with IP Range
         - Create ip object profile with IP Range
         - Keyword Usage:
-            - ``Add IP Object Hostname With IP Range    ${name}     ${global_range_start}       ${ip_range_gap}     @{classify_range_start}``
+        - ``Add IP Object Hostname With IP Range    ${name}     ${global_range_start}       ${ip_range_gap}     @{classify_range_start}``
 
         :param name: The profile name
         :param global_range_start: The unclassified start IP address
         :param ip_range_gap:
-            - The gap flag between start IP and end IP.
-            - For example:
-            - start IP is 192.168.1.1, the gap is 00, and the end IP is 192.168.1.100
-            - end IP = string "192.168.1.1" + string "00" = string "192.168.1.100"
+            The gap flag between start IP and end IP.
+            For example:
+            start IP is 192.168.1.1, the gap is 00, and the end IP is 192.168.1.100
+            end IP = string "192.168.1.1" + string "00" = string "192.168.1.100"
         :param classify_range_start:    Classified start IP list
         :return: success return 1
         """
@@ -3671,7 +3812,8 @@ class CommonObjects(object):
         - Delete IP Object profile
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Delete it
         - Keyword Usage:
-            - ``IP Object Hostname Delete Object Profile    ${ip_object_profile_name}``
+        - ``IP Object Hostname Delete Object Profile    ${ip_object_profile_name}``
+
         :param ip_object_profile_name: IP Object profile name
         :return: Find and delete successfully return 1 else return -1
         """
@@ -3704,7 +3846,8 @@ class CommonObjects(object):
         - Edit and Add new items for existed IP Object profile
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Edit it and Add new items
         - Keyword Usage:
-            - ``IP Object Hostname Update Object Profile    ${ip_object_profile_name}    ${netmask}    ${ip_range_gap}      ${classified_items_list_1}``
+        - ``IP Object Hostname Update Object Profile    ${ip_object_profile_name}    ${netmask}    ${ip_range_gap}      ${classified_items_list_1}``
+
         :param ip_object_profile_name: IP Object profile name
         :param netmask: Netmask, for the profile with type IP address and Hostname related, the netmask is None, for Network and Wildcard Network, the netmask is needed
         :param ip_range_gap: Only for IP Range, keep it as None value if NOT IP Range
@@ -3744,7 +3887,8 @@ class CommonObjects(object):
         - Find all the items for existed IP Object profile, and return a list
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName --> Find the object profile --> Edit it --> Click 100 items per page --> Get item row by row
         - Keyword Usage:
-            - ``IP Object Hostname List All Objects In Profile    ${ip_object_profile_name}``
+        - ``IP Object Hostname List All Objects In Profile    ${ip_object_profile_name}``
+
         :param ip_object_profile_name: IP Object profile name
         :return: success return a list else return -1
         """
@@ -3787,8 +3931,8 @@ class CommonObjects(object):
         - Flow: Configure --> Common Objects --> Policy -->Switch Template
         - Delete specified switch template from the Switch Templates grid
         - Keyword Usage:
-         - ``Delete Switch Template  ${TEMPLATE_NAME}``
-         - ``Delete Switch Template  template_1,template_2`
+        - ``Delete Switch Template  ${TEMPLATE_NAME}``
+        - ``Delete Switch Template  template_1,template_2`
         :param template_name: A list of templates which will be deleted. Or a string with templates names separated by comma
         :return: 1 if deleted else -1
         """
@@ -3892,7 +4036,7 @@ class CommonObjects(object):
         - Flow: CONFIGURE-->COMMON OBJECTS-->PORT TYPES
         - Delete Port Type from the grid
         - Keyword Usage:
-         - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
+        - ``Delete Port Type Profile  ${PORT_TYPE_NAME}``
          ``Delete Port Type Profile  ${PORT_TYPE_NAME1},${PORT_TYPE_NAME2}``
         :param port_type_name: A list of port type profiles which will be deleted. Or a string with profiles names separated by comma
         :return: 1 if Port Type deleted successfully, else returns -1

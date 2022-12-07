@@ -14,13 +14,13 @@ class XIQSE_Tasks(TasksWebElements):
 
     def xiqse_tasks_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Tasks page
-         - Keyword Usage
-          - ``XIQSE Tasks Select Tab    Workflow Dashboard``
-          - ``XIQSE Tasks Select Tab    Scheduled Tasks``
-          - ``XIQSE Tasks Select Tab    Saved Tasks``
-          - ``XIQSE Tasks Select Tab    Scripts``
-          - ``XIQSE Tasks Select Tab    Workflows``
+        - This keyword selects the specified tab of the Tasks page
+        - Keyword Usage
+        - ``XIQSE Tasks Select Tab    Workflow Dashboard``
+        - ``XIQSE Tasks Select Tab    Scheduled Tasks``
+        - ``XIQSE Tasks Select Tab    Saved Tasks``
+        - ``XIQSE Tasks Select Tab    Scripts``
+        - ``XIQSE Tasks Select Tab    Workflows``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -52,9 +52,9 @@ class XIQSE_Tasks(TasksWebElements):
 
     def xiqse_tasks_select_workflow_dashboard_tab(self):
         """
-         - This keyword selects the Workflow Dashboard tab of the Tasks page
-         - Keyword Usage
-          - ``XIQSE Tasks Select Workflow Dashboard Tab``
+        - This keyword selects the Workflow Dashboard tab of the Tasks page
+        - Keyword Usage
+        - ``XIQSE Tasks Select Workflow Dashboard Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -63,9 +63,9 @@ class XIQSE_Tasks(TasksWebElements):
 
     def xiqse_tasks_select_scheduled_tasks_tab(self):
         """
-         - This keyword selects the Scheduled Tasks tab of the Tasks page
-         - Keyword Usage
-          - ``XIQSE Tasks Select Scheduled Tasks Tab``
+        - This keyword selects the Scheduled Tasks tab of the Tasks page
+        - Keyword Usage
+        - ``XIQSE Tasks Select Scheduled Tasks Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -74,9 +74,9 @@ class XIQSE_Tasks(TasksWebElements):
 
     def xiqse_tasks_select_saved_tasks_tab(self):
         """
-         - This keyword selects the Saved Tasks tab of the Tasks page
-         - Keyword Usage
-          - ``XIQSE Tasks Select Saved Tasks Tab``
+        - This keyword selects the Saved Tasks tab of the Tasks page
+        - Keyword Usage
+        - ``XIQSE Tasks Select Saved Tasks Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -85,9 +85,9 @@ class XIQSE_Tasks(TasksWebElements):
 
     def xiqse_tasks_select_scripts_tab(self):
         """
-         - This keyword selects the Scripts tab of the Tasks page
-         - Keyword Usage
-          - ``XIQSE Tasks Select Scripts Tab``
+        - This keyword selects the Scripts tab of the Tasks page
+        - Keyword Usage
+        - ``XIQSE Tasks Select Scripts Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -96,9 +96,9 @@ class XIQSE_Tasks(TasksWebElements):
 
     def xiqse_tasks_select_workflows_tab(self):
         """
-         - This keyword selects the Workflows tab of the Tasks page
-         - Keyword Usage
-          - ``XIQSE Tasks Select Workflows Tab``
+        - This keyword selects the Workflows tab of the Tasks page
+        - Keyword Usage
+        - ``XIQSE Tasks Select Workflows Tab``
 
         :return: 1 if action was successful, else -1
         """

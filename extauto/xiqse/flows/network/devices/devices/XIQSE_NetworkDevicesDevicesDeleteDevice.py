@@ -13,10 +13,10 @@ class XIQSE_NetworkDevicesDevicesDeleteDevice(NetworkDevicesDevicesDeleteDeviceW
 
     def xiqse_confirm_delete_device_click_yes(self):
         """
-         - This keyword clicks Yes in the Confirm Delete dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Confirm Delete Device Click Yes``
+        - This keyword clicks Yes in the Confirm Delete dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Confirm Delete Device Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -35,10 +35,10 @@ class XIQSE_NetworkDevicesDevicesDeleteDevice(NetworkDevicesDevicesDeleteDeviceW
 
     def xiqse_confirm_delete_device_click_no(self):
         """
-         - This keyword clicks No in the Confirm Delete dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Confirm Delete Device Click No``
+        - This keyword clicks No in the Confirm Delete dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Confirm Delete Device Click No``
 
         :return: 1 if action was successful, else -1
         """

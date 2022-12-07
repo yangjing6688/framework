@@ -20,6 +20,7 @@ launch.json
 settings.json
 /build
 .env
+.venv
 venv
 /libspecs/
 *.libspecs
@@ -29,4 +30,3 @@ venv
 **log.html**
 **output.xml**
 **allure_output**
-

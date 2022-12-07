@@ -21,9 +21,9 @@ class XIQSE_AccessControlAddRemove(ControlAccessControlAddRemoveWebElements):
 
     def xiqse_add_nac_appliance(self, ip_addr):
         """
-         - This keyword adds NAC appliance via Control> Access Control Tab
-         - Keyword Usage
-          - XIQSE ADD NAC APPLIANCE     {nac_appliance_ip1}
+        - This keyword adds NAC appliance via Control> Access Control Tab
+        - Keyword Usage
+        - XIQSE ADD NAC APPLIANCE     {nac_appliance_ip1}
         :return: 1 if action was successful, else -1
         """
         ret_val = 1
@@ -106,11 +106,11 @@ class XIQSE_AccessControlAddRemove(ControlAccessControlAddRemoveWebElements):
 
     def xiqse_delete_nac_appliance(self, nacip):
         """
-         - This keyword deletes NAC appliance via Control> Access Control Tab
-         - This keyword assumes that you already selected the All Engines in the tree
-         - Select a row for NAC appliance and then hit Delete.
-         - Keyword Usage
-          - XIQSE Delete NAC APPLIANCE     {nac_appliance_ip1}
+        - This keyword deletes NAC appliance via Control> Access Control Tab
+        - This keyword assumes that you already selected the All Engines in the tree
+        - Select a row for NAC appliance and then hit Delete.
+        - Keyword Usage
+        - XIQSE Delete NAC APPLIANCE     {nac_appliance_ip1}
         :return: 1 if action was successful, else -1
         """
         ret_val = -1

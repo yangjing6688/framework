@@ -130,10 +130,23 @@ class NetworkPolicy(object):
             self.screen.save_screen_shot()
             sleep(3)
 
-    def create_network_policy_if_does_not_exist(self, policy, **wireless_profile):
-        self.use_existing_policy = True
-        out = self.create_network_policy(policy, wireless_profile)
-        return out
+    def create_network_policy_if_does_not_exist(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
+        """
+        - Search for network policy, if it doesn't exist, create it
+        :param policy: Name of the network policy to create
+        :param wireless_profile: (dict) wireless network creation profile parameters
+        :param cli_type: Device type of the DUT
+        :return: 1 if policy already exists or if it was successfully created, else -1
+        """
+        self.navigator.navigate_to_devices()
+        if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+            kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
+            self.common_validation.fault(**kwargs)
+        sleep(2)
+
+        if self._search_network_policy_in_list_view(policy) == -1:
+            return self.create_network_policy(policy, wireless_profile, cli_type)
+        return 1
 
     def create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
         """
@@ -141,15 +154,16 @@ class NetworkPolicy(object):
         - This keyword will create the network policy and wireless network
         - Wireless network includes open, ppsk, psk and enterprise network
         - Keyword Usage:
-         - ``Create Network Policy   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
-         - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
-         - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
+        - ``Create Network Policy   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
+        - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
+        - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
 
         :param policy: Name of the network policy to create
         :param wireless_profile: (dict) wireless network creation profile parameters
         :param cli_type: Device type of the DUT
         :return: 1 if network policy creation is success
         """
+        
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
@@ -206,28 +220,28 @@ class NetworkPolicy(object):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-            if cli_type.upper() == 'AH-AP':
-                return self.wireless_nw.create_wireless_network(**wireless_profile)
-            if cli_type.upper() == 'VOSS' or cli_type.upper() == 'EXOS':
-                switch_template_name = wireless_profile.get('switch_template_name')
-                if not switch_template_name:
-                    self.utils.print_info("No template information in dictionary")
-                    return 1
-                self.switch_template.create_switching_network(policy, wireless_profile, **kwargs)
-            if cli_type.upper() == 'AH-XR':
-                router_template_name = wireless_profile.get('template_name')
-                if not router_template_name:
-                    self.utils.print_info("No template information in dictionary")
-                    return 1
-                from extauto.xiq.flows.configure.RouterTemplate import RouterTemplate
-                router_template = RouterTemplate()
-                return router_template.create_routing_network(policy, **wireless_profile)
+        if cli_type.upper() == 'AH-AP':
+            return self.wireless_nw.create_wireless_network(**wireless_profile)
+        if cli_type.upper() == 'VOSS' or cli_type.upper() == 'EXOS':
+            switch_template_name = wireless_profile.get('switch_template_name')
+            if not switch_template_name:
+                self.utils.print_info("No template information in dictionary")
+                return 1
+            self.switch_template.create_switching_network(policy, wireless_profile)
+        if cli_type.upper() == 'AH-XR':
+            router_template_name = wireless_profile.get('template_name')
+            if not router_template_name:
+                self.utils.print_info("No template information in dictionary")
+                return 1
+            from extauto.xiq.flows.configure.RouterTemplate import RouterTemplate
+            router_template = RouterTemplate()
+            return router_template.create_routing_network(policy, wireless_profile)
 
     def delete_network_policy(self, policy, **kwargs):
         """
         - Delete Network Policy from network policy Grid
         - Keyword Usage:
-         - ``Delete Network Policy    ${POLICY_NAME}``
+        - ``Delete Network Policy    ${POLICY_NAME}``
 
         :param policy: Name of the policy to delete
         :return: 1 if deleted else -1
@@ -285,7 +299,7 @@ class NetworkPolicy(object):
         """
         - Deleting the network policies based on the passed list of policies
         - Keyword Usage:
-         - ``Delete Network Policies   ${POLICY1}   ${POLICY2}``
+        - ``Delete Network Policies   ${POLICY1}   ${POLICY2}``
 
         :param policies: list of network polices to delete
         :return: 1 if deleted successfully else -1
@@ -342,7 +356,7 @@ class NetworkPolicy(object):
             return 1
 
         self.screen.save_screen_shot()
-        
+
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
@@ -375,7 +389,7 @@ class NetworkPolicy(object):
         """
         - Delete all network policies from the grid expect exclude_list policies
         - keyword Usage:
-          - ``Delete All Network Policies  exclude_list=${POLICY1},${POLICY2)``
+        - ``Delete All Network Policies  exclude_list=${POLICY1},${POLICY2)``
 
         :param exclude_list: list of policies to exclude from delete
         :return: 1 if deleted successfully else -1
@@ -396,7 +410,7 @@ class NetworkPolicy(object):
         - Flow: Navigate to the network policy -- > click on network policy card view
                 --> click on SSID --> Edit SSID
         - Keyword Usage:
-         - ``Edit Network Policy SSID   ${POLICY_NAME}   ${SSID_NAME}   ${NEW_SSID_NAME}``
+        - ``Edit Network Policy SSID   ${POLICY_NAME}   ${SSID_NAME}   ${NEW_SSID_NAME}``
 
         :param policy_name: Name of the network policy
         :param ssid_name: name of the ssid already exist on that network policy
@@ -510,10 +524,10 @@ class NetworkPolicy(object):
         - If want to perform different type of config push, pass the appropriate parameter values
         - If already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}``
-         - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  update_type=complete``
-         - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  next_reboot=True``
-         - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  _date=${DATE}  _time=${TIME}``
+        - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}``
+        - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  update_type=complete``
+        - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  next_reboot=True``
+        - ``Deploy Network Policy  ${POLICY_NAME}   ${DEVICE_MAC}  _date=${DATE}  _time=${TIME}``
 
         :param policy_name: Name of the policy
         :param devices: Device serial number
@@ -752,9 +766,9 @@ class NetworkPolicy(object):
         - Flow: Navigate to Network policy-->Select List View-->Select Network Policy ROW-->
           Edit-->Select wireless nw tab-->Add other wireless network
         - Keyword Usage:
-         - ``Add Wireless Nw To Network Policy    ${POLICY_NAME}    &{WIRELESS_NW_PROFILE}``
-         - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
-         - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
+        - ``Add Wireless Nw To Network Policy    ${POLICY_NAME}    &{WIRELESS_NW_PROFILE}``
+        - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
+        - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
 
         :param policy_name: name of the network policy
         :param wireless_profile: (dict) wireless network profile config parameters
@@ -821,7 +835,7 @@ class NetworkPolicy(object):
         - This will reboot the Device
         - if already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy With Complete Update   ${POLICY_NAME}    ${DEVICE_MAC}``
+        - ``Deploy Network Policy With Complete Update   ${POLICY_NAME}    ${DEVICE_MAC}``
 
         :param policy_name: Name of the policy
         :param devices: Device serial number
@@ -834,8 +848,8 @@ class NetworkPolicy(object):
         - Config push network policy in next reboot
         - this will do completed config push for the next reboot of device
         - if already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
-         - Keyword Usage:
-         - ``Deploy Network Policy With Next Reboot   ${POLICY_NAME}    ${DEVICE_MAC}``
+        - Keyword Usage:
+        - ``Deploy Network Policy With Next Reboot   ${POLICY_NAME}    ${DEVICE_MAC}``
 
         :param policy_name: Name of the policy
         :param devices: Device serial number
@@ -849,7 +863,7 @@ class NetworkPolicy(object):
         - it will config push at specific date and at specific time
         - if already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy At Specific Time   ${POLICY_NAME}  ${DEVICE_MAC}  ${UPDATE_DATE}  ${UPDATE_TIME}``
+        - ``Deploy Network Policy At Specific Time   ${POLICY_NAME}  ${DEVICE_MAC}  ${UPDATE_DATE}  ${UPDATE_TIME}``
 
         :param policy_name:  Name of the policy
         :param devices:  Device serial number
@@ -870,7 +884,7 @@ class NetworkPolicy(object):
         - delta config push of network policy
         - if already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy With Delta Update   ${POLICY_NAME}   ${DEVICE_MAC}``
+        - ``Deploy Network Policy With Delta Update   ${POLICY_NAME}   ${DEVICE_MAC}``
 
         :param policy_name: Name of the policy
         :param devices: Device serial number
@@ -924,7 +938,7 @@ class NetworkPolicy(object):
           --> add ssid --> select enterprise network --> click on radius server select button
           --> select the radius server group and delete it
         - Keyword Usage:
-         - ``Delete Radius Group    ${POLICY_NAME}   ${RADIUS_SERVER_GROUP_NAME}``
+        - ``Delete Radius Group    ${POLICY_NAME}   ${RADIUS_SERVER_GROUP_NAME}``
 
         :param network_policy_name: Network Policy Name
         :param radius_group_name: Name of the radius group to delete
@@ -1210,7 +1224,7 @@ class NetworkPolicy(object):
         - This keyword is used to enable the presence analytics
         - Flow: Configure --> Network Policy --> select the Policy --> Enable Presence Analytics
         - Keyword Usage:
-         - ``Enable NW Presence Analytics  ${POLICY_NAME}``
+        - ``Enable NW Presence Analytics  ${POLICY_NAME}``
 
         :param nw_policy: name of the policy
         :return: None
@@ -1234,8 +1248,8 @@ class NetworkPolicy(object):
         - This keyword is used to enable Ibeacon Service in Network Policy
         - Flow: Configure --> Network Policy --> select the Policy -->Advance Settings-->IBeacon Services
         - Keyword Usage:
-         - ''Enable IBeacon Service In Network Policy  ${POLICY_NAME}  ${service_name}  ${uuid} monitoring=enable ''
-         - ''Enable IBeacon Service In Network Policy  ${POLICY_NAME}  ${service_name}  ${uuid} monitoring=disable ''
+        - ''Enable IBeacon Service In Network Policy  ${POLICY_NAME}  ${service_name}  ${uuid} monitoring=enable ''
+        - ''Enable IBeacon Service In Network Policy  ${POLICY_NAME}  ${service_name}  ${uuid} monitoring=disable ''
 
         :param nw_policy: name of the policy
         :param service_name: IBeacon Service Name
@@ -1320,7 +1334,7 @@ class NetworkPolicy(object):
         - This keyword is used to disable Ibeacon Service in Network Policy
         - Flow: Configure --> Network Policy --> select the Policy -->Advance Settings-->IBeacon Services
         - Keyword Usage:
-         - ``Disable IBeacon Service In Network Policy  ${POLICY_NAME}''
+        - ``Disable IBeacon Service In Network Policy  ${POLICY_NAME}''
 
         :param nw_policy: name of the policy for disabling the iBeacon
         :return: None
@@ -1427,7 +1441,7 @@ class NetworkPolicy(object):
         - This keyword will Change SSID Authentication to Open in the network policy
         - Flow: network policy -- > click on network policy card view --> click on SSID --> Edit SSID Authentication
         - Keyword Usage:
-         - ``Edit Network Policy SSID Authentication   ${POLICY_NAME}   ${SSID_NAME}   ${NEW_AUTH_METHOD}``
+        - ``Edit Network Policy SSID Authentication   ${POLICY_NAME}   ${SSID_NAME}   ${NEW_AUTH_METHOD}``
 
         :param policy_name: Name of the network policy
         :param ssid_name: name of the ssid already exist on that network policy
@@ -1453,7 +1467,7 @@ class NetworkPolicy(object):
         - Checks the policy already exists, if it is not exist then create the network policy
         - Routing and Switching checkbox selected and wireless checkbox unselected while creating policy for EXOS
         - Keyword Usage:
-         - ``Create Switching Routing Network Policy  ${POLICY_NAME}``
+        - ``Create Switching Routing Network Policy  ${POLICY_NAME}``
 
         :param policy_name: Policy Name
         :return: 1 if network policy created successfully else returns -1.
@@ -1528,7 +1542,7 @@ class NetworkPolicy(object):
         - This keyword is used to select the type of policy option we are creating, i.e.., Routing, switching, wireless
         - Flow: Configure --> Network Policy --> select the Policy -->enable/disable different policy type options above
         - Keyword Usage:
-         - ``Edit Network Policy Type  ${POLICY_NAME}   ${OPTION_PARAMS}``
+        - ``Edit Network Policy Type  ${POLICY_NAME}   ${OPTION_PARAMS}``
 
         :param nw_policy: name of the policy
         :param options_params: wireless=enable,switches=disable,routing=enable
@@ -1591,7 +1605,7 @@ class NetworkPolicy(object):
         - If want to perform different type of config push, pass the appropriate parameter values
         - If already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
         - Keyword Usage:
-         - ``Deploy Network Policy     ${DEVICE_MAC}  ${POLICY_NAME} ${Switch_template}
+        - ``Deploy Network Policy     ${DEVICE_MAC}  ${POLICY_NAME} ${Switch_template}
 
 
         :param policy_name: Name of the policy
@@ -1614,7 +1628,7 @@ class NetworkPolicy(object):
             self.utils.print_info("Click on eligible device button")
             self.auto_actions.click_reference(self.np_web_elements.get_eligible_device_button)
         _click_eligible()
-        
+
         def _check_device_rows():
             return self._get_device_rows(device_mac)
         self.utils.wait_till(_check_device_rows, delay=0.2, is_logging_enabled=True, silent_failure=False)
@@ -1627,7 +1641,7 @@ class NetworkPolicy(object):
                                      f"{tip_text} occurred while assigning nw policy"
                 self.common_validation.fault(**kwargs)
                 return -1
-        
+
         if not self._select_device_row(device_mac):
             self.utils.print_info("Device is not available in the deploy policy page")
             kwargs['fail_msg'] = "deploy_stack_network_policy() failed. " \
@@ -1673,8 +1687,8 @@ class NetworkPolicy(object):
         if not uptd.is_selected():
             self.utils.print_info(f"Click on the update configuration checkbox")
             self.auto_actions.click(uptd)
-            
-        # Uncheck the firmware update checkbox if it is checked 
+
+        # Uncheck the firmware update checkbox if it is checked
         firmware_update = self.devices_web_elements.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
         if not firmwareUpdate:
             if firmware_update.is_selected():
@@ -1684,7 +1698,7 @@ class NetworkPolicy(object):
                 self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already unchecked")
         else:
             if firmware_update.is_selected():
-                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked")  
+                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked")
             else:
                 self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is not checked - Checking")
                 self.auto_actions.click(firmware_update)
@@ -1692,11 +1706,11 @@ class NetworkPolicy(object):
         # Perform the update
         self.screen.save_screen_shot()
         sleep(5)
-        
+
         # Captute tool tip msg before pressing the perform update button
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
-        
+
         # Press perform update button
         self.utils.print_info("Checking for the perform update button presence")
         if self.np_web_elements.get_perform_update_policy_button():
@@ -1709,12 +1723,12 @@ class NetworkPolicy(object):
 
         self.screen.save_screen_shot()
         sleep(5)
-        
+
         # Capture the tool tip after pressing the perform update button
         tool_tp_text_after = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_after)
-       
-        # Print and return the displayed tool tip msg if any 
+
+        # Print and return the displayed tool tip msg if any
         for item_after in tool_tp_text_after:
             if item_after in tool_tp_text_before:
                 pass
@@ -1728,7 +1742,7 @@ class NetworkPolicy(object):
         """
         - Selects existing SSID in the policy
         - Keyword Usage:
-         - ``Select SSID In Policy     ${POLICY}  ${SSID} ``
+        - ``Select SSID In Policy     ${POLICY}  ${SSID} ``
         :param policy: Name of the policy
         :param ssid : SSID to select
         :return: True if selection is success else False
@@ -1884,7 +1898,7 @@ class NetworkPolicy(object):
             kwargs['fail_msg'] = "enable_classifier_maps() failed"
             self.common_validation.failed(**kwargs)
             return -1
-    
+
     def enable_marker_maps(self, nw_policy, MarkerMap_dict, **kwargs):
         """
         - This keyword is used to enable Marker Maps which Marks the outgoing or upstream traffic with the specified traffic priority markers.
@@ -1910,17 +1924,17 @@ class NetworkPolicy(object):
         self.navigator.navigate_to_devices()
         self.navigate_to_np_edit_tab(nw_policy)
         sleep(2)
-        
+
         self.utils.print_info("Clicking on Additional Settings Tab")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_additional_settings_tab)
         sleep(2)
 
         self.np_web_elements.get_additional_settings_marker_maps().is_displayed()
-        
+
         self.utils.print_info("Scroll to the Marker Maps Option")
         self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_marker_maps)
         sleep(2)
-        
+
         self.utils.print_info("Click on Marker Maps")
         self.auto_actions.click_reference(self.np_web_elements.get_additional_settings_marker_maps)
         sleep(2)
@@ -2031,7 +2045,7 @@ class NetworkPolicy(object):
 
         self.utils.print_info("Click on Save button")
         self.auto_actions.click_reference(self.np_web_elements.get_QoS_services_save_button)
-        
+
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "QoS Overview Settings are saved successfully" in tool_tip_text:
@@ -2042,14 +2056,14 @@ class NetworkPolicy(object):
             kwargs['fail_msg'] = "enable_QoS_Overview_DAS() failed."
             self.common_validation.failed(**kwargs)
             return -1
-          
+
     def create_owe_ssid(self, nw_policy, ssid, WiFi2, **kwargs):
         """
         - This keyword is ONLY used for OWE SSID testing purposes.
         - Flow: Configure --> Network Policy --> select the Policy -->Wireless Setings -->Add SSID
         - Keyword Usage:
-         - ''Create OWE SSID  ${POLICY_NAME}  ${SSID}   WiFi2=enable ''
-         - ''Create OWE SSID  ${POLICY_NAME}  ${SSID}   WiFi2=disable ''
+        - ''Create OWE SSID  ${POLICY_NAME}  ${SSID}   WiFi2=enable ''
+        - ''Create OWE SSID  ${POLICY_NAME}  ${SSID}   WiFi2=disable ''
 
         :param nw_policy: name of the policy
         :param SSID: Enter SSID
@@ -2122,9 +2136,9 @@ class NetworkPolicy(object):
         - Wireless network includes open, ppsk, psk, enhanced, and enterprise network
         - Flow: Configure --> Network Policies --> select exist Policy --> select Wireless Networks tab --> Add(+) SSID
         - Keyword Usage:
-         - ''Create SSID to Policy   ${SSID}   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
-         - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
-         - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
+        - ''Create SSID to Policy   ${SSID}   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
+        - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
+        - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
 
         :param nw_policy: name of exist policy
         :param SSID: extra new SSID to create
@@ -2272,7 +2286,7 @@ class NetworkPolicy(object):
         - This keyword will add user group to the SSID which have user group item in a Network Policy
         - Flow: network policy -- > click on network policy card view --> click on SSID --> Add user group
         - Keyword Usage:
-         - ``Add User Group To Network Policy Ssid   ${POLICY_NAME}   ${SSID_NAME}   &{AUTH_PROFILE}``
+        - ``Add User Group To Network Policy Ssid   ${POLICY_NAME}   ${SSID_NAME}   &{AUTH_PROFILE}``
 
         :param policy_name: Name of the network policy
         :param ssid_name: name of the ssid already exist on that network policy

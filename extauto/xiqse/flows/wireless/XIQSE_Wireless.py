@@ -14,15 +14,15 @@ class XIQSE_Wireless(WirelessWebElements):
 
     def xiqse_wireless_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Wireless page
-         - Keyword Usage
-          - ``XIQSE Wireless Select Tab    Dashboard``
-          - ``XIQSE Wireless Select Tab    Network``
-          - ``XIQSE Wireless Select Tab    Controllers``
-          - ``XIQSE Wireless Select Tab    Access Points``
-          - ``XIQSE Wireless Select Tab    Clients``
-          - ``XIQSE Wireless Select Tab    Threats``
-          - ``XIQSE Wireless Select Tab    Reports``
+        - This keyword selects the specified tab of the Wireless page
+        - Keyword Usage
+        - ``XIQSE Wireless Select Tab    Dashboard``
+        - ``XIQSE Wireless Select Tab    Network``
+        - ``XIQSE Wireless Select Tab    Controllers``
+        - ``XIQSE Wireless Select Tab    Access Points``
+        - ``XIQSE Wireless Select Tab    Clients``
+        - ``XIQSE Wireless Select Tab    Threats``
+        - ``XIQSE Wireless Select Tab    Reports``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -58,9 +58,9 @@ class XIQSE_Wireless(WirelessWebElements):
 
     def xiqse_wireless_select_dashboard_tab(self):
         """
-         - This keyword selects the Dashboard tab of the Wireless page
-         - Keyword Usage
-          - ``XIQSE Wireless Select Dashboard Tab``
+        - This keyword selects the Dashboard tab of the Wireless page
+        - Keyword Usage
+        - ``XIQSE Wireless Select Dashboard Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -69,9 +69,9 @@ class XIQSE_Wireless(WirelessWebElements):
 
     def xiqse_wireless_select_network_tab(self):
         """
-         - This keyword selects the Network tab of the Wireless page
-         - Keyword Usage
-          - ``XIQSE Wireless Select Network Tab``
+        - This keyword selects the Network tab of the Wireless page
+        - Keyword Usage
+        - ``XIQSE Wireless Select Network Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -80,9 +80,9 @@ class XIQSE_Wireless(WirelessWebElements):
 
     def xiqse_wireless_select_controllers_tab(self):
         """
-         - This keyword selects the Controllers tab of the Wireless page
-         - Keyword Usage
-          - ``XIQSE Wireless Select Controllers Tab``
+        - This keyword selects the Controllers tab of the Wireless page
+        - Keyword Usage
+        - ``XIQSE Wireless Select Controllers Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -91,9 +91,9 @@ class XIQSE_Wireless(WirelessWebElements):
 
     def xiqse_wireless_select_access_points_tab(self):
         """
-         - This keyword selects the Access Points tab of the Wireless page
-         - Keyword Usage
-          - ``XIQSE Wireless Select Access Points Tab``
+        - This keyword selects the Access Points tab of the Wireless page
+        - Keyword Usage
+        - ``XIQSE Wireless Select Access Points Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -102,9 +102,9 @@ class XIQSE_Wireless(WirelessWebElements):
 
     def xiqse_wireless_select_clients_tab(self):
         """
-         - This keyword selects the Clients tab of the Wireless page
-         - Keyword Usage
-          - ``XIQSE Wireless Select Clients Tab``
+        - This keyword selects the Clients tab of the Wireless page
+        - Keyword Usage
+        - ``XIQSE Wireless Select Clients Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -113,9 +113,9 @@ class XIQSE_Wireless(WirelessWebElements):
 
     def xiqse_wireless_select_threats_tab(self):
         """
-         - This keyword selects the Threats tab of the Wireless page
-         - Keyword Usage
-          - ``XIQSE Wireless Select Threats Tab``
+        - This keyword selects the Threats tab of the Wireless page
+        - Keyword Usage
+        - ``XIQSE Wireless Select Threats Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -124,9 +124,9 @@ class XIQSE_Wireless(WirelessWebElements):
 
     def xiqse_wireless_select_reports_tab(self):
         """
-         - This keyword selects the Reports tab of the Wireless page
-         - Keyword Usage
-          - ``XIQSE Wireless Select Reports Tab``
+        - This keyword selects the Reports tab of the Wireless page
+        - Keyword Usage
+        - ``XIQSE Wireless Select Reports Tab``
 
         :return: 1 if action was successful, else -1
         """

@@ -22,7 +22,7 @@ class Notification(object):
 
     def go_to_configure_notification_policy_tab(self):
         """
-        -This keyword Will Navigate to Extreme Guest Notification Policy Page
+        - This keyword Will Navigate to Extreme Guest Notification Policy Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Go To Configure Notification Policy Tab''
@@ -40,7 +40,7 @@ class Notification(object):
 
     def add_notification_policy(self, policy_name, policy_description, policy_type='user', sms='False', sponsor_number='', email='True'):
         """
-        -This keyword Will Navigate to Extreme Guest Notification Policy Page
+        - This keyword Will Navigate to Extreme Guest Notification Policy Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Add Notification Policy   ${POLICY_NAME0}  ${POLICY_NAME0}     ${POLICY_TYPE0}     ${POLICY_SMS0}  ${POLICY_SPONSOR_NUMBER0}   ${POLICY_EMAIL0}''
@@ -107,7 +107,7 @@ class Notification(object):
 
     def get_notification_policy(self, policy_name):
         """
-        -This keyword Will Check if the Notification Policy Exists
+        - This keyword Will Check if the Notification Policy Exists
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Get Notification Policy   ${POLICY_NAME}''
@@ -152,7 +152,7 @@ class Notification(object):
 
     def check_if_notification_policy_exists(self, policy_name):
         """
-        -This keyword Will Check if the Notification Policy Exists
+        - This keyword Will Check if the Notification Policy Exists
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Check If Notification Policy Exists   ${POLICY_NAME}''
@@ -160,7 +160,7 @@ class Notification(object):
         :param policy_name:
         :return:
         """
-        
+
         self.go_to_configure_notification_policy_tab()
 
         row = self.get_notification_policy(policy_name)
@@ -170,7 +170,7 @@ class Notification(object):
 
     def edit_notification_policy(self, policy_name, policy_description='null', policy_type='null', sms='null', sponsor_number='null', email='null'):
         """
-        -This keyword Will Navigate to Extreme Guest Notification Policy Page
+        - This keyword Will Navigate to Extreme Guest Notification Policy Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Edit Notification Policy   ${POLICY_NAME0}  ${POLICY_NAME0}     ${POLICY_TYPE0}     ${POLICY_SMS0}  ${POLICY_SPONSOR_NUMBER0}   ${POLICY_EMAIL0}''
@@ -183,7 +183,7 @@ class Notification(object):
         :param email: Enable Email for Notification Policy
         :return: 1 if success
         """
-        
+
         self.go_to_configure_notification_policy_tab()
 
         policy = self.get_notification_policy(policy_name)
@@ -230,7 +230,7 @@ class Notification(object):
 
     def delete_notification_policy(self, policy_name):
         """
-        -This keyword Will Check if the Notification Policy Exists
+        - This keyword Will Check if the Notification Policy Exists
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Delete Notification Policy   ${POLICY_NAME}''
@@ -238,7 +238,7 @@ class Notification(object):
         :param policy_name:
         :return:
         """
-        
+
         self.go_to_configure_notification_policy_tab()
 
         policy = self.get_notification_policy(policy_name)
@@ -247,7 +247,7 @@ class Notification(object):
 
             self.screen.save_screen_shot()
             sleep(2)
-            
+
             self.utils.print_info("Clicking Delete button")
             self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_delete_policy)
 
@@ -261,6 +261,7 @@ class Notification(object):
     def _select_extreme_guest_notification_page_notification_row(self, search_string):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """

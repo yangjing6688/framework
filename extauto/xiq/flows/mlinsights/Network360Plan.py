@@ -19,7 +19,7 @@ class Network360Plan:
         self.navigator = Navigator()
         self.auto_actions = AutoActions()
         self.n360_elements = Network360PlanElements()
-        self.commonValidation = CommonValidation()
+        self.common_validation = CommonValidation()
         self.default_map = 'auto_location_01_1595321828282.tar.gz'
 
         """
@@ -41,7 +41,7 @@ class Network360Plan:
         """
         - This keyword searches for the floor in Network360 Plan
         - Keyword Usage:
-         - ``${SEARCH_MATCHES}=     Search Floor in Network360Plan              floor_name=floor_02``
+        - ``${SEARCH_MATCHES}=     Search Floor in Network360Plan              floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :return: returns list of search matches. -1 if no matches
@@ -71,7 +71,7 @@ class Network360Plan:
         """
         - This keyword gets devices name from Network360 Plan page
         - Keyword Usage:
-         - ``${AP_MATCHES}=          Get APs From Network360Plan Floor           floor_name=floor_02``
+        - ``${AP_MATCHES}=          Get APs From Network360Plan Floor           floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :param device_type: optional - type of device - AP/switch/router/VGVA/router
@@ -118,7 +118,7 @@ class Network360Plan:
                         if not ap_list:
                             self.utils.print_info("AP Count: 0")
                             kwargs['fail_msg'] = "AP Count: 0"
-                            self.commonValidation.failed(**kwargs)
+                            self.common_validation.failed(**kwargs)
                             return 0
 
                         for ap in ap_list:
@@ -138,13 +138,13 @@ class Network360Plan:
                             self.utils.print_info("Unable to find AP Count")
 
                         kwargs['pass_msg'] = f"AP was Found {aps_on_floor}"
-                        self.commonValidation.passed(**kwargs)
+                        self.common_validation.passed(**kwargs)
                         return aps_on_floor
                     else:
                         self.utils.print_info("No search matches found: ")
             else:
                 kwargs['fail_msg'] = f"No search matches found"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
         except Exception as e:
@@ -156,7 +156,7 @@ class Network360Plan:
                 return self.get_aps_from_network360plan_floor(floor_name, device_type, retries, **kwargs)
             else:
                 kwargs['fail_msg'] = f"Exception Caught: {e}, max retries reached {retries}"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
 
@@ -164,7 +164,7 @@ class Network360Plan:
         """
         - This keyword will Import Map file in Network360 Plan page
         - Keyword Usage:
-         - Import Map In Network360Plan    ${MAP_FILE_NAME}
+        - Import Map In Network360Plan    ${MAP_FILE_NAME}
 
         :param map_file_name: Map File Name to import from /testsuites/xiq/functional/import_map_files directory
         :return: 1 if map uploaded successfully on Network360 Plan else -1

@@ -19,8 +19,8 @@ class Client:
         """
         - Get the Client row from the grid row based on client_name or client_mac
         - Keyword Usage:
-         - ``Get Client Row  client_mac=${CLIENT_MAC}``
-         - ``Get Client Row  client_name=${CLIENT_NAME}``
+        - ``Get Client Row  client_mac=${CLIENT_MAC}``
+        - ``Get Client Row  client_name=${CLIENT_NAME}``
 
         :param client_name: Client Name
         :param client_mac: Client Mac Address
@@ -45,8 +45,8 @@ class Client:
         """
         - Get the Client Status from the grid row based on client_name or client_mac
         - Keyword Usage:
-         - ``Get Client Status  client_mac=${CLIENT_MAC}``
-         - ``Get Client Status  client_name=${CLIENT_NAME}``
+        - ``Get Client Status  client_mac=${CLIENT_MAC}``
+        - ``Get Client Status  client_name=${CLIENT_NAME}``
 
         :param client_name: Client Name
         :param client_mac: Client Mac Address
@@ -97,10 +97,10 @@ class Client:
         """
         - This keyword returns 1 if Client status expected matches the status passed as argument
         - Keyword Usage:
-         - ``Get Client Status  client_mac=${CLIENT_MAC}       status=green``
-         - ``Get Client Status  client_mac=${CLIENT_MAC}       status=red``
-         - ``Get Client Status  client_name=${CLIENT_NAME}     status=green``
-         - ``Get Client Status  client_name=${CLIENT_NAME}     status=red``
+        - ``Get Client Status  client_mac=${CLIENT_MAC}       status=green``
+        - ``Get Client Status  client_mac=${CLIENT_MAC}       status=red``
+        - ``Get Client Status  client_name=${CLIENT_NAME}     status=green``
+        - ``Get Client Status  client_name=${CLIENT_NAME}     status=red``
 
         :param client_name: client serial number
         :param client_mac: client mac MAC
@@ -119,7 +119,7 @@ class Client:
         """
         - This keyword will convert Mac address in 'xxxxxxxx:xxxxxxx' format
         - Keyword Usage:
-         - ``convert to client mac  ${CLIENT_MAC}``
+        - ``convert to client mac  ${CLIENT_MAC}``
 
         :param mac_address: Mac Address to convert
 
@@ -133,7 +133,7 @@ class Client:
         - Get the real time client details from the client grid
         - Flow Manage --> Clients --> Real Time
         - Keyword Usage:
-         - ``Get Real Time Client Details    ${SEARCH_STRING}``
+        - ``Get Real Time Client Details    ${SEARCH_STRING}``
 
         :param search_string: client row search  ex: client mac, device name etc
         :return: client details dict
@@ -175,7 +175,7 @@ class Client:
         - Clear the client from GDC
         - Flow: Manage-->Clients-->Historical
         - Keyword Usage:
-         - ``Delete Client Historical  ${CLIENT_MAC}``
+        - ``Delete Client Historical  ${CLIENT_MAC}``
 
         :param client_mac:  Client Mac address
         :return: 1 if cleared Client Mac entry else -1
@@ -240,7 +240,7 @@ class Client:
         - Clear the client from GDC
         - Flow: Manage-->Clients-->Historical
         - Keyword Usage:
-         - ``Delete Client RealTime  ${CLIENT_MAC}``
+        - ``Delete Client RealTime  ${CLIENT_MAC}``
 
         :param client_mac:  Client Mac address
         :return: 1 if cleared Client Mac entry else -1
@@ -299,14 +299,14 @@ class Client:
             self.utils.print_info("client:{} deleted".format(client_mac))
             return 1
         return -1
-    
+
     def _get_client360_details(self):
         """
         - This keyword gets Client 360 Information
         - It Assumes That Already Navigated to Client360 Page
         - Flow : Client 360 Page
         - Keyword Usage
-         - ``Get Client360 details``
+        - ``Get Client360 details``
 
         :return: dictionary of client360 information
         """
@@ -341,7 +341,7 @@ class Client:
         - Get the real time client details from the client grid
         - Flow : Manage--> clients--> Client MAC hyper Link-->Client 360 Page
         - Keyword Usage:
-         - ``Get Real Time Client360 Information    ${CLIENT_MAC}``
+        - ``Get Real Time Client360 Information    ${CLIENT_MAC}``
 
         :param client_mac: client mac address
         :return: client 360 details dictionary if MAC entry found on clients grid else -1
@@ -377,7 +377,7 @@ class Client:
         """
         - This keyword will convert Mac address from 'XXXXXXXXXXXX' to 'xx:xx:xx:xx:xx:xx' format
         - Keyword Usage:
-         - ``convert mac to colon format  ${ANY_MAC}``
+        - ``convert mac to colon format  ${ANY_MAC}``
 
         :param mac_address: Mac Address to convert
 

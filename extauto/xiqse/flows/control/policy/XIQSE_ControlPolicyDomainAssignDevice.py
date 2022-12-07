@@ -24,14 +24,14 @@ class XIQSE_ControlPolicyDomainAssignDevice(ControlPolicyDomainAssignDeviceWebEl
 
     def xiqse_control_policy_assign_device_to_domain(self, device_ip):
         """
-         - This keyword adds a device to the current policy domain
-         - It is assumed that:
-         -     the Assign Device(s) to Domain window is already open. This window can be launched from either the
-         -         Open/Manage Domains menu, or popup menu from the Devices tree view.
-         -     the device is already created on XIQ-SE,
-         -     the Devices tree displays the devices with IP addresses (not nickname nor sysName)
-         - Keyword Usage
-         -     xiqse control policy assign device to domain    <device_ip>
+        - This keyword adds a device to the current policy domain
+        - It is assumed that:
+        -     the Assign Device(s) to Domain window is already open. This window can be launched from either the
+        -         Open/Manage Domains menu, or popup menu from the Devices tree view.
+        -     the device is already created on XIQ-SE,
+        -     the Devices tree displays the devices with IP addresses (not nickname nor sysName)
+        - Keyword Usage
+        -     xiqse control policy assign device to domain    <device_ip>
 
         :return: 1 if action was successful, else -1
         """

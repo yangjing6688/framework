@@ -389,8 +389,8 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         - Create secure and unsecure guest networks
         - Assuming navigated to Configure-->Network Policies-->Wireless Networks
         - Keyword Usage:
-         - ``Create Guest Access Network     &{CONFIG}``
-         - For creation of &{CONFIG} refer guest_access_config.robot
+        - ``Create Guest Access Network     &{CONFIG}``
+        - For creation of &{CONFIG} refer guest_access_config.robot
 
         :param config: configuration parameter dict
         :return: 1 if created else -1

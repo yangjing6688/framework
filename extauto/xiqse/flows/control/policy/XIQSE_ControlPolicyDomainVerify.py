@@ -24,16 +24,16 @@ class XIQSE_ControlPolicyDomainVerify(ControlPolicyDomainVerifyWebElements):
 
     def xiqse_control_policy_verify_domain(self):
         """
-         - This keyword performs Verify Domain action.
-         - It is assumed that:
-         -     the current view is Control>Policy,
-         -     the Verify action is initiated by the user, from one of these places on Policy Mgr view:
-         -          * Open/Manage Domain(s) dropdown menu
-         -          * popup menu from a device
-         -          * dropdown menu from the lower-left corner
-         -     the device(s) is already added to the current policy domain,
-         - Keyword Usage
-         -     xiqse control policy verify domain
+        - This keyword performs Verify Domain action.
+        - It is assumed that:
+        -     the current view is Control>Policy,
+        -     the Verify action is initiated by the user, from one of these places on Policy Mgr view:
+        -          * Open/Manage Domain(s) dropdown menu
+        -          * popup menu from a device
+        -          * dropdown menu from the lower-left corner
+        -     the device(s) is already added to the current policy domain,
+        - Keyword Usage
+        -     xiqse control policy verify domain
 
         :return: 1 if action was successful, else -1
         """

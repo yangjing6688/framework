@@ -20,9 +20,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_do_not_show_in_groups(self):
         """
-         - This keyword deselects the "Show in Groups" checkbox on the column menu on the Network> Discovered tab.
-         - Keyword Usage
-          - ``XIQSE Discovered Do Not Show In Groups``
+        - This keyword deselects the "Show in Groups" checkbox on the column menu on the Network> Discovered tab.
+        - Keyword Usage
+        - ``XIQSE Discovered Do Not Show In Groups``
 
         :return: 1 if action was successful, else -1
         """
@@ -51,9 +51,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_sort_ascending(self, column_name):
         """
-         - This keyword selects the Sort Ascending menu option for the provided column name.
-         - Keyword Usage
-          - ``XIQSE Discovered Sort Ascending  Status``
+        - This keyword selects the Sort Ascending menu option for the provided column name.
+        - Keyword Usage
+        - ``XIQSE Discovered Sort Ascending  Status``
 
         :param column_name: column name to sort ascending
         :return: 1 if action was successful, else -1
@@ -77,9 +77,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_sort_descending(self, column_name):
         """
-         - This keyword selects the Sort Descending menu option for the provided column name.
-         - Keyword Usage
-          - ``XIQSE Discovered Sort Descending  Status``
+        - This keyword selects the Sort Descending menu option for the provided column name.
+        - Keyword Usage
+        - ``XIQSE Discovered Sort Descending  Status``
 
         :param column_name: column name to sort descending
         :return: 1 if action was successful, else -1
@@ -103,9 +103,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_add_columns(self, column_name, *columns):
         """
-         - This keyword selects the Columns menu option for the provided column name and enables the provided columns
-         - Keyword Usage
-          - ``XIQSE Discovered Add Columns  Status  Connector``
+        - This keyword selects the Columns menu option for the provided column name and enables the provided columns
+        - Keyword Usage
+        - ``XIQSE Discovered Add Columns  Status  Connector``
 
         :param column_name: column name to access
         :param columns: List of columns to display
@@ -130,9 +130,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_select_row_by_ip(self, ip):
         """
-         - This keyword selects the specified IP in the Network> Discovered table.
-         - Keyword Usage
-          - ``XIQSE Discovered Select Row By IP    1.2.3.4``
+        - This keyword selects the specified IP in the Network> Discovered table.
+        - Keyword Usage
+        - ``XIQSE Discovered Select Row By IP    1.2.3.4``
 
         :param ip:  IP address to select in the table
         :return:    1 if action was successful, else -1
@@ -156,9 +156,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_select_rows_by_ips(self, ip_list):
         """
-         - This keyword selects the specified IPs in the Network> Discovered table.
-         - Keyword Usage
-          - ``XIQSE Discovered Select Rows By IPs    1.1.1.1,2.2.2.2,3.3.3.3``
+        - This keyword selects the specified IPs in the Network> Discovered table.
+        - Keyword Usage
+        - ``XIQSE Discovered Select Rows By IPs    1.1.1.1,2.2.2.2,3.3.3.3``
 
         :param ip_list:  comma-separated list of IP addresses to select in the table
         :return:    1 if action was successful, else -1
@@ -230,10 +230,10 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_add_device(self, ip):
         """
-         - This keyword adds the device by selecting the row matching the specified IP address, clicking Add Devices on
+        - This keyword adds the device by selecting the row matching the specified IP address, clicking Add Devices on
            the toolbar, then clicking Add in the Add Device dialog.
-         - Keyword Usage
-          - ``XIQSE Discovered Add Device    ${DEVICE_IP}``
+        - Keyword Usage
+        - ``XIQSE Discovered Add Device    ${DEVICE_IP}``
 
         :param ip: IP Address of the device to add
         :return:   1 if action was successful, else -1
@@ -263,10 +263,10 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_add_devices(self, ip_list):
         """
-         - This keyword adds the list of devices by selecting the specified IP addresses, clicking 'Add Devices' on the
-         - toolbar, then clicking 'Add' in the Add Device dialog.
-         - Keyword Usage
-          - ``XIQSE Discovered Add Devices    ${DEVICE_IP1}.${DEVICE_IP2},${DEVICE_IP3}``
+        - This keyword adds the list of devices by selecting the specified IP addresses, clicking 'Add Devices' on the
+        - toolbar, then clicking 'Add' in the Add Device dialog.
+        - Keyword Usage
+        - ``XIQSE Discovered Add Devices    ${DEVICE_IP1}.${DEVICE_IP2},${DEVICE_IP3}``
 
         :param ip_list: comma-separated list of IP Addresses to add
         :return:   1 if action was successful, else -1
@@ -301,9 +301,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_clear_row_by_ip(self, ip):
         """
-         - This keyword clears the row matching the specified IP address.
-         - Keyword Usage
-          - ``XIQSE Discovered Clear Row By IP    ${DEVICE_IP}``
+        - This keyword clears the row matching the specified IP address.
+        - Keyword Usage
+        - ``XIQSE Discovered Clear Row By IP    ${DEVICE_IP}``
 
         :param ip: IP Address of the row to clear
         :return:   1 if action was successful, else -1
@@ -326,9 +326,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_clear_all_devices(self):
         """
-         - This keyword clears all devices from the Discovered table.
-         - Keyword Usage
-          - ``XIQSE Discovered Clear All Devices``
+        - This keyword clears all devices from the Discovered table.
+        - Keyword Usage
+        - ``XIQSE Discovered Clear All Devices``
 
         :return: 1 if action was successful, else -1
         """
@@ -347,9 +347,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_confirm_table_not_empty(self):
         """
-         - This keyword confirms the table is not empty.
-         - Keyword Usage
-          - ``XIQSE Discovered Confirm Table Not Empty``
+        - This keyword confirms the table is not empty.
+        - Keyword Usage
+        - ``XIQSE Discovered Confirm Table Not Empty``
 
         :return: 1 if table is not empty, else -1
         """
@@ -367,9 +367,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_confirm_table_empty(self):
         """
-         - This keyword confirms the table is empty.
-         - Keyword Usage
-          - ``XIQSE Discovered Confirm Table Empty``
+        - This keyword confirms the table is empty.
+        - Keyword Usage
+        - ``XIQSE Discovered Confirm Table Empty``
 
         :return: 1 if table is empty, else -1
         """
@@ -387,9 +387,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_get_discovered_table_row_count(self):
         """
-         - This keyword returns the number of rows in the Discovered table based on the "Displaying # rows" label.
-         - Keyword Usage
-          - ``XIQSE Get Discovered Table Row Count``
+        - This keyword returns the number of rows in the Discovered table based on the "Displaying # rows" label.
+        - Keyword Usage
+        - ``XIQSE Get Discovered Table Row Count``
 
         :return: 1 if table contains the expected number of rows, else -1
         """
@@ -419,9 +419,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_confirm_table_row_count(self, value):
         """
-         - This keyword confirms the table contains the expected number of rows.
-         - Keyword Usage
-          - ``XIQSE Discovered Confirm Table Row Count    5``
+        - This keyword confirms the table contains the expected number of rows.
+        - Keyword Usage
+        - ``XIQSE Discovered Confirm Table Row Count    5``
 
         :param value: expected number of rows to check for
         :return:      1 if table contains the expected number of rows, else -1
@@ -449,7 +449,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the table is empty.
         - It is assumed the Network> Discovered tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Discovered Table Empty    retry_duration=30    retry_count=12``
+        - ``XIQSE Wait Until Discovered Table Empty    retry_duration=30    retry_count=12``
 
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -483,7 +483,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is present.
         - It is assumed the Network> Discovered tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Discovered Device Added    1.2.3.4    retry_duration=30    retry_count=12``
+        - ``XIQSE Wait Until Discovered Device Added    1.2.3.4    retry_duration=30    retry_count=12``
 
         :param ip: ip address of the device to look for
         :param retry_duration: duration between each retry
@@ -518,7 +518,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is present.
         - It is assumed the Network> Discovered tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Discovered Device Removed    1.2.3.4    retry_duration=30    retry_count=12``
+        - ``XIQSE Wait Until Discovered Device Removed    1.2.3.4    retry_duration=30    retry_count=12``
 
         :param ip: ip address of the device to look for
         :param retry_duration: duration between each retry
@@ -553,7 +553,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the table is empty.
         - It is assumed the Network> Discovered tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Discovered Table Contains Row Count    5    retry_duration=30    retry_count=12``
+        - ``XIQSE Wait Until Discovered Table Contains Row Count    5    retry_duration=30    retry_count=12``
 
         :param value: number of expected rows to wait for
         :param retry_duration: duration between each retry
@@ -588,9 +588,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_refresh_table(self):
         """
-         - This keyword clicks the refresh icon under the table.
-         - Keyword Usage
-          - ``XIQSE Discovered Refresh Table``
+        - This keyword clicks the refresh icon under the table.
+        - Keyword Usage
+        - ``XIQSE Discovered Refresh Table``
 
         :return: 1 if action was successful, else -1
         """
@@ -602,7 +602,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device exists.
         - It is assumed the Network> Discovered tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Staged    ${DEVICE_IP}    retry_duration=30    retry_count=12``
+        - ``XIQSE Wait Until Device Staged    ${DEVICE_IP}    retry_duration=30    retry_count=12``
         :param device_ip: device IP to look for
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -634,10 +634,10 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_configure_devices_toolbar(self):
         """
-         - This keyword clicks the Configure Devices... button on the Discovered table toolbar.
-         - It is assumed the Network> Discovered tab is already selected.
-         - Keyword Usage
-          - ``XIQSE Discovered Configure Devices Toolbar``
+        - This keyword clicks the Configure Devices... button on the Discovered table toolbar.
+        - It is assumed the Network> Discovered tab is already selected.
+        - Keyword Usage
+        - ``XIQSE Discovered Configure Devices Toolbar``
         :return: 1 if action was successful, else -1
         """
         ret_val = 1
@@ -653,11 +653,11 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_open_configure_devices_by_serial_number(self, serial_number):
         """
-         - This keyword opens the 'Configure Devices...' view for the specified Serial Number.
-         - The device row is selected and then the 'Configure Devices...' button on the toolbar is clicked.
-         - It is assumed the Network> Discovered tab is already selected.
-         - Keyword Usage
-          - ``XIQSE Discovered Open Configure Devices By Serial Number  ${SERIAL_NUMBER}``
+        - This keyword opens the 'Configure Devices...' view for the specified Serial Number.
+        - The device row is selected and then the 'Configure Devices...' button on the toolbar is clicked.
+        - It is assumed the Network> Discovered tab is already selected.
+        - Keyword Usage
+        - ``XIQSE Discovered Open Configure Devices By Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number: Serial Number of the Device
         :return:   1 if action was successful, else -1
@@ -680,11 +680,11 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_open_configure_devices_menu_by_serial_number(self, serial_number):
         """
-         - This keyword opens the 'Configure Devices...' view for the specified Serial Number.
-         - The device row is selected and then the 'Configure Devices...' menu option is clicked.
-         - This assumes that the OneView > Network > Discovered view is selected.
-         - Keyword Usage
-          - ''XIQSE Discovered Open Configure Devices Menu Serial Number  ${SERIAL_NUMBER}``
+        - This keyword opens the 'Configure Devices...' view for the specified Serial Number.
+        - The device row is selected and then the 'Configure Devices...' menu option is clicked.
+        - This assumes that the OneView > Network > Discovered view is selected.
+        - Keyword Usage
+        - ''XIQSE Discovered Open Configure Devices Menu Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number: Serial Number for the Device
         :return: return 1 if action was successful, else -1
@@ -712,7 +712,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         """
         - Searches for row matching the specified Serial Number
         - Keyword Usage
-         - ``XIQSE Discovered Find Row With Serial Number  ${SERIAL_NUMBER}``
+        - ``XIQSE Discovered Find Row With Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number: Serial Number to search for
         :return:   return 1 if row with specified IP address is found, else -1
@@ -727,7 +727,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         """
         - This keyword returns the row containing the specified Serial Number
         - Keyword Usage
-         - ``XIQSE Discovered Get Row By Serial Number  ${SERIAL_NUMBER}``
+        - ``XIQSE Discovered Get Row By Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number: Serial Number of the device to obtain the row for
         :return:   returns the row object if found, else None
@@ -746,9 +746,9 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
 
     def xiqse_discovered_select_row_by_serial_number(self, serial_number):
         """
-         - This keyword selects the row containing the specified Serial Number in the Network> Discovered table.
-         - Keyword Usage
-          - ``XIQSE Discovered Select Row By Serial Number  ${SERIAL_NUMBER}``
+        - This keyword selects the row containing the specified Serial Number in the Network> Discovered table.
+        - Keyword Usage
+        - ``XIQSE Discovered Select Row By Serial Number  ${SERIAL_NUMBER}``
 
         :param serial_number:  Serial Number to select in the table
         :return:    1 if action was successful, else -1
@@ -775,8 +775,8 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
         - This keyword is used to get the desired column value for the specified device in the discovered table.
         - It is assumed the Network> Devices> Discovered tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Discovered Get Device Column Value    ${SERIAL_NUMBER}    Profile``
-         - ``XIQSE Discovered Get Device Column Value    ${SERIAL_NUMBER}    Status``
+        - ``XIQSE Discovered Get Device Column Value    ${SERIAL_NUMBER}    Profile``
+        - ``XIQSE Discovered Get Device Column Value    ${SERIAL_NUMBER}    Status``
 
         :param serial_number: device Serial Number to get the value for
         :param col_name:  name of the column to get the value of

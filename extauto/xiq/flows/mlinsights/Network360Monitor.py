@@ -20,7 +20,7 @@ class Network360Monitor:
         """
         - This keyword searches for the floor in Network360 Monitor
         - Keyword Usage:
-         - ``${SEARCH_MATCHES}=     Search Floor in Network360Monitor              floor_name=floor_02``
+        - ``${SEARCH_MATCHES}=     Search Floor in Network360Monitor              floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :return: returns list of search matches. -1 if no matches
@@ -49,7 +49,7 @@ class Network360Monitor:
         """
         - This keyword gets  devices name from Network360 Monitor page
         - Keyword Usage:
-         - ``${AP_MATCHES}=          Get APs From Network360Monitor Floor           floor_name=floor_02``
+        - ``${AP_MATCHES}=          Get APs From Network360Monitor Floor           floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :param device_type: optional - type of device - AP/switch/router/VGVA/router
@@ -114,7 +114,7 @@ class Network360Monitor:
         """
         - This keyword gets clients MACs from Network360 Monitor page in a floor
         - Keyword Usage:
-         - ``${CLIENT_MATCHES}=          Get APs From Network360Monitor Floor           floor_name=floor_02``
+        - ``${CLIENT_MATCHES}=          Get APs From Network360Monitor Floor           floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :param device_type: optional - type of device - AP/switch/router/VGVA/router
@@ -271,8 +271,8 @@ class Network360Monitor:
         - This keyword returns the DEVICES card's health score
 
         - Keyword Usage:
-         - ``Get Network360Monitor Devices Score             floor_name=floor_03``
-         - ``Get Network360Monitor Devices Score``
+        - ``Get Network360Monitor Devices Score             floor_name=floor_03``
+        - ``Get Network360Monitor Devices Score``
 
         :param floor_name: floor_name. if no floor_name passed, returns the values for Global View
         :return: returns the devices score Ex: 94/100 EXCELLENT
@@ -305,8 +305,8 @@ class Network360Monitor:
         - Config & Firmware Score
 
         - Keyword Usage:
-         - ``Get Network360Monitor Device Health Overall Score          floor_name=floor_01``
-         - ``Get Network360Monitor Device Health Overall Score``
+        - ``Get Network360Monitor Device Health Overall Score          floor_name=floor_01``
+        - ``Get Network360Monitor Device Health Overall Score``
 
         :param floor_name: floor_name. if no floor_name passed, returns the values for Global View
         :return: returns availability_score, hw_health, fw_health
@@ -377,8 +377,8 @@ class Network360Monitor:
         - This keyword returns the CLIENTS card -> Client Count
 
         - Keyword Usage:
-         - ``Get Network360Monitor Clients Health Client Count          floor_name=floor_01``
-         - ``Get Network360Monitor Clients Health Client Count``
+        - ``Get Network360Monitor Clients Health Client Count          floor_name=floor_01``
+        - ``Get Network360Monitor Clients Health Client Count``
 
         :param floor_name: floor_name. if no floor_name passed, returns the values for Global View
         :return: returns client_count_2G, client_count_5G, client_count_6G
@@ -398,7 +398,7 @@ class Network360Monitor:
 
         self.screen.save_screen_shot()
         sleep(2)
-        
+
         self.utils.print_info("Checking CLIENT widget...")
         client_count_2G = self.n360_elements.get_client_health_clients_widget_count_2G()
         client_count_5G = self.n360_elements.get_client_health_clients_widget_count_5G()
