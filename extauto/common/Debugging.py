@@ -14,7 +14,7 @@ class Debugging(object):
         """
         - Run cli commands on a device
         - Keyword Usage
-         - ``Run Cli Commands``
+         - ``Run Cli Commands  ${dut}  ${spawn}  ${command_list}``
         :param dut: dictionary with device information
         :param device_spawn: device connection (spawn)
         :param commands: Cli commands to be send to device
@@ -36,10 +36,12 @@ class Debugging(object):
             self.common_validation.failed(**kwargs)
             return -1
 
+        dev_name = dut['name']
         ip = dut['ip']
         port = dut['port']
 
-        self.utils.print_info("Debug command(s) will be sent to device " + str(ip) + " port " + str(port))
+        self.utils.print_info("Debug command(s) will be sent to device " + str(dev_name) + " (ip = " + str(ip) +
+                              ", port = " + str(port) + ")")
 
         for command in commands:
             cli_output = self.cli.send_commands(device_spawn, command)
