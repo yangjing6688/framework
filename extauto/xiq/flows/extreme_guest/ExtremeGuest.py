@@ -254,7 +254,7 @@ class ExtremeGuest(object):
 
         self.utils.print_info(f"common object row {search_string} not present")
         kwargs['fail_msg'] = f"'_get_extreme_guest_subscription_page_open_ssid_row()' -> common object row {search_string} not present"
-        self.common_validation.fault(**kwargs)
+        self.common_validation.failed(**kwargs)
         return False
 
     def _search_extreme_guest_subscription_page_open_ssid(self, search_string):
@@ -300,7 +300,7 @@ class ExtremeGuest(object):
             self.utils.print_info("Click Extreme Guest Subscribe Apply button")
             self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_apply_button)
             sleep(3)
-            kwargs['pass_msg'] = "Uccessfully selected and applied an open SSID"
+            kwargs['pass_msg'] = "Successfully selected and applied an open SSID"
             self.common_validation.passed(**kwargs)
             return 1
 
