@@ -32,7 +32,7 @@ class ClassificationRuleWebElementDefinition:
 
     get_ccg_match_type_dropdown = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'XPATH': '//*[@data-automation-tag="automation-cloud-config-group-chzn-arrow-down"]',
             'wait_for': 5
         }
 
