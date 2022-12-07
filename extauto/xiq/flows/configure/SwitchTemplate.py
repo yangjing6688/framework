@@ -3929,6 +3929,9 @@ class SwitchTemplate(object):
         """
 
         lag_text = main_lag_port + " LAG"
+        self.utils.wait_till(timeout=5)
+        AutoActions().scroll_down()
+        AutoActions().scroll_bottom()
         lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
         is_lag_found = False
         if lag_link is not None:
@@ -3973,6 +3976,9 @@ class SwitchTemplate(object):
         :param ports: list with all ports that need to be removed
         """
         lag_text = main_lag_port + " LAG"
+        self.utils.wait_till(timeout=5)
+        AutoActions().scroll_down()
+        AutoActions().scroll_bottom()
         lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
         is_lag_found = False
         if lag_link is not None:

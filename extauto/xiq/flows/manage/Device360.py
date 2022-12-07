@@ -12714,10 +12714,11 @@ class Device360(Device360WebElements):
 
             selected_port = self.get_device360_aggregate_selected_port(ports[0])
             if selected_port:
-                self.utils.print_info("Choosing second selected port")
+                self.utils.print_info("Choosing next port")
                 self.auto_actions.click(selected_port)
             else:
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to choose second selected port."
+                tt_msg = self.dev360.get_tooltip_content().text
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed due to error {tt_msg}"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
@@ -12730,9 +12731,10 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Clicking on remove port")
                     self.auto_actions.click(remove_port_from_lacp)
                 else:
-                    kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Remove port not found."
-                    self.common_validation.failed(**kwargs)
+                    tt_msg = self.dev360.get_tooltip_content().text
                     self.auto_actions.click(cancel_button)
+                    kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed due to error {tt_msg}."
+                    self.common_validation.failed(**kwargs)
                     return False
 
             # Save
@@ -12740,9 +12742,10 @@ class Device360(Device360WebElements):
             if lag_save_button:
                 self.utils.print_info("Clicking Save button")
                 self.auto_actions.click(lag_save_button)
-                sleep(5)
+                #sleep(5)
             else:
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Save button not found."
+                tt_msg = self.dev360.get_tooltip_content().text
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed due to error {tt_msg}"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
