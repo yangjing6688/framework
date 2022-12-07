@@ -131,34 +131,44 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
             sleep(2)
 
             if device_make:
-                if 'exos' in device_make.lower():
-                    exos_radio_button = self.get_devices_make_exos_radio_button()
-                    if exos_radio_button.is_displayed():
+                if self.get_device_make_aerohive_dropdown().is_displayed():
+                    self.utils.print_info(f"Clicking Device Make Type Drop Down")
+                    self.auto_actions.click_reference(self.get_device_make_aerohive_dropdown)
+                    sleep(3)
+
+                    self.utils.print_info(f"Selecting Device Make Type Option : {device_make}")
+                    self.auto_actions.select_drop_down_options(self.get_devices_make_drop_down_options(),
+                                                               device_make)
+                    sleep(3)
+
+                    self.screen.save_screen_shot()
+                    sleep(2)
+                else:
+                    # Some serial number for VOSS / EXOS will show a radio button
+                    if 'exos' in device_make.lower():
                         self.utils.print_info(f"Select {device_make} Radio Button")
                         self.auto_actions.click_reference(self.get_devices_make_exos_radio_button)
-                        self.screen.save_screen_shot()
+                        sleep(2)
 
-                if 'voss' in device_make.lower():
-                    voss_radio_button = self.get_devices_make_voss_radio_button()
-                    if voss_radio_button.is_displayed():
+                        self.screen.save_screen_shot()
+                        sleep(2)
+                    elif 'voss' in device_make.lower():
                         self.utils.print_info(f"Select {device_make} Radio Button")
                         self.auto_actions.click_reference(self.get_devices_make_voss_radio_button)
-                        self.screen.save_screen_shot()
+                        sleep(2)
 
-                device_make_drop_down = self.get_device_make_dropdown()
-                if device_make_drop_down.is_displayed():
-                    self.utils.print_info(f"Clicking Device Make Type Drop Down")
-                    self.auto_actions.click_reference(self.get_device_make_dropdown)
-                    self.utils.print_info(f"Selecting Device Make Type Option : {device_make}")
-                    self.auto_actions.select_drop_down_options(self.get_devices_make_drop_down_options(), device_make)
                     self.screen.save_screen_shot()
+                    sleep(2)
 
-                select_one_drop_down = self.get_device_make_select_one_dropdown()
-                if select_one_drop_down.is_displayed():
+                if self.get_device_make_select_one_dropdown():
                     self.auto_actions.click_reference(self.get_device_make_select_one_dropdown)
+                    sleep(3)
                     self.utils.print_info(f"Selecting Device Make Type Option : {device_make}")
                     self.auto_actions.select_drop_down_options(self.get_devices_make_drop_down_options(), device_make)
+                    sleep(3)
+
                     self.screen.save_screen_shot()
+                    sleep(2)
 
                 if self.get_advance_onboard_mac_textfield().is_displayed() and device_mac != None:
                     self.utils.print_info("Added the Wing Mac Address")
