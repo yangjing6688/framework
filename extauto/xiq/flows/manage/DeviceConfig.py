@@ -1557,17 +1557,17 @@ class DeviceConfig(DeviceConfigElements):
         self.get_close_device360_dialog_window().click()
         return 1
 
-    def override_ap_config_wireless_channel(self, device_mac='', interface='WiFi0', override_channel='6'):
+    def override_ap_config_wireless_channel(self, device_mac, interface='WiFi0', override_channel='6'):
         """
-        - - This keyword will Configure the WiFi2 interface power status of AP4000 or AP4000U
-        - Flow : Manage --> Device --> Click AP MAC Link --> Configure--> Interface Setttings --> Wireless Interface
+        - This keyword will configure the WiFi0-1-2 interface channel
+        - Flow : Manage --> Device --> Click AP MAC Link --> Configure--> Interface Settings --> Wireless Interface
         - Keyword Usage:
-        - ``Override AP Config Wireless Channel   device_serial=${AP1_SERIAL}   interface='WiFi0'  override_channel='6' ``
+        - ``Override AP Config Wireless Channel   device_mac=${AP1_MAC}   interface='WiFi0'  override_channel='6' ``
 
         :param device_mac:  device_mac address
         :param interface: device interface i.e WiFi0/WiFi1/WIFI2
         :param override_channel:  override channel
-        :return: returns 1 if successful or otherwise -1
+        :return: returns 1 if successful else -1
         """
         try:
             self.utils.print_info("Navigating to device page")
@@ -1624,6 +1624,324 @@ class DeviceConfig(DeviceConfigElements):
         except:
             self.utils.print_info("Not able to navigate/set to the page")
             return -1
+
+    def get_override_ap_configure_wifi_details(self, device_mac, wifi_interface_config, **kwargs):
+        """
+        - This keyword will get ap configure WiFi0-1-2 interface
+        - Flow : Manage --> Device --> Click AP MAC Link --> Configure--> Interface Settings --> Wireless Interface
+        - Keyword Usage
+        - ``Get Override AP Configure Wifi Details     device_mac=${AP1_MAC}    ${AP_TEMPLATE_CONFIG}``
+
+        :param device_mac:  device_mac address
+        :param wifi_interface_config: (Get Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor etc
+        :return: return wifi_interface_config if successfully else -1
+        """
+        wifi0_config = wifi_interface_config.get('wifi0_configuration', 'None')
+        wifi1_config = wifi_interface_config.get('wifi1_configuration', 'None')
+        wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
+        wired_config = wifi_interface_config.get('wired_configuration', 'None')
+
+        try:
+            self.utils.print_info("Navigating to device page")
+            if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
+                kwargs['fail_msg'] = f"Device not found in the device row grid with mac: {device_mac}"
+                self.common_validation.fault(**kwargs)
+                return -1
+            self.utils.print_info("click on configuration tab")
+            self.auto_actions.click_reference(self.get_configuration_tab)
+            self.utils.print_info("Click on interface settings tab")
+            self.auto_actions.click_reference(self.get_interface_settings_tab)
+            self.utils.print_info("Expanse Wireless interfaces")
+            self._go_to_wireless_interface_settings_page()
+            sleep(3)
+
+            if wifi0_config != 'None':
+                self.utils.print_info("Get WiFI0 Interface details")
+                wifi_interface_config['wifi0_configuration'] = self._get_ap_configure_wifi0_details(**wifi0_config)
+                self.screen.save_screen_shot()
+
+            if wifi1_config != 'None':
+                self.utils.print_info("Get WiFI1 Interface details")
+                wifi_interface_config['wifi1_configuration'] = self._get_ap_configure_wifi1_details(**wifi1_config)
+                self.screen.save_screen_shot()
+
+            if wifi2_config != 'None':
+                self.utils.print_info("Get WiFI2 Interface details")
+                wifi_interface_config['wifi2_configuration'] = self._get_ap_configure_wifi2_details(**wifi2_config)
+                self.screen.save_screen_shot()
+
+            if wired_config != 'None':
+                self.utils.print_info("Get Wired Interface details")
+                wifi_interface_config['wired_configuration'] = self._get_ap_configure_wired_details(**wired_config)
+                self.screen.save_screen_shot()
+
+            self.utils.print_info("Click on the cancel button")
+            self.auto_actions.click_reference(self.get_manage_device_edit_wireless_interface_cancel_button)
+            self.utils.print_info("Click close dialog window")
+            self.auto_actions.click_reference(self.get_close_device360_dialog_window)
+            kwargs['pass_msg'] = "Successful to get device configure details"
+            self.common_validation.passed(**kwargs)
+            return wifi_interface_config
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"get_ap_template_wifi() failed. Actual error is : - {e} -"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+    def _get_ap_configure_wifi0_details(self, **wifi0_profile):
+        """
+        - Get the WIFI0 configuration in device configure details
+
+        :param wifi0_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
+        :return: wifi0_profile if Get WiFi0 Profile Successfully else None
+        """
+        radio_status_wifi0 = wifi0_profile.get('radio_status', 'None')  # radio_status=get or yes
+        radio_profile_wifi0 = wifi0_profile.get('radio_profile', 'None')
+        client_mode_status_wifi0 = wifi0_profile.get('client_mode', 'None')
+        client_access_status_wifi0 = wifi0_profile.get('client_access', 'None')
+        backhaul_mesh_status_wifi0 = wifi0_profile.get('backhaul_mesh_link', 'None')
+        sensor_status_wifi0 = wifi0_profile.get('sensor', 'None')
+        enable_SDR_wifi0 = wifi0_profile.get('enable_SDR', 'None')
+
+        self.utils.print_info("Click on WiFi0 interface tab")
+        self.auto_actions.click_reference(self.get_wifi0_interface_tab)
+
+        if radio_status_wifi0 != 'None':
+            wifi0_profile['radio_status'] = self._convert_boolean_to_on_off(
+                self.get_device_override_configure_interface_settings_wifi0_radio_status().is_selected())
+            self.utils.print_info("Get Radio Status on WiFi0 Interface: ", wifi0_profile['radio_status'])
+            if wifi0_profile['radio_status'] == 'Off':
+                return wifi0_profile
+        self.auto_actions.scroll_down()
+
+        if radio_profile_wifi0 != 'None':
+            wifi0_profile['radio_profile'] = self.get_default_wireless_wifi0_radio_profile_drop_down().text
+            self.utils.print_info("Get Radio Profile status on WiFi0 Interface: ", wifi0_profile['radio_profile'])
+
+        if client_mode_status_wifi0 != 'None':
+            wifi0_profile['client_mode'] = self._convert_boolean_to_enable_disable(
+                self.get_override_client_mode_wifi0_checked().is_selected())
+            self.utils.print_info("Get Client Mode Checkbox on WiFi0 Interface: ", wifi0_profile['client_mode'])
+
+        if client_access_status_wifi0 != 'None':
+            wifi0_profile['client_access'] = self._convert_boolean_to_enable_disable(
+                self.get_wireless_wifi0_radio_usage_client_access_checkbox().is_selected())
+            self.utils.print_info("Get Client Access Checkbox on WiFi0 Interface: ", wifi0_profile['client_access'])
+
+        if backhaul_mesh_status_wifi0 != 'None':
+            wifi0_profile['backhaul_mesh_link'] = self._convert_boolean_to_enable_disable(
+                self.get_wireless_wifi0_radio_usage_blackhaul_mesh_link_checkbox().is_selected())
+            self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi0 Interface: ",
+                                  wifi0_profile['backhaul_mesh_link'])
+
+        try:
+            if sensor_status_wifi0 != 'None':
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
+                wifi0_profile['sensor'] = 'UIDisable'
+        except:
+            wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(
+                self.get_wireless_wifi0_radio_usage_sensor_checkbox().is_selected())
+        finally:
+            self.utils.print_info("Get Sensor Checkbox on WiFi0 Interface: ", wifi0_profile['sensor'])
+
+        if enable_SDR_wifi0 != 'None':
+            wifi0_profile['enable_SDR'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_enable_sdr().is_selected())
+            self.utils.print_info("Get Enable SDR Checkbox on WiFi0 Interface: ", wifi0_profile['enable_SDR'])
+
+        return wifi0_profile
+
+    def _get_ap_configure_wifi1_details(self, **wifi1_profile):
+        """
+        - Get the WIFI1 configuration in device configure details
+
+        :param wifi1_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
+        :return: wifi1_profile if Get WiFi1 Profile Successfully else None
+        """
+        radio_status_wifi1 = wifi1_profile.get('radio_status', 'None')  # radio_status=get or yes
+        radio_profile_wifi1 = wifi1_profile.get('radio_profile', 'None')
+        client_mode_status_wifi1 = wifi1_profile.get('client_mode', 'None')
+        client_access_status_wifi1 = wifi1_profile.get('client_access', 'None')
+        backhaul_mesh_status_wifi1 = wifi1_profile.get('backhaul_mesh_link', 'None')
+        sensor_status_wifi1 = wifi1_profile.get('sensor', 'None')
+
+        self.utils.print_info("Click on WiFi1 interface tab")
+        self.auto_actions.click_reference(self.get_wifi1_interface_tab)
+
+        if radio_status_wifi1 != 'None':
+            wifi1_profile['radio_status'] = self._convert_boolean_to_on_off(
+                self.get_device_override_configure_interface_settings_wifi1_radio_status().is_selected())
+            self.utils.print_info("Get Radio Status on WiFi1 Interface: ", wifi1_profile['radio_status'])
+            if wifi1_profile['radio_status'] == 'Off':
+                return wifi1_profile
+        self.auto_actions.scroll_down()
+
+        if radio_profile_wifi1 != 'None':
+            wifi1_profile['radio_profile'] = self.get_default_wireless_wifi1_radio_profile_drop_down().text
+            self.utils.print_info("Get Radio Profile status on WiFi1 Interface: ", wifi1_profile['radio_profile'])
+
+        if client_mode_status_wifi1 != 'None':
+            wifi1_profile['client_mode'] = self._convert_boolean_to_enable_disable(
+                self.get_override_client_mode_wifi1_checked().is_selected())
+            self.utils.print_info("Get Client Mode Checkbox on WiFi1 Interface: ", wifi1_profile['client_mode'])
+
+        if client_access_status_wifi1 != 'None':
+            wifi1_profile[
+                'client_access'] = self._convert_boolean_to_enable_disable(
+                self.get_wireless_wifi1_radio_usage_client_access_checkbox().is_selected())
+            self.utils.print_info("Get Client Access Checkbox on WiFi1 Interface: ", wifi1_profile['client_access'])
+
+        if backhaul_mesh_status_wifi1 != 'None':
+            wifi1_profile['backhaul_mesh_link'] = self._convert_boolean_to_enable_disable(
+                self.get_wireless_wifi1_radio_usage_blackhaul_mesh_link_checkbox().is_selected())
+            self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi1 Interface: ",
+                                  wifi1_profile['backhaul_mesh_link'])
+
+        try:
+            if sensor_status_wifi1 != 'None':
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
+                wifi1_profile['sensor'] = 'UIDisable'
+        except:
+            wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(
+                self.get_wireless_wifi1_radio_usage_sensor_checkbox().is_selected())
+        finally:
+            self.utils.print_info("Get Sensor Checkbox on WiFi1 Interface: ", wifi1_profile['sensor'])
+
+        return wifi1_profile
+
+    def _get_ap_configure_wifi2_details(self, **wifi2_profile):
+        """
+        - Get the WIFI2 configuration in device configure details
+
+        :param wifi2_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
+        :return: wifi2_profile if Get WiFi2 Profile Successfully else None
+        """
+        radio_status_wifi2 = wifi2_profile.get('radio_status', 'None')  # radio_status=get or yes
+        radio_profile_wifi2 = wifi2_profile.get('radio_profile', 'None')
+        client_access_status_wifi2 = wifi2_profile.get('client_access', 'None')
+        backhaul_mesh_status_wifi2 = wifi2_profile.get('backhaul_mesh_link', 'None')
+        sensor_status_wifi2 = wifi2_profile.get('sensor', 'None')
+
+        try:
+            self.utils.print_info("Click on WiFi2 interface tab")
+            self.auto_actions.click_reference(self.get_wifi2_interface_tab)
+        except:
+            return wifi2_profile
+
+        if radio_status_wifi2 != 'None':
+            wifi2_profile['radio_status'] = self._convert_boolean_to_on_off(
+                self.get_device_override_configure_interface_settings_wifi2_radio_status().is_selected())
+            self.utils.print_info("Get Radio Status on WiFi2 Interface: ", wifi2_profile['radio_status'])
+            if wifi2_profile['radio_status'] == 'Off':
+                return wifi2_profile
+        self.auto_actions.scroll_down()
+
+        if radio_profile_wifi2 != 'None':
+            wifi2_profile['radio_profile'] = self.get_default_wireless_wifi2_radio_profile_drop_down().text
+            self.utils.print_info("Get Radio Profile status on WiFi2 Interface: ", wifi2_profile['radio_profile'])
+
+        if client_access_status_wifi2 != 'None':
+            wifi2_profile['client_access'] = self._convert_boolean_to_enable_disable(
+                self.get_wireless_wifi2_radio_usage_client_access_checkbox().is_selected())
+            self.utils.print_info("Get Client Access Checkbox on WiFi2 Interface: ", wifi2_profile['client_access'])
+
+        if backhaul_mesh_status_wifi2 != 'None':
+            wifi2_profile[
+                'backhaul_mesh_link'] = self._convert_boolean_to_enable_disable(
+                self.get_wireless_wifi2_radio_usage_blackhaul_mesh_link_checkbox().is_selected())
+            self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi2 Interface: ",
+                                  wifi2_profile['backhaul_mesh_link'])
+
+        try:
+            if sensor_status_wifi2 != 'None':
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable())
+                wifi2_profile['sensor'] = 'UIDisable'
+        except:
+            wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(
+                self.get_wireless_wifi2_radio_usage_sensor_checkbox().is_selected())
+        finally:
+            self.utils.print_info("Get Sensor Checkbox on WiF2 Interface: ", wifi2_profile['sensor'])
+
+        return wifi2_profile
+
+    def _get_ap_configure_wired_details(self, **wired_profile):
+        """
+        - Get the Wired Interfaces in device configure details
+
+        :param wired_profile: (Get Dict) Enable/Disable Eth0, Eth1, and etc
+        :return: wired_profile if Successfully else None
+        """
+        eth0 = wired_profile.get('eth0', 'None')  # eth0=get or yes
+        eth1 = wired_profile.get('eth1', 'None')
+        transmission_type_eth0 = wired_profile.get('transmission_type_eth0', 'None')
+        transmission_type_eth1 = wired_profile.get('transmission_type_eth1', 'None')
+        speed_eth0 = wired_profile.get('speed_eth0', 'None')
+        speed_eth1 = wired_profile.get('speed_eth0', 'None')
+        lldp_eth0 = wired_profile.get('lldp_eth0', 'None')
+        lldp_eth1 = wired_profile.get('lldp_eth1', 'None')
+        cdp_eth0 = wired_profile.get('cdp_eth0', 'None')
+        cdp_eth1 = wired_profile.get('cdp_eth1', 'None')
+
+        self._go_to_wired_interface_settings_page()
+        if eth0 != 'None':
+            wired_profile['eth0'] = self._convert_boolean_to_on_off(self.get_devices_config_wired_eth0().is_selected())
+            self.utils.print_info('Eth0 status: ', wired_profile['eth0'])
+
+        if eth1 != 'None':
+            wired_profile['eth1'] = self._convert_boolean_to_on_off(self.get_devices_config_wired_eth1().is_selected())
+            self.utils.print_info('Eth1 status: ', wired_profile['eth1'])
+
+        if transmission_type_eth0 != 'None':
+            wired_profile[
+                'transmission_type_eth0'] = self.cobj_web_elements.get_common_object_ap_template_eth0_transmission_type().text
+            self.utils.print_info('Transmission type eth0 status: ', wired_profile['transmission_type_eth0'])
+
+        if transmission_type_eth1 != 'None':
+            wired_profile[
+                'transmission_type_eth1'] = self.cobj_web_elements.get_common_object_ap_template_eth1_transmission_type().text
+            self.utils.print_info('Transmission type eth1 status: ', wired_profile['transmission_type_eth1'])
+
+        if speed_eth0 != 'None':
+            wired_profile['speed_eth0'] = self.cobj_web_elements.get_common_object_ap_template_eth0_speed().text
+            self.utils.print_info('Speed eth0 status: ', wired_profile['speed_eth0'])
+
+        if speed_eth1 != 'None':
+            wired_profile['speed_eth1'] = self.cobj_web_elements.get_common_object_ap_template_eth1_speed().text
+            self.utils.print_info('Speed eth1 status: ', wired_profile['speed_eth1'])
+
+        if lldp_eth0 != 'None':
+            wired_profile['lldp_eth0'] = self._convert_boolean_to_enable_disable(self.get_devices_config_wired_eth0_lldp().is_selected())
+            self.utils.print_info('LLDP eth0 status: ', wired_profile['lldp_eth0'])
+
+        if lldp_eth1 != 'None':
+            wired_profile['lldp_eth1'] = self._convert_boolean_to_enable_disable(self.get_devices_config_wired_eth1_lldp().is_selected())
+            self.utils.print_info('LLDP eth1 status: ', wired_profile['lldp_eth1'])
+
+        if cdp_eth0 != 'None':
+            wired_profile['cdp_eth0'] = self._convert_boolean_to_enable_disable(self.get_devices_config_wired_eth0_cdp().is_selected())
+            self.utils.print_info('CDP eth0 status: ', wired_profile['cdp_eth0'])
+
+        if cdp_eth1 != 'None':
+            wired_profile['cdp_eth1'] = self._convert_boolean_to_enable_disable(self.get_devices_config_wired_eth1_cdp().is_selected())
+            self.utils.print_info('CDP eth1 status: ', wired_profile['cdp_eth1'])
+
+        return wired_profile
+
+    def _convert_boolean_to_enable_disable(self, boolean):
+        """
+        - Convert boolean to Enable or Disable
+        :param boolean : True or False
+        :return: Enable or Disable
+        """
+        return 'Enable' if boolean else 'Disable'
+
+    def _convert_boolean_to_on_off(self, boolean):
+        """
+        - Convert boolean to On or Off
+        :param boolean : True or False
+        :return: Enable or Disable
+        """
+        return 'On' if boolean else 'Off'
 
     def override_wifi2_channel(self, channel_input='default'):
         """

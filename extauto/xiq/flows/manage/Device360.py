@@ -11695,7 +11695,7 @@ class Device360(Device360WebElements):
         """Method that returns the vlan settings from the summary tab of the honeycomb port type editor.
 
         Returns:
-            dict: the vlan settingsdevice360_change_slot_view
+            dict: the vlan settings
         """
         self.utils.wait_till(timeout=5)
         summary = {}
@@ -12469,6 +12469,468 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         self.utils.wait_till(timeout=10)
         return 1
+
+    def navigate_to_unit_options_from_xiq_diagnostics_page(self, unit, unit_role, **kwargs):
+        """
+        - This keyword navigates to unit options from Device360 - Diagnostics Page
+        - It is assumed that the Device360 window is open in Monitor-Diagnostics
+        - Keyword Usage:
+            stacking_info_cli = cli.get_stacking_details_cli(dut)
+            res = self.xiq.xflowsmanageDevice360.navigate_to_unit_options_from_xiq_diagnostics_page(stacking_info_cli[0][0][1],
+                                                                          stacking_info_cli[0][0][2].upper())
+
+        :param unit: the unit you wish to search for
+        :param unit_role: the stack role that the unit has
+        """
+
+        ok = 1
+        if self.auto_actions.click_reference(
+                self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit()) != 1:
+            ok = 0
+        else:
+            print("Clicked on Drop down")
+        if ok != 1:
+            kwargs[
+                'fail_msg'] = f"navigate_to_unit_options_from_xiq_diagnostics_page() failed; Unable to click on drop down"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        ok = 1
+        if self.auto_actions.click_reference(
+                self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit_options(unit, unit_role)) != 1:
+            ok = 0
+        else:
+            print("Unit was selected")
+        if ok != 1:
+            kwargs['fail_msg'] = f"navigate_to_unit_options_from_xiq_diagnostics_page() failed; Unable to select unit"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        kwargs['pass_msg'] = f"Successfully navigated from unit options to diagnostics page"
+        self.common_validation.passed(**kwargs)
+
+        return 1
+
+    def check_all_the_individual_devices_in_the_stack_monitor_diagnostics(self, dut, stacking_info_cli, **kwargs):
+        """
+        - This keyword checks the dropdown in Device360 Monitor Diagnostics.
+        - It is assumed that the Device360 window is open in Monitor-Diagnostics
+
+        :param dut: the dut object
+        :apram stacking_info_cli: the cli info of the stack to check against
+        """
+
+        print(f"Print a list with mac add, number of slot and role for each stack unit: {stacking_info_cli}")
+
+        mac_add_list_cli = []
+        for i in range(0, len(stacking_info_cli[0])):
+            unit_i_mac_address = stacking_info_cli[0][i][0]
+            unit_i_mac_address_mapped = unit_i_mac_address.replace(':', '')
+            unit_i_mac_address_final_mapped = unit_i_mac_address_mapped.upper()
+            mac_add_list_cli.append(unit_i_mac_address_final_mapped)
+        print(f"Print mac add units: {mac_add_list_cli}")
+
+        print("Navigate to through units and make mac add check")
+        for i in range(1, len(stacking_info_cli[0])):
+            if stacking_info_cli[0][i][2].upper() == 'STANDBY':
+                self.utils.wait_till(
+                    lambda: self.navigate_to_unit_options_from_xiq_diagnostics_page(
+                        stacking_info_cli[0][i][1], 'MEMBER'),
+                    delay=8, exp_func_resp=True)
+            else:
+                res = self.navigate_to_unit_options_from_xiq_diagnostics_page(
+                    stacking_info_cli[0][i][1], stacking_info_cli[0][i][2].upper())
+                if res == -1:
+                    kwargs[
+                        'fail_msg'] = f"check_all_the_individual_devices_in_the_stack_monitor_diagnostics() failed; Unable to navigate to unit options"
+                    self.common_validation.failed(**kwargs)
+
+                    return -1
+            self.utils.wait_till(delay=5)
+            mac_address_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_mac_address_stack_active_unit(
+                mac_add_list_cli[i])
+            if not mac_address_xiq:
+                kwargs[
+                    'fail_msg'] = f"check_all_the_individual_devices_in_the_stack_monitor_diagnostics() failed;\
+                                  Backup/Standby MAC address from the header side is displayed wrong according to the CLI({mac_add_list_cli[i]})"
+                self.common_validation.failed(**kwargs)
+
+                return -1
+
+        print("Navigate to master unit and make mac add check")
+        res = self.navigate_to_unit_options_from_xiq_diagnostics_page(stacking_info_cli[0][0][1],
+                                                                                     stacking_info_cli[0][0][2].upper())
+        if res == -1:
+            kwargs[
+                'fail_msg'] = f"check_all_the_individual_devices_in_the_stack_monitor_diagnostics() failed; Unable to navigate to unit options"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        self.utils.wait_till(delay=5)
+        mac_address_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_mac_address_stack_active_unit(
+            mac_add_list_cli[0])
+        if not mac_address_xiq:
+            kwargs[
+                'fail_msg'] = f"check_all_the_individual_devices_in_the_stack_monitor_diagnostics() failed; \
+                              Master MAC address from the header side is displayed wrong according to the CLI({mac_add_list_cli[0]})"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        kwargs['pass_msg'] = f"check_all_the_individual_devices_in_the_stack_monitor_diagnostics() passed"
+        self.common_validation.passed(**kwargs)
+
+        return 1
+
+    def navigate_to_unit_1_n_and_hover_over_top_bar_information_stack(self, dut, stacking_info_cli, **kwargs):
+        """
+        - This keyword gets information from the top bar of the Device360 view.
+        - It is assumed that the Device360 window is open in Diagnostics Page.
+
+        :param dut: the dut object
+        :apram stacking_info_cli: the cli info of the stack to check against
+        :return: dictionary of information obtained from the top bar of the Device360 view
+        """
+        print("Verify the first seven icons from the top bar for each unit")
+        for i in range(1, len(stacking_info_cli[0])):
+            if stacking_info_cli[0][i][2].upper() == 'STANDBY':
+                self.utils.wait_till(
+                    lambda: self.navigate_to_unit_options_from_xiq_diagnostics_page(
+                        stacking_info_cli[0][i][1], 'MEMBER'),
+                    delay=8, exp_func_resp=True)
+            else:
+                self.navigate_to_unit_options_from_xiq_diagnostics_page(
+                    stacking_info_cli[0][i][1], stacking_info_cli[0][i][2].upper())
+            self.utils.wait_till(delay=5)
+            self.device360_get_top_bar_information_stack()
+
+        kwargs['pass_msg'] = f"navigate_to_unit_1_n_and_hover_over_top_bar_information_stack() passed"
+        self.common_validation.passed(**kwargs)
+
+    def match_info_stack_cli_with_xiq(self, dut, stack_info, slot=1, **kwargs):
+        """
+        - This keyword Verifies if the device information(ip, mac address, software version, model, serial, make, iqagent version) from the header side is displayed correctly according to the cli
+        It is assumed that the Device360 window is open in Diagnostics Page and the dropdown is showing the wanted unit. Default is MASTER.
+        If the results
+
+        :param dut: the dut object
+        :param stack_info: the cli info of the stack to check against
+        :param slot: The slot numer of the unit
+        """
+        slot = int(slot)
+
+        if not stack_info:
+            kwargs['fail_msg'] = f"match_info_stack_cli_with_xiq() failed; Unable to get info from dut"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        print(f"List of info from CLI: {stack_info}")
+        ip_address_cli = stack_info[0][0]
+        print(f"Ip Add from CLI: {ip_address_cli}")
+        ip_address_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_ip_address_stack_active_unit(
+            ip_address_cli)
+        if not ip_address_xiq:
+            kwargs[
+                'fail_msg'] = f"match_info_stack_cli_with_xiq() failed; Ip address from the header side is displayed wrong according to the CLI ({ip_address_cli})"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        mac_address_cli = stack_info[1][slot - 1]
+        print(f"MAC Add from CLI: {mac_address_cli}")
+        mac_address_cli_mapped = mac_address_cli.replace(':', '')
+        mac_address_cli_final_mapped = mac_address_cli_mapped.upper()
+        print(f"MAC Add from CLI mapped to match XIQ: {mac_address_cli_final_mapped}")
+        mac_address_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_mac_address_stack_active_unit(
+            mac_address_cli_final_mapped)
+
+        if not mac_address_xiq:
+            kwargs[
+                'fail_msg'] = f"match_info_stack_cli_with_xiq() failed; MAC address from the header side is displayed wrong according to the CLI({mac_address_cli})"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        soft_version_cli = stack_info[2][slot - 1]
+        print(f"Soft version from CLI: {soft_version_cli}")
+        soft_version_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_soft_version_stack_active_unit(
+            soft_version_cli)
+        if not soft_version_xiq:
+            kwargs[
+                'fail_msg'] = f"match_info_stack_cli_with_xiq() failed; Soft Version from the header side is displayed wrong according to the CLI({soft_version_cli})"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        model_cli = stack_info[3][slot - 1]
+        print(f"Dut Model from CLI: {model_cli}")
+        if "EXOS" in model_cli:
+            model_cli = model_cli.replace("-EXOS", "")
+        if stack_info[5][0] == "ExtremeXOS":
+            stack_info[5][0] = "Switch Engine"
+        if stack_info[5][0] == "Extreme Networks Switch Engine":
+            stack_info[5][0] = "Switch Engine"
+        # model_cli_mapped = 'Switch Engine ' + model_cli
+        model_cli_mapped = stack_info[5][0] + ' ' + model_cli
+        print(f"Dut Model from CLI mapped to match XIQ: {model_cli_mapped}")
+        model_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_model_stack_active_unit(
+            model_cli_mapped)
+        if not model_xiq:
+            kwargs[
+                'fail_msg'] = f"match_info_stack_cli_with_xiq() failed; Model from the header side is displayed wrong according to the CLI({model_cli})"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        serial_number_cli = stack_info[4][slot - 1]
+        print(f"Serial number from CLI: {serial_number_cli}")
+        serial_number_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_serial_number_stack_active_unit(
+            serial_number_cli)
+        if not serial_number_xiq:
+            kwargs[
+                'fail_msg'] = f"match_info_stack_cli_with_xiq() failed; Serial number from the header side is displayed wrong according to the CLI({serial_number_cli})"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        # make_cli = "Switch Engine"
+        if stack_info[5][0] == "ExtremeXOS":
+            stack_info[5][0] = "Switch Engine"
+        else:
+            make_cli = stack_info[5][0]
+        print(f"Make from CLI: {make_cli}")
+        make_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_make_stack_active_unit(
+            make_cli)
+        if not make_xiq:
+            kwargs[
+                'fail_msg'] = f"match_info_stack_cli_with_xiq() failed; Make from the header side is displayed wrong according to the CLI({make_cli}"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        iqagent_version_cli = stack_info[6][0]
+        print(f"Iqagent version from CLI: {iqagent_version_cli}")
+        iqagent_version_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit(
+            iqagent_version_cli)
+        if not make_xiq:
+            kwargs[
+                'fail_msg'] = f"match_info_stack_cli_with_xiq() failed; Iqagent Version from the header side is displayed wrong according to the CLI({iqagent_version_cli})"
+            self.common_validation.failed(**kwargs)
+
+            return -1
+
+        kwargs['pass_msg'] = f"get_info_from_stack() passed"
+        self.common_validation.passed(**kwargs)
+
+        return 1
+
+    def device360_get_top_bar_information_stack(self, **kwargs):
+        """
+        - This keyword gets information from the top bar of the Device360 view.
+        - It is assumed that the Device360 window is open.
+        - Keyword Usage
+         - ``Device360 Get Top Bar Information``
+        :return: dictionary of information obtained from the top bar of the Device360 view
+        """
+
+        print("Getting Device360 Top Bar Information")
+        device360_info = dict()
+
+        cpu_el = self.dev360.get_topbar_cpu()
+        mem_el = self.dev360.get_topbar_memory()
+        mac_el = self.dev360.get_topbar_mac_usage_diagnostics()
+        uptime_el = self.dev360.get_topbar_uptime_diagnostics()
+        temp_el = self.dev360.get_topbar_temperature_diagnostics()
+        power_el = self.dev360.get_topbar_power_diagnostics()
+        fan_el = self.dev360.get_topbar_fan_diagnostics()
+
+        # Workaround - first element moved to isn't being recognized, so move to Memory element first
+        if mem_el:
+            self.auto_actions.move_to_element(mem_el)
+
+        if cpu_el:
+            self.auto_actions.move_to_element(cpu_el)
+            sleep(2)
+            tt_content = self.dev360.get_tooltip_content()
+            if tt_content:
+                tt_text = tt_content.text
+                print(f"Tooltip content for CPU Usage is {tt_text}")
+                cpu_values = tt_text.split(":")
+                if len(cpu_values) == 2 and cpu_values[0] == "CPU Usage":
+                    cpu_value = cpu_values[1].strip()
+                    device360_info["cpu_usage"] = cpu_value
+                else:
+                    print("Unable to parse value for CPU Usage")
+                    device360_info["cpu_usage"] = ""
+            else:
+                print("Could not determine value for CPU Usage")
+                device360_info["cpu_usage"] = ""
+        else:
+            print("Could not find CPU Usage element")
+            device360_info["cpu_usage"] = ""
+
+        if mem_el:
+            self.auto_actions.move_to_element(mem_el)
+            sleep(2)
+            tt_content = self.dev360.get_tooltip_content()
+            if tt_content:
+                tt_text = tt_content.text
+                print(f"Tooltip content for Memory is {tt_text}")
+                mem_values = tt_text.split(":")
+                if len(mem_values) == 2 and mem_values[0] == "Memory":
+                    mem_value = mem_values[1].strip()
+                    device360_info["memory_usage"] = mem_value
+                else:
+                    print("Unable to parse value for Memory Usage")
+                    device360_info["memory_usage"] = ""
+            else:
+                print("Could not determine value for Memory Usage")
+                device360_info["memory_usage"] = ""
+        else:
+            print("Could not find Memory Usage element")
+            device360_info["memory_usage"] = ""
+
+        if mac_el:
+            self.auto_actions.move_to_element(mac_el)
+            sleep(2)
+            tt_content = self.dev360.get_tooltip_content()
+            if tt_content:
+                tt_text = tt_content.text
+                print(f"Tooltip content for MAC Table Utilization is {tt_text}")
+                mac_values = tt_text.split(":")
+                if len(mac_values) == 2 and mac_values[0] == "MAC Table Utilization":
+                    mac_value = mac_values[1].strip()
+                    device360_info["mac_usage"] = mac_value
+                else:
+                    print("Unable to parse value for MAC Table Utilization")
+                    device360_info["mac_usage"] = ""
+            else:
+                print("Could not determine value for MAC Table Utilization")
+                device360_info["mac_usage"] = ""
+        else:
+            print("Could not find MAC Table Utilization element")
+            device360_info["mac_usage"] = ""
+
+        if uptime_el:
+            self.auto_actions.move_to_element(uptime_el)
+            sleep(2)
+            tt_content = self.dev360.get_tooltip_content()
+            if tt_content:
+                tt_text = tt_content.text
+                # This field is currently in the format "Uptime: Last seen: <date>, <time>" so we want to strip
+                # off the label ("Uptime: Last seen:"), and remove the comma from the date and time portion.
+                # NOTE: This may change when APC-45218 is addressed.
+                print(f"Tooltip content for Uptime is {tt_text}")
+                tt_text = re.sub('Uptime: Last seen: ', '', tt_text)
+                print(f"Stripped tooltip content for Uptime is {tt_text}")
+                uptime_values = tt_text.split(",")
+                if len(uptime_values) == 2:
+                    uptime_date = uptime_values[0].strip()
+                    uptime_time = uptime_values[1].strip()
+                    device360_info["uptime"] = uptime_date + " " + uptime_time
+                else:
+                    print("Unable to parse value for Uptime")
+                    device360_info["uptime"] = ""
+            else:
+                print("Could not determine value for Uptime")
+                device360_info["uptime"] = ""
+        else:
+            print("Could not find Uptime element")
+            device360_info["uptime"] = ""
+
+        if temp_el:
+            self.auto_actions.move_to_element(temp_el)
+            sleep(2)
+            tt_content = self.dev360.get_tooltip_content()
+            if tt_content:
+                tt_text = tt_content.text
+                print(f"Tooltip content for temperature is {tt_text}")
+                temp_values = tt_text.split(":")
+                if len(temp_values) == 2 and temp_values[0] == "Temperature":
+                    temp_value = temp_values[1].strip()
+                    device360_info["temp"] = temp_value
+                else:
+                    print("Unable to parse value for temperature")
+                    device360_info["temp"] = ""
+            else:
+                print("Could not determine value for temperature")
+                device360_info["temp"] = ""
+        else:
+            print("Could not find MAC Table Utilization element")
+            device360_info["temp"] = ""
+
+        if power_el:
+            self.auto_actions.move_to_element(power_el)
+            sleep(2)
+            tt_content = self.dev360.get_tooltip_content()
+            if tt_content:
+                power_el_text = tt_content.text
+                power_supply_text_2 = power_el_text.split('\n')
+                power_supply_list = []
+                total_power_available = 0
+                total_power_consumed = 0
+                threshold_power = 0
+                for status in power_supply_text_2:
+                    if "Total Power Available" in status:
+                        total_power_available = re.sub('[^0-9]+', '', status)
+                    elif "Total Power Consumed" in status:
+                        total_power_consumed = re.sub('[^0-9]+', '', status)
+                    elif "Threshold" in status:
+                        threshold_power = re.sub('[^0-9]+', '', status)
+                    else:
+                        if "Power " in status and "Status" not in status:
+                            status = re.sub('Power [0-9]: ', '', status)
+                            power_supply_list.append(status)
+                print(f"Power supply grepped list in D360 is {power_supply_list}")
+                device360_info["power_supply"] = power_supply_list
+                device360_info["total_power_available"] = total_power_available
+                device360_info["total_power_consumed"] = total_power_consumed
+                device360_info["threshold_power"] = threshold_power
+            else:
+                print("Could not parse the values for Power")
+                device360_info["power_supply"] = ""
+                device360_info["total_power_available"] = ""
+                device360_info["total_power_consumed"] = ""
+                device360_info["threshold_power"] = ""
+        else:
+            print("Could not determine values for Power")
+            device360_info["power_supply"] = ""
+            device360_info["total_power_available"] = ""
+            device360_info["total_power_consumed"] = ""
+            device360_info["threshold_power"] = ""
+
+        if fan_el:
+            self.auto_actions.move_to_element(fan_el)
+            tt_content = self.dev360.get_tooltip_content()
+            if tt_content:
+                fan_status_text = tt_content.text
+                fan_status_text_2 = fan_status_text.split('\n')
+                print(f"Fan status output list is {fan_status_text}")
+                fan_status_list = []
+                for status in fan_status_text_2:
+                    if "Operating" in status:
+                        status1 = re.sub('Tray [0-9] Fan [0-9]: ', '', status)
+                        fan_status_list.append(status1)
+                    else:
+                        if "failed" in status:
+                            fan_status_list.append("Unit has failed")
+                print(f"Fan status grepped list is {fan_status_list}")
+                device360_info["fan_status"] = fan_status_list
+            else:
+                print("Could not parse the value for Fan")
+                device360_info["fan_status"] = ""
+        else:
+            print("Could not determine value for Fan status")
+            device360_info["fan_status"] = ""
+
+        kwargs['pass_msg'] = f"device360_get_top_bar_information_stack() passed"
+        self.common_validation.passed(**kwargs)
+
+        return device360_info
 
     def device360_get_stack_ports_by_type(self, port_type, **kwargs):
         """
