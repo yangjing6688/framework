@@ -174,7 +174,7 @@ class PytestConfigHelper():
             self.dut2_platform = config['netelem2']['platform']
             self.dut2_make = config['netelem2']['make']
             self.dut2_model = config['netelem2']['model']
-            self.dut2_location1 = config['netelem2']['location']
+            self.dut2_location = config['netelem2']['location']
             self.dut_list.append('dut2')
         except:
             pass
