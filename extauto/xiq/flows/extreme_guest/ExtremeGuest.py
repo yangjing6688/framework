@@ -253,8 +253,6 @@ class ExtremeGuest(object):
                         return row
 
         self.utils.print_info(f"common object row {search_string} not present")
-        kwargs['fail_msg'] = f"'_get_extreme_guest_subscription_page_open_ssid_row()' -> common object row {search_string} not present"
-        self.common_validation.failed(**kwargs)
         return False
 
     def _search_extreme_guest_subscription_page_open_ssid(self, search_string):
