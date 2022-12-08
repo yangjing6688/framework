@@ -120,7 +120,7 @@ class ClassificationRule(object):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def add_classification_rule_with_location(self, name, description, **location):
+    def add_classification_rule_with_location(self, name, description, location, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
         - Create Classification Rule Based on AP Location
@@ -156,17 +156,17 @@ class ClassificationRule(object):
         if self.auto_actions.select_drop_down_options(classification_rule_option, "Device Location"):
             self.utils.print_info("Selected Device Location Classification Rule")
         else:
-            location['fail_msg'] = "add_classification_rule_with_location() failed. " \
+            kwargs['fail_msg'] = "add_classification_rule_with_location() failed. " \
                                    "Not able to Select Device Location Classification Rule"
-            self.common_validation.fault(**location)
+            self.common_validation.fault(**kwargs)
             return -1
 
-        if self._assign_locations_to_classification_rule(**location):
+        if self._assign_locations_to_classification_rule(location):
             self.utils.print_info("Location got assigned to Classification Rule")
         else:
-            location['fail_msg'] = "add_classification_rule_with_location() failed." \
+            kwargs['fail_msg'] = "add_classification_rule_with_location() failed." \
                                    "Location assignment to Classification Rule is not proper"
-            self.common_validation.fault(**location)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Saving the Classification Rule")
@@ -178,15 +178,15 @@ class ClassificationRule(object):
         for tip_text in tool_tp_text:
             if "Classification Rule saved successfully" in tip_text:
                 sleep(1)
-                location['pass_msg'] = f"Classification Rule saved successfully {tip_text}"
-                self.common_validation.passed(**location)
+                kwargs['pass_msg'] = f"Classification Rule saved successfully {tip_text}"
+                self.common_validation.passed(**kwargs)
                 return 1
 
-        location['fail_msg'] = "add_classification_rule_with_location() failed. Classification Rule not saved"
-        self.common_validation.failed(**location)
+        kwargs['fail_msg'] = "add_classification_rule_with_location() failed. Classification Rule not saved"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def add_classification_rule_with_ip(self, name, description, option, **ip_object_rule):
+    def add_classification_rule_with_ip(self, name, description, option, ip_object_rule, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy --> Classification Rule
         - Create Classification Rule Based on AP's IP , Subnet or Range
@@ -226,17 +226,17 @@ class ClassificationRule(object):
             if self.auto_actions.select_drop_down_options(classification_rule_option, "IP Address"):
                 self.utils.print_info("Selected IP Address Classification Rule")
             else:
-                ip_object_rule['fail_msg'] = "add_classification_rule_with_ip() failed. " \
+                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
                                              "Not able to Select Device Location Classification Rule"
-                self.common_validation.fault(**ip_object_rule)
+                self.common_validation.fault(**kwargs)
                 return -1
 
             if self._assign_ip_address_to_classification_rule(**ip_object_rule):
                 self.utils.print_info("IP Address got assigned to Classification Rule")
             else:
-                ip_object_rule['fail_msg'] = "add_classification_rule_with_ip() failed. " \
+                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
                                              "IP Address assignment to Classification Rule is not proper"
-                self.common_validation.fault(**ip_object_rule)
+                self.common_validation.fault(**kwargs)
                 return -1
 
         elif option == "ip_subnet":
@@ -246,17 +246,17 @@ class ClassificationRule(object):
             if self.auto_actions.select_drop_down_options(classification_rule_option, "IP Subnet"):
                 self.utils.print_info("Selected IP Subnet Classification Rule")
             else:
-                ip_object_rule['fail_msg'] = "add_classification_rule_with_ip() failed. " \
+                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
                                              "Not able to Select Device Location Classification Rule"
-                self.common_validation.fault(**ip_object_rule)
+                self.common_validation.fault(**kwargs)
                 return -1
 
             if self._assign_ip_subnet_to_classification_rule(**ip_object_rule):
                 self.utils.print_info("IP Subnet got assigned to Classification Rule")
             else:
-                ip_object_rule['fail_msg'] = "add_classification_rule_with_ip() failed. " \
+                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
                                              "IP Subnet assignment to Classification Rule is not proper"
-                self.common_validation.fault(**ip_object_rule)
+                self.common_validation.fault(**kwargs)
                 return -1
 
         elif option == "ip_range":
@@ -266,17 +266,17 @@ class ClassificationRule(object):
             if self.auto_actions.select_drop_down_options(classification_rule_option, "IP Range"):
                 self.utils.print_info("Selected IP Range Classification Rule")
             else:
-                ip_object_rule['fail_msg'] = "add_classification_rule_with_ip() failed. " \
+                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
                                              "Not able to Select IP Range Classification Rule"
-                self.common_validation.fault(**ip_object_rule)
+                self.common_validation.fault(**kwargs)
                 return -1
 
             if self._assign_ip_range_to_classification_rule(**ip_object_rule):
                 self.utils.print_info("IP Range got assigned to Classification Rule")
             else:
-                ip_object_rule['fail_msg'] = "add_classification_rule_with_ip() failed. " \
+                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
                                              "IP Range assignment to Classification Rule is not proper"
-                self.common_validation.fault(**ip_object_rule)
+                self.common_validation.fault(**kwargs)
                 return -1
 
         self.utils.print_info("Saving the Classification Rule")
@@ -289,12 +289,12 @@ class ClassificationRule(object):
         for tip_text in tool_tp_text:
             if "Classification Rule saved successfully" in tip_text:
                 sleep(1)
-                ip_object_rule['pass_msg'] = "Classification Rule saved successfully!"
-                self.common_validation.passed(**ip_object_rule)
+                kwargs['pass_msg'] = "Classification Rule saved successfully!"
+                self.common_validation.passed(**kwargs)
                 return 1
 
-        ip_object_rule['fail_msg'] = "add_classification_rule_with_ip() failed. Classification Rule not saved"
-        self.common_validation.failed(**ip_object_rule)
+        kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. Classification Rule not saved"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def delete_classification_rules(self, *names, **kwargs):
@@ -392,7 +392,7 @@ class ClassificationRule(object):
                 self.common_validation.failed(**kwargs)
                 return -1
 
-    def _assign_locations_to_classification_rule(self, **location_config):
+    def _assign_locations_to_classification_rule(self, location_config, **kwargs):
         """
         - This is the common method for all type of device
         - This method is used to select location tree node
@@ -412,36 +412,36 @@ class ClassificationRule(object):
         self.utils.print_info("Click on country node open icon")
         country_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(country_nodes, country_node):
-            location_config['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
+            kwargs['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
                                           f"Country node {country_node} is not present..."
-            self.common_validation.fault(**location_config)
+            self.common_validation.fault(**kwargs)
             return False
         sleep(1)
 
         self.utils.print_info("Click on location node open icon")
         loc_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(loc_nodes, loc_node):
-            location_config['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
+            kwargs['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
                                           f"Location node {loc_node} not present"
-            self.common_validation.fault(**location_config)
+            self.common_validation.fault(**kwargs)
             return False
         sleep(1)
 
         self.utils.print_info("Click on building node open icon")
         build_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(build_nodes, building_node):
-            location_config['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
+            kwargs['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
                                           f"Building node {building_node} not present"
-            self.common_validation.fault(**location_config)
+            self.common_validation.fault(**kwargs)
             return False
         sleep(1)
 
         self.utils.print_info("Select the floor to assign device")
         floor_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._assign_floor_to_rule(floor_nodes, floor_node):
-            location_config['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
+            kwargs['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
                                           f"Floor node {floor_node} not present"
-            self.common_validation.fault(**location_config)
+            self.common_validation.fault(**kwargs)
             return False
         sleep(1)
 
