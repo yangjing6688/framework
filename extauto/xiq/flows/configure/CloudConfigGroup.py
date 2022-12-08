@@ -641,7 +641,7 @@ class CloudConfigGroup(object):
         - ``Select AP For CCG   ${AP_SERIAL}``
 
         :param ap_serial: AP's Serial Number
-        :return: return 1 if AP found and selected else -1
+        :return: return 1 if AP found and selected else False
         """
         self.utils.print_info("Selecting Device with serial: ", ap_serial)
 
@@ -656,7 +656,7 @@ class CloudConfigGroup(object):
                 return 1
         kwargs['fail_msg'] = "select_ap_for_ccg() failed. Didn't Find AP Row"
         self.common_validation.failed(**kwargs)
-        return -1
+        return False
 
     def select_ap_for_ccg_manage_page(self, ap_serial, **kwargs):
         """
@@ -754,7 +754,7 @@ class CloudConfigGroup(object):
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         This keyword Checks if the CCG Policy is available in CCG List
         :param policy: CCG Policy name
-        :return: 1 if found else -1
+        :return: 1 if found else False
         """
 
         self.utils.print_info(f"Searching CCG Group with name:{policy}")

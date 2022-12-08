@@ -713,7 +713,7 @@ class ClassificationRule(object):
 
         :param ssid: SSID Name
         :param classification_rule: Name of the Classification Rule
-        :return: 1 if success else return -1
+        :return: 1 if success else return False
         """
         self.utils.print_info("Searching SSID: ", ssid)
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_tab)
@@ -747,6 +747,7 @@ class ClassificationRule(object):
                 self.auto_actions.click_reference(self.classification_rule_web_elements.get_next_button)
                 return 1
         return False
+
 
     def _verify_classification_rule_for_ssid(self, ssid, classification_rule):
         """
@@ -832,7 +833,7 @@ class ClassificationRule(object):
         - Search Single Classification Rule
 
          :param name: Name of the Classification Rule
-         :return: 1 if found else return -1
+         :return: 1 if found else return False
          """
 
         get_all_classification_rule = self.classification_rule_web_elements.view_all_classification_rule()
