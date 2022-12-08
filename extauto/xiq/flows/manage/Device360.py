@@ -13067,7 +13067,7 @@ class Device360(Device360WebElements):
     
         ok = 1
         if self.auto_actions.click_reference(
-                self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit()) != 1:
+                self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit) != 1:
             ok = 0
         else:
             print("Clicked on Drop down")
@@ -13080,7 +13080,7 @@ class Device360(Device360WebElements):
     
         ok = 1
         if self.auto_actions.click_reference(
-                self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit_options(unit, unit_role)) != 1:
+                lambda: self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit_options(unit, unit_role)) != 1:
             ok = 0
         else:
             print("Unit was selected")

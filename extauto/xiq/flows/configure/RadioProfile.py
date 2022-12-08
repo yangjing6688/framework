@@ -2,13 +2,14 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.RadioProfileWebElements import RadioProfileWebElements
 
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.CloudDriver import CloudDriver
+
 
 class RadioProfile (RadioProfileWebElements):
 
@@ -20,6 +21,7 @@ class RadioProfile (RadioProfileWebElements):
         self.navigator = Navigator()
         self.radprof_web_elements = RadioProfileWebElements()
         self.web = WebElementHandler()
+        self.common_validation = CommonValidation()
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
     def add_radio_profile(self, radio_profile_name):
@@ -152,7 +154,7 @@ class RadioProfile (RadioProfileWebElements):
         self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_bg_scan_interval_unit_dropdown),
         self.utils.print_info("Selecting Background Scan Interval Unit")
         self.auto_actions.select_drop_down_options(self.radprof_web_elements.
-                                         get_radio_profile_bg_scan_interval_unit_dropdown_opts(), bg_scan_interval_unit)
+                                                   get_radio_profile_bg_scan_interval_unit_dropdown_opts(), bg_scan_interval_unit)
         sleep(3)
         return 1
 
@@ -167,7 +169,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         self.utils.print_info("Skipping Background Scan when Clients are Connected")
         self.auto_actions.click_reference(self.radprof_web_elements.
-                                           get_radio_profile_skip_bg_scan_clients_connected_checkbox),
+                                          get_radio_profile_skip_bg_scan_clients_connected_checkbox)
         sleep(3)
         return 1
 
@@ -182,7 +184,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         self.utils.print_info("Skipping Background Scan when Clients Connected are in Power Save Mode")
         self.auto_actions.click_reference(self.radprof_web_elements.
-                                           get_radio_profile_skip_bg_scan_clients_power_save_mode_checkbox),
+                                          get_radio_profile_skip_bg_scan_clients_power_save_mode_checkbox)
         sleep(3)
         return 1
 
@@ -197,7 +199,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         self.utils.print_info("Skipping Background Scan when N/w Traffic Voice Priority detected")
         self.auto_actions.click_reference(self.radprof_web_elements.
-                                           get_radio_profile_skip_bg_scan_nw_voice_priority_checkbox),
+                                          get_radio_profile_skip_bg_scan_nw_voice_priority_checkbox)
 
         self.utils.print_info("Scrolling the page down...")
         self.auto_actions.scroll_down()
@@ -217,13 +219,13 @@ class RadioProfile (RadioProfileWebElements):
         self.auto_actions.scroll_down()
 
         self.utils.print_info("Clicking on Channels list drop-down")
-        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_channel_list_dropdown),
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_channel_list_dropdown)
         sleep(3)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Selecting channel from the drop-down")
         self.auto_actions.select_drop_down_options(self.radprof_web_elements.
-                                                   get_radio_profile_channel_list_dropdown_opts(), channel_selection),
+                                                   get_radio_profile_channel_list_dropdown_opts(), channel_selection)
         self.screen.save_screen_shot()
         return 1
 
@@ -237,7 +239,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if channel_width is chosen Successfully else -1
         """
         self.utils.print_info("Clicking on channel-width drop-down")
-        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_channel_width_dropdown),
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_channel_width_dropdown)
         sleep(3)
         self.screen.save_screen_shot()
 
@@ -285,7 +287,7 @@ class RadioProfile (RadioProfileWebElements):
         :return: 1 if exclude channels button is disabled successfully else -1
         """
         self.utils.print_info("Disabling the Exclude Channels option")
-        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_enable_exclude_channels_button),
+        self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_enable_exclude_channels_button)
         self.screen.save_screen_shot()
         sleep(2)
         return 1
@@ -316,7 +318,7 @@ class RadioProfile (RadioProfileWebElements):
         """
         self.utils.print_info("Configuring tx power Manual")
         radio_mode = self.auto_actions.select_drop_down_options(self.radprof_web_elements.
-                                                   get_radio_profile_radio_mode_dropdown_opts())
+                                                                get_radio_profile_radio_mode_dropdown_opts())
         if radio_mode == "b/g" or "g/n" or "ax (2.4GHz)":
             self.auto_actions.click_reference(self.radprof_web_elements.get_radio_profile_tx_power_slider_24GHz)
         if radio_mode == "a" or "a/n" or "ac" or "ax (5GHZ)":
@@ -349,7 +351,7 @@ class RadioProfile (RadioProfileWebElements):
         self.auto_actions.disable_radio_button(self.radprof_web_elements.get_radio_profile_enable_dfs_button())
         return 1
 
-    def save_radio_profile(self, save_radio_profile):
+    def save_radio_profile(self, save_radio_profile, **kwargs):
         """
         - This Keyword is to Save the Radio Profile
         - Keyword Usage:
@@ -373,8 +375,12 @@ class RadioProfile (RadioProfileWebElements):
 
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Radio profile was saved successfully" in tool_tip_text:
+            kwargs['pass_msg'] = "Radio profile was saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "save_radio_profile() failed. Radio profile was saved successfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def cancel_radio_profile(self, cancel_radio_profile):
@@ -389,8 +395,7 @@ class RadioProfile (RadioProfileWebElements):
         self.auto_actions.click_reference(self.radprof_web_elements.get_cancel_radio_profile)
         sleep(2)
 
-
-    def verify_radio_profile_channel_width_and_channels(self, channels, mode='included', channel_width='default'):
+    def verify_radio_profile_channel_width_and_channels(self, channels, mode='included', channel_width='default', **kwargs):
         """
         - This keyword validates the channels to be exclusive, inclusive, by default and not by default
         - Keyword Usage:
@@ -405,7 +410,7 @@ class RadioProfile (RadioProfileWebElements):
         sleep(5)
         element = None
 
-        if channel_width in ['80','160', '40', '20']:
+        if channel_width in ['80', '160', '40', '20']:
             if channel_width == '80':
                 element = self.radprof_web_elements.get_radio_profile_Mega_80_Hert()
             elif channel_width == '160':
@@ -419,7 +424,9 @@ class RadioProfile (RadioProfileWebElements):
             self.utils.print_info(" Attribute Text: " + str(enabled_text))
 
             if enabled_text.find("disabled") != -1:
-                self.utils.print_info(" Channel with is not by default: ", channel_width)
+                kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                                     f"Channel with is not by default {channel_width}"
+                self.common_validation.fault(**kwargs)
                 return -1
 
         for channel in channels:
@@ -427,35 +434,44 @@ class RadioProfile (RadioProfileWebElements):
             locator = self.radprof_web_elements.get_radio_profile_channel_width(str(channel))
             element = self.web.get_element(locator)
 
-
             if element == None:
-                self.utils.print_info(" button does not exist: ", channel)
+                kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                                     f" Button does not exist {channel}"
+                self.common_validation.fault(**kwargs)
                 return -1
 
             enabled_text = element.get_attribute("class")
             self.utils.print_info(" Attribute Text: " + str(enabled_text))
 
             if mode == 'enabled':
-                if enabled_text.find("enabled") == -1 :
-                    self.utils.print_info(" channel is not by default: ", channel)
+                if enabled_text.find("enabled") == -1:
+                    kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                                         f"channel is not by default {channel}"
+                    self.common_validation.failed(**kwargs)
                     return -1
             elif mode == 'disabled':
-                if enabled_text.find("disabled") == -1 :
-                    self.utils.print_info(" channel is by default: ", channel)
+                if enabled_text.find("disabled") == -1:
+                    kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                                         f"channel is by default {channel}"
+                    self.common_validation.failed(**kwargs)
                     return -1
             elif mode == 'included':
                 if enabled_text.find("included") == -1:
-                    self.utils.print_info(" channel is not included: ", channel)
+                    kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                                         f"channel is not included: {channel}"
+                    self.common_validation.failed(**kwargs)
                     return -1
             elif mode == 'excluded':
                 if enabled_text.find("excluded") == -1:
-                    self.utils.print_info(" channel is not excluded: ", channel)
+                    kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                                         f"channel is not excluded: {channel}"
+                    self.common_validation.failed(**kwargs)
                     return -1
-
+        kwargs['pass_msg'] = "Verified radio profile channel width and channels"
+        self.common_validation.passed(**kwargs)
         return 1
 
-
-    def select_radio_profile_excluded_channels(self, channels):
+    def select_radio_profile_excluded_channels(self, channels, **kwargs):
         """
         - This Keyword selects the valid channels to be exclusive
         - Keyword Usage:
@@ -472,21 +488,25 @@ class RadioProfile (RadioProfileWebElements):
             self.utils.print_info(" LOCATOR  " + str(locator))
             element = self.web.get_element(locator)
 
-            if element == None:
-                self.utils.print_info(" Channel does not exist: ", channel)
+            if element is None:
+                kwargs['fail_msg'] = f"select_radio_profile_excluded_channels() failed. Channel does not exist {channel}"
+                self.common_validation.fault(**kwargs)
                 return -1
 
             try:
                 element.click()
                 self.utils.print_info("select the channel to be exclusive " + str(channel))
             except:
-                self.utils.print_info("Not able to select the channel to be exclusive " + str(channel))
+                kwargs['fail_msg'] = f"select_radio_profile_excluded_channels() failed. " \
+                                     f"Not able to select the channel to be exclusive {str(channel)}"
+                self.common_validation.failed(**kwargs)
                 return -1
 
+        kwargs['pass_msg'] = "Selected the valid channels to be exclusive"
+        self.common_validation.passed(**kwargs)
         return 1
 
-
-    def get_radio_profile_details(self):
+    def get_radio_profile_details(self, **kwargs):
         """
         - This keyword will retrieve the all fields in the device configuration interface WiFi2 page
         - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> WiFi2
@@ -496,7 +516,7 @@ class RadioProfile (RadioProfileWebElements):
         """
 
         sleep(5)
-        self.utils.print_info("Retrieve the device configuration interface wirless Wiffi2")
+        self.utils.print_info("Retrieve the device configuration interface wireless Wiffi2")
 
         try:
             radio_profile_info = dict()
@@ -505,7 +525,7 @@ class RadioProfile (RadioProfileWebElements):
             radio_profile_info["supported_radio_modes"] = self.get_radio_profile_radio_mode_dropdown().text
             radio_profile_info["radio_profile_maximum_transmit_power"] = self.get_radio_profile_max_tx_power().get_attribute("value")
             radio_profile_info["radio_profile_transmit_power_floor"] = self.get_radio_profile_tx_power_floor().get_attribute("value")
-            radio_profile_info["tranmission_power_max_drop"] = self.get_radio_profile_tx_power_max_drop().get_attribute("value")
+            radio_profile_info["transmission_power_max_drop"] = self.get_radio_profile_tx_power_max_drop().get_attribute("value")
             radio_profile_info["maximum_number_of_clients"] = self.get_radio_profile_max_no_of_clients().get_attribute("value")
             radio_profile_info["background_scan_interval"] = self.get_radio_profile_background_scan_interval().get_attribute("value")
             radio_profile_info["channel_auto_or_manual"] = self.get_radio_profile_channel_list_dropdown().text
@@ -514,26 +534,24 @@ class RadioProfile (RadioProfileWebElements):
             radio_profile_info["background_scran_every"] = self.get_radio_profile_background_scan_interval().get_attribute("value")
 
             if self.get_radio_profile_deny_connection_requests_checkbox().is_selected():
-                 radio_profile_info["deny_connection_requests"] = 'ON'
+                radio_profile_info["deny_connection_requests"] = 'ON'
             else:
-                 radio_profile_info["deny_connection_requests"] = 'OFF'
-
+                radio_profile_info["deny_connection_requests"] = 'OFF'
 
             if self.get_radio_profile_deny_connection_requests_802_11b_checkbox().is_selected():
-                 radio_profile_info["802_11b"] = 'ON'
+                radio_profile_info["802_11b"] = 'ON'
             else:
-                 radio_profile_info["802_11b"] = 'OFF'
+                radio_profile_info["802_11b"] = 'OFF'
 
             if self.get_radio_profile_deny_connection_requests_802_11abg_checkbox().is_selected():
-                 radio_profile_info["802_11abg"] = 'ON'
+                radio_profile_info["802_11abg"] = 'ON'
             else:
-                 radio_profile_info["802_11abg"] = 'OFF'
+                radio_profile_info["802_11abg"] = 'OFF'
 
             if self.get_radio_profile_skip_bg_scan_clients_connected_checkbox().is_selected():
-                 radio_profile_info["clients_connected"] = 'ON'
+                radio_profile_info["clients_connected"] = 'ON'
             else:
-                 radio_profile_info["clients_connected"] = 'OFF'
-
+                radio_profile_info["clients_connected"] = 'OFF'
 
             if self.get_radio_profile_skip_bg_scan_clients_power_save_mode_checkbox().is_selected():
                 radio_profile_info["clients_power_save_mode"] = 'ON'
@@ -556,9 +574,9 @@ class RadioProfile (RadioProfileWebElements):
                 radio_profile_info["network_voice_priority"] = 'OFF'
 
             if self.get_radio_profile_transmission_power_manual().is_selected():
-                radio_profile_info["tranmission_power"] = 'Manual'
+                radio_profile_info["transmission_power"] = 'Manual'
             else:
-                radio_profile_info["tranmission_power"] = 'Auto'
+                radio_profile_info["transmission_power"] = 'Auto'
 
             if self.get_radio_profile_limit_channel_selection_button().is_selected():
                 radio_profile_info["limit_channel_selection"] = 'ON'
@@ -580,15 +598,14 @@ class RadioProfile (RadioProfileWebElements):
             else:
                 radio_profile_info["background_scan"] = 'OFF'
         except:
-            self.utils.print_info("Fail to retrieve one of the fields")
-
+            kwargs['fail_msg'] = "get_radio_profile_details() failed. Fail to retrieve one of the fields"
+            self.common_validation.fault(**kwargs)
             return -1
 
         return radio_profile_info
 
-
     def verify_uni_group_channels(self, channels, group_channel, mode='excluded', radio_modes='5GHz',
-                                            channel_width='20MHZ'):
+                                            channel_width='20MHZ', **kwargs):
         """
         - This keyword verifies a excluded channels group of Uni for the 80 Mhz, 40 Mhz and 20 MHz
         - Keyword Usage:
@@ -625,14 +642,14 @@ class RadioProfile (RadioProfileWebElements):
             elif group_channel.lower() == 'uni-8':
                 self.get_channel_width_exclusions_unii_8().click()
 
-
         except:
-            self.utils.print_info("Not able to click " + str(group_channel))
+            kwargs['fail_msg'] = f"verify_uni_group_channels() failed. Not able to click {str(group_channel)}"
+            self.common_validation.fault(**kwargs)
             return -1
 
         return self.verify_radio_profile_channel_width_and_channels(channels, mode=mode)
 
-    def delete_radio_profile(self, profile_name='default'):
+    def delete_radio_profile(self, profile_name='default', **kwargs):
         """
         - This keyword deletes a radio profile in radio profile table
         - Keyword Usage:
@@ -652,12 +669,15 @@ class RadioProfile (RadioProfileWebElements):
 
         cells = self.get_radio_profile_table_cells()
         if not cells:
-            self.utils.print_info(" Radio Profile table is empty ")
+            kwargs['fail_msg'] = "delete_radio_profile() failed. Radio Profile table is empty"
+            self.common_validation.fault(**kwargs)
             return -1
 
         row = self._search_radio_profile_in_table(len(radio_profile_table_header), cells, profile_name)
         if not row:
-            self.utils.print_info(" Not able to find the radio profile in table " + profile_name)
+            kwargs['fail_msg'] = f"delete_radio_profile() failed. " \
+                                 f"Not able to find the radio profile in table {profile_name}"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info(" Select a radio profile ")
@@ -677,16 +697,19 @@ class RadioProfile (RadioProfileWebElements):
         cells = self.get_radio_profile_table_cells()
         row = self._search_radio_profile_in_table(len(radio_profile_table_header), cells, profile_name)
         if row:
-            self.utils.print_info(" Not able to delete the radio profile " + profile_name)
+            kwargs['fail_msg'] = f"delete_radio_profile() failed. Not able to delete the radio profile {profile_name}"
+            self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Deleted a radio profile in radio profile table"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def _search_radio_profile_in_table(self, no_columns_per_row, cells, radio_profile):
 
         """
         - This private function searches a radio profile in the radio profile table
-        :param  header_length: number column headers of the radio profile tables
+        :param  no_columns_per_row: number column headers of the radio profile tables
         :param  cells: all columns
         :param  radio_profile: profile name
         :return: row or -1
@@ -718,9 +741,8 @@ class RadioProfile (RadioProfileWebElements):
                 check_box = None
 
         if not found:
-            self.utils.print_info(" Not able to find the profile in table ")
+            self.utils.print_info("Not able to find the profile in table ")
             return -1
-
         return 1
 
     def enable_DFS_selection(self):
