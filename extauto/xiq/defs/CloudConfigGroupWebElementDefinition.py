@@ -39,25 +39,25 @@ class CloudConfigGroupWebElementDefinition:
     ccg_members = \
         {
             'CSS_SELECTOR': '.ccgs',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     ccg_member = \
         {
             'CSS_SELECTOR': '.device-ccg.long',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     ccg_member_all = \
         {
             'CSS_SELECTOR': '.ccgs',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     ccg_add_button = \
         {
             'XPATH': '//*[@class="cloud-config-groups"]//*[@data-tip="Add"]',
-            'wait_for': 5
+            'wait_for': 10
         }
 
     ccg_page_grid_rows = \
@@ -70,37 +70,37 @@ class CloudConfigGroupWebElementDefinition:
     device_select_check_box_common_object = \
         {
             'CSS_SELECTOR': '.ccg-device-select',
-            'wait_for':    2
+            'wait_for':    10
         }
 
     ccg_select_check_box_common_object = \
         {
             'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     ccg_members_hostname = \
         {
             'XPATH': '//div[@class="ui-tags-container"]//span[@class="ui-tag"]',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     edit_ccg_button = \
         {
             'XPATH': '//*[@class="cloud-config-groups"]//span[@class="table-action-icons table-edit"]',
-            'wait_for': 2
+            'wait_for': 15
         }
 
     delete_ccg_button = \
         {
             'XPATH': '//*[@class="cloud-config-groups"]//span[@class="table-action-icons table-remove"]',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     delete_ccg_yes_button = \
         {
             'XPATH': '//button[@data-dojo-attach-point="yesBtn"]',
-            'wait_for': 2
+            'wait_for': 10
         }
 
 
@@ -114,7 +114,7 @@ class CloudConfigGroupWebElementDefinition:
     ccg_row_name = \
         {
             'CSS_SELECTOR': '.field-name',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     get_ccg_name = \
@@ -181,7 +181,7 @@ class CloudConfigGroupWebElementDefinition:
     remove_device_from_ccg = \
         {
             'CSS_SELECTOR': '.J-tag-close',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     get_device_ccg_hostname = \
