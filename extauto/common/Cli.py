@@ -1983,7 +1983,7 @@ class Cli(object):
         Args:
          dut1 (dict): the dut, e.g. tb.dut1
          dut2 (dict): the dut, e.g. tb.dut2
-        :return: -1
+        :return: 'same'/'different'
         """
         device_1 = dut1.name
         device_2 = dut2.name
@@ -2036,6 +2036,86 @@ class Cli(object):
                 kwargs['pass_msg'] = f"check_os_versions() passed."
                 self.commonValidation.passed(**kwargs)
                 return 'different'
+
+    def disable_enable_iqagent_clone_device(self, iqagent_option, dut1, **kwargs):
+        """
+        - This keyword will disable/enable iqagent clone device
+        Args:
+         dut1 (dict): the dut, e.g. tb.dut1
+        :return:
+        """
+        device_1 = dut1.name
+        cli_type_device_1 = dut1.cli_type
+        if iqagent_option == 'disable':
+            if cli_type_device_1.lower() == 'exos':
+                self.networkElementCliSend.send_cmd(device_1, "disable iqagent", max_wait=10, interval=2,
+                                     confirmation_phrases='Do you want to continue?', confirmation_args='y')
+            elif cli_type_device_1.lower() == 'voss':
+                self.networkElementCliSend.send_cmd(device_1, "enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "application", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "no iqagent enable", max_wait=10, interval=2)
+            else:
+                # pytest.fail("Didn't find any os type")
+                kwargs['fail_msg'] = f"disable_enable_iqagent_clone_device() failed."
+                self.commonValidation.failed(**kwargs)
+        elif iqagent_option == 'enable':
+            if cli_type_device_1.lower() == 'exos':
+                self.networkElementCliSend.send_cmd(device_1, "enable iqagent", max_wait=10, interval=2)
+            elif cli_type_device_1.lower() == 'voss':
+                self.networkElementCliSend.send_cmd(device_1, "enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "application", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "iqagent enable", max_wait=10, interval=2)
+            else:
+                # pytest.fail("Didn't find any os type")
+                kwargs['fail_msg'] = f"disable_enable_iqagent_clone_device() failed."
+                self.commonValidation.failed(**kwargs)
+        else:
+            # pytest.fail("Didn't find option for disable/enable")
+            kwargs['fail_msg'] = f"disable_enable_iqagent_clone_device() failed. Didn't find option for disable/enable"
+            self.commonValidation.failed(**kwargs)
+
+    def check_iqagent_versions(self, dut1, dut2, **kwargs):
+        """
+        - This keyword will check iqagent versions
+        Args:
+         dut1 (dict): the dut, e.g. tb.dut1
+         dut2 (dict): the dut, e.g. tb.dut2
+        :return:
+        """
+        device_1 = dut1.name
+        device_2 = dut2.name
+        cli_type_device_1 = dut1.cli_type
+        cli_type_device_2 = dut2.cli_type
+
+        if cli_type_device_1.lower() and cli_type_device_2.lower() == 'exos':
+            check_iqagent_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show iqagent | grep Version')[0].cmd_obj._return_text
+            iqagent_version_regex = 'Version([ ]{1,}.{0,})'
+            iqagent_version_1 = self.utils.get_regexp_matches(check_iqagent_version_1, iqagent_version_regex, 1)[0]
+            iqagent_version_1_string = iqagent_version_1.replace(self.utils.get_regexp_matches(iqagent_version_1,
+                                                                                                   '([ ])')[0], '')
+
+            check_iqagent_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show iqagent | grep Version')[0].cmd_obj._return_text
+            iqagent_version_2 = self.utils.get_regexp_matches(check_iqagent_version_2, iqagent_version_regex, 1)[0]
+            iqagent_version_2_string = iqagent_version_2.replace(self.utils.get_regexp_matches(iqagent_version_2,
+                                                                                                   '([ ])')[0], '')
+            kwargs['pass_msg'] = f"check_iqagent_versions() passed."
+            self.commonValidation.passed(**kwargs)
+            return [iqagent_version_1_string, iqagent_version_2_string]
+
+        elif cli_type_device_1.lower() and cli_type_device_2.lower() == 'voss':
+            check_iqagent_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show application iqagent | include "Agent Version"')[0].cmd_obj._return_text
+            iqagent_version_regex = '(\\d.{0,})'
+            iqagent_version_1_string = self.utils.get_regexp_matches(check_iqagent_version_1,
+                                                                         iqagent_version_regex, 1)[0]
+
+            check_iqagent_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show application iqagent | include "Agent Version"')[0].cmd_obj._return_text
+            iqagent_version_2_string = self.utils.get_regexp_matches(check_iqagent_version_2,
+                                                                         iqagent_version_regex, 1)[0]
+            kwargs['pass_msg'] = f"check_iqagent_versions() passed."
+            self.commonValidation.passed(**kwargs)
+            return [iqagent_version_1_string, iqagent_version_2_string]
 
 
 if __name__ == '__main__':
