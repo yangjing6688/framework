@@ -488,6 +488,12 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_wireless_wifi0_radio_usage_blackhaul_mesh_link_checkbox(self):
         return self.weh.get_element(self.wireless_wifi0_radio_usage_blackhaul_mesh_link_checkbox)
 
+    def get_wireless_wifi0_radio_usage_sensor_checkbox(self):
+        return self.weh.get_element(self.wireless_wifi0_radio_usage_sensor_checkbox)
+
+    def get_wireless_wifi1_radio_usage_sensor_checkbox(self):
+        return self.weh.get_element(self.wireless_wifi1_radio_usage_sensor_checkbox)
+
     def get_wireless_wifi2_radio_usage_sensor_checkbox(self):
         return self.weh.get_element(self.wireless_wifi2_radio_usage_sensor_checkbox)
 
@@ -622,7 +628,7 @@ class DeviceConfigElements(DeviceConfigDefs):
 
     def get_wired_interface_toggle(self):
         attr = self.weh.get_element(self.wired_interface_toggle).get_attribute('class')
-        if "header-toggle-caret" not in attr:
+        if "show-content-toggle" not in attr:
             return self.weh.get_element(self.wired_interface_toggle)
 
     def get_imago_tag_radio_button(self):
@@ -722,4 +728,20 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_device_edit_template_drop_down_options_stack(self):
         return self.weh.get_elements(self.device_edit_template_drop_down_options_stack)
 
+    def get_devices_config_wired_eth0(self):
+        return self.weh.get_element(self.devices_config_wired_eth0)
 
+    def get_devices_config_wired_eth1(self):
+        return self.weh.get_element(self.devices_config_wired_eth1)
+
+    def get_devices_config_wired_eth0_lldp(self):
+        return self.weh.get_element(self.devices_config_wired_eth0_lldp)
+
+    def get_devices_config_wired_eth1_lldp(self):
+        return self.weh.get_element(self.devices_config_wired_eth1_lldp)
+
+    def get_devices_config_wired_eth0_cdp(self):
+        return self.weh.get_element(self.devices_config_wired_eth0_cdp)
+
+    def get_devices_config_wired_eth1_cdp(self):
+        return self.weh.get_element(self.devices_config_wired_eth1_cdp)

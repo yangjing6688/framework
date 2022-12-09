@@ -63,7 +63,7 @@ class Applications(object):
         self.utils.print_info(tool_tp_text)
 
         self.utils.print_info("clicking on application dialog box close button")
-        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_button)
+        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_tab)
 
         if "Add Custom Application successfully." in tool_tp_text[-1]:
             return 1
@@ -164,7 +164,7 @@ class Applications(object):
         self.utils.print_info(tool_tp_text)
 
         self.utils.print_info("clicking on application dialog box close button")
-        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_button)
+        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_tab)
 
         if "Custom Application was successfully deleted." in tool_tp_text[-1]:
             return 1

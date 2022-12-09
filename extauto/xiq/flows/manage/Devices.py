@@ -1261,6 +1261,12 @@ class Devices:
         :param update_method:  Delta, Complete
         :return:
         """
+        update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
+        update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
+                              "you must select a Complete Configuration Update."
+        update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
+        update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
@@ -1275,10 +1281,6 @@ class Devices:
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
-            update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
-            update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
-                                  "you must select a Complete Configuration Update."
-            update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
             if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
                 self.utils.print_info('Convert to Complete. Delta not supported')
                 update_method = "Complete"
@@ -1303,7 +1305,6 @@ class Devices:
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
-            update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
 
             if update_tooltip_msg in tool_tp_text:
                 self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
@@ -1317,6 +1318,11 @@ class Devices:
 
         self.screen.save_screen_shot()
         sleep(2)
+
+        tool_tp_text = tool_tip.tool_tip_text
+        for tooltip_msg in [update_tooltip_msg, update_tooltip_msg1, update_tooltip_msg2, update_tooltip_msg3]:
+            if tooltip_msg in tool_tp_text:
+                tool_tp_text.remove(tooltip_msg)
 
         kwargs['pass_msg'] = f"Device update Successfully Triggered"
         self.common_validation.passed(**kwargs)
@@ -2105,10 +2111,11 @@ class Devices:
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
-        if 'Extreme - Aerohive' in device_make:
-            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
-            self.auto_actions.select_drop_down_options(
-                self.devices_web_elements.get_device_make_drop_down_options(), device_make)
+        if device_type.lower() != "simulated":
+            if 'Extreme - Aerohive' in device_make:
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
+                self.auto_actions.select_drop_down_options(
+                    self.devices_web_elements.get_device_make_drop_down_options(), device_make)
 
         if location and device_type.lower() != "digital twin":
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
@@ -3798,7 +3805,7 @@ class Devices:
                                 return row
                         if device_mac != 'default':
                             self.utils.print_debug(f"Looking at Device MAC {device_mac}")
-                            if device_mac in row.text:
+                            if device_mac.upper() in row.text:
                                 self.utils.print_info("Found device row: ", self.format_row(row.text))
                                 return row
                     # Device row not found in table so break out of the StaleElementException loop
@@ -4015,6 +4022,7 @@ class Devices:
         """
         device_row = -1
 
+        self.navigator.enable_page_size()
         self.utils.print_info(f"Enable the Updated On column")
         self.column_picker_select("Updated On")
 
@@ -12417,36 +12425,30 @@ class Devices:
         """
 
         if self.navigator.navigate_to_devices() != 1:
-            self.utils.print_info("Failed on navigating to the Devices page.")
             kwargs['fail_msg'] = "Failed on navigating to the Devices page."
-            self.screen.save_screen_shot()
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
+
+        # Enable the 'Model' Column
+        self.column_picker_select('Model')
 
         self.utils.print_info(f"Searching for the device row with mac address: {mac}")
         device_row = self.get_device_row(device_mac=mac)
         if device_row:
             self.utils.print_info(f'Found the device row with mac address: {mac}')
-            device_model = self.devices_web_elements.get_device_model(device_row)
+            device_model = self.devices_web_elements.get_device_model(device_row).text
             print("Device model: ", device_model)
             if device_model:
-                self.utils.print_info(f"Found the device model: {device_model.text} for the device with "
-                                      f"MAC address: {mac}")
-                kwargs['pass_msg'] = f"Found the device model: {device_model.text} for the device with " \
+                kwargs['pass_msg'] = f"Found the device model: {device_model} for the device with " \
                                      f"MAC address: {mac}"
                 self.common_validation.passed(**kwargs)
-                return device_model.text
+                return device_model
             else:
-                self.utils.print_info(f"Failed on getting the device model from the device with mac: {mac} ")
-
                 kwargs['fail_msg'] = f"Failed on getting the device model from the device with mac: {mac} "
-                self.screen.save_screen_shot()
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info(f"Did not find any rows with mac address: {mac}")
             kwargs['fail_msg'] = f"Did not find any rows with mac address: {mac}"
-            self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
 
