@@ -39,7 +39,7 @@ class Device360(Device360WebElements):
         self.common_validation = CommonValidation()
         self.tools = Tools()
 
-    def get_system_info(self):
+    def get_system_info(self, **kwargs):
         """
         - This keyword gets system information from device360 page
         - Keyword Usage
@@ -78,6 +78,8 @@ class Device360(Device360WebElements):
             return sys_info
         except Exception as e:
             self.utils.print_info("Unable to get device360 details")
+            kwargs['fail_msg'] = "get_system_info() -> Unable to get device360 details"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def get_hostname_name_from_device_360(self, device_mac=None, device_name=None):
@@ -157,7 +159,7 @@ class Device360(Device360WebElements):
                 sys_info = self.get_system_info()
                 return sys_info
 
-    def check_client_in_device360(self, device_serial=None, client_mac=None):
+    def check_client_in_device360(self, device_serial=None, client_mac=None, **kwargs):
         """
         - This keyword is used to check the client in device360 page based on passed client mac address
         - Flow: Manage --> Devices --> click on the Clients hyperlink which is present in Device grid row based on device serial
@@ -183,6 +185,8 @@ class Device360(Device360WebElements):
                 return 1
         self.utils.print_info("Client not found")
         self.auto_actions.click_reference(self.dev360.get_close_dialog)
+        kwargs['fail_msg'] = "check_client_in_device360() -> Client not found"
+        self.commonValidation.failed(**kwargs)
         return -1
 
     def get_status_interface_list(self, device_serial=None):
@@ -209,7 +213,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return list_options
 
-    def get_status_interface(self, device_serial=None, interface_name=None):
+    def get_status_interface(self, device_serial=None, interface_name=None, **kwargs):
         """
         - This keyword  gets status interface
         - Flow: Manage --> Devices --> Select the device row based on the passed device serial --> Utilities --> Status --> Interface --> select interface and get the output
@@ -238,9 +242,11 @@ class Device360(Device360WebElements):
             return content
         else:
             self.utils.print_info("Device serial and interface name are not provided")
+            kwargs['fail_msg'] = "get_status_interface() -> Device serial and interface name are not provided"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def device360_configure_device_vlan_for_port(self, vlan=1363):
+    def device360_configure_device_vlan_for_port(self, vlan=1363, **kwargs):
         """
         This keyword is to configure vlan in D360
         Manage --> Devices --> Device360 --> Port Configuration --> Vlan for port 1
@@ -284,6 +290,16 @@ class Device360(Device360WebElements):
             ret_val = -1
         sleep(2)
 
+        if ret_val == -1:
+            if save_btn:
+                kwargs['fail_msg'] = "device360_configure_device_vlan_for_port() -> Couldn't close the dialogue box"
+                self.commonValidation.failed(**kwargs)
+            elif close_diag:
+                kwargs['fail_msg'] = "Could not click Save button"
+                self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Clicking 'device360_configure_device_vlan_for_port() -> Save Port Configuration' button' and closing the dialogue "
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
     def device360_enable_ssh_cli_connectivity(self, device_mac='', device_name='', run_time=5, time_interval=30,
@@ -311,8 +327,8 @@ class Device360(Device360WebElements):
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
         else:
-            kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
-            self.common_validation.validate(-1, 1, **kwargs)
+            kwargs['fail_msg'] = "device360_enable_ssh_cli_connectivity() -> Missing the device name and MAC, can't navigate to device 360 page"
+            self.commonValidation.fault(**kwargs)
             return -1
         self.screen.save_screen_shot()
         self.utils.print_info("Clicking Device 360 Configure button")
@@ -338,8 +354,8 @@ class Device360(Device360WebElements):
         elif run_time == 240:
             self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_240min_radio)
         else:
-            kwargs['fail_msg'] = f"Unsupported run_time: {run_time} supported numbers are: 5, 30, 60, 120, 240"
-            self.common_validation.validate(-1, 1, **kwargs)
+            kwargs['fail_msg'] = f"device360_enable_ssh_cli_connectivity() -> Unsupported run_time: {run_time} supported numbers are: 5, 30, 60, 120, 240"
+            self.commonValidation.fault(**kwargs)
             return -1
 
         sleep(10)
@@ -353,7 +369,7 @@ class Device360(Device360WebElements):
         if self.get_device_ssh_ui_tip_error() is not None:
             self.screen.save_screen_shot()
             self.auto_actions.click_reference(self.get_device_ssh_ui_tip_close)
-            kwargs['fail_msg'] = f"Encountered an error. Clicking to exit the error window. Please see the screenshot"
+            kwargs['fail_msg'] = "device360_enable_ssh_cli_connectivity() -> Encountered an error. Clicking to exit the error window. Please see the screenshot"
             self.close_device360_window()
             self.common_validation.failed(**kwargs)
             return -1
@@ -444,7 +460,7 @@ class Device360(Device360WebElements):
 
         return url
 
-    def device360_is_ssh_enabled(self, device_mac='', device_name=''):
+    def device360_is_ssh_enabled(self, device_mac='', device_name='', **kwargs):
         """
         - This keyword verifies if SSH Web Connectivity is enabled
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -473,11 +489,15 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Check if enabled based on first radio button")
         if self.get_device360_configure_ssh_cli_5min_radio().is_enabled():
+            kwargs['pass_msg'] = "Device360 ssh is enabled"
+            self.commonValidation.passed(**kwargs)
             return 1
 
+        kwargs['fail_msg'] = "device360_is_ssh_enabled() -> Device360 ssh is not enabled"
+        self.commonValidation.failed(**kwargs)
         return -1
 
-    def device360_is_ssh_disabled(self, device_mac='', device_name=''):
+    def device360_is_ssh_disabled(self, device_mac='', device_name='', **kwargs):
         """
         - This keyword verifies if SSH Web Connectivity is disabled
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -506,8 +526,12 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Check if disabled based on first radio button")
         if self.get_device360_configure_ssh_cli_5min_radio().is_enabled():
+            kwargs['fail_msg'] = "device360_is_ssh_disabled() -> Device360 ssh is enabled"
+            self.commonValidation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Device360 ssh is not enabled"
+        self.commonValidation.passed(**kwargs)
         return 1
 
     def get_switch_information(self):
@@ -589,7 +613,7 @@ class Device360(Device360WebElements):
                 exos_info = self.get_switch_information()
                 return exos_info
 
-    def advance_channel_selection(self, device_serial=None):
+    def advance_channel_selection(self, device_serial=None, **kwargs):
         """
         - This keyword  gets advance channel selection details
         - Flow: Manage --> Devices --> Select the device row based on the passed device serial -->Utilities --> Status --> Advanced Channel Selection
@@ -607,9 +631,11 @@ class Device360(Device360WebElements):
             return content
         else:
             self.utils.print_info("Device serial is not provided")
+            kwargs['fail_msg'] = "advance_channel_selection() -> Device serial is not provided"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def wifi_status_summary(self, device_serial=None):
+    def wifi_status_summary(self, device_serial=None, **kwargs):
         """
         - This keyword  gets wifi status summary
         - Flow: Manage --> Devices -->Select the device row based on the passed device serial --> Click on Utilities --> Status --> Wifi Status Summary --> station
@@ -635,6 +661,8 @@ class Device360(Device360WebElements):
             return content
         else:
             self.utils.print_info("Device serial is not provided.")
+            kwargs['fail_msg'] = "advance_channel_selection() -> Device serial is not provided"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def get_voss_overview_information(self):
@@ -797,7 +825,7 @@ class Device360(Device360WebElements):
 
         return voss_info
 
-    def select_configure_tab(self):
+    def select_configure_tab(self, **kwargs):
         """
         - This keyword clicks the Configure tab in the Device360 dialog window.
           It assumes the Device360 Window is open.
@@ -810,13 +838,16 @@ class Device360(Device360WebElements):
         if conf_tab:
             self.utils.print_info("Clicking Device360 Configure tab")
             self.auto_actions.click(conf_tab)
+            kwargs['pass_msg'] = "Clicking Device360 Configure tab"
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Could not find Configure tab - make sure Device360 window is open")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "select_configure_tab() -> Could not find Configure tab - make sure Device360 window is open"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def select_device_configuration_view(self):
+    def select_device_configuration_view(self, **kwargs):
         """
         - This keyword clicks the Device Configuration link on the Configure tab in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Configure tab.
@@ -829,11 +860,13 @@ class Device360(Device360WebElements):
         if dev_conf_link:
             self.utils.print_info("Clicking Device Configuration on the Device360 Configure tab")
             self.auto_actions.click(dev_conf_link)
+            kwargs['pass_msg'] = "Clicking Device Configuration on the Device360 Configure tab"
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info(
-                "Could not find Device Configuration link - make sure Device360 window is open and on Configure tab")
-            self.screen.save_screen_shot()
+            self.utils.print_info("Could not find Device Configuration link - make sure Device360 window is open and on Configure tab")
+            kwargs['fail_msg'] = "select_device_configuration_view() -> Could not find Device Configuration link - make sure Device360 window is open and on Configure tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def device360_navigate_to_device_configuration(self):
@@ -851,7 +884,7 @@ class Device360(Device360WebElements):
 
         return ret_val
 
-    def device360_device_configuration_click_cancel(self):
+    def device360_device_configuration_click_cancel(self, **kwargs):
         """
         - This keyword clicks Cancel in the Configure> Device Configuration view in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Configure> Device Configuration page.
@@ -864,14 +897,17 @@ class Device360(Device360WebElements):
         if cancel_btn:
             self.utils.print_info("Clicking Cancel button in the Device Configuration view of Device360")
             self.auto_actions.click(cancel_btn)
+            kwargs['pass_msg'] = "Clicking Cancel button in the Device Configuration view of Device360"
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(
                 "Could not find Cancel button - make sure Device360 window is open to the Device Configuration view")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "device360_device_configuration_click_cancel() -> Could not find Device Configuration link - make sure Device360 window is open and on Configure tab"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def close_device360_window(self):
+    def close_device360_window(self, **kwargs):
         """
         - This keyword closes the Device360 dialog window.  It assumes the Device360 Window is open - if the close
           button cannot be found, a message is printed.
@@ -884,10 +920,13 @@ class Device360(Device360WebElements):
         if close_btn:
             self.utils.print_info("Closing device360 Dialog Window.")
             self.auto_actions.click_reference(self.dev360.get_close_dialog)
+            kwargs['pass_msg'] = "Closing device360 Dialog Window.0"
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Could not obtain Device360 close button - make sure Device360 window is open")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "close_device360_window() -> Could not obtain Device360 close button - make sure Device360 window is open"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def device360_disable_ssh_connectivity(self, device_mac='', device_name='', **kwargs):
@@ -906,8 +945,8 @@ class Device360(Device360WebElements):
             self.utils.print_info("Using device name: ", device_name)
             self.navigator.navigate_to_device360_page_with_host_name(device_name)
         else:
-            kwargs['fail_msg'] = f"Missing the device name and MAC, can't navigate to device 360 page"
-            self.common_validation.failed(**kwargs)
+            kwargs['fail_msg'] = "device360_disable_ssh_connectivity() -> Missing the device name and MAC, can't navigate to device 360 page"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.screen.save_screen_shot()
@@ -927,11 +966,11 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("SSH has been disabled")
 
-        kwargs['pass_msg'] = f"SSH has been disabled successfully!"
+        kwargs['pass_msg'] = "SSH has been disabled successfully!"
         self.common_validation.passed(**kwargs)
         return 1
 
-    def device360_disable_ssh_web_connectivity(self, device_mac='', device_name=''):
+    def device360_disable_ssh_web_connectivity(self, device_mac='', device_name='', **kwargs):
         """
         - This keyword disables SSH WEB Connectivity
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname)
@@ -948,6 +987,8 @@ class Device360(Device360WebElements):
             self.screen.save_screen_shot()
 
             if self.get_device360_configure_ssh_web_url():
+                kwargs['fail_msg'] = "device360_disable_ssh_web_connectivity() -> Could not get device360 ssh web url"
+                self.common_validation.fault(**kwargs)
                 return -1
             return 1
         else:
@@ -971,10 +1012,12 @@ class Device360(Device360WebElements):
             self.auto_actions.click_reference(self.get_device360_configure_ssh_web_disable_button)
 
             if self.get_device360_configure_ssh_web_url():
+                kwargs['fail_msg'] = "device360_disable_ssh_web_connectivity() -> Could not get device360 ssh web url"
+                self.common_validation.failed(**kwargs)
                 return -1
             return 1
 
-    def device360_confirm_ssh_enabled(self, device_mac='', device_name=''):
+    def device360_confirm_ssh_enabled(self, device_mac='', device_name='', **kwargs):
         """
         - This keyword confirms if SSH is enabled for the specified device
         - Flow : Manage-->Devices-->click on hyperlink(MAC/hostname) -> check if SSH is enabled
@@ -1009,6 +1052,12 @@ class Device360(Device360WebElements):
             self.utils.print_info("Disable button is present - SSH is enabled")
             ret_val = 1
 
+        if ret_val == -1:
+            kwargs['fail_msg'] = "device360_confirm_ssh_enabled() -> Disable button is not present - SSH is not enabled"
+            self.common_validation.fault(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Disable button is present - SSH is enabled"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
     def device360_select_events_view(self):
