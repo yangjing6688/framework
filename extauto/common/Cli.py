@@ -915,7 +915,6 @@ class Cli(object):
             self.send(connection, f'save config')
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(connection, 'disable iqagent')
             self.send(connection, f'configure iqagent server ipaddress {server_name}')
             self.send(connection, f'configure iqagent server vr {vr}')
             self.send(connection, 'enable iqagent')
