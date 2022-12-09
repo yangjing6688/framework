@@ -3758,15 +3758,13 @@ class Navigator(NavigatorWebElements):
             try:
                 page_size_element = self.get_page_size()
                 if page_size_element != None:
-                    self.utils.print_info("Clicking on page size...")
+                    self.utils.print_info(f'Clicking on page size of {page_size_element.text}')
                     if self.auto_actions.click(page_size_element) == 1:
-                        self.screen.save_screen_shot()
-                        kwargs['pass_msg'] = " Clicked on page size"
+                        kwargs['pass_msg'] = f" Clicked on page size of {page_size_element.text}"
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
                         if counter == 5:
-                            self.screen.save_screen_shot()
                             kwargs['fail_msg'] = "enable_device_page_size, Not able to click on page size "
                             self.common_validation.failed(**kwargs)
                             return -1
@@ -3787,3 +3785,94 @@ class Navigator(NavigatorWebElements):
                     self.utils.print_info(f"trying again...")
                 counter += 1
                 sleep(5)
+
+    def navigate_configure_network_policies(self, **kwargs):
+        """
+         - This keyword Navigates to Network Policies On Configure Menu
+         - Flow Configure--> Network Policies
+         - Keyword Usage
+          - ``Navigate Configure Network Policies``
+
+        :return: 1 if Successfully Clicked Configure menu and then Navigated to Network Policies Menu else return -1
+        """
+        self.utils.print_info("Selecting Configure tab...")
+        if self.get_configure_tab().is_displayed():
+            self.navigate_to_configure_tab()
+            kwargs['pass_msg'] = " Successfully Clicked Configure Menu"
+            self.common_validation.passed(**kwargs)
+            sleep(2)
+
+        return self.navigate_to_network_policies_tab()
+
+    def navigate_configure_common_objects(self):
+        """
+        - This keyword Navigates to Common Objects On Configure Menu
+        - Flow: Configure --> Common Objects
+        - Keyword Usage
+         - ``Navigate Configure Common Objects``
+
+        :return: -1 if Navigation Not Successful to Configure Menu else return None
+        """
+        self.navigate_to_configure_tab()
+
+        self.utils.print_info("Selecting Common Objects")
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
+        sleep(5)
+
+    def navigate_to_network_policies_tab(self, **kwargs):
+        """
+         - This keyword Navigates to Network Policies
+         - Keyword Usage
+          - ``Navigate To Network Policies Tab``
+        :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
+        """
+        network_policy_tab_display = False
+        try_cnt = 0
+        while not network_policy_tab_display:
+            self.utils.print_info("Navigate to Configure Tab first")
+            self.navigate_to_configure_tab()
+            if self.get_subtab_head_img_nav():
+                self.utils.print_info("Selecting Network Policies Tab...")
+                self.auto_actions.click_reference(self.get_network_policies_sub_tab)
+                sleep(2)
+                network_policy_tab_display = True
+            else:
+                sleep(2)
+                self.utils.print_info("Network Policy tab is NOT displayed, try to navigate to the tab again")
+                self.screen.save_screen_shot()
+                try_cnt += 1
+                if try_cnt == 10:
+                    self.utils.print_info(f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
+                    return False
+        if network_policy_tab_display:
+            kwargs['pass_msg'] = " Successfully Navigated to Network Policies Menu"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = f"Unable to Navigate to Network Policies Menu"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def navigate_to_ssids(self):
+        """
+        - This keyword Navigates to SSIDs Menu on Common Objects
+        - Flow Configure --> Common Objects --> Policy --> SSIDs
+        - Keyword Usage
+         - ``Navigate To SSIDs``
+        :return: 1 if Navigation Successful
+        """
+        self.navigate_to_configure_tab()
+
+        self.utils.print_info("Selecting Common Objects")
+        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
+        sleep(2)
+
+        if self.get_ssid_option() is None:
+            self.utils.print_info("SSID menu is NOT visible. Clicking Policy...")
+            self.auto_actions.click_reference(self.get_policy_toggle)
+            sleep(2)
+        self.utils.print_info("SSID menu is visible. Selecting...")
+        self.auto_actions.click_reference(self.get_ssid_option)
+        sleep(2)
+
+        return 1

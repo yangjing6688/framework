@@ -7,6 +7,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestNotificationWebElements import ExtremeGuestNotificationWebElements
 from selenium.common.exceptions import StaleElementReferenceException
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Notification(object):
@@ -19,6 +20,7 @@ class Notification(object):
         self.auto_actions = AutoActions()
         self.notification_web_elem = ExtremeGuestNotificationWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def go_to_configure_notification_policy_tab(self):
         """
@@ -38,7 +40,7 @@ class Notification(object):
 
         return 1
 
-    def add_notification_policy(self, policy_name, policy_description, policy_type='user', sms='False', sponsor_number='', email='True'):
+    def add_notification_policy(self, policy_name, policy_description, policy_type='user', sms='False', sponsor_number='', email='True', **kwargs):
         """
         - This keyword Will Navigate to Extreme Guest Notification Policy Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
@@ -103,9 +105,11 @@ class Notification(object):
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Succesfully Navigated to Extreme Guest Notification Policy Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def get_notification_policy(self, policy_name):
+    def get_notification_policy(self, policy_name, **kwargs):
         """
         - This keyword Will Check if the Notification Policy Exists
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
@@ -141,6 +145,8 @@ class Notification(object):
                 stale_retry = stale_retry + 1
 
         self.utils.print_info("Unable to find Notification Policy row in grid")
+        kwargs['fail_msg'] = "'get_notification_policy()' -> Unable to find Notification Policy row in grid"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def format_notification_policy_row(self, row):
@@ -150,7 +156,7 @@ class Notification(object):
             formatted_row.append(cell_value)
         return formatted_row
 
-    def check_if_notification_policy_exists(self, policy_name):
+    def check_if_notification_policy_exists(self, policy_name, **kwargs):
         """
         - This keyword Will Check if the Notification Policy Exists
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
@@ -166,9 +172,12 @@ class Notification(object):
         row = self.get_notification_policy(policy_name)
         if row:
             return 1
+
+        kwargs['fail_msg'] = "'check_if_notification_policy_exists()' -> Notification Policy doesn not Exists"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def edit_notification_policy(self, policy_name, policy_description='null', policy_type='null', sms='null', sponsor_number='null', email='null'):
+    def edit_notification_policy(self, policy_name, policy_description='null', policy_type='null', sms='null', sponsor_number='null', email='null', **kwargs):
         """
         - This keyword Will Navigate to Extreme Guest Notification Policy Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
@@ -225,7 +234,10 @@ class Notification(object):
             sleep(2)
 
             return 1
+
         self.utils.print_info("Notification Policy Does not exists")
+        kwargs['fail_msg'] = "'edit_notification_policy()' -> Notification Policy doesn not Exists"
+        self.common_validation.fault(**kwargs)
         return -1
 
     def delete_notification_policy(self, policy_name):
@@ -255,7 +267,6 @@ class Notification(object):
             self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button)
 
             return 1
-        self.utils.print_info("Notification Policy Does not exists")
         return -1
 
     def _select_extreme_guest_notification_page_notification_row(self, search_string):

@@ -70,6 +70,7 @@ class CommonObjects(object):
                 retries += 1
                 return _get_common_object_row(search_string, retries)
         self.utils.print_info(f"common object row {search_string} not present")
+        self.screen.save_screen_shot()
         return False
 
     def _search_common_object(self, search_string):
@@ -91,6 +92,7 @@ class CommonObjects(object):
         """
         row = self._get_common_object_row(search_string)
         self.auto_actions.click(self.cobj_web_elements.get_common_object_grid_row_cells(row, 'dgrid-selector'))
+        self.screen.save_screen_shot()
         sleep(2)
 
     def _delete_common_objects(self):
@@ -100,14 +102,19 @@ class CommonObjects(object):
         :return:
         """
         self.utils.print_info("Clicking on delete button")
-        self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
+        delete_button = self.cobj_web_elements.get_common_objects_delete_button()
+        if delete_button:
+           self.utils.print_info("Clicking on delete button")
+           self.auto_actions.click(delete_button)
+        self.screen.save_screen_shot()
         sleep(2)
 
         confirm_delete_btn = self.cobj_web_elements.get_common_object_confirm_delete_button()
         if confirm_delete_btn:
             self.utils.print_info("Clicking on confirm Yes button")
             self.auto_actions.click(confirm_delete_btn)
-            sleep(3)
+        self.screen.save_screen_shot()
+        sleep(3)
 
     def _select_delete_common_object(self, object_name):
         """
@@ -149,6 +156,7 @@ class CommonObjects(object):
         :return: 1 if deleted else -1
         """
         self.navigator.navigate_to_ssids()
+        self.screen.save_screen_shot()
         sleep(5)
 
         if not self._search_common_object(ssid_name):
@@ -192,11 +200,13 @@ class CommonObjects(object):
         """
 
         self.navigator.navigate_to_ssids()
+        self.screen.save_screen_shot()
         sleep(5)
 
         self.utils.print_info("Click on full page view")
         if self.cobj_web_elements.get_paze_size_element():
             self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
+            self.screen.save_screen_shot()
             sleep(5)
 
         # Get the total pages
@@ -226,6 +236,7 @@ class CommonObjects(object):
 
         if not select_ssid_flag:
             kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"
+            self.screen.save_screen_shot()
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -502,7 +513,7 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_cwp_save_button())
         return 1
 
-    def edit_captive_web_portal_social_login_configuration(self, **cwp_template_config):
+    def edit_captive_web_portal_social_login_configuration(self, cwp_template_config, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Edit social login captive web portal from the grid
@@ -530,8 +541,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_captive_web_portal()
 
         if not self._search_common_object(temp_cwp_name):
-            cwp_template_config['pass_msg'] = "CWP Name doesn't exists in the list"
-            self.common_validation.passed(**cwp_template_config)
+            kwargs['pass_msg'] = "CWP Name doesn't exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self._select_common_object_row(temp_cwp_name)
@@ -599,13 +610,13 @@ class CommonObjects(object):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Captive web portal was saved successfully." in tool_tip_text:
-            cwp_template_config['pass_msg'] = "Captive web portal was saved successfully!"
-            self.common_validation.passed(**cwp_template_config)
+            kwargs['pass_msg'] = "Captive web portal was saved successfully!"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            cwp_template_config['fail_msg'] = "edit_captive_web_portal_social_login_configuration() failed." \
+            kwargs['fail_msg'] = "edit_captive_web_portal_social_login_configuration() failed." \
                                  "Failed to save captive web portal."
-            self.common_validation.failed(**cwp_template_config)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def delete_aaa_server_profile(self, aaa_profile_name, **kwargs):
@@ -943,7 +954,7 @@ class CommonObjects(object):
                 return row
         return False
 
-    def _search_common_object_template(self, search_string, **kwargs):
+    def _search_common_object_template(self, search_string):
         """
         - Search the passed search string object in grid rows
         :param search_string:
@@ -1416,8 +1427,8 @@ class CommonObjects(object):
         kwargs['fail_msg'] = "create_radio_profile() failed. Failed to create radio profile"
         self.common_validation.failed(**kwargs)
         return -1
-
-    def add_ap_template_from_common_object(self, ap_model, ap_template_name, **wifi_interface_config):
+ 
+    def add_ap_template_from_common_object(self, ap_model, ap_template_name, wifi_interface_config, **kwargs):
         """"
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
         - Adding AP Template in Common Object
@@ -1445,8 +1456,8 @@ class CommonObjects(object):
             sleep(2)
 
         if self._search_common_object_template(ap_template_name):
-            wifi_interface_config['pass_msg'] = "AP Template Name already exists in the list"
-            self.common_validation.passed(**wifi_interface_config)
+            kwargs['pass_msg'] = "AP Template Name already exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Click on AP Template add button")
@@ -1482,7 +1493,7 @@ class CommonObjects(object):
             self._config_ap_template_wifi2(**wifi2_config)
 
         if not wired_config == "None":
-            self._config_ap_template_wired(**wired_config)
+            self._config_ap_template_wired(wired_config)
 
         self.utils.print_info("Click on the save template button")
         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_save_button())
@@ -1496,15 +1507,15 @@ class CommonObjects(object):
         strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
         self.utils.print_info("Tool tip Text ap template", strings_with_substring)
         if "AP template was saved successfully" in str(strings_with_substring):
-            wifi_interface_config['pass_msg'] = "AP template was saved successfully"
-            self.common_validation.passed(**wifi_interface_config)
+            kwargs['pass_msg'] = "AP template was saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            wifi_interface_config['fail_msg'] = "add_ap_template_from_common_object() failed. Failed to add AP template"
-            self.common_validation.failed(**wifi_interface_config)
+            kwargs['fail_msg'] = "add_ap_template_from_common_object() failed. Failed to add AP template"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def get_ap_template_wifi(self, ap_template_name, **wifi_interface_config):
+    def get_ap_template_wifi(self, ap_template_name, wifi_interface_config, **kwargs):
         """"
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
         - Get AP Template wiifi in Common Object
@@ -1518,6 +1529,7 @@ class CommonObjects(object):
         wifi0_config = wifi_interface_config.get('wifi0_configuration', 'None')
         wifi1_config = wifi_interface_config.get('wifi1_configuration', 'None')
         wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
+        wired_config = wifi_interface_config.get('wired_configuration', 'None')
 
         try:
             self.utils.print_info("Navigate to Policy--> AP Templates")
@@ -1535,32 +1547,36 @@ class CommonObjects(object):
                     break
 
             if wifi0_config != 'None':
-                self.utils.print_info("Get WiFI0 Interface Status")
+                self.utils.print_info("Get WiFI0 Interface details")
                 wifi_interface_config['wifi0_configuration'] = self._get_ap_template_wifi0(**wifi0_config)
                 self.screen.save_screen_shot()
 
             if wifi1_config != 'None':
-                self.utils.print_info("Get WiFI1 Interface Status")
+                self.utils.print_info("Get WiFI1 Interface details")
                 wifi_interface_config['wifi1_configuration'] = self._get_ap_template_wifi1(**wifi1_config)
                 self.screen.save_screen_shot()
 
             if wifi2_config != 'None':
-                self.utils.print_info("Get WiFI2 Interface Status")
+                self.utils.print_info("Get WiFI2 Interface details")
                 wifi_interface_config['wifi2_configuration'] = self._get_ap_template_wifi2(**wifi2_config)
+                self.screen.save_screen_shot()
+
+            if wired_config != "None":
+                self.utils.print_info("Get Wired Interfaces details")
+                wifi_interface_config['wired_configuration'] = self._get_ap_template_wired(**wired_config)
                 self.screen.save_screen_shot()
 
             self.utils.print_info("Click on the cancel template button")
             self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_cancel_button())
-
             self.common_validation.passed(**wifi_interface_config)
             return wifi_interface_config
 
         except Exception as e:
-            wifi_interface_config['fail_msg'] = f"get_ap_template_wifi() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wifi_interface_config)
+            kwargs['fail_msg'] = f"get_ap_template_wifi() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def set_ap_template_wifi(self, ap_template_name, **wifi_interface_config):
+    def set_ap_template_wifi(self, ap_template_name, wifi_interface_config, **kwargs):
         """
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
         - Set AP Template wiifi in Common Object
@@ -1591,17 +1607,17 @@ class CommonObjects(object):
 
         if wifi0_config != 'None':
             self.utils.print_info("Set WiFI0 Interface Setting")
-            self._set_ap_template_wifi0(**wifi0_config)
+            self._set_ap_template_wifi0(wifi0_config)
             self.screen.save_screen_shot()
 
         if wifi1_config != 'None':
             self.utils.print_info("Set WiFI1 Interface Setting")
-            self._set_ap_template_wifi1(**wifi1_config)
+            self._set_ap_template_wifi1(wifi1_config)
             self.screen.save_screen_shot()
 
         if wifi2_config != 'None':
             self.utils.print_info("Set WiFI2 Interface Setting")
-            self._set_ap_template_wifi2(**wifi2_config)
+            self._set_ap_template_wifi2(wifi2_config)
             self.screen.save_screen_shot()
 
         self.utils.print_info("Click on the save template button")
@@ -1616,15 +1632,15 @@ class CommonObjects(object):
         strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
         self.utils.print_info("Tool tip Text ap template", strings_with_substring)
         if "AP template was saved successfully" in str(strings_with_substring):
-            wifi_interface_config['pass_msg'] = "AP template was saved successfully"
-            self.common_validation.passed(**wifi_interface_config)
+            kwargs['pass_msg'] = "AP template was saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            wifi_interface_config['fail_msg'] = "set_ap_template_wifi() failed. Failed to set AP template"
-            self.common_validation.failed(**wifi_interface_config)
+            kwargs['fail_msg'] = "set_ap_template_wifi() failed. Failed to set AP template"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def _set_ap_template_wifi0(self, **wifi0_profile):
+    def _set_ap_template_wifi0(self, wifi0_profile, **kwargs):
         """
         - Set the WIFI0 configuration on AP Template
         - Keyword Usage
@@ -1690,12 +1706,12 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_enable_sdr())
 
         except Exception as e:
-            wifi0_profile['fail_msg'] = f"_set_ap_template_wifi0() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wifi0_profile)
+            kwargs['fail_msg'] = f"_set_ap_template_wifi0() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
         return 1
 
-    def _set_ap_template_wifi1(self, **wifi1_profile):
+    def _set_ap_template_wifi1(self, wifi1_profile, **kwargs):
         """
         - Set the WIFI1 configuration on AP Template
         - Keyword Usage
@@ -1752,12 +1768,12 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor())
 
         except Exception as e:
-            wifi1_profile['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wifi1_profile)
+            kwargs['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
         return 1
 
-    def _set_ap_template_wifi2(self, **wifi2_profile):
+    def _set_ap_template_wifi2(self, wifi2_profile, **kwargs):
         """
         - Set the WIFI2 configuration on AP Template
         - Keyword Usage
@@ -1803,8 +1819,8 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor())
 
         except Exception as e:
-            wifi2_profile['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wifi2_profile)
+            kwargs['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
         return 1
 
@@ -1829,9 +1845,10 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi0_tab())
 
         if radio_status_wifi0 != 'None':
-            wifi0_profile['radio_status'] = self.cobj_web_elements.get_common_object_wifi0_radio_status_button().is_selected()
+            wifi0_profile['radio_status'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_wifi0_radio_status_button().is_selected())
             self.utils.print_info("Get Radio Status on WiFi0 Interface: ", wifi0_profile['radio_status'])
-            if not wifi0_profile['radio_status']:
+            if wifi0_profile['radio_status'] == 'Off':
                 return wifi0_profile
         self.auto_actions.scroll_down()
 
@@ -1840,28 +1857,33 @@ class CommonObjects(object):
             self.utils.print_info("Get Radio Profile status on WiFi0 Interface: ",  wifi0_profile['radio_profile'])
 
         if client_mode_status_wifi0 != 'None':
-            wifi0_profile['client_mode'] = self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected()
+            wifi0_profile['client_mode'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi0_client_mode().is_selected())
             self.utils.print_info("Get Client Mode Checkbox on WiFi0 Interface: ", wifi0_profile['client_mode'])
 
         if client_access_status_wifi0 != 'None':
-            wifi0_profile['client_access'] = self.cobj_web_elements.get_common_object_wifi0_client_access().is_selected()
+            wifi0_profile['client_access'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi0_client_access().is_selected())
             self.utils.print_info("Get Client Access Checkbox on WiFi0 Interface: ", wifi0_profile['client_access'])
 
         if backhaul_mesh_status_wifi0 != 'None':
-            wifi0_profile['backhaul_mesh_link'] = self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected()
+            wifi0_profile['backhaul_mesh_link'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected())
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi0 Interface: ", wifi0_profile['backhaul_mesh_link'])
 
         try:
             if sensor_status_wifi0 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
-                wifi0_profile['sensor'] = 'Disable'
+                wifi0_profile['sensor'] = 'UIDisable'
         except:
-            wifi0_profile['sensor'] = self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected()
+            wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected())
         finally:
             self.utils.print_info("Get Sensor Checkbox on WiFi0 Interface: ", wifi0_profile['sensor'])
 
         if enable_SDR_wifi0 != 'None':
-            wifi0_profile['enable_SDR'] = self.cobj_web_elements.get_common_object_ap_template_enable_sdr().is_selected()
+            wifi0_profile['enable_SDR'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_enable_sdr().is_selected())
             self.utils.print_info("Get Enable SDR Checkbox on WiFi0 Interface: ", wifi0_profile['enable_SDR'])
 
         return wifi0_profile
@@ -1870,7 +1892,7 @@ class CommonObjects(object):
         """
         - Get the WIFI1 configuration on AP Template
         - Keyword Usage
-        - ``Get AP Template WiFi1    &{WIFI0_CONFI1}``
+        - ``Get AP Template WiFi1    &{WIFI1_CONFI1G}``
 
         :param wifi1_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: wifi1_profile if Get WiFi1 Profile Successfully else None
@@ -1886,9 +1908,10 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi1_tab())
 
         if radio_status_wifi1 != 'None':
-            wifi1_profile['radio_status'] = self.cobj_web_elements.get_common_object_wifi1_radio_status_button().is_selected()
+            wifi1_profile['radio_status'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_wifi1_radio_status_button().is_selected())
             self.utils.print_info("Get Radio Status on WiFi1 Interface: ", wifi1_profile['radio_status'])
-            if not wifi1_profile['radio_status']:
+            if wifi1_profile['radio_status'] == 'Off':
                 return wifi1_profile
         self.auto_actions.scroll_down()
 
@@ -1897,24 +1920,28 @@ class CommonObjects(object):
             self.utils.print_info("Get Radio Profile status on WiFi1 Interface: ", wifi1_profile['radio_profile'])
 
         if client_mode_status_wifi1 != 'None':
-            wifi1_profile['client_mode'] = self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected()
+            wifi1_profile['client_mode'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi1_client_mode().is_selected())
             self.utils.print_info("Get Client Mode Checkbox on WiFi1 Interface: ", wifi1_profile['client_mode'])
 
         if client_access_status_wifi1 != 'None':
             wifi1_profile[
-                'client_access'] = self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected()
+                'client_access'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi1_client_access().is_selected())
             self.utils.print_info("Get Client Access Checkbox on WiFi1 Interface: ", wifi1_profile['client_access'])
 
         if backhaul_mesh_status_wifi1 != 'None':
-            wifi1_profile['backhaul_mesh_link'] = self.cobj_web_elements.get_common_object_wifi1_mesh_link().is_selected()
+            wifi1_profile['backhaul_mesh_link'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi1_mesh_link().is_selected())
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi1 Interface: ", wifi1_profile['backhaul_mesh_link'])
 
         try:
             if sensor_status_wifi1 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
-                wifi1_profile['sensor'] = 'Disable'
+                wifi1_profile['sensor'] = 'UIDisable'
         except:
-            wifi1_profile['sensor'] = self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected()
+            wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected())
         finally:
             self.utils.print_info("Get Sensor Checkbox on WiFi1 Interface: ", wifi1_profile['sensor'])
 
@@ -1924,7 +1951,7 @@ class CommonObjects(object):
         """
         - Get the WIFI2 configuration on AP Template
         - Keyword Usage
-        - ``Get AP Template WiFi2    &{WIFI0_CONFI2}``
+        - ``Get AP Template WiFi2    &{WIFI2_CONFIG}``
 
         :param wifi2_profile: (Get Dict) Enable/Disable Client mode, Client Access,Backhaul Mesh Link, Sensor
         :return: wifi2_profile if Get WiFi2 Profile Successfully else None
@@ -1935,16 +1962,17 @@ class CommonObjects(object):
         backhaul_mesh_status_wifi2 = wifi2_profile.get('backhaul_mesh_link', 'None')
         sensor_status_wifi2        = wifi2_profile.get('sensor'            , 'None')
 
-        self.utils.print_info("Click on WiFi2 Tab on AP Template page")
         try:
+            self.utils.print_info("Click on WiFi2 Tab on AP Template page")
             self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi2_tab())
         except:
             return wifi2_profile
 
         if radio_status_wifi2 != 'None':
-            wifi2_profile['radio_status'] = self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected()
+            wifi2_profile['radio_status'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected())
             self.utils.print_info("Get Radio Status on WiFi2 Interface: ", wifi2_profile['radio_status'])
-            if not wifi2_profile['radio_status']:
+            if  wifi2_profile['radio_status'] == 'Off':
                 return wifi2_profile
         self.auto_actions.scroll_down()
 
@@ -1953,19 +1981,122 @@ class CommonObjects(object):
             self.utils.print_info("Get Radio Profile status on WiFi2 Interface: ", wifi2_profile['radio_profile'])
 
         if client_access_status_wifi2 != 'None':
-            wifi2_profile['client_access'] = self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected()
+            wifi2_profile['client_access'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected())
             self.utils.print_info("Get Client Access Checkbox on WiFi2 Interface: ", wifi2_profile['client_access'])
 
         if backhaul_mesh_status_wifi2 != 'None':
             wifi2_profile[
-                'backhaul_mesh_link'] = self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected()
+                'backhaul_mesh_link'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected())
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi2 Interface: ", wifi2_profile['backhaul_mesh_link'])
 
-        if sensor_status_wifi2 != 'None':
-            wifi2_profile['sensor'] = self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected()
+        try:
+            if sensor_status_wifi2 != 'None':
+                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable())
+                wifi2_profile['sensor'] = 'UIDisable'
+        except:
+            wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected())
+        finally:
             self.utils.print_info("Get Sensor Checkbox on WiFi2 Interface: ", wifi2_profile['sensor'])
 
         return wifi2_profile
+
+    def _get_ap_template_wired(self, **wired_profile):
+        """
+        - Get the Wired Interfaces on AP Template
+        - Keyword Usage
+        - ``Get AP Template Wired    &{WIRED_CONFIG}``
+
+        :param wired_profile: (Get Dict) Enable/Disable Eth0, Eth1, and etc
+        :return: wired_profile if Successfully else None
+        """
+        eth0 = wired_profile.get('eth0', 'None')   # eth0=get or yes
+        eth1 = wired_profile.get('eth1', 'None')
+        port_type_eth0 = wired_profile.get('port_type_eth0', 'None')
+        port_type_eth1 = wired_profile.get('port_type_eth1', 'None')
+        transmission_type_eth0 = wired_profile.get('transmission_type_eth0', 'None')
+        transmission_type_eth1 = wired_profile.get('transmission_type_eth1', 'None')
+        speed_eth0 = wired_profile.get('speed_eth0', 'None')
+        speed_eth1 = wired_profile.get('speed_eth0', 'None')
+        lldp_eth0 = wired_profile.get('lldp_eth0', 'None')
+        lldp_eth1 = wired_profile.get('lldp_eth1', 'None')
+        cdp_eth0 = wired_profile.get('cdp_eth0', 'None')
+        cdp_eth1 = wired_profile.get('cdp_eth1', 'None')
+
+        self.auto_actions.scroll_down()
+        if eth0 != 'None':
+            wired_profile['eth0'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_ap_template_eth0_status().is_selected())
+            self.utils.print_info('Eth0 status: ', wired_profile['eth0'])
+
+        if eth1 != 'None':
+            wired_profile['eth1'] = self._convert_boolean_to_on_off(
+                self.cobj_web_elements.get_common_object_ap_template_eth1_status().is_selected())
+            self.utils.print_info('Eth1 status: ', wired_profile['eth1'])
+
+        if port_type_eth0 != 'None':
+            wired_profile['port_type_eth0'] = self.cobj_web_elements.get_common_object_ap_template_eth0_port_type().text
+            self.utils.print_info('Port type eth0 status: ', wired_profile['port_type_eth0'])
+
+        if port_type_eth1 != 'None':
+            wired_profile['port_type_eth1'] = self.cobj_web_elements.get_common_object_ap_template_eth1_port_type().text
+            self.utils.print_info('Port type eth1 status: ', wired_profile['port_type_eth1'])
+
+        if transmission_type_eth0 != 'None':
+            wired_profile['transmission_type_eth0'] = self.cobj_web_elements.get_common_object_ap_template_eth0_transmission_type().text
+            self.utils.print_info('Transmission type eth0 status: ', wired_profile['transmission_type_eth0'])
+
+        if transmission_type_eth1 != 'None':
+            wired_profile['transmission_type_eth1'] = self.cobj_web_elements.get_common_object_ap_template_eth1_transmission_type().text
+            self.utils.print_info('Transmission type eth1 status: ', wired_profile['transmission_type_eth1'])
+
+        if speed_eth0 != 'None':
+            wired_profile['speed_eth0'] = self.cobj_web_elements.get_common_object_ap_template_eth0_speed().text
+            self.utils.print_info('Speed eth0 status: ', wired_profile['speed_eth0'])
+
+        if speed_eth1 != 'None':
+            wired_profile['speed_eth1'] = self.cobj_web_elements.get_common_object_ap_template_eth1_speed().text
+            self.utils.print_info('Speed eth1 status: ', wired_profile['speed_eth1'])
+
+        if lldp_eth0 != 'None':
+            wired_profile['lldp_eth0'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_lldp_eth0().is_selected())
+            self.utils.print_info('LLDP eth0 status: ', wired_profile['lldp_eth0'])
+
+        if lldp_eth1 != 'None':
+            wired_profile['lldp_eth1'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_lldp_eth1().is_selected())
+            self.utils.print_info('LLDP eth1 status: ', wired_profile['lldp_eth1'])
+
+        if cdp_eth0 != 'None':
+            wired_profile['cdp_eth0'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_cdp_eth0().is_selected())
+            self.utils.print_info('CDP eth0 status: ', wired_profile['cdp_eth0'])
+
+        if cdp_eth1 != 'None':
+            wired_profile['cdp_eth1'] = self._convert_boolean_to_enable_disable(
+                self.cobj_web_elements.get_common_object_ap_template_cdp_eth1().is_selected())
+            self.utils.print_info('CDP eth1 status: ', wired_profile['cdp_eth1'])
+
+        return wired_profile
+
+    def _convert_boolean_to_enable_disable(self, boolean):
+        """
+        - Convert boolean to Enable or Disable
+        :param boolean : True or False
+        :return: Enable or Disable
+        """
+        return 'Enable' if boolean else 'Disable'
+
+    def _convert_boolean_to_on_off(self, boolean):
+        """
+        - Convert boolean to On or Off
+        :param boolean : True or False
+        :return: Enable or Disable
+        """
+        return 'On' if boolean else 'Off'
 
     def _config_ap_template_wifi0(self, **wifi0_profile):
         """
@@ -2264,7 +2395,7 @@ class CommonObjects(object):
 
         return 1
 
-    def _config_ap_template_wired(self, **wired_profile):
+    def _config_ap_template_wired(self, wired_profile, **kwargs):
         """
         - Configure the Wired configuration on AP Template
         :param wifi2_profile: (Config Dict) Wired Config ie Ethernet Status, LLDP, CDP Config
@@ -2300,7 +2431,7 @@ class CommonObjects(object):
             self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_lldp_eth0())
 
         if cdp_eth0_status.upper() == "DISABLE" and self.cobj_web_elements. \
-                common_object_ap_template_cdp_eth0().is_selected():
+                get_common_object_ap_template_cdp_eth0().is_selected():
             self.utils.print_info("Disabling cdp Eth0")
             self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_cdp_eth0())
 
@@ -2340,8 +2471,8 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_cdp_eth1())
         except Exception as e:
             self.utils.print_info("Requested ethernet does not exist for this model of AP")
-            wired_profile['fail_msg'] = f"_config_ap_template_wired() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wired_profile)
+            kwargs['fail_msg'] = f"_config_ap_template_wired() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.screen.save_screen_shot()

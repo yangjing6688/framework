@@ -1,4 +1,5 @@
 import re
+import os
 import random
 import string
 from datetime import datetime, timedelta
@@ -1103,3 +1104,14 @@ class Utils:
         elif ('SwitchEngine' in sw_model or 'FabricEngine' in sw_model) and sw_model.count('_') == 3:
             return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)_(\d*[A-Z]*)_(\d*[A-Z]*)$',
                           r'\1 \2 \3-\4-\5-\6', sw_model)
+
+    def file_exists(self,file_name):
+        """
+          - This function will check whether mentioned file_name exists in the directory or not
+          - Keyword Usage:
+            `` File Exists  ${FILE_PATH}``
+
+        :param file_name:  File Name in Current Directory or File Path
+        :return: True if file exist else False
+        """
+        return os.path.isfile(file_name)
