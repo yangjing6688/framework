@@ -388,7 +388,8 @@ class CloudConfigGroup(object):
 
             if not self.select_ap_for_ccg(ap_serial):
                 kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.validate(-1, -1, **kwargs)
+                return -1
 
             sleep(2)
 
@@ -401,8 +402,8 @@ class CloudConfigGroup(object):
                     self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                     kwargs['fail_msg'] = "create_bulk_cloud_config_group() failed. Entering CCG Name is Mandatory. " \
                                          "Clicked on CCG Group Cancel Button"
-                    self.common_validation.failed(**kwargs)
-
+                    self.common_validation.validate(-1, -1, **kwargs)
+                    return -1
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
@@ -411,16 +412,19 @@ class CloudConfigGroup(object):
                 if "already exists" in tip_text:
                     sleep(1)
                     kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. {tip_text}"
-                    self.common_validation.failed(**kwargs)
+                    self.common_validation.validate(-1, -1, **kwargs)
+                    return -1
 
 
             if not self.search_ccg_group_from_common_object(policy):
                 kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. Didn't find CCG group"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.validate(-1, -1, **kwargs)
+                return -1
 
 
         kwargs['pass_msg'] = "Created bulk Cloud Config Group"
-        self.common_validation.passed(**kwargs)
+        self.common_validation.validate(1, 1, **kwargs)
+        return 1
 
 
     def edit_cloud_config_group(self, policy, option="add", *ap_serials, **kwargs):
@@ -458,7 +462,6 @@ class CloudConfigGroup(object):
         self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
         self.screen.save_screen_shot()
-        #import pdb; pdb.set_trace()
         if option == "add":
             for ap_serial in ap_serials:
                 if not self.select_ap_for_ccg(ap_serial):
@@ -475,11 +478,7 @@ class CloudConfigGroup(object):
 
 
         sleep(3)
-        #import pdb; pdb.set_trace()
         self.utils.print_info("Clicking on CCG Group Save Button")
-        #save_button = self.ccg_web_elements.get_ccg_save_button()
-        #self.auto_actions.scroll_by(save_button)
-        #self.auto_actions.click_reference(save_button)
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
         self.screen.save_screen_shot()
         sleep(10)
@@ -596,11 +595,11 @@ class CloudConfigGroup(object):
 
         if self.search_ccg_group_from_common_object(policy):
             kwargs['fail_msg'] = "delete_cloud_config_group() failed. CCG Still Not Deleted"
-            self.common_validation.validate(-1,-1, **kwargs)
+            self.common_validation.validate(-1, -1, **kwargs)
             return -1
         else:
             kwargs['pass_msg'] = "CCG Deleted Successfully"
-            self.common_validation.validate(1,1, **kwargs)
+            self.common_validation.validate(1, 1, **kwargs)
             return 1
 
     def delete_cloud_config_groups(self, *policys):
