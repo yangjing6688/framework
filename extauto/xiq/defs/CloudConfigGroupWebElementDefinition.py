@@ -70,13 +70,13 @@ class CloudConfigGroupWebElementDefinition:
     device_select_check_box_common_object = \
         {
             'CSS_SELECTOR': '.ccg-device-select',
-            'wait_for':    15
+            'wait_for':    10
         }
 
     ccg_select_check_box_common_object = \
         {
             'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',
-            'wait_for': 15
+            'wait_for': 10
         }
 
     ccg_members_hostname = \
