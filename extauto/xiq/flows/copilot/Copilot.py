@@ -55,6 +55,7 @@ class Copilot(CopilotWebElements):
             elif self.get_copilot_menu_alert_message_banner():
                 kwargs['fail_msg'] = "'enable_copilot_menu_feature()' -> Unable to enable feature - CoPilot " \
                                      "deactivated due to lack of licenses"
+                self.utils.print_info("Unable to enable feature - CoPilot deactivated due to lack of licenses")
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
                 self.common_validation.failed(**kwargs)
                 return False
