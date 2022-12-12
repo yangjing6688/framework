@@ -878,7 +878,7 @@ class CloudConfigGroup(object):
 
                 self.utils.print_info("Clicking on CCG Group Cancel Button")
                 self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
-                'wait_for': 5
+                sleep(5)
 
                 kwargs['pass_msg'] = f"CCG Group members :{policy} are {get_ccg_members_serial_numbers}"
                 self.common_validation.passed(**kwargs)
