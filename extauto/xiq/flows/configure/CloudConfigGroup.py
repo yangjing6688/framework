@@ -839,35 +839,35 @@ class CloudConfigGroup(object):
         :return: List of APs that are member of CCG Policy
         """
         self.navigator.navigate_to_cloud_config_groups()
-        sleep(2)
+        'wait_for': 5
 
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
                 self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
-                sleep(2)
+                'wait_for': 5
 
         rows = self.ccg_web_elements.get_ccg_grid_rows()
 
         for row in rows:
             if policy in row.text:
                 self.utils.print_debug(f"Found CCG Group with name:{policy}")
-                sleep(2)
+                'wait_for': 5
 
                 self.utils.print_debug(f"Selecting CCG Group with name:{policy}")
                 self.auto_actions.click(self.ccg_web_elements.get_ccg_select_checkbox(row))
-                sleep(2)
+                'wait_for': 5
 
                 self.utils.print_info("Clicking on CCG Edit Button")
                 self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
-                sleep(2)
+                'wait_for': 5
 
                 get_ccg_members_hostname = self.ccg_web_elements.get_ccg_members_hostname()
                 get_ccg_members_hostnames = [member.text.split("\n")[0] for member in get_ccg_members_hostname]
                 get_ccg_members_serial_numbers = []
                 self.utils.print_info(f"CCG Group members :{policy} are {get_ccg_members_hostnames}")
 
-                sleep(2)
+                'wait_for': 5
 
                 for member in get_ccg_members_hostnames:
                     # device_serial_num = self.device.get_device_details(member, 'SERIAL')
@@ -877,7 +877,7 @@ class CloudConfigGroup(object):
 
                 self.utils.print_info("Clicking on CCG Group Cancel Button")
                 self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
-                sleep(5)
+                'wait_for': 5
 
                 kwargs['pass_msg'] = f"CCG Group members :{policy} are {get_ccg_members_serial_numbers}"
                 self.common_validation.passed(**kwargs)
