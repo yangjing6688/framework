@@ -214,6 +214,9 @@ class Login:
             self.auto_actions.click_reference(self.login_web_elements.get_login_sso_page_login_button)
             self.screen.save_screen_shot()
 
+            if self.login_web_elements.get_drawer_content().is_displayed():
+                self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
+
             self.utils.print_info("Check for wrong credentials in SSO Login Page..")
             sign_in_error_message = self.login_web_elements.get_login_sso_page_sign_in_error_message()
             self.utils.print_info("Wrong Credential Message: ", sign_in_error_message)
