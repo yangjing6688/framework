@@ -661,7 +661,7 @@ class Device360(Device360WebElements):
             return content
         else:
             self.utils.print_info("Device serial is not provided.")
-            kwargs['fail_msg'] = "advance_channel_selection() -> Device serial is not provided"
+            kwargs['fail_msg'] = "wifi_status_summary() -> Device serial is not provided"
             self.commonValidation.failed(**kwargs)
             return -1
 
@@ -1060,7 +1060,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def device360_select_events_view(self):
+    def device360_select_events_view(self, **kwargs):
         """
         - This keyword clicks the Events link on the Monitor tab in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor tab.
@@ -1073,13 +1073,16 @@ class Device360(Device360WebElements):
         if events_link:
             self.utils.print_info("Clicking Events link on the Device360 Monitor tab")
             self.auto_actions.click(events_link)
+            kwargs['pass_msg'] = "The Events view was selected"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info(
-                "Could not find Events link - make sure Device360 window is open and on Monitor tab")
+            self.utils.print_info("Could not find Events link - make sure Device360 window is open and on Monitor tab")
+            kwargs['fail_msg'] = "device360_select_events_view() -> Could not find Events link - make sure Device360 window is open and on Monitor tab"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def device360_select_alarms_view(self):
+    def device360_select_alarms_view(self, **kwargs):
         """
         - This keyword clicks the Alarms link on the Monitor tab in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor tab.
@@ -1092,13 +1095,16 @@ class Device360(Device360WebElements):
         if alarms_link:
             self.utils.print_info("Clicking Alarms link on the Device360 Monitor tab")
             self.auto_actions.click(alarms_link)
+            kwargs['pass_msg'] = "The Alarms view was selected"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info(
-                "Could not find Alarms link - make sure Device360 window is open and on Monitor tab")
+            self.utils.print_info("Could not find Alarms link - make sure Device360 window is open and on Monitor tab")
+            kwargs['fail_msg'] = "device360_select_alarms_view() -> Could not find Alarms link - make sure Device360 window is open and on Monitor tab"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def device360_confirm_event_description_contains(self, event_str, after_time=None):
+    def device360_confirm_event_description_contains(self, event_str, after_time=None, **kwargs):
         """
         - This keyword confirms the specified event text is present in the description field of the event, after the
           specified time. If no time is specified, it just confirms the event is present.
@@ -1144,9 +1150,20 @@ class Device360(Device360WebElements):
             self.utils.print_info(
                 "Could not find Events table - make sure Device360 window is open to the Monitor> Alarms view")
 
+        if ret_val == -1:
+            if not events_table:
+                kwargs['fail_msg'] = "device360_confirm_event_description_contains() -> Could not find Events table" \
+                                     " - make sure Device360 window is open to the Monitor> Alarms view"
+                self.common_validation.fault(**kwargs)
+            elif not event_rows:
+                kwargs['fail_msg'] = "device360_confirm_event_description_contains() -> Events table does not contain any rows"
+                self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "The event is present"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
-    def device360_confirm_alarm_category_exists(self, alarm_cat, after_time=None):
+    def device360_confirm_alarm_category_exists(self, alarm_cat, after_time=None, **kwargs):
         """
         - This keyword confirms the specified alarm category is present in the view, after the specified time.
           If no time is specified, it just confirms the alarm is present.
@@ -1191,9 +1208,21 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info(
                 "Could not find Alarms table - make sure Device360 window is open to the Monitor> Alarms view")
+
+        if ret_val == -1:
+            if not alarms_table:
+                kwargs['fail_msg'] = "device360_confirm_alarm_category_exists() -> Could not find Alarms table" \
+                                     " - make sure Device360 window is open to the Monitor> Alarms view"
+                self.common_validation.fault(**kwargs)
+            elif not alarm_rows:
+                kwargs['fail_msg'] = "device360_confirm_alarm_category_exists() -> Alarms table does not contain any rows"
+                self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "The event is present"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
-    def select_port_configuration_view(self):
+    def select_port_configuration_view(self, **kwargs):
         """
         - This keyword clicks the Port Configuration link on the Configure tab in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Configure tab.
@@ -1206,10 +1235,15 @@ class Device360(Device360WebElements):
         if port_conf_link:
             self.utils.print_info("Clicking Port Configuration on the Device360 Configure tab")
             self.auto_actions.click(port_conf_link)
+            kwargs['pass_msg'] = "The event is present"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(
                 "Could not find Port Configuration link - make sure Device360 window is open and on Configure tab")
+            kwargs['fail_msg'] = "select_port_configuration_view() -> Could not find Port Configuration link" \
+                                 " - make sure Device360 window is open and on Configure tab"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_navigate_to_port_configuration(self):
@@ -1228,7 +1262,7 @@ class Device360(Device360WebElements):
 
         return ret_val
 
-    def device360_confirm_port_enabled(self, port_name):
+    def device360_confirm_port_enabled(self, port_name, **kwargs):
         """
         - This keyword confirms the specified port is enabled/on.
           It assumes the Device360 Window is open and navigated to the Configure> Port Configuration view.
@@ -1260,9 +1294,19 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Not navigated to Port Configuration on the Device360 Configure tab")
 
+        if ret_val == -1:
+            if not port_conf_title:
+                kwargs['fail_msg'] = "device360_confirm_port_enabled() -> Not navigated to Port Configuration on the Device360 Configure tab"
+                self.common_validation.fault(**kwargs)
+            elif not port_row:
+                kwargs['fail_msg'] = "device360_confirm_alarm_category_exists() -> Alarms table does not contain any rows"
+                self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "The event is present"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
-    def device360_confirm_port_disabled(self, port_name):
+    def device360_confirm_port_disabled(self, port_name, **kwargs):
         """
         - This keyword confirms the specified port is disabked/off.
           It assumes the Device360 Window is open and navigated to the Configure> Port Configuration view.
@@ -1294,6 +1338,16 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Not navigated to Port Configuration on the Device360 Configure tab")
 
+        if ret_val == -1:
+            if not port_conf_title:
+                kwargs['fail_msg'] = "device360_confirm_port_disabled() -> Not navigated to Port Configuration on the Device360 Configure tab"
+                self.common_validation.fault(**kwargs)
+            elif not port_row:
+                kwargs['fail_msg'] = f"device360_confirm_port_disabled() -> Could not find the port row for port {port_name}"
+                self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = f"Port {port_name} is disabled"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
     def device360_disable_port(self, port_name):
@@ -1345,7 +1399,7 @@ class Device360(Device360WebElements):
 
         return ret_val
 
-    def device360_get_port_row(self, port_name):
+    def device360_get_port_row(self, port_name, **kwargs):
         """
         - Get the port row object matching the specified port_name from Device360 --> Configure --> Port Configuration
 
@@ -1363,6 +1417,13 @@ class Device360(Device360WebElements):
                 if row_text.startswith(port_name):
                     ret_val = row
                     break
+
+        if ret_val == -1:
+            kwargs['fail_msg'] = "device360_get_port_row() -> Could not obtain list of port rows"
+            self.common_validation.fault(**kwargs)
+        else:
+            kwargs['pass_msg'] = f"Row object matching the specified {port_name} from Device360 --> Configure --> Port Configuration exists"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
     def device360_refresh_page(self):
@@ -1381,6 +1442,13 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Could not find Refresh Page button")
 
+        if ret_val == -1:
+            kwargs['fail_msg'] = "device360_refresh_page() -> Could not find Refresh Page button"
+            self.common_validation.fault(**kwargs)
+        else:
+            kwargs['pass_msg'] = f"Row object matching the specified {port_name} from Device360 --> Configure --> Port Configuration exists"
+            self.common_validation.passed(**kwargs)
+        return ret_val
         return ret_val
 
     def select_monitor_tab(self):
