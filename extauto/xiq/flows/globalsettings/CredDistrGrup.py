@@ -56,7 +56,7 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
             self.common_validation.passed(**kwargs)
             return 1
 
-    def create_cred_distribution_group(self, **group_config):
+    def create_cred_distribution_group(self, group_config, **kwargs):
         """
         - Flow: Global Settings --> Credential Distribution Groups
         - Create Credential distribution Groups

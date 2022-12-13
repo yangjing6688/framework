@@ -216,7 +216,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if device_details:
             return device_details['authdate']
 
-    def create_organization(self, organization_name, colour_name="Default"):
+    def create_organization(self, organization_name, colour_name="Default", **kwargs):
         """
         - This Keyword Uses To Create Organization
         - Flow : User account image-->Global Settings--> Organization
@@ -261,7 +261,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def search_organization_name(self, organization_name):
+    def search_organization_name(self, organization_name, **kwargs):
         """
         - Search the Organization Name From Global Settings Page
         - Flow : User account image-->Global Settings--> Organization
@@ -305,7 +305,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.common_validation.fault(**kwargs)
         return -1
 
-    def enable_account_hiq(self):
+    def enable_account_hiq(self, **kwargs):
         """
         - Enable MSP Feature in the Account
         - Flow : User account image-->Global Settings--> Account Details--> Enable HIQ Button
@@ -446,7 +446,7 @@ class GlobalSetting(GlobalSettingWebElements):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def change_xiq_account_language(self, language):
+    def change_xiq_account_language(self, language, **kwargs):
         """
         - Change the language of the account
         - Flow : User account image-->Global Settings--> Account Details--> Select Language-->Apply
@@ -473,7 +473,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def change_xiq_account_time_zone(self, time_zone="(GMT) UTC"):
+    def change_xiq_account_time_zone(self, time_zone="(GMT) UTC", **kwargs):
         """
         - Change the time zone of the account
         - Flow : User account image-->Global Settings--> Account Details--> Select Time Zone-->Apply
@@ -501,7 +501,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def enable_ssh_availability(self):
+    def enable_ssh_availability(self, **kwargs):
         """
         - Enabling SSH availability in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
@@ -529,7 +529,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def disable_ssh_availability(self):
+    def disable_ssh_availability(self, **kwargs):
         """
         - Disabling SSH availability in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
@@ -715,7 +715,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Reset VIQ operation is successful")
         return 1
 
-    def get_audit_logs_details(self, category, search_string):
+    def get_audit_logs_details(self, category, search_string, **kwargs):
         """
         - Get the audit log rows based on category and search_string provided
         - Flow : User account image-->Global Settings--> Audit Logs
@@ -823,7 +823,7 @@ class GlobalSetting(GlobalSettingWebElements):
                     return row
             return False
 
-    def set_vertical(self, industry_type):
+    def set_vertical(self, industry_type, **kwargs):
         """
         - This Keyword will set Industry type on xiq side
         - Flow : User account icon-->Global Settings--> Account Details ---> Industry
@@ -852,7 +852,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def export_viq(self):
+    def export_viq(self, **kwargs):
         """
         - This Keyword will Export the current VIQ Data
         - Flow : User account icon-->Global Settings--> VIQ Management ---> Export VIQ
@@ -912,7 +912,7 @@ class GlobalSetting(GlobalSettingWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def set_opt_out_copilot_beta(self, option):
+    def set_opt_out_copilot_beta(self, option, **kwargs):
         """
         - Enable/Disable Opt out of Copilot BETA
         - Flow : User account image-->Global Settings--> Account Details--> Opt-out of copilot BETA
@@ -975,7 +975,7 @@ class GlobalSetting(GlobalSettingWebElements):
         else:
             return "Enable"
 
-    def get_supplemental_cli_option(self, option):
+    def get_supplemental_cli_option(self, option, **kwargs):
         """
         - This Keyword will Enable/Disable Supplemental CLI in Global Settings
         - Flow : User account image-->Global Settings--> VIQ Management
@@ -1011,7 +1011,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def change_exos_device_management_settings(self, option, platform):
+    def change_exos_device_management_settings(self, option, platform, **kwargs):
         """
         - This Keyword will Enable/Disable device management settings for EXOS switches.
         - Flow : User account image-->Global Settings--> Device Management Settings
@@ -1053,7 +1053,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def check_audit_log(self, date_start, description, rows_number='20'):
+    def check_audit_log(self, date_start, description, rows_number='20', **kwargs):
         """
         This function checks if a log is present into audit log
 
