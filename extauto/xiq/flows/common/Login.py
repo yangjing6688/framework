@@ -229,10 +229,6 @@ class Login:
                     kwargs['fail_msg'] = "SSO Login Failed.Wrong Credentials. Try Again"
                     self.common_validation.failed(**kwargs)
                     return -1
-        else:
-            kwargs['fail_msg'] = f"SSO Username or Password Not Found"
-            self.common_validation.failed(**kwargs)
-            return -1
 
         self.utils.print_info("Entering Username...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
@@ -2024,15 +2020,18 @@ class Login:
         - Switches to the specified window
 
         :param:  win_index - Index of the window to switch to
-        :return: None
+        :return: 1
         """
         CloudDriver().switch_to_window(win_index)
+        return 1
 
     def close_extreme_guest_window(self, win_index=1):
         """
         - Closes the specified window
 
         :param:  win_index - Index of the window to close
-        :return: None
+        :return: 1
         """
         CloudDriver().close_window(win_index)
+        return 1
+
