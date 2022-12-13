@@ -2020,15 +2020,18 @@ class Login:
         - Switches to the specified window
 
         :param:  win_index - Index of the window to switch to
-        :return: None
+        :return: 1
         """
         CloudDriver().switch_to_window(win_index)
+        return 1
 
     def close_extreme_guest_window(self, win_index=1):
         """
         - Closes the specified window
 
         :param:  win_index - Index of the window to close
-        :return: None
+        :return: 1
         """
         CloudDriver().close_window(win_index)
+        return 1
+
