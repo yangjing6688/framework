@@ -3907,7 +3907,7 @@ class Device360(Device360WebElements):
                 return -1
         return -1
 
-    def compare_transmission_mode(self, port_index, port_state, port_duplex_cli):
+    def compare_transmission_mode(self, port_index, port_state, port_duplex_cli, **kwargs):
         """
         This keyword compares the status for transmission mode between XIQ and CLI
         :param port_index: a string of a port or a list of ports
@@ -3951,6 +3951,8 @@ class Device360(Device360WebElements):
                             self.utils.print_info("All transmission status are the same for port ", first)
                         else:
                             self.utils.print_info("Transmission status are not the same for port ", first)
+                            kwargs['fail_msg'] = f"compare_transmission_mode() -> Transmission status are not the same for port {first}"
+                            self.commonValidation.failed(**kwargs)
                             return -1
                         sleep(5)
                     else:
@@ -3974,6 +3976,9 @@ class Device360(Device360WebElements):
                                 self.utils.print_info("All transmission status are the same for port ", first)
                             else:
                                 self.utils.print_info("Transmission status are not the same for port ", first)
+
+                            kwargs['fail_msg'] = f"compare_transmission_mode() -> Transmission status are not the same for port {first}"
+                            self.commonValidation.failed(**kwargs)
                             return -1
                         sleep(5)
                 cnt = cnt + 1
@@ -4003,6 +4008,8 @@ class Device360(Device360WebElements):
                         self.utils.print_info("All transmission status are the same for port ", port_index)
                     else:
                         self.utils.print_info("Transmission status are not the same for port ", port_index)
+                        kwargs['fail_msg'] = f"compare_transmission_mode() -> Transmission status are not the same for port {port_index}"
+                        self.commonValidation.failed(**kwargs)
                         return -1
                     sleep(5)
                 else:
@@ -4026,10 +4033,15 @@ class Device360(Device360WebElements):
                         self.utils.print_info("All transmission status are the same for port ", port_index)
                     else:
                         self.utils.print_info("Transmission status are not the same for port ", port_index)
+                        kwargs['fail_msg'] = f"compare_transmission_mode() -> Transmission status are not the same for port {port_index}"
+                        self.commonValidation.failed(**kwargs)
                         return -1
                     sleep(5)
         else:
             return -1
+            kwargs[
+                'fail_msg'] = f"compare_transmission_mode() -> One of the objects is not of the specified type"
+            self.commonValidation.fault(**kwargs)
         return 1
 
     def transmission_mode_right_click_menu(self, interface):
