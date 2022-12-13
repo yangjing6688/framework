@@ -1420,13 +1420,13 @@ class Device360(Device360WebElements):
 
         if ret_val == -1:
             kwargs['fail_msg'] = "device360_get_port_row() -> Could not obtain list of port rows"
-            self.common_validation.fault(**kwargs)
+            self.common_validation.failed(**kwargs)
         else:
             kwargs['pass_msg'] = f"Row object matching the specified {port_name} from Device360 --> Configure --> Port Configuration exists"
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def device360_refresh_page(self):
+    def device360_refresh_page(self, **kwargs):
         """
         - Refreshes the Device 360 window by clicking the refresh page button.
 
@@ -1444,14 +1444,13 @@ class Device360(Device360WebElements):
 
         if ret_val == -1:
             kwargs['fail_msg'] = "device360_refresh_page() -> Could not find Refresh Page button"
-            self.common_validation.fault(**kwargs)
+            self.common_validation.failed(**kwargs)
         else:
             kwargs['pass_msg'] = f"Row object matching the specified {port_name} from Device360 --> Configure --> Port Configuration exists"
             self.common_validation.passed(**kwargs)
         return ret_val
-        return ret_val
 
-    def select_monitor_tab(self):
+    def select_monitor_tab(self, **kwargs):
         """
         - This keyword clicks the Monitor tab in the Device360 dialog window.
           It assumes the Device360 Window is open.
@@ -1464,12 +1463,16 @@ class Device360(Device360WebElements):
         if monitor_tab:
             self.utils.print_info("Clicking Device360 Monitor tab")
             self.auto_actions.click(monitor_tab)
+            kwargs['pass_msg'] = "The Monitor tab was clicked"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Could not find Monitor tab - make sure Device360 window is open")
+            kwargs['fail_msg'] = "select_monitor_tab() -> Could not find Monitor tab - make sure Device360 window is open"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def select_monitor_overview(self):
+    def select_monitor_overview(self, **kwargs):
         """
         - This keyword clicks the Overview button on the Monitor tab in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor tab.
@@ -1482,10 +1485,14 @@ class Device360(Device360WebElements):
         if overview_btn:
             self.utils.print_info("Clicking Overview button on the Device360 Monitor tab")
             self.auto_actions.click(overview_btn)
+            kwargs['pass_msg'] = "Monitor> Overview was selected"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(
                 "Could not find Overview button - make sure Device360 window is open and on Monitor tab")
+            kwargs['fail_msg'] = "select_monitor_overview() -> Could not find Overview button - make sure Device360 window is open and on Monitor tab"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_navigate_to_monitor_overview(self):
@@ -1503,7 +1510,7 @@ class Device360(Device360WebElements):
 
         return ret_val
 
-    def select_switch_system_information(self):
+    def select_switch_system_information(self, **kwargs):
         """
         - This keyword clicks the System Information button in the Monitoring view of the Device360 dialog window.
           This view applies to a switch, and is different from an AP which would have a Monitor and Configure tab.
@@ -1517,10 +1524,15 @@ class Device360(Device360WebElements):
         if sys_btn:
             self.utils.print_info("Clicking System Information button in the Device360 view")
             self.auto_actions.click(sys_btn)
+            kwargs['pass_msg'] = "System Information was selected"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(
                 "Could not find System Information button - make sure Device360 window is open for a switch")
+            kwargs['fail_msg'] = "select_switch_system_information() -> Could not find System Information button " \
+                                 "- make sure Device360 window is open for a switch"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_navigate_to_switch_system_information(self):
@@ -1536,7 +1548,7 @@ class Device360(Device360WebElements):
 
         return ret_val
 
-    def select_monitor_clients(self):
+    def select_monitor_clients(self, **kwargs):
         """
         - This keyword clicks the Clients button on the Monitor tab in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor tab.
@@ -1549,10 +1561,15 @@ class Device360(Device360WebElements):
         if clients_btn:
             self.utils.print_info("Clicking Clients button on the Device360 Monitor tab")
             self.auto_actions.click(clients_btn)
+            kwargs['pass_msg'] = "Monitor> Clients was selected"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(
                 "Could not find Clients button - make sure Device360 window is open and on Monitor tab")
+            kwargs['fail_msg'] = "select_monitor_clients() -> Could not find System Information button " \
+                                 "- make sure Device360 window is open for a switch"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_navigate_to_monitor_clients(self):
@@ -1570,7 +1587,7 @@ class Device360(Device360WebElements):
 
         return ret_val
 
-    def select_monitor_diagnostics(self):
+    def select_monitor_diagnostics(self, **kwargs):
         """
         - This keyword clicks the Diagnostics button on the Monitor tab in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor tab.
@@ -1583,10 +1600,15 @@ class Device360(Device360WebElements):
         if diag_btn:
             self.utils.print_info("Clicking Diagnostics button on the Device360 Monitor tab")
             self.auto_actions.click(diag_btn)
+            kwargs['pass_msg'] = "Monitor> Diagnostics was selected"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(
                 "Could not find Diagnostics button - make sure Device360 window is open and on Monitor tab")
+            kwargs['fail_msg'] = "select_monitor_diagnostics() -> Could not find Diagnostics button -" \
+                                 " make sure Device360 window is open and on Monitor tab"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_navigate_to_monitor_diagnostics(self):
@@ -1604,7 +1626,7 @@ class Device360(Device360WebElements):
 
         return ret_val
 
-    def confirm_device360_monitor_overview_chart_displayed(self):
+    def confirm_device360_monitor_overview_chart_displayed(self, **kwargs):
         """
         - This keyword confirms the chart on the Monitor> Overview page in the Device360 dialog window is displayed.
           It assumes the Device360 Window is open and on the Monitor> Overview tab.
@@ -1616,17 +1638,21 @@ class Device360(Device360WebElements):
         if the_chart:
             if the_chart.is_displayed():
                 self.utils.print_info("Monitor> Overview chart is displayed")
+                kwargs['pass_msg'] = "Monitor> Overview was selected"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("Monitor> Overview chart is not displayed")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "confirm_device360_monitor_overview_chart_displayed() -> Monitor> Overview chart is not displayed"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Could not find chart for Monitor> Overview page")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "confirm_device360_monitor_overview_chart_displayed() -> Could not find chart for Monitor> Overview page"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def confirm_device360_monitor_clients_chart_displayed(self):
+    def confirm_device360_monitor_clients_chart_displayed(self, **kwargs):
         """
         - This keyword confirms the chart on the Monitor> Clients page in the Device360 dialog window is displayed.
           It assumes the Device360 Window is open and on the Monitor> Clients tab.
@@ -1638,17 +1664,21 @@ class Device360(Device360WebElements):
         if the_chart:
             if the_chart.is_displayed():
                 self.utils.print_info("Monitor> Clients chart is displayed")
+                kwargs['pass_msg'] = "Monitor> Clients was selected"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("Monitor> Clients chart is not displayed")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "confirm_device360_monitor_clients_chart_displayed() -> Monitor> Clients chart is not displayed"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Could not find chart for Monitor> Clients page")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "confirm_device360_monitor_clients_chart_displayed() -> Could not find chart for Monitor> Clients page"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def confirm_device360_monitor_diagnostics_chart_displayed(self):
+    def confirm_device360_monitor_diagnostics_chart_displayed(self, **kwargs):
         """
         - This keyword confirms the chart on the Monitor> Diagnostics page in the Device360 dialog window is displayed.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
@@ -1660,17 +1690,21 @@ class Device360(Device360WebElements):
         if the_chart:
             if the_chart.is_displayed():
                 self.utils.print_info("Monitor> Diagnostics chart is displayed")
+                kwargs['pass_msg'] = "Monitor> Diagnostics was selected"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info("Monitor> Diagnostics chart is not displayed")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "confirm_device360_monitor_diagnostics_chart_displayed() -> Monitor> Diagnostics chart is not displayed"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Could not find chart for Monitor> Diagnostics page")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "confirm_device360_monitor_diagnostics_chart_displayed() -> Could not find chart for Monitor> Diagnostics page"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def device360_select_time_range(self, time_range):
+    def device360_select_time_range(self, time_range, **kwargs):
         """
         - This keyword selects the specified time range in the Device360 dialog window.
           It assumes the Device360 Window is open and on a tab with the Time Range drop down selector.
@@ -1705,9 +1739,22 @@ class Device360(Device360WebElements):
             self.utils.print_info("Unable to find Time Range drop down")
             ret_val = -1
 
+        if ret_val == -1:
+            if not time_range_dd:
+                kwargs['fail_msg'] = "device360_select_time_range() -> Unable to find Time Range drop down"
+                self.common_validation.fault(**kwargs)
+            elif not time_range_items:
+                kwargs['fail_msg'] = "device360_select_time_range() -> Unable to find Time Range drop down items"
+                self.common_validation.fault(**kwargs)
+            else:
+                kwargs['fail_msg'] = f"device360_select_time_range() -> '{time_range}' option is not present in Time Range drop down"
+                self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "The specified range was selected"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
-    def confirm_device360_time_range_selected(self, time_range):
+    def confirm_device360_time_range_selected(self, time_range, **kwargs):
         """
         - This keyword confirms the specified time range is selected in the Device360 dialog window.
           It assumes the Device360 Window is open and on a tab with the Time Range drop down selector.
@@ -1722,13 +1769,20 @@ class Device360(Device360WebElements):
         if time_range_sel:
             if time_range_sel == time_range:
                 self.utils.print_info(f"Current time range selection is '{time_range_sel}'")
+                kwargs['pass_msg'] = f"Current time range selection is '{time_range_sel}'"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(
                     f"Current time range selection is '{time_range_sel}', not the expected '{time_range}'")
+                kwargs['fail_msg'] = f"confirm_device360_time_range_selected() -> Current time range selection is" \
+                                     f" '{time_range_sel}', not the expected '{time_range}'"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Could not determine current time range selection")
+            kwargs['fail_msg'] = "confirm_device360_time_range_selected() -> Could not determine current time range selection"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def device360_select_day_time_range(self):
@@ -1761,7 +1815,7 @@ class Device360(Device360WebElements):
         """
         return self.device360_select_time_range("Month")
 
-    def device360_select_day_time_range_hours_button(self, hours_value):
+    def device360_select_day_time_range_hours_button(self, hours_value, **kwargs):
         """
         - This keyword selects the specified Day time range hours button in the Device360 dialog window.
           It assumes the Device360 Window is open and a Day time range is selected.
@@ -1801,6 +1855,16 @@ class Device360(Device360WebElements):
             self.utils.print_info("Incorrect time range selected;  please select 'Day' time range")
             ret_val = -1
 
+        if ret_val == -1:
+            if day_selected != 1:
+                kwargs['fail_msg'] = "device360_select_day_time_range_hours_button() -> Incorrect time range selected;  please select 'Day' time range"
+                self.commonValidation.fault(**kwargs)
+            else:
+                kwargs['fail_msg'] = f"device360_select_day_time_range_hours_button() -> Unable to find {hours_value} Hour(s) button for Day time range"
+                self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = f"Clicked {hours_value} Hour(s) button for Day time range"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
     def device360_select_day_time_range_one_hour(self):
@@ -1853,7 +1917,7 @@ class Device360(Device360WebElements):
         """
         return self.device360_select_day_time_range_hours_button("24")
 
-    def device360_select_week_time_range_days_button(self, days_value):
+    def device360_select_week_time_range_days_button(self, days_value, **kwargs):
         """
         - This keyword selects the specified Week time range days button in the Device360 dialog window.
           It assumes the Device360 Window is open and a Week time range is selected.
@@ -1887,6 +1951,16 @@ class Device360(Device360WebElements):
             self.utils.print_info("Incorrect time range selected;  please select 'Week' time range")
             ret_val = -1
 
+        if ret_val == -1:
+            if week_selected != 1:
+                kwargs['fail_msg'] = "device360_select_week_time_range_days_button() -> Incorrect time range selected;  please select 'Week' time range"
+                self.commonValidation.fault(**kwargs)
+            else:
+                kwargs['fail_msg'] = f"device360_select_week_time_range_days_button() -> Unable to find {days_value} Day(s) button for Week time range"
+                self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = f"Clicked {days_value} Hour(s) button for Week time range"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
     def device360_select_week_time_range_one_day(self):
@@ -1919,7 +1993,7 @@ class Device360(Device360WebElements):
         """
         return self.device360_select_week_time_range_days_button("7")
 
-    def device360_select_month_time_range_days_button(self, days_value):
+    def device360_select_month_time_range_days_button(self, days_value, **kwargs):
         """
         - This keyword selects the specified Month time range days button in the Device360 dialog window.
           It assumes the Device360 Window is open and a Month time range is selected.
@@ -1956,6 +2030,16 @@ class Device360(Device360WebElements):
             self.utils.print_info("Incorrect time range selected;  please select 'Month' time range")
             ret_val = -1
 
+        if ret_val == -1:
+            if month_selected != 1:
+                kwargs['fail_msg'] = "device360_select_month_time_range_days_button() -> Incorrect time range selected;  please select 'Month' time range"
+                self.commonValidation.fault(**kwargs)
+            else:
+                kwargs['fail_msg'] = f"device360_select_month_time_range_days_button() -> Unable to find {days_value} Day(s) button for Month time range"
+                self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = f"Clicked {days_value} Day(s) button for Month time range"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
     def device360_select_month_time_range_seven_days(self):
@@ -1998,7 +2082,7 @@ class Device360(Device360WebElements):
         """
         return self.device360_select_month_time_range_days_button("90")
 
-    def device360_port_diagnostics_select_all_ports(self):
+    def device360_port_diagnostics_select_all_ports(self, **kwargs):
         """
         - This keyword clicks the 'Select All Ports' button on the Port Diagnostics page in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
@@ -2015,9 +2099,15 @@ class Device360(Device360WebElements):
             self.utils.print_info("Unable to find 'Select All Ports' button")
             ret_val = -1
 
+        if ret_val == -1:
+            kwargs['fail_msg'] = "device360_port_diagnostics_select_all_ports() -> Unable to find 'Select All Ports' button"
+            self.commonValidation.fault(**kwargs)
+        else:
+            kwargs['pass_msg'] = f"Clicked 'Select All Ports' button"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
-    def device360_port_diagnostics_deselect_all_ports(self):
+    def device360_port_diagnostics_deselect_all_ports(self, **kwargs):
         """
         - This keyword clicks the 'Deselect All Ports' button on the Port Diagnostics page in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
@@ -2034,6 +2124,12 @@ class Device360(Device360WebElements):
             self.utils.print_info("Unable to find 'Deselect All Ports' button")
             ret_val = -1
 
+        if ret_val == -1:
+            kwargs['fail_msg'] = "device360_port_diagnostics_deselect_all_ports() -> Unable to find 'Select All Ports' button"
+            self.commonValidation.fault(**kwargs)
+        else:
+            kwargs['pass_msg'] = f"Clicked 'Deselect All Ports' button"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
     def device360_port_diagnostics_select_port(self, port_num):
@@ -2084,7 +2180,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Empty port list specified")
         return port_clicked
 
-    def confirm_device360_port_diagnostics_all_ports_selected(self):
+    def confirm_device360_port_diagnostics_all_ports_selected(self, **kwargs):
         """
         - This keyword confirms all ports on the Monitor> Diagnostics page are selected in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
@@ -2096,15 +2192,20 @@ class Device360(Device360WebElements):
         port_count = len(port_list)
         if port_count == 0:
             self.utils.print_info("All ports are selected")
+            kwargs['pass_msg'] = "All ports are selected"
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(f"{port_count} ports are not selected")
             for port in port_list:
                 data_jack_index = port.get_attribute("data-jack-index")
                 self.utils.print_info(f"-- deselected port: data jack index '{data_jack_index}'")
+
+            kwargs['fail_msg'] = f"confirm_device360_port_diagnostics_all_ports_selected() -> deselected port: data jack index '{data_jack_index}'"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def confirm_device360_port_diagnostics_all_ports_deselected(self):
+    def confirm_device360_port_diagnostics_all_ports_deselected(self, **kwargs):
         """
         - This keyword confirms all ports on the Monitor> Diagnostics page are deselected in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
@@ -2116,15 +2217,19 @@ class Device360(Device360WebElements):
         port_count = len(port_list)
         if port_count == 0:
             self.utils.print_info("All ports are deselected")
+            kwargs['pass_msg'] = "All ports are deselected"
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(f"{port_count} ports are selected")
             for port in port_list:
                 data_jack_index = port.get_attribute("data-jack-index")
                 self.utils.print_info(f"-- selected port: data jack index '{data_jack_index}'")
+            kwargs['fail_msg'] = f"confirm_device360_port_diagnostics_all_ports_deselected() -> selected port: data jack index '{data_jack_index}'"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def confirm_device360_port_diagnostics_port_selected(self, port_num):
+    def confirm_device360_port_diagnostics_port_selected(self, port_num, **kwargs):
         """
         - This keyword confirms the specified port on the Monitor> Diagnostics page is selected.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
@@ -2152,11 +2257,14 @@ class Device360(Device360WebElements):
 
         if ret_val == -1:
             self.utils.print_info(f"Port {port_num} is not selected")
-            self.screen.save_screen_shot()
-
+            kwargs['fail_msg'] = f"confirm_device360_port_diagnostics_port_selected() -> Port {port_num} is not selected"
+            self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "The specified ports are deselected"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
-    def confirm_device360_port_diagnostics_port_deselected(self, port_num):
+    def confirm_device360_port_diagnostics_port_deselected(self, port_num, **kwargs):
         """
         - This keyword confirms the specified port on the Monitor> Diagnostics page is deselected.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics tab.
@@ -2184,8 +2292,11 @@ class Device360(Device360WebElements):
 
         if ret_val == -1:
             self.utils.print_info(f"Port {port_num} is not deselected")
-            self.screen.save_screen_shot()
-
+            kwargs['fail_msg'] = f"confirm_device360_port_diagnostics_port_deselected() -> Port {port_num} is not deselected"
+            self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "The specified ports are selected"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
     def get_device360_overview_information(self, device_mac='', device_name=''):
@@ -2299,7 +2410,7 @@ class Device360(Device360WebElements):
 
         return device360_info
 
-    def device360_set_device_function(self, value="AP"):
+    def device360_set_device_function(self, value="AP", **kwargs):
         """
         - This keyword sets the Device Function value on the Device Configuration page.
         - It is assumed that the Device360 window is open.
@@ -2329,14 +2440,22 @@ class Device360(Device360WebElements):
                     ret_val = -1
             else:
                 self.utils.print_info("Could not find Device Function selector")
-                ret_val = -1
+                kwargs['fail_msg'] = "device360_set_device_function() -> Could not find Device Function selector"
+                self.commonValidation.fault(**kwargs)
         else:
             self.utils.print_info("Unable to navigate to the Device Configuration view")
-            ret_val = -1
+            kwargs['fail_msg'] = "device360_set_device_function() -> Unable to navigate to the Device Configuration view"
+            self.commonValidation.fault(**kwargs)
 
+        if ret_val == -1:
+            kwargs['fail_msg'] = f"device360_set_device_function() -> View type '{value}' is not present in drop down"
+            self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = f"Selected view type '{value}' from drop down"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
-    def device360_save_device_configuration(self):
+    def device360_save_device_configuration(self, **kwargs):
         """
         - This keyword clicks the Save Device Configuration button on the Device Configuration page.
         - It is assumed that the Device360 window is open and on the Device Configuration page.
@@ -2355,6 +2474,12 @@ class Device360(Device360WebElements):
             self.utils.print_info("Unable to find the 'Save Device Configuration' button")
             ret_val = -1
 
+        if ret_val == -1:
+            kwargs['fail_msg'] = "device360_save_device_configuration() -> Unable to find the 'Save Device Configuration' button"
+            self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Clicked 'Save Device Configuration' button"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
     def device360_get_device_title(self):
@@ -2949,7 +3074,7 @@ class Device360(Device360WebElements):
 
         return ret_val
 
-    def device360_check_events_is_in_order(self):
+    def device360_check_events_is_in_order(self, **kwargs):
         """
         - This Keyword checks whether the events in D360 are on order
 
@@ -2974,8 +3099,12 @@ class Device360(Device360WebElements):
                         prev = sev_val.lower()
                     else:
                         self.utils.print_debug("The severity are not in order")
+                        kwargs['fail_msg'] = "device360_check_events_is_in_order() -> The Events severity are not in order"
+                        self.commonValidation.failed(**kwargs)
                         return -1
         self.utils.print_debug("The severity are in order")
+        kwargs['pass_msg'] = "The Events severity are in order"
+        self.commonValidation.passed(**kwargs)
         return 1
 
     def device360_get_switch_system_information(self):
@@ -3065,7 +3194,7 @@ class Device360(Device360WebElements):
 
         return device360_info
 
-    def click_hyperlink_on_system_information(self, device_mac=None, device_name=None, Clickon=None):
+    def click_hyperlink_on_system_information(self, device_mac=None, device_name=None, Clickon=None, **kwargs):
         """
         - This keyword Clicks SSID or Device Template on system information from device360 page using DeviceMac or Name
         - Flow : Manage--> Devices --> Monitor --> SystemInformation --> click on hyperlink(MAC/hostname)
@@ -3103,6 +3232,8 @@ class Device360(Device360WebElements):
 
         except Exception as e:
             self.utils.print_info("Unable to Click HyperLink on System Information")
+            kwargs['fail_msg'] = "click_hyperlink_on_system_information() -> Unable to Click HyperLink on System Information"
+            self.commonValidation.fault(**kwargs)
             return -1
 
     def device360_standalone_devcfg_fetch_snmp_location(self):
@@ -3145,6 +3276,8 @@ class Device360(Device360WebElements):
 
         if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
             self.utils.print_info("D360 page was not opened ")
+            kwargs['fail_msg'] = "device360_device_configuration_select_template() -> D360 page was not opened"
+            self.commonValidation.fault(**kwargs)
             return -1
         else:
             self.utils.print_info("D360 page was opened ")
@@ -3154,6 +3287,8 @@ class Device360(Device360WebElements):
             self.auto_actions.click_reference(self.devices_web_elements.get_ap_configure_button)
         else:
             self.utils.print_info("'Configure' button was not found ")
+            kwargs['fail_msg'] = "device360_device_configuration_select_template() -> 'Configure' button was not found"
+            self.commonValidation.fault(**kwargs)
             return -1
 
         if self.dev360.get_device360_device_configuration_button():
@@ -3161,6 +3296,8 @@ class Device360(Device360WebElements):
             self.utils.print_info("Clicking on 'Device Configuration 'button")
         else:
             self.utils.print_info("'Device Configuration 'button was not found ")
+            kwargs['fail_msg'] = "device360_device_configuration_select_template() -> 'Device Configuration' button was not found"
+            self.commonValidation.fault(**kwargs)
             return -1
 
         # Select from dropdown
@@ -3268,7 +3405,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("The dut have {} unit/units".format(len(list)))
         return len(list)
 
-    def device360_search_event_and_confirm_event_description_contains(self, event_str, after_time=None):
+    def device360_search_event_and_confirm_event_description_contains(self, event_str, after_time=None, **kwargs):
         """
         - This keyword search event and then confirms that specified event text is present in the description field of the event, after the
           specified time. If no time is specified, it just confirms the event is present.
@@ -3338,18 +3475,25 @@ class Device360(Device360WebElements):
                                 cont_rows_match += 1
                 if cont_rows_match == 0:
                     self.utils.print_info("Not found a match for '" + event_str + "'")
+                    kwargs['fail_msg'] = f"device360_search_event_and_confirm_event_description_contains() -> Not found a match for {event_str}"
+                    self.commonValidation.failed(**kwargs)
                     return -1
                 else:
                     self.utils.print_info("Found a match for '" + event_str + "' on " + str(cont_rows_match) + " rows")
+                    kwargs['pass_msg'] = f"Found a match for {event_str}"
+                    self.commonValidation.passed(**kwargs)
                     return cont_rows_match
             else:
                 self.utils.print_info("Events table does not contain any rows")
         else:
             self.utils.print_info(
                 "Could not find Events table - make sure Device360 window is open to the Monitor> Alarms view")
+        kwargs['fail_msg'] = "device360_search_event_and_confirm_event_description_contains() -> Could not find " \
+                             "Events table - make sure Device360 window is open to the Monitor> Alarms view"
+        self.commonValidation.fault(**kwargs)
         return -1
 
-    def d360Event_search(self, search_value):
+    def d360Event_search(self, search_value, **kwargs):
         """
         This keyword inserts info into event search text box. No button for search is present, the search will be done
         automatically after the text was inserted
@@ -3361,12 +3505,16 @@ class Device360(Device360WebElements):
             self.utils.print_info("Entering info to search : ", search_value)
             self.auto_actions.send_keys(self.dev360.get_d360Event_search_textbox(), search_value)
             sleep(10)
+            kwargs['pass_msg'] = "The text was entered into search box"
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to find search text box")
+            kwargs['fail_msg'] = "d360Event_search() -> Unable to find search text box"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def device360_revert_port_configuration(self, select_column, port_name):
+    def device360_revert_port_configuration(self, select_column, port_name, **kwargs):
         """
         This keyword press the revert button for the specific row and column into device360 Port Configuration window
         select_column : - Port Details : 'port state' , 'port usage' , 'vlan' , 'description'
@@ -3390,6 +3538,8 @@ class Device360(Device360WebElements):
                 rows = self.get_device360_configure_port_rows()
             else:
                 self.utils.print_info("Cannot click on tab button")
+                kwargs['fail_msg'] = "device360_revert_port_configuration() -> Cannot click on tab button"
+                self.commonValidation.fault(**kwargs)
                 return -1
         # Port Settings & Aggregation
         if select_column in ['transmission', 'speed', 'flow', 'transmit', 'receive', 'cdp', 'client reporting']:
@@ -3400,6 +3550,8 @@ class Device360(Device360WebElements):
                 rows = self.get_device360_configure_port_settings_aggregation_rows()
             else:
                 self.utils.print_info("Cannot click on tab button")
+                kwargs['fail_msg'] = "device360_revert_port_configuration() -> Cannot click on tab button"
+                self.commonValidation.fault(**kwargs)
                 return -1
         # STP
         if select_column in ['stp status', 'edge port', 'bpdu protection', 'priority', 'path cost']:
@@ -3410,6 +3562,8 @@ class Device360(Device360WebElements):
                 rows = self.get_device360_configure_stp_rows()
             else:
                 self.utils.print_info("Cannot click on tab button")
+                kwargs['fail_msg'] = "device360_revert_port_configuration() -> Cannot click on tab button"
+                self.commonValidation.fault(**kwargs)
                 return -1
         # Storm Control
         if select_column in ['broadcast', 'unknown unicast', 'multicast', 'value']:
@@ -3420,11 +3574,15 @@ class Device360(Device360WebElements):
                 rows = self.get_device360_configure_storm_control_rows()
             else:
                 self.utils.print_info("Cannot click on tab button")
+                kwargs['fail_msg'] = "device360_revert_port_configuration() -> Cannot click on tab button"
+                self.commonValidation.fault(**kwargs)
                 return -1
         if rows:
             port_row = self.device360_get_row_specified_port_name(rows, port_name)
         else:
             self.utils.print_info("Port rows are not displayed. Check the tab")
+            kwargs['fail_msg'] = "device360_revert_port_configuration() -> Port rows are not displayed. Check the tab"
+            self.commonValidation.failed(**kwargs)
             return -1
         if port_row:
             self.utils.print_info("Found row for port: ", port_row.text)
@@ -3437,8 +3595,9 @@ class Device360(Device360WebElements):
                 if port_revert:
                     self.utils.print_info("Clicking 'Revert' button")
                     self.auto_actions.click(port_revert)
-                    self.screen.save_screen_shot()
                     sleep(10)
+                    kwargs['pass_msg'] = "Clicked 'Revert' button"
+                    self.commonValidation.passed(**kwargs)
                     return 1
                 else:
                     self.utils.print_info("Could not click Revert button")
@@ -3449,13 +3608,17 @@ class Device360(Device360WebElements):
                 if save_btn:
                     self.utils.print_info("Clicking 'Save Port Configuration' button'")
                     self.auto_actions.click(save_btn)
+                    kwargs['pass_msg'] = "Clicked 'Save Port Configuration' button"
+                    self.commonValidation.passed(**kwargs)
                     return 1
             else:
                 self.utils.print_info("The override revert button was not found  ")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Could not find the port row for port ", port_name)
-            self.screen.save_screen_shot()
+
+        kwargs['fail_msg'] = f"device360_revert_port_configuration() -> Could not find the port row for {port_name}"
+        self.commonValidation.failed(**kwargs)
         return -1
 
     def device360_get_row_specified_port_name(self, rows, port_name):
@@ -3477,7 +3640,7 @@ class Device360(Device360WebElements):
                     break
         return ret_val
 
-    def device360_click_on_checkbox_or_button_port_configuration(self, select_column, port_name):
+    def device360_click_on_checkbox_or_button_port_configuration(self, select_column, port_name, **kwargs):
         """
         This keyword click on checkbox for the specific row and column into device360 Port Configuration window
         select_column : - Port Details : 'port state'
@@ -3501,6 +3664,8 @@ class Device360(Device360WebElements):
                 rows = self.get_device360_configure_port_rows()
             else:
                 self.utils.print_info("Cannot click on tab button")
+                kwargs['fail_msg'] = "device360_click_on_checkbox_or_button_port_configuration() -> Cannot click on tab button"
+                self.commonValidation.fault(**kwargs)
                 return -1
         # Port Settings & Aggregation
         if select_column in ['transmit', 'receive', 'cdp', 'client reporting']:
@@ -3511,6 +3676,8 @@ class Device360(Device360WebElements):
                 rows = self.get_device360_configure_port_settings_aggregation_rows()
             else:
                 self.utils.print_info("Cannot click on tab button")
+                kwargs['fail_msg'] = "device360_click_on_checkbox_or_button_port_configuration() -> Cannot click on tab button"
+                self.commonValidation.fault(**kwargs)
                 return -1
         # STP
         if select_column in ['stp status', 'edge port']:
@@ -3521,6 +3688,8 @@ class Device360(Device360WebElements):
                 rows = self.get_device360_configure_stp_rows()
             else:
                 self.utils.print_info("Cannot click on tab button")
+                kwargs['fail_msg'] = "device360_click_on_checkbox_or_button_port_configuration() -> Cannot click on tab button"
+                self.commonValidation.fault(**kwargs)
                 return -1
         # Storm Control
         if select_column in ['broadcast', 'unknown unicast', 'multicast']:
@@ -3531,6 +3700,8 @@ class Device360(Device360WebElements):
                 rows = self.get_device360_configure_storm_control_rows()
             else:
                 self.utils.print_info("Cannot click on tab button")
+                kwargs['fail_msg'] = "device360_click_on_checkbox_or_button_port_configuration() -> Cannot click on tab button"
+                self.commonValidation.fault(**kwargs)
                 return -1
         if rows:
             port_row = self.device360_get_row_specified_port_name(rows, port_name)
@@ -3555,10 +3726,12 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Could not find the port row for port ", port_name)
-            self.screen.save_screen_shot()
+
+        kwargs['fail_msg'] = f"device360_click_on_checkbox_or_button_port_configuration() -> Could not find the port row for {port_name}"
+        self.commonValidation.failed(**kwargs)
         return -1
 
-    def device360_port_configuration_click_save_button(self):
+    def device360_port_configuration_click_save_button(self, **kwargs):
         """
         - This keyword clicks on the SAVE PORT CONFIGURATION button
         - It is assumed that the Device360 window is open in Configure in Port Configuration section.
@@ -3575,9 +3748,16 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Could not click Save button")
             ret_val = -1
+
+        if ret_val == -1:
+            kwargs['fail_msg'] = "device360_port_configuration_click_save_button() -> Client is not present in the historical grid"
+            self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Clicked on SAVE PORT CONFIGURATION"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
-    def device360_click_open_site_engine_link(self):
+    def device360_click_open_site_engine_link(self, **kwargs):
         """
         - This keyword clicks on the OPEN SITE ENGINE link
         - It is assumed that the Device360 window is open and the Overview panel is selected.
@@ -3604,9 +3784,15 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Could not find the 'Open Site Engine' link.")
 
+        if ret_val == -1:
+            kwargs['fail_msg'] = "device360_click_open_site_engine_link() -> Could not find the 'Open Site Engine' link"
+            self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "The action was successful"
+            self.commonValidation.passed(**kwargs)
         return ret_val
 
-    def get_switch_device360_port_table_information(self, device_mac="", device_name="", port_number=""):
+    def get_switch_device360_port_table_information(self, device_mac="", device_name="", port_number="", **kwargs):
         """
         - This keyword gets EXOS/VOSS Switch Port table information from device360 page
         - Flow : Manage --> Devices--> Select Device-->Device 360 Page
@@ -3686,7 +3872,8 @@ class Device360(Device360WebElements):
             self.utils.print_info("Unable to get Port Table Information")
             self.screen.save_screen_shot()
             self.auto_actions.click_reference(self.dev360.get_close_dialog)
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "get_switch_device360_port_table_information() -> Unable to get Port Table Information"
+            self.commonValidation.fault(**kwargs)
             return -1
 
     def check_up_or_down_ports(self, port_list, port_state='down'):
