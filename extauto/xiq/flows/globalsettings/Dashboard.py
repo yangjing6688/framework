@@ -4,6 +4,7 @@ from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DashboardElements import DashboardElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Dashboard:
@@ -13,6 +14,7 @@ class Dashboard:
         self.auto_actions = AutoActions()
         self.navigator = Navigator()
         self.dashboard_elements = DashboardElements()
+        self.common_validation = CommonValidation()
 
     def dashboard_stats_total_application_usage(self):
         """
@@ -41,7 +43,7 @@ class Dashboard:
         return total_app_usage
 
 
-    def dashboard_cards_connection_status_online_count(self):
+    def dashboard_cards_connection_status_online_count(self, **kwargs):
         """
         - This keyword will get total Connection status online count in dashboard health card
         - Keyword Usage
@@ -54,14 +56,16 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Connection Status Online Count")
         try:
             total_online_count = self.dashboard_elements.get_total_aps_online_count().text
-            self.utils.print_info("Total Health Card Connection Status Online Count is : ", total_online_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_connection_status_online_count()' -> Total Health Card Connection " \
+                                 f"Status Online Count is : {total_online_count}"
+            self.common_validation.passed(**kwargs)
             return total_online_count
         except Exception as e:
-            self.utils.print_info("Error Observed")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_connection_status_online_count()' -> Error Observed"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def dashboard_cards_connection_status_offline_count(self):
+    def dashboard_cards_connection_status_offline_count(self, **kwargs):
         """
         - This keyword will get total Connection status offline count in dashboard health card
         - Keyword Usage
@@ -74,14 +78,16 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Connection Status offline Count")
         try:
             total_online_count = self.dashboard_elements.get_total_aps_offline_count().text
-            self.utils.print_info("Total Health Card Connection Status offline Count is : ", total_online_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_connection_status_offline_count()' -> Total Health Card Connection " \
+                                 f"Status Offline Count is : {total_online_count}"
+            self.common_validation.passed(**kwargs)
             return total_online_count
         except Exception as e:
-            self.utils.print_info("Error Observed")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_connection_status_offline_count()' -> Error Observed"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def dashboard_cards_total_application_count(self):
+    def dashboard_cards_total_application_count(self, **kwargs):
         """
         - This keyword will get total aps count in dashboard health card
         - Keyword Usage
@@ -94,14 +100,16 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Total Aps Count")
         try:
             total_aps_count = self.dashboard_elements.get_total_apps_count().text
-            self.utils.print_info("Total Health Card Total Aps Count is : ", total_aps_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_total_application_count()' -> Total Health Card Total Aps Count " \
+                                 f"is : {total_aps_count}"
+            self.common_validation.passed(**kwargs)
             return total_aps_count
         except Exception as e:
-            self.utils.print_info("Not able to get Total Aps Count")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_total_application_count()' -> Not able to get Total Aps Count"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def dashboard_cards_total_clients_count(self):
+    def dashboard_cards_total_clients_count(self, **kwargs):
         """
         - This keyword will get total clients count in dashboard health card
         - Keyword Usage
@@ -114,14 +122,16 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Total Clients Count")
         try:
             total_clients_count = self.dashboard_elements.get_total_clients_count().text
-            self.utils.print_info("Total Health Card Total Clients Count is : ", total_clients_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_total_clients_count()' -> Total Health Card Total Clients Count " \
+                                 f"is : {total_clients_count}"
+            self.common_validation.passed(**kwargs)
             return total_clients_count
         except Exception as e:
-            self.utils.print_info("Not able to get Total Aps Count")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_total_clients_count()' -> Not able to get Total Aps Count"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def dashboard_cards_total_users_count(self):
+    def dashboard_cards_total_users_count(self, **kwargs):
         """
         - This keyword will get total Users count in dashboard health card
         - Keyword Usage
@@ -134,14 +144,16 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Total Users Count")
         try:
             total_users_count = self.dashboard_elements.get_total_users_count().text
-            self.utils.print_info("Total Health Card Total Users Count is : ", total_users_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_total_users_count()' -> Total Health Card Total Users Count " \
+                                 f"is : {total_users_count}"
+            self.common_validation.passed(**kwargs)
             return total_users_count
         except Exception as e:
-            self.utils.print_info("Not able to get Total users Count")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_total_users_count()' -> Not able to get Total Aps Count"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def dashboard_cards_total_critical_alarm_count(self):
+    def dashboard_cards_total_critical_alarm_count(self, **kwargs):
         """
         - This keyword will get total critical alarm count in dashboard health card
         - Keyword Usage
@@ -154,14 +166,17 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Total Critical Alarm Count")
         try:
             critical_alarm_count = self.dashboard_elements.get_total_critical_alarms_count().text
-            self.utils.print_info("Total Health Card Total Critical Alarm Count is : ", critical_alarm_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_total_critical_alarm_count()' -> Total Health Card Total Critical Alarm " \
+                                 f"Count is : {critical_alarm_count}"
+            self.common_validation.passed(**kwargs)
             return critical_alarm_count
         except Exception as e:
-            self.utils.print_info("Not able to get Total critical alarm Count")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_total_critical_alarm_count()' -> Not able to get Total critical " \
+                                 "alarm Count"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def dashboard_cards_total_major_alarm_count(self):
+    def dashboard_cards_total_major_alarm_count(self, **kwargs):
         """
         - This keyword will get total Major alarm count in dashboard health card
         - Keyword Usage
@@ -174,14 +189,16 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Total Major Alarm Count")
         try:
             major_alarm_count = self.dashboard_elements.get_total_major_alarms_count().text
-            self.utils.print_info("Total Health Card Total Major Alarm Count is : ", major_alarm_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_total_major_alarm_count()' -> Total Health Card Total Major " \
+                                 f"Alarm Count is {major_alarm_count}"
+            self.common_validation.passed(**kwargs)
             return major_alarm_count
         except Exception as e:
-            self.utils.print_info("Not able to get Total Major alarm Count")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_total_major_alarm_count()' -> Not able to get Total Major Alarm Count"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def dashboard_cards_total_minor_alarm_count(self):
+    def dashboard_cards_total_minor_alarm_count(self, **kwargs):
         """
         - This keyword will get total Minor alarm count in dashboard health card
         - Keyword Usage
@@ -194,14 +211,16 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Total Minor Alarm Count")
         try:
             minor_alarm_count = self.dashboard_elements.get_total_minor_alarms_count().text
-            self.utils.print_info("Total Health Card Total Minor Alarm Count is : ", minor_alarm_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_total_minor_alarm_count()' -> Total Health Card Total Minor " \
+                                 f"Alarm Count is {minor_alarm_count}"
+            self.common_validation.passed(**kwargs)
             return minor_alarm_count
         except Exception as e:
-            self.utils.print_info("Not able to get Total Minor alarm Count")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_total_minor_alarm_count()' -> Not able to get Total Minor Alarm Count"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def dashboard_cards_total_rogue_aps_count(self):
+    def dashboard_cards_total_rogue_aps_count(self, **kwargs):
         """
         - This keyword will get total Rogue Aps Count in dashboard health card
         - Keyword Usage
@@ -214,14 +233,16 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Total Rogue Aps Count")
         try:
             rogue_aps_count = self.dashboard_elements.get_total_rogue_aps_count().text
-            self.utils.print_info("Total Health Card Total Rogue Aps Count is : ", rogue_aps_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_total_rogue_aps_count()' -> Total Health Card Total Rogue " \
+                                 f"APS Count is {rogue_aps_count}"
+            self.common_validation.passed(**kwargs)
             return rogue_aps_count
         except Exception as e:
-            self.utils.print_info("Not able to get Total Rogue Aps Count")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_total_rogue_aps_count()' -> Not able to get Total Rogue Aps Count"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def dashboard_cards_total_rogue_clients_count(self):
+    def dashboard_cards_total_rogue_clients_count(self, **kwargs):
         """
         - This keyword will get total Rogue Aps Count in dashboard health card
         - Keyword Usage
@@ -234,9 +255,11 @@ class Dashboard:
         self.utils.print_info("Reading Dashboard Health Card Total Rogue Clients Count")
         try:
             rogue_clients_count = self.dashboard_elements.get_total_rogue_clients_count().text
-            self.utils.print_info("Total Health Card Total Rogue Clients Count is : ", rogue_clients_count)
+            kwargs['pass_msg'] = f"'dashboard_cards_total_rogue_clients_count()' -> Total Health Card Total Rogue " \
+                                 f"Client Count is {rogue_clients_count}"
+            self.common_validation.passed(**kwargs)
             return rogue_clients_count
         except Exception as e:
-            self.utils.print_info("Not able to get Total Rogue Clients Count")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'dashboard_cards_total_rogue_clients_count()' -> Not able to get Total Rogue Client Count"
+            self.common_validation.fault(**kwargs)
             return -1
