@@ -27,7 +27,7 @@ class LicenseManagement(LicenseManagementWebElements):
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.common_validation = CommonValidation()
 
-    def open_license_management_page(self):
+    def open_license_management_page(self, **kwargs):
         """
         - Navigates to License Management Page
         - Flow : User account image-->Global Settings--> License Management
@@ -38,12 +38,15 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         self.utils.print_info("Navigating to the License Management page..")
         if self.navigator.navigate_to_license_mgmt() == 1:
+            kwargs['pass_msg'] = "'open_license_management_page()' -> License Management page was opened"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'open_license_management_page()' -> Failed to open License Management page"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def is_entitlements_table_empty(self):
+    def is_entitlements_table_empty(self, **kwargs):
         """
         - Checks if the Entitlements table is empty.
         - Assumes the License Management page is already being displayed.
@@ -64,7 +67,7 @@ class LicenseManagement(LicenseManagementWebElements):
 
         return ret_val
 
-    def is_legacy_table_empty(self):
+    def is_legacy_table_empty(self, **kwargs):
         """
         - Checks if the Legacy Entitlements table is empty.
         - Assumes the License Management page is already being displayed.
@@ -75,13 +78,15 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         no_data_el = self.lic_mgt_web_elements.get_legacy_no_data()
         if no_data_el and no_data_el.is_displayed():
-            self.utils.print_info("Legacy Entitlements table is empty")
+            kwargs['pass_msg'] = "'is_legacy_table_empty()' -> Legacy Entitlements table is empty"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Legacy Entitlements table is not empty")
+            kwargs['fail_msg'] = "'is_legacy_table_empty()' -> Legacy Entitlements table is not empty"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def confirm_entitlements_table_contains_data(self):
+    def confirm_entitlements_table_contains_data(self, **kwargs):
         """
         - Checks if the Entitlements table contains data.
         - Assumes the License Management page is already being displayed.
@@ -91,14 +96,15 @@ class LicenseManagement(LicenseManagementWebElements):
         :return: 1 if Entitlements Table is not empty, else -1
         """
         if self.is_entitlements_table_empty() == 1:
-            self.utils.print_info("Entitlements table does not contain data")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'confirm_entitlements_table_contains_data()' -> Entitlements table does not contain data"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
-            self.utils.print_info("Entitlements table contains data")
+            kwargs['pass_msg'] = "'confirm_entitlements_table_contains_data()' -> Entitlements table contains data"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def confirm_legacy_table_contains_data(self):
+    def confirm_legacy_table_contains_data(self, **kwargs):
         """
         - Checks if the Legacy Entitlements table contains data.
         - Assumes the License Management page is already being displayed.
@@ -108,14 +114,16 @@ class LicenseManagement(LicenseManagementWebElements):
         :return: 1 if Legacy Entitlements Table is not empty, else -1
         """
         if self.is_legacy_table_empty() == 1:
-            self.utils.print_info("Legacy Entitlements table does not contain data")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'confirm_legacy_table_contains_data()' -> Legacy Entitlements table does " \
+                                 "not contain data"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
-            self.utils.print_info("Legacy Entitlements table contains data")
+            kwargs['pass_msg'] = "'confirm_legacy_table_contains_data()' -> Legacy Entitlements table contains data"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def verify_ek_in_legacy_ek_table(self, ekey):
+    def verify_ek_in_legacy_ek_table(self, ekey, **kwargs):
         """
         - Checks if legacy ek exists in the legacy ek table
         - pass the ek as input parameter to verify the ek to be checked
@@ -130,26 +138,30 @@ class LicenseManagement(LicenseManagementWebElements):
                 ek = ele.text
                 self.utils.print_info(ek)
                 if re.search(ekey, ek):
-                    self.utils.print_info("Legacy EK exists in the legacy ek table.")
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
+                    kwargs['pass_msg'] = "'verify_ek_in_legacy_ek_table()' -> Legacy EK exists in the legacy ek table."
+                    self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    self.utils.print_info("Legacy EK not found the the table.")
+                    kwargs['fail_msg'] = "'verify_ek_in_legacy_ek_table()' -> Legacy EK not found the the table."
+                    self.common_validation.failed(**kwargs)
                     return -1
 
-    def verify_contact_sales_btn_dispalyed(self):
+    def verify_contact_sales_btn_dispalyed(self, **kwargs):
         """
         :return: contact sales button must be displayed
         """
         cont_sales_btn = self.lic_mgt_web_elements.get_contact_sales_btn()
         if cont_sales_btn.is_displayed():
-            self.utils.print_info("Contact Sales Button is displayed.")
+            kwargs['pass_msg'] = "'verify_contact_sales_btn_dispalyed()' -> Contact Sales Button is displayed."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Contact Sales Button is NOT displayed.")
+            kwargs['fail_msg'] = "'verify_contact_sales_btn_dispalyed()' -> Contact Sales Button is NOT displayed."
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def verify_xiq_linked_to_extr_portal(self):
+    def verify_xiq_linked_to_extr_portal(self, **kwargs):
         """
         verify XIQ is linked to extreme portal
 
@@ -163,19 +175,27 @@ class LicenseManagement(LicenseManagementWebElements):
             if xiq_link_status.is_displayed():
                 self.utils.print_info(xiq_link_status.text)
             else:
-                self.utils.print_info("XIQ Successfully linked to a customer account msg is not displayed.")
+                kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> XIQ Successfully linked to a customer " \
+                                     "account msg is not displayed."
+                self.common_validation.failed(**kwargs)
                 return -2
             if extr_lic_portal_link.is_displayed():
                 self.utils.print_info("Extreme Licensing Portal link is dispalyed.")
             else:
-                self.utils.print_info("Extreme Licensing Portal link is not displayed.")
+                kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> Extreme Licensing Portal link is not " \
+                                     "displayed."
+                self.common_validation.failed(**kwargs)
                 return -2
+            kwargs['pass_msg'] = "'verify_xiq_linked_to_extr_portal()' -> Successfully verify XIQ is linked to " \
+                                 "extreme portal"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("XIQ is not linked to Extreme Portal.")
+            kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> XIQ is not linked to Extreme Portal."
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_xiq_not_linked_to_extr_portal(self):
+    def verify_xiq_not_linked_to_extr_portal(self, **kwargs):
         """
         verify XIQ is not linked to extreme portal
 
@@ -189,19 +209,28 @@ class LicenseManagement(LicenseManagementWebElements):
             if cust_partner_info.is_displayed():
                 self.utils.print_info("Tooltip Info to customers/partners is displayed.")
             else:
-                self.utils.print_info("Tooltip Info to customers/partners is not displayed.")
+                kwargs['fail_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> Tooltip Info to customers/partners" \
+                                     " is not displayed."
+                self.common_validation.failed(**kwargs)
                 return -2
             if xiq_not_link_status.is_displayed():
                 self.utils.print_info("XIQ is not linked to extreme portal status is displayed.")
             else:
-                self.utils.print_info("XIQ not linked status is not displayed.")
+                kwargs['fail_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> XIQ not linked status is not " \
+                                     "displayed."
+                self.common_validation.failed(**kwargs)
                 return -2
+            kwargs['pass_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> Successfully verify XIQ is not " \
+                                 "linked to extreme portal"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Link XIQ to Extreme Portal button is not displayed.")
+            kwargs['fail_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> Link XIQ to Extreme Portal button is " \
+                                 "not displayed."
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def unlink_xiq_from_extr_portal(self):
+    def unlink_xiq_from_extr_portal(self, **kwargs):
         """
         - Unlink XIQ from extreme portal
 
@@ -224,19 +253,27 @@ class LicenseManagement(LicenseManagementWebElements):
                     sleep(5)
                     unlink = self.verify_xiq_not_linked_to_extr_portal()
                     if unlink == 1:
-                        self.utils.print_info("Unlink is successful...")
+                        kwargs['pass_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink is successful..."
+                        self.common_validation.passed(**kwargs)
                         return 1
                     else:
-                        self.utils.print_info("Unlink NOT successful...")
+                        kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful..."
+                        self.common_validation.failed(**kwargs)
                         return -1
                 else:
                     self.utils.print_info("Unlink NOT successful...")
+                    kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful..."
+                    self.common_validation.failed(**kwargs)
                     return -1
             except Exception as e:
                 self.utils.print_info("Unlink NOT successful.")
+                kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful."
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
             self.utils.print_info("Unlink button is not visible.")
+            kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink button is not visible."
+            self.common_validation.fault(**kwargs)
             return -1
 
     def link_to_extreme_portal(self,portal_username, portal_password, **kwargs):
@@ -253,7 +290,7 @@ class LicenseManagement(LicenseManagementWebElements):
         portal_username_field = self.get_extreme_portal_login()
         if not portal_username_field:
             kwargs['fail_msg'] = "Unable to locate Extreme Portal user email field"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("Setting Extreme Portal user email field to " + portal_username)
         self.auto_actions.send_keys(portal_username_field, portal_username)
@@ -262,7 +299,7 @@ class LicenseManagement(LicenseManagementWebElements):
         portal_password_field = self.get_extreme_portal_password()
         if not portal_password_field:
             kwargs['fail_msg'] = "Unable to locate Extreme Portal  password field"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("Setting Extreme Portal password field to " + portal_password)
         self.auto_actions.send_keys(portal_password_field, portal_password)
@@ -271,17 +308,18 @@ class LicenseManagement(LicenseManagementWebElements):
         portal_login_button = self.get_extreme_portal_login_button()
         if not portal_login_button:
             kwargs['fail_msg'] = "Unable to locate Extreme Portal login button"
-            self.common_validation.validate(-1, 1, **kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.auto_actions.click(portal_login_button)
 
         pass_msg = "Successfully linked to Extreme Portal"
         kwargs['pass_msg'] = pass_msg
-        self.common_validation.validate(1, 1, **kwargs)
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def initiate_link_xiq_to_extr_portal_from_lic_mgt(self, sfdc_user_type=None, sfdc_email=None, sfdc_pwd=None, shared_cuid=None):
+    def initiate_link_xiq_to_extr_portal_from_lic_mgt(self, sfdc_user_type=None, sfdc_email=None,
+                                                      sfdc_pwd=None, shared_cuid=None, **kwargs):
         """
         - links XIQ to extreme SFDC portal to get gemalto licenses
         - pass the below parameters as the keyword input:
@@ -308,9 +346,13 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.utils.print_info("Redirected to SFDC for oauth...")
             except Exception as e:
                 self.utils.print_info("No confirmation dialog is shown.")
+            kwargs['pass_msg'] = "initiate_link_xiq_to_extr_portal_from_lic_mgt -> Successfully linking"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Link to Extreme Portal button is not displayed.")
+            kwargs['fail_msg'] = "initiate_link_xiq_to_extr_portal_from_lic_mgt -> Link to Extreme Portal button is " \
+                                 "not displayed."
+            self.common_validation.fault(**kwargs)
             return -1
 
     def navigate_and_get_entitlement_counts_for_feature(self, feature="PRD-XIQ-PIL-S-C"):
@@ -549,8 +591,8 @@ class LicenseManagement(LicenseManagementWebElements):
         self.utils.print_info(f"Returning ACTIVATED count {activated_count} for feature {feature}")
         return activated_count
 
-    def wait_until_entitlement_counts_for_feature_matches(self, feature, expected_available, expected_activated, expected_devices,
-                                                          retry_duration=30, retry_count=30):
+    def wait_until_entitlement_counts_for_feature_matches(self, feature, expected_available, expected_activated,
+                                                          expected_devices, retry_duration=30, retry_count=30, **kwargs):
         """
         - This keyword is used to wait until the entitlement counts (Available, Activated, Devices) for the specified
         - feature match the expected value.
@@ -588,10 +630,12 @@ class LicenseManagement(LicenseManagementWebElements):
             if available_count == int(expected_available) and \
                activated_count == int(expected_activated) and \
                devices_count == int(expected_devices):
-                self.utils.print_info(f"Counts for {feature} are at the expected values:\n"
-                                      f"  Available: {expected_available}\n"
-                                      f"  Activated: {expected_activated}\n"
-                                      f"  Devices:   {expected_devices}")
+                kwargs['pass_msg'] = f"wait_until_entitlement_counts_for_feature_matches -> " \
+                                     f"Counts for {feature} are at the expected values:\n"  \
+                                     f"  Available: {expected_available}\n" \
+                                     f"  Activated: {expected_activated}\n" \
+                                     f"  Devices:   {expected_devices}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Counts for {feature} are not at expected values.\n"
@@ -607,13 +651,13 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        self.utils.print_info(f"Counts for {feature} are not at expected values. Please check.")
-        self.screen.save_screen_shot()
-
+        kwargs['fail_msg'] = f"wait_until_entitlement_counts_for_feature_matches -> Counts for {feature} are not at " \
+                             f"expected values. Please check."
+        self.common_validation.failed(**kwargs)
         return -1
 
     def wait_until_entitlement_device_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
-                                                                retry_duration=30, retry_count=30):
+                                                                retry_duration=30, retry_count=30, **kwargs):
         """
         - This keyword is used to wait until the device count for the specified license entitlement matches the
         - expected value.
@@ -645,21 +689,24 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the device count for the specified feature
             device_count = self.get_entitlement_device_count_for_feature(feature)
             if device_count == int(expected):
-                self.utils.print_info(f"Device count for {feature} is at expected value {expected}")
+                kwargs['pass_msg'] = f"wait_until_entitlement_device_count_for_feature_matches -> Device count for " \
+                                     f"{feature} is at expected value {expected}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info(f"Device count for {feature} is {device_count}, not expected value {expected}. Waiting for {retry_duration} seconds...")
+                self.utils.print_info(f"Device count for {feature} is {device_count}, not expected value {expected}. "
+                                      f"Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.utils.print_info(f"Device count for {feature} is {device_count}, not expected value {expected}. Please check.")
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = f"wait_until_entitlement_device_count_for_feature_matches -> Device count for " \
+                             f"{feature} is {device_count}, not expected value {expected}. Please check."
         sleep(2)
-
+        self.common_validation.failed(**kwargs)
         return -1
 
     def wait_until_entitlement_available_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
-                                                                   retry_duration=30, retry_count=30):
+                                                                   retry_duration=30, retry_count=30, **kwargs):
         """
         - This keyword is used to wait until the available count for the specified license entitlement matches the
         - expected value.
@@ -691,21 +738,24 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the available count for the specified feature
             available_count = self.get_entitlement_available_count_for_feature(feature)
             if available_count == int(expected):
-                self.utils.print_info(f"Available count for {feature} is at expected value {expected}")
+                kwargs['pass_msg'] = f"wait_until_entitlement_available_count_for_feature_matches -> available " \
+                                     f"count for {feature} is at expected value {expected}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info(f"Available count for {feature} is {available_count}, not expected value {expected}. Waiting for {retry_duration} seconds...")
+                self.utils.print_info(f"Available count for {feature} is {available_count}, not expected value "
+                                      f"{expected}. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.utils.print_info(f"Available count for {feature} is {available_count}, not expected value {expected}. Please check.")
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = f"wait_until_entitlement_available_count_for_feature_matches -> Available count for " \
+                             f"{feature} is {available_count}, not expected value {expected}. Please check."
         sleep(2)
-
+        self.common_validation.failed(**kwargs)
         return -1
 
     def wait_until_entitlement_activated_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
-                                                                   retry_duration=30, retry_count=30):
+                                                                   retry_duration=30, retry_count=30, **kwargs):
         """
         - This keyword is used to wait until the activated count for the specified license entitlement matches the
         - expected value.
@@ -737,20 +787,23 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the activated count for the specified feature
             activated_count = self.get_entitlement_activated_count_for_feature(feature)
             if activated_count == int(expected):
-                self.utils.print_info(f"Activated count for {feature} is at expected value {expected}")
+                kwargs['pass_msg'] = f"wait_until_entitlement_activated_count_for_feature_matches -> Activated count " \
+                                     f"for {feature} is at expected value {expected}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info(f"Activated count for {feature} is {activated_count}, not expected value {expected}. Waiting for {retry_duration} seconds...")
+                self.utils.print_info(f"Activated count for {feature} is {activated_count}, not expected value "
+                                      f"{expected}. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.utils.print_info(f"Activated count for {feature} is {activated_count}, not expected value {expected}. Please check.")
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = f"wait_until_entitlement_activated_count_for_feature_matches -> Activated count for" \
+                             f" {feature} is {activated_count}, not expected value {expected}. Please check."
         sleep(2)
-
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_until_entitlements_table_empty(self, retry_duration=30, retry_count=30):
+    def wait_until_entitlements_table_empty(self, retry_duration=30, retry_count=30, **kwargs):
         """
         - This keyword is used to wait until the Entitlements table is empty.
         - Keyword Usage:
@@ -776,17 +829,18 @@ class LicenseManagement(LicenseManagementWebElements):
 
             # Check if the Entitlements table is empty yet
             if self.is_entitlements_table_empty() == 1:
-                self.utils.print_info("Entitlements table is empty")
+                kwargs['pass_msg'] = "wait_until_entitlements_table_empty -> Entitlements table is empty"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Entitlements table is not empty. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.utils.print_info("Entitlements table did not become empty within specified time. Please check.")
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = f"wait_until_entitlements_table_empty -> Entitlements table did not become" \
+                             f" empty within specified time. Please check."
         sleep(2)
-
+        self.common_validation.failed(**kwargs)
         return -1
 
     def confirm_entitlements_table_contains_feature(self, feature="PRD-XIQ-PIL-S-C"):

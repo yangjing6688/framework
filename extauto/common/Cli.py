@@ -1321,7 +1321,7 @@ class Cli(object):
             self.send(connection, f'configure terminal')
             self.send(connection, f'application')
             self.send(connection, f'no iqagent enable')
-            self.send(connection, f'no iqagent server')
+            self.send(connection, f'default iqagent server')
             self.send(connection, f'end')
 
             count = 1
