@@ -5939,7 +5939,7 @@ class Device360(Device360WebElements):
             return 1
         return -1
 
-    def device360_set_network_policy(self, network_policy="default"):
+    def device360_set_network_policy(self, network_policy="default", **kwargs):
         """
         - This keyword sets a custom network policy on the Device Configuration page.
         - It is assumed that the Device360 window is open.
@@ -5959,11 +5959,15 @@ class Device360(Device360WebElements):
         element = self.get_device360_configure_device_network_policy()
         if element.text not in network_policy:
             self.utils.print_info(f"Not able to select '{network_policy}' from drop down")
+            kwargs['fail_msg'] = f"device360_set_network_policy()->Not able to select '{network_policy}' from drop down"
+            self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "The selection was made"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def select_dhcp_ip_address_view(self):
+    def select_dhcp_ip_address_view(self, **kwargs):
         """
         - This keyword clicks the DHCP & IP Address link on the Configure tab in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Configure tab.
@@ -5979,8 +5983,13 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info(
                 "Could not find the dhcp_ip_link - make sure Device360 window is open and on Configure tab")
+            kwargs['fail_msg'] = "select_dhcp_ip_address_view()->Could not find the dhcp_ip_link - make sure " \
+                                 "Device360 window is open and on Configure tab "
+            self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "DHCP & IP Address link on the Configure tab in the Device360 dialog window was selected"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def search_for_vlan_subnetworks_type_in_row_table(self, *searched_values):
