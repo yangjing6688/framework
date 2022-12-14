@@ -237,7 +237,8 @@ class CloudConfigGroup(object):
         for ap_serial in ap_serials:
             if not self.select_ap_for_ccg(ap_serial):
                 kwargs['fail_msg'] = f"add_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.fault(**kwargs)
+                #self.common_validation.fault(**kwargs)
+                self.common_validation.fault(expect_error=True)
                 return -1
 
         sleep(2)
@@ -263,14 +264,16 @@ class CloudConfigGroup(object):
             if "already exists" in tip_text:
                 sleep(1)
                 kwargs['fail_msg'] = f"add_cloud_config_group() failed. {tip_text}"
-                self.common_validation.failed(**kwargs)
+                #self.common_validation.failed(**kwargs)
+                self.common_validation.fault(expect_error=True)
 
         if self.search_ccg_group_from_common_object(policy):
             ccg_group_members = self.get_ccg_group_members(policy)
             for ap_serial in ap_serials:
                 if ap_serial not in ccg_group_members:
                     kwargs['fail_msg'] = f"add_cloud_config_group() failed. {ap_serial} not in {ccg_group_members}"
-                    self.common_validation.failed(**kwargs)
+                    #self.common_validation.failed(**kwargs)
+                    self.common_validation.fault(expect_error=True)
 
             kwargs['pass_msg'] = "Created Cloud Config Group and included APs to the group."
             self.common_validation.validate(1, 1, **kwargs)
@@ -278,7 +281,8 @@ class CloudConfigGroup(object):
 
         kwargs['fail_msg'] = "add_cloud_config_group() failed. " \
                              "Unable to Create Cloud Config Group and to include APs to the group. "
-        self.common_validation.failed(**kwargs)
+        #self.common_validation.failed(**kwargs)
+        self.common_validation.fault(expect_error=True)
 
 
     def add_cloud_config_group_from_manage(self, policy, description, *ap_serials, **kwargs):
