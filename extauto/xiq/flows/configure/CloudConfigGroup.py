@@ -97,13 +97,13 @@ class CloudConfigGroup(object):
             self.utils.print_info("Select row for ap with serial",ap_serial)
             if not self.device.select_device(ap_serial):
                 kwargs['fail_msg'] = f"assign_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
         sleep(2)
 
         if not self._select_ccg_policy(policy_name, option):
             kwargs['fail_msg'] = f"assign_cloud_config_group() failed. CCG {policy_name} is not present in the CCG List"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(5)
 
@@ -112,7 +112,7 @@ class CloudConfigGroup(object):
                 self.utils.print_info("Select row for ap with serial", ap_serial)
                 if not self.device.select_device(ap_serial):
                     kwargs['fail_msg'] = f"assign_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                    self.common_validation.failed(**kwargs)
+                    self.common_validation.fault(**kwargs)
                     return -1
                 sleep(2)
 
@@ -158,7 +158,7 @@ class CloudConfigGroup(object):
             elif retry_count >= int(max_config_push_wait):
                 kwargs['fail_msg'] = f"_check_update_ccg_policy_status() failed." \
                                      f"Config push to AP taking more than {max_config_push_wait} seconds"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
             sleep(30)
             retry_count += 30
@@ -237,7 +237,8 @@ class CloudConfigGroup(object):
         for ap_serial in ap_serials:
             if not self.select_ap_for_ccg(ap_serial):
                 kwargs['fail_msg'] = f"add_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
+                return -1
 
         sleep(2)
 
@@ -251,7 +252,7 @@ class CloudConfigGroup(object):
                 kwargs['fail_msg'] = "add_cloud_config_group() failed. Entering CCG Name is Mandatory. " \
                                      "Clicked on CCG Group Cancel Button"
                 #self.common_validation.validate(-2,- 2, **kwargs)
-                self.common_validation.failed(expect_error=True)
+                self.common_validation.fault(expect_error=True)
                 return -2
 
 
