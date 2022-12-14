@@ -134,7 +134,7 @@ class Device360WebElementDefs:
 
     close_dialog = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='closeDialog']",
+            'XPATH': "//div[@data-dojo-attach-point='closeDialog']",
             'wait_for': 10
         }
 

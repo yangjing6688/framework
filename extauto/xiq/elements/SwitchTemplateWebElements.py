@@ -811,6 +811,5 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_device_max_age_drop_down_all_items(self, table):
         return self.weh.get_elements(self.sw_template_device_max_age_drop_down_all_items, parent=table)
 
-
     def get_device_template_no_of_ports(self):
         return self.weh.get_elements(self.device_template_no_of_ports)

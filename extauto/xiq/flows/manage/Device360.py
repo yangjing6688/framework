@@ -12995,7 +12995,7 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return True
 
-    def device360_aggregate_stack_ports_slots(self, ports, click_lacp=True, **kwargs):
+    def device360_aggregate_ports(self, ports, click_lacp=True, device='', **kwargs):
         """
            This keyword is used to aggregate ports from same/different stack slots
            It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
@@ -13004,13 +13004,20 @@ class Device360(Device360WebElements):
            :param ports: port list
            :return: True if successful, False if failed, 1 if couldn't aggregate from other slot
            """
-
-        if not self.device360_change_slot_view(ports[0].split(":")[0]):
-            kwargs['fail_msg'] = f"Failed to change stack slot."
+        click_checkbox_or_button = None
+        if device == "stack":
+            if not self.device360_change_slot_view(ports[0].split(":")[0]):
+                kwargs['fail_msg'] = f"Failed to change stack slot."
+                self.common_validation.failed(**kwargs)
+                return False
+            click_checkbox_or_button = self.get_device360_port_settings_and_aggregation_interface_exos_standalone(ports[0].split(":")[1])
+        elif device == "standalone":
+            click_checkbox_or_button = self.get_device360_port_settings_and_aggregation_interface_exos_standalone(
+                ports[0])
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Please give a device type!"
             self.common_validation.failed(**kwargs)
             return False
-
-        click_checkbox_or_button = self.get_device360_port_settings_and_aggregation_interface_exos_standalone(ports[0].split(":")[1])
         if click_checkbox_or_button:
             self.utils.print_info("Clicking on port checkbox")
             self.auto_actions.click(click_checkbox_or_button)
@@ -13039,19 +13046,20 @@ class Device360(Device360WebElements):
 
         # Add other ports to aggregation
         for i in range(1, len(ports)):
-            switched_slot = False
-            if ports[i - 1].split(":")[0] != ports[i].split(":")[0]:
-                # Switching to other slot
-                other_slot = self.get_device360_aggregate_choose_slot(ports[i].split(":")[0])
-                if other_slot:
-                    switched_slot = True
-                    self.utils.print_info("Changing to other slot")
-                    self.auto_actions.click(other_slot)
-                else:
-                    kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Failed to change to other slot"
-                    self.common_validation.failed(**kwargs)
-                    self.auto_actions.click(cancel_button)
-                    return False
+            if device == "stack":
+                switched_slot = False
+                if ports[i - 1].split(":")[0] != ports[i].split(":")[0]:
+                    # Switching to other slot
+                    other_slot = self.get_device360_aggregate_choose_slot(ports[i].split(":")[0])
+                    if other_slot:
+                        switched_slot = True
+                        self.utils.print_info("Changing to other slot")
+                        self.auto_actions.click(other_slot)
+                    else:
+                        kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Failed to change to other slot"
+                        self.common_validation.failed(**kwargs)
+                        self.auto_actions.click(cancel_button)
+                        return False
             # Choose the next port
             available_port = self.get_device360_aggregate_available_port(ports[i])
             if available_port:
@@ -13121,6 +13129,7 @@ class Device360(Device360WebElements):
            This keyword is used to check the number of aggregated ports matches the reference
            It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
 
+           :param no_slots: number of slots
            :param reference_num: reference integer
            :return: If match True, else False
            """
@@ -13143,20 +13152,22 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return False
 
-    def device360_add_remove_stack_ports_slots(self, master_port, ports, action='add', **kwargs):
+    def device360_add_remove_lag_ports(self, master_port, ports, action='add', device='', **kwargs):
         """
            This keyword is used to remove port aggregation
            It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
 
+           :param device: type of device stack or standalone
            :param ports: list of ports: ex: ["1:1", "2:1", "3:2"]
            :param master_port: master port of LAG
            :param action: add or remove ports from LAG
            :return: True if successful or False on failure
            """
-        if not self.device360_change_slot_view(master_port.split(":")[0]):
-            kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed. Change slot failed."
-            self.common_validation.failed(**kwargs)
-            return False
+        if device == "stack":
+            if not self.device360_change_slot_view(master_port.split(":")[0]):
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed. Change slot failed."
+                self.common_validation.failed(**kwargs)
+                return False
         if action == 'remove':
             aggregated_ports = self.get_device360_lacp_label(port=master_port)
             if aggregated_ports:
@@ -13223,8 +13234,9 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return False
 
-            # Check lacp formed in Device360
+            # Check lacp not visible anymore in Device360
             if self.get_device360_lacp_label(port=ports[0]):
+                self.utils.print_info(f"LAG {master_port} is still there after trying to delete it.")
                 kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Aggregation remove failed."
                 self.common_validation.failed(**kwargs)
                 return False
@@ -13232,8 +13244,16 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return True
         elif action == 'add':
+            aggregated_ports = self.get_device360_lacp_label(port=master_port)
+            if aggregated_ports:
+                self.utils.print_info("Clicking on aggregated ports label")
+                self.auto_actions.click(aggregated_ports)
+            else:
+                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to find aggregated port."
+                self.common_validation.failed(**kwargs)
+                return False
             for port in ports:
-                AutoActions().click(self.get_device360_lacp_label(port=master_port))
+                #AutoActions().click(self.get_device360_lacp_label(port=master_port))
                 AutoActions().click(self.get_device360_aggregate_available_port(port=port))
                 AutoActions().click(self.get_device360_aggregate_add_button())
             AutoActions().click(self.get_device360_lag_save_button())

@@ -448,7 +448,7 @@ class SwitchTemplateWebElementDefinitions:
 
     save_button_template = \
         {
-            'XPATH': '//*[@class="bottom"]//*[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//fixed-bar[@class="bottom"]/button[@data-dojo-attach-point="saveButton"][text() = "Save"]',
             'wait_for': 2
         }
 
