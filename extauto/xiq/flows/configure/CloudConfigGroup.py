@@ -244,7 +244,7 @@ class CloudConfigGroup(object):
 
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
-        sleep(3)
+        sleep(5)
 
         if self.ccg_web_elements.get_form_error_text():
             if "This field is required" in self.ccg_web_elements.get_form_error_text().text:
