@@ -239,19 +239,21 @@ class CloudConfigGroup(object):
                 kwargs['fail_msg'] = f"add_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
                 self.common_validation.fault(**kwargs)
                 return -1
+
         sleep(2)
 
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
-        sleep(3)
+        sleep(5)
 
         if self.ccg_web_elements.get_form_error_text():
             if "This field is required" in self.ccg_web_elements.get_form_error_text().text:
                 self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                 kwargs['fail_msg'] = "add_cloud_config_group() failed. Entering CCG Name is Mandatory. " \
                                      "Clicked on CCG Group Cancel Button"
-                self.common_validation.fault(**kwargs)
+                self.common_validation.failed(expect_error=True)
                 return -2
+
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
@@ -300,7 +302,7 @@ class CloudConfigGroup(object):
                 kwargs['fail_msg'] = f"add_cloud_config_group_from_manage() failed. " \
                                      f"AP {ap_serial} is not present in the grid"
                 self.common_validation.fault(**kwargs)
-                return -1
+
         sleep(2)
 
         self.utils.print_info(f"AP {ap_serials} to be added to CCG Group {policy}")
@@ -326,11 +328,6 @@ class CloudConfigGroup(object):
         self.utils.print_info("Enter the description:{}".format(description))
         self.auto_actions.send_keys(self.ccg_web_elements.get_ccg_description_manage_text(), description)
 
-        # for ap_serial in ap_serials:
-        #     if not self.select_ap_for_ccg_manage_page(ap_serial):
-        #         self.utils.print_info(f"AP {ap_serial} is not present in the grid")
-        #         return -1
-        # sleep(2)
 
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
@@ -353,6 +350,7 @@ class CloudConfigGroup(object):
         kwargs['fail_msg'] = "add_cloud_config_group_from_manage() failed. Unable to add Cloud Config Group from manage"
         self.common_validation.failed(**kwargs)
         return -1
+
 
     def create_bulk_cloud_config_group(self, policy_name, ap_serial, num, **kwargs):
         """
@@ -389,6 +387,7 @@ class CloudConfigGroup(object):
                 kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
                 self.common_validation.fault(**kwargs)
                 return -1
+
             sleep(2)
 
             self.utils.print_info("Clicking on CCG Group Save Button")
@@ -400,7 +399,7 @@ class CloudConfigGroup(object):
                     self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                     kwargs['fail_msg'] = "create_bulk_cloud_config_group() failed. Entering CCG Name is Mandatory. " \
                                          "Clicked on CCG Group Cancel Button"
-                    self.common_validation.fault(**kwargs)
+                    self.common_validation.failed(expect_error=True)
                     return -2
 
             tool_tp_text = tool_tip.tool_tip_text
@@ -410,17 +409,20 @@ class CloudConfigGroup(object):
                 if "already exists" in tip_text:
                     sleep(1)
                     kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. {tip_text}"
-                    self.common_validation.fault(**kwargs)
+                    self.common_validation.failed(expect_error=True)
                     return -3
+
 
             if not self.search_ccg_group_from_common_object(policy):
                 kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. Didn't find CCG group"
                 self.common_validation.failed(**kwargs)
                 return -1
 
+
         kwargs['pass_msg'] = "Created bulk Cloud Config Group"
         self.common_validation.passed(**kwargs)
         return 1
+
 
     def edit_cloud_config_group(self, policy, option="add", *ap_serials, **kwargs):
         """
@@ -451,17 +453,19 @@ class CloudConfigGroup(object):
             kwargs['fail_msg'] = f"edit_cloud_config_group() failed. Not able to find CCG Group with name:{policy}"
             self.common_validation.fault(**kwargs)
             return -1
-        sleep(3)
+        sleep(5)
 
         self.utils.print_info("Clicking on CCG Edit Button")
+        self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
-
+        self.screen.save_screen_shot()
         if option == "add":
             for ap_serial in ap_serials:
                 if not self.select_ap_for_ccg(ap_serial):
                     kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
                     self.common_validation.fault(**kwargs)
                     return -1
+
         else:
             sleep(2)
             for device_hostname in device_hostnames:
@@ -471,32 +475,33 @@ class CloudConfigGroup(object):
                     self.common_validation.fault(**kwargs)
                     return -1
 
-        sleep(2)
 
+        sleep(3)
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
-        sleep(3)
+        sleep(5)
 
         if self.search_ccg_group_from_common_object(policy):
             ccg_members = self.get_ccg_group_members(policy)
+            self.utils.print_info("CCG Members :", ccg_members)
             if option == "add":
                 for ap_serial in ap_serials:
                     if ap_serial not in ccg_members:
                         kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} did not " \
                                              f"get added to CCG Group"
-                        self.common_validation.fault(**kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
             else:
                 for ap_serial in ap_serials:
                     if ap_serial in ccg_members:
                         kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} did not " \
                                              f"get removed from CCG Group"
-                        self.common_validation.fault(**kwargs)
+                        self.common_validation.failed(**kwargs)
                         return -1
 
         else:
             kwargs['fail_msg'] = f"edit_cloud_config_group() failed. CCG Group {policy} is not found in  CCG List"
-            self.common_validation.fault(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         for ap_serial in ap_serials:
@@ -650,7 +655,7 @@ class CloudConfigGroup(object):
         for row in rows:
             if ap_serial in row.text:
                 self.auto_actions.click(self.ccg_web_elements.get_ap_select_checkbox_ccg(row))
-                sleep(2)
+                sleep(5)
                 kwargs['pass_msg'] = "Found AP Row"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -843,7 +848,7 @@ class CloudConfigGroup(object):
         for row in rows:
             if policy in row.text:
                 self.utils.print_debug(f"Found CCG Group with name:{policy}")
-                sleep(2)
+
 
                 self.utils.print_debug(f"Selecting CCG Group with name:{policy}")
                 self.auto_actions.click(self.ccg_web_elements.get_ccg_select_checkbox(row))
@@ -851,20 +856,16 @@ class CloudConfigGroup(object):
 
                 self.utils.print_info("Clicking on CCG Edit Button")
                 self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
-                sleep(2)
+                sleep(5)
 
                 get_ccg_members_hostname = self.ccg_web_elements.get_ccg_members_hostname()
                 get_ccg_members_hostnames = [member.text.split("\n")[0] for member in get_ccg_members_hostname]
                 get_ccg_members_serial_numbers = []
                 self.utils.print_info(f"CCG Group members :{policy} are {get_ccg_members_hostnames}")
 
-                sleep(2)
-                # self.utils.print_info("Clicking on CCG Group Cancel Button")
-                # self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
-                # sleep(5)
+
 
                 for member in get_ccg_members_hostnames:
-                    # device_serial_num = self.device.get_device_details(member, 'SERIAL')
                     device_serial_num = self._get_device_details_from_CCG_page(member, 'APSERIAL')
                     self.utils.print_info(f"AP serial number for :{member} is {device_serial_num}")
                     get_ccg_members_serial_numbers.append(device_serial_num)
