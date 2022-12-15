@@ -12889,6 +12889,8 @@ class Device360(Device360WebElements):
                 if th.text.strip() == "PORT NAME":
                     port_found = 0
                     for port in isl_ports_dut:
+                        print(td.text.strip())
+                        print(port)
                         if td.text.strip() == port:
                             port_found = 1
                             print(f"Port found: {td.text.strip()}")
