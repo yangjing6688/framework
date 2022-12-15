@@ -856,7 +856,7 @@ class CloudConfigGroup(object):
 
                 self.utils.print_info("Clicking on CCG Edit Button")
                 self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
-                sleep(2)
+                sleep(5)
 
                 get_ccg_members_hostname = self.ccg_web_elements.get_ccg_members_hostname()
                 get_ccg_members_hostnames = [member.text.split("\n")[0] for member in get_ccg_members_hostname]
