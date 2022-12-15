@@ -866,7 +866,6 @@ class CloudConfigGroup(object):
 
 
                 for member in get_ccg_members_hostnames:
-                    # device_serial_num = self.device.get_device_details(member, 'SERIAL')
                     device_serial_num = self._get_device_details_from_CCG_page(member, 'APSERIAL')
                     self.utils.print_info(f"AP serial number for :{member} is {device_serial_num}")
                     get_ccg_members_serial_numbers.append(device_serial_num)
