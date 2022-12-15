@@ -238,7 +238,6 @@ class CloudConfigGroup(object):
             if not self.select_ap_for_ccg(ap_serial):
                 kwargs['fail_msg'] = f"add_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
                 self.common_validation.fault(**kwargs)
-                #self.common_validation.fault(expect_error=True)
                 return -1
 
         sleep(2)
@@ -263,23 +262,23 @@ class CloudConfigGroup(object):
             if "already exists" in tip_text:
                 sleep(1)
                 kwargs['fail_msg'] = f"add_cloud_config_group() failed. {tip_text}"
-                self.common_validation.fault(expect_error=True)
-
+                self.common_validation.fault(**kwargs)
+                return -3
         if self.search_ccg_group_from_common_object(policy):
             ccg_group_members = self.get_ccg_group_members(policy)
             for ap_serial in ap_serials:
                 if ap_serial not in ccg_group_members:
                     kwargs['fail_msg'] = f"add_cloud_config_group() failed. {ap_serial} not in {ccg_group_members}"
-                    self.common_validation.fault(expect_error=True)
-
+                    self.common_validation.failed(**kwargs)
+                    return -1
             kwargs['pass_msg'] = "Created Cloud Config Group and included APs to the group."
             self.common_validation.passed(**kwargs)
             return 1
 
         kwargs['fail_msg'] = "add_cloud_config_group() failed. " \
                              "Unable to Create Cloud Config Group and to include APs to the group. "
-        self.common_validation.fault(expect_error=True)
-
+        self.common_validation.failed(**kwargs)
+        return -1
 
     def add_cloud_config_group_from_manage(self, policy, description, *ap_serials, **kwargs):
         """
@@ -302,7 +301,7 @@ class CloudConfigGroup(object):
             if not self.device.select_ap(ap_serial):
                 kwargs['fail_msg'] = f"add_cloud_config_group_from_manage() failed. " \
                                      f"AP {ap_serial} is not present in the grid"
-                self.common_validation.failed(**kwargs)
+                self.common_validation.fault(**kwargs)
 
         sleep(2)
 
@@ -400,8 +399,8 @@ class CloudConfigGroup(object):
                     self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_cancel_button)
                     kwargs['fail_msg'] = "create_bulk_cloud_config_group() failed. Entering CCG Name is Mandatory. " \
                                          "Clicked on CCG Group Cancel Button"
-                    self.common_validation.fault(**kwargs)
-                    return -1
+                    self.common_validation.failed(expect_error=True)
+                    return -2
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
@@ -452,7 +451,7 @@ class CloudConfigGroup(object):
         self.utils.print_info(f"Selecting CCG Group with name:{policy}")
         if not self.select_ccg_group_from_common_object(policy):
             kwargs['fail_msg'] = f"edit_cloud_config_group() failed. Not able to find CCG Group with name:{policy}"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(5)
 
@@ -464,7 +463,7 @@ class CloudConfigGroup(object):
             for ap_serial in ap_serials:
                 if not self.select_ap_for_ccg(ap_serial):
                     kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                    self.common_validation.failed(**kwargs)
+                    self.common_validation.fault(**kwargs)
                     return -1
 
         else:
@@ -473,15 +472,14 @@ class CloudConfigGroup(object):
                 if not self._remove_device_ccg(device_hostname, policy):
                     kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {device_hostname} " \
                                          f"is not present in the grid"
-                    self.common_validation.failed(**kwargs)
+                    self.common_validation.fault(**kwargs)
                     return -1
 
 
         sleep(3)
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
-        self.screen.save_screen_shot()
-        sleep(10)
+        sleep(5)
 
         if self.search_ccg_group_from_common_object(policy):
             ccg_members = self.get_ccg_group_members(policy)
@@ -656,9 +654,7 @@ class CloudConfigGroup(object):
         rows = self.devices_web_elements.get_grid_rows()
         for row in rows:
             if ap_serial in row.text:
-                self.screen.save_screen_shot()
                 self.auto_actions.click(self.ccg_web_elements.get_ap_select_checkbox_ccg(row))
-                self.screen.save_screen_shot()
                 sleep(5)
                 kwargs['pass_msg'] = "Found AP Row"
                 self.common_validation.passed(**kwargs)
@@ -839,13 +835,13 @@ class CloudConfigGroup(object):
         :return: List of APs that are member of CCG Policy
         """
         self.navigator.navigate_to_cloud_config_groups()
-
+        sleep(2)
 
         if view_all_pages := self.classification_rule_web_elements.view_all_pages():
             if view_all_pages.is_displayed():
                 self.utils.print_info("Click Full pages button")
                 self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
-
+                sleep(2)
 
         rows = self.ccg_web_elements.get_ccg_grid_rows()
 
@@ -856,11 +852,11 @@ class CloudConfigGroup(object):
 
                 self.utils.print_debug(f"Selecting CCG Group with name:{policy}")
                 self.auto_actions.click(self.ccg_web_elements.get_ccg_select_checkbox(row))
-
+                sleep(2)
 
                 self.utils.print_info("Clicking on CCG Edit Button")
                 self.auto_actions.click_reference(self.ccg_web_elements.edit_ccg_button_common_object)
-
+                sleep(2)
 
                 get_ccg_members_hostname = self.ccg_web_elements.get_ccg_members_hostname()
                 get_ccg_members_hostnames = [member.text.split("\n")[0] for member in get_ccg_members_hostname]
