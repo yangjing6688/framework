@@ -183,7 +183,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.utils.print_info("Extreme Licensing Portal link is dispalyed.")
             else:
                 kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> Extreme Licensing Portal link is not " \
-                                     "displayed.""
+                                     "displayed."
                 self.common_validation.failed(**kwargs)
                 return -2
             kwargs['pass_msg'] = "'verify_xiq_linked_to_extr_portal()' -> Successfully verify XIQ is linked to " \
@@ -631,10 +631,10 @@ class LicenseManagement(LicenseManagementWebElements):
                activated_count == int(expected_activated) and \
                devices_count == int(expected_devices):
                 kwargs['pass_msg'] = f"wait_until_entitlement_counts_for_feature_matches -> " \
-                                     f"Counts for {feature} are at the expected values:\n"
-                                     f"  Available: {expected_available}\n"
-                                     f"  Activated: {expected_activated}\n"
-                                     f"  Devices:   {expected_devices}""
+                                     f"Counts for {feature} are at the expected values:\n"  \
+                                     f"  Available: {expected_available}\n" \
+                                     f"  Activated: {expected_activated}\n" \
+                                     f"  Devices:   {expected_devices}"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
