@@ -2174,3 +2174,33 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_diagnostics_ports_table_scroll(self):
         return self.weh.get_element(self.device360_diagnostics_ports_table_scroll)
+
+    def get_device360_diagnostics_select_all_ports_button(self):
+        """
+        :return: 'Select All Ports' button of the Port Diagnostics page in the device360 view
+        """
+        return self.weh.get_element(self.device360_diagnostics_select_all_ports_button)
+
+    def get_device360_diagnostics_port_details_actions_button(self):
+        """
+        :return: 'Actions' button of the Port Diagnostics page in the device360 view
+        """
+        return self.weh.get_element(self.device360_diagnostics_port_details_actions_button)
+
+    def get_device360_diagnostics_actions_bounce_port_button(self):
+        """
+        :return: 'Bounce Port' button under Diagnostics -> Port Details page in the device360 view
+        """
+        return self.weh.get_element(self.device360_diagnostics_actions_bounce_port_button)
+
+    def get_device360_diagnostics_port_details_select_button(self):
+        """
+        :return: 'Select' button of the Port Details table in Device360 -> Monitor ->Diagnostics page
+        """
+        return self.weh.get_element(self.device360_diagnostics_port_details_select_button)
+
+    def get_device360_diagnostics_actions_bounce_poe_button(self):
+        """
+        :return: 'Bounce Port' button under Diagnostics -> Port Details page in the device360 view
+        """
+        return self.weh.get_element(self.device360_diagnostics_actions_bounce_poe_button)
