@@ -7517,7 +7517,7 @@ class Device360(Device360WebElements):
         else:
             return -1
 
-    def d360_cancel_port_configuration_all_switches(self):
+    def d360_cancel_port_configuration_all_switches(self, **kwargs):
         get_cancel_button_stack = self.get_d360_cancel_port_configuration()
         if get_cancel_button_stack:
             self.auto_actions.click(get_cancel_button_stack)
