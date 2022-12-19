@@ -199,7 +199,7 @@ class Login:
             return 1
 
         test_url = BuiltIn().get_variable_value("${TEST_URL}")
-        if 'sso' in test_url or 'tinyurl' in test_url:
+        if test_url and ('sso' in test_url or 'tinyurl' in test_url):
             self.utils.print_info("Loading SSO Login URL")
             self.screen.save_screen_shot()
             self.utils.print_info("Entering SSO Username")
