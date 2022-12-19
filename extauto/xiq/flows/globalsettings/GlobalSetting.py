@@ -403,7 +403,7 @@ class GlobalSetting(GlobalSettingWebElements):
 
             return acct_logs_dict
 
-    def change_device_password(self, password):
+    def change_device_password(self, password, **kwargs):
         """
         - Change the Device Password String on Global Settings-->Device Management Page.
         - Flow : User account image-->Global Settings--> Device Management Settings
