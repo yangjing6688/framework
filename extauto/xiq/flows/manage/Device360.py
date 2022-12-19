@@ -8338,8 +8338,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
 
-        kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = "device360_wait_until_device_online() -> Device failed to come ONLINE. Please check."
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -8386,7 +8385,6 @@ class Device360(Device360WebElements):
                 stale_retry = stale_retry + 1
 
         kwargs['fail_msg'] = "Device failed to go OFFLINE. Please check."
-        self.screen.save_screen_shot()
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -8692,7 +8690,7 @@ class Device360(Device360WebElements):
 
     def edit_stp_settings_in_honeycomb_port_editor(self, switch_port, port_type_name, status=None, stp_enabled=None,
                                                    edge_port=None, bpdu_protection=None, priority=None,
-                                                   path_cost=None, save=True):
+                                                   path_cost=None, save=True, **kwargs):
         """ This function edits a port type with custom STP settings at template level.
 
         The only mandatory arguments are switch_port, port_type_name and path_cost. All the other arguments are optional.
@@ -8746,6 +8744,8 @@ class Device360(Device360WebElements):
         rows = self.get_policy_configure_port_rows()
         if not rows:
             self.utils.print_info("Could not obtain list of port rows")
+            kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Could not obtain list of port rows"
+            self.common_validation.fault(**kwargs)
             return -1, {}
         else:
             for row in rows:
@@ -8758,9 +8758,13 @@ class Device360(Device360WebElements):
                         break
                     else:
                         self.utils.print_info("The button policy_edit_port_type from policy was not found")
+                        kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> The button policy_edit_port_type from policy was not found"
+                        self.common_validation.fault(**kwargs)
                         return -1, {}
             else:
                 self.utils.print_info("The button policy_edit_port_type from policy was not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> The button policy_edit_port_type from policy was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         if status is not None:
@@ -8768,6 +8772,8 @@ class Device360(Device360WebElements):
             usage_tab = self.get_select_element_port_type("usagePage")
             if not usage_tab:
                 self.utils.print_info("Failed to click the usage tab")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click the usage tab"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.click(usage_tab) == 1:
@@ -8775,11 +8781,15 @@ class Device360(Device360WebElements):
                 sleep(2)
             else:
                 self.utils.print_info("Failed to click on the usage tab")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click the usage tab"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             status_element = self.get_select_element_port_type("status")
             if not status_element:
                 self.utils.print_info("Port status element was not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Port status element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if (not status_element.is_selected() and status) or (
@@ -8790,11 +8800,15 @@ class Device360(Device360WebElements):
                     sleep(2)
                 else:
                     self.utils.print_info("Failed to click on the status element")
+                    kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click on the status element"
+                    self.common_validation.fault(**kwargs)
                     return -1, {}
 
         stp_tab = self.get_select_element_port_type("stpPage")
         if not stp_tab:
             self.utils.print_info("Failed to click the stp tab")
+            kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click the stp tab"
+            self.common_validation.fault(**kwargs)
             return -1, {}
 
         if self.auto_actions.click(stp_tab) == 1:
@@ -8802,6 +8816,8 @@ class Device360(Device360WebElements):
             sleep(2)
         else:
             self.utils.print_info("Failed to click on the stp tab")
+            kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click the stp tab"
+            self.common_validation.fault(**kwargs)
             return -1, {}
 
         if stp_enabled is not None:
@@ -8809,6 +8825,8 @@ class Device360(Device360WebElements):
 
             if not stp_enabled_element:
                 self.utils.print_info("STP Enabled element was not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> STP Enabled element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if (not stp_enabled_element.is_selected() and stp_enabled) or (
@@ -8819,6 +8837,9 @@ class Device360(Device360WebElements):
                     sleep(2)
                 else:
                     self.utils.print_info("Failed to click on the STP Enabled element")
+                    kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click on the STP " \
+                                         "Enabled element "
+                    self.common_validation.fault(**kwargs)
                     return -1, {}
 
         if edge_port is not None:
@@ -8826,6 +8847,8 @@ class Device360(Device360WebElements):
 
             if not edge_port_element:
                 self.utils.print_info("Edge Port element was not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Edge Port element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if (not edge_port_element.is_selected() and edge_port) or (
@@ -8836,6 +8859,9 @@ class Device360(Device360WebElements):
                     sleep(2)
                 else:
                     self.utils.print_info("Failed to click on the Edge Port element")
+                    kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click on the Edge " \
+                                         "Port element "
+                    self.common_validation.fault(**kwargs)
                     return -1, {}
 
         if bpdu_protection is not None:
@@ -8843,6 +8869,9 @@ class Device360(Device360WebElements):
 
             if not bpdu_protection_element:
                 self.utils.print_info("BPDU Protection element was not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> BPDU Protection element was not " \
+                                     "found "
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.click(bpdu_protection_element) == 1:
@@ -8856,12 +8885,18 @@ class Device360(Device360WebElements):
 
             if not get_bpdu_protection_items:
                 self.utils.print_info("BPDU Protection list elements not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> BPDU Protection list elements " \
+                                     "not found "
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.select_drop_down_options(get_bpdu_protection_items, bpdu_protection):
                 self.utils.print_info("Selected into dropdown value : ", bpdu_protection)
             else:
                 self.utils.print_info("Failed to select from BPDU Protection dropdown")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to select from BPDU " \
+                                     "Protection dropdown "
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         if path_cost is not None:
@@ -8869,6 +8904,8 @@ class Device360(Device360WebElements):
 
             if not path_cost_element:
                 self.utils.print_info("Path Cost element was not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Path Cost element was not found"
+                self.common_validation.failed(**kwargs)
                 return -1, {}
 
             if self.auto_actions.send_keys(path_cost_element, str(path_cost)) == 1:
@@ -8876,6 +8913,9 @@ class Device360(Device360WebElements):
                 sleep(2)
             else:
                 self.utils.print_info("Failed to configure the path cost field")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to configure the path " \
+                                     "cost field "
+                self.common_validation.failed(**kwargs)
                 return -1, {}
 
         if priority:
@@ -8883,6 +8923,8 @@ class Device360(Device360WebElements):
 
             if not priority_element:
                 self.utils.print_info("Priority element was not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Priority element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.click(priority_element) == 1:
@@ -8890,22 +8932,31 @@ class Device360(Device360WebElements):
                 sleep(5)
             else:
                 self.utils.print_info("Failed to click on the priority element")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click on the priority " \
+                                     "element "
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             get_priority_items = self.get_select_element_port_type("priority_items")
             if not get_priority_items:
                 self.utils.print_info("Priority dropdown elements not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Priority element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.select_drop_down_options(get_priority_items, str(priority)):
                 self.utils.print_info("Selected into dropdown value : ", priority)
             else:
                 self.utils.print_info("Failed to select item from priority dropdown")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to select item from priority dropdown"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         summary_tab = self.get_select_element_port_type("summaryPage")
         if not summary_tab:
             self.utils.print_info("Failed to get the summary tab element")
+            kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to get the summary tab element"
+            self.common_validation.fault(**kwargs)
             return -1
 
         if self.auto_actions.click(summary_tab) == 1:
@@ -8913,6 +8964,8 @@ class Device360(Device360WebElements):
             sleep(5)
         else:
             self.utils.print_info("Failed to click on the summary tab")
+            kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click on the summary tab"
+            self.common_validation.fault(**kwargs)
             return -1, {}
 
         summary = {}
@@ -8931,14 +8984,20 @@ class Device360(Device360WebElements):
 
             if not save_button:
                 self.utils.print_info("save button not found")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> save button not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.click(save_button) == 1:
                 self.utils.print_info("Successfully clicked on the Save element")
             else:
                 self.utils.print_info("Failed to click on the Save element")
+                kwargs['fail_msg'] = "edit_stp_settings_in_honeycomb_port_editor() -> Failed to click on the Save element"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
+        kwargs['pass_msg'] = "Successfully got the summary of the newly created port type"
+        self.common_validation.passed(**kwargs)
         return 1, summary
 
     def get_all_ports_from_each_asic(self):
@@ -9174,7 +9233,8 @@ class Device360(Device360WebElements):
             self.auto_actions.click(port_search)
         else:
             self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
-            kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+            kwargs['fail_msg'] = f"port_info_bounce_port() -> Cannot find the port: {port}; Check that port exists in " \
+                                 f"the overview page. "
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -9199,9 +9259,8 @@ class Device360(Device360WebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"'Bounce Port' successful message not found!\nGot this instead: " \
-                                     f"{tool_tip.tool_tip_text}"
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"port_info_bounce_port() -> 'Bounce Port' successful message not found!\nGot " \
+                                     f"this instead: {tool_tip.tool_tip_text} "
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -9229,7 +9288,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(port_search)
         else:
             self.utils.print_info(f"Cannot find the port: {port}; Check that port exists in the overview page.")
-            kwargs['fail_msg'] = f"Cannot find the port: {port}; Check that port exists in the overview page."
+            kwargs['fail_msg'] = f"port_info_bounce_poe() -> Cannot find the port: {port}; Check that port exists in the overview page."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -9255,12 +9314,9 @@ class Device360(Device360WebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"'Bounce PoE' successful message not found!\nGot this instead: " \
-                                     f"{tool_tip.tool_tip_text}"
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = f"port_info_bounce_poe() -> 'Bounce PoE' successful message not found!\nGot this instead: {tool_tip.tool_tip_text}"
                 self.common_validation.failed(**kwargs)
                 return -1
-
 
     def get_event_from_device360(self, dut, event, close_360_window=True, **kwargs):
         """
@@ -9272,20 +9328,17 @@ class Device360(Device360WebElements):
         """
         if self.navigator.navigate_to_devices() != 1:
             self.utils.print_info("Failed to navigate to Devices tab")
-            kwargs['fail_msg'] = "Failed to navigate to Devices tab"
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "get_event_from_device360() -> Failed to navigate to Devices tab"
             self.common_validation.failed(**kwargs)
             return -1
         if self.deviceCommon.go_to_device360_window(device_mac=dut.mac) != 1:
             self.utils.print_info("Failed to go to Device360 window")
-            kwargs['fail_msg'] = "Failed to go to Device360 window"
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "get_event_from_device360() -> Failed to go to Device360 window"
             self.common_validation.failed(**kwargs)
             return -1
         if self.device360_select_events_view() != 1:
             self.utils.print_info("Failed to select Events view")
-            kwargs['fail_msg'] = "Failed to select Events view"
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "get_event_from_device360() -> Failed to select Events view"
             self.common_validation.failed(**kwargs)
             return -1
         sleep(3)
