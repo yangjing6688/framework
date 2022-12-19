@@ -5,6 +5,7 @@ from extauto.common.Screen import Screen
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
+from extauto.common.CommonValidation import CommonValidation
 
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
@@ -32,6 +33,7 @@ class Wips(WipsWebElements):
         self.network_policy = NetworkPolicy()
         self.common_object = CommonObjects()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
 
     def navigate_to_network_policy_edit_tab(self, policy_name):
         """
@@ -57,7 +59,7 @@ class Wips(WipsWebElements):
         sleep(2)
         return 1
 
-    def enable_wips_on_network_policy(self, policy_name, wips_name):
+    def enable_wips_on_network_policy(self, policy_name, wips_name, **kwargs):
         """
         - Enable wips on Network Policy
         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS
@@ -100,8 +102,12 @@ class Wips(WipsWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "WIPS was updated successfully."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "enable_wips_on_network_policy() failed. Failed to enable WIPS Policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def configure_wips_options_on_network_policy(self, policy_name, **wips_config_profile):
@@ -226,7 +232,7 @@ class Wips(WipsWebElements):
         else:
             return -1
 
-    def add_allowed_ssid_on_network_wips_policy(self, policy_name, ssid_name, auth_type):
+    def add_allowed_ssid_on_network_wips_policy(self, policy_name, ssid_name, auth_type, **kwargs):
         """
         - Configure Allowed SSID and Encryption Type on WIPS Policy
         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
@@ -301,11 +307,15 @@ class Wips(WipsWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "WIPS was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "add_allowed_ssid_on_network_wips_policy() failed. Failed to update wips policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def select_allowed_mac_oui_on_network_wips_policy(self, policy_name, mac_oui_name):
+    def select_allowed_mac_oui_on_network_wips_policy(self, policy_name, mac_oui_name, **kwargs):
         """
         - Select allowed MAC OUI on Network Wips Policy
         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
@@ -386,11 +396,15 @@ class Wips(WipsWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "WIPS was updated successfully."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "select_allowed_mac_oui_on_network_wips_policy() failed. Failed to update wips policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def configure_wips_policy_on_common_objects(self, wips_policy_name):
+    def configure_wips_policy_on_common_objects(self, wips_policy_name, **kwargs):
         """
         - Configure WIPS Policy On Common Objects.
         - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
@@ -440,8 +454,12 @@ class Wips(WipsWebElements):
         sleep(2)
 
         if "WIPS was updated successfully" in observed_profile_message:
+            kwargs['pass_msg'] = "WIPS was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "configure_wips_policy_on_common_objects() failed. Failed to update wips policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def configure_allowed_ssid_on_wips_policy(self, **wips_ssid_config):
@@ -561,7 +579,7 @@ class Wips(WipsWebElements):
 
         return True
 
-    def configure_reuse_wips_policy_on_network_policy(self, nw_policy, wips_policy_name):
+    def configure_reuse_wips_policy_on_network_policy(self, nw_policy, wips_policy_name, **kwargs):
         """
         - Select the Configured WIPS Policy on Network Policy
         - Flow  Configure--> Network policy Name Edit---> Router Settings --> Security--> WIPS--> Reuse WIPS Policy

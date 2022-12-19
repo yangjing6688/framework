@@ -9,6 +9,7 @@ from extauto.xiq.elements.UserProfileWebElements import UserProfileWebElements
 from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from extauto.common.CommonValidation import CommonValidation
 
+
 class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
     def __init__(self):
         super().__init__()
@@ -96,13 +97,12 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
                         self.screen.save_screen_shot()
                         return 1 if self._add_classification_rule_to_exist_vlan(vlanid, classificationrule) else -1
 
-            kwargs['fail_msg'] = "User Profile " + userprofile + " was NOT found."
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "add_classification_rule_to_user_profile() failed." \
+                                 "User Profile " + userprofile + " was NOT found."
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['fail_msg'] = "Unable to gather user profiles."
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "add_classification_rule_to_user_profile() failed. Unable to gather user profiles."
             self.common_validation.failed(**kwargs)
             return -1
 

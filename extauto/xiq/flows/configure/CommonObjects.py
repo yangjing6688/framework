@@ -513,7 +513,7 @@ class CommonObjects(object):
         self.auto_actions.click(self.cobj_web_elements.get_cwp_save_button())
         return 1
 
-    def edit_captive_web_portal_social_login_configuration(self, **cwp_template_config):
+    def edit_captive_web_portal_social_login_configuration(self, cwp_template_config, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Authentication --> Captive Web Portal
         - Edit social login captive web portal from the grid
@@ -541,8 +541,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_captive_web_portal()
 
         if not self._search_common_object(temp_cwp_name):
-            cwp_template_config['pass_msg'] = "CWP Name doesn't exists in the list"
-            self.common_validation.passed(**cwp_template_config)
+            kwargs['pass_msg'] = "CWP Name doesn't exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self._select_common_object_row(temp_cwp_name)
@@ -610,13 +610,13 @@ class CommonObjects(object):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Captive web portal was saved successfully." in tool_tip_text:
-            cwp_template_config['pass_msg'] = "Captive web portal was saved successfully!"
-            self.common_validation.passed(**cwp_template_config)
+            kwargs['pass_msg'] = "Captive web portal was saved successfully!"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            cwp_template_config['fail_msg'] = "edit_captive_web_portal_social_login_configuration() failed." \
+            kwargs['fail_msg'] = "edit_captive_web_portal_social_login_configuration() failed." \
                                  "Failed to save captive web portal."
-            self.common_validation.failed(**cwp_template_config)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def delete_aaa_server_profile(self, aaa_profile_name, **kwargs):
@@ -954,7 +954,7 @@ class CommonObjects(object):
                 return row
         return False
 
-    def _search_common_object_template(self, search_string, **kwargs):
+    def _search_common_object_template(self, search_string):
         """
         - Search the passed search string object in grid rows
         :param search_string:
@@ -1427,8 +1427,8 @@ class CommonObjects(object):
         kwargs['fail_msg'] = "create_radio_profile() failed. Failed to create radio profile"
         self.common_validation.failed(**kwargs)
         return -1
-
-    def add_ap_template_from_common_object(self, ap_model, ap_template_name, **wifi_interface_config):
+ 
+    def add_ap_template_from_common_object(self, ap_model, ap_template_name, wifi_interface_config, **kwargs):
         """"
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
         - Adding AP Template in Common Object
@@ -1456,8 +1456,8 @@ class CommonObjects(object):
             sleep(2)
 
         if self._search_common_object_template(ap_template_name):
-            wifi_interface_config['pass_msg'] = "AP Template Name already exists in the list"
-            self.common_validation.passed(**wifi_interface_config)
+            kwargs['pass_msg'] = "AP Template Name already exists in the list"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Click on AP Template add button")
@@ -1493,7 +1493,7 @@ class CommonObjects(object):
             self._config_ap_template_wifi2(**wifi2_config)
 
         if not wired_config == "None":
-            self._config_ap_template_wired(**wired_config)
+            self._config_ap_template_wired(wired_config)
 
         self.utils.print_info("Click on the save template button")
         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_save_button())
@@ -1507,15 +1507,15 @@ class CommonObjects(object):
         strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
         self.utils.print_info("Tool tip Text ap template", strings_with_substring)
         if "AP template was saved successfully" in str(strings_with_substring):
-            wifi_interface_config['pass_msg'] = "AP template was saved successfully"
-            self.common_validation.passed(**wifi_interface_config)
+            kwargs['pass_msg'] = "AP template was saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            wifi_interface_config['fail_msg'] = "add_ap_template_from_common_object() failed. Failed to add AP template"
-            self.common_validation.failed(**wifi_interface_config)
+            kwargs['fail_msg'] = "add_ap_template_from_common_object() failed. Failed to add AP template"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def get_ap_template_wifi(self, ap_template_name, **wifi_interface_config):
+    def get_ap_template_wifi(self, ap_template_name, wifi_interface_config, **kwargs):
         """"
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
         - Get AP Template wiifi in Common Object
@@ -1572,11 +1572,11 @@ class CommonObjects(object):
             return wifi_interface_config
 
         except Exception as e:
-            wifi_interface_config['fail_msg'] = f"get_ap_template_wifi() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wifi_interface_config)
+            kwargs['fail_msg'] = f"get_ap_template_wifi() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def set_ap_template_wifi(self, ap_template_name, **wifi_interface_config):
+    def set_ap_template_wifi(self, ap_template_name, wifi_interface_config, **kwargs):
         """
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
         - Set AP Template wiifi in Common Object
@@ -1607,17 +1607,17 @@ class CommonObjects(object):
 
         if wifi0_config != 'None':
             self.utils.print_info("Set WiFI0 Interface Setting")
-            self._set_ap_template_wifi0(**wifi0_config)
+            self._set_ap_template_wifi0(wifi0_config)
             self.screen.save_screen_shot()
 
         if wifi1_config != 'None':
             self.utils.print_info("Set WiFI1 Interface Setting")
-            self._set_ap_template_wifi1(**wifi1_config)
+            self._set_ap_template_wifi1(wifi1_config)
             self.screen.save_screen_shot()
 
         if wifi2_config != 'None':
             self.utils.print_info("Set WiFI2 Interface Setting")
-            self._set_ap_template_wifi2(**wifi2_config)
+            self._set_ap_template_wifi2(wifi2_config)
             self.screen.save_screen_shot()
 
         self.utils.print_info("Click on the save template button")
@@ -1632,15 +1632,15 @@ class CommonObjects(object):
         strings_with_substring = [msg for msg in tool_tip_text if sub_string in msg]
         self.utils.print_info("Tool tip Text ap template", strings_with_substring)
         if "AP template was saved successfully" in str(strings_with_substring):
-            wifi_interface_config['pass_msg'] = "AP template was saved successfully"
-            self.common_validation.passed(**wifi_interface_config)
+            kwargs['pass_msg'] = "AP template was saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            wifi_interface_config['fail_msg'] = "set_ap_template_wifi() failed. Failed to set AP template"
-            self.common_validation.failed(**wifi_interface_config)
+            kwargs['fail_msg'] = "set_ap_template_wifi() failed. Failed to set AP template"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def _set_ap_template_wifi0(self, **wifi0_profile):
+    def _set_ap_template_wifi0(self, wifi0_profile, **kwargs):
         """
         - Set the WIFI0 configuration on AP Template
         - Keyword Usage
@@ -1706,12 +1706,12 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_enable_sdr())
 
         except Exception as e:
-            wifi0_profile['fail_msg'] = f"_set_ap_template_wifi0() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wifi0_profile)
+            kwargs['fail_msg'] = f"_set_ap_template_wifi0() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
         return 1
 
-    def _set_ap_template_wifi1(self, **wifi1_profile):
+    def _set_ap_template_wifi1(self, wifi1_profile, **kwargs):
         """
         - Set the WIFI1 configuration on AP Template
         - Keyword Usage
@@ -1768,12 +1768,12 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor())
 
         except Exception as e:
-            wifi1_profile['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wifi1_profile)
+            kwargs['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
         return 1
 
-    def _set_ap_template_wifi2(self, **wifi2_profile):
+    def _set_ap_template_wifi2(self, wifi2_profile, **kwargs):
         """
         - Set the WIFI2 configuration on AP Template
         - Keyword Usage
@@ -1819,8 +1819,8 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor())
 
         except Exception as e:
-            wifi2_profile['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wifi2_profile)
+            kwargs['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
         return 1
 
@@ -2395,7 +2395,7 @@ class CommonObjects(object):
 
         return 1
 
-    def _config_ap_template_wired(self, **wired_profile):
+    def _config_ap_template_wired(self, wired_profile, **kwargs):
         """
         - Configure the Wired configuration on AP Template
         :param wifi2_profile: (Config Dict) Wired Config ie Ethernet Status, LLDP, CDP Config
@@ -2471,8 +2471,8 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_cdp_eth1())
         except Exception as e:
             self.utils.print_info("Requested ethernet does not exist for this model of AP")
-            wired_profile['fail_msg'] = f"_config_ap_template_wired() failed. Actual error is :- {e}"
-            self.common_validation.fault(**wired_profile)
+            kwargs['fail_msg'] = f"_config_ap_template_wired() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.screen.save_screen_shot()
