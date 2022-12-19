@@ -1,4 +1,5 @@
 import re
+import time
 from time import sleep
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
@@ -13284,3 +13285,157 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
 
         return device360_info
+
+    def select_ports_d360_port_config(self, isl_ports_dut, **kwargs):
+        """
+         - This keyword will select multiple ports in (D360-Port Configuration)
+        :return: pass message if successfully
+        :return: fail message if error
+        """
+
+        checkbox = self.dev360.get_d360_monitor_port_details_checkbox_interface(isl_ports_dut)
+        sleep(2)
+        if checkbox:
+            print("Click on checkbox")
+            AutoActions().click(checkbox)
+            kwargs['pass_msg'] = f"The port {isl_ports_dut} was selected successfully!"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"The port {isl_ports_dut} cannot be selected."
+            self.common_validation.failed(**kwargs)
+
+    def multi_edit_add_port_usage(self, **kwargs):
+        '''
+        This keyword click on add button for multi edit port usage. This function will open the Create Port Type tab.
+        :return: pass message if successfully
+        :return: fail message if error
+        '''
+        add_port_usage = self.dev360.get_add_port_type_port_usage_multi_edit()
+        if add_port_usage:
+            self.utils.print_info("Click add port usage")
+            self.auto_actions.click(add_port_usage)
+            kwargs['pass_msg'] = f"The add button from multi edit was clicked!"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"The add button from multi edit was not found!"
+            self.common_validation.failed(**kwargs)
+
+    def close_multi_edit_vlan_error_message(self, **kwargs):
+        """
+         - This keyword will close the vlan error message in Multi Edit (D360-Port Configuration).
+         - The error message is generated when the VLAN field is empty or contains an invalid value.
+        :return: pass message if successfully
+        :return: fail message if error
+        """
+        error_message = self.dev360.get_vlan_error_message_close_multi_edit()
+        if error_message:
+            print("Click on error_message")
+            AutoActions().click(error_message)
+            print (error_message.text)
+            kwargs['pass_msg'] = f"The multi edit vlan error message was closed successfully!"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"The multi edit vlan error message was cannot be closed."
+            self.common_validation.failed(**kwargs)
+
+
+    def check_delta_config_local(self, device_mac, commands_into_delta, **kwargs):
+        """
+         - This function will check if the commands are present into Delta view tab.
+        :return: pass message if successfully
+        :return: fail message if error
+        """
+        if not self.navigator.navigate_to_devices() == 1:
+            kwargs['fail_msg'] = f"Can't navigate to device page!"
+            self.common_validation.failed(**kwargs)
+        delta_configs = self.deviceConfig.get_device_config_audit_delta(device_mac)
+        if delta_configs:
+            for el in commands_into_delta:
+                commands_into_delta = False
+                if el in delta_configs:
+                    commands_into_delta = True
+                    print("Command was found into delta :", el)
+                    kwargs['pass_msg'] = f"Command was found into delta :", {el}
+                    self.common_validation.passed(**kwargs)
+                if not commands_into_delta:
+                    print("Command was not found into delta :", el)
+                    kwargs['fail_msg'] = f"Command not found into Delta, {el}"
+                    self.common_validation.failed(**kwargs)
+
+    def multi_edit_port_count_message(self):
+        '''
+        This keyword verify if the ports are succesfully selected. Will also verify if the row with selected ports is
+        present in Multi Edit tab.
+        :return: pass message if successfully
+        :return: fail message if error
+        '''
+
+        d360_port_count = self.dev360.get_d360_multi_edit_port_count()
+        if d360_port_count:
+            self.utils.print_info(f"The ports selected are displayed in multi edit tab: {d360_port_count[0].text}")
+            return d360_port_count[0].text
+        else:
+            self.utils.print_info(f"The ports selected are not displayed in multi edit tab: {d360_port_count[0].text}")
+
+    def succesful_message_multi_edit(self):
+        """
+         - This keyword will verify the success message for Multi Edit configuration.
+         It is a different success message depending on the platform it is running on.
+        :return: pass message if the success message is generated  and the same as the one in the function
+        :return: fail message if error (the message is not generated)
+        """
+
+        success_message = self.dev360.get_d360_save_port_configuration_message_multi_edit()
+        max_wait = 120
+        count = 0
+        while (success_message == None) and count < max_wait:
+            count += 10
+            success_message = self.dev360.get_d360_save_port_configuration_message_multi_edit()
+        if success_message:
+            self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
+            return success_message.text
+        else:
+            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+
+
+    def succesful_message_multi_edit_exos(self):
+        """
+         - This keyword will verify the success message for Multi Edit configuration for Switch Engine devices.
+        :return: pass message if the success message is generated  and the same as the one in the function
+        :return: fail message if error (the message is not generated)
+        """
+
+        success_message = self.dev360.get_d360_save_port_configuration_message_exos()
+        max_wait = 180
+        count = 0
+        while (success_message.text is "") and count < max_wait:
+            time.sleep(2)
+            count += 10
+            success_message = self.dev360.get_d360_save_port_configuration_message_exos()
+        if success_message:
+            self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
+            return success_message.text
+        else:
+            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+
+
+    def succesful_message_multi_edit_voss(self):
+        """
+         - This keyword will verify the success message for Multi Edit configuration for Fabric Engine devices.
+        :return: pass message if the success message is generated  and the same as the one in the function
+        :return: fail message if error (the message is not generated)
+        """
+
+        success_message = self.dev360.get_d360_save_port_configuration_message_voss()
+        max_wait = 180
+        count = 0
+        while (success_message.text is "") and count < max_wait:
+            count += 10
+            success_message = self.dev360.get_d360_save_port_configuration_message_voss()
+        if success_message:
+            self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
+            return success_message.text
+        else:
+            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+
+

@@ -2347,7 +2347,7 @@ class Device360WebElementDefs:
 
     select_element_port_type_save_vlan = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'XPATH': '//button[@data-automation-tag="vlan-form-save-button"]',
             'wait_for': 5
         }
 
@@ -3778,8 +3778,20 @@ class Device360WebElementDefs:
 
     d360_save_port_configuration_message_multi_edit = \
         {
-            'XPATH': '//div[contains(@widgetid,"ah/util/dojocover/AHDialog_0")]//*[@data-dojo-attach-point="textEl"]',
-            'index': 0,
+            'XPATH': '//div[@class="ui-tipbox ui-tipbox-success"]//*[@data-dojo-attach-point="textEl"]',
+            'wait_for': 5
+        }
+
+    d360_save_port_configuration_message_exos = \
+        {
+            'XPATH': '//div[@class="ui-tipbox ui-tipbox-success"]//*[contains(text(), "Port Configuration Saved")]',
+            'wait_for': 5
+        }
+
+    d360_save_port_configuration_message_voss = \
+        {
+            'XPATH': '//div[@class="ui-tipbox ui-tipbox-success"]//*[contains(text(), "updated successfully")]',
+            'wait_for': 5
         }
 
     add_port_type_port_usage_multi_edit = \

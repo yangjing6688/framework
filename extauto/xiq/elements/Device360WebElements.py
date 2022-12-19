@@ -2216,6 +2216,12 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_save_port_configuration_message_multi_edit(self):
         return self.weh.get_element(self.d360_save_port_configuration_message_multi_edit)
 
+    def get_d360_save_port_configuration_message_exos(self):
+        return self.weh.get_element(self.d360_save_port_configuration_message_exos)
+
+    def get_d360_save_port_configuration_message_voss(self):
+        return self.weh.get_element(self.d360_save_port_configuration_message_voss)
+
     def get_d360_save_multi_edit(self):
         return self.weh.get_element(self.d360_save_multi_edit)
 
@@ -2226,12 +2232,7 @@ class Device360WebElements(Device360WebElementDefs):
         return self.weh.get_element(self.add_port_type_port_usage_multi_edit)
 
     def get_d360_multi_edit_port_count(self):
-        # rez = []
         return self.weh.get_elements(self.d360_multi_edit_port_count)
-        # for el in elements:
-        #     if el.is_displayed():
-        #         rez.append(el)
-        # if len(rez) != 0:
-        #     return rez
-        # return None
+
+
 
