@@ -7848,7 +7848,7 @@ class Devices:
                 self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
                 self.utils.print_info("'VOSS' found in 'Device Make' list")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_vos)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_voss)
                 sleep(2)
             else:
                 self.utils.print_info("Button 'VOSS' not found")
@@ -7938,20 +7938,27 @@ class Devices:
                 return -1
             else:
                 pass
+            """
+            JPS -- Dec 20, 2022
+            The following code did not work as desired, it would find a tool tip that was just an 
+            info message and fail the keyword. In the future there should be a common error checker
+            used by all onboard keywords. In the future the onboard_device_quick should be able 
+            onboard a device with a CSV and this should whol keyword should be removed.
+            """
             # Check the banner error
-            sleep(3)
-            tool_tp_text_after = tool_tip.tool_tip_text.copy()
-            self.utils.print_info(tool_tp_text_after)
-            for item_after in tool_tp_text_after:
-                if item_after in tool_tp_text_before:
-                    pass
-                else:
-                    if 'successfully' in item_after:
-                        pass
-                    else:
-                        self.utils.print_info(" Below error message is displayed after press ADD button")
-                        self.utils.print_info(item_after)
-                        return item_after
+            #sleep(3)
+            #tool_tp_text_after = tool_tip.tool_tip_text.copy()
+            #self.utils.print_info(tool_tp_text_after)
+            #for item_after in tool_tp_text_after:
+            #    if item_after in tool_tp_text_before:
+            #        pass
+            #    else:
+            #        if 'successfully' in item_after:
+            #            pass
+            #        else:
+            #            self.utils.print_info(" Below error message is displayed after press ADD button")
+            #            self.utils.print_info(item_after)
+            #            return item_after
         else:
             self.utils.print_info("'Add Devices' button not found or the button is not active")
             return -1
