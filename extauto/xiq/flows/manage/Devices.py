@@ -1709,7 +1709,7 @@ class Devices:
         - ``Reboot Device  ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number
-        :param device_mac: device_mac_value
+        :param device_mac: device mac address
         :return: None
         """
         self.utils.print_info("Navigate to Manage-->Devices")
