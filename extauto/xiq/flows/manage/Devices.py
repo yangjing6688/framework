@@ -1727,6 +1727,128 @@ class Devices:
 
             return 1
 
+    def upgrade_device(self, device_serial, version=None, action="upgrade", activate_time=60, **kwargs):
+        """
+        - This method will update the software image the device is using
+        - Keyword Usage:
+        - ``Upgrade Device   ${DEVICE_SERIAL}``
+        - ``Upgrade Device   ${DEVICE_SERIAL}  8.8.0.0``
+
+        :param device_serial: serial number of the device
+        :param version: - version=None - means latest version
+                        - version="" - to which device should get upgraded, ex: version="8.8.0.0"
+        :param action: - action="upgrade" - will update the software image of the device
+                       - action="close" - will check if the firmware upgrade option is available for the device
+                        and close the image upgrade without perform the upgrade.
+        :param activate_time: activation time for Extreme Networks devices running images, by default set to 60 seconds
+        :return: returned_version of the device, or -1 if it was unable to perform the upgrade
+        """
+        returned_version = -1
+        if self.select_device(device_serial):
+            self.utils.print_info("Selecting Update Devices button")
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
+            sleep(5)
+
+            uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
+            if uptd:
+                if uptd.is_selected():
+                    self.utils.print_info(f"uncheck the update configuration checkbox")
+                    self.auto_actions.click(uptd)
+
+            self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
+            sleep(5)
+
+            if version is None:
+                self.utils.print_info("Selecting upgrade to latest version checkbox")
+                self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
+                sleep(2)
+
+                if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
+                    self.utils.print_info("Click on Upgrade even if the versions are the same button")
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_are_same_button)
+                    sleep(5)
+
+                returned_version = self.device_update.get_latest_version()
+                self.utils.print_info("Device Latest Version: ", returned_version)
+                sleep(5)
+
+            else:
+                self.utils.print_info("Selecting upgrade to specific version checkbox")
+                self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_radio)
+                sleep(2)
+
+                if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
+                    self.utils.print_info("Click on Upgrade even if the versions are the same button")
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_are_same_button)
+                    sleep(5)
+
+                self.utils.print_info("Click specific version Dropdown")
+                self.auto_actions.click_reference(self.device_update.get_actions_update_version_drop_down)
+                sleep(2)
+
+                update_version_items = self.device_update.get_actions_update_version_drop_down_items()
+                self.auto_actions.scroll_down()
+                sleep(2)
+
+                cont_images_found = 0
+                if update_version_items:
+                    item_count = len(update_version_items)
+                    self.utils.print_info(f"Iterating through {item_count} options")
+                    for opt in update_version_items:
+                        self.utils.print_info("Image: {} is in drop down ".format(opt.text))
+                        if version in opt.text:
+                            if "patch" not in version and "patch" in opt.text:
+                                continue
+                            self.utils.print_info("Image version {} match the image {} from "
+                                                  "drop down".format(version, opt.text))
+                            cont_images_found += 1
+                            image_select = opt.text
+                        else:
+                            self.utils.print_info("Image version {} doesn't match the "
+                                                  "image {} from drop down".format(version, opt.text))
+                if cont_images_found == 1:
+                    if self.auto_actions.select_drop_down_options(update_version_items, image_select):
+                        returned_version = version
+                        self.utils.print_info("Device Specific Version: ", returned_version)
+                elif cont_images_found > 1:
+                    kwargs['fail_msg'] = f"upgrade_device() failed. Multiple images were found in drop down"
+                    self.common_validation.fault(**kwargs)
+                    return -1
+                else:
+                    kwargs['fail_msg'] = f"upgrade_device() failed. Image version {version} doesn't match " \
+                                         f"the images from drop down."
+                    self.common_validation.fault(**kwargs)
+                    return -1
+
+            activate_bttn = self.device_update.get_activate_after_radio()
+            if activate_bttn:
+                self.utils.print_info("Selecting Activate After radio button")
+                self.auto_actions.click_reference(self.device_update.get_activate_after_radio)
+
+                self.utils.print_info(f"Setting Activate time to {activate_time} seconds")
+                self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), activate_time)
+
+            if action == "upgrade":
+                self.auto_actions.click_reference(self.device_update.get_perform_update_button)
+                kwargs['pass_msg'] = "Upgrade was successfully"
+                self.common_validation.passed(**kwargs)
+                return returned_version
+            elif action == "close":
+                self.auto_actions.click_reference(self.device_update.get_update_close_button)
+                kwargs['pass_msg'] = "Closed upgrade window successfully"
+                self.common_validation.passed(**kwargs)
+                return returned_version
+            else:
+                self.auto_actions.click_reference(self.device_update.get_update_close_button)
+                kwargs['fail_msg'] = f"upgrade_device() failed. Selected action {action} is unavailable"
+                self.common_validation.fault(**kwargs)
+                return -1
+
+        kwargs['fail_msg'] = f"upgrade_device() failed. Failed to upgrade the device"
+        self.common_validation.failed(**kwargs)
+        return -1
+
     def upgrade_device_to_latest_version(self, device_serial, activate_time=60):
         """
         - This method update device(s) to latest version from the dropdown
