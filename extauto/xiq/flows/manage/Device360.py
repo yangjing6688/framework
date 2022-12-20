@@ -12966,7 +12966,7 @@ class Device360(Device360WebElements):
         kwargs["pass_msg"] = "Successfully checked Device360 LLDP neighbors without hyperlink."
         self.common_validation.passed(**kwargs)
 
-    def verify_lacp_status_for_port_device_in_360_table(self, logger, port, check_value, **kwargs):
+    def verify_lacp_status_for_port_device_in_360_table(self, logger, dut, port, check_value, **kwargs):
         """
         Check Device360 LACP status for port device in D360 table.
         Args:
@@ -12985,16 +12985,27 @@ class Device360(Device360WebElements):
         all_checkboxes = self.dev360.get_device360_all_checkboxes()
         default_disabled = [k for k, v in all_checkboxes.items() if v["is_selected"] is False]
 
-        for checkbox_name, stats in all_checkboxes.items():
-            if checkbox_name.upper() == "LACP STATUS" and checkbox_name in default_disabled \
-                    and stats["is_selected"] is False:
-                self.auto_actions.click(stats["element"])
-                break
+        if dut.cli_type.upper() == 'VOSS':
+            for checkbox_name, stats in all_checkboxes.items():
+                if checkbox_name.upper() == "LACP STATUS" and checkbox_name in default_disabled \
+                        and stats["is_selected"] is False:
+                    self.auto_actions.click(stats["element"])
+                    break
+        if dut.cli_type.upper() == 'EXOS':
+            for checkbox_name, stats in all_checkboxes.items():
+                if checkbox_name.upper() == "LINK AGGREGATION" and checkbox_name in default_disabled \
+                        and stats["is_selected"] is False:
+                    self.auto_actions.click(stats["element"])
+                    break
 
         ports_table = self.dev360.get_device360_ports_table()
         [port_row] = [row for row in ports_table if row["PORT NAME"] == port]
-        lacp_status = port_row["LACP STATUS"]
-        logger.info(f"LACP status = {lacp_status}")
+        if dut.cli_type.upper() == 'VOSS':
+            lacp_status = port_row["LACP STATUS"]
+            logger.info(f"LACP status = {lacp_status}")
+        if dut.cli_type.upper() == 'EXOS':
+            lacp_status = port_row["LINK AGGREGATION"]
+            logger.info(f"LACP status = {lacp_status}")
 
         if not lacp_status == check_value:
             kwargs["failed_msg"] = f"verify_lacp_status_for_port_device_in_360_table() failed. Default LACP Status for port: {port} is not {check_value}"
@@ -13009,11 +13020,16 @@ class Device360(Device360WebElements):
             sleep(2)
 
             all_checkboxes = self.dev360.get_device360_all_checkboxes()
-
-            for checkbox_name, stats in all_checkboxes.items():
-                if checkbox_name.upper() == "LACP STATUS" and stats["is_selected"] is True:
-                    self.auto_actions.click(stats["element"])
-                    break
+            if dut.cli_type.upper() == 'VOSS':
+                for checkbox_name, stats in all_checkboxes.items():
+                    if checkbox_name.upper() == "LACP STATUS" and stats["is_selected"] is True:
+                        self.auto_actions.click(stats["element"])
+                        break
+            if dut.cli_type.upper() == 'EXOS':
+                for checkbox_name, stats in all_checkboxes.items():
+                    if checkbox_name.upper() == "LINK AGGREGATION" and stats["is_selected"] is True:
+                        self.auto_actions.click(stats["element"])
+                        break
         self.select_pagination_size("10")
         self.close_device360_window()
         kwargs["pass_msg"] = "Successfully verified lacp status for port device in D360 table"
