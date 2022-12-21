@@ -1701,7 +1701,7 @@ class Devices:
             self.utils.print_info("No rows present")
         return flag_cell
 
-    def reboot_device(self, device_serial):
+    def reboot_device(self, device_serial=None, device_mac=None, **kwargs):
         """
         - Assumes that already navigated to Manage --> Devices
         - This method reboots a device matching the serial(s)
@@ -1709,23 +1709,37 @@ class Devices:
         - ``Reboot Device  ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number
+        :param device_mac: device mac address
         :return: None
         """
-        self.utils.print_info("Rebooting Device with serial: ", device_serial)
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
 
-        if self.select_device(device_serial):
-            self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
-            sleep(2)
+        if device_serial:
+            self.utils.print_info("Selecting Device with serial: ", device_serial)
+            self.select_device(device_serial)
+        elif device_mac:
+            self.utils.print_info("Selecting Device with mac-address: ", device_mac)
+            self.select_device(device_mac=device_mac)
+        else:
+            kwargs['fail_msg'] = 'Device Serial Number or Device Mac Address was not provided'
+            self.common_validation.fault(**kwargs)
+            return -1
 
-            self.utils.print_info("Selecting Reboot menu item")
-            self.auto_actions.click_reference(self.device_actions.get_device_actions_reboot_menu_item)
-            sleep(2)
+        self.utils.print_info("Click on device actions button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
 
-            self.utils.print_info("Confirming...")
-            self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+        self.utils.print_info("click on device actions reboot button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_button)
 
-            return 1
+        self.utils.print_info("Click on reboot confirm yes button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_confirm_bttn)
+
+        kwargs['pass_msg'] = "Device was rebooted successfully"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+
 
     def upgrade_device(self, device_serial, version=None, action="upgrade", activate_time=60, **kwargs):
         """
@@ -4838,36 +4852,6 @@ class Devices:
         if self._sort_device_columns('field-updatedOn', sort):
             gui_sorted_values = self._get_device_column_values('field-updatedOn')
             return self._validate_sorting_column_values(sort, unsorted_values, gui_sorted_values)
-
-    def device_reboot(self, device_serial):
-        """
-        - This keyword is used to reboot the device from Actions --> Reboot
-        - Flow:
-        - Navigate to Manage --> Devices
-        - Select the device row based on the passed device serial number
-        - Click on ACTIONS --> Reboot
-        - Keyword Usage:
-        - ``Device Reboot   ${DEVICE_SERIAL}``
-
-        :param device_serial: device serial number to reboot
-        :return: 1
-        """
-
-        self.utils.print_info("Navigate to Manage-->Devices")
-        self.navigator.navigate_to_devices()
-
-        self.refresh_devices_page()
-        self.select_device(device_serial)
-
-        self.utils.print_info("Click on device actions button")
-        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
-
-        self.utils.print_info("click on device actions reboot button")
-        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_button)
-
-        self.utils.print_info("Click on reboot confirm yes button")
-        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_confirm_bttn)
-        return 1
 
     def onboard_wing_ap(self, device_serial, device_mac, device_make, location=False):
         """
