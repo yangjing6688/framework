@@ -13973,9 +13973,9 @@ class Device360(Device360WebElements):
         """
 
         success_message = self.dev360.get_d360_save_port_configuration_message_exos()
-        max_wait = 180
+        max_wait = 300
         count = 0
-        while (success_message.text is "") and count < max_wait:
+        while not success_message.is_displayed() and count < max_wait:
             time.sleep(2)
             count += 10
             success_message = self.dev360.get_d360_save_port_configuration_message_exos()
@@ -13994,9 +13994,10 @@ class Device360(Device360WebElements):
         """
 
         success_message = self.dev360.get_d360_save_port_configuration_message_voss()
-        max_wait = 180
+        max_wait = 300
         count = 0
-        while (success_message.text is "") and count < max_wait:
+        while not success_message.is_displayed() and count < max_wait:
+            time.sleep(2)
             count += 10
             success_message = self.dev360.get_d360_save_port_configuration_message_voss()
         if success_message:
