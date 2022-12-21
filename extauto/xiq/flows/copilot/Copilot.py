@@ -55,8 +55,9 @@ class Copilot(CopilotWebElements):
             elif self.get_copilot_menu_alert_message_banner():
                 kwargs['fail_msg'] = "'enable_copilot_menu_feature()' -> Unable to enable feature - CoPilot " \
                                      "deactivated due to lack of licenses"
-                self.common_validation.failed(**kwargs)
+                self.utils.print_info("Unable to enable feature - CoPilot deactivated due to lack of licenses")
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
+                self.common_validation.failed(**kwargs)
                 return False
         else:
             kwargs['pass_msg'] = "'enable_copilot_menu_feature()' -> CoPilot feature already enabled"
@@ -66,9 +67,9 @@ class Copilot(CopilotWebElements):
 
     def confirm_copilot_deactivated_due_to_lack_of_licenses_banner_displayed(self, **kwargs):
         """
-         - This keyword confirms if the "CoPilot deactivated due to lack of licenses" banner message is displayed or not
-         - Keyword Usage
-          - ``Confirm CoPilot Deactivated Due To Lack Of Licenses Banner Displayed``
+        - This keyword confirms if the "CoPilot deactivated due to lack of licenses" banner message is displayed or not
+        - Keyword Usage
+        - ``Confirm CoPilot Deactivated Due To Lack Of Licenses Banner Displayed``
 
         :return: true if banner is displayed and return false if banner is not displayed
         """
@@ -94,7 +95,7 @@ class Copilot(CopilotWebElements):
         - Gets wifi capacity widget summary in copilot
         - Flow : Copilot page -->Wifi Capacity widget
         - Keyword Usage
-         - ``Get WiFi Capacity Widget Summary``
+        - ``Get WiFi Capacity Widget Summary``
         - This keyword developed on q3r1 - g7r1 environment.
         :return: returns Buildings and APs count if success else returns -1
         """
@@ -131,7 +132,7 @@ class Copilot(CopilotWebElements):
         - Gets wifi capacity widget status in copilot
         - Flow : Copilot page -->Wifi Capacity widget
         - Keyword Usage
-         - ``Get WiFi Capacity Widget Status``
+        - ``Get WiFi Capacity Widget Status``
         :return: returns status of show/hide muted button in wifi capacity widget-1
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -157,7 +158,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will pin an anomaly at building level in wifi capacity widget
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get Location Name in Rows and Click Pin Button
         - Keyword Usage:
-         - ``Pin Anomaly For location In WiFi Capacity Widget   ${LOCATION_NAME}``
+        - ``Pin Anomaly For location In WiFi Capacity Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in wifi capacity widget
@@ -196,7 +197,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will unpin an anomaly at building level in wifi capacity widget
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get Location Name in Rows and Click UnPin Button
         - Keyword Usage:
-         - ``Unpin Anomaly For location In WiFi Capacity Widget   ${LOCATION_NAME}``
+        - ``Unpin Anomaly For location In WiFi Capacity Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in wifi capacity widget
@@ -235,7 +236,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will mute an anomaly at building level in wifi capacity widget
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get Location Name in Rows and Click More options and mute Button
         - Keyword Usage:
-         - ``Mute Anomaly For location In WiFi Capacity Widget   ${LOCATION_NAME}``
+        - ``Mute Anomaly For location In WiFi Capacity Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to Mute anomaly in wifi capacity widget
@@ -283,7 +284,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will unmute an anomaly at building level in wifi capacity widget
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get Location Name in Rows and Click More options and unmute Button
         - Keyword Usage:
-         - ``Unmute Anomaly For location In WiFi Capacity Widget   ${LOCATION_NAME}``
+        - ``Unmute Anomaly For location In WiFi Capacity Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to unMute anomaly in wifi capacity widget
@@ -330,7 +331,7 @@ class Copilot(CopilotWebElements):
         """
         - This Keyword will Get Total Number of Anomalies Notification Detected.
         - Keyword Usage:
-         - ``Get Total Numbers Of Anomalies Detected``
+        - ``Get Total Numbers Of Anomalies Detected``
 
         :return:Total anomalies count if notification found else -1
         """
@@ -350,7 +351,7 @@ class Copilot(CopilotWebElements):
         - If option provided is 'yes' it will dismiss anomaly else it won't dismiss
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get Location Name and dismiss anomaly
         - Keyword Usage:
-         - ``Dismiss Anomaly In WiFi Capacity   ${LOCATION_NAME}    ${OPTION}``
+        - ``Dismiss Anomaly In WiFi Capacity   ${LOCATION_NAME}    ${OPTION}``
 
         :param location_name: Location name to enable anomaly Pin in wifi capacity widget
         :param option: confirmation option to delete anomaly(options: yes, no)
@@ -398,7 +399,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will pin an AP at building level in wifi capacity widget
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> click Location Name in Rows --> Click AP row pin Button
         - Keyword Usage:
-         - ``Pin Individual AP For Location In WiFi Capacity Widget   ${LOCATION_NAME}  ${AP_NAME}``
+        - ``Pin Individual AP For Location In WiFi Capacity Widget   ${LOCATION_NAME}  ${AP_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in wifi capacity widget
@@ -454,7 +455,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will unpin an AP at building level in wifi capacity widget
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> click Location Name in Rows --> Click AP row Unpin Button
         - Keyword Usage:
-         - ``Unpin Individual AP For Location In WiFi Capacity Widget   ${LOCATION_NAME}  ${AP_NAME}``
+        - ``Unpin Individual AP For Location In WiFi Capacity Widget   ${LOCATION_NAME}  ${AP_NAME}``
 
 
         :param location_name: Location name to enable anomaly Unpin in wifi capacity widget
@@ -511,7 +512,7 @@ class Copilot(CopilotWebElements):
         - Clicks on view all button and validates whether we are in Copilot page or not
         - Flow: Login--> Click on View ALl of copilot Anomaly ---> Copilot page
         - Keyword Usage:
-         - ``Navigate To Copilot Through View All Anomaly``
+        - ``Navigate To Copilot Through View All Anomaly``
         :return: 1 if Navigation Successful else -1
         """
         self.utils.print_info("Navigating to Copilot Anomaly notification icon")
@@ -535,7 +536,7 @@ class Copilot(CopilotWebElements):
         - Gets total scan count in Assurance scan widget
         - Flow : Copilot page -->Assurance Scan widget
         - Keyword Usage
-         - ``Get Total Assurance Scan Count``
+        - ``Get Total Assurance Scan Count``
         - This keyword developed on q3r1 - g7r1 environment.
         :return: if success returns Total Assurance Scan Count else returns -1
         """
@@ -561,7 +562,7 @@ class Copilot(CopilotWebElements):
         - This keyword hides the muted anomalies
         - Flow : Copilot page -->WiFi capacity widget
         - Keyword Usage
-         - ``Hide Muted Anomaly In WiFi Capacity Widget		${LOCATION_NAME}``
+        - ``Hide Muted Anomaly In WiFi Capacity Widget		${LOCATION_NAME}``
         :param location_name: Location name to verify in WiFi capacity widget
         :return: returns 1 if successfully hides muted anomalies else returns -1
         """
@@ -600,7 +601,7 @@ class Copilot(CopilotWebElements):
         - This keyword shows the muted anomalies
         - Flow : Copilot page -->WiFi capacity widget
         - Keyword Usage
-         - ``Show Muted Anomalies In WiFi Capacity Widget		${LOCATION_NAME}``
+        - ``Show Muted Anomalies In WiFi Capacity Widget		${LOCATION_NAME}``
         :param location_name: Location name to verify in WiFi capacity widget
         :return: returns 1 if successfully clicks show muted button else returns -1
         """
@@ -642,7 +643,7 @@ class Copilot(CopilotWebElements):
           after clicking anomaly Notification icon
         -  Flow : Click Anomaly Notification Icon --> Check Notification entries list
         - Keyword Usage
-         - ``${ROW_INFO}  ${ROW_COUNT} = Get Anomaly Details For Location In Anomaly Notification Icon  ${LOCATION_NAME}``
+        - ``${ROW_INFO}  ${ROW_COUNT} = Get Anomaly Details For Location In Anomaly Notification Icon  ${LOCATION_NAME}``
 
         :param location_name: Location name to verify in anomaly Notification Entries
         :return: if notification entries found returns Total rows and location name matched row information in
@@ -688,7 +689,7 @@ class Copilot(CopilotWebElements):
         - This keyword will get the both video and documentation url Links From WiFi Capacity Additional Resources Page
         - Flow : Copilot page -->WiFi capacity widget--> Video Icon ---> Additional Resources
         - Keyword Usage
-         - ``${DOCS_URL_LIST}    ${VIDEO_URL_LIST} =     Get Links Present In WiFi Capacity Additional Resources``
+        - ``${DOCS_URL_LIST}    ${VIDEO_URL_LIST} =     Get Links Present In WiFi Capacity Additional Resources``
 
         :return: ${DOCS_URL_LIST} Documentation URL Links available in WiFi Capacity Additional Resources Page in a list
         :return: ${VIDEO_URL_LIST} Video URL Links available in WiFi Capacity Additional Resources Page in a list
@@ -733,7 +734,7 @@ class Copilot(CopilotWebElements):
         - This keyword will validate loading documentation links from wifi capacity additional resources Page
         - Flow : Copilot page -->WiFi capacity widget--> Video Icon ---> Additional Resources
         - Keyword Usage
-         - ``Validate Loading Additional Resources Documentation Links In WiFi Capacity``
+        - ``Validate Loading Additional Resources Documentation Links In WiFi Capacity``
 
         :return: 1 if All the Additional resources Documentation links loaded Successfully else -1
         """
@@ -800,7 +801,7 @@ class Copilot(CopilotWebElements):
         - This keyword will validate loading you tube links from wifi capacity additional resources Page
         - Flow : Copilot page -->WiFi capacity widget--> Video Icon ---> Additional Resources
         - Keyword Usage
-         - ``Validate Loading Additional Resources Video Links In WiFi Capacity``
+        - ``Validate Loading Additional Resources Video Links In WiFi Capacity``
 
         :return: 1 if All the Additional resources Video links loaded Successfully else -1
         """
@@ -862,7 +863,7 @@ class Copilot(CopilotWebElements):
         - This keyword sorts anomalies based on input parameter and provides details of anomalies
         - Flow : Copilot page -->WiFi capacity widget
         - Keyword Usage
-         - ``Sort Anomalies In WiFi Capacity Widget		${PARAMETER}``
+        - ``Sort Anomalies In WiFi Capacity Widget		${PARAMETER}``
         :param parameter: parameter(location/severity/most recent) to sort WiFi capacity widget
         :return: returns 1 if success else returns -1 or -2
         """
@@ -916,7 +917,7 @@ class Copilot(CopilotWebElements):
         - Gets WiFi efficiency widget summary in copilot
         - Flow : Copilot page -->Wifi efficiency widget
         - Keyword Usage
-         - ``Get WiFi Efficiency Widget Summary``
+        - ``Get WiFi Efficiency Widget Summary``
         :return: returns Buildings and APs count if success else returns -1 or -2
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -951,7 +952,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will pin an anomaly at building level in wifi efficiency widget
         - Flow: CoPilot--> Wi-Fi Efficiency ---> Get Location Name in Rows and Click Pin Button
         - Keyword Usage:
-         - ``Pin Anomaly For location In WiFi Efficiency Widget   ${LOCATION_NAME}``
+        - ``Pin Anomaly For location In WiFi Efficiency Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in wifi efficiency widget
@@ -990,7 +991,7 @@ class Copilot(CopilotWebElements):
         - Gets poe stability summary in copilot
         - Flow : Copilot page -->POE stability widget
         - Keyword Usage
-         - ``Get POE Stability Widget Summary``
+        - ``Get POE Stability Widget Summary``
         :return: returns Buildings and APs count if success else returns -1
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1027,7 +1028,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will pin an anomaly at building level in PoE Stability widget
         - Flow: CoPilot-->  PoE STABILITY ---> Get Location Name in Rows and Click Pin Button
         - Keyword Usage:
-         - ``Pin Anomaly For location In PoE Stability Widget   ${LOCATION_NAME}``
+        - ``Pin Anomaly For location In PoE Stability Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in PoE Stability widget
@@ -1066,7 +1067,7 @@ class Copilot(CopilotWebElements):
         - Gets port efficiency widget summary in copilot
         - Flow : Copilot page -->POE stability widget
         - Keyword Usage
-         - ``Get POE Stability Widget Summary``
+        - ``Get POE Stability Widget Summary``
         :return: returns Buildings and APs count if success else returns -1
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1101,7 +1102,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will pin an anomaly at building level in Port Efficiency widget
         - Flow: CoPilot-->  Port Efficiency ---> Get Location Name in Rows and Click Pin Button
         - Keyword Usage:
-         - ``Pin Anomaly For location In Port Efficiency Widget   ${LOCATION_NAME}``
+        - ``Pin Anomaly For location In Port Efficiency Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in Port Efficiency widget
@@ -1140,7 +1141,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will unpin an anomaly at building level in Port Efficiency widget
         - Flow: CoPilot-->  Port Efficiency ---> Get Location Name in Rows and Click UnPin Button
         - Keyword Usage:
-         - ``Unpin Anomaly For location In Port Efficiency Widget   ${LOCATION_NAME}``
+        - ``Unpin Anomaly For location In Port Efficiency Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly UnPin in Port Efficiency widget
@@ -1179,7 +1180,7 @@ class Copilot(CopilotWebElements):
         - Gets DFS Recurrence widget summary in copilot
         - Flow : Copilot page --> DFS Recurrence widget
         - Keyword Usage
-         - ``Get DFS Recurrence Widget Summary``
+        - ``Get DFS Recurrence Widget Summary``
         :return: returns Buildings and APs count if success else returns -1 or -2
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1296,7 +1297,7 @@ class Copilot(CopilotWebElements):
         - Get DFS Recurrence Muted Button Status
         - Flow : Copilot page --> DFS Recurrence widget
         - Keyword Usage
-         - ``Get DFS Recurrence Muted Button Status``
+        - ``Get DFS Recurrence Muted Button Status``
         :return: returns either HIDE MUTED or SHOW MUTED
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1322,7 +1323,7 @@ class Copilot(CopilotWebElements):
         - Changes the DFS Recurrence Anomalies MUTED Button status to "SHOW MUTED"
         - Flow : Copilot page --> DFS Recurrence widget
         - Keyword Usage
-         - ``Show Muted DFS Recurrence Anomalies``
+        - ``Show Muted DFS Recurrence Anomalies``
         :return: returns 1 if successfully pressed SHOW MUTED button else -1
         """
         # if navigate:
@@ -1362,7 +1363,7 @@ class Copilot(CopilotWebElements):
         - Changes the DFS Recurrence Anomalies MUTED Button status to "HIDE MUTED"
         - Flow : Copilot page --> DFS Recurrence widget
         - Keyword Usage
-         - ``Hide Muted DFS Recurrence Anomalies``
+        - ``Hide Muted DFS Recurrence Anomalies``
         :return: returns 1 if successfully pressed HIDE MUTED button else -1
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1403,7 +1404,7 @@ class Copilot(CopilotWebElements):
         - Flow : Copilot page --> DFS Recurrence widget
         - param: location_name - location name
         - Keyword Usage
-         - ``Get DFS Recurrence Widget Location Details``
+        - ``Get DFS Recurrence Widget Location Details``
         :return: returns location details as an array matching the location name passed as an argument: [1, '5544Location', 'Medium', False, False, '2', 'Last Detected: Sep 15 2021']
         :return: returns all locations details as an array of arrays like: [[1, '5544Location', 'Medium', False, False, '2', 'Last Detected: Sep 15 2021'], [2, '6699Location', 'High', False, False, '3', 'Last Detected: Sep 15 2021']]
         :return: returns -1 if error
@@ -1491,7 +1492,7 @@ class Copilot(CopilotWebElements):
         - Returns CoPilot Account Summary as a dictionary
         - Flow : Copilot page --> Account Summary
         - Keyword Usage
-         - ``Get CoPilot Account Summary``
+        - ``Get CoPilot Account Summary``
         :return: Returns CoPilot Account Summary as a dictionary, -1 in case of any errors
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1524,7 +1525,7 @@ class Copilot(CopilotWebElements):
         - Returns Get ExtremeCloud IQ Applications as a dictionary
         - Flow : Copilot page -->  ExtremeCloud IQ Applications
         - Keyword Usage
-         - ``Get ExtremeCloud IQ Applications``
+        - ``Get ExtremeCloud IQ Applications``
         :return: Returns ExtremeCloud IQ Applications Summary as a dictionary, -1 in case of any errors
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1560,7 +1561,7 @@ class Copilot(CopilotWebElements):
         - Returns Get Devices By OS as a dictionary
         - Flow : Copilot page -->  Get Devices By OS
         - Keyword Usage
-         - ``Get Devices By OS``
+        - ``Get Devices By OS``
         :return: Returns Get Devices By OS as a dictionary, -1 in case of any errors
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1599,7 +1600,7 @@ class Copilot(CopilotWebElements):
         - Returns Get Devices By OS as a dictionary
         - Flow : Copilot page -->  Get Devices By OS
         - Keyword Usage
-         - ``Get Devices By OS``
+        - ``Get Devices By OS``
         :return: Returns Get Devices By OS as a dictionary, -1 in case of any errors
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1640,7 +1641,7 @@ class Copilot(CopilotWebElements):
         - Returns Get Devices By Type as a dictionary
         - Flow : Copilot page -->  Get Devices By Type
         - Keyword Usage
-         - ``Get Devices By Type``
+        - ``Get Devices By Type``
         :return: Returns Get Devices By Type as a dictionary, -1 in case of any errors
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1676,7 +1677,7 @@ class Copilot(CopilotWebElements):
         - Returns Get CoPilot Licenses as a dictionary
         - Flow : Copilot page -->  Get CoPilot Licenses
         - Keyword Usage
-         - ``Get CoPilot Licenses``
+        - ``Get CoPilot Licenses``
         :return: Returns Get CoPilot Licenses as a dictionary, -1 in case of any errors
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -1717,7 +1718,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will pin an anomaly at building level in DFS Recurrence widget
         - Flow: CoPilot--> DFS RECURRENCE ---> Get Location Name in Rows and Click Pin Button
         - Keyword Usage:
-         - ``Pin Anomaly For location In DFS Recurrence Widget   ${LOCATION_NAME}``
+        - ``Pin Anomaly For location In DFS Recurrence Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in DFS Recurrence widget
@@ -1764,7 +1765,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will unpin an anomaly at building level in DFS Recurrence widget
         - Flow: CoPilot--> DFS RECURRENCE ---> Get Location Name in Rows and Click UnPin Button
         - Keyword Usage:
-         - ``UnPin Anomaly For location In DFS Recurrence Widget   ${LOCATION_NAME}``
+        - ``UnPin Anomaly For location In DFS Recurrence Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly UnPin in DFS Recurrence widget
@@ -1811,7 +1812,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will mute an anomaly at building level in DFS Recurrence widget
         - Flow: CoPilot--> DFS Recurrence ---> Get Location Name in Rows and Click More options and mute Button
         - Keyword Usage:
-         - ``Mute Anomaly For location In DFS Recurrence Widget   ${LOCATION_NAME}``
+        - ``Mute Anomaly For location In DFS Recurrence Widget   ${LOCATION_NAME}``
         :param location_name: Location name to Mute anomaly in DFS Recurrence Widget
         :return: 1 if able to click anomaly Mute button for the Location Name or already clicked else -1
         """
@@ -1868,7 +1869,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will unmute an anomaly at building level in DFS Recurrence widget
         - Flow: CoPilot--> DFS Recurrence ---> Get Location Name in Rows and Click More options and unmute Button
         - Keyword Usage:
-         - ``UnMute Anomaly For location In DFS Recurrence Widget   ${LOCATION_NAME}``
+        - ``UnMute Anomaly For location In DFS Recurrence Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to UnMute anomaly in DFS Recurrence Widget
@@ -1925,8 +1926,8 @@ class Copilot(CopilotWebElements):
         - Default Option(yes) is to dismiss the Anomaly for Location in DFS Recurrence Widget
         - Flow: CoPilot--> on DFS Recurrence ---> Get Location Name and dismiss anomaly
         - Keyword Usage:
-         - ``Dismiss Anomaly For Location In DFS Recurrence Widget   ${LOCATION_NAME}``
-         - ``Dismiss Anomaly For Location In DFS Recurrence Widget   ${LOCATION_NAME}    option=${OPTION}``
+        - ``Dismiss Anomaly For Location In DFS Recurrence Widget   ${LOCATION_NAME}``
+        - ``Dismiss Anomaly For Location In DFS Recurrence Widget   ${LOCATION_NAME}    option=${OPTION}``
 
         :param location_name: Location name to enable anomaly Pin in DFS Recurrence Widget
         :param option: confirmation option to delete anomaly(options: yes, no)
@@ -1998,7 +1999,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will pin an AP at building level in DFS Recurrence Widget
         - Flow: CoPilot--> DFS Recurrence Widget ---> click Location Name in Rows --> Click AP row pin Button
         - Keyword Usage:
-         - ``Pin Individual AP For Location In DFS Recurrence Widget   ${LOCATION_NAME}  ${AP_NAME}``
+        - ``Pin Individual AP For Location In DFS Recurrence Widget   ${LOCATION_NAME}  ${AP_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in DFS Recurrence Widget
@@ -2061,7 +2062,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will Unpin an AP at building level in DFS Recurrence Widget
         - Flow: CoPilot--> DFS Recurrence Widget ---> click Location Name in Rows --> Click AP row Unpin Button
         - Keyword Usage:
-         - ``UnPin Individual AP For Location In DFS Recurrence Widget   ${LOCATION_NAME}  ${AP_NAME}``
+        - ``UnPin Individual AP For Location In DFS Recurrence Widget   ${LOCATION_NAME}  ${AP_NAME}``
 
 
         :param location_name: Location name to enable anomaly UnPin in DFS Recurrence Widget
@@ -2124,7 +2125,7 @@ class Copilot(CopilotWebElements):
         - Verifies whether clicking on Manage link taking us to license page in Global Settings
         - Flow : Copilot page -->  Get CoPilot Licenses
         - Keyword Usage
-         - ``Verify Copilot License Widget Manage Link``
+        - ``Verify Copilot License Widget Manage Link``
         :return: Returns 1 if navigation successfully verified, -1 in case of any errors
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -2166,7 +2167,7 @@ class Copilot(CopilotWebElements):
         - Refreshes the CoPilot Dashboard page so the data contained within it is current
         - Flow : Copilot page -->  Refresh CoPilot Dashboard Page
         - Keyword Usage
-         - ``Refresh CoPilot Dashboard Page``
+        - ``Refresh CoPilot Dashboard Page``
         :return: Returns 1 if the refresh action was successfully initiated, -1 in case of any errors
         """
         ret_val = 1
@@ -2186,7 +2187,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will pin an anomaly at building level in Adverse Traffic Patterns Widget
         - Flow: CoPilot--> ADVERSE TRAFFIC PATTERNS ---> Get Location Name in Rows and Click Pin Button
         - Keyword Usage:
-         - ``Pin Anomaly For location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
+        - ``Pin Anomaly For location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in Adverse Traffic Patterns widget
@@ -2234,7 +2235,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will unpin an anomaly at building level in Adverse Traffic Patterns Widget
         - Flow: CoPilot--> ADVERSE TRAFFIC PATTERNS ---> Get Location Name in Rows and Click UnPin Button
         - Keyword Usage:
-         - ``Unpin Anomaly For location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
+        - ``Unpin Anomaly For location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to enable anomaly Pin in Adverse Traffic Patterns Widget
@@ -2281,7 +2282,7 @@ class Copilot(CopilotWebElements):
         - Changes the Adverse Traffic Patterns Widget Anomalies MUTED Button status to "SHOW MUTED"
         - Flow : Copilot page --> ADVERSE TRAFFIC PATTERNS
         - Keyword Usage
-         - ``Show Muted Adverse Traffic Patterns Widget Anomalies``
+        - ``Show Muted Adverse Traffic Patterns Widget Anomalies``
         :return: returns 1 if successfully pressed SHOW MUTED button else -1
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -2320,7 +2321,7 @@ class Copilot(CopilotWebElements):
         - Changes the Adverse Traffic Patterns Widget anomalies MUTED Button status to "HIDE MUTED"
         - Flow : Copilot page --> ADVERSE TRAFFIC PATTERNS
         - Keyword Usage
-         - ``Hide Muted Adverse Traffic Patterns Widget Anomalies``
+        - ``Hide Muted Adverse Traffic Patterns Widget Anomalies``
         :return: returns 1 if successfully pressed HIDE MUTED button else -1
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -2361,8 +2362,8 @@ class Copilot(CopilotWebElements):
         - Flow : Copilot page --> Adverse Traffic Patterns Widget
         - param: location_name - location name
         - Keyword Usage
-         - ``Get Adverse Traffic Patterns Widget Location Details``
-         - ``Get Adverse Traffic Patterns Widget Location Details    location_name={LOCATION}``
+        - ``Get Adverse Traffic Patterns Widget Location Details``
+        - ``Get Adverse Traffic Patterns Widget Location Details    location_name={LOCATION}``
         :return: returns location details as an array matching the location name passed as an argument: [1, '5544Location', 'Medium', False, False, '2', 'Last Detected: Sep 15 2021']
         :return: returns all locations details as an array of arrays like: [[1, '5544Location', 'Medium', False, False, '2', 'Last Detected: Sep 15 2021'], [2, '6699Location', 'High', False, False, '3', 'Last Detected: Sep 15 2021']]
         :return: returns -1 if error
@@ -2450,8 +2451,8 @@ class Copilot(CopilotWebElements):
         - This Keyword will pin an AP at building level in Adverse Traffic Patterns Widget
         - Flow: CoPilot--> Adverse Traffic Patterns Widget ---> click Location Name in Rows --> Get AP's Informations
         - Keyword Usage:
-         - ``get_adverse_traffic_patterns_widget_ap_details_for_location   ${LOCATION_NAME}``
-         - ``get_adverse_traffic_patterns_widget_ap_details_for_location   ${LOCATION_NAME}  ap_name=${AP_NAME}``
+        - ``get_adverse_traffic_patterns_widget_ap_details_for_location   ${LOCATION_NAME}``
+        - ``get_adverse_traffic_patterns_widget_ap_details_for_location   ${LOCATION_NAME}  ap_name=${AP_NAME}``
 
         :param location_name: Location name to enable anomaly Pin in Adverse Traffic Patterns Widget
         :return: returns location details as an array matching the ap name passed as an argument: [1, '13333366666666662AP', 'High', True, 0, 'Last Detected: Jan 16 2022']
@@ -2545,7 +2546,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will mute an anomaly at building level in Adverse Traffic Patterns Widget
         - Flow: CoPilot--> ADVERSE TRAFFIC PATTERNS ---> Get Location Name in Rows and Click Mute Button
         - Keyword Usage:
-         - ``Mute Anomaly For Location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
+        - ``Mute Anomaly For Location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to Mute in Adverse Traffic Patterns widget
@@ -2611,7 +2612,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will unmute an anomaly at building level in Adverse Traffic Patterns Widget
         - Flow: CoPilot--> ADVERSE TRAFFIC PATTERNS ---> Get Location Name in Rows and Click Unmute Button
         - Keyword Usage:
-         - ``Unmute Anomaly For Location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
+        - ``Unmute Anomaly For Location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to Unmute in Adverse Traffic Patterns widget
@@ -2660,7 +2661,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will dismiss an anomaly entry in the Adverse Traffic Patterns Widget
         - Flow: CoPilot--> ADVERSE TRAFFIC PATTERNS ---> Get Location Name in Rows and Click Dismiss Button
         - Keyword Usage:
-         - ``Dismiss Anomaly For Location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
+        - ``Dismiss Anomaly For Location In Adverse Traffic Patterns Widget   ${LOCATION_NAME}``
 
 
         :param location_name: Location name to Dismiss in Adverse Traffic Patterns widget
@@ -2735,7 +2736,7 @@ class Copilot(CopilotWebElements):
         - Gets adverse traffic patterns widget summary in copilot Page
         - Flow : Copilot page --> adverse traffic patterns
         - Keyword Usage
-         - ``${SUMMARY}  ${BUILDINGS}   ${AP}= Get Adverse Traffic Patterns Widget Summary``
+        - ``${SUMMARY}  ${BUILDINGS}   ${AP}= Get Adverse Traffic Patterns Widget Summary``
         :return: returns Buildings and APs count if success else returns -1 or -2
         """
         self.utils.print_info("Navigating to Copilot menu..")
@@ -2780,7 +2781,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will click the Location (location name) displaying the list of APs
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
         - Keyword Usage:
-         - ``Click Wifi Capacity Anomaly Location Row ${LOCATION_NAME}``
+        - ``Click Wifi Capacity Anomaly Location Row ${LOCATION_NAME}``
 
         :param location_name: Location name
         :return: 1 if successfully clicking the row else return -1
@@ -2818,7 +2819,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will click the Location (location name) displaying the list of APs
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click it
         - Keyword Usage:
-         - ``Display Wifi Capacity Anomaly Ap Rows  ${LOCATION_NAME}``
+        - ``Display Wifi Capacity Anomaly Ap Rows  ${LOCATION_NAME}``
 
         :param location_name: Location name
         :return: 1 if successfully clicking the row else return -1
@@ -2871,7 +2872,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will click the AP (ap name) based on the list of APs under a Location
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and click it
         - Keyword Usage:
-         - ``Click Wifi Capacity Anomaly Ap Row {$AP_NAME}``
+        - ``Click Wifi Capacity Anomaly Ap Row {$AP_NAME}``
 
         :param ap_name: Ap name
         :return: 1 if sucessfully clicking the row else return -1
@@ -2909,7 +2910,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will click like button in WiFi Capacity widget specific location and access point.
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click AP---> Click like Button
         - Keyword Usage:
-         - ``Wifi Capacity Anomaly Ap Like Button   {LOCATION_NAME}   {AP_NAME}``
+        - ``Wifi Capacity Anomaly Ap Like Button   {LOCATION_NAME}   {AP_NAME}``
         :return: 1 if successfully clicked like Button for specific Location and ap the else return -1
         """
         self.click_wifi_capacity_anomaly_location_row(location_name)
@@ -2952,7 +2953,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will check to see if the i icon is present on  the AP (ap name) row
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and see if the i icon is present
         - Keyword Usage:
-         - ``Is Wifi Capacity Anomaly Ap i ICON Present {$AP_NAME}``
+        - ``Is Wifi Capacity Anomaly Ap i ICON Present {$AP_NAME}``
 
         :param ap_name: Ap name
         :return: 1 if Icon is present else return -1
@@ -2995,7 +2996,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will get the text that is displayed when the i icon is hovered over
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the ap row and hover over the i (info) icon
         - Keyword Usage:
-         - ``Get Hover Over Details For Wifi Capacity Anomaly Ap Level {$AP_NAME}``
+        - ``Get Hover Over Details For Wifi Capacity Anomaly Ap Level {$AP_NAME}``
 
         :param ap_name: Ap name
         :return: Detail text if successful else return -1
@@ -3062,8 +3063,8 @@ class Copilot(CopilotWebElements):
         - This Keyword will click dislike button in WiFi Capacity widget specific location and access point.
         - Flow: CoPilot--> Wi-Fi CAPACITY ---> Get the Location row and click AP---> Click Dislike Button
         - Keyword Usage:
-         - ``Dislike WiFi Capacity Anomaly Location AP   {LOCATION_NAME}   {AP_NAME}``
-         - ``Dislike WiFi Capacity Anomaly Location AP   {LOCATION_NAME}   {AP_NAME}  feedback={MSG}``
+        - ``Dislike WiFi Capacity Anomaly Location AP   {LOCATION_NAME}   {AP_NAME}``
+        - ``Dislike WiFi Capacity Anomaly Location AP   {LOCATION_NAME}   {AP_NAME}  feedback={MSG}``
 
         :return: 1 if successfully clicked Dislike Button for specific Location and ap the else return -1
         """
@@ -3215,7 +3216,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will navigate to wireless client experience and click on the location {building name}
         - Flow: CoPilot--> Wireless Client Experience ---> Click the Location name
         - Keyword Usage:
-         - ``Click wireless clientexp widget by location {$location_name}``
+        - ``Click wireless clientexp widget by location {$location_name}``
 
         :param ap_name: Ap name
         :return: 1 if sucessfully clicking the row else return -1
@@ -3321,7 +3322,7 @@ class Copilot(CopilotWebElements):
         - This Keyword will navigate to wireless client experience and click on the ssid {ssid name}
         - Flow: CoPilot--> Wireless Client Experience ---> Click the SSID
         - Keyword Usage:
-         - ``Click wireless clientexp widget by location {$SSID_Name}``
+        - ``Click wireless clientexp widget by location {$SSID_Name}``
 
         :param ap_name: Ap name
         :return: 1 if sucessfully clicking the row else return -1

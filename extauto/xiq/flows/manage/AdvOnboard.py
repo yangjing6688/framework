@@ -5,6 +5,7 @@ from extauto.common.AutoActions import AutoActions
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.AdvOnboardWebElements import AdvOnboardWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class AdvOnboard(AdvOnboardWebElements):
@@ -14,12 +15,13 @@ class AdvOnboard(AdvOnboardWebElements):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.navigator = Navigator()
+        self.commonValidation = CommonValidation()
 
     def _got_to_advanced_onboard_tab(self):
         """
         - This method is used to navigate to the device advanced on board tab
         - Flow:
-         - Manage --> Devices --> Click on Device Add Button(+) --> Advanced Onboarding
+        - Manage --> Devices --> Click on Device Add Button(+) --> Advanced Onboarding
         :return:
         """
         self.navigator.navigate_to_devices()
@@ -375,14 +377,14 @@ class AdvOnboard(AdvOnboardWebElements):
         """
         - This method is used to config the Internal SSID section
         - There are two internal networks to configure
-         - Secure Network
-         - Unsecured Network
+        - Secure Network
+        - Unsecured Network
         - Secured Network has 3 options
-         - Create credentials (PPSK) for users to log in to your network
-         - Create global password (PSK) credentials for users to log in to the network.
-         - Users enter their credentials to log in to the network.
+        - Create credentials (PPSK) for users to log in to your network
+        - Create global password (PSK) credentials for users to log in to the network.
+        - Users enter their credentials to log in to the network.
         - Unsecured (Open) Network has below option
-         - Users can access the network without logging in.
+        - Users can access the network without logging in.
 
         :param internal_ssid_config: internal ssid configuration dictionary
         :return: True if configured successfully else -1
@@ -498,14 +500,14 @@ class AdvOnboard(AdvOnboardWebElements):
         return True
 
     def advance_onboard_access_point(self, device_detail=None, location=None, branch_id=None, nw_policy=None,
-                                     internal_ssid=None, guest_ssid=None):
+                                     internal_ssid=None, guest_ssid=None, **kwargs):
         """
         - This keyword is used to advance onboard the access point
         - This keyword is used to onboard both simulated and real devices
         - Flow:
-         - Navigate to Manage --> Devices --> Add(+) -->Advance Onboarding
+        - Navigate to Manage --> Devices --> Add(+) -->Advance Onboarding
         - Keyword Usage:
-         - ``Advance Onboard Access Point    device_detail=&{DEVICE_DETAIL1}   location=&{LOCATION01}    nw_policy=&{NW_POLICY01}   internal_ssid=&{INTERNAL_SSID1_CONFIG}  guest_ssid=&{GUEST_SSID1_CONFIG}``
+        - ``Advance Onboard Access Point    device_detail=&{DEVICE_DETAIL1}   location=&{LOCATION01}    nw_policy=&{NW_POLICY01}   internal_ssid=&{INTERNAL_SSID1_CONFIG}  guest_ssid=&{GUEST_SSID1_CONFIG}``
 
         :param device_detail: device detail is the dictionary Ex:
         - &{DEVICE_DETAIL1}    device_type=real         device_model=Extreme-Aerohive    device_sn=06301908310568
@@ -548,18 +550,26 @@ class AdvOnboard(AdvOnboardWebElements):
         self.utils.print_info("Adding the device")
         if not self._add_device(device_type, device_model, device_sn):
             self.utils.print_info("Failed to add the device in adding device step")
+            kwargs['fail_msg'] = "advance_onboard_access_point() -> Failed to add the device in adding device step"
+            self.commonValidation.failed(**kwargs)
             return -1
 
         if not self._assign_location(search_string, 'access points', location):
             self.utils.print_info("Failed assign the location to device")
+            kwargs['fail_msg'] = "advance_onboard_access_point() -> Failed assign the location to device"
+            self.commonValidation.failed(**kwargs)
             return -2
 
         if not self._assign_branch_id(branch_id):
             self.utils.print_info("Failed assign the location to device")
+            kwargs['fail_msg'] = "advance_onboard_access_point() -> Failed assign the location to device"
+            self.commonValidation.failed(**kwargs)
             return -3
 
         if not self._configure_network_steps(nw_policy, internal_ssid, guest_ssid):
             self.utils.print_info("Failed to configure the network policy")
+            kwargs['fail_msg'] = "advance_onboard_access_point() -> Failed to configure the network policy"
+            self.commonValidation.failed(**kwargs)
             return -4
 
         self.screen.save_screen_shot()

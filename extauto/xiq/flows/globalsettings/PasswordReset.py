@@ -5,6 +5,7 @@ from extauto.common.GmailHandler import GmailHandler
 from extauto.common.Utils import Utils
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class PasswordReset:
@@ -14,14 +15,15 @@ class PasswordReset:
         self.auto_actions = AutoActions()
         self.gm_handler = GmailHandler()
         self.utils = Utils()
+        self.common_validation = CommonValidation()
 
-    def add_account(self, name, _email):
+    def add_account(self, name, _email, **kwargs):
         """
         - adds an account under account management
         - Adding administrative account
         - Flow Global Settings --> Account Management
         - Keyword Usage:
-         - ``Add Account  ${NAME}   ${EMAIL``
+        - ``Add Account  ${NAME}   ${EMAIL``
 
         :param name:
         :param _email:
@@ -71,14 +73,18 @@ class PasswordReset:
         for value in tool_tp_text:
             if "already exists. Please try again using a different email address" in value:
                 self.utils.print_info(value)
+                kwargs['fail_msg'] = f"'add_account()' -> Failed to  add(create) account"
+                self.common_validation.failed(**kwargs)
                 return -1
+        kwargs['pass_msg'] = "'add_account()' -> Successfully added(created) account"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def get_link(self, _email, _password):
         """
         - Get the url link for password set to new account sent to email
         - Keyword Usage:
-         - ``Get Link   ${EMAIL}   ${PASSWORD}``
+        - ``Get Link   ${EMAIL}   ${PASSWORD}``
 
         :param _email:
         :param _password:
@@ -94,7 +100,7 @@ class PasswordReset:
         - Create administrative account and get the password reset link
         -  Flow Global Settings --> Account Management
         - Keyword Usage:
-         - ``Password Reset   ${NAME}   ${EMAIL}   ${PASSWORD}
+        - ``Password Reset   ${NAME}   ${EMAIL}   ${PASSWORD}
 
         :param name:
         :param _email:

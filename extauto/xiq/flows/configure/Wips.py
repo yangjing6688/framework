@@ -5,6 +5,7 @@ from extauto.common.Screen import Screen
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
+from extauto.common.CommonValidation import CommonValidation
 
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
@@ -32,13 +33,14 @@ class Wips(WipsWebElements):
         self.network_policy = NetworkPolicy()
         self.common_object = CommonObjects()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
 
     def navigate_to_network_policy_edit_tab(self, policy_name):
         """
-         - Navigates to Network Policies List and Edit the Specific Network Policy
-         - Flow  Network policy list-->Select List View-->Select Network Policy ROW--> Edit
-         - Keyword Usage
-          - ``Navigate To Network Policy Edit Tab  ${NETWORK_POLICY_NAME}``
+        - Navigates to Network Policies List and Edit the Specific Network Policy
+        - Flow  Network policy list-->Select List View-->Select Network Policy ROW--> Edit
+        - Keyword Usage
+        - ``Navigate To Network Policy Edit Tab  ${NETWORK_POLICY_NAME}``
 
         :param policy_name: Network Policy Name
         :return:1 if Navigates to Network Policy edit
@@ -57,12 +59,12 @@ class Wips(WipsWebElements):
         sleep(2)
         return 1
 
-    def enable_wips_on_network_policy(self, policy_name, wips_name):
+    def enable_wips_on_network_policy(self, policy_name, wips_name, **kwargs):
         """
         - Enable wips on Network Policy
         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS
         - Keyword Usage
-         - ``Enable Wips On Network Policy  ${NETWORK_POLICY_NAME}   ${WIPS_POLICY_NAME}``
+        - ``Enable Wips On Network Policy  ${NETWORK_POLICY_NAME}   ${WIPS_POLICY_NAME}``
 
         :param policy_name: Network Policy Name
         :param wips_name: WIPS Policy Name
@@ -100,16 +102,20 @@ class Wips(WipsWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "WIPS was updated successfully."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "enable_wips_on_network_policy() failed. Failed to enable WIPS Policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def configure_wips_options_on_network_policy(self, policy_name, **wips_config_profile):
         """
-         - Creates WIPS Policy On Network Policy based on the arguments from wireless_networks_config.robot
-         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS
-         - Keyword Usage
-          - ``Configure WIPS Options On Network Policy  ${NW_POLICY_NAME}   &{WIPS_CONFIG_SETTINGS}``
+        - Creates WIPS Policy On Network Policy based on the arguments from wireless_networks_config.robot
+        - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS
+        - Keyword Usage
+        - ``Configure WIPS Options On Network Policy  ${NW_POLICY_NAME}   &{WIPS_CONFIG_SETTINGS}``
 
         :param policy_name: Network Policy Name
         :param wips_config_profile: (dict) include status of rougue ap detection, detect rogue ap based on Mac and ssid.
@@ -226,13 +232,13 @@ class Wips(WipsWebElements):
         else:
             return -1
 
-    def add_allowed_ssid_on_network_wips_policy(self, policy_name, ssid_name, auth_type):
+    def add_allowed_ssid_on_network_wips_policy(self, policy_name, ssid_name, auth_type, **kwargs):
         """
-         - Configure Allowed SSID and Encryption Type on WIPS Policy
-         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
+        - Configure Allowed SSID and Encryption Type on WIPS Policy
+        - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
                  Enable Detect Rogue Based on SSID and Encryption Type
-         - Keyword Usage
-          - ``Add Allowed SSID On Network WIPS Policy  ${NW_POLICY_NAME}  ${SSID_NAME}  ${AUTH_TYPE}``
+        - Keyword Usage
+        - ``Add Allowed SSID On Network WIPS Policy  ${NW_POLICY_NAME}  ${SSID_NAME}  ${AUTH_TYPE}``
 
         :param policy_name: Network Policy Name
         :param ssid_name: SSID Name to Allow on WIPS Policy Configured
@@ -301,17 +307,21 @@ class Wips(WipsWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "WIPS was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "add_allowed_ssid_on_network_wips_policy() failed. Failed to update wips policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def select_allowed_mac_oui_on_network_wips_policy(self, policy_name, mac_oui_name):
+    def select_allowed_mac_oui_on_network_wips_policy(self, policy_name, mac_oui_name, **kwargs):
         """
-         - Select allowed MAC OUI on Network Wips Policy
-         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
+        - Select allowed MAC OUI on Network Wips Policy
+        - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
                  Enable Detect Rogue Based on MAC OUI
-         - Keyword Usage
-          - ``Select Allowed Mac OUI On Network Wips Policy    ${NW_POLICY_NAME}   ${MAC_OUI}``
+        - Keyword Usage
+        - ``Select Allowed Mac OUI On Network Wips Policy    ${NW_POLICY_NAME}   ${MAC_OUI}``
 
         :param policy_name: Network Policy Name
         :param mac_oui_name: MAC OUI Name to Allow on WIPS Policy
@@ -365,7 +375,7 @@ class Wips(WipsWebElements):
                 break
         """
         In Case need to select device in the grid
-        
+
         self.utils.print_info("Selecting Device with MAC: ", mac_oui_name)
         rows = self.get_wips_mac_oui_grid_rows()
         for row in rows:
@@ -386,16 +396,20 @@ class Wips(WipsWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "WIPS was updated successfully."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "select_allowed_mac_oui_on_network_wips_policy() failed. Failed to update wips policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def configure_wips_policy_on_common_objects(self, wips_policy_name):
+    def configure_wips_policy_on_common_objects(self, wips_policy_name, **kwargs):
         """
-         - Configure WIPS Policy On Common Objects.
-         - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
-         - Keyword Usage
-          - ``Configure WIPS Policy On Common Objects   {WIPS_POLICY_NAME}``
+        - Configure WIPS Policy On Common Objects.
+        - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
+        - Keyword Usage
+        - ``Configure WIPS Policy On Common Objects   {WIPS_POLICY_NAME}``
 
         :param  wips_policy_name : WIPS Policy Name
         :return: 1 if WIPS POlicy Created on Common Objects else -1
@@ -435,21 +449,25 @@ class Wips(WipsWebElements):
         self.utils.print_info("Checking the Save profile message...")
         observed_profile_message = self.wips_web_elements.get_wips_profile_save_tool_tip().text
         self.utils.print_info("Observed Message: ", observed_profile_message)
-        
+
         self.screen.save_screen_shot()
         sleep(2)
 
         if "WIPS was updated successfully" in observed_profile_message:
+            kwargs['pass_msg'] = "WIPS was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "configure_wips_policy_on_common_objects() failed. Failed to update wips policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def configure_allowed_ssid_on_wips_policy(self, **wips_ssid_config):
         """
-         - Configure Allowed SSID and Encryption Type on WIPS Policy On Common Objects.
-         - Flow  Common Objects-->WIPS--> Click Add Button on Enable Detect Rogue Based on SSID Name and Encryption Type
-         - Keyword Usage
-          - ``Configure Allowed Ssid On Wips Policy   &{WIPS_SSID_CONFIG}``
+        - Configure Allowed SSID and Encryption Type on WIPS Policy On Common Objects.
+        - Flow  Common Objects-->WIPS--> Click Add Button on Enable Detect Rogue Based on SSID Name and Encryption Type
+        - Keyword Usage
+        - ``Configure Allowed Ssid On Wips Policy   &{WIPS_SSID_CONFIG}``
 
         :param  wips_ssid_config : (dict) include allowed_ssid, authentication_type
         :return: 1 if SSID and Encryption type added on WIPS Policy on Common Objects else -1
@@ -509,10 +527,10 @@ class Wips(WipsWebElements):
 
     def navigate_to_network_policy_wips_tab(self, nw_policy):
         """
-         - To Navigate to Existing Network Policy --->Router Settings --> Security--> WIPS
-         - Flow  Configure--> Network policy list--->Select Network Policy Edit---> Router Settings --> Security--> WIPS
-         - Keyword Usage
-          - ``Navigate To Network Policy Wips Tab  ${NW_POLICY_NAME}``
+        - To Navigate to Existing Network Policy --->Router Settings --> Security--> WIPS
+        - Flow  Configure--> Network policy list--->Select Network Policy Edit---> Router Settings --> Security--> WIPS
+        - Keyword Usage
+        - ``Navigate To Network Policy Wips Tab  ${NW_POLICY_NAME}``
 
         :param  nw_policy: Network Policy Name
         :return:1 if Navigated to Existing Network Policy Router Settings WIPS Tab else -1
@@ -561,12 +579,12 @@ class Wips(WipsWebElements):
 
         return True
 
-    def configure_reuse_wips_policy_on_network_policy(self, nw_policy, wips_policy_name):
+    def configure_reuse_wips_policy_on_network_policy(self, nw_policy, wips_policy_name, **kwargs):
         """
-         - Select the Configured WIPS Policy on Network Policy
-         - Flow  Configure--> Network policy Name Edit---> Router Settings --> Security--> WIPS--> Reuse WIPS Policy
-         - Keyword Usage
-          - ``Configure Reuse Wips Policy On Network Policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}``
+        - Select the Configured WIPS Policy on Network Policy
+        - Flow  Configure--> Network policy Name Edit---> Router Settings --> Security--> WIPS--> Reuse WIPS Policy
+        - Keyword Usage
+        - ``Configure Reuse Wips Policy On Network Policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}``
 
         :param nw_policy: network policy name
         :param wips_policy_name: wips policy name
@@ -621,10 +639,10 @@ class Wips(WipsWebElements):
 
     def get_rogue_ap_logs_row(self, search_string):
         """
-         - Get the Rogue Aps Logs Row from Manage-->Security
-         - Flow  Manage--> Security---> Rogue AP --> Row String
-         - Keyword Usage
-          - ``Get Rogue AP Logs Row    ${SEARCH_STRING}``
+        - Get the Rogue Aps Logs Row from Manage-->Security
+        - Flow  Manage--> Security---> Rogue AP --> Row String
+        - Keyword Usage
+        - ``Get Rogue AP Logs Row    ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
         :return: row element if row exists else return None
@@ -640,10 +658,10 @@ class Wips(WipsWebElements):
 
     def verify_rogue_ap(self, search_string):
         """
-         - Filter the Rogue AP based on AP Name
-         - Flow  Manage--> Security---> Rogue AP
-         - Keyword Usage
-          - ``Verify Rogue AP   ${SEARCH_STRING}``
+        - Filter the Rogue AP based on AP Name
+        - Flow  Manage--> Security---> Rogue AP
+        - Keyword Usage
+        - ``Verify Rogue AP   ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
         :return: if search string appear Return Rogue AP entry details as dictionary with key and value pair else -1
@@ -687,10 +705,10 @@ class Wips(WipsWebElements):
 
     def get_rogue_client_logs_row(self, search_string):
         """
-         - Get the Rogue Clients Logs Row from Manage-->Security
-         - Flow  Manage--> Security---> Rogue clients --> Row String
-         - Keyword Usage
-          - ``Get Rogue Client Logs Row    ${SEARCH_STRING}``
+        - Get the Rogue Clients Logs Row from Manage-->Security
+        - Flow  Manage--> Security---> Rogue clients --> Row String
+        - Keyword Usage
+        - ``Get Rogue Client Logs Row    ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
         :return: row element if row exists else return None
@@ -706,10 +724,10 @@ class Wips(WipsWebElements):
 
     def verify_rogue_client(self, search_string):
         """
-         - Filter the Rogue Client based on Client Name Search String
-         - Flow  Manage--> Security---> Rogue Clients
-         - Keyword Usage
-          - ``Verify Rogue Client   ${SEARCH_STRING}``
+        - Filter the Rogue Client based on Client Name Search String
+        - Flow  Manage--> Security---> Rogue Clients
+        - Keyword Usage
+        - ``Verify Rogue Client   ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
         :return: if search string appear Return Rogue client entry details as dictionary with key and value pair else -1
@@ -756,10 +774,10 @@ class Wips(WipsWebElements):
 
     def disable_wips_on_network_policy(self, nw_policy):
         """
-         - This Keyword will disable WIPS on Network Policy
-         - Flow  Configure--> Network policy Name Edit---> Router Settings --> Security--> WIPS--> Disable WIPS
-         - Keyword Usage
-          - ``Disable Wips On Network Policy  ${NW_POLICY_NAME}``
+        - This Keyword will disable WIPS on Network Policy
+        - Flow  Configure--> Network policy Name Edit---> Router Settings --> Security--> WIPS--> Disable WIPS
+        - Keyword Usage
+        - ``Disable Wips On Network Policy  ${NW_POLICY_NAME}``
 
         :param nw_policy: network policy name
         :return: return 1 if WIPS disabled successfully on Network Policy else -1
@@ -790,10 +808,10 @@ class Wips(WipsWebElements):
 
     def create_wips_policy_adess_status_on_common_objects(self, wips_policy_name, status):
         """
-         - Configure WIPS Policy On Common Objects.
-         - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
-         - Keyword Usage
-          - ``Configure WIPS Policy On Common Objects   ${wips_policy_name} Enable/Disable``
+        - Configure WIPS Policy On Common Objects.
+        - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
+        - Keyword Usage
+        - ``Configure WIPS Policy On Common Objects   ${wips_policy_name} Enable/Disable``
 
         :param wips_policy_name: wips policy name
         :return: 1 if WIPS POlicy Created on Common Objects else -1
@@ -862,7 +880,7 @@ class Wips(WipsWebElements):
         - Enable/Disable on prem Airdefense Configuration in Wips Of Network Policy
         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->Airdefense Configuration
         - Keyword Usage
-         - ``Wips onprem adsp serverip configuration on Network Policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  enable  &{ON_PREM_ADSP_SERVER_IP_CONFIG}``
+        - ``Wips onprem adsp serverip configuration on Network Policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  enable  &{ON_PREM_ADSP_SERVER_IP_CONFIG}``
            ``Wips onprem adsp serverip configuration on Network policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  disable ``
         :param NW_POLICY: Network Policy Name
         :param WIPS_POLICY: WIPS Policy Name

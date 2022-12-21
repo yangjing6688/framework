@@ -6,6 +6,8 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestUsersWebElemets import ExtremeGuestUsersWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.xiq.elements.extreme_guest.ExtremeGuestWebElements import ExtremeGuestWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class ExtremeGuestUsers(object):
@@ -18,14 +20,17 @@ class ExtremeGuestUsers(object):
         self.auto_actions = AutoActions()
         self.user_web_elem = ExtremeGuestUsersWebElements()
         self.ext_guest = ExtremeGuest()
+        self.guest_web_elem = ExtremeGuestWebElements()
 
-    def select_location_for_create_bulk_vouchers_page(self, sel_loc):
+        self.common_validation = CommonValidation()
+
+    def select_location_for_create_bulk_vouchers_page(self, sel_loc, **kwargs):
         """
         - This keyword selects a location in the Eguest Users --> Create Bulk users Vouchers Page
         - It is assumed that location is already created
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
+        - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
 
         :param sel_loc: location to select, in a comma-separated list format;
                e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
@@ -106,17 +111,22 @@ class ExtremeGuestUsers(object):
             except Exception as e:
                 self.utils.print_info(e)
                 self.utils.print_info("Unable to select location")
+                kwargs['fail_msg'] = "'select_location_for_create_bulk_vouchers_page()' -> Unable to select location"
+                self.common_validation.fault(**kwargs)
         else:
             self.utils.print_info("Cannot select location - location not specified in Create Bulk Users Page")
+            kwargs['fail_msg'] = "'select_location_for_create_bulk_vouchers_page()' -> Cannot select location - " \
+                                 "location not specified in Create Bulk Users Page"
+            self.common_validation.failed(**kwargs)
 
         return ret_val
 
-    def create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
+    def create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False, **kwargs):
         """
         - This Keyword will create Bulk Vouchers in Eguest users Page
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+        - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
 
         :param print_users:
         :param number_of_vouchers: No. Of Vouchers Value
@@ -128,15 +138,20 @@ class ExtremeGuestUsers(object):
         """
         self.ext_guest.go_to_configure_users_page()
         if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
+            kwargs['pass_msg'] = "Users Bulk Vouchers Created Successfully"
+            self.common_validation.passed(**kwargs)
             return 1
+
+        kwargs['fail_msg'] = "'create_bulk_vouchers()' -> Unable to create Bulk Vouchers in Eguest users Page"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def create_guest_management_role_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
+    def create_guest_management_role_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False, **kwargs):
         """
         - This Keyword will create Bulk Vouchers in Guest Mangement Users Page
         - Flow : Guest Management Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Create Guest Management Role Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+        - ``Create Guest Management Role Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
 
         :param print_users:
         :param number_of_vouchers: No. Of Vouchers Value
@@ -148,7 +163,13 @@ class ExtremeGuestUsers(object):
         """
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
         if self._create_bulk_vouchers(number_of_vouchers, access_group, location_name, print_users) == 1:
+            kwargs['pass_msg'] = "Users Bulk Vouchers Created Successfully"
+            self.common_validation.passed(**kwargs)
             return 1
+
+        kwargs['fail_msg'] = "'create_guest_management_role_bulk_vouchers()' -> Unable to create Bulk Vouchers in" \
+                             " Eguest users Page"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _create_bulk_vouchers(self, number_of_vouchers, access_group="", location_name="", print_users=False):
@@ -156,7 +177,7 @@ class ExtremeGuestUsers(object):
         - This Keyword will create Bulk Vouchers in Eguest users Page
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
+        - ``Create Bulk Vouchers  ${NO_OF_VOUCHERS}    access_group=${ACCESS_GROUP}    location_name=${LOCATION_TREE}``
 
         :param print_users:
         :param number_of_vouchers: No. Of Vouchers Value
@@ -166,7 +187,7 @@ class ExtremeGuestUsers(object):
 
         :return: 1 if Users Bulk Vouchers Created Successfully
         """
-        
+
         self.utils.print_info("Clicking Add User Button ")
         self.auto_actions.click_reference(self.user_web_elem.get_extreme_guest_users_add_button)
         sleep(2)
@@ -253,7 +274,8 @@ class ExtremeGuestUsers(object):
         """
         Getting the row count in Extreme Guest Users Page
         - Keyword Usage:
-         - ``Get Extreme Guest Users Count``
+        - ``Get Extreme Guest Users Count``
+
         :param search_string:
         :return: User Count
         """
@@ -265,9 +287,32 @@ class ExtremeGuestUsers(object):
                 count += 1
         return count
 
+    def get_extreme_social_users_count(self,social_name):
+        """
+        Getting the social users count in Extreme Guest Users Page
+        - Keyword Usage:
+         - ``Get Extreme Guest Users Count``
+        :return: User Count
+        """
+        self.utils.print_info("Clicking on Extreme Guest Analyze Page")
+        self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_analyze_page)
+        sleep(2)
+        self.screen.save_screen_shot()
+        sleep(2)
+        if social_name == "Facebook":
+            self.utils.print_info("Getting Facebook count")
+            count = self.user_web_elem.get_extreme_facebook_guest_users()
+            return count
+
+        if social_name == "Linkedin":
+            self.utils.print_info("Getting Linkedin count")
+            count = self.user_web_elem.get_extreme_linkedin_guest_users()
+            return count
+
     def _get_extreme_guest_users_page_user_row(self, search_string):
         """
         Getting the row in Open SSID is same for all the objects
+
         :param search_string:
         :return:
         """
@@ -282,6 +327,7 @@ class ExtremeGuestUsers(object):
     def _select_extreme_guest_users_page_user_row(self, search_string):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -334,8 +380,8 @@ class ExtremeGuestUsers(object):
         """
         - Get first username from the list of credentials
         - Keyword Usage:
-         - ``Get Username from vouchers   ${CREDENTIALS}``
-        
+        - ``Get Username from vouchers   ${CREDENTIALS}``
+
         """
         username = list(credentials.keys())[0]
         return username

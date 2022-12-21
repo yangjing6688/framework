@@ -220,6 +220,7 @@ try:
     from extauto.app.flows.DeviceName import DeviceName
     from extauto.app.flows.FlashLed import FlashLed
     from extauto.app.flows.RemoveDevice import RemoveDevice
+    from extauto.common.Debugging import Debugging
 
 
 
@@ -305,6 +306,7 @@ class XiqLibrary():
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
         self.xflowsmanageXiqVerifications = XiqVerifications()
+        self.xflowsDebuggging = Debugging()
 
 
     @deprecated("Please use self.xiq.login.login_user(...)")

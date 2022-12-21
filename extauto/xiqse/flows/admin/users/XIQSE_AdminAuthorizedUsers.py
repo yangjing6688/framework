@@ -26,9 +26,9 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
 
     def xiqse_navigate_and_select_authorized_user(self, name, ignore_case=False):
         """
-         - This keyword navigates to the Administration> Users tab and selects an existing Authorized User in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Select Authorized User  username  ignore_case=True``
+        - This keyword navigates to the Administration> Users tab and selects an existing Authorized User in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Select Authorized User  username  ignore_case=True``
 
         :param name: name of the Authorized User to select
         :param ignore_case: ignore case (optional) and defaults to False
@@ -43,9 +43,9 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
 
     def xiqse_navigate_and_delete_authorized_user(self, name, ignore_case=False):
         """
-         - This keyword navigates to the Administration> Users tab and deletes an existing Authorized User in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Navigate and Delete Authorized User  username  ignore_case=True``
+        - This keyword navigates to the Administration> Users tab and deletes an existing Authorized User in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Navigate and Delete Authorized User  username  ignore_case=True``
 
         :param name: name of the Authorized User to delete
         :param ignore_case: ignore case (optional) and defaults to False
@@ -60,10 +60,10 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
 
     def xiqse_delete_authorized_user(self, name, ignore_case=False):
         """
-         - This keyword deletes an existing Authorized User in XIQ-SE.
-         - It is assumed the view is already navigated to Administration > Users.
-         - Keyword Usage
-          - ``XIQSE Delete Authorized User  username  ignore_case=True``
+        - This keyword deletes an existing Authorized User in XIQ-SE.
+        - It is assumed the view is already navigated to Administration > Users.
+        - Keyword Usage
+        - ``XIQSE Delete Authorized User  username  ignore_case=True``
 
         :param name: name of the Authorized User to delete
         :param ignore_case: ignore case (optional) and defaults to False
@@ -92,10 +92,10 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
 
     def xiqse_select_authorized_user(self, name, ignore_case=False):
         """
-         - This keyword selects an existing Authorized User in XIQ-SE.
-         - It is assumed the view is already navigated to Administration > Users.
-         - Keyword Usage
-          - ``XIQSE Select Authorized User  username  ignore_case=True``
+        - This keyword selects an existing Authorized User in XIQ-SE.
+        - It is assumed the view is already navigated to Administration > Users.
+        - Keyword Usage
+        - ``XIQSE Select Authorized User  username  ignore_case=True``
 
         :param name: name of the Authorized User to select
         :param ignore_case: ignore case (optional) and defaults to False
@@ -135,7 +135,7 @@ class XIQSE_AdminAuthorizedUsers(AdminAuthorizedUsersWebElements):
         - Searches for Authorized User matching the specified name.
         - Assumes the Administration > Users tab is already selected.
         - Keyword Usage
-         - ``XIQSE Find Authorized User  username  ignore_case=True``
+        - ``XIQSE Find Authorized User  username  ignore_case=True``
 
         :param name: Name of the Authorized User to search for
         :param ignore_case: ignore case (optional) and defaults to False

@@ -238,7 +238,7 @@ class WirelessNetworks:
         self.utils.print_info("Selecting User Profiles")
         if not user_profile_config == 'None':
             usr_profile_name = user_profile_config.get('profile_name')
-            if not self.user_group.select_wireless_user_profile(usr_profile_name):
+            if not self.user_group.select_wireless_user_profile(usr_profile_name, ignore_failure=True):
                 self.utils.print_info(f"User Profile:{usr_profile_name} not created !!!")
                 return -1
 
@@ -455,8 +455,8 @@ class WirelessNetworks:
     def _config_enhanced_open_wireless_network(self, **auth_profile):
         """
         - Configure Enhanced Open SSID Authentication Wireless Network
-        :param auth_profile: (dict) Authentication profile 
-        :return: 1 if success else -1        
+        :param auth_profile: (dict) Authentication profile
+        :return: 1 if success else -1
         """
         self.utils.print_info(60 * '*')
         self.utils.print_info("Configuration parameters for enhanced open network")
@@ -517,9 +517,9 @@ class WirelessNetworks:
         - create open, PPSK, PSK, enterprise networks based authentication types
         - Assumption is already navigated to the network policy tab
         - Keyword Usage:
-         - ``Create Wireless Network   &{WIRELESS_NETWORK_CONFIG}``
-         - For creation of different config dict refer wireless_networks_config.robot, private_pre_shared_key_config.robot
-         - guest_access_config.robot, wpa_personal_config.robot, social_login_config.robot, cloud_pin_config.robot
+        - ``Create Wireless Network   &{WIRELESS_NETWORK_CONFIG}``
+        - For creation of different config dict refer wireless_networks_config.robot, private_pre_shared_key_config.robot
+        - guest_access_config.robot, wpa_personal_config.robot, social_login_config.robot, cloud_pin_config.robot
 
         :param wireless_network_conf: configuration parameter dictionary
         :return: 1 if successfully created else -1
@@ -632,7 +632,7 @@ class WirelessNetworks:
         self.utils.print_info("Selecting User Profiles")
         if not user_profile_config == 'None':
             usr_profile_name = user_profile_config.get('profile_name')
-            if not self.user_group.select_wireless_user_profile(usr_profile_name):
+            if not self.user_group.select_wireless_user_profile(usr_profile_name, ignore_failure=True):
                 self.utils.print_info(f"User Profile:{usr_profile_name} not created !!!")
                 return -1
 

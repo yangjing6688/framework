@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestReportsWebElements import ExtremeGuestReportsWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Reports(object):
@@ -18,6 +19,7 @@ class Reports(object):
         self.auto_actions = AutoActions()
         self.reports_web_elem = ExtremeGuestReportsWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def _get_extreme_guest_manage_reports_page_user_row(self, search_string):
         """
@@ -37,9 +39,10 @@ class Reports(object):
                     self.utils.print_info("returning rows")
                     return row
 
-    def _select_extreme_guest_manage_page_user_row_cell(self, search_string, cell="checkbox"):
+    def _select_extreme_guest_manage_page_user_row_cell(self, search_string, cell="checkbox", **kwargs):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -59,11 +62,15 @@ class Reports(object):
                                                                                           search_string))
                 sleep(2)
                 return 1
+
+        kwargs['fail_msg'] = "'_select_extreme_guest_manage_page_user_row_cell()' -> Unable to get row"
+        self.common_validation.fault(**kwargs)
         return 0
 
     def _get_extreme_guest_generated_reports_page_user_row(self, search_string):
         """
         Getting the row in Open SSID is same for all the objects
+
         :param search_string:
         :return:
         """
@@ -81,6 +88,7 @@ class Reports(object):
     def _select_extreme_guest_generated_page_user_row(self, search_string, cell="checkbox"):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -106,7 +114,7 @@ class Reports(object):
         sleep(2)
 
     def _add_edit_manage_guest_report(self, report_name, report_type, report_format, period, dashboard_name, save_type,
-                                      scope):
+                                      scope, **kwargs):
         """
         :param report_name:
         :param report_type:
@@ -199,15 +207,19 @@ class Reports(object):
                 if self._get_extreme_guest_generated_reports_page_user_row(report_name):
                     self.utils.print_info("Run successful")
                     return 1
+
+        kwargs['fail_msg'] = "'_add_edit_manage_guest_report()' -> Unable to create/edit report"
+        self.common_validation.fault(**kwargs)
         return 0
 
-    def select_scope_for_add_manage_report_page(self, scope):
+    def select_scope_for_add_manage_report_page(self, scope, **kwargs):
         """
         - This keyword selects a location in the Eguest Users --> Create Bulk users Vouchers Page
         - It is assumed that location is already created
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
+        - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
+
         :param scope: location to select, in a comma-separated list format;
                e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
         :return: 1 if location is selected, else -1'
@@ -291,6 +303,9 @@ class Reports(object):
                 self.utils.print_info("Unable to select location")
         else:
             self.utils.print_info("Cannot select location - location not specified")
+            kwargs['fail_msg'] = "'select_scope_for_add_manage_report_page()' -> Cannot select location - location not" \
+                                 " specified"
+            self.common_validation.fault(**kwargs)
 
         return ret_val
 
@@ -333,6 +348,7 @@ class Reports(object):
             self.utils.print_info("Clicking OK")
             self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             return 1
+
         return 0
 
     def delete_extreme_guest_generated_report(self, report_name):

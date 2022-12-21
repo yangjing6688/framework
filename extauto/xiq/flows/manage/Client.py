@@ -5,6 +5,7 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.ClientWebElements import ClientWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Client:
@@ -14,13 +15,14 @@ class Client:
         self.navigator = Navigator()
         self.client_web_elements = ClientWebElements()
         self.screen = Screen()
+        self.commonValidation = CommonValidation()
 
     def get_client_row(self, client_name='default', client_mac='default'):
         """
         - Get the Client row from the grid row based on client_name or client_mac
         - Keyword Usage:
-         - ``Get Client Row  client_mac=${CLIENT_MAC}``
-         - ``Get Client Row  client_name=${CLIENT_NAME}``
+        - ``Get Client Row  client_mac=${CLIENT_MAC}``
+        - ``Get Client Row  client_name=${CLIENT_NAME}``
 
         :param client_name: Client Name
         :param client_mac: Client Mac Address
@@ -41,12 +43,12 @@ class Client:
                     self.utils.print_info("Found Client row: ", row.text)
                     return row
 
-    def get_client_status(self, client_name='default', client_mac='default'):
+    def get_client_status(self, client_name='default', client_mac='default', **kwargs):
         """
         - Get the Client Status from the grid row based on client_name or client_mac
         - Keyword Usage:
-         - ``Get Client Status  client_mac=${CLIENT_MAC}``
-         - ``Get Client Status  client_name=${CLIENT_NAME}``
+        - ``Get Client Status  client_mac=${CLIENT_MAC}``
+        - ``Get Client Status  client_name=${CLIENT_NAME}``
 
         :param client_name: Client Name
         :param client_mac: Client Mac Address
@@ -88,19 +90,23 @@ class Client:
             client_status = self.client_web_elements.get_connection_status(client_row)
             if "CONNECTED" in client_status:
                 self.utils.print_info("Client Status: Connected")
+                kwargs['pass_msg'] = "Client Status: Connected"
+                self.commonValidation.passed(**kwargs)
                 return 1
         else:
             self.utils.print_info("Client is not present in the historical grid")
+            kwargs['fail_msg'] = "get_client_status() -> Client is not present in the historical grid"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def verify_client_status(self, client_name='default', client_mac='default', status='default'):
         """
         - This keyword returns 1 if Client status expected matches the status passed as argument
         - Keyword Usage:
-         - ``Get Client Status  client_mac=${CLIENT_MAC}       status=green``
-         - ``Get Client Status  client_mac=${CLIENT_MAC}       status=red``
-         - ``Get Client Status  client_name=${CLIENT_NAME}     status=green``
-         - ``Get Client Status  client_name=${CLIENT_NAME}     status=red``
+        - ``Get Client Status  client_mac=${CLIENT_MAC}       status=green``
+        - ``Get Client Status  client_mac=${CLIENT_MAC}       status=red``
+        - ``Get Client Status  client_name=${CLIENT_NAME}     status=green``
+        - ``Get Client Status  client_name=${CLIENT_NAME}     status=red``
 
         :param client_name: client serial number
         :param client_mac: client mac MAC
@@ -119,7 +125,7 @@ class Client:
         """
         - This keyword will convert Mac address in 'xxxxxxxx:xxxxxxx' format
         - Keyword Usage:
-         - ``convert to client mac  ${CLIENT_MAC}``
+        - ``convert to client mac  ${CLIENT_MAC}``
 
         :param mac_address: Mac Address to convert
 
@@ -128,12 +134,12 @@ class Client:
         client_mac = ':'.join(re.findall('..', mac_address))
         return client_mac
 
-    def get_real_time_client_details(self, search_string):
+    def get_real_time_client_details(self, search_string, **kwargs):
         """
         - Get the real time client details from the client grid
         - Flow Manage --> Clients --> Real Time
         - Keyword Usage:
-         - ``Get Real Time Client Details    ${SEARCH_STRING}``
+        - ``Get Real Time Client Details    ${SEARCH_STRING}``
 
         :param search_string: client row search  ex: client mac, device name etc
         :return: client details dict
@@ -168,14 +174,16 @@ class Client:
 
                     return client_details
         self.utils.print_info("Client is not present in the client grid")
+        kwargs['fail_msg'] = "get_real_time_client_details() -> Client is not present in the historical grid"
+        self.commonValidation.failed(**kwargs)
         return -1
 
-    def delete_client_historical(self, client_mac):
+    def delete_client_historical(self, client_mac, **kwargs):
         """
         - Clear the client from GDC
         - Flow: Manage-->Clients-->Historical
         - Keyword Usage:
-         - ``Delete Client Historical  ${CLIENT_MAC}``
+        - ``Delete Client Historical  ${CLIENT_MAC}``
 
         :param client_mac:  Client Mac address
         :return: 1 if cleared Client Mac entry else -1
@@ -233,14 +241,16 @@ class Client:
         if not client_row:
             self.utils.print_info("client:{} deleted".format(client_mac))
             return 1
+        kwargs['fail_msg'] = "delete_client_historical() -> Client is not present in the historical grid"
+        self.commonValidation.failed(**kwargs)
         return -1
 
-    def delete_client_realtime(self, client_mac):
+    def delete_client_realtime(self, client_mac, **kwargs):
         """
         - Clear the client from GDC
         - Flow: Manage-->Clients-->Historical
         - Keyword Usage:
-         - ``Delete Client RealTime  ${CLIENT_MAC}``
+        - ``Delete Client RealTime  ${CLIENT_MAC}``
 
         :param client_mac:  Client Mac address
         :return: 1 if cleared Client Mac entry else -1
@@ -298,15 +308,17 @@ class Client:
         if not client_row:
             self.utils.print_info("client:{} deleted".format(client_mac))
             return 1
+        kwargs['fail_msg'] = "delete_client_realtime() -> Could Not Clear the client from GDC"
+        self.commonValidation.failed(**kwargs)
         return -1
-    
+
     def _get_client360_details(self):
         """
         - This keyword gets Client 360 Information
         - It Assumes That Already Navigated to Client360 Page
         - Flow : Client 360 Page
         - Keyword Usage
-         - ``Get Client360 details``
+        - ``Get Client360 details``
 
         :return: dictionary of client360 information
         """
@@ -336,12 +348,12 @@ class Client:
 
         return client360_info
 
-    def get_real_time_client360_information(self, client_mac):
+    def get_real_time_client360_information(self, client_mac, **kwargs):
         """
         - Get the real time client details from the client grid
         - Flow : Manage--> clients--> Client MAC hyper Link-->Client 360 Page
         - Keyword Usage:
-         - ``Get Real Time Client360 Information    ${CLIENT_MAC}``
+        - ``Get Real Time Client360 Information    ${CLIENT_MAC}``
 
         :param client_mac: client mac address
         :return: client 360 details dictionary if MAC entry found on clients grid else -1
@@ -371,13 +383,15 @@ class Client:
             return client360_details
         else:
             self.utils.print_info(f"Client360 Information For:{client_mac} is not Found")
+            kwargs['fail_msg'] = f"delete_client_realtime() -> Client360 Information For:{client_mac} is not Found"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def convert_mac_to_colon_Format(self, mac_address):
         """
         - This keyword will convert Mac address from 'XXXXXXXXXXXX' to 'xx:xx:xx:xx:xx:xx' format
         - Keyword Usage:
-         - ``convert mac to colon format  ${ANY_MAC}``
+        - ``convert mac to colon format  ${ANY_MAC}``
 
         :param mac_address: Mac Address to convert
 
