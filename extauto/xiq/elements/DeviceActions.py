@@ -276,8 +276,14 @@ class DeviceActions(DeviceActionsDefs):
     def get_clone_inform_window(self):
         return self.weh.get_element(self.clone_inform_window)
 
+    def get_clone_inform_window_replacement_not_connected(self):
+        return self.weh.get_element(self.clone_inform_window_replacement_not_connected)
+
     def get_yes_confirmation_button(self):
         return self.weh.get_element(self.yes_confirmation_button)
+
+    def get_no_confirmation_button(self):
+        return self.weh.get_element(self.no_confirmation_button)
 
     def get_loading_clone_configuration(self):
         return self.weh.get_element(self.loading_clone_configuration)
@@ -287,6 +293,9 @@ class DeviceActions(DeviceActionsDefs):
 
     def get_onboarding_replacement(self):
         return self.weh.get_element(self.onboarding_replacement)
+
+    def get_warning_replacement_different_type(self):
+        return self.weh.get_element(self.warning_replacement_different_type)
 
     def get_warning_replacement_not_connected(self):
         return self.weh.get_element(self.warning_replacement_not_connected)

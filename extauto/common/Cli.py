@@ -1581,94 +1581,49 @@ class Cli(object):
 
     def get_virtual_router(self, dut, **kwargs):
         """
-           - This keyword returns the vr used by the specified device
+           - This keyword returns the vr used by an EXOS / Switch Engine device
            :param dut: device
-           :return match.group(12): the name of VR used
+           :return match.group(12): the name of VR used by EXOS / Switch Engine device
                                     or -1 if is unable to get virtual router info
         """
         global vrName
-
-        result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
-        output = result[0].cmd_obj.return_text
-        pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
-        match = re.search(pattern, output)
-
-        if match:
-            print(f"Mgmt Vlan Name : {match.group(1)}")
-            print(f"Vlan ID        : {match.group(3)}")
-            print(f"Mgmt IPaddress : {match.group(5)}")
-            print(f"Active ports   : {match.group(9)}")
-            print(f"Total ports    : {match.group(11)}")
-            print(f"Virtual router : {match.group(12)}")
-
-            if int(match.group(9)) > 0:
-                return match.group(12)
-            else:
-                print(f"There is no active port in the mgmt vlan {match.group(1)}")
-                kwargs['fail_msg'] = f"There is no active port in the mgmt vlan {match.group(1)}"
-                self.commonValidation.failed(**kwargs)
-                # return -1
-        else:
-            print("Pattern not found, unable to get virtual router info!")
-            kwargs['fail_msg'] = f"Pattern not found, unable to get virtual router info!"
-            self.commonValidation.failed(**kwargs)
-            # return -1
-
-    def configure_iq_agent(self, dut, server_name, **kwargs):
-        """
-           - Configures iq agent from CLI for an EXOS/VOSS device
-
-            :param dut: device
-            :param server_name: the server-name for cloud where the device should be onboarded
-            :return 1 or -1 if the the iq agent was successfully configured or not
-        """
-        iqagent_configured = False
         if dut.cli_type.upper() == "EXOS":
-            self.networkElementCliSend.send_cmd_verify_output(dut.name, 'show process iqagent', 'Ready', max_wait=30, interval=10)
-            self.networkElementCliSend.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
-                                 confirmation_phrases='Do you want to continue?', confirmation_args='y')
+            result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
+            output = result[0].cmd_obj.return_text
+            pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
+            match = re.search(pattern, output)
 
-            self.networkElementCliSend.send_cmd(dut.name, 'configure iqagent server ipaddress none', max_wait=10, interval=2)
-            vr_name = self.get_virtual_router(dut)
-            if vr_name == -1:
-                print("Error: Can't extract Virtual Router information")
-                kwargs['fail_msg'] = f"Error: Can't extract Virtual Router information"
+            if match:
+                print(f"Mgmt Vlan Name : {match.group(1)}")
+                print(f"Vlan ID        : {match.group(3)}")
+                print(f"Mgmt IPaddress : {match.group(5)}")
+                print(f"Active ports   : {match.group(9)}")
+                print(f"Total ports    : {match.group(11)}")
+                print(f"Virtual router : {match.group(12)}")
+
+                if int(match.group(9)) > 0:
+                    return match.group(12)
+                else:
+                    print(f"There is no active port in the mgmt vlan {match.group(1)}")
+                    kwargs['fail_msg'] = f"There is no active port in the mgmt vlan {match.group(1)}"
+                    self.commonValidation.failed(**kwargs)
+                    return -1
+            else:
+                print("Pattern not found, unable to get virtual router info!")
+                kwargs['fail_msg'] = f"Pattern not found, unable to get virtual router info!"
                 self.commonValidation.failed(**kwargs)
-                # return -1
-            self.networkElementCliSend.send_cmd(dut.name, f'configure iqagent server vr {vr_name}', max_wait=10, interval=2)
-
-            self.networkElementCliSend.send_cmd(dut.name, 'configure iqagent server ipaddress ' + server_name,
-                                 max_wait=10, interval=2)
-            self.networkElementCliSend.send_cmd(dut.name, 'enable iqagent', max_wait=10, interval=2)
-            iqagent_configured = True
-
-        elif dut.cli_type.upper() == "VOSS":
-            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
-            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
-            self.networkElementCliSend.send_cmd(dut.name, 'application', max_wait=10, interval=2)
-            self.networkElementCliSend.send_cmd(dut.name, 'no iqagent enable', max_wait=10, interval=2)
-            self.networkElementCliSend.send_cmd(dut.name, 'iqagent server ' + server_name,
-                                 max_wait=10, interval=2)
-            self.networkElementCliSend.send_cmd(dut.name, 'iqagent enable', max_wait=10, interval=2)
-            self.networkElementCliSend.send_cmd_verify_output(dut.name, 'show application iqagent', 'true', max_wait=30,
-                                               interval=10)
-            self.networkElementCliSend.send_cmd(dut.name, 'exit', max_wait=10, interval=2)
-            iqagent_configured = True
-
-        self.utils.wait_till(timeout=10)
-
-        if iqagent_configured:
-            kwargs['pass_msg'] = f"Iq_agent successfully configured"
-            self.commonValidation.passed(**kwargs)
+                return -1
         else:
-            kwargs['fail_msg'] = f"Iq_agent not configured"
+            print("Device is not an EXOS/Switch Engine device, unable to get virtual router info!")
+            kwargs['fail_msg'] = f"Device is not an EXOS/Switch Engine device, unable to get virtual router info!"
             self.commonValidation.failed(**kwargs)
+            return -1
 
     def get_device_model_name(self, dut, cli_type, **kwargs):
         """
            - Gets the device model name from CLI for an EXOS/VOSS device
            - Keyword Usage:
-            - ``configure_iq_agent(dut=${DEVICE}, cli_type = "exos" / "voss")``
+            - ``get_device_model_name(dut=dut, cli_type=dut.cli_type)``
 
            :param dut: device
            :param cli_type: the type of device : EXOS / VOSS
@@ -1734,7 +1689,7 @@ class Cli(object):
         cli_type_device_1 = dut1.cli_type
         cli_type_device_2 = dut2.cli_type
 
-        if cli_type_device_1.lower() and cli_type_device_2.lower() == 'exos':
+        if cli_type_device_1.lower() == 'exos' and cli_type_device_2.lower() == 'exos':
             check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')[0].cmd_obj._return_text
             image_version_regex = 'IMG:([ ]{1,}.{0,})'
             image_version_1 = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
@@ -1755,7 +1710,7 @@ class Cli(object):
                 print("OS version are different")
                 return 'different'
 
-        elif cli_type_device_1.lower() and cli_type_device_2.lower() == 'voss':
+        elif cli_type_device_1.lower() == 'voss' and cli_type_device_2.lower() == 'voss':
             check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
             image_version_regex = '(\\d+[.]\\d+[.]\\d+[.]\\d+)'
             image_version_1_string = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]

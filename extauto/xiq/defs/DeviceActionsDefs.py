@@ -472,6 +472,13 @@ class DeviceActionsDefs:
             'XPATH': '//div[@data-dojo-attach-point="msgEl"]//*[@data-dojo-attach-point="desEl" and contains(text(),"Clone will copy")]',
             'wait_for': 2
         }
+
+    clone_inform_window_replacement_not_connected = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="msgEl"]//*[@data-dojo-attach-point="desEl"]//b[contains(text(),"Device Onboarded, but device is currently not connected.")]',
+            'wait_for': 2
+        }
+
     clone_button_quick_onboard = \
         {
             'XPATH': '//*[@data-automation-tag="automation-clone-device-window-quick-onboard"]',
@@ -481,6 +488,12 @@ class DeviceActionsDefs:
     yes_confirmation_button = \
         {
             'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 2
+        }
+
+    no_confirmation_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-no-button"]',
             'wait_for': 2
         }
 
@@ -507,6 +520,12 @@ class DeviceActionsDefs:
     warning_message_disconnected = \
         {
             'XPATH': '//*[contains(text(), "disconnected or in the unmanaged state.")]',
+            'wait_for': 2
+        }
+
+    warning_replacement_different_type = \
+        {
+            'XPATH': '//*[contains(text(), "Original Device Product type and Replacement Device Product Type does not match. Cannot proceed with Device Cloning.")]',
             'wait_for': 2
         }
 

@@ -10389,7 +10389,7 @@ class Device360(Device360WebElements):
                         self.utils.wait_till(delay=1, timeout=2)
                         self.utils.print_info("drop down options", options)
                         self.auto_actions.select_drop_down_options(options, port_type)
-                        # return 1
+
                     else:
                         self.utils.print_info("Port usage drop down didnot present,")
                         return  -1

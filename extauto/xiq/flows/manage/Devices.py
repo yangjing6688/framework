@@ -12336,7 +12336,7 @@ class Devices:
             return -1
 
     def clone_device_quick_onboard(self, device_serial, replacement_device_type, replacement_serial,
-                                   force_quick_onboard=False, perform_update=False, option="disable", **kwargs):
+                                   perform_update=False, option="disable", **kwargs):
         """
         - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device
         level config to another same type SKU switch.
@@ -12368,7 +12368,7 @@ class Devices:
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Device is not there"
             self.common_validation.failed(**kwargs)
-            # return -1
+            return -1
 
         if select_flag:
             self.utils.print_info("Selecting Actions button")
@@ -12392,13 +12392,13 @@ class Devices:
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = f"No {replacement_device_type} option selected"
                     self.common_validation.failed(**kwargs)
-                    # return -1
+                    return -1
             else:
                 self.utils.print_info("No replacement device option found")
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "No replacement device option found"
                 self.common_validation.failed(**kwargs)
-                # return -1
+                return -1
 
             if replacement_device_type == "Onboarded":
                 replacement_serial_number_dropdown = self.device_actions.get_replacement_serial_number_dropdown()
@@ -12414,13 +12414,13 @@ class Devices:
                         self.screen.save_screen_shot()
                         kwargs['fail_msg'] = f"No {replacement_serial} serial selected"
                         self.common_validation.failed(**kwargs)
-                        # return -1
+                        return -1
                 else:
                     self.utils.print_info("No replacement serial number option found")
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "No replacement serial number option found"
                     self.common_validation.failed(**kwargs)
-                    # return -1
+                    return -1
 
                 clone_button = self.device_actions.get_clone_button()
                 if clone_button:
@@ -12438,7 +12438,7 @@ class Devices:
                             self.screen.save_screen_shot()
                             kwargs['fail_msg'] = "No confirm message buttons found"
                             self.common_validation.failed(**kwargs)
-                            # return -1
+                            return -1
 
                     self.utils.wait_till()
 
@@ -12464,7 +12464,7 @@ class Devices:
                                 self.utils.print_info("Network policy and configuration checkbox not found")
                                 kwargs['fail_msg'] = "Network policy and configuration checkbox not found"
                                 self.common_validation.failed(**kwargs)
-                                # return -1
+                                return -1
 
                             if reboot_rollback_check:
                                 if option.lower() == "enable":
@@ -12472,39 +12472,39 @@ class Devices:
                                         self.utils.print_info("Check reboot and revert switch configuration option")
                                         self.auto_actions.click(reboot_rollback_check)
                                         self.utils.wait_till(timeout=2)
-                                        # sleep(2)
+
                                     else:
                                         self.utils.print_info("Reboot/revert already checked")
                                 if option.lower() == "disable":
                                     if not reboot_rollback_check.is_selected():
                                         self.utils.print_info("Reboot/revert option already unchecked")
                                         self.utils.wait_till(timeout=2)
-                                        # sleep(2)
+
                                     else:
                                         self.utils.print_info("Uncheck reboot and revert switch configuration option")
                                         self.auto_actions.click(reboot_rollback_check)
                                         self.utils.wait_till(timeout=2)
-                                        # sleep(2)
+
                             else:
                                 self.utils.print_info("Reboot and revert switch configuration checkbox not found")
                                 kwargs['fail_msg'] = "Reboot and revert switch configuration checkbox not found"
                                 self.common_validation.failed(**kwargs)
-                                # return -1
+                                return -1
 
                             self.utils.print_info("Click on perform update button")
                             self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
                             self.utils.wait_till(timeout=3)
-                            # sleep(3)
+
                             if option.lower() == "enable":
                                 self.utils.print_info("Proceed yes that user wants to continue with reboot/revert option")
                                 self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
                                 self.utils.wait_till(timeout=2)
-                                # sleep(2)
+
                             else:
                                 pass
                             kwargs['pass_msg'] = "Clone successful"
                             self.common_validation.passed(**kwargs)
-                            # return 1
+                            return 1
                         else:
 
                             close_button = self.device_actions.get_close_button()
@@ -12519,7 +12519,7 @@ class Devices:
                             self.utils.wait_till(_navigate_to_devices)
                             kwargs['pass_msg'] = "Clone successful"
                             self.common_validation.passed(**kwargs)
-                            # return -1
+                            return -1
 
                     else:
                         self.utils.print_info(
@@ -12536,7 +12536,7 @@ class Devices:
                             self.utils.print_info("No Close button found")
                             kwargs['fail_msg'] = "No Close button found"
                             self.common_validation.failed(**kwargs)
-                            # return -1
+                            return -1
 
                         self.utils.print_info("Navigate to Manage-->Devices")
 
@@ -12559,25 +12559,47 @@ class Devices:
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "No replacement serial number field found"
                     self.common_validation.failed(**kwargs)
-                    # return -1
+                    return -1
 
                 clone_button = self.device_actions.get_clone_button_quick_onboard()
                 if clone_button:
                     self.utils.print_info("Select Clone button")
                     self.auto_actions.click(clone_button)
 
-                    # def _loading_onboarding_replacement():
-                    #     loading_onboarding_replacement = self.device_actions.get_loading_onboarding_replacement()
-                    #     if loading_onboarding_replacement.is_displayed():
-                    #         print("Still loading onboarding replacement")
+                    self.utils.wait_till(timeout=45, delay=10)
+
+                    warning_replacement_different_type = self.device_actions.get_warning_replacement_different_type()
+                    if warning_replacement_different_type:
+                        self.screen.save_screen_shot()
+                        x_button_clone_window = self.device_actions.get_x_button_clone_window()
+                        self.auto_actions.click(x_button_clone_window)
+                        self.utils.print_info("Navigate to Manage-->Devices")
+
+                        self.utils.print_info("Original Device Product type and Replacement Device Product Type does not match. Cannot proceed with Device Cloning.")
+                        kwargs['fail_msg'] = "Original Device Product type and Replacement Device Product Type does not match. Cannot proceed with Device Cloning."
+                        self.common_validation.failed(**kwargs)
+                        return -1
+                    else:
+                        pass
+
+                    # below codes are commented until XIQ-13958 will be resolved
+
+                    # clone_inform_window_replacement_not_connected = self.device_actions.\
+                    #     get_clone_inform_window_replacement_not_connected()
+                    # if clone_inform_window_replacement_not_connected:
+                    #     no_confirmation_button = self.device_actions.get_no_confirmation_button()
+                    #     if no_confirmation_button:
+                    #         self.utils.print_info(f"Select No to clone {replacement_serial} serial, "
+                    #                               f"because doesn't connect in time")
+                    #         self.auto_actions.click(no_confirmation_button)
+                    #         self.utils.wait_till()
                     #     else:
-                    #         kwargs['pass_msg'] = "Onboarding replacement done"
-                    #         self.common_validation.passed(**kwargs)
-                    #         # return 1
-                    #
-                    # self.utils.wait_till(_loading_onboarding_replacement, exp_func_resp=1)
-                    self.utils.wait_till(timeout=30,delay=10)
-                    # sleep(30)
+                    #         self.utils.print_info(f"No confirm message buttons found")
+                    #         self.screen.save_screen_shot()
+                    #     self.utils.print_info(f"Trying again to clone {device_serial} to {replacement_serial} "
+                    #                           f"using quick onboard option")
+                    #     self.clone_device_quick_onboard(device_serial, "Quick Onboard", replacement_serial)
+                    # else:
 
                     clone_inform_window = self.device_actions.get_clone_inform_window()
                     if clone_inform_window:
@@ -12590,64 +12612,30 @@ class Devices:
                             self.utils.print_info(f"No confirm message buttons found")
                             self.screen.save_screen_shot()
                     else:
-                        warning_replacement_not_connected = self.device_actions.get_warning_replacement_not_connected()
-                        if warning_replacement_not_connected:
-                            x_button_clone_window = self.device_actions.get_x_button_clone_window()
-                            self.auto_actions.click(x_button_clone_window)
-                            self.utils.print_info("Navigate to Manage-->Devices")
+                        pass
 
-                            def _navigate_to_devices():
-                                return self.navigator.navigate_to_devices()
-
-                            self.utils.wait_till(_navigate_to_devices)
-                            if force_quick_onboard:
-                                self.delete_device(replacement_serial)
-                                self.clone_device_quick_onboard(device_serial, "Quick Onboard",
-                                                                replacement_serial)
-                            else:
-                                self.wait_until_device_online(replacement_serial)
-                                self.clone_device_quick_onboard(device_serial, "Onboarded", replacement_serial)
-
-                        else:
-                            x_button_clone_window = self.device_actions.get_x_button_clone_window()
-                            if x_button_clone_window:
-                                self.auto_actions.click(x_button_clone_window)
-                                self.utils.print_info("Navigate to Manage-->Devices")
-
-                                def _navigate_to_devices():
-                                    return self.navigator.navigate_to_devices()
-
-                                self.utils.wait_till(_navigate_to_devices)
-
-                                if force_quick_onboard:
-                                    self.delete_device(replacement_serial)
-                                    self.clone_device_quick_onboard(device_serial, "Quick Onboard",
-                                                                    replacement_serial)
-                                else:
-                                    self.wait_until_device_online(replacement_serial)
-                                    self.clone_device_quick_onboard(device_serial, "Onboarded", replacement_serial)
                 if perform_update:
                     self.utils.print_info("Performing Update")
                     self.utils.print_info("Select the network policy and configuration checkbox")
                     update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
                     reboot_rollback_check = self.devices_web_elements.get_devices_switch_update_reboot_rollback()
                     self.utils.wait_till(timeout=3)
-                    # sleep(3)
+
                     if update_cb:
                         if update_cb.is_selected():
                             self.utils.print_info("Network policy and configuration checkbox is already selected")
                             self.utils.wait_till(timeout=2)
-                            # sleep(2)
+
                         else:
                             self.utils.print_info("Clicking network policy and configuration checkbox")
                             self.auto_actions.click(update_cb)
                             self.utils.wait_till(timeout=2)
-                            # sleep(2)
+
                     else:
                         self.utils.print_info("Network policy and configuration checkbox not found")
                         kwargs['fail_msg'] = "Network policy and configuration checkbox not found"
                         self.common_validation.failed(**kwargs)
-                        # return -1
+                        return -1
 
                     if reboot_rollback_check:
                         if option.lower() == "enable":
@@ -12655,39 +12643,39 @@ class Devices:
                                 self.utils.print_info("Check reboot and revert switch configuration option")
                                 self.auto_actions.click(reboot_rollback_check)
                                 self.utils.wait_till(timeout=2)
-                                # sleep(2)
+
                             else:
                                 self.utils.print_info("Reboot/revert already checked")
                         if option.lower() == "disable":
                             if not reboot_rollback_check.is_selected():
                                 self.utils.print_info("Reboot/revert option already unchecked")
                                 self.utils.wait_till(timeout=2)
-                                # sleep(2)
+
                             else:
                                 self.utils.print_info("Uncheck reboot and revert switch configuration option")
                                 self.auto_actions.click(reboot_rollback_check)
                                 self.utils.wait_till(timeout=2)
-                                # sleep(2)
+
                     else:
                         self.utils.print_info("Reboot and revert switch configuration checkbox not found")
                         kwargs['fail_msg'] = "Reboot and revert switch configuration checkbox not found"
                         self.common_validation.failed(**kwargs)
-                        # return -1
+                        return -1
 
                     self.utils.print_info("Click on perform update button")
                     self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
                     self.utils.wait_till(timeout=3)
-                    # sleep(3)
+
                     if option.lower() == "enable":
                         self.utils.print_info("Proceed yes that user wants to continue with reboot/revert option")
                         self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
                         self.utils.wait_till(timeout=2)
-                        # sleep(2)
+
                     else:
                         pass
                     kwargs['pass_msg'] = "Clone successful"
                     self.common_validation.passed(**kwargs)
-                    # return 1
+                    return 1
 
                 else:
                     self.utils.wait_till()
@@ -12703,7 +12691,7 @@ class Devices:
                         self.utils.print_info("No Close button found")
                         kwargs['fail_msg'] = "No Close button found"
                         self.common_validation.failed(**kwargs)
-                        # return -1
+                        return -1
 
                     self.utils.print_info("Navigate to Manage-->Devices")
                     def _navigate_to_devices():
@@ -12716,7 +12704,7 @@ class Devices:
                 self.utils.print_info("No replacement type was selected")
                 kwargs['fail_msg'] = "No replacement type was selected"
                 self.common_validation.failed(**kwargs)
-                # return -1
+                return -1
 
 
         else:
@@ -12724,7 +12712,7 @@ class Devices:
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "No clone device button from Actions found"
             self.common_validation.failed(**kwargs)
-            # return -1
+            return -1
 
     def confirm_not_enough_copilot_licenses_message_displayed(self):
         """
