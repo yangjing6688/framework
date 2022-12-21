@@ -1682,6 +1682,7 @@ class Cli(object):
            :param dut1: first device
            :param dut2: second device
            :return "same"/"different": a string that specifies if the devices have the same OS or different OS
+                    or -1 if unable to check OS versions
 
         """
         device_1 = dut1.name
