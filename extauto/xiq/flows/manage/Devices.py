@@ -12477,7 +12477,8 @@ class Devices:
             return -1
 
     def clone_device_quick_onboard(self, device_serial, replacement_device_type, replacement_serial,
-                                   perform_update=False, option="disable", **kwargs):
+                                   perform_update=False, option="disable", continue_if_replacement_disconnected=False,
+                                   **kwargs):
         """
         - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device
         level config to another same type SKU switch.
@@ -12486,13 +12487,15 @@ class Devices:
         :param replacement_device_type: Select the type option for replacement device in Cloning process
                                         ('Onboarded', 'Quick Onboard')
         :param replacement_serial: The serial number for replacement device
-        :param force_quick_onboard: if True, the replacement device is forced to be cloned using quick onboard option
-                                    instead of onboarded option if it is not connected to cloud within 20 seconds after
-                                    the first attempt. By default is False
         :param perform_update: if True, the config cloned will be pushed to device. By default is false.
         :param option: "enable"/"disable" the checkbox for reboot and rollback the configuration if the IQagent loses
                         connectivity during updating the configuration. Used only if perform_update=True.
                         By default is "disable"
+        :param continue_if_replacement_disconnected: if True, if the replacement does not connect within 40 sec to
+                                                    cloud, cloning process will continue
+                                                    if False, if the replacement does not connect within 40 sec to
+                                                    cloud, cloning process will not continue and return -1
+                                                    By default is False
         :return: 1 if the cloning process is done else -1
         """
 
@@ -12723,37 +12726,54 @@ class Devices:
                     else:
                         pass
 
-                    # below codes are commented until XIQ-13958 will be resolved
+                    clone_inform_window_replacement_not_connected = self.device_actions.\
+                        get_clone_inform_window_replacement_not_connected()
+                    if clone_inform_window_replacement_not_connected:
+                        if continue_if_replacement_disconnected:
+                            yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
 
-                    # clone_inform_window_replacement_not_connected = self.device_actions.\
-                    #     get_clone_inform_window_replacement_not_connected()
-                    # if clone_inform_window_replacement_not_connected:
-                    #     no_confirmation_button = self.device_actions.get_no_confirmation_button()
-                    #     if no_confirmation_button:
-                    #         self.utils.print_info(f"Select No to clone {replacement_serial} serial, "
-                    #                               f"because doesn't connect in time")
-                    #         self.auto_actions.click(no_confirmation_button)
-                    #         self.utils.wait_till()
-                    #     else:
-                    #         self.utils.print_info(f"No confirm message buttons found")
-                    #         self.screen.save_screen_shot()
-                    #     self.utils.print_info(f"Trying again to clone {device_serial} to {replacement_serial} "
-                    #                           f"using quick onboard option")
-                    #     self.clone_device_quick_onboard(device_serial, "Quick Onboard", replacement_serial)
-                    # else:
+                            if yes_confirmation_button:
+                                self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
+                                self.auto_actions.click(yes_confirmation_button)
+                            else:
+                                self.utils.print_info(f"No confirm message buttons found")
+                                self.screen.save_screen_shot()
+                                kwargs['fail_msg'] = "No confirm message buttons found"
+                                self.common_validation.failed(**kwargs)
+                                return -1
 
-                    clone_inform_window = self.device_actions.get_clone_inform_window()
-                    if clone_inform_window:
-                        yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
-
-                        if yes_confirmation_button:
-                            self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
-                            self.auto_actions.click(yes_confirmation_button)
                         else:
-                            self.utils.print_info(f"No confirm message buttons found")
-                            self.screen.save_screen_shot()
+                            no_confirmation_button = self.device_actions.get_no_confirmation_button()
+                            if no_confirmation_button:
+                                self.utils.print_info(f"Select No to clone {replacement_serial} serial, "
+                                                      f"because doesn't connect in time")
+                                self.auto_actions.click(no_confirmation_button)
+                                self.utils.wait_till()
+                                self.utils.print_info("Clonning process unsuccessful")
+                                kwargs['fail_msg'] = "Clonning process unsuccessful"
+                                self.common_validation.failed(**kwargs)
+                                return -1
+                            else:
+                                self.utils.print_info(f"No confirm message buttons found")
+                                self.screen.save_screen_shot()
+                                kwargs['fail_msg'] = "No confirm message buttons found"
+                                self.common_validation.failed(**kwargs)
+                                return -1
+
                     else:
-                        pass
+
+                        clone_inform_window = self.device_actions.get_clone_inform_window()
+                        if clone_inform_window:
+                            yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
+
+                            if yes_confirmation_button:
+                                self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
+                                self.auto_actions.click(yes_confirmation_button)
+                            else:
+                                self.utils.print_info(f"No confirm message buttons found")
+                                self.screen.save_screen_shot()
+                        else:
+                            pass
 
                 if perform_update:
                     self.utils.print_info("Performing Update")
