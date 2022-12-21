@@ -299,10 +299,10 @@ class GlobalSetting(GlobalSettingWebElements):
                     return 1
                 else:
                     kwargs['fail_msg'] = f"'search_organization_name()' -> organization name not found in the page"
-                    self.common_validation.failed(**kwargs)
+                    self.common_validation.failed(expect_error=True)
                     return -1
         kwargs['fail_msg'] = f"'search_organization_name()' -> Organization not found on Grid"
-        self.common_validation.fault(**kwargs)
+        self.common_validation.failed(expect_error=True)
         return -1
 
     def enable_account_hiq(self, **kwargs):
