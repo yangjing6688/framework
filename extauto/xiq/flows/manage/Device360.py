@@ -11343,17 +11343,24 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return 2
 
-    def list_port_element(self, xiq, port_no, **kwargs):
+    def list_port_element(self, xiq, port_no, dut, **kwargs):
         """
          - This keyword will get port details info
          It Assumes That Already Navigated to Device360 Page
         """
         rows = xiq.xflowscommonDevices.devices_web_elements.get_port_details_info()
-        matchers = ['Type', 'LACP Status', 'Port Mode', 'Port Status',
-                    'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
-                    'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
-                    'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
-                    'STP Port State', 'Port Speed']
+        if dut.cli_type.upper() == 'VOSS':
+            matchers = ['Type', 'LACP Status', 'Port Mode', 'Port Status',
+                        'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
+                        'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
+                        'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
+                        'STP Port State', 'Port Speed']
+        if dut.cli_type.upper() == 'EXOS':
+            matchers = ['Type', 'Link Aggregation', 'LAG Logical Port', 'Link Aggregation Status', 'Port Mode', 'Port Status',
+                        'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
+                        'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
+                        'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
+                        'STP Port State', 'Port Speed']
         if rows:
             xiq.xflowscommonDevices.utils.print_debug(f"Searching {len(rows)} rows")
             for row in rows:
@@ -13558,7 +13565,7 @@ class Device360(Device360WebElements):
                         and stats["is_selected"] is False:
                     self.auto_actions.click(stats["element"])
                     break
-        if dut.cli_type.upper() == 'EXOS':
+        elif dut.cli_type.upper() == 'EXOS':
             for checkbox_name, stats in all_checkboxes.items():
                 if checkbox_name.upper() == "LINK AGGREGATION" and checkbox_name in default_disabled \
                         and stats["is_selected"] is False:
@@ -13592,7 +13599,7 @@ class Device360(Device360WebElements):
                     if checkbox_name.upper() == "LACP STATUS" and stats["is_selected"] is True:
                         self.auto_actions.click(stats["element"])
                         break
-            if dut.cli_type.upper() == 'EXOS':
+            elif dut.cli_type.upper() == 'EXOS':
                 for checkbox_name, stats in all_checkboxes.items():
                     if checkbox_name.upper() == "LINK AGGREGATION" and stats["is_selected"] is True:
                         self.auto_actions.click(stats["element"])
