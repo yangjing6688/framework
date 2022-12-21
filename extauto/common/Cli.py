@@ -1673,7 +1673,7 @@ class Cli(object):
             kwargs['fail_msg'] = "Didn't find any switch model"
             self.commonValidation.failed(**kwargs)
 
-    def check_os_versions(self, dut1, dut2):
+    def check_os_versions(self, dut1, dut2, **kwargs):
         """
            - This keyword is used to check if 2 devices have the same os version or not
            - Keyword Usage:
@@ -1726,6 +1726,10 @@ class Cli(object):
             else:
                 print("OS version are different")
                 return 'different'
+        else:
+            kwargs['fail_msg'] = "Unable to check OS version for devices"
+            self.commonValidation.failed(**kwargs)
+            return -1
 
     def disable_enable_iqagent_clone_device(self, device, iqagent_option, **kwargs):
         """
