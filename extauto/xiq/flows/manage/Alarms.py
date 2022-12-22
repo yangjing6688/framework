@@ -6,6 +6,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Alarms(AlarmsWebElements):
@@ -15,6 +16,7 @@ class Alarms(AlarmsWebElements):
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
+        self.commonValidation = CommonValidation()
 
     def _get_alarm_grid_row(self, search_string):
         """
@@ -30,7 +32,7 @@ class Alarms(AlarmsWebElements):
         else:
             return False
 
-    def clear_alarm(self, search_string):
+    def clear_alarm(self, search_string, **kwargs):
         """
         - Flow: Manage--> Alarms
         - Clear the generated alarms based on the search string
@@ -56,9 +58,13 @@ class Alarms(AlarmsWebElements):
 
         if "Last alarms cleared" in _tool_tip:
             self.utils.print_info(f"{_tool_tip}")
+            kwargs['pass_msg'] = "Last alarms cleared"
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(f"Alarm Row Not Cleared Successfully with Search string {search_string}")
+            kwargs['fail_msg'] = f"clear_alarm() -> Alarm Row Not Cleared Successfully with Search string {search_string}"
+            self.commonValidation.failed(**kwargs)
             return -1
 
     def get_alarms_count_from_status_card(self, alarm_type='critical'):
@@ -83,7 +89,7 @@ class Alarms(AlarmsWebElements):
         self.utils.print_info(f"Alarms {alarm_type} count: {count}")
         return count
 
-    def get_alarm_details(self, search_string):
+    def get_alarm_details(self, search_string, **kwargs):
         """
         - Flow: Manage--> Alarms
         - Get Alarm details based on search string
@@ -121,5 +127,6 @@ class Alarms(AlarmsWebElements):
 
         else:
             self.utils.print_info(f"Unable to Find Alarm with string {search_string}")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = f"get_alarm_details() -> Unable to Find Alarm with string {search_string}"
+            self.commonValidation.failed(**kwargs)
             return -1

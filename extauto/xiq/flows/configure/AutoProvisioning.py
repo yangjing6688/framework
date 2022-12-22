@@ -14,7 +14,7 @@ class AutoProvisioning:
         self.screen = Screen()
         self.common_validation = CommonValidation()
 
-    def auto_provision_basic_settings(self, policy_name, country_code=None, **auto_provision_profile):
+    def auto_provision_basic_settings(self, policy_name, auto_provision_profile, country_code=None, **kwargs):
         """
         - This keyword creates auto provision basic settings
         - Keyword Usage:
@@ -41,27 +41,27 @@ class AutoProvisioning:
         self.utils.print_info("Selecting Device Function: ", device_function)
         ret_val = self.choose_auto_provision_device_function(device_function)
         if ret_val != 1:
-            auto_provision_profile['fail_msg'] = "auto_provision_basic_settings() failed. " \
+            kwargs['fail_msg'] = "auto_provision_basic_settings() failed. " \
                                                  "Choose auto provision device function has failed"
-            self.common_validation.fault(**auto_provision_profile)
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(3)
 
         self.utils.print_info("Selecting Device Function: ", device_function)
         ret_val = self.choose_auto_provision_device_model(dev_model, device_function)
         if ret_val != 1:
-            auto_provision_profile['fail_msg'] = "auto_provision_basic_settings() failed." \
+            kwargs['fail_msg'] = "auto_provision_basic_settings() failed." \
                                                  "Choose provision device model has failed"
-            self.common_validation.fault(**auto_provision_profile)
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(3)
 
         self.utils.print_info("Selecting Network Policy: ", network_policy)
         ret_val = self.choose_auto_provision_network_policy(network_policy)
         if ret_val != 1:
-            auto_provision_profile['fail_msg'] = "auto_provision_basic_settings() failed." \
+            kwargs['fail_msg'] = "auto_provision_basic_settings() failed." \
                                                  "Choose auto provision network policy has failed"
-            self.common_validation.fault(**auto_provision_profile)
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(3)
 
@@ -72,17 +72,17 @@ class AutoProvisioning:
             # country_code = auto_provision_profile.get('country_code')
             if self.choose_auto_provision_country_code(country_code):
                 sleep(3)
-                auto_provision_profile['pass_msg'] = "auto provision basic settings completed"
-                self.common_validation.passed(**auto_provision_profile)
+                kwargs['pass_msg'] = "auto provision basic settings completed"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                auto_provision_profile['fail_msg'] = "auto_provision_basic_settings() failed." \
+                kwargs['fail_msg'] = "auto_provision_basic_settings() failed." \
                                                      "Unable to select country code for AP model"
-                self.common_validation.fault(**auto_provision_profile)
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
-            auto_provision_profile['pass_msg'] = "auto provision basic settings completed"
-            self.common_validation.passed(**auto_provision_profile)
+            kwargs['pass_msg'] = "auto provision basic settings completed"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def auto_provision_advanced_settings(self, **advance_setting):
@@ -280,7 +280,7 @@ class AutoProvisioning:
         self.common_validation.failed(**kwargs)
         return -1
 
-    def verify_auto_provision_policy_update(self, serial, country_code='NA', **auto_provision_policy):
+    def verify_auto_provision_policy_update(self, serial, auto_provision_policy, country_code='NA', **kwargs):
         """
         - This keyword verifies if the device is updated with auto configuration policy
         - Keyword Usage
@@ -303,26 +303,26 @@ class AutoProvisioning:
             self.utils.print_info("Verifying device type AP")
             self.utils.print_info(f"Looking for {network_policy} in {row.text}")
             if network_policy in row.text:
-                auto_provision_policy['pass_msg'] = f"Found {network_policy} in {row.text}"
-                self.common_validation.passed(**auto_provision_policy)
+                kwargs['pass_msg'] = f"Found {network_policy} in {row.text}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                auto_provision_policy['fail_msg'] = f"verify_auto_provision_policy_update() failed. " \
+                kwargs['fail_msg'] = f"verify_auto_provision_policy_update() failed. " \
                                                     f"Did not find {network_policy} in {row.text}"
-                self.common_validation.failed(**auto_provision_policy)
+                self.common_validation.failed(**kwargs)
                 return -1
 
         if "Extreme Networks SR22xx / SR23xx Switches" in device_function:
             self.utils.print_info("Verifying device type Switch")
             self.utils.print_info(f"Looking for {network_policy} in {row.text}")
             if network_policy in row.text:
-                auto_provision_policy['pass_msg'] = f"Found {network_policy} in {row.text}"
-                self.common_validation.passed(**auto_provision_policy)
+                kwargs['pass_msg'] = f"Found {network_policy} in {row.text}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                auto_provision_policy['fail_msg'] = f"verify_auto_provision_policy_update() failed." \
+                kwargs['fail_msg'] = f"verify_auto_provision_policy_update() failed." \
                                                     f"Did not find {network_policy} in {row.text}"
-                self.common_validation.failed(**auto_provision_policy)
+                self.common_validation.failed(**kwargs)
                 return -1
 
     def enter_auto_provision_policy_name(self, policy_name):
@@ -360,7 +360,6 @@ class AutoProvisioning:
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        self.screen.save_screen_shot()
         kwargs['fail_msg'] = f"choose_auto_provision_device_function() failed." \
                              f"Not able to find auto provision device function dropdown items for {device_function} " \
                              f"in list {*device_function_list,}"

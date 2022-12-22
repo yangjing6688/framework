@@ -4,6 +4,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.RSWebElements import RSWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class RadiusServer(RSWebElements):
@@ -12,6 +13,7 @@ class RadiusServer(RSWebElements):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
 
     def _add_ip_address_name_to_radius_server(self, name, ip):
         """
@@ -145,7 +147,7 @@ class RadiusServer(RSWebElements):
                 return True
         return False
 
-    def config_external_radius_server(self, **ext_server_config):
+    def config_external_radius_server(self, ext_server_config, **kwargs):
         """
         - This keyword is called in two ways, as standalone and as part of create network policy
         - For standalone assumes that user navigated to the RADIUS server group add dialog window
@@ -166,6 +168,8 @@ class RadiusServer(RSWebElements):
 
         select_status = self._select_external_radius_server(ext_rs_name)
         if select_status:
+            kwargs['pass_msg'] = "External RADIUS server group created"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Click on new external RADIUS server add button")
@@ -178,7 +182,11 @@ class RadiusServer(RSWebElements):
         self._create_new_external_radius_server(**ext_server_config)
         select_status = self._select_external_radius_server(ext_rs_name)
         if select_status:
+            kwargs['pass_msg'] = "External RADIUS server group created"
+            self.common_validation.passed(**kwargs)
             return 1
+        kwargs['fail_msg'] = "config_external_radius_server() failed. Failed to create external RADIUS server group"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _add_radius_server_group(self, **group_config):
@@ -200,11 +208,11 @@ class RadiusServer(RSWebElements):
 
         if server_type.upper() == "EXTERNAL RADIUS SERVER":
             ext_rs_config = rs_config.get('external_radius_server_config')
-            return self.config_external_radius_server(**ext_rs_config)
+            return self.config_external_radius_server(ext_rs_config)
 
         if server_type.upper() == "EXTREME NETWORKS RADIUS SERVER":
             extreme_rs_config = rs_config.get('extreme_radius_server_config')
-            return self.config_extreme_networks_radius_server(**extreme_rs_config)
+            return self.config_extreme_networks_radius_server(extreme_rs_config)
 
     def _select_radius_server_group_row(self, rs_group_name):
         """
@@ -238,7 +246,7 @@ class RadiusServer(RSWebElements):
             self.auto_actions.click_reference(self.get_default_radius_server_group_dialog_select_button)
             return True
 
-    def delete_radius_server_group(self, rs_group_name):
+    def delete_radius_server_group(self, rs_group_name, **kwargs):
         """
         - Select the RADIUS server group and delete it
         - Keyword Usage:
@@ -265,11 +273,18 @@ class RadiusServer(RSWebElements):
             sleep(2)
             for value in tool_tp_text:
                 if "The item was deleted successfully" in value:
+                    kwargs['pass_msg'] = "The item was deleted successfully"
+                    self.common_validation.passed(**kwargs)
                     return True
+
+            kwargs['fail_msg'] = "delete_radius_server_group() failed. Failed to delete radius server group"
+            self.common_validation.failed(**kwargs)
             return False
         else:
-            self.utils.print_info("default RADIUS server group:{} does't exist, create it..".format(rs_group_name))
+            self.utils.print_info("default RADIUS server group:{} doesn't exist, create it..".format(rs_group_name))
             self.auto_actions.click_reference(self.get_default_radius_server_group_dialog_cancel_button)
+            kwargs['fail_msg'] = "delete_radius_server_group() failed. RADIUS server group doesn't exist"
+            self.common_validation.failed(**kwargs)
             return False
 
     def config_radius_server(self, **rs_group_config):
@@ -286,7 +301,7 @@ class RadiusServer(RSWebElements):
             return 1
         return self._add_radius_server_group(**rs_group_config)
 
-    def config_extreme_networks_radius_server(self, **extreme_networks_server_config):
+    def config_extreme_networks_radius_server(self, extreme_networks_server_config, **kwargs):
         """
         - This keyword called two ways standalone way and as part of crete network policy keyword
         - for standalone assumes that user navigated the RADIUS server group add window
@@ -295,7 +310,7 @@ class RadiusServer(RSWebElements):
         - refer "Creating RADIUS Server group profile" section for ext_server_config dict in
             enterprise_dot11x_config.robot
         - Keyword Usage:
-        - ``Config Extreme Network RADIUS Server   &{extreme_networks_server_config}``
+        - ``Config Extreme Network RADIUS Server   ${extreme_networks_server_config}``
 
         :param extreme_networks_server_config: dict to create the extreme radius server
         :return: 1 if external RADIUS server group created else -1
@@ -338,7 +353,12 @@ class RadiusServer(RSWebElements):
 
         select_status = self._select_extreme_networks_radius_server(ext_rs_name)
         if select_status:
+            kwargs['pass_msg'] = "External RADIUS server group created"
+            self.common_validation.passed(**kwargs)
             return 1
+        kwargs['fail_msg'] = "config_extreme_networks_radius_server() failed. " \
+                             "Failed to create external RADIUS server group"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _select_extreme_networks_radius_server(self, server_name):
