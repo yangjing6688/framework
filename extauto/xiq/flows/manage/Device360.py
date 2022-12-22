@@ -11671,8 +11671,6 @@ class Device360(Device360WebElements):
                 print(f"port name:{port_name} and port type:{port_type}")
 
                 print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
-                # assert port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"], \
-                #     "Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')"
                 if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
                     kwargs['fail_msg'] = f"'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')."
                     self.common_validation.fault(**kwargs)
@@ -11683,9 +11681,6 @@ class Device360(Device360WebElements):
 
                     port_type_match_cli = 'true'
                     print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
-                    # assert (match_port[j][0] == port_name) and (match_port[j][
-                    #                                                 2] == port_type_match_cli), \
-                    #     "Did not found the expected port type value for expected port name value"
                     if not (match_port[j][0] == port_name) and (match_port[j][2] == port_type_match_cli):
                         kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected port type value for expected port name value."
                         self.common_validation.fault(**kwargs)
@@ -11695,16 +11690,11 @@ class Device360(Device360WebElements):
                 else:
 
                     print(f"{port_name},{port_type}")
-                    # assert port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"], \
-                    #     "Did not found the expected value. Port type column has an entry with " \
-                    #     "a value different from ('SFP+','SFP-DD')"
                     if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
                         kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
                         self.common_validation.fault(**kwargs)
 
             print(f"Verify that the 'port type' column has no empty entry")
-            # assert len(
-            #     x) == cnt_values_port_type, "Expecting to find a value for the 'port type' field of each table entry"
             if not len(x) == cnt_values_port_type:
                 kwargs['fail_msg'] = f"'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
                 self.common_validation.fault(**kwargs)
@@ -11732,8 +11722,6 @@ class Device360(Device360WebElements):
                 print(f"port name:{port_name} and port type:{port_type}")
 
                 print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
-                # assert port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"], \
-                #     "Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')"
                 if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
                     kwargs['fail_msg'] = f"'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')"
                     self.common_validation.fault(**kwargs)
@@ -11743,9 +11731,6 @@ class Device360(Device360WebElements):
                 if port_type == 'RJ45':
                     port_type_match_cli = 'DDMI is not supported on this port'
                     print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
-                    # assert (match_port[j][0] == port_name) and (match_port[j][
-                    #                                                 1] == port_type_match_cli), \
-                    #     "Did not found the expected port type value RJ45 for expected port name"
                     if not (match_port[j][0] == port_name) and (match_port[j][1] == port_type_match_cli):
                         kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected port type value RJ45 for expected port name"
                         self.common_validation.fault(**kwargs)
@@ -11753,16 +11738,11 @@ class Device360(Device360WebElements):
 
                 else:
                     print(f"{port_name},{port_type}")
-                    # assert port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"], \
-                    #     "Did not found the expected value. Port type column has an entry with a " \
-                    #     "value different from ('SFP+','SFP-DD')"
                     if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
                         kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
                         self.common_validation.fault(**kwargs)
 
             print(f"Verify that the 'port type' column has no empty entry")
-            # assert len(x) == cnt_values_port_type, \
-            #     "Expecting to find a value for the 'port type' field of each table entry"
             if not len(x) == cnt_values_port_type:
                 kwargs['fail_msg'] = f"'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
                 self.common_validation.fault(**kwargs)
