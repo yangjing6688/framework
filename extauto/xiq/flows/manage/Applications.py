@@ -162,7 +162,7 @@ class Applications(object):
         self.auto_actions.click_reference(self.app_web_elements.get_manage_apps_cell)
         sleep(3)
 
-        self.utils.print_info("Click on Edit button")
+        self.utils.print_info("Click on Delete button")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_delete)
         sleep(3)
 
@@ -172,6 +172,9 @@ class Applications(object):
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
+
+        import sys, pdb;
+        pdb.Pdb(stdout=sys.__stdout__).set_trace()
 
         self.utils.print_info("clicking on application dialog box close button")
         self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_tab)
