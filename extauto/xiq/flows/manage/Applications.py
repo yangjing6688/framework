@@ -173,9 +173,6 @@ class Applications(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        import sys, pdb;
-        pdb.Pdb(stdout=sys.__stdout__).set_trace()
-
         self.utils.print_info("clicking on application dialog box close button")
         self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_button)
 
