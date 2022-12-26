@@ -177,7 +177,7 @@ class Applications(object):
         pdb.Pdb(stdout=sys.__stdout__).set_trace()
 
         self.utils.print_info("clicking on application dialog box close button")
-        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_tab)
+        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_button)
 
         if "Custom Application was successfully deleted." in tool_tp_text[-1]:
             kwargs['pass_msg'] = "Custom Application was successfully deleted."
