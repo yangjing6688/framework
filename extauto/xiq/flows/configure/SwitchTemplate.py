@@ -4014,8 +4014,6 @@ class SwitchTemplate(object):
                 kwargs["pass_msg"] = f"Successfully add {ports} to lag {main_lag_port}"
                 self.common_validation.passed(**kwargs)
 
-
-
     def remove_lag_in_template(self, main_lag_port, ports, device='', **kwargs):
 
         """
@@ -4044,6 +4042,7 @@ class SwitchTemplate(object):
             AutoActions().click(self.sw_template_web_elements.get_lag_remove_port_button())
             sleep(2)
         AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+        sleep(2)
         if device == 'stack':
             AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
         elif device == 'standalone':

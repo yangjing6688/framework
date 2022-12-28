@@ -9,7 +9,7 @@ class DevicesWebElementsDefinitions:
 
     devices_page_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]//td/..',
+            'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td/..',
             
          }
 
@@ -247,7 +247,7 @@ class DevicesWebElementsDefinitions:
 
     device_select_check_box = \
         {
-            'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',
+            'XPATH': '//div[@class="collapsed dgrid-row dgrid-row-even ui-state-default"]/div/table/tr/td[@class="dgrid-cell dgrid-column-0 w30 dgrid-selector"]/input',
             'wait_for':    2
         }
 

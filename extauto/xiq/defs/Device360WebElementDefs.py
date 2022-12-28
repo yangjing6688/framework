@@ -1765,7 +1765,7 @@ class Device360WebElementDefs:
 
     d360_wireframe_ether_port = \
         {
-            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li[contains(@class,"port-theme-gray")]',
+            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li[contains(@class,"port-theme-white")]',
             'wait_for': 5
         }
     d360_automation_port = \
@@ -2838,7 +2838,7 @@ class Device360WebElementDefs:
 
     device360_lag_save_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-save-button"]',
+            'XPATH': '//div/span[@data-automation-tag="automation-lag-save-button"]',
             'wait_for': 5
         }
 
