@@ -9288,13 +9288,12 @@ class Device360(Device360WebElements):
                     ret.append(asic[-1])
         return ret
 
-
     def port_info_bounce_port(self, port, **kwargs):
         """
         - This keyword will bounce a port in D360
         - Assume that already in D360
         - Flow: D360 -> Monitor -> Overview -> Click on a port with 'connected' status ->
-        :param port: A port in connected status ;
+        :param port: A port in connected/disconnected status ;
                      Usage Ex: voss(1/1) , exos(1), stack(1:1)
         :return: 1 if 'Bounce Port' button has been successfully pressed; -1 if otherwise
         """
@@ -9358,7 +9357,7 @@ class Device360(Device360WebElements):
                         return False
                 self.utils.print_info("Did not find Bounce port successful message yet. Retrying...")
                 return False
-            message = self.utils.wait_till(_check_successful_message, timeout=30, delay=5, silent_failure=True,
+            message = self.utils.wait_till(_check_successful_message, timeout=120, delay=5, silent_failure=True,
                                            msg="Looking for Bounce Port successful message...")
             if message[0]:
                 kwargs['pass_msg'] = "'Bounce Port' clicked! Successful message found!"
@@ -9375,7 +9374,7 @@ class Device360(Device360WebElements):
         - This keyword will bounce PoE on a port in D360
         - Assume that already in D360
         - Flow: D360 -> Monitor -> Overview -> Click on a port with 'connected' status ->
-        :param port: A port in connected status ;
+        :param port: A port in connected/disconnected status ;
                      Usage Ex: voss(1/1) , exos(1), stack(1:1)
         :return: 1 if 'Bounce PoE' button has been successfully pressed; -1 if otherwise
         """
@@ -9438,7 +9437,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Did not find Bounce PoE successful message yet. Retrying...")
                 print(tool_tip.tool_tip_text)
                 return False
-            message = self.utils.wait_till(_check_successful_message, timeout=30, delay=5, silent_failure=True,
+            message = self.utils.wait_till(_check_successful_message, timeout=120, delay=5, silent_failure=True,
                                            msg="Looking for Bounce PoE successful message...")
             if message[0]:
                 kwargs['pass_msg'] = "'Bounce PoE' clicked! Successful message found!"
