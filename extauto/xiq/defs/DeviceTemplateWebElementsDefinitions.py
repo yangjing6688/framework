@@ -402,7 +402,7 @@ class DeviceTemplateWebElementDefinitions:
 
     ap_template_scli_enter_commands = \
         {
-            'XPATH': '//textarea[@data-dojo-attach-point="cli"]',
+            'XPATH': '//div[@id="ah/comp/configuration/commonObject/CLISupplementObject_1"]//textarea[@data-dojo-attach-point="cli"]',
             'wait_for': 5
         }
 
