@@ -96,3 +96,26 @@ class Network360MonitorElements(Network360MonitorDefinitions):
     def get_n360_device_health_column_headers(self):
         return self.weh.get_elements(self.n360_device_health_column_headers)
 
+    def get_n360_device_health_column_header_hostname(self):
+        return self.weh.get_elements(self.n360_device_health_column_header_hostname)
+
+    def get_n360_device_health_column_header_mac(self):
+        return self.weh.get_elements(self.n360_device_health_column_header_mac)
+
+    def get_n360_device_health_total_usage(self):
+        return self.weh.get_element(self.n360_device_health_total_usage)
+
+    def get_n360_device_health_download_button(self):
+        return self.weh.get_element(self.n360_device_health_download_button)
+
+    def get_n360_device_health_column_header(self):
+        return self.weh.get_elements(self.n360_device_health_column_header)
+
+    def get_n360_monitor_port_device_health_usage_table_rows(self):
+        grid_rows = self.weh.get_elements(self.n360_monitor_port_device_health_usage_table_rows)
+        if grid_rows:
+            return grid_rows
+        else:
+            return False
+
+
