@@ -14,10 +14,10 @@ class XIQSE_ConnectConfiguration(ConnectConfigWebElements):
 
     def xiqse_connect_configuration_select_tab(self, tab_name):
         """
-         - This keyword selects the specified tab of the Connect> Configuration page
-         - Keyword Usage
-          - ``XIQSE Connect Configuration Select Tab    Services``
-          - ``XIQSE Connect Configuration Select Tab    Options``
+        - This keyword selects the specified tab of the Connect> Configuration page
+        - Keyword Usage
+        - ``XIQSE Connect Configuration Select Tab    Services``
+        - ``XIQSE Connect Configuration Select Tab    Options``
 
         :param tab_name: name of the sub tab to select
         :return: 1 if action was successful, else -1
@@ -49,9 +49,9 @@ class XIQSE_ConnectConfiguration(ConnectConfigWebElements):
 
     def xiqse_connect_configuration_select_services_tab(self):
         """
-         - This keyword selects the Services tab on the Connect> Configuration Tab
-         - Keyword Usage
-          - ``XIQSE Connect Configuration Select Services Tab``
+        - This keyword selects the Services tab on the Connect> Configuration Tab
+        - Keyword Usage
+        - ``XIQSE Connect Configuration Select Services Tab``
 
         :return: 1 if action was successful, else -1
         """
@@ -60,9 +60,9 @@ class XIQSE_ConnectConfiguration(ConnectConfigWebElements):
 
     def xiqse_connect_configuration_select_options_tab(self):
         """
-         - This keyword selects the Options tab on the Connect> Configuration Tab
-         - Keyword Usage
-          - ``XIQSE Connect Configuration Select Options Tab``
+        - This keyword selects the Options tab on the Connect> Configuration Tab
+        - Keyword Usage
+        - ``XIQSE Connect Configuration Select Options Tab``
 
         :return: 1 if action was successful, else -1
         """

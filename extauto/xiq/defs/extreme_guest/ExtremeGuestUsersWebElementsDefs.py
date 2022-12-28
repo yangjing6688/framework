@@ -118,6 +118,18 @@ class ExtremeGuestUsersWebElementsDefs:
             
         }
 
+    extreme_facebook_guest_users = \
+        {
+            'XPATH': '//div[contains(@data-automation-tag, "eguest-key-metrics-facebook-btn")]//span[@class="eguest-metrics-text count eguest-facebook-count"]',
+            'wait_for': 2
+        }
+
+    extreme_linkedin_guest_users = \
+        {
+            'XPATH': '//div[contains(@data-automation-tag, "eguest-key-metrics-linkedin-btn")]//span[@class="eguest-metrics-text count eguest-linkedin-count"]',
+            'wait_for': 2
+        }
+
     extreme_guest_users_grid_row_cells = \
         {
             'XPATH': '//td[contains(@class,"x-grid-cell-gridcolumn")]',
@@ -138,7 +150,7 @@ class ExtremeGuestUsersWebElementsDefs:
 
     extreme_guest_users_delete_ok_button = \
         {
-            'XPATH': '//div[@data-automation-tag="eguest-popup-message"]//span[text()="OK"]',
+            'XPATH': '(//div[@data-automation-tag="eguest-popup-message"]//span[text()="OK"])[1]',
             'wait_for': 5
         }
 
@@ -147,6 +159,7 @@ class ExtremeGuestUsersWebElementsDefs:
             'XPATH': '(//div[@data-automation-tag="eguest-popup-message"]//span[text()="OK"])[2]',
             'wait_for': 5
         }
+
     extreme_guest_users_delete_status_ok_button = \
         {
             'XPATH': '//span[text()="OK"]',

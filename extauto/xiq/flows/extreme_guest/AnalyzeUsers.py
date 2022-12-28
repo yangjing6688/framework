@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestAnalyzeUsersWebElements import ExtremeGuestAnalyzeUsersWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class AnalyzeUsers(object):
@@ -17,19 +18,21 @@ class AnalyzeUsers(object):
         self.auto_actions = AutoActions()
         self.users_web_elem = ExtremeGuestAnalyzeUsersWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
+
 
     def go_to_analyze_users_page(self):
         """
-        -This keyword Will Navigate to Extreme Guest Analyze Users Page
+        - This keyword Will Navigate to Extreme Guest Analyze Users Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Analyze--> Users
         - Keyword Usage:
             ''Go to Analyze Users Page''
 
         :return: 1 if success
         """
-        
+
         self.utils.print_info("Clicking on Extreme Guest Analyze > Users Page")
-        self.auto_actions.click(self.users_web_elem.get_extreme_guest_analyze_users_tab())
+        self.auto_actions.click_reference(self.users_web_elem.get_extreme_guest_analyze_users_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -37,9 +40,9 @@ class AnalyzeUsers(object):
 
         return 1
 
-    def check_if_the_user_exists(self, username, location):
+    def check_if_the_user_exists(self, username, location, **kwargs):
         """
-        -This keyword Will Check if the mac address is present in the Extreme Guest Analyze Users Page
+        - This keyword Will Check if the mac address is present in the Extreme Guest Analyze Users Page
         - Keyword Usage:
             ''Check If The User Exists        ${USERNAME}        ${LOCATION_TREE}''
 
@@ -55,4 +58,7 @@ class AnalyzeUsers(object):
             self.screen.save_screen_shot()
             sleep(2)
             return 1
+
+        kwargs['fail_msg'] = "'check_if_the_user_exists()' -> Username is not in the Analyze Users Grid"
+        self.common_validation.failed(**kwargs)
         return -1

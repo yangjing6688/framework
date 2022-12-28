@@ -6,6 +6,6 @@
 #
 
 
-class NetworkCommonConfigureDeviceLagsWebElementsDefinitions:
+# class NetworkCommonConfigureDeviceLagsWebElementsDefinitions:
 
-    # LAGs Tab Fields
+#     # LAGs Tab Fields

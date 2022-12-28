@@ -5,8 +5,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.CommonValidation import CommonValidation
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from extauto.xiq.flows.manage.Client import Client
-from extauto.xiq.flows.manage.Devices import Devices
+
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.Network360PlanElements import Network360PlanElements
 
@@ -20,7 +19,8 @@ class Network360Plan:
         self.navigator = Navigator()
         self.auto_actions = AutoActions()
         self.n360_elements = Network360PlanElements()
-        self.commonValidation = CommonValidation()
+        self.common_validation = CommonValidation()
+        self.default_map = 'auto_location_01_1595321828282.tar.gz'
 
         """
             Need to build a string that represents the location of the map files
@@ -37,11 +37,11 @@ class Network360Plan:
         self.custom_file_dir = os.path.join(os.sep,*self.current_path, "configs", "maps") + os.sep
 
 
-    def search_floor_in_network360plan(self, floor_name='default'):
+    def search_floor_in_network360plan(self, floor_name='default', **kwargs):
         """
         - This keyword searches for the floor in Network360 Plan
         - Keyword Usage:
-         - ``${SEARCH_MATCHES}=     Search Floor in Network360Plan              floor_name=floor_02``
+        - ``${SEARCH_MATCHES}=     Search Floor in Network360Plan              floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :return: returns list of search matches. -1 if no matches
@@ -63,14 +63,15 @@ class Network360Plan:
 
             return search_matches
         else:
-            self.utils.print_info("No search matches found: ")
+            kwargs['fail_msg'] = f"'search_floor_in_network360plan()' -> No search matches found"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def get_aps_from_network360plan_floor(self, floor_name='default', device_type='default', retries=0, **kwargs):
         """
         - This keyword gets devices name from Network360 Plan page
         - Keyword Usage:
-         - ``${AP_MATCHES}=          Get APs From Network360Plan Floor           floor_name=floor_02``
+        - ``${AP_MATCHES}=          Get APs From Network360Plan Floor           floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :param device_type: optional - type of device - AP/switch/router/VGVA/router
@@ -117,7 +118,7 @@ class Network360Plan:
                         if not ap_list:
                             self.utils.print_info("AP Count: 0")
                             kwargs['fail_msg'] = "AP Count: 0"
-                            self.commonValidation.failed(**kwargs)
+                            self.common_validation.failed(**kwargs)
                             return 0
 
                         for ap in ap_list:
@@ -137,67 +138,70 @@ class Network360Plan:
                             self.utils.print_info("Unable to find AP Count")
 
                         kwargs['pass_msg'] = f"AP was Found {aps_on_floor}"
-                        self.commonValidation.passed(**kwargs)
+                        self.common_validation.passed(**kwargs)
                         return aps_on_floor
                     else:
                         self.utils.print_info("No search matches found: ")
             else:
                 kwargs['fail_msg'] = f"No search matches found"
-                self.commonValidation.failed(**kwargs)
-                self.utils.print_info("No search matches found: ")
+                self.common_validation.failed(**kwargs)
                 return -1
 
         except Exception as e:
             if retries < 5:
                 retries += 1
                 self.utils.print_info("Click Close Button")
-                self.auto_actions.click(self.n360_elements.get_tooltip_close_button())
+                self.auto_actions.click_reference(self.n360_elements.get_tooltip_close_button)
                 self.utils.print_info(f"Exception Caught: {e}, tring again ({retries})")
                 return self.get_aps_from_network360plan_floor(floor_name, device_type, retries, **kwargs)
             else:
-                self.utils.print_info(f"Exception Caught: {e}, max retries reached {retries}")
                 kwargs['fail_msg'] = f"Exception Caught: {e}, max retries reached {retries}"
-                self.commonValidation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
 
-    def import_map_in_network360plan(self, map_file_name):
+    def import_map_in_network360plan(self, map_file_name, **kwargs):
         """
         - This keyword will Import Map file in Network360 Plan page
         - Keyword Usage:
-         - Import Map In Network360Plan    ${MAP_FILE_NAME}
+        - Import Map In Network360Plan    ${MAP_FILE_NAME}
 
         :param map_file_name: Map File Name to import from /testsuites/xiq/functional/import_map_files directory
         :return: 1 if map uploaded successfully on Network360 Plan else -1
         """
 
+        if not map_file_name:
+            map_file_name = self.default_map
+
         self.navigator.navigate_to_network360plan()
 
         if self.n360_elements.get_import_map_button():
             self.utils.print_info("Click Import Map Button")
-            self.auto_actions.click(self.n360_elements.get_import_map_button())
+            self.auto_actions.click_reference(self.n360_elements.get_import_map_button)
             self.screen.save_screen_shot()
             sleep(2)
         else:
             self.utils.print_info("Click Import Map Button")
-            self.auto_actions.click(self.n360_elements.get_import_map_button_from_loaded_account())
+            self.auto_actions.click_reference(self.n360_elements.get_import_map_button_from_loaded_account)
             self.screen.save_screen_shot()
             sleep(2)
 
         self.utils.print_info(f"Importing Map File : {map_file_name}")
         map_file_location = self.custom_file_dir + map_file_name
+        map_file_location = map_file_location.replace(":", ":\\")
         upload_button = self.n360_elements.get_import_map_upload_button()
         self.auto_actions.send_keys(upload_button, map_file_location)
 
         self.utils.print_info("Click Import Button")
-        self.auto_actions.click(self.n360_elements.get_import_button())
+        self.auto_actions.click_reference(self.n360_elements.get_import_button)
         sleep(10)
 
         if self.n360_elements.get_import_map_successful_text():
             tootip_text = self.n360_elements.get_import_map_successful_text().text
             if tootip_text:
                 if "Your network map was successfully imported" in tootip_text:
-                    self.utils.print_info(f"{tootip_text}")
+                    kwargs['pass_msg'] = f"'import_map_in_network360plan()' -> {tootip_text}"
+                    self.common_validation.passed(**kwargs)
                     return 1
 
         if self.n360_elements.get_import_map_already_exist_text():
@@ -205,12 +209,14 @@ class Network360Plan:
             if tootip_already_exist:
                 if "already exists" in tootip_already_exist:
                     self.utils.print_info(f"{tootip_already_exist}")
-                    self.utils.print_info("Map with Same Name Already Imported, So No need to Import Again")
+                    kwargs['pass_msg'] = f"'import_map_in_network360plan()' -> Map with Same Name Already Imported, " \
+                                         f"So No need to Import Again"
 
                     self.utils.print_info("Click Close Button")
-                    self.auto_actions.click(self.n360_elements.get_tooltip_close_button())
+                    self.auto_actions.click_reference(self.n360_elements.get_tooltip_close_button)
                     sleep(2)
+                    self.common_validation.passed(**kwargs)
                     return 1
+        kwargs['fail_msg'] = f"'import_map_in_network360plan()' -> Failed to import map in network 360 plan"
+        self.common_validation.fault(**kwargs)
         return -1
-
-

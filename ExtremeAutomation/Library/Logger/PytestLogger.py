@@ -1,5 +1,6 @@
 import imp
 import sys
+import pytest
 
 from functools import partial, partialmethod
 from pytest_testconfig import config
@@ -117,3 +118,7 @@ class PytestLogger(logging.Logger, metaclass=Singleton):
         self.configure_stream_handler()
         
         self._logger_initialised = True
+
+    def fail(self, message):
+        self.error(message)
+        pytest.fail(f"{Colors.Fg.RED}{message}{Colors.Fg.RESET}")

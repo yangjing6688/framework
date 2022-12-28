@@ -25,7 +25,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         self.auto_actions.send_keys(self.get_ssid_name_field(), ssid)
 
         self.utils.print_info("Entering Broadcast SSID name:{}".format(ssid))
-        self.auto_actions.click(self.get_ssid_broadcost_name_field())
+        self.auto_actions.click_reference(self.get_ssid_broadcost_name_field)
         sleep(2)
 
     def _add_employee_approval_domain(self, domain):
@@ -35,19 +35,19 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         :return:
         """
         self.utils.print_info("Clicking on the employee approval button")
-        self.auto_actions.click(self.get_add_employee_approval_button())
+        self.auto_actions.click_reference(self.get_add_employee_approval_button)
         sleep(2)
 
         self.utils.print_info("Entering domain name:{}".format(domain))
         self.auto_actions.send_keys(self.get_domain_name(), domain)
 
         self.utils.print_info("Click on domain add button")
-        self.auto_actions.click(self.get_domain_name_add_button())
+        self.auto_actions.click_reference(self.get_domain_name_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
         self.utils.print_info("Click on employee approval done button")
-        self.auto_actions.click(self.get_employee_approval_domain_name_done_button())
+        self.auto_actions.click_reference(self.get_employee_approval_domain_name_done_button)
         sleep(2)
         return 1
 
@@ -66,7 +66,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
             return 1
 
         self.utils.print_info("Click on group create one")
-        self.auto_actions.click(self.get_user_group_create())
+        self.auto_actions.click_reference(self.get_user_group_create)
         sleep(2)
 
         self.utils.print_info("Entering the group name:{}".format(group_name))
@@ -81,7 +81,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
 
         self.screen.save_screen_shot()
         self.utils.print_info("Click on groups save button")
-        self.auto_actions.click(self.get_user_group_save_button())
+        self.auto_actions.click_reference(self.get_user_group_save_button)
         sleep(5)
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
@@ -112,7 +112,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
 
         self.utils.print_info("Selecting Guests can self-register, then sign in radio button")
         if self.get_guest_self_register_sign_in_radio_button():
-            self.auto_actions.click(self.get_guest_self_register_sign_in_radio_button())
+            self.auto_actions.click_reference(self.get_guest_self_register_sign_in_radio_button)
             sleep(2)
 
         self.screen.save_screen_shot()
@@ -142,25 +142,25 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         landing_page = cwp_config.get('landing_page')
 
         self.utils.print_info("Click on Customized captive web portal")
-        self.auto_actions.click(self.get_customized_cwp())
+        self.auto_actions.click_reference(self.get_customized_cwp)
         sleep(2)
 
         self.utils.print_info(f"Enter the captive web portal name:{cwp_name}")
         self.auto_actions.send_keys(self.get_cwp_name_field(), cwp_name)
 
         if upa:
-            self.auto_actions.click(self.get_user_policy_acceptance_slide_bar())
+            self.auto_actions.click_reference(self.get_user_policy_acceptance_slide_bar)
             sleep(2)
         if success_page:
-            self.auto_actions.click(self.get_success_page_slide_bar())
+            self.auto_actions.click_reference(self.get_success_page_slide_bar)
             sleep(2)
 
         if landing_page:
-            self.auto_actions.click(self.get_cwp_landing_page_side_bar())
+            self.auto_actions.click_reference(self.get_cwp_landing_page_side_bar)
             sleep(2)
         self.screen.save_screen_shot()
         self.utils.print_info("Click on customize CWP done button")
-        self.auto_actions.click(self.get_cwp_done_button())
+        self.auto_actions.click_reference(self.get_cwp_done_button)
         sleep(2)
         return 1
 
@@ -174,7 +174,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
 
         self.utils.print_info("Selecting Guests accept the use policy before accessing the network radio button")
         if self.get_guest_access_usr_policy_bf_accessing_nw():
-            self.auto_actions.click(self.get_guest_access_usr_policy_bf_accessing_nw())
+            self.auto_actions.click_reference(self.get_guest_access_usr_policy_bf_accessing_nw)
             self.screen.save_screen_shot()
             sleep(2)
         self._guest_access_cwp_config(**cwp_config)
@@ -194,13 +194,13 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
 
         if not self.get_guest_access_nw_without_login_radio_button():
             self.utils.print_info("Selecting Unsecured(Open) Network")
-            self.auto_actions.click(self.get_unsecured_network_radio_button())
+            self.auto_actions.click_reference(self.get_unsecured_network_radio_button)
             sleep(2)
 
         guest_access_nw_without_login = unsecure_config.get('guest_access_nw_without_login', 'Disable')
         if guest_access_nw_without_login.upper() == "ENABLE":
             self.utils.print_info("Selecting guest access network without login radio button")
-            self.auto_actions.click(self.get_guest_access_nw_without_login_radio_button())
+            self.auto_actions.click_reference(self.get_guest_access_nw_without_login_radio_button)
             self.screen.save_screen_shot()
             sleep(2)
             return 1
@@ -223,7 +223,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         self.utils.print_info(config)
         self.utils.print_info("Enable global password (PSK) credentials for your guests options")
         if not self.get_global_passwd_cred_for_guest_to_login().is_selected():
-            self.auto_actions.click(self.get_global_passwd_cred_for_guest_to_login())
+            self.auto_actions.click_reference(self.get_global_passwd_cred_for_guest_to_login)
             sleep(2)
 
         self.screen.save_screen_shot()
@@ -231,7 +231,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         cwp_config = config.get('cwp_config')
         if enable_cwp.upper() == 'ENABLE':
             self.utils.print_info("Enable captive web portal")
-            self.auto_actions.click(self.get_enable_cwp_check_box())
+            self.auto_actions.click_reference(self.get_enable_cwp_check_box)
             sleep(2)
             self._guest_access_cwp_config(**cwp_config)
 
@@ -250,7 +250,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         """
         self.utils.print_info("Enable guests self register sign in radio button")
         if not self.get_guests_self_reg_sign_in_employee_approve().is_selected():
-            self.auto_actions.click(self.get_guests_self_reg_sign_in_employee_approve())
+            self.auto_actions.click_reference(self.get_guests_self_reg_sign_in_employee_approve)
             sleep(2)
         self.screen.save_screen_shot()
         self.utils.print_info("Configure the captive web portal")
@@ -282,7 +282,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         if status.upper() == 'ENABLE':
             self.utils.print_info("Enabling Set the MAC binding numbers per private PSK option")
             if not self.get_mac_binding_num_per_ppsk().is_selected():
-                self.auto_actions.click(self.get_mac_binding_num_per_ppsk())
+                self.auto_actions.click_reference(self.get_mac_binding_num_per_ppsk)
                 sleep(2)
 
             self.utils.print_info("Enter MAC binding numbers per private PSK:{}".format(mac_binding_num))
@@ -290,7 +290,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
             sleep(2)
         else:
             if self.get_mac_binding_num_per_ppsk().is_selected():
-                self.auto_actions.click(self.get_mac_binding_num_per_ppsk())
+                self.auto_actions.click_reference(self.get_mac_binding_num_per_ppsk)
                 sleep(2)
         return 1
 
@@ -305,14 +305,14 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         if status.upper() == 'ENABLE':
             self.utils.print_info("Enabling maximum number of clients per private PSK option")
             if not self.get_max_num_clients_per_ppsk().is_selected():
-                self.auto_actions.click(self.get_max_num_clients_per_ppsk())
+                self.auto_actions.click_reference(self.get_max_num_clients_per_ppsk)
                 sleep(2)
             self.utils.print_info("Enter the max number of clients per PPSK:{}".format(num_clients))
             self.auto_actions.send_keys(self.get_max_clients_per_ppsk(), num_clients)
             sleep(2)
         else:
             if self.get_max_num_clients_per_ppsk().is_selected():
-                self.auto_actions.click(self.get_max_num_clients_per_ppsk())
+                self.auto_actions.click_reference(self.get_max_num_clients_per_ppsk)
                 sleep(2)
         return 1
 
@@ -324,7 +324,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         """
         self.utils.print_info("Click on Create credentials for guests to log in to your network Radio button")
         if not self.get_create_guest_credentials_to_login_nw().is_selected():
-            self.auto_actions.click(self.get_create_guest_credentials_to_login_nw())
+            self.auto_actions.click_reference(self.get_create_guest_credentials_to_login_nw)
             sleep(2)
 
         self.screen.save_screen_shot()
@@ -369,7 +369,7 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         self.utils.print_info("***************************************************")
 
         self.utils.print_info("Selecting the Secure Network")
-        self.auto_actions.click(self.get_secured_network_radio_button())
+        self.auto_actions.click_reference(self.get_secured_network_radio_button)
         sleep(2)
 
         create_guest_credentials_to_login = secure_nw_config.get('create_guest_credentials_to_login', 'Disable')
@@ -389,8 +389,8 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         - Create secure and unsecure guest networks
         - Assuming navigated to Configure-->Network Policies-->Wireless Networks
         - Keyword Usage:
-         - ``Create Guest Access Network     &{CONFIG}``
-         - For creation of &{CONFIG} refer guest_access_config.robot
+        - ``Create Guest Access Network     &{CONFIG}``
+        - For creation of &{CONFIG} refer guest_access_config.robot
 
         :param config: configuration parameter dict
         :return: 1 if created else -1
@@ -400,11 +400,11 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         guest_auth_config = config.get('guest_auth_config')
 
         self.utils.print_info("Click on wireless network add drop down button")
-        self.auto_actions.click(self.get_wireless_nw_add_button())
+        self.auto_actions.click_reference(self.get_wireless_nw_add_button)
         sleep(5)
 
         self.utils.print_info("Click on Guest Access Network menu item")
-        self.auto_actions.click(self.get_guest_access_nw_menu_item())
+        self.auto_actions.click_reference(self.get_guest_access_nw_menu_item)
         sleep(2)
 
         self.utils.print_info("Configure SSID and Broadcast SSID name")
@@ -418,12 +418,12 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
 
         sleep(2)
         self.utils.print_info("Clicking on Guest access save button")
-        self.auto_actions.click(self.get_guest_access_network_save_button())
+        self.auto_actions.click_reference(self.get_guest_access_network_save_button)
         sleep(5)
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking on Guest access network go to deploy button")
-        self.auto_actions.click(self.get_guest_network_go_to_deploy_button())
+        self.auto_actions.click_reference(self.get_guest_network_go_to_deploy_button)
         sleep(5)
         return 1

@@ -273,3 +273,10 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
 
     def get_ap_template_country_code_list(self):
         return self.weh.get_elements(self.ap_template_country_code_list)
+
+    def get_device_switch_template_menue_filter(self):
+        return self.weh.get_element(self.device_switch_template_menue_filter)
+
+    def get_device_ap_template_search_inputfield(self):
+        return self.weh.get_element(self.device_ap_template_search_inputfield)
+

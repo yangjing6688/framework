@@ -12,7 +12,7 @@ class ImageAnalysis:
         """
         - Finds the input image in UI
         - Keyword Usage:
-         - ``Find Image    ${input_image}    ${test_type}``
+        -  ``Find Image    ${input_image}    ${test_type}``
 
         :param input_image: .png image to find
         :param test_type: test_type of image

@@ -16,9 +16,9 @@ class XIQSE_LicenseOnboard(LicenseOnboardWebElements):
 
     def xiqse_confirm_onboard_page_displayed(self):
         """
-         - This keyword confirms the Onboard to ExtremeCloud IQ page is being displayed.
-         - Keyword Usage
-          - ``XIQSE Confirm Onboard Page Displayed``
+        - This keyword confirms the Onboard to ExtremeCloud IQ page is being displayed.
+        - Keyword Usage
+        - ``XIQSE Confirm Onboard Page Displayed``
 
         :return: 1 if action successful, else -1
         """
@@ -55,9 +55,9 @@ class XIQSE_LicenseOnboard(LicenseOnboardWebElements):
 
     def get_xiqse_serial_number_from_onboard_page(self):
         """
-         - This keyword returns the XIQ-SE serial number listed on the Advanced section of the Welcome/Onboard page.
-         - Keyword Usage
-          - ``Get XIQSE Serial Number from Onboard Page``
+        - This keyword returns the XIQ-SE serial number listed on the Advanced section of the Welcome/Onboard page.
+        - Keyword Usage
+        - ``Get XIQSE Serial Number from Onboard Page``
 
         :return: XIQ-SE serial number, if found;  else, -1
         """
@@ -86,10 +86,10 @@ class XIQSE_LicenseOnboard(LicenseOnboardWebElements):
 
     def get_xiqse_serial_number_label_value_from_onboard_page(self):
         """
-         - This keyword returns the XIQ-SE serial number, found on the Welcome/Onboard page.
-         - It is assumed the Welcome/Onboard page is displayed and the Advanced section is expanded.
-         - Keyword Usage
-          - ``Get XIQSE Serial Number Label Value from Onboard Page``
+        - This keyword returns the XIQ-SE serial number, found on the Welcome/Onboard page.
+        - It is assumed the Welcome/Onboard page is displayed and the Advanced section is expanded.
+        - Keyword Usage
+        - ``Get XIQSE Serial Number Label Value from Onboard Page``
 
         :return: XIQ-SE serial number, if found;  else, empty string
         """
@@ -115,11 +115,11 @@ class XIQSE_LicenseOnboard(LicenseOnboardWebElements):
 
     def xiqse_onboard_to_xiq(self, email, pwd):
         """
-         - This keyword enters the email and password and clicks the Onboard button on the Onboard to XIQ page.
-         - It is assumed the Onboard to ExtremeCloud IQ page is displayed.
-         - NOTE: this keyword does not check that the onboard itself was successful.
-         - Keyword Usage
-          - ``XIQSE Onboard to XIQ``
+        - This keyword enters the email and password and clicks the Onboard button on the Onboard to XIQ page.
+        - It is assumed the Onboard to ExtremeCloud IQ page is displayed.
+        - NOTE: this keyword does not check that the onboard itself was successful.
+        - Keyword Usage
+        - ``XIQSE Onboard to XIQ``
 
         :param email: value to enter in the Email field
         :param pwd: value to enter in the Password field

@@ -47,7 +47,7 @@ class A3Inventory(A3InventoryWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking on Sign In button")
-        self.auto_actions.click(self.get_a3_login_button())
+        self.auto_actions.click_reference(self.get_a3_login_button)
         sleep(8)
 
         self.screen.save_screen_shot()

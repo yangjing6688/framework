@@ -20,6 +20,7 @@ class XAPISwitch:
             device_model='5520',stack_mac='null'):
         """
         - The keyword is used to extract a device ID of the specified type from the List
+
         :param deviceList:  - List of all devices
         :param device_type:  - Type of device needed
             EXOS - 5520 , 5420 EXOS devices
@@ -241,6 +242,7 @@ class XAPISwitch:
     def buildCLICommandSet(self):
         '''
         Initiates the CLICommand dictionary with the list of commands for all the supported modules
+
         :return:None
         '''
         self.cliCommandSet['LLDP'] = {

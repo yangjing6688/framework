@@ -23,7 +23,7 @@ class RolesWebElementsFlow(RolesWebElements):
         """
         self.utils.print_info("Selecting Roles from menu...")
 
-        if self.auto_actions.click(self.get_roles()) == 1:
+        if self.auto_actions.click_reference(self.get_roles) == 1:
             sleep(2)
             self.utils.print_info("Click New Role ")
             element = self.weh.get_element(self.role_button)

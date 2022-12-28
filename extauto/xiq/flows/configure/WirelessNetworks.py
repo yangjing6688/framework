@@ -133,7 +133,7 @@ class WirelessNetworks:
                 self._wireless_wifi2_use_checkbox('Enable')
 
                 self.utils.print_info("Clicking Yes button for WiFi6 Dialog")
-                self.auto_actions.click(self.wireless_web_elements.get_wireless_wifi2_checkbox_dialog_yes_button())
+                self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_wifi2_checkbox_dialog_yes_button)
 
             else:
                 self._wireless_wifi2_use_checkbox('Disable')
@@ -146,7 +146,7 @@ class WirelessNetworks:
         :return: 1 if configured else -1
         """
         self.utils.print_info("Click on key-management drop down")
-        self.auto_actions.click(self.wireless_web_elements.get_key_management_drop_down())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_key_management_drop_down)
         sleep(2)
         key_options = self.wireless_web_elements.get_key_management_options()
         self.auto_actions.select_drop_down_options(key_options, key_management)
@@ -156,7 +156,7 @@ class WirelessNetworks:
             return 1
 
         self.utils.print_info("Click on encryption method drop down")
-        self.auto_actions.click(self.wireless_web_elements.get_encryption_method_drop_down())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_encryption_method_drop_down)
         sleep(2)
         encryption_opt = self.wireless_web_elements.get_encryption_method_options()
         self.auto_actions.select_drop_down_options(encryption_opt, encryption_method)
@@ -170,19 +170,19 @@ class WirelessNetworks:
         """
         self.utils.print_info("selecting Authentication type for wireless network: {}".format(auth_type))
         if auth_type.upper() == "OPEN":
-            self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_open())
+            self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_authtype_open)
             return 1
         elif auth_type.upper() == "ENTERPRISE":
-            self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_enterprise())
+            self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_authtype_enterprise)
             return 1
         elif auth_type.upper() == "PSK":
-            self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_personal())
+            self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_authtype_personal)
             return 1
         elif auth_type.upper() == "PPSK":
-            self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_ppsk())
+            self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_authtype_ppsk)
             return 1
         elif auth_type.upper() == "ENHANCED":
-            self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_enhanced())
+            self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_authtype_enhanced)
             return 1
         else:
             return -1
@@ -199,7 +199,7 @@ class WirelessNetworks:
         sleep(1)
 
         self.utils.print_info("Enter the Wireless Networks Broadcast Name:{}".format(ssid_name))
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_broadcast_name_field())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_broadcast_name_field)
         sleep(1)
 
         # select WIFI0 interfaces for Wireless Networks
@@ -238,7 +238,7 @@ class WirelessNetworks:
         self.utils.print_info("Selecting User Profiles")
         if not user_profile_config == 'None':
             usr_profile_name = user_profile_config.get('profile_name')
-            if not self.user_group.select_wireless_user_profile(usr_profile_name):
+            if not self.user_group.select_wireless_user_profile(usr_profile_name, ignore_failure=True):
                 self.utils.print_info(f"User Profile:{usr_profile_name} not created !!!")
                 return -1
 
@@ -256,7 +256,7 @@ class WirelessNetworks:
         sleep(2)
 
         self.utils.print_info("click on wireless network save button")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_network_save_button)
         self.screen.save_screen_shot()
         sleep(2)
         return 1
@@ -299,7 +299,7 @@ class WirelessNetworks:
         sleep(2)
 
         self.utils.print_info("click on wireless network save button")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_network_save_button)
         self.screen.save_screen_shot()
         sleep(2)
         return 1
@@ -343,17 +343,17 @@ class WirelessNetworks:
         if status == "Enable":
             if not self.wireless_web_elements.get_pcg_use_checkbox().is_selected():
                 self.utils.print_info("Clicking on PCG use check box")
-                self.auto_actions.click(self.wireless_web_elements.get_pcg_use_checkbox())
+                self.auto_actions.click_reference(self.wireless_web_elements.get_pcg_use_checkbox)
                 if pcg_type == 'AP-Based':
                     self.utils.print_info("Selecting AP-Based radio button")
-                    self.auto_actions.click(self.wireless_web_elements.get_ap_based_radio_button())
+                    self.auto_actions.click_reference(self.wireless_web_elements.get_ap_based_radio_button)
                 if pcg_type == 'Key-Based':
                     self.utils.print_info("Selecting Key-Based radio button")
-                    self.auto_actions.click(self.wireless_web_elements.get_key_based_radio_button())
+                    self.auto_actions.click_reference(self.wireless_web_elements.get_key_based_radio_button)
         else:
             self.utils.print_info("Un selecting pcg use check box")
             if self.wireless_web_elements.get_pcg_use_checkbox().is_selected():
-                self.auto_actions.click(self.wireless_web_elements.get_pcg_use_checkbox())
+                self.auto_actions.click_reference(self.wireless_web_elements.get_pcg_use_checkbox)
 
     def _mac_bindings_per_ppsk_checkbox(self):
         """
@@ -449,14 +449,14 @@ class WirelessNetworks:
         sleep(2)
 
         self.utils.print_info("click on wireless network save button")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_network_save_button)
         return 1
 
     def _config_enhanced_open_wireless_network(self, **auth_profile):
         """
         - Configure Enhanced Open SSID Authentication Wireless Network
-        :param auth_profile: (dict) Authentication profile 
-        :return: 1 if success else -1        
+        :param auth_profile: (dict) Authentication profile
+        :return: 1 if success else -1
         """
         self.utils.print_info(60 * '*')
         self.utils.print_info("Configuration parameters for enhanced open network")
@@ -480,7 +480,7 @@ class WirelessNetworks:
             return -1
 
         self.utils.print_info("Click on wireless network save button.")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_network_save_button)
         return 1
 
     def _config_standard_wireless_network(self, **kwargs):
@@ -495,7 +495,7 @@ class WirelessNetworks:
         auth_profile = kwargs.get('auth_profile')
 
         self.utils.print_info("Click on wireless network add drop down button")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_nw_add_button())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_nw_add_button)
         sleep(5)
 
         self.utils.print_info("Configure the SSID Name , Broadcast ssid name, and radio config ")
@@ -517,9 +517,9 @@ class WirelessNetworks:
         - create open, PPSK, PSK, enterprise networks based authentication types
         - Assumption is already navigated to the network policy tab
         - Keyword Usage:
-         - ``Create Wireless Network   &{WIRELESS_NETWORK_CONFIG}``
-         - For creation of different config dict refer wireless_networks_config.robot, private_pre_shared_key_config.robot
-         - guest_access_config.robot, wpa_personal_config.robot, social_login_config.robot, cloud_pin_config.robot
+        - ``Create Wireless Network   &{WIRELESS_NETWORK_CONFIG}``
+        - For creation of different config dict refer wireless_networks_config.robot, private_pre_shared_key_config.robot
+        - guest_access_config.robot, wpa_personal_config.robot, social_login_config.robot, cloud_pin_config.robot
 
         :param wireless_network_conf: configuration parameter dictionary
         :return: 1 if successfully created else -1
@@ -528,7 +528,7 @@ class WirelessNetworks:
         network_type = wireless_network_conf.get('network_type', 'None')
 
         self.utils.print_info("Click on  wireless network tab tab")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_networks_tab())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_networks_tab)
         sleep(5)
 
         if self._search_wireless_network_name_in_grid(ssid_name):
@@ -544,18 +544,18 @@ class WirelessNetworks:
         :return: True if success
         """
         self.utils.print_info("Click on  wireless network tab")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_networks_tab())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_networks_tab)
         sleep(5)
 
         self.utils.print_info("Click on wireless network add drop down button")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_nw_add_button())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_nw_add_button)
         sleep(5)
 
         self.utils.print_info("Click on standard network add button")
-        self.auto_actions.click(self.wireless_web_elements.get_standard_nw_menu())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_standard_nw_menu)
 
         self.utils.print_info("Select Enterprise WPA/WPA2/WPA3 card menu")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_authtype_enterprise())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_authtype_enterprise)
 
         return True
 
@@ -601,7 +601,7 @@ class WirelessNetworks:
             self._config_personal_key_method(key_encryption['key_management'])
 
             self.utils.print_info("Configuring SAE Group from drop down")
-            self.auto_actions.click(self.wireless_web_elements.get_sae_group_drop_down())
+            self.auto_actions.click_reference(self.wireless_web_elements.get_sae_group_drop_down)
             sleep(2)
             key_options = self.wireless_web_elements.get_sae_group_options()
             for opt in key_options:
@@ -632,12 +632,12 @@ class WirelessNetworks:
         self.utils.print_info("Selecting User Profiles")
         if not user_profile_config == 'None':
             usr_profile_name = user_profile_config.get('profile_name')
-            if not self.user_group.select_wireless_user_profile(usr_profile_name):
+            if not self.user_group.select_wireless_user_profile(usr_profile_name, ignore_failure=True):
                 self.utils.print_info(f"User Profile:{usr_profile_name} not created !!!")
                 return -1
 
         self.utils.print_info("click on wireless network save button")
-        self.auto_actions.click(self.wireless_web_elements.get_wireless_network_save_button())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_network_save_button)
         sleep(2)
         self.screen.save_screen_shot()
         return 1
@@ -654,7 +654,7 @@ class WirelessNetworks:
         self.utils.print_info(60 * '*')
 
         self.utils.print_info("Click on WPA2 key-type drop down")
-        self.auto_actions.click(self.wireless_web_elements.get_personal_wpa2_key_type_drop_down())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_personal_wpa2_key_type_drop_down)
         sleep(2)
         key_options = self.wireless_web_elements.get_personal_wpa2_key_type_options()
         for opt in key_options:
@@ -679,7 +679,7 @@ class WirelessNetworks:
         self.utils.print_info(60 * '*')
 
         self.utils.print_info("Click on key-management drop down")
-        self.auto_actions.click(self.wireless_web_elements.get_key_management_drop_down())
+        self.auto_actions.click_reference(self.wireless_web_elements.get_key_management_drop_down)
         sleep(2)
         key_options = self.wireless_web_elements.get_key_management_options()
         for opt in key_options:
@@ -697,13 +697,13 @@ class WirelessNetworks:
         """
         if status.upper() == "DISABLE":
             if self.wireless_web_elements.get_transition_mode_button().is_selected():
-                self.auto_actions.click(self.wireless_web_elements.get_transition_mode_button())
+                self.auto_actions.click_reference(self.wireless_web_elements.get_transition_mode_button)
                 sleep(2)
             return False
         if status.upper() == "ENABLE":
             self.utils.print_info("Enable Transition Mode Button")
             if not self.wireless_web_elements.get_transition_mode_button().is_selected():
-                self.auto_actions.click(self.wireless_web_elements.get_transition_mode_button())
+                self.auto_actions.click_reference(self.wireless_web_elements.get_transition_mode_button)
                 sleep(10)
             return True
 

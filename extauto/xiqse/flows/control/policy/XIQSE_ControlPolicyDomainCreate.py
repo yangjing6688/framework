@@ -27,12 +27,12 @@ class XIQSE_ControlPolicyDomainCreate(ControlPolicyDomainCreateWebElements):
 
     def xiqse_control_policy_create_domain(self, domain_name):
         """
-         - This keyword selects the "Create Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -   and create a new policy domain
-         -   NOTE:  If the domain exists, then it will get deleted and then re-created.
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse control policy create domain      <domain_name>
+        - This keyword selects the "Create Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -   and create a new policy domain
+        -   NOTE:  If the domain exists, then it will get deleted and then re-created.
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse control policy create domain      <domain_name>
 
         :return: 1 if action was successful, else -1
         """
@@ -72,7 +72,7 @@ class XIQSE_ControlPolicyDomainCreate(ControlPolicyDomainCreateWebElements):
             if ok_disabled == 'true':
                 self.utils.print_info("'OK' button is disabled in Create Domain window")
                 self.screen.save_screen_shot()
-                self.auto_actions.click(self.get_create_domain_cancel_button())
+                self.auto_actions.click_reference(self.get_create_domain_cancel_button)
             else:
                 self.utils.print_info("Clicking 'OK' button in Create Domain window")
                 self.auto_actions.click(create_ok_bttn)
@@ -80,7 +80,7 @@ class XIQSE_ControlPolicyDomainCreate(ControlPolicyDomainCreateWebElements):
         else:
             self.utils.print_info("Unable to locate 'OK' button in Create Domain window")
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.get_create_domain_cancel_button())
+            self.auto_actions.click_reference(self.get_create_domain_cancel_button)
 
         return ret_val
 
@@ -94,12 +94,12 @@ class XIQSE_ControlPolicyDomainCreate(ControlPolicyDomainCreateWebElements):
 
         if self.get_create_domain_success_msg():
             self.utils.print_info("Clicking OK button in the 'Create Domain successful' dialog")
-            self.auto_actions.click(self.get_create_domain_success_ok_button())
+            self.auto_actions.click_reference(self.get_create_domain_success_ok_button)
             ret_val = 1
         elif self.get_create_domain_error_msg():
             self.utils.print_info(f"Policy domain name {domain_name} already exists")
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.get_create_domain_error_ok_button())
+            self.auto_actions.click_reference(self.get_create_domain_error_ok_button)
         else:
             self.utils.print_info("Create Domain confirmation message is not seen.")
             self.screen.save_screen_shot()

@@ -76,68 +76,68 @@ class DeviceActionsDefs:
 
     device_actions_revert_device_to_template_menu_item = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-switch-revert-template"]',
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains (@data-automation-tag, "-revert-template")]',
             'wait_for': 2
         }
 
     assign_devices_search_box = \
         {
             'XPATH': '//*[@data-automation-tag="automation-manage-device-assign-location-search-field"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     search_location_grid = \
         {
             'XPATH': '//*[@data-dojo-attach-point="mapTree"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnAssign"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     locations_generic = \
         {
             'XPATH': '//*[@data-folder-type="GENERIC"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     locations_building = \
         {
             'XPATH': '//*[@data-folder-type="BUILDING"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     locations_floors = \
         {
             'XPATH': '//*[@data-folder-type="FLOOR"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_search_location = \
         {
             'XPATH': '//*[@data-folder-type="GENERIC"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_search_building = \
         {
             'XPATH': '//*[@data-folder-type="BUILDING"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_search_building_expand = \
         {
             'XPATH': '//*[@data-folder-type="BUILDING"]//span[@class="plan-leftnav oc-icon"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     assign_location_search_floors = \
         {
             'XPATH': '//*[@data-folder-type="FLOOR"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_actions__change_management_status = \
@@ -149,7 +149,7 @@ class DeviceActionsDefs:
     assign_location_select_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnSelect"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     clear_audit_mismatch_button = \
@@ -161,13 +161,13 @@ class DeviceActionsDefs:
     device_location_ap_node = \
         {
             'CSS_SELECTOR': '.map-node',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     device_location_floor_map_section = \
         {
             'XPATH': '//div[@data-dojo-attach-point="mapBackground"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     multiple_device_reset_button = \
@@ -423,4 +423,64 @@ class DeviceActionsDefs:
             'DESC': 'Digital Twin: Actions > Revert Device to Template Defaults',
             'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-dt-revert-template"]',
             'wait_for': 5
+        }
+
+    clone_device_btn = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-clone-device"]',
+            'wait_for': 2
+        }
+
+    replacement_device_dropdown = \
+        {
+            'XPATH': '//*[contains(@class,"field-replDevice")]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    replacement_device_items = \
+        {
+            'XPATH': '//*[@class="dgrid-cell dgrid-column-4 field-replDevice overflow-visible w130"]//li',
+            'wait_for': 2
+        }
+
+    replacement_serial_number_dropdown = \
+        {
+            'XPATH': '//*[contains(@class,"field-replacementSerialNumber")]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    replacement_serial_number_items = \
+        {
+            'XPATH': '//*[@class="dgrid-cell dgrid-column-5 field-replacementSerialNumberOb overflow-visible w220"]//li',
+            'wait_for': 2
+        }
+
+    clone_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-device"]',
+            'wait_for': 2
+        }
+
+    yes_confirmation_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 2
+        }
+
+    loading_clone_configuration = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-loading-div"]',
+            'wait_for': 2
+        }
+
+    warning_message_disconnected = \
+        {
+            'XPATH': '//*[contains(text(), "disconnected or in the unmanaged state.")]',
+            'wait_for': 2
+        }
+
+    cancel_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-cancel"]',
+            'wait_for': 2
         }

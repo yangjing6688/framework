@@ -44,8 +44,14 @@ class TelnetAgent(CliAgent):
         if self.connected and self.logged_in:
             try:
                 output = self.send_command("")
+                # This is an array and we must go through all of the prompts...
                 if '*** IDLE TIMEOUT ***' in output:
+                    self.debug_print(f"Found issue in output ('*** IDLE TIMEOUT ***'), setting flags to log back in: {output}")
                     self.connected = False
+                    self.logged_in = False
+                # check to see if any of the prompts are in the output
+                elif any(x in self.device.login_prompt for x in output):
+                    self.debug_print(f"Found issue in output ({self.device.login_prompt}), setting flags to log back in: {output}")
                     self.logged_in = False
                 else:
                     self.debug_print("Already connected and logged in")
@@ -181,7 +187,7 @@ class TelnetAgent(CliAgent):
         """
         if not self.connected:
             raise EOFError("Telnet session closed.")
-        return self.main_session.read_until(text.encode("ascii")).decode("utf-8")
+        return self.main_session.read_until(text.encode("ascii"), timeout=5).decode("utf-8")
 
     def read_until_list_match(self, _list):
         """

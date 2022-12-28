@@ -48,28 +48,34 @@ class LoginWebElementsDefinitions:
     click_about_extreme_cloudiq_link = \
         {
             'XPATH': "//*[@data-automation-tag='automation-account-menu-about-link']",
-            'wait_for': 2
+            'wait_for': 10
         }
 
     data_center_name = \
         {
             'DESC': 'Data Center Name',
             'XPATH': "//*[@data-dojo-attach-point='dataCenterName']",
-            'wait_for': 5
+            'wait_for': 10
         }
 
     user_account_nav = \
         {
             'CSS_SELECTOR': '.ah-header-account-info-username',
             'XPATH': '//*[@data-dojo-attach-point="accountInfoUsername"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     cancel_about_extremecloudiq_dialogue = {
         'CSS_SELECTOR': '.dijitDialogCloseIcon',
         'XPATH': '//*[@data-dojo-attach-point="closeButtonNode"]',
-        'wait_for': 5
+        'wait_for': 15
     }
+
+    switch_connection_host = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-account-menu-connection-host']",
+            'wait_for': 5
+        }
 
     viq_id_field = \
         {
@@ -101,7 +107,6 @@ class LoginWebElementsDefinitions:
     drawer_content = \
         {
          'XPATH': '//div[@data-dojo-attach-point="drawerContent"]',
-         'wait_for': 3
          }
 
     wips_popup_dialog_close_button = \
@@ -638,4 +643,52 @@ class LoginWebElementsDefinitions:
         {
             'XPATH': '//*[@id="ah/comp/common/AHDrawer_0"]/div[2]',
             'wait_for': 3,
+        }
+
+    external_admin_account_names = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="accountResults"]//a',
+            'wait_for': 20,
+        }
+
+    admin_portal_page = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="adminPortalHeader"]',
+            'wait_for': 20,
+        }
+
+    external_admin_manage_my_network_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="manageMyNetwork"]',
+            'wait_for': 15,
+        }
+
+    external_admin_account_name_search_field = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="multipleVHMsFilter"]',
+            'wait_for': 20,
+        }
+
+    login_sso_page_username_text = \
+        {
+            'XPATH': '//input[@name="UserName"]',
+            'wait_for': 15,
+        }
+
+    login_sso_page_password_text = \
+        {
+            'XPATH': '//input[@name="Password"]',
+            'wait_for': 15,
+        }
+
+    login_sso_page_login_button = \
+        {
+            'XPATH': '//*[@id="submitButton"]',
+            'wait_for': 15,
+        }
+
+    login_sso_page_login_error_message = \
+        {
+            'XPATH': '//*[@id="error"]//*[@id="errorText"]',
+            'wait_for': 15,
         }

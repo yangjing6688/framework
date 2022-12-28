@@ -96,6 +96,9 @@ class LoginWebElements(LoginWebElementsDefinitions):
             if el.is_displayed():
                 return el
 
+    def get_switch_connection_host(self):
+        return self.weh.get_element(self.switch_connection_host)
+
     def get_viq_id_field(self):
         return self.weh.get_element(self.viq_id_field)
 
@@ -382,3 +385,36 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_page_loading(self):
         return self.weh.get_element(self.page_loading)
+
+    def get_external_admin_account_names(self):
+        return self.weh.get_elements(self.external_admin_account_names)
+
+    def get_admin_portal_page(self):
+        return self.weh.get_element(self.admin_portal_page)
+
+    def get_external_admin_manage_my_network_button(self):
+        return self.weh.get_element(self.external_admin_manage_my_network_button)
+
+    def get_external_admin_account_name_search_field(self):
+        return self.weh.get_element(self.external_admin_account_name_search_field)
+
+    def get_login_sso_page_username_text(self):
+        return self.weh.get_element(self.login_sso_page_username_text)
+
+    def get_login_sso_page_password_text(self):
+        return self.weh.get_element(self.login_sso_page_password_text)
+
+    def get_login_sso_page_login_button(self):
+        return self.weh.get_element(self.login_sso_page_login_button)
+
+    def get_login_sso_page_sign_in_error_message(self):
+        try:
+            errors = self.weh.get_elements(self.login_sso_page_login_error_message)
+            if errors:
+                for error in errors:
+                    if error.is_displayed():
+                        return error.text
+            else:
+                return "No Message"
+        except Exception as e:
+            return "No Message"
