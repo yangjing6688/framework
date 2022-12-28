@@ -1701,7 +1701,7 @@ class Devices:
             self.utils.print_info("No rows present")
         return flag_cell
 
-    def reboot_device(self, device_serial):
+    def reboot_device(self, device_serial=None, device_mac=None, **kwargs):
         """
         - Assumes that already navigated to Manage --> Devices
         - This method reboots a device matching the serial(s)
@@ -1709,23 +1709,159 @@ class Devices:
         - ``Reboot Device  ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number
+        :param device_mac: device mac address
         :return: None
         """
-        self.utils.print_info("Rebooting Device with serial: ", device_serial)
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
 
+        if device_serial:
+            self.utils.print_info("Selecting Device with serial: ", device_serial)
+            self.select_device(device_serial)
+        elif device_mac:
+            self.utils.print_info("Selecting Device with mac-address: ", device_mac)
+            self.select_device(device_mac=device_mac)
+        else:
+            kwargs['fail_msg'] = 'Device Serial Number or Device Mac Address was not provided'
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on device actions button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
+
+        self.utils.print_info("click on device actions reboot button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_button)
+
+        self.utils.print_info("Click on reboot confirm yes button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_confirm_bttn)
+
+        kwargs['pass_msg'] = "Device was rebooted successfully"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+
+
+    def upgrade_device(self, device_serial, version=None, action="upgrade", activate_time=60, **kwargs):
+        """
+        - This method will update the software image the device is using
+        - Keyword Usage:
+        - ``Upgrade Device   ${DEVICE_SERIAL}``
+        - ``Upgrade Device   ${DEVICE_SERIAL}  8.8.0.0``
+
+        :param device_serial: serial number of the device
+        :param version: - version=None - means latest version
+                        - version="" - to which device should get upgraded, ex: version="8.8.0.0"
+        :param action: - action="upgrade" - will update the software image of the device
+                       - action="close" - will check if the firmware upgrade option is available for the device
+                        and close the image upgrade without perform the upgrade.
+        :param activate_time: activation time for Extreme Networks devices running images, by default set to 60 seconds
+        :return: returned_version of the device, or -1 if it was unable to perform the upgrade
+        """
+        returned_version = -1
         if self.select_device(device_serial):
-            self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
-            sleep(2)
+            self.utils.print_info("Selecting Update Devices button")
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
+            sleep(5)
 
-            self.utils.print_info("Selecting Reboot menu item")
-            self.auto_actions.click_reference(self.device_actions.get_device_actions_reboot_menu_item)
-            sleep(2)
+            uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
+            if uptd:
+                if uptd.is_selected():
+                    self.utils.print_info(f"uncheck the update configuration checkbox")
+                    self.auto_actions.click(uptd)
 
-            self.utils.print_info("Confirming...")
-            self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+            self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
+            sleep(5)
 
-            return 1
+            if version is None:
+                self.utils.print_info("Selecting upgrade to latest version checkbox")
+                self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
+                sleep(2)
+
+                if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
+                    self.utils.print_info("Click on Upgrade even if the versions are the same button")
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_are_same_button)
+                    sleep(5)
+
+                returned_version = self.device_update.get_latest_version()
+                self.utils.print_info("Device Latest Version: ", returned_version)
+                sleep(5)
+
+            else:
+                self.utils.print_info("Selecting upgrade to specific version checkbox")
+                self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_radio)
+                sleep(2)
+
+                if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
+                    self.utils.print_info("Click on Upgrade even if the versions are the same button")
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_are_same_button)
+                    sleep(5)
+
+                self.utils.print_info("Click specific version Dropdown")
+                self.auto_actions.click_reference(self.device_update.get_actions_update_version_drop_down)
+                sleep(2)
+
+                update_version_items = self.device_update.get_actions_update_version_drop_down_items()
+                self.auto_actions.scroll_down()
+                sleep(2)
+
+                cont_images_found = 0
+                if update_version_items:
+                    item_count = len(update_version_items)
+                    self.utils.print_info(f"Iterating through {item_count} options")
+                    for opt in update_version_items:
+                        self.utils.print_info("Image: {} is in drop down ".format(opt.text))
+                        if version in opt.text:
+                            if "patch" not in version and "patch" in opt.text:
+                                continue
+                            self.utils.print_info("Image version {} match the image {} from "
+                                                  "drop down".format(version, opt.text))
+                            cont_images_found += 1
+                            image_select = opt.text
+                        else:
+                            self.utils.print_info("Image version {} doesn't match the "
+                                                  "image {} from drop down".format(version, opt.text))
+                if cont_images_found == 1:
+                    if self.auto_actions.select_drop_down_options(update_version_items, image_select):
+                        returned_version = version
+                        self.utils.print_info("Device Specific Version: ", returned_version)
+                elif cont_images_found > 1:
+                    kwargs['fail_msg'] = f"upgrade_device() failed. Multiple images were found in drop down"
+                    self.common_validation.fault(**kwargs)
+                    return -1
+                else:
+                    kwargs['fail_msg'] = f"upgrade_device() failed. Image version {version} doesn't match " \
+                                         f"the images from drop down."
+                    self.common_validation.fault(**kwargs)
+                    return -1
+
+            activate_bttn = self.device_update.get_activate_after_radio()
+            if activate_bttn:
+                self.utils.print_info("Selecting Activate After radio button")
+                self.auto_actions.click_reference(self.device_update.get_activate_after_radio)
+
+                self.utils.print_info(f"Setting Activate time to {activate_time} seconds")
+                self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), activate_time)
+
+            if action == "upgrade":
+                self.auto_actions.click_reference(self.device_update.get_perform_update_button)
+                kwargs['pass_msg'] = "Upgrade was successfully"
+                self.common_validation.passed(**kwargs)
+                return returned_version
+            elif action == "close":
+                self.auto_actions.click_reference(self.device_update.get_update_close_button)
+                kwargs['pass_msg'] = "Closed upgrade window successfully"
+                self.common_validation.passed(**kwargs)
+                return returned_version
+            else:
+                self.auto_actions.click_reference(self.device_update.get_update_close_button)
+                kwargs['fail_msg'] = f"upgrade_device() failed. Selected action {action} is unavailable"
+                self.common_validation.fault(**kwargs)
+                return -1
+
+        kwargs['fail_msg'] = f"upgrade_device() failed. Failed to upgrade the device"
+        self.common_validation.failed(**kwargs)
+        return -1
 
     def upgrade_device_to_latest_version(self, device_serial, activate_time=60):
         """
@@ -4716,36 +4852,6 @@ class Devices:
         if self._sort_device_columns('field-updatedOn', sort):
             gui_sorted_values = self._get_device_column_values('field-updatedOn')
             return self._validate_sorting_column_values(sort, unsorted_values, gui_sorted_values)
-
-    def device_reboot(self, device_serial):
-        """
-        - This keyword is used to reboot the device from Actions --> Reboot
-        - Flow:
-        - Navigate to Manage --> Devices
-        - Select the device row based on the passed device serial number
-        - Click on ACTIONS --> Reboot
-        - Keyword Usage:
-        - ``Device Reboot   ${DEVICE_SERIAL}``
-
-        :param device_serial: device serial number to reboot
-        :return: 1
-        """
-
-        self.utils.print_info("Navigate to Manage-->Devices")
-        self.navigator.navigate_to_devices()
-
-        self.refresh_devices_page()
-        self.select_device(device_serial)
-
-        self.utils.print_info("Click on device actions button")
-        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
-
-        self.utils.print_info("click on device actions reboot button")
-        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_button)
-
-        self.utils.print_info("Click on reboot confirm yes button")
-        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_confirm_bttn)
-        return 1
 
     def onboard_wing_ap(self, device_serial, device_mac, device_make, location=False):
         """
@@ -7848,7 +7954,7 @@ class Devices:
                 self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
                 self.utils.print_info("'VOSS' found in 'Device Make' list")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_vos)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_voss)
                 sleep(2)
             else:
                 self.utils.print_info("Button 'VOSS' not found")
@@ -7938,20 +8044,27 @@ class Devices:
                 return -1
             else:
                 pass
+            """
+            JPS -- Dec 20, 2022
+            The following code did not work as desired, it would find a tool tip that was just an 
+            info message and fail the keyword. In the future there should be a common error checker
+            used by all onboard keywords. In the future the onboard_device_quick should be able 
+            onboard a device with a CSV and this should whol keyword should be removed.
+            """
             # Check the banner error
-            sleep(3)
-            tool_tp_text_after = tool_tip.tool_tip_text.copy()
-            self.utils.print_info(tool_tp_text_after)
-            for item_after in tool_tp_text_after:
-                if item_after in tool_tp_text_before:
-                    pass
-                else:
-                    if 'successfully' in item_after:
-                        pass
-                    else:
-                        self.utils.print_info(" Below error message is displayed after press ADD button")
-                        self.utils.print_info(item_after)
-                        return item_after
+            #sleep(3)
+            #tool_tp_text_after = tool_tip.tool_tip_text.copy()
+            #self.utils.print_info(tool_tp_text_after)
+            #for item_after in tool_tp_text_after:
+            #    if item_after in tool_tp_text_before:
+            #        pass
+            #    else:
+            #        if 'successfully' in item_after:
+            #            pass
+            #        else:
+            #            self.utils.print_info(" Below error message is displayed after press ADD button")
+            #            self.utils.print_info(item_after)
+            #            return item_after
         else:
             self.utils.print_info("'Add Devices' button not found or the button is not active")
             return -1

@@ -22,7 +22,7 @@ class RouterTemplate(RouterTemplateWebElements):
         self.nw_policy = NetworkPolicy()
         self.common_validation = CommonValidation()
 
-    def check_router_template(self, router_template):
+    def check_router_template(self, router_template, **kwargs):
         """
         - Check the router template in Router template Grid
         - Keyword Usage
@@ -33,11 +33,17 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         router_template_rows_elements = self.get_router_template_rows()
         if not router_template_rows_elements:
+            kwargs['fail_msg'] = "check_router_template() - Router Template not Found"
+            self.common_validation.failed(**kwargs)
             return False
         for el in router_template_rows_elements:
             if router_template.upper() in el.text.upper():
-                self.utils.print_info("Template Already present in the template grid")
+                kwargs['pass_msg'] = "Template Already present in the template grid"
+                self.common_validation.passed(**kwargs)
                 return True
+
+        kwargs['fail_msg'] = "check_router_template() - Router Template not Found"
+        self.common_validation.failed(**kwargs)
         return False
 
     def navigate_to_router_settings_tab(self, nw_policy):
@@ -63,11 +69,11 @@ class RouterTemplate(RouterTemplateWebElements):
 
         return True
 
-    def add_router_template(self, nw_policy, **template_config_settings):
+    def add_router_template(self, nw_policy, template_config_settings, **kwargs):
         """
         - Create New Router Template on Network Policy Router Settings If Not exists already
         - Keyword Usage
-        - ``Add Router Template     ${NW_POLICY_NAME}     &{ROUTER_TEMPLATE_CONFIG}``
+        - ``Add Router Template     ${NW_POLICY_NAME}     ${ROUTER_TEMPLATE_CONFIG}``
 
         :param  nw_policy: Network Policy Name
         :param  template_config_settings: (Config Dict) router_model,template_name,interface_name,new_port_type_config,
@@ -90,8 +96,9 @@ class RouterTemplate(RouterTemplateWebElements):
         self.auto_actions.click_reference(self.get_device_template_tab)
         sleep(2)
 
-        if self.check_router_template(router_model):
-            self.utils.print_info("Template Already present in the template grid")
+        if self.check_router_template(router_model, ignore_failure=True):
+            kwargs['pass_msg'] = "Template Already present in the template grid"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Click on Add Router Template button")
@@ -122,7 +129,7 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Configure New Port Type")
-        self.configure_new_port_type(**port_type_settings)
+        self.configure_new_port_type(port_type_settings)
 
         self.utils.print_info("Click on the save template button")
         self.auto_actions.click_reference(self.get_router_template_save_button)
@@ -134,6 +141,9 @@ class RouterTemplate(RouterTemplateWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page ", tool_tip_text)
         if "Router template has been saved successfully." not in tool_tip_text:
+            kwargs['fail_msg'] = "add_router_template() failed." \
+                                 "Router template has not been saved successfully."
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Click Network Allocation Tab")
@@ -152,9 +162,11 @@ class RouterTemplate(RouterTemplateWebElements):
         self.configure_network_allocation_vlan(**network_vlan_settings)
         sleep(2)
 
+        kwargs['pass_msg'] = "Router template has been saved successfully."
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def select_interface_to_add_new_port_type(self, interface_name):
+    def select_interface_to_add_new_port_type(self, interface_name, **kwargs):
         """
         - Selects the Router Interface To Configure New Port Type.
         - Keyword Usage
@@ -171,10 +183,14 @@ class RouterTemplate(RouterTemplateWebElements):
                 self.utils.print_debug("Found Interface Name Row: ", row.text)
                 self.auto_actions.click(self.get_router_template_add_port_type_link_button(row))
                 sleep(2)
+                kwargs['pass_msg'] = "Router Interface selected correctly"
+                self.common_validation.passed(**kwargs)
                 return 1
+        kwargs['fail_msg'] = "select_interface_to_add_new_port_type() failed. Unable to select Router Interface"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def configure_new_port_type(self, **port_type_settings):
+    def configure_new_port_type(self, port_type_settings, **kwargs):
         """
         - Configure New Port type on Router Interface
         - Keyword Usage
@@ -231,8 +247,12 @@ class RouterTemplate(RouterTemplateWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page ", tool_tip_text)
         if "Port type was saved successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "Port type was saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "configure_new_port_type() failed. Failed to save port type "
+            self.common_validation.failed(**kwargs)
             return -1
 
     def configure_port_type_config(self, **port_usage_configuration):
@@ -489,7 +509,7 @@ class RouterTemplate(RouterTemplateWebElements):
 
         return True
 
-    def select_router_template_row(self, template_name):
+    def select_router_template_row(self, template_name, **kwargs):
         """
         - Select Router Template Name Row from Network Policy-->Router settings--> Device Template
         - Keyword Usage
@@ -508,12 +528,17 @@ class RouterTemplate(RouterTemplateWebElements):
                 "default Router Template: {} doesn't exist, Please create default".format(template_name))
             self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
             sleep(2)
+
+            kwargs['fail_msg'] = "select_router_template_row() - Default Router Template doesn't exist"
+            self.common_validation.failed(**kwargs)
             return False
 
         for row in rsg_rows:
             if template_name.upper() in row.text.upper():
                 self.auto_actions.click(self.get_default_router_template_dialog_rsg_row_checkbox(row))
                 sleep(2)
+                kwargs['pass_msg'] = "Selected Router Template"
+                self.common_validation.passed(**kwargs)
                 return True
 
     def delete_router_template(self, nw_policy, template_name, **kwargs):
@@ -534,7 +559,7 @@ class RouterTemplate(RouterTemplateWebElements):
         self.auto_actions.click_reference(self.get_device_template_tab)
         sleep(2)
 
-        if self.select_router_template_row(template_name):
+        if self.select_router_template_row(template_name, ignore_failure=True):
             self.utils.print_info("Click delete Button to delete Router Template Name")
             self.auto_actions.click_reference(self.get_router_template_delete_button)
             sleep(2)
@@ -553,21 +578,21 @@ class RouterTemplate(RouterTemplateWebElements):
             for value in tool_tp_text:
                 if "The item was deleted successfully" in value:
                     kwargs['pass_msg'] = f"Router Template {value} deleted successfully"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return True
 
-            if self.select_router_template_row(template_name):
-                kwargs['fail_msg'] = "Unsuccessfully deleted the Router Template!"
-                self.common_validation.validate(-1, 1, **kwargs)
+            if self.select_router_template_row(template_name, ignore_failure=True):
+                kwargs['fail_msg'] = "delete_router_template() failed. Unsuccessfully deleted the Router Template!"
+                self.common_validation.failed(**kwargs)
                 return False
             else:
                 kwargs['pass_msg'] = "Successfully deleted the Router Template!"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return True
         else:
             self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
             kwargs['pass_msg'] = f"default Router Template :{template_name} doesn't exist in the list"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.common_validation.passed(**kwargs)
             return True
 
     def configure_advanced_subnetwork_section(self, **advance_config):
@@ -581,6 +606,6 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         pass
 
-    def create_routing_network(self, policy, **wireless_profile):
+    def create_routing_network(self, policy, wireless_profile):
         self.navigate_to_router_settings_tab(policy)
-        self.add_router_template(policy, **wireless_profile)
+        self.add_router_template(policy, wireless_profile)

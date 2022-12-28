@@ -96,8 +96,7 @@ class PytestConfigHelper():
             self.dut1_platform = config['netelem1']['platform']
             self.dut1_model = config['netelem1']['model']
             self.dut1_make = config['netelem1']['make']
-            self.dut1_location1 = config['netelem1']['location']['location1']
-            self.dut1_location2 = config['netelem1']['location']['location2']
+            self.dut1_location = config['netelem1']['location']
 
             self.dut_list.append('dut1')
         except:
@@ -175,8 +174,7 @@ class PytestConfigHelper():
             self.dut2_platform = config['netelem2']['platform']
             self.dut2_make = config['netelem2']['make']
             self.dut2_model = config['netelem2']['model']
-            self.dut2_location1 = config['netelem2']['location']['location1']
-            self.dut2_location2 = config['netelem2']['location']['location2']
+            self.dut2_location = config['netelem2']['location']
             self.dut_list.append('dut2')
         except:
             pass
@@ -252,8 +250,7 @@ class PytestConfigHelper():
             self.dut3_platform = config['netelem3']['platform']
             self.dut3_make = config['netelem3']['make']
             self.dut3_model = config['netelem3']['model']
-            self.dut3_location1 = config['netelem3']['location']['location1']
-            self.dut3_location2 = config['netelem3']['location']['location2']
+            self.dut3_location = config['netelem3']['location']
             self.dut_list.append('dut3')
         except:
             pass
@@ -328,8 +325,7 @@ class PytestConfigHelper():
             self.dut4_platform = config['netelem4']['platform']
             self.dut4_make = config['netelem4']['make']
             self.dut4_model = config['netelem4']['model']
-            self.dut4_location1 = config['netelem4']['location']['location1']
-            self.dut4_location2 = config['netelem4']['location']['location2']
+            self.dut4_location = config['netelem4']['location']
             self.dut_list.append('dut4')
         except:
             pass
@@ -404,8 +400,7 @@ class PytestConfigHelper():
             self.dut5_platform = config['netelem5']['platform']
             self.dut5_make = config['netelem5']['make']
             self.dut5_model = config['netelem5']['model']
-            self.dut5_location1 = config['netelem5']['location']['location1']
-            self.dut5_location2 = config['netelem5']['location']['location2']
+            self.dut5_location = config['netelem5']['location']
             self.dut_list.append('dut5')
         except:
             pass

@@ -2,6 +2,7 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.PpskClassificationWebElements import PpskClassificationWebElements
@@ -14,10 +15,10 @@ class PpskClassification(object):
         self.auto_actions = AutoActions()
         self.navigator = Navigator()
         self.screen = Screen()
-
+        self.common_validation = CommonValidation()
         self.ppsk_classification_web_elements = PpskClassificationWebElements()
 
-    def add_ppsk_classification_rule_to_user(self, network_name, user_name, classification_rule):
+    def add_ppsk_classification_rule_to_user(self, network_name, user_name, classification_rule, **kwargs):
         """
 
         - Flow: Configure --> Users --> User Management --> PPSK Classification
@@ -42,8 +43,9 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(network_list, network_name):
             self.utils.print_info("Selected network: %s from dropdown" % network_name)
         else:
-            self.utils.print_info("Network not present in the dropdown")
-            return False
+            kwargs['fail_msg'] = " add_ppsk_classification_rule_to_user() failed. Network not present in the dropdown"
+            self.common_validation.fault(**kwargs)
+            return -1
         sleep(2)
 
         self.utils.print_info("Clicking on PPSK Classification Rule Add Button")
@@ -58,8 +60,9 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(ppsk_users, user_name):
             self.utils.print_info("Selected user: %s from dropdown" % user_name)
         else:
-            self.utils.print_info("User not present in the dropdown")
-            return False
+            kwargs['fail_msg'] = " add_ppsk_classification_rule_to_user() failed. User not present in the dropdown"
+            self.common_validation.fault(**kwargs)
+            return -1
         sleep(2)
 
         self.utils.print_info("Clicking on Add User Button")
@@ -81,12 +84,16 @@ class PpskClassification(object):
         self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_save_button)
 
         if self.verify_ppsk_classification_rule_to_user(network_name, user_name, classification_rule):
+            kwargs['pass_msg'] = "Classification Rule attached to User"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("PPSK ClassificationRule not added correctly")
+            kwargs['fail_msg'] = "add_ppsk_classification_rule_to_user() failed. " \
+                                 "PPSK ClassificationRule not added correctly"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def edit_ppsk_classification_rule_to_user(self, network_name, user_name, classification_rule):
+    def edit_ppsk_classification_rule_to_user(self, network_name, user_name, classification_rule, **kwargs):
         """
 
         - Flow: Configure --> Users --> User Management --> PPSK Classification
@@ -111,8 +118,9 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(network_list, network_name):
             self.utils.print_info("Selected network: %s from dropdown" % network_name)
         else:
-            self.utils.print_info("Network not present in the dropdown")
-            return False
+            kwargs['fail_msg'] = "edit_ppsk_classification_rule_to_user() failed. Network not present in the dropdown"
+            self.common_validation.fault(**kwargs)
+            return -1
         sleep(2)
 
         users_rule = self.ppsk_classification_web_elements.get_ppsk_classification_users_row()
@@ -138,12 +146,16 @@ class PpskClassification(object):
                 self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_save_button)
 
         if self.verify_ppsk_classification_rule_to_user(network_name, user_name, classification_rule):
+            kwargs['pass_msg'] = "PPSK ClassificationRule edited correctly"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("PPSK ClassificationRule not edited correctly")
+            kwargs['fail_msg'] = "edit_ppsk_classification_rule_to_user() failed. " \
+                                 "PPSK ClassificationRule not edited correctly"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def verify_ppsk_classification_rule_to_user(self, network_name, user_name, classification_rule):
+    def verify_ppsk_classification_rule_to_user(self, network_name, user_name, classification_rule, **kwargs):
         """
         - Flow: Configure --> Users --> User Management --> PPSK Classification
         - Select mentioned network from dropdowm
@@ -166,8 +178,10 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(network_list, network_name):
             self.utils.print_info("Selected network: %s from dropdown" % network_name)
         else:
-            self.utils.print_info("Network not present in the dropdown")
-            return False
+            kwargs['fail_msg'] = "verify_ppsk_classification_rule_to_user() failed. " \
+                                 "Network not present in the dropdown"
+            self.common_validation.fault(**kwargs)
+            return -1
         sleep(2)
 
         users_rule = self.ppsk_classification_web_elements.get_ppsk_classification_users_row()
@@ -183,12 +197,17 @@ class PpskClassification(object):
                 else:
                     self.utils.print_info(
                         "PPSK Classification rule %s not attached to user: %s" % (classification_rule, user_name))
+                    kwargs['fail_msg'] = f"verify_ppsk_classification_rule_to_user() failed. " \
+                                         f"PPSK Classification rule {classification_rule} not attached to user: {user_name}"
+                    self.common_validation.fault(**kwargs)
                     return -1
 
-        self.utils.print_info("user: %s not found in PPSK Classification Rule Table" % user_name)
+        kwargs['fail_msg'] = f"verify_ppsk_classification_rule_to_user() failed. " \
+                             f"user: {user_name} not found in PPSK Classification Rule Table"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def delete_all_ppsk_classification_rule_user(self, network_name):
+    def delete_all_ppsk_classification_rule_user(self, network_name, **kwargs):
         """
 
         - Flow: Configure --> Users --> User Management --> PPSK Classification
@@ -211,8 +230,10 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(network_list, network_name):
             self.utils.print_info("Selected network: %s from dropdown" % network_name)
         else:
-            self.utils.print_info("Network not present in the dropdown")
-            return False
+            kwargs['fail_msg'] = "delete_all_ppsk_classification_rule_user() failed. " \
+                                 "Network not present in the dropdown"
+            self.common_validation.fault(**kwargs)
+            return -1
         sleep(2)
 
         self.utils.print_info("Selecting all ppsk users")
@@ -224,4 +245,6 @@ class PpskClassification(object):
         sleep(2)
 
         self.auto_actions.click_reference(self.ppsk_classification_web_elements.get_yes_confirmation_button)
+        kwargs['pass_msg'] = "Deleted all PPSK Classification rule User"
+        self.common_validation.passed(**kwargs)
         return 1
