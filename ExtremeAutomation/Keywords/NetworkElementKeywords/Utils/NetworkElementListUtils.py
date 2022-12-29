@@ -1,13 +1,11 @@
 from ExtremeAutomation.Library.Logger.Logger import Logger
 from ExtremeAutomation.Library.Utils.NetworkElementUtils import NetworkElementUtils
 from ExtremeAutomation.Library.Utils.RobotUtils import RobotUtils
-from extauto.common.CommonValidation import CommonValidation
 
 
 class NetworkElementListUtils(object):
     def __init__(self):
         self.logger = Logger()
-        self.common_validation = CommonValidation()
 
     def create_list_of_network_element_names(self):
         """
@@ -105,24 +103,3 @@ class NetworkElementListUtils(object):
 
         return isl_portlist
 
-    def create_ports_list(self, port_dict, **kwargs):
-        """
-        Returns a list of integer elements of Inter-switch Links ports for a given Network Element.
-        """
-        ports_isl = []
-        ports = self.create_list_of_netelem_isl_ports(port_dict)
-        contains = True
-        for old_port in ports:
-            if old_port is not None:
-                if old_port.find('/') != -1:
-                    parts = old_port.split("/")
-                    ports_isl.append(parts[1])
-                    contains = True
-                else:
-                    contains = False
-        if not contains:
-            ports_isl = ports
-        ports_isl = list(map(int, ports_isl))
-        kwargs['pass_msg'] = f"List of Inter-switch Links: {ports_isl}"
-        self.common_validation.passed(**kwargs)
-        return ports_isl
