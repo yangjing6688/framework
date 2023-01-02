@@ -312,6 +312,10 @@ class Login:
                     local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
                     local_navigator.navigate_to_devices()
                     msp_module.select_organization(organization_name=org_name)
+
+                    self.utils.print_info(f"Importing Map for New Organization {org_name} Created")
+                    network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
+                    network360Plan.import_map_in_network360plan(map_override)
             else:
                 self.utils.print_info(f"Continuing with own organization")
                 self.screen.save_screen_shot()
