@@ -100,8 +100,6 @@ class Msp(MspWebElements):
                 self.utils.print_info(f"Selecting Organization Name {organization_name}")
                 for row in rows:
                     if organization_name in row.text:
-                        import sys, pdb;
-                        pdb.Pdb(stdout=sys.__stdout__).set_trace()
                         self.utils.print_info(f"Organization Name {organization_name} exist")
 
                         configure_radio_button = self.get_organizations_select_radio_button()
@@ -116,6 +114,8 @@ class Msp(MspWebElements):
                             if check_box.is_selected():
                                 self.utils.print_info(f"Unchecking Organization {organization_name} View checkbox")
                                 self.auto_actions.click_reference(self.get_organizations_select_check_box)
+                                import sys, pdb;
+                                pdb.Pdb(stdout=sys.__stdout__).set_trace()
                                 self.screen.save_screen_shot()
                                 sleep(2)
 
