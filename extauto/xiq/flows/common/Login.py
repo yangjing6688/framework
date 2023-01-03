@@ -198,40 +198,37 @@ class Login:
             self.common_validation.passed(**kwargs)
             return 1
 
-        if 'sso' in url or 'tinyurl' in url:
-            self.utils.print_info("SSO Login Page found")
-            sso_username = BuiltIn().get_variable_value("${sso_username}")
-            sso_password = BuiltIn().get_variable_value("${sso_password}")
+        test_url = BuiltIn().get_variable_value("${TEST_URL}")
+        if test_url and ('sso' in test_url or 'tinyurl' in test_url):
+            self.utils.print_info("Loading SSO Login URL")
+            self.screen.save_screen_shot()
+            self.utils.print_info("Entering SSO Username")
+            self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_username_text(), username)
+            self.screen.save_screen_shot()
 
-            if sso_username and sso_password:
-                self.screen.save_screen_shot()
-                self.utils.print_info("Entering SSO Username")
-                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_username_text(), sso_username)
-                self.screen.save_screen_shot()
+            self.utils.print_info("Entering SSO Password")
+            self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_password_text(), password)
+            self.screen.save_screen_shot()
 
-                self.utils.print_info("Entering SSO Password")
-                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_password_text(), sso_password)
-                self.screen.save_screen_shot()
+            self.utils.print_info("Clicking on SSO Sign In button")
+            self.auto_actions.click_reference(self.login_web_elements.get_login_sso_page_login_button)
+            self.screen.save_screen_shot()
 
-                self.utils.print_info("Clicking on SSO Sign In button")
-                self.auto_actions.click_reference(self.login_web_elements.get_login_sso_page_login_button)
-                self.screen.save_screen_shot()
+            if self.login_web_elements.get_drawer_content().is_displayed():
+                self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
 
-                self.utils.print_info("Check for wrong credentials in SSO Login Page..")
-                sign_in_error_message = self.login_web_elements.get_login_sso_page_sign_in_error_message()
-                self.utils.print_info("Wrong Credential Message: ", sign_in_error_message)
-                if 'No Message' in sign_in_error_message:
-                    kwargs['pass_msg'] = "No Error Message Found in SSO Login Page"
-                    self.common_validation.passed(**kwargs)
-                else:
-                    if "Incorrect user ID or password" in sign_in_error_message:
-                        kwargs['fail_msg'] = "SSO Login Failed.Wrong Credentials. Try Again"
-                        self.common_validation.failed(**kwargs)
-                        return -1
+            self.utils.print_info("Check for wrong credentials in SSO Login Page..")
+            sign_in_error_message = self.login_web_elements.get_login_sso_page_sign_in_error_message()
+            self.utils.print_info("Wrong Credential Message: ", sign_in_error_message)
+            if 'No Message' in sign_in_error_message:
+                kwargs['pass_msg'] = "No Error Message Found in SSO Login Page"
+                self.common_validation.passed(**kwargs)
+                return 1
             else:
-                kwargs['fail_msg'] = f"SSO Username or Password Not Found"
-                self.common_validation.failed(**kwargs)
-                return -1
+                if "Incorrect user ID or password" in sign_in_error_message:
+                    kwargs['fail_msg'] = "SSO Login Failed.Wrong Credentials. Try Again"
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
         self.utils.print_info("Entering Username...")
         self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
@@ -419,6 +416,8 @@ class Login:
         :return: 1 if logout success
         """
         # stop tool tip text capture thread
+
+        self.utils.switch_to_default(CloudDriver().cloud_driver)
         try:
             self.t1.do_run = False
             sleep(10)
@@ -460,12 +459,13 @@ class Login:
 
         # stop tool tip text capture thread
         try:
-            if self.t1.is_alive():
-                self.t1.do_run = False
-                sleep(10)
-            kwargs['pass_msg'] = "Quit browser Successfully"
-            self.common_validation.passed(**kwargs)
-            return 1
+            if self.t1 is not None:
+                if self.t1.is_alive():
+                    self.t1.do_run = False
+                    sleep(10)
+                kwargs['pass_msg'] = "Quit browser Successfully"
+                self.common_validation.passed(**kwargs)
+                return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)
             kwargs['fail_msg'] = f"'quit_browser()' -> Error: {e}"
@@ -2020,15 +2020,18 @@ class Login:
         - Switches to the specified window
 
         :param:  win_index - Index of the window to switch to
-        :return: None
+        :return: 1
         """
         CloudDriver().switch_to_window(win_index)
+        return 1
 
     def close_extreme_guest_window(self, win_index=1):
         """
         - Closes the specified window
 
         :param:  win_index - Index of the window to close
-        :return: None
+        :return: 1
         """
         CloudDriver().close_window(win_index)
+        return 1
+

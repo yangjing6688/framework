@@ -58,7 +58,8 @@ class Devices:
         self.cloud_driver = CloudDriver()
         self.xapi = Xapi()
 
-    def onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
+    @deprecated("Please use onboard_device_quick(...)")
+    def _onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
         """
         - This keyword on-boards an aerohive device [AP or Switch] using Quick on-boarding flow.
         - Keyword Usage:
@@ -991,23 +992,6 @@ class Devices:
         self.utils.print_info("Device is not Rebooting after update configuration")
         return False
 
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboard_multiple_devices(self, serials, device_make):
-        """
-        - This Keyword will Onboard Multiple Devices with Serial Numbers and Device Make
-        - Keyword Usage:
-        - `Onboard Multiple Devices  ${SERIALS}  ${DEVICE_MAKE}``
-
-        :param serials: Serial Numbers separated by comma
-        :param device_make: Device Make ie aerohive,wing
-        :return: 1 if on boarded else -1
-        """
-        if "aerohive" in device_make.lower():
-            return self.onboard_ap(serials, device_make)
-
-        if "exos" in device_make.lower():
-            return self.onboard_switch_device(serials, device_make)
-
     def delete_aps(self, ap_serials=None, ap_names=None, ap_macs=None):
         """
         - Assumes that already navigated to Manage --> Devices
@@ -1035,81 +1019,6 @@ class Devices:
         except Exception as e:
             self.utils.print_info("Unable to delete APs: ", aps)
             self.utils.print_info("Exception: ", e)
-
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboard_simulated_device(self, device_model, count=1, location=None, policy=None):
-        """
-        - onboard multiple simulated devices of same type and returns their serial number(s)
-        - Keyword Usage:
-        - ``Onboard Simulated Device  ${DEVICE_TYPE}   count=2``
-        - For supported ${DEVICE_TYPE} look the device type drop down in quick add
-
-        :param device_model: device model to onboard
-        :param count: number of devices to onboard
-        :param location: device location
-        :param policy: network policy - optional parameter
-        :return: returns the serial number(s) of newly onboarded devices
-        """
-
-        self.navigator.navigate_to_devices()
-        if self.devices_web_elements.get_devices_drawer_open():
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_drawer_trigger)
-
-        try:
-
-            if self.get_device_serial_numbers(device_model):
-                prev_serials = self.get_device_serial_numbers(device_model)
-                self.utils.print_info("Previously onboarded simulated device serials: ", prev_serials)
-            else:
-                prev_serials = []
-
-            self.utils.print_info("Clicking on ADD button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
-
-            self.utils.print_info("Selecting Quick Add Devices menu")
-            self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
-
-            self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-            self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
-
-            self.utils.print_info("Selecting Simulated Device Type radio button")
-            self.auto_actions.click_reference(self.devices_web_elements.get_quick_onboard_simulated)
-
-            self.auto_actions.click_reference(self.devices_web_elements.get_simulated_devices_dropdown)
-
-            table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
-
-            options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
-            for option in options:
-                if device_model in option.text:
-                    self.utils.print_info("Simulated device option: ", option.text)
-                    self.auto_actions.click_with_js(option)
-
-            self.utils.print_info(f"Entering Device Count: {count}")
-            self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), count)
-
-            if location:
-                self.utils.print_info("Device OS matched")
-                self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
-                self._select_location(location)
-
-            self.utils.print_info("Clicking on ADD DEVICES button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
-            sleep(5)
-
-            cur_serials = self.get_device_serial_numbers(device_model)
-            self.utils.print_debug("prev ", prev_serials, "cur ", cur_serials)
-            new_serials = list(set(cur_serials) - set(prev_serials))
-            self.utils.print_info(f"Successfully Onboarded Simulated Device: {device_model} with Serial Number "
-                                  f"{new_serials}")
-            if len(new_serials) == 1:
-                return new_serials[0]
-            return new_serials
-
-        except Exception as e:
-            self.utils.print_info("Error: ", e)
-            self.utils.print_info("Unable to Onboard Simulated Device")
-            return -1
 
     def get_device_serial_numbers(self, device_type):
         """
@@ -1261,6 +1170,12 @@ class Devices:
         :param update_method:  Delta, Complete
         :return:
         """
+        update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
+        update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
+                              "you must select a Complete Configuration Update."
+        update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
+        update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
@@ -1275,10 +1190,6 @@ class Devices:
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
-            update_tooltip_msg1 = "a device mode change is not supported with a delta configuration update"
-            update_tooltip_msg2 = "This change is not supported with a Delta Configuration Update, " \
-                                  "you must select a Complete Configuration Update."
-            update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
             if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
                 self.utils.print_info('Convert to Complete. Delta not supported')
                 update_method = "Complete"
@@ -1303,7 +1214,6 @@ class Devices:
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
-            update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
 
             if update_tooltip_msg in tool_tp_text:
                 self.utils.print_info(f"Getting Device Update Error Message : {tool_tp_text}")
@@ -1317,6 +1227,11 @@ class Devices:
 
         self.screen.save_screen_shot()
         sleep(2)
+
+        tool_tp_text = tool_tip.tool_tip_text
+        for tooltip_msg in [update_tooltip_msg, update_tooltip_msg1, update_tooltip_msg2, update_tooltip_msg3]:
+            if tooltip_msg in tool_tp_text:
+                tool_tp_text.remove(tooltip_msg)
 
         kwargs['pass_msg'] = f"Device update Successfully Triggered"
         self.common_validation.passed(**kwargs)
@@ -1695,7 +1610,7 @@ class Devices:
             self.utils.print_info("No rows present")
         return flag_cell
 
-    def reboot_device(self, device_serial):
+    def reboot_device(self, device_serial=None, device_mac=None, **kwargs):
         """
         - Assumes that already navigated to Manage --> Devices
         - This method reboots a device matching the serial(s)
@@ -1703,23 +1618,159 @@ class Devices:
         - ``Reboot Device  ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number
+        :param device_mac: device mac address
         :return: None
         """
-        self.utils.print_info("Rebooting Device with serial: ", device_serial)
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
 
+        if device_serial:
+            self.utils.print_info("Selecting Device with serial: ", device_serial)
+            self.select_device(device_serial)
+        elif device_mac:
+            self.utils.print_info("Selecting Device with mac-address: ", device_mac)
+            self.select_device(device_mac=device_mac)
+        else:
+            kwargs['fail_msg'] = 'Device Serial Number or Device Mac Address was not provided'
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        self.utils.print_info("Click on device actions button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
+
+        self.utils.print_info("click on device actions reboot button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_button)
+
+        self.utils.print_info("Click on reboot confirm yes button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_confirm_bttn)
+
+        kwargs['pass_msg'] = "Device was rebooted successfully"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+
+
+    def upgrade_device(self, device_serial, version=None, action="upgrade", activate_time=60, **kwargs):
+        """
+        - This method will update the software image the device is using
+        - Keyword Usage:
+        - ``Upgrade Device   ${DEVICE_SERIAL}``
+        - ``Upgrade Device   ${DEVICE_SERIAL}  8.8.0.0``
+
+        :param device_serial: serial number of the device
+        :param version: - version=None - means latest version
+                        - version="" - to which device should get upgraded, ex: version="8.8.0.0"
+        :param action: - action="upgrade" - will update the software image of the device
+                       - action="close" - will check if the firmware upgrade option is available for the device
+                        and close the image upgrade without perform the upgrade.
+        :param activate_time: activation time for Extreme Networks devices running images, by default set to 60 seconds
+        :return: returned_version of the device, or -1 if it was unable to perform the upgrade
+        """
+        returned_version = -1
         if self.select_device(device_serial):
-            self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
-            sleep(2)
+            self.utils.print_info("Selecting Update Devices button")
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
+            sleep(5)
 
-            self.utils.print_info("Selecting Reboot menu item")
-            self.auto_actions.click_reference(self.device_actions.get_device_actions_reboot_menu_item)
-            sleep(2)
+            uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
+            if uptd:
+                if uptd.is_selected():
+                    self.utils.print_info(f"uncheck the update configuration checkbox")
+                    self.auto_actions.click(uptd)
 
-            self.utils.print_info("Confirming...")
-            self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+            self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
+            sleep(5)
 
-            return 1
+            if version is None:
+                self.utils.print_info("Selecting upgrade to latest version checkbox")
+                self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
+                sleep(2)
+
+                if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
+                    self.utils.print_info("Click on Upgrade even if the versions are the same button")
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_are_same_button)
+                    sleep(5)
+
+                returned_version = self.device_update.get_latest_version()
+                self.utils.print_info("Device Latest Version: ", returned_version)
+                sleep(5)
+
+            else:
+                self.utils.print_info("Selecting upgrade to specific version checkbox")
+                self.auto_actions.click_reference(self.device_update.get_upgrade_to_specific_version_radio)
+                sleep(2)
+
+                if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
+                    self.utils.print_info("Click on Upgrade even if the versions are the same button")
+                    self.auto_actions.click_reference(self.device_update.get_upgrade_even_if_versions_are_same_button)
+                    sleep(5)
+
+                self.utils.print_info("Click specific version Dropdown")
+                self.auto_actions.click_reference(self.device_update.get_actions_update_version_drop_down)
+                sleep(2)
+
+                update_version_items = self.device_update.get_actions_update_version_drop_down_items()
+                self.auto_actions.scroll_down()
+                sleep(2)
+
+                cont_images_found = 0
+                if update_version_items:
+                    item_count = len(update_version_items)
+                    self.utils.print_info(f"Iterating through {item_count} options")
+                    for opt in update_version_items:
+                        self.utils.print_info("Image: {} is in drop down ".format(opt.text))
+                        if version in opt.text:
+                            if "patch" not in version and "patch" in opt.text:
+                                continue
+                            self.utils.print_info("Image version {} match the image {} from "
+                                                  "drop down".format(version, opt.text))
+                            cont_images_found += 1
+                            image_select = opt.text
+                        else:
+                            self.utils.print_info("Image version {} doesn't match the "
+                                                  "image {} from drop down".format(version, opt.text))
+                if cont_images_found == 1:
+                    if self.auto_actions.select_drop_down_options(update_version_items, image_select):
+                        returned_version = version
+                        self.utils.print_info("Device Specific Version: ", returned_version)
+                elif cont_images_found > 1:
+                    kwargs['fail_msg'] = f"upgrade_device() failed. Multiple images were found in drop down"
+                    self.common_validation.fault(**kwargs)
+                    return -1
+                else:
+                    kwargs['fail_msg'] = f"upgrade_device() failed. Image version {version} doesn't match " \
+                                         f"the images from drop down."
+                    self.common_validation.fault(**kwargs)
+                    return -1
+
+            activate_bttn = self.device_update.get_activate_after_radio()
+            if activate_bttn:
+                self.utils.print_info("Selecting Activate After radio button")
+                self.auto_actions.click_reference(self.device_update.get_activate_after_radio)
+
+                self.utils.print_info(f"Setting Activate time to {activate_time} seconds")
+                self.auto_actions.send_keys(self.device_update.get_activate_after_textfield(), activate_time)
+
+            if action == "upgrade":
+                self.auto_actions.click_reference(self.device_update.get_perform_update_button)
+                kwargs['pass_msg'] = "Upgrade was successfully"
+                self.common_validation.passed(**kwargs)
+                return returned_version
+            elif action == "close":
+                self.auto_actions.click_reference(self.device_update.get_update_close_button)
+                kwargs['pass_msg'] = "Closed upgrade window successfully"
+                self.common_validation.passed(**kwargs)
+                return returned_version
+            else:
+                self.auto_actions.click_reference(self.device_update.get_update_close_button)
+                kwargs['fail_msg'] = f"upgrade_device() failed. Selected action {action} is unavailable"
+                self.common_validation.fault(**kwargs)
+                return -1
+
+        kwargs['fail_msg'] = f"upgrade_device() failed. Failed to upgrade the device"
+        self.common_validation.failed(**kwargs)
+        return -1
 
     def upgrade_device_to_latest_version(self, device_serial, activate_time=60):
         """
@@ -2105,6 +2156,12 @@ class Devices:
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
+        if device_type.lower() != "simulated":
+            if 'Extreme - Aerohive' in device_make:
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
+                self.auto_actions.select_drop_down_options(
+                    self.devices_web_elements.get_device_make_drop_down_options(), device_make)
+
         if location and device_type.lower() != "digital twin":
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
@@ -2370,10 +2427,10 @@ class Devices:
                 return _errors
 
         elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
-            return self.onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
+            return self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
 
         if 'DUAL BOOT' in device_make.upper():
-            return self.onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
+            return self._onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
 
         if device_make:
             sleep(5)
@@ -2507,10 +2564,10 @@ class Devices:
         self.utils.print_info("Onboarding: ", device_make)
 
         if 'Controllers' in device_make or 'XCC' in device_make:
-            return self.onboard_wing_ap(device_serial, device_mac, device_make, location)
+            return self._onboard_wing_ap(device_serial, device_mac, device_make, location)
 
         if 'Dual Boot' in device_make:
-            return self.onboard_ap(device_serial, device_make, location, device_os)
+            return self._onboard_ap(device_serial, device_make, location, device_os)
 
         self.navigator.navigate_to_devices()
 
@@ -2752,534 +2809,6 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboard_device_dt(self, device_serial=None, device_make=None, device_mac=None, device_type="Real", entry_type="Manual",
-                           csv_file_name=None, csv_location=None, device_os=None, location=None, service_tag=None,
-                           os_persona=None, device_model=None, device_count=1, os_version=None, policy=None, **kwargs):
-        """
-        - This keyword on boards an aerohive device [AP or Switch] , Exos Switch and Voss devices using Quick onboarding flow.
-        - Keyword Usage:
-        - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
-        - ``Onboard Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}  device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}``
-
-        :param device_serial: comma separated string of Device serial number(s)
-        :param device_make: Model of the Device ex:Extreme - Aerohive
-        :param device_mac: Device MAC
-        :param device_type: Real/Simulated/Digital_Twin
-        :param entry_type: Manual/CSV
-        :param csv_file_name: CSV File Name
-        :param csv_location: csv file path
-        e.g. ${DEVICE_CSV_FILE}   /automation/xiq/cw_automation/testsuites/xiq/topologies/${TESTBED}/MultipleVossDevices.csv
-        :param device_os: verifies the Device OS automatically selected after entering device serial
-        :param location: device location
-        :param service_tag: Dell Service Tag
-        :param os_persona: SwitchEngine / FabricEngine (specific to Digital Twin)
-        :param device_model: Simulated or Digital Twin device model
-        :param device_count: number of Simulated devices to onboard
-        :param os_version: firmware version (specific to Digital Twin)
-        :param policy: Network Policy (optional)
-        :return:  1 if device(s) successfully onboarded
-        :return: -2 for error - Serial numbers entered are from different platform families. Please enter serial numbers that are part of the same platform family. Please remove serial number
-        :return: -3 for error - Could not recognize 166A129943554583. Please onboard 166A129943554583 separately.
-        :return: -4 for error - No more than 10 serial numbers could be entered at once.
-        :return: -5 for error - When onboarding multiple devices, serial numbers must be separated by ", " (Commas).
-        :return: -6 for error - The number of MAC Addresses must match the number of Serial Numbers
-        :return: -7 for error - Please enter a valid MAC Address
-        :return: -8 for error - Unable to get pop-up menu item
-        :return: list containing serial number(s) of Simulated or Digital Twin device.
-        """
-        add_device_button = "Add Devices"
-        initial_serials = []
-        current_serials = []
-
-        self.navigator.navigate_to_devices()
-
-        if device_model and device_model != "":
-            initial_serials = self.get_device_serial_numbers(device_model)
-
-        self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
-
-        self.utils.print_info("Selecting Quick Add Devices menu")
-        self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
-
-        self.utils.print_info("Selecting Deploy your devices directly to the cloud")
-        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
-
-        # Code specific to Digital Twin devices
-        if device_type.lower() == "digital_twin":
-            add_device_button = "Launch Digital Twin"
-            sleep(3)
-            attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
-            if "fn-hidden" not in attribute:
-                self.utils.print_info("Selecting 'Digital Twin' radio button")
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_type_digital_twin_radio_button)
-
-                if os_persona and os_persona != "":
-                    self.utils.print_debug(f"Selecting OS Persona: {os_persona}")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_os_persona_dropdown)
-                    sleep(2)
-                    if self.auto_actions.select_drop_down_options(
-                            self.devices_web_elements.get_digital_twin_os_persona_dropdown_items(), os_persona):
-                        self.utils.print_info(f"OS Persona set to: {os_persona}")
-                    else:
-                        self.utils.print_info(f"Could not select OS Persona: {os_persona}")
-                        self.screen.save_screen_shot()
-                        return -1
-                else:
-                    self.utils.print_info("OS Persona value not provided...")
-                    return -1
-
-                if device_model and device_model != "":
-                    self.utils.print_debug(f"Selecting Device Model: {device_model}")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_device_model_dropdown)
-                    sleep(2)
-                    if self.auto_actions.select_drop_down_options(
-                            self.devices_web_elements.get_digital_twin_device_model_dropdown_items(), device_model):
-                        self.utils.print_info(f"Device Model set to: {device_model}")
-                    else:
-                        self.utils.print_info(f"Could not select Device Model: {device_model}")
-                        self.screen.save_screen_shot()
-                        return -1
-                else:
-                    self.utils.print_info("Device Model value not provided...")
-                    return -1
-
-                if os_version and os_version != "":
-                    self.utils.print_debug(f"Selecting OS Version: {os_version}")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_os_version_dropdown)
-                    sleep(2)
-                    if self.auto_actions.select_drop_down_options(
-                            self.devices_web_elements.get_digital_twin_os_version_dropdown_items(), os_version):
-                        self.utils.print_info(f"OS Version set to: {os_version}")
-                    else:
-                        self.utils.print_info(f"Could not select OS Version: {os_version}")
-                        self.screen.save_screen_shot()
-                        return -1
-                else:
-                    self.utils.print_info("OS Version value not provided...")
-                    return -1
-
-            else:
-                self.utils.print_info("Digital Twin option is not available...")
-                return -1
-
-        else:
-            self.utils.print_info(f"Specified Device Type not found or supported: {device_type.lower()}")
-            return -1
-
-        # Selecting a Network Policy is not required when onboarding a device.
-        if policy and policy != "":
-            self.utils.print_info(f"Selecting Policy: {policy}")
-            if self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down):
-                sleep(2)
-                if self.auto_actions.select_drop_down_options(self.devices_web_elements.get_devices_quick_add_policy_drop_down_items(), policy):
-                    self.utils.print_info(f"Policy set to: {policy}")
-                else:
-                    self.utils.print_info(f"Could not select Policy: {policy}")
-                    self.utils.print_info("Selecting a Network Policy is not required when adding a device...")
-                    self.screen.save_screen_shot()
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        self.utils.print_info("Clicking on " + add_device_button + " button...")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
-
-        self.screen.save_screen_shot()
-        sleep(10)
-
-        self.utils.print_info("Checking for Errors...")
-        dialog_message = self.dialogue_web_elements.get_dialog_message()
-
-        if dialog_message:
-            self.screen.save_screen_shot()
-            if "failed to onboard Digital Twin device" in dialog_message:
-                self.utils.print_info(f"Dialog Message: {dialog_message}")
-                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                kwargs['fail_msg'] = f"failed to onboard Digital Twin device"
-
-            else:
-                self.utils.print_info(f"Dialog Message: {dialog_message}")
-                kwargs['fail_msg'] = f"{dialog_message}"
-
-            self.common_validation.failed(**kwargs)
-            return -1
-        else:
-            self.utils.print_info("No Dialog box")
-
-        # Need to obtain Serial Number for new Simulated or Digital Twin device
-        if device_model and device_model != "":
-            current_serials = self.get_device_serial_numbers(device_model)
-
-        if current_serials:
-            self.utils.print_debug("prev ", initial_serials, "cur ", current_serials)
-            new_serials = list(set(current_serials) - set(initial_serials))
-            self.utils.print_info(f"Successfully Onboarded {device_type} Device: {device_model} with Serial Number "
-                                  f"{new_serials}")
-            if len(new_serials) == 1:
-                return new_serials[0]
-            return new_serials
-
-        serials = device_serial.split(",")
-        self.utils.print_info("Serials: ", serials)
-
-        for serial in serials:
-            if self.search_device(device_serial=serial) == 1:
-                kwargs['pass_msg'] = f"Successfully Onboarded {device_make} Device(s) with {serials}"
-                self.common_validation.passed(**kwargs)
-                return 1
-            else:
-                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serials}"
-                self.common_validation.failed(**kwargs)
-                return -1
-
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboard_voss_device(self, device_serial, device_type="Real", entry_type="Manual",
-                            csv_location='', policy_name=None, loc_name=None):
-        """
-        - This keyword onboards a VOSS device using Quick on boarding flow.
-        - Keyword Usage:
-        - ``Onboard VOSS Device  ${DEVICE_SERIAL}``
-        - ``Onboard VOSS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
-        - ``Onboard VOSS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    policy_name=${POLICY_NAME}    loc_name=${LOCATION_NAME}``
-        - ``Onboard VOSS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}
-
-        :param device_serial: serial number of Device
-        :param device_make: Model of the Device (e.g., voss, etc.)
-        :param device_type: Real/Simulated
-        :param entry_type: Manual/CSV
-        :param csv_location: Absolute Path of Device onboarding CSV File Location on remote Machine
-        :param policy_name: Name of the policy to assign to the device (if not specified, policy will not be assigned)
-        :param loc_name: Location to assign to the device (if not specified, location will not be assigned)
-        :return: 1
-        """
-        return self.onboard_switch_device(device_serial, "voss", device_type, entry_type, csv_location, policy_name,
-                                          loc_name)
-
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboard_exos_device(self, device_serial, device_make="exos", device_type="Real", entry_type="Manual",
-                            csv_file_name='', policy_name=None, loc_name=None):
-        """
-        - This keyword onboards an EXOS device using Quick on boarding flow.
-        - Keyword Usage:
-        - ``Onboard EXOS Device  ${DEVICE_SERIAL}``
-        - ``Onboard EXOS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}``
-        - ``Onboard EXOS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    policy_name=${POLICY_NAME}    loc_name=${LOCATION_NAME}``
-        - ``Onboard EXOS Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}
-
-        :param device_serial: serial number of Device
-        :param device_make: Model of the Device (e.g., exos, etc.)
-        :param device_type: Real/Simulated
-        :param entry_type: Manual/CSV
-        :param csv_file_name: Csv File name  from folder testsuites/xiq/functional/onboard_csv_files
-        :param policy_name: Name of the policy to assign to the device (if not specified, policy will not be assigned)
-        :param loc_name: Location to assign to the device (if not specified, location will not be assigned)
-        :return: 1
-        """
-        self.navigator.navigate_to_devices()
-
-        if 'exos' in device_make.lower():
-            self.utils.print_info("Clicking on ADD button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
-
-            self.utils.print_info("Selecting Quick Add menu")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_menu_item)
-            self.screen.save_screen_shot()
-            sleep(2)
-
-            if device_type:
-                self.utils.print_info("Selecting Real/Simulated DEvice Type Dropdown")
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_type_dropdown)
-                sleep(2)
-                self.auto_actions.select_drop_down_options(self.devices_web_elements.get_device_type_drop_down_options()
-                                                           , device_type)
-
-            self.utils.print_info("Selecting Device Make as EXOS")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_drop_down)
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_exos_choice)
-            sleep(1)
-
-            if entry_type:
-                self.utils.print_info("Selecting Entry Type")
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_entry_type_drop_down)
-                sleep(2)
-                self.auto_actions.select_drop_down_options(self.devices_web_elements.
-                                                           get_device_entry_type_drop_down_options(), entry_type)
-                sleep(2)
-
-            if entry_type == "CSV":
-                upload_button = self.devices_web_elements.get_device_entry_exos_csv_upload_button()
-                csv_location = self.custom_file_dir + csv_file_name
-                self.auto_actions.send_keys(upload_button, csv_location)
-
-            else:
-                self.utils.print_info("Entering Serial Number for EXOS device...")
-                self.auto_actions.send_keys(self.devices_web_elements.get_devices_exos_serial_text_area(),
-                                            device_serial)
-
-            self.screen.save_screen_shot()
-            sleep(2)
-
-            if policy_name != None and policy_name != '':
-                self.utils.print_info("Selecting policy '" + policy_name + "'")
-                self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down)
-                self.auto_actions.select_drop_down_options(
-                    self.devices_web_elements.get_devices_quick_add_policy_drop_down_items(),
-                    policy_name)
-
-            if loc_name != None and loc_name != '':
-                self.utils.print_info("Selecting location '" + loc_name + "'")
-                self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_location_field)
-                self.location_dialog_select_location(loc_name)
-                self.utils.print_info("Clicking Select button")
-                self.auto_actions.click_reference(self.device_actions.get_assign_location_select_button)
-
-            self.screen.save_screen_shot()
-            sleep(2)
-
-            self.utils.print_info("Clicking on ADD DEVICES button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
-
-            self.screen.save_screen_shot()
-            sleep(2)
-
-            tooltip_text = self.dialogue_web_elements.get_tooltip_text()
-            sleep(2)
-
-            self.utils.print_info("Checking for Errors...")
-            dialog_message = self.dialogue_web_elements.get_dialog_message()
-
-            if dialog_message:
-                self.utils.print_info("Dialog Message: ", dialog_message)
-                if "Device already onboarded" in dialog_message:
-                    self.utils.print_info("Error: ", dialog_message)
-                    self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                    self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-300'))
-
-                    self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-
-                return -1
-            else:
-                self.utils.print_info("No Dialog box")
-
-            serials = device_serial.split(",")
-            self.utils.print_info("Serials: ", serials)
-
-            for serial in serials:
-                if self.search_device(device_serial=serial) == 1:
-                    self.utils.print_info("Successfully Onboarded EXOS Device(s): ", serials)
-                    return 1
-                else:
-                    return -1
-
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboard_switch_device(self, device_serial, device_make, device_type="Real", entry_type="Manual",
-                              csv_location='', policy_name=None, loc_name=None):
-        """
-        - This keyword onboards a switch device (exos/voss) using Quick on boarding flow.
-        - Keyword Usage:
-        - ``Onboard Switch Device  ${DEVICE_SERIAL}   EXOS``
-        - ``Onboard Switch Device  ${DEVICE_SERIAL}   VOSS``
-        - ``Onboard Switch Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    policy_name=${POLICY_NAME}    loc_name=${LOCATION_NAME}``
-        - ``Onboard Switch Device  ${DEVICE_SERIAL}   ${DEVICE_MAKE}    device_type=Real   entry_type=CSV  csv_location=${DEVICE_CSV_PATH}
-
-        :param device_serial: serial number of Device
-        :param device_make: Model of the Device (e.g., exos, voss, etc.)
-        :param device_type: Real/Simulated
-        :param entry_type: Manual/CSV
-        :param csv_location: Absolute Path of Device onboarding CSV File Location on remote Machine
-        :param policy_name: Name of the policy to assign to the device (if not specified, policy will not be assigned)
-        :param loc_name: Location to assign to the device (if not specified, location will not be assigned)
-        :return: 1
-        """
-        self.navigator.navigate_to_devices()
-
-        self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
-
-        self.utils.print_info("Selecting Quick Add Devices menu")
-        self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
-
-        self.utils.print_info("Selecting Deploy your devices directly to the cloud ")
-        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
-
-        if 'voss' in device_make.lower():
-            self.utils.print_info("Entering Serial Number...")
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
-
-            if device_make:
-                sleep(5)
-                self.utils.print_info("Verify Device Make")
-                ui_device_make = self.devices_web_elements.get_device_make_dropdownoption().text
-
-                self.utils.print_info("Device Make: ", ui_device_make)
-                if 'Select One' in ui_device_make:
-                    self.utils.print_info("Device Make not selected automatically")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
-                    self.auto_actions.select_drop_down_options(
-                        self.devices_web_elements.get_device_make_drop_down_options(), device_make)
-
-            if loc_name:
-                self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
-                self._select_location(loc_name)
-
-        elif 'exos' in device_make.lower():
-            self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_drop_down)
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_exos_choice)
-            sleep(1)
-
-            if entry_type:
-                self.utils.print_info("Selecting Entry Type")
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_entry_type_drop_down)
-                sleep(2)
-                self.auto_actions.select_drop_down_options(self.devices_web_elements.
-                                                           get_device_entry_type_drop_down_options(), entry_type)
-            if entry_type == "CSV":
-                if csv_location:
-                    upload_button = self.devices_web_elements.get_device_entry_exos_csv_upload_button()
-                    if upload_button:
-                        self.utils.print_info("Specifying CSV file '" + csv_location + "' for EXOS device")
-                        self.auto_actions.send_keys(upload_button, csv_location)
-                    else:
-                        self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                        self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-                        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-                        return -1
-                else:
-                    self.utils.print_info(">>> CSV file was not specified")
-                    self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-                    return -1
-            else:
-                self.utils.print_info("Entering Serial Number for EXOS device...")
-                self.auto_actions.send_keys(self.devices_web_elements.get_devices_exos_serial_text_area(),
-                                            device_serial)
-
-        else:
-            self.utils.print_info(">>> Unsupported device type " + device_make)
-            self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-            return -1
-
-        if policy_name != None and policy_name != '':
-            self.utils.print_info("Selecting policy '" + policy_name + "'")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down)
-            sleep(2)
-            self.screen.save_screen_shot()
-            self.auto_actions.select_drop_down_options(self.devices_web_elements.
-                                                       get_devices_quick_add_policy_drop_down_items(), policy_name)
-            sleep(2)
-
-        self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        tooltip_text = self.dialogue_web_elements.get_tooltip_text()
-        sleep(2)
-
-        self.utils.print_info("Checking for Errors...")
-        dialog_message = self.dialogue_web_elements.get_dialog_message()
-
-        if dialog_message:
-            self.utils.print_info("Dialog Message: ", dialog_message)
-            # self.utils.print_info("MSG_DUPLICATE_DEVICE: ", BuiltIn().get_variable_value('${MSG_DUPLICATE_DEVICE}'))
-            # if BuiltIn().get_variable_value('${MSG_DUPLICATE_DEVICE}') in dialog_message:
-            if "Device already onboarded" in dialog_message:
-                self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-400'))
-
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-400'))
-
-            return -1
-        else:
-            self.utils.print_info("No Dialog box")
-
-        serials = device_serial.split(",")
-        self.utils.print_info("Serials: ", serials)
-
-        for serial in serials:
-            if self.search_device(device_serial=serial) == 1:
-                self.utils.print_info("Successfully Onboarded Device(s): ", serials)
-                return 1
-            else:
-                return -1
-
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboard_xiq_site_engine(self, xiqse_serial):
-        """
-        - This keyword on boards an XIQ Site Engine using the Quick Add Devices flow.
-        - Keyword Usage:
-        - ``Onboard XIQ Site Engine  ${XIQSE_SERIAL}
-
-        :param xiqse_serial: serial number of the XIQ Site Engine
-        :return: 1
-        """
-        self.navigator.navigate_to_devices()
-
-        # Access the Quick Add panel
-        self.utils.print_info("Clicking on ADD button...")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
-
-        self.utils.print_info("Selecting Quick Add menu")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_menu_item)
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        # Select 'XMC' from the 'Device Make' field
-        self.utils.print_info("Selecting 'XMC' from the 'Device Make' drop down...")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_drop_down)
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_device_make_xmc_choice)
-        sleep(1)
-
-        # Enter the XIQ Site Engine's serial number
-        self.utils.print_info("Entering Serial Number for XIQ Site Engine...")
-        self.auto_actions.send_keys(self.devices_web_elements.get_devices_xiqse_serial_text_area(), xiqse_serial)
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
-
-        self.screen.save_screen_shot()
-        sleep(2)
-
-        tooltip_text = self.dialogue_web_elements.get_tooltip_text()
-        sleep(2)
-
-        self.utils.print_info("Checking for Errors...")
-        dialog_message = self.dialogue_web_elements.get_dialog_message()
-
-        if dialog_message:
-            self.utils.print_info("Dialog Message: ", dialog_message)
-            if "Device already onboarded" in dialog_message:
-                self.utils.print_info("Error: ", dialog_message)
-                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-500'))
-
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-500'))
-
-            return -1
-        else:
-            self.utils.print_info("No Dialog box")
-
-        serials = xiqse_serial.split(",")
-        self.utils.print_info("Serials: ", serials)
-
-        ret_val = 1
-        for serial in serials:
-            if self.search_device(device_serial=serial) == 1:
-                self.utils.print_info(f"Successfully Onboarded XIQ Site Engine {serial}")
-            else:
-                self.utils.print_info(f"ERROR: XIQ Site Engine {serial} was not onboarded")
-                ret_val = -1
-        return ret_val
-
     def wait_for_device_to_finish_update(self, device_serial=None, device_name=None, device_mac=None, retry_duration=10, retry_count=30, **kwargs):
         """
         - This keyword waits for the device to finish updates
@@ -3474,7 +3003,6 @@ class Devices:
         # navigate to devices page
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
-        self.utils.print_info("inside serial number procedure")
 
         # reset the page number to 1
         pageOne = self.devices_web_elements.get_devices_page_number_one()
@@ -3794,7 +3322,7 @@ class Devices:
                                 return row
                         if device_mac != 'default':
                             self.utils.print_debug(f"Looking at Device MAC {device_mac}")
-                            if device_mac in row.text:
+                            if device_mac.upper() in row.text:
                                 self.utils.print_info("Found device row: ", self.format_row(row.text))
                                 return row
                     # Device row not found in table so break out of the StaleElementException loop
@@ -4011,23 +3539,24 @@ class Devices:
         """
         device_row = -1
 
+        self.navigator.enable_page_size()
         self.utils.print_info(f"Enable the Updated On column")
         self.column_picker_select("Updated On")
 
         self.utils.print_info(f"Refresh the devices page")
         self.utils.wait_till(self.refresh_devices_page)
-        self.utils.print_info('Getting device Updated Status using')
+        self.utils.print_info('Getting device Updated Status using ', *[x for x in {device_serial, device_name,device_mac} if x is not None])
         if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
-            device_row = self.get_device_row(device_serial)
+            device_row = self.get_device_row(device_serial=device_serial)
 
         if device_name:
             self.utils.print_info("Getting Updated status of device with name: ", device_name)
-            device_row = self.get_device_row(device_name)
+            device_row = self.get_device_row(device_name=device_name)
 
         if device_mac:
             self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            device_row = self.get_device_row(device_mac=device_mac)
         # get a snap shot of the object at this instant, so values can't change or become undefined.
         device_row = copy.copy(device_row)
 
@@ -4705,37 +4234,7 @@ class Devices:
             gui_sorted_values = self._get_device_column_values('field-updatedOn')
             return self._validate_sorting_column_values(sort, unsorted_values, gui_sorted_values)
 
-    def device_reboot(self, device_serial):
-        """
-        - This keyword is used to reboot the device from Actions --> Reboot
-        - Flow:
-        - Navigate to Manage --> Devices
-        - Select the device row based on the passed device serial number
-        - Click on ACTIONS --> Reboot
-        - Keyword Usage:
-        - ``Device Reboot   ${DEVICE_SERIAL}``
-
-        :param device_serial: device serial number to reboot
-        :return: 1
-        """
-
-        self.utils.print_info("Navigate to Manage-->Devices")
-        self.navigator.navigate_to_devices()
-
-        self.refresh_devices_page()
-        self.select_device(device_serial)
-
-        self.utils.print_info("Click on device actions button")
-        self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
-
-        self.utils.print_info("click on device actions reboot button")
-        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_button)
-
-        self.utils.print_info("Click on reboot confirm yes button")
-        self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_confirm_bttn)
-        return 1
-
-    def onboard_wing_ap(self, device_serial, device_mac, device_make, location=False):
+    def _onboard_wing_ap(self, device_serial, device_mac, device_make, location=False):
         """
         - This keyword on-boards an WiNG device [AP or Switch] using Quick on-boarding flow.
         - Keyword Usage:
@@ -4887,7 +4386,7 @@ class Devices:
             return_array_data[column.replace(' ', "_")] = data
         return return_array_data
 
-    def get_device_configuration_audit_status(self, device_serial):
+    def get_device_configuration_audit_status(self, device_serial='default', device_name='default', device_mac='default'):
         """
         - This keyword is used to get the device configuration audit status
         - Flow:
@@ -4896,6 +4395,8 @@ class Devices:
         - ``Get Device Configuration Audit Status    ${DEVICE_SERIAL}``
 
         :param device_serial: device serial number to check the device configuration audit status
+        :param device_name: device Name
+        :param device_mac: device MAC
         :return:
         - audit match : if configuration audit matched
         - audit mismatch : if configuration audit mismatch
@@ -4904,7 +4405,7 @@ class Devices:
 
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
-        device_row = self.get_device_row(device_serial)
+        device_row = self.get_device_row(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
         if device_row:
             audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
@@ -4916,7 +4417,8 @@ class Devices:
                 self.utils.print_info("device configuration audit mismatched")
                 return "audit mismatch"
 
-        self.utils.print_info(f"device with serial:{device_serial} not found in the device grid rows")
+        self.utils.print_info("Device with ", *[x for x in {device_serial, device_name, device_mac} if x != 'default'],
+                              " not found in the device grid rows")
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -5374,7 +4876,7 @@ class Devices:
                         floor_set = True
                         sleep(5)
 
-    def update_switch_policy_and_configuration(self, serial):
+    def update_switch_policy_and_configuration(self, device_serial=None, device_name=None, device_mac=None):
         """
         - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
           check button in the Device Update dialog.
@@ -5382,17 +4884,19 @@ class Devices:
         - Select Switch-->Update device
         - Keyword Usage:
         - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
-        :param serial: serial number of the switch to update
+        :param device_serial: serial number of the switch to update
+        :param device_name: device Name
+        :param device_mac: device MAC
         :return: 1
         """
         self.utils.print_info("Select Switch row")
-        self.select_device(serial)
+        self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
         self._update_switch(update_method="PolicyAndConfig")
 
         self.screen.save_screen_shot()
 
-        return self._check_device_update_status(serial)
+        return self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
     def update_switch_iq_engine_and_images(self, serial):
         """
@@ -5595,7 +5099,7 @@ class Devices:
 
         return ret_val
 
-    def _check_device_update_status(self,  device_serial_mac_or_name):
+    def _check_device_update_status(self,  device_serial=None, device_name=None, device_mac=None):
         """
         - This keyword is used to check the status of the device update
         - It will poll the "update status" every 30 seconds
@@ -5605,7 +5109,7 @@ class Devices:
         """
         retry_count = 0
         while retry_count <= 300:
-            device_update_status = self.get_device_updated_status(device_serial_mac_or_name)
+            device_update_status = self.get_device_updated_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif device_update_status == "Device Update Failed":
@@ -6804,20 +6308,6 @@ class Devices:
         if ap_public_ip:
             return ap_public_ip
 
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboard_multiple_exos_switches(self, device_serials, device_make="exos"):
-        """
-        - This Keyword will Onboard Multiple Exos Devices with Serial Numbers
-        - Keyword Usage:
-        - `Onboard Multiple Exos Devices  ${SERIAL1},${SERIAL2},${SERIALS3}  {DEVICE_MAKE}``
-        - `Onboard Multiple Exos Devices  ${SERIAL1},${SERIAL2},${SERIALS3}``
-
-        :param device_serials: Serial Numbers seperated by comma
-        :param device_make: Device Make Type ie EXOS
-        :return: 1 if Exos Devices on boarded Successfully else -1
-        """
-        return self.onboard_switch_device(device_serials, device_make)
-
     def device_update_progress(self, device_serial='default', retry_duration=30, retry_count=900):
         """
         - This keyword is used to check the status of the device update and also shows device update progress status such as 19%...etc
@@ -7831,7 +7321,7 @@ class Devices:
                 self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
                 self.utils.print_info("'VOSS' found in 'Device Make' list")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_vos)
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_voss)
                 sleep(2)
             else:
                 self.utils.print_info("Button 'VOSS' not found")
@@ -7921,20 +7411,27 @@ class Devices:
                 return -1
             else:
                 pass
+            """
+            JPS -- Dec 20, 2022
+            The following code did not work as desired, it would find a tool tip that was just an 
+            info message and fail the keyword. In the future there should be a common error checker
+            used by all onboard keywords. In the future the onboard_device_quick should be able 
+            onboard a device with a CSV and this should whol keyword should be removed.
+            """
             # Check the banner error
-            sleep(3)
-            tool_tp_text_after = tool_tip.tool_tip_text.copy()
-            self.utils.print_info(tool_tp_text_after)
-            for item_after in tool_tp_text_after:
-                if item_after in tool_tp_text_before:
-                    pass
-                else:
-                    if 'successfully' in item_after:
-                        pass
-                    else:
-                        self.utils.print_info(" Below error message is displayed after press ADD button")
-                        self.utils.print_info(item_after)
-                        return item_after
+            #sleep(3)
+            #tool_tp_text_after = tool_tip.tool_tip_text.copy()
+            #self.utils.print_info(tool_tp_text_after)
+            #for item_after in tool_tp_text_after:
+            #    if item_after in tool_tp_text_before:
+            #        pass
+            #    else:
+            #        if 'successfully' in item_after:
+            #            pass
+            #        else:
+            #            self.utils.print_info(" Below error message is displayed after press ADD button")
+            #            self.utils.print_info(item_after)
+            #            return item_after
         else:
             self.utils.print_info("'Add Devices' button not found or the button is not active")
             return -1
@@ -12408,36 +11905,30 @@ class Devices:
         """
 
         if self.navigator.navigate_to_devices() != 1:
-            self.utils.print_info("Failed on navigating to the Devices page.")
             kwargs['fail_msg'] = "Failed on navigating to the Devices page."
-            self.screen.save_screen_shot()
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
+
+        # Enable the 'Model' Column
+        self.column_picker_select('Model')
 
         self.utils.print_info(f"Searching for the device row with mac address: {mac}")
         device_row = self.get_device_row(device_mac=mac)
         if device_row:
             self.utils.print_info(f'Found the device row with mac address: {mac}')
-            device_model = self.devices_web_elements.get_device_model(device_row)
+            device_model = self.devices_web_elements.get_device_model(device_row).text
             print("Device model: ", device_model)
             if device_model:
-                self.utils.print_info(f"Found the device model: {device_model.text} for the device with "
-                                      f"MAC address: {mac}")
-                kwargs['pass_msg'] = f"Found the device model: {device_model.text} for the device with " \
+                kwargs['pass_msg'] = f"Found the device model: {device_model} for the device with " \
                                      f"MAC address: {mac}"
                 self.common_validation.passed(**kwargs)
-                return device_model.text
+                return device_model
             else:
-                self.utils.print_info(f"Failed on getting the device model from the device with mac: {mac} ")
-
                 kwargs['fail_msg'] = f"Failed on getting the device model from the device with mac: {mac} "
-                self.screen.save_screen_shot()
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info(f"Did not find any rows with mac address: {mac}")
             kwargs['fail_msg'] = f"Did not find any rows with mac address: {mac}"
-            self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
 

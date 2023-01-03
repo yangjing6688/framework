@@ -134,10 +134,23 @@ class NetworkPolicy(object):
             self.screen.save_screen_shot()
             sleep(3)
 
-    def create_network_policy_if_does_not_exist(self, policy, **wireless_profile):
-        self.use_existing_policy = True
-        out = self.create_network_policy(policy, wireless_profile)
-        return out
+    def create_network_policy_if_does_not_exist(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
+        """
+        - Search for network policy, if it doesn't exist, create it
+        :param policy: Name of the network policy to create
+        :param wireless_profile: (dict) wireless network creation profile parameters
+        :param cli_type: Device type of the DUT
+        :return: 1 if policy already exists or if it was successfully created, else -1
+        """
+        self.navigator.navigate_to_devices()
+        if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+            kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
+            self.common_validation.fault(**kwargs)
+        sleep(2)
+
+        if self._search_network_policy_in_list_view(policy) == -1:
+            return self.create_network_policy(policy, wireless_profile, cli_type)
+        return 1
 
     def create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
         """
