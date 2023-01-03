@@ -26,7 +26,7 @@ class MspWebElements(MspWebElementsDefinitions):
         return self.weh.get_element(self.organizations_select_check_box)
 
     def get_organizations_check_box_enabled_status(self):
-        return self.weh.get_element(self.organizations_select_check_box_status).get_attribute("checked")
+        return self.weh.get_element(self.organizations_check_box_enabled_status).get_attribute("checked")
 
     def get_paze_size_element(self, page_size='50'):
         if els := self.weh.get_elements(self.page_size_element):
