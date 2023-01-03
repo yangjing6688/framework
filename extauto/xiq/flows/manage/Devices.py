@@ -5511,11 +5511,13 @@ class Devices:
         self.utils.print_info("Select Switch row")
         self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
-        self._update_switch(update_method="PolicyAndConfig")
+        return_value = self._update_switch(update_method="PolicyAndConfig")
 
         self.screen.save_screen_shot()
 
-        return self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
+        # return self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
+
+        return return_value
 
     def update_switch_iq_engine_and_images(self, serial):
         """
@@ -12727,3 +12729,9 @@ class Devices:
         kwargs["pass_msg"] = f"Successfully updated the switch {dut.mac}"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def deploy_switch_network_policy_with_complete_update(self, device_serial, policy_name):
+        return_value = self.assign_network_policy_to_a_device(device_serial, policy_name)
+        if return_value == 1:
+            return_value = self.update_switch_policy_and_configuration(device_serial)
+        return return_value
