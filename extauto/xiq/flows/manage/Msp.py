@@ -109,17 +109,15 @@ class Msp(MspWebElements):
                             self.screen.save_screen_shot()
                             sleep(2)
 
-                        check_box = self.get_organizations_select_check_box()
-                        if check_box:
-                            check_box_status = check_box.get_attribute("checked")
-                            self.utils.print_info(f"check_box_status: {check_box_status}")
-                            import sys, pdb;
-                            pdb.Pdb(stdout=sys.__stdout__).set_trace()
-                            if check_box_status == "checked":
-                                self.utils.print_info(f"Unchecking Organization {organization_name} View checkbox")
-                                self.auto_actions.click_reference(self.get_organizations_select_check_box)
-                                self.screen.save_screen_shot()
-                                sleep(2)
+                        check_box_status = self.get_organizations_check_box_enabled_status()
+                        self.utils.print_info(f"check_box_status: {check_box_status}")
+                        import sys, pdb;
+                        pdb.Pdb(stdout=sys.__stdout__).set_trace()
+                        if check_box_status == "checked":
+                            self.utils.print_info(f"Unchecking Organization {organization_name} View checkbox")
+                            self.auto_actions.click_reference(self.get_organizations_select_check_box)
+                            self.screen.save_screen_shot()
+                            sleep(2)
 
                         self.utils.print_info("Click Organizations close button")
                         self.auto_actions.click_reference(self.get_view_organization_close_button)
