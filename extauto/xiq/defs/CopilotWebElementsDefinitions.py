@@ -973,7 +973,7 @@ class CopilotWebElementsDefinitions:
 
     wifi_clientexp_widget_viewby_option_handle = \
         {
-            'XPATH': '//nui-connectivity-experience[contains(@class,"con-exp-wireless")]//div//mat-select[contains(@class,"nui-auto-copilot-connectivity-experience--view-by-dropdown")]',
+            'XPATH': '//nui-connectivity-experience[contains(@class,"con-exp-wireless")]//div//mat-select[contains(@class,"nui-auto-copilot-connectivity-experience-wireless-view-by-dropdown")]',
             'wait_for': 5
         }
 
@@ -994,7 +994,6 @@ class CopilotWebElementsDefinitions:
         }
     wireless_clientexp_quality_index = \
         {
-            # 'XPATH': '//div[contains(@class,"cexp-detail-wrap")]//div[contains(@class,"time-to-connect")]//div[contains(@class,"quali-score-label")]//p[contains(@class,"quali-score")]',
             'XPATH': '//div[contains(@class,"cexp-detail-wrap")]//div[contains(@class,"quality-metric-container")]//div[contains(@class,"quali-score-label")]//p[contains(text(),"Time To Connect")]/following-sibling::p',
             'wait_for': 5
         }
@@ -1005,7 +1004,6 @@ class CopilotWebElementsDefinitions:
         }
     wireless_clientexp_performance_index = \
         {
-            # 'XPATH': '//div[contains(@class,"cexp-detail-wrap")]//div[contains(@class,"time-to-connect")]//div[contains(@class,"quali-score-label")]//p[contains(@class,"quali-score")]',
-            'XPATH': '//div[contains(@class,"cexp-detail-wrap")]//div[contains(@class,"quality-metric-container")]//div[contains(@class,"quali-score-label")]//p[contains(text(),"Perfromance")]/following-sibling::p',
+            'XPATH': '//div[contains(@class,"cexp-detail-wrap")]//div[contains(@class,"quality-metric-container")]//div[contains(@class,"quali-score-label")]//p[contains(text(),"Performance")]/following-sibling::p',
             'wait_for': 5
         }

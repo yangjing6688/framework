@@ -3461,3 +3461,40 @@ class Copilot(CopilotWebElements):
             self.utils.switch_to_default(CloudDriver().cloud_driver)
 
             return performance_quality_index.split("/")[0]
+
+    def get_wirless_clientexp_performance_index_by_ssid(self, ssid_name, parameter="SSID", durationType="Last 24 Hours", **kwargs):
+        """
+        - This Keyword will get the Performance index values from Wireless client experience by SSID and Duration Tupe
+        - Flow: CoPilot--> Wireless Client Experience ---> Click the ssid name
+        - Keyword Usage:
+        - ``Click wireless clientexp widget by location {$ssid_name}``
+
+        :param ssid_name: ssid name
+        :param parameter: filter type Location, SSID, OSType
+        :param durationType: Last 1 hrs , Last 24 hrs
+        :return: Quality index values if sucessfully clicking the row else return NA
+        """
+        # will navigate to wireless client experience widget and click on location
+        navigation_return = self.navigate_wirless_clientexp_widget_by_ssid(ssid_name, parameter, **kwargs)
+
+        if navigation_return == -1:
+            fail_message = "Unable to navigate to wireless client experience by ssid : " + ssid_name
+            self.utils.print_info(fail_message)
+            kwargs['fail_msg'] = fail_message
+            self.common_validation.failed(**kwargs)
+        else:
+            self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+            self.utils.print_info("Clicking wireless client experience Duration option : " + durationType)
+            self.auto_actions.click(self.get_wireless_client_experience_widget_duration_handle())
+            self.utils.print_info("Searching for duration option : " + durationType)
+
+            duration_options = self.get_wireless_client_experience_widget_duration_option()
+            self.utils.print_info(f"Sorting with {durationType}")
+            self.auto_actions.select_drop_down_options(duration_options, durationType)
+            sleep(2)
+
+            performance_quality_index = self.get_wireless_clientexp_perfromance_index().text
+            self.utils.print_info(f"Quality index {performance_quality_index}")
+            self.utils.switch_to_default(CloudDriver().cloud_driver)
+
+            return performance_quality_index.split("/")[0]
