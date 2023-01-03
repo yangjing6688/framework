@@ -112,11 +112,11 @@ class Msp(MspWebElements):
                         check_box = self.get_organizations_select_check_box()
                         if check_box:
                             check_box_status = check_box.get_attribute("checked")
+                            import sys, pdb;
+                            pdb.Pdb(stdout=sys.__stdout__).set_trace()
                             if check_box_status == "checked":
                                 self.utils.print_info(f"Unchecking Organization {organization_name} View checkbox")
                                 self.auto_actions.click_reference(self.get_organizations_select_check_box)
-                                import sys, pdb;
-                                pdb.Pdb(stdout=sys.__stdout__).set_trace()
                                 self.screen.save_screen_shot()
                                 sleep(2)
 
