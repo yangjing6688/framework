@@ -3758,7 +3758,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def device360_click_open_site_engine_link(self, **kwargs):
+    def device360_click_open_site_engine_link(self, iteration=12, sleep_time=10, **kwargs):
         """
         - This keyword clicks on the OPEN SITE ENGINE link
         - It is assumed that the Device360 window is open and the Overview panel is selected.
@@ -3768,22 +3768,26 @@ class Device360(Device360WebElements):
         """
         ret_val = -1
 
-        ose_link = self.get_device360_open_site_engine_link()
-        if ose_link:
-            hidden = ose_link.get_attribute("class")
-            self.utils.print_info(f"Open Site Engine link Class value: {hidden}")
-            if hidden == "mr50 fn-hidden":
-                self.utils.print_info("The 'Open Site Engine' link is hidden.")
-                self.screen.save_screen_shot()
-                ret_val = 1
+        for eachiteration in range(0, iteration):
+            ose_link = self.get_device360_open_site_engine_link()
+            if ose_link:
+                hidden = ose_link.get_attribute("class")
+                self.utils.print_info(f"Open Site Engine link Class value: {hidden}")
+                if hidden == "mr50 fn-hidden":
+                    self.utils.print_info("The 'Open Site Engine' link is hidden.")
+                    self.screen.save_screen_shot()
+                    ret_val = 1
+                else:
+                    self.utils.print_info("Clicking the 'Open Site Engine' link.")
+                    self.auto_actions.move_to_element(ose_link)
+                    self.screen.save_screen_shot()
+                    self.auto_actions.click(ose_link)
+                    ret_val = 1
+                break;
             else:
-                self.utils.print_info("Clicking the 'Open Site Engine' link.")
-                self.auto_actions.move_to_element(ose_link)
-                self.screen.save_screen_shot()
-                self.auto_actions.click(ose_link)
-                ret_val = 1
-        else:
-            self.utils.print_info("Could not find the 'Open Site Engine' link.")
+                self.utils.print_info("Could not find the 'Open Site Engine' link.")
+                sleep(sleep_time)
+                self.device360_refresh_page()
 
         if ret_val == -1:
             kwargs['fail_msg'] = "device360_click_open_site_engine_link() -> Could not find the 'Open Site Engine' link"
