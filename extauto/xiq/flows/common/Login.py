@@ -317,6 +317,8 @@ class Login:
                     msp_module.select_organization(organization_name='YOUR ORGANIZATION')
                     network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
                     network360Plan.import_map_in_network360plan(map_override)
+                    self.navigator.navigate_to_devices()
+
             else:
                 self.utils.print_info(f"Continuing with own organization")
                 self.screen.save_screen_shot()
