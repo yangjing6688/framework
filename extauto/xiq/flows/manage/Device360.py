@@ -14186,14 +14186,16 @@ class Device360(Device360WebElements):
         :return: pass message if the success message is generated  and the same as the one in the function
         :return: fail message if error (the message is not generated)
         """
-
+        start_time = int(time.time())
+        max_wait = 180
+        # self.utils.wait_till(self.dev360.get_d360_save_port_configuration_message_exos, timeout=60, is_logging_enabled=True, delay=2)
         success_message = self.dev360.get_d360_save_port_configuration_message_exos()
-        max_wait = 300
-        count = 0
-        while not success_message.is_displayed() and count < max_wait:
-            time.sleep(2)
-            count += 10
-            success_message = self.dev360.get_d360_save_port_configuration_message_exos()
+        while not success_message.is_displayed():
+            if (int(time.time()) - start_time) < max_wait:
+                success_message = self.dev360.get_d360_save_port_configuration_message_exos()
+                time.sleep(2)
+            else:
+                self.utils.print_info(f"Unable to display the success message: {success_message.text}")
         if success_message:
             self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
             return success_message.text
@@ -14207,14 +14209,16 @@ class Device360(Device360WebElements):
         :return: pass message if the success message is generated  and the same as the one in the function
         :return: fail message if error (the message is not generated)
         """
-
+        start_time = int(time.time())
+        max_wait = 180
+        # self.utils.wait_till(self.dev360.get_d360_save_port_configuration_message_voss, timeout=60, is_logging_enabled=True, delay=2)
         success_message = self.dev360.get_d360_save_port_configuration_message_voss()
-        max_wait = 300
-        count = 0
-        while not success_message.is_displayed() and count < max_wait:
-            time.sleep(2)
-            count += 10
-            success_message = self.dev360.get_d360_save_port_configuration_message_voss()
+        while not success_message.is_displayed():
+            if (int(time.time()) - start_time) < max_wait:
+                success_message = self.dev360.get_d360_save_port_configuration_message_voss()
+                time.sleep(2)
+            else:
+                self.utils.print_info(f"Unable to display the success message: {success_message.text}")
         if success_message:
             self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
             return success_message.text
