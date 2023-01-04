@@ -4513,18 +4513,19 @@ class Devices:
                         if device_row and device_row != -1:
                             status = self.devices_web_elements.get_status_cell(device_row)
                             self.utils.print_info(f"Found Device status: {status}")
-                            if "hive-status-true" in status:
-                                kwargs['pass_msg'] = "Device status is connected!"
-                                self.common_validation.passed(**kwargs)
-                                return 1
-                            elif "local-managed-icon" in status:
-                                kwargs['pass_msg'] = "Device status is connected - locally managed"
-                                self.common_validation.passed(**kwargs)
-                                return 1
-                            else:
-                                self.utils.print_info(
-                                    f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
-                                sleep(retry_duration)
+                            if status is not None:
+                                if "hive-status-true" in status:
+                                    kwargs['pass_msg'] = "Device status is connected!"
+                                    self.common_validation.passed(**kwargs)
+                                    return 1
+                                elif "local-managed-icon" in status:
+                                    kwargs['pass_msg'] = "Device status is connected - locally managed"
+                                    self.common_validation.passed(**kwargs)
+                                    return 1
+                                else:
+                                    self.utils.print_info(
+                                        f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
+                                    sleep(retry_duration)
                         else:
                             self.utils.print_info(f"Did not find device row. Waiting for {retry_duration} seconds...")
                             sleep(retry_duration)
