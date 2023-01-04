@@ -30,6 +30,12 @@ class MspWebElementsDefinitions:
             'wait_for':    15
         }
 
+    organizations_check_box_enabled_status = \
+        {
+            'XPATH': '//div[contains(@class,"org-checkbox")]//input',
+            'wait_for':    15
+        }
+
     organizations_select_radio_button = \
         {
             'NAME': 'singleOrgRadio',
