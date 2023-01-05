@@ -379,7 +379,7 @@ class RadioProfile (RadioProfileWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "save_radio_profile() failed. Radio profile was saved successfully"
+            kwargs['fail_msg'] = "save_radio_profile() failed. Unable to save Radio profile"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
