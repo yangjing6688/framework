@@ -266,6 +266,19 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_simulated_devices_dropdown(self):
         return self.weh.get_element(self.simulated_device_dropdown)
 
+    def get_simulated_device_dropdown_table(self):
+        return self.weh.get_element(self.simulated_device_dropdown_table)
+
+    def get_simulated_device_dropdown_table_rows(self, table):
+        return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
+
+    def get_simulated_devices_dropdown_items(self):
+        parent = self.get_simulated_devices_dropdown()
+        return self.weh.get_elements(self.simulated_device_dropdown_items, parent)
+
+    def get_simulation_device_count_input_field(self):
+        return self.weh.get_element(self.simulation_device_count_input_field)
+
     def get_add_another_device(self):
         return self.weh.get_element(self.add_another_device)
 
@@ -1222,12 +1235,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_number_of_rows(self):
         return self.weh.get_elements(self.number_of_rows)
 
-    def get_simulated_device_dropdown_table(self):
-        return self.weh.get_element(self.simulated_device_dropdown_table)
-
-    def get_simulated_device_dropdown_table_rows(self, table):
-        return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
-
     def get_manage_devices_table_load_mask(self):
         return self.weh.get_element(self.manage_devices_table_load_mask)
 
@@ -1237,9 +1244,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_device_page_size_100(self):
         return self.weh.get_element(self.device_page_size_100)
 
-    def get_simulation_device_count_input_field(self):
-        return self.weh.get_element(self.simulation_device_count_input_field)
-      
     def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox(self):
         return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox)
 
@@ -1343,7 +1347,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_device_serial_number(self, row, field='field-serialNumber'):
         """
-        :param device_row: the device parent row
+        :param row: the device parent row
         :param field: serial number field in attribute
         :return: Devices -> Device Row -> serial # column
         """

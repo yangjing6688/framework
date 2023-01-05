@@ -665,11 +665,33 @@ class DevicesWebElementsDefinitions:
 
     simulated_device_dropdown = \
         {
-            # 'XPATH': '//*[@data-automation-tag="chzn-container-ctn"]//span[contains(text(), "ATOM")]',
-            'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-simulated-device-control"]'
-                     '//*[@data-dojo-attach-point="_buttonNode,tableNode,focusNode,_popupStateNode"]',
-            # "CSS_SELECTOR": ".dijit.dijitReset.dijitInline.dijitLeft.dijitDownArrowButton.honeycomb-ui-form-select",
-            # "index": 1,
+            'DESC': 'Quick Add Devices (cloud) > Simulated > Device Model field',
+            'XPATH': '//*[@data-automation-tag="automation-quick-add-step-device-model-dropdown"]'
+        }
+
+    simulated_device_dropdown_table = \
+        {
+            'CSS_SELECTOR': '.honeycomb-ui-form-selectMenu',
+            'wait_for': 5
+        }
+
+    simulated_device_dropdown_table_rows = \
+        {
+            'CSS_SELECTOR': '.dijitMenuItem',
+            'wait_for': 5
+        }
+
+    simulated_device_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices (cloud) > Simulated > Device Model field items',
+            'XPATH': '//*[@data-automation-tag="-dropdown"]//tr[contains(@class, "dijitMenuItem")]'
+        }
+
+    simulation_device_count_input_field = \
+        {
+            'DESC': 'Quick Add Devices (cloud) > Simulated > Device Model Count field',
+            'XPATH': '//*[@data-dojo-attach-point="deviceModelSection"]'
+                     '//*[@data-dojo-attach-point="numOfDevices"]',
             'wait_for': 5
         }
 
@@ -1794,18 +1816,6 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
-    simulated_device_dropdown_table = \
-        {
-            'CSS_SELECTOR': '.honeycomb-ui-form-selectMenu',
-            'wait_for': 5
-        }
-
-    simulated_device_dropdown_table_rows = \
-        {
-            'CSS_SELECTOR': '.dijitMenuItem',
-            'wait_for': 5
-        }
-
     manage_devices_table_load_mask = \
         {
             'DESC': 'Manage > Devices "load" mask',
@@ -1824,13 +1834,6 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottom"]/div/a[@data-size="100"]',
             'wait_for': 3
-        }
-
-    simulation_device_count_input_field = \
-        {
-            'DESC': 'Manage > Devices "load" mask',
-            'XPATH': '//*[@data-dojo-attach-point="numOfDevices"]',
-            'wait_for': 5
         }
     
     upgrade_IQ_engine_and_extreme_network_switch_images_checkbox = \
@@ -1945,7 +1948,6 @@ class DevicesWebElementsDefinitions:
         }
    
     device_model = \
-    {
-        'CSS_SELECTOR': '.field-productType'
-    }
-        
+        {
+            'CSS_SELECTOR': '.field-productType'
+        }
