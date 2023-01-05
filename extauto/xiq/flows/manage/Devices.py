@@ -2445,31 +2445,27 @@ class Devices:
 
     def set_onboard_values_for_simulated(self, device_model, device_count):
         """
-        This method is create for onboard device with device_type == Simulated
+        This method sets the onboard device options when the device_type == Simulated
         """
 
         # Code copied from 'onboard_simulated_device'
         self.utils.print_info("Selecting 'Simulated' Device Type radio button")
         self.auto_actions.click_reference(self.devices_web_elements.get_quick_onboard_simulated)
         self.auto_actions.click_reference(self.devices_web_elements.get_simulated_devices_dropdown)
-
-        table_of_aps = self.devices_web_elements.get_simulated_device_dropdown_table()
-
-        options = self.devices_web_elements.get_simulated_device_dropdown_table_rows(table_of_aps)
+        options = self.devices_web_elements.get_simulated_devices_dropdown_items()
         for option in options:
             if device_model in option.text:
                 self.utils.print_info("Simulated device option: ", option.text)
                 self.auto_actions.click(option)
 
         self.utils.print_info(f"Entering Device Count: {device_count}")
-        self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(),
-                                    device_count)
+        self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), device_count)
 
         return 1
 
     def set_onboard_values_for_digital_twin(self, os_persona, device_model, os_version, **kwargs):
         """
-        This method is create for onboard device with device_type == Digital Twin
+        This method sets the onboard device options when the device_type == Digital Twin
         """
 
         # Code specific to Digital Twin devices - Code copied from 'onboard_device_dt'
@@ -4513,18 +4509,19 @@ class Devices:
                         if device_row and device_row != -1:
                             status = self.devices_web_elements.get_status_cell(device_row)
                             self.utils.print_info(f"Found Device status: {status}")
-                            if "hive-status-true" in status:
-                                kwargs['pass_msg'] = "Device status is connected!"
-                                self.common_validation.passed(**kwargs)
-                                return 1
-                            elif "local-managed-icon" in status:
-                                kwargs['pass_msg'] = "Device status is connected - locally managed"
-                                self.common_validation.passed(**kwargs)
-                                return 1
-                            else:
-                                self.utils.print_info(
-                                    f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
-                                sleep(retry_duration)
+                            if status is not None:
+                                if "hive-status-true" in status:
+                                    kwargs['pass_msg'] = "Device status is connected!"
+                                    self.common_validation.passed(**kwargs)
+                                    return 1
+                                elif "local-managed-icon" in status:
+                                    kwargs['pass_msg'] = "Device status is connected - locally managed"
+                                    self.common_validation.passed(**kwargs)
+                                    return 1
+                                else:
+                                    self.utils.print_info(
+                                        f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
+                                    sleep(retry_duration)
                         else:
                             self.utils.print_info(f"Did not find device row. Waiting for {retry_duration} seconds...")
                             sleep(retry_duration)
@@ -11625,6 +11622,96 @@ class Devices:
         self.utils.print_info("Click the Quick Add Devices > Cancel button")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
         return ret_val
+
+    def get_device_model_list(self, device_type="digital_twin", os_persona="SwitchEngine", **kwargs):
+        """
+        - This keyword will return a list of Device Models available for Digital Twin or Simulated.
+        - It is assumed that the XIQ > Manage > Devices view is already open.
+        - Keyword Usage:
+         - ''Get Device Model List    device_type="simulated" ''
+         - ''Get Device Model List    device_type="digital_twin"    os_persona="FabricEngine" ''
+
+        :param device_type: digital_twin or simulated
+        :param os_persona: Digital Twin OS Persona - SwitchEngine or FabricEngine. Not used for Simulated.
+        :return: list of device models
+        """
+        device_model_list = []
+
+        self.utils.print_info("Clicking on ADD button...")
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
+
+        self.utils.print_info("Selecting Quick Add Devices menu")
+        self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
+
+        self.utils.print_info("Selecting Deploy your devices directly to the cloud")
+        self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
+        sleep(2)
+
+        if device_type.lower() == "simulated":
+            # Based on Code from 'set_onboard_values_for_simulated'
+            self.utils.print_info("Selecting 'Simulated' Device Type radio button")
+            self.auto_actions.click_reference(self.devices_web_elements.get_quick_onboard_simulated)
+            self.utils.print_info("Selecting 'Simulated' Device Model field")
+            self.auto_actions.click_reference(self.devices_web_elements.get_simulated_devices_dropdown)
+            options = self.devices_web_elements.get_simulated_devices_dropdown_items()
+            self.screen.save_screen_shot()
+            if options:
+                for option in options:
+                    self.utils.print_debug(f"Device Model: {option.text}")
+                    if option.text.upper() != "--":
+                        self.utils.print_debug(f"Adding model: {option.text}")
+                        device_model_list.append(option.text)
+
+        elif device_type.lower() == "digital twin":
+            attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
+            self.utils.print_info(f"attribute value: {attribute}")
+            if "fn-hidden" not in attribute:
+                self.utils.print_info("Selecting 'Digital Twin' radio button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_type_digital_twin_radio_button)
+
+                if os_persona and os_persona != "":
+                    self.utils.print_info(f"Selecting OS Persona: {os_persona}")
+                    self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_os_persona_dropdown)
+                    if self.auto_actions.select_drop_down_options(
+                            self.devices_web_elements.get_digital_twin_os_persona_dropdown_items(), os_persona):
+                        self.utils.print_info(f"OS Persona set to: {os_persona}")
+                    else:
+                        kwargs['fail_msg'] = f"Could not select OS Persona: {os_persona}"
+                        self.common_validation.failed(**kwargs)
+                else:
+                    kwargs['fail_msg'] = "Invalid OS Persona value provided..."
+                    self.common_validation.failed(**kwargs)
+
+                self.utils.print_info("Clicking Device Model field...")
+                self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_device_model_dropdown)
+                sleep(2)
+                options = self.devices_web_elements.get_digital_twin_device_model_dropdown_items()
+                if options:
+                    for option in options:
+                        self.utils.print_debug(f"Device Model: {option.text}")
+                        if option.text.upper() != "--":
+                            self.utils.print_debug(f"Adding model: {option.text}")
+                            device_model_list.append(option.text)
+                else:
+                    kwargs['fail_msg'] = "Could not find the Device Model Field..."
+                    self.common_validation.failed(**kwargs)
+            else:
+                kwargs['fail_msg'] = "Digital Twin option is not available..."
+                self.common_validation.failed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"Could not select the Device Type: {device_type}"
+            self.common_validation.failed(**kwargs)
+
+        self.utils.print_info("Click the Quick Add Devices > Cancel button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
+
+        if len(device_model_list) > 0:
+            kwargs['pass_msg'] = f"Returning Device Model List: {device_model_list}"
+            self.common_validation.passed(**kwargs)
+            return device_model_list
+        elif len(device_model_list) == 0:
+            kwargs['fail_msg'] = "Device Model List is empty..."
+            self.common_validation.failed(**kwargs)
 
     def get_device_status_icon(self, device_serial=None):
         """
