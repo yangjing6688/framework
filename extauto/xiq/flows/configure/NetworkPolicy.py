@@ -2650,19 +2650,6 @@ class NetworkPolicy(object):
             self.utils.print_info("Platform type not Found. Only VOSS or EXOS supported")
             return -1
 
-    # def _get_port_types_row(self, port_type_name):
-    #     """
-    #     Get the port-type row element
-    #     :param port_type_name: name of the port-type
-    #     :return:
-    #     """
-    #     self.utils.print_info("Getting the network policy rows")
-    #     rows = self.np_web_elements.get_port_types_rows()
-    #     for row in rows:
-    #         cell = self.np_web_elements.get_port_type_row_cell(row, 'field-name')
-    #         if cell.text == port_type_name:
-    #             return row
-
     def edit_port_type(self, port_type_name):
         """Method that selects and edits a non-default port-type from Port Types Tabel.
         :param port_type_name: name of the port-type
@@ -2684,7 +2671,7 @@ class NetworkPolicy(object):
             self.screen.save_screen_shot()
             sleep(3)
             self.utils.print_info(f"Editing port_type {port_type_name} ")
-            self.auto_actions.click(self.np_web_elements.get_edit_port_type)
+            self.auto_actions.click(self.np_web_elements.get_edit_port_type())
             self.screen.save_screen_shot()
             # self.auto_actions.click(self.dev360.get_select_element_port_type_summary(port_type_parameter))
             return 1
@@ -2710,7 +2697,7 @@ class NetworkPolicy(object):
             self.auto_actions.click(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
             self.screen.save_screen_shot()
             self.utils.print_info(f"Deleting port_type {port_type_name} ")
-            self.auto_actions.click(self.np_web_elements.get_delete_port_type)
+            self.auto_actions.click(self.np_web_elements.get_delete_port_type())
             self.screen.save_screen_shot()
             return 1
         else:
@@ -2762,6 +2749,8 @@ class NetworkPolicy(object):
 
         port_type_detail_dict = dict()
 
+        sleep(3)
+        #self.utils.wait_till(self.get_port_type_row(search_string))
         port_type_row = self.get_port_type_row(search_string)
         if port_type_row:
             col_labels = col_list.split(",")
@@ -2791,3 +2780,37 @@ class NetworkPolicy(object):
             self.utils.print_info(f"{key}:{value}")
 
         return port_type_detail_dict
+
+    def go_to_specific_tab_in_port_type_configuration(self, tab_name):
+        """
+        - This keyword will go to  the specified port Type section using the Port Types section in Network Policies tab
+        - Assumption: Already Opened Port type Configuration window
+        - Flow: Switching tab --> Click on Port Types
+
+        args:
+            :tab_name:        str  - the name of the tab that will change view to
+
+        return: if the function succeeds it will return 1
+                if the function fails it will return -1
+        """
+        label_map = {'NAME': 'usagePage',
+                     'VLAN': 'tab_vlan',
+                     'Transmission Settings': 'transmissionSettingsPage',
+                     'STP': 'stpPage',
+                     'Storm Control': 'stormControlSettingsPage',
+                     'MAC LOCKING': 'MACLOCKINGSettingsPage',
+                     'ELRP': 'elrdp',
+                     'PSE': 'pseSettingsPage',
+                     }
+
+        if label_map[tab_name]:
+            if self.dev360.get_select_element_port_type(label_map[tab_name]):
+                self.utils.print_info(f"Go to the {label_map[tab_name]} page")
+                self.auto_actions.click(self.dev360.get_select_element_port_type(label_map[tab_name]))
+                self.screen.save_screen_shot()
+                sleep(3)
+                return 1
+        else:
+            self.utils.print_info(f"Could not find port-type tab matching the search parameter {tab_name}")
+            self.screen.save_screen_shot()
+            return -1
