@@ -1845,6 +1845,9 @@ class Cli(object):
         """
         cli_type_1 = dut1.cli_type
         cli_type_2 = dut2.cli_type
+        dut1 = dut1.name
+        dut2 = dut2.name
+
         if cli_type_1.lower() and cli_type_2.lower() == 'exos':
             self.networkElementCliSend.send_cmd(dut1, 'configure cli journal size 200', max_wait=10, interval=2)
             self.networkElementCliSend.send_cmd(dut2, 'configure cli journal size 200', max_wait=10, interval=2)
