@@ -2195,16 +2195,16 @@ class SwitchTemplate(object):
                         return 1
                     slot_index = slot_index + 1
                 if not slot_found:
-                    kwargs['fail_msg'] = f"Slot {str(slot)} not found in the stack, check the numbers of slots"
+                    kwargs['fail_msg'] = f"sw_template_stack_select_slot() -- Slot {str(slot)} not found in the stack, check the numbers of slots"
                     self.common_validation.failed(**kwargs)
                     return -1
-                kwargs['fail_msg'] = f"Something went wrong with selecting the slot {str(slot)}"
+                kwargs['fail_msg'] = f"sw_template_stack_select_slot() -- Something went wrong with selecting the slot {str(slot)}"
                 self.common_validation.failed(**kwargs)
             else:
-                kwargs['fail_msg'] = "Cannot find the slot list for the stack in this template"
+                kwargs['fail_msg'] = "sw_template_stack_select_slot() -- Cannot find the slot list for the stack in this template"
                 self.common_validation.failed(**kwargs)
         else:
-            kwargs['fail_msg'] = "Unable to gather the list of the devices in the stack"
+            kwargs['fail_msg'] = "sw_template_stack_select_slot() -- Unable to gather the list of the devices in the stack"
             self.common_validation.failed(**kwargs)
 
     def get_sw_template_row_hyperlink(self, sw_template, **kwargs):
@@ -2390,38 +2390,6 @@ class SwitchTemplate(object):
             sw_model = model.replace('_', '-')
         return  sw_model,-1
 
-    def sw_template_stack_select_slot(self, slot, **kwargs):
-        """
-        - Assume that already in Device Template Port Configuration
-        :param slot: "The slot number that needs to be selected"
-        :return: Returns 1 if slot found and clicked
-                 Returns -1 if otherwise
-        """
-        self.utils.print_info("Gather the list of the devices in the stack")
-        slot_index = 1
-        slot_found = False
-        complete_stack = self.sw_template_web_elements.get_complete_stack_list()
-        if complete_stack:
-            slots_in_stack = self.sw_template_web_elements.get_complete_stack_all_rows(complete_stack)
-            for stack_item in slots_in_stack:
-                if slot_index == int(slot):
-                    self.utils.print_info("Slot " + str(slot) + " found in the stack, selecting the slot")
-                    self.auto_actions.click(stack_item)
-                    slot_found = True
-                    break
-                slot_index = slot_index + 1
-            if not slot_found:
-                kwargs['fail_msg'] = "sw_template_stack_select_slot() failed. Unable to locate the correct slot"
-                self.common_validation.failed(**kwargs)
-                return -1
-            kwargs['fail_msg'] = "sw_template_stack_select_slot() failed."
-            self.common_validation.failed(**kwargs)
-            return -1
-        else:
-            kwargs['fail_msg'] = "sw_template_stack_select_slot() failed. " \
-                                 "Unable to gather the list of the devices in the stack"
-            self.common_validation.failed(**kwargs)
-            return -1
 
     def create_switching_network(self, policy, switch_profile, **kwargs):
         """

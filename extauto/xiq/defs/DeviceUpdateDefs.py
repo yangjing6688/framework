@@ -112,7 +112,7 @@ class DeviceUpdateDefs:
 
     activate_after_radio = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="reboot-sec"]',
+            'XPATH': '//div[@data-dojo-attach-point="rebootDes" and @class="line"]//*[@data-dojo-attach-point="reboot-sec"]',
             'wait_for': 2
         }
 
