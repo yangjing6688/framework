@@ -1488,7 +1488,7 @@ class Device360WebElementDefs:
 
     d360_configure_port_settings_aggregation_tab_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="ahTabContainer"]//a[contains(text(), "Port Settings & Aggregation")]',
+            'CSS_SELECTOR': '.ui-tab[data-automation-tag="automation-port-config-port-settings"]',
             'wait_for': 5
         }
 
@@ -2820,7 +2820,7 @@ class Device360WebElementDefs:
 
     device360_aggregate_selected_ports_button = \
         {
-            'XPATH': '//*[@data-automation-tag="port-settings-aggregate"]',
+            'XPATH': '//div[@class="multi-edit-controls"]/button[@data-automation-tag="port-settings-aggregate"]',
             'wait_for': 5
         }
 
@@ -2832,19 +2832,19 @@ class Device360WebElementDefs:
 
     device360_lag_cancel_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-lag-cancel-button"]',
+            'XPATH': '//div[@class="view-btn-area"]/span[@data-automation-tag="automation-lag-cancel-button"]',
             'wait_for': 5
         }
 
     device360_lag_save_button = \
         {
-            'XPATH': '//div/span[@data-automation-tag="automation-lag-save-button"]',
+            'XPATH': '//div[@class="view-btn-area"]/span[@data-automation-tag="automation-lag-save-button"]',
             'wait_for': 5
         }
 
     device360_save_port_config = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-port-config-save"]',
+            'XPATH': '//div[@class="btn-area"]/button[@data-automation-tag="automation-port-config-save"]',
             'wait_for': 5
         }
 
@@ -2892,7 +2892,7 @@ class Device360WebElementDefs:
 
     device360_aggregate_choose_slot = \
         {
-            'XPATH': '//*[@data-automation-tag="lag-available-slot-${unit}"]',
+            'XPATH': '//select[@data-dojo-attach-point="slotsAvailable"]/option[@data-automation-tag="lag-available-slot-${unit}"]',
             'wait_for': 5
         }
 

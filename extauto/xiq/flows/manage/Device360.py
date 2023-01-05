@@ -13797,14 +13797,14 @@ class Device360(Device360WebElements):
             click_checkbox_or_button = self.get_device360_port_settings_and_aggregation_interface_exos_standalone(
                 ports[0])
         else:
-            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Please give a device type!"
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Please give a device type!"
             self.common_validation.failed(**kwargs)
             return False
         if click_checkbox_or_button:
             self.utils.print_info("Clicking on port checkbox")
             self.auto_actions.click(click_checkbox_or_button)
         else:
-            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Checkbox not found"
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Checkbox not found"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -13815,14 +13815,14 @@ class Device360(Device360WebElements):
             self.auto_actions.click(aggregate_btn)
             sleep(5)
         else:
-            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.'Aggregate Selected Ports' button not found"
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.'Aggregate Selected Ports' button not found"
             self.common_validation.failed(**kwargs)
             return False
 
         # Get cancel button reference
         cancel_button = self.get_device360_lag_cancel_button()
         if not cancel_button:
-            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Could not find cancel button"
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Could not find cancel button"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -13838,7 +13838,7 @@ class Device360(Device360WebElements):
                         self.utils.print_info("Changing to other slot")
                         self.auto_actions.click(other_slot)
                     else:
-                        kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Failed to change to other slot"
+                        kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Failed to change to other slot"
                         self.common_validation.failed(**kwargs)
                         self.auto_actions.click(cancel_button)
                         return False
@@ -13856,7 +13856,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Clicking on add port")
                 self.auto_actions.click(add_port_to_lacp)
             else:
-                kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Add port not found"
+                kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Add port not found"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
@@ -13868,7 +13868,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Clicking LACP toggle")
                 self.auto_actions.click(lacp_switch)
             else:
-                kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.LACP toggle not found"
+                kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.LACP toggle not found"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
@@ -13880,19 +13880,18 @@ class Device360(Device360WebElements):
             self.auto_actions.click(lag_save_button)
             sleep(10)
         else:
-            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Save button not found"
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Save button not found"
             self.common_validation.failed(**kwargs)
             self.auto_actions.click(cancel_button)
             return False
 
         # Save port Config
-        save_port_config = self.get_device360_save_port_config()
-        if save_port_config:
-            self.utils.print_info("Clicking Save port config button")
-            self.auto_actions.click(save_port_config)
-            sleep(5)
+        self.utils.print_info("Clicking Save port config button")
+        #save_port_config = self.get_device360_save_port_config()
+        if self.auto_actions.click_reference(self.get_device360_save_port_config) == 1:
+            self.utils.print_info("Successfully clicked on Save Port Config")
         else:
-            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.Save port config button not found"
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Save port config button not found"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -13902,7 +13901,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return True
         else:
-            kwargs['fail_msg'] = f"'device360_aggregate_stack_ports_slots()' failed.LAG link is not available"
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.LAG link is not available"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -13947,7 +13946,7 @@ class Device360(Device360WebElements):
            """
         if device == "stack":
             if not self.device360_change_slot_view(master_port.split(":")[0]):
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed. Change slot failed."
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed. Change slot failed."
                 self.common_validation.failed(**kwargs)
                 return False
         if action == 'remove':
@@ -13956,14 +13955,14 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Clicking on aggregated ports label")
                 self.auto_actions.click(aggregated_ports)
             else:
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to find aggregated port."
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Failed to find aggregated port."
                 self.common_validation.failed(**kwargs)
                 return False
 
             # Get cancel button reference
             cancel_button = self.get_device360_lag_cancel_button()
             if not cancel_button:
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Could not find cancel button."
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Could not find cancel button."
                 self.common_validation.failed(**kwargs)
                 return False
 
@@ -13973,7 +13972,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(selected_port)
             else:
                 tt_msg = self.dev360.get_tooltip_content().text
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed due to error {tt_msg}"
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed due to error {tt_msg}"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
@@ -13988,7 +13987,7 @@ class Device360(Device360WebElements):
                 else:
                     tt_msg = self.dev360.get_tooltip_content().text
                     self.auto_actions.click(cancel_button)
-                    kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed due to error {tt_msg}."
+                    kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed due to error {tt_msg}."
                     self.common_validation.failed(**kwargs)
                     return False
 
@@ -14000,7 +13999,7 @@ class Device360(Device360WebElements):
                 #sleep(5)
             else:
                 tt_msg = self.dev360.get_tooltip_content().text
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed due to error {tt_msg}"
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed due to error {tt_msg}"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
@@ -14012,14 +14011,14 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(save_port_config)
                 sleep(5)
             else:
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Save port config button not found."
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Save port config button not found."
                 self.common_validation.failed(**kwargs)
                 return False
 
             # Check lacp not visible anymore in Device360
             if self.get_device360_lacp_label(port=ports[0]):
                 self.utils.print_info(f"LAG {master_port} is still there after trying to delete it.")
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Aggregation remove failed."
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Aggregation remove failed."
                 self.common_validation.failed(**kwargs)
                 return False
             kwargs['pass_msg'] = f"Ports {ports} were removed from LAG."
@@ -14031,7 +14030,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Clicking on aggregated ports label")
                 self.auto_actions.click(aggregated_ports)
             else:
-                kwargs['fail_msg'] = f"'device360_remove_stack_ports_slots()' failed.Failed to find aggregated port."
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Failed to find aggregated port."
                 self.common_validation.failed(**kwargs)
                 return False
             for port in ports:

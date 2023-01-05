@@ -247,7 +247,7 @@ class DevicesWebElementsDefinitions:
 
     device_select_check_box = \
         {
-            'XPATH': '//div[@class="collapsed dgrid-row dgrid-row-even ui-state-default"]/div/table/tr/td[@class="dgrid-cell dgrid-column-0 w30 dgrid-selector"]/input',
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-0 w30 dgrid-selector"]/input[@type="checkbox"]',
             'wait_for':    2
         }
 

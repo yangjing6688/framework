@@ -360,7 +360,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.save_button_port_type)
 
     def save_device_template(self):
-        return self.weh.get_elements(self.save_button_template)
+        return self.weh.get_element(self.save_button_template)
 
     def pse_profile_user_option(self):
         return self.weh.get_element(self.pse_profile_tab)
