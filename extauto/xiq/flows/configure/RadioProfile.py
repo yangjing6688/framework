@@ -374,12 +374,13 @@ class RadioProfile (RadioProfileWebElements):
         tool_tip_text = tool_tip.tool_tip_text
 
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
-        if "Radio profile was saved successfully" in tool_tip_text:
-            kwargs['pass_msg'] = "Radio profile was saved successfully"
+        if "Radio profile was saved successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "Radio profile was saved successfully."
             self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = "save_radio_profile() failed. Radio profile was saved successfully"
+            self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
 
