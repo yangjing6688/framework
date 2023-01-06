@@ -694,7 +694,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info(f"Total count for {feature} is {device_count}, not expected value {expected}. "
+                self.utils.print_info(f"Total count for {feature} is {total_count}, not expected value {expected}. "
                                       f"Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
@@ -712,7 +712,7 @@ class LicenseManagement(LicenseManagementWebElements):
         - expected value.
         - Keyword Usage:
         - ``Wait Until Entitlement Available Count For Feature Matches    1``
-        - ``Wait Until Entitlement Available Count For Feature Matches    0  feature=PXIQ-NAV-S-C``
+        - ``Wait Until Entitlement Available Count For Feature Matches    0  feature=XIQ-NAV-S-C``
         - ``Wait Until Entitlement Available Count For Feature Matches    3  retry_duration=10    retry_count=12``
         - ``Wait Until Entitlement Available Count For Feature Matches    2  feature=XIQ-PIL-S-C    retry_duration=60    retry_count=5``
         - ``Wait Until Entitlement Available Count For Feature Matches    1  feature=XIQ-NAV-S-C    retry_duration=30    retry_count=10``
