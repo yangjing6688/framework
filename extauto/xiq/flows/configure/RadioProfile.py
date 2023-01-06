@@ -526,7 +526,9 @@ class RadioProfile (RadioProfileWebElements):
             radio_profile_info["supported_radio_modes"] = self.get_radio_profile_radio_mode_dropdown().text
             radio_profile_info["radio_profile_maximum_transmit_power"] = self.get_radio_profile_max_tx_power().get_attribute("value")
             radio_profile_info["radio_profile_transmit_power_floor"] = self.get_radio_profile_tx_power_floor().get_attribute("value")
+            sleep(30)
             radio_profile_info["transmission_power_max_drop"] = self.get_radio_profile_tx_power_max_drop().get_attribute("value")
+            self.utils.print_info("radio profile inf0, get transmission power max drop", radio_profile_info["transmission_power_max_drop"])
             radio_profile_info["maximum_number_of_clients"] = self.get_radio_profile_max_no_of_clients().get_attribute("value")
             radio_profile_info["background_scan_interval"] = self.get_radio_profile_background_scan_interval().get_attribute("value")
             radio_profile_info["channel_auto_or_manual"] = self.get_radio_profile_channel_list_dropdown().text
