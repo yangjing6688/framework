@@ -2348,7 +2348,7 @@ class NetworkPolicy(object):
             self.utils.print_info("VOSS common settings contain the required parameters")
             return True
 
-    def get_port_types_section(self):
+    def get_port_types_section(self, **kwargs):
         """
         - This keyword will navigate to Port Types section in Network Policies tab
         - Assumption: Already Opened Network Policy
@@ -2362,14 +2362,17 @@ class NetworkPolicy(object):
         title = self.np_web_elements.get_port_types_title_page()
         title_text = title.text
         if 'Port Types' in title_text:
-            self.utils.print_info("Port types section displayed")
+            kwargs['pass_msg'] = "Port types section displayed"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Port types section not found on page"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def configure_port_type(self, port_type_name, path_cost=None, description=None, status=None,
                                        port_usage="access", priority=None, bpdu_protection=None, stp_enabled=None,
-                                       edge_port=None, save=True):
+                                       edge_port=None, save=True, **kwargs):
         """
         - This keyword will configures/edits a new port Type section using the Port Types section in Network Policies tab
         - Assumption: Already Opened Port type Configuration window
@@ -2411,32 +2414,46 @@ class NetworkPolicy(object):
         name_element = self.dev360.get_select_element_port_type("name")
         if not name_element:
             self.utils.print_info("Port name element was not found")
+            kwargs['fail_msg'] = "Port name element was not found"
+            self.common_validation.fault(**kwargs)
             return -1, {}
 
         if self.auto_actions.send_keys(name_element, port_type_name) == 1:
             self.utils.print_info("Successfully configured the name field")
+            kwargs['pass_msg'] = "Successfully configured the name field"
+            self.common_validation.passed(**kwargs)
             sleep(2)
         else:
             self.utils.print_info("Failed to configure the name field")
+            kwargs['fail_msg'] = "Failed to configure the name field"
+            self.common_validation.fault(**kwargs)
             return -1, {}
 
         if description is not None:
             description_element = self.dev360.get_select_element_port_type("description")
             if not description_element:
                 self.utils.print_info("Port description element was not found")
+                kwargs['fail_msg'] = "Port description element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.send_keys(description_element, description) == 1:
                 self.utils.print_info("Successfully configured the description field")
+                kwargs['pass_msg'] = "Successfully configured the description field"
+                self.common_validation.passed(**kwargs)
                 sleep(2)
             else:
                 self.utils.print_info("Failed to configure the description field")
+                kwargs['fail_msg'] = "Failed to configure the description field"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         if status is not None:
             status_element = self.dev360.get_select_element_port_type("status")
             if not status_element:
                 self.utils.print_info("Port status element was not found")
+                kwargs['fail_msg'] = "Port status element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if (not status_element.is_selected() and status) or (
@@ -2444,9 +2461,13 @@ class NetworkPolicy(object):
 
                 if self.auto_actions.click(status_element) == 1:
                     self.utils.print_info("Successfully clicked on the status element")
+                    kwargs['pass_msg'] = "Successfully clicked on the status element"
+                    self.common_validation.passed(**kwargs)
                     sleep(2)
                 else:
                     self.utils.print_info("Failed to click on the status element")
+                    kwargs['fail_msg'] = "Failed to click on the status element"
+                    self.common_validation.fault(**kwargs)
                     return -1, {}
 
         auto_sense = self.dev360.get_select_element_port_type("auto-sense")
@@ -2454,21 +2475,31 @@ class NetworkPolicy(object):
             if auto_sense.is_selected():
                 if self.auto_actions.click(auto_sense) == 1:
                     self.utils.print_info("Successfully disabled the auto sense on chosen port")
+                    kwargs['pass_msg'] = "Successfully disabled the auto sense on chosen port"
+                    self.common_validation.passed(**kwargs)
                     sleep(2)
                 else:
                     self.utils.print_info("Failed to disable the auto sense on chosen port")
+                    kwargs['fail_msg'] = "Failed to disable the auto sense on chosen port"
+                    self.common_validation.fault(**kwargs)
                     return -1, {}
 
         port_element = self.dev360.get_select_element_port_type("port usage", f"{port_usage} port")
         if not port_element:
             self.utils.print_info(f"{port_usage} port type element was not found")
+            kwargs['fail_msg'] = f"{port_usage} port type element was not found"
+            self.common_validation.fault(**kwargs)
             return -1, {}
 
         if self.auto_actions.click(port_element) == 1:
             self.utils.print_info("Successfully chose the port usage field")
+            kwargs['pass_msg'] = "Successfully chose the port usage field"
+            self.common_validation.passed(**kwargs)
             sleep(2)
         else:
             self.utils.print_info("Failed to chose the port usage field")
+            kwargs['fail_msg'] = "Failed to chose the port usage field"
+            self.common_validation.fault(**kwargs)
             return -1, {}
 
         self.utils.print_info("Go to the STP settings page")
@@ -2484,6 +2515,8 @@ class NetworkPolicy(object):
                     break
             else:
                 self.utils.print_info("get_next_button not found")
+                kwargs['fail_msg'] = "get_next_button not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         if stp_enabled is not None:
@@ -2491,6 +2524,8 @@ class NetworkPolicy(object):
 
             if not stp_enabled_element:
                 self.utils.print_info("STP Enabled element was not found")
+                kwargs['fail_msg'] = "STP Enabled element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if (not stp_enabled_element.is_selected() and stp_enabled) or (
@@ -2498,9 +2533,13 @@ class NetworkPolicy(object):
 
                 if self.auto_actions.click(stp_enabled_element) == 1:
                     self.utils.print_info("Successfully clicked on the STP enabled element")
+                    kwargs['pass_msg'] = "Successfully clicked on the STP enabled element"
+                    self.common_validation.passed(**kwargs)
                     sleep(2)
                 else:
                     self.utils.print_info("Failed to click on the STP Enabled element")
+                    kwargs['fail_msg'] = "Failed to click on the STP Enabled element"
+                    self.common_validation.fault(**kwargs)
                     return -1, {}
 
         if edge_port is not None:
@@ -2508,6 +2547,8 @@ class NetworkPolicy(object):
 
             if not edge_port_element:
                 self.utils.print_info("Edge Port element was not found")
+                kwargs['fail_msg'] = "Edge Port element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if (not edge_port_element.is_selected() and edge_port) or (
@@ -2515,9 +2556,13 @@ class NetworkPolicy(object):
 
                 if self.auto_actions.click(edge_port_element) == 1:
                     self.utils.print_info("Successfully clicked on the Edge Port element")
+                    kwargs['pass_msg'] = "Successfully clicked on the Edge Port element"
+                    self.common_validation.passed(**kwargs)
                     sleep(2)
                 else:
                     self.utils.print_info("Failed to click on the Edge Port element")
+                    kwargs['fail_msg'] = "Failed to click on the Edge Port element"
+                    self.common_validation.fault(**kwargs)
                     return -1, {}
 
         if bpdu_protection is not None:
@@ -2525,25 +2570,33 @@ class NetworkPolicy(object):
 
             if not bpdu_protection_element:
                 self.utils.print_info("BPDU Protection element was not found")
+                kwargs['fail_msg'] = "BPDU Protection element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.click(bpdu_protection_element) == 1:
                 self.utils.print_info("Successfully clicked on the BPDU Protection element")
                 sleep(5)
             else:
-                self.utils.print_info("Successfully clicked on the BPDU Protection element")
+                self.utils.print_info("Failed to click on the BPDU Protection element")
+                kwargs['fail_msg'] = "Failed to click on the BPDU Protection element"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             get_bpdu_protection_items = self.dev360.get_select_element_port_type("bpdu_protection_items")
 
             if not get_bpdu_protection_items:
                 self.utils.print_info("BPDU Protection list elements not found")
+                kwargs['fail_msg'] = "BPDU Protection list elements not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.select_drop_down_options(get_bpdu_protection_items, bpdu_protection):
                 self.utils.print_info("Selected into dropdown value : ", bpdu_protection)
             else:
                 self.utils.print_info("Failed to select from BPDU Protection dropdown")
+                kwargs['fail_msg'] = "Failed to select from BPDU Protection dropdown"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         if path_cost:
@@ -2551,6 +2604,8 @@ class NetworkPolicy(object):
 
             if not path_cost_element:
                 self.utils.print_info("Path Cost element was not found")
+                kwargs['fail_msg'] = "Path Cost element was not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.send_keys(path_cost_element, str(path_cost)) == 1:
@@ -2558,6 +2613,8 @@ class NetworkPolicy(object):
                 sleep(2)
             else:
                 self.utils.print_info("Failed to configure the path cost field")
+                kwargs['fail_msg'] = "Failed to configure the path cost field"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         if priority:
@@ -2565,6 +2622,8 @@ class NetworkPolicy(object):
 
             if not priority_element:
                 self.utils.print_info("Priority element was not found")
+                kwargs['fail_msg'] = "Failed to configure the path cost field"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.click(priority_element) == 1:
@@ -2572,17 +2631,23 @@ class NetworkPolicy(object):
                 sleep(5)
             else:
                 self.utils.print_info("Failed to click on the priority element")
+                kwargs['fail_msg'] = "Failed to click on the priority element"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             get_priority_items = self.dev360.get_select_element_port_type("priority_items")
             if not get_priority_items:
                 self.utils.print_info("Priority dropdown elements not found")
+                kwargs['fail_msg'] = "Priority dropdown elements not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.select_drop_down_options(get_priority_items, str(priority)):
                 self.utils.print_info("Selected into dropdown value : ", priority)
             else:
                 self.utils.print_info("Failed to select item from priority dropdown")
+                kwargs['fail_msg'] = "Failed to select item from priority dropdown"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         self.utils.print_info("Go to the last page")
@@ -2598,6 +2663,8 @@ class NetworkPolicy(object):
                     break
             else:
                 self.utils.print_info("get_next_button not found")
+                kwargs['fail_msg'] = "get_next_button not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         summary = {}
@@ -2616,17 +2683,21 @@ class NetworkPolicy(object):
 
             if not save_button:
                 self.utils.print_info("save button not found")
+                kwargs['fail_msg'] = "save button not found"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
             if self.auto_actions.click(save_button) == 1:
                 self.utils.print_info("Successfully clicked on the Save element")
             else:
                 self.utils.print_info("Failed to click on the Save element")
+                kwargs['fail_msg'] = "Failed to click on the Save element"
+                self.common_validation.fault(**kwargs)
                 return -1, {}
 
         return 1, summary
 
-    def create_new_port_type(self, cli_type):
+    def create_new_port_type(self, cli_type, **kwargs):
         """
         - This keyword will open the window for creating a new port Type section using the Port Types section in Network Policies tab
         - Assumption: Already Opened Port Types Section
@@ -2639,18 +2710,24 @@ class NetworkPolicy(object):
             if cli_type == "VOSS":
                 self.auto_actions.click_reference(self.np_web_elements.get_select_platform_voss)
                 self.utils.print_info("Selected Platform VOSS")
+                kwargs['pass_msg'] = "Selected Platform VOSS"
+                self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
                 return 1
             elif cli_type == "EXOS":
                 self.auto_actions.click_reference(self.np_web_elements.get_select_platform_exos)
                 self.utils.print_info("Selected Platform EXOS")
+                kwargs['pass_msg'] = "Selected Platform EXOS"
+                self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
                 return 1
         else:
             self.utils.print_info("Platform type not Found. Only VOSS or EXOS supported")
+            kwargs['fail_msg'] = "Platform type not Found. Only VOSS or EXOS supported"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def edit_port_type(self, port_type_name):
+    def edit_port_type(self, port_type_name, **kwargs):
         """Method that selects and edits a non-default port-type from Port Types Tabel.
         :param port_type_name: name of the port-type
         Returns:
@@ -2671,15 +2748,23 @@ class NetworkPolicy(object):
             self.screen.save_screen_shot()
             sleep(3)
             self.utils.print_info(f"Editing port_type {port_type_name} ")
-            self.auto_actions.click(self.np_web_elements.get_edit_port_type())
-            self.screen.save_screen_shot()
-            # self.auto_actions.click(self.dev360.get_select_element_port_type_summary(port_type_parameter))
-            return 1
+            if self.auto_actions.click(self.np_web_elements.get_edit_port_type()) == 1:
+                kwargs['pass_msg'] = f"Successfully opened configuration window for port_type {port_type_name} "
+                self.common_validation.passed(**kwargs)
+                self.screen.save_screen_shot()
+                return 1
+            else:
+                self.utils.print_info(f"Failed to open configuration window for port-type {port_type_name}")
+                kwargs['fail_msg'] = f"Failed to open configuration window for port-type {port_type_name}"
+                self.common_validation.fault(**kwargs)
+                return -1
         else:
             self.utils.print_info("No port-type name specified")
+            kwargs['fail_msg'] = "No port-type name specified"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def delete_port_type(self, port_type_name):
+    def delete_port_type(self, port_type_name, **kwargs):
         """Method that selects and deletes a non-default port-type from Port Types Tabel
         :param port_type_name: name of the port-type
         Returns:
@@ -2697,11 +2782,20 @@ class NetworkPolicy(object):
             self.auto_actions.click(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
             self.screen.save_screen_shot()
             self.utils.print_info(f"Deleting port_type {port_type_name} ")
-            self.auto_actions.click(self.np_web_elements.get_delete_port_type())
-            self.screen.save_screen_shot()
-            return 1
+            if self.auto_actions.click(self.np_web_elements.get_delete_port_type()) == 1:
+                kwargs['pass_msg'] = f"Deleting port_type {port_type_name} "
+                self.common_validation.passed(**kwargs)
+                self.screen.save_screen_shot()
+                return 1
+            else:
+                self.utils.print_info(f"Failed to delete port-type {port_type_name}")
+                kwargs['fail_msg'] = f"Failed to delete port-type {port_type_name}"
+                self.common_validation.fault(**kwargs)
+                return -1
         else:
             self.utils.print_info("No port-type name specified")
+            kwargs['fail_msg'] = "No port-type name specified"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def get_port_type_row(self, search_string):
@@ -2724,7 +2818,7 @@ class NetworkPolicy(object):
                 return row
         return False
 
-    def get_port_type_row_details(self, search_string, col_list):
+    def get_port_type_row_details(self, search_string, col_list, **kwargs):
         """
         - Gets a dictionary of port-type row values based on the passed column label list
         - The column list should be a comma-separated list of column headers, like NAME, PORT STATUS
@@ -2733,7 +2827,7 @@ class NetworkPolicy(object):
 
         :param search_string: string to uniquely identify the row in the device grid
         :param col_list: comma-separated list of column headers (e.g., NAME)
-        :return: dictionary containing the values for each of the specified columns else -1 if method unsuccesful
+        :return: dictionary containing the values for each of the specified columns else -1 if method unsuccessful
         """
         label_map = {'NAME': 'name',
                      'DEVICE FAMILY*': 'deviceFamily',
@@ -2750,7 +2844,6 @@ class NetworkPolicy(object):
         port_type_detail_dict = dict()
 
         sleep(3)
-        #self.utils.wait_till(self.get_port_type_row(search_string))
         port_type_row = self.get_port_type_row(search_string)
         if port_type_row:
             col_labels = col_list.split(",")
@@ -2773,15 +2866,19 @@ class NetworkPolicy(object):
                             break
         else:
             self.utils.print_info(f"Could not find port-type row matching the search parameter {search_string}")
+            kwargs['fail_msg'] = f"Could not find port-type row matching the search parameter {search_string}"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info(f"****************** DEVICE ROW VALUES ************************")
         for key, value in port_type_detail_dict.items():
             self.utils.print_info(f"{key}:{value}")
+            kwargs['pass_msg'] = f"{key}:{value}"
+            self.common_validation.passed(**kwargs)
 
         return port_type_detail_dict
 
-    def go_to_specific_tab_in_port_type_configuration(self, tab_name):
+    def go_to_specific_tab_in_port_type_configuration(self, tab_name, **kwargs):
         """
         - This keyword will go to  the specified port Type section using the Port Types section in Network Policies tab
         - Assumption: Already Opened Port type Configuration window
@@ -2805,12 +2902,22 @@ class NetworkPolicy(object):
 
         if label_map[tab_name]:
             if self.dev360.get_select_element_port_type(label_map[tab_name]):
-                self.utils.print_info(f"Go to the {label_map[tab_name]} page")
-                self.auto_actions.click(self.dev360.get_select_element_port_type(label_map[tab_name]))
-                self.screen.save_screen_shot()
-                sleep(3)
-                return 1
+                self.utils.print_info(f"Go to the {tab_name} page")
+                if self.auto_actions.click(self.dev360.get_select_element_port_type(label_map[tab_name])) == 1:
+                    self.utils.print_info(f"Successfully accessed tab {tab_name}")
+                    kwargs['pass_msg'] = f"Successfully accessed tab {tab_name}"
+                    self.common_validation.passed(**kwargs)
+                    self.screen.save_screen_shot()
+                    sleep(3)
+                    return 1
+                else:
+                    self.utils.print_info(f"Failed to access tab {tab_name}")
+                    kwargs['fail_msg'] = f"Failed to access tab {tab_name}"
+                    self.common_validation.fault(**kwargs)
+                    return -1
         else:
             self.utils.print_info(f"Could not find port-type tab matching the search parameter {tab_name}")
+            kwargs['fail_msg'] = f"Could not find port-type tab matching the search parameter {tab_name}"
+            self.common_validation.fault(**kwargs)
             self.screen.save_screen_shot()
             return -1
