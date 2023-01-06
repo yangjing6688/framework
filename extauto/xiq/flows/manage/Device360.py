@@ -14043,37 +14043,3 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return 1
 
-    # def device360_add_remove_port_from_lag(self, master_port, ports, action='add', **kwargs):
-    #     """
-    #     This keyword is used to remove or add LAG ports from a LAG previously created.
-    #     It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
-    #
-    #     :param master_port - master port of the LAG
-    #     :param ports - list of ports to be added or removed
-    #     :param action - add or remove ports from LAG
-    #     """
-    #     if action == 'remove':
-    #         AutoActions().click(self.get_device360_lacp_label(port=master_port))
-    #         AutoActions().click(self.get_device360_aggregate_selected_port(port=master_port))
-    #         for i in range(0, len(ports)):
-    #             AutoActions().click(self.get_device360_aggregate_remove_button())
-    #             sleep(1)
-    #         AutoActions().click(self.get_device360_lag_save_button())
-    #         AutoActions().click(self.get_device360_save_port_config())
-    #         kwargs['pass_msg'] = f"Ports {master_port} were removed from LAG."
-    #         self.common_validation.passed(**kwargs)
-    #         return 1
-    #     elif action == 'add':
-    #         for port in ports:
-    #             AutoActions().click(self.get_device360_lacp_label(port=master_port))
-    #             AutoActions().click(self.get_device360_aggregate_available_port(port=port))
-    #             AutoActions().click(self.get_device360_aggregate_add_button())
-    #         AutoActions().click(self.get_device360_lag_save_button())
-    #         AutoActions().click(self.get_device360_save_port_config())
-    #         kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
-    #         self.common_validation.passed(**kwargs)
-    #         return 1
-    #     else:
-    #         kwargs['fail_msg'] = f"'device360_add_remove_port_from_lag()' failed.Invalid argument {action}"
-    #         self.common_validation.failed(**kwargs)
-
