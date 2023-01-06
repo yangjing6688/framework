@@ -1,3 +1,5 @@
+import time
+
 import selenium.common.exceptions
 
 from extauto.common.CloudDriver import CloudDriver
@@ -12,6 +14,7 @@ from extauto.common.CommonValidation import CommonValidation
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.manage.Tools import Tools
 from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.flows.common.Login import Login
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.configure.WirelessNetworks import WirelessNetworks
 
@@ -55,6 +58,7 @@ class NetworkPolicy(object):
         self.use_existing_policy = False
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.switch_template = extauto.xiq.flows.configure.SwitchTemplate.SwitchTemplate()
+        self.login = Login()
 
     def select_network_policy_row(self, policy):
         """
@@ -2357,6 +2361,8 @@ class NetworkPolicy(object):
 
         :return: 1 if successfully else -1
         """
+        # this sleep is necessary for allowing the page to load before performing any action
+        time.sleep(1)
         self.auto_actions.click_reference(self.np_web_elements.get_port_types_section)
         self.screen.save_screen_shot()
         title = self.np_web_elements.get_port_types_title_page()
