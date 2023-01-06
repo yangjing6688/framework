@@ -931,6 +931,7 @@ class Cli(object):
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(connection, f'configure iqagent server ipaddress {server_name}')
             self.send(connection, f'configure iqagent server vr {vr}')
+            self.send(connection, 'enable iqagent')
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(connection, f'enable')
@@ -1332,7 +1333,7 @@ class Cli(object):
             self.send(connection, f'configure terminal')
             self.send(connection, f'application')
             self.send(connection, f'no iqagent enable')
-            self.send(connection, f'no iqagent server')
+            self.send(connection, f'default iqagent server')
             self.send(connection, f'end')
 
             count = 1

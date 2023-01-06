@@ -107,7 +107,6 @@ class LoginWebElementsDefinitions:
     drawer_content = \
         {
          'XPATH': '//div[@data-dojo-attach-point="drawerContent"]',
-         'wait_for': 3
          }
 
     wips_popup_dialog_close_button = \
