@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.devices.site.vrf\_vlan package
+XIQSE Flows Network Devices Site VRF VLAN Keywords
 ==========================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.devices.site.vrf\_vlan.XIQSE\_NetworkDevicesSiteVrfVlan module
+XIQSE\_NetworkDevicesSiteVrfVlan module
 ------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.site.vrf_vlan.XIQSE_NetworkDevicesSiteVrfVlan

@@ -1,4 +1,4 @@
-extauto.xiqse.flows.alarms\_events.event\_config package
+XIQSE Flows Alarms Events Event Config Keywords
 ========================================================
 
 Subpackages
@@ -13,7 +13,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.alarms\_events.event\_config.XIQSE\_AlarmsEventsEventConfig module
+XIQSE\_AlarmsEventsEventConfig module
 --------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.alarms_events.event_config.XIQSE_AlarmsEventsEventConfig

@@ -1,10 +1,10 @@
-extauto.xiqse.flows.analytics.flows package
+XIQSE Flows Analytics Flows Keywords
 ===========================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.analytics.flows.XIQSE\_AnalyticsApplicationFlows module
+XIQSE\_AnalyticsApplicationFlows module
 ---------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.analytics.flows.XIQSE_AnalyticsApplicationFlows

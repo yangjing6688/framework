@@ -1,12 +1,10 @@
 import re
 import os
-import pdb
 import copy
 from time import sleep
 from datetime import datetime
 import datetime as dt
 from selenium.common.exceptions import StaleElementReferenceException
-from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
@@ -770,6 +768,7 @@ class Devices:
     def clear_search_field(self):
         """
         - Clears the search field is necessary
+
         """
         clear_btn = self.devices_web_elements.get_manage_device_search_clear_button()
         if clear_btn and clear_btn.is_displayed():
@@ -1206,6 +1205,7 @@ class Devices:
         - This keyword will assign the network policy to the selected devices
         - Assumes that already selected the devices to assign the network policy
         - flow: Actions --> Assign Network Policy -->Select the network policy from drop down window --> Assign
+
         :param policy_name: policy to be applly
         :return:
         """
@@ -1258,6 +1258,7 @@ class Devices:
         """
         - Update the network policy to the selected devices
         - Based on the update method, update the devices
+
         :param update_method:  Delta, Complete
         :return:
         """
@@ -1395,6 +1396,7 @@ class Devices:
         - Keyword Usage:
         - ``Assign and Update Network Policy To EXOS   policy_name=${POLICY_NAME}    serial=${SW1_SERIAL}``
         - ``Assign and Update Network Policy To EXOS   policy_name=${POLICY_NAME}    serial=${SW1_SERIAL}  update_method=Complete``
+
         :param policy_name: name of the network to deploy
         :param serial: serial number of the switch to select
         :param update_method: Perform Complete update or delta update
@@ -1422,6 +1424,7 @@ class Devices:
         - Based on the update method, update the device
         - Keyword Usage:
         - ``Update Network Policy To Exos      serial=${SW1_SERIAL}     update_method="PolicyAndConfig"``
+
         :param update_method:
             PolicyAndConfig - selects the "Update Network Policy and Configuration" check button
         :return:  1 if update was performed, -1 if not
@@ -2153,6 +2156,7 @@ class Devices:
                           'neighbour_serial': '06301908310556',
                           'neighbour_mac': '7C95B1005700'}
                 }
+
         :param policy_name: Name of policy that would be used when onboarding a device
         :return:  1 if onboarding success
         :return: -1 for errors
@@ -2368,6 +2372,7 @@ class Devices:
                                               csv_location, device_model, os_version, os_persona, **kwargs):
         """
         This methods is created for validate the Mandatory arguments for onboard device quick method
+
         :param device_serial: serial number of Device
         :param device_make: Model of the Device ex:aerohive
         :param device_type: Real/Simulated
@@ -4200,9 +4205,9 @@ class Devices:
     def column_picker_select(self, *columns, **kwargs):
         """
         - This keyword checks the device column picker if it is not checked
-        -  Keyword Usage:
+        - Keyword Usage:
         - ``Column Picker Select        Zone   Branch ID   Host Name   Network Policy``
-         -``Column Picker Select        Stack Unit``
+        - ``Column Picker Select        Stack Unit``
 
         :param columns: list of device columns that can be checked
         :return: returns 1 if successful
@@ -4266,9 +4271,9 @@ class Devices:
     def column_picker_unselect(self, *columns, **kwargs):
         """
         - This keyword unchecks the device column picker if it is checked
-        -  Keyword Usage:
+        - Keyword Usage:
         - ``Column Picker Unselect      Branch ID  Host Name   Cloud Config Groups``
-         -``Column Picker Unselect       Network Policy``
+        - ``Column Picker Unselect       Network Policy``
 
         :param columns: list of device columns that can be unchecked
         :return: returns 1 if successful
@@ -4328,6 +4333,7 @@ class Devices:
     def _get_column_picker_filter_exact(self, column):
         """
         This keyword gets the row of matched filter, using an exact match
+
         :param column: column
         :return: returns the row and row number of matched filter
         """
@@ -4693,6 +4699,7 @@ class Devices:
     def _get_device_column_values(self, field=''):
         """
         - It is used to read the specified column field values
+
         :param field: device column field values
         :return: return list of field values
         """
@@ -4716,6 +4723,7 @@ class Devices:
     def _sort_device_columns(self, field, direction):
         """
         - sort the device grid column to ascending or descending direction based on the field name
+
         :param field: column header field name
         :param direction: ascending or descending
         :return: True if sorted based on the direction else False
@@ -4796,8 +4804,9 @@ class Devices:
         :param sort: sorting method i.e ascending, descending
         :return:
         - sorted list values if sorting is matched with GUI sorted the grid values by logic sorted values
-        - - Here "logic sorted values" means taking the unsorted device grid values and applying the sort method over those values
+        - Here "logic sorted values" means taking the unsorted device grid values and applying the sort method over those values
         - -1 if  sorting is not matched with GUI sorted the grid values by logic sorted values
+
         """
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
@@ -4827,6 +4836,7 @@ class Devices:
         - sorted list values if sorting is matched with GUI sorted grid values with logic sorted values
         - Here "logic sorted values" means taking the unsorted device grid values and applying the sort method over those values
         - -1 if  sorting is not matched with GUI sorted grid values with logic sorted values
+
         """
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
@@ -5036,6 +5046,7 @@ class Devices:
         - audit match : if configuration audit matched
         - audit mismatch : if configuration audit mismatch
         - -1 if device not found in the device grid
+
         """
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -5459,6 +5470,7 @@ class Devices:
         - This keyword selects the specified location in the Select Location dialog
         - Keyword Usage:
         - ``Location Dialog Select Location    San Jose, building_01, floor_02``
+
         :param dev_location: location where the device is to be assigned in the above format
         """
         location_list = dev_location.split(',')
@@ -5513,12 +5525,12 @@ class Devices:
 
     def update_switch_policy_and_configuration(self, device_serial=None, device_name=None, device_mac=None):
         """
-        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
-          check button in the Device Update dialog.
+        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration" check button in the Device Update dialog.
         - Go To Manage-->Devices-->Select switch row to apply the network policy
         - Select Switch-->Update device
         - Keyword Usage:
         - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
+
         :param device_serial: serial number of the switch to update
         :param device_name: device Name
         :param device_mac: device MAC
@@ -5535,8 +5547,7 @@ class Devices:
 
     def update_switch_iq_engine_and_images(self, serial):
         """
-        - This keyword does a config push for a switch, selecting just the "Upgrade IQ Engine and Extreme Network
-          Switch Images" check button in the Device Update dialog.
+        - This keyword does a config push for a switch, selecting just the "Upgrade IQ Engine and Extreme Network Switch Images" check button in the Device Update dialog.
         - Go To Manage-->Devices-->Select switch row to apply the network policy
         - Select Switch-->Update device
         - Keyword Usage:
@@ -5582,6 +5593,7 @@ class Devices:
         - This keyword will assign the network policy to the selected switch
         - Assumes the switches to assign the network policy to are already selected
         - flow: Actions --> Assign Network Policy -->Select the network policy from drop down window --> Assign
+
         :param policy_name: policy to be applied
         :return:
         """
@@ -5629,6 +5641,7 @@ class Devices:
         """
         - Update the network policy to the selected devices
         - Based on the update method, update the devices
+
         :param update_method:
             PolicyAndConfig - selects the "Update Network Policy and Configuration" check button
             EngineAndImages - selects the "Upgrade IQ Engine and Extreme Network Switch Images" check button
@@ -5739,6 +5752,7 @@ class Devices:
         - This keyword is used to check the status of the device update
         - It will poll the "update status" every 30 seconds
         - Assuming that config push will take a maximum of five minutes
+
         :param  device_serial_mac_or_name: device serial number, device mac or device name to check the config push status
         :return: 1 if config push success else -1
         """
@@ -6109,6 +6123,7 @@ class Devices:
         """
         - Update the network policy to the selected devices
         - Based on the update method, update the devices
+
         :param update_method:  Delta, Complete
         :return:
         """
@@ -6163,9 +6178,7 @@ class Devices:
 
     def deselect_all_devices(self):
         """
-        - This keyword deselects all devices in the table by clicking the Select All check box column header to deselect
-          it if it is already selected, or clicking the Select All check button twice (once to select all, once to deselect
-          all) if it is not already selected.
+        - This keyword deselects all devices in the table by clicking the Select All check box column header to deselect it if it is already selected, or clicking the Select All check button twice (once to select all, once to deselect all) if it is not already selected.
         - Keyword Usage:
         - `Deselect All Devices`
 
@@ -6335,6 +6348,7 @@ class Devices:
         - ``Wait Until Device Added    device_serial=${DEVICE_SERIAL}    retry_duration=15    retry_count=20``
         - ``Wait Until Device Added    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
         - ``Wait Until Device Added    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
+
         :param device_serial: device serial number to look for
         :param device_name: device name to look for
         :param device_mac: device MAC address to look for
@@ -6727,8 +6741,7 @@ class Devices:
         - name value, or a serial number which is also used in another row, like CLOUD CONFIG GROUPS in XIQ-SE).
 
         :param search_string: String to look for in each row
-        :return: return 1 if none or only one row with the search string is found (no duplicates);
-                 -1 if more than one row contains the search string
+        :return: return 1 if none or only one row with the search string is found (no duplicates); -1 if more than one row contains the search string
         """
 
         ret_val = 1
@@ -6962,11 +6975,9 @@ class Devices:
         - This keyword is used to check the status of the device update and also shows device update progress status such as 19%...etc
         - It will poll the "update status" every retry_duration seconds
         - Assuming that config push will take a maximum of fiften minutes
-
         - Flow:
         - Navigate to Manage --> Devices
         - check the device status and device update prograss for a device based on passed device serial
-
         - Keyword Usage:
         - `Device Update Progress       ${DEVICE_SERIAL}   retry_duration=30       retry_count=800``
 
@@ -7139,7 +7150,8 @@ class Devices:
         - Update the network policy to the selected devices
         - Based on the update method, update the devices
         - Keyword Usage:
-        - ``Update Device Using Hostname    name=${SW_HOST}     '`
+        - ``Update Device Using Hostname    name=${SW_HOST}     ``
+
         :param update_method:
             PolicyAndConfig - selects the "Update Network Policy and Configuration" check button
         :return:  1 if update was performed, -1 if not
@@ -7162,6 +7174,7 @@ class Devices:
         - Update the network policy to the selected stack devices
         - Keyword Usage:
         - ``Update Network Policy To Stack      device_mac  policy_name template_policy_name
+
         :param: device_mac Device master MAC
         :param: policy_name Name of policy
         :param: template_policy_name Name of template
@@ -7246,6 +7259,7 @@ class Devices:
         - It will poll the "update status" every 30 seconds
         - Assuming that config push will take a maximum of five minutes
         - If Device Update Failed will return -1
+
         :param device_mac: device MAC to check the config push status
         :return: 1 if config push success else -1
         """
@@ -7285,6 +7299,7 @@ class Devices:
         - 'config audit mismatch' if device connected and config audit mismatch
         - 'disconnected' if device disconnected and unable to connect after 10 minutes
         - 'unknown' if device connection status is 'Unknown'
+
         """
         self.navigator.navigate_to_devices()
         status = -1
@@ -7441,6 +7456,7 @@ class Devices:
         - It is assumed that the Manage > Device window is open and an XIQ-SE managed device is selected.
         - Keyword Usage
         - ``Actions XIQSE Open Site Engine``
+
         :return: 1 if action was successful (or the field is disabled), else -1
         """
         ret_val = -1
@@ -7473,6 +7489,7 @@ class Devices:
         - The message banner will be closed, if displayed.
         - Keyword Usage
         - ``Is XIQSE Maximum Site Engine Message Displayed``
+
         :return: True if the message banner is displayed, else False
         """
         self.utils.print_info("Checking for the 'Maximum 5 Site Engine > Device View...` message")
@@ -7496,6 +7513,7 @@ class Devices:
         - It is assumed that the Manage > Device window is open.
         - Keyword Usage
         - ``Actions Menu Disabled``
+
         :return: 1 if the field is disabled, else -1
         """
         ret_val = -1
@@ -7548,7 +7566,7 @@ class Devices:
     def _select_location(self, sel_loc):
         """
         - This keyword selects a location in the location dialog and clicks the "Assign" button.
-          It is assumed the location dialog is already open.
+        - It is assumed the location dialog is already open.
         - Keyword Usage:
         - ``Select Location  ${LOCATION}``
 
@@ -7669,9 +7687,10 @@ class Devices:
     def select_location_quick_onboarding(self, sel_loc):
         """
         - This keyword selects a location in the location dialog and clicks the "Select" button.
-          It is assumed the location dialog is already open.
+        - It is assumed the location dialog is already open.
         - Keyword Usage:
         - ``Select Location  ${LOCATION}
+
         :param sel_loc: location to select, in a comma-separated list format; e.g., San Jose, building_01, floor_02
         :return: 1 if location is selected, else -1'
         """
@@ -7751,12 +7770,12 @@ class Devices:
         using Quick onboarding flow.
         - Keyword Usage:
         - quick_onboarding_cloud_manual          ${DUT_SERIAL}    voss      Bucharest,address,Floor 1
+
         :param device_sn: serial number of Device; single SN or a list of SNs
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
         :param location: The location, building and floor separated by comma ; e.g. Bucharest,address,Floor 1
         :param policy_name: The policy name
-        :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message
-         will be returned ; else -1
+        :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message will be returned ; else -1
         """
 
         self.navigator.navigate_to_devices()
@@ -7926,14 +7945,14 @@ class Devices:
         using Quick onboarding flow.
         - Keyword Usage:
         - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
+
         :param device_sn: serial number of Device; single SN or a list of SNs
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
         :param location: The location, building and floor separated by comma ; e.g. Bucharest,address,Floor 1
         :param csv_location: csv file path
         e.g. ${DUT_CSV_FILE}             /automation/xiq/cw_automation/testsuites/xiq/topologies/${TESTBED}/MultipleVossDevices.csv
         :param policy_name: The policy name
-        :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message
-         will be returned ; else -1
+        :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message will be returned ; else -1
         """
 
         self.navigator.navigate_to_devices()
@@ -8062,9 +8081,9 @@ class Devices:
                 pass
             """
             JPS -- Dec 20, 2022
-            The following code did not work as desired, it would find a tool tip that was just an 
+            The following code did not work as desired, it would find a tool tip that was just an
             info message and fail the keyword. In the future there should be a common error checker
-            used by all onboard keywords. In the future the onboard_device_quick should be able 
+            used by all onboard keywords. In the future the onboard_device_quick should be able
             onboard a device with a CSV and this should whol keyword should be removed.
             """
             # Check the banner error
@@ -8093,9 +8112,9 @@ class Devices:
         using Quick onboarding flow.
         - Keyword Usage:
         - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
+
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
-        :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message
-         will be returned ; else -1
+        :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message will be returned ; else -1
         '''
         self.navigator.navigate_to_devices()
         add_button = self.devices_web_elements.get_add_button()
@@ -8223,11 +8242,12 @@ class Devices:
         using Quick onboarding flow.
         - Keyword Usage:
         - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
+
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
         :param csv_location: csv file path
         e.g. ${DUT_CSV_FILE}             /automation/xiq/cw_automation/testsuites/xiq/topologies/${TESTBED}/MultipleVossDevices.csv
-        :return: 1 if successfully onboarded; if any error occurs on banner the text of error message will be returned ;
-         else -1
+        :return: 1 if successfully onboarded; if any error occurs on banner the text of error message will be returned ; else -1
+
         """
         self.navigator.navigate_to_devices()
         add_button = self.devices_web_elements.get_add_button()
@@ -8360,11 +8380,11 @@ class Devices:
 
         :param device_mac: device MAC address
         :param duration_retry : duration of retry in seconds
-
         :return:
         - 1 for 'empty' if device is a EXOS Stack and don't have a policy
         - 2 for 'Device default-template' if device is a standalone device
         - 3 for 'Assign/Create Template' if device is a EXOS Stack and have a policy
+
         """
         self.navigator.navigate_to_devices()
         device_row = -1
@@ -8489,7 +8509,6 @@ class Devices:
         This function will go to Device Update and press create auto template and name the template
 
         :param device_mac: Mac of device
-
         :param name_stack_template: Policy template name
         :return: 1 if remain in the Create auto Template ; -1 else
         """
@@ -8642,6 +8661,7 @@ class Devices:
     def verify_network_policy_column_is_not_sortable(self):
         """
         This keyword verifies whether the Devices grid's Network Policy column shows it is sortable or not in a tooltip
+
         :return 1 if we get a tool-tip message "Network Policy - This column is not sortable" else it returns -1
         """
 
@@ -8660,6 +8680,7 @@ class Devices:
     def get_column_header_tooltip(self, column_name):
         """
         This keyword verifies whether the Devices grid's Network Policy column shows it is sortable or not in a tooltip
+
         :return 1 if we get a tool-tip message eX: "Network Policy - This column is not sortable" else it returns -1
         """
         column_headers = self.devices_web_elements.get_devices_grid_column_headers()
@@ -8702,6 +8723,7 @@ class Devices:
         This keyword gets status about the rebooting information from CLI .First will check the update status from the XIQ if IQagent loses connectivity during configuration in 10 minutes.
         - Keyword Usage:
         - ``Check status rebooting cli   ${SPAWN}       ${DEVICE_SERIAL}      ${DEVICE_MAC}``
+
         :param spawn: device spawn
         :param device_serial: serial number(s) of the device(s)
         :param device_mac:  device MAC address
@@ -8742,6 +8764,7 @@ class Devices:
         - This keyword is used to check the status of the device update in XIQ
         - It will poll the "update status" every 30 seconds
         - Assuming that config push will take a maximum of five minutes
+
         :param device_serial: device serial number to check the config push status
         :return: 1 if config push success else -1
         """
@@ -8770,6 +8793,7 @@ class Devices:
         - This Keyword will Update Device Configuration with Reboot/Rollback option if the IQagent loses connectivity with XIQ during configuration
         - Keyword Usage:
         - ``Get update devices reboot rollback   ${POLICY_NAME}   ${OPTION}  ${DEVICE_SERIAL}  ${DEVICE_MAC}``
+
         :param policy_name: Assign a policy for device
         :param option: Enable/Disable reboot/rollback option in Update Devices
         :param device_serial: serial number(s) of the device(s)
@@ -8892,6 +8916,7 @@ class Devices:
         - Keyword Usage:
         - ``Get check update failed after reboot   ${DEVICE_SERIAL} ``
         - ``Get check update failed after reboot   ${DEVICE_MAC} ``
+
         :param device_serial: Gets the information of the update failed status based on serial number
         :param device_mac:  Gets the information of the update failed status based on address MAC
         :return: 1 if the information was found else -1
@@ -8915,6 +8940,7 @@ class Devices:
         - This Keyword will check the Reboot/Rollback option in Update Device Configuration has a pop-up message
         - Keyword Usage:
         - ``Check pop up message reboot revert   ${POLICY_NAME}   ${OPTION}  ${DEVICE_SERIAL}  ${DEVICE_MAC}``
+
         :param policy_name: Assign a policy for device
         :param option: Enable/Disable reboot/rollback option in Update Devices
         :param device_serial: serial number(s) of the device(s)
@@ -9019,6 +9045,7 @@ class Devices:
         - This Keyword will check the double verification is displayed for the Reboot/Rollback option in Update Device Configuration
         - Keyword Usage:
         - ``Check pop up message reboot revert   ${POLICY_NAME}   ${OPTION}  ${DEVICE_SERIAL}  ${DEVICE_MAC}``
+
         :param policy_name: Assign a policy for device
         :param option: Enable/Disable reboot/rollback option in Update Devices
         :param device_serial: serial number(s) of the device(s)
@@ -9307,6 +9334,7 @@ class Devices:
     def move_to_free_pilot_from_trial_or_connect(self):
         """
         This function moves XIQ account into free pilot mode by using the link from banner
+
         :return: 1 if account was moved ; else -1
         """
 
@@ -9644,11 +9672,11 @@ class Devices:
         """
         - This keyword is used to check the status of the device license
         - It will poll the "license status" at every time_interval seconds
+
         :param device_sn: Device serial
         :param max_time: Maximum duration of check
         :param time_interval: Time interval between two consecutive checks
-        :return: returns the status displayed into device license field (NONE; PREMIER; MACSEC; FOURPORT10G;EIGHTPORT10G) +
-        error message if it is present ;else -1
+        :return: returns the status displayed into device license field (NONE; PREMIER; MACSEC; FOURPORT10G;EIGHTPORT10G) + error message if it is present ;else -1
         """
         self.utils.print_info("Start checking the status for device license")
         sleep(20)
@@ -9759,10 +9787,10 @@ class Devices:
         """
         This function returns the number of license which should be consumed and the number of license available from
         unmanage box. These are displayed into this format   e.g.  1/0
+
         :param max_time: Maximum duration of check
         :param interval_time: Time interval between two consecutive checks
-        :return: the number of license which should be consumed and the number of license available from
-        unmanage box. These are displayed into this format   e.g.  1/0  ; else -1
+        :return: the number of license which should be consumed and the number of license available from unmanage box. These are displayed into this format   e.g.  1/0  ; else -1
         """
 
         pilot_inventory_found = False
@@ -9891,6 +9919,7 @@ class Devices:
     def link_to_sfdc_from_unmanage_box(self, username, password, shared_cuid=None):
         """
         This function links the XIQ account to SFDC by using the 'ADD LICENSE' button from unmanage dialog
+
         :param username: SFDC username account
         :param password: SFDC password account
         :param shared_cuid: SFDC shared cuid
@@ -9941,6 +9970,7 @@ class Devices:
         """
         This function move the XIQ account from free pilot or trial mode into pilot mode by using the 'ADD LICENSE'
         button from unmanage dialog
+
         :param username: SFDC username account
         :param password: SFDC password account
         :param shared_cuid: SFDC shared cuid
@@ -10002,6 +10032,7 @@ class Devices:
     def login_to_extreme_portal(self, username, password, shared_cuid=None):
         """
         This function enters the credentials when SFDC page is displayed
+
         :param username: SFDC username account
         :param password: SFDC password account
         :param shared_cuid: SFDC shared cuid
@@ -10110,6 +10141,7 @@ class Devices:
     def unlink_sfdc_account(self):
         """
         This function presses the unlink button from License Management page
+
         :return: 1 if the account was unlinked ; else -1
         """
         self.utils.print_info("Starting unlink")
@@ -10144,6 +10176,7 @@ class Devices:
                                         max_time=660, interval_check_time=60):
         """
         This function checks if the available and activated licenses are displayed as expected into License Management page
+
         :param expected_available: Number of expected available licenses
         :param expected_activated: Number of expected activated license
         :param license_type: type of license
@@ -10228,6 +10261,7 @@ class Devices:
         """
         This function checks if the SN for 5520 has short or long format . If the function has short format the sn will be
         searched into extr_legacy_sn_mapping table
+
         :param ip_dest_ssh: ip of 'Jump Station'
         :param user_dest_ssh: SFDC username account
         :param pass_dest_ssh: SFDC password account
@@ -10276,6 +10310,7 @@ class Devices:
     def check_message_unlink_button(self, expected_message):
         """
         This function checks if the message is correct when try to unlink
+
         :param expected_message: Expected message
         :return: 1 if expected message was found ; else -1
         """
@@ -10306,6 +10341,7 @@ class Devices:
     def link_to_sfdc_from_license_management_page(self, username, password, shared_cuid=None):
         """
         This function links the XIQ account to SFDC and will move the account to Pilot mode from License Management page
+
         :param username: SFDC username account
         :param password: SFDC password account
         :param shared_cuid: SFDC shared cuid
@@ -10347,6 +10383,7 @@ class Devices:
     def get_audit_log(self):
         """
         This function returns the date for the last log from audit
+
         :return: the date of last log ; else -1
         """
 
@@ -10424,6 +10461,7 @@ class Devices:
         - This Keyword checks if the delete button is visible
         - Keyword Usage:
         - ``Is Delete Button Visible``
+
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10440,6 +10478,7 @@ class Devices:
         - This Keyword checks if the download button is visible
         - Keyword Usage:
         - ``Is Download Button Visible``
+
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10456,6 +10495,7 @@ class Devices:
         - This Keyword checks if the bulk edit button is visible
         - Keyword Usage:
         - ``Is Bulk Edit Button Visible``
+
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10472,6 +10512,7 @@ class Devices:
         - This Keyword checks if the add button is visible
         - Keyword Usage:
         - ``Is Add Button Visible``
+
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10488,6 +10529,7 @@ class Devices:
         - This Keyword checks if the device update button is visible
         - Keyword Usage:
         - ``Is Update Device Button Visible``
+
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10504,6 +10546,7 @@ class Devices:
         - This Keyword checks if the actions button is visible
         - Keyword Usage:
         - ``Is Actions Button Visible``
+
         :return: 1 if visible, -1 if not
         """
         try:
@@ -10520,6 +10563,7 @@ class Devices:
         - This Keyword checks if the utilities button is visible
         - Keyword Usage:
         - ``Is Utilities Button Visible``
+
         :return: 1 if visible, -1 if not
         """
         try:
@@ -11042,14 +11086,15 @@ class Devices:
         """
         - This keyword will assign the network policy to the all devices
         - flow:
-            -- If Not in devices page, go to it
-            -- Select all devices
-            -- Actions
-            -- Assign Network Policy
-            -- Select the network policy from drop down window
-            -- Assign
+        - If Not in devices page, go to it
+        - Select all devices
+        - Actions
+        - Assign Network Policy
+        - Select the network policy from drop down window
+        - Assign
         - Keyword Usage:
         - ``Assign Network Policy To All Devices    ${policy_name}``
+
         :param policy_name: policy name to be applied
         :return: Success 1 else -1
         """
@@ -11069,6 +11114,7 @@ class Devices:
     def navigate_to_device_configure(self, ap_name):
         """
         - Click on the AP Rows host name --> Configure
+
         :param ap_name: AP's name
         :return: success 1 else -1
         """
@@ -11099,14 +11145,15 @@ class Devices:
         """
         - This keyword will get wifi0 and wifi1 ssids from interface settings page behind Configure tab in AP device level
         - flow:
-            -- Go to configure tab in AP device level based on AP hostname
-            -- Click Configure tab
-            -- Click Interface Settings
-            -- Get wifi0 ssids and wifi1 ssids
-            -- Put them to a ssid dictionary, as example {'wifi0':['ssid1','ssid2'], 'wifi1':['ssid1','ssid2']}
-            -- return the ssid dictionary
+        - Go to configure tab in AP device level based on AP hostname
+        - Click Configure tab
+        - Click Interface Settings
+        - Get wifi0 ssids and wifi1 ssids
+        - Put them to a ssid dictionary, as example {'wifi0':['ssid1','ssid2'], 'wifi1':['ssid1','ssid2']}
+        - return the ssid dictionary
         - Keyword Usage:
         - ``Get Ap Wifi0and1 Configured Ssids    ${ap_name}``
+
         :param ap_name: AP hostname
         :return: Success ssid dictionary whatever it is null
         """
@@ -11169,6 +11216,7 @@ class Devices:
     def check_voss_image_version(self, output_image_version, os_version, operator='less'):
         """
         Check is os_version is equal, less or greater than on version from cli
+
         :param spawn:
         :param os_version: 8.6.0.0
         :param operator: equal, less or greater than on version from cli
@@ -11224,6 +11272,7 @@ class Devices:
     def teardown_check_and_revoke_license(self, device_sn):
         """
         This function revoke all device license
+
         :param device_sn: Sn of device
         :return: 1 if device license status in "None" ; else -1
         """
@@ -11431,6 +11480,7 @@ class Devices:
     def check_unmanage_message_on_device(self):
         """
         This Keyword verifies if the unmanage message was shown.
+
         :return: 1 if the unmanaged message was shown
         """
 
@@ -11482,6 +11532,7 @@ class Devices:
     def onboarding_stack_per_unit(self, serial_numbers_list, device_os, location):
         """
         This functions onboard serials one by one
+
         :param serial_numbers_list: list of SNs
         :param device_os: device os
         :param location: location
@@ -11535,6 +11586,7 @@ class Devices:
     def actions_change_os(self, device_serial, os, max_time=300, time_interval=10):
         """
         This function change the os on switch by using ACTIONS->CHANGE OS button . Return 1 when "Rebooting" status is displayed
+
         :param device_serial: SN of device
         :param os: exos or voss
         :param max_time:  maximum time waited for "Rebooting" status
@@ -11666,6 +11718,7 @@ class Devices:
     def get_cuid_and_viq_id(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, owner_id, sw_connection_host):
         """
         This functions returns VHM ID an CUID ID.
+
         :param ip_dest_ssh: ip/dns destination of bastion host
         :param user_dest_ssh: user for bastion host account
         :param pass_dest_ssh: password for bastion host account
@@ -11709,6 +11762,7 @@ class Devices:
     def unmanage_device_when_license_expired(self, device_sn):
         """
         This function unmanage a device when unmanage box is displayed
+
         :param device_sn: Sn of device
         :return: 1 when device was unmanage ; else -1
         """
@@ -11844,6 +11898,7 @@ class Devices:
     def get_pilot_license_consumption(self, license_type="PRD-XIQ-PIL-S-C", max_time=120, interval_check_time=60):
         """
         This functions gets the available and activated licenses
+
         :param license_type:
         :param max_time:
         :param interval_check_time:
@@ -11911,6 +11966,7 @@ class Devices:
     def delete_all_aps(self):
         """
         This function is deprecated. This Keyword will Delete All the Devices in the Manage--> Devices Grid
+
         :return: 1 if Devices Deleted Successfully else -1
         """
         return self.delete_all_devices()
@@ -11993,6 +12049,7 @@ class Devices:
         - This method reboots a device matching the serial(s)
         - Keyword Usage:
         - ``Reboot Device  ${DEVICE_SERIAL}``
+
         :param device_serial: device serial number
         :return: None
         """
@@ -12016,6 +12073,7 @@ class Devices:
         - This method checks if License action is available for a device matching the serial(s)
         - Keyword Usage:
         - ``Check Device License Action ${DEVICE_SERIAL}``
+
         :param device_serial: device serial number
         :return: int
         """
@@ -12038,6 +12096,7 @@ class Devices:
         - This method checks if License action is available for a device matching the serial(s)
         - Keyword Usage:
         - ``Check Device License Action ${DEVICE_SERIAL}``
+
         :param device_serial: device serial number
         :return: int
         """
@@ -12056,14 +12115,14 @@ class Devices:
 
     def update_policy_and_configuration_stack(self,  device_serial_mac_or_name=None):
         """
-        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
-          check button in the Device Update dialog.
+        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration" check button in the Device Update dialog.
         - Go To Manage-->Devices-->Select switch row to apply the network policy
         - Select Switch-->Update device
         - Keyword Usage:
         - ``Update Policy and Configuration  ${SWITCH_SERIAL}``
         - ``Update Policy and Configuration  ${SWITCH_MAC}``
         - ``Update Policy and Configuration  ${SWITCH_NAME}``
+
         :param  device_serial_mac_or_name: device serial number, mac or name  of the switch to update
         :return: 1 if config push success else -1
         """
@@ -12085,6 +12144,7 @@ class Devices:
     def enable_device_wan_access(self, device_serial):
         """
         - This keyword will enable WAN access for XR or AP as Router mode
+
         :param device_serial:   The serial of the device
         :return: success 1 else -1
         """
@@ -12160,6 +12220,7 @@ class Devices:
         - This method waits until the device is online & managed with status green after a config push
         - Keyword Usage:
         - ``Wait For Policy Config Push To Complete ${DEVICE_SERIAL} ${BOOT_WAIT_TIME}``
+
         :param device_serial: device serial number
         :param boot_wait_time: time to wait until the device is supposed to have completed the reboot
         :return: 1 if reboot was successful, device is online & managed, status is green else -1
@@ -12217,6 +12278,7 @@ class Devices:
             -- Assign
         - Keyword Usage:
         - ``Assign Network Policy To A Device  ${device_serial}   ${policy_name}``
+
         :param policy_name: policy name to be applied
         :param device_serial: serial number of the device
         :return: Success 1 else -1
@@ -12245,6 +12307,7 @@ class Devices:
         - The 'Quick Add Devices' panel will be closed.
         - Keyword Usage:
         - ``Is Digital Twin Option Visible``
+
         :return: True if visible, False if not visible, else -1
         """
         ret_val = -1
@@ -12280,6 +12343,7 @@ class Devices:
         - This keyword returns the Device Status icon.
         - Keyword Usage:
         - ``Get Device Status Icon   device_serial=${DEVICE_SERIAL}``
+
         :param device_serial: device serial number
         :return:
         - 'digital_twin' if Device Status icon is 'Digital Twin'.
@@ -12287,6 +12351,7 @@ class Devices:
         - 'local_managed' if Device Status icon is 'Local Managed'.
         - 'cloud_managed' if Device Status icon is 'Cloud Managed'.
         - 'unknown' if Device Status icon is 'Unknown'.
+
         """
         device_row = -1
         self.refresh_devices_page()
@@ -12325,6 +12390,7 @@ class Devices:
         - It is assumed that the 'Quick Add Devices' panel is already visible.
         - Keyword Usage:
         - ``Cancel Quick Add Devices Panel``
+
         :return: 1 if successful, -1 if not
         """
         self.utils.print_info("Check if the Quick Add Devices panel is visible.")
@@ -12342,6 +12408,7 @@ class Devices:
     def select_clone_device(self, device_serial, replacement_device_type, replacement_serial, option="disable"):
         """
         - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device level config to another same type SKU switch.
+
         :param device_serial: Select the device (first device) that you want to clone the configuration for the replacement device (second device)
         :param replacement_device_type: Select the type option for replacement device in Cloning process ('Onboarded')
         :param replacement_serial: Select the serial number for replacement device
@@ -12512,6 +12579,7 @@ class Devices:
         - If the button is present, it will be clicked
         - If the button is not present, it will ignore
         - It is assumed that 'Devices' page is open
+
         :return:
         """
         self.utils.print_info("Searching for 100 rows per page button")
@@ -12526,6 +12594,7 @@ class Devices:
         """
         This keyword gets information of the update failed status in XIQ for a device after reboot/rollback
         configuration
+
         :param device_serial: Gets the information of the update failed status based on serial number
         :param device_mac:  Gets the information of the update failed status based on address MAC
         :return: status if the information was found else -1
@@ -12549,6 +12618,7 @@ class Devices:
         - This keyword will get the device model string from a device row using the mac
         - This string returned can be used to create a template for the device
         - It is assumed that 'Devices' page is already open
+
         :param mac: The mac address of the device
         :return: a string containing the name of the model [Ex: Fabric Engine 5520-24T]; -1 if getting the string fails
         """
@@ -12588,6 +12658,7 @@ class Devices:
         - This method accesses the "Revert Device to Template" action but it will not deploy for a device matching the specified serial
         - Keyword Usage:
         - ``Revert Device to Template  ${DEVICE_SERIAL}``
+
         :param device_serial: serial number of the device to perform the action on
         :return: 1 if action succeeds, else -1
         """
@@ -12658,6 +12729,7 @@ class Devices:
         """
         This function is used to check the UPDATED column from device grid from a device with device_serial given as
         parameter. Check if the update process failed with the same message as failure_message given as parameter
+
         :param device_serial: device serial number to check the config push status
         :param failure_message: failure message that is expected to appear after Device Update Failed
         :return: 1 - if the update process failed with the same message as failure_message ; -1 - if not

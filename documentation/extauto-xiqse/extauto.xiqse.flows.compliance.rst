@@ -1,4 +1,4 @@
-extauto.xiqse.flows.compliance package
+XIQSE Flows Compliance Keywords
 ======================================
 
 Subpackages
@@ -13,7 +13,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.compliance.XIQSE\_Compliance module
+XIQSE\_Compliance module
 -------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.compliance.XIQSE_Compliance

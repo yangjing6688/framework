@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.devices.site.topologies package
+XIQSE Flows Network Devices Site Topologies Keywords
 ===========================================================
 
 Module contents
