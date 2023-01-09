@@ -1950,3 +1950,13 @@ class DevicesWebElementsDefinitions:
         {
             'CSS_SELECTOR': '.field-productType'
         }
+
+    global_settings_management_dialog = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="msgWrap"]',
+        }
+
+    global_settings_management_dialog_yes_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
+        }

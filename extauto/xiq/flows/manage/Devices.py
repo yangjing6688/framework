@@ -4893,7 +4893,7 @@ class Devices:
 
         self.screen.save_screen_shot()
 
-        # return self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
+        return_value = self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
         return return_value
 
@@ -5065,11 +5065,35 @@ class Devices:
 
         # In case the warning dialog is displayed about the reboot and revert option being selected, click Yes to close it
         self._handle_reboot_and_revert_warning()
+        # In case the account credential managed by global settings pop-up
+        self._handle_credentials_global_popup()
 
         self.screen.save_screen_shot()
         sleep(2)
 
         return 1
+
+    def _handle_credentials_global_popup(self):
+        ret_val = 1
+
+        self.utils.print_info("Check to see if the account credential managed by global setting pop-up is displayed")
+        sleep(5)
+
+        the_dlg = self.devices_web_elements.get_global_settings_management_dialog()
+
+        if the_dlg:
+            self.utils.print_debug("The account credential managed by global setting pop-up is displayed")
+            yes_btn = self.devices_web_elements.get_global_settings_management_dialog_yes_button()
+            if yes_btn:
+                self.utils.print_info("Clicking 'Yes' in the account credential managed by global setting pop-up dialog")
+                self.auto_actions.click(yes_btn)
+            else:
+                self.utils.print_info("Unable to find the Yes button in the account credential managed by global setting pop-up dialog")
+                ret_val = -1
+        else:
+            self.utils.print_debug("The account credential managed by global setting pop-up is not displayed")
+
+        return ret_val
 
     def _handle_reboot_and_revert_warning(self):
         """

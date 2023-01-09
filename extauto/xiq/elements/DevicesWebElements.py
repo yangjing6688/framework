@@ -1352,3 +1352,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         for cell in cells:
             if field in cell.get_attribute("class"):
                 return cell
+
+    def get_global_settings_management_dialog(self):
+        return self.weh.get_element(self.global_settings_management_dialog)
+
+    def get_global_settings_management_dialog_yes_button(self):
+        return self.weh.get_element(self.global_settings_management_dialog_yes_button)
