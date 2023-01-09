@@ -8142,7 +8142,6 @@ class Device360(Device360WebElements):
         self.common_validation.fault(**kwargs)
         return -1
 
-
     def verify_device360_relaunch_digital_twin_button_visible(self, **kwargs):
         """
         - This keyword verifies if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
@@ -8152,7 +8151,6 @@ class Device360(Device360WebElements):
         :return: True if visible, False if not visible, else -1
         """
         return self._is_device360_relaunch_digital_twin_button_visible(**kwargs)
-
 
     def verify_device360_relaunch_digital_twin_button_hidden(self, **kwargs):
         """
