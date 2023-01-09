@@ -5026,11 +5026,11 @@ class Devices:
                         if device_row and device_row != -1:
                             status = self.devices_web_elements.get_status_cell(device_row)
                             self.utils.print_info(f"Found Device status: {status}")
-                            if "hive-status-true" in status:
+                            if status != None and "hive-status-true" in status:
                                 kwargs['pass_msg'] = "Device status is connected!"
                                 self.common_validation.passed(**kwargs)
                                 return 1
-                            elif "local-managed-icon" in status:
+                            elif status != None and "local-managed-icon" in status:
                                 kwargs['pass_msg'] = "Device status is connected - locally managed"
                                 self.common_validation.passed(**kwargs)
                                 return 1

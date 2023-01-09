@@ -128,9 +128,15 @@ class UserProfileWebElementsDef:
             'wait_for': 5
         }
 
-    user_profile_vlan_row_cell_href = \
+    user_profile_vlan_row_cell_select_rule_href = \
         {
             'CSS_SELECTOR': '.sp-rule-select-norm',
+            'wait_for': 5
+        }
+
+    user_profile_vlan_row_cell_add_rule_href = \
+        {
+            'CSS_SELECTOR': '.sp-rule-add-norm',
             'wait_for': 5
         }
 
@@ -143,6 +149,72 @@ class UserProfileWebElementsDef:
     user_profile_vlan_row_rule_link_btn = \
         {
             'XPATH': '//*[@data-dojo-attach-point="linkButton"]',
+            'wait_for': 3
+        }
+
+    user_profile_vlan_row_rule_cancel_btn = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="containerNode"]//*[@data-dojo-attach-point="cancelButton"]',
+            'wait_for': 3
+        }
+
+    user_profile_assignment_name = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="assignName"]',
+            'wait_for': 3
+        }
+
+    user_profile_assignment_description = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="assignDesc"]',
+            'wait_for': 3
+        }
+
+    user_profile_assignment_add_assignment_rule = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="Menu"]',
+            'wait_for': 3
+        }
+
+    user_profile_assignment_add_user_group = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-undefined-user-group"]',
+            'wait_for': 3
+        }
+
+    user_profile_assignment_add_client_os_type = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-undefined-client-os-type"]',
+            'wait_for': 3
+        }
+
+    user_profile_assignment_add_user_group_rows = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="listArea"]/li/label/span',
+            'wait_for': 5
+        }
+
+    user_profile_assignment_add_client_os_type_rows = \
+        {
+            'CSS_SELECTOR': '.dojoxGridRow',
+            'wait_for': 5
+        }
+
+    user_profile_assignment_add_client_os_type_checked_row = \
+        {
+            'CSS_SELECTOR': '.dojoxGridCell',
+            'wait_for': 5
+        }
+
+    user_profile_assignment_add_asssignment_rule_select_btn = \
+        {
+            'XPATH': '//*[@class="ui-dialog-bottom clearfix"]//*[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 3
+        }
+
+    user_profile_assignment_save_btn = \
+        {
+            'XPATH': '//*[@class="btn-area btn-mir"]//button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 3
         }
 
