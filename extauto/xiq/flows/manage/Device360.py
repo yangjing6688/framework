@@ -9357,7 +9357,7 @@ class Device360(Device360WebElements):
                         return False
                 self.utils.print_info("Did not find Bounce port successful message yet. Retrying...")
                 return False
-            message = self.utils.wait_till(_check_successful_message, timeout=120, delay=5, silent_failure=True,
+            message = self.utils.wait_till(_check_successful_message, timeout=300, delay=15, silent_failure=True,
                                            msg="Looking for Bounce Port successful message...")
             if message[0]:
                 kwargs['pass_msg'] = "'Bounce Port' clicked! Successful message found!"
@@ -9437,7 +9437,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Did not find Bounce PoE successful message yet. Retrying...")
                 print(tool_tip.tool_tip_text)
                 return False
-            message = self.utils.wait_till(_check_successful_message, timeout=120, delay=5, silent_failure=True,
+            message = self.utils.wait_till(_check_successful_message, timeout=300, delay=15, silent_failure=True,
                                            msg="Looking for Bounce PoE successful message...")
             if message[0]:
                 kwargs['pass_msg'] = "'Bounce PoE' clicked! Successful message found!"
