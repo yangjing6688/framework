@@ -1650,14 +1650,14 @@ class Devices:
 
 
 
-    def upgrade_device(self, device_serial, version=None, action="upgrade", activate_time=60, **kwargs):
+    def upgrade_device(self, *device_dict, version=None, action="upgrade", activate_time=60, **kwargs):
         """
         - This method will update the software image the device is using
+        - device_dict - dictionary from .yaml testbed file (ex: ap1, netelem1}
         - Keyword Usage:
-        - ``Upgrade Device   ${DEVICE_SERIAL}``
-        - ``Upgrade Device   ${DEVICE_SERIAL}  8.8.0.0``
+        - ``Upgrade Device   ${ap1}``
+        - ``Upgrade Device   ${netelem1}  version=8.8.0.0``
 
-        :param device_serial: serial number of the device
         :param version: - version=None - means latest version
                         - version="" - to which device should get upgraded, ex: version="8.8.0.0"
         :param action: - action="upgrade" - will update the software image of the device
@@ -1667,7 +1667,18 @@ class Devices:
         :return: returned_version of the device, or -1 if it was unable to perform the upgrade
         """
         returned_version = -1
-        if self.select_device(device_serial):
+        device_selected = False
+        device_dict = device_dict[0]
+        device_serial = device_dict.get("serial")
+        device_mac = device_dict.get("mac")
+
+        self.refresh_devices_page()
+        if self.select_device(device_mac=device_mac):
+            device_selected = 1
+        elif self.select_device(device_serial=device_serial):
+            device_selected = 1
+
+        if device_selected:
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click_reference(self.device_update.get_update_devices_button)
             sleep(5)
@@ -1768,7 +1779,8 @@ class Devices:
                 self.common_validation.fault(**kwargs)
                 return -1
 
-        kwargs['fail_msg'] = f"upgrade_device() failed. Failed to upgrade the device"
+        kwargs['fail_msg'] = f"upgrade_device() failed. Device using MAC: {device_mac} " \
+                             f"or serial number: {device_serial} was not found thus failed to upgrade it"
         self.common_validation.failed(**kwargs)
         return -1
 
