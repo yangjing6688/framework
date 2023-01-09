@@ -8126,7 +8126,8 @@ class Device360(Device360WebElements):
             self.utils.print_debug(f"'Relaunch Digital Twin' button Class value: {hidden}")
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is not displayed.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "The 'Relaunch Digital Twin' button is not displayed."
+                self.common_validation.failed(expect_error=True)
                 return False
             else:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is displayed.")
@@ -8150,7 +8151,7 @@ class Device360(Device360WebElements):
         - ``Verify Device360 Relaunch Digital Twin Button Visible``
         :return: True if visible, False if not visible, else -1
         """
-        return _is_device360_relaunch_digital_twin_button_visible(**kwargs)
+        return self._is_device360_relaunch_digital_twin_button_visible(**kwargs)
 
 
     def verify_device360_relaunch_digital_twin_button_hidden(self, **kwargs):
@@ -8161,7 +8162,7 @@ class Device360(Device360WebElements):
         - ``Verify Device360 Relaunch Digital Twin Button Hidden``
         :return: True if visible, False if not visible, else -1
         """
-        return _is_device360_relaunch_digital_twin_button_visible(**kwargs)
+        return self._is_device360_relaunch_digital_twin_button_visible(**kwargs)
 
     def device360_relaunch_digital_twin_device(self, confirm="yes", **kwargs):
         """
@@ -8225,7 +8226,8 @@ class Device360(Device360WebElements):
             self.utils.print_debug(f"'Shutdown Digital Twin' button Class value: {hidden}")
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is not displayed.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "The 'Shutdown Digital Twin' button is not displayed."
+                self.common_validation.failed(expect_error=True)
                 return False
             else:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is displayed.")
@@ -8248,7 +8250,7 @@ class Device360(Device360WebElements):
         - ``Verify Device360 Shutdown Digital Twin Button Visible``
         :return: True if visible, False if not visible, else -1
         """
-        return _is_device360_shutdown_digital_twin_button_visible(**kwargs)
+        return self._is_device360_shutdown_digital_twin_button_visible(**kwargs)
 
     def verify_device360_shutdown_digital_twin_button_hidden(self, **kwargs):
         """
@@ -8258,7 +8260,7 @@ class Device360(Device360WebElements):
         - ``Verify Device360 Shutdown Digital Twin Button Hidden``
         :return: True if visible, False if not visible, else -1
         """
-        return _is_device360_shutdown_digital_twin_button_visible(**kwargs)
+        return self._is_device360_shutdown_digital_twin_button_visible(**kwargs)
 
     def device360_shutdown_digital_twin_device(self, confirm="yes", **kwargs):
         """
