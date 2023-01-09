@@ -294,15 +294,12 @@ class GlobalSetting(GlobalSettingWebElements):
                 if not cell:
                     pass
                 if organization_name in cell.text:
-                    kwargs['pass_msg'] = f"'search_organization_name()' -> organization name found in the page"
-                    self.common_validation.passed(**kwargs)
+                    self.utils.print_info(f"'search_organization_name()' -> organization name found in the page")
                     return 1
                 else:
-                    kwargs['fail_msg'] = f"'search_organization_name()' -> organization name not found in the page"
-                    self.common_validation.failed(**kwargs)
+                    self.utils.print_info(f"'search_organization_name()' -> organization name not found in the page")
                     return -1
-        kwargs['fail_msg'] = f"'search_organization_name()' -> Organization not found on Grid"
-        self.common_validation.fault(**kwargs)
+        self.utils.print_info(f"'search_organization_name()' -> Organization not found on Grid")
         return -1
 
     def enable_account_hiq(self, **kwargs):
