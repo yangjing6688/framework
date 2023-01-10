@@ -11603,14 +11603,15 @@ class Devices:
 
             def _loading_clone():
                 loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
-                if loading_clone_configuration.is_displayed():
+                while loading_clone_configuration and "fn-hidden" not in loading_clone_configuration.get_attribute("class"):
                     print("Still loading configuration")
-                else:
-                    return 1
+                    sleep(2)
+                    loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
+                return 1
             self.utils.wait_till(_loading_clone, exp_func_resp=1)
 
             warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
-            if 'disconnected or in the unmanaged state.' not in warning_message_disconnected.text:
+            if not warning_message_disconnected:
                 self.utils.print_info("Performing Update")
                 self.utils.print_info("Select the network policy and configuration checkbox")
                 update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
