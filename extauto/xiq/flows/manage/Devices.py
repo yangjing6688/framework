@@ -4889,13 +4889,11 @@ class Devices:
         self.utils.print_info("Select Switch row")
         self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
-        return_value = self._update_switch(update_method="PolicyAndConfig")
+        self._update_switch(update_method="PolicyAndConfig")
 
         self.screen.save_screen_shot()
 
-        return_value = self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
-
-        return return_value
+        return self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
     def update_switch_iq_engine_and_images(self, serial):
         """
@@ -5065,7 +5063,7 @@ class Devices:
 
         # In case the warning dialog is displayed about the reboot and revert option being selected, click Yes to close it
         self._handle_reboot_and_revert_warning()
-        # In case the account credential managed by global settings pop-up
+
         self._handle_credentials_global_popup()
 
         self.screen.save_screen_shot()
@@ -12209,6 +12207,15 @@ class Devices:
         return 1
 
     def deploy_switch_network_policy_with_complete_update(self, device_serial, policy_name):
+        """
+        - Deploy Switch Network Policy With Complete Update
+        - Will deploy a policy to a device assuming policy exists
+        - Keyword Usage:
+          - ``Deploy Switch Network Policy With Complete Update   ${POLICY_NAME}    ${DEVICE_MAC}``
+        :param policy_name: Name of the policy
+        :param devices: Device serial number
+        :return: 1 if success else -1
+        """
         return_value = self.assign_network_policy_to_a_device(device_serial, policy_name)
         if return_value == 1:
             return_value = self.update_switch_policy_and_configuration(device_serial)
