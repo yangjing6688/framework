@@ -2927,3 +2927,29 @@ class NetworkPolicy(object):
             self.common_validation.fault(**kwargs)
             self.screen.save_screen_shot()
             return -1
+
+    def get_random_name(self, base_string):
+        """
+        Method used to generate a random string with a base string
+        :param base_string: a string
+        :return: random string from a base string
+        """
+        policy_name = base_string + "_" + ''.join(random.sample(list(string.digits), k=4))
+        self.utils.print_info(f"Policy name is: {policy_name}")
+        return policy_name
+
+    def create_np_and_navigate_to_switching_tab(self, policy_name):
+        """
+        Method used to create a Network Policy, navigate to Edit Tab then Switching Tab
+        :param policy_name: the name of the policy
+        :return:
+        """
+
+        network_policy = self.xiq.xflowsconfigureNetworkPolicy
+        assert network_policy.create_switching_routing_network_policy(policy_name) == 1, \
+            "Failed to create Switching and Routing network policy"
+
+        assert network_policy.navigate_to_np_edit_tab(policy_name=policy_name) == 1, \
+            "Failed to navigate to Network Policy Edit Tab"
+
+        self.xiq.xflowsconfigureNetworkPolicy.get_switching_tab()
