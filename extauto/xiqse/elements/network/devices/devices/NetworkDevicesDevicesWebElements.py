@@ -124,9 +124,21 @@ class NetworkDevicesDevicesWebElements(NetworkDevicesDevicesWebElementsDefinitio
         """
         return self.weh.get_element(self.restore_configuration_menu_item)
 
+    def get_rediscover_device_menu_item(self):
+        """
+        :return: 'Rediscover Device' menu item under the Devices Menu toolbar button
+        """
+        return self.weh.get_element(self.rediscover_device_menu_item)
+
+    def get_rediscover_confirm_button_yes_item(self):
+        """
+        :return: 'Rediscover Device' confirmation dialog Yes button
+        """
+        return self.weh.get_element(self.rediscover_device_confirmation_item)
+
     def get_restart_device_menu_item(self):
         """
-        :return: 'Restart Devicew' menu item under the More Actions menu of the Devices Menu toolbar button
+        :return: 'Restart Device' menu item under the More Actions menu of the Devices Menu toolbar button
         """
         return self.weh.get_element(self.restart_device_menu_item)
 
