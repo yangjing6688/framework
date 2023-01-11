@@ -1371,8 +1371,7 @@ class Cli(object):
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
 
-
-    def enable_debug_mode_iqagent(self, ip, username, password, cli_type):
+    def enable_debug_mode_iqagent(self, ip, username, password, cli_type, port="22"):
         """
         - This Keyword enables debug mode for IQagent for VOSS/EXOS
         - Keyword Usage:
@@ -1385,18 +1384,18 @@ class Cli(object):
         :param cli_type: device Platform example: exos,voss
         :return: _spawn Device Prompt without '#'
         """
-        _spawn = self.open_pxssh_spawn(ip,username,password)
+        _spawn = self.open_spawn(ip, port, username, password, cli_type)
 
         if _spawn != -1:
             if 'EXOS' in cli_type.upper():
-                self.send_pxssh(_spawn, 'disable cli paging')
-                self.send_pxssh(_spawn, 'debug iqagent show log hive-agent tail')
+                self.send(_spawn, 'disable cli paging')
+                self.send(_spawn, 'debug iqagent show log hive-agent tail')
                 return _spawn
             elif 'VOSS' in cli_type.upper():
-                self.send_pxssh(_spawn, 'enable')
-                self.send_pxssh(_spawn, 'configure terminal')
-                self.send_pxssh(_spawn, 'trace level 261 3')
-                self.send_pxssh(_spawn, 'trace screen enable')
+                self.send(_spawn, 'enable')
+                self.send(_spawn, 'configure terminal')
+                self.send(_spawn, 'trace level 261 3')
+                self.send(_spawn, 'trace screen enable')
                 return _spawn
             else:
                 self.builtin.fail(msg="Device is not supported")

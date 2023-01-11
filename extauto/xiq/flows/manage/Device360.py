@@ -3405,7 +3405,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("The dut have {} unit/units".format(len(list)))
         return len(list)
 
-    def device360_search_event_and_confirm_event_description_contains(self, event_str, after_time=None, **kwargs):
+    def device360_search_event_and_confirm_event_description_contains(self, event_str, after_time=None, configuration_event=False, **kwargs):
         """
         - This keyword search event and then confirms that specified event text is present in the description field of the event, after the
           specified time. If no time is specified, it just confirms the event is present.
@@ -3419,6 +3419,14 @@ class Device360(Device360WebElements):
                                 (if not specified, it just checks for the existence of the event in general)
         :return: 1 if only one log (row in table) is found; If more logs (rows) are found it will be return the number of them; else -1
         """
+
+        if configuration_event:
+            configuration_events_button = self.dev360.get_configuration_events_button()
+            if not configuration_events_button:
+                raise Exception
+
+            self.auto_actions.click(configuration_events_button)
+        
         i = 0
         cont_rows_match = 0
         self.d360Event_search(event_str)
@@ -13713,3 +13721,57 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
 
         return device360_info
+
+    def get_supplemental_cli_vlan(self, mac, os, vlan_min, vlan_max, option="", profile_scli=""):
+
+        vlan_list = []
+        self.navigator.navigate_to_device360_page_with_mac(device_mac=mac)
+
+        if os.lower() == "voss":
+            vlan_list.append("configure terminal")
+            if option == "create":
+                self.utils.print_info(f"Creating {vlan_min}-{vlan_max} vlans")
+                for vlan in range(vlan_min, vlan_max + 1):
+                    vlan_commands = f"vlan create {vlan} type port-mstprstp 0"
+                    vlan_list.append(vlan_commands)
+                i = 10
+                for show in range(10):
+                    show = "show running-config | no-more"
+                    vlan_list.insert(i, show)
+                    i += 10
+                vlan_list_one_string = ",".join(vlan_list)
+                self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+            elif option == "delete":
+                self.utils.print_info(f"Deleting {vlan_min}-{vlan_max} vlans")
+                for vlan in range(vlan_min, vlan_max + 1):
+                    vlan_commands = f"vlan delete {vlan}"
+                    vlan_list.append(vlan_commands)
+                vlan_list_one_string = ",".join(vlan_list)
+                self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+            else:
+                self.utils.print_info("No option available")
+        elif os.lower() == "exos":
+            if option.lower() == "create":
+                self.utils.print_info(f"Creating {vlan_min}-{vlan_max} vlans")
+                vlan_commands_1 = f"create vlan {vlan_min}-{int(vlan_max / 4)}"
+                vlan_commands_2 = f"create vlan {int(vlan_max / 4 + 1)}-{int(vlan_max / 2)}"
+                vlan_commands_3 = f"create vlan {int(vlan_max / 2 + 1)}-{vlan_max}"
+                vlan_list.append(vlan_commands_1)
+                vlan_list.append(vlan_commands_2)
+                vlan_list.append(vlan_commands_3)
+                vlan_list_one_string = ",".join(vlan_list)
+                self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+            elif option.lower() == "delete":
+                self.utils.print_info(f"Deleting {vlan_min}-{vlan_max} vlans")
+                vlan_commands_1 = f"delete vlan {vlan_min}-{int(vlan_max / 4)}"
+                vlan_commands_2 = f"delete vlan {int(vlan_max / 4 + 1)}-{int(vlan_max / 2)}"
+                vlan_commands_3 = f"delete vlan {int(vlan_max / 2 + 1)}-{vlan_max}"
+                vlan_list.append(vlan_commands_1)
+                vlan_list.append(vlan_commands_2)
+                vlan_list.append(vlan_commands_3)
+                vlan_list_one_string = ",".join(vlan_list)
+                self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+            else:
+                pytest.fail("No option available")
+        else:
+            pytest.fail("No device os available")
