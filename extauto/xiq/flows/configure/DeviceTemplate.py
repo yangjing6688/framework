@@ -635,7 +635,8 @@ class DeviceTemplate(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        if "Template was deleted successfully." in tool_tp_text[-1]:
+        if "Template was deleted successfully." in tool_tp_text[-1] or "Template was successfully removed from policy."\
+                in tool_tp_text[-1]:
             kwargs['pass_msg'] = "Template was deleted successfully."
             self.common_validation.passed(**kwargs)
             return 1
