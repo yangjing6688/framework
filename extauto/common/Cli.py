@@ -1371,7 +1371,7 @@ class Cli(object):
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
 
-    def enable_debug_mode_iqagent(self, ip, username, password, cli_type, port="22", disable_strict_host_key_checking=False):
+    def enable_debug_mode_iqagent(self, ip, username, password, cli_type, port=22, disable_strict_host_key_checking=False):
         """
         - This Keyword enables debug mode for IQagent for VOSS/EXOS
         - Keyword Usage:
@@ -1384,19 +1384,19 @@ class Cli(object):
         :param cli_type: device Platform example: exos,voss
         :return: _spawn Device Prompt without '#'
         """
-        _spawn = self.__open_pxssh_spawn(ip, username, password, disable_strict_host_key_checking=disable_strict_host_key_checking)
+        spawn = self.__open_pxssh_spawn(ip, username, password, disable_strict_host_key_checking=disable_strict_host_key_checking, _port=port)
 
-        if _spawn != -1:
+        if spawn != -1:
             if 'EXOS' in cli_type.upper():
-                self.send_pxssh(_spawn, 'disable cli paging')
-                self.send_pxssh(_spawn, 'debug iqagent show log hive-agent tail')
+                self.send_pxssh(spawn, 'disable cli paging')
+                self.send_pxssh(spawn, 'debug iqagent show log hive-agent tail')
                 return _spawn
             elif 'VOSS' in cli_type.upper():
-                self.send_pxssh(_spawn, 'enable')
-                self.send_pxssh(_spawn, 'configure terminal')
-                self.send_pxssh(_spawn, 'trace level 261 3')
-                self.send_pxssh(_spawn, 'trace screen enable')
-                return _spawn
+                self.send_pxssh(spawn, 'enable')
+                self.send_pxssh(spawn, 'configure terminal')
+                self.send_pxssh(spawn, 'trace level 261 3')
+                self.send_pxssh(spawn, 'trace screen enable')
+                return spawn
             else:
                 self.builtin.fail(msg="Device is not supported")
                 return -1

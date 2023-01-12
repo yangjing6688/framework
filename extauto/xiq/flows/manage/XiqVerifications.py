@@ -277,8 +277,12 @@ class XiqVerifications:
                             self.utils.print_info(repr(exc))
 
     def check_event(self, event, mac, configuration_event=False, **kwargs):
-        """ Method that
-        Author: Dragos Sofiea, Devi Ranganathan, Raluca Cionca
+        """ Method that goes to Device360 -> Events and looks for a given event.
+        
+        Args:
+            event (str): the name of the event
+            mac (str): the mac of the device
+            configuration_event (bool): the method will click on the Configuration Events tab if this arg is True
         """
         self.navigator.navigate_to_device360_page_with_mac(device_mac=mac)
         self.device360.device360_select_events_view()
@@ -286,13 +290,17 @@ class XiqVerifications:
         try:
             def _check_event():
                 self.device360.device360_refresh_page()
-                return self.device360.device360_search_event_and_confirm_event_description_contains(event_str=event, configuration_event=configuration_event)
+                return self.device360.device360_search_event_and_confirm_event_description_contains(
+                    event_str=event, configuration_event=configuration_event)
             self.utils.wait_till(_check_event, timeout=30, delay=1)
+
+            kwargs["pass_msg"] = "Successfully found the expected event."
+            self.common_validation.passed(**kwargs)
             return 1
 
         except Exception as e:
             kwargs["fail_msg"] = f"No '{event}' found in Events Tab"
-            self.common_validation.failed()
+            self.common_validation.failed(**kwargs)
             return -1
 
         finally:
@@ -303,6 +311,11 @@ class XiqVerifications:
         """ Method that 
         Author: Dragos Sofiea, Devi Ranganathan, Raluca Cionca
         """
+
+        if os.lower() not in ["exos", "voss"]:
+            kwarg["fail_msg"] = "Failed! OS not supported."
+            self.common_validation.failed(**kwargs)
+            return -1
 
         percentage_list = []
         percentage_list.append(21)
@@ -327,9 +340,10 @@ class XiqVerifications:
                         percentage_list.append(percentage)
             
                         if "Device Update Failed" in percentage_list:
-                            pytest.fail("Device Update Failed")
-                            break
-            
+                            kwargs["fail_msg"] = "Device Update Failed"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
                         elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
                                 int(percentage_list[-1]) > int(percentage_list[-2])):
                             self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
@@ -342,7 +356,8 @@ class XiqVerifications:
                             self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
             
                         else:
-                            pytest.fail("No update configuration info")
+                            kwargs["fail_msg"] = "No update configuration info"
+                            self.common_validation.fault(**kwargs)
             
                     elif 'SNMP INFO Save config successful' in output:
             
@@ -353,7 +368,9 @@ class XiqVerifications:
                             self.utils.print_info("Update configuration is done")
                             break
                         else:
-                            pytest.fail("No Update configuration is done")
+                            kwargs["fail_msg"] = "No Update configuration is done"
+                            self.common_validation.failed(**kwargs)
+                            return -1
             
                     elif retry == 500:
             
@@ -361,8 +378,9 @@ class XiqVerifications:
                         percentage_list.append(percentage)
             
                         if "Device Update Failed" in percentage_list:
-                            pytest.fail("Device Update Failed")
-                            break
+                            kwargs["fail_msg"] = "Device Update Failed"
+                            self.common_validation.failed(**kwargs)
+                            return -1
             
                         elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
                                 int(percentage_list[-1]) > int(percentage_list[-2])):
@@ -376,7 +394,9 @@ class XiqVerifications:
                             self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
             
                         else:
-                            pytest.fail("No update configuration info")
+                            kwargs["fail_msg"] = "No update configuration info"
+                            self.common_validation.failed(**kwargs)
+                            return -1
             
                     else:
                         self.utils.print_info("No 'Send 30 second in-progress report'")
@@ -396,7 +416,9 @@ class XiqVerifications:
                         percentage_list.append(percentage)
 
                         if "Device Update Failed" in percentage_list:
-                            pytest.fail("Device update failed")
+                            kwargs["fail_msg"] = "Device Update Failed"
+                            self.common_validation.failed(**kwargs)
+                            return -1
 
                         elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
                                 int(percentage_list[-1]) > int(percentage_list[-2])):
@@ -410,7 +432,9 @@ class XiqVerifications:
                             self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
 
                         else:
-                            pytest.fail("No update configuration info")
+                            kwargs["fail_msg"] = "No update configuration info"
+                            self.common_validation.failed(**kwargs)
+                            return -1
 
                     elif retry == 500:
 
@@ -418,8 +442,9 @@ class XiqVerifications:
                         percentage_list.append(percentage)
 
                         if "Device Update Failed" in percentage_list:
-                            pytest.fail("Device Update Failed")
-                            break
+                            kwargs["fail_msg"] = "Device Update Failed"
+                            self.common_validation.failed(**kwargs)
+                            return -1
 
                         elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
                                 int(percentage_list[-1]) > int(percentage_list[-2])):
@@ -433,7 +458,9 @@ class XiqVerifications:
                             self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
 
                         else:
-                            pytest.fail("No update configuration info")
+                            kwargs["fail_msg"] = "No update configuration info"
+                            self.common_validation.failed(**kwargs)
+                            return -1
 
                     elif 'running config saved as startup config' in output:
 
@@ -444,16 +471,21 @@ class XiqVerifications:
                             self.utils.print_info("Update configuration is done")
                             break
                         else:
-                            pytest.fail("No Update configuration is done")
+                            kwargs["fail_msg"] = "No Update configuration is done"
+                            self.common_validation.failed(**kwargs)
+                            return -1
                     else:
                         self.utils.print_info("No 'Send 30 second in-progress report'")
                         retry += 10
-
-                else:
-                    pytest.fail("No os device found")
         
             elif retry == 900:
-                pytest.fail("Timeout exceeded")
+                kwargs["fail_msg"] = "Timeout exceeded"
+                self.common_validation.failed(**kwargs)
+                return -1
         
             else:
-                self.utils.print_info("No 'Send 30 second in-progress report' ")
+                self.utils.print_info("No 'Send 30 second in-progress report'")
+
+        kwargs["pass_msg"] = "Successfully found the expected log"
+        self.common_validation.passed(**kwargs)
+        return 1

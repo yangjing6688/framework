@@ -3421,12 +3421,20 @@ class Device360(Device360WebElements):
         """
 
         if configuration_event:
+            
             configuration_events_button = self.dev360.get_configuration_events_button()
             if not configuration_events_button:
-                raise Exception
+                kwargs["fail_msg"] = "Did not find the configuration_events_button."
+                self.common_validation.fault(**kwargs)
 
-            self.auto_actions.click(configuration_events_button)
+            self.utils.print_info("Successfully found the configuration_events_button.")
+
+            if self.auto_actions.click(configuration_events_button) != 1:
+                kwargs["fail_msg"] = "Failed to click the configuration_events_button."
+                self.common_validation.fault(**kwargs)
         
+            self.utils.print_info("Successfully clicked the configuration_events_button.")
+
         i = 0
         cont_rows_match = 0
         self.d360Event_search(event_str)
@@ -13722,14 +13730,40 @@ class Device360(Device360WebElements):
 
         return device360_info
 
-    def get_supplemental_cli_vlan(self, mac, os, vlan_min, vlan_max, option="", profile_scli=""):
+    def get_supplemental_cli_vlan(self, mac, os, vlan_min, vlan_max, option="create", profile_scli="default_profile", **kwargs):
+        """Method that generates the create/delete VLAN cli commands and use them in a given supplemental cli profile object.
+        Currently this method supports only os EXOS/VOSS.
 
+        Args:
+            mac (dict): the mac of the device
+            os (str): the os of the device
+            vlan_min (int): lower bound of the vlan range
+            vlan_max (int): upper bound of the vlan range
+            option (str): "create"|"delete"
+            profile_scli (str): the name of the scli profile
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """  
         vlan_list = []
+
+        if option not in ["create", "delete"]:
+            kwarg["fail_msg"] = "Wrong option! Choose 'create' or 'delete'."
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        if os.lower() not in ["exos", "voss"]:
+            kwarg["fail_msg"] = "Failed! OS not supported."
+            self.common_validation.failed(**kwargs)
+            return -1
+
         self.navigator.navigate_to_device360_page_with_mac(device_mac=mac)
 
         if os.lower() == "voss":
+            
             vlan_list.append("configure terminal")
+            
             if option == "create":
+                
                 self.utils.print_info(f"Creating {vlan_min}-{vlan_max} vlans")
                 for vlan in range(vlan_min, vlan_max + 1):
                     vlan_commands = f"vlan create {vlan} type port-mstprstp 0"
@@ -13741,17 +13775,20 @@ class Device360(Device360WebElements):
                     i += 10
                 vlan_list_one_string = ",".join(vlan_list)
                 self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+            
             elif option == "delete":
+                
                 self.utils.print_info(f"Deleting {vlan_min}-{vlan_max} vlans")
                 for vlan in range(vlan_min, vlan_max + 1):
                     vlan_commands = f"vlan delete {vlan}"
                     vlan_list.append(vlan_commands)
                 vlan_list_one_string = ",".join(vlan_list)
                 self.get_supplemental_cli(profile_scli, vlan_list_one_string)
-            else:
-                self.utils.print_info("No option available")
+
         elif os.lower() == "exos":
+            
             if option.lower() == "create":
+                
                 self.utils.print_info(f"Creating {vlan_min}-{vlan_max} vlans")
                 vlan_commands_1 = f"create vlan {vlan_min}-{int(vlan_max / 4)}"
                 vlan_commands_2 = f"create vlan {int(vlan_max / 4 + 1)}-{int(vlan_max / 2)}"
@@ -13761,7 +13798,9 @@ class Device360(Device360WebElements):
                 vlan_list.append(vlan_commands_3)
                 vlan_list_one_string = ",".join(vlan_list)
                 self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+            
             elif option.lower() == "delete":
+                
                 self.utils.print_info(f"Deleting {vlan_min}-{vlan_max} vlans")
                 vlan_commands_1 = f"delete vlan {vlan_min}-{int(vlan_max / 4)}"
                 vlan_commands_2 = f"delete vlan {int(vlan_max / 4 + 1)}-{int(vlan_max / 2)}"
@@ -13771,7 +13810,7 @@ class Device360(Device360WebElements):
                 vlan_list.append(vlan_commands_3)
                 vlan_list_one_string = ",".join(vlan_list)
                 self.get_supplemental_cli(profile_scli, vlan_list_one_string)
-            else:
-                pytest.fail("No option available")
-        else:
-            pytest.fail("No device os available")
+
+        kwargs["pass_msg"] = f"Successfully created the supplemental cli profile with the generated commands."
+        self.common_validation.passed(**kwargs)
+        return 1
