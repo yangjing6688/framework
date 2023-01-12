@@ -276,127 +276,10 @@ class XiqVerifications:
                         except Exception as exc:
                             self.utils.print_info(repr(exc))
 
-    def check_logs(self, spawn, mac, os, **kwargs):
-
-        percentage_list = []
-        percentage_list.append(21)
-        retry = 0
-
-        while retry <= 900:
-            output = self.cli.send(spawn_debug, "", ignore_cli_feedback=True)
-            self.utils.print_info(output)
-            if output:
-                if os.lower() == "voss":
-                    if 'Send 30 second in-progress report for cli command processing' in output:
-                        output_commands = re.search(r'Send 30 second in-progress report for cli command processing. Processing \d+ out of \d+ commands', output)
-                        output_commands_new = output_commands.group(0)
-                        digit = [int(d) for d in output_commands_new.split() if d.isdigit()]
-                        self.utils.print_info(" ", digit)
-                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
-                        percentage_list.append(percentage)
-                        if "Device Update Failed" in percentage_list:
-                            pytest.fail("Device Update Failed")
-                            break
-                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
-                                int(percentage_list[-1]) > int(percentage_list[-2])):
-                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
-                        elif int(percentage_list[-1]) == 100:
-                            self.utils.print_info("Update configuration is done")
-                            break
-                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
-                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
-                        else:
-                            pytest.fail("No update configuration info")
-                    elif 'SNMP INFO Save config successful' in output:
-                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
-                        percentage_list.append(percentage)
-                        if int(percentage_list[-1]) == 100:
-                            self.utils.print_info("Update configuration is done")
-                            break
-                        else:
-                            pytest.fail("No Update configuration is done")
-
-                    elif retry == 500:
-                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
-                        percentage_list.append(percentage)
-                        if "Device Update Failed" in percentage_list:
-                            pytest.fail("Device Update Failed")
-                            break
-                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
-                                int(percentage_list[-1]) > int(percentage_list[-2])):
-                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
-                        elif int(percentage_list[-1]) == 100:
-                            self.utils.print_info("Update configuration is done")
-                            break
-                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
-                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
-                        else:
-                            pytest.fail("No update configuration info")
-                    else:
-                        self.utils.print_info("No 'Send 30 second in-progress report'")
-                        retry += 10
-                        pass
-
-                elif os.lower() == "exos":
-                    if '"commandsExec"' in output:
-                        output_commands_exec = re.search(r'"commandsExec":\s\d+', output)
-                        self.utils.print_info(output_commands_exec)
-                        output_commands_exec_new = output_commands_exec.group(0)
-                        digit_exec = [int(d) for d in output_commands_exec_new.split() if d.isdigit()]
-                        self.utils.print_info(" ", digit_exec)
-                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
-                        percentage_list.append(percentage)
-                        if "Device Update Failed" in percentage_list:
-                            pytest.fail("Device update failed")
-                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
-                                int(percentage_list[-1]) > int(percentage_list[-2])):
-                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
-                        elif int(percentage_list[-1]) == 100:
-                            self.utils.print_info("Update configuration is done")
-                            break
-                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
-                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
-                        else:
-                            pytest.fail("No update configuration info")
-
-                    elif retry == 500:
-                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
-                        percentage_list.append(percentage)
-                        if "Device Update Failed" in percentage_list:
-                            pytest.fail("Device Update Failed")
-                            break
-                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
-                                int(percentage_list[-1]) > int(percentage_list[-2])):
-                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
-                        elif int(percentage_list[-1]) == 100:
-                            self.utils.print_info("Update configuration is done")
-                            break
-                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
-                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
-                        else:
-                            pytest.fail("No update configuration info")
-                    elif 'running config saved as startup config' in output:
-                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
-                        percentage_list.append(percentage)
-                        if int(percentage_list[-1]) == 100:
-                            self.utils.print_info("Update configuration is done")
-                            break
-                        else:
-                            pytest.fail("No Update configuration is done")
-                    else:
-                        self.utils.print_info("No 'Send 30 second in-progress report'")
-                        retry += 10
-                else:
-                    pytest.fail("No os device found")
-
-            elif retry == 900:
-                pytest.fail("Timeout exceeded")
-                
-            else:
-                self.utils.print_info("No 'Send 30 second in-progress report' ")
-
     def check_event(self, event, mac, configuration_event=False, **kwargs):
-
+        """ Method that
+        Author: Dragos Sofiea, Devi Ranganathan, Raluca Cionca
+        """
         self.navigator.navigate_to_device360_page_with_mac(device_mac=mac)
         self.device360.device360_select_events_view()
 
@@ -405,10 +288,172 @@ class XiqVerifications:
                 self.device360.device360_refresh_page()
                 return self.device360.device360_search_event_and_confirm_event_description_contains(event_str=event, configuration_event=configuration_event)
             self.utils.wait_till(_check_event, timeout=30, delay=1)
+            return 1
+
+        except Exception as e:
+            kwargs["fail_msg"] = f"No '{event}' found in Events Tab"
+            self.common_validation.failed()
+            return -1
+
+        finally:
             close_dialog = self.device360.get_close_dialog()
             self.auto_actions.click(close_dialog)
 
-        except Exception as e:
-            close_dialog = self.device360.get_close_dialog()
-            self.auto_actions.click(close_dialog)
-            pytest.fail(f"No '{event}' found in Events Tab")
+    def check_logs(self, os, spawn, mac, **kwargs):
+        """ Method that 
+        Author: Dragos Sofiea, Devi Ranganathan, Raluca Cionca
+        """
+
+        percentage_list = []
+        percentage_list.append(21)
+        retry = 0
+
+        while retry <= 900:
+            
+            output = self.cli.send_line_and_wait(spawn, "", 15)
+            self.utils.print_info(output)
+            
+            if output:
+            
+                if os.lower() == "voss":
+                    if 'Send 30 second in-progress report for cli command processing' in output:
+            
+                        output_commands = re.search(r'Send 30 second in-progress report for cli command processing. Processing \d+ out of \d+ commands', output)
+                        output_commands_new = output_commands.group(0)
+                        digit = [int(d) for d in output_commands_new.split() if d.isdigit()]
+                        self.utils.print_info(" ", digit)
+            
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+            
+                        if "Device Update Failed" in percentage_list:
+                            pytest.fail("Device Update Failed")
+                            break
+            
+                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
+                                int(percentage_list[-1]) > int(percentage_list[-2])):
+                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
+            
+                        elif int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+            
+                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
+                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
+            
+                        else:
+                            pytest.fail("No update configuration info")
+            
+                    elif 'SNMP INFO Save config successful' in output:
+            
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+            
+                        if int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+                        else:
+                            pytest.fail("No Update configuration is done")
+            
+                    elif retry == 500:
+            
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+            
+                        if "Device Update Failed" in percentage_list:
+                            pytest.fail("Device Update Failed")
+                            break
+            
+                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
+                                int(percentage_list[-1]) > int(percentage_list[-2])):
+                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
+            
+                        elif int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+            
+                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
+                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
+            
+                        else:
+                            pytest.fail("No update configuration info")
+            
+                    else:
+                        self.utils.print_info("No 'Send 30 second in-progress report'")
+                        retry += 10
+
+                elif os.lower() == "exos":
+
+                    if '"commandsExec"' in output:
+
+                        output_commands_exec = re.search(r'"commandsExec":\s\d+', output)
+                        self.utils.print_info(output_commands_exec)
+                        output_commands_exec_new = output_commands_exec.group(0)
+                        digit_exec = [int(d) for d in output_commands_exec_new.split() if d.isdigit()]
+                        self.utils.print_info(" ", digit_exec)
+
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+
+                        if "Device Update Failed" in percentage_list:
+                            pytest.fail("Device update failed")
+
+                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
+                                int(percentage_list[-1]) > int(percentage_list[-2])):
+                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
+
+                        elif int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+
+                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
+                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
+
+                        else:
+                            pytest.fail("No update configuration info")
+
+                    elif retry == 500:
+
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+
+                        if "Device Update Failed" in percentage_list:
+                            pytest.fail("Device Update Failed")
+                            break
+
+                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
+                                int(percentage_list[-1]) > int(percentage_list[-2])):
+                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
+
+                        elif int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+
+                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
+                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
+
+                        else:
+                            pytest.fail("No update configuration info")
+
+                    elif 'running config saved as startup config' in output:
+
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+
+                        if int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+                        else:
+                            pytest.fail("No Update configuration is done")
+                    else:
+                        self.utils.print_info("No 'Send 30 second in-progress report'")
+                        retry += 10
+
+                else:
+                    pytest.fail("No os device found")
+        
+            elif retry == 900:
+                pytest.fail("Timeout exceeded")
+        
+            else:
+                self.utils.print_info("No 'Send 30 second in-progress report' ")
