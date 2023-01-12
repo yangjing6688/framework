@@ -1390,7 +1390,7 @@ class Cli(object):
             if 'EXOS' in cli_type.upper():
                 self.send_pxssh(spawn, 'disable cli paging')
                 self.send_pxssh(spawn, 'debug iqagent show log hive-agent tail')
-                return _spawn
+                return spawn
             elif 'VOSS' in cli_type.upper():
                 self.send_pxssh(spawn, 'enable')
                 self.send_pxssh(spawn, 'configure terminal')
