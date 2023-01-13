@@ -1138,7 +1138,9 @@ class FilterManageDevices():
 
     def expand_default_filters(self):
         self.utils.print_info(" Start --> Expand the default filters ")
-        self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
+        element = self.filter_element.device_state_connected_filter_chkbox
+        if not element:
+            self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
         self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
         self.expand_and_collapse_filters(self.filter_element.get_device_function_filter_link(), filter_type='device function')
         self.expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), filter_type='device user profile')
