@@ -2,7 +2,6 @@
 import string
 import random
 import re
-import pytest
 
 from collections import defaultdict
 from extauto.common.Utils import Utils
@@ -283,6 +282,8 @@ class XiqVerifications:
             event (str): the name of the event
             mac (str): the mac of the device
             configuration_event (bool): the method will click on the Configuration Events tab if this arg is True
+        
+        Returns: 1 if successful else -1
         """
         self.navigator.navigate_to_device360_page_with_mac(device_mac=mac)
         self.device360.device360_select_events_view()
@@ -307,8 +308,20 @@ class XiqVerifications:
             close_dialog = self.device360.get_close_dialog()
             self.auto_actions.click(close_dialog)
 
-    def check_logs(self, os, spawn, mac, **kwargs):
-        """ Method that 
+    def wait_for_logs_after_scli_configuration_update(self, os, spawn, mac, **kwargs):
+        """ Method that waits for status logs after a SCLI configuration push in XIQ.
+        Also it waits for the status of the configuration update in XIQ.
+
+        Currently this method supports only OS EXOS/VOSS.
+
+        Args:
+            event (str): the OS of the device
+            spawn (pxssh): the spawn object
+            mac (str): the mac of the device
+            configuration_event (bool): the method will click on the Configuration Events tab if this arg is True
+
+        Returns: 1 if successful else -1
+
         Author: Dragos Sofiea, Devi Ranganathan, Raluca Cionca
         """
 

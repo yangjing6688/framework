@@ -3414,9 +3414,10 @@ class Device360(Device360WebElements):
         - Keyword Usage:
         - ``Device360 Search Event And Confirm Event Description Contains  ${EVENT}  ${AFTER_TIME}``
         - ``Device360 Search Event And Confirm Event Description Contains  ${EVENT}``
-        :param  event_str:      String to look for in the event description
-        :param  after_time:     Indicates at which point in time to start searching for the existence of the event
-                                (if not specified, it just checks for the existence of the event in general)
+        :param  event_str:           String to look for in the event description
+        :param  after_time:          Indicates at which point in time to start searching for the existence of the event
+                                     (if not specified, it just checks for the existence of the event in general)
+        :param configuration_event:  If this parameter is True then the search happens in the Configuration Events tab
         :return: 1 if only one log (row in table) is found; If more logs (rows) are found it will be return the number of them; else -1
         """
 
