@@ -1371,7 +1371,7 @@ class Cli(object):
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
 
-    def enable_debug_mode_iqagent(self, ip, username, password, cli_type, port=22, disable_strict_host_key_checking=False):
+    def enable_debug_mode_iqagent(self, ip, username, password, cli_type, port=22, disable_strict_host_key_checking=False, **kwargs):
         """
         - This Keyword enables debug mode for IQagent for VOSS/EXOS
         - Keyword Usage:
@@ -1382,27 +1382,34 @@ class Cli(object):
         :param username: username to access console
         :param password: Password to access console
         :param cli_type: device Platform example: exos,voss
-        :return: _spawn Device Prompt without '#'
+        :return: _spawn Device Prompt without '#' if function call is successful else -1
         """
+
+        if cli_type.lower() not in ["exos", "voss"]:
+            kwarg["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.failed(**kwargs)
+            return -1
+
         spawn = self.__open_pxssh_spawn(ip, username, password, disable_strict_host_key_checking=disable_strict_host_key_checking, _port=port)
 
-        if spawn != -1:
-            if 'EXOS' in cli_type.upper():
-                self.send_pxssh(spawn, 'disable cli paging')
-                self.send_pxssh(spawn, 'debug iqagent show log hive-agent tail')
-                return spawn
-            elif 'VOSS' in cli_type.upper():
-                self.send_pxssh(spawn, 'enable')
-                self.send_pxssh(spawn, 'configure terminal')
-                self.send_pxssh(spawn, 'trace level 261 3')
-                self.send_pxssh(spawn, 'trace screen enable')
-                return spawn
-            else:
-                self.builtin.fail(msg="Device is not supported")
-                return -1
-        else:
-            self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
+        if spawn == -1:
+            kwarg["fail_msg"] = "Failed to Open The Spawn to Device.So Exiting the Testcase"
+            self.commonValidation.fault(**kwargs)
             return -1
+        
+        if 'EXOS' in cli_type.upper():
+            self.send_pxssh(spawn, 'disable cli paging')
+            self.send_pxssh(spawn, 'debug iqagent show log hive-agent tail')
+
+        elif 'VOSS' in cli_type.upper():
+            self.send_pxssh(spawn, 'enable')
+            self.send_pxssh(spawn, 'configure terminal')
+            self.send_pxssh(spawn, 'trace level 261 3')
+            self.send_pxssh(spawn, 'trace screen enable')
+
+        kwargs["pass_msg"] = f"Successfully opened a spawn to '{ip}' and enabled iqagent debug mode."
+        self.commonValidation.passed(**kwargs)
+        return spawn
 
     def send_line_and_wait(self, spawn, line, wait=60):
         """
