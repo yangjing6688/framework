@@ -3421,7 +3421,7 @@ class Device360(Device360WebElements):
         """
         i = 0
         cont_rows_match = 0
-        self.d360Event_search(event_str)
+        self.d360Event_search(event_str, **kwargs)
         events_table = self.dev360.get_device360_events_grid()
         if events_table:
             event_rows = self.dev360.get_device360_events_grid_rows(events_table)
@@ -3498,8 +3498,13 @@ class Device360(Device360WebElements):
         This keyword inserts info into event search text box. No button for search is present, the search will be done
         automatically after the text was inserted
         :param search_value:
+        :param **kwargs: pass in the events of type configuration which are in another tab
         :return: 1 if the text was entered into search box and -1 if search text box was not found
         """
+        event_type = kwargs.get("event_type", "")
+        if event_type == "config":
+            self.utils.print_info("Clicking on 'Configurations Events' tab!")
+            self.auto_actions.click(self.dev360.get_d360_config_events())
         search_box = self.dev360.get_d360Event_search_textbox()
         if search_box:
             self.utils.print_info("Entering info to search : ", search_value)
@@ -9425,7 +9430,7 @@ class Device360(Device360WebElements):
         sleep(3)
 
         count = -1
-        if self.device360_search_event_and_confirm_event_description_contains(event) != -1:
+        if self.device360_search_event_and_confirm_event_description_contains(event, **kwargs) != -1:
             count = 1
 
         if close_360_window:

@@ -1320,7 +1320,7 @@ class Device360WebElementDefs:
 
     d360Event_search_textbox = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="eventSearchInput"]',
+            'XPATH': '//input[@data-dojo-attach-point="eventSearchInput"]',
             'wait_for': 3
         }
 
@@ -3637,4 +3637,10 @@ class Device360WebElementDefs:
     save_and_close_port_type_box = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-save"]',
+        }
+
+    d360_config_events = \
+        {
+            'XPATH': '//ul[@data-dojo-attach-point="hcPills"]/li[@data-automation-tag="automation-pills-configuration"]',
+            'wait_for': 5
         }

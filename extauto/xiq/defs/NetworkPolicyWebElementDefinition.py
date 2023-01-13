@@ -8,7 +8,7 @@ class NetworkPolicyWebElementDefinition:
 
     card_view = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-config-card']",
+            'XPATH': "//span[@data-automation-tag='automation-config-card']",
             'wait_for': 5
         }
 

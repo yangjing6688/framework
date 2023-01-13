@@ -3367,7 +3367,7 @@ class SwitchTemplate(object):
             self.common_validation.fault(**kwargs)
             return -1
 
-        kwargs["pass_msg"] = "Successfully clicked the verify_upload_cfg_auto button"
+        kwargs["pass_msg"] = "Successfully found 'Upload configuration automatically' button."
         self.common_validation.passed(**kwargs)
 
         verify_upload_cfg_auto = verify_upload_cfg_auto.is_selected()
@@ -3395,14 +3395,14 @@ class SwitchTemplate(object):
         """
         enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
 
-        if not enable_auto_revert or not enable_auto_revert.is_displayed():
+        if not enable_auto_revert:
             kwargs["fail_msg"] = "verify_enable_auto_revert_option() failed. Enable Auto Revert button is not present!"
             self.common_validation.fault(**kwargs)
             return -1
-
+        status = enable_auto_revert.get_attribute("disabled")
         kwargs["pass_msg"] = "Enable Auto Revert button is present!"
         self.common_validation.passed(**kwargs)
-        return 1
+        return status
 
     def set_upload_config_auto_button(self, **kwargs):
         """
