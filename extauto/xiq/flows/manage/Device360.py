@@ -3757,7 +3757,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def device360_click_open_site_engine_link(self, **kwargs):
+    def device360_click_open_site_engine_link(self, iteration=12, sleep_time=10, **kwargs):
         """
         - This keyword clicks on the OPEN SITE ENGINE link
         - It is assumed that the Device360 window is open and the Overview panel is selected.
@@ -3767,22 +3767,26 @@ class Device360(Device360WebElements):
         """
         ret_val = -1
 
-        ose_link = self.get_device360_open_site_engine_link()
-        if ose_link:
-            hidden = ose_link.get_attribute("class")
-            self.utils.print_info(f"Open Site Engine link Class value: {hidden}")
-            if hidden == "mr50 fn-hidden":
-                self.utils.print_info("The 'Open Site Engine' link is hidden.")
-                self.screen.save_screen_shot()
-                ret_val = 1
+        for eachiteration in range(0, iteration):
+            ose_link = self.get_device360_open_site_engine_link()
+            if ose_link:
+                hidden = ose_link.get_attribute("class")
+                self.utils.print_info(f"Open Site Engine link Class value: {hidden}")
+                if hidden == "mr50 fn-hidden":
+                    self.utils.print_info("The 'Open Site Engine' link is hidden.")
+                    self.screen.save_screen_shot()
+                    ret_val = 1
+                else:
+                    self.utils.print_info("Clicking the 'Open Site Engine' link.")
+                    self.auto_actions.move_to_element(ose_link)
+                    self.screen.save_screen_shot()
+                    self.auto_actions.click(ose_link)
+                    ret_val = 1
+                break;
             else:
-                self.utils.print_info("Clicking the 'Open Site Engine' link.")
-                self.auto_actions.move_to_element(ose_link)
-                self.screen.save_screen_shot()
-                self.auto_actions.click(ose_link)
-                ret_val = 1
-        else:
-            self.utils.print_info("Could not find the 'Open Site Engine' link.")
+                self.utils.print_info("Could not find the 'Open Site Engine' link.")
+                sleep(sleep_time)
+                self.device360_refresh_page()
 
         if ret_val == -1:
             kwargs['fail_msg'] = "device360_click_open_site_engine_link() -> Could not find the 'Open Site Engine' link"
@@ -8108,7 +8112,7 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return rez
 
-    def is_device360_relaunch_digital_twin_button_visible(self):
+    def _is_device360_relaunch_digital_twin_button_visible(self, **kwargs):
         """
         - This keyword checks if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
@@ -8122,16 +8126,41 @@ class Device360(Device360WebElements):
             self.utils.print_debug(f"'Relaunch Digital Twin' button Class value: {hidden}")
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is not displayed.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "The 'Relaunch Digital Twin' button is not displayed."
+                self.common_validation.failed(expect_error=True)
                 return False
             else:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is displayed.")
-                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = "The 'Relaunch Digital Twin' button is displayed."
+                self.common_validation.passed(**kwargs)
                 return True
         else:
             self.utils.print_info("Could not find the 'Relaunch Digital Twin' button.")
 
+        kwargs['fail_msg'] = "_is_device360_relaunch_digital_twin_button_visible() -> Could not find the 'Relaunch " \
+                             "Digital Twin' button "
+        self.common_validation.fault(**kwargs)
         return -1
+
+    def verify_device360_relaunch_digital_twin_button_visible(self, **kwargs):
+        """
+        - This keyword verifies if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
+        - It is assumed that the Device 360 window is already opened for the Digital Twin.
+        - Keyword Usage
+        - ``Verify Device360 Relaunch Digital Twin Button Visible``
+        :return: True if visible, False if not visible, else -1
+        """
+        return self._is_device360_relaunch_digital_twin_button_visible(**kwargs)
+
+    def verify_device360_relaunch_digital_twin_button_hidden(self, **kwargs):
+        """
+        - This keyword verifies if the 'Relaunch Digital Twin' button is hidden in the Device 360 view.
+        - It is assumed that the Device 360 window is already opened for the Digital Twin.
+        - Keyword Usage
+        - ``Verify Device360 Relaunch Digital Twin Button Hidden``
+        :return: True if visible, False if not visible, else -1
+        """
+        return self._is_device360_relaunch_digital_twin_button_visible(**kwargs)
 
     def device360_relaunch_digital_twin_device(self, confirm="yes", **kwargs):
         """
@@ -8181,7 +8210,7 @@ class Device360(Device360WebElements):
         self.common_validation.fault(**kwargs)
         return -1
 
-    def is_device360_shutdown_digital_twin_button_visible(self):
+    def _is_device360_shutdown_digital_twin_button_visible(self, **kwargs):
         """
         - This keyword checks if the 'Shutdown Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
@@ -8195,16 +8224,41 @@ class Device360(Device360WebElements):
             self.utils.print_debug(f"'Shutdown Digital Twin' button Class value: {hidden}")
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is not displayed.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "The 'Shutdown Digital Twin' button is not displayed."
+                self.common_validation.failed(expect_error=True)
                 return False
             else:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is displayed.")
-                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = "The 'Shutdown Digital Twin' button is displayed."
+                self.common_validation.passed(**kwargs)
                 return True
         else:
             self.utils.print_info("Could not find the 'Shutdown Digital Twin' button.")
 
+        kwargs['fail_msg'] = "_is_device360_shutdown_digital_twin_button_visible() -> Could not find the 'Shutdown " \
+                             "Digital Twin' button "
+        self.common_validation.fault(**kwargs)
         return -1
+
+    def verify_device360_shutdown_digital_twin_button_visible(self, **kwargs):
+        """
+        - This keyword verifies if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
+        - It is assumed that the Device 360 window is already opened for the Digital Twin.
+        - Keyword Usage
+        - ``Verify Device360 Shutdown Digital Twin Button Visible``
+        :return: True if visible, False if not visible, else -1
+        """
+        return self._is_device360_shutdown_digital_twin_button_visible(**kwargs)
+
+    def verify_device360_shutdown_digital_twin_button_hidden(self, **kwargs):
+        """
+        - This keyword verifies if the 'Relaunch Digital Twin' button is hidden in the Device 360 view.
+        - It is assumed that the Device 360 window is already opened for the Digital Twin.
+        - Keyword Usage
+        - ``Verify Device360 Shutdown Digital Twin Button Hidden``
+        :return: True if visible, False if not visible, else -1
+        """
+        return self._is_device360_shutdown_digital_twin_button_visible(**kwargs)
 
     def device360_shutdown_digital_twin_device(self, confirm="yes", **kwargs):
         """
@@ -13261,7 +13315,7 @@ class Device360(Device360WebElements):
         :param unit: the unit you wish to search for
         :param unit_role: the stack role that the unit has
         """
-    
+
         ok = 1
         if self.auto_actions.click_reference(
                 self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit) != 1:
@@ -13272,9 +13326,9 @@ class Device360(Device360WebElements):
             kwargs[
                 'fail_msg'] = f"navigate_to_unit_options_from_xiq_diagnostics_page() failed; Unable to click on drop down"
             self.common_validation.failed(**kwargs)
-    
+
             return -1
-    
+
         ok = 1
         if self.auto_actions.click_reference(
                 lambda: self.dev360.get_device360_monitor_diagnostics_stack_drop_down_unit_options(unit, unit_role)) != 1:
@@ -13284,12 +13338,12 @@ class Device360(Device360WebElements):
         if ok != 1:
             kwargs['fail_msg'] = f"navigate_to_unit_options_from_xiq_diagnostics_page() failed; Unable to select unit"
             self.common_validation.failed(**kwargs)
-    
+
             return -1
-    
+
         kwargs['pass_msg'] = f"Successfully navigated from unit options to diagnostics page"
         self.common_validation.passed(**kwargs)
-    
+
         return 1
 
     def check_all_the_individual_devices_in_the_stack_monitor_diagnostics(self, dut, stacking_info_cli, **kwargs):
@@ -13710,3 +13764,333 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
 
         return device360_info
+
+    def device360_get_stack_ports_by_type(self, port_type, **kwargs):
+        """
+            Keyword used to get all the ports of type vim or sfp from stack device
+            port_type: vim or sfp
+            :return: On success: list of all ports ex: [1:59, 1:60,..], on Failure False
+        """
+        ret_ports = []
+        if port_type == "vim":
+            ports = self.get_device360_stack_slot_vim_ports()
+        elif port_type == "sfp":
+            ports = self.get_device360_stack_slot_sfp_ports()
+        else:
+            kwargs['fail_msg'] = f"'device360_get_stack_ports_by_type()' failed. port_type {port_type} not suported "
+            self.common_validation.failed(**kwargs)
+            return False
+        if not ports:
+            kwargs['fail_msg'] = f"'device360_get_stack_ports_by_type()' failed. No ports available"
+            self.common_validation.failed(**kwargs)
+            return False
+        for port in ports:
+            tag = port.get_attribute("data-automation-tag")
+            ret_ports.append(tag.split('-')[2])
+        if len(ret_ports) == 0:
+            kwargs['fail_msg'] = f"'device360_get_stack_ports_by_type()' failed. XPATH have no automation tag"
+            self.common_validation.failed(**kwargs)
+            return False
+        kwargs['pass_msg'] = f"Ports for type {port_type} are: {ret_ports}"
+        self.common_validation.passed(**kwargs)
+        return ret_ports
+
+    def device360_change_slot_view(self, unit, **kwargs):
+        """
+           This keyword is used to switch between slot port config pages
+           It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+
+           :param unit: string with slot number
+           :return: True if successful or False on failure
+           """
+        # Get slots dropdown
+        slots_dropdown = self.get_device360_port_config_stack_slots_dropdown()
+        if slots_dropdown:
+            self.utils.print_info("Clicking on slots dropdown")
+            self.auto_actions.click(slots_dropdown)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_change_slot_view()' failed. Slots dropdown not found"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Get next slot
+        next_slot = self.get_device360_slot_from_dropdown(unit=unit)
+        if next_slot:
+            self.utils.print_info("Clicking on next slot")
+            self.auto_actions.click(next_slot)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_change_slot_view()' failed.Next slot not found in dropdown list"
+            self.common_validation.failed(**kwargs)
+            return False
+        kwargs['pass_msg'] = f"Stack slot changed to slot {unit}"
+        self.common_validation.passed(**kwargs)
+        return True
+
+    def device360_aggregate_ports(self, ports, click_lacp=True, device='', **kwargs):
+        """
+           This keyword is used to aggregate ports from same/different stack slots
+           It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+
+           :param click_lacp:  boolean value if needed to click the lacp toggle
+           :param ports: port list
+           :return: True if successful, False if failed, 1 if couldn't aggregate from other slot
+           """
+        click_checkbox_or_button = None
+        if device == "stack":
+            if not self.device360_change_slot_view(ports[0].split(":")[0]):
+                kwargs['fail_msg'] = f"Failed to change stack slot."
+                self.common_validation.failed(**kwargs)
+                return False
+            click_checkbox_or_button = self.get_device360_port_settings_and_aggregation_interface_exos_standalone(ports[0].split(":")[1])
+        elif device == "standalone":
+            click_checkbox_or_button = self.get_device360_port_settings_and_aggregation_interface_exos_standalone(
+                ports[0])
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Please give a device type!"
+            self.common_validation.failed(**kwargs)
+            return False
+        if click_checkbox_or_button:
+            self.utils.print_info("Clicking on port checkbox")
+            self.auto_actions.click(click_checkbox_or_button)
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Checkbox not found"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Aggregate
+        aggregate_btn = self.get_device360_configure_port_aggregate_button()
+        if aggregate_btn:
+            self.utils.print_info("Clicking 'Aggregate Selected Ports' button")
+            self.auto_actions.click(aggregate_btn)
+            sleep(5)
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.'Aggregate Selected Ports' button not found"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Get cancel button reference
+        cancel_button = self.get_device360_lag_cancel_button()
+        if not cancel_button:
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Could not find cancel button"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Add other ports to aggregation
+        for i in range(1, len(ports)):
+            if device == "stack":
+                switched_slot = False
+                if ports[i - 1].split(":")[0] != ports[i].split(":")[0]:
+                    # Switching to other slot
+                    other_slot = self.get_device360_aggregate_choose_slot(ports[i].split(":")[0])
+                    if other_slot:
+                        switched_slot = True
+                        self.utils.print_info("Changing to other slot")
+                        self.auto_actions.click(other_slot)
+                    else:
+                        kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Failed to change to other slot"
+                        self.common_validation.failed(**kwargs)
+                        self.auto_actions.click(cancel_button)
+                        return False
+            # Choose the next port
+            available_port = self.get_device360_aggregate_available_port(ports[i])
+            if available_port:
+                self.utils.print_info("Choosing next available port")
+                self.auto_actions.click(available_port)
+            else:
+                self.utils.print_info("Ports are not available in this Slot. Skiping..")
+
+            # Add next port
+            add_port_to_lacp = self.get_device360_aggregate_add_button()
+            if add_port_to_lacp:
+                self.utils.print_info("Clicking on add port")
+                self.auto_actions.click(add_port_to_lacp)
+            else:
+                kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Add port not found"
+                self.common_validation.failed(**kwargs)
+                self.auto_actions.click(cancel_button)
+                return False
+
+        # Toggle lacp on window
+        if click_lacp:
+            lacp_switch = self.get_device360_lacp_toggle()
+            if lacp_switch:
+                self.utils.print_info("Clicking LACP toggle")
+                self.auto_actions.click(lacp_switch)
+            else:
+                kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.LACP toggle not found"
+                self.common_validation.failed(**kwargs)
+                self.auto_actions.click(cancel_button)
+                return False
+
+        # Save
+        lag_save_button = self.get_device360_lag_save_button()
+        if lag_save_button:
+            self.utils.print_info("Clicking Save button")
+            self.auto_actions.click(lag_save_button)
+            sleep(10)
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Save button not found"
+            self.common_validation.failed(**kwargs)
+            self.auto_actions.click(cancel_button)
+            return False
+
+        # Save port Config
+        self.utils.print_info("Clicking Save port config button")
+        #save_port_config = self.get_device360_save_port_config()
+        if self.auto_actions.click_reference(self.get_device360_save_port_config) == 1:
+            self.utils.print_info("Successfully clicked on Save Port Config")
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.Save port config button not found"
+            self.common_validation.failed(**kwargs)
+            return False
+
+        # Check lacp formed in Device360
+        if self.get_device360_lacp_label(port=ports[0]):
+            kwargs['pass_msg'] = f"LAG link is available."
+            self.common_validation.passed(**kwargs)
+            return True
+        else:
+            kwargs['fail_msg'] = f"'device360_aggregate_ports()' failed.LAG link is not available"
+            self.common_validation.failed(**kwargs)
+            return False
+
+    def device360_check_aggregated_ports_number(self, reference_num, no_slots, **kwargs):
+        """
+           This keyword is used to check the number of aggregated ports matches the reference
+           It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+
+           :param no_slots: number of slots
+           :param reference_num: reference integer
+           :return: If match True, else False
+           """
+        i = 1
+        no_of_ports = 0
+        while self.device360_change_slot_view(str(i)):
+            i = i + 1
+            lag_rows = self.get_device360_configure_aggregated_port_settings_aggregation_rows()
+            if lag_rows:
+                no_of_ports = no_of_ports + len(lag_rows)
+            if i == no_slots+1:
+                break
+
+        if no_of_ports == reference_num:
+            kwargs['pass_msg'] = f"Number of LAG link matches."
+            self.common_validation.passed(**kwargs)
+            return True
+        else:
+            kwargs['fail_msg'] = f"'device360_check_aggregated_ports_number()' failed.LAG number does not match."
+            self.common_validation.failed(**kwargs)
+            return False
+
+    def device360_add_remove_lag_ports(self, master_port, ports, action='add', device='', **kwargs):
+        """
+           This keyword is used to remove port aggregation
+           It Assumes That Already Navigated to Device360->Port Configuration->Port Settings & Aggregation
+
+           :param device: type of device stack or standalone
+           :param ports: list of ports: ex: ["1:1", "2:1", "3:2"]
+           :param master_port: master port of LAG
+           :param action: add or remove ports from LAG
+           :return: True if successful or False on failure
+           """
+        if device == "stack":
+            if not self.device360_change_slot_view(master_port.split(":")[0]):
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed. Change slot failed."
+                self.common_validation.failed(**kwargs)
+                return False
+        if action == 'remove':
+            aggregated_ports = self.get_device360_lacp_label(port=master_port)
+            if aggregated_ports:
+                self.utils.print_info("Clicking on aggregated ports label")
+                self.auto_actions.click(aggregated_ports)
+            else:
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Failed to find aggregated port."
+                self.common_validation.failed(**kwargs)
+                return False
+
+            # Get cancel button reference
+            cancel_button = self.get_device360_lag_cancel_button()
+            if not cancel_button:
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Could not find cancel button."
+                self.common_validation.failed(**kwargs)
+                return False
+
+            selected_port = self.get_device360_aggregate_selected_port(ports[0])
+            if selected_port:
+                self.utils.print_info("Choosing next port")
+                self.auto_actions.click(selected_port)
+            else:
+                tt_msg = self.dev360.get_tooltip_content().text
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed due to error {tt_msg}"
+                self.common_validation.failed(**kwargs)
+                self.auto_actions.click(cancel_button)
+                return False
+
+            # Remove ports from aggregation
+            for i in range(len(ports)):
+                # Remove the next port
+                remove_port_from_lacp = self.get_device360_aggregate_remove_button()
+                if remove_port_from_lacp:
+                    self.utils.print_info("Clicking on remove port")
+                    self.auto_actions.click(remove_port_from_lacp)
+                else:
+                    tt_msg = self.dev360.get_tooltip_content().text
+                    self.auto_actions.click(cancel_button)
+                    kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed due to error {tt_msg}."
+                    self.common_validation.failed(**kwargs)
+                    return False
+
+            # Save
+            lag_save_button = self.get_device360_lag_save_button()
+            if lag_save_button:
+                self.utils.print_info("Clicking Save button")
+                self.auto_actions.click(lag_save_button)
+                #sleep(5)
+            else:
+                tt_msg = self.dev360.get_tooltip_content().text
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed due to error {tt_msg}"
+                self.common_validation.failed(**kwargs)
+                self.auto_actions.click(cancel_button)
+                return False
+
+            # Save port Config
+            save_port_config = self.get_device360_save_port_config()
+            if save_port_config:
+                self.utils.print_info("Clicking Save port config button")
+                self.auto_actions.click(save_port_config)
+                sleep(5)
+            else:
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Save port config button not found."
+                self.common_validation.failed(**kwargs)
+                return False
+
+            # Check lacp not visible anymore in Device360
+            if self.get_device360_lacp_label(port=ports[0]):
+                self.utils.print_info(f"LAG {master_port} is still there after trying to delete it.")
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Aggregation remove failed."
+                self.common_validation.failed(**kwargs)
+                return False
+            kwargs['pass_msg'] = f"Ports {ports} were removed from LAG."
+            self.common_validation.passed(**kwargs)
+            return True
+        elif action == 'add':
+            aggregated_ports = self.get_device360_lacp_label(port=master_port)
+            if aggregated_ports:
+                self.utils.print_info("Clicking on aggregated ports label")
+                self.auto_actions.click(aggregated_ports)
+            else:
+                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed.Failed to find aggregated port."
+                self.common_validation.failed(**kwargs)
+                return False
+            for port in ports:
+                #AutoActions().click(self.get_device360_lacp_label(port=master_port))
+                AutoActions().click(self.get_device360_aggregate_available_port(port=port))
+                AutoActions().click(self.get_device360_aggregate_add_button())
+            AutoActions().click(self.get_device360_lag_save_button())
+            AutoActions().click(self.get_device360_save_port_config())
+            kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
+            self.common_validation.passed(**kwargs)
+            return 1
+

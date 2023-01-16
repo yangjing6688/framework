@@ -76,7 +76,7 @@ class DeviceActionsDefs:
 
     device_actions_revert_device_to_template_menu_item = \
         {
-            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains (@data-automation-tag, "-revert-template")]',
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-actions-switch-revert-template"]',
             'wait_for': 2
         }
 
