@@ -1993,15 +1993,16 @@ class Cli(object):
         device_2 = dut2.name
         cli_type_device_1 = dut1.cli_type
         cli_type_device_2 = dut2.cli_type
-
         if cli_type_device_1.lower() and cli_type_device_2.lower() == 'exos':
-            check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')[0].cmd_obj._return_text
+            output_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')
+            check_image_version_1 = output_1[0].return_text
             image_version_regex = 'IMG:([ ]{1,}.{0,})'
             image_version_1 = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
             image_version_1_string = image_version_1.replace(self.utils.get_regexp_matches(image_version_1,
                                                                                                '([ ])')[0], '')
 
-            check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show version | grep IMG')[0].cmd_obj._return_text
+            output_2 = self.networkElementCliSend.send_cmd(device_2, 'show version | grep IMG')
+            check_image_version_2 = output_2[0].return_text
             image_version_2 = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
             image_version_2_string = image_version_2.replace(self.utils.get_regexp_matches(image_version_2,
                                                                                                '([ ])')[0], '')
@@ -2020,11 +2021,13 @@ class Cli(object):
                 return 'different'
 
         elif cli_type_device_1.lower() and cli_type_device_2.lower() == 'voss':
-            check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            output_descr_1 = self.networkElementCliSend.send_cmd(device_1, 'show sys-info | include SysDescr')
+            check_image_version_1 = output_descr_1[0].return_text
             image_version_regex = '(\\d+[.]\\d+[.]\\d+[.]\\d+)'
             image_version_1_string = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
 
-            check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            output_descr_2 = self.networkElementCliSend.send_cmd(device_2, 'show sys-info | include SysDescr')
+            check_image_version_2 = output_descr_2[0].return_text
             image_version_2_string = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
 
             print(f"OS version for clone device: {image_version_1_string}")
