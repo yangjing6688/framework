@@ -1586,7 +1586,7 @@ class Cli(object):
         """
         This keyword gets stacking details from CLI (Mac add, Slot number and Role -for each unit).
         This keyword is implemented only for EXOS STACK.
-        
+
         :param dut: The dut object of the device
         :return: a list of tuples
         """
@@ -1603,7 +1603,7 @@ class Cli(object):
             kwargs['pass_msg'] = f"Stacking details found"
             self.commonValidation.passed(**kwargs)
             return units_list
-        
+
         kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
         self.commonValidation.failed(**kwargs)
         return -1
@@ -1612,7 +1612,7 @@ class Cli(object):
         """
         - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
         This keyword is implemented only for EXOS STACK.
-        
+
         :param dut: the dut object
         :return: a list of tuples
         """
@@ -1804,6 +1804,45 @@ class Cli(object):
         kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
         self.commonValidation.failed(**kwargs)
         return -1
+
+    def check_lacp_dut(self, dut, lacp_list_ports, **kwargs):
+        """
+        Used for checking lacp on the EXOS switch matches the reference list:
+        dut - device to test
+        lacp_list_ports = ["port1, "port2", "port3", "port4", ...]
+        """
+        if dut.cli_type == 'exos':
+            for attempts in range(3):
+                output = self.networkElementCliSend.send_cmd(dut.name, 'show configuration | i sharing',
+                                              max_wait=10, interval=2)
+
+                p = re.compile(r'\d:\d+-\d:\d+|\d:\d+,\d:\d+|\d:\d+-\d+', re.M)
+                lacp_list_ports_from_dut = re.findall(p, output[0].return_text)
+
+                for i in range(0, len(lacp_list_ports), 2):
+                    if lacp_list_ports[i] + '-' + lacp_list_ports[i+1] in lacp_list_ports_from_dut:
+                        lacp_list_ports_from_dut.remove(lacp_list_ports[i] + '-' + lacp_list_ports[i+1])
+                    elif lacp_list_ports[i] + '-' + lacp_list_ports[i+1].split(":")[1] in lacp_list_ports_from_dut:
+                        lacp_list_ports_from_dut.remove(lacp_list_ports[i] + '-' + lacp_list_ports[i+1].split(":")[1])
+                    elif lacp_list_ports[i] + ',' + lacp_list_ports[i+1] in lacp_list_ports_from_dut:
+                        lacp_list_ports_from_dut.remove(lacp_list_ports[i] + ',' + lacp_list_ports[i+1])
+                    else:
+                        kwargs["fail_msg"] = "'check_lacp_dut()' failed. No LACP ports found on CLI"
+                        self.commonValidation.failed(**kwargs)
+                        return False
+
+                if len(lacp_list_ports_from_dut) == 0:
+                    kwargs["pass_msg"] = "Successfully verified number of ports matched."
+                    self.commonValidation.passed(**kwargs)
+                    return True
+                else:
+                    kwargs["fail_msg"] = "'check_lacp_dut()' failed. Number of LACP ports do not match CLI"
+                    self.commonValidation.failed(**kwargs)
+                    return False
+        else:
+            kwargs["fail_msg"] = f"'check_lacp_dut()' failed. CLI type {dut.cli_type} not supported."
+            self.commonValidation.failed(**kwargs)
+            return False
 
 
 if __name__ == '__main__':

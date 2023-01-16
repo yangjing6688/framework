@@ -756,6 +756,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_policy_port_types_confirmation_button(self):
         return self.weh.get_element(self.policy_port_types_confirmation_button)
 
+    def get_ui_tipbox_error(self):
+        return self.weh.get_element(self.ui_tipbox_error)
+
     def get_next_page_element_disabled(self):
         return self.weh.get_element(self.next_page_element_disabled)
 
