@@ -1137,6 +1137,22 @@ class Device360WebElements(Device360WebElementDefs):
                 port_list.append(el)
         return port_list
 
+    def get_device360_wireframe_ether_port(self):
+        port_list = []
+        elements = self.weh.get_elements(self.d360_wireframe_ether_port)
+        for el in elements:
+            if el.is_displayed():
+                port_list.append(el)
+        return port_list
+
+    def get_device360_wireframe_sfp28_port(self):
+        port_list = []
+        elements = self.weh.get_elements(self.d360_wireframe_sfp28_port)
+        for el in elements:
+            if el.is_displayed():
+                port_list.append(el)
+        return port_list
+
     def get_device360_automation_port(self):
         port_list = []
         elements = self.weh.get_elements(self.d360_automation_port)
@@ -2141,8 +2157,76 @@ class Device360WebElements(Device360WebElementDefs):
     def get_save_and_close_port_type_box(self):
         return self.weh.get_element(self.save_and_close_port_type_box)
 
+    def get_device360_port_settings_and_aggregation_interface_exos_standalone(self, port):
+        port_num = 0
+        try:
+            port_num = int(port)
+        except Exception as e:
+            return False
+        return self.weh.get_template_element(self.device360_port_settings_click_checkbox, port=str(port_num-1))
+
+    def get_device360_configure_port_aggregate_button(self):
+        elements = self.weh.get_elements(self.device360_aggregate_selected_ports_button)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def get_device360_lacp_toggle(self):
+        return self.weh.get_element(self.device360_lacp_toggle)
+
+    def get_device360_lag_cancel_button(self):
+        return self.weh.get_element(self.device360_lag_cancel_button)
+
+    def get_device360_lag_save_button(self):
+        return self.weh.get_element(self.device360_lag_save_button)
+
+    def get_device360_save_port_config(self):
+        return self.weh.get_element(self.device360_save_port_config)
+
+    def get_device360_lacp_label(self, port):
+        return self.weh.get_template_element(self.device360_lacp_label, port=port)
+
+    def get_device360_port_from_aggregation_list(self, port):
+        return self.weh.get_template_element(self.device360_port_from_aggregation_list, port=port)
+
+    def get_device360_aggregate_remove_button(self):
+        return self.weh.get_element(self.device360_aggregate_remove_button)
+
+    def get_device360_aggregate_add_button(self):
+        return self.weh.get_element(self.device360_aggregate_add_button)
+
+    def get_device360_perform_update_button(self):
+        return self.weh.get_element(self.device360_perform_update_button)
+
+    def get_device360_configure_aggregated_port_settings_aggregation_rows(self):
+        return self.weh.get_elements(self.device360_configure_aggregated_port_settings_aggregation_rows)
+
+    def get_device360_port_config_stack_slots_dropdown(self):
+        return self.weh.get_element(self.device360_port_config_stack_slots_dropdown)
+
+    def get_device360_slot_from_dropdown(self, unit):
+        return self.weh.get_template_element(self.device360_slot_from_dropdown, unit=unit)
+
+    def get_device360_aggregate_choose_slot(self, unit):
+        return self.weh.get_template_element(self.device360_aggregate_choose_slot, unit=unit)
+
+    def get_device360_aggregate_available_port(self, port):
+        return self.weh.get_template_element(self.device360_aggregate_available_port, port=port)
+
+    def get_device360_aggregate_selected_port(self, port):
+        return self.weh.get_template_element(self.device360_aggregate_selected_port, port=port)
+
+    def get_device360_stack_slot_vim_ports(self):
+        return self.weh.get_elements(self.device360_stack_slot_vim_ports)
+
+    def get_device360_get_ports_by_type_slot(self, type, slot):
+        return self.weh.get_template_elements(self.device360_get_ports_by_type_slot, type=type, slot=slot)
+
     def get_common_cancel_button(self):
         return self.weh.get_element(self.common_cancel_button)
+
+    def get_device360_stack_slot_sfp_ports(self):
+        return self.weh.get_elements(self.device360_stack_slot_sfp_ports)
 
     def get_configuration_events_button(self):
         return self.weh.get_element(self.configuration_events_button)
