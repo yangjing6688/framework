@@ -8132,7 +8132,7 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return rez
 
-    def is_device360_relaunch_digital_twin_button_visible(self):
+    def _is_device360_relaunch_digital_twin_button_visible(self, **kwargs):
         """
         - This keyword checks if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
@@ -8146,16 +8146,41 @@ class Device360(Device360WebElements):
             self.utils.print_debug(f"'Relaunch Digital Twin' button Class value: {hidden}")
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is not displayed.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "The 'Relaunch Digital Twin' button is not displayed."
+                self.common_validation.failed(expect_error=True)
                 return False
             else:
                 self.utils.print_info("The 'Relaunch Digital Twin' button is displayed.")
-                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = "The 'Relaunch Digital Twin' button is displayed."
+                self.common_validation.passed(**kwargs)
                 return True
         else:
             self.utils.print_info("Could not find the 'Relaunch Digital Twin' button.")
 
+        kwargs['fail_msg'] = "_is_device360_relaunch_digital_twin_button_visible() -> Could not find the 'Relaunch " \
+                             "Digital Twin' button "
+        self.common_validation.fault(**kwargs)
         return -1
+
+    def verify_device360_relaunch_digital_twin_button_visible(self, **kwargs):
+        """
+        - This keyword verifies if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
+        - It is assumed that the Device 360 window is already opened for the Digital Twin.
+        - Keyword Usage
+        - ``Verify Device360 Relaunch Digital Twin Button Visible``
+        :return: True if visible, False if not visible, else -1
+        """
+        return self._is_device360_relaunch_digital_twin_button_visible(**kwargs)
+
+    def verify_device360_relaunch_digital_twin_button_hidden(self, **kwargs):
+        """
+        - This keyword verifies if the 'Relaunch Digital Twin' button is hidden in the Device 360 view.
+        - It is assumed that the Device 360 window is already opened for the Digital Twin.
+        - Keyword Usage
+        - ``Verify Device360 Relaunch Digital Twin Button Hidden``
+        :return: True if visible, False if not visible, else -1
+        """
+        return self._is_device360_relaunch_digital_twin_button_visible(**kwargs)
 
     def device360_relaunch_digital_twin_device(self, confirm="yes", **kwargs):
         """
@@ -8205,7 +8230,7 @@ class Device360(Device360WebElements):
         self.common_validation.fault(**kwargs)
         return -1
 
-    def is_device360_shutdown_digital_twin_button_visible(self):
+    def _is_device360_shutdown_digital_twin_button_visible(self, **kwargs):
         """
         - This keyword checks if the 'Shutdown Digital Twin' button is visible in the Device 360 view.
         - It is assumed that the Device 360 window is already opened for the Digital Twin.
@@ -8219,16 +8244,41 @@ class Device360(Device360WebElements):
             self.utils.print_debug(f"'Shutdown Digital Twin' button Class value: {hidden}")
             if "fn-hidden" in hidden:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is not displayed.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "The 'Shutdown Digital Twin' button is not displayed."
+                self.common_validation.failed(expect_error=True)
                 return False
             else:
                 self.utils.print_info("The 'Shutdown Digital Twin' button is displayed.")
-                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = "The 'Shutdown Digital Twin' button is displayed."
+                self.common_validation.passed(**kwargs)
                 return True
         else:
             self.utils.print_info("Could not find the 'Shutdown Digital Twin' button.")
 
+        kwargs['fail_msg'] = "_is_device360_shutdown_digital_twin_button_visible() -> Could not find the 'Shutdown " \
+                             "Digital Twin' button "
+        self.common_validation.fault(**kwargs)
         return -1
+
+    def verify_device360_shutdown_digital_twin_button_visible(self, **kwargs):
+        """
+        - This keyword verifies if the 'Relaunch Digital Twin' button is visible in the Device 360 view.
+        - It is assumed that the Device 360 window is already opened for the Digital Twin.
+        - Keyword Usage
+        - ``Verify Device360 Shutdown Digital Twin Button Visible``
+        :return: True if visible, False if not visible, else -1
+        """
+        return self._is_device360_shutdown_digital_twin_button_visible(**kwargs)
+
+    def verify_device360_shutdown_digital_twin_button_hidden(self, **kwargs):
+        """
+        - This keyword verifies if the 'Relaunch Digital Twin' button is hidden in the Device 360 view.
+        - It is assumed that the Device 360 window is already opened for the Digital Twin.
+        - Keyword Usage
+        - ``Verify Device360 Shutdown Digital Twin Button Hidden``
+        :return: True if visible, False if not visible, else -1
+        """
+        return self._is_device360_shutdown_digital_twin_button_visible(**kwargs)
 
     def device360_shutdown_digital_twin_device(self, confirm="yes", **kwargs):
         """
