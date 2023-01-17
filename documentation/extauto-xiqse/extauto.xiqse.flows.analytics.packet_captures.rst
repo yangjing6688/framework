@@ -1,4 +1,4 @@
-extauto.xiqse.flows.analytics.packet\_captures package
+XIQSE Flows Analytics Packet Captures Keywords
 ======================================================
 
 Module contents

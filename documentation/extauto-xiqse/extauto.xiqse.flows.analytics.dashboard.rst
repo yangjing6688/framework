@@ -1,4 +1,4 @@
-extauto.xiqse.flows.analytics.dashboard package
+XIQSE Flows Analytics Dashboard Keywords
 ===============================================
 
 Module contents

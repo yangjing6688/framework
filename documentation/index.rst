@@ -12,7 +12,6 @@ Welcome to Extreme Automation's documentation!
 
    extauto-app/extauto.app
    extauto-common/extauto.common
-   extauto-xca/extauto.xca
    extauto-xiq/extauto.xiq
    extauto-xiqse/extauto.xiqse
    GeneratedDeviceKeywords/GeneratedDeviceKeywords
