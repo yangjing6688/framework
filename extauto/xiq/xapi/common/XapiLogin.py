@@ -34,7 +34,7 @@ class XapiLogin:
             username=username,
             password=password
         )
-        access_token = None
+
         with extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
             api_instance = extremecloudiq.AuthenticationApi(api_client)
