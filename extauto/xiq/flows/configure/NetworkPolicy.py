@@ -1,5 +1,6 @@
 import time
-
+import random
+import string
 import selenium.common.exceptions
 
 from extauto.common.CloudDriver import CloudDriver
@@ -2938,18 +2939,14 @@ class NetworkPolicy(object):
         self.utils.print_info(f"Policy name is: {policy_name}")
         return policy_name
 
-    def create_np_and_navigate_to_switching_tab(self, policy_name):
+    def navigate_to_switching_tab(self, policy_name):
         """
         Method used to create a Network Policy, navigate to Edit Tab then Switching Tab
         :param policy_name: the name of the policy
         :return:
         """
 
-        network_policy = self.xiq.xflowsconfigureNetworkPolicy
-        assert network_policy.create_switching_routing_network_policy(policy_name) == 1, \
-            "Failed to create Switching and Routing network policy"
-
-        assert network_policy.navigate_to_np_edit_tab(policy_name=policy_name) == 1, \
+        assert self.navigate_to_np_edit_tab(policy_name=policy_name) == 1, \
             "Failed to navigate to Network Policy Edit Tab"
 
-        self.xiq.xflowsconfigureNetworkPolicy.get_switching_tab()
+        self.get_switching_tab()
