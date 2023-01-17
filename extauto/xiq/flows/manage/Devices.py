@@ -4892,10 +4892,34 @@ class Devices:
         # In case the warning dialog is displayed about the reboot and revert option being selected, click Yes to close it
         self._handle_reboot_and_revert_warning()
 
+        self._handle_credentials_global_popup()
+
         self.screen.save_screen_shot()
         sleep(2)
 
         return 1
+
+    def _handle_credentials_global_popup(self):
+        ret_val = 1
+
+        self.utils.print_info("Check to see if the account credential managed by global setting pop-up is displayed")
+        sleep(5)
+
+        the_dlg = self.devices_web_elements.get_global_settings_management_dialog()
+
+        if the_dlg:
+            self.utils.print_debug("The account credential managed by global setting pop-up is displayed")
+            yes_btn = self.devices_web_elements.get_global_settings_management_dialog_yes_button()
+            if yes_btn:
+                self.utils.print_info("Clicking 'Yes' in the account credential managed by global setting pop-up dialog")
+                self.auto_actions.click(yes_btn)
+            else:
+                self.utils.print_info("Unable to find the Yes button in the account credential managed by global setting pop-up dialog")
+                ret_val = -1
+        else:
+            self.utils.print_debug("The account credential managed by global setting pop-up is not displayed")
+
+        return ret_val
 
     def _handle_reboot_and_revert_warning(self):
         """
@@ -11999,3 +12023,18 @@ class Devices:
         kwargs["pass_msg"] = f"Successfully updated the switch {dut.mac}"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def deploy_switch_network_policy_with_complete_update(self, device_serial, policy_name):
+        """
+        - Deploy Switch Network Policy With Complete Update
+        - Will deploy a policy to a device assuming policy exists
+        - Keyword Usage:
+          - ``Deploy Switch Network Policy With Complete Update   ${POLICY_NAME}    ${DEVICE_MAC}``
+        :param policy_name: Name of the policy
+        :param devices: Device serial number
+        :return: 1 if success else -1
+        """
+        return_value = self.assign_network_policy_to_a_device(device_serial, policy_name)
+        if return_value == 1:
+            return_value = self.update_switch_policy_and_configuration(device_serial)
+        return return_value
