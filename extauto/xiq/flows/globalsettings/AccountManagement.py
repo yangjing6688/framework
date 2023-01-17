@@ -151,7 +151,7 @@ class AccountManagement(AccntMgmtWebElements):
                 kwargs['fail_msg'] = f"'create_role_based_account()' -> {text}"
                 self.common_validation.failed(**kwargs)
                 return -1
-        kwargs['pass_msg'] = f"'create_role_based_account()' -> Successfully create role based account"
+        kwargs['pass_msg'] = "'create_role_based_account()' -> Successfully create role based account"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -198,7 +198,7 @@ class AccountManagement(AccntMgmtWebElements):
         sleep(2)
 
         if row := self.search_guest_accounts():
-            self.utils.print_info(f"Deleting Guest account")
+            self.utils.print_info("Deleting Guest account")
             for row_guest in row:
                 self.auto_actions.click(self.get_account_mgmt_grid_row_check_box(row_guest))
             sleep(2)
@@ -228,7 +228,7 @@ class AccountManagement(AccntMgmtWebElements):
         sleep(2)
 
         if row := self.search_guest_account(email_addr):
-            self.utils.print_info(f"Deleting  account")
+            self.utils.print_info("Deleting  account")
             self.auto_actions.click(self.get_account_mgmt_grid_row_check_box(row))
             sleep(2)
             self.utils.print_info("click on delete button")
@@ -530,8 +530,8 @@ class AccountManagement(AccntMgmtWebElements):
             return -4
 
         if "The Member Group cannot be saved because the name " + member_of + " already exists.":
-            kwargs['fail_msg'] = f"'create_credential_distribution_groups()' -> The Member Group cannot be saved " \
-                                 f"because the name " + member_of + " already exists."
+            kwargs['fail_msg'] = "'create_credential_distribution_groups()' -> The Member Group cannot be saved " \
+                                 "because the name " + member_of + " already exists."
             self.common_validation.failed(**kwargs)
             return -5
 

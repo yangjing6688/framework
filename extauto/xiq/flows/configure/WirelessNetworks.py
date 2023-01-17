@@ -232,7 +232,7 @@ class WirelessNetworks:
         sleep(2)
 
         if not self.captive_portal.create_open_network_captive_web_portal(**cwp_profile) == 1:
-            self.utils.print_info(f"Issue in creating the captive web portal")
+            self.utils.print_info("Issue in creating the captive web portal")
             return -1
 
         self.utils.print_info("Selecting User Profiles")

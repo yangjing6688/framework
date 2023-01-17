@@ -89,7 +89,7 @@ class Cli(object):
         :param disable_strict_host_key_checking: Used to enable or disable strict host key checking
         :return: Device Prompt
         """
-        self.utils.print_info(f"=================================")
+        self.utils.print_info("=================================")
         self.utils.print_info(f"IP: {ip}")
         self.utils.print_info(f"PORT: {port}")
         self.utils.print_info(f"Username: {username}")
@@ -101,7 +101,7 @@ class Cli(object):
             self.utils.print_info(f"pxssh prompt reset: {pxssh_prompt_reset}")
             self.utils.print_info(f"pxssh disable strict host key checking: {pxssh_disable_strict_host_key_checking}")
             self.utils.print_info(f"pxssh sync multiplier: {pxssh_sync_multiplier}")
-        self.utils.print_info(f"=================================")
+        self.utils.print_info("=================================")
 
         # Generate UUID
         device_uuid = str(uuid.uuid4()) + "_" + cli_type
@@ -972,7 +972,7 @@ class Cli(object):
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(retry_duration)
                 hm_status = self.send(connection, f'show hivemanager status | include Status')
                 hm_address = self.send(connection, f'show hivemanager address')
@@ -984,7 +984,7 @@ class Cli(object):
         elif NetworkElementConstants.OS_AHXR in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
                 capwap_status = self.send(connection, f'show capwap client | include "RUN state"')
                 capwap_server = self.send(connection, f'show capwap client | include "{server_name}"')
@@ -996,7 +996,7 @@ class Cli(object):
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
                 output = self.send(connection, f'show capwap client | include "RUN state"')
 
@@ -1010,7 +1010,7 @@ class Cli(object):
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
                 output = self.send(connection, f'show iqagent | include "XIQ Address"')
                 output1 = self.send(connection, f'show iqagent | include "Status"')
@@ -1025,7 +1025,7 @@ class Cli(object):
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
 
                 output1 = self.send(connection, f'show application iqagent | include "Server Address"')
@@ -1248,15 +1248,15 @@ class Cli(object):
             self.send(connection, f'save config')
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
                 hm_status = self.send(connection, f'show capwap client | include RUN')
                 if 'RUN State' not in hm_status: # the RUN state will not be in the output, only the DISCOVERY state will be shown
-                    self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
+                    self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
+            self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
             self.send(connection, f'no Hivemanager address ')
@@ -1264,15 +1264,15 @@ class Cli(object):
             self.send(connection, f'Application start hiveagent')
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
                 hm_status = self.send(connection, f'show hivemanager status | include Status')
                 if 'CONNECTED TO HIVEMANAGER' not in hm_status:
-                    self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
+                    self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
+            self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'no capwap client server name')
@@ -1282,32 +1282,32 @@ class Cli(object):
             self.send(connection, f'save config')
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
                 output = self.send(connection, f'show capwap client | include "RUN state"')
 
                 if 'Connected securely to the CAPWAP server' not in output:
-                    self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
+                    self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
+            self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(connection, f'configure iqagent server ipaddress none')
             self.send(connection, f'configure iqagent server vr none')
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
                 output = self.send(connection, f'show iqagent | include "Status"')
 
                 if 'CONNECTED TO XIQ' not in output:
-                    self.utils.print_info(f"Device Successfully Disconnected From Cloud server")
+                    self.utils.print_info("Device Successfully Disconnected From Cloud server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
+            self.builtin.fail(msg="Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(connection, f'enable')
@@ -1319,17 +1319,17 @@ class Cli(object):
 
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
+                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
 
                 output = self.send(connection, f'show application iqagent status | include "Connection Status"')
 
                 if 'Disconnected' in output:
-                    self.utils.print_info(f"Device Successfully Disconnected from Cloud server")
+                    self.utils.print_info("Device Successfully Disconnected from Cloud server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
+            self.builtin.fail(msg="Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
             # These commands fail internally if there is a failure sending them
@@ -1586,7 +1586,7 @@ class Cli(object):
         """
         This keyword gets stacking details from CLI (Mac add, Slot number and Role -for each unit).
         This keyword is implemented only for EXOS STACK.
-        
+
         :param dut: The dut object of the device
         :return: a list of tuples
         """
@@ -1600,11 +1600,11 @@ class Cli(object):
             stacking_details = re.findall(p, stacking_details_output[0].return_text)
             units_list.append(stacking_details)
 
-            kwargs['pass_msg'] = f"Stacking details found"
+            kwargs['pass_msg'] = "Stacking details found"
             self.commonValidation.passed(**kwargs)
             return units_list
-        
-        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+
+        kwargs['fail_msg'] = "This method is implemented only for EXOS STACK."
         self.commonValidation.failed(**kwargs)
         return -1
 
@@ -1612,7 +1612,7 @@ class Cli(object):
         """
         - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
         This keyword is implemented only for EXOS STACK.
-        
+
         :param dut: the dut object
         :return: a list of tuples
         """
@@ -1699,11 +1699,11 @@ class Cli(object):
                 iqagent_version_cli.append(unit_i_iqagent_version)
             info_list.append(iqagent_version_cli)
 
-            kwargs['pass_msg'] = f"Stacking details found"
+            kwargs['pass_msg'] = "Stacking details found"
             self.commonValidation.passed(**kwargs)
             return info_list
 
-        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        kwargs['fail_msg'] = "This method is implemented only for EXOS STACK."
         self.commonValidation.failed(**kwargs)
         return -1
 
@@ -1797,11 +1797,11 @@ class Cli(object):
                 iqagent_version_cli.append(unit_i_iqagent_version)
             info_list.append(iqagent_version_cli)
 
-            kwargs['pass_msg'] = f"get_info_from_stack() passed"
+            kwargs['pass_msg'] = "get_info_from_stack() passed"
             self.commonValidation.passed(**kwargs)
             return info_list
 
-        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        kwargs['fail_msg'] = "This method is implemented only for EXOS STACK."
         self.commonValidation.failed(**kwargs)
         return -1
 

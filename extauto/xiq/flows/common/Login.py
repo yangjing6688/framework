@@ -284,19 +284,19 @@ class Login:
                         sleep(10)
                         break
             else:
-                self.utils.print_info(f"External Account Name Not Mentioned.So Continuing with managing own network")
+                self.utils.print_info("External Account Name Not Mentioned.So Continuing with managing own network")
                 self.screen.save_screen_shot()
                 self.auto_actions.click_reference(self.login_web_elements.get_external_admin_manage_my_network_button)
 
         view_org_button = self.msp_web_elements.get_view_organization_button()
         if view_org_button.is_displayed():
-            self.utils.print_info(f"User Credentials belongs to MSP account")
+            self.utils.print_info("User Credentials belongs to MSP account")
             org_name = BuiltIn().get_variable_value("${organization_name}")
             if org_name:
                 msp_module = extauto.xiq.flows.manage.Msp.Msp()
                 device_page_found = self.nav_web_elements.get_devices_page()
                 if not device_page_found:
-                    self.utils.print_info(f"Devices page not found.Navigating to Manage-->Devices Page")
+                    self.utils.print_info("Devices page not found.Navigating to Manage-->Devices Page")
                     local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
                     local_navigator.navigate_to_devices()
 
@@ -313,7 +313,7 @@ class Login:
                     local_navigator.navigate_to_devices()
                     msp_module.select_organization(organization_name=org_name)
 
-                    self.utils.print_info(f"Unselecting Own MSP Organization Name to Import Map")
+                    self.utils.print_info("Unselecting Own MSP Organization Name to Import Map")
                     msp_module.unselect_organization(organization_name='YOUR ORGANIZATION')
                     self.utils.print_info(f"Importing Map for New Organization {org_name} Created")
                     network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
@@ -322,7 +322,7 @@ class Login:
                     local_navigator.navigate_to_devices()
 
             else:
-                self.utils.print_info(f"Continuing with own organization")
+                self.utils.print_info("Continuing with own organization")
                 self.screen.save_screen_shot()
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
@@ -773,7 +773,7 @@ class Login:
             return switch_connection_host
         else:
             kwargs[
-                'fail_msg'] = f"'get_switch_connection_host()' failed. Switch Connection host info was no found:" \
+                'fail_msg'] = "'get_switch_connection_host()' failed. Switch Connection host info was no found:" \
                               f" The following was found '{switch_connection_host}'"
             self.common_validation.failed(**kwargs)
 
@@ -2043,4 +2043,3 @@ class Login:
         """
         CloudDriver().close_window(win_index)
         return 1
-

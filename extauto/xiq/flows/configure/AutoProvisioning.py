@@ -274,7 +274,7 @@ class AutoProvisioning:
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = f"choose_auto_provision_network_policy() failed. " \
+        kwargs['fail_msg'] = "choose_auto_provision_network_policy() failed. " \
                              f"Not able to find Network Policy dropdown items for {network_policy} " \
                              f"in list {*network_policy_list,}"
         self.common_validation.failed(**kwargs)
@@ -307,7 +307,7 @@ class AutoProvisioning:
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"verify_auto_provision_policy_update() failed. " \
+                kwargs['fail_msg'] = "verify_auto_provision_policy_update() failed. " \
                                                     f"Did not find {network_policy} in {row.text}"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -320,7 +320,7 @@ class AutoProvisioning:
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"verify_auto_provision_policy_update() failed." \
+                kwargs['fail_msg'] = "verify_auto_provision_policy_update() failed." \
                                                     f"Did not find {network_policy} in {row.text}"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -360,7 +360,7 @@ class AutoProvisioning:
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"choose_auto_provision_device_function() failed." \
+        kwargs['fail_msg'] = "choose_auto_provision_device_function() failed." \
                              f"Not able to find auto provision device function dropdown items for {device_function} " \
                              f"in list {*device_function_list,}"
         self.common_validation.failed(**kwargs)
@@ -406,7 +406,7 @@ class AutoProvisioning:
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"choose_auto_provision_device_model() failed. " \
+        kwargs['fail_msg'] = "choose_auto_provision_device_model() failed. " \
                              f"Not able to find auto provision device model dropdown items for {dev_model} " \
                              f"in list {*device_model_list,}"
         self.common_validation.failed(**kwargs)
@@ -439,7 +439,7 @@ class AutoProvisioning:
                     return 1
 
         self.screen.save_screen_shot()
-        kwargs['fail_msg'] = f"choose_auto_provision_country_code() failed. " \
+        kwargs['fail_msg'] = "choose_auto_provision_country_code() failed. " \
                              f"Not able to find auto provision country {country_code} dropdown items " \
                              f"in the list {*countries_list,}"
         self.common_validation.failed(**kwargs)
@@ -477,7 +477,7 @@ class AutoProvisioning:
                     self.common_validation.passed(**kwargs)
                     return 1
         else:
-            kwargs['fail_msg'] = f"delete_auto_provisioning_policy() failed. " \
+            kwargs['fail_msg'] = "delete_auto_provisioning_policy() failed. " \
                                  f"Unable to delete Auto Provisioning Policy: {policy_name}"
             self.common_validation.failed(**kwargs)
             return -1
@@ -548,7 +548,7 @@ class AutoProvisioning:
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"search_auto_provisioning_policy() failed. " \
+        kwargs['fail_msg'] = "search_auto_provisioning_policy() failed. " \
                              f"Unable to find Auto Provisioning Policy: {policy_name}"
         self.common_validation.failed(**kwargs)
         return -1

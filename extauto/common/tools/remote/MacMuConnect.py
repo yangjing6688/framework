@@ -87,7 +87,7 @@ class MacMuConnect(object):
         - Get the Wi-Fi Interface name
         :return:
         """
-        cmd = f"networksetup -listallhardwareports | grep -i -A 2 Wi-Fi"
+        cmd = "networksetup -listallhardwareports | grep -i -A 2 Wi-Fi"
         out = self._execute_commands(cmd)
         print(f"Wi-Fi Port:{out}")
         if re.search(f'en0', str(out)):

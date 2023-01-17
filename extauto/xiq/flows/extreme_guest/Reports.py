@@ -32,7 +32,7 @@ class Reports(object):
         rows = self.reports_web_elem.get_extreme_guest_manage_reports_grid_rows()
         if rows:
             for row in rows:
-                self.utils.print_info(f"row: ", row)
+                self.utils.print_info(f"row: {row}")
                 cell = self.reports_web_elem.get_extreme_guest_manage_reports_grid_row_cells(row, "reports",
                                                                                              search_string)
                 if cell:

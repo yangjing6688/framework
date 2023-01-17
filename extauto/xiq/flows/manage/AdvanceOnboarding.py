@@ -134,7 +134,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                 # Let's see if the radio button is displayed
                 # (both exos and voss will be there, but we only need to check one).
                 if self.get_device_make_dropdown().is_displayed():
-                    self.utils.print_info(f"Clicking Device Make Type Drop Down")
+                    self.utils.print_info("Clicking Device Make Type Drop Down")
                     self.auto_actions.click_reference(self.get_device_make_dropdown)
                     sleep(3)
 
@@ -240,7 +240,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         if success_message:
             if not "Device(s) Successfully Onboarded" in success_message:
                 self.utils.print_info("Tooltip Validation Failed on Advance Onboard Page")
-                kwargs['fail_msg'] = f"advance_onboard_device() - Error: Tooltip Validation Failed on Advance Onboard Page"
+                kwargs['fail_msg'] = "advance_onboard_device() - Error: Tooltip Validation Failed on Advance Onboard Page"
                 self.commonValidation.fault(**kwargs)
                 return -1
 

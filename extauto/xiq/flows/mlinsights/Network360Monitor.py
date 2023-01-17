@@ -84,7 +84,7 @@ class Network360Monitor:
                             aps_on_floor.append(ap.text)
                         self.utils.print_info("APs on floor: ", aps_on_floor)
                     else:
-                        kwargs['fail_msg'] = f"'get_devices_from_network360monitor_floor()' -> No APs found on floor: " \
+                        kwargs['fail_msg'] = "'get_devices_from_network360monitor_floor()' -> No APs found on floor: " \
                                              f"{floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1
@@ -146,7 +146,7 @@ class Network360Monitor:
                             aps_on_floor.append(ap.text)
                         self.utils.print_info("APs on floor: ", aps_on_floor)
                     else:
-                        kwargs['fail_msg'] = f"'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
+                        kwargs['fail_msg'] = "'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
                                              f"{floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1
@@ -172,7 +172,7 @@ class Network360Monitor:
                             clients_on_floor.append(client_mac.text)
                         self.utils.print_info("Connected Clients on floor: ", clients_on_floor[1:])
                     else:
-                        kwargs['fail_msg'] = f"'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
+                        kwargs['fail_msg'] = "'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
                                              f"{floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1

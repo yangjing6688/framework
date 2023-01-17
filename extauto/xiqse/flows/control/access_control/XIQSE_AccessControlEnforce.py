@@ -25,12 +25,12 @@ class XIQSE_AccessControlEnforce(ControlAccessControlEnforceWebElements):
         ret_val = -1
         enforce_menu = self.ac_enforce_els.select_enforce_combo("Enforce")
         if enforce_menu:
-            self.utils.print_info(f"Selecting Enforce dropdown in Console ...")
+            self.utils.print_info("Selecting Enforce dropdown in Console ...")
             self.auto_actions.click(enforce_menu)
             ret_val = 1
             sleep(2)
         else:
-            self.utils.print_info(f"Unable to select dropdown menu ")
+            self.utils.print_info("Unable to select dropdown menu ")
             self.screen.save_screen_shot()
 
         return ret_val

@@ -779,7 +779,7 @@ class Utils:
         time_info["minutes"] = minutes
         time_info["seconds"] = seconds
 
-        self.print_debug(f"**** Milliseconds Converted To Days/Hours/Minutes/Seconds ****")
+        self.print_debug("**** Milliseconds Converted To Days/Hours/Minutes/Seconds ****")
         for key, value in time_info.items():
             self.print_info(f"{key}: {value}")
 

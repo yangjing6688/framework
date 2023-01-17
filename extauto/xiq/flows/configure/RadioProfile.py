@@ -425,7 +425,7 @@ class RadioProfile (RadioProfileWebElements):
             self.utils.print_info(" Attribute Text: " + str(enabled_text))
 
             if enabled_text.find("disabled") != -1:
-                kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
                                      f"Channel with is not by default {channel_width}"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -436,7 +436,7 @@ class RadioProfile (RadioProfileWebElements):
             element = self.web.get_element(locator)
 
             if element == None:
-                kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
                                      f" Button does not exist {channel}"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -446,25 +446,25 @@ class RadioProfile (RadioProfileWebElements):
 
             if mode == 'enabled':
                 if enabled_text.find("enabled") == -1:
-                    kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                    kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
                                          f"channel is not by default {channel}"
                     self.common_validation.failed(**kwargs)
                     return -1
             elif mode == 'disabled':
                 if enabled_text.find("disabled") == -1:
-                    kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                    kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
                                          f"channel is by default {channel}"
                     self.common_validation.failed(**kwargs)
                     return -1
             elif mode == 'included':
                 if enabled_text.find("included") == -1:
-                    kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                    kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
                                          f"channel is not included: {channel}"
                     self.common_validation.failed(**kwargs)
                     return -1
             elif mode == 'excluded':
                 if enabled_text.find("excluded") == -1:
-                    kwargs['fail_msg'] = f"verify_radio_profile_channel_width_and_channels() failed." \
+                    kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
                                          f"channel is not excluded: {channel}"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -498,7 +498,7 @@ class RadioProfile (RadioProfileWebElements):
                 element.click()
                 self.utils.print_info("select the channel to be exclusive " + str(channel))
             except:
-                kwargs['fail_msg'] = f"select_radio_profile_excluded_channels() failed. " \
+                kwargs['fail_msg'] = "select_radio_profile_excluded_channels() failed. " \
                                      f"Not able to select the channel to be exclusive {str(channel)}"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -676,7 +676,7 @@ class RadioProfile (RadioProfileWebElements):
 
         row = self._search_radio_profile_in_table(len(radio_profile_table_header), cells, profile_name)
         if not row:
-            kwargs['fail_msg'] = f"delete_radio_profile() failed. " \
+            kwargs['fail_msg'] = "delete_radio_profile() failed. " \
                                  f"Not able to find the radio profile in table {profile_name}"
             self.common_validation.fault(**kwargs)
             return -1

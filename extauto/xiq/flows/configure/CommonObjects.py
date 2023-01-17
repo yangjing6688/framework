@@ -170,7 +170,7 @@ class CommonObjects(object):
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                kwargs['fail_msg'] = f"delete_ssid() failed. " \
+                kwargs['fail_msg'] = "delete_ssid() failed. " \
                                      f"Cannot be deleted because this item is still used by another item {value}"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -245,7 +245,7 @@ class CommonObjects(object):
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                kwargs['fail_msg'] = f"delete_ssids() failed. " \
+                kwargs['fail_msg'] = "delete_ssids() failed. " \
                                      f"Cannot be deleted because this item is still used by another item {value}"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -364,7 +364,7 @@ class CommonObjects(object):
                 self.common_validation.fault(**kwargs)
                 return -1
             elif "Deleted captive web portal successfully" in value:
-                kwargs['pass_msg'] = f"Deleted captive web portal successfully"
+                kwargs['pass_msg'] = "Deleted captive web portal successfully"
                 self.common_validation.passed(**kwargs)
                 return 1
 
@@ -701,7 +701,7 @@ class CommonObjects(object):
                     else:
                         self.utils.print_info("This is the last page: ", str(current_page))
                         kwargs['pass_msg'] = f"Checked all {current_page} pages for Port Type profile:{port_type_name}." \
-                                             f"It was already deleted or it hasn't been created yet!"
+                                             "It was already deleted or it hasn't been created yet!"
                         self.common_validation.passed(**kwargs)
                         return 1
                 else:
@@ -1054,7 +1054,7 @@ class CommonObjects(object):
                     if delete_button:
                         self.auto_actions.click(delete_button)
                         kwargs['pass_msg'] = f"Delete button has been clicked! Switch Template: {template_name} " \
-                                             f"has been deleted!"
+                                             "has been deleted!"
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
@@ -1085,7 +1085,7 @@ class CommonObjects(object):
                 else:
                     self.utils.print_info("This is the last page: ", str(current_page))
                     kwargs['pass_msg'] = f"Checked all {current_page} pages for Template Name: {template_name}" \
-                                         f"It was already deleted or it hasn't been created yet!"
+                                         "It was already deleted or it hasn't been created yet!"
                     self.common_validation.passed(**kwargs)
                     return 1
 
@@ -1140,12 +1140,12 @@ class CommonObjects(object):
                         if confirm_delete_btn:
                             self.utils.print_info("Clicking on confirm Yes button")
                             self.auto_actions.click(confirm_delete_btn)
-                            kwargs['pass_msg'] = f"YES button has been clicked! Supplemental Cli Profile: " \
+                            kwargs['pass_msg'] = "YES button has been clicked! Supplemental Cli Profile: " \
                                                  f"{supplemental_cli_name} has been deleted!"
                             self.common_validation.passed(**kwargs)
                             return 1
 
-                        kwargs['pass_msg'] = f"Delete button has been clicked! Supplemental Cli Profile: " \
+                        kwargs['pass_msg'] = "Delete button has been clicked! Supplemental Cli Profile: " \
                                              f"{supplemental_cli_name} has been deleted!"
                         self.common_validation.passed(**kwargs)
                         return 1
@@ -1178,7 +1178,7 @@ class CommonObjects(object):
                     self.utils.print_info("This is the last page: ", str(current_page))
                     kwargs['pass_msg'] = f"Checked all {current_page} pages for Supplemental Cli Profile: " \
                                          f"{supplemental_cli_name} ;" \
-                                         f"It was already deleted or it hasn't been created yet!"
+                                         "It was already deleted or it hasn't been created yet!"
                     self.common_validation.passed(**kwargs)
                     return 1
 
@@ -1314,7 +1314,7 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            kwargs['fail_msg'] = f"clone_open_ssid_in_common_objects() failed. " \
+            kwargs['fail_msg'] = "clone_open_ssid_in_common_objects() failed. " \
                                  f"SSID Name {ssid_name} doesn't exist in the list to clone"
             self.common_validation.fault(**kwargs)
             return -1
@@ -1374,7 +1374,7 @@ class CommonObjects(object):
             sleep(2)
 
         if self._search_common_object(profile_name):
-            kwargs['pass_msg'] = f"Radio profile ", profile_name, " already exists in the list"
+            kwargs['pass_msg'] = f"Radio profile {profile_name} already exists in the list"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -1427,7 +1427,7 @@ class CommonObjects(object):
         kwargs['fail_msg'] = "create_radio_profile() failed. Failed to create radio profile"
         self.common_validation.failed(**kwargs)
         return -1
- 
+
     def add_ap_template_from_common_object(self, ap_model, ap_template_name, wifi_interface_config, **kwargs):
         """"
         - CONFIGURE-->COMMON OBJECTS-->Policy-->AP Templates
@@ -2155,7 +2155,7 @@ class CommonObjects(object):
                 if cm_enable_local_web_page.upper() == 'DISABLE':
                     self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_checkbox())
-                    self.utils.print_info(f"Click Add(+)")
+                    self.utils.print_info("Click Add(+)")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add())
                     self.utils.print_info(f"Enter SSID Name: {cm_ssid_name}")
                     self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_ssid_textbox(), cm_ssid_name)
@@ -2169,7 +2169,7 @@ class CommonObjects(object):
                     self.auto_actions.select_drop_down_options(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_key_type_dropdown_option(), cm_key_type)
                     self.screen.save_screen_shot()
                     sleep(2)
-                    self.utils.print_info(f"Click Add button")
+                    self.utils.print_info("Click Add button")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button())
                 self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
@@ -2281,7 +2281,7 @@ class CommonObjects(object):
                 if cm_enable_local_web_page.upper() == 'DISABLE':
                     self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_checkbox())
-                    self.utils.print_info(f"Click Add(+)")
+                    self.utils.print_info("Click Add(+)")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add())
                     self.utils.print_info(f"Enter SSID Name: {cm_ssid_name}")
                     self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_ssid_textbox(), cm_ssid_name)
@@ -2295,7 +2295,7 @@ class CommonObjects(object):
                     self.auto_actions.select_drop_down_options(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_key_type_dropdown_option(), cm_key_type)
                     self.screen.save_screen_shot()
                     sleep(2)
-                    self.utils.print_info(f"Click Add button")
+                    self.utils.print_info("Click Add button")
                     self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button())
                 self.utils.print_info(f"Enter DHCP Server Scope: {client_mode_profile_dhcp}")
                 self.auto_actions.send_keys(self.cobj_web_elements.get_common_object_wifi0_1_client_mode_profile_dhcp_server_scope(), client_mode_profile_dhcp)
@@ -2505,7 +2505,7 @@ class CommonObjects(object):
             return 1
 
         else:
-            kwargs['fail_msg'] = f"check_ap_template_in_common_object() failed. " \
+            kwargs['fail_msg'] = "check_ap_template_in_common_object() failed. " \
                                  f"AP Template {ap_template_name} not found in the CommonObject"
             self.common_validation.failed(**kwargs)
             return -1
@@ -2764,7 +2764,7 @@ class CommonObjects(object):
                     self.common_validation.passed(**kwargs)
                     return 1
 
-            kwargs['fail_msg'] = f"add_imago_tag_profile() failed. " \
+            kwargs['fail_msg'] = "add_imago_tag_profile() failed. " \
                                  f"Did not find Imago Tag Profile {profile_name} Configured"
             self.common_validation.failed(**kwargs)
             return -1
@@ -2838,7 +2838,7 @@ class CommonObjects(object):
                     self.screen.save_screen_shot()
                     sleep(2)
 
-                    self.utils.print_info(f"Click Edit Button")
+                    self.utils.print_info("Click Edit Button")
                     self.auto_actions.click(self.cobj_web_elements.get_imago_tag_profile_edit_button())
                     self.screen.save_screen_shot()
                     sleep(2)
@@ -3037,7 +3037,7 @@ class CommonObjects(object):
         if not fw_policy_rows:
             self.auto_actions.click(self.cobj_web_elements.get_firewall_policy_select_dialog_cancel_button())
             sleep(2)
-            kwargs['fail_msg'] = f"select_ip_firewall_policy_for_new_user_profile() failed." \
+            kwargs['fail_msg'] = "select_ip_firewall_policy_for_new_user_profile() failed." \
                                  f"Firewall Policy: {firewall_policy_name} doesn't exist"
             self.common_validation.fault(**kwargs)
             return -1
@@ -3218,7 +3218,7 @@ class CommonObjects(object):
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = f"delete_user_profile() failed. Unable to gather user profiles"
+            kwargs['fail_msg'] = "delete_user_profile() failed. Unable to gather user profiles"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3284,7 +3284,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"delete_ip_firewall_policy() failed. " \
+            kwargs['fail_msg'] = "delete_ip_firewall_policy() failed. " \
                                  f"Unable to Delete IP Firewall Policy {ip_firewall_policy_name}"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3487,7 +3487,7 @@ class CommonObjects(object):
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_hostname_profile_name_textfield(), name)
             self.utils.print_info(f"Input Global IP Range Start: {global_range_start} ...")
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_range_start_textfield(), global_range_start)
-            self.utils.print_info(f"Input Global IP Range End:", global_range_start + ip_range_gap)
+            self.utils.print_info(f"Input Global IP Range End: {global_range_start + ip_range_gap}")
             self.auto_actions.send_keys(self.cobj_web_elements.get_ip_object_ip_range_end_textfield(), global_range_start + ip_range_gap)
             classified_items = self._ip_object_hostname_add_objects_for_ip_range(ip_range_gap, *classify_range_start)
             if classified_items == -1:
@@ -3746,7 +3746,7 @@ class CommonObjects(object):
             while self.cobj_web_elements.get_ip_object_hostname_classification_rule_used_error():
                 self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_used_error_close())
                 row_loop_num += 1
-                self.utils.print_info(f"Choose another classification rule ...")
+                self.utils.print_info("Choose another classification rule ...")
                 self._ip_object_hostname_find_cls_rules(row_loop_num)
                 self.utils.print_info(f"Click LINK button {row_loop_num + 1} times ...")
                 self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_link_button())
@@ -3920,7 +3920,7 @@ class CommonObjects(object):
             self.utils.print_info(f"The items list of object profile: {object_items_list}")
             return object_items_list
         else:
-            kwargs['fail_msg'] = f"ip_object_hostname_list_all_objects_in_profile() failed." \
+            kwargs['fail_msg'] = "ip_object_hostname_list_all_objects_in_profile() failed." \
                                  f"The IP Object profile {ip_object_profile_name} is NOT found, can NOT list the items"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3992,7 +3992,7 @@ class CommonObjects(object):
                             if delete_button:
                                 self.auto_actions.click(delete_button)
                                 kwargs['pass_msg'] = f"Delete button has been clicked! Switch Template: {template_name} " \
-                                                     f"has been deleted!"
+                                                     "has been deleted!"
                                 self.common_validation.passed(**kwargs)
                                 found_template = True
                                 break
@@ -4008,14 +4008,14 @@ class CommonObjects(object):
                     self.utils.print_info('len', len(page_number), cnt_page )
                     if len(page_number) == cnt_page:
                         self.utils.print_info(f"Last page is {cnt_page}")
-                        kwargs['fail_msg'] = f"delete_switch_templates() failed." \
+                        kwargs['fail_msg'] = "delete_switch_templates() failed." \
                                              f"Template Name: {template_name} is not present on all pages."
                         self.common_validation.failed(**kwargs)
                         return -1
                     self.utils.print_info(f"Template Name: {template_name} is not present on page: ")
                     next_button = self.cobj_web_elements.get_next_page_element()
                     if next_button:
-                        self.utils.print_info(f"Select next page")
+                        self.utils.print_info("Select next page")
                         self.auto_actions.click(next_button)
                     else:
                         kwargs['fail_msg'] = "delete_switch_templates() failed. Next button not found "
@@ -4083,7 +4083,7 @@ class CommonObjects(object):
                             self.utils.print_info("This is the last page: ", str(current_page))
                             kwargs['pass_msg'] = f"Checked all {current_page} pages for Port Type profile: " \
                                                  f"{port_type_name} ; " \
-                                                 f"It was already deleted or it hasn't been created yet!"
+                                                 "It was already deleted or it hasn't been created yet!"
                             self.common_validation.passed(**kwargs)
                             break
                     else:

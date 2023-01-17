@@ -62,7 +62,7 @@ class ControlWebElements(ControlWebElementsDefinitions):
             'wait_for': 10}
 
         else:
-            self.utils.print_info(f"Unable to find Title")
+            self.utils.print_info("Unable to find Title")
             self.utils.print_info(title)
             return 0
 

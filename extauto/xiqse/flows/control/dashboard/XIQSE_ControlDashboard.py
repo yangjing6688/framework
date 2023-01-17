@@ -34,7 +34,7 @@ class XIQSE_ControlDashboard(ControlDashboardWebElements):
                 break
 
         if ret_val == -1:
-            self.utils.print_info(f"Could not find the menu...")
+            self.utils.print_info("Could not find the menu...")
             self.screen.save_screen_shot()
 
         sleep(2)

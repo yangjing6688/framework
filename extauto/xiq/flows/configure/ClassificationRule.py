@@ -79,7 +79,7 @@ class ClassificationRule(object):
         if self.auto_actions.select_drop_down_options(match_type_options, match_type):
             self.utils.print_info(f"Selected CCG Match Type {match_type}")
         else:
-            kwargs['fail_msg'] = f"add_classification_rule_with_ccg() failed. " \
+            kwargs['fail_msg'] = "add_classification_rule_with_ccg() failed. " \
                                  f"Not able to Select CCG Match Type {match_type}"
             self.common_validation.fault(**kwargs)
             return -1
@@ -412,7 +412,7 @@ class ClassificationRule(object):
         self.utils.print_info("Click on country node open icon")
         country_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(country_nodes, country_node):
-            kwargs['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
+            kwargs['fail_msg'] = "_assign_locations_to_classification_rule() failed." \
                                           f"Country node {country_node} is not present..."
             self.common_validation.fault(**kwargs)
             return False
@@ -421,7 +421,7 @@ class ClassificationRule(object):
         self.utils.print_info("Click on location node open icon")
         loc_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(loc_nodes, loc_node):
-            kwargs['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
+            kwargs['fail_msg'] = "_assign_locations_to_classification_rule() failed." \
                                           f"Location node {loc_node} not present"
             self.common_validation.fault(**kwargs)
             return False
@@ -430,7 +430,7 @@ class ClassificationRule(object):
         self.utils.print_info("Click on building node open icon")
         build_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(build_nodes, building_node):
-            kwargs['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
+            kwargs['fail_msg'] = "_assign_locations_to_classification_rule() failed." \
                                           f"Building node {building_node} not present"
             self.common_validation.fault(**kwargs)
             return False
@@ -439,7 +439,7 @@ class ClassificationRule(object):
         self.utils.print_info("Select the floor to assign device")
         floor_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._assign_floor_to_rule(floor_nodes, floor_node):
-            kwargs['fail_msg'] = f"_assign_locations_to_classification_rule() failed." \
+            kwargs['fail_msg'] = "_assign_locations_to_classification_rule() failed." \
                                           f"Floor node {floor_node} not present"
             self.common_validation.fault(**kwargs)
             return False
@@ -623,7 +623,7 @@ class ClassificationRule(object):
         if self.network.select_network_policy_in_card_view(policy_name):
             if not self._select_classification_rule_for_ssid(ssid_name, classification_rule):
                 sleep(2)
-                kwargs['fail_msg'] = f"add_classification_rule_to_ssid() failed. " \
+                kwargs['fail_msg'] = "add_classification_rule_to_ssid() failed. " \
                                      f"Not able to add classification rule from {ssid_name}"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -631,7 +631,7 @@ class ClassificationRule(object):
 
         if not self._verify_classification_rule_for_ssid(ssid_name, classification_rule):
             sleep(2)
-            kwargs['fail_msg'] = f"add_classification_rule_to_ssid() failed. " \
+            kwargs['fail_msg'] = "add_classification_rule_to_ssid() failed. " \
                                  f"Not able to find classification rule attached to {ssid_name}"
             self.common_validation.fault(**kwargs)
             return -1
@@ -661,7 +661,7 @@ class ClassificationRule(object):
             sleep(2)
             if not self._verify_classification_rule_for_ssid(ssid_name, classification_rule):
                 sleep(2)
-                kwargs['fail_msg'] = f"check_classification_rule_to_ssid() failed. " \
+                kwargs['fail_msg'] = "check_classification_rule_to_ssid() failed. " \
                                      f"Not able to find classification rule attached to {ssid_name}"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -690,7 +690,7 @@ class ClassificationRule(object):
         if self.network.select_network_policy_in_card_view(policy_name):
             if not self._delete_classification_rule_from_ssid(ssid_name, classification_rule):
                 sleep(2)
-                kwargs['fail_msg'] = f"remove_classification_rule_from_ssid() failed. " \
+                kwargs['fail_msg'] = "remove_classification_rule_from_ssid() failed. " \
                                      f"Not able to remove classification rule from {ssid_name}"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -698,7 +698,7 @@ class ClassificationRule(object):
 
         if self._verify_classification_rule_for_ssid(ssid_name, classification_rule):
             sleep(2)
-            kwargs['fail_msg'] = f"remove_classification_rule_from_ssid() failed. " \
+            kwargs['fail_msg'] = "remove_classification_rule_from_ssid() failed. " \
                                  f"Not able to find classification rule attached to {ssid_name}"
             self.common_validation.fault(**kwargs)
             return -1

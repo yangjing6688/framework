@@ -125,29 +125,29 @@ class XIQSE_AccessControlAddRemove(ControlAccessControlAddRemoveWebElements):
             # Delete button should be available once a row is selected
             delete_btn = self.ac_common_els.get_click_innerel_button("Delete")
             if delete_btn:
-                self.utils.print_info(f"Clicking Delete ...")
+                self.utils.print_info("Clicking Delete ...")
                 self.auto_actions.click(delete_btn)
                 sleep(2)
 
                 delete_checkbox = self.ac_addremove_els.get_delete_nac_checkbox()
                 if delete_checkbox:
-                    self.utils.print_info(f"Checking a checkbox to delete from database...")
+                    self.utils.print_info("Checking a checkbox to delete from database...")
                     self.auto_actions.click(delete_checkbox)
                     sleep(2)
                     yes_btn_dialog = self.ac_common_els.get_click_innerel_button("Yes")
                     if yes_btn_dialog:
-                        self.utils.print_info(f"Checking Yes button to delete...")
+                        self.utils.print_info("Checking Yes button to delete...")
                         self.auto_actions.click(yes_btn_dialog)
                         sleep(2)
                         ret_val = 1
                     else:
-                        self.utils.print_info(f"Unable to click Yes button ")
+                        self.utils.print_info("Unable to click Yes button ")
                 else:
-                    self.utils.print_info(f"Unable to find Delete checkbox")
+                    self.utils.print_info("Unable to find Delete checkbox")
             else:
-                self.utils.print_info(f"Unable to click Delete button from Toolbar ")
+                self.utils.print_info("Unable to click Delete button from Toolbar ")
         else:
-            self.utils.print_info(f"Unable to click Delete button ")
+            self.utils.print_info("Unable to click Delete button ")
 
         if ret_val == -1:
             self.screen.save_screen_shot()

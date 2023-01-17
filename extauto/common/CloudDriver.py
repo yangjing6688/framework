@@ -243,7 +243,7 @@ class CloudDriver():
 
                 if mode == "remote":
                     try:
-                        utils.print_info(f"Redirecting to Remote WebDriver at http://", str(webdriver_ip), ":",
+                        utils.print_info(f"Redirecting to Remote WebDriver at http://{str(webdriver_ip)}:",
                                          str(webdriver_port), "/wd/hub")
                         host_url = "http://" + str(webdriver_ip) + ":" + str(webdriver_port) + "/wd/hub"
                         cloud_driver = webdriver.Remote(host_url, webdriver.DesiredCapabilities.CHROME)
@@ -564,5 +564,5 @@ class CloudDriver():
 
     def refresh_page(self):
         utils = Utils()
-        utils.print_info(f"Refreshing page")
+        utils.print_info("Refreshing page")
         self.cloud_driver.refresh()

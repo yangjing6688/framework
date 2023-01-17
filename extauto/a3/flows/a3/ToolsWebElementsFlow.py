@@ -188,13 +188,13 @@ class ToolsWebElementsFlow(ToolsWebElements):
             for row in rows:
                 sleep(5)
                 if search_string in row.text:
-                    self.utils.print_info(f"Found the Expected Row Text")
+                    self.utils.print_info("Found the Expected Row Text")
                     row.click()
-                    self.utils.print_info(f"clicked on the selected --  ", search_string)
+                    self.utils.print_info("clicked on the selected --  ", search_string)
                     sleep(5)
                     return 1
                 else:
-                    self.utils.print_info(f"Not found the log file")
+                    self.utils.print_info("Not found the log file")
                     sleep(5)
                     continue
             return -1

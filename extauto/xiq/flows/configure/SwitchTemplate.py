@@ -537,7 +537,7 @@ class SwitchTemplate(object):
         sleep(2)
 
         if self.check_sw_template(sw_template_name):
-            kwargs['fail_msg'] = f"add_5520_sw_stack_template() failed. " \
+            kwargs['fail_msg'] = "add_5520_sw_stack_template() failed. " \
                                  f"Template with name {sw_template_name} already present in the template grid"
             self.common_validation.failed(**kwargs)
             return -1
@@ -710,7 +710,7 @@ class SwitchTemplate(object):
                 if name == add_stack_items[index].text:
                     self.utils.print_info(f" Stack unit name is correct :  {add_stack_items[index].text} ")
                 else:
-                    kwargs['fail_msg'] = f"check_added_sw_stack_template_units() failed. " \
+                    kwargs['fail_msg'] = "check_added_sw_stack_template_units() failed. " \
                                          f"Stack unit name is not correct: {add_stack_items[index].text} ;"
                     self.common_validation.fault(**kwargs)
                     return -1
@@ -1186,12 +1186,12 @@ class SwitchTemplate(object):
                         self.common_validation.fault(**kwargs)
                         return -1
             # if code made it  here not match was found
-            kwargs['fail_msg'] = f"config_vlan_in_template() failed. " \
+            kwargs['fail_msg'] = "config_vlan_in_template() failed. " \
                                  f"Match for port {port_string} NOT found"
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['fail_msg'] = f"config_vlan_in_template() failed. Unable to gather port detail information and rows"
+            kwargs['fail_msg'] = "config_vlan_in_template() failed. Unable to gather port detail information and rows"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2045,7 +2045,7 @@ class SwitchTemplate(object):
             sleep(2)
 
         if self.check_sw_template(sw_template_name):
-            kwargs['fail_msg'] = f"add_5520_sw_template() failed. " \
+            kwargs['fail_msg'] = "add_5520_sw_template() failed. " \
                                  f"Template with name {sw_template_name} already present in the template gri"
             self.common_validation.failed(**kwargs)
             return -1
@@ -2163,7 +2163,7 @@ class SwitchTemplate(object):
                         return -1
             if not found:
                 kwargs['pass_msg'] = f"The template {sw_template_name} is not present here, it may have been " \
-                                     f"already deleted or it wasn't created."
+                                     "already deleted or it wasn't created."
                 self.common_validation.passed(**kwargs)
                 return 1
         else:
@@ -2245,7 +2245,7 @@ class SwitchTemplate(object):
         """
 
         if self.check_sw_template(sw_template_name):
-            kwargs['fail_msg'] = f"add_sw_template_from_policy_tab() failed. " \
+            kwargs['fail_msg'] = "add_sw_template_from_policy_tab() failed. " \
                                  f"Template with name {sw_template_name} already present in the template grid"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3464,7 +3464,7 @@ class SwitchTemplate(object):
 
         if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
                                             "unresponsive after configuration update.":
-            kwargs["fail_msg"] = f"check_text_enable_auto_revert_option() failed." \
+            kwargs["fail_msg"] = "check_text_enable_auto_revert_option() failed." \
                                  f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3493,7 +3493,7 @@ class SwitchTemplate(object):
 
         if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
                                             "unresponsive after configuration update.":
-            kwargs["fail_msg"] = f"set_enable_auto_revert_option() failed. " \
+            kwargs["fail_msg"] = "set_enable_auto_revert_option() failed. " \
                                  f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3837,7 +3837,7 @@ class SwitchTemplate(object):
         row = [r for r in rows if re.search(f"^{port}\n", r.text)]
 
         if not row:
-            kwargs["fail_msg"] = f"get_stp_port_configuration_row() failed. " \
+            kwargs["fail_msg"] = "get_stp_port_configuration_row() failed. " \
                                  f"Failed to find the row port for port='{port}'"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3894,12 +3894,12 @@ class SwitchTemplate(object):
         )
 
         if not cost_element:
-            kwargs["fail_msg"] = f"get_path_cost_value_from_stp_port_configuration_row() failed. " \
-                                 f"Failed to get path cost element"
+            kwargs["fail_msg"] = "get_path_cost_value_from_stp_port_configuration_row() failed. " \
+                                 "Failed to get path cost element"
             self.common_validation.failed(**kwargs)
             return -1
 
-        kwargs["pass_msg"] = f"Successfully got the path cost element"
+        kwargs["pass_msg"] = "Successfully got the path cost element"
         self.common_validation.passed(**kwargs)
 
         return cost_element.get_attribute("value")
@@ -3934,7 +3934,7 @@ class SwitchTemplate(object):
             port)
 
         if str(found_path_cost_value) != str(path_cost):
-            kwargs["fail_msg"] = f"verify_path_cost_in_port_configuration_stp_tab() failed.In XIQ port configuration: " \
+            kwargs["fail_msg"] = "verify_path_cost_in_port_configuration_stp_tab() failed.In XIQ port configuration: " \
                                  f"Expected path cost for port='{port}' is {path_cost} " \
                                  f"but found '{found_path_cost_value}'"
             self.common_validation.failed(**kwargs)
@@ -3961,11 +3961,11 @@ class SwitchTemplate(object):
         )
 
         if not button:
-            kwargs["fail_msg"] = f"set_stp() failed. Failed to get stp button element"
+            kwargs["fail_msg"] = "set_stp() failed. Failed to get stp button element"
             self.common_validation.fault(**kwargs)
             return -1
 
-        self.utils.print_info(f"Successfully got the stp button element")
+        self.utils.print_info("Successfully got the stp button element")
 
         if (not button.is_selected() and enable) or (
             button.is_selected() and not enable):
@@ -3976,11 +3976,11 @@ class SwitchTemplate(object):
             )
 
             if res != 1:
-                kwargs["fail_msg"] = f"set_stp() failed. Failed to click stp button element"
+                kwargs["fail_msg"] = "set_stp() failed. Failed to click stp button element"
                 self.common_validation.fault(**kwargs)
                 return -1
 
-            kwargs["pass_msg"] = f"Successfully clicked the stp button element"
+            kwargs["pass_msg"] = "Successfully clicked the stp button element"
             self.common_validation.passed(**kwargs)
 
         return 1
@@ -4047,4 +4047,3 @@ class SwitchTemplate(object):
         """
         if not self.nw_policy:
             self.nw_policy = extauto.xiq.flows.configure.NetworkPolicy.NetworkPolicy()
-

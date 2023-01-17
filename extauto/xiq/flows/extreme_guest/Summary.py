@@ -76,7 +76,7 @@ class Summary(object):
         if all_displayed:
             return 1
         else:
-            kwargs['fail_msg'] = f"'check_all_summary_page_widgets()' -> Not all widgets are displayed"
+            kwargs['fail_msg'] = "'check_all_summary_page_widgets()' -> Not all widgets are displayed"
             self.common_validation.failed(**kwargs)
             return 0
 
@@ -349,7 +349,7 @@ class Summary(object):
         kwargs['pass_msg'] = f"Successfully Navigated to Extreme Guest Summary and check linkedin widget data: {total_clients_data.text}"
         self.common_validation.passed(**kwargs)
         return 1
-    
+
     def check_summary_page_online_clients_widget_data(self, **kwargs):
         """
         - This keyword Will Navigate to Extreme Guest Summary and check linkedin widget data

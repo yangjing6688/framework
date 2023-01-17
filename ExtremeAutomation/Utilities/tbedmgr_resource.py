@@ -75,7 +75,7 @@ def checkoutTestBed(testbed_uuid, duration, lockReason):
         payloadLock['testbed_uuid'] = testbed_uuid
         payloadLock['requestedDuration'] = duration
         payloadLock['lockReason'] = lockReason
-        
+
         req = requests.post(endPoint, json=payloadLock, headers=HEADERS, timeout=5 )
         results = req.json()
         if req.status_code == 201 and len(results['errors']) == 0:
@@ -88,7 +88,7 @@ def checkoutTestBed(testbed_uuid, duration, lockReason):
 
 def checkinTestBed(lock_uuid):
     try:
-        endPoint = BASE_ENDPOINT + 'tbedmgr/locks/deleteTestBedLock/' + str(lock_uuid)        
+        endPoint = BASE_ENDPOINT + 'tbedmgr/locks/deleteTestBedLock/' + str(lock_uuid)
         req = requests.delete(endPoint, json={}, headers=HEADERS, timeout=5 )
         results = req.json()
         if req.status_code == 200 and len(results['errors']) == 0:
@@ -126,10 +126,10 @@ if not args.pat:
 
 if not args.testbed:
     sys.exit("ERROR: Need to have the -t or --testbed option!")
-    
+
 if not args.checkin and not args.checkout:
     sys.exit("ERROR: Need to have the -o or -i option for an action")
-    
+
 if args.tbedmgrendpoint != 'https://autoiq.extremenetworks.com/':
     print("NON PROD MODE SELECTED!")
 
@@ -137,9 +137,9 @@ HEADERS = { 'Content-Type': 'application/json',
             'accept': 'application/json',
             'authorization': 'PAT ' + args.pat
           }
-    
+
 BASE_ENDPOINT = args.tbedmgrendpoint
-            
+
 testbed_uuid = getTestbedUUIDFromFile(args.testbed)
 if testbed_uuid == None:
     sys.exit("ERROR: unable to get the test bed UUID!")
@@ -152,29 +152,29 @@ if args.checkin:
         testbed_checked_in = checkinTestBed(lock_uuid)
         print(f"TESTBED CHECK IN: {testbed_checked_in}")
         if not testbed_checked_in:
-            sys.exit(f"ERROR: Failed to Checked in test bed!")
+            sys.exit("ERROR: Failed to Checked in test bed!")
     else:
         sys.exit("ERROR: unable to get the test bed lock UUID!")
-    
+
 elif args.checkout:
     if not args.lockreason or not args.lockduration:
         sys.exit("ERROR: Need to have the -d (lock duration) and -r (lock reason) options for checkout!")
-        
+
     print(f'Check out the file: {args.testbed}')
-    if args.wait: 
+    if args.wait:
         testbed_checked_out = checkoutTestBed(testbed_uuid, args.lockduration, args.lockreason)
         print(f"Checkout returned: {testbed_checked_out}")
         while(testbed_checked_out == None):
-            print(f"Waiting 30 seconds")
+            print("Waiting 30 seconds")
             time.sleep(30)
             testbed_checked_out = checkoutTestBed(testbed_uuid, args.lockduration, args.lockreason)
             print(f"Checkout returned: {testbed_checked_out}")
     else:
         testbed_checked_out = checkoutTestBed(testbed_uuid, args.lockduration, args.lockreason)
         if testbed_checked_out == None:
-            sys.exit(f"ERROR: Failed to check out the test bed!")
+            sys.exit("ERROR: Failed to check out the test bed!")
     print(f"TESTBED CHECK OUT: {testbed_checked_out}")
-    
- 
+
+
 print('completed')
 sys.exit()

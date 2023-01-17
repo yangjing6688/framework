@@ -122,13 +122,13 @@ class CloudConfigGroup(object):
         for ap_serial in ap_serials:
             if option == "Continue":
                 if self._check_update_ccg_policy_status(policy_name, ap_serial) == -1:
-                    kwargs['fail_msg'] = f"assign_cloud_config_group() failed. CCG Policy update not proper"
+                    kwargs['fail_msg'] = "assign_cloud_config_group() failed. CCG Policy update not proper"
                     self.common_validation.failed(**kwargs)
                     return -1
 
             elif option == "Cancel":
                 if self._check_update_ccg_policy_status(policy_name, ap_serial) == 1:
-                    kwargs['fail_msg'] = f"assign_cloud_config_group() failed. CCG Policy update not proper"
+                    kwargs['fail_msg'] = "assign_cloud_config_group() failed. CCG Policy update not proper"
                     self.common_validation.failed(**kwargs)
                     return -1
 
@@ -156,7 +156,7 @@ class CloudConfigGroup(object):
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif retry_count >= int(max_config_push_wait):
-                kwargs['fail_msg'] = f"_check_update_ccg_policy_status() failed." \
+                kwargs['fail_msg'] = "_check_update_ccg_policy_status() failed." \
                                      f"Config push to AP taking more than {max_config_push_wait} seconds"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -299,7 +299,7 @@ class CloudConfigGroup(object):
         self.utils.print_info("Select ap row")
         for ap_serial in ap_serials:
             if not self.device.select_ap(ap_serial):
-                kwargs['fail_msg'] = f"add_cloud_config_group_from_manage() failed. " \
+                kwargs['fail_msg'] = "add_cloud_config_group_from_manage() failed. " \
                                      f"AP {ap_serial} is not present in the grid"
                 self.common_validation.fault(**kwargs)
 
@@ -340,7 +340,7 @@ class CloudConfigGroup(object):
         if ccg_group_members := self.get_ccg_group_members(policy):
             for ap_serial in ap_serials:
                 if ap_serial not in ccg_group_members:
-                    kwargs['fail_msg'] = f"add_cloud_config_group_from_manage() failed. " \
+                    kwargs['fail_msg'] = "add_cloud_config_group_from_manage() failed. " \
                                          f"{ap_serial} not in {ccg_group_members}"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -414,7 +414,7 @@ class CloudConfigGroup(object):
 
 
             if not self.search_ccg_group_from_common_object(policy):
-                kwargs['fail_msg'] = f"create_bulk_cloud_config_group() failed. Didn't find CCG group"
+                kwargs['fail_msg'] = "create_bulk_cloud_config_group() failed. Didn't find CCG group"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -471,7 +471,7 @@ class CloudConfigGroup(object):
             for device_hostname in device_hostnames:
                 if not self._remove_device_ccg(device_hostname, policy):
                     kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {device_hostname} " \
-                                         f"is not present in the grid"
+                                         "is not present in the grid"
                     self.common_validation.fault(**kwargs)
                     return -1
 
@@ -488,14 +488,14 @@ class CloudConfigGroup(object):
                 for ap_serial in ap_serials:
                     if ap_serial not in ccg_members:
                         kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} did not " \
-                                             f"get added to CCG Group"
+                                             "get added to CCG Group"
                         self.common_validation.failed(**kwargs)
                         return -1
             else:
                 for ap_serial in ap_serials:
                     if ap_serial in ccg_members:
                         kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} did not " \
-                                             f"get removed from CCG Group"
+                                             "get removed from CCG Group"
                         self.common_validation.failed(**kwargs)
                         return -1
 
@@ -801,7 +801,7 @@ class CloudConfigGroup(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = f"select_ccg_group_from_common_object() failed. " \
+        kwargs['fail_msg'] = "select_ccg_group_from_common_object() failed. " \
                              f"Didn't find CCG Group with name: {policy}"
         self.common_validation.failed(**kwargs)
         return False

@@ -33,14 +33,14 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
                     self.utils.print_info("Domain already exists")
                     return 1
 
-        self.utils.print_info(f"Click on the domain add button")
+        self.utils.print_info("Click on the domain add button")
         self.auto_actions.click_reference(self.get_approve_email_domain_list_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter the approve email domain:{domain}")
         self.auto_actions.send_keys(self.get_approve_email_domain_list_domain_name(), domain)
 
-        self.utils.print_info(f"Click on the domain list add button")
+        self.utils.print_info("Click on the domain list add button")
         self.auto_actions.click_reference(self.get_approve_email_domain_list_domain_add_button)
         return 1
 

@@ -82,10 +82,9 @@ class A3WebElementsflow(A3WebElements):
             for row in rows:
                 sleep(5)
                 if search_string in row.text:
-                    # self.utils.print_info(f"row", row.text)
-                    self.utils.print_info(f"Found the Expected Row Text , Backup is created successfully")
+                    # self.utils.print_info("row", row.text)
+                    self.utils.print_info("Found the Expected Row Text , Backup is created successfully")
                     return 1
                 else:
-                    self.utils.print_info(f"Not found bkup row ")
+                    self.utils.print_info("Not found bkup row ")
                     return -1
-

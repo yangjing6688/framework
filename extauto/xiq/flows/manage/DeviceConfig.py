@@ -136,7 +136,7 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Click Add(+)")
             self.auto_actions.click_reference(self.get_override_add_client_mode_wifi1_profile)
         else:
-            self.utils.print_info(f"Can you specify interface(wifi0 or wifi1)?")
+            self.utils.print_info("Can you specify interface(wifi0 or wifi1)?")
 
         self._override_client_mode_wifi0_1(**client_mode_profile)
         sleep(3)
@@ -172,7 +172,7 @@ class DeviceConfig(DeviceConfigElements):
         if cm_enable_local_web_page.upper() == 'DISABLE':
             self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
             self.auto_actions.click_reference(self.get_override_wifi0_1_cm_local_web_page_checkbox)
-            self.utils.print_info(f"Click Add(+)")
+            self.utils.print_info("Click Add(+)")
             self.auto_actions.click_reference(self.get_override_wifi0_1_cm_local_web_page_add)
             self.utils.print_info(f"Enter SSID Name: {cm_ssid_name}")
             self.auto_actions.send_keys(self.get_override_wifi0_1_cm_local_web_page_ssid_textbox(), cm_ssid_name)
@@ -186,7 +186,7 @@ class DeviceConfig(DeviceConfigElements):
             self.auto_actions.select_drop_down_options(self.get_override_wifi0_1_cm_local_web_key_type_dropdown_option(), cm_key_type)
             self.screen.save_screen_shot()
             sleep(2)
-            self.utils.print_info(f"Click Add button")
+            self.utils.print_info("Click Add button")
             self.auto_actions.click_reference(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button)
         self.utils.print_info(f"Enter DHCP Server Scope: {dhcp_server_scope}")
         self.auto_actions.send_keys(self.get_override_wifi0_1_client_mode_profile_dhcp_server_scope(), dhcp_server_scope)
@@ -1155,7 +1155,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.send_keys(self.get_device_config_supplemental_cli_enter_commands(), suppl_cli_cmds)
 
 
-        self.utils.print_info(f"Saving Supplemental Cli Configs")
+        self.utils.print_info("Saving Supplemental Cli Configs")
         self.auto_actions.click_reference(self.get_device_config_supplemental_cli_save_button)
         self.screen.save_screen_shot()
 
@@ -1586,7 +1586,7 @@ class DeviceConfig(DeviceConfigElements):
                 self.auto_actions.click_reference(self.get_wireless_wifi2_channel_dropdown)
                 self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi2_channel_options(), override_channel)
             else:
-                self.utils.print_info(f"Can you specify interface(wifi0, wifi1, or wifi1)?")
+                self.utils.print_info("Can you specify interface(wifi0, wifi1, or wifi1)?")
 
             self.utils.print_info("Click on interface settings save button")
             self.auto_actions.click_reference(self.get_interface_settings_save_button)

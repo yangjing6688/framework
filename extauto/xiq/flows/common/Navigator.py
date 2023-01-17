@@ -270,7 +270,7 @@ class Navigator(NavigatorWebElements):
                     self.utils.print_info(
                         f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
                     kwargs['fail_msg'] = f"The MAX {try_cnt} times trying is reached, need figure out manually why the" \
-                                         f" Network Policy tab can NOT be displayed"
+                                         " Network Policy tab can NOT be displayed"
                     self.common_validation.fault(**kwargs)
                     return False
         if network_policy_tab_display:
@@ -3769,7 +3769,7 @@ class Navigator(NavigatorWebElements):
                             self.common_validation.failed(**kwargs)
                             return -1
                         else:
-                            self.utils.print_info(f"trying again...")
+                            self.utils.print_info("trying again...")
                             self.auto_actions.scroll_down()
                             counter += 1
                 else:
@@ -3777,12 +3777,12 @@ class Navigator(NavigatorWebElements):
             except Exception as e:
                 self.utils.print_info(f"enable_device_page_size, got exception: {e}, with counter: {counter}")
                 if counter == 5:
-                    kwargs['fail_msg'] = f"'enable_page_size()' -> Not able to click on page size with" \
+                    kwargs['fail_msg'] = "'enable_page_size()' -> Not able to click on page size with" \
                                          f" exception: {e}, counter: {counter}"
                     self.common_validation.fault(**kwargs)
                     return -1
                 else:
-                    self.utils.print_info(f"trying again...")
+                    self.utils.print_info("trying again...")
                 counter += 1
                 sleep(5)
 
@@ -3849,7 +3849,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"Unable to Navigate to Network Policies Menu"
+            kwargs['fail_msg'] = "Unable to Navigate to Network Policies Menu"
             self.common_validation.failed(**kwargs)
             return -1
 

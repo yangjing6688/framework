@@ -166,6 +166,6 @@ class A3ToXiq:
             self.a3login.logout_a3_user()
             self.a3login.quit_browser()
 
-        kwargs['pass_msg'] = f"Successfully able to Configure A3 To Xiq Instance"
+        kwargs['pass_msg'] = "Successfully able to Configure A3 To Xiq Instance"
         self.common_validation.passed(**kwargs)
         return 1

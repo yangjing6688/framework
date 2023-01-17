@@ -85,7 +85,7 @@ class DeviceCliAccess(DeviceCliAccessElements):
 
         self.utils.print_info("Check the output on second device cli output field")
         if self.get_cli_cmd_output_field():
-            self.utils.print_info(f"second device output field:")
+            self.utils.print_info("second device output field:")
             self.utils.print_info(self.get_cli_cmd_output_field().text)
             self.utils.print_info("first device output appearing on second device output field")
             return -1
