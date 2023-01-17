@@ -205,10 +205,10 @@ class Network360Plan:
                     return 1
 
         if self.n360_elements.get_import_map_already_exist_text():
-            tootip_already_exist = self.n360_elements.get_import_map_already_exist_text().text
-            if tootip_already_exist:
-                if "already exists" in tootip_already_exist:
-                    self.utils.print_info(f"{tootip_already_exist}")
+            tooltip_already_exist = self.n360_elements.get_import_map_already_exist_text().text
+            if tooltip_already_exist:
+                if "already exists" in tooltip_already_exist:
+                    self.utils.print_info(f"{tooltip_already_exist}")
                     kwargs['pass_msg'] = f"'import_map_in_network360plan()' -> Map with Same Name Already Imported, " \
                                          f"So No need to Import Again"
 
