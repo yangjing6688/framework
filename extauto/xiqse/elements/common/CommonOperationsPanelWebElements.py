@@ -18,12 +18,6 @@ class CommonOperationsPanelWebElements(CommonOperationsPanelWebElementsDefinitio
         """
         return self.weh.get_elements(self.operations_table_group_rows)
 
-    def get_operations_table_group_data_rows(self):
-        """
-        :return: Gets the table rows for the expanded group(s) in the Operations panel
-        """
-        return self.weh.get_elements(self.operations_table_group_data_rows)
-
     def get_operations_table_group_row(self, value):
         """
         :param value:  Name of the group to get the table row for

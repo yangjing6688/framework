@@ -614,15 +614,17 @@ class LoginWebElementsDefinitions:
 
     devices_list_check = \
         {
-            'XPATH': '//*[@class="dgrid-row-table"]',
+            # Commented on 1/18/23 because key names need to be unique so second XPATH value will always be taken
+            # 'XPATH': '//*[@class="dgrid-row-table"]',
             'XPATH': '//*[@class="chzn-single"]',
             'wait_for': 5
         }
 
     user_account_nav_click = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="accountInfo"]',
-            'XPATH': '//a[contains(text(),"About ExtremeCloud IQ")]',
+            # Commented on 1/18/23 because key names need to be unique so second XPATH value will always be taken
+            # 'XPATH': '//div[@data-dojo-attach-point="accountInfo"]',
+            # 'XPATH': '//a[contains(text(),"About ExtremeCloud IQ")]',
             'XPATH': '//*[@data-dojo-attach-point="aboutEl"]',
             'wait_for': 5
         }

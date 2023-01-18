@@ -122,7 +122,7 @@ class Copilot(CopilotWebElements):
                                      "information in wifi capacity summary"
                 self.common_validation.failed(**kwargs)
                 return -2
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_wifi_capacity_widget_summary()' -> Unable to get Wi-FI Summary"
             self.common_validation.fault(**kwargs)
             return -1
@@ -147,7 +147,7 @@ class Copilot(CopilotWebElements):
             wifi_capacity_status = self.get_wifi_capacity_status()
             self.utils.print_info("status of muted button in wifi capacity widget:", wifi_capacity_status.text)
             return wifi_capacity_status.text
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_wifi_capacity_widget_status()' -> Unable to get status of muted button in " \
                                  "wifi capacity widget"
             self.common_validation.fault(**kwargs)
@@ -551,7 +551,7 @@ class Copilot(CopilotWebElements):
             total_scan = self.get_assurance_total_scan_count().text
             self.utils.print_info("Getting Total scans count : ", total_scan)
             return total_scan
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_total_assurance_scan_count()' -> Unable to total scan count in Assurance " \
                                  "scan widget"
             self.common_validation.fault(**kwargs)
@@ -942,7 +942,7 @@ class Copilot(CopilotWebElements):
                                      "efficiency widget"
                 self.common_validation.fault(**kwargs)
                 return -2
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_wifi_efficiency_widget_summary()' -> Unable to get WiFI efficiency Summary"
             self.common_validation.fault(**kwargs)
             return -1
@@ -1017,7 +1017,7 @@ class Copilot(CopilotWebElements):
                                      "information in POE stability widget"
                 self.common_validation.failed(**kwargs)
                 return -2
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_poe_stability_widget_summary()' -> Unable to get POE stability widget " \
                                  "summary details"
             self.common_validation.fault(**kwargs)
@@ -1093,7 +1093,7 @@ class Copilot(CopilotWebElements):
             else:
                 self.utils.print_info("No anomalies detected in port efficiency widget")
                 return [buildings, aps]
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Unable to get port efficiency widget in copilot page")
             return [buildings, aps]
 
@@ -1588,7 +1588,7 @@ class Copilot(CopilotWebElements):
                     pass
                 else:
                     devices_by_os[_key] = _value
-            except Exception as e:
+            except Exception:
                 pass
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -1610,12 +1610,16 @@ class Copilot(CopilotWebElements):
         self.utils.print_info("Getting Devices By OS")
         sleep(25)
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-        widget = self.get_devices_by_os_widget()
+        # Commented on 1/18/23 because variable is unused
+        # widget = self.get_devices_by_os_widget()
+        self.get_devices_by_os_widget()
         self.screen.save_screen_shot()
 
         sleep(2)
         self.auto_actions.click_reference(self.get_devices_by_os_iqagent)
-        parent_window = CloudDriver().cloud_driver.window_handles[0]
+        # Commented on 1/18/23 because variable is unused
+        # parent_window = CloudDriver().cloud_driver.window_handles[0]
+        CloudDriver().cloud_driver.window_handles[0]
         child_window = CloudDriver().cloud_driver.window_handles[1]
 
         self.utils.print_info("Switch To New Tab")
@@ -1632,9 +1636,11 @@ class Copilot(CopilotWebElements):
                                  "successfully"
             self.common_validation.failed(**kwargs)
             return -1
-        CloudDriver().cloud_driver.close()
-        self.utils.print_info("Closing the browser")
-        self.utils.switch_to_default(CloudDriver().cloud_driver)
+
+        # Commented on 1/18/23 because code is unreachable
+        # CloudDriver().cloud_driver.close()
+        # self.utils.print_info("Closing the browser")
+        # self.utils.switch_to_default(CloudDriver().cloud_driver)
 
     def get_devices_by_type(self):
         """
@@ -1665,7 +1671,7 @@ class Copilot(CopilotWebElements):
                 member_since = self.get_devices_by_type_row_key(row).text
                 member_since_value = self.get_devices_by_type_row_value(row).text
                 devices_by_type[member_since] = member_since_value
-            except Exception as e:
+            except Exception:
                 pass
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)

@@ -437,6 +437,11 @@ class Iapi:
         self.utils.print_debug("stdout: ", stdout)
         self.utils.print_debug("stderr: ", stderr)
 
+        self.utils.print_info("*****************************")
+        self.utils.print_info("JSON OUTPUT")
+        self.utils.print_info(json.dumps(json.loads(stdout), indent=4, sort_keys=True))
+        self.utils.print_info("*****************************")
+
         return stdout
 
     def get_current_data(self):

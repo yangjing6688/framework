@@ -169,33 +169,6 @@ class Navigator(NavigatorWebElements):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def navigate_to_ssids(self, **kwargs):
-        """
-        - This keyword Navigates to SSIDs Menu on Common Objects
-        - Flow Configure --> Common Objects --> Policy --> SSIDs
-        - Keyword Usage
-        - ``Navigate To SSIDs``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_to_configure_tab()
-
-        self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
-        sleep(2)
-
-        if self.get_ssid_option() is None:
-            self.utils.print_info("SSID menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click_reference(self.get_policy_toggle)
-            sleep(2)
-        self.utils.print_info("SSID menu is visible. Selecting...")
-        self.auto_actions.click_reference(self.get_ssid_option)
-        sleep(2)
-
-        kwargs['pass_msg'] = "Successfully Navigated to SSIDs Menu on Common Objects"
-        self.common_validation.passed(**kwargs)
-        return 1
-
     def navigate_to_tools_page(self):
         """
         - This keyword Navigates to Tools Page on Monitor Menu
@@ -227,21 +200,6 @@ class Navigator(NavigatorWebElements):
             return -2
 
         return self.navigate_to_network_policies_tab()
-
-    def navigate_configure_common_objects(self):
-        """
-        - This keyword Navigates to Common Objects On Configure Menu
-        - Flow: Configure --> Common Objects
-        - Keyword Usage
-        - ``Navigate Configure Common Objects``
-
-        :return: -1 if Navigation Not Successful to Configure Menu else return None
-        """
-        self.navigate_to_configure_tab()
-
-        self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
-        sleep(5)
 
     def navigate_to_network_policies_tab(self, **kwargs):
         """
@@ -3809,7 +3767,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to Common Objects On Configure Menu
         - Flow: Configure --> Common Objects
         - Keyword Usage
-         - ``Navigate Configure Common Objects``
+        - ``Navigate Configure Common Objects``
 
         :return: -1 if Navigation Not Successful to Configure Menu else return None
         """
@@ -3821,9 +3779,10 @@ class Navigator(NavigatorWebElements):
 
     def navigate_to_network_policies_tab(self, **kwargs):
         """
-         - This keyword Navigates to Network Policies
-         - Keyword Usage
-          - ``Navigate To Network Policies Tab``
+        - This keyword Navigates to Network Policies
+        - Keyword Usage
+        - ``Navigate To Network Policies Tab``
+
         :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
         """
         network_policy_tab_display = False
@@ -3853,12 +3812,13 @@ class Navigator(NavigatorWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def navigate_to_ssids(self):
+    def navigate_to_ssids(self, **kwargs):
         """
         - This keyword Navigates to SSIDs Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> SSIDs
         - Keyword Usage
-         - ``Navigate To SSIDs``
+        - ``Navigate To SSIDs``
+
         :return: 1 if Navigation Successful
         """
         self.navigate_to_configure_tab()
@@ -3875,4 +3835,6 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_ssid_option)
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Navigated to SSIDs Menu on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1

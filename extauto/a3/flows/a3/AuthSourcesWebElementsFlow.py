@@ -1,6 +1,7 @@
 from time import sleep
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 from common.AutoActions import AutoActions
 from common.Screen import Screen
@@ -94,7 +95,9 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             self.auto_actions.click(action_button)
             sleep(5)
             self.utils.print_info("Select action 1 for row 1")
-            auth_row1_act1 = self.weh.get_element(self.add_rule_row1_act1)
+            # Commented on 1/18/23 because variable is unused
+            # auth_row1_act1 = self.weh.get_element(self.add_rule_row1_act1)
+            self.weh.get_element(self.add_rule_row1_act1)
             sleep(5)
             option1 = self.weh.get_element(self.rule_row1_select_option)
             self.auto_actions.click(option1)
@@ -110,7 +113,9 @@ class AuthSourcesWebElementsFlow(AuthSourcesWebElements):
             self.auto_actions.click(new_row)
             sleep(5)
             self.utils.print_info("Select action 1 for row 2")
-            auth_row2_act1 = self.weh.get_element(self.add_rule_row2_act1)
+            # Commented on 1/18/23 because variable is unused
+            # auth_row2_act1 = self.weh.get_element(self.add_rule_row2_act1)
+            self.weh.get_element(self.add_rule_row2_act1)
             sleep(5)
             option3 = self.weh.get_element(self.rule_row2_select_option)
             self.auto_actions.click(option3)

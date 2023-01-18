@@ -20,7 +20,6 @@ class Login:
         self.pw_web_elements = PasswordResetWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        pass
 
     def _init(self, url="default", incognito_mode="False"):
         """
@@ -152,7 +151,7 @@ class Login:
 
             self.driver.quit()
             self.utils.print_info("Resetting cloud driver to -1")
-            common.CloudDriver.cloud_driver = -1
+            CloudDriver().cloud_driver = -1
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)

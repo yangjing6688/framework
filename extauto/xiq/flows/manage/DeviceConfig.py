@@ -11,7 +11,6 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DeviceConfigElements import DeviceConfigElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
-from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
@@ -28,7 +27,6 @@ class DeviceConfig(DeviceConfigElements):
         self.device_common = DeviceCommon()
         self.web = WebElementHandler()
         self.devices_web_elements = DevicesWebElements()
-        self.devices = Devices()
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
         self.common_validation = CommonValidation()
@@ -45,7 +43,8 @@ class DeviceConfig(DeviceConfigElements):
         """
         ssid_broadcast_name = override_args.get('override_ssid_broadcast_name')
         override_psk_password = override_args.get('override_psk_password')
-        reassign_cwp = override_args.get('reassign_cwp')
+        # Commented on 1/18/23 because it is unused
+        # reassign_cwp = override_args.get('reassign_cwp')
 
         self.utils.print_info("Click on WiFi0 interface tab")
         self.auto_actions.click_reference(self.get_wifi0_interface_tab)
@@ -1317,7 +1316,9 @@ class DeviceConfig(DeviceConfigElements):
             return 1
 
         self.utils.print_info("row.text: ", row.text)
-        selected_checkbox = self.get_supplemental_cli_select_checkbox(row).click()
+        # Commented on 1/18/23 because variable is unused
+        # selected_checkbox = self.get_supplemental_cli_select_checkbox(row).click()
+        self.get_supplemental_cli_select_checkbox(row).click()
         self.screen.save_screen_shot()
 
         self.utils.print_info("Deleting Supplemental CLI Object...")

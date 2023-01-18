@@ -121,9 +121,6 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
     def get_xloc_third_party_beacon_download_button(self):
         return self.weh.get_element((self.xloc_third_party_beacon_download_button))
 
-    def get_xloc_third_party_beacon_download_button(self):
-        return self.weh.get_element((self.xloc_third_party_beacon_download_button))
-
     def get_xloc_third_party_beacon_refresh_button(self):
         return self.weh.get_elements(self.xloc_third_party_beacon_refresh_button)
 

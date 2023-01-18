@@ -452,7 +452,8 @@ class Device360WebElementDefs:
 
     device_info_serial = \
         {
-            'XPATH': '//*[@class="health-item service-tag data-item"]',
+            # Commented on 1/18/23 because key names need to be unique so second XPATH value will always be taken
+            # 'XPATH': '//*[@class="health-item service-tag data-item"]',
             'XPATH': '//*[@data-dojo-attach-point="portCtn"]//div[@data-dojo-attach-point="switchPortsPanelContainer"]//span[@data-dojo-attach-point="serviceTag"]',
             'wait_for': 5
         }
@@ -1815,7 +1816,7 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-dojo-attach-point="createStackTemplate"]',
             'wait_for': 5
         }
-    
+
     d360_pagination_next_button = \
         {
             'XPATH': '//div[@class="pagination-num-ctn"]//span[@class="ui-page-item J-page-next ui-page-item-next "]',
@@ -1944,7 +1945,7 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.ui-ip-mark',
             'wait_for': 5
         }
-    
+
     device360_port_configuration_pse_profile_drop_down_options = \
         {
             'CSS_SELECTOR': '.item-area li',
@@ -2738,7 +2739,7 @@ class Device360WebElementDefs:
             'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 5
         }
-        
+
     device360_configure_port_usage_drop_down_options_presence = \
         {
             'CSS_SELECTOR': '.chzn-single-with-drop',
@@ -3363,7 +3364,7 @@ class Device360WebElementDefs:
             'XPATH': '//button[@data-automation-tag="automation-notification-no-btn"]',
             'wait_for': 5
         }
- 
+
     select_element_port_type_pse_profile_power_limit = \
         {
 	          'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
@@ -3713,7 +3714,7 @@ class Device360WebElementDefs:
             'XPATH': '//*[contains(@class,"transmission-settings active")]',
             'wait_for': 5
         }
-        
+
     device360_port_configuration_pse_profile_add_button = \
         {
             'CSS_SELECTOR': '.ui-ip-save',

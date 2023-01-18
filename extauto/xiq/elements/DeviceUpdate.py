@@ -133,10 +133,6 @@ class DeviceUpdate(DeviceUpdateDefs):
     def get_device_update_form_error(self, row):
         return self.weh.get_element(self.device_update_form_error, row).get_attribute("title")
 
-    def get_device_update_form_error(self,row):
-        el = self.weh.get_element(self.device_update_form_error,row)
-        return el.get_attribute("title")
-
     def get_update_close_button(self):
         return self.weh.get_element(self.update_close_button)
 

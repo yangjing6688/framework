@@ -2148,7 +2148,6 @@ class SwitchTemplate(object):
 
                         confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                         if confirmation_message:
-                            rc = 1
                             kwargs['pass_msg'] = "Template was successfully removed from policy."
                             self.common_validation.passed(**kwargs)
                         else:
@@ -2712,9 +2711,9 @@ class SwitchTemplate(object):
             :return: Returns 1 if configuration is successful
                      Else Returns -1
         """
-
-        device_model = wireless_network_conf.get('device_model')
-        switch_template_name = wireless_network_conf.get('switch_template_name')
+        # Commented on 1/18/23 because it is unused
+        # device_model = wireless_network_conf.get('device_model')
+        # switch_template_name = wireless_network_conf.get('switch_template_name')
 
         # spanning tree
         spanning_dictionary = wireless_network_conf.get('stp_config')
@@ -2961,7 +2960,9 @@ class SwitchTemplate(object):
                      Else returns -1
         """
 
-        port_type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
+        # Commented on 1/18/23 because it is unused
+        # port_type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
+        self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
 
         port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
         if not port_type_dictionary:
@@ -3211,9 +3212,11 @@ class SwitchTemplate(object):
         sc_broadcast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast()
         sc_unicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast()
         sc_multicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast()
-        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
-        sc_rate_limit_type_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
-        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+        # Commented on 1/18/23 because variable is unused
+        # sc_rate_limit_type_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
+        # sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+        self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
+        self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
         sc_rate_limit_value_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_value()
 
         if broadcast_value:

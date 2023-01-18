@@ -67,7 +67,7 @@ class CommonObjects(object):
         except Exception:
             if retries > 5:
                 retries += 1
-                return _get_common_object_row(search_string, retries)
+                return self._get_common_object_row(search_string, retries)
         self.utils.print_info(f"common object row {search_string} not present")
         self.screen.save_screen_shot()
         return False

@@ -257,7 +257,7 @@ class FilterManageDevices():
             filter device by software version
         """
         soft_lst = self.check_available_devices('firmware version')
-        if soft_lst == -1: return -1, error
+        if soft_lst == -1: return -1, "error"
         self.utils.print_info(" Bwfoew Available hardware models " + str(soft_lst))
         real_modeL_lst =  self.parse_string(soft_lst)
         self.utils.print_info(" Available hardware models" + str(real_modeL_lst))

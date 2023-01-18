@@ -591,7 +591,6 @@ class WirelessNetworks:
 
         key_encryption = auth_profile['key_encryption']
         cwp_config = auth_profile['cwp_config']
-        user_group_config = auth_profile.get('user_group_config', 'None')
         user_profile_config = auth_profile.get('user_profile_config', 'None')
 
         self.utils.print_info("Select Personal SSID Authentication Card Menu")

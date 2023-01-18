@@ -141,9 +141,6 @@ class LoginWebElements(LoginWebElementsDefinitions):
     def get_login_logo(self):
         return self.weh.get_element(self.login_logo)
 
-    def get_30_days_trial_txt(self):
-        return self.weh.get_element(self.txt_30_days_trial)
-
     def get_option_30_days_trial(self):
         return self.weh.get_element(self.trial_30day_login_option)
 

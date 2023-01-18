@@ -1709,27 +1709,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_thunderbold_icon_stack(self, row):
         return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
 
-    def get_device360_port_config_pse_tab_slot_stack(self):
-        return self.weh.get_element(self.device360_port_config_pse_tab_slot_stack)
-
-    def get_device360_pse_settings_for_device_button_stack(self):
-        return self.weh.get_element(self.device360_pse_settings_for_device_button_stack)
-
-    def get_device360_edit_threshold_poe_stack(self):
-        return self.weh.get_element(self.device360_edit_threshold_poe_stack)
-
-    def get_device360_save_threshold_poe_value_stack(self):
-        return self.weh.get_element(self.device360_save_threshold_poe_value_stack)
-
-    def get_device360_configure_port_save_button_stack(self):
-        return self.weh.get_element(self.device360_configure_port_save_button_stack)
-
-    def get_device360_stack_overview_slot_details_rows(self):
-        return self.weh.get_element(self.device360_stack_overview_slot_details_rows)
-
-    def get_device360_thunderbold_icon_stack(self,row):
-        return self.weh.get_elements(self.device360_thunderbold_icon_stack, parent=row)
-
     def get_device360_monitor_diagnostics_stack_drop_down(self):
         elements = self.weh.get_elements(self.device360_monitor_diagnostics_stack_drop_down)
         if not elements:
@@ -1862,16 +1841,7 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_ports_table_pagination_sizes(self):
         return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
 
-    def get_device360_ports_table_current_pagination_size(self):
-        return self.weh.get_element(self.device360_ports_table_current_pagination_size)
-
-    def get_device360_ports_table_th_columns(self):
-        header_row = self.get_device360_ports_description_table_row()
-        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
-        return {th.text.strip(): th for th in ths if th.text.strip()}
-
     def get_device360_ports_table(self):
-
         header_row = self.get_device360_ports_description_table_row()
         ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
 
@@ -1885,9 +1855,6 @@ class Device360WebElements(Device360WebElementDefs):
                     result[th.text.strip()] = td.text.strip()
             results.append(result)
         return results
-
-    def get_device360_pagination_page_buttons(self):
-        return self.weh.get_elements(self.d360_pagination_page_button)
 
     def get_device360_ah_icon(self, index):
         return self.weh.get_template_element(self.device360_ah_icons, index=index)
@@ -1947,37 +1914,8 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_overview_port_info_bounce_poe(self):
         return self.weh.get_element(self.device360_overview_port_info_bounce_poe)
 
-    def get_device360_ports_description_table_header(self):
-        header_element = self.weh.get_element(self.device360_ports_description_table_header)
-        return [h.strip() for h in header_element.text.split("\n")]
-
-    def get_device360_ports_description_table_row(self):
-        return self.weh.get_element(self.device360_ports_description_table_header)
-
-    def get_device360_all_checkboxes(self):
-        checkboxes = self.get_device360_coluns_toggle_checkboxes()
-        results = {}
-        for checkbox in checkboxes:
-            label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
-            label = self.weh.get_element({"XPATH": label_xpath}).text
-            results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
-        return results
-
-    def get_device360_all_marked_checkboxes(self):
-        checkboxes = self.get_device360_coluns_toggle_checkboxes()
-        results = {}
-        for checkbox in checkboxes:
-            label_xpath = f'//label[@for="{checkbox.get_attribute("id")}"]'
-            label = self.weh.get_element({"XPATH": label_xpath}).text
-            if checkbox.is_selected():
-                results[label] = {"element": checkbox, "is_selected": checkbox.is_selected()}
-        return results
-
     def get_device360_port_table_rows(self):
         return self.weh.get_elements(self.device360_ports_table_rows)
-
-    def get_device360_ports_table_pagination_sizes(self):
-        return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
 
     def get_device360_ports_table_current_pagination_size(self):
         return self.weh.get_element(self.device360_ports_table_current_pagination_size)
@@ -2076,19 +2014,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_configure_port_trunk_vlan_textfield_VOSS(self, row):
         return self.weh.get_element(self.device360_configure_port_trunk_vlan_textfield_VOSS, row)
-
-    def get_cancel_port_type_editor(self):
-        return self.weh.get_element(self.cancel_port_type_editor)
-
-    def get_phone_dscp_values_validation_errors(self, validation_message="Please enter a valid number between 0-63"):
-        return self.weh.get_template_elements(self.select_element_dscp_values_validation_span,
-                                              validation_message=validation_message)
-    def get_cancel_port_type_editor(self):
-        return self.weh.get_element(self.cancel_port_type_editor)
-
-    def get_phone_dscp_values_validation_errors(self, validation_message="Please enter a valid number between 0-63"):
-        return self.weh.get_template_elements(self.select_element_dscp_values_validation_span,
-                                              validation_message=validation_message)
 
     def get_cancel_port_type_editor(self):
         return self.weh.get_element(self.cancel_port_type_editor)

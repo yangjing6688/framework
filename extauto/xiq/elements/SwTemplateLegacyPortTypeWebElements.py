@@ -17,9 +17,6 @@ class SwTemplateLegacyPortTypeWebElements(SwTemplateLegacyPortTypeWebElementDefi
     def get_save_button(self):
         return self.weh.get_elements(self.save_button)
 
-    def get_save_button(self):
-        return self.weh.get_elements(self.save_button)
-
     def get_port_type_access(self):
         return self.weh.get_elements(self.port_type_access)
 

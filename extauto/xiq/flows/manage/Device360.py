@@ -78,7 +78,7 @@ class Device360(Device360WebElements):
             sys_info["info_ntp"] = self.dev360.get_system_info_ntp().text
             self.auto_actions.click_reference(self.dev360.get_close_dialog)
             return sys_info
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Unable to get device360 details")
             kwargs['fail_msg'] = "get_system_info() -> Unable to get device360 details"
             self.common_validation.failed(**kwargs)
@@ -2724,8 +2724,9 @@ class Device360(Device360WebElements):
         mac_el = self.dev360.get_topbar_mac_usage()
         uptime_el = self.dev360.get_topbar_uptime()
         temp_el = self.dev360.get_topbar_temperature()
-        power_el = self.dev360.get_topbar_power()
-        fan_el = self.dev360.get_topbar_fan()
+        # Commented on 1/18/23 because variable is unused
+        # power_el = self.dev360.get_topbar_power()
+        # fan_el = self.dev360.get_topbar_fan()
         ip_addr_el = self.dev360.get_topbar_ip_address()
         mac_addr_el = self.dev360.get_topbar_mac_address()
         version_el = self.dev360.get_topbar_software_version()
@@ -3232,7 +3233,7 @@ class Device360(Device360WebElements):
                 text = self.wireless_web_elements.get_wireless_ssid_field().get_attribute("value")
                 return text
 
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Unable to Click HyperLink on System Information")
             kwargs['fail_msg'] = "click_hyperlink_on_system_information() -> Unable to Click HyperLink on System Information"
             self.common_validation.fault(**kwargs)
@@ -3874,7 +3875,7 @@ class Device360(Device360WebElements):
                     self.auto_actions.click_reference(self.dev360.get_close_dialog)
                     self.screen.save_screen_shot()
                     return switch_device360_info
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Unable to get Port Table Information")
             self.screen.save_screen_shot()
             self.auto_actions.click_reference(self.dev360.get_close_dialog)
@@ -4367,7 +4368,9 @@ class Device360(Device360WebElements):
         sleep(10)
         port_icon_list = self.dev360.get_device360_wireframe_port()
         self.utils.print_info("selecting ports to right click")
-        ret_val = self.auto_actions.click(port_icon_list[int(port) - 1])
+        # Commented on 1/18/23 because variable is unused
+        # ret_val = self.auto_actions.click(port_icon_list[int(port) - 1])
+        self.auto_actions.click(port_icon_list[int(port) - 1])
         self.utils.print_info("Clicking success")
         sleep(2)
 
@@ -5311,12 +5314,8 @@ class Device360(Device360WebElements):
                             output_after = result.text
                             if output_before != output_after:
                                 output_before = output_after
-                                self.utils.print_info("The output after command {} is : ".format(el, output_before))
+                                self.utils.print_info("The output after command {} is : {}".format(el, output_before))
                                 break
-                            else:
-                                pass
-                        else:
-                            pass
                     else:
                         self.utils.print_info("The command gave no output. Trying again...")
                     sleep(interval_time)
@@ -7937,7 +7936,6 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.dev360.get_device360_port_configuration_stack_units_dropdown)
 
         self.utils.print_info("Gather the list of the devices in the stack")
-        slot_index = 1
         slot_found = False
 
         slots_in_stack = self.dev360.get_device360_port_configuration_stack_units_rows()
@@ -13548,7 +13546,7 @@ class Device360(Device360WebElements):
 
         iqagent_version_cli = stack_info[6][0]
         print(f"Iqagent version from CLI: {iqagent_version_cli}")
-        iqagent_version_xiq = self.dev360.get_device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit(
+        self.dev360.get_device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit(
             iqagent_version_cli)
         if not make_xiq:
             kwargs[
@@ -13881,12 +13879,10 @@ class Device360(Device360WebElements):
         # Add other ports to aggregation
         for i in range(1, len(ports)):
             if device == "stack":
-                switched_slot = False
                 if ports[i - 1].split(":")[0] != ports[i].split(":")[0]:
                     # Switching to other slot
                     other_slot = self.get_device360_aggregate_choose_slot(ports[i].split(":")[0])
                     if other_slot:
-                        switched_slot = True
                         self.utils.print_info("Changing to other slot")
                         self.auto_actions.click(other_slot)
                     else:

@@ -125,14 +125,8 @@ class CopilotWebElements(CopilotWebElementsDefinitions):
     def get_copilot_branded_image(self):
         return self.weh.get_element(self.copilot_branded_image)
 
-    def get_wifi_capacity_content(self):
-        return self.weh.get_element(self.wifi_capacity_content)
-
     def get_wifi_capacity_widget_location_ap_like(self):
         return self.weh.get_element(self.wifi_capacity_widget_location_ap_like)
-
-    def get_wifi_capacity_widget_location_ap_like_tooltip(self):
-        return self.weh.get_element(self.wifi_capacity_widget_location_ap_like_tooltip)
 
     def get_assurance_scan_widget(self):
         return self.weh.get_element(self.assurance_scan_widget)

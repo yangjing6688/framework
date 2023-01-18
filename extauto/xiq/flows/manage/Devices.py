@@ -1043,7 +1043,7 @@ class Devices:
                         device_detail_dict = {}
                         for cell in cells:
                             try:
-                                testcell = cell.get_attribute("class")
+                                cell.get_attribute("class")
                             except:
                                 print("cell print error")
                                 continue
@@ -1808,7 +1808,7 @@ class Devices:
                 kwargs['pass_msg'] = "Device page refreshed successfully"
                 self.common_validation.passed(**kwargs)
                 return 1
-        except Exception as e:
+        except Exception:
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to refresh devices page. Capturing screenshot"
             self.common_validation.failed(**kwargs)
@@ -2290,12 +2290,13 @@ class Devices:
         self.retries = 3
         count = 0
         while count < self.retries:
-            add_device_button = "Launch Digital Twin"
+            # Commented on 1/18/23 because it is unused
+            # add_device_button = "Launch Digital Twin"
             sleep(1)
             attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
             try:
                 assert attribute == "fn-hidden"
-            except AssertionError as err:
+            except AssertionError:
                 count += 1
         if count == self.retries:
             self.utils.print_warning("Unable to get the attribute...")
@@ -2606,7 +2607,6 @@ class Devices:
 
         max_retries = 3
         count = 0
-        ret_value = -1
         while max_retries != count:
             for serial in serials:
                 if self.search_device(device_serial=serial) == 1:
@@ -3620,7 +3620,7 @@ class Devices:
                 self.screen.save_screen_shot()
                 return 1
 
-            except Exception as e:
+            except Exception:
                 self.screen.save_screen_shot()
                 self.utils.print_info("Unable to delete devices")
                 return -1
@@ -4199,7 +4199,9 @@ class Devices:
         return_array_data = {}
         self.refresh_devices_page()
 
-        device_row = self.get_device_row(device_serial)
+        # Commented on 1/18/23 because variable is unused
+        # device_row = self.get_device_row(device_serial)
+        self.get_device_row(device_serial)
         for column in column_array:
             data = self.get_device_details(device_serial, column)
             return_array_data[column.replace(' ', "_")] = data
@@ -5370,7 +5372,7 @@ class Devices:
                     self.auto_actions.click_reference(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox)
                 return 1
 
-            except Exception as e:
+            except Exception:
                 self.screen.save_screen_shot()
                 self.utils.print_info("Unable to select all devices")
                 return -1
@@ -5397,7 +5399,7 @@ class Devices:
                 self.auto_actions.click_reference(self.devices_web_elements.get_manage_devices_select_all_devices_checkbox)
                 return 1
 
-            except Exception as e:
+            except Exception:
                 self.screen.save_screen_shot()
                 self.utils.print_info("Unable to deselect all devices")
                 return -1
@@ -6035,7 +6037,9 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
 
-        tooltip_text = self.dialogue_web_elements.get_tooltip_text()
+        # Commented on 1/18/23 because variable is unused
+        # tooltip_text = self.dialogue_web_elements.get_tooltip_text()
+        self.dialogue_web_elements.get_tooltip_text()
         sleep(2)
 
         self.utils.print_info("Checking for Errors...")
@@ -6172,7 +6176,7 @@ class Devices:
         :return: device update status if config push success else -1
         """
         device_updated_status = -1
-        device_row, device_update_status = "", ""
+        device_row = ""
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
@@ -6663,8 +6667,11 @@ class Devices:
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
 
-        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
-        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
+        # Commented on 1/18/23 because variable is unused
+        # page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
+        # page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
+        self.devices_web_elements.get_devices_display_count_per_page_buttons()
+        self.devices_web_elements.get_devices_pagination_buttons()
 
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
@@ -7516,7 +7523,9 @@ class Devices:
             if device_row != -1:
                 self.utils.print_info("Found a raw with mac :", device_mac)
                 self.utils.print_info("Check if Template column is present")
-                stack_template = self.devices_web_elements.get_device_stack_template(device_row)
+                # Commented on 1/18/23 because variable is unused
+                # stack_template = self.devices_web_elements.get_device_stack_template(device_row)
+                self.devices_web_elements.get_device_stack_template(device_row)
 
             if device_row:
                 sleep(5)
@@ -7546,7 +7555,6 @@ class Devices:
 
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
-        device_row = -1
 
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
@@ -7850,14 +7858,12 @@ class Devices:
         if device_mac:
             check_status_update = self.check_device_update_status_rollback_reboot(device_mac, duration_retry=600)
 
-        if check_status_update == 1:
-            pass
-        else:
+        if check_status_update != 1:
             self.utils.print_info("Expired time")
             return -1
         retry = 0
         while retry <= 10:
-            self.cli.send(spawn, "")
+            output = self.cli.send(spawn, "")
             self.utils.print_info(output)
             if 'Rebooting switch as configuration caused disconnect' in output:
                 self.utils.print_info("VOSS : 'CLOUD_AGENT INFO  Rebooting switch as configuration caused disconnect'")
@@ -9586,7 +9592,7 @@ class Devices:
 
             return -1
 
-        except Exception as e:
+        except Exception:
             return -1
 
     def is_download_button_visible(self):
@@ -9603,7 +9609,7 @@ class Devices:
 
             return -1
 
-        except Exception as e:
+        except Exception:
             return -1
 
     def is_bulk_edit_button_visible(self):
@@ -9620,7 +9626,7 @@ class Devices:
 
             return -1
 
-        except Exception as e:
+        except Exception:
             return -1
 
     def is_add_button_visible(self):
@@ -9637,7 +9643,7 @@ class Devices:
 
             return -1
 
-        except Exception as e:
+        except Exception:
             return -1
 
     def is_update_device_button_visible(self):
@@ -9654,7 +9660,7 @@ class Devices:
 
             return -1
 
-        except Exception as e:
+        except Exception:
             return -1
 
     def is_actions_button_visible(self):
@@ -9671,7 +9677,7 @@ class Devices:
 
             return -1
 
-        except Exception as e:
+        except Exception:
             return -1
 
     def is_utilities_button_visible(self):
@@ -9688,7 +9694,7 @@ class Devices:
 
             return -1
 
-        except Exception as e:
+        except Exception:
             return -1
 
     def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true", performUpgrade="true", saveDefault="false", updateTo="latest", updatefromD360Page="false", retry_duration=30,retry_count=1200):
@@ -10144,12 +10150,10 @@ class Devices:
         :return: 1 if done, -1 if not
         """
         n_time = 0
-        complete = False
         self.utils.print_info("Checking all device progress status ")
         while n_time < int(wait_time_in_min)*2:       # waits for 30s instead of 1 min before the next loop
             rows = self.devices_web_elements.get_manage_all_devices_progress_status()
             if rows == None:
-                complete = True
                 break
             else:
                 self.utils.print_info(str(len(rows)) + ' device(s) still updating ')
@@ -10446,8 +10450,9 @@ class Devices:
         :return: 1 if the management status was changed
         """
 
-        manage_setting = 'MANAGE'
-        unmanage_setting = 'UNMANAGE'
+        # Commented on 1/18/23 because it is unused
+        # manage_setting = 'MANAGE'
+        # unmanage_setting = 'UNMANAGE'
         select_flag = False
         if device_serial:
             select_flag = False
@@ -10795,41 +10800,42 @@ class Devices:
             self.utils.print_info("Device row not found")
             return -1
 
-        yes_confirmation = self.device_actions.get_yes_confirmation()
-        if yes_confirmation:
-            self.utils.print_info("yes confirmation button was found ")
-            self.auto_actions.click(yes_confirmation)
-        else:
-            self.utils.print_info("yes confirmation button was not found ")
-            self.screen.save_screen_shot()
-            return -1
-        self.utils.print_info("Start checking the status")
-        retry_count = 0
-        while retry_count <= max_time:
-            sleep(5)
-            if device_serial != 'default':
-                self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
-                device_row = self.get_device_row(device_serial)
-            else:
-                return -1
-            device_update_status = self.devices_web_elements.get_updated_status_cell(device_row).text
-            if device_update_status:
-                if 'Rebooting' in device_update_status:
-                    self.utils.print_info("Rebooting status was found  ", device_update_status)
-                    return 1
-                elif 'Failed' in device_update_status:
-                    self.utils.print_info("Device Update Failed: ", device_update_status)
-                    return -1
-                else:
-                    self.utils.print_info("Waiting for Rebooting status; Now the status is :  ", device_update_status)
-            else:
-                pass
-            sleep(time_interval)
-            self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
-            retry_count += time_interval
-        self.utils.print_info("return -1  ", device_update_status)
-        self.screen.save_screen_shot()
-        return -1
+        # Commented on 1/18/23 because code is unreachable
+        # yes_confirmation = self.device_actions.get_yes_confirmation()
+        # if yes_confirmation:
+        #     self.utils.print_info("yes confirmation button was found ")
+        #     self.auto_actions.click(yes_confirmation)
+        # else:
+        #     self.utils.print_info("yes confirmation button was not found ")
+        #     self.screen.save_screen_shot()
+        #     return -1
+        # self.utils.print_info("Start checking the status")
+        # retry_count = 0
+        # while retry_count <= max_time:
+        #     sleep(5)
+        #     if device_serial != 'default':
+        #         self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
+        #         device_row = self.get_device_row(device_serial)
+        #     else:
+        #         return -1
+        #     device_update_status = self.devices_web_elements.get_updated_status_cell(device_row).text
+        #     if device_update_status:
+        #         if 'Rebooting' in device_update_status:
+        #             self.utils.print_info("Rebooting status was found  ", device_update_status)
+        #             return 1
+        #         elif 'Failed' in device_update_status:
+        #             self.utils.print_info("Device Update Failed: ", device_update_status)
+        #             return -1
+        #         else:
+        #             self.utils.print_info("Waiting for Rebooting status; Now the status is :  ", device_update_status)
+        #     else:
+        #         pass
+        #     sleep(time_interval)
+        #     self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
+        #     retry_count += time_interval
+        # self.utils.print_info("return -1  ", device_update_status)
+        # self.screen.save_screen_shot()
+        # return -1
 
     def get_cuid_and_viq_id(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, owner_id, sw_connection_host):
         """
@@ -10851,7 +10857,7 @@ class Devices:
         output_cmd1 = self.cli.send_pxssh(spawn, "sudo su -")
         output_cmd2 = self.cli.send_pxssh(spawn, "psqlaccountdb", expected_output="Password for user accountuser:")
         output_cmd3 = self.cli.send_pxssh(spawn, "aerohive")
-        output_cmd6 = self.cli.send_pxssh(spawn, ";")
+        self.cli.send_pxssh(spawn, ";")
         output_cmd5 = self.cli.send_pxssh(spawn,
                                           "select viq_id,system_cuid from viqid_to_cuid where owner_id ={};".format(
                                               owner_id))
