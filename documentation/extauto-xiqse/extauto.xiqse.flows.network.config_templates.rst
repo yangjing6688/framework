@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.config\_templates package
+XIQSE Flows Network Config Templates Keywords
 =====================================================
 
 Module contents

@@ -1,4 +1,4 @@
-extauto.xiqse.flows.tasks.scripts package
+XIQSE Flows Tasks Scripts Keywords
 =========================================
 
 Module contents

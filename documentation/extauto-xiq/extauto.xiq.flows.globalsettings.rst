@@ -1,10 +1,10 @@
-extauto.xiq.flows.globalsettings package
+XIQ Flows Global Settings Keywords
 ========================================
 
 Submodules
 ----------
 
-extauto.xiq.flows.globalsettings.AccountManagement module
+AccountManagement module
 ---------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.globalsettings.AccountManagement
@@ -12,7 +12,7 @@ extauto.xiq.flows.globalsettings.AccountManagement module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.globalsettings.Communications module
+Communications module
 ------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.globalsettings.Communications
@@ -20,7 +20,7 @@ extauto.xiq.flows.globalsettings.Communications module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.globalsettings.CredDistrGrup module
+CredDistrGrup module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.globalsettings.CredDistrGrup
@@ -28,7 +28,7 @@ extauto.xiq.flows.globalsettings.CredDistrGrup module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.globalsettings.Dashboard module
+Dashboard module
 -------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.globalsettings.Dashboard
@@ -36,7 +36,7 @@ extauto.xiq.flows.globalsettings.Dashboard module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.globalsettings.GlobalSetting module
+GlobalSetting module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.globalsettings.GlobalSetting
@@ -44,7 +44,7 @@ extauto.xiq.flows.globalsettings.GlobalSetting module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.globalsettings.LicenseManagement module
+LicenseManagement module
 ---------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.globalsettings.LicenseManagement
@@ -52,7 +52,7 @@ extauto.xiq.flows.globalsettings.LicenseManagement module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.globalsettings.PasswordReset module
+PasswordReset module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.globalsettings.PasswordReset
@@ -60,7 +60,7 @@ extauto.xiq.flows.globalsettings.PasswordReset module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.globalsettings.Webhook module
+Webhook module
 -----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.globalsettings.Webhook

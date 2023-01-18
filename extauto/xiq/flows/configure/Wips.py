@@ -881,7 +881,8 @@ class Wips(WipsWebElements):
         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->Airdefense Configuration
         - Keyword Usage
         - ``Wips onprem adsp serverip configuration on Network Policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  enable  &{ON_PREM_ADSP_SERVER_IP_CONFIG}``
-           ``Wips onprem adsp serverip configuration on Network policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  disable ``
+        - ``Wips onprem adsp serverip configuration on Network policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  disable ``
+
         :param NW_POLICY: Network Policy Name
         :param WIPS_POLICY: WIPS Policy Name
         :param status: Enable/ Disable
