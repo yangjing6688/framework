@@ -1,7 +1,7 @@
 class DeviceTemplateWebElementDefinitions:
     device_template_tab = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='switchSettings']",
+            'XPATH': "//*[@data-automation-tag='automation-sider-list-aptemplate']",
             'wait_for': 5
         }
 
