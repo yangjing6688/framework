@@ -114,3 +114,27 @@ jobs:
       id: set-output
       run: |
         echo "::set-output name=status::${{ job.status }}"
+
+  code_checks:
+    name: Run code quality checking tools
+    # runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
+    outputs:
+      status: ${{ steps.set-output.outputs.status }}
+    env:
+      EXTAUTO_DIR: ./extauto
+
+    steps:
+    - name: Checkout local repo
+      uses: actions/checkout@v3
+
+    - name: Run syntax checker (pyflakes)
+      run: |
+        pip3 install pyflakes
+        python3 -m pyflakes $EXTAUTO_DIR
+
+    - name: Set job status output
+      if: ${{ always() }}
+      id: set-output
+      run: |
+        echo "::set-output name=status::${{ job.status }}"
