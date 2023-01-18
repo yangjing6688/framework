@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.common package
+XIQSE Flows Network Common Keywords
 ==========================================
 
 Subpackages
@@ -12,7 +12,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.network.common.XIQSE\_NetworkCommonConfigureDevice module
+XIQSE\_NetworkCommonConfigureDevice module
 -----------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.XIQSE_NetworkCommonConfigureDevice

@@ -1232,7 +1232,7 @@ class CommonObjects(object):
         self.utils.print_info("Click on delete button")
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
-        sleep(2)
+        sleep(5)
 
     def create_open_ssid_in_common_objects(self, ssid_name, **kwargs):
         """
@@ -2530,6 +2530,7 @@ class CommonObjects(object):
             template = template.replace(" ", "")
             if self._search_common_object_template(template):
                 self._select_common_object_template_row(template)
+                self.auto_actions.scroll_up()
                 select_template_flag = True
             else:
                 self.utils.print_info(f"Template {template} doesn't exist in the list")
@@ -2550,6 +2551,12 @@ class CommonObjects(object):
             kwargs['pass_msg'] = "Template was deleted successfully."
             self.common_validation.passed(**kwargs)
             return 1
+
+        elif expected_tooltip1 in tool_tp_text or expected_tooltip2 in tool_tp_text:
+            kwargs['pass_msg'] = "Template was deleted successfully.Tooltip Message is same like previous operation"
+            self.common_validation.passed(**kwargs)
+            return 1
+
         elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
             kwargs['fail_msg'] = "delete_ap_templates() failed. " \
                                  "The Device Template cannot be removed because it is used by another object"

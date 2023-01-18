@@ -570,7 +570,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         :param retry_count: retry count
         :return: 1 if action was successful, else -1
         """
-        return self.operations_panel.xiqse_operations_wait_until_operation_complete("Discover Site Actions",
+        return self.operations_panel.xiqse_operations_wait_until_operation_complete("Device Added",
                                                                                     retry_duration, retry_count)
 
     def xiqse_wait_until_discover_site_actions_operation_complete(self, retry_duration=10, retry_count=30):

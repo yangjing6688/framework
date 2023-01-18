@@ -1,10 +1,10 @@
-extauto.xiqse.flows.connect.diagnostics package
+XIQSE Flows Connect Diagnostics Keywords
 ===============================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.connect.diagnostics.XIQSE\_ConnectDiagnostics module
+XIQSE\_ConnectDiagnostics module
 ------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.connect.diagnostics.XIQSE_ConnectDiagnostics

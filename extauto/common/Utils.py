@@ -1137,7 +1137,7 @@ class Utils:
         return: the feature full path
         example:
           suite_file is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/TestCases/xapi_UploadFloorPlan_XIQ5401.robot
-          suite resource path is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location
+          feature path is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location
         """
 
         feature_path = '/'.join(suite_file.split('/')[:-2])

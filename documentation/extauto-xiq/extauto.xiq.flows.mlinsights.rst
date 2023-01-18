@@ -1,10 +1,10 @@
-extauto.xiq.flows.mlinsights package
+XIQ Flows ML Insights Keywords
 ====================================
 
 Submodules
 ----------
 
-extauto.xiq.flows.mlinsights.MLInsightClient360 module
+MLInsightClient360 module
 ------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.mlinsights.MLInsightClient360
@@ -12,7 +12,7 @@ extauto.xiq.flows.mlinsights.MLInsightClient360 module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.mlinsights.MLInsights module
+MLInsights module
 ----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.mlinsights.MLInsights
@@ -20,7 +20,7 @@ extauto.xiq.flows.mlinsights.MLInsights module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.mlinsights.Network360Monitor module
+Network360Monitor module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.mlinsights.Network360Monitor
@@ -28,7 +28,7 @@ extauto.xiq.flows.mlinsights.Network360Monitor module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.mlinsights.Network360Plan module
+Network360Plan module
 --------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.mlinsights.Network360Plan
@@ -36,7 +36,7 @@ extauto.xiq.flows.mlinsights.Network360Plan module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.mlinsights.Network360ScoreCard module
+Network360ScoreCard module
 -------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.mlinsights.Network360ScoreCard

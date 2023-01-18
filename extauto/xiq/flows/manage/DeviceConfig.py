@@ -10,6 +10,8 @@ from extauto.common.WebElementHandler import WebElementHandler
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DeviceConfigElements import DeviceConfigElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
@@ -25,6 +27,8 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions = AutoActions()
         self.device_common = DeviceCommon()
         self.web = WebElementHandler()
+        self.devices_web_elements = DevicesWebElements()
+        self.devices = Devices()
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
         self.common_validation = CommonValidation()
@@ -1234,7 +1238,7 @@ class DeviceConfig(DeviceConfigElements):
         else:
             return -1
 
-    def check_config_audit_delta_match(self, serial=''):
+    def check_config_audit_delta_match(self, serial=None, mac=None):
         """
         - This keyword is used to select the check device configuration in Delta in Manage --> Device page
         - Assumes that navigated to the Manage --> Device page
@@ -1242,25 +1246,41 @@ class DeviceConfig(DeviceConfigElements):
         - ``Check Config Audit Delta Match     serials=${DEVICE1_SERIAL} ``
 
         :param serial: device serial number
+        :param mac: device MAC address
         :return: 1 in case of success else -1
         """
 
-        self.utils.print_info("Click on Device Config Audit tab")
-        self.auto_actions.click_reference(self.get_device_config_audit_view)
-        sleep(20)
-        self.screen.save_screen_shot()
+        delta_configs = 'Cannot retrieve delta configs'
 
-        self.utils.print_info("Click on Device Config Audit Delta View")
-        self.auto_actions.click_reference(self.get_device_config_audit_delta_view)
-        sleep(20)
-        self.screen.save_screen_shot()
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
         sleep(5)
 
-        self.utils.print_info("Get the Config content from Device Config Audit Delta View")
-        delta_configs = self.get_device_config_audit_delta_view_content().text
-        self.utils.print_info("Delta Configs : ", delta_configs)
+        device_row = None
 
-        self.auto_actions.click_reference(self.get_device_config_audit_view_close_button)
+        if serial:
+            device_row = self.devices.get_device_row(device_serial=serial)
+        elif mac:
+            device_row = self.devices.get_device_row(device_mac=mac)
+
+        if device_row:
+            self.utils.print_info("Click on Configuration Audit button")
+            self.auto_actions.click(self.devices_web_elements.get_device_config_audit_button(device_row))
+            sleep(10)
+
+            self.utils.print_info("Click on Device Config Audit Delta View")
+            self.auto_actions.click_reference(self.get_device_config_audit_delta_view)
+            sleep(10)
+            self.screen.save_screen_shot()
+            sleep(5)
+
+            self.utils.print_info("Get the Config content from Device Config Audit Delta View")
+            delta_configs = self.get_device_config_audit_delta_view_content().text
+            self.utils.print_info("Delta Configs : ", delta_configs)
+
+            self.auto_actions.click_reference(self.get_device_config_audit_view_close_button)
+
+        self.devices.deselect_all_devices()
 
         return delta_configs
 

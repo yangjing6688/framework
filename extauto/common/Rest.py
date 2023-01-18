@@ -263,3 +263,16 @@ class Rest:
         data = r.text
 
         return data
+
+    def validate_unresolved_directive(self, url):
+        """
+        This method is used to validate the string in html page
+        :param url:
+        :return: integer
+        """
+        x = requests.get(url)
+        contents = x.text
+
+        value = contents.find("Unresolved directive")
+
+        return value

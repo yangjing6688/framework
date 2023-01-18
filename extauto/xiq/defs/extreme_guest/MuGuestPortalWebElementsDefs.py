@@ -35,6 +35,12 @@ class MuGuestPortalWebElementsDefs:
             'wait_for': 5
         }
 
+    social_wifi_max_count_error = \
+        {
+            'XPATH': '//div[text()="Max count(1) of devices supported per user exceeded. Please contact administrator."]',
+            'wait_for': 5
+        }
+
     social_wifi_all_google_icon = \
         {
             'XPATH': '//a[@data-connect="google"]',
@@ -302,6 +308,12 @@ class MuGuestPortalWebElementsDefs:
     sponsor_guest_access_login_success_page = \
         {
             'XPATH': '//font[text()="Welcome, enjoy your free internet!"]',
+            'wait_for': 1
+        }
+    
+    social_wifi_access_denied_error= \
+        {
+            'XPATH': '//*[text()="Access has been denied!"]',
             'wait_for': 1
         }
     

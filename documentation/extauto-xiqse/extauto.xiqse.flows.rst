@@ -1,4 +1,4 @@
-extauto.xiqse.flows package
+XIQSE Flows Keywords
 ===========================
 
 Subpackages

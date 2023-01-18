@@ -1255,7 +1255,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.utils.print_info("Entering the Ibeacon Mac Address without format: ", ibeacon_mac_address)
         ibeacon_mac_address_formatted = ':'.join(ibeacon_mac_address[i:i+2] for i in range(0,12,2))
         self.utils.print_info("Entering the Ibeacon Mac Address with format: ",ibeacon_mac_address_formatted)
-        self.auto_actions.send_keys(self.get_xloc_ibeacon_ibeacon_mac_address(), ibeacon_mac_address_formatted)
+        self.auto_actions.send_keys(self.get_xloc_ibeacon_ibeacon_mac_address(), ibeacon_mac_address)
         sleep(2)
 
         self.utils.print_info("Entering the UUID Name: ", uuid_name)
