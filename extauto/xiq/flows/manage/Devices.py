@@ -11148,7 +11148,7 @@ class Devices:
         else:
             return 1
 
-    def update_policy_and_configuration_stack(self,  device_serial_mac_or_name=None):
+    def update_policy_and_configuration_stack(self,  device_serial=None, device_name=None, device_mac=None):
         """
         - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
           check button in the Device Update dialog.
@@ -11162,7 +11162,7 @@ class Devices:
         :return: 1 if config push success else -1
         """
         self.utils.print_info("Select Stack")
-        if not self.select_device(device_serial_mac_or_name):
+        if not self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac):
             self.utils.print_info("The device cannot be selected")
             self.screen.save_screen_shot()
             return -1
@@ -11174,7 +11174,7 @@ class Devices:
 
         self.screen.save_screen_shot()
 
-        return self._check_device_update_status(device_serial_mac_or_name)
+        return self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
 
     def enable_device_wan_access(self, device_serial):
         """

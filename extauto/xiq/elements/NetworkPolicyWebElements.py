@@ -260,6 +260,9 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
     def get_perform_after_select_update_policy_button(self):
         return self.weh.get_element(self.perform_after_select_update_policy_button)
 
+    def get_yes_after_perform_update_button(self):
+        return self.weh.get_element(self.yes_after_perform_update_button)
+
     def get_additional_settings_classifiermaps(self):
         return self.weh.get_element(self.additional_settings_classifiermaps)
 
@@ -446,6 +449,9 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
     def get_management_options_select_button(self):
         return self.weh.get_element(self.management_options_select_button)
 
+    def get_device_templates_tab(self):
+        return self.weh.get_element(self.device_templates_tab)
+
     def get_nw_policy_port_types_view_all_pages(self):
         return self.weh.get_element(self.nw_policy_port_types_view_all_pages)
 
@@ -509,3 +515,4 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
         for cell in cells:
             if field in cell.get_attribute("class"):
                 return cell
+
