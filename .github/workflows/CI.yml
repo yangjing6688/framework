@@ -116,7 +116,7 @@ jobs:
         echo "::set-output name=status::${{ job.status }}"
 
   code_checks:
-    name: Run code quality checking tools
+    name: Run code quality tools
     # runs-on: ubuntu-latest
     runs-on: Ubuntu-20.04
     outputs:

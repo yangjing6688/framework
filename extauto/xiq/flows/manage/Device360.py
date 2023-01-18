@@ -4,7 +4,7 @@ from time import sleep
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
 
-from extauto.common.AutoActions import AutoActions
+from extauto.common.AutoActions import
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.xiq.flows.manage.Devices import Devices
