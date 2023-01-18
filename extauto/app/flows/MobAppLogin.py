@@ -20,7 +20,11 @@ class MobAppLogin:
         :param url: if not default, will be read from the ${TEST_URL} variable
         :return: returns driver object
         """
-        CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
+        # Changed on 1/18/23 because the incognito_mode variable was not available here.
+        # It was changed to use the default value for the incognito_mode parameter ("False")
+        # CloudDriver().start_browser(url=url, incognito_mode=incognito_mode)
+        CloudDriver().start_browser(url=url, incognito_mode="False")
+
         # extauto.common.CloudDriver.load_browser(url)
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.mob_login_web_elements = MobAppLoginWebElements()

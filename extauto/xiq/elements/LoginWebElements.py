@@ -105,8 +105,11 @@ class LoginWebElements(LoginWebElementsDefinitions):
     def get_30_days_trial_txt(self):
         return self.weh.get_element(self.txt_30_days_trial)
 
-    def get_option_30_days_trial(self):
-        return self.weh.get_element(self.option_30_days_trial)
+    ### Commented on 1/18/23 because this is a duplicate of a function below.
+    ### The second function to be declared will be used. Thus, this function was commented
+    #
+    # def get_option_30_days_trial(self):
+    #     return self.weh.get_element(self.option_30_days_trial)
 
     def get_drawer_trigger(self):
         return self.weh.get_element(self.drawer_trigger)
@@ -141,6 +144,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
     def get_login_logo(self):
         return self.weh.get_element(self.login_logo)
 
+    # There is a duplicate of this function above that was commented out on 1/18/23
     def get_option_30_days_trial(self):
         return self.weh.get_element(self.trial_30day_login_option)
 

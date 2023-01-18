@@ -171,15 +171,6 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
     def get_n360_plan_ap_count(self):
         return self.weh.get_element(self.n360_plan_ap_count)
 
-    def get_n360_plan_router_count(self):
-        return self.weh.get_element(self.n360_plan_router_count)
-
-    def get_n360_plan_switch_count(self):
-        return self.weh.get_element(self.n360_plan_switch_count)
-
-    def get_n360_plan_vgva_count(self):
-        return self.weh.get_element(self.n360_plan_vgva_count)
-
     def get_n360_plan_device_name(self):
         return self.weh.get_elements(self.n360_plan_device_name)
 

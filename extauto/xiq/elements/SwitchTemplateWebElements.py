@@ -602,9 +602,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_enable_mac_locking_confirm_message_yes_button(self):
         return self.weh.get_element(self.sw_template_enable_mac_locking_confirm_message_yes_button)
 
-    def get_sw_template_adv_settings_tab(self):
-        return self.weh.get_element(self.sw_template_adv_settings_tab)
-
     def get_sw_template_auto_cfg(self):
         return self.weh.get_element(self.sw_template_auto_cfg)
 
