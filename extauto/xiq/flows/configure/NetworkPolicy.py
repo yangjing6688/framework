@@ -842,7 +842,7 @@ class NetworkPolicy(object):
 
         return None
 
-    def deploy_network_policy_with_complete_update(self, policy_name, devices):
+    def deploy_network_policy_with_complete_update(self, policy_name, devices, cli_type='AH-AP'):
         """
         - Config push network policy with complete update
         - This will reboot the Device
@@ -854,7 +854,10 @@ class NetworkPolicy(object):
         :param devices: Device serial number
         :return: 1 if success else -1
         """
-        return self.deploy_network_policy(policy_name, devices, 'complete')
+        if cli_type == 'AH-AP':
+            return self.deploy_network_policy(policy_name, devices, 'complete')
+        else:
+            return self.device.deploy_switch_network_policy_with_complete_update(devices, policy_name)
 
     def deploy_network_policy_with_next_reboot(self, policy_name, devices):
         """

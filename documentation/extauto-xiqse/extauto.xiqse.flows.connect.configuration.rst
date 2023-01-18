@@ -1,10 +1,10 @@
-extauto.xiqse.flows.connect.configuration package
+XIQSE Flows Connect Configuration Keywords
 =================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.connect.configuration.XIQSE\_ConnectConfiguration module
+XIQSE\_ConnectConfiguration module
 ----------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.connect.configuration.XIQSE_ConnectConfiguration

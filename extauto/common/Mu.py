@@ -194,12 +194,13 @@ class Mu:
         :param ssid: ssid name
         :return: cli ping from spawn.
         """
-        ip = self.utils.get_config_value("MU5_IP")
-        port = self.utils.get_config_value("MU5_PORT")
-        username = self.utils.get_config_value("MU5_USERNAME")
-        password = self.utils.get_config_value("MU5_PASSWORD")
-        platform = self.utils.get_config_value("MU5_PLATFORM")
-        interface = self.utils.get_config_value("MU5_INTERFACE")
+        ip = self.utils.get_config_value("mu5.ip")
+        port = self.utils.get_config_value("mu5.port")
+        username = self.utils.get_config_value("mu5.username")
+        password = self.utils.get_config_value("mu5.password")
+        platform = self.utils.get_config_value("mu5.platform")
+        interface = self.utils.get_config_value("mu5.interface")
+        cli_type = self.utils.get_config_value("mu5.cli_type")
 
         self.utils.print_info("MU IP         : ", ip)
         self.utils.print_info("MU Port       : ", port)
@@ -207,8 +208,9 @@ class Mu:
         self.utils.print_info("MU Password   : ", password)
         self.utils.print_info("MU Platform   : ", platform)
         self.utils.print_info("MU Interface  : ", interface)
+        self.utils.print_info("MU CLI type   : ", cli_type)
 
-        mu_spawn = self.cli.open_spawn(ip, port, username, password, platform)
+        mu_spawn = self.cli.open_spawn(ip, port, username, password, cli_type)
 
         self.cli.send(mu_spawn, "rm -rf /var/lib/dhcp/dhclient.leases")
         self.cli.send(mu_spawn, "pkill wpa_supplicant")

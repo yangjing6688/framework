@@ -1,10 +1,10 @@
-extauto.xiqse.flows.admin.profiles.cli\_credentials package
+XIQSE Flows Admin Proifiles Cli Credentials Keywords
 ===========================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICredentials module
+XIQSE\_AdminProfilesCLICredentials module
 ---------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.cli_credentials.XIQSE_AdminProfilesCLICredentials
@@ -12,7 +12,7 @@ extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICrede
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICredentialsAddCred module
+XIQSE\_AdminProfilesCLICredentialsAddCred module
 ----------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.cli_credentials.XIQSE_AdminProfilesCLICredentialsAddCred
@@ -20,7 +20,7 @@ extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICrede
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICredentialsDeleteCred module
+XIQSE\_AdminProfilesCLICredentialsDeleteCred module
 -------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.cli_credentials.XIQSE_AdminProfilesCLICredentialsDeleteCred
@@ -28,7 +28,7 @@ extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICrede
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.cli\_credentials.XIQSE\_AdminProfilesCLICredentialsSaveFailed module
+XIQSE\_AdminProfilesCLICredentialsSaveFailed module
 -------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.cli_credentials.XIQSE_AdminProfilesCLICredentialsSaveFailed
