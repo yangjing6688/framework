@@ -1,4 +1,4 @@
-extauto.xiqse.flows.tasks package
+XIQSE Flows Tasks Keywords
 =================================
 
 Subpackages
@@ -16,7 +16,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.tasks.XIQSE\_Tasks module
+XIQSE\_Tasks module
 ---------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.tasks.XIQSE_Tasks

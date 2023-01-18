@@ -1,10 +1,10 @@
-extauto.xiqse.flows.common package
+XIQSE Flows Common Keywords
 ==================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.common.XIQSE\_CommonBanner module
+XIQSE\_CommonBanner module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.common.XIQSE_CommonBanner
@@ -12,7 +12,7 @@ extauto.xiqse.flows.common.XIQSE\_CommonBanner module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.common.XIQSE\_CommonColumnFilters module
+XIQSE\_CommonColumnFilters module
 ------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.common.XIQSE_CommonColumnFilters
@@ -20,7 +20,7 @@ extauto.xiqse.flows.common.XIQSE\_CommonColumnFilters module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.common.XIQSE\_CommonField module
+XIQSE\_CommonField module
 ----------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.common.XIQSE_CommonField
@@ -28,7 +28,7 @@ extauto.xiqse.flows.common.XIQSE\_CommonField module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.common.XIQSE\_CommonHelp module
+XIQSE\_CommonHelp module
 ---------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.common.XIQSE_CommonHelp
@@ -36,7 +36,7 @@ extauto.xiqse.flows.common.XIQSE\_CommonHelp module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.common.XIQSE\_CommonLogin module
+XIQSE\_CommonLogin module
 ----------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.common.XIQSE_CommonLogin
@@ -44,7 +44,7 @@ extauto.xiqse.flows.common.XIQSE\_CommonLogin module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.common.XIQSE\_CommonNavigator module
+XIQSE\_CommonNavigator module
 --------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.common.XIQSE_CommonNavigator
@@ -52,7 +52,7 @@ extauto.xiqse.flows.common.XIQSE\_CommonNavigator module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.common.XIQSE\_CommonOperationsPanel module
+XIQSE\_CommonOperationsPanel module
 --------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.common.XIQSE_CommonOperationsPanel
@@ -60,7 +60,7 @@ extauto.xiqse.flows.common.XIQSE\_CommonOperationsPanel module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.common.XIQSE\_CommonTable module
+XIQSE\_CommonTable module
 ----------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.common.XIQSE_CommonTable
@@ -68,7 +68,7 @@ extauto.xiqse.flows.common.XIQSE\_CommonTable module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.common.XIQSE\_CommonView module
+XIQSE\_CommonView module
 ---------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.common.XIQSE_CommonView

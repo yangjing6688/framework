@@ -1115,3 +1115,30 @@ class Utils:
         :return: True if file exist else False
         """
         return os.path.isfile(file_name)
+
+
+    def get_suite_resource_path(self, suite_file):
+        """
+        Get current test suite resource path.
+        param suite_file: the full path of robot file, get via robot ${SUITE SOURCE}
+        return: the Resource path
+        example:
+          suite_file is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/TestCases/xapi_UploadFloorPlan_XIQ5401.robot
+          suite resource path is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/Resources
+        """
+
+        suite_resource_path = '/'.join(suite_file.split('/')[:-2]) + '/Resources'
+        return suite_resource_path
+
+    def get_feature_path(self, suite_file):
+        """
+        Get current test feature path.
+        param suite_file: the full path of robot file, get via robot ${SUITE SOURCE}
+        return: the feature full path
+        example:
+          suite_file is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/TestCases/xapi_UploadFloorPlan_XIQ5401.robot
+          feature path is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location
+        """
+
+        feature_path = '/'.join(suite_file.split('/')[:-2])
+        return feature_path

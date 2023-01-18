@@ -238,7 +238,11 @@ class Xapi:
         return stdout
 
     def rest_api_post_with_file(self, path, file_path, access_token="default", return_output="default",
-                                result_code="default", role="default"):
+                                result_code="default", role="default", http_ver="1.1"):
+        # Modify by Kun Li kuli@extremenetworks.com 1/10/2023
+        # Add a new parameter http_ver to fix the issue EXA-185
+        # Param http_ver: the http version in curl cmds, default is "1.1", available is "0.9"/1.0"/"1.1"/"2"/"3"
+
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
 
@@ -251,7 +255,20 @@ class Xapi:
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         url = base_url + path
 
-        curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=@{file_path}' "
+        # Add by Kun Li kuli@extremenetworks.com
+        http_ver_curl_param = ""
+        if http_ver in ["1.1", 1.1]:
+            http_ver_curl_param = "--http1.1"
+        elif http_ver in ["1.0", 1.0, "1", 1]:
+            http_ver_curl_param = "--http1.0"
+        elif http_ver in ["0.9", 0.9]:
+            http_ver_curl_param = "--http0.9"
+        elif http_ver in ["2.0", 2.0, "2", 2]:
+            http_ver_curl_param = "--http2"
+        elif http_ver in ["3.0", 3.0, "3", 3]:
+            http_ver_curl_param = "--http3"
+
+        curl_cmd = f"curl {http_ver_curl_param} --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=@{file_path}' "
         
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())

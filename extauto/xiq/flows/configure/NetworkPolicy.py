@@ -445,6 +445,10 @@ class NetworkPolicy(object):
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
         sleep(5)
         policy_cards = self.np_web_elements.get_network_policy_card_items()
+        if policy_cards is None:
+            self.utils.print_info("No Network Policy cards present. No policy configured")
+            return -1
+
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)

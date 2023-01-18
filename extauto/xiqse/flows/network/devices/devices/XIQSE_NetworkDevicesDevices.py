@@ -390,9 +390,9 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         return ret_val
 
     def xiqse_configure_device_device_tab(self, device_ip, system_name=None, contact=None, location=None, profile=None,
-                                      serial=None, remove_from_service=None, use_default_url=None,
-                                      webview_url=None, site=None, poll_group=None, poll_type=None,
-                                      timeout=None, retries=None, topo=None, mode=None, interval=None):
+                                          serial=None, remove_from_service=None, use_default_url=None,
+                                          webview_url=None, site=None, poll_group=None, poll_type=None,
+                                          timeout=None, retries=None, topo=None, mode=None, interval=None):
         """
         - This keyword configures the device with the specified Device tab values.  It does not save the changes.
         - Keyword Usage:
@@ -428,10 +428,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
                 # Populate each field which was specified
                 field_result =\
                     self.config_dlg_device.xiqse_configure_device_set_device_tab_values(system_name, contact, location,
-                                                                                 profile, serial, remove_from_service,
-                                                                                 use_default_url, webview_url, site,
-                                                                                 poll_group, poll_type, timeout, retries,
-                                                                                 topo, mode, interval)
+                                                                                        profile, serial, remove_from_service,
+                                                                                        use_default_url, webview_url, site,
+                                                                                        poll_group, poll_type, timeout, retries,
+                                                                                        topo, mode, interval)
                 if field_result == -1:
                     ret_val = -1
             else:
@@ -572,6 +572,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         return self.operations_panel.xiqse_operations_wait_until_operation_complete("Device Added",
                                                                                     retry_duration, retry_count)
+
     def xiqse_wait_until_discover_site_actions_operation_complete(self, retry_duration=10, retry_count=30):
         """
         - This keyword waits until the "Discover Site Actions" operation has completed by checking the
@@ -2248,6 +2249,53 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
+    def xiqse_perform_rediscover_device(self, device_ip):
+        """
+         - This keyword rediscovers the specified device.
+         - It is assumed the user is already on the Network> Devices> Devices tab
+         - Keyword Usage
+          - ``XIQSE Perform Rediscover Device    ${DEVICE_IP}``
+
+        :param  device_ip:    IP address of the device to rediscover
+        :return: 1 if action was successful, else -1
+        """
+
+        ret_val = -1
+
+        if self.xiqse_select_device(device_ip) == 1:
+            menu_btn = self.get_device_menu_tb_button()
+            if menu_btn:
+                self.utils.print_info("Clicking Device Menu toolbar button")
+                self.auto_actions.click(menu_btn)
+                sleep(1)
+
+                rediscover_menu_item = self.get_rediscover_device_menu_item()
+                if rediscover_menu_item:
+                    self.utils.print_info("Clicking 'Rediscover' menu")
+                    self.auto_actions.click(rediscover_menu_item)
+                    sleep(1)
+                    # select yes in the confirmation box.
+                    confirm_box = self.get_rediscover_confirm_button_yes_item()
+                    if confirm_box:
+                        self.utils.print_info("Clicking 'Rediscover Device' confirm")
+                        self.auto_actions.click(confirm_box)
+                        sleep(5)
+                        ret_val = 1
+                    else:
+                        self.utils.print_info("Unable to find Rediscover Device Confirm")
+                        self.screen.save_screen_shot()
+                else:
+                    self.utils.print_info("Unable to find Rediscover menu")
+                    self.screen.save_screen_shot()
+            else:
+                self.utils.print_info("Unable to find Device Menu toolbar button")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to find select device")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
     def xiqse_perform_restart_device(self, device_ip):
         """
         - This keyword restarts the specified device.
@@ -2279,7 +2327,6 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - ``XIQSE Confirm Table Empty``
         :return: returns 1 if table is empty, else -1
         """
-        ret_val = 1
 
         rows = self.get_table_rows()
         if rows:
@@ -2289,8 +2336,6 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.utils.print_info("Table is empty")
             return 1
 
-        return ret_val
-
     def xiqse_get_trap_status(self, device_ip):
         """
         - This keyword is used to get the trap status for the specified device in the devices table.
@@ -2299,7 +2344,6 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - ``XIQSE Get Trap Status    ${DEVICE_IP}``
 
         :param device_ip: device IP to look for
-        :param trap_status: expected value of the trap status
         :return: trap status for the specified device;  empty string ("") if trap status cannot be determined
         """
         ret_val = ""
@@ -2335,7 +2379,6 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - ``XIQSE Get Syslog Status    ${DEVICE_IP}``
 
         :param device_ip: device IP to look for
-        :param syslog_status: expected value of the trap status
         :return: syslog status for the specified device;  empty string ("") if syslog status cannot be determined
         """
         ret_val = ""

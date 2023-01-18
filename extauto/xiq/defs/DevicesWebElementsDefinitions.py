@@ -9,7 +9,7 @@ class DevicesWebElementsDefinitions:
 
     devices_page_grid_rows = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]//td/..',
+            'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td/..',
             
          }
 
@@ -247,7 +247,7 @@ class DevicesWebElementsDefinitions:
 
     device_select_check_box = \
         {
-            'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',
+            'XPATH': '//td[@class="dgrid-cell dgrid-column-0 w30 dgrid-selector"]/input[@type="checkbox"]',
             'wait_for':    2
         }
 
@@ -314,7 +314,8 @@ class DevicesWebElementsDefinitions:
 
     update_devices_button = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-manage-update-config']",
+            'XPATH': '//span[@data-automation-tag="automation-manage-update-config"]',
+            'wait_for': 8
             
         }
 

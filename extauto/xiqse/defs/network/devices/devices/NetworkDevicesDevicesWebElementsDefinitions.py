@@ -79,6 +79,19 @@ class NetworkDevicesDevicesWebElementsDefinitions:
             
         }
 
+    rediscover_device_menu_item = \
+        {
+            'DESC': 'Restart Device Menu Item',
+            'XPATH': '//a[@class="x-menu-item-link"]/span[text()="Rediscover"]',
+
+        }
+
+    rediscover_device_confirmation_item = \
+        {
+            'DESC': 'Refresh (Rediscover)',
+            'XPATH': '//a[@role="button"]//span[text()="Yes"]',
+        }
+
     restart_device_menu_item = \
         {
             'DESC':  'Restart Device Menu Item',

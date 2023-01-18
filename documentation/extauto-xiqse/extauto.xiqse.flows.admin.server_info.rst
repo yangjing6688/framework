@@ -1,4 +1,4 @@
-extauto.xiqse.flows.admin.server\_info package
+XIQSE Flows Admin Server Info Keywords
 ==============================================
 
 Module contents

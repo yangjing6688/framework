@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.devices.site.actions package
+XIQSE Flows Network Devices Site Actions Keywords
 ========================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.devices.site.actions.XIQSE\_NetworkDevicesSiteActions module
+XIQSE\_NetworkDevicesSiteActions module
 ----------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.site.actions.XIQSE_NetworkDevicesSiteActions

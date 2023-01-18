@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.devices.site\_summary package
+XIQSE Flows Network Devices Site Summary Keywords
 =========================================================
 
 Module contents
