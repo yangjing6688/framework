@@ -1,5 +1,5 @@
-from extauto.xiq.defs.SwitchTemplateWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.SwitchTemplateWebElementsDefinitions import SwitchTemplateWebElementDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
@@ -553,7 +553,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_assign_existing_trunk_choice_second_dialog_box_save_button(self):
         return self.weh.get_element(self.sw_template_assign_existing_trunk_choice_second_dialog_box_save_button)
-    
+
     def get_sw_template_error_message(self):
         rez = []
         elements = self.weh.get_elements(self.pse_error_message)

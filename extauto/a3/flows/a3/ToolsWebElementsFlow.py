@@ -1,13 +1,14 @@
-from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import *
-from a3.elements.ToolsWebElements import ToolsWebElements
-from a3.elements.GlobalSettingWebElements import *
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
-from selenium import webdriver
 import re
+from time import sleep
+
+from selenium import webdriver
+
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
+from a3.elements.ToolsWebElements import ToolsWebElements
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
+from xiq.flows.common.DeviceCommon import DeviceCommon
 
 
 class ToolsWebElementsFlow(ToolsWebElements):

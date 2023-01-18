@@ -90,7 +90,7 @@ class MacMuConnect(object):
         cmd = "networksetup -listallhardwareports | grep -i -A 2 Wi-Fi"
         out = self._execute_commands(cmd)
         print(f"Wi-Fi Port:{out}")
-        if re.search(f'en0', str(out)):
+        if re.search('en0', str(out)):
             return 'en0'
         else:
             return "en1"

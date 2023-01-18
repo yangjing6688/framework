@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.connect.diagnostics.ConnectDiagnosticsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.connect.diagnostics.ConnectDiagnosticsWebElementsDefinitions import ConnectDiagnosticsWebElementsDefinitions
 
 
 class ConnectDiagnosticsWebElements(ConnectDiagnosticsWebElementsDefinitions):
@@ -29,4 +29,3 @@ class ConnectDiagnosticsWebElements(ConnectDiagnosticsWebElementsDefinitions):
         :return: Statistics Sub Tab on the Connect> Diagnostics page
         """
         return self.weh.get_element(self.statistics_tab)
-

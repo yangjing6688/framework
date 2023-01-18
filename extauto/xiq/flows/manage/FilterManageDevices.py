@@ -1,14 +1,18 @@
-from extauto.xiq.elements.FilterManageDeviceWebElements import *
-from extauto.xiq.elements.FilterManageClientsWebElements import *
-from extauto.xiq.elements.DeviceActions import *
-from extauto.xiq.flows.manage.Devices import *
-from extauto.xiq.flows.manage.Tools import Tools
-from extauto.xiq.flows.configure.NetworkPolicy import *
-from extauto.xiq.flows.configure.WirelessNetworks import *
-from extauto.xiq.flows.configure.UserGroups import *
-from extauto.xiq.flows.configure.ExpressNetworkPolicies import *
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from time import sleep
+
+from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.elements.FilterManageDeviceWebElements import FilterManageDeviceWebElements
+from extauto.xiq.elements.FilterManageClientsWebElements import FilterManageClientWebElements
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.manage.Tools import Tools
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.configure.ExpressNetworkPolicies import ExpressNetworkPolicies
+from extauto.xiq.flows.common.Navigator import Navigator
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 
 
 class FilterManageDevices():

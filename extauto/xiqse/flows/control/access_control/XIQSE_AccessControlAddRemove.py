@@ -5,8 +5,6 @@ from extauto.common.AutoActions import AutoActions
 from xiqse.elements.control.access_control.ControlAccessControlAddRemoveWebElements import ControlAccessControlAddRemoveWebElements
 from xiqse.elements.control.access_control.ControlAccessControlCommonWebElements import ControlAccessControlCommonWebElements
 from xiqse.elements.control.access_control.ControlAccessControlPanelWebElements import ControlAccessControlPanelWebElements
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
 
 class XIQSE_AccessControlAddRemove(ControlAccessControlAddRemoveWebElements):
 

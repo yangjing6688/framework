@@ -1,5 +1,5 @@
-from extauto.xiq.defs.DeviceActionsDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.DeviceActionsDefs import DeviceActionsDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DeviceActions(DeviceActionsDefs):
@@ -128,7 +128,7 @@ class DeviceActions(DeviceActionsDefs):
 
     def get_device_utilities(self):
         return self.weh.get_element(self.device_utilities)
-    
+
     def get_device_reset_warning_msg(self):
         return self.weh.get_element(self.device_reset_warning_msg)
 

@@ -1,12 +1,12 @@
 import re
 from time import sleep
+
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_location.ExtremeLocationWebElements import ExtremeLocationWebElements
-from selenium.common.exceptions import *
 from extauto.common.CommonValidation import CommonValidation
 
 

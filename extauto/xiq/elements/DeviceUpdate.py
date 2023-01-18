@@ -1,6 +1,6 @@
 import re
-from extauto.xiq.defs.DeviceUpdateDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.DeviceUpdateDefs import DeviceUpdateDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DeviceUpdate(DeviceUpdateDefs):
@@ -52,7 +52,7 @@ class DeviceUpdate(DeviceUpdateDefs):
 
     def get_upgrade_even_if_versions_same_checkbox_input(self):
         return self.weh.get_element(self.upgrade_even_if_versions_same_checkbox_input)
-        
+
     def get_activate_at_next_reboot_radio(self):
         return self.weh.get_element(self.activate_at_next_reboot_radio)
 
@@ -142,16 +142,16 @@ class DeviceUpdate(DeviceUpdateDefs):
 
     def get_update_devices_button_from_d360(self):
         return self.weh.get_element(self.update_devices_button_from_d360)
-        
+
     def get_d360_close_button(self):
         return self.weh.get_element(self.update_close_button)
 
     def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status(self):
         return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox).get_attribute("checked")
-        
+
     def get_perform_upgrade_if_the_versions_are_the_same_checkbox_status(self):
         return self.weh.get_element(self.perform_upgrade_if_the_versions_are_the_same_checkbox).get_attribute("checked")
-        
+
     def get_config_download_options_checkbox(self):
         return self.weh.get_element(self.config_download_options_checkbox)
 
@@ -160,4 +160,3 @@ class DeviceUpdate(DeviceUpdateDefs):
 
     def get_actions_update_version_drop_down_items(self):
         return self.weh.get_elements(self.upgrade_specific_firmware_drop_down_items)
-        

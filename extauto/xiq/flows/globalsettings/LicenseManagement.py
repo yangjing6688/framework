@@ -265,7 +265,7 @@ class LicenseManagement(LicenseManagementWebElements):
                     kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful..."
                     self.common_validation.failed(**kwargs)
                     return -1
-            except Exception as e:
+            except Exception:
                 self.utils.print_info("Unlink NOT successful.")
                 kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful."
                 self.common_validation.fault(**kwargs)
@@ -344,7 +344,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.auto_actions.click_reference(self.lic_mgt_web_elements.get_upgrade_continue_btn)
                 sleep(10)
                 self.utils.print_info("Redirected to SFDC for oauth...")
-            except Exception as e:
+            except Exception:
                 self.utils.print_info("No confirmation dialog is shown.")
             kwargs['pass_msg'] = "initiate_link_xiq_to_extr_portal_from_lic_mgt -> Successfully linking"
             self.common_validation.passed(**kwargs)
@@ -817,7 +817,7 @@ class LicenseManagement(LicenseManagementWebElements):
         :return: 1 if Entitlements table is empty within time, else -1
         """
 
-        device_count = 0
+        # device_count = 0
         count = 1
 
         while count <= retry_count:

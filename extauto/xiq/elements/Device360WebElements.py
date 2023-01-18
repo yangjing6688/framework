@@ -1,5 +1,5 @@
-from extauto.xiq.defs.Device360WebElementDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.Device360WebElementDefs import Device360WebElementDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class Device360WebElements(Device360WebElementDefs):
@@ -750,7 +750,7 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_dev_config_save_button(self):
         return self.weh.get_element(self.device360_dev_config_save_button)
-      
+
     def get_device360_title_stack_info(self):
         """
         :return: stack info present in title element in the Device 360 view
@@ -911,7 +911,7 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_configure_vlan_port_one(self):
         return self.weh.get_element(self.device360_configure_vlan_port_one)
-    
+
     def get_d360_configure_port_row_override_revert(self, row):
         return self.weh.get_element(self.d360_configure_port_row_override_revert, row)
 
@@ -1165,7 +1165,7 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_create_auto_template_button(self):
         return self.weh.get_element(self.device360_create_auto_template_button)
-      
+
     def get_device360_pagination_next_button(self):
         return self.weh.get_element(self.d360_pagination_next_button)
 
@@ -1517,8 +1517,8 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "link down retain":
             return self.weh.get_element(self.select_element_port_type_macLock_link_down_retain)
         elif element == "remove aged MACs":
-            return self.weh.get_element(self.select_element_port_type_macLock_remove_aged_MACs)     
-            
+            return self.weh.get_element(self.select_element_port_type_macLock_remove_aged_MACs)
+
         #Voice Vlan
         elif element == "port usage" and value == "phone port":
             return self.weh.get_element(self.select_element_port_type_port_usage_phone)

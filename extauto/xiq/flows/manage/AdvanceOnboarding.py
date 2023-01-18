@@ -2,9 +2,7 @@ from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
-from extauto.xiq.flows.manage.Location import Location
 from extauto.xiq.flows.manage.Devices import Devices
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.AdvanceOnboardingWebElements import AdvanceOnboardingWebElements
@@ -268,7 +266,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
 
         max_retries = 3
         count = 0
-        ret_value = -1
+        # ret_value = -1
         while max_retries != count:
             for serial in serials:
                 if self.devices.search_device(device_serial=serial) == 1:

@@ -1,5 +1,5 @@
-from extauto.xiq.defs.SwTemplateLegacyPortTypeWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.SwTemplateLegacyPortTypeWebElementsDefinitions import SwTemplateLegacyPortTypeWebElementDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 class SwTemplateLegacyPortTypeWebElements(SwTemplateLegacyPortTypeWebElementDefinitions):
     def __init__(self):
@@ -91,4 +91,3 @@ class SwTemplateLegacyPortTypeWebElements(SwTemplateLegacyPortTypeWebElementDefi
 
     def get_sc_rate_limit_value(self):
         return self.weh.get_elements(self.sc_rate_limit_value)
-

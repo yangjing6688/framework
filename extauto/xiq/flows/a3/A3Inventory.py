@@ -1,9 +1,14 @@
 import json
 import requests
-from extauto.common.AutoActions import *
+from time import sleep
+
+from extauto.common.AutoActions import AutoActions
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.CommonValidation import CommonValidation
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.A3InventoryWebElements import A3InventoryWebElements
-from extauto.common.CommonValidation import CommonValidation
 
 
 class A3Inventory(A3InventoryWebElements):

@@ -35,7 +35,7 @@ class Dashboard:
             self.utils.print_info("Reading the Total Application Usage")
             try:
                 total_app_usage = self.dashboard_elements.get_total_app_usage().text
-            except Exception as e:
+            except Exception:
                 self.utils.print_info("Error Observed")
                 self.screen.save_screen_shot()
                 return 1
@@ -60,7 +60,7 @@ class Dashboard:
                                  f"Status Online Count is : {total_online_count}"
             self.common_validation.passed(**kwargs)
             return total_online_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_connection_status_online_count()' -> Error Observed"
             self.common_validation.fault(**kwargs)
             return -1
@@ -82,7 +82,7 @@ class Dashboard:
                                  f"Status Offline Count is : {total_online_count}"
             self.common_validation.passed(**kwargs)
             return total_online_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_connection_status_offline_count()' -> Error Observed"
             self.common_validation.fault(**kwargs)
             return -1
@@ -104,7 +104,7 @@ class Dashboard:
                                  f"is : {total_aps_count}"
             self.common_validation.passed(**kwargs)
             return total_aps_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_total_application_count()' -> Not able to get Total Aps Count"
             self.common_validation.fault(**kwargs)
             return -1
@@ -126,7 +126,7 @@ class Dashboard:
                                  f"is : {total_clients_count}"
             self.common_validation.passed(**kwargs)
             return total_clients_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_total_clients_count()' -> Not able to get Total Aps Count"
             self.common_validation.fault(**kwargs)
             return -1
@@ -148,7 +148,7 @@ class Dashboard:
                                  f"is : {total_users_count}"
             self.common_validation.passed(**kwargs)
             return total_users_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_total_users_count()' -> Not able to get Total Aps Count"
             self.common_validation.fault(**kwargs)
             return -1
@@ -170,7 +170,7 @@ class Dashboard:
                                  f"Count is : {critical_alarm_count}"
             self.common_validation.passed(**kwargs)
             return critical_alarm_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_total_critical_alarm_count()' -> Not able to get Total critical " \
                                  "alarm Count"
             self.common_validation.fault(**kwargs)
@@ -193,7 +193,7 @@ class Dashboard:
                                  f"Alarm Count is {major_alarm_count}"
             self.common_validation.passed(**kwargs)
             return major_alarm_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_total_major_alarm_count()' -> Not able to get Total Major Alarm Count"
             self.common_validation.fault(**kwargs)
             return -1
@@ -215,7 +215,7 @@ class Dashboard:
                                  f"Alarm Count is {minor_alarm_count}"
             self.common_validation.passed(**kwargs)
             return minor_alarm_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_total_minor_alarm_count()' -> Not able to get Total Minor Alarm Count"
             self.common_validation.fault(**kwargs)
             return -1
@@ -237,7 +237,7 @@ class Dashboard:
                                  f"APS Count is {rogue_aps_count}"
             self.common_validation.passed(**kwargs)
             return rogue_aps_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_total_rogue_aps_count()' -> Not able to get Total Rogue Aps Count"
             self.common_validation.fault(**kwargs)
             return -1
@@ -259,7 +259,7 @@ class Dashboard:
                                  f"Client Count is {rogue_clients_count}"
             self.common_validation.passed(**kwargs)
             return rogue_clients_count
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'dashboard_cards_total_rogue_clients_count()' -> Not able to get Total Rogue Client Count"
             self.common_validation.fault(**kwargs)
             return -1

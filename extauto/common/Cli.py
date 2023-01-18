@@ -1,25 +1,35 @@
 import re
 import time
 import shlex
-import pexpect
+# import pexpect
 import paramiko
 import subprocess
 import uuid
 from platform import system
-from extauto.xiq.configs.device_commands import *
+from time import sleep
+
 from robot.libraries.BuiltIn import BuiltIn
+
+from extauto.xiq.configs.device_commands import (
+    AP_CAPWAP_OFF,
+    AP_CAPWAP_ON,
+    MAC_GET_WIFI_INTERFACE_NAME,
+    MAC_TURN_ON_OFF_WIFI_INTERFACE,
+    MAC_SCAN_FOR_LIST_WIFI,
+    MAC_CONNECT_TO_WIFI,
+    MAC_CHECK_WIFI_CONNECTION,
+    MAC_IPV4_ADDRESS_FILTER,
+    IFCONFIG
+)
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
 from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
 from ExtremeAutomation.Utilities.deprecated import deprecated
-from time import sleep
-
 from extauto.common.Utils import Utils
 from extauto.common.CommonValidation import CommonValidation
 
 if "Window" not in system():
-    from pexpect.pxssh import ExceptionPxssh
     from pexpect import pxssh
 
 
@@ -902,17 +912,17 @@ class Cli(object):
 
         elif  NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, f'capwap client server name {server_name}')
-            self.send(connection, f'no capwap client enable')
-            self.send(connection, f'capwap client enable')
-            self.send(connection, f'save config')
+            self.send(connection, 'no capwap client enable')
+            self.send(connection, 'capwap client enable')
+            self.send(connection, 'save config')
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'capwap client server name {server_name}')
             self.send(connection, f'capwap client default-server-name {server_name}')
             self.send(connection, f'capwap client server backup name {server_name}')
-            self.send(connection, f'no capwap client enable')
-            self.send(connection, f'capwap client enable')
-            self.send(connection, f'save config')
+            self.send(connection, 'no capwap client enable')
+            self.send(connection, 'capwap client enable')
+            self.send(connection, 'save config')
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(connection, f'configure iqagent server ipaddress {server_name}')
@@ -920,32 +930,32 @@ class Cli(object):
             self.send(connection, 'enable iqagent')
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(connection, f'enable')
-            self.send(connection, f'configure terminal')
-            self.send(connection, f'application')
-            self.send(connection, f'no iqagent enable')
+            self.send(connection, 'enable')
+            self.send(connection, 'configure terminal')
+            self.send(connection, 'application')
+            self.send(connection, 'no iqagent enable')
             self.send(connection, f'iqagent server {server_name}')
-            self.send(connection, f'iqagent enable')
-            self.send(connection, f'end')
+            self.send(connection, 'iqagent enable')
+            self.send(connection, 'end')
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
-            self.send(connection, f'en')
-            self.send(connection, f'self')
-            self.send(connection, f'virtual-controller')
-            self.send(connection, f'show adoption status')
-            self.send(connection, f'end')
-            self.send(connection, f'en')
-            self.send(connection, f'config')
+            self.send(connection, 'en')
+            self.send(connection, 'sel')
+            self.send(connection, 'virtual-controller')
+            self.send(connection, 'show adoption status')
+            self.send(connection, 'end')
+            self.send(connection, 'en')
+            self.send(connection, 'config')
             # Delete the policy
-            self.send(connection, f'no nsight-policy xiq', ignore_cli_feedback=True)
-            self.send(connection, f'commit write memory')
+            self.send(connection, 'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(connection, 'commit write memory')
             # Create the new policy
-            self.send(connection, f'nsight-policy xiq')
+            self.send(connection, 'nsight-policy xiq')
             self.send(connection, f'server host {server_name} https enforce-verification poll-work-queue')
-            self.send(connection, f'commit write memory')
-            self.send(connection, f'rf-domain default')
-            self.send(connection, f'use nsight-policy xiq')
-            self.send(connection, f'commit write memory')
+            self.send(connection, 'commit write memory')
+            self.send(connection, 'rf-domain default')
+            self.send(connection, 'use nsight-policy xiq')
+            self.send(connection, 'commit write memory')
             # show run nsight-policy ECIQ
         return 1
 
@@ -974,8 +984,8 @@ class Cli(object):
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(retry_duration)
-                hm_status = self.send(connection, f'show hivemanager status | include Status')
-                hm_address = self.send(connection, f'show hivemanager address')
+                hm_status = self.send(connection, 'show hivemanager status | include Status')
+                hm_address = self.send(connection, 'show hivemanager address')
 
                 if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
@@ -986,7 +996,7 @@ class Cli(object):
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
-                capwap_status = self.send(connection, f'show capwap client | include "RUN state"')
+                capwap_status = self.send(connection, 'show capwap client | include "RUN state"')
                 capwap_server = self.send(connection, f'show capwap client | include "{server_name}"')
 
                 if 'Connected securely to the CAPWAP server' in capwap_status and server_name in capwap_server:
@@ -998,7 +1008,7 @@ class Cli(object):
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
-                output = self.send(connection, f'show capwap client | include "RUN state"')
+                output = self.send(connection, 'show capwap client | include "RUN state"')
 
                 if 'Connected securely to the CAPWAP server' in output:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
@@ -1012,8 +1022,8 @@ class Cli(object):
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
-                output = self.send(connection, f'show iqagent | include "XIQ Address"')
-                output1 = self.send(connection, f'show iqagent | include "Status"')
+                output = self.send(connection, 'show iqagent | include "XIQ Address"')
+                output1 = self.send(connection, 'show iqagent | include "Status"')
 
                 if server_name in output and 'CONNECTED TO XIQ' in output1:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
@@ -1028,8 +1038,8 @@ class Cli(object):
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
 
-                output1 = self.send(connection, f'show application iqagent | include "Server Address"')
-                output2 = self.send(connection, f'show application iqagent status | include "Connection Status"')
+                output1 = self.send(connection, 'show application iqagent | include "Server Address"')
+                output2 = self.send(connection, 'show application iqagent status | include "Connection Status"')
 
                 if server_name in output1 and 'Connected' in output2:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
@@ -1080,14 +1090,14 @@ class Cli(object):
         """
 
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(connection, f'enable')
-            self.send(connection, f'config t')
-            self.send(connection, f'application')
-            self.send(connection, f'show application iqagent | include "Agent Version"')
-            self.send(connection, f'no iqagent enable')
-            self.send(connection, f'software iqagent reinstall')
-            self.send(connection, f'iqagent enable')
-            self.send(connection, f'show application iqagent | include "Agent Version"')
+            self.send(connection, 'enable')
+            self.send(connection, 'config t')
+            self.send(connection, 'application')
+            self.send(connection, 'show application iqagent | include "Agent Version"')
+            self.send(connection, 'no iqagent enable')
+            self.send(connection, 'software iqagent reinstall')
+            self.send(connection, 'iqagent enable')
+            self.send(connection, 'show application iqagent | include "Agent Version"')
             return 1
         else:
             kwargs['fail_msg'] = "Failed to downgrade IQAgent "
@@ -1108,20 +1118,20 @@ class Cli(object):
         returnCode = -1
         try:
             # Make sure the iqagent is enabled
-            self.send(connection, f'enable iqagent')
-            current_version = self.send(connection, f'show iqagent | include Version')
+            self.send(connection, 'enable iqagent')
+            current_version = self.send(connection, 'show iqagent | include Version')
             # Output:
             #   Version                             0.6.6
             #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
             current_version = current_version.replace("Version",'').split()[0]
-            base_version = self.send(connection, f'show process iqagent  | include Slot-1.iqagent')
+            base_version = self.send(connection, 'show process iqagent  | include Slot-1.iqagent')
             if 'iqagent' in base_version:
                 # Output:
                 #   Slot-1 iqagent          0.5.42.1    0    Ready        Tue Sep 20 13:02:14 2022  Vital
                 #   * Slot-1 Stack.12 #
                 base_version = base_version.replace("Slot-1 iqagent",'').split()[0]
             else:
-                base_version = self.send(connection, f'show process iqagent  | include iqagent')
+                base_version = self.send(connection, 'show process iqagent  | include iqagent')
                 # Output:
                 #   iqagent          0.6.6.1     0    Ready        Fri Sep  2 13:26:44 2022  Vital
                 #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
@@ -1132,7 +1142,7 @@ class Cli(object):
                 base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
 
             if current_version != base_version:
-                vr = self.send(connection, f'show iqagent | include Active.VR')
+                vr = self.send(connection, 'show iqagent | include Active.VR')
                 # Output:
                 # X465-48W.3 # show iqagent | include Active\ VR
                 # Active VR                           VR-Default
@@ -1140,8 +1150,8 @@ class Cli(object):
                 if len(vr)> 0 and vr != 'None':
                     vrString = f' vr {vr}'
                 else:
-                    vrString = f' vr vr-mgmt'
-                system_type = self.send(connection, f'show switch | include "System Type"')
+                    vrString = ' vr vr-mgmt'
+                system_type = self.send(connection, 'show switch | include "System Type"')
                 # Output:
                 # System Type:      5520-24T-SwitchEngine
                 # * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
@@ -1807,7 +1817,7 @@ class Cli(object):
 
 
 if __name__ == '__main__':
-    from pytest_testconfig import *
+    from pytest_testconfig import config
     config['${TEST_NAME}'] = 'bob'
     tCli = Cli()
     #sID = tCli.open_pxssh_spawn('10.69.61.101', 'extreme', 'extreme', 22, prompt_reset=False,

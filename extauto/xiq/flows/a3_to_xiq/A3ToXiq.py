@@ -1,42 +1,31 @@
-import re
 import os
-
-import copy
 from time import sleep
-from datetime import datetime
-import datetime as dt
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.common.exceptions import MoveTargetOutOfBoundsException
-from robot.libraries.BuiltIn import BuiltIn
 
-import a3.flows.common.Login
-import a3.flows.common.Navigator
-import a3.flows.a3.LicenseManagementFlow
-import a3.flows.a3.CIWebElementsFlow
-import xiq.flows.common.Login
-from extauto.common.Screen import Screen
-from extauto.common.Utils import Utils
+from robot.libraries.BuiltIn import BuiltIn
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.by import By
+
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Cli import Cli
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.CommonValidation import CommonValidation
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.a3.flows.a3.CIWebElementsFlow import CIWebElementsFlow as A3CIWebElementsFlow
+from extauto.a3.flows.a3.LicenseManagementFlow import LicenseManagementFlow as A3LicenseManagementFlow
+from extauto.a3.flows.common.Login import Login as A3Login
+from extauto.a3.flows.common.Navigator import Navigator as A3Navigator
 from extauto.xiq.flows.common.Navigator import Navigator
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
-from extauto.xiq.flows.common.Login import Login
+from extauto.xiq.flows.common.Login import Login as CommonLogin
 from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
-
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
-from extauto.common.Cli import Cli
-from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.globalsettings.LicenseManagement import LicenseManagement
-from extauto.a3.flows.common.Login import Login
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.by import By
-from extauto.common.CloudDriver import CloudDriver
 
 
 class A3ToXiq:
@@ -56,13 +45,13 @@ class A3ToXiq:
         self.screen = Screen()
         self.robot_built_in = BuiltIn()
         self.custom_file_dir = os.getcwd() + '/onboard_csv_files/'
-        self.login = xiq.flows.common.Login.Login()
+        self.login = CommonLogin()
         self.cli = Cli()
         self.licenseManagement = LicenseManagement()
-        self.a3login = a3.flows.common.Login.Login()
-        self.a3_navigator = a3.flows.common.Navigator.Navigator()
-        self.a3_license_management = a3.flows.a3.LicenseManagementFlow.LicenseManagementFlow()
-        self.a3_cloud_web_flow = a3.flows.a3.CIWebElementsFlow.CIWebElementsFlow()
+        self.a3login = A3Login()
+        self.a3_navigator = A3Navigator()
+        self.a3_license_management = A3LicenseManagementFlow()
+        self.a3_cloud_web_flow = A3CIWebElementsFlow()
         self.driver = None
 
     def configure_a3_to_xiq_instance(self, xiq_username='', xiq_password='', xiq_website='', portal_username='',

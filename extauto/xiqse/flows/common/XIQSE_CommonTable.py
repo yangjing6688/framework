@@ -5,7 +5,6 @@ from extauto.common.AutoActions import AutoActions
 from xiqse.elements.common.CommonTableWebElements import CommonTableWebElements
 from xiqse.flows.common.XIQSE_CommonColumnFilters import XIQSE_CommonColumnFilters
 from xiqse.flows.common.XIQSE_CommonView import XIQSE_CommonView
-from selenium.common.exceptions import StaleElementReferenceException
 
 
 class XIQSE_CommonTable(CommonTableWebElements):

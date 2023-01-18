@@ -1,7 +1,12 @@
-from extauto.xiq.flows.manage.Devices import *
-from extauto.xiq.flows.common.Navigator import *
-from extauto.xiq.elements.AutoprovisionWebElements import *
+from time import sleep
+
+from extauto.common.AutoActions import AutoActions
 from extauto.common.CommonValidation import CommonValidation
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.xiq.elements.AutoprovisionWebElements import AutoprovisionWebElements
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.common.Navigator import Navigator
 
 
 class AutoProvisioning:

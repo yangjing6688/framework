@@ -1,33 +1,29 @@
 import re
 import os
-import pdb
 import copy
 from time import sleep
 from datetime import datetime
-import datetime as dt
+
 from selenium.common.exceptions import StaleElementReferenceException
-from selenium.common.exceptions import MoveTargetOutOfBoundsException
 from robot.libraries.BuiltIn import BuiltIn
-from extauto.common.Screen import Screen
-from extauto.common.Utils import Utils
-from extauto.common.AutoActions import AutoActions
-from extauto.common.Cli import Cli
+
 from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.flows.common.Login import Login
-from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
-
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.DeviceUpdate import DeviceUpdate
+from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElements
 from extauto.xiq.elements.SwitchWebElements import SwitchWebElements
+from extauto.common.AutoActions import AutoActions
 from extauto.common.Cli import Cli
-from extauto.common.CommonValidation import CommonValidation
-from extauto.xiq.defs.DevicesWebElementsDefinitions import *
-from extauto.common.WebElementController import WebElementController
 from extauto.common.CloudDriver import CloudDriver
+from extauto.common.CommonValidation import CommonValidation
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
@@ -9628,7 +9624,7 @@ class Devices:
     def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true", performUpgrade="true", saveDefault="false", updateTo="latest", updatefromD360Page="false", retry_duration=30,retry_count=1200):
         """
         - This method update device to latest version or to a specific version from the dropdown
-        - This method needs import datetime as dt
+        - This method needs from datetime import datetime
         - Varibale and it's possible values
         - updateTo = {"latest"|"anything other than latest"}
         - saveDefault = {true| false}
@@ -9675,7 +9671,7 @@ class Devices:
             self.utils.print_info("Device Updated Status : ", device_updated_status)
             initial_updated_status = device_updated_status
             if re.search(r'\d+-\d+-\d+', device_updated_status):
-                initial_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
+                initial_timestamp = int(datetime.timestamp(datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
             os_version = self.get_device_row_values(device_mac, 'OS VERSION')
             nos_version = str(os_version['OS VERSION'])
             sleep(10)
@@ -10017,9 +10013,9 @@ class Devices:
                 if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (device_updated_status == "Device Update Failed."):
                     count = 0
                     while True:
-                        latest_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
+                        latest_timestamp = int(datetime.timestamp(datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
                         if latest_timestamp > initial_timestamp:
-                            self.utils.print_info("Device update is finished by just updating the timestamp to : ", str(dt.datetime.fromtimestamp(latest_timestamp)))
+                            self.utils.print_info("Device update is finished by just updating the timestamp to : ", str(datetime.fromtimestamp(latest_timestamp)))
                             self.screen.save_screen_shot()
                             sleep(5)
                             break

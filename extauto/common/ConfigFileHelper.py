@@ -1,6 +1,5 @@
 import re
 import sys
-import os
 from pathlib import Path
 from ExtremeAutomation.Imports import pytestConfigHelper
 
@@ -10,7 +9,6 @@ if "pytest" in sys.modules and "pytest.collect" in sys.modules:
 else:
     try:
         from robot.libraries.BuiltIn import BuiltIn
-        from robot.libraries.BuiltIn import _Misc
         import robot.api.logger as logger
         from robot.api.deco import keyword
         ROBOT = True

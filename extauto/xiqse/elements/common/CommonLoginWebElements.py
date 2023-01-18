@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.common.CommonLoginWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.common.CommonLoginWebElementsDefinitions import CommonLoginWebElementsDefinitions
 
 
 class CommonLoginWebElements(CommonLoginWebElementsDefinitions):
@@ -42,7 +42,7 @@ class CommonLoginWebElements(CommonLoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_login_page_copyright_label(self):

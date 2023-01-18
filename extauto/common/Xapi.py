@@ -4,7 +4,6 @@ import random
 
 
 from extauto.common.Utils import Utils
-from extauto.common.Cli import Cli
 
 from robot.libraries.BuiltIn import BuiltIn
 
@@ -218,7 +217,7 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
-        if result_code == 'response_map':            
+        if result_code == 'response_map':
             httpCode = 200
             if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
@@ -228,7 +227,7 @@ class Xapi:
                 httpCode = 500
             self.utils.print_info("httpcode value: ", httpCode)
             self.utils.print_info("response value: ", stdout)
-            return httpCode, stdout        
+            return httpCode, stdout
 
         if result_code:
             if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
@@ -252,7 +251,7 @@ class Xapi:
         url = base_url + path
 
         curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=@{file_path}' "
-        
+
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())
 
@@ -306,7 +305,7 @@ class Xapi:
 
         self.utils.print_info("URL Path : ", path)
         self.utils.print_info("PUT Data: ", put_data)
-        
+
         self.utils.print_info("result_code: ", result_code)
 
         if access_token == "default":
@@ -333,7 +332,7 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
-        if result_code == 'response_map':            
+        if result_code == 'response_map':
             httpCode = 200
             if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
@@ -415,7 +414,7 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
-        if result_code == 'response_map':            
+        if result_code == 'response_map':
             httpCode = 200
             if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
@@ -462,7 +461,7 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
-        if result_code == 'response_map':            
+        if result_code == 'response_map':
             httpCode = 200
             if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
@@ -812,11 +811,11 @@ class Xapi:
                 return -1
         return stdout
 
- 
+
     def rest_api_v3(self, path, operation="POST", data="default", access_token="default", return_output="default",
                         result_code="default", role="default"):
         """
-        - This Keyword is used to perform a rest-api operation and return the output or -1 based on 'result_code' 
+        - This Keyword is used to perform a rest-api operation and return the output or -1 based on 'result_code'
 
         :param path: API Endpoint path
         :param operation: API Operation(GET/POST/DELETE/PUT/PATCH)
@@ -855,7 +854,7 @@ class Xapi:
             if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
                 return stdout
             else:
-                return -1       
+                return -1
 
 
     def get_index_nw_policy_name_from_list_json(self, json_data, index):

@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from extauto.xiq.defs.Network360PlanDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.Network360PlanDefinitions import Network360PlanDefinitions
 
 
 class Network360PlanElements(Network360PlanDefinitions):

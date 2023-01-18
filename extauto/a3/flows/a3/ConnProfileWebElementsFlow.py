@@ -1,8 +1,11 @@
-from common.AutoActions import *
+from time import sleep
+
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
 from a3.elements.ConnProfileWebElements import ConnProfileWebElements
-from a3.elements.GlobalSettingWebElements import *
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
 
 
 class ConnProfileWebElementsFlow(ConnProfileWebElements):

@@ -1,5 +1,5 @@
-from extauto.xiq.defs.LoginWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.LoginWebElementsDefinitions import LoginWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 from selenium.common.exceptions import NoSuchElementException
 
 

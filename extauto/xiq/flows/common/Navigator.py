@@ -1,7 +1,7 @@
 from time import sleep
+
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.common.WebElementHandler import *
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon

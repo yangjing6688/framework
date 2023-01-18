@@ -135,13 +135,13 @@ class AccountManagement(AccntMgmtWebElements):
         if role == "GuestManagement" or role == "Administrator":
             self.utils.print_info(f'Cannot select location for :{role} role')
         if role != "GuestManagement" and role != "Administrator":
-            self.utils.print_info(f'selecting the location check box')
+            self.utils.print_info('selecting the location check box')
             self.auto_actions.click_reference(self.get_Rbac_Assign_Location_checkbox)
 
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.utils.print_info(f'Clicking Account Management save button')
+        self.utils.print_info('Clicking Account Management save button')
         self.auto_actions.click_reference(self.get_account_mgmt_save_button)
         sleep(5)
         tool_tip_text = tool_tip.tool_tip_text

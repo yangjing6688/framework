@@ -3,7 +3,6 @@ import string
 import random
 
 from collections import defaultdict
-from extauto.common.Utils import Utils
 from extauto.common.Cli import Cli
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils

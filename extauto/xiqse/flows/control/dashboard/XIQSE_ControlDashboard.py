@@ -1,9 +1,11 @@
-from xiqse.elements.control.ControlWebElements import ControlWebElements
+from time import sleep
+
 from xiqse.elements.control.access_control.ControlAccessControlCommonWebElements import ControlAccessControlCommonWebElements
 from xiqse.elements.control.dashboard.ControlDashboardWebElements import ControlDashboardWebElements
 
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 
 class XIQSE_ControlDashboard(ControlDashboardWebElements):
 

@@ -1,8 +1,11 @@
-from extauto.xiq.flows.manage.Client import *
-from extauto.xiq.flows.manage.Devices import *
-from extauto.xiq.flows.common.Navigator import *
-from extauto.xiq.elements.Network360MonitorElements import *
+from time import sleep
+
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.Network360MonitorElements import Network360MonitorElements
+from extauto.common.AutoActions import AutoActions
 from extauto.common.CommonValidation import CommonValidation
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 
 
 class Network360Monitor:
@@ -65,7 +68,6 @@ class Network360Monitor:
         matches = self.n360_elements.get_n360_monitor_search_matches()
         if matches:
             for match in matches:
-                search_matches = []
                 self.utils.print_info("Search Results: ", match.text)
                 if floor_name == match.text:
                     self.utils.print_info("Clicking on the match: ", floor_name)
@@ -130,7 +132,6 @@ class Network360Monitor:
         self.utils.print_info("Getting all matching floors")
         matches = self.n360_elements.get_n360_monitor_search_matches()
         if matches:
-            search_matches = []
             for match in matches:
                 self.utils.print_info("Search Results: ", match.text)
                 if floor_name == match.text:

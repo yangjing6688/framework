@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.analytics.configuration.AnalyticsConfigurationRestartCollectorWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.analytics.configuration.AnalyticsConfigurationRestartCollectorWebElementsDefinitions import AnalyticsConfigurationRestartCollectorWebElementsDefinitions
 
 
 class AnalyticsConfigurationRestartCollectorWebElements(AnalyticsConfigurationRestartCollectorWebElementsDefinitions):
@@ -11,7 +11,7 @@ class AnalyticsConfigurationRestartCollectorWebElements(AnalyticsConfigurationRe
         :return: Restart Collector dialog Yes button
         """
         return self.weh.get_element(self.restart_collector_yes_button)
-    
+
     def get_restart_collector_no_button(self):
         """
         :return: Restart Collector dialog No button
@@ -29,4 +29,3 @@ class AnalyticsConfigurationRestartCollectorWebElements(AnalyticsConfigurationRe
         :return: Gets the OK button for the 'Restart Collector Error' dialog
         """
         return self.weh.get_element(self.restart_collector_error_dialog_ok_button)
-

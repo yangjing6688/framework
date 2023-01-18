@@ -1,5 +1,5 @@
 from time import sleep
-import datetime
+
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions

@@ -1,4 +1,4 @@
-from extauto.xiq.defs.RSWebElementsDefinitions import *
+from extauto.xiq.defs.RSWebElementsDefinitions import RSWebElementsDefinitions
 from extauto.common.WebElementHandler import WebElementHandler
 
 
@@ -302,4 +302,3 @@ class RSWebElements(RSWebElementsDefinitions):
 
     def get_radius_server_group_delete_confirm_button(self):
         return self.weh.get_element(self.radius_server_group_delete_confirm_button)
-

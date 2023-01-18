@@ -1,6 +1,5 @@
-from extauto.xiq.defs.MLInsightsPlanDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.MLInsightsPlanDefinitions import MLInsightsPlanDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):

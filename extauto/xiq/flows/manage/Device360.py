@@ -1,12 +1,14 @@
 import re
 from time import sleep
+
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
+
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.xiq.flows.manage.Location import *
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
-from selenium.webdriver.common.keys import Keys
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements

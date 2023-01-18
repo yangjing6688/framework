@@ -26,7 +26,6 @@ class XIQSE_ControlPolicy(ControlPolicyWebElements):
         if the_tab:
             self.utils.print_info(f"Selecting '{tab_name}' tab on Control->Policy page")
             self.auto_actions.click(the_tab)
-            ret_val = 1
             sleep(2)
         else:
             self.utils.print_info(f"Unable to select tab with name '{tab_name}' on Control->Policy page")

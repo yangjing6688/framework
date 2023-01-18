@@ -2,8 +2,8 @@ import threading
 import requests
 import re
 import random
-from io import StringIO
 from time import sleep
+
 from robot.libraries.BuiltIn import BuiltIn
 
 from extauto.common.CloudDriver import CloudDriver

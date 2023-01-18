@@ -1,5 +1,4 @@
 import re
-import datetime
 from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions

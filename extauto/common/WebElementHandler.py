@@ -1,16 +1,16 @@
+import json
 import os
 from string import Template
 
-from extauto.common.CloudDriver import CloudDriver
-from string import Template
-from extauto.common.Utils import Utils
-from extauto.common.ImageHandler import ImageHandler
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.common.exceptions import *
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, ElementNotSelectableException, ElementNotInteractableException
 from robot.libraries.BuiltIn import BuiltIn
-import json
+
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.Utils import Utils
+from extauto.common.ImageHandler import ImageHandler
 
 
 class WebElementHandler:
@@ -177,7 +177,7 @@ class WebElementHandler:
                 {
                     'DESC': 'This finds a panel with title="${title}"',
                     'XPATH': '//div[contains(@id, "panel-title") and text()="${title}"]',
-                    
+
                 }
             self.weh.get_template_element(template_example, title="Devices")
             self.weh.get_template_element(template_example, title="Policy")
@@ -200,7 +200,7 @@ class WebElementHandler:
             {
                 'DESC': 'Drop down items for a list type dropdown (li)',
                 'XPATH': '//div[contains(@id, "${element_id}") and contains(@id, "-picker-listWrap")]/ul/li',
-                
+
             }
             You would then get the elements by passing in the element ID:
             self.weh.get_template_elements(list_dropdown_items, element_id="combo-id")

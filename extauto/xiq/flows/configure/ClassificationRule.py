@@ -1,4 +1,3 @@
-import re
 from time import sleep
 
 from extauto.common.Utils import Utils

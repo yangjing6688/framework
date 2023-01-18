@@ -1,7 +1,6 @@
-from extauto.app.defs.NewDeviceOnboardDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
-from selenium.common.exceptions import NoSuchElementException
+from extauto.app.defs.NewDeviceOnboardDefinitions import NewDeviceOnboardDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):

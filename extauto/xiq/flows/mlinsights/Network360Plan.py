@@ -91,7 +91,6 @@ class Network360Plan:
             items = self.n360_elements.get_n360_plan_search_matches()
             matches = copy.copy(items)
             if matches:
-                search_matches = []
                 for match in matches:
                     self.utils.print_info("Search Results: ", match.text)
                     if floor_name == match.text:

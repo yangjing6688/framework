@@ -1,21 +1,18 @@
 from time import sleep
 import re
+
+from extauto.common.AutoActions import AutoActions
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.CommonValidation import CommonValidation
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import WebElementHandler
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DeviceConfigElements import DeviceConfigElements
 from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
-from extauto.common.WebElementHandler import WebElementHandler
-from extauto.common.CloudDriver import CloudDriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from extauto.common.CloudDriver import CloudDriver
-from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
 from extauto.xiq.flows.manage.Devices import Devices
 
