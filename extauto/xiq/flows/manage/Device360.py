@@ -5666,7 +5666,7 @@ class Device360(Device360WebElements):
                     get_client_mac = None
                     try:
                         get_client_mac = self.get_device360_hyperlink_client().text
-                    except:
+                    except Exception:
                         print("Problem while getting client mac")
                     if client_mac in row.text and "CONNECTED" in row.text:
                         self.utils.print_info("Client found")
@@ -5692,61 +5692,61 @@ class Device360(Device360WebElements):
 
             try:
                 client_info["connection_type"] = self.deviceConfig.get_wired_client_connection_type().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> Connection type not found")
                 client_info["connection_type"] = None
 
             try:
                 client_info["ostype"] = self.deviceConfig.get_wired_client_os_type().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> Os type not found")
                 client_info["ostype"] = None
 
             try:
                 client_info["connectstatus"] = self.deviceConfig.get_wired_client_connection_status().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> Connect status not found")
                 client_info["connectstatus"] = None
 
             try:
                 client_info["hostname"] = self.deviceConfig.get_wired_client_hostname().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> Host Name not found")
                 client_info["hostname"] = None
 
             try:
                 client_info["clientmac"] = self.deviceConfig.get_wired_client_mac().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> Client Mac not found")
                 client_info["clientmac"] = None
 
             try:
                 client_info["ipv4"] = self.deviceConfig.get_wired_client_IPv4().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> IPv4 Address not found")
                 client_info["ipv4"] = None
 
             try:
                 client_info["ipv6"] = self.deviceConfig.get_wired_client_IPv6().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> IPv6 not found")
                 client_info["ipv6"] = None
 
             try:
                 client_info["username"] = self.deviceConfig.get_wired_client_user_name().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> Username not found")
                 client_info["username"] = None
 
             try:
                 client_info["vlan"] = self.deviceConfig.get_wired_client_vlan().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> vlan not found")
                 client_info["vlan"] = None
 
             try:
                 client_info["Connected_via"] = self.deviceConfig.get_wired_client_connected_via().text
-            except:
+            except Exception:
                 self.utils.print_info("In Device360 -> clients table -> Connected via not found")
                 client_info["Connected_via"] = None
 
@@ -5802,7 +5802,7 @@ class Device360(Device360WebElements):
                         sleep(8)
                 sleep(5)
 
-            except:
+            except Exception:
                 self.utils.print_info("Not able to navigate to the page")
                 kwargs['fail_msg'] = "device360_click_clients() -> Not able to navigate to the page"
                 self.common_validation.fault(**kwargs)
@@ -5825,7 +5825,7 @@ class Device360(Device360WebElements):
                     print("Able to click the client and see the popup...")
                     sleep(5)
                     break
-            except:
+            except Exception:
                 print("There was an error during click of Client")
 
             if clickable != 1:
@@ -5854,42 +5854,42 @@ class Device360(Device360WebElements):
             print(self.deviceConfig.get_wired_client_popup_mac())
             client_info["client_mac"] = self.deviceConfig.get_wired_client_popup_mac().text
 
-        except:
+        except Exception:
             self.utils.print_info("In Client Popup, Client Mac not found")
             client_info["client_mac"] = None
 
         try:
             client_info["ipv4"] = self.deviceConfig.get_wired_client_popup_IPv4().text
-        except:
+        except Exception:
             self.utils.print_info("In Client Popup, IPv4 Address not found")
             client_info["ipv4"] = None
 
         try:
             client_info["ipv6"] = self.deviceConfig.get_wired_client_IPv6().text
-        except:
+        except Exception:
             self.utils.print_info("In Client Popup, IPv6 not found")
             client_info["ipv6"] = None
 
         try:
             client_info["port_speed"] = self.deviceConfig.get_wired_client_popup_portSpeed().text
-        except:
+        except Exception:
             self.utils.print_info("In Client Popup, Port speed not found")
             client_info["port_speed"] = None
 
         try:
             client_info["negotiated_speed"] = self.deviceConfig.get_wired_client_popup_negotiatedspeed().text
-        except:
+        except Exception:
             self.utils.print_info("In Client Popup, Negotiated speed not found")
             client_info["negotiated_speed"] = None
 
         try:
             client_info["vlan"] = self.deviceConfig.get_wired_client_popup_vlan().text
-        except:
+        except Exception:
             self.utils.print_info("In Client Popup, VLAN Not found")
             client_info["vlan"] = None
         try:
             client_info["portMode"] = self.deviceConfig.get_wired_client_popup_portMode().text
-        except:
+        except Exception:
             self.utils.print_info("In Client Popup, portMode not found")
             client_info["portMode"] = None
 
@@ -5928,12 +5928,12 @@ class Device360(Device360WebElements):
         client_status = None
         try:
             connection_status = self.dev360.get_system_info_device_model().text
-        except:
+        except Exception:
             self.utils.print_info(
                 "There is a problem while fetching connection status in D360 page, which means we are not at intended page")
         try:
             client_status = self.deviceConfig.get_wired_client_popup_mac().text
-        except:
+        except Exception:
             self.utils.print_info(
                 "There is a problem while fetching mac of client, which indirectly means we are not landed at C360 page")
         if client_status:
@@ -8790,7 +8790,7 @@ class Device360(Device360WebElements):
         ):
             try:
                 summary[row_name] = self.dev360.get_select_element_port_type_summary(row_value).text
-            except:
+            except Exception:
                 summary[row_name] = ""
 
         if save:
@@ -9104,7 +9104,7 @@ class Device360(Device360WebElements):
         ):
             try:
                 summary[row_name] = self.dev360.get_select_element_port_type_summary(row_value).text
-            except:
+            except Exception:
                 summary[row_name] = ""
 
         if save:
@@ -12023,7 +12023,7 @@ class Device360(Device360WebElements):
         ):
             try:
                 summary[row_name]  = self.dev360.get_select_element_port_type_summary(row_value).text
-            except:
+            except Exception:
                 summary[row_name] = ""
         return summary
 
@@ -12535,7 +12535,7 @@ class Device360(Device360WebElements):
         ):
             try:
                 summary[row_name] = self.get_select_element_port_type_summary(row_value).text
-            except:
+            except Exception:
                 summary[row_name] = ""
         return summary
 
@@ -12886,7 +12886,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return 1
 
-        except:
+        except Exception:
             kwargs["fail_msg"] = "create_port_type_with_custom_vlan_values() -> Failed to create the new port type"
             self.common_validation.failed(**kwargs)
             return -1
@@ -13088,7 +13088,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return data
 
-        except:
+        except Exception:
             kwargs["fail_msg"] = "get_vlan_data_from_device_360_tabular_view() -> Failed to get the port info from " \
                                  "the device 360"
             self.common_validation.failed(**kwargs)
@@ -13138,7 +13138,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return ret
 
-        except:
+        except Exception:
             kwargs["fail_msg"] = "get_vlan_data_from_device_360_tabular_for_all_ports() -> Failed to get the port" \
                                  " info from the device 360"
             self.common_validation.failed(**kwargs)

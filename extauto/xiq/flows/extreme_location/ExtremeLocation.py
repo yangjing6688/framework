@@ -1410,7 +1410,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                                      " is avaliable"
                 self.common_validation.fault(**kwargs)
                 return -1
-        except:
+        except Exception:
             self.utils.print_info("third party ibeacon is not avaliable")
             self.screen.save_screen_shot()
             kwargs['pass_msg'] = "third party ibeacon is not avaliable"
@@ -1463,7 +1463,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                         sleep(retry_duration)
                     count += 1
                 break
-            except:
+            except Exception:
                 pass
         kwargs['fail_msg'] = "Ibeacon in Offline State"
         self.common_validation.failed(**kwargs)

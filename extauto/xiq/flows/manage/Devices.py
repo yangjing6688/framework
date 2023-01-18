@@ -1037,20 +1037,20 @@ class Devices:
                         try:
                             cells = self.devices_web_elements.get_device_row_cells(row)
                             self.utils.print_info(f"found cells {len(cells)}")
-                        except:
+                        except Exception:
                             self.utils.print_info(f"Could not get Row Cells - {row}")
                             continue
                         device_detail_dict = {}
                         for cell in cells:
                             try:
                                 cell.get_attribute("class")
-                            except:
+                            except Exception:
                                 print("cell print error")
                                 continue
                             if re.search(r'field-\w*', cell.get_attribute("class")):
                                 try:
                                     label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
-                                except:
+                                except Exception:
                                     label = 'OOPS'
                                 device_detail_dict[label] = cell.text
                             else:
@@ -1948,7 +1948,7 @@ class Devices:
                 quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
                 self.auto_actions.move_to_element(quick_add_devices_button)
                 break
-            except:
+            except Exception:
                 attempt_count = attempt_count - 1
         if attempt_count == 0:
             kwargs['fail_msg'] = "Unable to get / click the menu option"
@@ -2403,7 +2403,7 @@ class Devices:
                 quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
                 self.auto_actions.move_to_element(quick_add_devices_button)
                 break
-            except:
+            except Exception:
                 attempt_count = attempt_count - 1
         if attempt_count == 0:
             self.utils.print_info("Unable to get / click the menu option")
@@ -3013,7 +3013,7 @@ class Devices:
                     self.utils.print_info(f"Trying to get status from cell. Attempt {attempt_count} of 3 attempts")
                     try:
                         device_status = self.devices_web_elements.get_status_cell(device_row)
-                    except:
+                    except Exception:
                         self.utils.print_info(
                             "Getting status from cell failed with Exception.Attempting to get status again")
                         self.screen.save_screen_shot()
@@ -7820,7 +7820,7 @@ class Devices:
                     return self.devices_web_elements.get_ui_tool_tip_inner().text
         except AttributeError:
             return -1
-        except:
+        except Exception:
             self.utils.print_info("Element not fond")
             horizontal_scroll = True
 
@@ -11929,7 +11929,7 @@ class Devices:
                             self.utils.print_info("Trying to click the button ",eachbuttonclick)
                             if eachbuttonclick:
                                 return 1
-                    except:
+                    except Exception:
                         self.utils.print_info("Cannot click the button")
 
             return 1

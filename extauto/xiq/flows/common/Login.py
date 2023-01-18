@@ -430,7 +430,7 @@ class Login:
         try:
             self.t1.do_run = False
             sleep(10)
-        except:
+        except Exception:
             print("t1.do_run not initialized")
 
         try:
@@ -841,7 +841,7 @@ class Login:
                 self.auto_actions.click_reference(self.login_web_elements.get_option_30_days_trial)
                 self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
                 self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-        except:
+        except Exception:
             kwargs['fail_msg'] = "'skip_if_account_90_days()' -> Could not select the option of 90 days trial "
             self.common_validation.failed(**kwargs)
             return -1, "Could not select the option of 90 days trial "

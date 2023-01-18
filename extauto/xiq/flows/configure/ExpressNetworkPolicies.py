@@ -207,8 +207,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
                     sleep(2)
                 else:
                     break
-            except:
-                pass
+            except Exception:
                 break
 
         kwargs['pass_msg'] = "Successfully created open auth express network policy"

@@ -497,7 +497,7 @@ class RadioProfile (RadioProfileWebElements):
             try:
                 element.click()
                 self.utils.print_info("select the channel to be exclusive " + str(channel))
-            except:
+            except Exception:
                 kwargs['fail_msg'] = "select_radio_profile_excluded_channels() failed. " \
                                      f"Not able to select the channel to be exclusive {str(channel)}"
                 self.common_validation.failed(**kwargs)
@@ -598,7 +598,7 @@ class RadioProfile (RadioProfileWebElements):
                 radio_profile_info["background_scan"] = 'ON'
             else:
                 radio_profile_info["background_scan"] = 'OFF'
-        except:
+        except Exception:
             kwargs['fail_msg'] = "get_radio_profile_details() failed. Fail to retrieve one of the fields"
             self.common_validation.fault(**kwargs)
             return -1
@@ -643,7 +643,7 @@ class RadioProfile (RadioProfileWebElements):
             elif group_channel.lower() == 'uni-8':
                 self.get_channel_width_exclusions_unii_8().click()
 
-        except:
+        except Exception:
             kwargs['fail_msg'] = f"verify_uni_group_channels() failed. Not able to click {str(group_channel)}"
             self.common_validation.fault(**kwargs)
             return -1

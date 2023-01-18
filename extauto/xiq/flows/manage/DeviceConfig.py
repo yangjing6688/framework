@@ -1619,7 +1619,7 @@ class DeviceConfig(DeviceConfigElements):
                 return 1
             else:
                 return -1
-        except:
+        except Exception:
             self.utils.print_info("Not able to navigate/set to the page")
             return -1
 
@@ -1736,7 +1736,7 @@ class DeviceConfig(DeviceConfigElements):
             if sensor_status_wifi0 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
                 wifi0_profile['sensor'] = 'UIDisable'
-        except:
+        except Exception:
             wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(
                 self.get_wireless_wifi0_radio_usage_sensor_checkbox().is_selected())
         finally:
@@ -1799,7 +1799,7 @@ class DeviceConfig(DeviceConfigElements):
             if sensor_status_wifi1 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
                 wifi1_profile['sensor'] = 'UIDisable'
-        except:
+        except Exception:
             wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(
                 self.get_wireless_wifi1_radio_usage_sensor_checkbox().is_selected())
         finally:
@@ -1823,7 +1823,7 @@ class DeviceConfig(DeviceConfigElements):
         try:
             self.utils.print_info("Click on WiFi2 interface tab")
             self.auto_actions.click_reference(self.get_wifi2_interface_tab)
-        except:
+        except Exception:
             return wifi2_profile
 
         if radio_status_wifi2 != 'None':
@@ -1854,7 +1854,7 @@ class DeviceConfig(DeviceConfigElements):
             if sensor_status_wifi2 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable())
                 wifi2_profile['sensor'] = 'UIDisable'
-        except:
+        except Exception:
             wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(
                 self.get_wireless_wifi2_radio_usage_sensor_checkbox().is_selected())
         finally:
@@ -1961,7 +1961,7 @@ class DeviceConfig(DeviceConfigElements):
             element.click()
             CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
-        except:
+        except Exception:
             self.utils.print_info(" Not able to configure any channel; leaving as default.")
             return -1
 
@@ -1998,7 +1998,7 @@ class DeviceConfig(DeviceConfigElements):
             if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
                 self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
                 return -1
-        except:
+        except Exception:
             self.utils.print_info("Not able to navigate to the page")
         sleep(5)
 
@@ -2025,7 +2025,7 @@ class DeviceConfig(DeviceConfigElements):
             if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
                 self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
                 return -1
-        except:
+        except Exception:
             self.utils.print_info("Not able to navigate to the page")
         sleep(5)
 
@@ -2100,7 +2100,7 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click_reference(self.get_close_dialog)
             sleep(2)
-        except:
+        except Exception:
             self.utils.print_info("Not able to navigate to the page")
             return -1
 
@@ -2168,7 +2168,7 @@ class DeviceConfig(DeviceConfigElements):
                     self._go_to_wireless_interface_settings_page()
                     self.auto_actions.click_reference(self.get_wifi0_interface_tab)
 
-        except:
+        except Exception:
             self.utils.print_info("Not able to navigate to the page")
 
         return 1
@@ -2331,7 +2331,7 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Click on the radio status button " + mode)
                     self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_wifi2_radio_status)
                     self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save2_button)
-        except:
+        except Exception:
             self.utils.print_info("Can not enable the radio status button")
             return -1
 
@@ -2358,7 +2358,7 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Click on the radio status button " + mode)
                     self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_wifi2_radio_status)
                     self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save2_button)
-        except:
+        except Exception:
             self.utils.print_info("Not able not enable the radio status button")
             return -1
 
@@ -2405,7 +2405,7 @@ class DeviceConfig(DeviceConfigElements):
                         self.utils.print_info(" Click on the channel " + str(channel))
                         CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
-        except:
+        except Exception:
             self.utils.print_info(" Not able to click on the channel ")
             return -1
 
@@ -3212,7 +3212,7 @@ class DeviceConfig(DeviceConfigElements):
                         delay=4,
                         silent_failure=True
                     )
-                except:
+                except Exception:
                     pass
 
                 self.devices.select_device(device_mac=dut.mac)

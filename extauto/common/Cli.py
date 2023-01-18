@@ -1201,7 +1201,7 @@ class Cli(object):
                         else:
                             self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed!")
                             kwargs['fail_msg'] = f"Downgrading iqagent {current_version} to base version {base_version} failed!"
-                    except:
+                    except Exception:
                         self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed! new_version: {new_version}")
                         kwargs['pass_msg'] = f"Downgrading iqagent {current_version} to base version {base_version} failed! new_version: {new_version}"
             else:
@@ -1484,7 +1484,7 @@ class Cli(object):
                             assert int(expected_path_cost) == found_path_cost, \
                                 f"Found path cost for port='{port}' is {found_path_cost}" \
                                 f" but expected {expected_path_cost}"
-                        except:
+                        except Exception:
                             continue
                         else:
                             kwargs["pass_msg"] = f"Successfully found the path cost correctly set on port='{port}' to {expected_path_cost}"

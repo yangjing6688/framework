@@ -91,7 +91,7 @@ class XIQSE_ControlDashboard(ControlDashboardWebElements):
                     else:
                         ret_val = "Invalid Value"
                         self.screen.save_screen_shot()
-                except:
+                except Exception:
                     self.utils.print_info(f"Error converting license count value: {input_element.text} to number")
                     if(input_element.text == "Unlimited"):
                         self.utils.print_debug("Value is Unlimited, which is valid")

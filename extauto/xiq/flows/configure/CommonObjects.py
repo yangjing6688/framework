@@ -1874,7 +1874,7 @@ class CommonObjects(object):
             if sensor_status_wifi0 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
                 wifi0_profile['sensor'] = 'UIDisable'
-        except:
+        except Exception:
             wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(
                 self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected())
         finally:
@@ -1938,7 +1938,7 @@ class CommonObjects(object):
             if sensor_status_wifi1 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
                 wifi1_profile['sensor'] = 'UIDisable'
-        except:
+        except Exception:
             wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(
                 self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected())
         finally:
@@ -1964,7 +1964,7 @@ class CommonObjects(object):
         try:
             self.utils.print_info("Click on WiFi2 Tab on AP Template page")
             self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_wifi2_tab())
-        except:
+        except Exception:
             return wifi2_profile
 
         if radio_status_wifi2 != 'None':
@@ -1994,7 +1994,7 @@ class CommonObjects(object):
             if sensor_status_wifi2 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable())
                 wifi2_profile['sensor'] = 'UIDisable'
-        except:
+        except Exception:
             wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(
                 self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected())
         finally:

@@ -55,7 +55,7 @@ class MuIPerf(object):
         else:
             try:
                 os.killpg(os.getpgid(spid), signal.SIGTERM)
-            except:
+            except Exception:
                 pass
 
     def start_iperf_server(self, format=None, port=None, multiuse=None):
@@ -231,7 +231,7 @@ class MuIPerf(object):
                         emsg = f"{emsg}{msg}"
                         anyFail = 1
                         print(e)
-                    except:
+                    except Exception:
                         pass
 
                 if expRxRate:
@@ -242,7 +242,7 @@ class MuIPerf(object):
                         emsg = f"{emsg}\n{msg}"
                         anyFail = 1
                         print(e)
-                    except:
+                    except Exception:
                         pass
                 # Commented on 1/18/23 because it is unused
                 # ipOut = '\n'.join(cmd_out)

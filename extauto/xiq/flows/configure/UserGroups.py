@@ -939,7 +939,7 @@ class UserGroups(UserGroupsWebElements):
                     return -1
                 else:
                     self._select_user_group_row(exclusive_group)
-        except:
+        except Exception:
             kwargs['fail_msg'] = "delete_all_user_groups() failed. Not able to select the exclusive user group "
             self.common_validation.failed(**kwargs)
             return -1

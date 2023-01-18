@@ -208,7 +208,7 @@ if ROBOT:
                             elif 'serial' in newNetelem:
                                 #BuiltIn().log_to_console(f"[+]Stack missed slots serial {newNetelem['serial']}")
                                 newNetelem['onboard_serial'] = newNetelem['serial']
-                    except:
+                    except Exception:
                         pass
 
                     if not isStack:
@@ -217,7 +217,7 @@ if ROBOT:
                                 newNetelem['onboard_serial'] = newNetelem['serial']
                             if 'topology' not in newNetelem:
                                 newNetelem['topology'] = 'Standalone'
-                        except:
+                        except Exception:
                             pass
                     keyvar = "${"+key+"}"
                     BuiltIn().set_global_variable(keyvar, newNetelem)

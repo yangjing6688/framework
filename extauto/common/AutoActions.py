@@ -335,7 +335,7 @@ class AutoActions:
             actions.drag_and_drop(source_el, target_el).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("drag and drop failed...")
             return -1
 
@@ -352,7 +352,7 @@ class AutoActions:
             actions.click_and_hold(source_el).move_by_offset(offset_value, 0).release().perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Click and Hold element failed...")
             return -1
 
@@ -369,7 +369,7 @@ class AutoActions:
             actions.click(start_row).key_down(Keys.SHIFT).click(end_row).key_up(Keys.SHIFT).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Select table range failed")
             return -1
 
@@ -410,7 +410,7 @@ class AutoActions:
                 actions.context_click(source_el).perform()
                 sleep(2)
                 return 1
-            except:
+            except Exception:
                 self.utils.print_info("Right click element failed")
                 return -1
 
@@ -426,7 +426,7 @@ class AutoActions:
             actions.double_click(source_el).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Double click element failed")
             return -1
 
@@ -442,7 +442,7 @@ class AutoActions:
             actions.key_down(Keys.SHIFT).click(source_el).key_up(Keys.SHIFT).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Shift+click element failed")
             return -1
 
