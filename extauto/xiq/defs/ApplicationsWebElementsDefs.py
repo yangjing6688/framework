@@ -91,7 +91,12 @@ class ApplicationsWebElementsDefs:
 
     application_dialogbox_close_button = \
         {
-            'XPATH': '//div[@class="manage-applications-pop-up hmOverride dijitDialog"]'
-                     '//span[@class="dijitDialogCloseIcon"]',
+            'XPATH': '//div[@class="manage-applications-pop-up hmOverride dijitDialog"]//div[@data-dojo-attach-point="titleBar"]//span[@data-dojo-attach-point="closeButtonNode"]',
+            'wait_for': 5
+        }
+
+    application_dialogbox_close_tab = \
+        {
+            'XPATH': '//div[@class="manage-applications-pop-up hmOverride dijitDialog dijitDialogHover dijitHover"]//div[@data-dojo-attach-point="titleBar"]//span[@data-dojo-attach-point="closeButtonNode"]',
             'wait_for': 5
         }

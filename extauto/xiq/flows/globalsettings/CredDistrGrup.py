@@ -5,6 +5,7 @@ from extauto.common.AutoActions import AutoActions
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.CredDistrGrupWebElemnts import CredDistrGrupWebElemnts
 from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.common.CommonValidation import CommonValidation
 
 
 class CredDistrGrup(CredDistrGrupWebElemnts):
@@ -14,6 +15,7 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.utils = Utils()
+        self.common_validation = CommonValidation()
 
     def _search_cred_distr_group(self, group_name):
         """
@@ -27,7 +29,7 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
                 self.utils.print_info(f"Credential Distribution group:{group_name} exists")
                 return row
 
-    def delete_cred_distr_group(self, group_name):
+    def delete_cred_distr_group(self, group_name, **kwargs):
         """
         - Flow: Global Settings --> Credential Distribution Groups
         - Search the credentials distribution group
@@ -50,9 +52,11 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
             sleep(2)
             self.auto_actions.click_reference(self.get_cred_distr_grps_row_delete_confirm_yes_button)
             sleep(2)
+            kwargs['pass_msg'] = "'delete_cred_distr_group()' -> Successfully delete cred distr group"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def create_cred_distribution_group(self, **group_config):
+    def create_cred_distribution_group(self, group_config, **kwargs):
         """
         - Flow: Global Settings --> Credential Distribution Groups
         - Create Credential distribution Groups
@@ -130,9 +134,13 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
         self.utils.print_info(tool_tip_text)
         for text in tool_tip_text:
             if "Configure at least one guest management user" in text:
-                self.utils.print_info(f"{text}")
+                kwargs['fail_msg'] = f"'create_cred_distribution_group()' -> {text}"
+                self.common_validation.failed(**kwargs)
                 return -1
             if "The Employee Group was saved successfully" in text:
-                self.utils.print_info(f"{text}")
+                kwargs['pass_msg'] = f"'create_cred_distribution_group()' -> {text}"
+                self.common_validation.passed(**kwargs)
                 return 1
+        kwargs['pass_msg'] = "'create_cred_distribution_group()' -> Successfully create  credential distribution Groups"
+        self.common_validation.passed(**kwargs)
         return 1

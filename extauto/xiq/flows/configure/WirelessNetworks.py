@@ -238,7 +238,7 @@ class WirelessNetworks:
         self.utils.print_info("Selecting User Profiles")
         if not user_profile_config == 'None':
             usr_profile_name = user_profile_config.get('profile_name')
-            if not self.user_group.select_wireless_user_profile(usr_profile_name):
+            if not self.user_group.select_wireless_user_profile(usr_profile_name, ignore_failure=True):
                 self.utils.print_info(f"User Profile:{usr_profile_name} not created !!!")
                 return -1
 
@@ -632,7 +632,7 @@ class WirelessNetworks:
         self.utils.print_info("Selecting User Profiles")
         if not user_profile_config == 'None':
             usr_profile_name = user_profile_config.get('profile_name')
-            if not self.user_group.select_wireless_user_profile(usr_profile_name):
+            if not self.user_group.select_wireless_user_profile(usr_profile_name, ignore_failure=True):
                 self.utils.print_info(f"User Profile:{usr_profile_name} not created !!!")
                 return -1
 
