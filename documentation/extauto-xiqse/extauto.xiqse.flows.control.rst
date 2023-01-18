@@ -1,4 +1,4 @@
-extauto.xiqse.flows.control package
+XIQSE Flows Control Keywords
 ===================================
 
 Subpackages
@@ -16,7 +16,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.control.XIQSE\_Control module
+XIQSE\_Control module
 -------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.XIQSE_Control

@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.devices.flex\_reports package
+XIQSE Flows Network Devices Flex Reports Keywords
 =========================================================
 
 Module contents

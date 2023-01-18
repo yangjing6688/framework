@@ -1,4 +1,4 @@
-extauto.xiqse.flows.reports.report\_designer package
+XIQSE Flows Reports Report Designer Keywords
 ====================================================
 
 Module contents

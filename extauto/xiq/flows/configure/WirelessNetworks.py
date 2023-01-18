@@ -36,6 +36,7 @@ class WirelessNetworks:
     def _get_wireless_network_row(self, wireless_nw_name):
         """
         - Get the wireless network row
+
         :param wireless_nw_name:
         :return: row object
         """
@@ -53,6 +54,7 @@ class WirelessNetworks:
     def _wireless_wifi0_use_checkbox(self, status):
         """
         Select or unselect the wifi0 use check box
+
         :param status: Enable or Disable
         :return: None
         """
@@ -64,6 +66,7 @@ class WirelessNetworks:
     def _wireless_wifi1_use_checkbox(self, status):
         """
         Select or unselect the wifi1 use check box
+
         :param status: Enable or Disable
         :return: None
         """
@@ -111,6 +114,7 @@ class WirelessNetworks:
     def _configure_wifi_interfaces_settings(self, **conf):
         """
         Select the options to enable wifi0 and wifi1 radio settings
+
         :param conf: configuration dictionary
         :return:
         """
@@ -141,6 +145,7 @@ class WirelessNetworks:
     def _config_key_encryption_method(self, key_management, encryption_method):
         """
         - Selecting configuration Key And Encryption Method
+
         :param key_management: Key Management ex: WPA2-802.1X
         :param encryption_method: key method --CCMP (AES) , TKIP
         :return: 1 if configured else -1
@@ -165,6 +170,7 @@ class WirelessNetworks:
     def _select_wireless_network_auth_type(self, auth_type):
         """
         Select the authentication type, Ex: OPEN, WEP, PSK, PPSK, ENTERPRISE
+
         :param auth_type: Type of the authentication
         :return: 1 is selected else -1
         """
@@ -190,6 +196,7 @@ class WirelessNetworks:
     def _config_wireless_network_ssid_section(self, ssid_name, **radio_config):
         """
         Configuring wireless network ssid subsection, enabling , disabling wi-fi radio's based arguments
+
         :param ssid_name: name of the ssid, same name used for broadcast ssid
         :param radio_config: config dictionary to config the radio settings
         :return: True
@@ -264,6 +271,7 @@ class WirelessNetworks:
     def _config_enterprise_wireless_network(self, **auth_profile):
         """
         Configure the enterprise authentication network
+
         :param auth_profile: configuration dictionary to config cwp, radius server, user group
         :return: 1
         """
@@ -307,6 +315,7 @@ class WirelessNetworks:
     def _client_per_ppsk_checkbox(self, status, no_clients=0):
         """
         Enable or disable the maximum number of clients per private ppsk
+
         :param status: Enable or Disable
         :param no_clients: number of clients
         :return: None
@@ -325,6 +334,7 @@ class WirelessNetworks:
     def _ppsk_classification_use_checkbox(self, status):
         """
         Select or unselect the PPSK classification by using checkbox
+
         :param status: Enable or Disable
         :return: None
         """
@@ -336,6 +346,7 @@ class WirelessNetworks:
     def _pcg_use_check_box(self, status, pcg_type=None):
         """
         Enable of disable the pcg(Private client group) based on status
+
         :param status: Enable for select , Disable for unselect
         :param pcg_type: AP-Based or Key-Based
         :return: None
@@ -367,6 +378,7 @@ class WirelessNetworks:
         Enable or disable the check box, maximum number of clients per private PSK,
         Set the MAC binding numbers per private PSK, Private Client Group Options,
         PPSK Classification Options
+
         :param ppsk_config:
         :return:
         """
@@ -400,6 +412,7 @@ class WirelessNetworks:
     def _config_private_pre_shared_key_wireless_network(self, **auth_profile):
         """
         - Configure the PPSK network
+
         :param auth_profile: configuration dict to configure cwp, user groups
         :return: 1
         """
@@ -455,6 +468,7 @@ class WirelessNetworks:
     def _config_enhanced_open_wireless_network(self, **auth_profile):
         """
         - Configure Enhanced Open SSID Authentication Wireless Network
+
         :param auth_profile: (dict) Authentication profile
         :return: 1 if success else -1
         """
@@ -541,6 +555,7 @@ class WirelessNetworks:
     def navigate_to_standard_enterprise_network(self):
         """
         - Navigate to Standard Enterprise Wireless Network after Network Policy Edit
+
         :return: True if success
         """
         self.utils.print_info("Click on  wireless network tab")
@@ -562,6 +577,7 @@ class WirelessNetworks:
     def _config_personal_wireless_network(self, **auth_profile):
         """
         - Configure Personal SSID Authentication Wireless Network
+
         :param auth_profile: auth_profile include key_management, encryption_method, key_type, key_value, cwp_config
         :return: 1 if there is no error
         :param auth_profile:
@@ -645,6 +661,7 @@ class WirelessNetworks:
     def _config_personal_wpa2_key_type_value_method(self, key_type, key_value):
         """
         - Configure Key type And key value for personal authentication method
+
         :param key_type: Key Type ex: ASCII or HEX
         :param key_value: key value -- Password String to connect Client
         :return: 1 if configured else -1
@@ -671,6 +688,7 @@ class WirelessNetworks:
     def _config_personal_key_method(self, key_management):
         """
         Configure Key Management Method
+
         :param key_management: Key Management ex: WPA2-802.1X
         :return: 1 if configured else -1
         """
@@ -692,6 +710,7 @@ class WirelessNetworks:
     def _configure_transition_mode(self, status):
         """
         - configure Transition Mode based on status for WPA3 (SAE)
+
         :param status: (str) status is either enable or disable
         :return: True if Enable, False if Disable
         """
@@ -710,6 +729,7 @@ class WirelessNetworks:
     def _wireless_wifi2_use_checkbox(self, status):
         """
         Select or unselect the wifi2 use check box
+
         :param status: Enable or Disable
         :return: None
         """

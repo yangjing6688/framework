@@ -1,4 +1,4 @@
-extauto.xiqse.flows.reports.custom\_report package
+XIQSE Flows Reports Custom Report Keywords
 ==================================================
 
 Module contents

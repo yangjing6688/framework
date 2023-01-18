@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.devices.site.endpoint\_locations package
+XIQSE Flows Network Devices Site Endpoint LocationsKeywords
 ====================================================================
 
 Module contents

@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.devices.tree\_panel package
+XIQSE Flows Network Devices Tree Panel Keywords
 =======================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.devices.tree\_panel.XIQSE\_NetworkDevicesTreePanel module
+XIQSE\_NetworkDevicesTreePanel module
 -------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.tree_panel.XIQSE_NetworkDevicesTreePanel
@@ -12,7 +12,7 @@ extauto.xiqse.flows.network.devices.tree\_panel.XIQSE\_NetworkDevicesTreePanel m
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.tree\_panel.XIQSE\_NetworkDevicesTreePanelCreateSite module
+XIQSE\_NetworkDevicesTreePanelCreateSite module
 -----------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.tree_panel.XIQSE_NetworkDevicesTreePanelCreateSite
@@ -20,7 +20,7 @@ extauto.xiqse.flows.network.devices.tree\_panel.XIQSE\_NetworkDevicesTreePanelCr
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.tree\_panel.XIQSE\_NetworkDevicesTreePanelDeleteSite module
+XIQSE\_NetworkDevicesTreePanelDeleteSite module
 -----------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.tree_panel.XIQSE_NetworkDevicesTreePanelDeleteSite
@@ -28,7 +28,7 @@ extauto.xiqse.flows.network.devices.tree\_panel.XIQSE\_NetworkDevicesTreePanelDe
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.tree\_panel.XIQSE\_NetworkDevicesTreePanelDeviceType module
+XIQSE\_NetworkDevicesTreePanelDeviceType module
 -----------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.tree_panel.XIQSE_NetworkDevicesTreePanelDeviceType
