@@ -1194,7 +1194,7 @@ class Cli(object):
                         if count == max_tries:
                             break
                         time.sleep(1)
-                        new_version = self.send(connection, f'show iqagent | include Version')
+                        new_version = self.send(connection, 'show iqagent | include Version')
                         count = count + 1
                     try:
                         new_version = new_version.split()[1]
@@ -1228,12 +1228,12 @@ class Cli(object):
         #
 
         # if NetworkElementConstants.OS_EXOS in cli_type.upper():
-        #     self.send(_spawn, f'show iqagent | include Version')
+        #     self.send(_spawn, 'show iqagent | include Version')
         #     self.send(_spawn, url_image, \
         #               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
         #               confirmation_args='yes')
         #     time.sleep(10)
-        #     self.send(_spawn, f'show iqagent | include Version')
+        #     self.send(_spawn, 'show iqagent | include Version')
         #     self.close_spawn(_spawn)
         #     return 1
         # else:
@@ -1252,15 +1252,15 @@ class Cli(object):
         :return: 1 id device successfully disconnected with cloud server else -1
         """
         if NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(connection, f'no capwap client server name')
-            self.send(connection, f'no capwap client enable')
-            self.send(connection, f'capwap client enable')
-            self.send(connection, f'save config')
+            self.send(connection, 'no capwap client server name')
+            self.send(connection, 'no capwap client enable')
+            self.send(connection, 'capwap client enable')
+            self.send(connection, 'save config')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
-                hm_status = self.send(connection, f'show capwap client | include RUN')
+                hm_status = self.send(connection, 'show capwap client | include RUN')
                 if 'RUN State' not in hm_status: # the RUN state will not be in the output, only the DISCOVERY state will be shown
                     self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
@@ -1269,14 +1269,14 @@ class Cli(object):
             self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
-            self.send(connection, f'no Hivemanager address ')
-            self.send(connection, f'Application stop hiveagent')
-            self.send(connection, f'Application start hiveagent')
+            self.send(connection, 'no Hivemanager address ')
+            self.send(connection, 'Application stop hiveagent')
+            self.send(connection, 'Application start hiveagent')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
-                hm_status = self.send(connection, f'show hivemanager status | include Status')
+                hm_status = self.send(connection, 'show hivemanager status | include Status')
                 if 'CONNECTED TO HIVEMANAGER' not in hm_status:
                     self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
@@ -1285,16 +1285,16 @@ class Cli(object):
             self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
-            self.send(connection, f'no capwap client server name')
-            self.send(connection, f'no capwap client default-server-name')
-            self.send(connection, f'no capwap client server backup name')
-            self.send(connection, f'no capwap client enable')
-            self.send(connection, f'save config')
+            self.send(connection, 'no capwap client server name')
+            self.send(connection, 'no capwap client default-server-name')
+            self.send(connection, 'no capwap client server backup name')
+            self.send(connection, 'no capwap client enable')
+            self.send(connection, 'save config')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
-                output = self.send(connection, f'show capwap client | include "RUN state"')
+                output = self.send(connection, 'show capwap client | include "RUN state"')
 
                 if 'Connected securely to the CAPWAP server' not in output:
                     self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
@@ -1304,13 +1304,13 @@ class Cli(object):
             self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(connection, f'configure iqagent server ipaddress none')
-            self.send(connection, f'configure iqagent server vr none')
+            self.send(connection, 'configure iqagent server ipaddress none')
+            self.send(connection, 'configure iqagent server vr none')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
-                output = self.send(connection, f'show iqagent | include "Status"')
+                output = self.send(connection, 'show iqagent | include "Status"')
 
                 if 'CONNECTED TO XIQ' not in output:
                     self.utils.print_info("Device Successfully Disconnected From Cloud server")
@@ -1320,19 +1320,19 @@ class Cli(object):
             self.builtin.fail(msg="Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(connection, f'enable')
-            self.send(connection, f'configure terminal')
-            self.send(connection, f'application')
-            self.send(connection, f'no iqagent enable')
-            self.send(connection, f'default iqagent server')
-            self.send(connection, f'end')
+            self.send(connection, 'enable')
+            self.send(connection, 'configure terminal')
+            self.send(connection, 'application')
+            self.send(connection, 'no iqagent enable')
+            self.send(connection, 'default iqagent server')
+            self.send(connection, 'end')
 
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
                 time.sleep(10)
 
-                output = self.send(connection, f'show application iqagent status | include "Connection Status"')
+                output = self.send(connection, 'show application iqagent status | include "Connection Status"')
 
                 if 'Disconnected' in output:
                     self.utils.print_info("Device Successfully Disconnected from Cloud server")
@@ -1343,11 +1343,11 @@ class Cli(object):
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
             # These commands fail internally if there is a failure sending them
-            self.send(connection, f'en')
-            self.send(connection, f'config')
+            self.send(connection, 'en')
+            self.send(connection, 'config')
             # Delete the policy
-            self.send(connection, f'no nsight-policy xiq', ignore_cli_feedback=True)
-            self.send(connection, f'commit write memory')
+            self.send(connection, 'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(connection, 'commit write memory')
             return 1
         return -1
 
@@ -1475,8 +1475,8 @@ class Cli(object):
                     output = self.networkElementCliSend.send_cmd(
                         device.name, f'show spanning-tree mst port detailed 0 {port}', max_wait=10, interval=2)[
                         0].return_text
-                    path_cost_match = re.search(rf"\r\nPort Path Cost\.+\s+(\d+)", output)
-                    external_path_cost_match = re.search(rf"\r\nExternal Port Path Cost\.+\s+(\d+)", output)
+                    path_cost_match = re.search(r"\r\nPort Path Cost\.+\s+(\d+)", output)
+                    external_path_cost_match = re.search(r"\r\nExternal Port Path Cost\.+\s+(\d+)", output)
                     assert path_cost_match or external_path_cost_match
 
                     for path_cost_match in [path_cost_match, external_path_cost_match]:
@@ -1501,13 +1501,13 @@ class Cli(object):
                         output = self.networkElementCliSend.send_cmd(
                             device.name, f'show spanning-tree {mode} port config {port}', max_wait=10, interval=2)[
                             0].return_text
-                        path_cost_match = re.search(fr"\r\nCist Port cost\s+:\s*(\d+)\s*\r\n", output)
+                        path_cost_match = re.search(r"\r\nCist Port cost\s+:\s*(\d+)\s*\r\n", output)
 
                     elif NetworkElementConstants.OS_EXOS in device.cli_type.upper():
                         output = self.networkElementCliSend.send_cmd(
                             device.name, f'show stpd s0 ports {port} detail', max_wait=10, interval=2)[
                             0].return_text
-                        path_cost_match = re.search(fr"\tPath Cost:\s(\d+)\r\n", output)
+                        path_cost_match = re.search(r"\tPath Cost:\s(\d+)\r\n", output)
 
                     assert path_cost_match, f"Failed to match get the path cost of port='{port}' from dut {device.name}"
                     found_path_cost = int(path_cost_match.group(1))
@@ -1568,7 +1568,7 @@ class Cli(object):
                     if allowed_vlans != "all":
                         assert re.search(fr"\r\nVLAN_{allowed_vlans.zfill(4)}\s+{allowed_vlans}\s+", output)
                     else:
-                        assert re.search(fr"\r\nDefault\s+1\s", output)
+                        assert re.search(r"\r\nDefault\s+1\s", output)
 
             elif NetworkElementConstants.OS_VOSS in dut.cli_type.upper():
 
@@ -1603,9 +1603,9 @@ class Cli(object):
         units_list = []
 
         if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
 
-            stacking_details_output = self.networkElementCliSend.send_cmd(dut.name, f'show stacking', max_wait=10, interval=2)
+            stacking_details_output = self.networkElementCliSend.send_cmd(dut.name, 'show stacking', max_wait=10, interval=2)
             p = re.compile(r"((?:[0-9a-fA-F]:?){12})\s+(\d)\s+[^\s]+\s+([^\s]+)", re.M)
             stacking_details = re.findall(p, stacking_details_output[0].return_text)
             units_list.append(stacking_details)
@@ -1629,10 +1629,10 @@ class Cli(object):
         info_list = []
 
         if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
             ip_list_cli = []
             ip_list = []
-            ip_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Interface', max_wait=10, interval=2)
+            ip_output = self.networkElementCliSend.send_cmd(dut.name, 'show iqagent | include Interface', max_wait=10, interval=2)
             p = re.compile(r"(Source\sInterface)\s+(\d+.\d+.\d+.\d+)", re.M)
             ip_dut_list = re.findall(p, ip_output[0].return_text)
             ip_list.append(ip_dut_list)
@@ -1656,7 +1656,7 @@ class Cli(object):
 
             soft_version_list_cli = []
             soft_version_list = []
-            soft_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            soft_version_output = self.networkElementCliSend.send_cmd(dut.name, 'show version', max_wait=10, interval=2)
             p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+\s+.[^\s]+\W([^\s]+)", re.M)
             soft_version_dut_list = re.findall(p, soft_version_output[0].return_text)
             soft_version_list.append(soft_version_dut_list)
@@ -1667,7 +1667,7 @@ class Cli(object):
 
             type_list_cli = []
             type_list = []
-            type_output = self.networkElementCliSend.send_cmd(dut.name, f'show slot', max_wait=10, interval=2)
+            type_output = self.networkElementCliSend.send_cmd(dut.name, 'show slot', max_wait=10, interval=2)
             p = re.compile(r"(Slot-\d)\s{5}([^\s]+)", re.M)
             type_dut_list = re.findall(p, type_output[0].return_text)
             type_list.append(type_dut_list)
@@ -1678,7 +1678,7 @@ class Cli(object):
 
             serial_list_cli = []
             serial_list = []
-            serial_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            serial_output = self.networkElementCliSend.send_cmd(dut.name, 'show version', max_wait=10, interval=2)
             p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.([^\s]+)", re.M)
             serial_number_list = re.findall(p, serial_output[0].return_text)
             serial_list.append(serial_number_list)
@@ -1689,7 +1689,7 @@ class Cli(object):
 
             make_list_cli = []
             make_list = []
-            make_output =  self.networkElementCliSend.send_cmd(dut.name, f'show version | include Image', max_wait=10, interval=2)
+            make_output =  self.networkElementCliSend.send_cmd(dut.name, 'show version | include Image', max_wait=10, interval=2)
             p = re.compile(r"(Image\s+\W)\s+(.*)\sversion", re.M)
             make_dut_list = re.findall(p, make_output[0].return_text)
             make_list.append(make_dut_list)
@@ -1700,7 +1700,7 @@ class Cli(object):
 
             iqagent_version_cli = []
             iqagent_version_list = []
-            iqagent_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Version', max_wait=10,interval=2)
+            iqagent_version_output = self.networkElementCliSend.send_cmd(dut.name, 'show iqagent | include Version', max_wait=10,interval=2)
             p = re.compile(r"(Version)\s+([^\s]+)", re.M)
             iqagent_version_dut = re.findall(p, iqagent_version_output[0].return_text)
             iqagent_version_list.append(iqagent_version_dut)
@@ -1727,10 +1727,10 @@ class Cli(object):
         info_list = []
 
         if dut.cli_type.upper() == "EXOS":
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
             ip_list_cli = []
             ip_list = []
-            ip_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Interface', max_wait=10, interval=2)
+            ip_output = self.networkElementCliSend.send_cmd(dut.name, 'show iqagent | include Interface', max_wait=10, interval=2)
             p = re.compile(r"(Source\sInterface)\s+(\d+.\d+.\d+.\d+)", re.M)
             ip_dut_list = re.findall(p, ip_output[0].return_text)
             ip_list.append(ip_dut_list)
@@ -1754,7 +1754,7 @@ class Cli(object):
 
             soft_version_list_cli = []
             soft_version_list = []
-            soft_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            soft_version_output = self.networkElementCliSend.send_cmd(dut.name, 'show version', max_wait=10, interval=2)
             p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+\s+.[^\s]+\W([^\s]+)", re.M)
             soft_version_dut_list = re.findall(p, soft_version_output[0].return_text)
             soft_version_list.append(soft_version_dut_list)
@@ -1765,7 +1765,7 @@ class Cli(object):
 
             type_list_cli = []
             type_list = []
-            type_output = self.networkElementCliSend.send_cmd(dut.name, f'show slot', max_wait=10, interval=2)
+            type_output = self.networkElementCliSend.send_cmd(dut.name, 'show slot', max_wait=10, interval=2)
             p = re.compile(r"(Slot-\d)\s{5}([^\s]+)", re.M)
             type_dut_list = re.findall(p, type_output[0].return_text)
             type_list.append(type_dut_list)
@@ -1776,7 +1776,7 @@ class Cli(object):
 
             serial_list_cli = []
             serial_list = []
-            serial_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            serial_output = self.networkElementCliSend.send_cmd(dut.name, 'show version', max_wait=10, interval=2)
             p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.([^\s]+)", re.M)
             serial_number_list = re.findall(p, serial_output[0].return_text)
             serial_list.append(serial_number_list)
@@ -1787,7 +1787,7 @@ class Cli(object):
 
             make_list_cli = []
             make_list = []
-            make_output =  self.networkElementCliSend.send_cmd(dut.name, f'show version | include Image', max_wait=10, interval=2)
+            make_output =  self.networkElementCliSend.send_cmd(dut.name, 'show version | include Image', max_wait=10, interval=2)
             p = re.compile(r"(Image\s+\W)\s+(.*)\sversion", re.M)
             make_dut_list = re.findall(p, make_output[0].return_text)
             make_list.append(make_dut_list)
@@ -1798,7 +1798,7 @@ class Cli(object):
 
             iqagent_version_cli = []
             iqagent_version_list = []
-            iqagent_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Version', max_wait=10,interval=2)
+            iqagent_version_output = self.networkElementCliSend.send_cmd(dut.name, 'show iqagent | include Version', max_wait=10,interval=2)
             p = re.compile(r"(Version)\s+([^\s]+)", re.M)
             iqagent_version_dut = re.findall(p, iqagent_version_output[0].return_text)
             iqagent_version_list.append(iqagent_version_dut)

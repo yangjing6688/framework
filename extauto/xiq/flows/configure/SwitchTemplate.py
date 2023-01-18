@@ -4179,7 +4179,7 @@ class SwitchTemplate(object):
         elif device == 'standalone':
             AutoActions().click(self.sw_template_web_elements.save_device_template())
         else:
-            kwargs["fail_msg"] = f"Please specify a device type."
+            kwargs["fail_msg"] = "Please specify a device type."
             self.common_validation.failed(**kwargs)
         kwargs["pass_msg"] = f"Successfully removed {ports} from lag {main_lag_port}"
         self.common_validation.passed(**kwargs)
