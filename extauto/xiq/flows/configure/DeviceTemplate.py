@@ -538,9 +538,10 @@ class DeviceTemplate(object):
         :param wifi_interface_config: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
         :return: 1 if AP Template Configured Successfully else -1
         """
-        wifi0_config = wifi_interface_config['wifi0_configuration']
-        wifi1_config = wifi_interface_config['wifi1_configuration']
-        wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
+        # Commented on 1/18/23 because it is unused
+        # wifi0_config = wifi_interface_config['wifi0_configuration']
+        # wifi1_config = wifi_interface_config['wifi1_configuration']
+        # wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
 
         sleep(5)
 

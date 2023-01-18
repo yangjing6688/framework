@@ -27,5 +27,5 @@ class DeviceCliWebElements(DeviceCliDefinitions):
                 return cli_cmd.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"

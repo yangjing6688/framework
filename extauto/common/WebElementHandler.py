@@ -85,7 +85,7 @@ class WebElementHandler:
                         try:
                             handles_list.append(WebDriverWait(_driver, _delay, ignored_exceptions=self.ignored_exceptions).until(
                                 ec.presence_of_all_elements_located((by, value)))[each_index])
-                        except Exception as e:
+                        except Exception:
                             self.utils.print_info("Unable to find element with Index: ", each_index)
                     self.utils.print_info("Handles List: ", handles_list)
                     if handles_list.length == 0:
@@ -98,7 +98,7 @@ class WebElementHandler:
                     return WebDriverWait(_driver, _delay, ignored_exceptions=self.ignored_exceptions).until(
                         ec.presence_of_all_elements_located((by, value)))[_index]
 
-            except Exception as e:
+            except Exception:
                 if 'True' in self.el_info:
                     self.utils.print_info("Unable to find the element handle with: ", key, ' -- ', value)
                     self.utils.print_info('Unable to find web element ', json.dumps(key_val))

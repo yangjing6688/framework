@@ -1282,10 +1282,9 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 kwargs['fail_msg'] = "'create_xloc_third_party_ibeacon()' -> configuration not saved sucessfully"
                 self.common_validation.fault(**kwargs)
                 return -1
-        except Exception as e:
+        except Exception:
             self.utils.print_info("configuration sucessfully saved")
             self.screen.save_screen_shot()
-            pass
 
         if self._search_common_object(ibeacon_mac_address):
             self.screen.save_screen_shot()

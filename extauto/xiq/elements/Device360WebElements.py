@@ -2161,7 +2161,7 @@ class Device360WebElements(Device360WebElementDefs):
         port_num = 0
         try:
             port_num = int(port)
-        except Exception as e:
+        except Exception:
             return False
         return self.weh.get_template_element(self.device360_port_settings_click_checkbox, port=str(port_num-1))
 

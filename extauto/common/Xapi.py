@@ -117,7 +117,7 @@ class Xapi:
             elif isinstance(json_data, list):
                 self.utils.print_info("JSON DATA is list. Returning Value: ", json_data[int(json_key)])
                 return json_data[int(json_key)]
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Error in interpreting JSON data")
             return -1
 

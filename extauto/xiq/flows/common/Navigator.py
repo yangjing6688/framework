@@ -2043,7 +2043,7 @@ class Navigator(NavigatorWebElements):
             kwargs['pass_msg'] = "Navigation Successful to MANAGE->Application"
             self.common_validation.passed(**kwargs)
             return 1
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'navigate_manage_application()' - > Unable to Navigate to  Manage--> Application"
             self.common_validation.failed(**kwargs)
             return -1

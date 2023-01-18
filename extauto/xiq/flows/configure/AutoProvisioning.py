@@ -504,7 +504,7 @@ class AutoProvisioning:
             self.common_validation.passed(**kwargs)
             return 1
 
-        header = self.app_web_elements.get_auto_provisioning_grid_header()
+        self.app_web_elements.get_auto_provisioning_grid_header()
         self.utils.print_info("Selecting all Policies")
 
         self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_select_all_check_box)

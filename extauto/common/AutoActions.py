@@ -247,7 +247,7 @@ class AutoActions:
         try:
             select_by[by](item)
             return True
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Selecting item:{} not present in available options".format(item))
             return False
 

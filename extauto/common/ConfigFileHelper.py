@@ -175,7 +175,8 @@ if ROBOT:
             #  Default netelem updates
             #
             netelemRe = re.compile("netelem[0-9]+")
-            multiSerRe = re.compile(",")
+            # Commented on 1/18/23 because it is unused
+            # multiSerRe = re.compile(",")
             for key in self.variables:
                 if isinstance(self.variables[key], dict) and netelemRe.match(key):
                     #BuiltIn().log_to_console(f"[+] {key}")
@@ -228,7 +229,8 @@ if ROBOT:
 
         def build_dict_of_elems(self, **kwargs):
             try:
-                variables = BuiltIn().get_variables(no_decoration=True)
+                # variables = BuiltIn().get_variables(no_decoration=True)
+                BuiltIn().get_variables(no_decoration=True)
             except Exception as e:
                     raise e
 

@@ -56,8 +56,9 @@ class CloudDriver():
         element_identify_value_id = "password"
         element_identify_value_css = ".eguest-username"
         element_identify_value_xpath = "//*[@class='success_text']"
-        element_value = ".btn"
-        element_locator = "name"
+        # Commented on 1/18/23 because they are unused
+        # element_value = ".btn"
+        # element_locator = "name"
         element_identify = "name"
         element_identify_value_name = "username"
 
@@ -408,8 +409,9 @@ class CloudDriver():
         element_identify_value_name = "username"
         element_identify_value_id = "password"
         element_identify_value_css = ".eguest-username"
-        element_value = ".btn"
-        element_locator = "name"
+        # Commented on 1/18/23 because they are unused
+        # element_value = ".btn"
+        # element_locator = "name"
         element_identify = "name"
         element_identify_value_name = "username"
         element_identify_value_xpath = "//app-auth-failure"

@@ -288,7 +288,7 @@ class MacMuConnect(object):
         :return: 1 if ping success else -1
         """
         cmd = 'ping ' + str(destination) + ' -c ' + str(count)
-        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
+        subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
 
     def kill_native_captive(self):
         """

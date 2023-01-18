@@ -33,7 +33,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                     return True
                 else:
                     return False
-        except Exception as e:
+        except Exception:
             return False
 
     def get_dialog_box_close_button(self):
@@ -65,7 +65,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_welcome_page_done_button(self):
@@ -129,7 +129,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_wips_popup_dialog_close_button(self):
@@ -416,5 +416,5 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"

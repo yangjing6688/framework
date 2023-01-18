@@ -74,7 +74,7 @@ class CPWebElements(CPWebElementDefinitions):
                 else:
                     return WebDriverWait(_driver, _delay).until(ec.presence_of_all_elements_located((by, value)))[_index]
 
-            except Exception as e:
+            except Exception:
                 print("Unable to find the element handle with: ", key, ' -- ', value)
         return None
 

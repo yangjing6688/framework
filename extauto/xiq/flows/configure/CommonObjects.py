@@ -64,7 +64,7 @@ class CommonObjects(object):
                     if cell := self.cobj_web_elements.get_common_object_grid_row_cells(row):
                         if cell.text == search_string:
                             return row
-        except Exception as e:
+        except Exception:
             if retries > 5:
                 retries += 1
                 return _get_common_object_row(search_string, retries)
@@ -2236,7 +2236,8 @@ class CommonObjects(object):
         client_mode_status_wifi1   = wifi1_profile.get('client_mode', 'Disable')
         client_access_status_wifi1 = wifi1_profile.get('client_access', 'Enable')
         backhaul_mesh_status_wifi1 = wifi1_profile.get('backhaul_mesh_link', 'Enable')
-        sensor_status_wifi1 = wifi1_profile.get('sensor', 'Enable')
+        # Commented on 1/18/23 because it is unused
+        # sensor_status_wifi1 = wifi1_profile.get('sensor', 'Enable')
         radio_profile_wifi1 = wifi1_profile.get('radio_profile', 'radio_ng_11ax-5g')
         radio_status_wifi1 = wifi1_profile.get('radio_status', 'On')
 
@@ -2644,7 +2645,7 @@ class CommonObjects(object):
                 kwargs['pass_msg'] = "Successfully deleted all client mode profiles"
                 self.common_validation.passed(**kwargs)
                 return 1
-            except Exception as e:
+            except Exception:
                 kwargs['fail_msg'] = "delete_all_client_mode_profiles() failed. Unable to delete Client Mode Profiles"
                 self.common_validation.fault(**kwargs)
                 return -1

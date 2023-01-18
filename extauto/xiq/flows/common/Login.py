@@ -360,7 +360,7 @@ class Login:
             try:
                 if self.login_web_elements.get_drawer_content().is_displayed():
                     self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-            except Exception as e:
+            except Exception:
                 pass
         # if self.login_web_elements.get_devices_list_check().is_displayed():
         #     self.utils.print_info("webelement exists in the mainpage")
@@ -381,7 +381,7 @@ class Login:
             if self.login_web_elements.get_right_arrow().is_displayed():
                 self.utils.print_info("Clicking welcome popup")
                 self.auto_actions.click_reference(self.login_web_elements.click_right_arrow)
-        except Exception as er:
+        except Exception:
             pass
 
         if ignore_map:
@@ -400,7 +400,7 @@ class Login:
 
             self.utils.print_info("Attempting to load Map...")
             network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
-            map_imported_status = network360Plan.import_map_in_network360plan(map_override)
+            network360Plan.import_map_in_network360plan(map_override)
 
             self.utils.print_info("Attempting to move to the Manage Device Page...")
             local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
@@ -1041,7 +1041,7 @@ class Login:
         try:
             if self.login_web_elements.get_drawer_content().is_displayed():
                 self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-        except Exception as e:
+        except Exception:
             pass
 
         if capture_version:
@@ -1065,7 +1065,7 @@ class Login:
                 if ekpopup.is_displayed():
                     self.utils.print_info("Dismiss legacy ek popup...")
                     self.auto_actions.click_reference(self.login_web_elements.get_legacy_ek_popup_no_btn)
-            except Exception as e:
+            except Exception:
                 pass
             if login_option.lower() == 'trial':
                 to = self.login_web_elements.get_30_days_trial_txt()
@@ -1088,7 +1088,7 @@ class Login:
                         ekpopup = self.login_web_elements.get_legacy_ek_popup_hdr()
                         if ekpopup.is_displayed():
                             self.auto_actions.click_reference(self.login_web_elements.get_legacy_ek_popup_no_btn)
-                    except Exception as e:
+                    except Exception:
                         pass
                     tp = self.login_web_elements.get_extr_license_tooltip()
                     if tp.is_displayed():
@@ -1149,7 +1149,7 @@ class Login:
                         kwargs['fail_msg'] = "'select_welcome_page_option()' -> License Error has occurred..."
                         self.common_validation.fault(**kwargs)
                         return -1
-                except Exception as e:
+                except Exception:
                     pass
 
             try:
@@ -1167,7 +1167,7 @@ class Login:
                 kwargs['pass_msg'] = "Login is successful"
                 self.common_validation.passed(**kwargs)
                 return 1
-            except Exception as e:
+            except Exception:
                 pass
             self.utils.print_info(login_option + " login is successful.")
             kwargs['pass_msg'] = "Login is successful"
@@ -1221,7 +1221,7 @@ class Login:
                     kwargs['fail_msg'] = f"'link_xiq_to_extreme_portal()' -> SFDC login Failed...{sfdc_login_err_txt}"
                     self.common_validation.fault(**kwargs)
                     return -1
-            except Exception as e:
+            except Exception:
                 pass
             sleep(10)
             xiq_url = self.get_base_url_of_current_page()
@@ -1231,7 +1231,7 @@ class Login:
                 if license_mgmt_ele.is_displayed():
                     self.auto_actions.click(license_mgmt_ele)
                     sleep(3)
-            except Exception as e:
+            except Exception:
                 pass
 
             self.utils.print_info("Checking If XIQ linking is by Partner, enter shared CUID...")
@@ -1246,7 +1246,7 @@ class Login:
                         sh_cuid_err_txt = self.login_web_elements.get_shared_cuid_err().text
                         if sh_cuid_err_txt.is_displayed():
                             self.utils.print_info("Shared CUID is not correct", sh_cuid_err_txt)
-                    except Exception as e:
+                    except Exception:
                         pass
                     self.utils.print_info("Partner linking XIQ to Extreme Portal is complete.")
             elif sfdc_user_type == "customer":
@@ -1257,7 +1257,7 @@ class Login:
             try:
                 if self.login_web_elements.get_drawer_content().is_displayed():
                     self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-            except Exception as e:
+            except Exception:
                 pass
             self.utils.print_info("Navigate to license mgt..")
             try:
@@ -1265,7 +1265,7 @@ class Login:
                 if license_mgmt_ele.is_displayed():
                     self.auto_actions.click(license_mgmt_ele)
                     sleep(3)
-            except Exception as e:
+            except Exception:
                 pass
             kwargs['pass_msg'] = "Linking is successful."
             self.common_validation.passed(**kwargs)
@@ -1615,7 +1615,7 @@ class Login:
         try:
             if self.login_web_elements.get_drawer_content().is_displayed():
                 self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-        except Exception as e:
+        except Exception:
             pass
 
     def create_new_user_portal(self, customer_name, admin_first_name, admin_last_name, admin_password,

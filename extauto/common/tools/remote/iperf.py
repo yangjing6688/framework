@@ -68,15 +68,17 @@ class MuIPerf(object):
         :return:
         """
         legalRates = ['k','m','g','K','M','G']
-        fPart = ''
+        # Commented on 1/18/23 because it is unused
+        # fPart = ''
         if format:
             if str(format) not in legalRates:
                 logger.info(f'{format} is not a valid rate. Try: {legalRates}')
                 sys.exit()
-            fPart = f' -f {str(format)}'
-        pPart = ''
-        if port:
-            pPart = f' -p {port}'
+        # Commented on 1/18/23 because it is unused
+        #     fPart = f' -f {str(format)}'
+        # pPart = ''
+        # if port:
+        #     pPart = f' -p {port}'
         mPart=' --one-off'
         if multiuse:
             mPart=''
@@ -84,19 +86,19 @@ class MuIPerf(object):
         BuiltIn().log_to_console(f"Start IPerf3 Server: {cmd}")
         process = subprocess.Popen(cmd, start_new_session=True)
         return process.pid
-        """
-                if os.name == 'nt':
-                    try:
-                        os.system(f"taskkill /pid {process.pid} /F")
-                    except Exception as e:
-                        logger.info(f"NT Kill CtrlC Failed: {e}")
-                        pass
-                    try:
-                        os.system("taskkill /im iperf3.exe /F")
-                    except Exception as e:
-                        logger.info(f"NT Kill CtrlBrk Failed: {e}")
-                        pass
-        """
+
+        # if os.name == 'nt':
+        #     try:
+        #         os.system(f"taskkill /pid {process.pid} /F")
+        #     except Exception as e:
+        #         logger.info(f"NT Kill CtrlC Failed: {e}")
+        #         pass
+        #     try:
+        #         os.system("taskkill /im iperf3.exe /F")
+        #     except Exception as e:
+        #         logger.info(f"NT Kill CtrlBrk Failed: {e}")
+        #         pass
+
 
     def start_iperf_client(self, host, expTxRate=None, expRxRate=None,
                            format='K', tcpWinSize=None, bidir=None, reverse=None, port=None, prt_local=None):
@@ -114,7 +116,8 @@ class MuIPerf(object):
         :param prt_local: print output from server side on the client side. If true print server output on client
         :return:
         """
-        legalRates = ['k', 'm', 'g', 'K', 'M', 'G']
+        # Commented on 1/18/23 because it is unused
+        # legalRates = ['k', 'm', 'g', 'K', 'M', 'G']
         fPart = f'-f {format}'
         wPart = ''
         if tcpWinSize:
@@ -138,7 +141,8 @@ class MuIPerf(object):
         i = 0
         avg = 0.0
         tffcAvg = 0
-        tString = ''
+        # Commented on 1/18/23 because it is unused
+        # tString = ''
         sStr = ""
         rStr = ""
         tx = 0
@@ -240,7 +244,8 @@ class MuIPerf(object):
                         print(e)
                     except:
                         pass
-                ipOut = '\n'.join(cmd_out)
+                # Commented on 1/18/23 because it is unused
+                # ipOut = '\n'.join(cmd_out)
                 BuiltIn().should_be_true(anyFail == 0, emsg)
                 return f"Results:\nexpTx:{expTxRate} actual:{sStr}\nexpRx:{expRxRate} actual:{rStr}\n{aStr}\nanyFail:{anyFail}"
         return -1
@@ -249,6 +254,3 @@ if __name__ == "__main__":
     obj = MuIPerf()
     output = obj.start_iperf_client('10.69.61.101', expTxRate=10000000, expRxRate=10000000)
     print(output)
-
-
-

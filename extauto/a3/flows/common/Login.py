@@ -87,7 +87,7 @@ class Login:
                 if proceed_to_link:
                     self.auto_actions.click(proceed_to_link)
                     sleep(5)
-        except Exception as e:
+        except Exception:
             pass
 
         try:

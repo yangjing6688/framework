@@ -142,7 +142,7 @@ class MobAppLoginWebElements(MobAppWebElementsDefinition):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_account_blocked_message(self):
@@ -154,7 +154,7 @@ class MobAppLoginWebElements(MobAppWebElementsDefinition):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_my_cloud_network(self):
