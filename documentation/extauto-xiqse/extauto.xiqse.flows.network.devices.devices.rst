@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.devices.devices package
+XIQSE Flows Network Devices Devices Keywords
 ===================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevices module
+XIQSE\_NetworkDevicesDevices module
 -------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevices
@@ -12,7 +12,7 @@ extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevices module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesAddDevice module
+XIQSE\_NetworkDevicesDevicesAddDevice module
 ----------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevicesAddDevice
@@ -20,7 +20,7 @@ extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesAddDevic
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesBackupConfiguration module
+XIQSE\_NetworkDevicesDevicesBackupConfiguration module
 --------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevicesBackupConfiguration
@@ -28,7 +28,7 @@ extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesBackupCo
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesDeleteDevice module
+XIQSE\_NetworkDevicesDevicesDeleteDevice module
 -------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevicesDeleteDevice
@@ -36,7 +36,7 @@ extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesDeleteDe
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesFirmwareSelection module
+XIQSE\_NetworkDevicesDevicesFirmwareSelection module
 ------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevicesFirmwareSelection
@@ -44,7 +44,7 @@ extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesFirmware
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesInventorySettings module
+XIQSE\_NetworkDevicesDevicesInventorySettings module
 ------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevicesInventorySettings
@@ -52,7 +52,7 @@ extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesInventor
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesRestartDevice module
+XIQSE\_NetworkDevicesDevicesRestartDevice module
 --------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevicesRestartDevice
@@ -60,7 +60,7 @@ extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesRestartD
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesRestoreConfiguration module
+XIQSE\_NetworkDevicesDevicesRestoreConfiguration module
 ---------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevicesRestoreConfiguration
@@ -68,7 +68,7 @@ extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesRestoreC
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesSetProfile module
+XIQSE\_NetworkDevicesDevicesSetProfile module
 -----------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevicesSetProfile
@@ -76,7 +76,7 @@ extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesSetProfi
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.devices.XIQSE\_NetworkDevicesDevicesUpgradeFirmware module
+XIQSE\_NetworkDevicesDevicesUpgradeFirmware module
 ----------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.devices.XIQSE_NetworkDevicesDevicesUpgradeFirmware

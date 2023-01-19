@@ -1,10 +1,10 @@
-extauto.xiqse.flows.alarms\_events.alarms package
+XIQSE Flows Alarms Events Alarms Keywords
 =================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.alarms\_events.alarms.XIQSE\_AlarmsEventsAlarms module
+XIQSE\_AlarmsEventsAlarms module
 --------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.alarms_events.alarms.XIQSE_AlarmsEventsAlarms

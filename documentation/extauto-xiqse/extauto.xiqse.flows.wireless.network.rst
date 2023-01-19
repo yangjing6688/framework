@@ -1,4 +1,4 @@
-extauto.xiqse.flows.wireless.network package
+XIQSE Flows Wireless Network Keywords
 ============================================
 
 Module contents

@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.archives package
+XIQSE Flows Network Archives Keywords
 ============================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.archives.XIQSE\_NetworkArchives module
+XIQSE\_NetworkArchives module
 ------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.archives.XIQSE_NetworkArchives
@@ -12,7 +12,7 @@ extauto.xiqse.flows.network.archives.XIQSE\_NetworkArchives module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.archives.XIQSE\_NetworkArchivesCreateArchive module
+XIQSE\_NetworkArchivesCreateArchive module
 -------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.archives.XIQSE_NetworkArchivesCreateArchive

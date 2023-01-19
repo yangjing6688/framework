@@ -1,4 +1,4 @@
-extauto.xiqse.flows.alarms\_events.alarm\_config package
+XIQSE Flows Alarms Events Alarm Config Keywords
 ========================================================
 
 Module contents

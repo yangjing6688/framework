@@ -1,4 +1,4 @@
-extauto.xiqse.flows.admin.profiles package
+XIQSE Flows Admin Proifiles Keywords
 ==========================================
 
 Subpackages
@@ -14,7 +14,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.admin.profiles.XIQSE\_AdminProfiles module
+XIQSE\_AdminProfiles module
 --------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.XIQSE_AdminProfiles
@@ -22,7 +22,7 @@ extauto.xiqse.flows.admin.profiles.XIQSE\_AdminProfiles module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.XIQSE\_AdminProfilesAddProfile module
+XIQSE\_AdminProfilesAddProfile module
 ------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.XIQSE_AdminProfilesAddProfile
@@ -30,7 +30,7 @@ extauto.xiqse.flows.admin.profiles.XIQSE\_AdminProfilesAddProfile module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.XIQSE\_AdminProfilesDeleteProfile module
+XIQSE\_AdminProfilesDeleteProfile module
 ---------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.XIQSE_AdminProfilesDeleteProfile
@@ -38,7 +38,7 @@ extauto.xiqse.flows.admin.profiles.XIQSE\_AdminProfilesDeleteProfile module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.XIQSE\_AdminProfilesEditProfile module
+XIQSE\_AdminProfilesEditProfile module
 -------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.XIQSE_AdminProfilesEditProfile
@@ -46,7 +46,7 @@ extauto.xiqse.flows.admin.profiles.XIQSE\_AdminProfilesEditProfile module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.XIQSE\_AdminProfilesSaveFailed module
+XIQSE\_AdminProfilesSaveFailed module
 ------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.XIQSE_AdminProfilesSaveFailed

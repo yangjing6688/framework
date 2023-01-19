@@ -1,10 +1,10 @@
-extauto.xiq.flows.manage package
+XIQ Flows Manage Keywords
 ================================
 
 Submodules
 ----------
 
-extauto.xiq.flows.manage.AdvOnboard module
+AdvOnboard module
 ------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.AdvOnboard
@@ -12,7 +12,7 @@ extauto.xiq.flows.manage.AdvOnboard module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.AdvanceOnboarding module
+AdvanceOnboarding module
 -------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.AdvanceOnboarding
@@ -20,7 +20,7 @@ extauto.xiq.flows.manage.AdvanceOnboarding module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Alarms module
+Alarms module
 --------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Alarms
@@ -28,7 +28,7 @@ extauto.xiq.flows.manage.Alarms module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Applications module
+Applications module
 --------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Applications
@@ -36,7 +36,7 @@ extauto.xiq.flows.manage.Applications module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Client module
+Client module
 --------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Client
@@ -44,7 +44,7 @@ extauto.xiq.flows.manage.Client module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.ClientMonitor module
+ClientMonitor module
 ---------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.ClientMonitor
@@ -52,7 +52,7 @@ extauto.xiq.flows.manage.ClientMonitor module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Device360 module
+Device360 module
 -----------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Device360
@@ -60,7 +60,7 @@ extauto.xiq.flows.manage.Device360 module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Device360Stack module
+Device360Stack module
 ----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Device360Stack
@@ -68,7 +68,7 @@ extauto.xiq.flows.manage.Device360Stack module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.DeviceCliAccess module
+DeviceCliAccess module
 -----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.DeviceCliAccess
@@ -76,7 +76,7 @@ extauto.xiq.flows.manage.DeviceCliAccess module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.DeviceConfig module
+DeviceConfig module
 --------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.DeviceConfig
@@ -84,7 +84,7 @@ extauto.xiq.flows.manage.DeviceConfig module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Devices module
+Devices module
 ---------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Devices
@@ -92,7 +92,7 @@ extauto.xiq.flows.manage.Devices module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.DevicesActions module
+DevicesActions module
 ----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.DevicesActions
@@ -100,7 +100,7 @@ extauto.xiq.flows.manage.DevicesActions module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.DevicesUtilities module
+DevicesUtilities module
 ------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.DevicesUtilities
@@ -108,7 +108,7 @@ extauto.xiq.flows.manage.DevicesUtilities module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.EspAlert module
+EspAlert module
 ----------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.EspAlert
@@ -116,7 +116,7 @@ extauto.xiq.flows.manage.EspAlert module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Events module
+Events module
 --------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Events
@@ -124,7 +124,7 @@ extauto.xiq.flows.manage.Events module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.FilterManageDevices module
+FilterManageDevices module
 ---------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.FilterManageDevices
@@ -132,7 +132,7 @@ extauto.xiq.flows.manage.FilterManageDevices module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Location module
+Location module
 ----------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Location
@@ -140,7 +140,7 @@ extauto.xiq.flows.manage.Location module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Reports module
+Reports module
 ---------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Reports
@@ -148,7 +148,7 @@ extauto.xiq.flows.manage.Reports module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Switch module
+Switch module
 --------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Switch
@@ -156,7 +156,7 @@ extauto.xiq.flows.manage.Switch module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.manage.Tools module
+Tools module
 -------------------------------------
 
 .. automodule:: extauto.xiq.flows.manage.Tools
