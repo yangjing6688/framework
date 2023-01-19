@@ -12038,3 +12038,66 @@ class Devices:
         if return_value == 1:
             return_value = self.update_switch_policy_and_configuration(device_serial)
         return return_value
+
+    def restart_pse_function(self, cli_type, serial_number=None, device_mac=None, **kwargs):
+        """
+        - This method restarts the PSE profile
+        - Selecting the Switch Engine device -> Utilities -> Restart PSE
+        - Keyword Usage : #Later will write this
+        :param serial_number: device Serial
+        :param device_mac: device MAC address
+        :param cli_type: device os EXOS/VOSS
+        :return: 1 if the PSE reset have been completed else -1
+        """
+
+        if "voss" in cli_type.lower() or "fabric engine" in cli_type.lower():
+            kwargs['fail_msg'] = "The function was not designed for VOSS OS System"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+        self.refresh_devices_page()
+
+        if "exos" in cli_type.lower() or "switch engine" in cli_type.lower():
+            self.utils.print_info("Select the device")
+            if serial_number:
+                self.select_device(serial_number)
+            elif device_mac:
+                self.select_device(device_mac)
+            else:
+                kwargs['fail_msg'] = "Can't select the device."
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.utils.print_info("Selecting the Utilities Function")
+            self.auto_actions.click(self.devices_web_elements.utilities_button())
+            self.utils.print_info("Selecting RESTART PSE Function...")
+            self.auto_actions.click(self.devices_web_elements.restart_pse())
+            self.utils.print_info("Confirmation Pending..")
+            self.auto_actions.click(self.devices_web_elements.pse_yes())
+
+            def _widget_loading():
+                widget_loading = self.devices_web_elements.loading_bar()
+                try:
+                    if widget_loading.is_displayed():
+                        self.utils.print_info(f"Please wait.. Restarting PSE in progress")
+                except AttributeError:
+                    return 1
+            self.utils.wait_till(func=_widget_loading, timeout=100, delay=5, exp_func_resp=1)
+
+            closing_dialog = self.devices_web_elements.closing_window()
+            if closing_dialog:
+                pse_reset_status = self.devices_web_elements.get_pse_reset_status()
+                if pse_reset_status:
+                    kwargs['pass_msg'] = "PSE reset has been completed."
+                    self.common_validation.passed(**kwargs)
+                self.utils.print_info("Closing PSE Window..")
+                self.auto_actions.click(closing_dialog)
+                kwargs['pass_msg'] = "Window Closed"
+                self.common_validation.passed(**kwargs)
+                return 1
+
+            else:
+                kwargs['fail_msg'] = "Something went wrong. User should check..."
+                self.common_validation.failed(**kwargs)
+                return -1

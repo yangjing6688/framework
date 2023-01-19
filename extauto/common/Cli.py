@@ -14,6 +14,7 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSe
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from time import sleep
+from datetime import datetime, timedelta
 
 from extauto.common.Utils import Utils
 from extauto.common.CommonValidation import CommonValidation
@@ -1844,6 +1845,50 @@ class Cli(object):
             self.commonValidation.failed(**kwargs)
             return False
 
+    def search_last_command_cli_journal(self, info: str, command, **kwargs):
+
+        table = []
+        for entry in info.split("\n"):
+            if entry:
+                if entry[0].isdigit():
+                    aux = [i for i in entry.split(" ") if i]
+                    table.append([' '.join(aux[:2]), aux[2], aux[3], ' '.join(aux[4:])])
+
+        now = datetime.now()
+        log_time = (now - timedelta(days=1))
+        flag = False
+        for row in reversed(table):
+            if log_time < datetime.strptime(row[0], '%m/%d/%Y %H:%M:%S.%f') and command in row[-1]:
+                print(row)
+                flag = True
+                break
+            else:
+                print(row)
+                flag = False
+        if flag:
+            kwargs['pass_msg'] = f"'{command}' found as last command in cli journal"
+            self.commonValidation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"'{command}' didn't find as last command cli journal"
+            self.commonValidation.failed(**kwargs)
+
+
+    def check_pse_restart_in_cli(self, dut, **kwargs):
+
+        spawn = self.open_spawn(dut.ip, dut.port, dut.username,
+                                dut.password, dut.cli_type)
+        if dut.cli_type == "voss":
+            kwargs['fail_msg'] = "This is VOSS device"
+            self.commonValidation.failed(**kwargs)
+            return -1
+        elif dut.cli_type == "exos":
+            self.send_commands(spawn, "disable cli paging")
+            cli_journal = self.send_commands(spawn, "show cli  journal | grep reset")
+            self.search_last_command_cli_journal(info=cli_journal, command="reset inline-power ports")
+        else:
+            kwargs['fail_msg'] = "Fail to find the CLI type"
+            self.commonValidation.failed(**kwargs)
+            return -1
 
 if __name__ == '__main__':
     from pytest_testconfig import *
@@ -1899,3 +1944,4 @@ if __name__ == '__main__':
             count += 1
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
+
