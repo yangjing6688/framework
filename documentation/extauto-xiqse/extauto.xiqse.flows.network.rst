@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network package
+XIQSE Flows Network Keywords
 ===================================
 
 Subpackages
@@ -19,7 +19,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.network.XIQSE\_Network module
+XIQSE\_Network module
 -------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.XIQSE_Network

@@ -1,4 +1,4 @@
-extauto.xiqse.flows.connect.services\_api package
+XIQSE Flows Connect Services API Keywords
 =================================================
 
 Module contents

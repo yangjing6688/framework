@@ -245,10 +245,11 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
+
     device_select_check_box = \
         {
-            'XPATH': '//td[@class="dgrid-cell dgrid-column-0 w30 dgrid-selector"]/input[@type="checkbox"]',
-            'wait_for':    2
+            'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',
+            'wait_for': 2
         }
 
     device_delete_confirm_ok_button = \
@@ -1950,4 +1951,14 @@ class DevicesWebElementsDefinitions:
     device_model = \
         {
             'CSS_SELECTOR': '.field-productType'
+        }
+
+    global_settings_management_dialog = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="msgWrap"]',
+        }
+
+    global_settings_management_dialog_yes_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
         }

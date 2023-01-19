@@ -1,4 +1,4 @@
-extauto.xiqse.flows.analytics.browser package
+XIQSE Flows Analytics Browser Keywords
 =============================================
 
 Module contents

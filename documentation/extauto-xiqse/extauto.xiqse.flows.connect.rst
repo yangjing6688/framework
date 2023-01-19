@@ -1,4 +1,4 @@
-extauto.xiqse.flows.connect package
+XIQSE Flows Connect Keywords
 ===================================
 
 Subpackages
@@ -14,7 +14,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.connect.XIQSE\_Connect module
+XIQSE\_Connect module
 -------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.connect.XIQSE_Connect

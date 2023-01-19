@@ -1,10 +1,10 @@
-extauto.xiqse.flows.analytics.configuration package
+XIQSE Flows Analytics Configuration Keywords
 ===================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfiguration module
+XIQSE\_AnalyticsConfiguration module
 --------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.analytics.configuration.XIQSE_AnalyticsConfiguration
@@ -12,7 +12,7 @@ extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfiguration module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfigurationAddEngine module
+XIQSE\_AnalyticsConfigurationAddEngine module
 -----------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.analytics.configuration.XIQSE_AnalyticsConfigurationAddEngine
@@ -20,7 +20,7 @@ extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfigurationAddEngi
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfigurationDeleteEngine module
+XIQSE\_AnalyticsConfigurationDeleteEngine module
 --------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.analytics.configuration.XIQSE_AnalyticsConfigurationDeleteEngine
@@ -28,7 +28,7 @@ extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfigurationDeleteE
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfigurationEnforceAllEngines module
+XIQSE\_AnalyticsConfigurationEnforceAllEngines module
 -------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.analytics.configuration.XIQSE_AnalyticsConfigurationEnforceAllEngines
@@ -36,7 +36,7 @@ extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfigurationEnforce
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfigurationEnforceEngine module
+XIQSE\_AnalyticsConfigurationEnforceEngine module
 ---------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.analytics.configuration.XIQSE_AnalyticsConfigurationEnforceEngine
@@ -44,7 +44,7 @@ extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfigurationEnforce
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.analytics.configuration.XIQSE\_AnalyticsConfigurationRestartCollector module
+XIQSE\_AnalyticsConfigurationRestartCollector module
 ------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.analytics.configuration.XIQSE_AnalyticsConfigurationRestartCollector

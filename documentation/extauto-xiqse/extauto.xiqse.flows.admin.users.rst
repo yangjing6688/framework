@@ -1,10 +1,10 @@
-extauto.xiqse.flows.admin.users package
+XIQSE Flows Admin Users Keywords
 =======================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.admin.users.XIQSE\_AdminAuthorizedUsers module
+XIQSE\_AdminAuthorizedUsers module
 ------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.users.XIQSE_AdminAuthorizedUsers
@@ -12,7 +12,7 @@ extauto.xiqse.flows.admin.users.XIQSE\_AdminAuthorizedUsers module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.users.XIQSE\_AdminAuthorizedUsersDeleteUser module
+XIQSE\_AdminAuthorizedUsersDeleteUser module
 ----------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.users.XIQSE_AdminAuthorizedUsersDeleteUser
