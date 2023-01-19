@@ -1,4 +1,4 @@
-extauto.xiqse.flows.analytics.fingerprints package
+XIQSE Flows Analytics Fingerprints Keywords
 ==================================================
 
 Module contents

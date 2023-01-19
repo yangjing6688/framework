@@ -1,4 +1,4 @@
-extauto.xiqse package
+UI - XIQSE Keywords
 =====================
 
 Subpackages
@@ -7,9 +7,6 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   extauto.xiqse.configs
-   extauto.xiqse.defs
-   extauto.xiqse.elements
    extauto.xiqse.flows
 
 Module contents

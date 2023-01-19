@@ -1,4 +1,4 @@
-extauto.xiqse.flows.admin.client\_api\_access package
+XIQSE Flows Admin Client API Access Keywords
 =====================================================
 
 Module contents

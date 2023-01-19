@@ -32,7 +32,10 @@ class ExtremeGuestOnboardingWebElements(ExtremeGuestOnboardingWebElementsDefs):
 
     def get_extreme_guest_onboarding_policy_add_condition_dropdown_value(self):
         return self.weh.get_element(self.extreme_guest_onboarding_policy_add_condition_dropdown_value)
-
+    
+    def get_extreme_guest_onboarding_policy_add_condition_dropdown_value_Device_count(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_policy_add_condition_dropdown_value_Device_count)
+    
     def get_extreme_guest_onboarding_policy_add_action_dropdown(self):
         return self.weh.get_element(self.extreme_guest_onboarding_policy_add_action_dropdown)
 
