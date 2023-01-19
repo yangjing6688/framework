@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.devices.site.analytics package
+XIQSE Flows Network Devices Site Analytics Keywords
 ==========================================================
 
 Module contents

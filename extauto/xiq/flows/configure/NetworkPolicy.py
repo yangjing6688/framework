@@ -445,6 +445,10 @@ class NetworkPolicy(object):
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
         sleep(5)
         policy_cards = self.np_web_elements.get_network_policy_card_items()
+        if policy_cards is None:
+            self.utils.print_info("No Network Policy cards present. No policy configured")
+            return -1
+
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
@@ -829,7 +833,7 @@ class NetworkPolicy(object):
 
         return None
 
-    def deploy_network_policy_with_complete_update(self, policy_name, devices):
+    def deploy_network_policy_with_complete_update(self, policy_name, devices, cli_type='AH-AP'):
         """
         - Config push network policy with complete update
         - This will reboot the Device
@@ -841,7 +845,10 @@ class NetworkPolicy(object):
         :param devices: Device serial number
         :return: 1 if success else -1
         """
-        return self.deploy_network_policy(policy_name, devices, 'complete')
+        if cli_type == 'AH-AP':
+            return self.deploy_network_policy(policy_name, devices, 'complete')
+        else:
+            return self.device.deploy_switch_network_policy_with_complete_update(devices, policy_name)
 
     def deploy_network_policy_with_next_reboot(self, policy_name, devices):
         """

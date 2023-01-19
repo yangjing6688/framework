@@ -1233,7 +1233,7 @@ class CommonObjects(object):
         self.utils.print_info("Click on delete button")
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
         self.auto_actions.click(self.cobj_web_elements.get_common_objects_delete_button())
-        sleep(2)
+        sleep(5)
 
     def create_open_ssid_in_common_objects(self, ssid_name, **kwargs):
         """

@@ -1,4 +1,4 @@
-extauto.xiqse.flows.compliance.dashboard package
+XIQSE Flows Compliance Dashboard Keywords
 ================================================
 
 Module contents

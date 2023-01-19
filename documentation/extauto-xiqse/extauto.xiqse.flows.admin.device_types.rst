@@ -1,10 +1,10 @@
-extauto.xiqse.flows.admin.device\_types package
+XIQSE Flows Admin Device Types Keywords
 ===============================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.admin.device\_types.XIQSE\_AdminDeviceTypes module
+XIQSE\_AdminDeviceTypes module
 ----------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.device_types.XIQSE_AdminDeviceTypes

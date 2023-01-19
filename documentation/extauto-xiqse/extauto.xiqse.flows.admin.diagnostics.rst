@@ -1,10 +1,12 @@
+XIQSE Flows Admin Diagnostics Keywords
+
 extauto.xiqse.flows.admin.diagnostics package
 =============================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.admin.diagnostics.XIQSE\_AdminDiagnostics module
+XIQSE\_AdminDiagnostics module
 --------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.diagnostics.XIQSE_AdminDiagnostics

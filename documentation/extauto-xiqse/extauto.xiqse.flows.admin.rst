@@ -1,4 +1,4 @@
-extauto.xiqse.flows.admin package
+XIQSE Flows Admin Keywords
 =================================
 
 Subpackages
@@ -20,7 +20,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.admin.XIQSE\_Administration module
+XIQSE\_Administration module
 ------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.XIQSE_Administration

@@ -1,10 +1,10 @@
-extauto.xiqse.flows.license package
+XIQSE Flows License Keywords
 ===================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.license.XIQSE\_LicenseAgreement module
+XIQSE\_LicenseAgreement module
 ----------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.license.XIQSE_LicenseAgreement
@@ -12,7 +12,7 @@ extauto.xiqse.flows.license.XIQSE\_LicenseAgreement module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.license.XIQSE\_LicenseDeployment module
+XIQSE\_LicenseDeployment module
 -----------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.license.XIQSE_LicenseDeployment
@@ -20,7 +20,7 @@ extauto.xiqse.flows.license.XIQSE\_LicenseDeployment module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.license.XIQSE\_LicenseOnboard module
+XIQSE\_LicenseOnboard module
 --------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.license.XIQSE_LicenseOnboard

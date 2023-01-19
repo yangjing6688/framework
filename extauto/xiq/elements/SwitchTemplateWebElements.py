@@ -141,6 +141,18 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         """
         return self.weh.get_element(self.sw_template_assign_create_new)
 
+    def get_sw_template_assign_advanced_actions(self):
+        """
+        :return: 'Advanced Actions' option of 'ASSIGN' button of the Port Configuration page in the switch template view
+        """
+        return self.weh.get_element(self.sw_template_assign_advanced_actions)
+
+    def get_sw_template_assign_advanced_actions_aggr(self):
+        """
+        :return: 'Advanced Actions Aggregate' option of 'ASSIGN' button of the Port Configuration page in the switch template view
+        """
+        return self.weh.get_element(self.sw_template_assign_advanced_actions_aggr)
+
     def get_sw_template_all_port_type_list_radio(self):
         """
         :return:  Radio buttons of the Port Types shown om ASSIGN -> Chooose Existing
@@ -320,6 +332,12 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_complete_stack_all_rows(self, web_list):
         return self.weh.get_elements(self.complete_stack_all_rows, parent=web_list)
 
+    def get_aggr_ports_across_stack_button(self):
+        return self.weh.get_elements(self.aggr_ports_across_stack_button)
+
+    def get_aggr_ports_standalone_button(self):
+        return self.weh.get_elements(self.aggr_ports_standalone_button)
+
     def poe_button(self):
         return self.weh.get_element(self.poe_status)
 
@@ -342,7 +360,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.save_button_port_type)
 
     def save_device_template(self):
-        return self.weh.get_elements(self.save_button_template)
+        return self.weh.get_element(self.save_button_template)
 
     def pse_profile_user_option(self):
         return self.weh.get_element(self.pse_profile_tab)
@@ -512,6 +530,48 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
     def get_sw_template_save_button_bottom(self):
         return self.weh.get_elements(self.sw_template_save_btn_bottom)
 
+    def get_lacp_toggle_button(self):
+        return self.weh.get_element(self.lacp_toggle_button)
+
+    def get_lag_remove_port_button(self):
+        return self.weh.get_element(self.lag_remove_port_button)
+
+    def get_lag_add_port_button(self):
+        return self.weh.get_element(self.lag_add_port_button)
+
+    def get_select_ports_available(self):
+        return self.weh.get_elements(self.select_ports_available)
+
+    def get_cancel_button(self):
+        return self.weh.get_element(self.cancel_button)
+
+    def get_save_port_type_button(self):
+        return self.weh.get_element(self.save_port_type_button)
+
+    def get_switch_temp_save_button_v2(self):
+        return self.weh.get_element(self.switch_temp_save_button_v2)
+
+    def get_lag_span(self, lag):
+        return self.weh.get_template_element(self.lag_span, lag=lag)
+
+    def get_available_port(self, port):
+        return self.weh.get_template_element(self.available_port, port=port)
+
+    def get_selected_port(self, port):
+        return self.weh.get_template_element(self.selected_port, port=port)
+
+    def get_port_settings_tab(self):
+        return self.weh.get_element(self.port_settings_tab)
+
+    def get_available_slot(self, slot):
+        return self.weh.get_template_element(self.available_slot, slot=slot)
+
+    def get_error_message(self):
+        return self.weh.get_template_element(self.error_message)
+
+    def get_template_link(self, template):
+        return self.weh.get_template_element(self.template_link, template=template)
+
     def get_sw_template_stp_tab(self):
         return self.weh.get_element(self.sw_template_stp_tab)
 
@@ -526,6 +586,12 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_template_slot(self, slot):
         return self.weh.get_template_element(self.template_slot, slot=slot)
+
+    def get_aggregated_ports(self):
+        return self.weh.get_template_element(self.aggregated_ports)
+
+    def get_port_in_agg(self):
+        return self.weh.get_template_elements(self.port_in_agg)
 
     def get_sw_template_hyperlink(self):
         return self.weh.get_element(self.sw_template_hyperlink)
@@ -744,3 +810,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_device_max_age_drop_down_all_items(self, table):
         return self.weh.get_elements(self.sw_template_device_max_age_drop_down_all_items, parent=table)
+
+    def get_device_template_no_of_ports(self):
+        return self.weh.get_elements(self.device_template_no_of_ports)
