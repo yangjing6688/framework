@@ -4912,7 +4912,7 @@ class Devices:
             yes_btn = self.devices_web_elements.get_global_settings_management_dialog_yes_button()
             if yes_btn:
                 self.utils.print_info("Clicking 'Yes' in the account credential managed by global setting pop-up dialog")
-                self.auto_actions.click(yes_btn)
+                self.auto_actions.click_reference(self.devices_web_elements.get_global_settings_management_dialog_yes_button)
             else:
                 self.utils.print_info("Unable to find the Yes button in the account credential managed by global setting pop-up dialog")
                 ret_val = -1
