@@ -1,10 +1,10 @@
-extauto.xiq.flows.configure package
+XIQ Flows Configure Keywords
 ===================================
 
 Submodules
 ----------
 
-extauto.xiq.flows.configure.AdditionalSettings module
+AdditionalSettings module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.AdditionalSettings
@@ -12,7 +12,7 @@ extauto.xiq.flows.configure.AdditionalSettings module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.AutoProvisioning module
+AutoProvisioning module
 ---------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.AutoProvisioning
@@ -20,7 +20,7 @@ extauto.xiq.flows.configure.AutoProvisioning module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.ClassificationRule module
+ClassificationRule module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.ClassificationRule
@@ -28,7 +28,7 @@ extauto.xiq.flows.configure.ClassificationRule module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.CloudConfigGroup module
+CloudConfigGroup module
 ---------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.CloudConfigGroup
@@ -36,7 +36,7 @@ extauto.xiq.flows.configure.CloudConfigGroup module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.CommonObjects module
+CommonObjects module
 ------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.CommonObjects
@@ -44,7 +44,7 @@ extauto.xiq.flows.configure.CommonObjects module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.DeviceTemplate module
+DeviceTemplate module
 -------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.DeviceTemplate
@@ -52,7 +52,7 @@ extauto.xiq.flows.configure.DeviceTemplate module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.EspAlert module
+EspAlert module
 -------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.EspAlert
@@ -60,7 +60,7 @@ extauto.xiq.flows.configure.EspAlert module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.ExpirationSettings module
+ExpirationSettings module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.ExpirationSettings
@@ -68,7 +68,7 @@ extauto.xiq.flows.configure.ExpirationSettings module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.ExpressNetworkPolicies module
+ExpressNetworkPolicies module
 ---------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.ExpressNetworkPolicies
@@ -76,7 +76,7 @@ extauto.xiq.flows.configure.ExpressNetworkPolicies module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.GuestAccessNetwork module
+GuestAccessNetwork module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.GuestAccessNetwork
@@ -84,7 +84,7 @@ extauto.xiq.flows.configure.GuestAccessNetwork module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.GuestPasswdSetting module
+GuestPasswdSetting module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.GuestPasswdSetting
@@ -92,7 +92,7 @@ extauto.xiq.flows.configure.GuestPasswdSetting module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.NetworkPolicy module
+NetworkPolicy module
 ------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.NetworkPolicy
@@ -100,7 +100,7 @@ extauto.xiq.flows.configure.NetworkPolicy module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.PasswdSettings module
+PasswdSettings module
 -------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.PasswdSettings
@@ -108,7 +108,7 @@ extauto.xiq.flows.configure.PasswdSettings module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.PpskClassification module
+PpskClassification module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.PpskClassification
@@ -116,7 +116,7 @@ extauto.xiq.flows.configure.PpskClassification module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.PrivateClientGroups module
+PrivateClientGroups module
 ------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.PrivateClientGroups
@@ -124,7 +124,7 @@ extauto.xiq.flows.configure.PrivateClientGroups module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.RadioProfile module
+RadioProfile module
 -----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.RadioProfile
@@ -132,7 +132,7 @@ extauto.xiq.flows.configure.RadioProfile module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.RadiusServer module
+RadiusServer module
 -----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.RadiusServer
@@ -140,7 +140,7 @@ extauto.xiq.flows.configure.RadiusServer module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.RouterTemplate module
+RouterTemplate module
 -------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.RouterTemplate
@@ -148,7 +148,7 @@ extauto.xiq.flows.configure.RouterTemplate module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.SwitchTemplate module
+SwitchTemplate module
 -------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.SwitchTemplate
@@ -156,7 +156,7 @@ extauto.xiq.flows.configure.SwitchTemplate module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.UserGroups module
+UserGroups module
 ---------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.UserGroups
@@ -164,7 +164,7 @@ extauto.xiq.flows.configure.UserGroups module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.UserProfile module
+UserProfile module
 ----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.UserProfile
@@ -172,7 +172,7 @@ extauto.xiq.flows.configure.UserProfile module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.Users module
+Users module
 ----------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.Users
@@ -180,7 +180,7 @@ extauto.xiq.flows.configure.Users module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.Wips module
+Wips module
 ---------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.Wips
@@ -188,7 +188,7 @@ extauto.xiq.flows.configure.Wips module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.WirelessCaptiveWebPortal module
+WirelessCaptiveWebPortal module
 -----------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.WirelessCaptiveWebPortal
@@ -196,7 +196,7 @@ extauto.xiq.flows.configure.WirelessCaptiveWebPortal module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.configure.WirelessNetworks module
+WirelessNetworks module
 ---------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.configure.WirelessNetworks

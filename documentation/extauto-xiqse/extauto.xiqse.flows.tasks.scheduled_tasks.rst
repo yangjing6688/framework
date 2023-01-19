@@ -1,4 +1,4 @@
-extauto.xiqse.flows.tasks.scheduled\_tasks package
+XIQSE Flows Tasks Scheduled Tasks Keywords
 ==================================================
 
 Module contents

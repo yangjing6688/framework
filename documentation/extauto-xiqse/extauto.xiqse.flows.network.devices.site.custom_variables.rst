@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.devices.site.custom\_variables package
+XIQSE Flows Network Devices Site Custom Variables Keywords
 ==================================================================
 
 Module contents

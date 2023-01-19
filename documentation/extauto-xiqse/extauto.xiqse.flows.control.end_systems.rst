@@ -1,4 +1,4 @@
-extauto.xiqse.flows.control.end\_systems package
+XIQSE Flows Control End Systems Keywords
 ================================================
 
 Module contents

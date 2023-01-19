@@ -1,4 +1,4 @@
-extauto.xiqse.flows.reports package
+XIQSE Flows Reports Keywords
 ===================================
 
 Subpackages
@@ -14,7 +14,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.reports.XIQSE\_Reports module
+XIQSE\_Reports module
 -------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.reports.XIQSE_Reports

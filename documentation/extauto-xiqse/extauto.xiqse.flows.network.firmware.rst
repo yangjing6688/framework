@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.firmware package
+XIQSE Flows Network Firmware Keywords
 ============================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.firmware.XIQSE\_NetworkFirmware module
+XIQSE\_NetworkFirmware module
 ------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.firmware.XIQSE_NetworkFirmware
@@ -12,7 +12,7 @@ extauto.xiqse.flows.network.firmware.XIQSE\_NetworkFirmware module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.firmware.XIQSE\_NetworkFirmwareTreePanel module
+XIQSE\_NetworkFirmwareTreePanel module
 ---------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.firmware.XIQSE_NetworkFirmwareTreePanel

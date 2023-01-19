@@ -444,3 +444,12 @@ class AutoActions:
         except:
             self.utils.print_info("Shift+click element failed")
             return -1
+
+    def scroll_bottom(self):
+
+        """
+        - This Keyword Uses to Scroll to the bottom of a page.
+
+        :return: None
+        """
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.END)

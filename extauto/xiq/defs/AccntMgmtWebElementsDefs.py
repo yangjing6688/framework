@@ -133,7 +133,7 @@ class AccntMgmtWebElementsDefs:
         }
     Rbac_Assign_Location_checkbox = \
         {
-            'XPATH': "//div[@class='lbl fn-ellipsis'] [@title='qatar']",
+            'XPATH': "//div[@class='lbl fn-ellipsis'] [@title='Bengaluru']",
             'wait_for': 2
         }
 

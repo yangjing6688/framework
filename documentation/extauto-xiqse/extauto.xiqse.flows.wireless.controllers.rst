@@ -1,4 +1,4 @@
-extauto.xiqse.flows.wireless.controllers package
+XIQSE Flows Wireless Controllers Keywords
 ================================================
 
 Module contents

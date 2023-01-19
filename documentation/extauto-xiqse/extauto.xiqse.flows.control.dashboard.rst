@@ -1,10 +1,10 @@
-extauto.xiqse.flows.control.dashboard package
+XIQSE Flows Control Dashboard Keywords
 =============================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.control.dashboard.XIQSE\_ControlDashboard module
+XIQSE\_ControlDashboard module
 --------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.dashboard.XIQSE_ControlDashboard

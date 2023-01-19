@@ -53,6 +53,11 @@ class ExtremeGuestOnboardingWebElementsDefs:
             'wait_for': 1
         }
 
+    extreme_guest_onboarding_policy_add_condition_dropdown_value_Device_count = \
+        {
+            'XPATH': '(//input[contains(@name, "criteria.0.conditions.1.match")])[1]',
+            'wait_for': 1
+        }
     extreme_guest_onboarding_policy_add_action_dropdown = \
         {
             'XPATH': '//div[contains(@data-automation-tag, "eguest-onboarding-policy-criteria-action")]',
