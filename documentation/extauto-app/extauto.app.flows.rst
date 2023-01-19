@@ -1,10 +1,10 @@
-extauto.app.flows package
+App Flows Keywords
 =========================
 
 Submodules
 ----------
 
-extauto.app.flows.AssignPolicy module
+AssignPolicy module
 -------------------------------------
 
 .. automodule:: extauto.app.flows.AssignPolicy
@@ -12,7 +12,7 @@ extauto.app.flows.AssignPolicy module
    :undoc-members:
    :show-inheritance:
 
-extauto.app.flows.DeviceCli module
+DeviceCli module
 ----------------------------------
 
 .. automodule:: extauto.app.flows.DeviceCli
@@ -20,7 +20,7 @@ extauto.app.flows.DeviceCli module
    :undoc-members:
    :show-inheritance:
 
-extauto.app.flows.DeviceName module
+DeviceName module
 -----------------------------------
 
 .. automodule:: extauto.app.flows.DeviceName
@@ -28,7 +28,7 @@ extauto.app.flows.DeviceName module
    :undoc-members:
    :show-inheritance:
 
-extauto.app.flows.DeviceReboot module
+DeviceReboot module
 -------------------------------------
 
 .. automodule:: extauto.app.flows.DeviceReboot
@@ -36,7 +36,7 @@ extauto.app.flows.DeviceReboot module
    :undoc-members:
    :show-inheritance:
 
-extauto.app.flows.FlashLed module
+FlashLed module
 ---------------------------------
 
 .. automodule:: extauto.app.flows.FlashLed
@@ -44,7 +44,7 @@ extauto.app.flows.FlashLed module
    :undoc-members:
    :show-inheritance:
 
-extauto.app.flows.MobAppLogin module
+MobAppLogin module
 ------------------------------------
 
 .. automodule:: extauto.app.flows.MobAppLogin
@@ -52,7 +52,7 @@ extauto.app.flows.MobAppLogin module
    :undoc-members:
    :show-inheritance:
 
-extauto.app.flows.NewDeviceOnboard module
+NewDeviceOnboard module
 -----------------------------------------
 
 .. automodule:: extauto.app.flows.NewDeviceOnboard
@@ -60,7 +60,7 @@ extauto.app.flows.NewDeviceOnboard module
    :undoc-members:
    :show-inheritance:
 
-extauto.app.flows.RemoveDevice module
+RemoveDevice module
 -------------------------------------
 
 .. automodule:: extauto.app.flows.RemoveDevice

@@ -1,4 +1,4 @@
-extauto.xiqse.flows.admin.profiles.device\_mappings package
+XIQSE Flows Admin Proifiles Device Mappings Keywords
 ===========================================================
 
 Module contents

@@ -114,3 +114,9 @@ class GlobalSearchWebElementsDefinitions:
             'XPATH': '//*[@class="ui-tipbox ui-tipbox-warning"]//i[@class="ui-tipbox-close"]',
             'wait_for': 5
         }
+
+    tool_tip_error_close = \
+        {
+            'XPATH': '//*[@class="ui-tipbox ui-tipbox-error"]//i[@class="ui-tipbox-close"]',
+            'wait_for': 5
+        }

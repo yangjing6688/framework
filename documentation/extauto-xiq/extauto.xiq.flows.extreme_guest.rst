@@ -1,10 +1,10 @@
-extauto.xiq.flows.extreme\_guest package
+XIQ Flows Extreme Guest Keywords
 ========================================
 
 Submodules
 ----------
 
-extauto.xiq.flows.extreme\_guest.AnalyzeClients module
+AnalyzeClients module
 ------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.AnalyzeClients
@@ -12,7 +12,7 @@ extauto.xiq.flows.extreme\_guest.AnalyzeClients module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.AnalyzeUsers module
+AnalyzeUsers module
 ----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.AnalyzeUsers
@@ -20,7 +20,7 @@ extauto.xiq.flows.extreme\_guest.AnalyzeUsers module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.Dashboard module
+Dashboard module
 -------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.Dashboard
@@ -28,7 +28,7 @@ extauto.xiq.flows.extreme\_guest.Dashboard module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.ExtremeGuest module
+ExtremeGuest module
 ----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.ExtremeGuest
@@ -36,7 +36,7 @@ extauto.xiq.flows.extreme\_guest.ExtremeGuest module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.ExtremeGuestUsers module
+ExtremeGuestUsers module
 ---------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.ExtremeGuestUsers
@@ -44,7 +44,7 @@ extauto.xiq.flows.extreme\_guest.ExtremeGuestUsers module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.Landing module
+Landing module
 -----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.Landing
@@ -52,7 +52,7 @@ extauto.xiq.flows.extreme\_guest.Landing module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.MuGuestPortal module
+MuGuestPortal module
 -----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.MuGuestPortal
@@ -60,7 +60,7 @@ extauto.xiq.flows.extreme\_guest.MuGuestPortal module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.Notification module
+Notification module
 ----------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.Notification
@@ -68,7 +68,7 @@ extauto.xiq.flows.extreme\_guest.Notification module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.Onboarding module
+Onboarding module
 --------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.Onboarding
@@ -76,7 +76,7 @@ extauto.xiq.flows.extreme\_guest.Onboarding module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.Reports module
+Reports module
 -----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.Reports
@@ -84,7 +84,7 @@ extauto.xiq.flows.extreme\_guest.Reports module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.SplashTemplate module
+SplashTemplate module
 ------------------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.SplashTemplate
@@ -92,7 +92,7 @@ extauto.xiq.flows.extreme\_guest.SplashTemplate module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.extreme\_guest.Summary module
+Summary module
 -----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.extreme_guest.Summary

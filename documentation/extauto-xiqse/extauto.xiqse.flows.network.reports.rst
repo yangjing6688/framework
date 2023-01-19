@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.reports package
+XIQSE Flows Network Reports Keywords
 ===========================================
 
 Module contents

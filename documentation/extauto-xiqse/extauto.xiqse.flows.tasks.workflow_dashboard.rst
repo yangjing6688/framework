@@ -1,4 +1,4 @@
-extauto.xiqse.flows.tasks.workflow\_dashboard package
+XIQSE Flows Tasks Workflow Dashboard Keywords
 =====================================================
 
 Module contents

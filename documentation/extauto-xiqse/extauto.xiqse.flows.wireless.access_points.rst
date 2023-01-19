@@ -1,4 +1,4 @@
-extauto.xiqse.flows.wireless.access\_points package
+XIQSE Flows Wireless Access Points Keywords
 ===================================================
 
 Module contents

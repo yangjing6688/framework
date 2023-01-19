@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.discovered package
+XIQSE Flows Network Discovered Keywords
 ==============================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.discovered.XIQSE\_NetworkDiscovered module
+XIQSE\_NetworkDiscovered module
 ----------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.discovered.XIQSE_NetworkDiscovered
@@ -12,7 +12,7 @@ extauto.xiqse.flows.network.discovered.XIQSE\_NetworkDiscovered module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.discovered.XIQSE\_NetworkDiscoveredAddDevices module
+XIQSE\_NetworkDiscoveredAddDevices module
 --------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.discovered.XIQSE_NetworkDiscoveredAddDevices

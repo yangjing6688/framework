@@ -1,4 +1,4 @@
-extauto.xiqse.flows.compliance.audit\_tests package
+XIQSE Flows Compliance Audit Keywords
 ===================================================
 
 Module contents
