@@ -1,10 +1,10 @@
-extauto.xiqse.flows.control.policy package
+XIQSE Flows Control Policy Keywords
 ==========================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicy module
+XIQSE\_ControlPolicy module
 --------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicy
@@ -12,7 +12,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicy module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomain module
+XIQSE\_ControlPolicyDomain module
 --------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomain
@@ -20,7 +20,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomain module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainAssignDevice module
+XIQSE\_ControlPolicyDomainAssignDevice module
 --------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomainAssignDevice
@@ -28,7 +28,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainAssignDevice module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainCreate module
+XIQSE\_ControlPolicyDomainCreate module
 --------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomainCreate
@@ -36,7 +36,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainCreate module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainDelete module
+XIQSE\_ControlPolicyDomainDelete module
 --------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomainDelete
@@ -44,7 +44,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainDelete module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainEnforce module
+XIQSE\_ControlPolicyDomainEnforce module
 ---------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomainEnforce
@@ -52,7 +52,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainEnforce module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainEnforcePreview module
+XIQSE\_ControlPolicyDomainEnforcePreview module
 ----------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomainEnforcePreview
@@ -60,7 +60,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainEnforcePreview modu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainOpen module
+XIQSE\_ControlPolicyDomainOpen module
 ------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomainOpen
@@ -68,7 +68,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainOpen module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainOpenManageMenu module
+XIQSE\_ControlPolicyDomainOpenManageMenu module
 ----------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomainOpenManageMenu
@@ -76,7 +76,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainOpenManageMenu modu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainSave module
+XIQSE\_ControlPolicyDomainSave module
 ------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomainSave
@@ -84,7 +84,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainSave module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainVerify module
+XIQSE\_ControlPolicyDomainVerify module
 --------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyDomainVerify
@@ -92,7 +92,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyDomainVerify module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyRole module
+XIQSE\_ControlPolicyRole module
 ------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyRole
@@ -100,7 +100,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyRole module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyRule module
+XIQSE\_ControlPolicyRule module
 ------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyRule
@@ -108,7 +108,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyRule module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyRuleCreate module
+XIQSE\_ControlPolicyRuleCreate module
 ------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyRuleCreate
@@ -116,7 +116,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyRuleCreate module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyRuleDelete module
+XIQSE\_ControlPolicyRuleDelete module
 ------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyRuleDelete
@@ -124,7 +124,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyRuleDelete module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyService module
+XIQSE\_ControlPolicyService module
 ---------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyService
@@ -132,7 +132,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyService module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyServiceCreate module
+XIQSE\_ControlPolicyServiceCreate module
 ---------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyServiceCreate
@@ -140,7 +140,7 @@ extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyServiceCreate module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.policy.XIQSE\_ControlPolicyServiceDelete module
+XIQSE\_ControlPolicyServiceDelete module
 ---------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.policy.XIQSE_ControlPolicyServiceDelete

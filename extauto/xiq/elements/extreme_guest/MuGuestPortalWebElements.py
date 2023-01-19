@@ -100,6 +100,9 @@ class MuGuestPortalWebElements(MuGuestPortalWebElementsDefs):
     def get_social_wifi_all_login_success_page(self):
         return self.weh.get_element(self.social_wifi_all_login_success_page, self.driver)
 
+    def get_social_wifi_max_count_error(self):
+        return self.weh.get_element(self.social_wifi_max_count_error, self.driver)
+
     def get_social_wifi_all_google_icon(self):
         return self.weh.get_element(self.social_wifi_all_google_icon, self.driver)
 
@@ -228,6 +231,9 @@ class MuGuestPortalWebElements(MuGuestPortalWebElementsDefs):
 
     def get_sponsor_guest_access_login_success_page(self):
         return self.weh.get_element(self.sponsor_guest_access_login_success_page, self.driver)
+
+    def get_social_wifi_access_denied_error(self):
+        return self.weh.get_element(self.social_wifi_access_denied_error, self.driver)
 
     def get_username_field(self):
         return self.weh.get_element(self.username_field, self.driver)

@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.devices.site.discover package
+XIQSE Flows Network Devices Site Discover Keywords
 =========================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.devices.site.discover.XIQSE\_NetworkDevicesSiteDiscover module
+XIQSE\_NetworkDevicesSiteDiscover module
 ------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.site.discover.XIQSE_NetworkDevicesSiteDiscover
@@ -12,7 +12,7 @@ extauto.xiqse.flows.network.devices.site.discover.XIQSE\_NetworkDevicesSiteDisco
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.devices.site.discover.XIQSE\_NetworkDevicesSiteDiscoverAddAddress module
+XIQSE\_NetworkDevicesSiteDiscoverAddAddress module
 ----------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.site.discover.XIQSE_NetworkDevicesSiteDiscoverAddAddress

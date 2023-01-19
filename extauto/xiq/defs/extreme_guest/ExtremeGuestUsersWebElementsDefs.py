@@ -142,6 +142,12 @@ class ExtremeGuestUsersWebElementsDefs:
             'wait_for': 5
         }
 
+    extreme_guest_users_select_button = \
+        {
+            'XPATH': '(//div[contains(@class, "x-column-header-inner x-leaf-column-header x-column-header-inner-empty")])[3]',
+            'wait_for': 5
+        }
+
     extreme_guest_users_delete_button = \
         {
             'XPATH': '//div[@data-automation-tag="eguest-users-delete-user-btn"]',

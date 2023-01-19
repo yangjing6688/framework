@@ -1,4 +1,4 @@
-extauto.xiqse.flows.tasks.saved\_tasks package
+XIQSE Flows Tasks Saved Tasks Keywords
 ==============================================
 
 Module contents

@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.devices package
+XIQSE Flows Network Devices Keywords
 ===========================================
 
 Subpackages
@@ -17,7 +17,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.network.devices.XIQSE\_NetworkDevices module
+XIQSE\_NetworkDevices module
 ----------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.XIQSE_NetworkDevices
