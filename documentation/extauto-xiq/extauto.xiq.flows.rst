@@ -1,4 +1,4 @@
-extauto.xiq.flows package
+XIQ Flows Keywords
 =========================
 
 Subpackages

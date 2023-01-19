@@ -1,4 +1,4 @@
-extauto.xiqse.flows.wireless.reports package
+XIQSE Flows Wireless Reports Keywords
 ============================================
 
 Module contents

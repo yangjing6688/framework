@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.devices.site.port\_templates package
+XIQSE Flows Network Devices Site Port Templates Keywords
 ================================================================
 
 Module contents

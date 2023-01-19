@@ -1,10 +1,10 @@
-extauto.xiqse.flows.admin.backup\_restore package
+XIQSE Flows Admin Backup & Restore Keywords
 =================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.admin.backup\_restore.XIQSE\_Backup module
+XIQSE\_Backup module
 --------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.backup_restore.XIQSE_Backup
@@ -12,7 +12,7 @@ extauto.xiqse.flows.admin.backup\_restore.XIQSE\_Backup module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.backup\_restore.XIQSE\_Restore module
+XIQSE\_Restore module
 ---------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.backup_restore.XIQSE_Restore

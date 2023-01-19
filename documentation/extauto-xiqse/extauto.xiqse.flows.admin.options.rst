@@ -1,10 +1,10 @@
-extauto.xiqse.flows.admin.options package
+XIQSE Flows Admin Options Keywords
 =========================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.admin.options.XIQSE\_AdminOptions module
+XIQSE\_AdminOptions module
 ------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.options.XIQSE_AdminOptions
