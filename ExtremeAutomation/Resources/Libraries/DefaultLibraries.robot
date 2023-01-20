@@ -80,11 +80,13 @@ Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/N
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementDnsGenKeywords.py
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementLoggingGenKeywords.py
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementSshGenKeywords.py
+Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementSshGenKeywords.py
 
 # Management Libraries
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementLoginconfigGenKeywords.py
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementSnmpGenKeywords.py
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementSyslogGenKeywords.py
+Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementResetdeviceGenKeywords.py
 
 # QOS Libraries
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementCosGenKeywords.py
