@@ -1996,11 +1996,12 @@ class Devices:
                                                        get_devices_quick_add_policy_drop_down_items(), policy_name)
             sleep(2)
 
-        self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
+        if self.search_device(device_serial=device_serial) == -1:
+            self.utils.print_info("Clicking on ADD DEVICES button...")
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
-        self.screen.save_screen_shot()
-        sleep(2)
+            self.screen.save_screen_shot()
+            sleep(2)
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
