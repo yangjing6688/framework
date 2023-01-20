@@ -376,6 +376,12 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 10
         }
 
+    select_sr_dell_tab = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tab-sr-dell-switching"]',
+            'wait_for': 5
+        }
+
     select_ap_template = \
         {
             'XPATH': '//*[contains(@data-automation-tag, "wireless-device-templates-cell")]//*[@class="J-tmplName"]',
