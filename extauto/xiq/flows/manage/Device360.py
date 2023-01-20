@@ -11145,11 +11145,12 @@ class Device360(Device360WebElements):
                         kwargs['pass_msg'] = "Successfully selected port"
                         self.common_validation.passed(**kwargs)
                         return 1
+
                     else:
                         self.utils.print_info("Port usage drop down didnot present,")
                         kwargs['fail_msg'] = "d360_assign_port_type() -> Port usage drop down is not present"
                         self.common_validation.failed(**kwargs)
-                        return  -1
+                        return -1
 
     def add_new_pse_profile_from_port_type_page_button(self, **kwargs):
         '''
