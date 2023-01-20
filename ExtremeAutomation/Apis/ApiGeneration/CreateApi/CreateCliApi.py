@@ -8,8 +8,8 @@ class CreateCliApi(CreateApi):
         This function creates a single API file for a given data bean list.
         """
         api_list = list()
-        valid_methods = ["set", "clear", "enable", "disable", "create", "delete", "show"]
-        manual_methods = ["dutlearning", "resetdevice", "unittest", "filemanagement", "hostutils", "firmware", "unit"]
+        valid_methods = ["set", "clear", "enable", "disable", "create", "delete", "show", "reset", "login", 'bypass', 'run']
+        manual_methods = ["dutlearning", "unittest", "filemanagement", "hostutils", "firmware", "unit"]
 
         if len(data_bean_list) == 0:
             raise Exception("Data bean list is empty.")
