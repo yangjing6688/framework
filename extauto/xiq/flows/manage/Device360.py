@@ -6460,7 +6460,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
             return 1
 
-    def edit_port_type(self, template_values, port, verify_summary=True, **kwargs):
+    def edit_port_type(self, template_values, port, verify_summary=True, close_page=True, **kwargs):
         """
         This Keyword edit a port type and verify the summary page .
 
@@ -6628,17 +6628,19 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info("Port type profile dialog box hasn't closed yet... Retrying...")
                     return False
-
-            close_port_type_box = self.get_close_port_type_box()
-            if close_port_type_box:
-                self.utils.print_info(" The button close_port_type_box from policy  was found")
-                self.auto_actions.click(close_port_type_box)
-                self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
-                                     silent_failure=True, msg="Checking that create new port type profile has been"
-                                                              "dialog box has been closed...")
-            else:
-                self.utils.print_info(" The button close_port_type_box from policy was not found")
-                return -1
+            if close_page:
+                close_port_type_box = self.get_close_port_type_box()
+                if close_port_type_box:
+                    self.utils.print_info(" The button close_port_type_box from policy  was found")
+                    self.auto_actions.click(close_port_type_box)
+                    self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
+                                         silent_failure=True, msg="Checking that create new port type profile has been"
+                                                                  "dialog box has been closed...")
+                else:
+                    self.utils.print_info(" The button close_port_type_box from policy was not found")
+                    return -1
+            kwargs['pass_msg'] = "edit_port_type() -> All elements were configured"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def port_type_verify_summary(self, template_values, **kwargs):
@@ -11399,7 +11401,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(summary_tab)
             close_port_type_box = self.get_common_save_button()
             if close_port_type_box:
-                self.utils.print_info(" The button close_port_type_box from policy  was found")
+                self.utils.print_info(" The button close_port_type_box from policy was found")
                 self.auto_actions.click(close_port_type_box)
         else:
             self.utils.print_info("Summary tab not found")
