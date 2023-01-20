@@ -1453,8 +1453,8 @@ class Cli(object):
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
         output = None
         if dut.cli_type.upper() == "EXOS":
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
-            output = self.networkElementCliSend.send_cmd(dut.name, f'show ports info', max_wait=10, interval=2)[
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports info', max_wait=10, interval=2)[
                 0].return_text
             output = re.findall(r"\r\n(\d+)\s+", output)
 
@@ -1561,7 +1561,7 @@ class Cli(object):
                 self.networkElementCliSend.send_cmd(dut.name, "no " + cmd_action, max_wait=10, interval=2)
 
         self.close_connection_with_error_handling(dut)
-        kwargs['pass_msg'] = f"set_lldp() keyword passed."
+        kwargs['pass_msg'] = "set_lldp() keyword passed."
         self.commonValidation.passed(**kwargs)
 
     def bounce_IQAgent(self, dut, xiq_ip_address=None, connect_to_dut=True, disconnect_from_dut=True, wait=True,
@@ -1596,11 +1596,11 @@ class Cli(object):
 
         if disconnect_from_dut:
             self.close_connection_with_error_handling(dut)
-            kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed."
+            kwargs['pass_msg'] = "bounce_IQAgent() keyword passed."
             self.commonValidation.passed(**kwargs)
         if wait and xiq is not None:
             xiq.xflowscommonDevices.wait_until_device_online(dut.serial)
-            kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed. Successfully waited until device online."
+            kwargs['pass_msg'] = "bounce_IQAgent() keyword passed. Successfully waited until device online."
             self.commonValidation.passed(**kwargs)
 
     def get_the_number_of_ports_from_cli(self, dut, **kwargs):
@@ -1624,9 +1624,9 @@ class Cli(object):
             no_ports = int(no_ports)
 
         elif dut.cli_type.upper() == "EXOS":
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging',
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
                                                 max_wait=10)
-            output = self.networkElementCliSend.send_cmd(dut.name, f'show ports vlan',
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan',
                                                          max_wait=10)
             output = output[0].return_text
             match_port = re.findall(r'(\d+)\s+\w+', output)
@@ -1682,7 +1682,7 @@ class Cli(object):
             raise AssertionError("The configuration did not update on the dut after 120 seconds")
 
         self.close_connection_with_error_handling(onboarded_switch)
-        kwargs['pass_msg'] = f'verify_vlan_config_on_switch() keyword passed'
+        kwargs['pass_msg'] = 'verify_vlan_config_on_switch() keyword passed'
         self.commonValidation.passed(**kwargs)
 
     def no_channel_enable_on_all_ports(self, onboarded_switch, **kwargs):
@@ -1690,7 +1690,7 @@ class Cli(object):
          - This keyword sends 'no channelize enable' on all ports in CLI
         :return:
         """
-        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show interface GigabitEthernet channelize',
+        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show interface GigabitEthernet channelize',
                                       max_wait=10,
                                       interval=2)[0].return_text
         match_port = re.findall(r"(\d+)\/(\d+)\s+(false|true)\s+[a-zA-Z0-9]+", output)
@@ -1702,7 +1702,7 @@ class Cli(object):
                 self.networkElementCliSend.send_cmd(onboarded_switch.name, 'no channelize enable',
                                      confirmation_phrases='Do you wish to continue (y/n) ?',
                                      confirmation_args='y')
-        kwargs['pass_msg'] = f'no_channel_enable_on_all_ports() passed'
+        kwargs['pass_msg'] = 'no_channel_enable_on_all_ports() passed'
         self.commonValidation.passed(**kwargs)
 
     def get_device_port_status(self, networkElementCliSend=None, dut=None, **kwargs):
@@ -1830,7 +1830,7 @@ class Cli(object):
         elif dut.cli_type.upper() == "VOSS":
             self.networkElementCliSend.send_cmd(
                 dut.name, f"clear-stats port {first_port},{second_port}", max_wait=10, interval=2)
-        kwargs['pass_msg'] = f'clear_counters() passed.'
+        kwargs['pass_msg'] = 'clear_counters() passed.'
         self.commonValidation.passed(**kwargs)
 
     def get_received_traffic_list_from_dut(self, dut, first_port, second_port, **kwargs):
@@ -1937,7 +1937,7 @@ class Cli(object):
 
             print(f"transmitted_traffic_list for port {first_port} is {match_port[0][3]} octets")
             print(f"transmitted_traffic_list for port {second_port} is {match_port[1][3]} octets")
-        kwargs['pass_msg'] = f'get_transmitted_traffic_list_from_dut() passed.'
+        kwargs['pass_msg'] = 'get_transmitted_traffic_list_from_dut() passed.'
         self.commonValidation.passed(**kwargs)
         return transmitted_traffic_list
 
@@ -2333,12 +2333,12 @@ class Cli(object):
                     return -1
             else:
                 print("Pattern not found, unable to get virtual router info!")
-                kwargs['fail_msg'] = f"Pattern not found, unable to get virtual router info!"
+                kwargs['fail_msg'] = "Pattern not found, unable to get virtual router info!"
                 self.commonValidation.failed(**kwargs)
                 return -1
         else:
             print("Device is not an EXOS/Switch Engine device, unable to get virtual router info!")
-            kwargs['fail_msg'] = f"Device is not an EXOS/Switch Engine device, unable to get virtual router info!"
+            kwargs['fail_msg'] = "Device is not an EXOS/Switch Engine device, unable to get virtual router info!"
             self.commonValidation.failed(**kwargs)
             return -1
 

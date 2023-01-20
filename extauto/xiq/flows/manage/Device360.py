@@ -11506,7 +11506,7 @@ class Device360(Device360WebElements):
         [pg_size] = [pg for pg in paginations if pg.text == int_size]
         self.auto_actions.click(pg_size)
         sleep(5)
-        kwargs['pass_msg'] = f"Selected the specific pagination size"
+        kwargs['pass_msg'] = "Selected the specific pagination size"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -11518,7 +11518,7 @@ class Device360(Device360WebElements):
         table_rows = self.dev360.get_device360_port_table_rows()
         assert table_rows, "Did not find the rows of the ports table"
         table_rows[0].location_once_scrolled_into_view
-        kwargs['pass_msg'] = f"Found the rows of the ports table"
+        kwargs['pass_msg'] = "Found the rows of the ports table"
         self.common_validation.passed(**kwargs)
         return [
             row for row in table_rows if not
@@ -11536,10 +11536,10 @@ class Device360(Device360WebElements):
         current_page = int(
             self.dev360.get_device360_ports_table_current_pagin_number().text)
         if current_page == page_num_ref:
-            kwargs['pass_msg'] = f"Confirm current page number"
+            kwargs['pass_msg'] = "Confirm current page number"
             self.common_validation.passed(**kwargs)
             return True
-        kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed."
+        kwargs['fail_msg'] = "'device360_confirm_current_page_number()' failed."
         self.common_validation.failed(**kwargs)
 
     def device360_switch_get_current_page_port_name_list(self, **kwargs):
@@ -11583,13 +11583,13 @@ class Device360(Device360WebElements):
         other_pages = self.dev360.get_device360_pagination_page_buttons()
         for page in other_pages:
             if int(page.text) == current_page + 1:
-                self.utils.print_info(f"Going to page " + str(current_page + 1))
+                self.utils.print_info(f"Going to page {str(current_page + 1)}")
                 self.auto_actions.click(page)
                 sleep(5)
-                kwargs['pass_msg'] = f"Successfully changed to next page"
+                kwargs['pass_msg'] = "Successfully changed to next page"
                 self.common_validation.passed(**kwargs)
                 return 1
-        kwargs['pass_msg'] = f"Already on the last page"
+        kwargs['pass_msg'] = "Already on the last page"
         self.common_validation.passed(**kwargs)
         return 2
 
@@ -11620,13 +11620,13 @@ class Device360(Device360WebElements):
                     test = any(i in string for string in xiq.xflowscommonDevices.format_row(row.text))
                     if test == False:
                         # return -1
-                        kwargs['fail_msg'] = f"'list_port_element()' failed."
+                        kwargs['fail_msg'] = "'list_port_element()' failed."
                         self.common_validation.fault(**kwargs)
-            kwargs['pass_msg'] = f"Success"
+            kwargs['pass_msg'] = "Success"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'list_port_element()' failed."
+            kwargs['fail_msg'] = "'list_port_element()' failed."
             self.common_validation.failed(**kwargs)
 
     def enter_port_transmission_mode(self, port, transmission_mode, **kwargs):
@@ -11642,7 +11642,7 @@ class Device360(Device360WebElements):
             configure_port_btn = self.dev360.weh.get_element({"XPATH": '//div[@data-automation-tag="automation-port-configuration-port-settings"]'})
         # assert configure_port_btn, "Could not find element port configuration button"
         if not configure_port_btn:
-            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Could not find element port configuration button"
+            kwargs['fail_msg'] = "'enter_port_transmission_mode()' failed. Could not find element port configuration button"
             self.common_validation.fault(**kwargs)
         self.utils.print_info("Click Port Settings Tab")
         self.auto_actions.click(configure_port_btn)
@@ -11653,7 +11653,7 @@ class Device360(Device360WebElements):
             rows = self.dev360.weh.get_elements({"XPATH": '//div[@class="port-details-entry line clearfix"]'})
         # assert rows, "Could not get the port settings aggregation rows"
         if not rows:
-            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Could not get the port settings aggregation rows"
+            kwargs['fail_msg'] = "'enter_port_transmission_mode()' failed. Could not get the port settings aggregation rows"
             self.common_validation.fault(**kwargs)
 
         for port_row in rows:
@@ -11669,9 +11669,9 @@ class Device360(Device360WebElements):
             drop_down_button = self.dev360.weh.get_element({
                 "XPATH": ".//div[@data-automation-tag='automation-automation-port-settings-port-transmission-type-chzn-container-ctn']"
             }, parent=port_row)
-            # assert self.auto_actions.click(drop_down_button) == 1, f"Failed to open transmission type drop down"
+            # assert self.auto_actions.click(drop_down_button) == 1, "Failed to open transmission type drop down"
             if not self.auto_actions.click(drop_down_button) == 1:
-                kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Failed to open transmission type drop down."
+                kwargs['fail_msg'] = "'enter_port_transmission_mode()' failed. Failed to open transmission type drop down."
                 self.common_validation.fault(**kwargs)
         sleep(2)
 
@@ -11682,13 +11682,13 @@ class Device360(Device360WebElements):
             })
         # assert drop_down_options
         if not drop_down_options:
-            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Assert drop_down_option"
+            kwargs['fail_msg'] = "'enter_port_transmission_mode()' failed. Assert drop_down_option"
             self.common_validation.fault(**kwargs)
         drop_down_options = [opt for opt in drop_down_options if opt.text]
         self.utils.print_info(f"Selecting Transmission Mode Option : {transmission_mode}")
         self.auto_actions.select_drop_down_options(drop_down_options, transmission_mode)
         sleep(2)
-        kwargs['pass_msg'] = f"enter_port_transmission_mode() passed."
+        kwargs['pass_msg'] = "enter_port_transmission_mode() passed."
         self.common_validation.passed(**kwargs)
 
     def generate_vlan_id(self, rng=range(1024, 4096)):
@@ -11778,7 +11778,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return traffic_list_xiq
 
-        kwargs['fail_msg'] = f"'device360_display_traffic_received_from_xiq_and_return_traffic_list()' failed."
+        kwargs['fail_msg'] = "'device360_display_traffic_received_from_xiq_and_return_traffic_list()' failed."
         self.common_validation.failed(**kwargs)
 
     def device360_display_traffic_transmitted_from_xiq_and_return_traffic_list(
@@ -11862,7 +11862,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return traffic_list_xiq
 
-        kwargs['fail_msg'] = f"'device360_display_traffic_transmitted_from_xiq_and_return_traffic_list()' failed."
+        kwargs['fail_msg'] = "'device360_display_traffic_transmitted_from_xiq_and_return_traffic_list()' failed."
         self.common_validation.failed(**kwargs)
 
     def check_power_values(self, ports_power_xiq, ports_power_cli, **kwargs):
@@ -11886,7 +11886,7 @@ class Device360(Device360WebElements):
             else:
                 # return -1
                 kwargs[
-                    'fail_msg'] = f"'check_power_values() failed."
+                    'fail_msg'] = "'check_power_values() failed."
                 self.common_validation.failed(**kwargs)
         kwargs['pass_msg'] = f"{results}"
         self.common_validation.passed(**kwargs)
@@ -11920,9 +11920,9 @@ class Device360(Device360WebElements):
                 port_name = it["PORT NAME"]
                 print(f"port name:{port_name} and port type:{port_type}")
 
-                print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
+                print("Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
                 if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
-                    kwargs['fail_msg'] = f"'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')."
+                    kwargs['fail_msg'] = "'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')."
                     self.common_validation.fault(**kwargs)
 
                 cnt_values_port_type = cnt_values_port_type + 1
@@ -11932,7 +11932,7 @@ class Device360(Device360WebElements):
                     port_type_match_cli = 'true'
                     print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
                     if not (match_port[j][0] == port_name) and (match_port[j][2] == port_type_match_cli):
-                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected port type value for expected port name value."
+                        kwargs['fail_msg'] = "'check_port_type()' failed. Did not found the expected port type value for expected port name value."
                         self.common_validation.fault(**kwargs)
 
                     j = j + 1
@@ -11941,12 +11941,12 @@ class Device360(Device360WebElements):
 
                     print(f"{port_name},{port_type}")
                     if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
-                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
+                        kwargs['fail_msg'] = "'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
                         self.common_validation.fault(**kwargs)
 
-            print(f"Verify that the 'port type' column has no empty entry")
+            print("Verify that the 'port type' column has no empty entry")
             if not len(x) == cnt_values_port_type:
-                kwargs['fail_msg'] = f"'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
+                kwargs['fail_msg'] = "'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
                 self.common_validation.fault(**kwargs)
 
         elif dut.cli_type.upper() == "EXOS":
@@ -11971,9 +11971,9 @@ class Device360(Device360WebElements):
                 port_name = it["PORT NAME"]
                 print(f"port name:{port_name} and port type:{port_type}")
 
-                print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
+                print("Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
                 if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
-                    kwargs['fail_msg'] = f"'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')"
+                    kwargs['fail_msg'] = "'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')"
                     self.common_validation.fault(**kwargs)
 
                 cnt_values_port_type = cnt_values_port_type + 1
@@ -11982,22 +11982,22 @@ class Device360(Device360WebElements):
                     port_type_match_cli = 'DDMI is not supported on this port'
                     print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
                     if not (match_port[j][0] == port_name) and (match_port[j][1] == port_type_match_cli):
-                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected port type value RJ45 for expected port name"
+                        kwargs['fail_msg'] = "'check_port_type()' failed. Did not found the expected port type value RJ45 for expected port name"
                         self.common_validation.fault(**kwargs)
                     j = j + 1
 
                 else:
                     print(f"{port_name},{port_type}")
                     if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
-                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
+                        kwargs['fail_msg'] = "'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
                         self.common_validation.fault(**kwargs)
 
-            print(f"Verify that the 'port type' column has no empty entry")
+            print("Verify that the 'port type' column has no empty entry")
             if not len(x) == cnt_values_port_type:
-                kwargs['fail_msg'] = f"'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
+                kwargs['fail_msg'] = "'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
                 self.common_validation.fault(**kwargs)
 
-        kwargs['pass_msg'] = f"'check_port_type()' passed."
+        kwargs['pass_msg'] = "'check_port_type()' passed."
         self.common_validation.passed(**kwargs)
 
     def go_to_last_page(self, **kwargs):
@@ -13856,7 +13856,7 @@ class Device360(Device360WebElements):
                 port_name = row.text.split(" ")[0]
                 if (not "Disconnected" in row.text) and port_name != "mgmt":
                     connected_ports.append(port_name)
-            except:
+            except Exception:
                 pass
         self.exit_d360_Page()
         kwargs["pass_msg"] = "Successfully closed the honeycomb port type editor"

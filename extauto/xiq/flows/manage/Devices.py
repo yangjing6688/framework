@@ -11876,7 +11876,7 @@ class Devices:
                             self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
                             self.auto_actions.click(yes_confirmation_button)
                         else:
-                            self.utils.print_info(f"No confirm message buttons found")
+                            self.utils.print_info("No confirm message buttons found")
                             self.screen.save_screen_shot()
                             kwargs['fail_msg'] = "No confirm message buttons found"
                             self.common_validation.failed(**kwargs)
@@ -12033,7 +12033,7 @@ class Devices:
                                 self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
                                 self.auto_actions.click(yes_confirmation_button)
                             else:
-                                self.utils.print_info(f"No confirm message buttons found")
+                                self.utils.print_info("No confirm message buttons found")
                                 self.screen.save_screen_shot()
                                 kwargs['fail_msg'] = "No confirm message buttons found"
                                 self.common_validation.failed(**kwargs)
@@ -12042,7 +12042,7 @@ class Devices:
                             no_confirmation_button = self.device_actions.get_no_confirmation_button()
                             if no_confirmation_button:
                                 self.utils.print_info(f"Select No to clone {replacement_serial} serial, "
-                                                      f"because doesn't connect in time")
+                                                      "because doesn't connect in time")
                                 self.auto_actions.click(no_confirmation_button)
                                 self.utils.wait_till()
                                 self.utils.print_info("Clonning process unsuccessful. Replacement device doesn't connect in time and process has been aborted.")
@@ -12050,7 +12050,7 @@ class Devices:
                                 self.common_validation.failed(**kwargs)
                                 return -1
                             else:
-                                self.utils.print_info(f"No confirm message buttons found")
+                                self.utils.print_info("No confirm message buttons found")
                                 self.screen.save_screen_shot()
                                 kwargs['fail_msg'] = "No confirm message buttons found"
                                 self.common_validation.failed(**kwargs)
@@ -12064,7 +12064,7 @@ class Devices:
                                 self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
                                 self.auto_actions.click(yes_confirmation_button)
                             else:
-                                self.utils.print_info(f"No confirm message buttons found")
+                                self.utils.print_info("No confirm message buttons found")
                                 self.screen.save_screen_shot()
                                 kwargs['fail_msg'] = "No confirm message buttons found"
                                 self.common_validation.failed(**kwargs)
@@ -12072,7 +12072,7 @@ class Devices:
                         else:
                             pass
                 else:
-                    self.utils.print_info(f"No clone button found")
+                    self.utils.print_info("No clone button found")
                     self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "No clone button found"
                     self.common_validation.failed(**kwargs)
