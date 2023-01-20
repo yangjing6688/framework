@@ -728,7 +728,7 @@ class Device360WebElementDefs:
 
     device360_port_diagnostics_select_all_ports_button = \
         {
-            'XPATH': '//div[contains(@widgetid, "DiagnosticsView")]//div[@class="switch-panel switch-stack-panel"]//div[@class="selection-buttons"]/button[@data-dojo-attach-point="selectAllButton"]',
+            'XPATH': '//div[@class="switch-ports-panel-ctn"]//button[@data-dojo-attach-point="selectAllButton"]',
             'wait_for': 5
         }
 
