@@ -45,6 +45,13 @@ class Alarms(AlarmsWebElements):
         _tool_tip = ""
         self.navigator.navigate_to_manage_alarms()
 
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+
+        self.utils.print_info("Clicking View Legacy Alarm Button")
+        self.auto_actions.click_reference(self.get_alarms_grid_legacy_alarm_button)
+        CloudDriver().refresh_page()
+        self.screen.save_screen_shot()
+        
         self.utils.print_info(f"Checking Alarm Row with Search string {search_string}")
         row = self._get_alarm_grid_row(search_string)
         if row:
