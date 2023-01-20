@@ -18,6 +18,8 @@ from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElem
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
+import random
+from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 
 
 class Device360(Device360WebElements):
@@ -38,6 +40,7 @@ class Device360(Device360WebElements):
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.common_validation = CommonValidation()
         self.tools = Tools()
+        self.networkElementCliSend = NetworkElementCliSend()
 
     def get_system_info(self, **kwargs):
         """
@@ -11476,6 +11479,527 @@ class Device360(Device360WebElements):
         '''
         return self.get_select_element_port_type(element)
 
+    def select_max_pagination_size(self, **kwargs):
+        """
+         - This keyword will navigate to the max pagination size Monitoring Overview Ports Table, using the page number button
+         - Flow: Click max page number
+         It Assumes That Already Navigated to Device360 Page
+        """
+        sleep(2)
+        pagination_size = max(self.dev360.get_device360_ports_table_pagination_sizes(),
+                            key=lambda x: int(x.text))
+        pagination_size.location_once_scrolled_into_view
+        self.auto_actions.click(pagination_size)
+        print(f"Selected the max pagination size: {pagination_size.text}")
+        sleep(5)
+        kwargs['pass_msg'] = f"Selected the max pagination size: {pagination_size.text}"
+        self.common_validation.passed(**kwargs)
+
+    def select_pagination_size(self, int_size, **kwargs):
+        """
+         - This keyword will navigate to the specific pagination size Monitoring Overview Ports Table, using the page number button
+         - Flow: Click specific page number
+         It Assumes That Already Navigated to Device360 Page
+        """
+        sleep(2)
+        paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+        [pg_size] = [pg for pg in paginations if pg.text == int_size]
+        self.auto_actions.click(pg_size)
+        sleep(5)
+        kwargs['pass_msg'] = f"Selected the specific pagination size"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def get_device360_port_table_rows(self, **kwargs):
+        """
+         - This keyword will get device360 port table rows - Monitor Overview Ports Table
+         It Assumes That Already Navigated to Device360 Page
+        """
+        table_rows = self.dev360.get_device360_port_table_rows()
+        assert table_rows, "Did not find the rows of the ports table"
+        table_rows[0].location_once_scrolled_into_view
+        kwargs['pass_msg'] = f"Found the rows of the ports table"
+        self.common_validation.passed(**kwargs)
+        return [
+            row for row in table_rows if not
+            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
+        ]
+
+    def device360_confirm_current_page_number(self, page_num_ref, **kwargs):
+        """
+         - This keyword will check if the page with page_num_ref number is currently displayed
+         It Assumes That Already Navigated to Device360 Page (Monitoring->Overview)
+         - Keyword Usage:
+         - ``Device360 Monitor Overview Pagination Next Page By Number``
+        :return: True if page number matches
+        """
+        current_page = int(
+            self.dev360.get_device360_ports_table_current_pagin_number().text)
+        if current_page == page_num_ref:
+            kwargs['pass_msg'] = f"Confirm current page number"
+            self.common_validation.passed(**kwargs)
+            return True
+        kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed."
+        self.common_validation.failed(**kwargs)
+
+    def device360_switch_get_current_page_port_name_list(self, **kwargs):
+        """
+         - This keyword will get a list with all the port names from the current page (Monitoring->Overview)
+         - Flow: Click next page number
+         It Assumes That Already Navigated to Device360 Page (Monitoring->Overview)
+         - Keyword Usage:
+         - ``Device360 Monitor Overview Pagination Next Page By Number``
+        :return: port_name_list if successfully extracted the port names
+        """
+
+        port_name_list = []
+        rows = self.get_device360_port_table_rows()
+        for row in rows:
+            port_name_list.append(
+                self.dev360.get_d360_switch_ports_table_interface_port_name_cell(row).text)
+        if 'PORT NAME' in port_name_list:
+            port_name_list.remove('PORT NAME')
+        pattern_voss_three_nums = re.compile(r'\d+\/\d+\/\d+', re.M)
+        filtered = [i for i in port_name_list if not pattern_voss_three_nums.match(i)]
+        pattern_mgmt = re.compile(r'.*mgmt.*', re.M)
+        filtered = [i for i in filtered if not pattern_mgmt.match(i)]
+        kwargs['pass_msg'] = f"Port name list from current page: {filtered}"
+        self.common_validation.passed(**kwargs)
+        return filtered
+
+    def device360_monitor_overview_pagination_next_page_by_number(self, **kwargs):
+        """
+         - This keyword will navigate to the next page of the Monitoring Overview Ports Table, using the
+         page number button
+         - Flow: Click next page number
+         It Assumes That Already Navigated to Device360 Page
+         - Keyword Usage:
+         - ``Device360 Monitor Overview Pagination Next Page By Number``
+        :return: 1 if successfully changed to next page
+        :return: 2 if already on the last page
+        """
+        current_page = int(
+            self.dev360.get_device360_ports_table_current_pagin_number().text)
+        other_pages = self.dev360.get_device360_pagination_page_buttons()
+        for page in other_pages:
+            if int(page.text) == current_page + 1:
+                self.utils.print_info(f"Going to page " + str(current_page + 1))
+                self.auto_actions.click(page)
+                sleep(5)
+                kwargs['pass_msg'] = f"Successfully changed to next page"
+                self.common_validation.passed(**kwargs)
+                return 1
+        kwargs['pass_msg'] = f"Already on the last page"
+        self.common_validation.passed(**kwargs)
+        return 2
+
+    def list_port_element(self, xiq, port_no, dut, **kwargs):
+        """
+         - This keyword will get port details info
+         It Assumes That Already Navigated to Device360 Page
+        """
+        rows = xiq.xflowscommonDevices.devices_web_elements.get_port_details_info()
+        if dut.cli_type.upper() == 'VOSS':
+            matchers = ['Type', 'LACP Status', 'Port Mode', 'Port Status',
+                        'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
+                        'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
+                        'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
+                        'STP Port State', 'Port Speed']
+        if dut.cli_type.upper() == 'EXOS':
+            matchers = ['Type', 'Link Aggregation', 'LAG Logical Port', 'Link Aggregation Status', 'Port Mode', 'Port Status',
+                        'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
+                        'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
+                        'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
+                        'STP Port State', 'Port Speed']
+        if rows:
+            xiq.xflowscommonDevices.utils.print_debug(f"Searching {len(rows)} rows")
+            for row in rows:
+                xiq.xflowscommonDevices.utils.print_info(f"Port {port_no} details: ",
+                                                         xiq.xflowscommonDevices.format_row(row.text))
+                for i in matchers:
+                    test = any(i in string for string in xiq.xflowscommonDevices.format_row(row.text))
+                    if test == False:
+                        # return -1
+                        kwargs['fail_msg'] = f"'list_port_element()' failed."
+                        self.common_validation.fault(**kwargs)
+            kwargs['pass_msg'] = f"Success"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = f"'list_port_element()' failed."
+            self.common_validation.failed(**kwargs)
+
+    def enter_port_transmission_mode(self, port, transmission_mode, **kwargs):
+        """
+         - This keyword will enter port transimission mode
+        Args:
+            port
+            transmission_mode: ex. "Half-Duplex"
+        """
+        sleep(10)
+        configure_port_btn = self.dev360.get_d360_configure_port_settings_aggregation_tab_button()
+        if not configure_port_btn:
+            configure_port_btn = self.dev360.weh.get_element({"XPATH": '//div[@data-automation-tag="automation-port-configuration-port-settings"]'})
+        # assert configure_port_btn, "Could not find element port configuration button"
+        if not configure_port_btn:
+            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Could not find element port configuration button"
+            self.common_validation.fault(**kwargs)
+        self.utils.print_info("Click Port Settings Tab")
+        self.auto_actions.click(configure_port_btn)
+        sleep(3)
+
+        rows = self.dev360.get_device360_configure_port_settings_aggregation_rows()
+        if not rows:
+            rows = self.dev360.weh.get_elements({"XPATH": '//div[@class="port-details-entry line clearfix"]'})
+        # assert rows, "Could not get the port settings aggregation rows"
+        if not rows:
+            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Could not get the port settings aggregation rows"
+            self.common_validation.fault(**kwargs)
+
+        for port_row in rows:
+            if re.search(f"{port}\n", port_row.text):
+                self.utils.print_debug("Found row for port: ", port_row.text)
+                break
+        else:
+            assert False, f"Failed to find the row for port {port}"
+
+        self.utils.print_info("clicking Transmission Mode drop down Button")
+        drop_down_button = self.dev360.get_device360_port_settings_transmission_mode_drop_down_button(port_row)
+        if self.auto_actions.click(drop_down_button) in [None, -1]:
+            drop_down_button = self.dev360.weh.get_element({
+                "XPATH": ".//div[@data-automation-tag='automation-automation-port-settings-port-transmission-type-chzn-container-ctn']"
+            }, parent=port_row)
+            # assert self.auto_actions.click(drop_down_button) == 1, f"Failed to open transmission type drop down"
+            if not self.auto_actions.click(drop_down_button) == 1:
+                kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Failed to open transmission type drop down."
+                self.common_validation.fault(**kwargs)
+        sleep(2)
+
+        drop_down_options = self.dev360.get_device360_port_settings_transmission_mode_drop_down_options(port_row)
+        if not drop_down_options:
+            drop_down_options = self.dev360.weh.get_elements({
+                "XPATH": './/li[contains(@data-automation-tag, "automation-automation-port-settings-port-transmission-type-chzn-option")]'
+            })
+        # assert drop_down_options
+        if not drop_down_options:
+            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Assert drop_down_option"
+            self.common_validation.fault(**kwargs)
+        drop_down_options = [opt for opt in drop_down_options if opt.text]
+        self.utils.print_info(f"Selecting Transmission Mode Option : {transmission_mode}")
+        self.auto_actions.select_drop_down_options(drop_down_options, transmission_mode)
+        sleep(2)
+        kwargs['pass_msg'] = f"enter_port_transmission_mode() passed."
+        self.common_validation.passed(**kwargs)
+
+    def generate_vlan_id(self, rng=range(1024, 4096)):
+        """
+         - This keyword will generate vlan id
+        :return: random vlan id
+        """
+        return str(random.choice(rng))
+
+    def device360_display_traffic_received_from_xiq_and_return_traffic_list(self, dut, first_port, second_port, **kwargs):
+        """
+         - This keyword will display the received traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
+        """
+
+        paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+        assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
+
+        [pagination] = [pg for pg in paginations if pg.text == '10']
+        sleep(5)
+        AutoActions().click(pagination)
+        sleep(3)
+
+        if dut.cli_type.upper() == "VOSS":
+            x = self.dev360.get_device360_ports_table()
+            print("Displaying the traffic received value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            x = self.dev360.get_device360_ports_table()
+
+            traffic_list_xiq = []
+
+            print(" Displaying the traffic received value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
+        elif dut.cli_type.upper() == "EXOS":
+            x = self.dev360.get_device360_ports_table()
+
+            print("x pentru exos 67 este: ", x)
+            print("Displaying the traffic received value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            x = self.dev360.get_device360_ports_table()
+
+            traffic_list_xiq = []
+
+            print(" Displaying the traffic received value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
+
+        kwargs['fail_msg'] = f"'device360_display_traffic_received_from_xiq_and_return_traffic_list()' failed."
+        self.common_validation.failed(**kwargs)
+
+    def device360_display_traffic_transmitted_from_xiq_and_return_traffic_list(
+        self, dut, first_port, second_port, **kwargs):
+        """
+         - This keyword will display the transmitted traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
+        """
+
+        paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+        assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
+
+        [pagination] = [pg for pg in paginations if pg.text == '10']
+        sleep(5)
+        AutoActions().click(pagination)
+        sleep(3)
+
+        if dut.cli_type.upper() == "VOSS":
+            x = self.dev360.get_device360_ports_table()
+            print("Displaying the traffic transmitted value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            x = self.dev360.get_device360_ports_table()
+
+            traffic_list_xiq = []
+
+            print(" Displaying the traffic transmitted value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
+
+        elif dut.cli_type.upper() == "EXOS":
+            x = self.dev360.get_device360_ports_table()
+
+            print("Displaying the traffic transmitted value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            x = self.dev360.get_device360_ports_table()
+
+            traffic_list_xiq = []
+
+            print(" Displaying the traffic transmitted value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
+
+        kwargs['fail_msg'] = f"'device360_display_traffic_transmitted_from_xiq_and_return_traffic_list()' failed."
+        self.common_validation.failed(**kwargs)
+
+    def check_power_values(self, ports_power_xiq, ports_power_cli, **kwargs):
+        """
+         - This keyword will check power values
+        :return: results
+        """
+        results = []
+        for port_xiq, port_cli in zip(ports_power_xiq, ports_power_cli):
+            if port_xiq[0] == port_cli[0]:
+                if port_xiq[1] == "N/A":
+                    if port_xiq[1] == port_cli[1]:
+                        results.append(["Port: " + port_xiq[0], "PASSED"])
+                    else:
+                        results.append(["Port: " + port_xiq[0], "FAILED"])
+                else:
+                    if float(port_xiq[1]) == (float(port_cli[1])*1000):
+                        results.append(["Port: " + port_xiq[0], "PASSED"])
+                    else:
+                        results.append(["Port: " + port_xiq[0], "FAILED"])
+            else:
+                # return -1
+                kwargs[
+                    'fail_msg'] = f"'check_power_values() failed."
+                self.common_validation.failed(**kwargs)
+        kwargs['pass_msg'] = f"{results}"
+        self.common_validation.passed(**kwargs)
+        return results
+
+    def check_port_type(self, dut, **kwargs):
+        """
+         - This keyword will check port type
+        :return:
+        """
+
+        if dut.cli_type.upper() == "VOSS":
+
+            sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable',
+                                    max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig l1-config | no-more',
+                                            max_wait=10, interval=2)
+            p = re.compile(r'(^\d+\/\d+)\s+(false|true)\s+(false|true)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            x = self.dev360.get_device360_ports_table()
+            x.pop(0)
+            cnt_values_port_type = 0
+            j = 0
+
+            for it in x:
+
+                port_type = it["TYPE"]
+                port_name = it["PORT NAME"]
+                print(f"port name:{port_name} and port type:{port_type}")
+
+                print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
+                if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
+                    kwargs['fail_msg'] = f"'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')."
+                    self.common_validation.fault(**kwargs)
+
+                cnt_values_port_type = cnt_values_port_type + 1
+
+                if port_type == 'RJ45':
+
+                    port_type_match_cli = 'true'
+                    print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
+                    if not (match_port[j][0] == port_name) and (match_port[j][2] == port_type_match_cli):
+                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected port type value for expected port name value."
+                        self.common_validation.fault(**kwargs)
+
+                    j = j + 1
+
+                else:
+
+                    print(f"{port_name},{port_type}")
+                    if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
+                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
+                        self.common_validation.fault(**kwargs)
+
+            print(f"Verify that the 'port type' column has no empty entry")
+            if not len(x) == cnt_values_port_type:
+                kwargs['fail_msg'] = f"'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
+                self.common_validation.fault(**kwargs)
+
+        elif dut.cli_type.upper() == "EXOS":
+
+            sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                    max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports transceiver information',
+                                            max_wait=10, interval=2)
+            p = re.compile(r'(^\d+)\s+(DDMI\sis\snot\ssupported\son\sthis\sport)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            x = self.dev360.get_device360_ports_table()
+            x.pop(0)
+            cnt_values_port_type = 0
+            j = 0
+
+            for it in x:
+
+                port_type = it["TYPE"]
+                port_name = it["PORT NAME"]
+                print(f"port name:{port_name} and port type:{port_type}")
+
+                print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
+                if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
+                    kwargs['fail_msg'] = f"'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')"
+                    self.common_validation.fault(**kwargs)
+
+                cnt_values_port_type = cnt_values_port_type + 1
+
+                if port_type == 'RJ45':
+                    port_type_match_cli = 'DDMI is not supported on this port'
+                    print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
+                    if not (match_port[j][0] == port_name) and (match_port[j][1] == port_type_match_cli):
+                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected port type value RJ45 for expected port name"
+                        self.common_validation.fault(**kwargs)
+                    j = j + 1
+
+                else:
+                    print(f"{port_name},{port_type}")
+                    if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
+                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
+                        self.common_validation.fault(**kwargs)
+
+            print(f"Verify that the 'port type' column has no empty entry")
+            if not len(x) == cnt_values_port_type:
+                kwargs['fail_msg'] = f"'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
+                self.common_validation.fault(**kwargs)
+
+        kwargs['pass_msg'] = f"'check_port_type()' passed."
+        self.common_validation.passed(**kwargs)
+
     def go_to_last_page(self, **kwargs):
         """Method that goes to the last page of the honeycomb port type editor.
 
@@ -13272,7 +13796,7 @@ class Device360(Device360WebElements):
         return 1
 
     def close_port_type_config(self, **kwargs):
-        """Method that closed the honeycomb port type editor.
+        """Method that closes the honeycomb port type editor.
 
         Returns:
             int: 1 if the function call has succeeded else -1
@@ -13302,6 +13826,255 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         self.utils.wait_till(timeout=10)
         return 1
+
+    def get_connected_ports(self, dut, **kwargs):
+        """
+        This keyword will get connected ports from D360 table.
+        It Assumes That Already Navigated to Device360 Page
+        Returns: connected_ports
+        """
+        sleep(8)
+        self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+        sleep(8)
+
+        self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+        sleep(4)
+
+        rows = self.dev360.get_d360_switch_ports_table_grid_rows()[1:]
+        connected_ports = []
+
+        for row in rows:
+            try:
+                port_name = row.text.split(" ")[0]
+                if (not "Disconnected" in row.text) and port_name != "mgmt":
+                    connected_ports.append(port_name)
+            except:
+                pass
+        self.exit_d360_Page()
+        kwargs["pass_msg"] = "Successfully closed the honeycomb port type editor"
+        self.common_validation.passed(**kwargs)
+        return connected_ports
+
+
+    def verify_port_names(self, **kwargs):
+        """
+        Verifies that the port details of slot 1 are displayed by default in D360 table.
+        It Assumes That Already Navigated to Device360 Page
+        """
+        first_order_rows = [r.text for r in self.get_device360_port_table_rows()]
+        first_port_names = [r.split(" ")[0] for r in first_order_rows]
+        print(f"Found these port names in the table: {first_port_names}")
+        for port_name in first_port_names:
+            print(f"Port name: {port_name}")
+            if not re.match(r"1:(\d+|mgmt)", port_name):
+                kwargs["fail_msg"] = "At least one port displayed is not from Slot 1"
+                self.common_validation.failed(**kwargs)
+                return -1
+        kwargs["pass_msg"] = "All ports displayed by default are from Slot 1"
+        self.common_validation.passed(**kwargs)
+
+    def check_device360_LLDP_neighbors_with_hyperlink(self, isl_ports_dut, hyperlinks=False, **kwargs):
+        """
+        Check Device360 LLDP neighbors with hyperlink in D360 table.
+        Args:
+            isl_ports_dut: create_list_of_netelem_isl_ports("netelem1")
+            hyperlinks: True -> to return the LLDP neighbors hyperlinks from D360 table
+        """
+        header_row = self.dev360.get_device360_ports_description_table_row()
+        ths = self.dev360.weh.get_elements(
+            self.dev360.device360_ports_table_th_columns, parent=header_row)
+
+        table_rows = self.get_device360_port_table_rows()
+
+        is_hyperlink = 0
+        hyperlinks_dut = []
+        for row in table_rows:
+            tds = self.dev360.weh.get_elements(
+                self.dev360.device360_ports_table_td_gridcell, parent=row)
+            for th, td in zip(ths, tds):
+                if th.text.strip() == "PORT NAME":
+                    port_found = 0
+                    for port in isl_ports_dut:
+                        print(td.text.strip())
+                        print(port)
+                        if td.text.strip() == port:
+                            port_found = 1
+                            print(f"Port found: {td.text.strip()}")
+                            break
+                elif th.text.strip() == "LLDP NEIGHBOR":
+                    if port_found == 1:
+                        print(self.dev360.get_cell_href(td))
+                        if self.dev360.get_cell_href(td) != None:
+                            if hyperlinks:
+                                hyperlink_dut = self.dev360.get_cell_href(td)
+                                hyperlinks_dut.append(hyperlink_dut)
+                            is_hyperlink = is_hyperlink + 1
+                            print(f"LLDP column displays the sysname, {td.text.strip()} with hyperlink for port {port}")
+                        else:
+                            print(
+                                f"LLDP column displays the sysname, {td.text.strip()} without hyperlink for port {port}")
+                    break
+
+        # assert is_hyperlink == len(
+        #     isl_ports_dut), "LLDP column displays the sysname without hyperlink for at least one port"
+        if not is_hyperlink == len(isl_ports_dut):
+            kwargs["fail_msg"] = "'check_device360_LLDP_neighbors_with_hyperlink()' failed. LLDP column displays the sysname without hyperlink for at least one port"
+            self.common_validation.failed(**kwargs)
+
+        kwargs["pass_msg"] = "Successfully checked Device360 LLDP neighbors with hyperlink."
+        self.common_validation.passed(**kwargs)
+        if hyperlinks:
+            kwargs["pass_msg"] = f"Hyperlinks: {hyperlinks_dut}"
+            self.common_validation.passed(**kwargs)
+            return hyperlinks_dut
+
+    def check_device360_LLDP_neighbors_without_hyperlink(self, isl_ports, **kwargs):
+        """
+        Check Device360 LLDP neighbors without hyperlink in D360 table.
+        Args:
+            isl_ports_dut: create_list_of_netelem_isl_ports("netelem1")
+        """
+        header_row = self.dev360.get_device360_ports_description_table_row()
+        ths = self.dev360.weh.get_elements(
+            self.dev360.device360_ports_table_th_columns, parent=header_row)
+
+        table_rows = self.get_device360_port_table_rows()
+
+        no_hyperlink = 0
+        for row in table_rows:
+            tds = self.dev360.weh.get_elements(
+                self.dev360.device360_ports_table_td_gridcell, parent=row)
+            for th, td in zip(ths, tds):
+                if th.text.strip() == "PORT NAME":
+                    port_found = 0
+                    for port in isl_ports:
+                        if td.text.strip() == port:
+                            port_found = 1
+                            print(f"Port found: {td.text.strip()}")
+                            break
+                elif th.text.strip() == "LLDP NEIGHBOR":
+                    if port_found == 1:
+                        if self.dev360.get_cell_href(td) != None:
+                            print(
+                                f"LLDP column displays the sysname, {td.text.strip()} with hyperlink for port {port}")
+                        else:
+                            if td.text.strip() != "":
+                                no_hyperlink = no_hyperlink + 1
+                            print(
+                                f"LLDP column displays the sysname, {td.text.strip()} without hyperlink for port {port}")
+                    break
+
+        # assert no_hyperlink == len(
+        #     isl_ports), "LLDP column displays the sysname with hyperlink/sysname missing for at least one port"
+        if not no_hyperlink == len(isl_ports):
+            kwargs["fail_msg"] = "'check_device360_LLDP_neighbors_without_hyperlink()' failed. LLDP column displays the sysname with hyperlink/sysname missing for at least one port"
+            self.common_validation.failed(**kwargs)
+        kwargs["pass_msg"] = "Successfully checked Device360 LLDP neighbors without hyperlink."
+        self.common_validation.passed(**kwargs)
+
+    def verify_lacp_status_for_port_device_in_360_table(self, logger, dut, port, check_value, **kwargs):
+        """
+        Check Device360 LACP status for port device in D360 table.
+        Args:
+            port: dut1.isl.port_a.ifname
+            check_value: 'true'/'false'
+        """
+        self.select_max_pagination_size()
+
+        logger.info("Select LACP Status column if is not selected in column picker")
+        checkbox_button = self.dev360.get_device360_columns_toggle_button()
+        checkbox_button.location_once_scrolled_into_view
+
+        self.auto_actions.click(checkbox_button)
+
+        sleep(2)
+        all_checkboxes = self.dev360.get_device360_all_checkboxes()
+        default_disabled = [k for k, v in all_checkboxes.items() if v["is_selected"] is False]
+
+        if dut.cli_type.upper() == 'VOSS':
+            for checkbox_name, stats in all_checkboxes.items():
+                if checkbox_name.upper() == "LACP STATUS" and checkbox_name in default_disabled \
+                        and stats["is_selected"] is False:
+                    self.auto_actions.click(stats["element"])
+                    break
+        elif dut.cli_type.upper() == 'EXOS':
+            for checkbox_name, stats in all_checkboxes.items():
+                if checkbox_name.upper() == "LINK AGGREGATION" and checkbox_name in default_disabled \
+                        and stats["is_selected"] is False:
+                    self.auto_actions.click(stats["element"])
+                    break
+
+        ports_table = self.dev360.get_device360_ports_table()
+        [port_row] = [row for row in ports_table if row["PORT NAME"] == port]
+        if dut.cli_type.upper() == 'VOSS':
+            lacp_status = port_row["LACP STATUS"]
+            logger.info(f"LACP status = {lacp_status}")
+        if dut.cli_type.upper() == 'EXOS':
+            lacp_status = port_row["LINK AGGREGATION"]
+            logger.info(f"LACP status = {lacp_status}")
+
+        if not lacp_status == check_value:
+            kwargs["failed_msg"] = f"verify_lacp_status_for_port_device_in_360_table() failed. Default LACP Status for port: {port} is not {check_value}"
+            self.common_validation.fault(**kwargs)
+
+        logger.info("Select LACP Status column if is not selected in column picker")
+        checkbox_button = self.dev360.get_device360_columns_toggle_button()
+        if checkbox_button:
+            checkbox_button.location_once_scrolled_into_view
+
+            self.auto_actions.click(checkbox_button)
+            sleep(2)
+
+            all_checkboxes = self.dev360.get_device360_all_checkboxes()
+            if dut.cli_type.upper() == 'VOSS':
+                for checkbox_name, stats in all_checkboxes.items():
+                    if checkbox_name.upper() == "LACP STATUS" and stats["is_selected"] is True:
+                        self.auto_actions.click(stats["element"])
+                        break
+            elif dut.cli_type.upper() == 'EXOS':
+                for checkbox_name, stats in all_checkboxes.items():
+                    if checkbox_name.upper() == "LINK AGGREGATION" and stats["is_selected"] is True:
+                        self.auto_actions.click(stats["element"])
+                        break
+        self.select_pagination_size("10")
+        self.close_device360_window()
+        kwargs["pass_msg"] = "Successfully verified lacp status for port device in D360 table"
+        self.common_validation.passed(**kwargs)
+
+    def check_lld_neighbour_field_with_value_and_with_hyperlink(self, ports_isl, real_ports, logger, **kwargs):
+        """
+        Check LLDP neighbor field with value and with hyperlink.
+        Args:
+            ports_isl: ex. create_list_of_netelem_isl_ports("netelem1")
+            real_ports: device_360_web_elements.get_ports_from_device360_up()
+        """
+        lldp_neighbour = {}
+        success = 1
+        for port in ports_isl:
+            logger.info("PORT =  {}".format(port))
+            self.auto_actions.click(real_ports[port - 1])
+            elem = Device360WebElements().get_ports_from_device360_up_lldp_neighbour()
+            if not elem:
+                elem = Device360WebElements().weh.get_element(
+                    {"XPATH": '//div[contains(@class, "port-info port-lldp-neighbor")]'})
+            lldp_neighbour[port] = elem
+            logger.info("lldp_neighbour =  {}".format(lldp_neighbour[port].text))
+            lldp_hyper_link = Device360WebElements().get_cell_href(lldp_neighbour[port])
+            logger.info("lldp_neighbour href =  {}".format(lldp_hyper_link is not None))
+            str1 = lldp_neighbour[port].text
+            splits = str1.split()
+            for split in splits:
+                logger.info("SPLIT = {}".format(split))
+            if (lldp_neighbour[port].text is not None and lldp_neighbour[port].text != "" and len(
+                    splits) > 2) and lldp_hyper_link is not None:
+                success = 1
+            else:
+                success = 0
+                break
+            sleep(5)
+        kwargs["pass_msg"] = f"Successfully checked LLDP neighbor field with value and with hyperlink: {success}"
+        self.common_validation.passed(**kwargs)
+        return success
 
     def navigate_to_unit_options_from_xiq_diagnostics_page(self, unit, unit_role, **kwargs):
         """
@@ -14093,4 +14866,3 @@ class Device360(Device360WebElements):
             kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
             self.common_validation.passed(**kwargs)
             return 1
-
