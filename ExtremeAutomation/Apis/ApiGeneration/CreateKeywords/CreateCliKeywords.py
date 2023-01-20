@@ -42,8 +42,8 @@ class CreateCliKeywords(object):
         self.kw_temp_dir = os.path.join(PathUtils.get_project_root(), "ExtremeAutomation", "Keywords",
                                         "NetworkElementKeywords", "GeneratedKeywords", "KeywordFileTemp")
         self.python_built_ins = ["type", "dir", "len", "str", "list", "dict", "id", "format"]
-        self.command_methods = ["set", "clear", "enable", "disable", "create", "delete"]
-        self.manual_keywords = ["dutlearning", "resetdevice", "unittest", "filemanagement", "hostutils", "firmware",
+        self.command_methods = ["set", "clear", "enable", "disable", "create", "delete", "reset", "login", 'bypass', 'run']
+        self.manual_keywords = ["dutlearning", "unittest", "filemanagement", "hostutils", "firmware",
                                 "sysinfo", "unit"]
         self.kw_files = None
         self.keyword_document_generated = os.path.join(PathUtils.get_project_root(), "ExtremeAutomation", "Documentation",
@@ -56,7 +56,7 @@ class CreateCliKeywords(object):
         with open(file_name, "a") as wired_robot:
             wired_robot.write('\n'+line)
         wired_robot.close()
-    
+
     def write_static_info_to_allwired_file(self, file_name):
         print('writing to....' + file_name)
         list_of_hardcoded=[
@@ -93,12 +93,12 @@ class CreateCliKeywords(object):
             '',
             ''
             ]
-        
+
         with open(file_name, "w") as wired_robot:
             for line in list_of_hardcoded:
                 wired_robot.write('\n'+line)
         wired_robot.close()
-    
+
     def create_keywords(self, data_beans, keyword_info):
         """
         This function creates a single keyword file from a list of data beans.
@@ -116,9 +116,11 @@ class CreateCliKeywords(object):
         # try:
         for feature in data_beans:
             if feature not in self.manual_keywords:
+                if feature == 'resetdevice':
+                    pass
                 arg_dict, agent_dict = self.__generate_keyword_arg_dict(data_beans, feature)
-              
-                
+
+
 
                 # Make sure keyword output path exists
                 os.makedirs(self.keyword_path, exist_ok=True)
@@ -141,7 +143,7 @@ class CreateCliKeywords(object):
                 path_for_switch_file = "Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/"+filename
                 self.append_dynamic_info_to_allwired_file(self.allwired_file, path_for_switch_file)
                 #print(path_for_switch_file)
-                
+
                 with open(output_file, "w") as kw_file:
                     kw_file.write("\n".join(self.__create_keyword_header(feature, import_lines)))
                     for oper_sys in data_beans[feature].keys():
@@ -154,13 +156,13 @@ class CreateCliKeywords(object):
                                                 kw_file.write("\n".join(
                                                     self.__create_keyword(feature, bean, arg_dict, agent_dict,
                                                                           keyword_info)))
-                                              
+
                                                 del arg_dict[bean.interface_method]
-                                                
+
                                         else:
                                             if bean.interface_method.split("_")[0] != "show":
-                                                self.logger.log_warn("Invalid method name in {0} API Definition: {1}".
-                                                                     format(feature, str(bean.interface_method)))
+                                                self.logger.log_warn("Invalid method name in {0} API Definition: {1}, Not show, {2}".
+                                                                     format(feature, str(bean.interface_method), ', '.join(self.command_methods)))
                                                 raise Exception
 
                     # Add existing 'verify' and 'get' keywords to the end of the file.

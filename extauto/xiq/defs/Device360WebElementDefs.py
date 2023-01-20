@@ -244,7 +244,7 @@ class Device360WebElementDefs:
 
     device360_configure_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="configureViewSelect"]',
+            'XPATH': '//li[@data-dojo-attach-point="configureViewSelect"]',
             'wait_for': 5
         }
 
@@ -597,7 +597,8 @@ class Device360WebElementDefs:
 
     device360_configure_port_save_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
+            # 'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
             'wait_for': 5
         }
 
@@ -1766,7 +1767,7 @@ class Device360WebElementDefs:
 
     d360_wireframe_ether_port = \
         {
-            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li[contains(@class,"port-theme-gray")]',
+            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li[contains(@class,"port-theme-gray") or contains(@class,"port-theme-white")]',
             'wait_for': 5
         }
     d360_automation_port = \
@@ -1831,7 +1832,9 @@ class Device360WebElementDefs:
 
     device360_port_configuration_content = \
         {
-            'CSS_SELECTOR': '.port-configuration',
+            # 'CSS_SELECTOR': '.port-configuration',
+            # 'wait_for': 5
+            'XPATH': '//*[@data-dojo-attach-point="portconfiguration"]',
             'wait_for': 5
         }
 
@@ -2730,7 +2733,9 @@ class Device360WebElementDefs:
 
     device_d360_save_port_configuration = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            # 'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            # 'wait_for': 5
+            'XPATH': '//button[contains(@data-automation-tag, "automation-port-config") and @data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -3184,72 +3189,6 @@ class Device360WebElementDefs:
         {
             'XPATH': '//div[@class="port-action action-bounce-poe "]'
         }
-
-    select_element_port_type_macLock_status = \
-        {
-            'XPATH': '//input[@data-dojo-attach-point="enableMacLocking"]',
-            'wait_for': 5
-        }
-
-    select_element_port_type_macLock_max_first_arrival = \
-        {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-maxfa"]',
-            'wait_for': 5
-        }
-
-    select_element_port_type_macLock_disable_port = \
-        {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-shutdown"]',
-            'wait_for': 5
-        }
-
-    select_element_port_type_macLock_link_down_clear = \
-        {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-clear"]',
-            'wait_for': 5
-        }
-
-    select_element_port_type_macLock_link_down_retain = \
-        {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-retain"]',
-            'wait_for': 5
-        }
-
-    select_element_port_type_macLock_remove_aged_MACs = \
-        {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-ml-remove-aged"]',
-            'wait_for': 5
-        }
-
-    select_mac_locking_summary = \
-        {
-            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-enable"]'
-        }
-
-    select_mac_locking_first_arrival_summary = \
-        {
-            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-max-fa-limit"]'
-        }
-
-    select_mac_locking_port_disable_summary = \
-        {
-            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-disable-port"]'
-        }
-
-    select_mac_locking_link_down_action_clear_summary = \
-        {
-            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-link-down-action"][@title="Clear"]'
-        }
-
-    select_mac_locking_link_down_action_retain_summary = \
-        {
-            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-link-down-action"][@title="Retain"]'
-        }
-
-    select_mac_locking_remove_aged_macs_summary = \
-        {
-            'XPATH': '//a[@data-automation-tag="port-type-editor-summary-ml-remove-aged-macs"]'
-		}
 
     device360_ports_table_rows = \
         {

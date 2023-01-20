@@ -3027,6 +3027,24 @@ class DeviceConfig(DeviceConfigElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+    def clear_audit_commands(self, audit):
+        """
+            - This keyword is used to "clean" the output from audit-delta of the commands that sometimes appear at the beginning of the output
+
+        :param audit: the output from audit-delta
+        :return: audit_clean: a list with the output from audit-delta without the commands that sometimes appear at
+            the beginning of the output
+        """
+        audit_list = list(audit.split('\n'))
+        audit_clean = []
+        print(audit_list)
+        for i in audit_list:
+            if not i.startswith('#'):
+                audit_clean.append(i)
+            elif 'save configuration y' in audit_list:
+                audit_list.remove('save configuration y')
+        return audit_clean
+
     def configure_device_function(self, ap_serial, device_function='AP'):
         """
         - This keyword will configure device function as AP or Router

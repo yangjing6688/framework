@@ -1924,6 +1924,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_port_table_rows(self):
         return self.weh.get_elements(self.device360_ports_table_rows)
 
+    def get_device360_port_table_rows_no_scroll(self):
+        return self.weh.get_elements(self.device360_ports_table_rows)
+
     def get_device360_ports_table_current_pagination_size(self):
         return self.weh.get_element(self.device360_ports_table_current_pagination_size)
 

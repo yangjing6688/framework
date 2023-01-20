@@ -13,6 +13,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.CommonValidation import CommonValidation
 
 import extauto.xiq.flows.common.ToolTipCapture
+from extauto.xiq.xapi.common.XapiLogin import XapiLogin
 
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
@@ -34,14 +35,13 @@ class Login:
         self.record = False
         self.t1 = None
         self.utils = Utils()
-        # self.driver = extauto.common.CloudDriver.cloud_driver
         self.login_web_elements = LoginWebElements()
         self.pw_web_elements = PasswordResetWebElements()
         self.msp_web_elements = MspWebElements()
         self.nav_web_elements = NavigatorWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        pass
+        self.xapiLogin = XapiLogin()
 
     def _init(self, url="default", incognito_mode="False"):
         """
@@ -106,6 +106,10 @@ class Login:
         - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
         - ``Login User   ${USERNAME}   ${PASSWORD}    co_pilot_status=True``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLED=True
+
         :param username: login account username
         :param password: login account password
         :param capture_version: true if want capture the xiq build version
@@ -124,6 +128,13 @@ class Login:
         :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
+        if self.common_validation.get_kwarg(kwargs, "XAPI_ENABLED", None):
+            # new XAPI call
+            self.xapiLogin.login(username, password, **kwargs)
+            # for now we only alow XAPI or UI testing
+            return
+
+
         result = -1
         count = 0
         expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
@@ -468,12 +479,15 @@ class Login:
 
         # stop tool tip text capture thread
         try:
-            if self.t1 is not None:
+            if self.t1:
                 if self.t1.is_alive():
                     self.t1.do_run = False
                     sleep(10)
                 kwargs['pass_msg'] = "Quit browser Successfully"
                 self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                # nothing to do
                 return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)

@@ -261,20 +261,53 @@ class DeviceActions(DeviceActionsDefs):
     def get_replacement_serial_number_dropdown(self):
         return self.weh.get_element(self.replacement_serial_number_dropdown)
 
+    def get_replacement_serial_number_field(self):
+        return self.weh.get_element(self.replacement_serial_number_field)
+
     def get_replacement_serial_number_items(self):
         return self.weh.get_elements(self.replacement_serial_number_items)
 
     def get_clone_button(self):
         return self.weh.get_element(self.clone_button)
 
+    def get_clone_button_quick_onboard(self):
+        return self.weh.get_element(self.clone_button_quick_onboard)
+
+    def get_clone_inform_window(self):
+        return self.weh.get_element(self.clone_inform_window)
+
+    def get_clone_inform_window_replacement_not_connected(self):
+        return self.weh.get_element(self.clone_inform_window_replacement_not_connected)
+
     def get_yes_confirmation_button(self):
         return self.weh.get_element(self.yes_confirmation_button)
 
+    def get_no_confirmation_button(self):
+        return self.weh.get_element(self.no_confirmation_button)
+
     def get_loading_clone_configuration(self):
         return self.weh.get_element(self.loading_clone_configuration)
+
+    def get_loading_onboarding_replacement(self):
+        return self.weh.get_element(self.loading_onboarding_replacement)
+
+    def get_onboarding_replacement(self):
+        return self.weh.get_element(self.onboarding_replacement)
+
+    def get_warning_replacement_different_type(self):
+        return self.weh.get_element(self.warning_replacement_different_type)
+
+    def get_warning_replacement_not_connected(self):
+        return self.weh.get_element(self.warning_replacement_not_connected)
 
     def get_warning_message_disconnected(self):
         return self.weh.get_element(self.warning_message_disconnected)
 
     def get_cancel_button(self):
         return self.weh.get_element(self.cancel_button)
+
+    def get_close_button(self):
+        return self.weh.get_element(self.close_button)
+
+    def get_x_button_clone_window(self):
+        return self.weh.get_element(self.x_button_clone_window)

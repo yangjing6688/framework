@@ -26,7 +26,8 @@ class CloudDriver():
         self.__initialized = True
 
     def close_browser(self):
-        self.cloud_driver.quit()
+        if self.cloud_driver:
+            self.cloud_driver.quit()
         self.__initialized = False
 
     def start_browser(self, url="default", program="default", incognito_mode="False"):
