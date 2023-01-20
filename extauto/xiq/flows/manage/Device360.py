@@ -11520,32 +11520,29 @@ class Device360(Device360WebElements):
              - This keyword will select Port State in Multi Edit (D360-Port Configuration) and after that will put the port to OFF
             """
             self.utils.print_info("Click on Port State checkbox")
-            AutoActions().click_reference(self.get_multi_edit_checkbox_status)
-            sleep(5)
+            self.auto_actions.click_reference(self.get_multi_edit_checkbox_status)
 
             self.utils.print_info("Clicking Port State toggle to Off")
-            AutoActions().click_reference(self.get_multi_edit_status_toggle)
+            self.auto_actions.click_reference(self.get_multi_edit_status_toggle)
 
         if port_usage is not None:
             """
              - This keyword will select Port Usage in Multi Edit (D360-Port Configuration)
             """
             checkbox = self.get_multi_edit_checkbox_port_type()
-            sleep(5)
             if checkbox:
                 if checkbox.is_selected():
                     self.utils.print_info("The Port Usage is checked!")
                 else:
                     self.utils.print_info("Click on Port Usage checkbox")
-                    AutoActions().click_reference(self.get_multi_edit_checkbox_port_type)
-                    sleep(1)
+                    self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_type)
             else:
                 self.utils.print_info("Unable to click the element")
 
             get_port_usage_mode_dropdown = self.get_multi_edit_port_type_dropdown()
 
             if get_port_usage_mode_dropdown:
-                AutoActions().click_reference(self.get_multi_edit_port_type_dropdown)
+                self.auto_actions.click_reference(self.get_multi_edit_port_type_dropdown)
                 get_port_usage_items = self.get_multi_edit_port_type_drop_down_list()
                 if self.auto_actions.select_drop_down_options(get_port_usage_items,
                                                               port_usage):
@@ -11558,8 +11555,7 @@ class Device360(Device360WebElements):
                              and after that will complete the field with one value
                             """
                             self.utils.print_info("Click on VLAN checkbox when Port Usage is Access Port")
-                            AutoActions().click_reference(self.get_multi_edit_checkbox_vlan)
-                            sleep(5)
+                            self.auto_actions.click_reference(self.get_multi_edit_checkbox_vlan)
 
                             get_multi_edit_vlan = self.get_multi_edit_vlan_input()
                             if get_multi_edit_vlan:
@@ -11579,10 +11575,10 @@ class Device360(Device360WebElements):
                              and after that will complete the fields with values
                             """
                             self.utils.print_info("Click on Native VLAN checkbox when Port Usage is Trunk Port")
-                            AutoActions().click_reference(self.get_d360_multi_edit_checkbox_native_vlan)
-                            sleep(5)
+                            self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_native_vlan)
+
                             self.utils.print_info("Click on Allowed VLAN checkbox when Port Usage is Trunk Port")
-                            AutoActions().click_reference(self.get_d360_multi_edit_checkbox_allowed_vlan)
+                            self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_allowed_vlan)
 
                         if native_vlan_trunk_port is not None:
 
@@ -11612,12 +11608,10 @@ class Device360(Device360WebElements):
 
                     elif port_usage == 'Auto-sense Port':
                         checkbox_vlan = self.get_multi_edit_checkbox_vlan()
-                        sleep(5)
                         if checkbox_vlan:
                             if checkbox_vlan.is_enabled():
                                 self.utils.print_info("Click on checkbox")
-                                AutoActions().click_reference(self.get_multi_edit_checkbox_vlan)
-                                sleep(1)
+                                self.auto_actions.click_reference(self.get_multi_edit_checkbox_vlan)
                             else:
                                 self.utils.print_info("The vlan is disabled")
                         else:
@@ -11630,10 +11624,9 @@ class Device360(Device360WebElements):
                              and after that will complete the fields with values.
                             """
                             self.utils.print_info("Click on Voice VLAN checkbox when Port Usage is Phone Port")
-                            AutoActions().click_reference(self.get_d360_multi_edit_checkbox_voice_vlan)
-                            sleep(5)
+                            self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_voice_vlan)
                             self.utils.print_info("Click on Data VLAN checkbox when Port Usage is Phone Port")
-                            AutoActions().click_reference(self.get_d360_multi_edit_checkbox_data_vlan)
+                            self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_data_vlan)
 
                         if voice_vlan_phone_port is not None:
 
@@ -11672,8 +11665,7 @@ class Device360(Device360WebElements):
              - This keyword will select Description in Multi Edit (D360-Port Configuration) and after that will complete the field
             """
             self.utils.print_info("Click on Description checkbox")
-            AutoActions().click_reference(self.get_multi_edit_checkbox_port_description)
-            sleep(5)
+            self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_description)
 
             get_multi_edit_description = self.get_multi_edit_port_description_input()
             if get_multi_edit_description:
@@ -11689,44 +11681,28 @@ class Device360(Device360WebElements):
         :return: fail message if error
         '''
         self.utils.print_info("Click on Port Type checkbox")
-        AutoActions().click_reference(self.get_multi_edit_checkbox_port_type)
-        sleep(5)
+        self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_type)
         self.utils.print_info("Click on Port State checkbox")
-        AutoActions().click_reference(self.get_multi_edit_checkbox_status)
-        sleep(5)
+        self.auto_actions.click_reference(self.get_multi_edit_checkbox_status)
         self.utils.print_info("Click on Description checkbox")
-        AutoActions().click_reference(self.get_multi_edit_checkbox_port_description)
-        sleep(5)
+        self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_description)
 
-    def d360_save_multi_edit_button(self, **kwargs):
+    def d360_save_multi_edit_button(self):
         '''
         This keyword push the save button from Multi Edit tab.
         :return: pass message if successfully
         :return: fail message if error
         '''
-        save_button_multi_edit = self.get_d360_save_multi_edit()
-        if save_button_multi_edit:
-            self.utils.print_info("Click save button from Multi Edit")
-            self.auto_actions.click(save_button_multi_edit)
-            kwargs['pass_msg'] = f"The multi edit configuration was saved successfully!"
-            self.common_validation.passed(**kwargs)
-        else:
-            kwargs['fail_msg'] = f"save button from Multi Edit not found"
-            self.common_validation.failed(**kwargs)
+        self.utils.print_info("Clicking 'Save' button from Multi Edit")
+        self.auto_actions.click_reference(self.get_d360_save_multi_edit)
 
     def d360_cancel_multi_edit_button(self):
         '''
         This keyword push the cancel button from Multi Edit.
         :return: 1 if succesfully ; else -1
         '''
-        cancel_button_multi_edit = self.get_d360_cancel_multi_edit()
-        if cancel_button_multi_edit:
-            self.utils.print_info("Click cancel button from Multi Edit")
-            self.auto_actions.click(cancel_button_multi_edit)
-            return 1
-        else:
-            self.utils.print_info("cancel button from Multi Edit not found")
-            return -1
+        self.utils.print_info("Click Cancel button from Multi Edit")
+        self.auto_actions.click_reference(self.get_d360_cancel_multi_edit)
 
     def go_to_last_page(self, **kwargs):
         """Method that goes to the last page of the honeycomb port type editor.
@@ -14025,7 +14001,6 @@ class Device360(Device360WebElements):
         """
 
         checkbox = self.dev360.get_d360_monitor_port_details_checkbox_interface(isl_ports_dut)
-        sleep(2)
         if checkbox:
             print("Click on checkbox")
             AutoActions().click(checkbox)
@@ -14035,40 +14010,24 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = f"The port {isl_ports_dut} cannot be selected."
             self.common_validation.failed(**kwargs)
 
-    def multi_edit_add_port_usage(self, **kwargs):
+    def multi_edit_add_port_usage(self):
         '''
         This keyword click on add button for multi edit port usage. This function will open the Create Port Type tab.
         :return: pass message if successfully
         :return: fail message if error
         '''
-        add_port_usage = self.dev360.get_add_port_type_port_usage_multi_edit()
-        if add_port_usage:
-            self.utils.print_info("Click add port usage")
-            self.auto_actions.click(add_port_usage)
-            kwargs['pass_msg'] = f"The add button from multi edit was clicked!"
-            self.common_validation.passed(**kwargs)
-        else:
-            kwargs['fail_msg'] = f"The add button from multi edit was not found!"
-            self.common_validation.failed(**kwargs)
+        self.utils.print_info("Click add port usage from Multi Edit tab to open Create Port Type")
+        self.auto_actions.click_reference(self.dev360.get_add_port_type_port_usage_multi_edit)
 
-    def close_multi_edit_vlan_error_message(self, **kwargs):
+    def close_multi_edit_vlan_error_message(self):
         """
          - This keyword will close the vlan error message in Multi Edit (D360-Port Configuration).
          - The error message is generated when the VLAN field is empty or contains an invalid value.
         :return: pass message if successfully
         :return: fail message if error
         """
-        error_message = self.dev360.get_vlan_error_message_close_multi_edit()
-        if error_message:
-            print("Click on error_message")
-            AutoActions().click(error_message)
-            print (error_message.text)
-            kwargs['pass_msg'] = f"The multi edit vlan error message was closed successfully!"
-            self.common_validation.passed(**kwargs)
-        else:
-            kwargs['fail_msg'] = f"The multi edit vlan error message was cannot be closed."
-            self.common_validation.failed(**kwargs)
-
+        self.utils.print_info("Close the multi edit vlan error message")
+        self.auto_actions.click_reference(self.dev360.get_vlan_error_message_close_multi_edit)
 
     def check_delta_config_local(self, device_mac, commands_into_delta, **kwargs):
         """
@@ -14137,12 +14096,11 @@ class Device360(Device360WebElements):
         """
         start_time = int(time.time())
         max_wait = 180
-        # self.utils.wait_till(self.dev360.get_d360_save_port_configuration_message_exos, timeout=60, is_logging_enabled=True, delay=2)
         success_message = self.dev360.get_d360_save_port_configuration_message_exos()
         while not success_message.is_displayed():
             if (int(time.time()) - start_time) < max_wait:
                 success_message = self.dev360.get_d360_save_port_configuration_message_exos()
-                time.sleep(2)
+                self.utils.wait_till(delay=2)
             else:
                 self.utils.print_info(f"Unable to display the success message: {success_message.text}")
         if success_message:
@@ -14160,12 +14118,11 @@ class Device360(Device360WebElements):
         """
         start_time = int(time.time())
         max_wait = 180
-        # self.utils.wait_till(self.dev360.get_d360_save_port_configuration_message_voss, timeout=60, is_logging_enabled=True, delay=2)
         success_message = self.dev360.get_d360_save_port_configuration_message_voss()
         while not success_message.is_displayed():
             if (int(time.time()) - start_time) < max_wait:
                 success_message = self.dev360.get_d360_save_port_configuration_message_voss()
-                time.sleep(2)
+                self.utils.wait_till(delay=2)
             else:
                 self.utils.print_info(f"Unable to display the success message: {success_message.text}")
         if success_message:
