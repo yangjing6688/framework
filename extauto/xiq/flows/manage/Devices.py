@@ -7223,6 +7223,7 @@ class Devices:
             return -1
         return 1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def quick_onboarding_locally_manual(self, device_sn, device_make):
         '''
         This keyword on boards your devices locally by using new onboarding flow
@@ -7353,6 +7354,7 @@ class Devices:
             return -1
         return 1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def quick_onboarding_locally_csv(self, device_make, csv_location):
         """
         This keyword on boards your devices locally by using new onboarding flow
@@ -10649,6 +10651,7 @@ class Devices:
                 return -1
         return -1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboarding_stack_per_unit(self, serial_numbers_list, device_os, location):
         """
         This functions onboard serials one by one

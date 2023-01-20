@@ -2012,9 +2012,10 @@ class Cli(object):
         """
         if dut.cli_type == 'exos':
             for attempts in range(3):
+                self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
                 output = self.networkElementCliSend.send_cmd(dut.name, 'show configuration | i sharing',
                                               max_wait=10, interval=2)
-
+                self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
                 p = re.compile(r'\d:\d+-\d:\d+|\d:\d+,\d:\d+|\d:\d+-\d+', re.M)
                 lacp_list_ports_from_dut = re.findall(p, output[0].return_text)
 
