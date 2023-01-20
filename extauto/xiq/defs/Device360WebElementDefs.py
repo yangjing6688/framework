@@ -244,7 +244,7 @@ class Device360WebElementDefs:
 
     device360_configure_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="configureViewSelect"]',
+            'XPATH': '//li[@data-dojo-attach-point="configureViewSelect"]',
             'wait_for': 5
         }
 
@@ -596,7 +596,8 @@ class Device360WebElementDefs:
 
     device360_configure_port_save_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
+            # 'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
             'wait_for': 5
         }
 
@@ -1765,7 +1766,7 @@ class Device360WebElementDefs:
 
     d360_wireframe_ether_port = \
         {
-            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li[contains(@class,"port-theme-gray")]',
+            'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li[contains(@class,"port-theme-gray") or contains(@class,"port-theme-white")]',
             'wait_for': 5
         }
     d360_automation_port = \
@@ -1830,7 +1831,9 @@ class Device360WebElementDefs:
 
     device360_port_configuration_content = \
         {
-            'CSS_SELECTOR': '.port-configuration',
+            # 'CSS_SELECTOR': '.port-configuration',
+            # 'wait_for': 5
+            'XPATH': '//*[@data-dojo-attach-point="portconfiguration"]',
             'wait_for': 5
         }
 
@@ -2729,7 +2732,9 @@ class Device360WebElementDefs:
 
     device_d360_save_port_configuration = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            # 'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            # 'wait_for': 5
+            'XPATH': '//button[contains(@data-automation-tag, "automation-port-config") and @data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
