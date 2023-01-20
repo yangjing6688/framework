@@ -2996,8 +2996,8 @@ class Devices:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.cobj_web_elements.get_paze_size_element():
-            self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
+        if self.cobj_web_elements.get_page_size_element():
+            self.auto_actions.click_reference(self.cobj_web_elements.get_page_size_element)
             self.screen.save_screen_shot()
             sleep(5)
 
