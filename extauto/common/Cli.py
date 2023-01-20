@@ -2046,9 +2046,8 @@ class Cli(object):
             return False
 
     def search_last_command_cli_journal(self, info: str, command, **kwargs):
-
         table = []
-        for entry in info.split("\n"):
+        for entry in info[4:].split("\n"):
             if entry:
                 if entry[0].isdigit():
                     aux = [i for i in entry.split(" ") if i]
@@ -2072,9 +2071,7 @@ class Cli(object):
             kwargs['fail_msg'] = f"'{command}' didn't find as last command cli journal"
             self.commonValidation.failed(**kwargs)
 
-
     def check_pse_restart_in_cli(self, dut, **kwargs):
-
         spawn = self.open_spawn(dut.ip, dut.port, dut.username,
                                 dut.password, dut.cli_type)
         if dut.cli_type == "voss":
