@@ -51,7 +51,7 @@ class Alarms(AlarmsWebElements):
         self.auto_actions.click_reference(self.get_alarms_grid_legacy_alarm_button)
         CloudDriver().refresh_page()
         self.screen.save_screen_shot()
-        
+
         self.utils.print_info(f"Checking Alarm Row with Search string {search_string}")
         row = self._get_alarm_grid_row(search_string)
         if row:
@@ -63,16 +63,20 @@ class Alarms(AlarmsWebElements):
             sleep(2)
             _tool_tip = self.get_alarm_clear_tool_tip().text
 
-        if "Last alarms cleared" in _tool_tip:
-            self.utils.print_info(f"{_tool_tip}")
-            kwargs['pass_msg'] = "Last alarms cleared"
+            if "Last alarms cleared" in _tool_tip:
+                self.utils.print_info(f"{_tool_tip}")
+                kwargs['pass_msg'] = "Last alarms cleared"
+                self.commonValidation.passed(**kwargs)
+                return 1
+            else:
+                self.utils.print_info(f"Alarm Row Not Cleared Successfully with Search string {search_string}")
+                kwargs['fail_msg'] = f"clear_alarm() -> Alarm Row Not Cleared Successfully with Search string {search_string}"
+                self.commonValidation.failed(**kwargs)
+                return -1
+        else:
+            kwargs['pass_msg'] = "No alarms available to get cleared"
             self.commonValidation.passed(**kwargs)
             return 1
-        else:
-            self.utils.print_info(f"Alarm Row Not Cleared Successfully with Search string {search_string}")
-            kwargs['fail_msg'] = f"clear_alarm() -> Alarm Row Not Cleared Successfully with Search string {search_string}"
-            self.commonValidation.failed(**kwargs)
-            return -1
 
     def get_alarms_count_from_status_card(self, alarm_type='critical'):
         """
