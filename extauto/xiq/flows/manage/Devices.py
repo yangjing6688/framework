@@ -1931,6 +1931,17 @@ class Devices:
                                                       csv_location, device_model, os_version, os_persona, **kwargs) == -1:
             return -1
 
+        if 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
+            self.utils.print_info("Onboarding: ", device_make)
+            return_value = self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
+            if return_value == 1:
+                kwargs['pass_msg'] = f"Successfully Onboarded a stack of exos Device(s) with serial numbers {device_serial}"
+                self.common_validation.passed(**kwargs)
+            else:
+                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {device_serial}"
+                self.common_validation.failed(**kwargs)
+            return return_value
+
         self.utils.print_info("Onboarding: ", device_make)
         self.navigator.navigate_to_devices()
 
