@@ -943,7 +943,7 @@ class Cli(object):
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
             self.send(connection, 'en')
-            self.send(connection, 'sel')
+            self.send(connection, 'self')
             self.send(connection, 'virtual-controller')
             self.send(connection, 'show adoption status')
             self.send(connection, 'end')

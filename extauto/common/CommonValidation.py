@@ -47,7 +47,6 @@ class CommonValidation():
         # Added screen capture in case of errors or problems
         self.screen.save_screen_shot()
 
-        # todo psadej test this
         # Raise an exception for pytest and robot
         raise Exception(fail_msg)
 
