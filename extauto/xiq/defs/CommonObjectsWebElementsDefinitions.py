@@ -1276,6 +1276,12 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 1
         }
 
+    ui_tipbox_error = \
+        {
+            'XPATH': '//div[contains(@class,"ui-tipbox-error")]/div[@class="ui-tipbox-con"]/h3',
+            'wait_for': 1
+        }
+
     next_page_element_disabled = \
         {
             'CSS_SELECTOR': '.J-page-next.ui-page-item-next.ui-page-item-disable',

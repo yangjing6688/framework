@@ -1,4 +1,4 @@
-extauto.xiqse.flows.wireless package
+XIQSE Flows Wireless Keywords
 ====================================
 
 Subpackages
@@ -18,7 +18,7 @@ Subpackages
 Submodules
 ----------
 
-extauto.xiqse.flows.wireless.XIQSE\_Wireless module
+XIQSE\_Wireless module
 ---------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.wireless.XIQSE_Wireless

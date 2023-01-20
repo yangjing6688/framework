@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.ApplicationsWebElements import ApplicationsWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Applications(object):
@@ -16,8 +17,9 @@ class Applications(object):
         self.auto_actions = AutoActions()
         self.navigator = Navigator()
         self.app_web_elements = ApplicationsWebElements()
+        self.commonValidation = CommonValidation()
 
-    def add_custom_applications(self, application_name, group_name):
+    def add_custom_applications(self, application_name, group_name, **kwargs):
         """
         - This keyword will create Custom Application under Manage > Applications.
         - Flow: Manage --> Applications --> Manage Applications --> ADD CUSTOM
@@ -66,12 +68,16 @@ class Applications(object):
         self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_tab)
 
         if "Add Custom Application successfully." in tool_tp_text[-1]:
+            kwargs['pass_msg'] = "Add Custom Application successfully."
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to add custom application")
+            kwargs['fail_msg'] = "add_custom_applications() -> Unable to add custom application"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def edit_custom_applications(self, application_name, application_name_modified):
+    def edit_custom_applications(self, application_name, application_name_modified, **kwargs):
         """
         - This keyword will modify Custom Application under Manage > Applications.
         - Flow: Manage --> Applications --> Manage Applications --> Search and select an application --> Edit application
@@ -120,12 +126,16 @@ class Applications(object):
         self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_button)
 
         if "Edit Custom Application successfully." in tool_tp_text[-1]:
+            kwargs['pass_msg'] = "Edit Custom Application successfully."
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to edit custom application")
+            kwargs['fail_msg'] = "edit_custom_applications() -> Unable to edit custom application"
+            self.commonValidation.failed(**kwargs)
             return -1
 
-    def delete_custom_applications(self, application_name_modified):
+    def delete_custom_applications(self, application_name_modified, **kwargs):
         """
         - This keyword will delete Custom Application under Manage > Applications.
         - Flow: Manage --> Applications --> Manage Applications --> Search and select an application --> Delete application
@@ -152,7 +162,7 @@ class Applications(object):
         self.auto_actions.click_reference(self.app_web_elements.get_manage_apps_cell)
         sleep(3)
 
-        self.utils.print_info("Click on Edit button")
+        self.utils.print_info("Click on Delete button")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_delete)
         sleep(3)
 
@@ -164,10 +174,14 @@ class Applications(object):
         self.utils.print_info(tool_tp_text)
 
         self.utils.print_info("clicking on application dialog box close button")
-        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_tab)
+        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_button)
 
         if "Custom Application was successfully deleted." in tool_tp_text[-1]:
+            kwargs['pass_msg'] = "Custom Application was successfully deleted."
+            self.commonValidation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to delete custom application")
+            kwargs['fail_msg'] = "delete_custom_applications() -> Unable to delete custom application"
+            self.commonValidation.failed(**kwargs)
             return -1

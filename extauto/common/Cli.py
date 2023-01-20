@@ -1586,7 +1586,7 @@ class Cli(object):
         """
         This keyword gets stacking details from CLI (Mac add, Slot number and Role -for each unit).
         This keyword is implemented only for EXOS STACK.
-        
+
         :param dut: The dut object of the device
         :return: a list of tuples
         """
@@ -1603,7 +1603,7 @@ class Cli(object):
             kwargs['pass_msg'] = f"Stacking details found"
             self.commonValidation.passed(**kwargs)
             return units_list
-        
+
         kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
         self.commonValidation.failed(**kwargs)
         return -1
@@ -1612,7 +1612,7 @@ class Cli(object):
         """
         - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
         This keyword is implemented only for EXOS STACK.
-        
+
         :param dut: the dut object
         :return: a list of tuples
         """
@@ -1804,6 +1804,245 @@ class Cli(object):
         kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
         self.commonValidation.failed(**kwargs)
         return -1
+
+    def get_virtual_router(self, dut, **kwargs):
+        """
+           - This keyword returns the vr used by an EXOS / Switch Engine device
+           :param dut: device
+           :return match.group(12): the name of VR used by EXOS / Switch Engine device
+                                    or -1 if is unable to get virtual router info
+        """
+        global vrName
+        if dut.cli_type.upper() == "EXOS":
+            result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
+            output = result[0].cmd_obj.return_text
+            pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
+            match = re.search(pattern, output)
+
+            if match:
+                print(f"Mgmt Vlan Name : {match.group(1)}")
+                print(f"Vlan ID        : {match.group(3)}")
+                print(f"Mgmt IPaddress : {match.group(5)}")
+                print(f"Active ports   : {match.group(9)}")
+                print(f"Total ports    : {match.group(11)}")
+                print(f"Virtual router : {match.group(12)}")
+
+                if int(match.group(9)) > 0:
+                    return match.group(12)
+                else:
+                    print(f"There is no active port in the mgmt vlan {match.group(1)}")
+                    kwargs['fail_msg'] = f"There is no active port in the mgmt vlan {match.group(1)}"
+                    self.commonValidation.failed(**kwargs)
+                    return -1
+            else:
+                print("Pattern not found, unable to get virtual router info!")
+                kwargs['fail_msg'] = f"Pattern not found, unable to get virtual router info!"
+                self.commonValidation.failed(**kwargs)
+                return -1
+        else:
+            print("Device is not an EXOS/Switch Engine device, unable to get virtual router info!")
+            kwargs['fail_msg'] = f"Device is not an EXOS/Switch Engine device, unable to get virtual router info!"
+            self.commonValidation.failed(**kwargs)
+            return -1
+
+    def get_device_model_name(self, dut, cli_type, **kwargs):
+        """
+           - Gets the device model name from CLI for an EXOS/VOSS device
+           - Keyword Usage:
+            - ``get_device_model_name(dut=dut, cli_type=dut.cli_type)``
+
+           :param dut: device
+           :param cli_type: the type of device : EXOS / VOSS
+           :return system_type_string: a string with device model
+
+        """
+        if cli_type.lower() == 'exos':
+            device_system_output = self.networkElementCliSend.send_cmd(dut.name, 'show system | include System')[0].cmd_obj._return_text
+            system_type_regex = '(System Type:[ ]{2,}.{0,})'
+            system_type = self.utils.get_regexp_matches(device_system_output, system_type_regex, 1)[0]
+            system_type_string = system_type.replace(self.utils.get_regexp_matches(system_type,
+                                                                                       '(System Type:[ ]{2,})')[0], '')
+            if 'SwitchEngine' in system_type_string:
+                system_type_string = 'Switch Engine ' + system_type_string
+                system_type_string = system_type_string.replace('-SwitchEngine', '')
+                system_type_string = system_type_string.replace('\r', '')
+            elif 'EXOS' in system_type_string:
+                system_type_string = 'Switch Engine ' + system_type_string
+                system_type_string = system_type_string.replace('-EXOS', '')
+                system_type_string = system_type_string.replace('\r', '')
+            else:
+                system_type_string = system_type_string.replace(system_type_string[:4], system_type_string[:4] + '-')
+                system_type_string = system_type_string.replace('\r', '')
+            print(f"Model name is:{system_type_string}")
+            return system_type_string
+
+        elif cli_type.lower() == 'voss':
+            device_system_output = self.networkElementCliSend.send_cmd(dut.name, 'show sys-info | include ModelName')[0].cmd_obj._return_text
+            system_type_regex = '(ModelName[ ]{2,}.{0,})'
+            system_type = self.utils.get_regexp_matches(device_system_output, system_type_regex, 1)[0]
+            system_type_string = system_type.replace(self.utils.get_regexp_matches(system_type,
+                                                                                   '(ModelName[ ]{2,}.)')[0], '')
+            if 'FabricEngine' in system_type_string:
+                system_type_string = 'Fabric Engine' + system_type_string
+                system_type_string = system_type_string.replace('-FabricEngine', '')
+                system_type_string = system_type_string.replace('\r', '')
+            elif 'VOSS' in system_type_string:
+                system_type_string = 'Fabric Engine' + system_type_string
+                system_type_string = system_type_string.replace('-VOSS', '')
+                system_type_string = system_type_string.replace('\r', '')
+            else:
+                system_type_string = system_type_string.replace(system_type_string[:4], system_type_string[:4] + '-')
+                system_type_string = system_type_string.replace('\r', '')
+            print(f"Model name is:{system_type_string}")
+            return system_type_string
+        else:
+            kwargs['fail_msg'] = "Didn't find any switch model"
+            self.commonValidation.failed(**kwargs)
+
+    def check_os_versions(self, dut1, dut2, **kwargs):
+        """
+           - This keyword is used to check if 2 devices have the same os version or not
+           - Keyword Usage:
+            - ``check_os_versions(dut1=${DEVICE}, dut2=${DEVICE})``
+
+           :param dut1: first device
+           :param dut2: second device
+           :return "same"/"different": a string that specifies if the devices have the same OS or different OS
+                    or -1 if unable to check OS versions
+
+        """
+        device_1 = dut1.name
+        device_2 = dut2.name
+        cli_type_device_1 = dut1.cli_type
+        cli_type_device_2 = dut2.cli_type
+
+        if cli_type_device_1.lower() == 'exos' and cli_type_device_2.lower() == 'exos':
+            check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')[0].cmd_obj._return_text
+            image_version_regex = 'IMG:([ ]{1,}.{0,})'
+            image_version_1 = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
+            image_version_1_string = image_version_1.replace(self.utils.get_regexp_matches(image_version_1,
+                                                                                               '([ ])')[0], '')
+
+            check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show version | grep IMG')[0].cmd_obj._return_text
+            image_version_2 = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
+            image_version_2_string = image_version_2.replace(self.utils.get_regexp_matches(image_version_2,
+                                                                                               '([ ])')[0], '')
+            print(f"OS version for clone device: {image_version_1_string}")
+            print(f"OS version for replacement device: {image_version_2_string}")
+
+            if image_version_1_string == image_version_2_string:
+                print("OS versions are the same")
+                return 'same'
+            else:
+                print("OS version are different")
+                return 'different'
+
+        elif cli_type_device_1.lower() == 'voss' and cli_type_device_2.lower() == 'voss':
+            check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            image_version_regex = '(\\d+[.]\\d+[.]\\d+[.]\\d+)'
+            image_version_1_string = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
+            print(f"OS version for clone device: {image_version_1_string}")
+
+            check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            image_version_2_string = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
+            print(f"OS version for replacement device: {image_version_2_string}")
+
+            if image_version_1_string == image_version_2_string:
+                print("OS versions are the same")
+                return 'same'
+            else:
+                print("OS version are different")
+                return 'different'
+        else:
+            kwargs['fail_msg'] = "Unable to check OS version for devices"
+            self.commonValidation.failed(**kwargs)
+            return -1
+
+    def disable_enable_iqagent_clone_device(self, device, iqagent_option, **kwargs):
+        """
+                - This keyword is used to enable/disable iq agent for a an EXOS/VOSS device from CLI
+                :param device: device selected
+                :param iqagent_option: "enable" or "disable" option for iqagent
+                :return 1 if sucess or -1 if fails
+
+        """
+        device_1 = device.name
+        cli_type_device_1 = device.cli_type
+        if iqagent_option == 'disable':
+            if cli_type_device_1.lower() == 'exos':
+                self.networkElementCliSend.send_cmd(device_1, "disable iqagent", max_wait=10, interval=2,
+                                     confirmation_phrases='Do you want to continue?', confirmation_args='y')
+                kwargs['pass_msg'] = "IQ agent successfully disabled"
+                self.commonValidation.passed(**kwargs)
+            elif cli_type_device_1.lower() == 'voss':
+                self.networkElementCliSend.send_cmd(device_1, "enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "application", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "no iqagent enable", max_wait=10, interval=2)
+                kwargs['pass_msg'] = "IQ agent successfully disabled"
+                self.commonValidation.passed(**kwargs)
+            else:
+                kwargs['fail_msg'] = "Didn't find any os type"
+                self.commonValidation.failed(**kwargs)
+
+        elif iqagent_option == 'enable':
+            if cli_type_device_1.lower() == 'exos':
+                self.networkElementCliSend.send_cmd(device_1, "enable iqagent", max_wait=10, interval=2)
+                kwargs['pass_msg'] = "IQ agent successfully enabled"
+                self.commonValidation.passed(**kwargs)
+            elif cli_type_device_1.lower() == 'voss':
+                self.networkElementCliSend.send_cmd(device_1, "enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "configure terminal", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "application", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(device_1, "iqagent enable", max_wait=10, interval=2)
+                kwargs['pass_msg'] = "IQ agent successfully enabled"
+                self.commonValidation.passed(**kwargs)
+            else:
+                kwargs['fail_msg'] = "Didn't find any os type"
+                self.commonValidation.failed(**kwargs)
+        else:
+            kwargs['fail_msg'] = "Didn't find option for disable/enable"
+            self.commonValidation.failed(**kwargs)
+
+    def check_lacp_dut(self, dut, lacp_list_ports, **kwargs):
+        """
+        Used for checking lacp on the EXOS switch matches the reference list:
+        dut - device to test
+        lacp_list_ports = ["port1, "port2", "port3", "port4", ...]
+        """
+        if dut.cli_type == 'exos':
+            for attempts in range(3):
+                self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+                output = self.networkElementCliSend.send_cmd(dut.name, 'show configuration | i sharing',
+                                              max_wait=10, interval=2)
+                self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
+                p = re.compile(r'\d:\d+-\d:\d+|\d:\d+,\d:\d+|\d:\d+-\d+', re.M)
+                lacp_list_ports_from_dut = re.findall(p, output[0].return_text)
+
+                for i in range(0, len(lacp_list_ports), 2):
+                    if lacp_list_ports[i] + '-' + lacp_list_ports[i+1] in lacp_list_ports_from_dut:
+                        lacp_list_ports_from_dut.remove(lacp_list_ports[i] + '-' + lacp_list_ports[i+1])
+                    elif lacp_list_ports[i] + '-' + lacp_list_ports[i+1].split(":")[1] in lacp_list_ports_from_dut:
+                        lacp_list_ports_from_dut.remove(lacp_list_ports[i] + '-' + lacp_list_ports[i+1].split(":")[1])
+                    elif lacp_list_ports[i] + ',' + lacp_list_ports[i+1] in lacp_list_ports_from_dut:
+                        lacp_list_ports_from_dut.remove(lacp_list_ports[i] + ',' + lacp_list_ports[i+1])
+                    else:
+                        kwargs["fail_msg"] = "'check_lacp_dut()' failed. No LACP ports found on CLI"
+                        self.commonValidation.failed(**kwargs)
+                        return False
+
+                if len(lacp_list_ports_from_dut) == 0:
+                    kwargs["pass_msg"] = "Successfully verified number of ports matched."
+                    self.commonValidation.passed(**kwargs)
+                    return True
+                else:
+                    kwargs["fail_msg"] = "'check_lacp_dut()' failed. Number of LACP ports do not match CLI"
+                    self.commonValidation.failed(**kwargs)
+                    return False
+        else:
+            kwargs["fail_msg"] = f"'check_lacp_dut()' failed. CLI type {dut.cli_type} not supported."
+            self.commonValidation.failed(**kwargs)
+            return False
 
 
 if __name__ == '__main__':

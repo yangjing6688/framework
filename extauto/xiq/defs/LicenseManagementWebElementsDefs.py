@@ -144,16 +144,16 @@ class LicenseManagementWebElementsDefs:
         {
             'DESC': 'Entitlements Table Feature Column',
             'CSS_SELECTOR': 'td.field-gemaltoFeature',
-            'XPATH': '//td[contains(@class, "field-gemaltoFeature")]',
-            
+            'XPATH': '//td[contains(@class, "field-gemaltoFeature")]/div'
+
         }
 
-    entitlements_table_devices_col = \
+    entitlements_table_total_col = \
         {
-            'DESC': 'Entitlements Table Devices Column',
-            'CSS_SELECTOR': 'td.field-devices span',
-            'XPATH': '//td[contains(@class, "field-devices")]/span',
-            
+            'DESC': 'Entitlements Table Total Column',
+            'CSS_SELECTOR': 'td.field-devices',
+            'XPATH': '//td[contains(@class, "field-devices")]/div'
+
         }
 
     entitlements_table_available_col = \

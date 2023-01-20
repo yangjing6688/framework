@@ -1,10 +1,10 @@
-extauto.xiqse.flows.admin.profiles.snmp\_credentials package
+XIQSE Flows Admin Proifiles SNMP Credentials Keywords
 ============================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.admin.profiles.snmp\_credentials.XIQSE\_AdminProfilesSNMPCredentials module
+XIQSE\_AdminProfilesSNMPCredentials module
 -----------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.snmp_credentials.XIQSE_AdminProfilesSNMPCredentials
@@ -12,7 +12,7 @@ extauto.xiqse.flows.admin.profiles.snmp\_credentials.XIQSE\_AdminProfilesSNMPCre
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.snmp\_credentials.XIQSE\_AdminProfilesSNMPCredentialsAddCred module
+XIQSE\_AdminProfilesSNMPCredentialsAddCred module
 ------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.snmp_credentials.XIQSE_AdminProfilesSNMPCredentialsAddCred
@@ -20,7 +20,7 @@ extauto.xiqse.flows.admin.profiles.snmp\_credentials.XIQSE\_AdminProfilesSNMPCre
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.snmp\_credentials.XIQSE\_AdminProfilesSNMPCredentialsDeleteCred module
+XIQSE\_AdminProfilesSNMPCredentialsDeleteCred module
 ---------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.snmp_credentials.XIQSE_AdminProfilesSNMPCredentialsDeleteCred
@@ -28,7 +28,7 @@ extauto.xiqse.flows.admin.profiles.snmp\_credentials.XIQSE\_AdminProfilesSNMPCre
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.admin.profiles.snmp\_credentials.XIQSE\_AdminProfilesSNMPCredentialsSaveFailed module
+XIQSE\_AdminProfilesSNMPCredentialsSaveFailed module
 ---------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.admin.profiles.snmp_credentials.XIQSE_AdminProfilesSNMPCredentialsSaveFailed

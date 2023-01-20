@@ -6,6 +6,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Alarms(AlarmsWebElements):
@@ -15,6 +16,7 @@ class Alarms(AlarmsWebElements):
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
+        self.commonValidation = CommonValidation()
 
     def _get_alarm_grid_row(self, search_string):
         """
@@ -30,7 +32,7 @@ class Alarms(AlarmsWebElements):
         else:
             return False
 
-    def clear_alarm(self, search_string):
+    def clear_alarm(self, search_string, **kwargs):
         """
         - Flow: Manage--> Alarms
         - Clear the generated alarms based on the search string
@@ -43,6 +45,13 @@ class Alarms(AlarmsWebElements):
         _tool_tip = ""
         self.navigator.navigate_to_manage_alarms()
 
+        self.utils.switch_to_iframe(CloudDriver().cloud_driver)
+
+        self.utils.print_info("Clicking View Legacy Alarm Button")
+        self.auto_actions.click_reference(self.get_alarms_grid_legacy_alarm_button)
+        CloudDriver().refresh_page()
+        self.screen.save_screen_shot()
+
         self.utils.print_info(f"Checking Alarm Row with Search string {search_string}")
         row = self._get_alarm_grid_row(search_string)
         if row:
@@ -54,12 +63,20 @@ class Alarms(AlarmsWebElements):
             sleep(2)
             _tool_tip = self.get_alarm_clear_tool_tip().text
 
-        if "Last alarms cleared" in _tool_tip:
-            self.utils.print_info(f"{_tool_tip}")
-            return 1
+            if "Last alarms cleared" in _tool_tip:
+                self.utils.print_info(f"{_tool_tip}")
+                kwargs['pass_msg'] = "Last alarms cleared"
+                self.commonValidation.passed(**kwargs)
+                return 1
+            else:
+                self.utils.print_info(f"Alarm Row Not Cleared Successfully with Search string {search_string}")
+                kwargs['fail_msg'] = f"clear_alarm() -> Alarm Row Not Cleared Successfully with Search string {search_string}"
+                self.commonValidation.failed(**kwargs)
+                return -1
         else:
-            self.utils.print_info(f"Alarm Row Not Cleared Successfully with Search string {search_string}")
-            return -1
+            kwargs['pass_msg'] = "No alarms available to get cleared"
+            self.commonValidation.passed(**kwargs)
+            return 1
 
     def get_alarms_count_from_status_card(self, alarm_type='critical'):
         """
@@ -83,7 +100,7 @@ class Alarms(AlarmsWebElements):
         self.utils.print_info(f"Alarms {alarm_type} count: {count}")
         return count
 
-    def get_alarm_details(self, search_string):
+    def get_alarm_details(self, search_string, **kwargs):
         """
         - Flow: Manage--> Alarms
         - Get Alarm details based on search string
@@ -121,5 +138,6 @@ class Alarms(AlarmsWebElements):
 
         else:
             self.utils.print_info(f"Unable to Find Alarm with string {search_string}")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = f"get_alarm_details() -> Unable to Find Alarm with string {search_string}"
+            self.commonValidation.failed(**kwargs)
             return -1
