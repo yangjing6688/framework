@@ -176,7 +176,7 @@ class Cli(object):
         self.utils.print_info(f"Sending command to device: {spawn}: {line}")
 
         if pxssh:
-            output = self.__send_pxssh(spawn, command, pxssh_timeout, pxssh_expected_output)
+            output = self.__send_pxssh(spawn, line, pxssh_timeout, pxssh_expected_output)
         else:
             result = self.networkElementCliSend.send_cmd(spawn, line, **kwargs)
             try:
