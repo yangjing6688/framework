@@ -11399,15 +11399,24 @@ class Device360(Device360WebElements):
         summary_tab = self.get_select_element_port_type("summaryPage")
         if summary_tab:
             self.auto_actions.click(summary_tab)
-            close_port_type_box = self.get_common_save_button()
-            if close_port_type_box:
+            save_port_type_box = self.get_common_save_button()
+            if save_port_type_box:
                 self.utils.print_info(" The button close_port_type_box from policy was found")
-                self.auto_actions.click(close_port_type_box)
+                self.auto_actions.click(save_port_type_box)
+                kwargs['pass_msg'] = "Port type was saved"
+                self.common_validation.passed(**kwargs)
+                return True
+            else:
+                self.utils.print_info("save button not found")
+                kwargs['fail_msg'] = "port_type_nav_to_summary_page_and_save() -> save button not found"
+                self.common_validation.failed(**kwargs)
+                return False
+
         else:
             self.utils.print_info("Summary tab not found")
             kwargs['fail_msg'] = "port_type_nav_to_summary_page_and_save() -> Summary tab not found"
             self.common_validation.failed(**kwargs)
-            return -1
+            return False
 
     def banner_message_after_save_config(self):
         '''
