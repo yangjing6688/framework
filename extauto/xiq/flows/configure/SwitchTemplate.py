@@ -115,17 +115,15 @@ class SwitchTemplate(object):
 
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
-        sleep(1)
-
         self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
 
-        sleep(2)
+        self.utils.print_info("Click on Switching tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.utils.print_info("Click on Device Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        tab = self.device_template_web_elements.get_policy_switch_templates_tab()
         if tab.is_displayed():
             self.utils.print_info("Click on Switch Templates tab")
             self.auto_actions.click(tab)

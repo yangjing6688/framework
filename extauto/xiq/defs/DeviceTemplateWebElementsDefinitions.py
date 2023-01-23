@@ -5,6 +5,16 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    policy_switching_tab = \
+        {
+            'XPATH': "//div[@data-automation-tag='automation-tab-switch-settings']",
+        }
+
+    policy_switch_templates_tab = \
+        {
+            'XPATH': "//li[@data-automation-tag='policy-switching-templates']",
+        }
+
     device_template_ap_template_tab = \
         {
             'XPATH': "//*[@data-dojo-attach-point='showAP']",
