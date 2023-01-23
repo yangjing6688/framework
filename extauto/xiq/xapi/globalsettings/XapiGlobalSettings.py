@@ -1,4 +1,4 @@
-from pprint import pprint
+import pprint
 import time
 from extauto.xiq.xapi.XapiHelper import XapiHelper
 

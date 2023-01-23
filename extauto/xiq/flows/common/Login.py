@@ -24,6 +24,7 @@ import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
 import extauto.xiq.flows.globalsettings.GlobalSetting
+from  extauto.xiq.xapi.XapiHelper import XapiHelper
 
 
 
@@ -42,6 +43,7 @@ class Login:
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.xapiLogin = XapiLogin()
+        self.xapiHelper = XapiHelper()
 
     def _init(self, url="default", incognito_mode="False"):
         """
@@ -130,10 +132,14 @@ class Login:
         """
         if self.common_validation.get_kwarg(kwargs, "XAPI_ENABLED", None):
             # new XAPI call
-            self.xapiLogin.login(username, password, **kwargs)
-            # for now we only alow XAPI or UI testing
-            return
-
+            xapi_url = BuiltIn().get_variable_value("${xapi_url}", None)
+            if xapi_url:
+                self.xapiHelper.set_xapi_url(xapi_url)
+                self.xapiLogin.login(username, password, **kwargs)
+                return 1
+            else:
+                self.common_validation.fault("The xapi_url variable is missing from the TOPO file and the keyword is set to use XAPI_ENABLED", **kwargs)
+                return -1
 
         result = -1
         count = 0
