@@ -5,11 +5,11 @@
 # the repo. Unless a later match takes precedence, and
 # will be requested for review when someone opens a pull request.
 #
-*   @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd
-/extauto/xiq/           @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @damccarth @jeffrwsd @shreenbanu @pdungdo @rvellasamy
-/extauto/xca/           @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @damccarth @jeffrwsd
-/extauto/common/        @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @damccarth @jeffrwsd @shreenbanu @pdungdo @rvellasamy
-/extauto/xiqse/         @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @damccarth @jeffrwsd
+*   @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej
+/extauto/xiq/           @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej @damccarth @shreenbanu @pdungdo @rvellasamy
+/extauto/xca/           @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej @damccarth
+/extauto/common/        @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej @damccarth @shreenbanu @pdungdo @rvellasamy
+/extauto/xiqse/         @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej @damccarth
 
 # Michael White wants to review all items in the following directory
 /extauto/ucp/ @mike-white-extr @jeffrwsd
