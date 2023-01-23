@@ -241,6 +241,12 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
     def get_select_sr_dell_tab(self):
         return self.weh.get_element(self.select_sr_dell_tab)
 
+    def get_select_wireless_tab(self):
+        return self.weh.get_element(self.select_wireless_tab)
+
+    def get_select_ap_template_tab(self):
+        return self.weh.get_element(self.select_ap_template_tab)
+
     def get_select_ap_template(self):
         return self.weh.get_element(self.select_ap_template)
 

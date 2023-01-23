@@ -382,6 +382,18 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    select_wireless_tab = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tab-wireless-networks"]',
+            'wait_for': 5
+        }
+
+    select_ap_template_tab = \
+        {
+            'XPATH': '//li[@data-automation-tag="automation-sider-list-aptemplate"]',
+            'wait_for': 5
+        }
+
     select_ap_template = \
         {
             'XPATH': '//*[contains(@data-automation-tag, "wireless-device-templates-cell")]//*[@class="J-tmplName"]',
