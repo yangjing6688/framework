@@ -6,6 +6,9 @@ import paramiko
 import subprocess
 import uuid
 from platform import system
+from netmiko import ConnectHandler
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementLacpGenKeywords import \
+    NetworkElementLacpGenKeywords
 from extauto.xiq.configs.device_commands import *
 from robot.libraries.BuiltIn import BuiltIn
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
@@ -14,6 +17,8 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSe
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from time import sleep
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementMltGenKeywords import \
+    NetworkElementMltGenKeywords
 
 from extauto.common.Utils import Utils
 from extauto.common.CommonValidation import CommonValidation
@@ -36,6 +41,8 @@ class Cli(object):
         self.commonValidation = CommonValidation()
         self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP', 'AH-XR']
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
+        self.networkElementMltGenKeywords = NetworkElementMltGenKeywords()
+        self.networkElementLacpGenKeywords = NetworkElementLacpGenKeywords()
 
     def close_spawn(self, spawn, pxssh=False, **kwargs):
         """
@@ -1435,6 +1442,505 @@ class Cli(object):
         else:
             return output2
 
+    def get_ports_from_dut(self, dut, **kwargs):
+        """
+        - This Keyword gets ports for EXOS and VOSS from CLI
+        :param dut:
+        :return: CLI Command Output
+        """
+
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+        output = None
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, f'show ports info', max_wait=10, interval=2)[
+                0].return_text
+            output = re.findall(r"\r\n(\d+)\s+", output)
+
+        elif dut.cli_type.upper() == "VOSS":
+            output = \
+                self.networkElementCliSend.send_cmd(dut.name, "show int gig int | no-more", max_wait=10,
+                                                    interval=2)[
+                    0].return_text
+            output = re.findall(r"\r\n(\d+/\d+)\s+", output)
+
+        self.close_connection_with_error_handling(dut)
+        if not output:
+            kwargs["fail_msg"] = "get_ports_from_dut() failed. "
+            self.commonValidation.failed(**kwargs)
+        kwargs['pass_msg'] = f"Ports from dut: {output}"
+        self.commonValidation.passed(**kwargs)
+        return output
+
+    def get_port_list_from_dut_without_not_present_ports(self, dut, **kwargs):
+        """
+        - This Keyword gets ports for EXOS and VOSS from CLI and than remove "not present" ports
+        :param dut: the dut, e.g. tb.dut1
+        :return: CLI Command Output
+        """
+        if dut.cli_type.upper() == "VOSS":
+
+            time.sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable',
+                                 max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig int | no-more',
+                                          max_wait=10, interval=2)
+
+            p = re.compile(r'^\d+\/\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            # remove elements with two /
+            p2 = re.compile(r'\d+\/\d+\/\d+', re.M)
+            filtered = [port for port in match_port if not p2.match(port)]
+            kwargs['pass_msg'] = f"Ports from VOSS without 'elements with two /': {filtered}"
+            self.commonValidation.passed(**kwargs)
+            return filtered
+
+        elif dut.cli_type.upper() == "EXOS":
+
+            time.sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                 max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports info',
+                                          max_wait=20, interval=5)
+            p = re.compile(r'^\d+:\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            is_stack = True
+            if len(match_port) == 0:
+                is_stack = False
+                p = re.compile(r'^\d+', re.M)
+                match_port = re.findall(p, output[0].return_text)
+
+            # Remove "not present" ports
+            if is_stack:
+                p_notPresent = re.compile(r'^\d+:\d+.*NotPresent.*$', re.M)
+            else:
+                p_notPresent = re.compile(r'^\d+.*NotPresent.*$', re.M)
+            parsed_info = re.findall(p_notPresent, output[0].return_text)
+
+            for port in parsed_info:
+                port_num = re.findall(p, port)
+                match_port.remove(port_num[0])
+            kwargs['pass_msg'] = f"Ports from EXOS without 'not present' ports: {match_port}"
+            self.commonValidation.passed(**kwargs)
+            return match_port
+
+    def set_lldp(self, dut, ports, action="enable", **kwargs):
+        """
+         - This keyword will set lldp on VOSS and EXOS in CLI
+        :return:
+        """
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+        if dut.cli_type.upper() == "EXOS":
+            if action == "enable":
+                self.networkElementCliSend.send_cmd(dut.name, 'enable cdp ports all', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'enable edp ports all', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'enable lldp ports all', max_wait=10, interval=2)
+            elif action == "disable":
+                self.networkElementCliSend.send_cmd(dut.name, 'disable cdp ports all', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'disable edp ports all', max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, 'disable lldp ports all', max_wait=10, interval=2)
+
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementCliSend.send_cmd(dut.name, "enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "configure terminal", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(
+                dut.name, f"interface gigabitEthernet {ports[0]}-{ports[-1]}", max_wait=10, interval=2)
+            cmd_action = f"lldp port {ports[0]}-{ports[-1]} cdp enable"
+            if action == "enable":
+                self.networkElementCliSend.send_cmd(dut.name, "no auto-sense enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "no fa enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, cmd_action, max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "fa enable", max_wait=10, interval=2)
+                self.networkElementCliSend.send_cmd(dut.name, "auto-sense enable", max_wait=10, interval=2)
+            elif action == "disable":
+                self.networkElementCliSend.send_cmd(dut.name, "no " + cmd_action, max_wait=10, interval=2)
+
+        self.close_connection_with_error_handling(dut)
+        kwargs['pass_msg'] = f"set_lldp() keyword passed."
+        self.commonValidation.passed(**kwargs)
+
+    def bounce_IQAgent(self, dut, xiq_ip_address=None, connect_to_dut=True, disconnect_from_dut=True, wait=True,
+                       xiq=None, **kwargs):
+        """
+         - This keyword will bounce IQAgent for VOSS and EXOS in CLI
+        :return:
+        """
+
+        if connect_to_dut:
+            self.close_connection_with_error_handling(dut)
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementCliSend.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
+                                                confirmation_phrases='Do you want to continue?',
+                                                confirmation_args='Yes')
+            if xiq_ip_address:
+                self.networkElementCliSend.send_cmd(
+                    dut.name, f"configure iqagent server ipaddress {xiq_ip_address}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable iqagent', max_wait=10, interval=2)
+
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'application', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'no iqagent enable', max_wait=10, interval=2)
+            if xiq_ip_address:
+                self.networkElementCliSend.send_cmd(
+                    dut.name, f'iqagent server {xiq_ip_address}', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'iqagent enable', max_wait=10, interval=2)
+
+        if disconnect_from_dut:
+            self.close_connection_with_error_handling(dut)
+            kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed."
+            self.commonValidation.passed(**kwargs)
+        if wait and xiq is not None:
+            xiq.xflowscommonDevices.wait_until_device_online(dut.serial)
+            kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed. Successfully waited until device online."
+            self.commonValidation.passed(**kwargs)
+
+    def get_the_number_of_ports_from_cli(self, dut, **kwargs):
+        """
+         - This keyword gets the number of ports for EXOS and VOSS from CLI
+        :return: the number of ports
+        """
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+        if dut.cli_type.upper() == "VOSS":
+
+            self.networkElementCliSend.send_cmd(dut.name, 'enable',
+                                                max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig int | no-more',
+                                                         max_wait=10, interval=2)
+            p = re.compile(r'^\d+\/\d+\/?\d*', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+            no_ports = len(match_port)
+            no_ports = int(no_ports)
+
+        elif dut.cli_type.upper() == "EXOS":
+            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging',
+                                                max_wait=10)
+            output = self.networkElementCliSend.send_cmd(dut.name, f'show ports vlan',
+                                                         max_wait=10)
+            output = output[0].return_text
+            match_port = re.findall(r'(\d+)\s+\w+', output)
+            no_ports = len(match_port)
+            no_ports = int(no_ports)
+
+        print(f'Number of ports for this switch is {no_ports}')
+        self.close_connection_with_error_handling(dut)
+        kwargs['pass_msg'] = f'Number of ports for this switch is {no_ports}'
+        self.commonValidation.passed(**kwargs)
+        return no_ports
+
+    def verify_vlan_config_on_switch(self, onboarded_switch, port_vlan_mapping, logger, **kwargs):
+        """
+         - This keyword will verify vlan config on switch in CLI
+        :return: Device ports speed dictionary
+        """
+        self.close_connection_with_error_handling(onboarded_switch)
+        self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
+
+        logger.info("Wait 120 seconds for the configuration of the ports to update on the dut")
+        start_time = time.time()
+        while time.time() - start_time < 120:
+
+            if onboarded_switch.cli_type.upper() == "EXOS":
+                try:
+                    for port, vlan in port_vlan_mapping.items():
+                        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show vlan ports {port}',
+                                                      max_wait=10, interval=2)[0].return_text
+                        assert re.search(fr"\r\nVLAN_{str(vlan).zfill(4)}\s+{vlan}\s+", output)
+                except Exception as exc:
+                    logger.info(f"Sleep 10s...\n{repr(exc)}")
+                    time.sleep(10)
+                else:
+                    logger.info("Configuration successfully updated on the dut")
+                    break
+
+            elif onboarded_switch.cli_type.upper() == "VOSS":
+                try:
+                    output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show vlan members',
+                                                  max_wait=10, interval=2)[0].return_text
+
+                    for port, vlan in port_vlan_mapping.items():
+                        assert re.search(fr"\r\n{vlan}\s+{port}\s+", output)
+
+                except Exception as exc:
+                    logger.info(f"Sleep 10s...\n{repr(exc)}")
+                    time.sleep(10)
+                else:
+                    logger.info("Configuration successfully updated on the dut")
+                    break
+        else:
+            raise AssertionError("The configuration did not update on the dut after 120 seconds")
+
+        self.close_connection_with_error_handling(onboarded_switch)
+        kwargs['pass_msg'] = f'verify_vlan_config_on_switch() keyword passed'
+        self.commonValidation.passed(**kwargs)
+
+    def no_channel_enable_on_all_ports(self, onboarded_switch, **kwargs):
+        """
+         - This keyword sends 'no channelize enable' on all ports in CLI
+        :return:
+        """
+        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show interface GigabitEthernet channelize',
+                                      max_wait=10,
+                                      interval=2)[0].return_text
+        match_port = re.findall(r"(\d+)\/(\d+)\s+(false|true)\s+[a-zA-Z0-9]+", output)
+
+        for port in match_port:
+            if port[2] == "true":
+                command = "interface GigabitEthernet " + port[0] + "/" + port[1] + "/1"
+                self.networkElementCliSend.send_cmd(onboarded_switch.name, command)
+                self.networkElementCliSend.send_cmd(onboarded_switch.name, 'no channelize enable',
+                                     confirmation_phrases='Do you wish to continue (y/n) ?',
+                                     confirmation_args='y')
+        kwargs['pass_msg'] = f'no_channel_enable_on_all_ports() passed'
+        self.commonValidation.passed(**kwargs)
+
+    def get_device_port_status(self, networkElementCliSend=None, dut=None, **kwargs):
+        """
+         - This keyword gets device ports status from CLI
+        :return: Device ports status dictionary
+        """
+        if networkElementCliSend is None or dut is None:
+            return
+
+        # get the required information from the device CLI
+        if dut.cli_type.upper() == 'VOSS':
+            time.sleep(10)
+            output = networkElementCliSend.send_cmd(
+                dut.name, 'show interfaces gigabitEthernet name | no-more', max_wait=10, interval=2)
+            # get a list of all the ports from the device
+            p = re.compile(r'^\d+\/\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            # search the port status values in the command output
+            p = re.compile(r'(?:up|down)', re.M)
+            match_cli_port_status = re.findall(p, output[0].return_text)
+
+            # get a dictionary with ports as the keys and their corresponding speeds as the values
+            cli_ports_status = dict(zip(match_port, match_cli_port_status))
+        elif dut.cli_type.upper() == 'EXOS':
+            time.sleep(10)
+            networkElementCliSend.send_cmd(dut.name, 'disable cli refresh', max_wait=10, interval=2)
+            networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
+            output = networkElementCliSend.send_cmd(dut.name, 'show ports', max_wait=10, interval=2)
+            # get a list of all the ports from the device
+            match_port = re.findall(r"\r\n(\d+)\s+", output[0].return_text)
+            cli_ports_status={}
+            for port in match_port:
+                row_text = re.search(fr"\r\n{port}\s.*\r\n", output[0].return_text).group(0)
+                cli_ports_status[port] = "up" if re.search(r"\s+A\s+", row_text) else "down"
+
+        print("****************** Device ports status dictionary: ******************")
+        print(cli_ports_status)
+        kwargs['pass_msg'] = f'get_device_port_status() passed. Device ports status dictionary: {cli_ports_status}'
+        self.commonValidation.passed(**kwargs)
+        return cli_ports_status
+
+    def get_device_ports_speed(self, networkElementCliSend=None, dut=None, **kwargs):
+        """
+         - This keyword gets device ports speed from CLI
+        :return: Device ports speed dictionary
+        """
+        if networkElementCliSend is None or dut is None:
+            return
+
+        match_port = None
+        device_ports_speed = None
+
+        # get the required information from the device CLI
+        if dut.cli_type.upper() == 'VOSS':
+            output = networkElementCliSend.send_cmd(dut.name, 'show interfaces gigabitEthernet name | no-more', max_wait=10, interval=2)
+
+            # get a list of all the ports from the device
+            p = re.compile(r'^\d+\/\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+
+            # search the speed values in the command output
+            p = re.compile(r'(?:half|full)\s+(\d+)', re.M)
+            match_device_ports_speed = re.findall(p, output[0].return_text)
+
+            # get a dictionary with ports as the keys and their corresponding speeds as the values
+            device_ports_speed = dict(zip(match_port, match_device_ports_speed))
+        elif dut.cli_type.upper() == 'EXOS':
+            networkElementCliSend.send_cmd(dut.name, 'disable cli refresh', max_wait=10, interval=2)
+            networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
+            output = networkElementCliSend.send_cmd(dut.name, 'show ports', max_wait=10, interval=2)
+
+            # get a list of all the ports from the device
+            p = re.compile(r'^\d+', re.M)
+            match_port = re.findall(p, output[0].return_text)
+
+            # search the speed values in the command output (the link state is needed in the result
+            # because the speed is not shown if the port is down)
+            p = re.compile(r'([ARNPLDdB]+\s\s\s\s\s\s(?:\d+G?)?)', re.M)
+            match_port_link_state_speed = re.findall(p, output[0].return_text)
+
+            # refine the values from the list
+            for i in range(len(match_port_link_state_speed)):
+                speed = re.search(r'\d+', match_port_link_state_speed[i])
+                unit = re.search(r'G', match_port_link_state_speed[i])
+
+                # if the speed value is not present set it as "0"
+                if speed is None:
+                    speed = "0"
+                else:
+                    # if a 'G' is found next to the speed value, transform it to Mbps
+                    if unit is not None:
+                        speed = str(int(speed.group(0)) * 1000)
+                    else:
+                        speed = speed.group(0)
+
+                # replace the current value in the list with the speed value
+                match_port_link_state_speed[i] = speed
+
+            match_device_ports_speed = match_port_link_state_speed
+
+            # get a dictionary with ports as the keys and their corresponding speeds as the values
+            device_ports_speed = dict(zip(match_port, match_device_ports_speed))
+
+        print("****************** Device port list: ******************")
+        print(match_port)
+
+        print("****************** Device ports speed dictionary: ******************")
+        print(device_ports_speed)
+        kwargs['pass_msg'] = f'get_device_ports_speed() passed. Device ports speed dictionary:{device_ports_speed}'
+        self.commonValidation.passed(**kwargs)
+        return device_ports_speed
+
+    def clear_counters(self, dut, first_port=None, second_port=None, **kwargs):
+        """
+         - This keyword will clear counters for EXOS and VOSS in CLI
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
+        """
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementCliSend.send_cmd(
+                dut.name, "clear counters ports all", max_wait=10, interval=2)
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementCliSend.send_cmd(
+                dut.name, f"clear-stats port {first_port},{second_port}", max_wait=10, interval=2)
+        kwargs['pass_msg'] = f'clear_counters() passed.'
+        self.commonValidation.passed(**kwargs)
+
+    def get_received_traffic_list_from_dut(self, dut, first_port, second_port, **kwargs):
+        """
+        This keyword gets the received traffic from ports visible in CLI
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
+        return: received traffic list
+        """
+
+        if dut.cli_type.upper() == "VOSS":
+            time.sleep(10)
+
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(
+                dut.name, f'show interfaces gigabitEthernet statistics {first_port},{second_port}', max_wait=10,
+                interval=2)
+
+            time.sleep(2)
+            print(output[0].return_text)
+            p = re.compile(r'(^\d+\/\d+)\s+(\d+)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            received_traffic_list = []
+            received_traffic_list.append(match_port[0][1])
+            received_traffic_list.append(match_port[1][1])
+
+            print(f"received_traffic for port {first_port} is {match_port[0][1]} octets")
+            print(f"received_traffic for port {second_port} is {match_port[1][1]} octets")
+
+        elif dut.cli_type.upper() == "EXOS":
+            time.sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, f'show port {first_port},{second_port} statistics no-refresh',
+                                            max_wait=10,
+                                            interval=2)
+            print(output[0].return_text)
+            p = re.compile(r'(^\d+)\s+(\D+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            received_traffic_list = []
+            received_traffic_list.append(match_port[0][5])
+            received_traffic_list.append(match_port[1][5])
+
+            print(f"received_traffic for port {first_port} is {match_port[0][5]} octets")
+            print(f"received_traffic for port {second_port} is {match_port[1][5]} octets")
+        kwargs['pass_msg'] = f'get_received_traffic_list_from_dut() passed. Received traffic list: {received_traffic_list}'
+        self.commonValidation.passed(**kwargs)
+        return received_traffic_list
+
+    def get_transmitted_traffic_list_from_dut(
+            self, dut, first_port, second_port, **kwargs):
+        """
+         - This keyword gets the transmitted traffic from ports visible in CLI
+         Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
+        :return: transmitted traffic list
+        """
+
+        if dut.cli_type.upper() == "VOSS":
+            time.sleep(10)
+
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(
+                dut.name, f'show interfaces gigabitEthernet statistics {first_port},{second_port}', max_wait=10,
+                interval=2)
+
+            time.sleep(2)
+            print(output[0].return_text)
+            p = re.compile(r'(^\d+\/\d+)\s+(\d+)\s+(\d+)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            transmitted_traffic_list = []
+            transmitted_traffic_list.append(match_port[0][2])
+            transmitted_traffic_list.append(match_port[1][2])
+
+            print(f"transmitted traffic for port {first_port} is {match_port[0][2]} octets")
+            print(f"transmitted traffic for port {second_port} is {match_port[1][2]} octets")
+
+            print("list from dut is ", transmitted_traffic_list)
+
+        elif dut.cli_type.upper() == "EXOS":
+            time.sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                 max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, f'show port {first_port},{second_port} statistics no-refresh',
+                                          max_wait=10, interval=2)
+            print(output[0].return_text)
+            p = re.compile(r'(^\d+)\s+(\D+)\s+(\d+)\s+(\d+)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            transmitted_traffic_list = []
+            transmitted_traffic_list.append(match_port[0][3])
+            transmitted_traffic_list.append(match_port[1][3])
+
+            print(f"transmitted_traffic_list for port {first_port} is {match_port[0][3]} octets")
+            print(f"transmitted_traffic_list for port {second_port} is {match_port[1][3]} octets")
+        kwargs['pass_msg'] = f'get_transmitted_traffic_list_from_dut() passed.'
+        self.commonValidation.passed(**kwargs)
+        return transmitted_traffic_list
+
     def close_connection_with_error_handling(self, dut):
         """Method that makes sure the connection to a dut is closed.
 
@@ -1587,6 +2093,89 @@ class Cli(object):
 
         finally:
             self.close_connection_with_error_handling(dut)
+
+    def get_master_slot(self, onboarded_stack, **kwargs):
+        """Method that gets master slot info using "show stacking" command.
+        Args:
+            onboarded_stack
+        Returns:
+            int: slot number for master unit
+        """
+        output = self.networkElementCliSend.send_cmd(onboarded_stack.name, "show stacking")[0].return_text
+        rows = output.split("\r\n")
+        for row in rows:
+            slot = re.search(r"\s+.*\s+(\d+)\s+", row)
+            if not slot:
+                continue
+            slot = slot.group(1)
+            if 'Master' in row:
+                kwargs["pass_msg"] = f"Slot: {slot}"
+                self.commonValidation.passed(**kwargs)
+                return slot
+        kwargs["fail_msg"] = "get_master_slot() failed."
+        self.commonValidation.failed(**kwargs)
+
+    def set_lacp(self, dut, mlt, key, port, **kwargs):
+        """Method that configures lacp.
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            mlt: ex. 70
+            key: ex. 7
+            port: dut1.isl.port_a.ifname
+        """
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"{port}", f"{port}-{port}", '')
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementMltGenKeywords.mlt_create_id(dut.name, mlt)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, f"interface gigabitEthernet {port}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "no auto-sense enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
+            self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"gigabitEthernet {port}", port,
+                                                                            key)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, f"interface mlt {mlt}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, f"lacp key {key}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "lacp enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
+            self.networkElementLacpGenKeywords.lacp_enable_global(dut.name)
+
+        self.close_connection_with_error_handling(dut)
+        kwargs["pass_msg"] = "set_lacp() passed."
+        self.commonValidation.passed(**kwargs)
+
+    def cleanup_lacp(self, dut, mlt, port, **kwargs):
+        """Cleanup lacp.
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            mlt: ex. 70
+            key: ex. 7
+            port: dut1.isl.port_a.ifname
+        """
+        self.close_connection_with_error_handling(dut)
+        self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+
+        if dut.cli_type.upper() == "EXOS":
+            self.networkElementLacpGenKeywords.lacp_delete_lag(dut.name, port, '', '')
+        elif dut.cli_type.upper() == "VOSS":
+            self.networkElementLacpGenKeywords.lacp_delete_lag(dut.name, f"gigabitEthernet {port}", '',
+                                                                             port)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, f"interface gigabitEthernet {port}", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "no lacp enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "default lacp key", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "auto-sense enable", max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, "exit", max_wait=10, interval=2)
+            self.networkElementMltGenKeywords.mlt_delete_id(dut.name, mlt)
+
+        self.close_connection_with_error_handling(dut)
+        kwargs["pass_msg"] = "cleanup_lacp() passed."
+        self.commonValidation.passed(**kwargs)
 
     def get_stacking_details_cli(self, dut, **kwargs):
         """
