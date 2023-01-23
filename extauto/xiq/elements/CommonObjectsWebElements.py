@@ -250,7 +250,7 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         elements = self.weh.get_elements(self.cwp_save_button)
         return self.get_dislayed_element(elements)
 
-    def get_paze_size_element(self, page_size='50'):
+    def get_page_size_element(self, page_size='50'):
         if els := self.weh.get_elements(self.page_size_element):
             for el in els:
                 if str(page_size) in el.text:
