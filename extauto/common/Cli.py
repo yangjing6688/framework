@@ -2046,6 +2046,15 @@ class Cli(object):
             return False
 
     def search_last_command_cli_journal(self, info: str, command, **kwargs):
+        """
+           - This keyword is used to check if the command presented as last command in "show cli-journal"
+           - Keyword Usage:
+            - ``search_last_command_cli_journal(info=${INFO}, command=${COMMAND})``
+
+        :param info: CLI output as string
+        :param command: CLI command to be found
+        :return: 1 if the command was found as last command else fails
+        """
         table = []
         for entry in info[4:].split("\n"):
             if entry:
@@ -2072,6 +2081,14 @@ class Cli(object):
             self.commonValidation.failed(**kwargs)
 
     def check_pse_restart_in_cli(self, dut, **kwargs):
+        """
+           - This keyword is used to check if the command "reset inline-power ports" was executed in "show cli-journal"
+           - Keyword Usage:
+            - ``check_pse_restart_in_cli(dut=${DEVICE})``
+
+        :param dut: device to test
+        :return: -1 if fails
+        """
         spawn = self.open_spawn(dut.ip, dut.port, dut.username,
                                 dut.password, dut.cli_type)
         if dut.cli_type == "voss":
