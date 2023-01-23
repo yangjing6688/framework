@@ -7503,7 +7503,7 @@ class Device360(Device360WebElements):
 
     def d360_save_port_configuration_all_switches(self):
         self.utils.print_info("Clicking 'Save Port Configuration' button'")
-        self.auto_actions.click_reference(self.get_device360_configure_port_save_button)
+        self.auto_actions.click_reference(self.get_device360_device_configuration_save_button)
 
     def d360_cancel_port_configuration(self):
         self.utils.print_info("Exit the port configuration ")
@@ -11486,18 +11486,27 @@ class Device360(Device360WebElements):
     def fill_port_details_multi_edit_fields(self, port_state=None, port_usage=None, description=None, **kwargs):
         '''
         This keyword fill in all fields when port settings are configured for multiple ports from multi edit tab
-
         :args:
-                 'Port State': ON/OFF - mandatory,
-                 'Port Usage': port_usage_mode - mandatory,
+                 'port_state': ON/OFF - mandatory,
+                 'port_usage': port_usage_mode - mandatory,
                  'description': description - mandatory
             kwargs:
-                 'vlan': vlan_value - used for Access Port,
-                 'Native': vlan_native - used for Trunk Port,
-                 'Allowed' : vlan_allowed - used for Trunk Port,
-                 'Voice' : voice_vlan - used for Phone with a Data Port,
-                 'Data' : Data_vlan - used for Phone with a Data Port,
-        :return: 1 if successfully ; else -1
+                 'vlan_access_port': vlan_value - used for Access Port,
+                 'native_vlan_trunk_port': vlan_native - used for Trunk Port,
+                 'allowed_vlan_trunk_port' : vlan_allowed - used for Trunk Port,
+                 'voice_vlan_phone_port' : voice_vlan - used for Phone with a Data Port,
+                 'data_vlan_phone_port' : Data_vlan - used for Phone with a Data Port,
+
+        Keyword Usage:
+            - depending on the port_usage value, kwargs args can be used as following:
+                case1: for port_usage: Access Port the following args are needed:
+                    - port_state, vlan_access_port, description;
+                case2: for port_usage: Trunk Port the following args are needed:
+                    - port_state, native_vlan_trunk_port, allowed_vlan_trunk_port, description;
+                case3: for port_usage: Phone Port the following args are needed:
+                    - port_state, voice_vlan_phone_port, data_vlan_phone_port, description;
+        e.g. xiq_library_at_class_level.xflowsmanageDevice360.fill_port_details_multi_edit_fields
+        (port_usage='Access Port',vlan_access_port=500,port_state='OFF',description='Description for multiple ports')
         '''
 
         vlan_access_port = kwargs.get("vlan_access_port")
@@ -11518,7 +11527,8 @@ class Device360(Device360WebElements):
         if port_state is not None:
 
             """
-             - This keyword will select Port State in Multi Edit (D360-Port Configuration) and after that will put the port to OFF
+             - This keyword will select Port State in Multi Edit (D360-Port Configuration) 
+                and after that will put the port to OFF;
             """
             self.utils.print_info("Click on Port State checkbox")
             self.auto_actions.click_reference(self.get_multi_edit_checkbox_status)
@@ -11533,12 +11543,16 @@ class Device360(Device360WebElements):
             checkbox = self.get_multi_edit_checkbox_port_type()
             if checkbox:
                 if checkbox.is_selected():
-                    self.utils.print_info("The Port Usage is checked!")
+                    kwargs['pass_msg'] = "The Port Usage is checked!"
+                    self.common_validation.passed(**kwargs)
                 else:
                     self.utils.print_info("Click on Port Usage checkbox")
                     self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_type)
+                    kwargs['pass_msg'] = "The Port Usage was checked successfully"
+                    self.common_validation.passed(**kwargs)
             else:
-                self.utils.print_info("Unable to click the element")
+                kwargs['fail_msg'] = "Unable to click the element"
+                self.common_validation.failed(**kwargs)
 
             get_port_usage_mode_dropdown = self.get_multi_edit_port_type_dropdown()
 
@@ -11552,8 +11566,8 @@ class Device360(Device360WebElements):
                     if port_usage == 'Access Port':
                         if vlan_access_port is not None:
                             """
-                             - This keyword will select Vlan in Multi Edit when Port usage is Access Port (D360-Port Configuration)
-                             and after that will complete the field with one value
+                             - This keyword will select Vlan in Multi Edit when Port usage is Access Port 
+                             (D360 - Port Configuration) and after that will complete the field with one value
                             """
                             self.utils.print_info("Click on VLAN checkbox when Port Usage is Access Port")
                             self.auto_actions.click_reference(self.get_multi_edit_checkbox_vlan)
@@ -11572,8 +11586,8 @@ class Device360(Device360WebElements):
                     elif port_usage == 'Trunk Port':
                         if (native_vlan_trunk_port is not None) or (allowed_vlan_trunk_port is not None):
                             """
-                             - This keyword will select Vlan settings in Multi Edit when Port usage is Trunk Port (D360-Port Configuration)
-                             and after that will complete the fields with values
+                             - This keyword will select Vlan settings in Multi Edit when Port usage is Trunk Port 
+                             (D360 - Port Configuration) and after that will complete the fields with values
                             """
                             self.utils.print_info("Click on Native VLAN checkbox when Port Usage is Trunk Port")
                             self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_native_vlan)
@@ -11621,8 +11635,8 @@ class Device360(Device360WebElements):
                     else:
                         if (voice_vlan_phone_port is not None) or (data_vlan_phone_port is not None):
                             """
-                             - This keyword will select Vlan settings in Multi Edit when Port usage is Phone Port (D360-Port Configuration)
-                             and after that will complete the fields with values.
+                             - This keyword will select Vlan settings in Multi Edit when Port usage is Phone Port 
+                             (D360 - Port Configuration) and after that will complete the fields with values.
                             """
                             self.utils.print_info("Click on Voice VLAN checkbox when Port Usage is Phone Port")
                             self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_voice_vlan)
@@ -11663,7 +11677,8 @@ class Device360(Device360WebElements):
 
         if description is not None:
             """
-             - This keyword will select Description in Multi Edit (D360-Port Configuration) and after that will complete the field
+             - This keyword will select Description in Multi Edit (D360-Port Configuration) 
+             and after that will complete the field;
             """
             self.utils.print_info("Click on Description checkbox")
             self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_description)
@@ -11678,6 +11693,7 @@ class Device360(Device360WebElements):
     def check_fileds_from_multi_edit_tab(self, **kwargs):
         '''
         This function select Port Usage, Port State and Description from Multi Edit tab.
+        - used to configure the default settings by selecting the fields listed above.
         :return: pass message if successfully
         :return: fail message if error
         '''
@@ -11690,17 +11706,16 @@ class Device360(Device360WebElements):
 
     def d360_save_multi_edit_button(self):
         '''
-        This keyword push the save button from Multi Edit tab.
-        :return: pass message if successfully
-        :return: fail message if error
+        This method click the save button from Multi Edit tab.
+        - used to save the configuration made in the multi-edit tab;
         '''
         self.utils.print_info("Clicking 'Save' button from Multi Edit")
         self.auto_actions.click_reference(self.get_d360_save_multi_edit)
 
     def d360_cancel_multi_edit_button(self):
         '''
-        This keyword push the cancel button from Multi Edit.
-        :return: 1 if succesfully ; else -1
+        This method click the cancel button from Multi Edit.
+        - used to exit the multi-edit tab without saving the configuration;
         '''
         self.utils.print_info("Click Cancel button from Multi Edit")
         self.auto_actions.click_reference(self.get_d360_cancel_multi_edit)
@@ -14001,10 +14016,8 @@ class Device360(Device360WebElements):
         :return: fail message if error
         """
 
-        checkbox = self.dev360.get_d360_monitor_port_details_checkbox_interface(isl_ports_dut)
-        if checkbox:
-            print("Click on checkbox")
-            AutoActions().click(checkbox)
+        if self.auto_actions.click_reference(
+            lambda: self.dev360.get_d360_monitor_port_details_checkbox_interface(isl_ports_dut)):
             kwargs['pass_msg'] = f"The port {isl_ports_dut} was selected successfully!"
             self.common_validation.passed(**kwargs)
         else:

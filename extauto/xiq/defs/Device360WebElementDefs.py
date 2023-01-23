@@ -2276,7 +2276,7 @@ class Device360WebElementDefs:
 
     select_element_port_type_description = \
         {
-            'XPATH': '//textarea[@data-automation-tag="port-type-editor-description"]',
+            'XPATH': '//input[@data-automation-tag="port-type-editor-description"]',
             'wait_for': 5
         }
 
