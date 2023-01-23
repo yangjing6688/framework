@@ -1722,11 +1722,11 @@ class Devices:
 
                 self.utils.print_info("Click specific version Dropdown")
                 self.auto_actions.click_reference(self.device_update.get_actions_update_version_drop_down)
-                sleep(2)
+                sleep(7)
 
                 update_version_items = self.device_update.get_actions_update_version_drop_down_items()
                 self.auto_actions.scroll_down()
-                sleep(2)
+                sleep(7)
 
                 cont_images_found = 0
                 if update_version_items:
@@ -9854,11 +9854,11 @@ class Devices:
 
                     self.utils.print_info("Click on version drop down")
                     self.auto_actions.click_reference(self.device_update.get_xiq_upgrade_to_specific_version_dropdown)
-                    sleep(5)
+                    sleep(7)
 
                     update_version_items = self.device_update.get_upgrade_to_specific_version_dropdown_list()
                     self.auto_actions.scroll_down()
-                    sleep(5)
+                    sleep(7)
 
                     avilableImagesList = []
                     if update_version_items:
@@ -11702,7 +11702,9 @@ class Devices:
             self.utils.wait_till(_loading_clone, exp_func_resp=1)
 
             warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
-            if not warning_message_disconnected:
+            sleep(10)
+            # if not warning_message_disconnected:
+            if (not warning_message_disconnected) or (warning_message_disconnected and "fn-hidden" in warning_message_disconnected.get_attribute("class")):
                 self.utils.print_info("Performing Update")
                 self.utils.print_info("Select the network policy and configuration checkbox")
                 update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
