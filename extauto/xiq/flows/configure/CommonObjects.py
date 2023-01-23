@@ -203,8 +203,8 @@ class CommonObjects(object):
         sleep(5)
 
         self.utils.print_info("Click on full page view")
-        if self.cobj_web_elements.get_paze_size_element():
-            self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
+        if self.cobj_web_elements.get_page_size_element():
+            self.auto_actions.click_reference(self.cobj_web_elements.get_page_size_element)
             self.screen.save_screen_shot()
             sleep(5)
 
@@ -275,8 +275,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_ssids()
 
         self.utils.print_info("Click on full page view")
-        if self.cobj_web_elements.get_paze_size_element():
-            self.auto_actions.click_reference(self.cobj_web_elements.get_paze_size_element)
+        if self.cobj_web_elements.get_page_size_element():
+            self.auto_actions.click_reference(self.cobj_web_elements.get_page_size_element)
             sleep(3)
 
         exclude_list = exclude_list.split(",")
@@ -339,8 +339,8 @@ class CommonObjects(object):
         cwp_flag = None
         self.utils.print_info("Click on 50 page size")
 
-        if self.cobj_web_elements.get_paze_size_element():
-            self.auto_actions.click(self.cobj_web_elements.get_paze_size_element())
+        if self.cobj_web_elements.get_page_size_element():
+            self.auto_actions.click(self.cobj_web_elements.get_page_size_element())
             sleep(3)
 
         for cwp in cwp_names:
@@ -387,8 +387,8 @@ class CommonObjects(object):
         self.navigator.navigate_to_captive_web_portal()
         self.utils.print_info("Click on 50 page size")
 
-        if self.cobj_web_elements.get_paze_size_element():
-            self.auto_actions.click(self.cobj_web_elements.get_paze_size_element())
+        if self.cobj_web_elements.get_page_size_element():
+            self.auto_actions.click(self.cobj_web_elements.get_page_size_element())
             sleep(3)
 
         for row in self.cobj_web_elements.get_common_object_grid_rows():
