@@ -34,10 +34,10 @@ class XapiGlobalSettings:
         with extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
             api_instance = extremecloudiq.AccountApi(api_client)
+            api_response = None
             try:
                 # Get VIQ Info
                 api_response = api_instance.get_viq_info()
-                pprint(api_response)
             except ApiException as e:
                 print("Exception when calling AccountApi->get_viq_info: %s\n" % e)
                 raise e
