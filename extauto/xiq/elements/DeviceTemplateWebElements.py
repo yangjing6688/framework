@@ -289,3 +289,8 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
     def get_device_ap_template_search_inputfield(self):
         return self.weh.get_element(self.device_ap_template_search_inputfield)
 
+    def get_policy_switching_tab(self):
+        return self.weh.get_element(self.policy_switching_tab)
+
+    def get_policy_switch_templates_tab(self):
+        return self.weh.get_element(self.policy_switch_templates_tab)
