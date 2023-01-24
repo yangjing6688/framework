@@ -31,7 +31,7 @@ class MuCPWebElement(MuCPWebElementDefinitions):
         Open captive portal browser on the remote mu
         :param mu_ip: Ip of the remote mu
         :param url: url to open
-        :return:
+        :return: Empty String ("") if error, else page title
         """
         if not url:
             url = 'http://www.cnn.com/'
@@ -46,9 +46,9 @@ class MuCPWebElement(MuCPWebElementDefinitions):
             self.utils.print_info(f"Command Executor:{command_executor}")
             self.driver = webdriver.Remote(desired_capabilities=caps, command_executor=command_executor, options=ops)
         except Exception as e:
-            self.utils.print_info(e)
-            self.utils.print_info("Unable to load the URL.. Exiting..")
-            sleep(2)
+            self.utils.print_error(e)
+            self.utils.print_error("Unable to load the URL.. Exiting..")
+            return "" # Error
 
         self.utils.print_info("Loading Page with URL: ", url)
         self.driver.maximize_window()
@@ -58,7 +58,8 @@ class MuCPWebElement(MuCPWebElementDefinitions):
             self.utils.print_info("Refreshing Page URL")
             self.driver.refresh()
         except Exception as e:
-            self.utils.print_info(e)
+            self.utils.print_error(e)
+            return "" # Error
 
         got_title = self.driver.title
         self.utils.print_info("Page Title: ", got_title)
