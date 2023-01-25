@@ -52,12 +52,6 @@ class SwitchTemplate(object):
         :param sw_template: Switch Template Name ie SR2024P,X440-G2-24p-10G4 etc
         :return: True if Switch Template Found on Grid else False
         """
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
-
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
-
         sw_template_rows_elements = self.sw_template_web_elements.get_sw_template_rows()
         if not sw_template_rows_elements:
             return False
@@ -522,7 +516,11 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-        sleep(2)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = f"add_5520_sw_stack_template() failed. " \
@@ -2228,6 +2226,12 @@ class SwitchTemplate(object):
         :param save_template: True is template will be save; else False
         :return: 1 if template has been created; else -1
         """
+
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = f"add_sw_template_from_policy_tab() failed. " \
