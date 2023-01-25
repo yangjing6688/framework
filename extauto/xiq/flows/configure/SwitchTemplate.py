@@ -45,7 +45,7 @@ class SwitchTemplate(object):
     def check_sw_template(self, sw_template):
         """
         - Check the Switch template in the Switch template Grid
-        - Assumes That Already in Network Policy Edit Page
+        - Assumes That Already in Switch template Grid Page
         - Keyword Usage
         - ``Check SW Template  ${SWITCH_TEMPLATE_NAME}``
 
