@@ -11,6 +11,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Cli import Cli
 from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.flows.common.Login import Login
@@ -42,6 +43,7 @@ class Devices:
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.common_validation = CommonValidation()
         self.navigator = Navigator()
+        self.cobj_web_elements = CommonObjectsWebElements()
         self.device_actions = DeviceActions()
         self.device_update = DeviceUpdate()
         self.device_common = DeviceCommon()
@@ -2993,6 +2995,11 @@ class Devices:
             kwargs['fail_msg'] = "No valid args passed.  Must be device_serial, device_name, device_mac!"
             self.common_validation.failed(**kwargs)
             return -1
+
+        if self.cobj_web_elements.get_page_size_element():
+            self.auto_actions.click_reference(self.cobj_web_elements.get_page_size_element)
+            self.screen.save_screen_shot()
+            sleep(5)
 
         # Printing all the rows in the table for troubleshooting
         rows = self.devices_web_elements.get_grid_rows()
