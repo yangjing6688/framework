@@ -11717,8 +11717,8 @@ class Devices:
 
             warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
             sleep(10)
-            # if not warning_message_disconnected:
-            if (not warning_message_disconnected) or (warning_message_disconnected and "fn-hidden" in warning_message_disconnected.get_attribute("class")):
+            hidden_warning_message = warning_message_disconnected and "fn-hidden" in warning_message_disconnected.get_attribute("class")
+            if (not warning_message_disconnected or hidden_warning_message):
                 self.utils.print_info("Performing Update")
                 self.utils.print_info("Select the network policy and configuration checkbox")
                 update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
