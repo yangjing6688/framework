@@ -3306,7 +3306,7 @@ class Device360WebElementDefs:
     select_element_port_type_pse_profile_power_limit = \
         {
             'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
-	        'wait_for': 5
+            'wait_for': 5
         }
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
