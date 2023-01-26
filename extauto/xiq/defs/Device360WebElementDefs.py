@@ -134,7 +134,7 @@ class Device360WebElementDefs:
 
     close_dialog = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='closeDialog']",
+            'XPATH': "//div[@data-dojo-attach-point='closeDialog']",
             'wait_for': 10
         }
 
@@ -244,7 +244,7 @@ class Device360WebElementDefs:
 
     device360_configure_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="configureViewSelect"]',
+            'XPATH': '//li[@data-dojo-attach-point="configureViewSelect"]',
             'wait_for': 5
         }
 
@@ -1131,7 +1131,7 @@ class Device360WebElementDefs:
 
     device360_stack_overview_sl_ports_row = \
         {
-            'CSS_SELECTOR': '.device-switch',
+            'CSS_SELECTOR': '[class="stack-ports-ctn switch-ports-panel-ctn"] [data-dojo-attach-point="switchDom"]',
             'wait_for': 5
         }
 
@@ -1489,7 +1489,7 @@ class Device360WebElementDefs:
 
     d360_configure_port_settings_aggregation_tab_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="ahTabContainer"]//a[contains(text(), "Port Settings & Aggregation")]',
+            'CSS_SELECTOR': '.ui-tab[data-automation-tag="automation-port-config-port-settings"]',
             'wait_for': 5
         }
 
@@ -1730,7 +1730,7 @@ class Device360WebElementDefs:
 
     d360_vim_model = \
         {
-            'XPATH': '//li[@class="port-group-label"]',
+            'XPATH': '//div[@data-dojo-attach-point="portBlockWrap"]//li[@class="port-group-label"]',
             'wait_for': 5
         }
 
@@ -1816,7 +1816,6 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-dojo-attach-point="createStackTemplate"]',
             'wait_for': 5
         }
-
     d360_pagination_next_button = \
         {
             'XPATH': '//div[@class="pagination-num-ctn"]//span[@class="ui-page-item J-page-next ui-page-item-next "]',
@@ -1947,7 +1946,6 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.ui-ip-mark',
             'wait_for': 5
         }
-
     device360_port_configuration_pse_profile_drop_down_options = \
         {
             'CSS_SELECTOR': '.item-area li',
@@ -3306,7 +3304,7 @@ class Device360WebElementDefs:
     select_element_port_type_pse_profile_power_limit = \
         {
             'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
-            'wait_for': 5
+	        'wait_for': 5
         }
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
@@ -3548,7 +3546,7 @@ class Device360WebElementDefs:
         }
     device360_voip_tab = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-port-config-voice"]',
+            'XPATH':'//div[@data-automation-tag="automation-port-config-voice"]',
             'wait_for': 5
         }
     device360_vlan_lldp_capabilities = \
@@ -3652,7 +3650,6 @@ class Device360WebElementDefs:
             'XPATH': '//*[contains(@class,"transmission-settings active")]',
             'wait_for': 5
         }
-
     device360_port_configuration_pse_profile_add_button = \
         {
             'CSS_SELECTOR': '.ui-ip-save',
