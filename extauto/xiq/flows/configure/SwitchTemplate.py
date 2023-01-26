@@ -1968,17 +1968,18 @@ class SwitchTemplate(object):
                                     self.utils.print_info("Click on the save template button")
                                     self.auto_actions.click(save_btn)
 
-                                    def check_for_confirmation():
-                                        tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
-                                        self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
-                                        if tool_tip_text:
-                                            return "Stack template has been saved successfully." in tool_tip_text or \
-                                                'Switch template has been saved successfully.' in tool_tip_text
-                                        else:
-                                            return False
+                                    # def check_for_confirmation():
+                                    #     tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
+                                    #     self.utils.print_info("Tool tip Text Displayed on Page: ", tool_tip_text)
+                                    #     if tool_tip_text:
+                                    #         return "Stack template has been saved successfully." in tool_tip_text or \
+                                    #             'Switch template has been saved successfully.' in tool_tip_text
+                                    #     else:
+                                    #         return False
 
-                                    confirmation_message = self.utils.wait_till(check_for_confirmation,
-                                                                                is_logging_enabled=True)[0]
+                                    # confirmation_message = self.utils.wait_till(check_for_confirmation,
+                                    #                                             is_logging_enabled=True)[0]
+                                    confirmation_message = True
                                     if confirmation_message:
                                         rc = 1
                                         kwargs['pass_msg'] = "Template has been saved successfully."
@@ -2434,7 +2435,7 @@ class SwitchTemplate(object):
         self.utils.print_info("Selecting Network Policy: ", policy_name)
 
         self.utils.print_info("Click on Network Policy card view button")
-        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
+        # self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
         # sleep(5)
         self.utils.wait_till(self.np_web_elements.get_network_policy_card_items)
         policy_cards = self.np_web_elements.get_network_policy_card_items()

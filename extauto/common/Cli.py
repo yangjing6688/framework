@@ -2633,6 +2633,35 @@ class Cli(object):
             self.commonValidation.failed(**kwargs)
             return False
 
+    def check_ports_existence(self, dut, ports):
+        
+        output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan')[0].cmd_obj._return_text
+        ports_not_found = []
+        flag = 1
+        
+        if dut.platform == 'Stack':
+            for slot in range(1, len(dut.serial.split(',')) + 1):
+                for port in ports.split(','):
+                    if str(slot) + ':' + port not in output:
+                        flag = -1
+                        ports_not_found.append(str(slot) + ':' + port)
+                    else:
+                        self.utils.print_info("Found the port: " + str(slot) + ':' + port)
+        else:
+            for port in ports.split(','):
+                if port + ' ' not in output:
+                    flag = -1
+                    ports_not_found.append(port)
+                else:
+                    self.utils.print_info("Found the port: " + port)
+
+        if ports_not_found:
+            self.utils.print_info('The following ports were not found: ')
+            for port_not_found in ports_not_found:
+                self.utils.print_info(port_not_found)
+
+        return flag
+
 
 if __name__ == '__main__':
     from pytest_testconfig import *
