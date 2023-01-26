@@ -156,7 +156,7 @@ class UserGroupsWebElements(UserGroupsWebElementsDefinitions):
     def get_user_group_text_field_form_error(self):
         return self.weh.get_elements(self.user_group_text_field_form_error)
 
-    def get_paze_size_element(self, page_size='50'):
+    def get_page_size_element(self, page_size='50'):
         els = self.weh.get_elements(self.page_size_element)
         if not els:
             return None
