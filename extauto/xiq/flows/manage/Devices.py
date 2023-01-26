@@ -653,68 +653,6 @@ class Devices:
             self.utils.print_info("No rows present")
         return -1
 
-    def delete_ap(self, ap_serial=None, ap_name=None, ap_mac=None):
-        """
-        - Assumes that already navigated to manage --> Devices Page
-        - Deletes AP matching either one of serial, name, MAC
-        - Keyword Usage:
-        - ``Delete AP   ap_serial=${AP_SERIAL}``
-        - ``Delete AP   ap_name=${AP_NAME}``
-        - ``Delete AP   ap_mac=${AP_MAC}``
-
-        :param ap_serial: ap serial number
-        :param ap_name: host name of the AP
-        :param ap_mac: ap Mac address
-        :return: 1 if deleted else -1
-        """
-        self.navigator.enable_page_size()
-        if ap_serial:
-            self.utils.print_info("Deleting AP: ", ap_serial)
-            search_result = self.search_ap(ap_serial=ap_serial)
-
-            if search_result:
-                if self.select_ap(ap_serial):
-                    self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
-                    if self.search_ap_serial(ap_serial=ap_serial) == 1:
-                        self.utils.print_info("Unable to find the AP")
-                        return -1
-                    else:
-                        self.utils.print_info("Deleted AP Successfully: ", ap_serial)
-                        return 1
-
-        if ap_name:
-            self.utils.print_info("Deleting AP: ", ap_name)
-            search_result = self.search_ap(ap_name=ap_name)
-
-            if search_result:
-                if self.select_ap(ap_name):
-                    self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
-                    if self.search_ap_name(ap_name=ap_name) == 1:
-                        self.utils.print_info("Unable to find the AP")
-                        return -1
-                    else:
-                        self.utils.print_info("Deleted AP Successfully: ", ap_name)
-                        return 1
-        if ap_mac:
-            self.utils.print_info("Deleting AP: ", ap_mac)
-            search_result = self.search_ap(ap_mac=ap_mac)
-
-            if search_result:
-                if self.select_ap(ap_mac):
-                    self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
-                    if self.search_ap_mac(ap_mac=ap_mac) == 1:
-                        self.utils.print_info("Unable to find the AP")
-                        return -1
-                    else:
-                        self.utils.print_info("Deleted AP Successfully: ", ap_mac)
-                        return 1
-        else:
-            self.utils.print_info("Not Found")
-            return -1
-
     def select_ap(self, ap_serial=None, ap_name=None, ap_mac=None):
         """
         - Selects the AP row marching with AP's Serial Number
@@ -993,34 +931,6 @@ class Devices:
         self.utils.print_info("Device is not Rebooting after update configuration")
         return False
 
-    def delete_aps(self, ap_serials=None, ap_names=None, ap_macs=None):
-        """
-        - Assumes that already navigated to Manage --> Devices
-        - Delete the multiple AP one by one
-        - Keyword Usage:
-        - ``Delete APs   ap_serials=${AP1_SERIAL},${AP2_SERIAL}``
-        - ``Delete APs   ap_serials=${AP1_SERIAL}``
-
-        :param ap_serials: AP serial number
-        :param ap_names: Host name of the AP
-        :param ap_macs: MAC of the AP
-        :return: 1 if deleted else -1
-        """
-        aps = -1
-        self.navigator.enable_page_size()
-        try:
-            aps = ap_serials.split(",")
-            result = -1
-
-            self.utils.print_info("Delete APs: ", aps)
-            for ap in aps:
-                result = self.delete_ap(ap_serial=ap.strip())
-
-            return result
-        except Exception as e:
-            self.utils.print_info("Unable to delete APs: ", aps)
-            self.utils.print_info("Exception: ", e)
-
     def get_device_serial_numbers(self, device_type):
         """
         - gets all existing devices serials with the same device_type
@@ -1069,29 +979,6 @@ class Devices:
             self.utils.print_info(e)
             self.utils.print_info(f"Unable to get Device Serial Numbers with Device Type {device_type}")
             return -1
-
-    def delete_simulated_ap(self, ap_model):
-        """
-        - Deletes Simulated AP from the device grid based on ap model
-        - Keyword Usage:
-        - ``Delete Simulated Aps    ${AP_MODEL}``
-
-        :param ap_model: model of the AP
-        :return: 1 if deleted successfully else -1
-        """
-        self.utils.print_info("Deleting AP: ", ap_model)
-        search_result = self._search_simulated_devices(ap_model)
-
-        if search_result:
-            if self.select_ap(ap_model):
-                self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
-                if self.search_ap_serial(ap_serial=ap_model) == 1:
-                    self.utils.print_info("Unable to find the AP")
-                    return -1
-                else:
-                    self.utils.print_info("Deleted AP Successfully: ", ap_model)
-                    return 1
 
     def _search_simulated_devices(self, ap_serial):
         """
