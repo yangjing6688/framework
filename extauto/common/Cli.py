@@ -2681,11 +2681,11 @@ class Cli(object):
         """
         spawn = self.open_spawn(dut.ip, dut.port, dut.username,
                                 dut.password, dut.cli_type)
-        if dut.cli_type == "voss":
-            kwargs['fail_msg'] = "This is VOSS device"
+        if dut.cli_type.upper() in ["VOSS", "AH-FASTPATH"]:
+            kwargs['fail_msg'] = f"This keyword (check_pse_restart_in_cli) is not supported for {dut.cli_type} devices"
             self.commonValidation.failed(**kwargs)
             return -1
-        elif dut.cli_type == "exos":
+        elif dut.cli_type.upper() == "EXOS":
             self.send_commands(spawn, "disable cli paging")
             cli_journal = self.send_commands(spawn, "show cli  journal | grep reset")
             self.search_last_command_cli_journal(info=cli_journal, command="reset inline-power ports")
