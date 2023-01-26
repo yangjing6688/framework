@@ -2743,6 +2743,7 @@ class Device360WebElementDefs:
             'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 5
         }
+
     device360_configure_port_usage_drop_down_options_presence = \
         {
             'CSS_SELECTOR': '.chzn-single-with-drop',
@@ -3636,7 +3637,7 @@ class Device360WebElementDefs:
 
     summary_tab_confirmation = \
         {
-            'XPATH': '//*[contains(@class,"summary active")]',
+            'XPATH':'//*[contains(@class,"summary active")]',
             'wait_for': 5
         }
 
