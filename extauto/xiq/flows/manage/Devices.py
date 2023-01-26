@@ -1931,6 +1931,8 @@ class Devices:
                                                       csv_location, device_model, os_version, os_persona, **kwargs) == -1:
             return -1
 
+        # Moved CONTROLLER actions out because we know that it is used
+        # We are planning to rework logic
         if 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
             self.utils.print_info("Onboarding: ", device_make)
             return_value = self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
@@ -2007,6 +2009,8 @@ class Devices:
                                                        get_devices_quick_add_policy_drop_down_items(), policy_name)
             sleep(2)
 
+        # Preventing an unnecessary click here fixes the problem seen in aiq2618
+        # We are planning to rework logic
         if self.search_device(device_serial=device_serial) == -1:
             self.utils.print_info("Clicking on ADD DEVICES button...")
             self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
