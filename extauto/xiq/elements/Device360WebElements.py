@@ -2076,14 +2076,14 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_port_type_drop_down(self,port_row):
         return self.weh.get_element(self.d360_port_type_dropdown,port_row)
 
-    def get_d360_port_type_options(self,row):
-        return self.weh.get_elements(self.d360_port_type_options,row)
+    def get_d360_port_type_options(self, row):
+        return self.weh.get_elements(self.d360_port_type_options, row)
 
-    def get_device360_port_configuration_pse_profile_add_button(self,row):
-        return self.weh.get_element(self.device360_port_configuration_pse_profile_add_button,row)
+    def get_device360_port_configuration_pse_profile_add_button(self, row):
+        return self.weh.get_element(self.device360_port_configuration_pse_profile_add_button, row)
 
-    def get_device360_port_configuration_pse_profile_edit_button(self,row):
-        return self.weh.get_element(self.device360_port_configuration_pse_profile_edit_button,row)
+    def get_device360_port_configuration_pse_profile_edit_button(self, row):
+        return self.weh.get_element(self.device360_port_configuration_pse_profile_edit_button, row)
 
     def get_device360_configure_port_pse_rows(self):
         return self.weh.get_elements(self.device360_configure_port_pse_rows)
