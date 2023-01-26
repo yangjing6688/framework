@@ -1816,6 +1816,7 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-dojo-attach-point="createStackTemplate"]',
             'wait_for': 5
         }
+
     d360_pagination_next_button = \
         {
             'XPATH': '//div[@class="pagination-num-ctn"]//span[@class="ui-page-item J-page-next ui-page-item-next "]',
@@ -1946,6 +1947,7 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.ui-ip-mark',
             'wait_for': 5
         }
+
     device360_port_configuration_pse_profile_drop_down_options = \
         {
             'CSS_SELECTOR': '.item-area li',
@@ -2741,7 +2743,6 @@ class Device360WebElementDefs:
             'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 5
         }
-
     device360_configure_port_usage_drop_down_options_presence = \
         {
             'CSS_SELECTOR': '.chzn-single-with-drop',
