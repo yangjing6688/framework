@@ -598,6 +598,7 @@ class Device360WebElementDefs:
         {
             # 'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
             'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'wait_for': 5
         }
 
     device360_refresh_page_button = \
@@ -1768,7 +1769,6 @@ class Device360WebElementDefs:
             'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li[contains(@class,"port-theme-gray") or contains(@class,"port-theme-white")]',
             'wait_for': 5
         }
-
     d360_automation_port = \
         {
             'XPATH': '//div[@class="device-ports device-ports--padding"]/ul/li/ul/li/div',
@@ -3077,7 +3077,6 @@ class Device360WebElementDefs:
         {
             'XPATH': '//input[contains(@id, "hcgrid_") and @type="checkbox"]',
             'wait_for': 5
-
         }
 
     device360_ports_description_table_header = \
@@ -3085,7 +3084,6 @@ class Device360WebElementDefs:
             'XPATH': "//div[@data-automation-tag='automation-port-list-grid']//div[@role='row' and contains(@class, 'dgrid-header')]",
             'wait_for': 5
         }
-
 
     device360_ports_table_pagination_sizes = \
         {
@@ -3814,9 +3812,9 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    d360_close_multi_edit = \
+    d360_save_multi_edit = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-port-details-multi-edit-close-btn"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-details-multi-edit-save-btn"]',
             'wait_for': 5
         }
 
