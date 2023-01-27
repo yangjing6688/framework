@@ -6495,12 +6495,10 @@ class Devices:
 
         return ret_val
 
-    def is_xiqse_maximum_site_engine_message_displayed(self, **kwargs):
+    def _is_xiqse_maximum_site_engine_message_displayed(self):
         """
-        - This keyword checks if the 'Maximum 5 Site Engine > Device View' message banner is displayed.
+        - This helper function checks if the 'Maximum 5 Site Engine > Device View' message banner is displayed.
         - The message banner will be closed, if displayed.
-        - Keyword Usage
-        - ``Is XIQSE Maximum Site Engine Message Displayed``
 
         :return: True if the message banner is displayed, else False
         """
@@ -6511,13 +6509,44 @@ class Devices:
             if "Maximum 5 Site Engine" in banner_warning_text:
                 self.utils.print_info(f"Warning Message: {banner_warning_text}")
                 self.auto_actions.click_reference(self.devices_web_elements.get_ui_banner_warning_close_button)
-                kwargs['pass_msg'] = f"{banner_warning_text}"
-                self.common_validation.passed(**kwargs)
                 return True
 
-        kwargs['fail_msg'] = "Expected Warning Message Banner not found."
-        self.common_validation.failed(**kwargs)
+        self.utils.print_info("Expected Warning Message Banner not found.")
         return False
+
+    def verify_xiqse_maximum_site_engine_message_displayed(self, **kwargs):
+        """
+        - This keyword checks if the 'Maximum 5 Site Engine > Device View' message banner is displayed.
+        - Keyword Usage
+        - ``Verify XIQSE Maximum Site Engine Message Displayed``
+
+        :return: True if the message banner is displayed, else False
+        """
+        if self._is_xiqse_maximum_site_engine_message_displayed():
+            kwargs['pass_msg'] = "'Maximum 5 Site Engine > Device View' message banner is displayed"
+            self.common_validation.passed(**kwargs)
+            return True
+        else:
+            kwargs['fail_msg'] = "Expected Warning Message Banner not found."
+            self.common_validation.failed(**kwargs)
+            return False
+
+    def verify_xiqse_maximum_site_engine_message_not_displayed(self, **kwargs):
+        """
+        - This keyword checks if the 'Maximum 5 Site Engine > Device View' message banner is NOT displayed.
+        - Keyword Usage
+        - ``Verify XIQSE Maximum Site Engine Message Not Displayed``
+
+        :return: True if the message banner is NOT displayed, False if the message is displayed
+        """
+        if not self._is_xiqse_maximum_site_engine_message_displayed():
+            kwargs['pass_msg'] = "'Maximum 5 Site Engine > Device View' message banner is NOT displayed"
+            self.common_validation.passed(**kwargs)
+            return True
+        else:
+            kwargs['fail_msg'] = "'Maximum 5 Site Engine > Device View' message banner is displayed"
+            self.common_validation.failed(**kwargs)
+            return False
 
     def actions_menu_disabled(self):
         """
@@ -9470,123 +9499,368 @@ class Devices:
             self.screen.save_screen_shot()
             return -1
 
-    def is_delete_button_visible(self):
+    def _is_delete_button_visible(self):
         """
-        - This Keyword checks if the delete button is visible
-        - Keyword Usage:
-        - ``Is Delete Button Visible``
-
-        :return: 1 if visible, -1 if not
+        - This helper function verify if the delete button is visible or not
+        :return: True if visible, False if it's hidden, fail if exception occurs
         """
         try:
             if self.devices_web_elements.get_delete_button().is_displayed():
-                return 1
+                self.utils.print_info("Delete button is displayed")
+                return True
 
-            return -1
+            self.utils.print_info("Delete button is hidden")
+            return False
 
         except Exception as e:
+            kwargs = {'fail_msg': "_is_delete_button_visible() failed. Exception"}
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def is_download_button_visible(self):
+    def validate_delete_button_visible(self, **kwargs):
         """
-        - This Keyword checks if the download button is visible
+        - This Keyword validates if the delete button is visible
         - Keyword Usage:
-        - ``Is Download Button Visible``
+        - ``Validate Delete Button Visible``
 
         :return: 1 if visible, -1 if not
+        """
+        if self._is_delete_button_visible():
+            kwargs['pass_msg'] = "Delete button is displayed"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Delete button is hidden"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def validate_delete_button_hidden(self, **kwargs):
+        """
+        - This Keyword validates if the delete button is hidden
+        - Keyword Usage:
+        - ``Validate Delete Button Hidden``
+
+        :return: 1 if hidden, -1 if visible
+        """
+        if not self._is_delete_button_visible():
+            kwargs['pass_msg'] = "Delete button is hidden"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Delete button is displayed"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_download_button_visible(self):
+        """
+        - This helper function verify if the download button is visible or not
+        :return: True if visible, False if hidden, fail if exception occurs
         """
         try:
             if self.devices_web_elements.get_download_button().is_displayed():
-                return 1
+                self.utils.print_info("Download button is displayed")
+                return True
 
-            return -1
+            self.utils.print_info("Download button is hidden")
+            return False
 
         except Exception as e:
+            kwargs = {'fail_msg': "_is_download_button_visible() failed. Exception"}
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def is_bulk_edit_button_visible(self):
+    def validate_download_button_visible(self, **kwargs):
         """
-        - This Keyword checks if the bulk edit button is visible
+        - This Keyword validates if the download button is visible
         - Keyword Usage:
-        - ``Is Bulk Edit Button Visible``
+        - ``Validate Download Button Visible``
 
         :return: 1 if visible, -1 if not
+        """
+        if self._is_download_button_visible():
+            kwargs['pass_msg'] = "Download button is displayed"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Download button is hidden"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def validate_download_button_hidden(self, **kwargs):
+        """
+        - This Keyword validates if the download button is hidden
+        - Keyword Usage:
+        - ``Validate Download Button Hidden``
+
+        :return: 1 if hidden, -1 if visible
+        """
+        if not self._is_download_button_visible():
+            kwargs['pass_msg'] = "Download button is hidden"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Download button is visible"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_bulk_edit_button_visible(self):
+        """
+        - This helper function verify if the bulk edit button is visible or not
+        :return: True if visible, False if it's hidden, fail if exception occurs
         """
         try:
             if self.devices_web_elements.get_bulk_edit_button().is_displayed():
-                return 1
+                self.utils.print_info("Bulk edit button is displayed")
+                return True
 
-            return -1
+            self.utils.print_info("Bulk edit button is hidden")
+            return False
 
         except Exception as e:
+            kwargs = {'fail_msg': "_is_bulk_edit_button_visible() failed. Exception"}
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def is_add_button_visible(self):
+    def validate_bulk_edit_button_visible(self, **kwargs):
         """
-        - This Keyword checks if the add button is visible
+        - This Keyword validates if the bulk edit button is visible
         - Keyword Usage:
-        - ``Is Add Button Visible``
+        - ``Validate Bulk Edit Button Visible``
 
         :return: 1 if visible, -1 if not
+        """
+        if self._is_bulk_edit_button_visible():
+            kwargs['pass_msg'] = "Bulk edit button is displayed"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Bulk edit button is hidden"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def validate_bulk_edit_button_hidden(self, **kwargs):
+        """
+        - This Keyword validates if the bulk edit button is hidden
+        - Keyword Usage:
+        - ``Validate Bulk Edit Button Hidden``
+
+        :return: 1 if hidden, -1 if visible
+        """
+        if not self._is_bulk_edit_button_visible():
+            kwargs['pass_msg'] = "Bulk edit button is hidden"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Bulk edit button is visible"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_add_button_visible(self):
+        """
+        - This helper function verify if the add button is visible or not
+        :return: True if visible, False if it's hidden, fail if exception occurs
         """
         try:
             if self.devices_web_elements.get_devices_add_button().is_displayed():
-                return 1
+                self.utils.print_info("Add button is displayed")
+                return True
 
-            return -1
+            self.utils.print_info("Add button is hidden")
+            return False
 
         except Exception as e:
+            kwargs = {'fail_msg': "_is_add_button_visible() failed. Exception"}
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def is_update_device_button_visible(self):
+    def validate_add_button_visible(self, **kwargs):
         """
-        - This Keyword checks if the device update button is visible
+        - This Keyword validates if the add button is visible
         - Keyword Usage:
-        - ``Is Update Device Button Visible``
+        - ``Validate Add Button Visible``
 
         :return: 1 if visible, -1 if not
+        """
+        if self._is_add_button_visible():
+            kwargs['pass_msg'] = "Add button is displayed"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Add button is hidden"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def validate_add_button_hidden(self, **kwargs):
+        """
+        - This Keyword validates if the add button is hidden
+        - Keyword Usage:
+        - ``Validate Add Button Hidden``
+
+        :return: 1 if hidden, -1 if visible
+        """
+        if not self._is_add_button_visible():
+            kwargs['pass_msg'] = "Add button is hidden"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Add button is visible"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_update_device_button_visible(self):
+        """
+        - This helper function checks if the device update button is visible or not`
+        :return: True if visible, False if not, fail if exception occurs
         """
         try:
             if self.devices_web_elements.get_update_device_button().is_displayed():
-                return 1
+                self.utils.print_info("Update button is displayed")
+                return True
 
-            return -1
+            self.utils.print_info("Update button is hidden")
+            return False
 
         except Exception as e:
+            kwargs = {'fail_msg': "_is_update_device_button_visible() failed. Exception"}
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def is_actions_button_visible(self):
+    def validate_update_device_button_visible(self, **kwargs):
         """
-        - This Keyword checks if the actions button is visible
+        - This Keyword validates if the device update button is visible
         - Keyword Usage:
-        - ``Is Actions Button Visible``
+        - ``Validate Update Device Button Visible``
 
         :return: 1 if visible, -1 if not
+        """
+        if self._is_update_device_button_visible():
+            kwargs['pass_msg'] = "Update button is displayed"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Update button is hidden"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def validate_update_device_button_hidden(self, **kwargs):
+        """
+        - This Keyword checks if the device update button is hidden
+        - Keyword Usage:
+        - ``Validate Update Device Button Hidden``
+
+        :return: 1 if hidden, -1 if visible
+        """
+        if not self._is_update_device_button_visible():
+            kwargs['pass_msg'] = "Update button is hidden"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Update button is visible"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_actions_button_visible(self):
+        """
+        - This helper functions verify if the actions button is visible or not
+        :return: True if visible, False if not, fail if exception occurs
         """
         try:
             if self.devices_web_elements.get_manage_device_actions_button().is_displayed():
-                return 1
+                self.utils.print_info("Actions button is displayed")
+                return True
 
-            return -1
+            self.utils.print_info("Actions button is hidden")
+            return False
 
         except Exception as e:
+            kwargs = {'fail_msg': "_is_actions_button_visible() failed. Exception"}
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def is_utilities_button_visible(self):
+    def validate_actions_button_visible(self, **kwargs):
         """
-        - This Keyword checks if the utilities button is visible
+        - This Keyword checks if the actions button is visible
         - Keyword Usage:
-        - ``Is Utilities Button Visible``
+        - ``Validate Actions Button Visible``
 
         :return: 1 if visible, -1 if not
         """
-        try:
-            if self.devices_web_elements.get_manage_device_utilities_button().is_displayed():
-                return 1
-
+        if self._is_actions_button_visible():
+            kwargs['pass_msg'] = "Actions button is displayed"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Actions button is  hidden"
+            self.common_validation.failed(**kwargs)
             return -1
 
+    def validate_actions_button_hidden(self, **kwargs):
+        """
+        - This Keyword checks if the actions button is hidden
+        - Keyword Usage:
+        - ``Validate Actions Button Hidden``
+
+        :return: 1 if hidden, -1 if visible
+        """
+        if not self._is_actions_button_visible():
+            kwargs['pass_msg'] = "Actions button is hidden"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Actions button is visible"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_utilities_button_visible(self):
+        """
+        - This helper function verify if the utilities button is visible or not
+        :return: True if visible, False if hidden, fail if exception occurs
+        """
+        try:
+            if self.devices_web_elements.get_manage_device_utilities_button().is_displayed():
+                self.utils.print_info("Utilities button is displayed")
+                return True
+
+            self.utils.print_info("Utilities button is hidden")
+            return False
+
         except Exception as e:
+            kwargs = {'fail_msg': "_is_utilities_button_visible() failed. Exception"}
+            self.common_validation.fault(**kwargs)
+            return -1
+
+    def validate_utilities_button_visible(self, **kwargs):
+        """
+        - This Keyword validates if the utilities button is visible
+        - Keyword Usage:
+        - ``Validate Utilities Button Visible``
+
+        :return: 1 if visible, -1 if not
+        """
+        if self._is_utilities_button_visible():
+            kwargs['pass_msg'] = "Utilities button is displayed"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Utilities button is hidden"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def validate_utilities_button_hidden(self, **kwargs):
+        """
+        - This Keyword checks if the utilities button is hidden
+        - Keyword Usage:
+        - ``Validate Utilities Button Hidden``
+
+        :return: 1 if hidden, -1 if visible
+        """
+        if not self._is_utilities_button_visible():
+            kwargs['pass_msg'] = "Utilities button is hidden"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Utilities button is displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true",
@@ -11318,14 +11592,14 @@ class Devices:
         else:
             self.utils.print_info("Failed to assign Network Policy to the device...")
 
-    def is_digital_twin_option_visible(self):
+    def _is_digital_twin_option_visible(self):
         """
-        - This Keyword checks if the Digital Twin option is visible within the 'Quick Add Devices' panel.
+        - Add -> Quick Add Devices -> Deploy your devices directly to the cloud -> Cancel button
         - The 'Quick Add Devices' panel will be closed.
-        - Keyword Usage:
-        - ``Is Digital Twin Option Visible``
+        - This helper function returns True if the digital twin option is visible in the Quick Add Devices panel
+        else returns False if the digital twin option is hidden in the Quick Add Devices panel, otherwise will fail
 
-        :return: True if visible, False if not visible, else -1
+        :return: True if visible, False if hidden, fail otherwise
         """
         ret_val = -1
         self.utils.print_info("Clicking on ADD button...")
@@ -11353,7 +11627,51 @@ class Devices:
 
         self.utils.print_info("Click the Quick Add Devices > Cancel button")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-        return ret_val
+
+        if ret_val == True:
+            return True
+        elif ret_val == False:
+            return False
+        else:
+            kwargs = {'fail_msg': "_is_digital_twin_option_visible() failed. Failed to check digital twin option"}
+            self.common_validation.fault(**kwargs)
+            return -1
+
+    def validate_digital_twin_option_visible(self, **kwargs):
+        """
+        - This Keyword validates if the Digital Twin option is visible within the 'Quick Add Devices' panel.
+        - The 'Quick Add Devices' panel will be closed.
+        - Keyword Usage:
+        - ``Validate Digital Twin Option Visible``
+
+        :return: True if visible, False if not visible
+        """
+        if self._is_digital_twin_option_visible():
+            kwargs['pass_msg'] = "Digital Twin Option is visible"
+            self.common_validation.passed(**kwargs)
+            return True
+        else:
+            kwargs['fail_msg'] = "Digital Twin Option is hidden"
+            self.common_validation.failed(**kwargs)
+            return False
+
+    def validate_digital_twin_option_hidden(self, **kwargs):
+        """
+        - This Keyword validates if the Digital Twin option is hidden within the 'Quick Add Devices' panel.
+        - The 'Quick Add Devices' panel will be closed.
+        - Keyword Usage:
+        - ``Validate Digital Twin Option Hidden``
+
+        :return: True if hidden, False if visible
+        """
+        if not self._is_digital_twin_option_visible():
+            kwargs['pass_msg'] = "Digital Twin Option is hidden"
+            self.common_validation.passed(**kwargs)
+            return True
+        else:
+            kwargs['fail_msg'] = "Digital Twin Option is visible"
+            self.common_validation.failed(**kwargs)
+            return False
 
     def get_device_model_list(self, device_type="digital_twin", os_persona="SwitchEngine", **kwargs):
         """
