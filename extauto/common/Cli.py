@@ -2633,34 +2633,57 @@ class Cli(object):
             self.commonValidation.failed(**kwargs)
             return False
 
-    def check_ports_existence(self, dut, ports):
+    def check_ports_existence(self, dut, ports, **kwargs):
+        """ Method that verifies if given ports are found on the device.
         
-        output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan')[0].cmd_obj._return_text
-        ports_not_found = []
-        flag = 1
+        Currently this method supports only switches with cli_type - exos.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            ports (str): the ports that will be verified
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
         
-        if dut.platform == 'Stack':
-            for slot in range(1, len(dut.serial.split(',')) + 1):
+        supported_devices = ["EXOS"]
+
+        if dut.cli_type.upper() not in supported_devices:
+            kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
+            self.commonValidation.failed(**kwargs)
+            return -1
+
+        if dut.cli_type.upper() == "EXOS":
+            
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan')[0].cmd_obj._return_text
+
+            ports_not_found = []
+
+            if dut.platform == 'Stack':
+                for slot in range(1, len(dut.serial.split(',')) + 1):
+                    for port in ports.split(','):
+                        if str(slot) + ':' + port not in output:
+                            ports_not_found.append(str(slot) + ':' + port)
+                        else:
+                            self.utils.print_info("Found the port: " + str(slot) + ':' + port)
+            else:
                 for port in ports.split(','):
-                    if str(slot) + ':' + port not in output:
-                        flag = -1
-                        ports_not_found.append(str(slot) + ':' + port)
+                    if port + ' ' not in output:
+                        ports_not_found.append(port)
                     else:
-                        self.utils.print_info("Found the port: " + str(slot) + ':' + port)
-        else:
-            for port in ports.split(','):
-                if port + ' ' not in output:
-                    flag = -1
-                    ports_not_found.append(port)
-                else:
-                    self.utils.print_info("Found the port: " + port)
+                        self.utils.print_info("Found the port: " + port)
 
-        if ports_not_found:
-            self.utils.print_info('The following ports were not found: ')
-            for port_not_found in ports_not_found:
-                self.utils.print_info(port_not_found)
-
-        return flag
+            if ports_not_found:
+                self.utils.print_info('The following ports were not found: ')
+                for port_not_found in ports_not_found:
+                    self.utils.print_info(port_not_found)
+                kwargs["fail_msg"] = f"Did not find these ports: {ports_not_found}"
+                self.commonValidation.failed(**kwargs)
+                return -1
+        
+        kwargs["pass_msg"] = "Successfully found all the ports"
+        self.commonValidation.passed(**kwargs)
+        return 1
 
 
 if __name__ == '__main__':
