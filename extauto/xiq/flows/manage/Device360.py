@@ -21,8 +21,6 @@ from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
 import random
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
-from time import time
-from datetime import datetime
 
 
 class Device360(Device360WebElements):

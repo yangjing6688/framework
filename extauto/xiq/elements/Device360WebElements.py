@@ -1137,22 +1137,6 @@ class Device360WebElements(Device360WebElementDefs):
                 port_list.append(el)
         return port_list
 
-    def get_device360_wireframe_ether_port(self):
-        port_list = []
-        elements = self.weh.get_elements(self.d360_wireframe_ether_port)
-        for el in elements:
-            if el.is_displayed():
-                port_list.append(el)
-        return port_list
-
-    def get_device360_wireframe_sfp28_port(self):
-        port_list = []
-        elements = self.weh.get_elements(self.d360_wireframe_sfp28_port)
-        for el in elements:
-            if el.is_displayed():
-                port_list.append(el)
-        return port_list
-
     def get_device360_automation_port(self):
         port_list = []
         elements = self.weh.get_elements(self.d360_automation_port)
@@ -1181,7 +1165,7 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_create_auto_template_button(self):
         return self.weh.get_element(self.device360_create_auto_template_button)
-
+      
     def get_device360_pagination_next_button(self):
         return self.weh.get_element(self.d360_pagination_next_button)
 
@@ -1533,9 +1517,9 @@ class Device360WebElements(Device360WebElementDefs):
         elif element == "link down retain":
             return self.weh.get_element(self.select_element_port_type_macLock_link_down_retain)
         elif element == "remove aged MACs":
-            return self.weh.get_element(self.select_element_port_type_macLock_remove_aged_MACs)
-
-            # Voice Vlan
+            return self.weh.get_element(self.select_element_port_type_macLock_remove_aged_MACs)     
+            
+        #Voice Vlan
         elif element == "port usage" and value == "phone port":
             return self.weh.get_element(self.select_element_port_type_port_usage_phone)
         elif element == "voice_vlan_add_vlan":
@@ -2028,7 +2012,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_phone_dscp_values_validation_errors(self, validation_message="Please enter a valid number between 0-63"):
         return self.weh.get_template_elements(self.select_element_dscp_values_validation_span,
                                               validation_message=validation_message)
-
     def get_cancel_port_type_editor(self):
         return self.weh.get_element(self.cancel_port_type_editor)
 
@@ -2042,7 +2025,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_phone_dscp_values_validation_errors(self, validation_message="Please enter a valid number between 0-63"):
         return self.weh.get_template_elements(self.select_element_dscp_values_validation_span,
                                               validation_message=validation_message)
-
     def get_device360_voip_port_rows(self):
         return self.weh.get_elements(self.device360_voip_port_rows)
 
@@ -2104,132 +2086,68 @@ class Device360WebElements(Device360WebElementDefs):
     def get_save_and_close_port_type_box(self):
         return self.weh.get_element(self.save_and_close_port_type_box)
 
-    def get_device360_port_settings_and_aggregation_interface_exos_standalone(self, port):
-        port_num = 0
-        try:
-            port_num = int(port)
-        except Exception as e:
-            return False
-        return self.weh.get_template_element(self.device360_port_settings_click_checkbox, port=str(port_num-1))
-
-    def get_device360_configure_port_aggregate_button(self):
-        elements = self.weh.get_elements(self.device360_aggregate_selected_ports_button)
-        for el in elements:
-            if el.is_displayed():
-                return el
-
-    def get_device360_lacp_toggle(self):
-        return self.weh.get_element(self.device360_lacp_toggle)
-
-    def get_device360_lag_cancel_button(self):
-        return self.weh.get_element(self.device360_lag_cancel_button)
-
-    def get_device360_lag_save_button(self):
-        return self.weh.get_element(self.device360_lag_save_button)
-
-    def get_device360_save_port_config(self):
-        return self.weh.get_element(self.device360_save_port_config)
-
-    def get_device360_lacp_label(self, port):
-        return self.weh.get_template_element(self.device360_lacp_label, port=port)
-
-    def get_device360_port_from_aggregation_list(self, port):
-        return self.weh.get_template_element(self.device360_port_from_aggregation_list, port=port)
-
-    def get_device360_aggregate_remove_button(self):
-        return self.weh.get_element(self.device360_aggregate_remove_button)
-
-    def get_device360_aggregate_add_button(self):
-        return self.weh.get_element(self.device360_aggregate_add_button)
-
-    def get_device360_perform_update_button(self):
-        return self.weh.get_element(self.device360_perform_update_button)
-
-    def get_device360_configure_aggregated_port_settings_aggregation_rows(self):
-        return self.weh.get_elements(self.device360_configure_aggregated_port_settings_aggregation_rows)
-
-    def get_device360_port_config_stack_slots_dropdown(self):
-        return self.weh.get_element(self.device360_port_config_stack_slots_dropdown)
-
-    def get_device360_slot_from_dropdown(self, unit):
-        return self.weh.get_template_element(self.device360_slot_from_dropdown, unit=unit)
-
-    def get_device360_aggregate_choose_slot(self, unit):
-        return self.weh.get_template_element(self.device360_aggregate_choose_slot, unit=unit)
-
-    def get_device360_aggregate_available_port(self, port):
-        return self.weh.get_template_element(self.device360_aggregate_available_port, port=port)
-
-    def get_device360_aggregate_selected_port(self, port):
-        return self.weh.get_template_element(self.device360_aggregate_selected_port, port=port)
-
-    def get_device360_stack_slot_vim_ports(self):
-        return self.weh.get_elements(self.device360_stack_slot_vim_ports)
-
-    def get_device360_get_ports_by_type_slot(self, type, slot):
-        return self.weh.get_template_elements(self.device360_get_ports_by_type_slot, type=type, slot=slot)
-
     def get_common_cancel_button(self):
         return self.weh.get_element(self.common_cancel_button)
-
-    def get_device360_stack_slot_sfp_ports(self):
-        return self.weh.get_elements(self.device360_stack_slot_sfp_ports)
 
     def get_device360_port_details_button(self):
         return self.weh.get_element(self.device360_port_details_button)
 
     def get_device360_diagnostics_port(self, port):
+        """
+        :param port: -voss: x/y (Ex: 1/2)
+                     -exos: x (Ex: 1)
+                     -stack: slot:port (Ex: 1:2)
+                     -management: mgmt
+                     -console: console
+        """
         return self.weh.get_template_element(self.device360_diagnostics_select_port, index=port)
 
     def get_device360_monitor_diagnostics_port_details_table(self):
         return self.weh.get_element(self.device360_monitor_diagnostics_port_details_table)
+
+    def get_device360_monitor_diagnostics_port_details_table_empty(self):
+        return self.weh.get_element(self.device360_monitor_diagnostics_port_details_table_empty)
 
     def get_device360_monitor_diagnostics_port_details_table_rows(self):
         return self.weh.get_elements(self.device360_monitor_diagnostics_port_details_table_rows)
 
     def get_device360_monitor_diagnostics_select_all_ports_button(self):
         """
-		:return: 'Select All Ports' button of the Port Diagnostics page in the device360 view
-		"""
+        :return: 'Select All Ports' button of the Port Diagnostics page in the device360 view
+        """
         return self.weh.get_element(self.device360_monitor_diagnostics_select_all_ports_button)
 
     def get_device360_diagnostics_ports_table_scroll(self):
         return self.weh.get_element(self.device360_diagnostics_ports_table_scroll)
 
-    def get_device360_diagnostics_select_all_ports_button(self, index):
+    def get_device360_diagnostics_select_all_ports_button(self):
         """
-		:return: 'Select All Ports' button of the Port Diagnostics page in the device360 view
-		"""
-        return self.weh.get_template_element(self.device360_diagnostics_select_all_ports_button, index=index)
+        :return: 'Select All Ports' button of the Port Diagnostics page in the device360 view
+        """
+        return self.weh.get_element(self.device360_diagnostics_select_all_ports_button)
 
     def get_device360_diagnostics_port_details_actions_button(self):
         """
-		:return: 'Actions' button of the Port Diagnostics page in the device360 view
-		"""
-        return self.weh.get_element(self.device360_diagnostics_port_details_actions_button)
-
-    def get_device360_diagnostics_port_details_actions_button_disabled(self):
+        :return: 'Actions' button of the Port Diagnostics page in the device360 view
         """
-		:return: Disabled 'Actions' button of the Port Diagnostics page in the device360 view
-		"""
-        return self.weh.get_element(self.device360_diagnostics_port_details_actions_button_disabled)
+        return self.weh.get_element(self.device360_diagnostics_port_details_actions_button)
 
     def get_device360_diagnostics_actions_bounce_port_button(self):
         """
-		:return: 'Bounce Port' button under Diagnostics -> Port Details page in the device360 view
-		"""
+        :return: 'Bounce Port' button under Diagnostics -> Port Details page in the device360 view
+        """
         return self.weh.get_element(self.device360_diagnostics_actions_bounce_port_button)
 
     def get_device360_diagnostics_port_details_select_button(self):
         """
-		:return: 'Select' button of the Port Details table in Device360 -> Monitor ->Diagnostics page
-		"""
+        :return: 'Select' button of the Port Details table in Device360 -> Monitor ->Diagnostics page
+        """
         return self.weh.get_element(self.device360_diagnostics_port_details_select_button)
 
     def get_device360_diagnostics_actions_bounce_poe_button(self):
         """
-		:return: 'Bounce Port' button under Diagnostics -> Port Details page in the device360 view
-		"""
+        :return: 'Bounce Port' button under Diagnostics -> Port Details page in the device360 view
+        """
         return self.weh.get_element(self.device360_diagnostics_actions_bounce_poe_button)
 
     def get_device360_diagnostics_wireframe_ports(self):
@@ -2321,4 +2239,3 @@ class Device360WebElements(Device360WebElementDefs):
 		:return: Monitor -> Diagnostics -> Deselect all button
 		"""
         return self.weh.get_template_element(self.device360_diagnostics_deselect_all_button, index=index)
-
