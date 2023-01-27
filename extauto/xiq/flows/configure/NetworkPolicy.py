@@ -5,6 +5,7 @@ import selenium.common.exceptions
 
 from extauto.common.CloudDriver import CloudDriver
 from time import sleep
+import time
 import re
 from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
@@ -2957,3 +2958,11 @@ class NetworkPolicy(object):
             "Failed to navigate to Network Policy Edit Tab"
 
         self.get_switching_tab()
+
+    def generate_policy_name(self):
+        """
+        - This Keyword will generate policy name
+        :return: random policy name
+        """
+        return f"test_policy_{str(time.time())[::-1][:5]}"
+

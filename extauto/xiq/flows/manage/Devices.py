@@ -11,6 +11,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Cli import Cli
 from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.flows.common.Login import Login
@@ -42,6 +43,7 @@ class Devices:
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.common_validation = CommonValidation()
         self.navigator = Navigator()
+        self.cobj_web_elements = CommonObjectsWebElements()
         self.device_actions = DeviceActions()
         self.device_update = DeviceUpdate()
         self.device_common = DeviceCommon()
@@ -651,68 +653,6 @@ class Devices:
             self.utils.print_info("No rows present")
         return -1
 
-    def delete_ap(self, ap_serial=None, ap_name=None, ap_mac=None):
-        """
-        - Assumes that already navigated to manage --> Devices Page
-        - Deletes AP matching either one of serial, name, MAC
-        - Keyword Usage:
-        - ``Delete AP   ap_serial=${AP_SERIAL}``
-        - ``Delete AP   ap_name=${AP_NAME}``
-        - ``Delete AP   ap_mac=${AP_MAC}``
-
-        :param ap_serial: ap serial number
-        :param ap_name: host name of the AP
-        :param ap_mac: ap Mac address
-        :return: 1 if deleted else -1
-        """
-        self.navigator.enable_page_size()
-        if ap_serial:
-            self.utils.print_info("Deleting AP: ", ap_serial)
-            search_result = self.search_ap(ap_serial=ap_serial)
-
-            if search_result:
-                if self.select_ap(ap_serial):
-                    self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
-                    if self.search_ap_serial(ap_serial=ap_serial) == 1:
-                        self.utils.print_info("Unable to find the AP")
-                        return -1
-                    else:
-                        self.utils.print_info("Deleted AP Successfully: ", ap_serial)
-                        return 1
-
-        if ap_name:
-            self.utils.print_info("Deleting AP: ", ap_name)
-            search_result = self.search_ap(ap_name=ap_name)
-
-            if search_result:
-                if self.select_ap(ap_name):
-                    self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
-                    if self.search_ap_name(ap_name=ap_name) == 1:
-                        self.utils.print_info("Unable to find the AP")
-                        return -1
-                    else:
-                        self.utils.print_info("Deleted AP Successfully: ", ap_name)
-                        return 1
-        if ap_mac:
-            self.utils.print_info("Deleting AP: ", ap_mac)
-            search_result = self.search_ap(ap_mac=ap_mac)
-
-            if search_result:
-                if self.select_ap(ap_mac):
-                    self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
-                    if self.search_ap_mac(ap_mac=ap_mac) == 1:
-                        self.utils.print_info("Unable to find the AP")
-                        return -1
-                    else:
-                        self.utils.print_info("Deleted AP Successfully: ", ap_mac)
-                        return 1
-        else:
-            self.utils.print_info("Not Found")
-            return -1
-
     def select_ap(self, ap_serial=None, ap_name=None, ap_mac=None):
         """
         - Selects the AP row marching with AP's Serial Number
@@ -991,34 +931,6 @@ class Devices:
         self.utils.print_info("Device is not Rebooting after update configuration")
         return False
 
-    def delete_aps(self, ap_serials=None, ap_names=None, ap_macs=None):
-        """
-        - Assumes that already navigated to Manage --> Devices
-        - Delete the multiple AP one by one
-        - Keyword Usage:
-        - ``Delete APs   ap_serials=${AP1_SERIAL},${AP2_SERIAL}``
-        - ``Delete APs   ap_serials=${AP1_SERIAL}``
-
-        :param ap_serials: AP serial number
-        :param ap_names: Host name of the AP
-        :param ap_macs: MAC of the AP
-        :return: 1 if deleted else -1
-        """
-        aps = -1
-        self.navigator.enable_page_size()
-        try:
-            aps = ap_serials.split(",")
-            result = -1
-
-            self.utils.print_info("Delete APs: ", aps)
-            for ap in aps:
-                result = self.delete_ap(ap_serial=ap.strip())
-
-            return result
-        except Exception as e:
-            self.utils.print_info("Unable to delete APs: ", aps)
-            self.utils.print_info("Exception: ", e)
-
     def get_device_serial_numbers(self, device_type):
         """
         - gets all existing devices serials with the same device_type
@@ -1067,29 +979,6 @@ class Devices:
             self.utils.print_info(e)
             self.utils.print_info(f"Unable to get Device Serial Numbers with Device Type {device_type}")
             return -1
-
-    def delete_simulated_ap(self, ap_model):
-        """
-        - Deletes Simulated AP from the device grid based on ap model
-        - Keyword Usage:
-        - ``Delete Simulated Aps    ${AP_MODEL}``
-
-        :param ap_model: model of the AP
-        :return: 1 if deleted successfully else -1
-        """
-        self.utils.print_info("Deleting AP: ", ap_model)
-        search_result = self._search_simulated_devices(ap_model)
-
-        if search_result:
-            if self.select_ap(ap_model):
-                self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_delete_confirm_ok_button)
-                if self.search_ap_serial(ap_serial=ap_model) == 1:
-                    self.utils.print_info("Unable to find the AP")
-                    return -1
-                else:
-                    self.utils.print_info("Deleted AP Successfully: ", ap_model)
-                    return 1
 
     def _search_simulated_devices(self, ap_serial):
         """
@@ -2993,6 +2882,11 @@ class Devices:
             kwargs['fail_msg'] = "No valid args passed.  Must be device_serial, device_name, device_mac!"
             self.common_validation.failed(**kwargs)
             return -1
+
+        if self.cobj_web_elements.get_page_size_element():
+            self.auto_actions.click_reference(self.cobj_web_elements.get_page_size_element)
+            self.screen.save_screen_shot()
+            sleep(5)
 
         # Printing all the rows in the table for troubleshooting
         rows = self.devices_web_elements.get_grid_rows()
@@ -4912,7 +4806,7 @@ class Devices:
             yes_btn = self.devices_web_elements.get_global_settings_management_dialog_yes_button()
             if yes_btn:
                 self.utils.print_info("Clicking 'Yes' in the account credential managed by global setting pop-up dialog")
-                self.auto_actions.click(yes_btn)
+                self.auto_actions.click_reference(self.devices_web_elements.get_global_settings_management_dialog_yes_button)
             else:
                 self.utils.print_info("Unable to find the Yes button in the account credential managed by global setting pop-up dialog")
                 ret_val = -1
@@ -7223,6 +7117,7 @@ class Devices:
             return -1
         return 1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def quick_onboarding_locally_manual(self, device_sn, device_make):
         '''
         This keyword on boards your devices locally by using new onboarding flow
@@ -7353,6 +7248,7 @@ class Devices:
             return -1
         return 1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def quick_onboarding_locally_csv(self, device_make, csv_location):
         """
         This keyword on boards your devices locally by using new onboarding flow
@@ -9693,7 +9589,9 @@ class Devices:
         except Exception as e:
             return -1
 
-    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true", performUpgrade="true", saveDefault="false", updateTo="latest", updatefromD360Page="false", retry_duration=30,retry_count=1200):
+    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true",
+                                       performUpgrade="true", saveDefault="false", updateTo="latest",
+                                       updatefromD360Page="false", retry_duration=30,retry_count=1200):
         """
         - This method update device to latest version or to a specific version from the dropdown
         - This method needs import datetime as dt
@@ -10647,6 +10545,7 @@ class Devices:
                 return -1
         return -1
 
+    @deprecated("Please use onboard_device_quick(...)")
     def onboarding_stack_per_unit(self, serial_numbers_list, device_os, location):
         """
         This functions onboard serials one by one
@@ -11624,8 +11523,10 @@ class Devices:
         :return: 1 if the cloning process is done else -1
         """
         self.utils.print_info("Navigate to Manage-->Devices")
+
         def _navigate_to_devices():
             return self.navigator.navigate_to_devices()
+
         self.utils.wait_till(_navigate_to_devices)
         select_flag = False
         if device_serial:
@@ -11698,6 +11599,7 @@ class Devices:
                     print("Still loading configuration")
                 else:
                     return 1
+
             self.utils.wait_till(_loading_clone, exp_func_resp=1)
 
             warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
@@ -11750,7 +11652,8 @@ class Devices:
                     pass
                 return 1
             else:
-                self.utils.print_info("The device clone has been successfully completed, but the device cannot be updated at this time as it's disconnected or in the unmanaged state.")
+                self.utils.print_info(
+                    "The device clone has been successfully completed, but the device cannot be updated at this time as it's disconnected or in the unmanaged state.")
                 cancel_button = self.device_actions.get_cancel_button()
                 self.utils.print_info("Closing the Clone window")
                 self.screen.save_screen_shot()
@@ -11759,6 +11662,410 @@ class Devices:
         else:
             self.utils.print_info("No clone device button from Actions found")
             self.screen.save_screen_shot()
+            return -1
+
+    def clone_device_quick_onboard(self, device_serial, replacement_device_type, replacement_serial,
+                                   perform_update=False, option="disable", continue_if_replacement_disconnected=False,
+                                   **kwargs):
+        """
+        - This Keyword clones (Actions -> Clone Device) a single Switch Engine or Fabric Engine switch using device
+        level config to another same type SKU switch.
+        :param device_serial: Select the device (first device) that you want to clone the configuration for
+                              the replacement device (second device)
+        :param replacement_device_type: Select the type option for replacement device in Cloning process
+                                        ('Onboarded', 'Quick Onboard')
+        :param replacement_serial: The serial number for replacement device
+        :param perform_update: if True, the config cloned will be pushed to device. By default is false.
+        :param option: "enable"/"disable" the checkbox for reboot and rollback the configuration if the IQagent loses
+                        connectivity during updating the configuration. Used only if perform_update=True.
+                        By default is "disable"
+        :param continue_if_replacement_disconnected: if True, if the replacement does not connect within 40 sec to
+                                                    cloud, cloning process will continue
+                                                    if False, if the replacement does not connect within 40 sec to
+                                                    cloud, cloning process will not continue and return -1
+                                                    By default is False
+        :return: 1 if the cloning process is done else -1
+        """
+
+        self.utils.print_info("Navigate to Manage-->Devices")
+        def _navigate_to_devices():
+            return self.navigator.navigate_to_devices()
+        self.utils.wait_till(_navigate_to_devices)
+        select_flag = False
+        if device_serial:
+            self.select_device(device_serial)
+            select_flag = True
+        else:
+            self.utils.print_info("Device is not there")
+            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Device is not there"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        if select_flag:
+            self.utils.print_info("Selecting Actions button")
+            self.auto_actions.click(self.device_actions.get_device_actions_button())
+
+        clone_device = self.device_actions.get_clone_device_btn()
+
+        if clone_device:
+            self.utils.print_info("Select Clone device")
+            self.auto_actions.click(clone_device)
+            replacement_device_dropdown = self.device_actions.get_replacement_device_dropdown()
+            if replacement_device_dropdown:
+                self.utils.print_info("Select replacement device drop down")
+                self.auto_actions.click(replacement_device_dropdown)
+                replacement_device_items = self.device_actions.get_replacement_device_items()
+                self.utils.print_info(f"Select {replacement_device_type} option")
+                if self.auto_actions.select_drop_down_options(replacement_device_items, replacement_device_type):
+                    pass
+                else:
+                    self.utils.print_info(f"No {replacement_device_type} option selected")
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"No {replacement_device_type} option selected"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+            else:
+                self.utils.print_info("No replacement device option found")
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "No replacement device option found"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            if replacement_device_type == "Onboarded":
+                replacement_serial_number_dropdown = self.device_actions.get_replacement_serial_number_dropdown()
+                if replacement_serial_number_dropdown:
+                    self.utils.print_info("Select Replacement serial number")
+                    self.auto_actions.click(replacement_serial_number_dropdown)
+                    replacement_serial_number_items = self.device_actions.get_replacement_serial_number_items()
+                    self.utils.print_info(f"Select {replacement_serial} serial number")
+                    if self.auto_actions.select_drop_down_options(replacement_serial_number_items, replacement_serial):
+                        pass
+                    else:
+                        self.utils.print_info(f"No {replacement_serial} serial selected")
+                        self.screen.save_screen_shot()
+                        kwargs['fail_msg'] = f"No {replacement_serial} serial selected"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+                else:
+                    self.utils.print_info("No replacement serial number option found")
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "No replacement serial number option found"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                clone_button = self.device_actions.get_clone_button()
+                if clone_button:
+                    self.utils.print_info("Select Clone button")
+                    self.auto_actions.click(clone_button)
+
+                    clone_inform_window = self.device_actions.get_clone_inform_window()
+                    if clone_inform_window:
+                        yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
+                        if yes_confirmation_button:
+                            self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
+                            self.auto_actions.click(yes_confirmation_button)
+                        else:
+                            self.utils.print_info(f"No confirm message buttons found")
+                            self.screen.save_screen_shot()
+                            kwargs['fail_msg'] = "No confirm message buttons found"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                    self.utils.wait_till()
+
+
+                warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
+                if warning_message_disconnected:
+                    if 'disconnected or in the unmanaged state' not in warning_message_disconnected.text:
+                        if perform_update:
+                            self.utils.print_info("Performing Update")
+                            self.utils.print_info("Select the network policy and configuration checkbox")
+                            update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
+                            reboot_rollback_check = self.devices_web_elements.get_devices_switch_update_reboot_rollback()
+                            sleep(3)
+                            if update_cb:
+                                if update_cb.is_selected():
+                                    self.utils.print_info("Network policy and configuration checkbox is already selected")
+                                    sleep(2)
+                                else:
+                                    self.utils.print_info("Clicking network policy and configuration checkbox")
+                                    self.auto_actions.click(update_cb)
+                                    sleep(2)
+                            else:
+                                self.utils.print_info("Network policy and configuration checkbox not found")
+                                kwargs['fail_msg'] = "Network policy and configuration checkbox not found"
+                                self.common_validation.failed(**kwargs)
+                                return -1
+
+                            if reboot_rollback_check:
+                                if option.lower() == "enable":
+                                    if not reboot_rollback_check.is_selected():
+                                        self.utils.print_info("Check reboot and revert switch configuration option")
+                                        self.auto_actions.click(reboot_rollback_check)
+                                        self.utils.wait_till(timeout=2)
+
+                                    else:
+                                        self.utils.print_info("Reboot/revert already checked")
+                                if option.lower() == "disable":
+                                    if not reboot_rollback_check.is_selected():
+                                        self.utils.print_info("Reboot/revert option already unchecked")
+                                        self.utils.wait_till(timeout=2)
+
+                                    else:
+                                        self.utils.print_info("Uncheck reboot and revert switch configuration option")
+                                        self.auto_actions.click(reboot_rollback_check)
+                                        self.utils.wait_till(timeout=2)
+
+                            else:
+                                self.utils.print_info("Reboot and revert switch configuration checkbox not found")
+                                kwargs['fail_msg'] = "Reboot and revert switch configuration checkbox not found"
+                                self.common_validation.failed(**kwargs)
+                                return -1
+
+                            self.utils.print_info("Click on perform update button")
+                            self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
+                            self.utils.wait_till(timeout=3)
+
+                            if option.lower() == "enable":
+                                self.utils.print_info("Proceed yes that user wants to continue with reboot/revert option")
+                                self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+                                self.utils.wait_till(timeout=2)
+
+                            else:
+                                pass
+                            kwargs['pass_msg'] = "Clone successful"
+                            self.common_validation.passed(**kwargs)
+                            return 1
+                        else:
+
+                            close_button = self.device_actions.get_close_button()
+                            self.utils.print_info("Closing the Clone window")
+                            self.screen.save_screen_shot()
+                            self.auto_actions.click(close_button)
+                            self.utils.print_info("Navigate to Manage-->Devices")
+
+                            def _navigate_to_devices():
+                                return self.navigator.navigate_to_devices()
+
+                            self.utils.wait_till(_navigate_to_devices)
+                            kwargs['pass_msg'] = "Clone successful"
+                            self.common_validation.passed(**kwargs)
+                            return -1
+
+                    else:
+                        self.utils.print_info(
+                            "The device clone has been successfully completed, but the device cannot be updated at this "
+                            "time as it's disconnected or in the unmanaged state.")
+                        cancel_button = self.device_actions.get_cancel_button()
+                        if cancel_button:
+
+                            self.utils.print_info("Closing the Device Update window")
+                            self.screen.save_screen_shot()
+                            self.auto_actions.click(cancel_button)
+
+                        else:
+                            self.utils.print_info("No Close button found")
+                            kwargs['fail_msg'] = "No Close button found"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        self.utils.print_info("Navigate to Manage-->Devices")
+
+                        def _navigate_to_devices():
+                            return self.navigator.navigate_to_devices()
+
+                        self.utils.wait_till(_navigate_to_devices)
+                        kwargs['pass_msg'] = "Clone successful"
+                        self.common_validation.passed(**kwargs)
+
+
+            elif replacement_device_type == "Quick Onboard":
+                replacement_serial_number_field = self.device_actions.get_replacement_serial_number_field()
+                if replacement_serial_number_field:
+                    self.utils.print_info("Entering  Replacement Serial Number...")
+                    self.auto_actions.send_keys(replacement_serial_number_field, replacement_serial)
+                    self.utils.print_info(f"Entering {replacement_serial} SN")
+                else:
+                    self.utils.print_info("No replacement serial number field found")
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "No replacement serial number field found"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                clone_button = self.device_actions.get_clone_button_quick_onboard()
+                if clone_button:
+                    self.utils.print_info("Select Clone button")
+                    self.auto_actions.click(clone_button)
+
+                    self.utils.wait_till(timeout=55, delay=10)
+
+                    warning_replacement_different_type = self.device_actions.get_warning_replacement_different_type()
+                    if warning_replacement_different_type:
+                        self.screen.save_screen_shot()
+                        x_button_clone_window = self.device_actions.get_x_button_clone_window()
+                        self.auto_actions.click(x_button_clone_window)
+                        self.utils.print_info("Navigate to Manage-->Devices")
+
+                        self.utils.print_info("Original Device Product type and Replacement Device Product Type does not match. Cannot proceed with Device Cloning.")
+                        kwargs['fail_msg'] = "Original Device Product type and Replacement Device Product Type does not match. Cannot proceed with Device Cloning."
+                        self.common_validation.failed(**kwargs)
+                        return -1
+                    else:
+                        pass
+
+                    clone_inform_window_replacement_not_connected = self.device_actions.\
+                        get_clone_inform_window_replacement_not_connected()
+                    if clone_inform_window_replacement_not_connected:
+                        if continue_if_replacement_disconnected:
+                            yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
+                            if yes_confirmation_button:
+                                self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
+                                self.auto_actions.click(yes_confirmation_button)
+                            else:
+                                self.utils.print_info(f"No confirm message buttons found")
+                                self.screen.save_screen_shot()
+                                kwargs['fail_msg'] = "No confirm message buttons found"
+                                self.common_validation.failed(**kwargs)
+                                return -1
+                        else:
+                            no_confirmation_button = self.device_actions.get_no_confirmation_button()
+                            if no_confirmation_button:
+                                self.utils.print_info(f"Select No to clone {replacement_serial} serial, "
+                                                      f"because doesn't connect in time")
+                                self.auto_actions.click(no_confirmation_button)
+                                self.utils.wait_till()
+                                self.utils.print_info("Clonning process unsuccessful. Replacement device doesn't connect in time and process has been aborted.")
+                                kwargs['fail_msg'] = "Clonning process unsuccessful. Replacement device doesn't connect in time and process has been aborted."
+                                self.common_validation.failed(**kwargs)
+                                return -1
+                            else:
+                                self.utils.print_info(f"No confirm message buttons found")
+                                self.screen.save_screen_shot()
+                                kwargs['fail_msg'] = "No confirm message buttons found"
+                                self.common_validation.failed(**kwargs)
+                                return -1
+                    else:
+                        clone_inform_window = self.device_actions.get_clone_inform_window()
+                        if clone_inform_window:
+                            yes_confirmation_button = self.device_actions.get_yes_confirmation_button()
+
+                            if yes_confirmation_button:
+                                self.utils.print_info(f"Select yes to clone {replacement_serial} serial")
+                                self.auto_actions.click(yes_confirmation_button)
+                            else:
+                                self.utils.print_info(f"No confirm message buttons found")
+                                self.screen.save_screen_shot()
+                                kwargs['fail_msg'] = "No confirm message buttons found"
+                                self.common_validation.failed(**kwargs)
+                                return -1
+                        else:
+                            pass
+                else:
+                    self.utils.print_info(f"No clone button found")
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "No clone button found"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                if perform_update:
+                    self.utils.print_info("Performing Update")
+                    self.utils.print_info("Select the network policy and configuration checkbox")
+                    update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
+                    reboot_rollback_check = self.devices_web_elements.get_devices_switch_update_reboot_rollback()
+                    self.utils.wait_till(timeout=3)
+
+                    if update_cb:
+                        if update_cb.is_selected():
+                            self.utils.print_info("Network policy and configuration checkbox is already selected")
+                            self.utils.wait_till(timeout=2)
+
+                        else:
+                            self.utils.print_info("Clicking network policy and configuration checkbox")
+                            self.auto_actions.click(update_cb)
+                            self.utils.wait_till(timeout=2)
+
+                    else:
+                        self.utils.print_info("Network policy and configuration checkbox not found")
+                        kwargs['fail_msg'] = "Network policy and configuration checkbox not found"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    if reboot_rollback_check:
+                        if option.lower() == "enable":
+                            if not reboot_rollback_check.is_selected():
+                                self.utils.print_info("Check reboot and revert switch configuration option")
+                                self.auto_actions.click(reboot_rollback_check)
+                                self.utils.wait_till(timeout=2)
+
+                            else:
+                                self.utils.print_info("Reboot/revert already checked")
+                        if option.lower() == "disable":
+                            if not reboot_rollback_check.is_selected():
+                                self.utils.print_info("Reboot/revert option already unchecked")
+                                self.utils.wait_till(timeout=2)
+
+                            else:
+                                self.utils.print_info("Uncheck reboot and revert switch configuration option")
+                                self.auto_actions.click(reboot_rollback_check)
+                                self.utils.wait_till(timeout=2)
+
+                    else:
+                        self.utils.print_info("Reboot and revert switch configuration checkbox not found")
+                        kwargs['fail_msg'] = "Reboot and revert switch configuration checkbox not found"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    self.utils.print_info("Click on perform update button")
+                    self.auto_actions.click(self.devices_web_elements.get_devices_switch_update_btn())
+                    self.utils.wait_till(timeout=3)
+
+                    if option.lower() == "enable":
+                        self.utils.print_info("Proceed yes that user wants to continue with reboot/revert option")
+                        self.auto_actions.click(self.devices_web_elements.get_devices_update_yes_btn())
+                        self.utils.wait_till(timeout=2)
+
+                    else:
+                        pass
+                    kwargs['pass_msg'] = "Clone successful"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+
+                else:
+                    self.utils.wait_till()
+                    close_button = self.device_actions.get_close_button()
+                    if close_button:
+
+                        self.utils.print_info("Closing the Device Update window")
+                        self.screen.save_screen_shot()
+                        self.auto_actions.click(close_button)
+                        kwargs['pass_msg'] = "Clone successful"
+                        self.common_validation.passed(**kwargs)
+                    else:
+                        self.utils.print_info("No Close button found")
+                        kwargs['fail_msg'] = "No Close button found"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    self.utils.print_info("Navigate to Manage-->Devices")
+                    def _navigate_to_devices():
+                        return self.navigator.navigate_to_devices()
+
+                    self.utils.wait_till(_navigate_to_devices)
+                    self.refresh_devices_page()
+
+            else:
+                self.utils.print_info("No replacement type was selected")
+                kwargs['fail_msg'] = "No replacement type was selected"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+
+        else:
+            self.utils.print_info("No clone device button from Actions found")
+            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "No clone device button from Actions found"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def confirm_not_enough_copilot_licenses_message_displayed(self):
