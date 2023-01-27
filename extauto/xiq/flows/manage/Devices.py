@@ -11601,7 +11601,7 @@ class Devices:
                     loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
                 return 1
             self.utils.wait_till(_loading_clone, exp_func_resp=1)
-
+            sleep(10)
             warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
             sleep(10)
             if not warning_message_disconnected:
