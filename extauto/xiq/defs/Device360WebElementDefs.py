@@ -3640,3 +3640,80 @@ class Device360WebElementDefs:
             'XPATH': '//a[@data-automation-tag="automation-diagnostics-port-details-actions-bounce-poe"]',
             'wait_for': 5
         }
+    device360_diagnostics_wireframe_port = \
+        {
+            'XPATH': '(//div[@data-dojo-attach-point="diagnostics"]//div[@data-dojo-attach-point="portEl"])[$index]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_bounce_port_message = \
+        {
+            'XPATH': '//div[contains(@class, "ui-tipbox-success")]//h3[@data-dojo-attach-point="textEl"]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_ah_icons = \
+        {
+            "XPATH": '//div[@data-dojo-attach-point="diagnostics"]//li/div[contains(@class,"AH-ports-icons")][@data-index="${index}"]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_current_unit = \
+        {
+            "XPATH": '//div[@data-automation-tag="diagnostics-stack-member-chooser-area-with-container"]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_dropdown_unit = \
+        {
+            "XPATH": '(//div[@data-automation-tag="diagnostics-stack-member-chooser-area-with-container"]//li[contains(@data-automation-tag,"Unit")])[$index]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_error_message = \
+        {
+            "XPATH": '//div[contains(@class, "ui-tipbox-error")]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_actions_clear_mac_locking = \
+        {
+            "XPATH": '//a[@data-automation-tag="automation-diagnostics-port-details-actions-clear-MAC-locking"]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_port_details_port_status = \
+        {
+            "XPATH": '(//div[@data-dojo-attach-point="gridDiagnostics"]//table[@class="dgrid-row-table"]//td[contains(@class, "dgrid-column-5")])[$index]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_port_details_refresh_button = \
+        {
+            "XPATH": '//div[@data-dojo-attach-point="deviceEntityCtn"]//div[@class="entity-page-actions"]//div[@data-dojo-attach-point="pageRefresh"]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_actions_enable_port_button = \
+        {
+            "XPATH": '//a[@data-automation-tag="automation-diagnostics-port-details-actions-enable-port"]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_bounce_port_error_message = \
+        {
+            'XPATH': '//div[contains(@class, "ui-tipbox-error")]//h3[@data-dojo-attach-point="textEl"]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_port_details_port_name = \
+        {
+            "XPATH": '(//div[@data-dojo-attach-point="gridDiagnostics"]//table[@class="dgrid-row-table"]//td[contains(@class,"ifName")])[$index]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_deselect_all_button = \
+        {
+            "XPATH": '(//div[@class="device-diagnostics"]//button[@data-dojo-attach-point="deselectAllButton"])[$index]',
+            'wait_for': 5
+        }
