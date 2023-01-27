@@ -1137,23 +1137,23 @@ class Device360WebElements(Device360WebElementDefs):
                 port_list.append(el)
         return port_list
 
-        def get_device360_wireframe_ether_port(self):
-            port_list = []
-            elements = self.weh.get_elements(self.d360_wireframe_ether_port)
-            for el in elements:
-                if el.is_displayed():
-                    port_list.append(el)
-            return port_list
+    def get_device360_wireframe_ether_port(self):
+        port_list = []
+        elements = self.weh.get_elements(self.d360_wireframe_ether_port)
+        for el in elements:
+            if el.is_displayed():
+                port_list.append(el)
+        return port_list
 
-        def get_device360_wireframe_sfp28_port(self):
-            port_list = []
-            elements = self.weh.get_elements(self.d360_wireframe_sfp28_port)
-            for el in elements:
-                if el.is_displayed():
-                    port_list.append(el)
-            return port_list
+    def get_device360_wireframe_sfp28_port(self):
+        port_list = []
+        elements = self.weh.get_elements(self.d360_wireframe_sfp28_port)
+        for el in elements:
+            if el.is_displayed():
+                port_list.append(el)
+        return port_list
 
-        def get_device360_automation_port(self):
+    def get_device360_automation_port(self):
         port_list = []
         elements = self.weh.get_elements(self.d360_automation_port)
         for el in elements:
@@ -2111,7 +2111,7 @@ class Device360WebElements(Device360WebElementDefs):
             port_num = int(port)
         except Exception as e:
             return False
-        return self.weh.get_template_element(self.device360_port_settings_click_checkbox, port=str(port_num - 1))
+        return self.weh.get_template_element(self.device360_port_settings_click_checkbox, port=str(port_num-1))
 
     def get_device360_configure_port_aggregate_button(self):
         elements = self.weh.get_elements(self.device360_aggregate_selected_ports_button)
