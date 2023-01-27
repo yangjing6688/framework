@@ -4011,8 +4011,14 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    device360_diagnostics_deselect_all_button = \
+    device360_diagnostics_port_table_select_checkbox= \
         {
-            "XPATH": '(//div[@class="device-diagnostics"]//button[@data-dojo-attach-point="deselectAllButton"])[$index]',
+            "XPATH": '(//div[@data-dojo-attach-point="gridDiagnostics"]//input[@type="checkbox"])[$index]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_port_details_actions_button_disabled = \
+        {
+            "XPATH": '//div[@data-automation-tag="automation-diagnostics-port-details-actions"]//button[contains(@class, "btn-disabled")]',
             'wait_for': 5
         }

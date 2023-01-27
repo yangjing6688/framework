@@ -15281,7 +15281,7 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = f"Can't find Port Details table"
             self.common_validation.failed(**kwargs)
 
-    def click_device360_diagnostics_select_all_ports(self, index = 1, **kwargs):
+    def click_device360_diagnostics_select_all_ports(self, **kwargs):
         """
         - This keyword clicks the 'Select All Ports' button on the Port Diagnostics page in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
@@ -15289,7 +15289,7 @@ class Device360(Device360WebElements):
         - ``Device360 Port Diagnostics Select All Ports``
         :return: 1 if button was clicked, else -1
         """
-        sel_btn = self.get_device360_diagnostics_select_all_ports_button(index)
+        sel_btn = self.get_device360_diagnostics_select_all_ports_button()
         if sel_btn:
             kwargs['pass_msg'] = f"Clicking 'Select All Ports' button"
             self.auto_actions.click(sel_btn)
@@ -15401,18 +15401,18 @@ class Device360(Device360WebElements):
         - The list is updated as ports are enabled/bounced one by one so this function waits for the success message
         to be generated for all ports
         """
-        start_time = int(time())
+        start_time = int(time.time())
         message  = self.get_device360_diagnostics_bounce_port_message()
 
         while message is None:
-            if (int(time()) - start_time) < max_wait:
+            if (int(time.time()) - start_time) < max_wait:
                 message = self.get_device360_diagnostics_bounce_port_message()
                 self.utils.wait_till(delay=1)
             else:
                 kwargs['fail_msg'] = f"Message not displayed"
                 return None
         temp_message = message
-        while temp_message and (int(time()) - start_time) < max_wait:
+        while temp_message and (int(time.time()) - start_time) < max_wait:
             temp_message = self.get_device360_diagnostics_bounce_port_message()
             if temp_message is None:
                 break
