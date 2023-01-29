@@ -1,10 +1,10 @@
-extauto.xiqse.flows.wireless.threats package
+XIQSE Flows Wireless Threats Keywords
 ============================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.wireless.threats.XIQSE\_WirelessThreats module
+XIQSE\_WirelessThreats module
 ------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.wireless.threats.XIQSE_WirelessThreats

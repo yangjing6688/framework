@@ -1,4 +1,4 @@
-extauto.xiqse.flows.network.dashboard package
+XIQSE Flows Network Dashboard Keywords
 =============================================
 
 Module contents

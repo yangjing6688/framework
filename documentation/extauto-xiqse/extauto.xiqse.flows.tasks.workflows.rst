@@ -1,4 +1,4 @@
-extauto.xiqse.flows.tasks.workflows package
+XIQSE Flows Tasks Workflows Keywords
 ===========================================
 
 Module contents

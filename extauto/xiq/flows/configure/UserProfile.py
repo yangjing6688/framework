@@ -117,7 +117,7 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
             for vlan_row in vlan_rows:
                 if vlanid.lower() == vlan_row.text.lower():
                     self.utils.print_info("Select a classification rule href.")
-                    self.auto_actions.click(self.get_user_profile_vlan_row_href(vlan_row))
+                    self.auto_actions.click(self.get_user_profile_vlan_row_select_rule_href(vlan_row))
 
                     if rule_rows := self.get_user_profile_vlan_row_rule_rows():
                         for rule_row in rule_rows:
@@ -176,7 +176,7 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def apply_different_user_profile_to_various_clients(self, ssidName, **userprofile):
+    def apply_different_user_profile_to_various_clients(self, ssidName, userprofile, **kwargs):
         """
         - Add user profile, and VLAN with assignment rules to exist ssid name and exist assignment rules
         - Flow: Configure --> Common Objects --> SSIDs
@@ -193,14 +193,14 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
         assignRule  = userprofile.get('assignment_rule', 'None')
 
         if profileName == None and vlanName == None and vlanId == None and assignRule == None:
-            userprofile['fail_msg'] = 'Missing one of paramenters info. in dictionary: dict{profile_name, vlan_name, vlan_id, assignment_rule}'
-            self.common_validation.failed(**userprofile)
+            kwargs['fail_msg'] = 'Missing one of paramenters info. in dictionary: dict{profile_name, vlan_name, vlan_id, dict{assignment_rule}}'
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.navigator.navigate_to_ssids()
-        if self.get_paze_size_element():
+        if self.get_page_size_element():
             self.utils.print_info("Click on full page view")
-            self.auto_actions.click_reference(self.get_paze_size_element)
+            self.auto_actions.click_reference(self.get_page_size_element)
             sleep(3)
 
         if rows := self.get_common_object_grid_rows():
@@ -215,9 +215,9 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
                         self.auto_actions.click_reference(self.get_common_object_edit_button)
                         sleep(2)
                         if not self._edit_ssid_to_apply_different_user_profile(profileName, vlanName, vlanId, assignRule):
-                            userprofile['fail_msg'] = "Unable edit VLAN"
+                            kwargs['fail_msg'] = "Unable edit VLAN"
                             self.screen.save_screen_shot()
-                            self.common_validation.failed(**userprofile)
+                            self.common_validation.failed(**kwargs)
                             return -1
 
                         sleep(2)
@@ -229,31 +229,31 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
                         if 'SSID was saved successfully.' in tool_tp_text:
                             sleep(3)
                             tool_tip.tool_tip_text = []
-                            userprofile['pass_msg'] = "SSID was saved successfully."
-                            self.common_validation.passed(**userprofile)
+                            kwargs['pass_msg'] = "SSID was saved successfully."
+                            self.common_validation.passed(**kwargs)
                             return 1
                         else:
-                            userprofile['fail_msg'] = "Unable to save SSID"
+                            kwargs['fail_msg'] = "Unable to save SSID"
                             self.screen.save_screen_shot()
-                            self.common_validation.failed(**userprofile)
+                            self.common_validation.failed(**kwargs)
                             return -1
-            userprofile['fail_msg'] = "SSID name " + ssidName + " was NOT found."
+            kwargs['fail_msg'] = "SSID name " + ssidName + " was NOT found."
             self.screen.save_screen_shot()
-            self.common_validation.failed(**userprofile)
+            self.common_validation.failed(**kwargs)
             return -1
         else:
-            userprofile['fail_msg'] = "Unable to gather SSID."
+            kwargs['fail_msg'] = "Unable to gather SSID."
             self.screen.save_screen_shot()
-            self.common_validation.failed(**userprofile)
+            self.common_validation.failed(**kwargs)
             return -1
 
     def _edit_ssid_to_apply_different_user_profile(self, profileName, vlanName, vlanId, assignRule, **kwargs):
         """
         - This local keyword edit exist ssid to 'Apply a different user profile to various clients and user groups' checkbox
-        :param profileName: VLAN ID
-        :param vlanName: Classification Rule Name
-        :param profileName: VLAN ID
-        :param vlanName: Classification Rule Name
+        :param profileName: Profile Name
+        :param vlanName: VLAN Name
+        :param vlanId: VLAN ID
+        :param assignRule: Dict Assignment rule definition
         :return: 1 if success else -1
         """
         if not self.get_apply_different_user_profile_to_various_clients_chkbx().is_selected():
@@ -291,27 +291,7 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
         if vlan_rows := self.get_different_user_profile_vlan_rows():
             for vlan_row in vlan_rows:
                 if profileName in vlan_row.text or vlanName in vlan_row.text:
-                    self.utils.print_info("Select a user profile assignment rule.")
-                    self.auto_actions.click(self.get_user_profile_vlan_row_href(vlan_row))
-                    if rule_rows := self.get_user_profile_vlan_rows():
-                        for rule_row in rule_rows:
-                            if assignRule in rule_row.text:
-                                self.utils.print_info("Select a assignment rule name: ", assignRule)
-                                self.auto_actions.click(self.get_different_user_profile_vlan_rule_optbox(rule_row))
-                                self.screen.save_screen_shot()
-                                self.utils.print_info("Click classification rules link button.")
-                                self.auto_actions.click_reference(self.get_user_profile_vlan_row_rule_link_btn)
-                                return 1
-
-                        kwargs['fail_msg'] = "Assigment Rule " + assignRule + " was NOT found."
-                        self.screen.save_screen_shot()
-                        self.common_validation.failed(**kwargs)
-                        return -1
-                    else:
-                        kwargs['fail_msg'] = "Unable to gather Assignment Rules."
-                        self.screen.save_screen_shot()
-                        self.common_validation.failed(**kwargs)
-                        return -1
+                    return self._add_select_assignment_rule(vlan_row, assignRule)
 
             kwargs['fail_msg'] = "User Profile " + profileName + " was NOT found."
             self.screen.save_screen_shot()
@@ -322,3 +302,95 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
+
+    def _add_select_assignment_rule(self, vlanRow, assignRule, **kwargs):
+        """
+        - This local keyword to add or select exist Assignment Rule.
+        :param vlanRow: VLAN row
+        :param assignRule: Dict Assignment rule definition
+        :return: 1 if success else -1
+        """
+        name    = assignRule.get('name'       , 'None')
+        disc    = assignRule.get('description', 'None')
+        addRule = assignRule.get('add_rule'   , 'None')
+        usrGrp  = assignRule.get('user_group' , 'None')
+        OSType  = assignRule.get('os_type'    , 'None')
+
+        self.utils.print_info("Click selection rule in assignment rules.")
+        self.auto_actions.click(self.get_user_profile_vlan_row_select_rule_href(vlanRow))
+        if rule_rows := self.get_user_profile_vlan_rows():
+            for rule_row in rule_rows:
+                if name in rule_row.text:
+                    self.utils.print_info("Select a assignment rule name: ", name)
+                    self.auto_actions.click(self.get_different_user_profile_vlan_rule_optbox(rule_row))
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("Click classification rules popup link button.")
+                    self.auto_actions.click_reference(self.get_user_profile_vlan_row_rule_link_btn)
+                    return 1
+
+        self.utils.print_info("Click classification rules popup cancel button.")
+        self.auto_actions.click_reference(self.get_user_profile_vlan_row_rule_link_btn)
+        self.utils.print_info("Click add(+) in assignment rules.")
+        self.auto_actions.click(self.get_user_profile_vlan_row_add_rule_href(vlanRow))
+        self.utils.print_info("Enter user profile assignmanet name: ", name)
+        self.auto_actions.send_keys(self.get_user_profile_assignment_name(), name)
+        self.utils.print_info("Enter user profile assignmanet discription: ", disc)
+        self.auto_actions.send_keys(self.get_user_profile_assignment_description(), disc)
+
+        addrules = [x.strip() for x in addRule.split(',')]
+        self.utils.print_info(str(addrules))
+        for addrule in addrules:
+            self.utils.print_info("Click add(+).")
+            self.auto_actions.click_reference(self.get_user_profile_assignment_add_assignment_rule)
+            self.utils.print_info("Click ", addrule)
+            if   addrule.lower() == 'Advanced Guest Policy':
+                # Please add your code
+                pass
+            elif addrule.lower() == 'user group':
+                usrsgrps = [x.strip() for x in usrGrp.split(',')]
+                self.utils.print_info(str(usrsgrps))
+                self.auto_actions.click_reference(self.get_user_profile_assignment_add_user_group)
+                if rows := self.get_user_profile_assignment_add_user_group_rows():
+                    for usrgrp in usrsgrps:
+                        for row in rows:
+                            if usrgrp in row.text:
+                                self.utils.print_info(f"Click \"{row.text}\" checkbox user group name.")
+                                self.auto_actions.click(row)
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("Click Select button.")
+                    self.auto_actions.click_reference(self.get_user_profile_assignment_add_assignment_rule_select_btn)
+            elif addrule.lower() == 'client os type':
+                OSTypes = [x.strip() for x in OSType.split(',')]
+                self.utils.print_info(str(OSTypes))
+                self.auto_actions.click_reference(self.get_user_profile_assignment_add_client_os_type)
+                if rows := self.get_user_profile_assignment_add_client_os_type_rows():
+                    for os in OSTypes:
+                        for row in rows:
+                            if os in row.text:
+                                self.utils.print_info(f"Click \"{row.text}\" checkbox OS type.")
+                                self.auto_actions.click(self.get_user_profile_assignment_add_client_os_type_checked_row(row))
+                                break
+                    self.screen.save_screen_shot()
+                    self.utils.print_info("Click Select button.")
+                    self.auto_actions.click_reference(self.get_user_profile_assignment_add_assignment_rule_select_btn)
+            elif addrule.lower() == 'Client MAC Address':
+                # Please add your code
+                pass
+            elif addrule.lower() == 'Client Location':
+                # Please add your code
+                pass
+            elif addrule.lower() == 'Schedule':
+                # Please add your code
+                pass
+            else:
+                kwargs['fail_msg'] = 'User Profile Assignment \"addd_rule=User Group, Client OS Type, Client Location, or etc....\" was NOT found.'
+                self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
+                return -1
+
+        self.screen.save_screen_shot()
+        self.utils.print_info("Click Save button.")
+        self.auto_actions.click_reference(self.get_user_profile_assignment_save_btn)
+        kwargs['pass_msg'] = "saved assignment rules."
+        self.common_validation.passed(**kwargs)
+        return 1

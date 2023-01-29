@@ -1,10 +1,10 @@
-extauto.xiqse.flows.wireless.clients package
+XIQSE Flows Wireless Clients Keywords
 ============================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.wireless.clients.XIQSE\_WirelessClients module
+XIQSE\_WirelessClients module
 ------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.wireless.clients.XIQSE_WirelessClients

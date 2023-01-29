@@ -65,7 +65,6 @@ class Network360PlanDefinitions:
     tooltip_close_button = \
         {
             'XPATH': '//span[@data-dojo-attach-point="closeButtonNode"]',
-            'index': 1,
             'wait_for': 5
         }
 
@@ -80,5 +79,3 @@ class Network360PlanDefinitions:
             'XPATH': '//*[@class="ui-tipbox ui-tipbox-error"]//*[@class="ui-tipbox-title"]',
             'wait_for': 5
         }
-
-

@@ -1,10 +1,10 @@
-extauto.xiq.flows.common package
+XIQ Flows Common Keywords
 ================================
 
 Submodules
 ----------
 
-extauto.xiq.flows.common.DeviceCommon module
+DeviceCommon module
 --------------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.DeviceCommon
@@ -12,7 +12,7 @@ extauto.xiq.flows.common.DeviceCommon module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.common.GlobalSearch module
+GlobalSearch module
 --------------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.GlobalSearch
@@ -20,7 +20,7 @@ extauto.xiq.flows.common.GlobalSearch module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.common.Login module
+Login module
 -------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.Login
@@ -28,7 +28,7 @@ extauto.xiq.flows.common.Login module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.common.MuCaptivePortal module
+MuCaptivePortal module
 -----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.MuCaptivePortal
@@ -36,7 +36,7 @@ extauto.xiq.flows.common.MuCaptivePortal module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.common.Navigator module
+Navigator module
 -----------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.Navigator
@@ -44,7 +44,7 @@ extauto.xiq.flows.common.Navigator module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.common.SideNavMenu module
+SideNavMenu module
 -------------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.SideNavMenu
@@ -52,7 +52,7 @@ extauto.xiq.flows.common.SideNavMenu module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.common.SpecificSearch module
+SpecificSearch module
 ----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.SpecificSearch
@@ -60,7 +60,7 @@ extauto.xiq.flows.common.SpecificSearch module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.common.ToolTipCapture module
+ToolTipCapture module
 ----------------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.ToolTipCapture
@@ -68,7 +68,7 @@ extauto.xiq.flows.common.ToolTipCapture module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.common.WiredLib module
+WiredLib module
 ----------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.WiredLib
@@ -76,7 +76,7 @@ extauto.xiq.flows.common.WiredLib module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiq.flows.common.adsp module
+adsp module
 ------------------------------------
 
 .. automodule:: extauto.xiq.flows.common.adsp

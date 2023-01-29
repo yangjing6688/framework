@@ -32,6 +32,7 @@ Library    ExtremeAutomation/Keywords/UserDefinedKeywords/NetworkElements/L2/Vla
 
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementWlanservicesGenKeywords.py
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementSiteGenKeywords.py
+Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementResetdeviceGenKeywords.py
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementNtpGenKeywords.py
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementHostservicesGenKeywords.py
 Library    ExtremeAutomation/Keywords/NetworkElementKeywords/GeneratedKeywords/NetworkElementDnsGenKeywords.py
