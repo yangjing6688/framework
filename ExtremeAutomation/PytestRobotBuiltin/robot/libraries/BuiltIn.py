@@ -1,6 +1,6 @@
 try:
     from pytest_testconfig import config
-except:
+except Exception:
     pass
 
 """ Pytest version of built in """
@@ -21,7 +21,7 @@ class BuiltIn(object):
             raise e
 
         return variables
-    
+
     @staticmethod
     def set_global_variable(key, value):
         try:
@@ -51,11 +51,11 @@ class BuiltIn(object):
             raise e
 
         return value
-    
+
     @staticmethod
     def log_to_console(txt):
         print(txt)
-        
+
     @staticmethod
     def fail(msg=None):
         raise AssertionError(msg) if msg else AssertionError()

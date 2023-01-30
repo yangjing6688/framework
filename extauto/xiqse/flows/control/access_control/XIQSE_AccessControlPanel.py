@@ -1,10 +1,7 @@
-from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from xiqse.elements.control.access_control.ControlAccessControlPanelWebElements import ControlAccessControlPanelWebElements
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
 
 class XIQSE_AccessControlPanel(ControlAccessControlPanelWebElements):
 

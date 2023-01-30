@@ -297,7 +297,7 @@ class DeviceCommon(DeviceCommonElements):
                 if self.get_device_row_cells_with_row(row):
                     for cell in self.get_device_row_cells_with_row(row):
                         if search_strg in cell.text:
-                            self.utils.print_info(f"click on device cell")
+                            self.utils.print_info("click on device cell")
                             sleep(5)
                             if self.get_cell_href(cell):
                                 self.auto_actions.click(self.get_cell_href(cell))
@@ -424,12 +424,12 @@ class DeviceCommon(DeviceCommonElements):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info(f"Select Device Checkbox not selected")
+                self.utils.print_info("Select Device Checkbox not selected")
                 kwargs['fail_msg'] = "'get_select_device_checkbox_status()' -> Select Device Checkbox not selected"
                 self.common_validation.fail(**kwargs)
                 return -1
         self.utils.print_info(f"Select Device Checkbox is Checked with serial number:{device_serial}")
-        kwargs['fail_msg'] = f"'get_select_device_checkbox_status()' -> Select Device Checkbox is Checked with" \
+        kwargs['fail_msg'] = "'get_select_device_checkbox_status()' -> Select Device Checkbox is Checked with" \
                              f" serial number:{device_serial}"
         self.common_validation.fault(**kwargs)
         return -1
@@ -530,7 +530,7 @@ class DeviceCommon(DeviceCommonElements):
         else:
             self.utils.print_info(f"A Devices Per Page value of {device_count} is not supported.")
             kwargs['fail_msg'] = f"'update_devices_per_page()' -> A Devices Per Page value of {device_count} is" \
-                                 f" not supported."
+                                 " not supported."
             self.common_validation.fault(**kwargs)
 
         return ret_val

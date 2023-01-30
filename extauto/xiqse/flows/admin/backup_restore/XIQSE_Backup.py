@@ -80,10 +80,10 @@ class XIQSE_Backup(AdminBackupRestoreWebElements):
             self.utils.print_info(f"Waiting for Backup to complete: loop {count}")
             load_mask = self.view_el.get_working_backup_load_mask()
             if load_mask:
-                self.utils.print_info(f"Backup still in progress")
+                self.utils.print_info("Backup still in progress")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Backup has completed")
+                self.utils.print_info("Backup has completed")
                 return 1
             count += 1
 

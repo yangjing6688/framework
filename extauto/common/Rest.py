@@ -2,7 +2,6 @@ import json
 import requests
 import base64
 import subprocess
-import re
 from urllib3.exceptions import InsecureRequestWarning
 
 from extauto.common.Utils import Utils

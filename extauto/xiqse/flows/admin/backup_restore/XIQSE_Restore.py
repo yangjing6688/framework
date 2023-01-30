@@ -129,10 +129,10 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
             self.utils.print_info(f"Waiting for Restore of Initial Database to complete: loop {count}")
             load_mask = self.get_restore_initial_database_load_mask()
             if load_mask:
-                self.utils.print_info(f"Restore is still in progress")
+                self.utils.print_info("Restore is still in progress")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Restore has completed")
+                self.utils.print_info("Restore has completed")
                 return 1
             count += 1
 
@@ -153,7 +153,7 @@ class XIQSE_Restore(AdminBackupRestoreWebElements):
 
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Restore has completed, waiting for server restart")
+            self.utils.print_info("Restore has completed, waiting for server restart")
             connection_lost = self.get_connection_to_server_lost_dialog()
             if connection_lost:
                 self.utils.print_info("Connection lost to server dialog visible. Closing browser session.")

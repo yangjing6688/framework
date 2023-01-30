@@ -56,7 +56,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
                                     " with social login type facebook"
                 self.common_validation.failed(**kwargs)
                 return -1
-        except:
+        except Exception:
             return -1
 
     def validate_eguest_social_login_with_linkedin(self, username, password, **kwargs):
@@ -196,7 +196,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
 
         self.get_gp_page_screen_shot()
         sleep(2)
-        
+
         if self.get_social_wifi_all_login_success_page().is_displayed():
             return 1
         else:
@@ -386,7 +386,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
 
         self.get_gp_page_screen_shot()
         sleep(2)
-        
+
         if self.get_sponsor_guest_access_login_success_page():
             kwargs['pass_msg'] = "Validated the Sponsor Action on the Guest Access"
             self.common_validation.passed(**kwargs)
@@ -477,7 +477,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
             kwargs['pass_msg'] = "Registration Successful!"
             self.common_validation.passed(**kwargs)
             return 1
-        
+
         elif self.get_registration_status() == 'Onboarding Policy is not available':
             self.utils.print_info("Onboarding Policy is not available")
             sleep(2)

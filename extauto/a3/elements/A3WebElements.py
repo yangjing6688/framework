@@ -1,6 +1,6 @@
-from a3.defs.A3WebElementsDefs import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from a3.defs.A3WebElementsDefs import A3WebElementsDefs
+from common.AutoActions import AutoActions
+from common.WebElementHandler import WebElementHandler
 
 
 class A3WebElements(A3WebElementsDefs):
@@ -146,6 +146,3 @@ class A3WebElements(A3WebElementsDefs):
 
     def get_auth_source_menu(self):
         return self.weh.get_element(self.auth_source_ui)
-
-
-

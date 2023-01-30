@@ -1,5 +1,5 @@
-from extauto.xiq.defs.WirelessCWPWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.WirelessCWPWebElementsDefinitions import WirelessCWPWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class WirelessCWPWebElements(WirelessCWPWebElementsDefinitions):
