@@ -130,16 +130,15 @@ class Login:
         :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
-        if self.common_validation.get_kwarg(kwargs, "XAPI_ENABLED", None):
+
+        if self.xapiHelper.is_xapi_enabled(**kwargs):
             # new XAPI call
-            xapi_url = BuiltIn().get_variable_value("${xapi_url}", None)
-            if xapi_url:
-                self.xapiHelper.set_xapi_url(xapi_url)
-                self.xapiLogin.login(username, password, **kwargs)
+            self.xapiLogin.login(username, password, **kwargs)
+
+            # Look for the XAPI_ONLY
+            xapi_only = kwargs.get('XAPI_ONLY', False)
+            if xapi_only:
                 return 1
-            else:
-                self.common_validation.fault("The xapi_url variable is missing from the TOPO file and the keyword is set to use XAPI_ENABLED", **kwargs)
-                return -1
 
         result = -1
         count = 0

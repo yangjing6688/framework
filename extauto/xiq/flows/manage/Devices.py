@@ -30,6 +30,8 @@ from extauto.common.CloudDriver import CloudDriver
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
+from extauto.xiq.xapi.devices.XapiDevices import XapiDevices
+from extauto.xiq.xapi.XapiHelper import XapiHelper
 
 
 class Devices:
@@ -56,7 +58,9 @@ class Devices:
         self.web_element_ctrl = WebElementController()
         self.web_elements_handler = WebElementHandler()
         self.cloud_driver = CloudDriver()
-        self.xapi = Xapi()
+        self.xapi = Xapi() # Old XAPI, the new one below uses the customer exposed XAPI calls.
+        self.xapiHelper = XapiHelper()
+        self.xapiDevices = XapiDevices()
 
     @deprecated("Please use onboard_device_quick(...)")
     def _onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
@@ -1923,6 +1927,10 @@ class Devices:
         # Arguments for device_type == "Digital Twin"
         os_version = device_dict.get("digital_twin_version")
         os_persona = device_dict.get("digital_twin_persona")
+
+        # Execute the XAPI call and return the value
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_onboard_device(device_dict, **kwargs)
 
         if "csv_location" in device_dict:
             return self.quick_onboarding_cloud_csv(device_make=device_dict.get("device_make"), csv_location=device_dict.get("csv_location"))
