@@ -11530,7 +11530,7 @@ class Device360(Device360WebElements):
         if port_state is not None:
 
             """
-             - This keyword will select Port State in Multi Edit (D360-Port Configuration) 
+             - This keyword will select Port State in Multi Edit (D360-Port Configuration)
                 and after that will put the port to OFF;
             """
             self.utils.print_info("Click on Port State checkbox")
@@ -11569,7 +11569,7 @@ class Device360(Device360WebElements):
                     if port_usage == 'Access Port':
                         if vlan_access_port is not None:
                             """
-                             - This keyword will select Vlan in Multi Edit when Port usage is Access Port 
+                             - This keyword will select Vlan in Multi Edit when Port usage is Access Port
                              (D360 - Port Configuration) and after that will complete the field with one value
                             """
                             self.utils.print_info("Click on VLAN checkbox when Port Usage is Access Port")
@@ -11589,7 +11589,7 @@ class Device360(Device360WebElements):
                     elif port_usage == 'Trunk Port':
                         if (native_vlan_trunk_port is not None) or (allowed_vlan_trunk_port is not None):
                             """
-                             - This keyword will select Vlan settings in Multi Edit when Port usage is Trunk Port 
+                             - This keyword will select Vlan settings in Multi Edit when Port usage is Trunk Port
                              (D360 - Port Configuration) and after that will complete the fields with values
                             """
                             self.utils.print_info("Click on Native VLAN checkbox when Port Usage is Trunk Port")
@@ -11638,7 +11638,7 @@ class Device360(Device360WebElements):
                     else:
                         if (voice_vlan_phone_port is not None) or (data_vlan_phone_port is not None):
                             """
-                             - This keyword will select Vlan settings in Multi Edit when Port usage is Phone Port 
+                             - This keyword will select Vlan settings in Multi Edit when Port usage is Phone Port
                              (D360 - Port Configuration) and after that will complete the fields with values.
                             """
                             self.utils.print_info("Click on Voice VLAN checkbox when Port Usage is Phone Port")
@@ -11680,7 +11680,7 @@ class Device360(Device360WebElements):
 
         if description is not None:
             """
-             - This keyword will select Description in Multi Edit (D360-Port Configuration) 
+             - This keyword will select Description in Multi Edit (D360-Port Configuration)
              and after that will complete the field;
             """
             self.utils.print_info("Click on Description checkbox")
@@ -14831,7 +14831,7 @@ class Device360(Device360WebElements):
         :return: fail message if error
         """
         if not self.navigator.navigate_to_devices() == 1:
-            kwargs['fail_msg'] = f"Can't navigate to device page!"
+            kwargs['fail_msg'] = "Can't navigate to device page!"
             self.common_validation.failed(**kwargs)
         delta_configs = self.deviceConfig.get_device_config_audit_delta(device_mac)
         if delta_configs:
@@ -14840,11 +14840,11 @@ class Device360(Device360WebElements):
                 if el in delta_configs:
                     commands_into_delta = True
                     print("Command was found into delta :", el)
-                    kwargs['pass_msg'] = f"Command was found into delta :", {el}
+                    kwargs['pass_msg'] = f"Command was found into Delta: {el}"
                     self.common_validation.passed(**kwargs)
                 if not commands_into_delta:
                     print("Command was not found into delta :", el)
-                    kwargs['fail_msg'] = f"Command not found into Delta, {el}"
+                    kwargs['fail_msg'] = f"Command not found into Delta: {el}"
                     self.common_validation.failed(**kwargs)
 
     def multi_edit_port_count_message(self):
