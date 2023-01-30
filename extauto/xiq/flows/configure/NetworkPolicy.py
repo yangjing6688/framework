@@ -2,6 +2,7 @@ import selenium.common.exceptions
 
 from extauto.common.CloudDriver import CloudDriver
 from time import sleep
+import time
 import re
 from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
@@ -2332,3 +2333,10 @@ class NetworkPolicy(object):
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1
+
+    def generate_policy_name(self):
+        """
+        - This Keyword will generate policy name
+        :return: random policy name
+        """
+        return f"test_policy_{str(time.time())[::-1][:5]}"
