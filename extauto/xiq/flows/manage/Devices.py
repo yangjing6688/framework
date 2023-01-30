@@ -1931,7 +1931,7 @@ class Devices:
                                                       csv_location, device_model, os_version, os_persona, **kwargs) == -1:
             return -1
 
-        # Moved CONTROLLER actions out because we know that it is used
+        # Fix for aiq2618, prevents unnecessary clicks
         # We are planning to rework logic
         if 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
             self.utils.print_info("Onboarding: ", device_make)
