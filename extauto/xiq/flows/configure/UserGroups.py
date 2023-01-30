@@ -485,8 +485,8 @@ class UserGroups(UserGroupsWebElements):
         self.navigator.navigate_to_configure_user_groups()
 
         self.utils.print_info("Click on full page view")
-        if self.get_paze_size_element():
-            self.auto_actions.click_reference(self.get_paze_size_element)
+        if self.get_page_size_element():
+            self.auto_actions.click_reference(self.get_page_size_element)
             sleep(3)
 
         group_select_flag = None
@@ -764,8 +764,8 @@ class UserGroups(UserGroupsWebElements):
         self.navigator.navigate_to_configure_users_subtab_users()
 
         self.utils.print_info("Click on full page view")
-        if self.get_paze_size_element():
-            self.auto_actions.click_reference(self.get_paze_size_element)
+        if self.get_page_size_element():
+            self.auto_actions.click_reference(self.get_page_size_element)
 
         sleep(3)
         rows = self.get_users_subtab_user_row()
@@ -820,8 +820,8 @@ class UserGroups(UserGroupsWebElements):
         self.navigator.navigate_to_configure_users_subtab_users()
 
         self.utils.print_info("Click on full page view")
-        if self.get_paze_size_element():
-            self.auto_actions.click_reference(self.get_paze_size_element)
+        if self.get_page_size_element():
+            self.auto_actions.click_reference(self.get_page_size_element)
 
         sleep(3)
         rows = self.get_users_subtab_user_row()
@@ -915,8 +915,8 @@ class UserGroups(UserGroupsWebElements):
             return -1
 
         self.utils.print_info("Click on full page view")
-        if self.get_paze_size_element():
-            self.auto_actions.click_reference(self.get_paze_size_element)
+        if self.get_page_size_element():
+            self.auto_actions.click_reference(self.get_page_size_element)
 
         sleep(5)
         self.utils.print_info("Get an user group total")

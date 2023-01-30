@@ -1,4 +1,5 @@
 import re
+import time
 from time import sleep
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
@@ -18,6 +19,8 @@ from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElem
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
+import random
+from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 
 
 class Device360(Device360WebElements):
@@ -38,6 +41,7 @@ class Device360(Device360WebElements):
         self.sw_template_web_elements = SwitchTemplateWebElements()
         self.common_validation = CommonValidation()
         self.tools = Tools()
+        self.networkElementCliSend = NetworkElementCliSend()
 
     def get_system_info(self, **kwargs):
         """
@@ -7500,19 +7504,17 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def d360_cancel_port_configuration(self, **kwargs):
+    def d360_save_port_configuration_all_switches(self):
+        self.utils.print_info("Clicking 'Save Port Configuration' button'")
+        self.auto_actions.click_reference(self.get_device360_device_configuration_save_button)
 
-        get_save_button = self.get_device_d360_cancel_port_configuration()
-        if get_save_button:
-            self.auto_actions.click(get_save_button)
-            self.utils.print_info("Exit the port configuration ")
-            kwargs['pass_msg'] = "Exit the port configuration"
-            self.common_validation.passed(**kwargs)
-            return 1
-        else:
-            kwargs['fail_msg'] = "d360_cancel_port_configuration() -> Can Not Exit the port configuration"
-            self.common_validation.failed(**kwargs)
-            return -1
+    def d360_cancel_port_configuration(self):
+        self.utils.print_info("Exit the port configuration ")
+        self.auto_actions.click_reference(self.get_device_d360_cancel_port_configuration)
+
+    def d360_cancel_port_configuration_all_switches(self):
+        self.utils.print_info("Exit the port configuration ")
+        self.auto_actions.click_reference(self.get_d360_cancel_port_configuration)
 
     def device360_configure_ports_trunk_vlan(self, port_numbers="", trunk_native_vlan="", trunk_vlan_id="",
                                              port_type="Trunk Port", **kwargs):
@@ -11146,11 +11148,12 @@ class Device360(Device360WebElements):
                         kwargs['pass_msg'] = "Successfully selected port"
                         self.common_validation.passed(**kwargs)
                         return 1
+
                     else:
                         self.utils.print_info("Port usage drop down didnot present,")
                         kwargs['fail_msg'] = "d360_assign_port_type() -> Port usage drop down is not present"
                         self.common_validation.failed(**kwargs)
-                        return  -1
+                        return -1
 
     def add_new_pse_profile_from_port_type_page_button(self, **kwargs):
         '''
@@ -11474,6 +11477,772 @@ class Device360(Device360WebElements):
         :return: web element if it has been found; None if element was not found
         '''
         return self.get_select_element_port_type(element)
+
+    def multi_edit_d360_port_config(self):
+        '''
+        This keyword push the multi edit button.
+        :return: 1 if succesfully ; else -1
+        '''
+        self.utils.print_info("Click multi edit button")
+        self.auto_actions.click_reference(self.get_d360_monitor_port_details_edit)
+
+    def fill_port_details_multi_edit_fields(self, port_state=None, port_usage=None, description=None, **kwargs):
+        '''
+        This keyword fill in all fields when port settings are configured for multiple ports from multi edit tab
+        :args:
+                 'port_state': ON/OFF - mandatory,
+                 'port_usage': port_usage_mode - mandatory,
+                 'description': description - mandatory
+            kwargs:
+                 'vlan_access_port': vlan_value - used for Access Port,
+                 'native_vlan_trunk_port': vlan_native - used for Trunk Port,
+                 'allowed_vlan_trunk_port' : vlan_allowed - used for Trunk Port,
+                 'voice_vlan_phone_port' : voice_vlan - used for Phone with a Data Port,
+                 'data_vlan_phone_port' : Data_vlan - used for Phone with a Data Port,
+
+        Keyword Usage:
+            - depending on the port_usage value, kwargs args can be used as following:
+                case1: for port_usage: Access Port the following args are needed:
+                    - port_state, vlan_access_port, description;
+                case2: for port_usage: Trunk Port the following args are needed:
+                    - port_state, native_vlan_trunk_port, allowed_vlan_trunk_port, description;
+                case3: for port_usage: Phone Port the following args are needed:
+                    - port_state, voice_vlan_phone_port, data_vlan_phone_port, description;
+        e.g. xiq_library_at_class_level.xflowsmanageDevice360.fill_port_details_multi_edit_fields
+        (port_usage='Access Port',vlan_access_port=500,port_state='OFF',description='Description for multiple ports')
+        '''
+
+        vlan_access_port = kwargs.get("vlan_access_port")
+        self.utils.print_info(vlan_access_port)
+
+        native_vlan_trunk_port = kwargs.get("native_vlan_trunk_port")
+        self.utils.print_info(native_vlan_trunk_port)
+
+        allowed_vlan_trunk_port = kwargs.get("allowed_vlan_trunk_port")
+        self.utils.print_info(allowed_vlan_trunk_port)
+
+        voice_vlan_phone_port = kwargs.get("voice_vlan_phone_port")
+        self.utils.print_info(voice_vlan_phone_port)
+
+        data_vlan_phone_port = kwargs.get("data_vlan_phone_port")
+        self.utils.print_info(data_vlan_phone_port)
+
+        if port_state is not None:
+
+            """
+             - This keyword will select Port State in Multi Edit (D360-Port Configuration) 
+                and after that will put the port to OFF;
+            """
+            self.utils.print_info("Click on Port State checkbox")
+            self.auto_actions.click_reference(self.get_multi_edit_checkbox_status)
+
+            self.utils.print_info("Clicking Port State toggle to Off")
+            self.auto_actions.click_reference(self.get_multi_edit_status_toggle)
+
+        if port_usage is not None:
+            """
+             - This keyword will select Port Usage in Multi Edit (D360-Port Configuration)
+            """
+            checkbox = self.get_multi_edit_checkbox_port_type()
+            if checkbox:
+                if checkbox.is_selected():
+                    kwargs['pass_msg'] = "The Port Usage is checked!"
+                    self.common_validation.passed(**kwargs)
+                else:
+                    self.utils.print_info("Click on Port Usage checkbox")
+                    self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_type)
+                    kwargs['pass_msg'] = "The Port Usage was checked successfully"
+                    self.common_validation.passed(**kwargs)
+            else:
+                kwargs['fail_msg'] = "Unable to click the element"
+                self.common_validation.failed(**kwargs)
+
+            get_port_usage_mode_dropdown = self.get_multi_edit_port_type_dropdown()
+
+            if get_port_usage_mode_dropdown:
+                self.auto_actions.click_reference(self.get_multi_edit_port_type_dropdown)
+                get_port_usage_items = self.get_multi_edit_port_type_drop_down_list()
+                if self.auto_actions.select_drop_down_options(get_port_usage_items,
+                                                              port_usage):
+                    self.utils.print_info(" Selected into dropdown value : ",port_usage)
+
+                    if port_usage == 'Access Port':
+                        if vlan_access_port is not None:
+                            """
+                             - This keyword will select Vlan in Multi Edit when Port usage is Access Port 
+                             (D360 - Port Configuration) and after that will complete the field with one value
+                            """
+                            self.utils.print_info("Click on VLAN checkbox when Port Usage is Access Port")
+                            self.auto_actions.click_reference(self.get_multi_edit_checkbox_vlan)
+
+                            get_multi_edit_vlan = self.get_multi_edit_vlan_input()
+                            if get_multi_edit_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_vlan, vlan_access_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_vlan cannot be completed ")
+                                return -1
+
+                    elif port_usage == 'Trunk Port':
+                        if (native_vlan_trunk_port is not None) or (allowed_vlan_trunk_port is not None):
+                            """
+                             - This keyword will select Vlan settings in Multi Edit when Port usage is Trunk Port 
+                             (D360 - Port Configuration) and after that will complete the fields with values
+                            """
+                            self.utils.print_info("Click on Native VLAN checkbox when Port Usage is Trunk Port")
+                            self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_native_vlan)
+
+                            self.utils.print_info("Click on Allowed VLAN checkbox when Port Usage is Trunk Port")
+                            self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_allowed_vlan)
+
+                        if native_vlan_trunk_port is not None:
+
+                            get_multi_edit_native_vlan = self.get_d360_multi_edit_native_vlan_input()
+                            if get_multi_edit_native_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_native_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_native_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new native vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_native_vlan, native_vlan_trunk_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_native_vlan cannot be completed ")
+                                return -1
+
+                        if allowed_vlan_trunk_port is not None:
+
+                            get_multi_edit_allowed_vlan = self.get_d360_multi_edit_allowed_vlan_input()
+                            if get_multi_edit_allowed_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_allowed_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_allowed_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new allowed vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_allowed_vlan, allowed_vlan_trunk_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_allowed_vlan cannot be completed ")
+                                return -1
+
+                    elif port_usage == 'Auto-sense Port':
+                        checkbox_vlan = self.get_multi_edit_checkbox_vlan()
+                        if checkbox_vlan:
+                            if checkbox_vlan.is_enabled():
+                                self.utils.print_info("Click on checkbox")
+                                self.auto_actions.click_reference(self.get_multi_edit_checkbox_vlan)
+                            else:
+                                self.utils.print_info("The vlan is disabled")
+                        else:
+                            self.utils.print_info("Unable to click the element")
+
+                    else:
+                        if (voice_vlan_phone_port is not None) or (data_vlan_phone_port is not None):
+                            """
+                             - This keyword will select Vlan settings in Multi Edit when Port usage is Phone Port 
+                             (D360 - Port Configuration) and after that will complete the fields with values.
+                            """
+                            self.utils.print_info("Click on Voice VLAN checkbox when Port Usage is Phone Port")
+                            self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_voice_vlan)
+                            self.utils.print_info("Click on Data VLAN checkbox when Port Usage is Phone Port")
+                            self.auto_actions.click_reference(self.get_d360_multi_edit_checkbox_data_vlan)
+
+                        if voice_vlan_phone_port is not None:
+
+                            get_multi_edit_voice_vlan = self.get_d360_multi_edit_voice_vlan_input()
+                            if get_multi_edit_voice_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_voice_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_voice_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new native vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_voice_vlan, voice_vlan_phone_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_voice_vlan cannot be completed ")
+                                return -1
+
+                        if data_vlan_phone_port is not None:
+
+                            get_multi_edit_data_vlan = self.get_d360_multi_edit_data_vlan_input()
+                            if get_multi_edit_data_vlan:
+                                self.auto_actions.send_keys(get_multi_edit_data_vlan, Keys.CONTROL + "a")
+                                self.utils.print_info("Deleting the selected")
+                                self.auto_actions.send_keys(get_multi_edit_data_vlan, Keys.BACK_SPACE)
+                                self.utils.print_info("Configuring new allowed vlan values")
+                                self.auto_actions.send_keys(get_multi_edit_data_vlan, data_vlan_phone_port)
+                            else:
+                                self.utils.print_info("get_multi_edit_data_vlan cannot be completed ")
+                                return -1
+                else:
+                    self.utils.print_info("Can not select into drop down")
+                    return -1
+            else:
+                self.utils.print_info("Can not click on drop down")
+                return -1
+
+        if description is not None:
+            """
+             - This keyword will select Description in Multi Edit (D360-Port Configuration) 
+             and after that will complete the field;
+            """
+            self.utils.print_info("Click on Description checkbox")
+            self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_description)
+
+            get_multi_edit_description = self.get_multi_edit_port_description_input()
+            if get_multi_edit_description:
+                self.auto_actions.send_keys(get_multi_edit_description, description)
+            else:
+                self.utils.print_info("get_multi_edit_description cannot be completed ")
+                return -1
+
+    def check_fileds_from_multi_edit_tab(self, **kwargs):
+        '''
+        This function select Port Usage, Port State and Description from Multi Edit tab.
+        - used to configure the default settings by selecting the fields listed above.
+        :return: pass message if successfully
+        :return: fail message if error
+        '''
+        self.utils.print_info("Click on Port Type checkbox")
+        self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_type)
+        self.utils.print_info("Click on Port State checkbox")
+        self.auto_actions.click_reference(self.get_multi_edit_checkbox_status)
+        self.utils.print_info("Click on Description checkbox")
+        self.auto_actions.click_reference(self.get_multi_edit_checkbox_port_description)
+
+    def d360_save_multi_edit_button(self):
+        '''
+        This method click the save button from Multi Edit tab.
+        - used to save the configuration made in the multi-edit tab;
+        '''
+        self.utils.print_info("Clicking 'Save' button from Multi Edit")
+        self.auto_actions.click_reference(self.get_d360_save_multi_edit)
+
+    def d360_cancel_multi_edit_button(self):
+        '''
+        This method click the cancel button from Multi Edit.
+        - used to exit the multi-edit tab without saving the configuration;
+        '''
+        self.utils.print_info("Click Cancel button from Multi Edit")
+        self.auto_actions.click_reference(self.get_d360_cancel_multi_edit)
+
+    def select_max_pagination_size(self, **kwargs):
+        """
+         - This keyword will navigate to the max pagination size Monitoring Overview Ports Table, using the page number button
+         - Flow: Click max page number
+         It Assumes That Already Navigated to Device360 Page
+        """
+        sleep(2)
+        pagination_size = max(self.dev360.get_device360_ports_table_pagination_sizes(),
+                            key=lambda x: int(x.text))
+        pagination_size.location_once_scrolled_into_view
+        self.auto_actions.click(pagination_size)
+        print(f"Selected the max pagination size: {pagination_size.text}")
+        sleep(5)
+        kwargs['pass_msg'] = f"Selected the max pagination size: {pagination_size.text}"
+        self.common_validation.passed(**kwargs)
+
+    def select_pagination_size(self, int_size, **kwargs):
+        """
+         - This keyword will navigate to the specific pagination size Monitoring Overview Ports Table, using the page number button
+         - Flow: Click specific page number
+         It Assumes That Already Navigated to Device360 Page
+        """
+        sleep(2)
+        paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+        [pg_size] = [pg for pg in paginations if pg.text == int_size]
+        self.auto_actions.click(pg_size)
+        sleep(5)
+        kwargs['pass_msg'] = f"Selected the specific pagination size"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def get_device360_port_table_rows(self, **kwargs):
+        """
+         - This keyword will get device360 port table rows - Monitor Overview Ports Table
+         It Assumes That Already Navigated to Device360 Page
+        """
+        table_rows = self.dev360.get_device360_port_table_rows()
+        assert table_rows, "Did not find the rows of the ports table"
+        table_rows[0].location_once_scrolled_into_view
+        kwargs['pass_msg'] = f"Found the rows of the ports table"
+        self.common_validation.passed(**kwargs)
+        return [
+            row for row in table_rows if not
+            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
+        ]
+
+    def device360_confirm_current_page_number(self, page_num_ref, **kwargs):
+        """
+         - This keyword will check if the page with page_num_ref number is currently displayed
+         It Assumes That Already Navigated to Device360 Page (Monitoring->Overview)
+         - Keyword Usage:
+         - ``Device360 Monitor Overview Pagination Next Page By Number``
+        :return: True if page number matches
+        """
+        current_page = int(
+            self.dev360.get_device360_ports_table_current_pagin_number().text)
+        if current_page == page_num_ref:
+            kwargs['pass_msg'] = f"Confirm current page number"
+            self.common_validation.passed(**kwargs)
+            return True
+        kwargs['fail_msg'] = f"'device360_confirm_current_page_number()' failed."
+        self.common_validation.failed(**kwargs)
+
+    def device360_switch_get_current_page_port_name_list(self, **kwargs):
+        """
+         - This keyword will get a list with all the port names from the current page (Monitoring->Overview)
+         - Flow: Click next page number
+         It Assumes That Already Navigated to Device360 Page (Monitoring->Overview)
+         - Keyword Usage:
+         - ``Device360 Monitor Overview Pagination Next Page By Number``
+        :return: port_name_list if successfully extracted the port names
+        """
+
+        port_name_list = []
+        rows = self.get_device360_port_table_rows()
+        for row in rows:
+            port_name_list.append(
+                self.dev360.get_d360_switch_ports_table_interface_port_name_cell(row).text)
+        if 'PORT NAME' in port_name_list:
+            port_name_list.remove('PORT NAME')
+        pattern_voss_three_nums = re.compile(r'\d+\/\d+\/\d+', re.M)
+        filtered = [i for i in port_name_list if not pattern_voss_three_nums.match(i)]
+        pattern_mgmt = re.compile(r'.*mgmt.*', re.M)
+        filtered = [i for i in filtered if not pattern_mgmt.match(i)]
+        kwargs['pass_msg'] = f"Port name list from current page: {filtered}"
+        self.common_validation.passed(**kwargs)
+        return filtered
+
+    def device360_monitor_overview_pagination_next_page_by_number(self, **kwargs):
+        """
+         - This keyword will navigate to the next page of the Monitoring Overview Ports Table, using the
+         page number button
+         - Flow: Click next page number
+         It Assumes That Already Navigated to Device360 Page
+         - Keyword Usage:
+         - ``Device360 Monitor Overview Pagination Next Page By Number``
+        :return: 1 if successfully changed to next page
+        :return: 2 if already on the last page
+        """
+        current_page = int(
+            self.dev360.get_device360_ports_table_current_pagin_number().text)
+        other_pages = self.dev360.get_device360_pagination_page_buttons()
+        for page in other_pages:
+            if int(page.text) == current_page + 1:
+                self.utils.print_info(f"Going to page " + str(current_page + 1))
+                self.auto_actions.click(page)
+                sleep(5)
+                kwargs['pass_msg'] = f"Successfully changed to next page"
+                self.common_validation.passed(**kwargs)
+                return 1
+        kwargs['pass_msg'] = f"Already on the last page"
+        self.common_validation.passed(**kwargs)
+        return 2
+
+    def list_port_element(self, xiq, port_no, dut, **kwargs):
+        """
+         - This keyword will get port details info
+         It Assumes That Already Navigated to Device360 Page
+        """
+        rows = xiq.xflowscommonDevices.devices_web_elements.get_port_details_info()
+        if dut.cli_type.upper() == 'VOSS':
+            matchers = ['Type', 'LACP Status', 'Port Mode', 'Port Status',
+                        'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
+                        'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
+                        'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
+                        'STP Port State', 'Port Speed']
+        if dut.cli_type.upper() == 'EXOS':
+            matchers = ['Type', 'Link Aggregation', 'LAG Logical Port', 'Link Aggregation Status', 'Port Mode', 'Port Status',
+                        'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
+                        'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
+                        'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
+                        'STP Port State', 'Port Speed']
+        if rows:
+            xiq.xflowscommonDevices.utils.print_debug(f"Searching {len(rows)} rows")
+            for row in rows:
+                xiq.xflowscommonDevices.utils.print_info(f"Port {port_no} details: ",
+                                                         xiq.xflowscommonDevices.format_row(row.text))
+                for i in matchers:
+                    test = any(i in string for string in xiq.xflowscommonDevices.format_row(row.text))
+                    if test == False:
+                        # return -1
+                        kwargs['fail_msg'] = f"'list_port_element()' failed."
+                        self.common_validation.fault(**kwargs)
+            kwargs['pass_msg'] = f"Success"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = f"'list_port_element()' failed."
+            self.common_validation.failed(**kwargs)
+
+    def enter_port_transmission_mode(self, port, transmission_mode, **kwargs):
+        """
+         - This keyword will enter port transimission mode
+        Args:
+            port
+            transmission_mode: ex. "Half-Duplex"
+        """
+        sleep(10)
+        configure_port_btn = self.dev360.get_d360_configure_port_settings_aggregation_tab_button()
+        if not configure_port_btn:
+            configure_port_btn = self.dev360.weh.get_element({"XPATH": '//div[@data-automation-tag="automation-port-configuration-port-settings"]'})
+        # assert configure_port_btn, "Could not find element port configuration button"
+        if not configure_port_btn:
+            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Could not find element port configuration button"
+            self.common_validation.fault(**kwargs)
+        self.utils.print_info("Click Port Settings Tab")
+        self.auto_actions.click(configure_port_btn)
+        sleep(3)
+
+        rows = self.dev360.get_device360_configure_port_settings_aggregation_rows()
+        if not rows:
+            rows = self.dev360.weh.get_elements({"XPATH": '//div[@class="port-details-entry line clearfix"]'})
+        # assert rows, "Could not get the port settings aggregation rows"
+        if not rows:
+            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Could not get the port settings aggregation rows"
+            self.common_validation.fault(**kwargs)
+
+        for port_row in rows:
+            if re.search(f"{port}\n", port_row.text):
+                self.utils.print_debug("Found row for port: ", port_row.text)
+                break
+        else:
+            assert False, f"Failed to find the row for port {port}"
+
+        self.utils.print_info("clicking Transmission Mode drop down Button")
+        drop_down_button = self.dev360.get_device360_port_settings_transmission_mode_drop_down_button(port_row)
+        if self.auto_actions.click(drop_down_button) in [None, -1]:
+            drop_down_button = self.dev360.weh.get_element({
+                "XPATH": ".//div[@data-automation-tag='automation-automation-port-settings-port-transmission-type-chzn-container-ctn']"
+            }, parent=port_row)
+            # assert self.auto_actions.click(drop_down_button) == 1, f"Failed to open transmission type drop down"
+            if not self.auto_actions.click(drop_down_button) == 1:
+                kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Failed to open transmission type drop down."
+                self.common_validation.fault(**kwargs)
+        sleep(2)
+
+        drop_down_options = self.dev360.get_device360_port_settings_transmission_mode_drop_down_options(port_row)
+        if not drop_down_options:
+            drop_down_options = self.dev360.weh.get_elements({
+                "XPATH": './/li[contains(@data-automation-tag, "automation-automation-port-settings-port-transmission-type-chzn-option")]'
+            })
+        # assert drop_down_options
+        if not drop_down_options:
+            kwargs['fail_msg'] = f"'enter_port_transmission_mode()' failed. Assert drop_down_option"
+            self.common_validation.fault(**kwargs)
+        drop_down_options = [opt for opt in drop_down_options if opt.text]
+        self.utils.print_info(f"Selecting Transmission Mode Option : {transmission_mode}")
+        self.auto_actions.select_drop_down_options(drop_down_options, transmission_mode)
+        sleep(2)
+        kwargs['pass_msg'] = f"enter_port_transmission_mode() passed."
+        self.common_validation.passed(**kwargs)
+
+    def generate_vlan_id(self, rng=range(1024, 4096)):
+        """
+         - This keyword will generate vlan id
+        :return: random vlan id
+        """
+        return str(random.choice(rng))
+
+    def device360_display_traffic_received_from_xiq_and_return_traffic_list(self, dut, first_port, second_port, **kwargs):
+        """
+         - This keyword will display the received traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
+        """
+
+        paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+        assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
+
+        [pagination] = [pg for pg in paginations if pg.text == '10']
+        sleep(5)
+        AutoActions().click(pagination)
+        sleep(3)
+
+        if dut.cli_type.upper() == "VOSS":
+            x = self.dev360.get_device360_ports_table()
+            print("Displaying the traffic received value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            x = self.dev360.get_device360_ports_table()
+
+            traffic_list_xiq = []
+
+            print(" Displaying the traffic received value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
+        elif dut.cli_type.upper() == "EXOS":
+            x = self.dev360.get_device360_ports_table()
+
+            print("x pentru exos 67 este: ", x)
+            print("Displaying the traffic received value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            x = self.dev360.get_device360_ports_table()
+
+            traffic_list_xiq = []
+
+            print(" Displaying the traffic received value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC RECEIVED (RX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC RECEIVED: {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic received values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
+
+        kwargs['fail_msg'] = f"'device360_display_traffic_received_from_xiq_and_return_traffic_list()' failed."
+        self.common_validation.failed(**kwargs)
+
+    def device360_display_traffic_transmitted_from_xiq_and_return_traffic_list(
+        self, dut, first_port, second_port, **kwargs):
+        """
+         - This keyword will display the transmitted traffic from two ports connected to the Ixia traffic generator visible in XIQ and returns a list with them
+        Args:
+         dut: e.g. tb.dut1
+         first_port: e.g. self.tb.dut1_tgen_port_a.ifname
+         second_port: e.g. self.tb.dut1_tgen_port_b.ifname
+        """
+
+        paginations = self.dev360.get_device360_ports_table_pagination_sizes()
+        assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
+
+        [pagination] = [pg for pg in paginations if pg.text == '10']
+        sleep(5)
+        AutoActions().click(pagination)
+        sleep(3)
+
+        if dut.cli_type.upper() == "VOSS":
+            x = self.dev360.get_device360_ports_table()
+            print("Displaying the traffic transmitted value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            x = self.dev360.get_device360_ports_table()
+
+            traffic_list_xiq = []
+
+            print(" Displaying the traffic transmitted value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
+
+        elif dut.cli_type.upper() == "EXOS":
+            x = self.dev360.get_device360_ports_table()
+
+            print("Displaying the traffic transmitted value for the first 10 entries in the table")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+            sleep(5)
+
+            [pagination] = [pg for pg in paginations if pg.text == '100']
+            sleep(5)
+            AutoActions().click(pagination)
+            sleep(3)
+
+            x = self.dev360.get_device360_ports_table()
+
+            traffic_list_xiq = []
+
+            print(" Displaying the traffic transmitted value for pagination 100")
+            for i in x:
+                traffic_received = i["TRAFFIC TRANSMITTED (TX)"]
+                port_name = i["PORT NAME"]
+                if port_name == first_port or port_name == second_port:
+                    print(f"Found TRAFFIC TRANSMITTED (TX): {traffic_received} for port: {port_name}")
+                    traffic_list_xiq.append(traffic_received)
+            sleep(5)
+            kwargs['pass_msg'] = f"Traffic transmitted values: {traffic_list_xiq}"
+            self.common_validation.passed(**kwargs)
+            return traffic_list_xiq
+
+        kwargs['fail_msg'] = f"'device360_display_traffic_transmitted_from_xiq_and_return_traffic_list()' failed."
+        self.common_validation.failed(**kwargs)
+
+    def check_power_values(self, ports_power_xiq, ports_power_cli, **kwargs):
+        """
+         - This keyword will check power values
+        :return: results
+        """
+        results = []
+        for port_xiq, port_cli in zip(ports_power_xiq, ports_power_cli):
+            if port_xiq[0] == port_cli[0]:
+                if port_xiq[1] == "N/A":
+                    if port_xiq[1] == port_cli[1]:
+                        results.append(["Port: " + port_xiq[0], "PASSED"])
+                    else:
+                        results.append(["Port: " + port_xiq[0], "FAILED"])
+                else:
+                    if float(port_xiq[1]) == (float(port_cli[1])*1000):
+                        results.append(["Port: " + port_xiq[0], "PASSED"])
+                    else:
+                        results.append(["Port: " + port_xiq[0], "FAILED"])
+            else:
+                # return -1
+                kwargs[
+                    'fail_msg'] = f"'check_power_values() failed."
+                self.common_validation.failed(**kwargs)
+        kwargs['pass_msg'] = f"{results}"
+        self.common_validation.passed(**kwargs)
+        return results
+
+    def check_port_type(self, dut, **kwargs):
+        """
+         - This keyword will check port type
+        :return:
+        """
+
+        if dut.cli_type.upper() == "VOSS":
+
+            sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'enable',
+                                    max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig l1-config | no-more',
+                                            max_wait=10, interval=2)
+            p = re.compile(r'(^\d+\/\d+)\s+(false|true)\s+(false|true)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            x = self.dev360.get_device360_ports_table()
+            x.pop(0)
+            cnt_values_port_type = 0
+            j = 0
+
+            for it in x:
+
+                port_type = it["TYPE"]
+                port_name = it["PORT NAME"]
+                print(f"port name:{port_name} and port type:{port_type}")
+
+                print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
+                if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
+                    kwargs['fail_msg'] = f"'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')."
+                    self.common_validation.fault(**kwargs)
+
+                cnt_values_port_type = cnt_values_port_type + 1
+
+                if port_type == 'RJ45':
+
+                    port_type_match_cli = 'true'
+                    print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
+                    if not (match_port[j][0] == port_name) and (match_port[j][2] == port_type_match_cli):
+                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected port type value for expected port name value."
+                        self.common_validation.fault(**kwargs)
+
+                    j = j + 1
+
+                else:
+
+                    print(f"{port_name},{port_type}")
+                    if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
+                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
+                        self.common_validation.fault(**kwargs)
+
+            print(f"Verify that the 'port type' column has no empty entry")
+            if not len(x) == cnt_values_port_type:
+                kwargs['fail_msg'] = f"'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
+                self.common_validation.fault(**kwargs)
+
+        elif dut.cli_type.upper() == "EXOS":
+
+            sleep(10)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                    max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports transceiver information',
+                                            max_wait=10, interval=2)
+            p = re.compile(r'(^\d+)\s+(DDMI\sis\snot\ssupported\son\sthis\sport)', re.M)
+            match_port = re.findall(p, output[0].return_text)
+            print(f"{match_port}")
+
+            x = self.dev360.get_device360_ports_table()
+            x.pop(0)
+            cnt_values_port_type = 0
+            j = 0
+
+            for it in x:
+
+                port_type = it["TYPE"]
+                port_name = it["PORT NAME"]
+                print(f"port name:{port_name} and port type:{port_type}")
+
+                print(f"Verify that each entry has a value set for the 'port type' column('RJ45,'SFP+','SFP-DD')")
+                if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
+                    kwargs['fail_msg'] = f"'check_port_type()' failed. Port type column has an entry with a value different from ('RJ45','SFP+','SFP-DD')"
+                    self.common_validation.fault(**kwargs)
+
+                cnt_values_port_type = cnt_values_port_type + 1
+
+                if port_type == 'RJ45':
+                    port_type_match_cli = 'DDMI is not supported on this port'
+                    print("check if the port type 'RJ45' from XIQ is the same as the one from CLI")
+                    if not (match_port[j][0] == port_name) and (match_port[j][1] == port_type_match_cli):
+                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected port type value RJ45 for expected port name"
+                        self.common_validation.fault(**kwargs)
+                    j = j + 1
+
+                else:
+                    print(f"{port_name},{port_type}")
+                    if not port_type in ['RJ45', 'SFP', 'SFP+', "QSFP28", 'SFP-DD', "SFP28"]:
+                        kwargs['fail_msg'] = f"'check_port_type()' failed. Did not found the expected value. Port type column has an entry with a value different from ('SFP+','SFP-DD')"
+                        self.common_validation.fault(**kwargs)
+
+            print(f"Verify that the 'port type' column has no empty entry")
+            if not len(x) == cnt_values_port_type:
+                kwargs['fail_msg'] = f"'check_port_type()' failed. Expecting to find a value for the 'port type' field of each table entry"
+                self.common_validation.fault(**kwargs)
+
+        kwargs['pass_msg'] = f"'check_port_type()' passed."
+        self.common_validation.passed(**kwargs)
 
     def go_to_last_page(self, **kwargs):
         """Method that goes to the last page of the honeycomb port type editor.
@@ -13271,7 +14040,7 @@ class Device360(Device360WebElements):
         return 1
 
     def close_port_type_config(self, **kwargs):
-        """Method that closed the honeycomb port type editor.
+        """Method that closes the honeycomb port type editor.
 
         Returns:
             int: 1 if the function call has succeeded else -1
@@ -13301,6 +14070,255 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         self.utils.wait_till(timeout=10)
         return 1
+
+    def get_connected_ports(self, dut, **kwargs):
+        """
+        This keyword will get connected ports from D360 table.
+        It Assumes That Already Navigated to Device360 Page
+        Returns: connected_ports
+        """
+        sleep(8)
+        self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+        sleep(8)
+
+        self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+        sleep(4)
+
+        rows = self.dev360.get_d360_switch_ports_table_grid_rows()[1:]
+        connected_ports = []
+
+        for row in rows:
+            try:
+                port_name = row.text.split(" ")[0]
+                if (not "Disconnected" in row.text) and port_name != "mgmt":
+                    connected_ports.append(port_name)
+            except:
+                pass
+        self.exit_d360_Page()
+        kwargs["pass_msg"] = "Successfully closed the honeycomb port type editor"
+        self.common_validation.passed(**kwargs)
+        return connected_ports
+
+
+    def verify_port_names(self, **kwargs):
+        """
+        Verifies that the port details of slot 1 are displayed by default in D360 table.
+        It Assumes That Already Navigated to Device360 Page
+        """
+        first_order_rows = [r.text for r in self.get_device360_port_table_rows()]
+        first_port_names = [r.split(" ")[0] for r in first_order_rows]
+        print(f"Found these port names in the table: {first_port_names}")
+        for port_name in first_port_names:
+            print(f"Port name: {port_name}")
+            if not re.match(r"1:(\d+|mgmt)", port_name):
+                kwargs["fail_msg"] = "At least one port displayed is not from Slot 1"
+                self.common_validation.failed(**kwargs)
+                return -1
+        kwargs["pass_msg"] = "All ports displayed by default are from Slot 1"
+        self.common_validation.passed(**kwargs)
+
+    def check_device360_LLDP_neighbors_with_hyperlink(self, isl_ports_dut, hyperlinks=False, **kwargs):
+        """
+        Check Device360 LLDP neighbors with hyperlink in D360 table.
+        Args:
+            isl_ports_dut: create_list_of_netelem_isl_ports("netelem1")
+            hyperlinks: True -> to return the LLDP neighbors hyperlinks from D360 table
+        """
+        header_row = self.dev360.get_device360_ports_description_table_row()
+        ths = self.dev360.weh.get_elements(
+            self.dev360.device360_ports_table_th_columns, parent=header_row)
+
+        table_rows = self.get_device360_port_table_rows()
+
+        is_hyperlink = 0
+        hyperlinks_dut = []
+        for row in table_rows:
+            tds = self.dev360.weh.get_elements(
+                self.dev360.device360_ports_table_td_gridcell, parent=row)
+            for th, td in zip(ths, tds):
+                if th.text.strip() == "PORT NAME":
+                    port_found = 0
+                    for port in isl_ports_dut:
+                        print(td.text.strip())
+                        print(port)
+                        if td.text.strip() == port:
+                            port_found = 1
+                            print(f"Port found: {td.text.strip()}")
+                            break
+                elif th.text.strip() == "LLDP NEIGHBOR":
+                    if port_found == 1:
+                        print(self.dev360.get_cell_href(td))
+                        if self.dev360.get_cell_href(td) != None:
+                            if hyperlinks:
+                                hyperlink_dut = self.dev360.get_cell_href(td)
+                                hyperlinks_dut.append(hyperlink_dut)
+                            is_hyperlink = is_hyperlink + 1
+                            print(f"LLDP column displays the sysname, {td.text.strip()} with hyperlink for port {port}")
+                        else:
+                            print(
+                                f"LLDP column displays the sysname, {td.text.strip()} without hyperlink for port {port}")
+                    break
+
+        # assert is_hyperlink == len(
+        #     isl_ports_dut), "LLDP column displays the sysname without hyperlink for at least one port"
+        if not is_hyperlink == len(isl_ports_dut):
+            kwargs["fail_msg"] = "'check_device360_LLDP_neighbors_with_hyperlink()' failed. LLDP column displays the sysname without hyperlink for at least one port"
+            self.common_validation.failed(**kwargs)
+
+        kwargs["pass_msg"] = "Successfully checked Device360 LLDP neighbors with hyperlink."
+        self.common_validation.passed(**kwargs)
+        if hyperlinks:
+            kwargs["pass_msg"] = f"Hyperlinks: {hyperlinks_dut}"
+            self.common_validation.passed(**kwargs)
+            return hyperlinks_dut
+
+    def check_device360_LLDP_neighbors_without_hyperlink(self, isl_ports, **kwargs):
+        """
+        Check Device360 LLDP neighbors without hyperlink in D360 table.
+        Args:
+            isl_ports_dut: create_list_of_netelem_isl_ports("netelem1")
+        """
+        header_row = self.dev360.get_device360_ports_description_table_row()
+        ths = self.dev360.weh.get_elements(
+            self.dev360.device360_ports_table_th_columns, parent=header_row)
+
+        table_rows = self.get_device360_port_table_rows()
+
+        no_hyperlink = 0
+        for row in table_rows:
+            tds = self.dev360.weh.get_elements(
+                self.dev360.device360_ports_table_td_gridcell, parent=row)
+            for th, td in zip(ths, tds):
+                if th.text.strip() == "PORT NAME":
+                    port_found = 0
+                    for port in isl_ports:
+                        if td.text.strip() == port:
+                            port_found = 1
+                            print(f"Port found: {td.text.strip()}")
+                            break
+                elif th.text.strip() == "LLDP NEIGHBOR":
+                    if port_found == 1:
+                        if self.dev360.get_cell_href(td) != None:
+                            print(
+                                f"LLDP column displays the sysname, {td.text.strip()} with hyperlink for port {port}")
+                        else:
+                            if td.text.strip() != "":
+                                no_hyperlink = no_hyperlink + 1
+                            print(
+                                f"LLDP column displays the sysname, {td.text.strip()} without hyperlink for port {port}")
+                    break
+
+        # assert no_hyperlink == len(
+        #     isl_ports), "LLDP column displays the sysname with hyperlink/sysname missing for at least one port"
+        if not no_hyperlink == len(isl_ports):
+            kwargs["fail_msg"] = "'check_device360_LLDP_neighbors_without_hyperlink()' failed. LLDP column displays the sysname with hyperlink/sysname missing for at least one port"
+            self.common_validation.failed(**kwargs)
+        kwargs["pass_msg"] = "Successfully checked Device360 LLDP neighbors without hyperlink."
+        self.common_validation.passed(**kwargs)
+
+    def verify_lacp_status_for_port_device_in_360_table(self, logger, dut, port, check_value, **kwargs):
+        """
+        Check Device360 LACP status for port device in D360 table.
+        Args:
+            port: dut1.isl.port_a.ifname
+            check_value: 'true'/'false'
+        """
+        self.select_max_pagination_size()
+
+        logger.info("Select LACP Status column if is not selected in column picker")
+        checkbox_button = self.dev360.get_device360_columns_toggle_button()
+        checkbox_button.location_once_scrolled_into_view
+
+        self.auto_actions.click(checkbox_button)
+
+        sleep(2)
+        all_checkboxes = self.dev360.get_device360_all_checkboxes()
+        default_disabled = [k for k, v in all_checkboxes.items() if v["is_selected"] is False]
+
+        if dut.cli_type.upper() == 'VOSS':
+            for checkbox_name, stats in all_checkboxes.items():
+                if checkbox_name.upper() == "LACP STATUS" and checkbox_name in default_disabled \
+                        and stats["is_selected"] is False:
+                    self.auto_actions.click(stats["element"])
+                    break
+        elif dut.cli_type.upper() == 'EXOS':
+            for checkbox_name, stats in all_checkboxes.items():
+                if checkbox_name.upper() == "LINK AGGREGATION" and checkbox_name in default_disabled \
+                        and stats["is_selected"] is False:
+                    self.auto_actions.click(stats["element"])
+                    break
+
+        ports_table = self.dev360.get_device360_ports_table()
+        [port_row] = [row for row in ports_table if row["PORT NAME"] == port]
+        if dut.cli_type.upper() == 'VOSS':
+            lacp_status = port_row["LACP STATUS"]
+            logger.info(f"LACP status = {lacp_status}")
+        if dut.cli_type.upper() == 'EXOS':
+            lacp_status = port_row["LINK AGGREGATION"]
+            logger.info(f"LACP status = {lacp_status}")
+
+        if not lacp_status == check_value:
+            kwargs["failed_msg"] = f"verify_lacp_status_for_port_device_in_360_table() failed. Default LACP Status for port: {port} is not {check_value}"
+            self.common_validation.fault(**kwargs)
+
+        logger.info("Select LACP Status column if is not selected in column picker")
+        checkbox_button = self.dev360.get_device360_columns_toggle_button()
+        if checkbox_button:
+            checkbox_button.location_once_scrolled_into_view
+
+            self.auto_actions.click(checkbox_button)
+            sleep(2)
+
+            all_checkboxes = self.dev360.get_device360_all_checkboxes()
+            if dut.cli_type.upper() == 'VOSS':
+                for checkbox_name, stats in all_checkboxes.items():
+                    if checkbox_name.upper() == "LACP STATUS" and stats["is_selected"] is True:
+                        self.auto_actions.click(stats["element"])
+                        break
+            elif dut.cli_type.upper() == 'EXOS':
+                for checkbox_name, stats in all_checkboxes.items():
+                    if checkbox_name.upper() == "LINK AGGREGATION" and stats["is_selected"] is True:
+                        self.auto_actions.click(stats["element"])
+                        break
+        self.select_pagination_size("10")
+        self.close_device360_window()
+        kwargs["pass_msg"] = "Successfully verified lacp status for port device in D360 table"
+        self.common_validation.passed(**kwargs)
+
+    def check_lld_neighbour_field_with_value_and_with_hyperlink(self, ports_isl, real_ports, logger, **kwargs):
+        """
+        Check LLDP neighbor field with value and with hyperlink.
+        Args:
+            ports_isl: ex. create_list_of_netelem_isl_ports("netelem1")
+            real_ports: device_360_web_elements.get_ports_from_device360_up()
+        """
+        lldp_neighbour = {}
+        success = 1
+        for port in ports_isl:
+            logger.info("PORT =  {}".format(port))
+            self.auto_actions.click(real_ports[port - 1])
+            elem = Device360WebElements().get_ports_from_device360_up_lldp_neighbour()
+            if not elem:
+                elem = Device360WebElements().weh.get_element(
+                    {"XPATH": '//div[contains(@class, "port-info port-lldp-neighbor")]'})
+            lldp_neighbour[port] = elem
+            logger.info("lldp_neighbour =  {}".format(lldp_neighbour[port].text))
+            lldp_hyper_link = Device360WebElements().get_cell_href(lldp_neighbour[port])
+            logger.info("lldp_neighbour href =  {}".format(lldp_hyper_link is not None))
+            str1 = lldp_neighbour[port].text
+            splits = str1.split()
+            for split in splits:
+                logger.info("SPLIT = {}".format(split))
+            if (lldp_neighbour[port].text is not None and lldp_neighbour[port].text != "" and len(
+                    splits) > 2) and lldp_hyper_link is not None:
+                success = 1
+            else:
+                success = 0
+                break
+            sleep(5)
+        kwargs["pass_msg"] = f"Successfully checked LLDP neighbor field with value and with hyperlink: {success}"
+        self.common_validation.passed(**kwargs)
+        return success
 
     def navigate_to_unit_options_from_xiq_diagnostics_page(self, unit, unit_role, **kwargs):
         """
@@ -13764,6 +14782,142 @@ class Device360(Device360WebElements):
 
         return device360_info
 
+    def select_ports_d360_port_config(self, isl_ports_dut, **kwargs):
+        """
+         - This keyword will select multiple ports in (D360-Port Configuration)
+        :return: pass message if successfully
+        :return: fail message if error
+        """
+
+        if self.auto_actions.click_reference(
+            lambda: self.dev360.get_d360_monitor_port_details_checkbox_interface(isl_ports_dut)):
+            kwargs['pass_msg'] = f"The port {isl_ports_dut} was selected successfully!"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"The port {isl_ports_dut} cannot be selected."
+            self.common_validation.failed(**kwargs)
+
+    def multi_edit_add_port_usage(self):
+        '''
+        This keyword click on add button for multi edit port usage. This function will open the Create Port Type tab.
+        :return: pass message if successfully
+        :return: fail message if error
+        '''
+        self.utils.print_info("Click add port usage from Multi Edit tab to open Create Port Type")
+        self.auto_actions.click_reference(self.dev360.get_add_port_type_port_usage_multi_edit)
+
+    def close_multi_edit_vlan_error_message(self):
+        """
+         - This keyword will close the vlan error message in Multi Edit (D360-Port Configuration).
+         - The error message is generated when the VLAN field is empty or contains an invalid value.
+        :return: pass message if successfully
+        :return: fail message if error
+        """
+        self.utils.print_info("Close the multi edit vlan error message")
+        self.auto_actions.click_reference(self.dev360.get_vlan_error_message_close_multi_edit)
+
+    def check_delta_config_local(self, device_mac, commands_into_delta, **kwargs):
+        """
+         - This function will check if the commands are present into Delta view tab.
+        :return: pass message if successfully
+        :return: fail message if error
+        """
+        if not self.navigator.navigate_to_devices() == 1:
+            kwargs['fail_msg'] = f"Can't navigate to device page!"
+            self.common_validation.failed(**kwargs)
+        delta_configs = self.deviceConfig.get_device_config_audit_delta(device_mac)
+        if delta_configs:
+            for el in commands_into_delta:
+                commands_into_delta = False
+                if el in delta_configs:
+                    commands_into_delta = True
+                    print("Command was found into delta :", el)
+                    kwargs['pass_msg'] = f"Command was found into delta :", {el}
+                    self.common_validation.passed(**kwargs)
+                if not commands_into_delta:
+                    print("Command was not found into delta :", el)
+                    kwargs['fail_msg'] = f"Command not found into Delta, {el}"
+                    self.common_validation.failed(**kwargs)
+
+    def multi_edit_port_count_message(self):
+        '''
+        This keyword verify if the ports are succesfully selected. Will also verify if the row with selected ports is
+        present in Multi Edit tab.
+        :return: pass message if successfully
+        :return: fail message if error
+        '''
+
+        d360_port_count = self.dev360.get_d360_multi_edit_port_count()
+        if d360_port_count:
+            self.utils.print_info(f"The ports selected are displayed in multi edit tab: {d360_port_count[0].text}")
+            return d360_port_count[0].text
+        else:
+            self.utils.print_info(f"The ports selected are not displayed in multi edit tab: {d360_port_count[0].text}")
+
+    def succesful_message_multi_edit(self):
+        """
+         - This keyword will verify the success message for Multi Edit configuration.
+         It is a different success message depending on the platform it is running on.
+        :return: pass message if the success message is generated  and the same as the one in the function
+        :return: fail message if error (the message is not generated)
+        """
+
+        success_message = self.dev360.get_d360_save_port_configuration_message_multi_edit()
+        max_wait = 120
+        count = 0
+        while (success_message == None) and count < max_wait:
+            count += 10
+            success_message = self.dev360.get_d360_save_port_configuration_message_multi_edit()
+        if success_message:
+            self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
+            return success_message.text
+        else:
+            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+
+
+    def succesful_message_multi_edit_exos(self):
+        """
+         - This keyword will verify the success message for Multi Edit configuration for Switch Engine devices.
+        :return: pass message if the success message is generated  and the same as the one in the function
+        :return: fail message if error (the message is not generated)
+        """
+        start_time = int(time.time())
+        max_wait = 180
+        success_message = self.dev360.get_d360_save_port_configuration_message_exos()
+        while not success_message.is_displayed():
+            if (int(time.time()) - start_time) < max_wait:
+                success_message = self.dev360.get_d360_save_port_configuration_message_exos()
+                self.utils.wait_till(delay=2)
+            else:
+                self.utils.print_info(f"Unable to display the success message: {success_message.text}")
+        if success_message:
+            self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
+            return success_message.text
+        else:
+            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+
+
+    def succesful_message_multi_edit_voss(self):
+        """
+         - This keyword will verify the success message for Multi Edit configuration for Fabric Engine devices.
+        :return: pass message if the success message is generated  and the same as the one in the function
+        :return: fail message if error (the message is not generated)
+        """
+        start_time = int(time.time())
+        max_wait = 180
+        success_message = self.dev360.get_d360_save_port_configuration_message_voss()
+        while not success_message.is_displayed():
+            if (int(time.time()) - start_time) < max_wait:
+                success_message = self.dev360.get_d360_save_port_configuration_message_voss()
+                self.utils.wait_till(delay=2)
+            else:
+                self.utils.print_info(f"Unable to display the success message: {success_message.text}")
+        if success_message:
+            self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
+            return success_message.text
+        else:
+            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+
     def device360_get_stack_ports_by_type(self, port_type, **kwargs):
         """
             Keyword used to get all the ports of type vim or sfp from stack device
@@ -14092,4 +15246,3 @@ class Device360(Device360WebElements):
             kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
             self.common_validation.passed(**kwargs)
             return 1
-

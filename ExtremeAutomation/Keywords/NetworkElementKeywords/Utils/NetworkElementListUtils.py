@@ -102,3 +102,4 @@ class NetworkElementListUtils(object):
             self.logger.log_info("No ISL ports found in Test Environment File.")
 
         return isl_portlist
+

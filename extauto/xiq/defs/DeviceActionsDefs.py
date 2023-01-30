@@ -455,15 +455,45 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    replacement_serial_number_field = \
+        {
+            'XPATH': '//*[@data-automation-tag="replacement-serial-number"]',
+            'wait_for': 2
+        }
+
     clone_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-device"]',
             'wait_for': 2
         }
 
+    clone_inform_window = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="msgEl"]//*[@data-dojo-attach-point="desEl" and contains(text(),"Clone will copy")]',
+            'wait_for': 2
+        }
+
+    clone_inform_window_replacement_not_connected = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="msgEl"]//*[@data-dojo-attach-point="desEl"]//b[contains(text(),"Device Onboarded, but device is currently not connected.")]',
+            'wait_for': 2
+        }
+
+    clone_button_quick_onboard = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-clone-device-window-quick-onboard"]',
+            'wait_for': 2
+        }
+
     yes_confirmation_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 2
+        }
+
+    no_confirmation_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-no-button"]',
             'wait_for': 2
         }
 
@@ -473,14 +503,52 @@ class DeviceActionsDefs:
             'wait_for': 2
         }
 
+    loading_onboarding_replacement = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="loadingQuickOnboardDiv"]',
+            'wait_for': 2
+        }
+
+    onboarding_replacement = \
+        {
+            # 'XPATH': '//*[@class="ui-sml-pgr-inline cl-progress-bar" ]',
+            # 'XPATH': '//*[contains(text(), "Waiting for Replacement")]',
+            'XPATH': '//*[@data-dojo-attach-point="percentageDeviceStatus"]',
+            'wait_for': 2
+        }
+
     warning_message_disconnected = \
         {
             'XPATH': '//*[contains(text(), "disconnected or in the unmanaged state.")]',
             'wait_for': 2
         }
 
+    warning_replacement_different_type = \
+        {
+            'XPATH': '//*[contains(text(), "Original Device Product type and Replacement Device Product Type does not match. Cannot proceed with Device Cloning.")]',
+            'wait_for': 2
+        }
+
+    warning_replacement_not_connected = \
+        {
+            'XPATH': '//*[contains(text(), "Device Onboarded, but Device did not get connected.")]',
+            'wait_for': 2
+        }
+
     cancel_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-clone-device-window-clone-cancel"]',
+            'wait_for': 2
+        }
+
+    close_button = \
+        {
+            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//*[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 2
+        }
+
+    x_button_clone_window = \
+        {
+            'XPATH': '//div[@componentpath="AHDialog"]/div/span[@class="dijitDialogCloseIcon"]',
             'wait_for': 2
         }
