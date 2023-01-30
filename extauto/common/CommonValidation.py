@@ -1,22 +1,14 @@
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.Logging import Logging
-import pytest
-"""  Note: A JIRA AIQ-1403 was raised to track the following problem
-    [ ERROR ] Unexpected error: ModuleNotFoundError: No module named 'robot.utils'
-    We trace the issue back to when the CommonValidation.py was added to the system.
-    When this file was added the __int__.py in root of the extreme_automation_framework
-    was used and this caused all the robot libraries to be unloaded.
-    If we comment out the 'import pytest' the issue is no longer seen.
-    Since we do not know the intent of the pytest import we just disabled the validation in Login.py
-"""
+
 
 class FailureException(AssertionError):
     ROBOT_CONTINUE_ON_FAILURE = True
     pass
 
 class CommonValidation():
-    
+
     def __init__(self):
         self.logger = Logging().get_logger()
         self.utils = Utils()
@@ -55,16 +47,13 @@ class CommonValidation():
         # Added screen capture in case of errors or problems
         self.screen.save_screen_shot()
 
-        # This will raise an error in pytest test cases
-        pytest.fail(fail_msg, pytrace=False)
-
-        # This will raise an error in robot tests
-        assert value == expectedValue, fail_msg
+        # Raise an exception for pytest and robot
+        raise Exception(fail_msg)
 
     def validate(self, value, expectedValue, **kwargs):
         """
         Description: Validate the input values for framework
-        
+
         kwargs:
             IRV = Internal Result verification flag, will be set to true by default
             fail_msg = The message to print on failure
@@ -76,7 +65,7 @@ class CommonValidation():
         """
         test_result = False
         ivr_flag = self.get_kwarg(kwargs, "IRV", True)
-        
+
         if ivr_flag:
             self.logger.info("Internal Result Verification [IRV] is: Enabled")
             default_fail_msg = "[IRV] The keyword failed expectations"

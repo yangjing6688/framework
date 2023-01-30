@@ -1,5 +1,4 @@
 from time import sleep
-from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -198,9 +197,9 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
             return -1
 
         self.navigator.navigate_to_ssids()
-        if self.get_paze_size_element():
+        if self.get_page_size_element():
             self.utils.print_info("Click on full page view")
-            self.auto_actions.click_reference(self.get_paze_size_element)
+            self.auto_actions.click_reference(self.get_page_size_element)
             sleep(3)
 
         if rows := self.get_common_object_grid_rows():

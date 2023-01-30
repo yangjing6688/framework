@@ -168,7 +168,7 @@ class Client:
                                 self.screen.save_screen_shot()
                             else:
                                 client_details[label] = cell.text
-                    self.utils.print_info(f"******************Real Client details************************")
+                    self.utils.print_info("******************Real Client details************************")
                     for key, value in client_details.items():
                         self.utils.print_info(f"{key}:{value}")
 
@@ -338,7 +338,7 @@ class Client:
         client360_info["radio_used"] = self.client_web_elements.get_client360_radio_field().text
         client360_info["channel_used"] = self.client_web_elements.get_client360_channel_field().text
 
-        self.utils.print_info(f"******************Client360 Information************************")
+        self.utils.print_info("******************Client360 Information************************")
         for key, value in client360_info.items():
             self.utils.print_info(f"{key}:{value}")
 

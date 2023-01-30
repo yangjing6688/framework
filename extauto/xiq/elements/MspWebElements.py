@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from extauto.xiq.defs.MspWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.MspWebElementsDefinitions import MspWebElementsDefinitions
 
 
 class MspWebElements(MspWebElementsDefinitions):
@@ -28,7 +28,7 @@ class MspWebElements(MspWebElementsDefinitions):
     def get_organizations_check_box_enabled_status(self):
         return self.weh.get_element(self.organizations_check_box_enabled_status).get_attribute("checked")
 
-    def get_paze_size_element(self, page_size='50'):
+    def get_page_size_element(self, page_size='50'):
         if els := self.weh.get_elements(self.page_size_element):
             for el in els:
                 if str(page_size) in el.text:

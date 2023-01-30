@@ -1,9 +1,13 @@
-from common.AutoActions import *
-from a3.elements.RealmsWebElements import RealmsWebElements
-from a3.elements.GlobalSettingWebElements import *
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
+from time import sleep
+
 from selenium import webdriver
+
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
+from a3.elements.RealmsWebElements import RealmsWebElements
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
+from xiq.flows.common.DeviceCommon import DeviceCommon
 
 
 class RealmsWebElementsFlow(RealmsWebElements):

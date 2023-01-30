@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.archives.NetworkArchivesWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.archives.NetworkArchivesWebElementsDefinitions import NetworkArchivesWebElementsDefinitions
 
 
 class NetworkArchivesWebElements(NetworkArchivesWebElementsDefinitions):
