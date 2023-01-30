@@ -1979,7 +1979,6 @@ class SwitchTemplate(object):
 
                                     confirmation_message = self.utils.wait_till(check_for_confirmation,
                                                                                 is_logging_enabled=True)[0]
-                                    confirmation_message = True
                                     if confirmation_message:
                                         rc = 1
                                         kwargs['pass_msg'] = "Template has been saved successfully."
