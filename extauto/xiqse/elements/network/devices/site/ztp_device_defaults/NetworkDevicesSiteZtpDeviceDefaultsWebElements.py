@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.devices.site.ztp_device_defaults.NetworkDevicesSiteZtpDeviceDefaultsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.devices.site.ztp_device_defaults.NetworkDevicesSiteZtpDeviceDefaultsWebElementsDefinitions import NetworkDevicesSiteZtpDeviceDefaultsWebElementsDefinitions
 
 
 class NetworkDevicesSiteZtpDeviceDefaultsWebElements(NetworkDevicesSiteZtpDeviceDefaultsWebElementsDefinitions):

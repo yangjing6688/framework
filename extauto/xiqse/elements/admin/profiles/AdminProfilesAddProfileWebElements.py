@@ -1,6 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.admin.profiles.AdminProfilesAddProfileWebElementsDefinitions import *
-import re
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.admin.profiles.AdminProfilesAddProfileWebElementsDefinitions import AdminProfilesAddProfileWebElementsDefinitions
 
 
 class AdminProfilesAddProfileWebElements(AdminProfilesAddProfileWebElementsDefinitions):

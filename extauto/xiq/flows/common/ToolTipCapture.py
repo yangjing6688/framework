@@ -29,5 +29,5 @@ def tool_tip_capture():
                     if text not in tool_tip_text:
                         tool_tip_text.append(text)
             sleep(1)
-        except Exception as e:
+        except Exception:
             pass

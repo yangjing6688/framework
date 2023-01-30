@@ -77,7 +77,7 @@ class CoPilotUtils(Cli):
 
     def _start_js_tunnel(self, js_ip, js_username, js_password, rdc_console_name, rdc_console_username):
         try:
-            _val = self.cli.send_pxssh(self.local_host_spawn, 'ssh ' + js_username + '@' + js_ip + ' -A', timeout=3, expected_output="password")
+            self.cli.send_pxssh(self.local_host_spawn, 'ssh ' + js_username + '@' + js_ip + ' -A', timeout=3, expected_output="password")
             self.cli.send_pxssh(self.local_host_spawn, js_password, timeout=3, expected_output="$")
 
             self.cli.send_pxssh(self.local_host_spawn, 'ssh ' + rdc_console_username + '@' + rdc_console_name + ' -i /home/' + js_username + '/ahqa_id_rsa -A', timeout=5, expected_output='Last login' )

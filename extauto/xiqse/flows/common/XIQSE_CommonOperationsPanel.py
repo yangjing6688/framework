@@ -251,7 +251,7 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
                                 self.utils.print_info("Could not get data for cell")
                                 self.screen.save_screen_shot()
                         else:
-                            self.utils.print_info(f"Unable to determine progress for operation Discover Site")
+                            self.utils.print_info("Unable to determine progress for operation Discover Site")
                             self.screen.save_screen_shot()
                     else:
                         self.utils.print_info("Unable to obtain cells for row")
@@ -260,7 +260,7 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
                     # Exit the StaleElementReferenceException handler loop
                     break
                 else:
-                    self.utils.print_info(f"Could not find data row for operation Discover Site")
+                    self.utils.print_info("Could not find data row for operation Discover Site")
                     self.screen.save_screen_shot()
 
                     # Exit the StaleElementReferenceException handler loop

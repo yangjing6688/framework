@@ -4,7 +4,6 @@
 # form or fashion without the written consent of Extreme Networks Inc.
 # ----------------------------------------------------------------------
 #
-from time import sleep
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils

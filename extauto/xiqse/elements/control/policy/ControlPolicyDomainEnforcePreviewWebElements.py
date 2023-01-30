@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.control.policy.ControlPolicyDomainEnforcePreviewWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.control.policy.ControlPolicyDomainEnforcePreviewWebElementsDefinitions import ControlPolicyDomainEnforcePreviewWebElementsDefinitions
 
 
 class ControlPolicyDomainEnforcePreviewWebElements(ControlPolicyDomainEnforcePreviewWebElementsDefinitions):

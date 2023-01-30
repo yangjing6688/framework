@@ -1,11 +1,10 @@
 from pprint import pprint
-import time
 from extauto.xiq.xapi.XapiHelper import XapiHelper
 
 try:
     import extremecloudiq
     from extremecloudiq.rest import ApiException
-except:
+except Exception:
     pprint('WARNING: The library for ExtremecloudIQ cannot be loaded, please ensure this libaray is installed if you are trying to use the XAPI')
 
 
@@ -23,7 +22,6 @@ class XapiLogin:
            :param password - The password for the XIQ instance
            :return: 1 if success or -1 if failure
        """
-        return_code = -1
 
         # get the xapi URL from the global variables
         xapi_url = self.xapiHelper.get_xapi_url()

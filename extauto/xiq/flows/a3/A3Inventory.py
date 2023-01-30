@@ -1,9 +1,14 @@
 import json
 import requests
-from extauto.common.AutoActions import *
+from time import sleep
+
+from extauto.common.AutoActions import AutoActions
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.CommonValidation import CommonValidation
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.A3InventoryWebElements import A3InventoryWebElements
-from extauto.common.CommonValidation import CommonValidation
 
 
 class A3Inventory(A3InventoryWebElements):
@@ -51,7 +56,7 @@ class A3Inventory(A3InventoryWebElements):
                 headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + auth_result["token"]}
                 req = requests.post(url, headers=headers, data=json.dumps(ssh_cfg), verify=False)
                 if req.status_code != 200:
-                    kwargs['fail_msg'] = f"enable_ssh_access_on_a3_node() failed. " \
+                    kwargs['fail_msg'] = "enable_ssh_access_on_a3_node() failed. " \
                                          f"SSH configuration change failed: {req.status_code}"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -63,7 +68,7 @@ class A3Inventory(A3InventoryWebElements):
                     self.utils.print_info('SSH access has been disabled, existing ssh session is still working until '
                                           'it disconnect')
             else:
-                kwargs['fail_msg'] = f"enable_ssh_access_on_a3_node() failed." \
+                kwargs['fail_msg'] = "enable_ssh_access_on_a3_node() failed." \
                                      f"Getting current SSH configuration failed: {req.status_code}"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -326,7 +331,7 @@ class A3Inventory(A3InventoryWebElements):
             self.utils.print_info("A3 Node status " + a3_status)
             if 'icon-status' in a3_status:
                 self._expand_a3_server_node(a3_server_name)
-                kwargs['pass_msg'] = f"A3 Node Status: Connected"
+                kwargs['pass_msg'] = "A3 Node Status: Connected"
                 self.common_validation.passed(**kwargs)
                 return 'green'
 
