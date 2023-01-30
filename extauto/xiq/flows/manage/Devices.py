@@ -10363,6 +10363,13 @@ class Devices:
                 self.common_validation.passed(**kwargs)
                 complete = True
                 break
+            # add by @kunli.
+            # If 'device update failed', the update was done, don't need check update status until timeout.
+            elif "Device Update Failed" in str(update_status):
+                kwargs['fail_msg'] = "Device Update Failed "
+                self.common_validation.failed(**kwargs)
+                return -1
+
             sleep(15)
 
         if not complete:
