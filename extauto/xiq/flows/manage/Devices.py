@@ -1818,6 +1818,19 @@ class Devices:
                                                       csv_location, device_model, os_version, os_persona, **kwargs) == -1:
             return -1
 
+        # Fix for aiq2618, prevents unnecessary clicks
+        # We are planning to rework logic
+        if 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
+            self.utils.print_info("Onboarding: ", device_make)
+            return_value = self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
+            if return_value == 1:
+                kwargs['pass_msg'] = f"Successfully Onboarded a stack of exos Device(s) with serial numbers {device_serial}"
+                self.common_validation.passed(**kwargs)
+            else:
+                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {device_serial}"
+                self.common_validation.failed(**kwargs)
+            return return_value
+
         self.utils.print_info("Onboarding: ", device_make)
         self.navigator.navigate_to_devices()
 
@@ -1883,11 +1896,14 @@ class Devices:
                                                        get_devices_quick_add_policy_drop_down_items(), policy_name)
             sleep(2)
 
-        self.utils.print_info("Clicking on ADD DEVICES button...")
-        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
+        # Preventing an unnecessary click here fixes the problem seen in aiq2618
+        # We are planning to rework logic
+        if self.search_device(device_serial=device_serial) == -1:
+            self.utils.print_info("Clicking on ADD DEVICES button...")
+            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
-        self.screen.save_screen_shot()
-        sleep(2)
+            self.screen.save_screen_shot()
+            sleep(2)
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
