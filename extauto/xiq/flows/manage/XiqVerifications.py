@@ -275,7 +275,8 @@ class XiqVerifications:
                             self.utils.print_info(repr(exc))
 
     def check_add_vlan_range_commands_to_individual(self, dut, vlan_rng, ports, **kwargs):
-        """ Method that verifies in the delta cli audit of certain add vlan commands appeared.
+        """ Method that verifies in the delta cli audit that certain add vlan commands appeared.
+        
         Currently this method supports only switches with cli_type - exos.
 
         Args:
@@ -305,7 +306,7 @@ class XiqVerifications:
 
             not_found = []
 
-            if dut.platform == 'Stack':
+            if dut.platform.upper() == 'STACK':
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     for port in ports.split(','):
                         for vlan in range(int(vlan_rng.split('-')[0]), int(vlan_rng.split('-')[1]) + 1):
@@ -332,7 +333,7 @@ class XiqVerifications:
         return 1
 
     def check_delete_vlan_range_commands_to_individual(self, dut, vlan_range, ports, **kwargs):
-        """ Method that verifies in the delta cli audit of certain delete vlan commands appeared.
+        """ Method that verifies in the delta cli audit that certain delete vlan commands appeared.
         Currently this method supports only switches with cli_type - exos.
 
         Args:
@@ -362,7 +363,7 @@ class XiqVerifications:
 
             not_found = []
 
-            if dut.platform == 'Stack':
+            if dut.platform.upper() == 'STACK':
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     for port in ports.split(','):
                         for vlan in range(int(vlan_range.split('-')[0]), int(vlan_range.split('-')[1]) + 1):
@@ -389,7 +390,8 @@ class XiqVerifications:
         return 1
 
     def get_device_vlan_configuration(self, dut, ports, network_policy, **kwargs):
-        """ Method that pushes the vlan configuration to the switch in XIQ and then returns the ports vlan configuration from the switch.
+        """ Method that pushes the vlan configuration to the switch in XIQ and then returns the vlan configuration of each port from the switch.
+        
         Currently this method supports only switches with cli_type - exos.
 
         Args:
@@ -505,7 +507,7 @@ class XiqVerifications:
         return configuration_list
 
     def check_devices_config_after_individual_add_port_push(self, dut, vlan_range, ports, policy_name, **kwargs):
-        """ Method that verifies the vlan configuration retrieved from switch using this method 'get_device_vlan_configuration' after the add vlan commands were sent to the switch.
+        """ Method that retrieves the vlan configuration the switch using the method 'get_device_vlan_configuration' and verifies if the vlan add commands were used.
         Currently this method supports only switches with cli_type - exos.
 
         Args:
@@ -578,7 +580,7 @@ class XiqVerifications:
         return 1
 
     def check_devices_config_after_individual_delete_port_push(self, dut, ports, vlan_range, policy_name, **kwargs):
-        """ Method that verifies the vlan configuration retrieved from switch using this method 'get_device_vlan_configuration' after the delete vlan commands were sent to the switch.
+        """ Method that retrieves the vlan configuration the switch using the method 'get_device_vlan_configuration' and verifies if the vlan delete commands were used.
         
         Currently this method supports only switches with cli_type - exos.
 
@@ -698,15 +700,13 @@ class XiqVerifications:
                 
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     def _check_sw_template_selection():
-                        return self.switch_template.select_sw_template(network_policy_name,
-                                                                                        sw_template_name)
+                        return self.switch_template.select_sw_template(network_policy_name, sw_template_name)
 
                     self.utils.wait_till(_check_sw_template_selection, timeout=30, delay=5)
 
                     self.switch_template.go_to_port_configuration()
                     self.switch_template.sw_template_stack_select_slot(slot)
-                    self.switch_template.template_assign_ports_to_an_existing_port_type(port_numbers,
-                                                                                                        trunk_port_type_name)
+                    self.switch_template.template_assign_ports_to_an_existing_port_type(port_numbers, trunk_port_type_name)
             else:
                 def _check_sw_template_selection():
                     return self.switch_template.select_sw_template(network_policy_name, sw_template_name)
@@ -726,7 +726,7 @@ class XiqVerifications:
                 device_mac=dut.mac)
 
         self.utils.wait_till(_check_device_update, timeout=60, delay=3, msg='Checking the initialization of the '
-                                                 'update')
+                             'update')
 
         def _check_device_update_status():
             return self.devices.check_device_update_status_by_using_mac(

@@ -2640,7 +2640,7 @@ class Cli(object):
 
         Args:
             dut (dict): the dut, e.g. tb.dut1
-            ports (str): the ports that will be verified
+            ports (str): the ports that will be verified - e.g. '1,3,5,10'
 
         Returns:
             int: 1 if the function call has succeeded else -1
@@ -2659,7 +2659,8 @@ class Cli(object):
 
             ports_not_found = []
 
-            if dut.platform == 'Stack':
+            if dut.platform.upper() == 'STACK':
+                
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     for port in ports.split(','):
                         if str(slot) + ':' + port not in output:
@@ -2675,13 +2676,15 @@ class Cli(object):
 
             if ports_not_found:
                 self.utils.print_info('The following ports were not found: ')
+                
                 for port_not_found in ports_not_found:
                     self.utils.print_info(port_not_found)
-                kwargs["fail_msg"] = f"Did not find these ports: {ports_not_found}"
+                
+                kwargs["fail_msg"] = f"Did not find these ports on the device: {ports_not_found}"
                 self.commonValidation.failed(**kwargs)
                 return -1
         
-        kwargs["pass_msg"] = "Successfully found all the ports"
+        kwargs["pass_msg"] = "Successfully found all the ports on the device"
         self.commonValidation.passed(**kwargs)
         return 1
 

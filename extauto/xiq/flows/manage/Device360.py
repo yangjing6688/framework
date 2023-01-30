@@ -15269,7 +15269,8 @@ class Device360(Device360WebElements):
             return -1
         
         if dut.cli_type.upper() == "EXOS":
-            if dut.platform == 'Stack':
+            if dut.platform.upper() == 'STACK':
+
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     self.navigator.navigate_to_devices()
                     self.dev.refresh_devices_page()
@@ -15280,6 +15281,7 @@ class Device360(Device360WebElements):
                     self.device360_configure_ports_trunk_stack(
                         port_numbers=port_numbers, trunk_native_vlan="1", trunk_vlan_id=vlan_range, slot=slot)
             else:
+                
                 self.navigator.navigate_to_devices()
                 self.dev.refresh_devices_page()
                 sleep(20)
