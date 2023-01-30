@@ -1,6 +1,6 @@
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 from xiqse.flows.common.XIQSE_CommonTable import XIQSE_CommonTable
-from xiqse.defs.network.devices.devices.NetworkDevicesDevicesInventorySettingsWebElementsDefinitions import *
+from xiqse.defs.network.devices.devices.NetworkDevicesDevicesInventorySettingsWebElementsDefinitions import NetworkDevicesDevicesInventorySettingsWebElementsDefinitions
 import re
 
 
@@ -155,4 +155,3 @@ class NetworkDevicesDevicesInventorySettingsWebElements(NetworkDevicesDevicesInv
         :return: Cancel Button on Inventory Settings Dialog
         """
         return self.weh.get_element(self.inventory_settings_cancel_button)
-

@@ -1,5 +1,6 @@
-from a3.defs.GlobalSettingWebElementDefinitions import *
-from common.WebElementHandler import *
+from a3.defs.GlobalSettingWebElementDefinitions import GlobalSettingWebElementDefinitions
+from common.Utils import Utils
+from common.WebElementHandler import WebElementHandler
 
 
 class GlobalSettingWebElements(GlobalSettingWebElementDefinitions):
@@ -47,6 +48,3 @@ class GlobalSettingWebElements(GlobalSettingWebElementDefinitions):
             return grid_rows
         else:
             return False
-
-
-

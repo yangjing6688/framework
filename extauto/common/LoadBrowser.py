@@ -25,7 +25,7 @@ class LoadBrowser:
         self.driver.maximize_window()
         try:
             self.driver.get(url)
-        except Exception as e:
+        except Exception:
             pass
         sleep(3)
         got_title = self.driver.title

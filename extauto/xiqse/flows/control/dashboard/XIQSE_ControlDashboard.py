@@ -1,9 +1,11 @@
-from xiqse.elements.control.ControlWebElements import ControlWebElements
+from time import sleep
+
 from xiqse.elements.control.access_control.ControlAccessControlCommonWebElements import ControlAccessControlCommonWebElements
 from xiqse.elements.control.dashboard.ControlDashboardWebElements import ControlDashboardWebElements
 
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 
 class XIQSE_ControlDashboard(ControlDashboardWebElements):
 
@@ -34,7 +36,7 @@ class XIQSE_ControlDashboard(ControlDashboardWebElements):
                 break
 
         if ret_val == -1:
-            self.utils.print_info(f"Could not find the menu...")
+            self.utils.print_info("Could not find the menu...")
             self.screen.save_screen_shot()
 
         sleep(2)
@@ -89,7 +91,7 @@ class XIQSE_ControlDashboard(ControlDashboardWebElements):
                     else:
                         ret_val = "Invalid Value"
                         self.screen.save_screen_shot()
-                except:
+                except Exception:
                     self.utils.print_info(f"Error converting license count value: {input_element.text} to number")
                     if(input_element.text == "Unlimited"):
                         self.utils.print_debug("Value is Unlimited, which is valid")

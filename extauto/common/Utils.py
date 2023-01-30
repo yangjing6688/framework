@@ -322,7 +322,9 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
+        # Commented on 1/18/23 because variable is unused
+        # output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
+        BuiltIn().get_variable_value("${OUTPUT DIR}")
 
         print("*HTML* <a href=" + file_name + "> <img src=" + file_name
               + " width=\"600px\" style=\"border:5px solid red\"></a>")
@@ -779,7 +781,7 @@ class Utils:
         time_info["minutes"] = minutes
         time_info["seconds"] = seconds
 
-        self.print_debug(f"**** Milliseconds Converted To Days/Hours/Minutes/Seconds ****")
+        self.print_debug("**** Milliseconds Converted To Days/Hours/Minutes/Seconds ****")
         for key, value in time_info.items():
             self.print_info(f"{key}: {value}")
 

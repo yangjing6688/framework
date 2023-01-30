@@ -1,15 +1,15 @@
 from time import sleep
 
-from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 from extauto.xiq.flows.common.Navigator import Navigator
-from extauto.xiq.flows.manage.Client import *
-from extauto.xiq.flows.manage.Devices import *
+from extauto.xiq.flows.manage.Client import Client
+from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
-from extauto.xiq.elements.DeviceActions import *
-from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
-from extauto.xiq.elements.MLInsightsPlanWebElements import *
-from extauto.xiq.elements.Device360WebElements import *
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.elements.MLInsightsPlanWebElements import MLInsightsPlanWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
 
 class Location:
