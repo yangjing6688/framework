@@ -4130,7 +4130,7 @@ class Devices:
             self.screen.save_screen_shot()
             return -1
 
-    def wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10):
+    def wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword waits until the device status in XIQ is "Disconnected" or "Unknown".
         - After Configuring the CAPWAP client server in device cli, check the device connected status
@@ -4193,7 +4193,8 @@ class Devices:
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
 
-        self.utils.print_info("Device failed to go OFFLINE. Please check.")
+        kwargs['fail_msg'] = f"Device failed to go OFFLINE. Please check."
+        self.common_validation.failed(**kwargs)
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -4240,7 +4241,7 @@ class Devices:
 
         return 1
 
-    def wait_until_device_reboots(self, device_serial, retry_duration=30, retry_count=10):
+    def wait_until_device_reboots(self, device_serial, retry_duration=30, retry_count=10, **kwargs):
         """
         - This Keyword will wait until device reboots based on device update status message
         - Keyword Usage:
@@ -4262,12 +4263,14 @@ class Devices:
                 self.utils.print_info(f"Device is rebooting. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             elif re.match(date_regex, reboot_message):
-                    self.utils.print_info("Device has finshed rebooting at {}".format(reboot_message))
+                    kwargs['pass_msg'] = f"Device {device_serial} has finished rebooting at {reboot_message}"
+                    self.common_validation.passed(**kwargs)
                     return 1
             count += 1
 
         self.screen.save_screen_shot()
-
+        kwargs['fail_msg'] = f"Fail Device {device_serial} failed to come back online in due time. Please check"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def wait_until_country_discovered(self, device_serial, retry_duration=30, retry_count=10):
@@ -5457,7 +5460,7 @@ class Devices:
         self.utils.print_info("Device still exists in the view. Please check.")
         return -1
 
-    def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10):
+    def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword waits until the MANAGED column for the specified device to contains 'Managed' state.
         - This keyword by default loops every 30 seconds for 10 times to check the MANAGED column data
@@ -5484,17 +5487,18 @@ class Devices:
             self.utils.print_info(f"Searching for device {device_serial}: loop {count}")
             col_value = self.get_device_details(device_serial, 'MANAGED')
             if col_value == "Managed":
-                self.utils.print_info(
-                    f"MANAGED column for device {device_serial} contains expected data: '{col_value}'")
+                kwargs['pass_msg'] = f"MANAGED column for device {device_serial} contains expected data: '{col_value}'"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(
-                    f"MANAGED column for device {device_serial} contains value: '{col_value}'  still not matching expected value 'Managed' ..Waiting for {retry_duration} seconds...")
+                    f"MANAGED column for device {device_serial} contains value: '{col_value}' still not matching expected value 'Managed' ..Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
                 self.refresh_devices_page()
             count += 1
 
-        self.utils.print_info(f"MANAGED column for device {device_serial} does not contain expected value 'Managed'")
+        kwargs['fail_msg'] = f"MANAGED column for device {device_serial} does not contain expected value 'Managed'"
+        self.common_validation.failed(**kwargs)
         return -1
 
 
