@@ -5476,6 +5476,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("'{}' profile was not found".format(name_s_cli))
                 self.utils.print_info("Creating one")
                 self.auto_actions.click_reference(self.get_device_360_supplemental_cli_new_profile)
+                sleep(5)
                 self.auto_actions.send_keys(self.get_device_360_supplemental_cli_profile_name(), name_s_cli)
                 sleep(3)
                 profile_commands_cli = self.get_device_360_supplemental_cli_profile_commands()

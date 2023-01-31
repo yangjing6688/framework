@@ -320,8 +320,6 @@ class XiqVerifications:
             configuration_event (bool): the method will click on the Configuration Events tab if this arg is True
 
         Returns: 1 if successful else -1
-
-        Author: Dragos Sofiea, Devi Ranganathan, Raluca Cionca
         """
 
         if os.lower() not in ["exos", "voss"]:
