@@ -2519,7 +2519,7 @@ class Cli(object):
         if cli_type_1.lower() and cli_type_2.lower() == 'exos':
             self.networkElementCliSend.send_cmd(dut1, 'configure cli journal size 200', max_wait=10, interval=2)
             self.networkElementCliSend.send_cmd(dut2, 'configure cli journal size 200', max_wait=10, interval=2)
-            kwargs['pass_msg'] = f"configure_cli_table() passed"
+            kwargs['pass_msg'] = "configure_cli_table() passed"
             self.commonValidation.passed(**kwargs)
         elif cli_type_1.lower() and cli_type_2.lower() == 'voss':
 
@@ -2527,10 +2527,10 @@ class Cli(object):
             self.send_commands(dut1, "clear logging")
             self.send_commands(dut2, "configure terminal")
             self.send_commands(dut2, "clear logging")
-            kwargs['pass_msg'] = f"configure_cli_table() passed"
+            kwargs['pass_msg'] = "configure_cli_table() passed"
             self.commonValidation.passed(**kwargs)
         else:
-            kwargs['fail_msg'] = f"configure_cli_table() failed. No type OS found"
+            kwargs['fail_msg'] = "configure_cli_table() failed. No type OS found"
             self.commonValidation.failed(**kwargs)
             return -1
 
@@ -2564,12 +2564,12 @@ class Cli(object):
                 print("Commands are the same")
                 self.close_spawn(spawn_device_1)
                 self.close_spawn(spawn_device_2)
-                kwargs['pass_msg'] = f"check_clone_configuration() passed"
+                kwargs['pass_msg'] = "check_clone_configuration() passed"
                 self.commonValidation.passed(**kwargs)
             else:
                 self.close_spawn(spawn_device_1)
                 self.close_spawn(spawn_device_2)
-                kwargs['fail_msg'] = f"check_clone_configuration() failed. Commands are not the same "
+                kwargs['fail_msg'] = "check_clone_configuration() failed. Commands are not the same "
                 self.commonValidation.failed(**kwargs)
 
         elif cli_type_1.lower() and cli_type_2.lower() == 'voss':
@@ -2589,17 +2589,17 @@ class Cli(object):
                 print("Commands are the same")
                 self.close_spawn(spawn_device_1)
                 self.close_spawn(spawn_device_2)
-                kwargs['pass_msg'] = f"check_clone_configuration() passed."
+                kwargs['pass_msg'] = "check_clone_configuration() passed."
                 self.commonValidation.passed(**kwargs)
             else:
                 self.close_spawn(spawn_device_1)
                 self.close_spawn(spawn_device_2)
-                kwargs['fail_msg'] = f"check_clone_configuration() failed. Commands are not the same "
+                kwargs['fail_msg'] = "check_clone_configuration() failed. Commands are not the same "
                 self.commonValidation.failed(**kwargs)
         else:
             self.close_spawn(spawn_device_1)
             self.close_spawn(spawn_device_2)
-            kwargs['fail_msg'] = f"check_clone_configuration() failed. No type OS found "
+            kwargs['fail_msg'] = "check_clone_configuration() failed. No type OS found "
             self.commonValidation.failed(**kwargs)
 
     def get_cli_commands(self, info: str, cli_type, **kwargs):
@@ -2629,7 +2629,7 @@ class Cli(object):
             n = 100
             last_100_commands_table = list(list(islice(reversed(table_repl), 0, n)))
             last_100_commands_table.reverse()
-            kwargs['pass_msg'] = f"get_cli_commands() passed."
+            kwargs['pass_msg'] = "get_cli_commands() passed."
             self.commonValidation.passed(**kwargs)
             return last_100_commands_table
         elif cli_type.lower() == 'voss':
@@ -2640,11 +2640,11 @@ class Cli(object):
                     table_repl.remove('end ')
                 if 'logout ' in table_repl:
                     table_repl.remove('logout ')
-            kwargs['pass_msg'] = f"get_cli_commands() passed."
+            kwargs['pass_msg'] = "get_cli_commands() passed."
             self.commonValidation.passed(**kwargs)
             return table_repl
         else:
-            kwargs['fail_msg'] = f"get_cli_commands() failed. No type OS found "
+            kwargs['fail_msg'] = "get_cli_commands() failed. No type OS found "
             self.commonValidation.failed(**kwargs)
             return -1
 
@@ -2672,7 +2672,7 @@ class Cli(object):
             iqagent_version_2 = self.utils.get_regexp_matches(check_iqagent_version_2, iqagent_version_regex, 1)[0]
             iqagent_version_2_string = iqagent_version_2.replace(self.utils.get_regexp_matches(iqagent_version_2,
                                                                                                    '([ ])')[0], '')
-            kwargs['pass_msg'] = f"check_iqagent_versions() passed."
+            kwargs['pass_msg'] = "check_iqagent_versions() passed."
             self.commonValidation.passed(**kwargs)
             return [iqagent_version_1_string, iqagent_version_2_string]
 
@@ -2685,7 +2685,7 @@ class Cli(object):
             check_iqagent_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show application iqagent | include "Agent Version"')[0].cmd_obj._return_text
             iqagent_version_2_string = self.utils.get_regexp_matches(check_iqagent_version_2,
                                                                          iqagent_version_regex, 1)[0]
-            kwargs['pass_msg'] = f"check_iqagent_versions() passed."
+            kwargs['pass_msg'] = "check_iqagent_versions() passed."
             self.commonValidation.passed(**kwargs)
             return [iqagent_version_1_string, iqagent_version_2_string]
 
