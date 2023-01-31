@@ -5,6 +5,60 @@ from extauto.xiq.xapi.XapiBase import XapiBase
 
 class XapiDevices(XapiBase):
 
+    def __init__(self):
+        super().__init__()
+        self.NOT_SUPPORTED = 'not_supported'
+        self.device_column_ui_to_xapi = {}
+        self.device_column_ui_to_xapi['STATUS'] = 'connected'
+        self.device_column_ui_to_xapi['HOST NAME'] = 'hostname'
+        self.device_column_ui_to_xapi['NETWORK POLICY'] = 'network_policy_name'
+        self.device_column_ui_to_xapi['MANAGED BY'] = self.NOT_SUPPORTED
+        self.device_column_ui_to_xapi['UPTIME'] = self.NOT_SUPPORTED
+        self.device_column_ui_to_xapi['MGT IP ADDRESS'] = 'ip_address'
+        self.device_column_ui_to_xapi['DEFAULT GATEWAY'] = 'default_gateway'
+        self.device_column_ui_to_xapi['CLIENTS'] = self.NOT_SUPPORTED
+        self.device_column_ui_to_xapi['MAC'] = 'mac_address'
+        self.device_column_ui_to_xapi['LOCATION'] = 'locations'
+        self.device_column_ui_to_xapi['SERIAL #'] = 'serial_number'
+        self.device_column_ui_to_xapi['FEATURE LICENSE'] = self.NOT_SUPPORTED
+        self.device_column_ui_to_xapi['MODEL'] = 'product_type'
+        self.device_column_ui_to_xapi['OS VERSION'] = 'software_version'
+        self.device_column_ui_to_xapi['UPDATED'] = 'update_time'
+        self.device_column_ui_to_xapi['MGT VLAN'] = self.NOT_SUPPORTED
+        self.device_column_ui_to_xapi['MAKE'] = self.NOT_SUPPORTED
+        self.device_column_ui_to_xapi['MANAGED'] = 'device_admin_state'
+        self.device_column_ui_to_xapi['COUNTRY'] = 'country_code'
+        self.device_column_ui_to_xapi['OS'] = self.NOT_SUPPORTED
+
+        # column_list = ['id',
+        #                'create_time',
+        #                'update_time',
+        #                'org_id',
+        #                'org_name',
+        #                'location_id',
+        #
+        #                'device_function',
+        #
+        #                'software_version',
+        #
+        #                'connected',
+        #                'last_connect_time',
+        #                'network_policy_name',
+        #                'network_policy_id',
+        #                'ntp_server_address',
+        #                'dns_server_address',
+        #                'subnet_mask',
+        #                'default_gateway',
+        #                'ipv6_address',
+        #                'ipv6_netmask',
+        #                'simulated',
+        #                'display_version',
+        #                'active_clients',
+        #
+        #                'description',
+        #                ]
+
+
     def xapi_onboard_device(self, device_dict, **kwargs):
         """
             Onboard a device
@@ -67,7 +121,7 @@ class XapiDevices(XapiBase):
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return 1
             except self.ApiException as e:
-                print("Exception when calling DeviceApi->onboard_devices: %s\n" % e)
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->onboard_devices: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
@@ -106,7 +160,7 @@ class XapiDevices(XapiBase):
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return api_response.data
             except self.ApiException as e:
-                kwargs['fail_msg'] = f'Exception when calling DeviceApi->get_device: {e}\n'
+                kwargs['fail_msg'] = f'Exception when calling DeviceApi->get_device: {e}'
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
@@ -142,7 +196,7 @@ class XapiDevices(XapiBase):
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return 1
             except self.ApiException as e:
-                kwargs['fail_msg'] = f"Exception when calling DeviceApi->reboot_device: {e}\n"
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->reboot_device: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
@@ -166,13 +220,12 @@ class XapiDevices(XapiBase):
             # Create an instance of the API class
             api_instance = self.extremecloudiq.DeviceApi(api_client)
             try:
-                # ERROR - ValueError: Invalid value for `create_time`, must not be `None`
-                api_response = api_instance.list_devices(_preload_content=False)  # total hack for now
+                api_response = api_instance.list_devices(_preload_content=False)
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return json.loads(api_response.data)
 
             except self.ApiException as e:
-                print("Exception when calling DeviceApi->list_devices: %s\n" % e)
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->list_devices: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
@@ -219,6 +272,7 @@ class XapiDevices(XapiBase):
 
            :return: The device ID for success and -1 for failure
         """
+        retry_value = 0
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
@@ -252,7 +306,7 @@ class XapiDevices(XapiBase):
                         retry_value += 1
 
             except self.ApiException as e:
-                kwargs['fail_msg'] = f"Exception when calling DeviceApi->xapi_wait_until_device_online: {e}\n"
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->xapi_wait_until_device_online: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
@@ -309,7 +363,7 @@ class XapiDevices(XapiBase):
                         retry_value += 1
 
             except self.ApiException as e:
-                kwargs['fail_msg'] = f"Exception when calling DeviceApi->get_device: {e}\n"
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->get_device: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
@@ -355,13 +409,60 @@ class XapiDevices(XapiBase):
                 return 1
 
             except self.ApiException as e:
-                kwargs['fail_msg'] = f"Exception when calling DeviceApi->delete_device: {e}\n"
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->delete_device: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
             # In the case that nothing is found
             self.xapiHelper.common_validation.failed(**kwargs)
             return -1
+
+    def xapi_get_device_column_information(self, device_serial, column_array, **kwargs):
+        """
+            :param device_serial: The device serial number
+            :param column_array: The list UI of columns to query
+            :param kwargs: The kwargs
+            :return: A dict for the {column name: value}, if the value isn't found the value will be replace with 'value_not_found'
+        """
+        id = self._xapi_search_for_device_id(device_serial=device_serial, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial}"
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
+
+        # Get the configuration from the Global varibles
+        configuration = self.xapiHelper.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        return_data = {}
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.DeviceApi(api_client)
+            try:
+                # get Device information
+                api_response = api_instance.get_device(id, views=['full'], _preload_content=False)
+                self.valid_http_reponse(api_response)
+                json_data = json.loads(api_response.data)
+                for column in column_array:
+                    json_column_name = self.device_column_ui_to_xapi.get(column)
+                    if json_column_name != self.NOT_SUPPORTED:
+                        column_data = json_data.get(json_column_name, 'value_not_found')
+                        return_data[column.replace(' ',"_")] = column_data
+                kwargs['pass_msg'] = f"Device has been quereid"
+                self.xapiHelper.common_validation.passed(**kwargs)
+                return return_data
+
+            except self.ApiException as e:
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->xapi_get_device_column_information: {e}"
+                self.xapiHelper.common_validation.failed(**kwargs)
+                return -1
+
+
 
 
 # def assign_device_network_policy(self, id=None, network_policy_id=None):

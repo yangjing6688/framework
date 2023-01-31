@@ -4215,6 +4215,9 @@ class Devices:
         :param column_array: The device array of columns to get data for
         :return: object map of data columns to data, spaces are replaced with _
         """
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_get_device_column_information(device_serial, column_array)
+
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
