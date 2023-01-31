@@ -32,9 +32,6 @@ class ClientMonitor(ClientMonitorWebElements):
         auth_issue_count = self.get_auth_issue_counts_status_card().text
         self.utils.print_info(f"Authentication issue count:{auth_issue_count}")
         return auth_issue_count
-        try
-        except:
-            pass
 
     def get_client_issue_entries(self, search_string, issue_type="All", issue_state="All"):
         """
