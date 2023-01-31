@@ -1,5 +1,4 @@
 from extauto.common.Utils import Utils
-from extauto.xiq.flows.manage.Location import *
 from extauto.xiq.flows.manage.Device360 import Device360
 from extauto.common.CommonValidation import CommonValidation
 from extauto.common.Cli import Cli
@@ -96,7 +95,7 @@ class WiredLib():
                     return -1
         return 1
 
-    def check_vlan_cli(self, vlan, device_make, sw_spawn):
+    def check_vlan_cli(self, vlan, device_make, sw_spawn, **kwargs):
         """
 
         :param vlan:

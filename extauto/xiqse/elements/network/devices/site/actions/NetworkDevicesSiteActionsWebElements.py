@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.devices.site.actions.NetworkDevicesSiteActionsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.devices.site.actions.NetworkDevicesSiteActionsWebElementsDefinitions import NetworkDevicesSiteActionsWebElementsDefinitions
 
 
 class NetworkDevicesSiteActionsWebElements(NetworkDevicesSiteActionsWebElementsDefinitions):

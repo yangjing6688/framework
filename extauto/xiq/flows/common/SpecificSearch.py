@@ -76,7 +76,7 @@ class SpecificSearch:
             self.common_validation.fault(**kwargs)
             return -1
 
-    def warning_search_close_window(self, info):
+    def warning_search_close_window(self, info, **kwargs):
         """
         - searches information specific to warning page
          :return: 1 if successfully Search information about specific Application else -1

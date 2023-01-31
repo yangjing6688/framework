@@ -4,15 +4,7 @@ import json
 from sys import platform
 from pathlib import Path
 import socket
-import re
-import glob
-import codecs
-import uuid
 import requests
-import os.path
-from os import path
-import shutil
-from pprint import pprint
 
 test_data = { 'base_url': 'test', 'testhost': None, 'testMount': None }
 
@@ -79,8 +71,7 @@ class econAPI():
             r = requests.post(endPoint, data=payload, headers=self.HEADERS )
             try:
                 return r.json()
-            except:
-                pass
+            except Exception:
                 return oops
         elif rtype == 'put':
             if len(route) > 0:
@@ -95,8 +86,7 @@ class econAPI():
             r = requests.put(endPoint, data=payload, headers=self.HEADERS )
             try:
                 return r.json()
-            except:
-                pass
+            except Exception:
                 return oops
         elif rtype == 'delete':
             if len(route) > 0:
@@ -111,8 +101,7 @@ class econAPI():
             r = requests.delete(endPoint, headers=self.HEADERS )
             try:
                 return r.json()
-            except:
-                pass
+            except Exception:
                 return oops
         elif rtype == 'get':
             if isinstance(payload, list):
@@ -127,6 +116,5 @@ class econAPI():
             r = requests.get(endPoint, headers=self.HEADERS )
             try:
                 return r.json()
-            except:
-                pass
+            except Exception:
                 return oops

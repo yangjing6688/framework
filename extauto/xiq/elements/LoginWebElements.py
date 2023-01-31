@@ -1,5 +1,5 @@
-from extauto.xiq.defs.LoginWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.LoginWebElementsDefinitions import LoginWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 from selenium.common.exceptions import NoSuchElementException
 
 
@@ -33,7 +33,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                     return True
                 else:
                     return False
-        except Exception as e:
+        except Exception:
             return False
 
     def get_dialog_box_close_button(self):
@@ -65,7 +65,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_welcome_page_done_button(self):
@@ -105,8 +105,11 @@ class LoginWebElements(LoginWebElementsDefinitions):
     def get_30_days_trial_txt(self):
         return self.weh.get_element(self.txt_30_days_trial)
 
-    def get_option_30_days_trial(self):
-        return self.weh.get_element(self.option_30_days_trial)
+    ### Commented on 1/18/23 because this is a duplicate of a function below.
+    ### The second function to be declared will be used. Thus, this function was commented
+    #
+    # def get_option_30_days_trial(self):
+    #     return self.weh.get_element(self.option_30_days_trial)
 
     def get_drawer_trigger(self):
         return self.weh.get_element(self.drawer_trigger)
@@ -129,7 +132,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_wips_popup_dialog_close_button(self):
@@ -141,9 +144,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
     def get_login_logo(self):
         return self.weh.get_element(self.login_logo)
 
-    def get_30_days_trial_txt(self):
-        return self.weh.get_element(self.txt_30_days_trial)
-
+    # There is a duplicate of this function above that was commented out on 1/18/23
     def get_option_30_days_trial(self):
         return self.weh.get_element(self.trial_30day_login_option)
 
@@ -416,5 +417,5 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"

@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.devices.tree_panel.NetworkDevicesTreePanelDeleteSiteWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.devices.tree_panel.NetworkDevicesTreePanelDeleteSiteWebElementsDefinitions import NetworkDevicesTreePanelDeleteSiteWebElementsDefinitions
 
 
 class NetworkDevicesTreePanelDeleteSiteWebElements(NetworkDevicesTreePanelDeleteSiteWebElementsDefinitions):

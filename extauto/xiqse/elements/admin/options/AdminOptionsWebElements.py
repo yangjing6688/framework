@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.admin.options.AdminOptionsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.admin.options.AdminOptionsWebElementsDefinitions import AdminOptionsWebElementsDefinitions
 
 
 class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
@@ -167,4 +167,3 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
         :return: Status Polling Group 2 Interval field on the Administration> Options page
         """
         return self.weh.get_element(self.status_polling_group_2_interval_value)
-

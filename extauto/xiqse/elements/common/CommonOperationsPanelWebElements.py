@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.common.CommonOperationsPanelWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.common.CommonOperationsPanelWebElementsDefinitions import CommonOperationsPanelWebElementsDefinitions
 
 
 class CommonOperationsPanelWebElements(CommonOperationsPanelWebElementsDefinitions):
@@ -17,12 +17,6 @@ class CommonOperationsPanelWebElements(CommonOperationsPanelWebElementsDefinitio
         :return: Gets the group table rows in the Operations panel
         """
         return self.weh.get_elements(self.operations_table_group_rows)
-
-    def get_operations_table_group_data_rows(self):
-        """
-        :return: Gets the table rows for the expanded group(s) in the Operations panel
-        """
-        return self.weh.get_elements(self.operations_table_group_data_rows)
 
     def get_operations_table_group_row(self, value):
         """
