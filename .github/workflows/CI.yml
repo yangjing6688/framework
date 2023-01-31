@@ -1,7 +1,7 @@
 name: CI Workflow
 on:
   pull_request:
-    branches: [main]
+    branches: [main, RELEASE-**]
 
 jobs:
   framework_sanity:
@@ -113,7 +113,7 @@ jobs:
       if: ${{ always() }}
       id: set-output
       run: |
-        echo "::set-output name=status::${{ job.status }}"
+        echo "status=${{ job.status }}" >> $GITHUB_OUTPUT
 
   code_checks:
     name: Run code quality tools
@@ -135,10 +135,10 @@ jobs:
     - name: Python syntax checking
       run: |
         printf '\n%s\n\n' "======== Running flake8 ========"
-        python3 -m flake8 --extend-ignore E101,E111,E114,E116,E117,E122,E124,E125,E127,E128,E129,E131,E201,E202,E203,E211,E221,E222,E225,E228,E231,E251,E261,E265,E266,E271,E272,E275,E301,E302,E303,E305,E306,E501,E502,E701,E703,E711,E712,E713,E731,W191,W291,W292,W293,W391,W605 --statistics $EXTAUTO_DIR
+        python3 -m flake8 --extend-ignore E101,E111,E114,E116,E117,E122,E124,E125,E127,E128,E129,E131,E201,E202,E203,E211,E221,E222,E225,E228,E231,E251,E261,E265,E266,E271,E272,E275,E301,E302,E303,E305,E306,E501,E502,E701,E703,E711,E712,E713,E731,W191,W291,W292,W293,W391,W605 --color=always --statistics $EXTAUTO_DIR
 
     - name: Set job status output
       if: ${{ always() }}
       id: set-output
       run: |
-        echo "::set-output name=status::${{ job.status }}"
+        echo "status=${{ job.status }}" >> $GITHUB_OUTPUT
