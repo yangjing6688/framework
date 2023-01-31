@@ -345,10 +345,11 @@ class Device360(Device360WebElements):
         sleep(3)
         self.screen.save_screen_shot()
 
-        if self.nav_web_elements.get_unknown_tooltip_error().is_displayed():
-            self.utils.print_info("Found Unknown Tooltip Error After Login.So Closing the Error Message")
+        unknown_error = self.nav_web_elements.get_unknown_tooltip_error()
+        if unknown_error is not None and unknown_error.is_displayed():
+            self.utils.print_info("Found Unknown Tooltip Error in Device360-->SSH Page.So Closing the Error Message")
             self.screen.save_screen_shot()
-            self.auto_actions.click_reference(self.nav_web_elements.get_unknown_error_tooltip_close_icon)
+            self.auto_actions.click_reference(self.self.nav_web_elements.get_unknown_error_tooltip_close_icon)
 
         self.utils.print_info("Clicking Device 360 SSH CLI Run Time: ", run_time)
         if run_time == 5:
