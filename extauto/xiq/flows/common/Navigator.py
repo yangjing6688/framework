@@ -145,7 +145,7 @@ class Navigator(NavigatorWebElements):
         """
         if self.get_devices_page():
             self.utils.print_info("Already in Devices page")
-            self.utils.print_info("Checking for Unknown Tooltip Error message after login..")
+            self.utils.print_info("Checking for Unknown Tooltip Error message in Devices Page..")
             if self.get_unknown_tooltip_error().is_displayed():
                 self.screen.save_screen_shot()
                 self.utils.print_info("Found Unknown Tooltip Error In Devices Page.So Closing the Error Message")
@@ -162,7 +162,7 @@ class Navigator(NavigatorWebElements):
                     self.enable_page_size(page_size='100')
                     kwargs['pass_msg'] = "Navigation Successful to Devices Sub tab on Monitor Tab"
                     self.common_validation.passed(**kwargs)
-                    self.utils.print_info("Checking for Unknown Tooltip Error message after login..")
+                    self.utils.print_info("Checking for Unknown Tooltip Error message In Devices Page..")
                     if self.get_unknown_tooltip_error().is_displayed():
                        self.screen.save_screen_shot()
                        self.utils.print_info("Found Unknown Tooltip Error In Devices Page.So Closing the Error Message")
