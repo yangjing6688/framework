@@ -2689,6 +2689,11 @@ class Devices:
         :param device_mac: mac address of the device
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_delete_device( device_serial=device_serial,
+                                                        device_name=device_name,
+                                                        device_mac=device_mac,
+                                                        **kwargs)
 
         num_device_params = 0
         search_device = None
@@ -4281,51 +4286,8 @@ class Devices:
         :param kwargs: keyword arguments ie access_token etc
         :return: 1 if device connected within time else -1
         """
-
-        access_token = self.common_validation.get_kwarg(kwargs, "access_token", False)
-        if access_token:
-            device_specific_url = f"/devices?sns={device_serial}"
-            device_info = self.xapi.rest_api_get(device_specific_url)
-            self.utils.print_info("Device Specific information is: ", device_info)
-
-            if device_info:
-                self.utils.print_info("Getting Device ID Information")
-                device_data_list = self.xapi.get_json_value(device_info, 'data')
-                device_id = self.xapi.get_json_value_from_list(device_data_list, 'id')
-                self.utils.print_info("Device ID is: ", device_id)
-
-                count = 1
-                stale_retry = 1
-                while stale_retry <= 10:
-                    try:
-                        while count <= retry_count:
-                            self.utils.print_info(f"Device Online Status Check - Loop: ", count)
-                            self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
-
-                            self.utils.print_info("Getting Device Connected Status Information")
-                            device_connected_status_url = f"/devices/{device_id}?fields=CONNECTED"
-                            device_connected_response = self.xapi.rest_api_get(device_connected_status_url)
-                            self.utils.print_info("Device Connected Status Response is: ", device_connected_response)
-                            device_connected_status = self.xapi.get_json_value(device_connected_response, 'connected')
-                            self.utils.print_info("Device Connected Status Value is: ", device_connected_status)
-
-                            if device_connected_status:
-                                kwargs['pass_msg'] = "Device status is connected!"
-                                self.common_validation.passed(**kwargs)
-                                return 1
-                            else:
-                                self.utils.print_info(
-                                    f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
-                                sleep(retry_duration)
-                                count += 1
-                            break
-                    except StaleElementReferenceException:
-                        self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
-                        stale_retry = stale_retry + 1
-
-            kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
-            self.common_validation.failed(**kwargs)
-            return -1
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_wait_until_device_online(device_serial=device_serial, device_mac=device_mac, retry_duration=retry_duration, retry_count=retry_count, **kwargs)
         else:
             self.utils.print_info("Navigate to Manage-->Devices")
             self.navigator.navigate_to_devices()
@@ -5719,6 +5681,11 @@ class Devices:
         :param retry_count: retry count
         :return: 1 if MANAGED column contains 'Managed' within the specified time, else -1
         """
+
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_wait_until_device_managed(device_serial=device_serial, retry_duration=retry_duration, retry_count=retry_count)
+
+        # UI Support
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 

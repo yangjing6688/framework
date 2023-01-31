@@ -1,4 +1,5 @@
 import time
+from time import sleep
 import json
 from extauto.xiq.xapi.XapiBase import XapiBase
 
@@ -61,11 +62,11 @@ class XapiDevices(XapiBase):
             xiq_onboard_device_request = self.extremecloudiq.XiqOnboardDeviceRequest(exos=exos_payload)
         elif 'DELL' in device_make.upper():
             self.utils.print_info("Detected Dell, creating payload")
-            dell_payload = self.extremecloudiq.XiqDellDevices(sn_to_st=[{device_serial : service_tag}])
+            dell_payload = self.extremecloudiq.XiqDellDevices(sn_to_st={device_serial : service_tag})
             xiq_onboard_device_request = self.extremecloudiq.XiqOnboardDeviceRequest(dell=dell_payload)
         elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
             self.utils.print_info("Detected Wing, creating payload")
-            dell_payload = self.extremecloudiq.XiqWingDevices(sn_to_st=[{device_serial : device_mac}])
+            dell_payload = self.extremecloudiq.XiqWingDevices(sn_to_st={device_serial : device_mac})
             xiq_onboard_device_request = self.extremecloudiq.XiqOnboardDeviceRequest(wing=wing_payload)
 
         # Get the configuration from the Global varibles
@@ -95,6 +96,10 @@ class XapiDevices(XapiBase):
     def xapi_search_for_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
 
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_name=device_name, device_mac=device_mac, **kwargs)
+        if id == -1:
+            print(f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac} or name: {device_name}")
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
 
         # Get the configuration from the Global varibles
         configuration = self.xapiHelper.get_xapi_configuration()
@@ -109,7 +114,7 @@ class XapiDevices(XapiBase):
             # Create an instance of the API class
             api_instance = self.extremecloudiq.DeviceApi(api_client)
             try:
-                # Onboard Devices
+                # Get Devices
                 api_response = api_instance.get_device(id, _preload_content=False)  # total hack for now
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return api_response.data
@@ -118,7 +123,7 @@ class XapiDevices(XapiBase):
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
-    def xapi_delete_device(self, id=None):
+    def xapi_delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         # Get the configuration from the Global varibles
         configuration = self.xapiHelper.get_xapi_configuration()
         api_response = None
@@ -134,7 +139,7 @@ class XapiDevices(XapiBase):
             try:
                 api_response = api_instance.delete_device(id)
                 self.xapiHelper.common_validation.passed(**kwargs)
-                return api_response.data
+                return 1
             except self.ApiException as e:
                 print("Exception when calling DeviceApi->delete_device: %s\n" % e)
                 self.xapiHelper.common_validation.failed(**kwargs)
@@ -210,6 +215,131 @@ class XapiDevices(XapiBase):
                         break
         return device_id
 
+    def xapi_wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
+                                     **kwargs):
+        retry_value = 0
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            print(f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}")
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
+
+        # Get the configuration from the Global varibles
+        configuration = self.xapiHelper.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.DeviceApi(api_client)
+            try:
+                while retry_value < retry_count:
+                    # get Device information
+                    api_response = api_instance.get_device(id, _preload_content=False)  # total hack for now
+                    data = json.loads(api_response.data)
+                    if data.get('connected', False):
+                        self.utils.print_info("Device Connected Status Value is: True (Connected)")
+                        self.xapiHelper.common_validation.passed(**kwargs)
+                        return 1
+                    else:
+                        self.utils.print_info(f"Device Connected Status Value is: False (Not Connected), sleeping {retry_duration} seconds")
+                        sleep(retry_duration)
+                        retry_value += 1
+
+            except self.ApiException as e:
+                print("Exception when calling DeviceApi->get_device: %s\n" % e)
+                self.xapiHelper.common_validation.failed(**kwargs)
+                return -1
+
+            # In the case that nothing is found
+            self.xapiHelper.common_validation.failed(**kwargs)
+            return -1
+
+    def xapi_wait_until_device_managed(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
+                                      **kwargs):
+        retry_value = 0
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            print(f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}")
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
+
+        # Get the configuration from the Global varibles
+        configuration = self.xapiHelper.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.DeviceApi(api_client)
+            try:
+                while retry_value < retry_count:
+                    # get Device information
+                    api_response = api_instance.get_device(id, _preload_content=False)  # total hack for now
+                    data = json.loads(api_response.data)
+                    device_admin_state = data.get('device_admin_state', '')
+                    if device_admin_state == 'MANAGED':
+                        self.utils.print_info(f"Device admin state Value is: {device_admin_state}")
+                        self.xapiHelper.common_validation.passed(**kwargs)
+                        return 1
+                    else:
+                        self.utils.print_info(
+                            f"Device Connected Status Value is: {device_admin_state}, sleeping {retry_duration} seconds")
+                        sleep(retry_duration)
+                        retry_value += 1
+
+            except self.ApiException as e:
+                print("Exception when calling DeviceApi->get_device: %s\n" % e)
+                self.xapiHelper.common_validation.failed(**kwargs)
+                return -1
+
+            # In the case that nothing is found
+            self.xapiHelper.common_validation.failed(**kwargs)
+            return -1
+
+    def xapi_delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+        retry_value = 0
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
+
+        # Get the configuration from the Global varibles
+        configuration = self.xapiHelper.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.DeviceApi(api_client)
+            try:
+                # get Device information
+                api_response = api_instance.delete_device(id)
+                kwargs['pass_msg'] = f"Device has been delete"
+                self.xapiHelper.common_validation.passed(**kwargs)
+                return 1
+
+            except self.ApiException as e:
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->delete_device: {e}\n"
+                self.xapiHelper.common_validation.failed(**kwargs)
+                return -1
+
+            # In the case that nothing is found
+            self.xapiHelper.common_validation.failed(**kwargs)
+            return -1
 
 
 # def assign_device_network_policy(self, id=None, network_policy_id=None):
