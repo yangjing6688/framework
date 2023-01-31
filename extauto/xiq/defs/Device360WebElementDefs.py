@@ -4022,3 +4022,15 @@ class Device360WebElementDefs:
             "XPATH": '//div[@data-automation-tag="automation-diagnostics-port-details-actions"]//button[contains(@class, "btn-disabled")]',
             'wait_for': 5
         }
+
+    device360_diagnostics_deselect_all_button = \
+        {
+            "XPATH": '(//div[@class="device-diagnostics"]//button[@data-dojo-attach-point="deselectAllButton"])[$index]',
+            'wait_for': 5
+        }
+
+    device360_diagnostics_select_all_button = \
+        {
+            "XPATH": '(//div[@class="device-diagnostics"]//button[@data-dojo-attach-point="selectAllButton"])[$index]',
+            'wait_for': 5
+        }

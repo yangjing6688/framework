@@ -15268,7 +15268,7 @@ class Device360(Device360WebElements):
         """
         self.auto_actions.click_reference(self.get_device360_monitor_diagnostics_port_details_table)
 
-    def click_device360_diagnostics_select_all_ports(self, **kwargs):
+    def click_device360_diagnostics_select_all_button(self, unit, **kwargs):
         """
         - This keyword clicks the 'Select All Ports' button on the Port Diagnostics page in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
@@ -15276,7 +15276,17 @@ class Device360(Device360WebElements):
         - ``Device360 Port Diagnostics Select All Ports``
         :return: 1 if button was clicked, else -1
         """
-        self.auto_actions.click_reference(self.get_device360_diagnostics_select_all_ports_button)
+        self.auto_actions.click_reference(lambda: self.get_device360_diagnostics_select_all_button(unit))
+
+    def click_device360_diagnostics_deselect_all_button(self, unit, **kwargs):
+        """
+        - This keyword clicks the 'Select All Ports' button on the Port Diagnostics page in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
+        - Keyword Usage:
+        - ``Device360 Port Diagnostics Select All Ports``
+        :return: 1 if button was clicked, else -1
+        """
+        self.auto_actions.click_reference(lambda: self.get_device360_diagnostics_deselect_all_button(unit))
 
     def get_device360_diagnostics_all_port_table_rows(self):
         """
