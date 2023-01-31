@@ -1,6 +1,6 @@
-from a3.defs.AuthSourcesWebElementDefs import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from a3.defs.AuthSourcesWebElementDefs import AuthSourcesWebElementDefs
+from common.AutoActions import AutoActions
+from common.WebElementHandler import WebElementHandler
 
 
 class AuthSourcesWebElements(AuthSourcesWebElementDefs):
@@ -13,4 +13,3 @@ class AuthSourcesWebElements(AuthSourcesWebElementDefs):
 
     def get_auth_source_button(self):
         return self.weh.get_element(self.auth_source_button)
-

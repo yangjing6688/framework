@@ -1,6 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.admin.diagnostics.AdminDiagnosticsWebElementsDefinitions import *
-import re
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.admin.diagnostics.AdminDiagnosticsWebElementsDefinitions import AdminDiagnosticsWebElementsDefinitions
 
 
 class AdminDiagnosticsWebElements(AdminDiagnosticsWebElementsDefinitions):

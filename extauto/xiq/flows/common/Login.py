@@ -2,8 +2,8 @@ import threading
 import requests
 import re
 import random
-from io import StringIO
 from time import sleep
+
 from robot.libraries.BuiltIn import BuiltIn
 
 from extauto.common.CloudDriver import CloudDriver
@@ -295,19 +295,19 @@ class Login:
                         sleep(10)
                         break
             else:
-                self.utils.print_info(f"External Account Name Not Mentioned.So Continuing with managing own network")
+                self.utils.print_info("External Account Name Not Mentioned.So Continuing with managing own network")
                 self.screen.save_screen_shot()
                 self.auto_actions.click_reference(self.login_web_elements.get_external_admin_manage_my_network_button)
 
         view_org_button = self.msp_web_elements.get_view_organization_button()
         if view_org_button.is_displayed():
-            self.utils.print_info(f"User Credentials belongs to MSP account")
+            self.utils.print_info("User Credentials belongs to MSP account")
             org_name = BuiltIn().get_variable_value("${organization_name}")
             if org_name:
                 msp_module = extauto.xiq.flows.manage.Msp.Msp()
                 device_page_found = self.nav_web_elements.get_devices_page()
                 if not device_page_found:
-                    self.utils.print_info(f"Devices page not found.Navigating to Manage-->Devices Page")
+                    self.utils.print_info("Devices page not found.Navigating to Manage-->Devices Page")
                     local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
                     local_navigator.navigate_to_devices()
 
@@ -324,7 +324,7 @@ class Login:
                     local_navigator.navigate_to_devices()
                     msp_module.select_organization(organization_name=org_name)
 
-                    self.utils.print_info(f"Unselecting Own MSP Organization Name to Import Map")
+                    self.utils.print_info("Unselecting Own MSP Organization Name to Import Map")
                     msp_module.unselect_organization(organization_name='YOUR ORGANIZATION')
                     self.utils.print_info(f"Importing Map for New Organization {org_name} Created")
                     network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
@@ -333,7 +333,7 @@ class Login:
                     local_navigator.navigate_to_devices()
 
             else:
-                self.utils.print_info(f"Continuing with own organization")
+                self.utils.print_info("Continuing with own organization")
                 self.screen.save_screen_shot()
 
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
@@ -371,7 +371,7 @@ class Login:
             try:
                 if self.login_web_elements.get_drawer_content().is_displayed():
                     self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-            except Exception as e:
+            except Exception:
                 pass
         # if self.login_web_elements.get_devices_list_check().is_displayed():
         #     self.utils.print_info("webelement exists in the mainpage")
@@ -392,7 +392,7 @@ class Login:
             if self.login_web_elements.get_right_arrow().is_displayed():
                 self.utils.print_info("Clicking welcome popup")
                 self.auto_actions.click_reference(self.login_web_elements.click_right_arrow)
-        except Exception as er:
+        except Exception:
             pass
 
         if ignore_map:
@@ -411,7 +411,7 @@ class Login:
 
             self.utils.print_info("Attempting to load Map...")
             network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
-            map_imported_status = network360Plan.import_map_in_network360plan(map_override)
+            network360Plan.import_map_in_network360plan(map_override)
 
             self.utils.print_info("Attempting to move to the Manage Device Page...")
             local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
@@ -441,7 +441,7 @@ class Login:
         try:
             self.t1.do_run = False
             sleep(10)
-        except:
+        except Exception:
             print("t1.do_run not initialized")
 
         try:
@@ -787,7 +787,7 @@ class Login:
             return switch_connection_host
         else:
             kwargs[
-                'fail_msg'] = f"'get_switch_connection_host()' failed. Switch Connection host info was no found:" \
+                'fail_msg'] = "'get_switch_connection_host()' failed. Switch Connection host info was no found:" \
                               f" The following was found '{switch_connection_host}'"
             self.common_validation.failed(**kwargs)
 
@@ -855,7 +855,7 @@ class Login:
                 self.auto_actions.click_reference(self.login_web_elements.get_option_30_days_trial)
                 self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
                 self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-        except:
+        except Exception:
             kwargs['fail_msg'] = "'skip_if_account_90_days()' -> Could not select the option of 90 days trial "
             self.common_validation.failed(**kwargs)
             return -1, "Could not select the option of 90 days trial "
@@ -1055,7 +1055,7 @@ class Login:
         try:
             if self.login_web_elements.get_drawer_content().is_displayed():
                 self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-        except Exception as e:
+        except Exception:
             pass
 
         if capture_version:
@@ -1079,7 +1079,7 @@ class Login:
                 if ekpopup.is_displayed():
                     self.utils.print_info("Dismiss legacy ek popup...")
                     self.auto_actions.click_reference(self.login_web_elements.get_legacy_ek_popup_no_btn)
-            except Exception as e:
+            except Exception:
                 pass
             if login_option.lower() == 'trial':
                 to = self.login_web_elements.get_30_days_trial_txt()
@@ -1102,7 +1102,7 @@ class Login:
                         ekpopup = self.login_web_elements.get_legacy_ek_popup_hdr()
                         if ekpopup.is_displayed():
                             self.auto_actions.click_reference(self.login_web_elements.get_legacy_ek_popup_no_btn)
-                    except Exception as e:
+                    except Exception:
                         pass
                     tp = self.login_web_elements.get_extr_license_tooltip()
                     if tp.is_displayed():
@@ -1163,7 +1163,7 @@ class Login:
                         kwargs['fail_msg'] = "'select_welcome_page_option()' -> License Error has occurred..."
                         self.common_validation.fault(**kwargs)
                         return -1
-                except Exception as e:
+                except Exception:
                     pass
 
             try:
@@ -1181,7 +1181,7 @@ class Login:
                 kwargs['pass_msg'] = "Login is successful"
                 self.common_validation.passed(**kwargs)
                 return 1
-            except Exception as e:
+            except Exception:
                 pass
             self.utils.print_info(login_option + " login is successful.")
             kwargs['pass_msg'] = "Login is successful"
@@ -1235,7 +1235,7 @@ class Login:
                     kwargs['fail_msg'] = f"'link_xiq_to_extreme_portal()' -> SFDC login Failed...{sfdc_login_err_txt}"
                     self.common_validation.fault(**kwargs)
                     return -1
-            except Exception as e:
+            except Exception:
                 pass
             sleep(10)
             xiq_url = self.get_base_url_of_current_page()
@@ -1245,7 +1245,7 @@ class Login:
                 if license_mgmt_ele.is_displayed():
                     self.auto_actions.click(license_mgmt_ele)
                     sleep(3)
-            except Exception as e:
+            except Exception:
                 pass
 
             self.utils.print_info("Checking If XIQ linking is by Partner, enter shared CUID...")
@@ -1260,7 +1260,7 @@ class Login:
                         sh_cuid_err_txt = self.login_web_elements.get_shared_cuid_err().text
                         if sh_cuid_err_txt.is_displayed():
                             self.utils.print_info("Shared CUID is not correct", sh_cuid_err_txt)
-                    except Exception as e:
+                    except Exception:
                         pass
                     self.utils.print_info("Partner linking XIQ to Extreme Portal is complete.")
             elif sfdc_user_type == "customer":
@@ -1271,7 +1271,7 @@ class Login:
             try:
                 if self.login_web_elements.get_drawer_content().is_displayed():
                     self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-            except Exception as e:
+            except Exception:
                 pass
             self.utils.print_info("Navigate to license mgt..")
             try:
@@ -1279,7 +1279,7 @@ class Login:
                 if license_mgmt_ele.is_displayed():
                     self.auto_actions.click(license_mgmt_ele)
                     sleep(3)
-            except Exception as e:
+            except Exception:
                 pass
             kwargs['pass_msg'] = "Linking is successful."
             self.common_validation.passed(**kwargs)
@@ -1629,7 +1629,7 @@ class Login:
         try:
             if self.login_web_elements.get_drawer_content().is_displayed():
                 self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-        except Exception as e:
+        except Exception:
             pass
 
     def create_new_user_portal(self, customer_name, admin_first_name, admin_last_name, admin_password,
@@ -2057,4 +2057,3 @@ class Login:
         """
         CloudDriver().close_window(win_index)
         return 1
-

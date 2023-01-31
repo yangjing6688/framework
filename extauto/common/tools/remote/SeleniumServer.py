@@ -21,7 +21,7 @@ class SeleniumServer(object):
                 print("Hub is running on port:{}".format(output))
                 return output
             else:
-                pr = subprocess.Popen("C:\\remote\\seleniumconfig\\starthub.bat", shell=True, stdout=subprocess.PIPE,
+                subprocess.Popen("C:\\remote\\seleniumconfig\\starthub.bat", shell=True, stdout=subprocess.PIPE,
                                       stderr=subprocess.PIPE)
                 status = self.execute_cmd(cmd, ":4444")
                 return status
@@ -42,7 +42,7 @@ class SeleniumServer(object):
             else:
                 # Update the hub url in nodeConfig.json file
                 self.update_hub_url(host)
-                pr = subprocess.Popen("C:\\remote\\seleniumconfig\\startnode.bat", shell=True, stdout=subprocess.PIPE,
+                subprocess.Popen("C:\\remote\\seleniumconfig\\startnode.bat", shell=True, stdout=subprocess.PIPE,
                                       stderr=subprocess.PIPE)
                 sleep(10)
                 status = self.execute_cmd(cmd, ":5556")

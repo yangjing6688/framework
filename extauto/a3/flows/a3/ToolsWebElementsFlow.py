@@ -1,13 +1,14 @@
-from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import *
-from a3.elements.ToolsWebElements import ToolsWebElements
-from a3.elements.GlobalSettingWebElements import *
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
-from selenium import webdriver
 import re
+from time import sleep
+
+from selenium import webdriver
+
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
+from a3.elements.ToolsWebElements import ToolsWebElements
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
+from xiq.flows.common.DeviceCommon import DeviceCommon
 
 
 class ToolsWebElementsFlow(ToolsWebElements):
@@ -188,13 +189,13 @@ class ToolsWebElementsFlow(ToolsWebElements):
             for row in rows:
                 sleep(5)
                 if search_string in row.text:
-                    self.utils.print_info(f"Found the Expected Row Text")
+                    self.utils.print_info("Found the Expected Row Text")
                     row.click()
-                    self.utils.print_info(f"clicked on the selected --  ", search_string)
+                    self.utils.print_info("clicked on the selected --  ", search_string)
                     sleep(5)
                     return 1
                 else:
-                    self.utils.print_info(f"Not found the log file")
+                    self.utils.print_info("Not found the log file")
                     sleep(5)
                     continue
             return -1

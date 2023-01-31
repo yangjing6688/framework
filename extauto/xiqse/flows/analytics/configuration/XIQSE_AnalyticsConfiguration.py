@@ -475,7 +475,7 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Engine {engine_ip} has been added")
             return 1
 
-        self.utils.print_info(f"Engine does not exist. Please check.")
+        self.utils.print_info("Engine does not exist. Please check.")
         self.screen.save_screen_shot()
         return -1
 
@@ -511,7 +511,7 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Engine {engine_ip} has been deleted")
             return 1
 
-        self.utils.print_info(f"Engine was not deleted")
+        self.utils.print_info("Engine was not deleted")
         self.screen.save_screen_shot()
         return -1
 
@@ -602,10 +602,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Waiting for Enforce action to complete: loop {count}")
             load_mask = self.get_enforcing_engine_load_mask()
             if load_mask:
-                self.utils.print_info(f"Enforce action still in progress...")
+                self.utils.print_info("Enforce action still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Enforce action has completed")
+                self.utils.print_info("Enforce action has completed")
                 return 1
             count += 1
 
@@ -628,10 +628,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Waiting for Enforce All action to complete: loop {count}")
             load_mask = self.get_enforcing_engines_load_mask()
             if load_mask:
-                self.utils.print_info(f"Enforce All action still in progress...")
+                self.utils.print_info("Enforce All action still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Enforce All action has completed")
+                self.utils.print_info("Enforce All action has completed")
                 return 1
             count += 1
 
@@ -654,10 +654,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Waiting for Poll action to complete: loop {count}")
             load_mask = self.get_polling_engine_load_mask()
             if load_mask:
-                self.utils.print_info(f"Poll action still in progress...")
+                self.utils.print_info("Poll action still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Poll action has completed")
+                self.utils.print_info("Poll action has completed")
                 return 1
             count += 1
 
@@ -680,10 +680,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Waiting for Restart Collector action to complete: loop {count}")
             load_mask = self.get_restarting_collector_load_mask()
             if load_mask:
-                self.utils.print_info(f"Restart Collector action still in progress...")
+                self.utils.print_info("Restart Collector action still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Restart Collector action has completed")
+                self.utils.print_info("Restart Collector action has completed")
                 return 1
             count += 1
 

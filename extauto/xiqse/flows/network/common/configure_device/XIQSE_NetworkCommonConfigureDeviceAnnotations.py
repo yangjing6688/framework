@@ -40,7 +40,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Nickname field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Nickname field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -63,7 +63,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Asset Tag field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Asset Tag field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -86,7 +86,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the User Data 1 field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the User Data 1 field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -109,7 +109,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the User Data 2 field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the User Data 2 field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -132,7 +132,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the User Data 3 field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the User Data 3 field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -155,7 +155,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the User Data 4 field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the User Data 4 field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -178,7 +178,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Note field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Note field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val

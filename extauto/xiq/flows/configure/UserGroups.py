@@ -367,10 +367,10 @@ class UserGroups(UserGroupsWebElements):
         self.utils.print_info(tool_tip_text)
         for text in tool_tip_text:
             if "User Group was saved successfully." in text:
-                self.utils.print_info(f"text")
+                self.utils.print_info(f"{text}")
                 return 1
             if "Die Benutzergruppe" in text:
-                self.utils.print_info(f"text")
+                self.utils.print_info(f"{text}")
                 return 1
 
             if "PPSK Classification Use and PCG Use cannot be enabled at the same time" in text:
@@ -521,11 +521,11 @@ class UserGroups(UserGroupsWebElements):
 
         if passwd_type.upper() == "PPSK":
             if passwd_db_loc.upper() == "LOCAL":
-                self.utils.print_info(f"Click on user group select window local tab")
+                self.utils.print_info("Click on user group select window local tab")
                 self.auto_actions.click_reference(self.get_wireless_usr_grp_select_wind_local_tab)
                 sleep(5)
             if passwd_db_loc.upper() == "CLOUD":
-                self.utils.print_info(f"Click on user group select window Cloud tab")
+                self.utils.print_info("Click on user group select window Cloud tab")
                 self.auto_actions.click_reference(self.get_wireless_usr_grp_select_wind_cloud_tab)
                 sleep(5)
 
@@ -631,7 +631,7 @@ class UserGroups(UserGroupsWebElements):
                 self.utils.print_info("Generating user password")
                 self.auto_actions.click_reference(self.get_single_user_password_generate_button)
             else:
-                self.utils.print_info(f"Enter the user password")
+                self.utils.print_info("Enter the user password")
                 self.auto_actions.send_keys(self.get_single_user_password_field(), passwords[num])
 
             self.utils.print_info("Enter the user description")
@@ -746,7 +746,7 @@ class UserGroups(UserGroupsWebElements):
                 kwargs['pass_msg'] = f"Printing all the tool tip messages:- {text}"
                 self.common_validation.passed(**kwargs)
                 return 1
-        kwargs['fail_msg'] = f"create_add_user_to_user_group() failed. Tool Tip not showing proper message"
+        kwargs['fail_msg'] = "create_add_user_to_user_group() failed. Tool Tip not showing proper message"
         self.common_validation.failed(**kwargs)
         return -2
 
@@ -939,7 +939,7 @@ class UserGroups(UserGroupsWebElements):
                     return -1
                 else:
                     self._select_user_group_row(exclusive_group)
-        except:
+        except Exception:
             kwargs['fail_msg'] = "delete_all_user_groups() failed. Not able to select the exclusive user group "
             self.common_validation.failed(**kwargs)
             return -1

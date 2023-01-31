@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.discovered.NetworkDiscoveredConfigureDevicesWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.discovered.NetworkDiscoveredConfigureDevicesWebElementsDefinitions import NetworkDiscoveredConfigureDevicesWebElementsDefinitions
 
 
 class NetworkDiscoveredConfigureDevicesWebElements(NetworkDiscoveredConfigureDevicesWebElementsDefinitions):
@@ -18,4 +18,3 @@ class NetworkDiscoveredConfigureDevicesWebElements(NetworkDiscoveredConfigureDev
         :return: 'Cancel' button in the Configure Device dialog
         """
         return self.weh.get_element(self.cancel_button)
-
