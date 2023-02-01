@@ -1105,7 +1105,7 @@ class FilterManageDevices():
             :return True
         """
         self.utils.print_info(" Start --> the action managed state " + str(ap))
-        self.device.select_ap(ap)
+        self.device.select_device(device_serial=ap)
         self.utils.print_info(" Click on the action button  ")
         self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         self.auto_actions.move_to_element(self.device_actions.get_device_actions_change_management_status())
