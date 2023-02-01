@@ -1,13 +1,13 @@
 from time import sleep
+
+from selenium import webdriver
+
 from common.Utils import Utils
 from common.Screen import Screen
 from common.AutoActions import AutoActions
-from common.AutoActions import *
 from a3.elements.A3WebElements import A3WebElements
-from a3.elements.GlobalSettingWebElements import *
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
-from selenium import webdriver
 
 
 class A3WebElementsflow(A3WebElements):
@@ -82,10 +82,9 @@ class A3WebElementsflow(A3WebElements):
             for row in rows:
                 sleep(5)
                 if search_string in row.text:
-                    # self.utils.print_info(f"row", row.text)
-                    self.utils.print_info(f"Found the Expected Row Text , Backup is created successfully")
+                    # self.utils.print_info("row", row.text)
+                    self.utils.print_info("Found the Expected Row Text , Backup is created successfully")
                     return 1
                 else:
-                    self.utils.print_info(f"Not found bkup row ")
+                    self.utils.print_info("Not found bkup row ")
                     return -1
-

@@ -1,6 +1,5 @@
 import re
 import sys
-import os
 from pathlib import Path
 from ExtremeAutomation.Imports import pytestConfigHelper
 
@@ -10,7 +9,6 @@ if "pytest" in sys.modules and "pytest.collect" in sys.modules:
 else:
     try:
         from robot.libraries.BuiltIn import BuiltIn
-        from robot.libraries.BuiltIn import _Misc
         import robot.api.logger as logger
         from robot.api.deco import keyword
         ROBOT = True
@@ -54,10 +52,10 @@ if ROBOT:
                     myRdcDep = rdcList[0].lower()
                     myRdcLoc = rdcList[1].lower()
                     if not myRdcLoc:
-                        BuiltIn().log_to_console(f"! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ")
-                        BuiltIn().log_to_console(f"The location is missing.  Should be RDC:prod.va or RDC:test.g2r1")
-                        BuiltIn().log_to_console(f"! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ")
-                        logger.debug(f"The location is missing.  Should be RDC:prod.va or RDC:test.g2r1")
+                        BuiltIn().log_to_console("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ")
+                        BuiltIn().log_to_console("The location is missing.  Should be RDC:prod.va or RDC:test.g2r1")
+                        BuiltIn().log_to_console("! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ")
+                        logger.debug("The location is missing.  Should be RDC:prod.va or RDC:test.g2r1")
                     for p in sys.path:
                         rdcCfg = Path(p + '/Environments/rdc_aio_servers.yaml')
                         # myFile = glob.glob(str(testCfg))
@@ -87,7 +85,7 @@ if ROBOT:
                             for cfg_key in tmpConfig:
                                 BuiltIn().log_to_console(f"Loading {cfg_key} val:{tmpConfig[cfg_key]}")
             else:
-                BuiltIn().log_to_console(f"Didn't find test bed")
+                BuiltIn().log_to_console("Didn't find test bed")
 
 
         @keyword(name='refresh config')
@@ -108,8 +106,8 @@ if ROBOT:
                 elif 'AP_MODEL' not in self.variables and 'AP' in self.variables:
                     search_model = self.variables['AP'].upper()
                 elif 'AP_MODEL' in self.variables and 'AP' in self.variables:
-                    BuiltIn().log_to_console(f"-v AP_MODEL:value and -v AP:value duplicate variables.  Using AP_MODEL")
-                    BuiltIn().log_to_console(f"-v AP_MODEL:value and -v AP:value duplicate variables.  Using AP_MODEL")
+                    BuiltIn().log_to_console("-v AP_MODEL:value and -v AP:value duplicate variables.  Using AP_MODEL")
+                    BuiltIn().log_to_console("-v AP_MODEL:value and -v AP:value duplicate variables.  Using AP_MODEL")
                     search_model = self.variables['AP_MODEL'].upper()
                 for key in self.variables:
                     if isinstance(self.variables[key], dict):
@@ -177,7 +175,8 @@ if ROBOT:
             #  Default netelem updates
             #
             netelemRe = re.compile("netelem[0-9]+")
-            multiSerRe = re.compile(",")
+            # Commented on 1/18/23 because it is unused
+            # multiSerRe = re.compile(",")
             for key in self.variables:
                 if isinstance(self.variables[key], dict) and netelemRe.match(key):
                     #BuiltIn().log_to_console(f"[+] {key}")
@@ -193,7 +192,7 @@ if ROBOT:
                     try:
                         if 'stack' in newNetelem and 'slot1' in newNetelem['stack']:
                             isStack = 1
-                            BuiltIn().log_to_console(f"[+] STACK FOUND")
+                            BuiltIn().log_to_console("[+] STACK FOUND")
                             if 'topology' not in newNetelem:
                                 newNetelem['topology'] = 'Stack'
                             elif newNetelem['topology'].lower() != 'stack':
@@ -209,7 +208,7 @@ if ROBOT:
                             elif 'serial' in newNetelem:
                                 #BuiltIn().log_to_console(f"[+]Stack missed slots serial {newNetelem['serial']}")
                                 newNetelem['onboard_serial'] = newNetelem['serial']
-                    except:
+                    except Exception:
                         pass
 
                     if not isStack:
@@ -218,7 +217,7 @@ if ROBOT:
                                 newNetelem['onboard_serial'] = newNetelem['serial']
                             if 'topology' not in newNetelem:
                                 newNetelem['topology'] = 'Standalone'
-                        except:
+                        except Exception:
                             pass
                     keyvar = "${"+key+"}"
                     BuiltIn().set_global_variable(keyvar, newNetelem)
@@ -230,7 +229,8 @@ if ROBOT:
 
         def build_dict_of_elems(self, **kwargs):
             try:
-                variables = BuiltIn().get_variables(no_decoration=True)
+                # variables = BuiltIn().get_variables(no_decoration=True)
+                BuiltIn().get_variables(no_decoration=True)
             except Exception as e:
                     raise e
 

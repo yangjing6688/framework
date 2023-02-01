@@ -1,4 +1,4 @@
-from extauto.xiq.defs.RSWebElementsDefinitions import *
+from extauto.xiq.defs.RSWebElementsDefinitions import RSWebElementsDefinitions
 from extauto.common.WebElementHandler import WebElementHandler
 
 
@@ -258,7 +258,10 @@ class RSWebElements(RSWebElementsDefinitions):
 
         :return:
         """
-        parent = self.weh.get_element(self.user_group_dialog_window)
+
+        # Commented on 1/18/23 because it is unused
+        # parent = self.weh.get_element(self.user_group_dialog_window)
+        self.weh.get_element(self.user_group_dialog_window)
         return self.weh.get_elements(self.user_group_select_dialog_local_db_tab)
 
     def get_user_group_select_dialog_usergroup_rows(self):
@@ -302,4 +305,3 @@ class RSWebElements(RSWebElementsDefinitions):
 
     def get_radius_server_group_delete_confirm_button(self):
         return self.weh.get_element(self.radius_server_group_delete_confirm_button)
-
