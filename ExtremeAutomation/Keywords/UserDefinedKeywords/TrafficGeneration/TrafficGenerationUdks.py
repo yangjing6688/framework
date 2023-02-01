@@ -488,6 +488,21 @@ class TrafficGenerationUdks():
         else:
             print("You must define the packets to use this keyword")
             
-    
+    def send_source_macs_on_port_from_traffic_generator(self, mac_add_list, tgen_port):
+
+        '''
+         - This keyword will send a list of source macs on port from traffic generator
+        :param mac_add_list: mac_add_list = ['00:00:00:00:00:01', '00:00:00:00:00:02', "..."]
+        '''
+
+        packet_a = 'packetA'
+        #tgen_port_a = self.tb.createTgenPort(self.tb.tgen1_name, self.tb.tgen_dut1_port_a.ifname)
+
+        for i in range(0, len(mac_add_list)):
+            self.Create_Ethernet2_Packet(packet_a, smac=mac_add_list[i])
+            self.send_stream_with_incrementing_smac(tgen_port, packet_a, stream_number=1, count=1,
+                                                    rate=100, unit='pps', sa_count=1,  max_wait=120)
+        #self.Start_Capture(tgen_port)
+
     
    

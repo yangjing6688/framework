@@ -4183,3 +4183,46 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
         kwargs["pass_msg"] = f"Successfully removed {ports} from lag {main_lag_port}"
         self.common_validation.passed(**kwargs)
+
+    def global_mac_locking_status_change(self, policy_name, template_name, **kwargs):
+        """
+         - This keyword will enable mac locking from Device Template(Device Configuration)
+         It Assumes That Already Created a Network Policy with a Template
+        :param: policy_name The name of the policy to use.
+        :return: 1 if success , -1 if error
+        """
+        status = kwargs.get("status", "OFF")
+        if self.select_sw_template(policy_name, template_name) != 1:
+            kwargs["fail_msg"] = "Not found the network policy. Make sure that it was created before."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        enable_mac = self.sw_template_web_elements.get_sw_template_enable_mac_locking()
+        if not enable_mac.is_selected() and status == "ON":
+            self.utils.print_info("Enabling MAC Locking...")
+            AutoActions().click_reference(self.sw_template_web_elements.get_sw_template_enable_mac_locking)
+        elif enable_mac.is_selected() and status == "OFF":
+            self.utils.print_info("Disabling MAC Locking...")
+            AutoActions().click_reference(self.sw_template_web_elements.get_sw_template_enable_mac_locking)
+        elif enable_mac.is_selected() and status == "ON":
+            kwargs["pass_msg"] = "Already enabled MAC locking. Nothing to do!"
+            self.common_validation.passed(**kwargs)
+            return 1
+        elif not enable_mac.is_selected() and status == "OFF":
+            kwargs["pass_msg"] = "Already disabled MAC locking. Nothing to do!"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs["fail_msg"] = "Could not enable mac locking."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        confirmation_button = self.sw_template_web_elements.get_sw_template_enable_mac_locking_confirm_message_yes_button()
+        if confirmation_button and status == "ON":
+            self.utils.print_info("Selecting YES in confirmation pop-up.")
+            AutoActions().click_reference(self.sw_template_web_elements.get_sw_template_enable_mac_locking_confirm_message_yes_button)
+        self.utils.print_info("Saving changes...")
+        self.switch_template_save()
+        kwargs["pass_msg"] = f"Successfully changed MAC Locking state to {status}"
+        self.common_validation.passed(**kwargs)
+        return 1
