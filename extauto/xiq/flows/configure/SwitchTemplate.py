@@ -2435,9 +2435,15 @@ class SwitchTemplate(object):
 
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
-        # sleep(5)
-        self.utils.wait_till(self.np_web_elements.get_network_policy_card_items)
-        policy_cards = self.np_web_elements.get_network_policy_card_items()
+        # # sleep(5)
+        # self.utils.wait_till(self.np_web_elements.get_network_policy_card_items)
+        # policy_cards = self.np_web_elements.get_network_policy_card_items()
+        # TODO - remove this, it is only a temporary fix til this PR is merged
+        # https://github.com/extremenetworks/extreme_automation_framework/pull/844
+        
+        policy_cards, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_network_policy_card_items, delay=5)
+
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
