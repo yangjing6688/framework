@@ -139,7 +139,7 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.search_ap(ap_serial=serial):
+        if self.devices.search_device(device_serial=serial):
             if self.devices.select_ap(ap_serial=serial):
                 error = self.dialog_web_elements.get_tooltip_text()
                 self.utils.print_info("Possible Error : " + error)
@@ -461,7 +461,7 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         # Verify the AP info
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
@@ -502,7 +502,7 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.device_diag_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify the device info
@@ -597,7 +597,7 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         # Verify if AP exists and selected
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
@@ -644,7 +644,7 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.client_info_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a vlan
@@ -687,7 +687,7 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.client_info_list)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a download
