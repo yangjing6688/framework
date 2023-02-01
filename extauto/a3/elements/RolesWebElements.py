@@ -1,6 +1,6 @@
-from a3.defs.RolesWebElementDefs import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from a3.defs.RolesWebElementDefs import RolesWebElementDefs
+from common.AutoActions import AutoActions
+from common.WebElementHandler import WebElementHandler
 
 
 class RolesWebElements(RolesWebElementDefs):
@@ -10,6 +10,3 @@ class RolesWebElements(RolesWebElementDefs):
 
     def get_roles(self):
         return self.weh.get_element(self.roles)
-
-
-

@@ -1,6 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.devices.site.discover.NetworkDevicesSiteDiscoverAddAddressWebElementsDefinitions import *
-import re
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.devices.site.discover.NetworkDevicesSiteDiscoverAddAddressWebElementsDefinitions import NetworkDevicesSiteDiscoverAddAddressWebElementsDefinitions
 
 
 class NetworkDevicesSiteDiscoverAddAddressWebElements(NetworkDevicesSiteDiscoverAddAddressWebElementsDefinitions):

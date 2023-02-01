@@ -2,7 +2,7 @@ from time import sleep
 import re
 
 from extauto.common.Screen import Screen
-from extauto.common.CloudDriver import CloudDriver
+# from extauto.common.CloudDriver import CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
 from extauto.common.CommonValidation import CommonValidation

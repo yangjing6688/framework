@@ -1,9 +1,10 @@
-from time import sleep
 import datetime
+
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-from extauto.xiq.elements.EventsWebElements import *
-from extauto.xiq.flows.manage.Devices import *
+from extauto.common.Utils import Utils
+from extauto.xiq.elements.EventsWebElements import EventsWebElements
+from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
 
 class Events:
