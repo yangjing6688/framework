@@ -401,43 +401,47 @@ class Iapi:
 
         return stdout
 
-    def rest_iapi_delete(self, path, base_url="", access_token="default", csrf_token=""):
-        """
-        - REST DELETE
-        :param path: API Endpoint path
-        :param base_url: Base URL if not using the default
-        :param access_token: access token
-        :param csrf_token: csrf-token
-        :return: returns stdout
-        """
-        if access_token == "default":
-            access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
-        if base_url == "":
-            base_url = BuiltIn().get_variable_value("${BASE_URL}")
-        self.utils.print_info("Base URL: ", base_url)
+    ### Commented on 1/18/23 because this is a duplicate of a function below.
+    ### The second function to be declared will be used. Thus, this function was commented
+    #
+    # def rest_iapi_delete(self, path, base_url="", access_token="default", csrf_token=""):
+    #     """
+    #     - REST DELETE
 
-        if access_token == -1:
-            return -1
+    #     :param path: API Endpoint path
+    #     :param base_url: Base URL if not using the default
+    #     :param access_token: access token
+    #     :param csrf_token: csrf-token
+    #     :return: returns stdout
+    #     """
+    #     if access_token == "default":
+    #         access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
+    #     if base_url == "":
+    #         base_url = BuiltIn().get_variable_value("${BASE_URL}")
+    #     self.utils.print_info("Base URL: ", base_url)
 
-        url = base_url + path
+    #     if access_token == -1:
+    #         return -1
 
-        curl_cmd = f"curl -v -k --location --request DELETE '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
+    #     url = base_url + path
 
-        if csrf_token == "":
-            csrf_token = BuiltIn().get_variable_value("${CSRF_TOKEN}")
-            curl_cmd = curl_cmd + " --header 'X-CSRF-Token: " + csrf_token + "'"
+    #     curl_cmd = f"curl -v -k --location --request DELETE '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'"
 
-        self.utils.print_info("*****************************")
-        self.utils.print_info("Curl Command: ", curl_cmd)
+    #     if csrf_token == "":
+    #         csrf_token = BuiltIn().get_variable_value("${CSRF_TOKEN}")
+    #         curl_cmd = curl_cmd + " --header 'X-CSRF-Token: " + csrf_token + "'"
 
-        process = subprocess.Popen(curl_cmd, shell=True,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE)
-        stdout, stderr = process.communicate()
-        self.utils.print_debug("stdout: ", stdout)
-        self.utils.print_debug("stderr: ", stderr)
+    #     self.utils.print_info("*****************************")
+    #     self.utils.print_info("Curl Command: ", curl_cmd)
 
-        return stdout
+    #     process = subprocess.Popen(curl_cmd, shell=True,
+    #                                stdout=subprocess.PIPE,
+    #                                stderr=subprocess.PIPE)
+    #     stdout, stderr = process.communicate()
+    #     self.utils.print_debug("stdout: ", stdout)
+    #     self.utils.print_debug("stderr: ", stderr)
+
+    #     return stdout
 
     def get_current_data(self):
         self.utils.print_info("End Time: ", int(time.time()))
@@ -501,7 +505,17 @@ class Iapi:
                 return element
         return None
 
+    # There is a duplicate of this function above that was commented out on 1/18/23
     def rest_iapi_delete(self, path, delete_data, base_url="", access_token="default", csrf_token=""):
+        """
+        - REST DELETE
+
+        :param path: API Endpoint path
+        :param base_url: Base URL if not using the default
+        :param access_token: access token
+        :param csrf_token: csrf-token
+        :return: returns stdout
+        """
         if access_token == "default":
             access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
         if base_url == "":

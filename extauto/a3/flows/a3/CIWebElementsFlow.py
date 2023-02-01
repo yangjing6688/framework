@@ -1,11 +1,10 @@
 from time import sleep
 from common.Utils import Utils
 from common.Screen import Screen
-from common.AutoActions import *
+from common.AutoActions import AutoActions
 from a3.elements.CIWebElements import CIWebElements
-from a3.elements.GlobalSettingWebElements import *
 from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
+from common.CloudDriver import CloudDriver
 from selenium import webdriver
 from extauto.common.CommonValidation import CommonValidation
 

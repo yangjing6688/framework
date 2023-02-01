@@ -1,5 +1,5 @@
 import re
-import time
+from time import sleep
 import pexpect
 from extauto.common.Cli import Cli
 from extauto.common.Utils import Utils
@@ -23,32 +23,32 @@ class Mu:
         while retry_count <= retries:
             self.utils.print_info("Associating MU - Loop : ", retry_count)
             self.cli.send(mu_spawn, "rm -rf /tmp.txt")
-            time.sleep(10)
+            sleep(10)
             self.cli.send(mu_spawn, "pkill dhclient")
             self.cli.send(mu_spawn, "pkill wpa_supplicant")
-            time.sleep(2)
+            sleep(2)
             self.cli.send(mu_spawn, "ifconfig " + interface + " down")
             self.cli.send(mu_spawn, " ifconfig " + interface + " up ")
-            time.sleep(2)
+            sleep(2)
             self.cli.send(mu_spawn, "ifconfig " + interface)
             self.cli.send(mu_spawn, "iwconfig " + interface)
-            time.sleep(10)
+            sleep(10)
             self.cli.send(mu_spawn, " iwconfig " + interface + " essid " + ssid_name)
             # self.cli.send(mu_spawn, " ifconfig " + interface + " up ")
-            time.sleep(2)
+            sleep(2)
 
         self.cli.send(mu_spawn, " iw dev " + interface + " connect " + ssid_name)
-        time.sleep(2)
+        sleep(2)
 
         self.cli.send(mu_spawn, "iwconfig " + interface)
 
         if ip_address == "default":
             self.cli.send(mu_spawn, " dhclient " + interface + " -v -r ")
-            time.sleep(10)
+            sleep(10)
             output = self.cli.send(mu_spawn, " iwconfig " + interface)
             if "Link Quality" in output:
                 output = self.cli.send(mu_spawn, " dhclient " + interface + " -v ")
-                time.sleep(5)
+                sleep(5)
                 if "bound to " in output:
                     self.cli.send(mu_spawn, "ifconfig " + interface)
                     self.utils.print_info("MU got IP Address")
@@ -74,25 +74,25 @@ class Mu:
         while retry_count <= retries:
             self.utils.print_info("Associating MU - Loop : ", retry_count)
             self.cli.send(mu_spawn, "rm -rf /tmp.txt")
-            time.sleep(10)
+            sleep(10)
             self.cli.send(mu_spawn, "pkill dhclient")
             self.cli.send(mu_spawn, "pkill wpa_supplicant")
-            time.sleep(2)
+            sleep(2)
             self.cli.send(mu_spawn, "ifconfig " + wlan_port + " down")
-            time.sleep(2)
+            sleep(2)
             self.cli.send(mu_spawn, "ifconfig " + eth_port + " down")
             self.cli.send(mu_spawn, " ifconfig " + eth_port + " up ")
-            time.sleep(2)
+            sleep(2)
             self.cli.send(mu_spawn, "ifconfig " + eth_port)
-            time.sleep(5)
+            sleep(5)
 
             self.cli.send(mu_spawn, "iwconfig " + eth_port)
 
             if ip_address == "default":
                 self.cli.send(mu_spawn, " dhclient " + eth_port + " -v -r ")
-                time.sleep(10)
+                sleep(10)
                 self.cli.send(mu_spawn, " dhclient " + eth_port + " -v ")
-                time.sleep(10)
+                sleep(10)
                 self.utils.print_info("Got DHCP Address")
                 self.utils.print_info("Checking the Internet reachability...")
                 if self.cli.ping_from_spawn(mu_spawn, "google.com"):
@@ -130,31 +130,32 @@ class Mu:
 
         mu_spawn = self.cli.open_spawn(ip, port, username, password, platform)
 
-        expect_str = "CTRL-EVENT-CONNECTED"
+        # Commented on 1/18/23 because it is unused
+        # expect_str = "CTRL-EVENT-CONNECTED"
 
         retry_count = 1
         while retry_count <= retries:
             self.utils.print_info("Associating MU - Loop : ", retry_count)
             self.cli.send(mu_spawn, "rm -rf /tmp.txt")
-            time.sleep(10)
+            sleep(10)
             self.cli.send(mu_spawn, "pkill dhclient")
             self.cli.send(mu_spawn, "pkill wpa_supplicant")
-            time.sleep(2)
+            sleep(2)
             self.cli.send(mu_spawn, "ifconfig " + wlan_port + " down")
-            time.sleep(2)
+            sleep(2)
             self.cli.send(mu_spawn, "ifconfig " + eth_port + " down")
             self.cli.send(mu_spawn, " ifconfig " + eth_port + " up ")
-            time.sleep(2)
+            sleep(2)
             self.cli.send(mu_spawn, "ifconfig " + eth_port)
-            time.sleep(5)
+            sleep(5)
 
             self.cli.send(mu_spawn, "iwconfig " + eth_port)
 
             if ip_address == "default":
                 self.cli.send(mu_spawn, " dhclient " + eth_port + " -v -r ")
-                time.sleep(10)
+                sleep(10)
                 self.cli.send(mu_spawn, " dhclient " + eth_port + " -v ")
-                time.sleep(10)
+                sleep(10)
                 self.utils.print_info("Got DHCP Address")
                 self.utils.print_info("Checking the Internet reachability...")
                 if self.cli.ping_from_spawn(mu_spawn, "google.com"):
@@ -215,7 +216,7 @@ class Mu:
         self.cli.send(mu_spawn, "rm -rf /var/lib/dhcp/dhclient.leases")
         self.cli.send(mu_spawn, "pkill wpa_supplicant")
         self.cli.send(mu_spawn, "pkill wpa_supplicant")
-        time.sleep(2)
+        sleep(2)
 
         retries = 3
         retry_count = 1
@@ -223,54 +224,54 @@ class Mu:
         while retry_count <= retries:
 
             self.cli.send(mu_spawn, "ifconfig")
-            time.sleep(1)
+            sleep(1)
             self.cli.send(mu_spawn, "iwconfig")
-            time.sleep(1)
+            sleep(1)
 
             self.cli.send(mu_spawn, "ifconfig " + interface + " down")
-            time.sleep(1)
+            sleep(1)
 
             self.cli.send(mu_spawn, "ifconfig " + interface + " down")
-            time.sleep(1)
+            sleep(1)
 
             self.cli.send(mu_spawn, "iwconfig " + interface + " essid " + ssid)
-            time.sleep(2)
+            sleep(2)
 
             self.cli.send(mu_spawn, "iwconfig " + interface + " essid " + ssid)
-            time.sleep(2)
+            sleep(2)
 
             self.cli.send(mu_spawn, "ifconfig")
-            time.sleep(1)
+            sleep(1)
             self.cli.send(mu_spawn, "iwconfig")
-            time.sleep(2)
+            sleep(2)
 
             self.cli.send(mu_spawn, "ifconfig " + interface + " up")
-            time.sleep(5)
+            sleep(5)
 
             self.cli.send(mu_spawn, "ifconfig")
 
             retry_count += 1
 
             if "Access Point: Not-Associated" in self.cli.send(mu_spawn, "iwconfig"):
-                time.sleep(5)
+                sleep(5)
             else:
                 connect_flag = 1
                 break
 
         """
-        time.sleep(1)
+        sleep(1)
         count = 1
         connect_flag = -1
         while count <= 5:
             if "Access Point: Not-Associated" in self.cli.send(mu_spawn, "iwconfig"):
-                time.sleep(5)
+                sleep(5)
             else:
                 connect_flag = 1
                 break
             count += 1
-        time.sleep(2)
+        sleep(2)
         """
-        time.sleep(5)
+        sleep(5)
 
         dhcp_command = "dhclient " + str(interface) + " -v"
         dhcp_release_command = "dhclient " + str(interface) + " -r -v"
@@ -279,7 +280,7 @@ class Mu:
             if ip_address == "default":
                 self.utils.print_info("Requesting DHCP IP Address...")
                 self.cli.send(mu_spawn, dhcp_release_command)
-                time.sleep(5)
+                sleep(5)
                 output = self.cli.send(mu_spawn, dhcp_command)
                 if 'bound to' not in output:
                     self.cli.send(mu_spawn, dhcp_command)
@@ -313,7 +314,7 @@ class Mu:
 
         self.cli.send(mu_spawn, "pkill wpa_supplicant")
         self.cli.send(mu_spawn, "pkill wpa_supplicant")
-        time.sleep(2)
+        sleep(2)
 
         if key_type == "hex" or key_type == "HEX":
             key = "0x" + key
@@ -326,10 +327,10 @@ class Mu:
         self.cli.send(mu_spawn, "echo \"}\" >> wep.conf")
 
         file_name = "wep.conf"
-        time.sleep(2)
+        sleep(2)
 
         self.cli.send(mu_spawn, " wpa_supplicant -i " + interface + " -c " + file_name + " -B -f " + "/tmp.txt")
-        time.sleep(10)
+        sleep(10)
 
         count = 1
         connect_flag = 0
@@ -342,7 +343,7 @@ class Mu:
                 break
             else:
                 self.utils.print_info("retrying...")
-                time.sleep(5)
+                sleep(5)
             count += 1
 
         dhcp_command = "dhclient " + str(interface) + " -v"
@@ -352,7 +353,7 @@ class Mu:
             if ip_address == "default":
                 self.utils.print_info("Requesting DHCP IP Address...")
                 self.cli.send(mu_spawn, dhcp_release_command)
-                time.sleep(5)
+                sleep(5)
                 output = self.cli.send(mu_spawn, dhcp_command)
                 if 'bound to' not in output:
                     self.cli.send(mu_spawn, dhcp_command)
@@ -383,7 +384,7 @@ class Mu:
 
         self.cli.send(mu_spawn, "pkill wpa_supplicant")
         self.cli.send(mu_spawn, "pkill wpa_supplicant")
-        time.sleep(2)
+        sleep(2)
 
         self.cli.send(mu_spawn, "echo \"network={\" > psk.conf")
         self.cli.send(mu_spawn, "echo \' ssid=\"" + ssid + "\"\' >> psk.conf")
@@ -395,10 +396,10 @@ class Mu:
         self.cli.send(mu_spawn, "echo \"}\" >> psk.conf")
 
         file_name = "psk.conf"
-        time.sleep(2)
+        sleep(2)
 
         self.cli.send(mu_spawn, " wpa_supplicant -i " + interface + " -c " + file_name + " -B -f " + "/tmp.txt")
-        time.sleep(10)
+        sleep(10)
 
         count = 1
         connect_flag = 0
@@ -411,7 +412,7 @@ class Mu:
                 break
             else:
                 self.utils.print_info("retrying...")
-                time.sleep(5)
+                sleep(5)
             count += 1
 
         dhcp_command = "dhclient " + str(interface) + " -v"
@@ -421,7 +422,7 @@ class Mu:
             if ip_address == "default":
                 self.utils.print_info("Requesting DHCP IP Address...")
                 self.cli.send(mu_spawn, dhcp_release_command)
-                time.sleep(5)
+                sleep(5)
                 output = self.cli.send(mu_spawn, dhcp_command)
                 if 'bound to' not in output:
                     self.cli.send(mu_spawn, dhcp_command)
@@ -446,19 +447,19 @@ class Mu:
         expect_str = "CTRL-EVENT-CONNECTED"
 
         self.cli.send(mu_spawn, "rm -rf /tmp.txt")
-        time.sleep(5)
+        sleep(5)
 
         self.cli.send(mu_spawn, "pkill dhclient")
         self.cli.send(mu_spawn, "pkill dhclient")
         self.cli.send(mu_spawn, "pkill wpa_supplicant")
         self.cli.send(mu_spawn, "pkill wpa_supplicant")
-        time.sleep(5)
+        sleep(5)
 
         self.cli.send(mu_spawn, "ifconfig " + interface + " down")
-        time.sleep(5)
+        sleep(5)
 
         self.cli.send(mu_spawn, "ifconfig " + interface + " down")
-        time.sleep(5)
+        sleep(5)
 
         self.cli.send(mu_spawn, "ifconfig " + interface)
         self.cli.send(mu_spawn, "iwconfig " + interface)
@@ -494,14 +495,14 @@ class Mu:
             if key_type == "hex":
                 file_name = "eap_dot1x_peap_hex.conf"
 
-        time.sleep(10)
+        sleep(10)
 
         dhcp_command = "dhclient " + str(interface) + " -v"
         dhcp_release_command = "dhclient " + str(interface) + " -r -v"
 
         if file_name != -1:
             self.cli.send(mu_spawn, " wpa_supplicant -i " + interface + " -c " + file_name + " -B -f " + "/tmp.txt")
-            time.sleep(10)
+            sleep(10)
 
             count = 1
             connect_flag = 0
@@ -514,14 +515,14 @@ class Mu:
                     break
                 else:
                     self.utils.print_info("retrying...")
-                    time.sleep(5)
+                    sleep(5)
                 count += 1
 
             if connect_flag == 1:
                 if ip_address == "default" or ip_address == "default":
                     self.utils.print_info("Requesting DHCP IP Address...")
                     self.cli.send(mu_spawn, dhcp_release_command)
-                    time.sleep(5)
+                    sleep(5)
                     self.utils.print_info("***************************************************************************")
                     output = self.cli.send(mu_spawn, dhcp_command)
                     self.utils.print_info("***************************************************************************")
@@ -562,6 +563,6 @@ class Mu:
         :return:
         """
         self.utils.print_info("Bring down MU interface")
-        time.sleep(10)
+        sleep(10)
         self.cli.send(mu_spawn, "ifconfig " + str(interface) + " down")
-        time.sleep(2)
+        sleep(2)

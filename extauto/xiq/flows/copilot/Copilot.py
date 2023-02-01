@@ -1,14 +1,14 @@
-from extauto.common.CloudDriver import CloudDriver
 from time import sleep
+import re
+
+from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.CopilotWebElements import CopilotWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
-import re
 from extauto.common.CommonValidation import CommonValidation
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.manage.Tools import Tools
 
 
@@ -122,7 +122,7 @@ class Copilot(CopilotWebElements):
                                      "information in wifi capacity summary"
                 self.common_validation.failed(**kwargs)
                 return -2
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_wifi_capacity_widget_summary()' -> Unable to get Wi-FI Summary"
             self.common_validation.fault(**kwargs)
             return -1
@@ -147,7 +147,7 @@ class Copilot(CopilotWebElements):
             wifi_capacity_status = self.get_wifi_capacity_status()
             self.utils.print_info("status of muted button in wifi capacity widget:", wifi_capacity_status.text)
             return wifi_capacity_status.text
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_wifi_capacity_widget_status()' -> Unable to get status of muted button in " \
                                  "wifi capacity widget"
             self.common_validation.fault(**kwargs)
@@ -177,17 +177,17 @@ class Copilot(CopilotWebElements):
                     self.auto_actions.click(self.get_wifi_capacity_widget_location_pin_button(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_wifi_capacity_widget()' -> Pinned Anomaly " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_wifi_capacity_widget()' -> Pinned Anomaly " \
                                          f"successfully for the location : {location_name}"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_wifi_capacity_widget()' -> Already Pinned " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_wifi_capacity_widget()' -> Already Pinned " \
                                          f"Anomaly for the location : {location_name}"
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'pin_anomaly_for_location_in_wifi_capacity_widget()' -> Not found Location row " \
+        kwargs['fail_msg'] = "'pin_anomaly_for_location_in_wifi_capacity_widget()' -> Not found Location row " \
                              f"with name:{location_name}"
         self.common_validation.fault(**kwargs)
         return -1
@@ -216,17 +216,17 @@ class Copilot(CopilotWebElements):
                     self.auto_actions.click(self.get_wifi_capacity_widget_location_already_pinned_status(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'unpin_anomaly_for_location_in_wifi_capacity_widget()' -> Successfully " \
+                    kwargs['pass_msg'] = "'unpin_anomaly_for_location_in_wifi_capacity_widget()' -> Successfully " \
                                          f"UnPinned Anomaly for the location : {location_name}"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_wifi_capacity_widget()' -> Already UnPinned " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_wifi_capacity_widget()' -> Already UnPinned " \
                                          f"Anomaly for the location : {location_name}"
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'unpin_anomaly_for_location_in_wifi_capacity_widget()' -> Not found Location row " \
+        kwargs['fail_msg'] = "'unpin_anomaly_for_location_in_wifi_capacity_widget()' -> Not found Location row " \
                              f"with name:{location_name}"
         self.common_validation.fault(**kwargs)
         return -1
@@ -250,7 +250,7 @@ class Copilot(CopilotWebElements):
         if self.get_wifi_capacity_widget_location_muted_grid_rows():
             for row in self.get_wifi_capacity_widget_location_muted_grid_rows():
                 if location_name in row.text:
-                    kwargs['pass_msg'] = f"'mute_anomaly_for_location_in_wifi_capacity_widget()' -> Already Mute " \
+                    kwargs['pass_msg'] = "'mute_anomaly_for_location_in_wifi_capacity_widget()' -> Already Mute " \
                                          f"Anomaly Enabled for the location : {location_name}"
                     self.common_validation.passed(**kwargs)
                     return 1
@@ -269,12 +269,12 @@ class Copilot(CopilotWebElements):
                     self.screen.save_screen_shot()
                     for row1 in self.get_wifi_capacity_widget_location_muted_grid_rows():
                         if location_name in row1.text:
-                            kwargs['pass_msg'] = f"'mute_anomaly_for_location_in_wifi_capacity_widget()' -> Muted " \
+                            kwargs['pass_msg'] = "'mute_anomaly_for_location_in_wifi_capacity_widget()' -> Muted " \
                                                  f"Anomaly successfully for the location : {location_name}"
                             self.common_validation.passed(**kwargs)
                             return 1
 
-            kwargs['fail_msg'] = f"'mute_anomaly_for_location_in_wifi_capacity_widget()' -> Not found Location " \
+            kwargs['fail_msg'] = "'mute_anomaly_for_location_in_wifi_capacity_widget()' -> Not found Location " \
                                  f"row with name:{location_name}"
             self.common_validation.fault(**kwargs)
             return -1
@@ -310,19 +310,19 @@ class Copilot(CopilotWebElements):
 
                     for row1 in self.get_wifi_capacity_widget_location_grid_rows():
                         if location_name in row1.text:
-                            kwargs['pass_msg'] = f"'unmute_anomaly_for_location_in_wifi_capacity_widget()' -> UnMuted " \
+                            kwargs['pass_msg'] = "'unmute_anomaly_for_location_in_wifi_capacity_widget()' -> UnMuted " \
                                                  f"Anomaly successfully for the location : {location_name}"
                             self.common_validation.passed(**kwargs)
                             return 1
 
                     self.screen.save_screen_shot()
                 else:
-                    kwargs['fail_msg'] = f"'unmute_anomaly_for_location_in_wifi_capacity_widget()' -> Not Found " \
+                    kwargs['fail_msg'] = "'unmute_anomaly_for_location_in_wifi_capacity_widget()' -> Not Found " \
                                          f"Location row with name:{location_name}"
                     self.common_validation.failed(**kwargs)
                     return -1
         else:
-            kwargs['pass_msg'] = f"'unmute_anomaly_for_location_in_wifi_capacity_widget()' -> Unable to find " \
+            kwargs['pass_msg'] = "'unmute_anomaly_for_location_in_wifi_capacity_widget()' -> Unable to find " \
                                  f"Muted rows in wifi capacity widget. Location {location_name} already Un Muted"
             self.common_validation.passed(**kwargs)
             return 1
@@ -427,25 +427,25 @@ class Copilot(CopilotWebElements):
                             sleep(5)
 
                             self.screen.save_screen_shot()
-                            self.utils.print_info(f"Closing Detailed view")
+                            self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
-                            kwargs['pass_msg'] = f"'pin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
+                            kwargs['pass_msg'] = "'pin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
                                                  f"Pinned Anomaly successfully for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.common_validation.passed(**kwargs)
                             return 1
                         else:
-                            self.utils.print_info(f"Closing Detailed view")
+                            self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
-                            kwargs['pass_msg'] = f"'pin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
+                            kwargs['pass_msg'] = "'pin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
                                                  f"Already Pinned Anomaly for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.common_validation.passed(**kwargs)
                             return 1
 
-        kwargs['fail_msg'] = f"'pin_individual_ap_for_location_in_wifi_capacity_widget()' -> Not found AP row " \
+        kwargs['fail_msg'] = "'pin_individual_ap_for_location_in_wifi_capacity_widget()' -> Not found AP row " \
                              f"{ap_name} with Location:{location_name}"
         self.common_validation.fault(**kwargs)
         return -1
@@ -483,25 +483,25 @@ class Copilot(CopilotWebElements):
                             sleep(5)
 
                             self.screen.save_screen_shot()
-                            self.utils.print_info(f"Closing Detailed view")
+                            self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
-                            kwargs['pass_msg'] = f"'unpin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
+                            kwargs['pass_msg'] = "'unpin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
                                                  f"Already UnPinned Anomaly for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.common_validation.passed(**kwargs)
                             return 1
                         else:
-                            self.utils.print_info(f"Closing Detailed view")
+                            self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
-                            kwargs['pass_msg'] = f"'unpin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
+                            kwargs['pass_msg'] = "'unpin_individual_ap_for_location_in_wifi_capacity_widget()' -> " \
                                                  f"Already unPinned Anomaly for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.common_validation.passed(**kwargs)
                             return 1
 
-        kwargs['fail_msg'] = f"'unpin_individual_ap_for_location_in_wifi_capacity_widget()' -> Not found AP row " \
+        kwargs['fail_msg'] = "'unpin_individual_ap_for_location_in_wifi_capacity_widget()' -> Not found AP row " \
                              f"{ap_name} with Location:{location_name}"
         self.common_validation.fault(**kwargs)
         return -1
@@ -551,7 +551,7 @@ class Copilot(CopilotWebElements):
             total_scan = self.get_assurance_total_scan_count().text
             self.utils.print_info("Getting Total scans count : ", total_scan)
             return total_scan
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_total_assurance_scan_count()' -> Unable to total scan count in Assurance " \
                                  "scan widget"
             self.common_validation.fault(**kwargs)
@@ -570,19 +570,19 @@ class Copilot(CopilotWebElements):
         self.navigator.navigate_to_copilot_menu()
         sleep(15)
 
-        self.utils.print_info(f"Click Hide Muted Button in WiFi Capacity Widget")
+        self.utils.print_info("Click Hide Muted Button in WiFi Capacity Widget")
         button_text = self.get_show_or_hide_muted_button_in_wifi_capacity_widget().text
         self.utils.print_info(f"Button Text is {button_text}")
         self.screen.save_screen_shot()
         if "HIDE MUTED" in button_text.upper():
-            self.utils.print_info(f"Clicking Hide Muted Button")
+            self.utils.print_info("Clicking Hide Muted Button")
             self.auto_actions.click_reference(self.get_show_or_hide_muted_button_in_wifi_capacity_widget)
             sleep(5)
         else:
-            self.utils.print_info(f"Already Clicked Hide Muted Button in WiFi Capacity Widget")
+            self.utils.print_info("Already Clicked Hide Muted Button in WiFi Capacity Widget")
             sleep(5)
 
-        self.utils.print_info(f"Checking for Un muted Rows in WiFi Capacity Widget")
+        self.utils.print_info("Checking for Un muted Rows in WiFi Capacity Widget")
         if self.get_wifi_capacity_widget_location_muted_grid_rows():
             for row in self.get_wifi_capacity_widget_location_muted_grid_rows():
                 if location_name in row.text:
@@ -608,18 +608,18 @@ class Copilot(CopilotWebElements):
         self.utils.print_info("Navigating to Copilot menu..")
         self.navigator.navigate_to_copilot_menu()
         sleep(15)
-        self.utils.print_info(f"Click Show Muted Button in WiFi Capacity Widget")
+        self.utils.print_info("Click Show Muted Button in WiFi Capacity Widget")
         button_text = self.get_show_or_hide_muted_button_in_wifi_capacity_widget().text
         self.utils.print_info(f"Button Text is {button_text}")
         self.screen.save_screen_shot()
         if "HIDE MUTED" in button_text.upper():
-            self.utils.print_info(f"Already Clicked Show Muted Button Enabled in WiFi Capacity Widget")
+            self.utils.print_info("Already Clicked Show Muted Button Enabled in WiFi Capacity Widget")
             sleep(5)
         else:
-            self.utils.print_info(f"Clicking Show Muted Button")
+            self.utils.print_info("Clicking Show Muted Button")
             self.auto_actions.click_reference(self.get_show_or_hide_muted_button_in_wifi_capacity_widget)
             sleep(5)
-        self.utils.print_info(f"Checking for muted Rows in WiFi Capacity Widget")
+        self.utils.print_info("Checking for muted Rows in WiFi Capacity Widget")
         if self.get_wifi_capacity_widget_location_muted_grid_rows():
             for row in self.get_wifi_capacity_widget_location_muted_grid_rows():
                 if location_name in row.text:
@@ -679,7 +679,7 @@ class Copilot(CopilotWebElements):
                     self.common_validation.failed(**kwargs)
                     return -1
             else:
-                kwargs['fail_msg'] = f"'get_anomaly_details_for_location_in_anomaly_notification_icon()' -> " \
+                kwargs['fail_msg'] = "'get_anomaly_details_for_location_in_anomaly_notification_icon()' -> " \
                                      f"Location {location_name} not found in Anomaly Notification Rows"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -699,12 +699,12 @@ class Copilot(CopilotWebElements):
         self.navigator.navigate_to_copilot_menu()
         sleep(15)
 
-        self.utils.print_info(f"Clicking Video Help Icon")
+        self.utils.print_info("Clicking Video Help Icon")
         self.auto_actions.click_reference(self.get_wifi_capacity_video_help_icon)
         sleep(5)
         self.screen.save_screen_shot()
 
-        self.utils.print_info(f"Getting Documentation Links Present In WiFi Capacity Additional Resources ")
+        self.utils.print_info("Getting Documentation Links Present In WiFi Capacity Additional Resources ")
         docs_urls = self.get_wifi_capacity_additional_resources_docs_links()
         docs_url_list = []
         if docs_urls:
@@ -714,7 +714,7 @@ class Copilot(CopilotWebElements):
                     docs_url_list.append(doc_url)
             self.utils.print_info(f"Documentation Links Present In WiFi Capacity Additional Resources : {docs_url_list}")
 
-        self.utils.print_info(f"Getting Video Links Present In WiFi Capacity Additional Resources ")
+        self.utils.print_info("Getting Video Links Present In WiFi Capacity Additional Resources ")
         video_urls = self.get_wifi_capacity_additional_resources_video_links()
         video_url_list = []
         if video_urls:
@@ -724,7 +724,7 @@ class Copilot(CopilotWebElements):
                     video_url_list.append(video_url)
             self.utils.print_info(f"Video Links Present In WiFi Capacity Additional Resources : {video_url_list}")
 
-        self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
+        self.utils.print_info("Closing WiFi Capacity Additional Resources")
         self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
         return docs_url_list, video_url_list
@@ -742,12 +742,12 @@ class Copilot(CopilotWebElements):
         self.navigator.navigate_to_copilot_menu()
         sleep(15)
 
-        self.utils.print_info(f"Clicking Video Help Icon")
+        self.utils.print_info("Clicking Video Help Icon")
         self.auto_actions.click_reference(self.get_wifi_capacity_video_help_icon)
         sleep(5)
         self.screen.save_screen_shot()
 
-        self.utils.print_info(f"Validating Documentation Links Present In WiFi Capacity Additional Resources ")
+        self.utils.print_info("Validating Documentation Links Present In WiFi Capacity Additional Resources ")
         docs_urls = self.get_wifi_capacity_additional_resources_docs_links()
         if docs_urls:
             loaded_doc_title = False
@@ -775,14 +775,14 @@ class Copilot(CopilotWebElements):
                     CloudDriver().cloud_driver.switch_to.window(parent_window)
 
                     if page_title_in_xiq in loaded_doc_title:
-                        self.utils.print_info(f"Loaded Documentation Title Is Same As XIQ Page Link Title ")
+                        self.utils.print_info("Loaded Documentation Title Is Same As XIQ Page Link Title ")
                         loaded_doc_title = True
                     else:
-                        self.utils.print_info(f"Loaded Documentation Title Is Not same As XIQ Page Link Title ")
+                        self.utils.print_info("Loaded Documentation Title Is Not same As XIQ Page Link Title ")
                         loaded_doc_title = False
                         break
 
-            self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
+            self.utils.print_info("Closing WiFi Capacity Additional Resources")
             self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
             if loaded_doc_title:
@@ -809,12 +809,12 @@ class Copilot(CopilotWebElements):
         self.navigator.navigate_to_copilot_menu()
         sleep(15)
 
-        self.utils.print_info(f"Clicking Video Help Icon")
+        self.utils.print_info("Clicking Video Help Icon")
         self.auto_actions.click_reference(self.get_wifi_capacity_video_help_icon)
         sleep(5)
         self.screen.save_screen_shot()
 
-        self.utils.print_info(f"Validating YouTube Links Present In WiFi Capacity Additional Resources ")
+        self.utils.print_info("Validating YouTube Links Present In WiFi Capacity Additional Resources ")
         video_urls = self.get_wifi_capacity_additional_resources_video_links()
         if video_urls:
             loaded_video_flag = False
@@ -844,7 +844,7 @@ class Copilot(CopilotWebElements):
                         loaded_video_flag = False
                         break
 
-            self.utils.print_info(f"Closing WiFi Capacity Additional Resources")
+            self.utils.print_info("Closing WiFi Capacity Additional Resources")
             self.auto_actions.click_reference(self.get_wifi_capacity_additional_resources_close_button)
 
             if loaded_video_flag:
@@ -902,7 +902,7 @@ class Copilot(CopilotWebElements):
                     anomaly_details["last_detected"] = details.group(7)
                     list1.append(anomaly_details)
                 else:
-                    kwargs['fail_msg'] = f"'sort_anomalies_in_wifi_capacity_widget()' " \
+                    kwargs['fail_msg'] = "'sort_anomalies_in_wifi_capacity_widget()' " \
                                          "-> Could not get details for anomaly row: {row.text}"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -942,7 +942,7 @@ class Copilot(CopilotWebElements):
                                      "efficiency widget"
                 self.common_validation.fault(**kwargs)
                 return -2
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_wifi_efficiency_widget_summary()' -> Unable to get WiFI efficiency Summary"
             self.common_validation.fault(**kwargs)
             return -1
@@ -971,17 +971,17 @@ class Copilot(CopilotWebElements):
                     self.auto_actions.click(self.get_wifi_efficiency_widget_location_pin_button(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_wifi_efficiency_widget()' -> Pinned Anomaly " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_wifi_efficiency_widget()' -> Pinned Anomaly " \
                                          f"successfully for the location : {location_name}"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_wifi_efficiency_widget()' -> Already Pinned " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_wifi_efficiency_widget()' -> Already Pinned " \
                                          f"Anomaly for the location : {location_name}"
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'pin_anomaly_for_location_in_wifi_efficiency_widget()' -> Not found Location row " \
+        kwargs['fail_msg'] = "'pin_anomaly_for_location_in_wifi_efficiency_widget()' -> Not found Location row " \
                              f"with name:{location_name}"
         self.common_validation.fault(**kwargs)
         return -1
@@ -1017,7 +1017,7 @@ class Copilot(CopilotWebElements):
                                      "information in POE stability widget"
                 self.common_validation.failed(**kwargs)
                 return -2
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'get_poe_stability_widget_summary()' -> Unable to get POE stability widget " \
                                  "summary details"
             self.common_validation.fault(**kwargs)
@@ -1047,17 +1047,17 @@ class Copilot(CopilotWebElements):
                     self.auto_actions.click(self.get_poe_stability_widget_location_pin_button(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_poe_stability_widget()' -> Pinned Anomaly " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_poe_stability_widget()' -> Pinned Anomaly " \
                                          f"successfully for the location : {location_name} in PoE Stability Widget"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_poe_stability_widget()' -> Already Pinned " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_poe_stability_widget()' -> Already Pinned " \
                                          f"Anomaly for the location : {location_name} in PoE Stability Widget"
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'pin_anomaly_for_location_in_poe_stability_widget()' -> Not found Location row with " \
+        kwargs['fail_msg'] = "'pin_anomaly_for_location_in_poe_stability_widget()' -> Not found Location row with " \
                              f"name:{location_name} in PoE Stability Widget"
         self.common_validation.fault(**kwargs)
         return -1
@@ -1093,7 +1093,7 @@ class Copilot(CopilotWebElements):
             else:
                 self.utils.print_info("No anomalies detected in port efficiency widget")
                 return [buildings, aps]
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Unable to get port efficiency widget in copilot page")
             return [buildings, aps]
 
@@ -1121,17 +1121,17 @@ class Copilot(CopilotWebElements):
                     self.auto_actions.click(self.get_port_efficiency_widget_location_pin_button(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_port_efficiency_widget()' -> Pinned Anomaly " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_port_efficiency_widget()' -> Pinned Anomaly " \
                                          f"successfully for the location : {location_name} in Port Efficiency Widget"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_port_efficiency_widget()' -> Already Pinned " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_port_efficiency_widget()' -> Already Pinned " \
                                          f"Anomaly for the location : {location_name} in Port Efficiency Widget"
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'pin_anomaly_for_location_in_port_efficiency_widget()' -> Not found Location row with " \
+        kwargs['fail_msg'] = "'pin_anomaly_for_location_in_port_efficiency_widget()' -> Not found Location row with " \
                              f"name:{location_name} in Port Efficiency Widget"
         self.common_validation.fault(**kwargs)
         return -1
@@ -1160,17 +1160,17 @@ class Copilot(CopilotWebElements):
                     self.auto_actions.click(self.get_port_efficiency_widget_location_already_pinned_status(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'unpin_anomaly_for_location_in_port_efficiency_widget()' -> unPinned Anomaly " \
+                    kwargs['pass_msg'] = "'unpin_anomaly_for_location_in_port_efficiency_widget()' -> unPinned Anomaly " \
                                          f"successfully for the location : {location_name} in Port Efficiency Widget"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['pass_msg'] = f"'unpin_anomaly_for_location_in_port_efficiency_widget()' -> Already " \
+                    kwargs['pass_msg'] = "'unpin_anomaly_for_location_in_port_efficiency_widget()' -> Already " \
                                          f"UnPinned Anomaly for the location : {location_name} in Port Efficiency Widget"
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'unpin_anomaly_for_location_in_port_efficiency_widget()' -> Not found Location row with " \
+        kwargs['fail_msg'] = "'unpin_anomaly_for_location_in_port_efficiency_widget()' -> Not found Location row with " \
                              f"name:{location_name} in Port Efficiency Widget"
         self.common_validation.fault(**kwargs)
         return -1
@@ -1482,7 +1482,7 @@ class Copilot(CopilotWebElements):
                 self.utils.print_info("Returning Anomaly List: ", anomaly_list)
                 return anomaly_list
         except Exception as e:
-            kwargs['fail_msg'] = f"'get_dfs_recurrence_widget_location_details()' -> Unable to get DFS Recurrence Summary"
+            kwargs['fail_msg'] = "'get_dfs_recurrence_widget_location_details()' -> Unable to get DFS Recurrence Summary"
             self.utils.print_info(e)
             self.common_validation.fault(**kwargs)
             return -1
@@ -1588,7 +1588,7 @@ class Copilot(CopilotWebElements):
                     pass
                 else:
                     devices_by_os[_key] = _value
-            except Exception as e:
+            except Exception:
                 pass
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -1610,12 +1610,16 @@ class Copilot(CopilotWebElements):
         self.utils.print_info("Getting Devices By OS")
         sleep(25)
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-        widget = self.get_devices_by_os_widget()
+        # Commented on 1/18/23 because variable is unused
+        # widget = self.get_devices_by_os_widget()
+        self.get_devices_by_os_widget()
         self.screen.save_screen_shot()
 
         sleep(2)
         self.auto_actions.click_reference(self.get_devices_by_os_iqagent)
-        parent_window = CloudDriver().cloud_driver.window_handles[0]
+        # Commented on 1/18/23 because variable is unused
+        # parent_window = CloudDriver().cloud_driver.window_handles[0]
+        CloudDriver().cloud_driver.window_handles[0]
         child_window = CloudDriver().cloud_driver.window_handles[1]
 
         self.utils.print_info("Switch To New Tab")
@@ -1632,9 +1636,11 @@ class Copilot(CopilotWebElements):
                                  "successfully"
             self.common_validation.failed(**kwargs)
             return -1
-        CloudDriver().cloud_driver.close()
-        self.utils.print_info("Closing the browser")
-        self.utils.switch_to_default(CloudDriver().cloud_driver)
+
+        # Commented on 1/18/23 because code is unreachable
+        # CloudDriver().cloud_driver.close()
+        # self.utils.print_info("Closing the browser")
+        # self.utils.switch_to_default(CloudDriver().cloud_driver)
 
     def get_devices_by_type(self):
         """
@@ -1665,7 +1671,7 @@ class Copilot(CopilotWebElements):
                 member_since = self.get_devices_by_type_row_key(row).text
                 member_since_value = self.get_devices_by_type_row_value(row).text
                 devices_by_type[member_since] = member_since_value
-            except Exception as e:
+            except Exception:
                 pass
 
         self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -1742,19 +1748,19 @@ class Copilot(CopilotWebElements):
                     self.auto_actions.click(self.get_dfs_recurrence_widget_location_pin_button(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_dfs_recurrence_widget()' -> Pinned Anomaly " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_dfs_recurrence_widget()' -> Pinned Anomaly " \
                                          f"successfully for the location : {location_name} in DFS Recurrence"
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_dfs_recurrence_widget()' -> Already Pinned " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_dfs_recurrence_widget()' -> Already Pinned " \
                                          f"Anomaly for the location : {location_name} in DFS Recurrence"
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'pin_anomaly_for_location_in_dfs_recurrence_widget()' -> Not found Location row with " \
+        kwargs['fail_msg'] = "'pin_anomaly_for_location_in_dfs_recurrence_widget()' -> Not found Location row with " \
                              f"name:{location_name} in DFS Recurrence"
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.common_validation.fault(**kwargs)
@@ -1789,19 +1795,19 @@ class Copilot(CopilotWebElements):
                     self.auto_actions.click(self.get_dfs_recurrence_widget_location_already_pinned_status(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'unpin_anomaly_for_location_in_dfs_recurrence_widget()' -> Successfully " \
+                    kwargs['pass_msg'] = "'unpin_anomaly_for_location_in_dfs_recurrence_widget()' -> Successfully " \
                                          f"UnPinned Anomaly for the location : {location_name} in DFS Recurrence"
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['pass_msg'] = f"'unpin_anomaly_for_location_in_dfs_recurrence_widget()' -> Already UnPinned " \
+                    kwargs['pass_msg'] = "'unpin_anomaly_for_location_in_dfs_recurrence_widget()' -> Already UnPinned " \
                                          f"Anomaly for the location : {location_name} in DFS Recurrence"
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'unpin_anomaly_for_location_in_dfs_recurrence_widget()' -> Not found Location row with " \
+        kwargs['fail_msg'] = "'unpin_anomaly_for_location_in_dfs_recurrence_widget()' -> Not found Location row with " \
                              f"name:{location_name} in DFS Recurrence"
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.common_validation.fault(**kwargs)
@@ -1829,7 +1835,7 @@ class Copilot(CopilotWebElements):
         if self.get_dfs_recurrence_widget_location_grid_muted_rows():
             for row in self.get_dfs_recurrence_widget_location_grid_muted_rows():
                 if location_name in row.text:
-                    kwargs['pass_msg'] = f"'mute_anomaly_for_location_in_dfs_recurrence_widget()' -> Already Mute " \
+                    kwargs['pass_msg'] = "'mute_anomaly_for_location_in_dfs_recurrence_widget()' -> Already Mute " \
                                          f"Anomaly Enabled for the location : {location_name} in DFS Recurrence Widget"
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
                     self.common_validation.passed(**kwargs)
@@ -1838,7 +1844,7 @@ class Copilot(CopilotWebElements):
             for row in self.get_dfs_recurrence_widget_location_grid_rows():
                 if location_name in row.text:
                     self.utils.print_info(f"Selecting Mute Button for the Location: {location_name} "
-                                          f"in DFS Recurrence Widget")
+                                          "in DFS Recurrence Widget")
                     self.utils.print_info("Clicking More Options Button in the Location Name Matched Row "
                                           "in DFS Recurrence Widget")
                     self.auto_actions.click(self.get_dfs_recurrence_widget_location_more_options_button(row))
@@ -1852,13 +1858,13 @@ class Copilot(CopilotWebElements):
                     self.screen.save_screen_shot()
                     for row1 in self.get_dfs_recurrence_widget_location_grid_muted_rows():
                         if location_name in row1.text:
-                            kwargs['pass_msg'] = f"'mute_anomaly_for_location_in_dfs_recurrence_widget()' -> Muted " \
+                            kwargs['pass_msg'] = "'mute_anomaly_for_location_in_dfs_recurrence_widget()' -> Muted " \
                                                  f"Anomaly successfully for the location : {location_name}"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.passed(**kwargs)
                             return 1
 
-            kwargs['fail_msg'] = f"'mute_anomaly_for_location_in_dfs_recurrence_widget()' -> Not found Location row with " \
+            kwargs['fail_msg'] = "'mute_anomaly_for_location_in_dfs_recurrence_widget()' -> Not found Location row with " \
                                  f"name:{location_name} in DFS Recurrence"
             self.utils.switch_to_default(CloudDriver().cloud_driver)
             self.common_validation.fault(**kwargs)
@@ -1898,7 +1904,7 @@ class Copilot(CopilotWebElements):
 
                     for row1 in self.get_dfs_recurrence_widget_location_grid_rows():
                         if location_name in row1.text:
-                            kwargs['pass_msg'] = f"'unmute_anomaly_for_location_in_dfs_recurrence_widget()' -> UnMuted " \
+                            kwargs['pass_msg'] = "'unmute_anomaly_for_location_in_dfs_recurrence_widget()' -> UnMuted " \
                                                  f"Anomaly successfully for the location : {location_name}"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.passed(**kwargs)
@@ -1906,13 +1912,13 @@ class Copilot(CopilotWebElements):
 
                     self.screen.save_screen_shot()
                 else:
-                    kwargs['fail_msg'] = f"'unmute_anomaly_for_location_in_dfs_recurrence_widget()' -> Not Found " \
+                    kwargs['fail_msg'] = "'unmute_anomaly_for_location_in_dfs_recurrence_widget()' -> Not Found " \
                                          f"Location row with name:{location_name}"
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
                     self.common_validation.failed(**kwargs)
                     return -1
         else:
-            kwargs['pass_msg'] = f"'unmute_anomaly_for_location_in_dfs_recurrence_widget()' -> Unable to find L" \
+            kwargs['pass_msg'] = "'unmute_anomaly_for_location_in_dfs_recurrence_widget()' -> Unable to find L" \
                                  f"ocation {location_name} in DFS Recurrence Widget Muted rows. " \
                                  f"Location {location_name} already Un Muted"
             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -1974,21 +1980,21 @@ class Copilot(CopilotWebElements):
 
                     for row1 in self.get_dfs_recurrence_widget_location_grid_rows():
                         if location_name in row1.text:
-                            kwargs['fail_msg'] = f"'dismiss_anomaly_for_location_in_dfs_recurrence_widget()' -> " \
+                            kwargs['fail_msg'] = "'dismiss_anomaly_for_location_in_dfs_recurrence_widget()' -> " \
                                                  f"Location name : {location_name} in DFS Recurrence Widget Not " \
-                                                 f"Dismissed Successfully"
+                                                 "Dismissed Successfully"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.failed(**kwargs)
                             return -1
                         else:
-                            kwargs['pass_msg'] = f"'dismiss_anomaly_for_location_in_dfs_recurrence_widget()' -> " \
+                            kwargs['pass_msg'] = "'dismiss_anomaly_for_location_in_dfs_recurrence_widget()' -> " \
                                                  f"Location name : {location_name} in DFS Recurrence Widget Dismissed " \
-                                                 f"Successfully"
+                                                 "Successfully"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.passed(**kwargs)
                             return 1
                 return 1
-        kwargs['fail_msg'] = f"'dismiss_anomaly_for_location_in_dfs_recurrence_widget()' -> Anomaly not found for " \
+        kwargs['fail_msg'] = "'dismiss_anomaly_for_location_in_dfs_recurrence_widget()' -> Anomaly not found for " \
                              f"Location :{location_name} in DFS Recurrence Widget"
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.common_validation.fault(**kwargs)
@@ -2031,27 +2037,27 @@ class Copilot(CopilotWebElements):
                             sleep(5)
 
                             self.screen.save_screen_shot()
-                            self.utils.print_info(f"Closing Detailed view")
+                            self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
-                            kwargs['pass_msg'] = f"'pin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
+                            kwargs['pass_msg'] = "'pin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
                                                  f"Pinned Anomaly successfully for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.passed(**kwargs)
                             return 1
                         else:
-                            kwargs['pass_msg'] = f"'pin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
+                            kwargs['pass_msg'] = "'pin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
                                                  f"Already Pinned Anomaly for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
-                            self.utils.print_info(f"Closing Detailed view")
+                            self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.passed(**kwargs)
                             return 1
 
-        kwargs['fail_msg'] = f"'pin_individual_ap_for_location_in_dfs_recurrence_widget()' -> Not found AP row " \
+        kwargs['fail_msg'] = "'pin_individual_ap_for_location_in_dfs_recurrence_widget()' -> Not found AP row " \
                              f"{ap_name} with Location:{location_name}"
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.common_validation.fault(**kwargs)
@@ -2094,27 +2100,27 @@ class Copilot(CopilotWebElements):
                             sleep(5)
 
                             self.screen.save_screen_shot()
-                            self.utils.print_info(f"Closing Detailed view")
+                            self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
-                            kwargs['pass_msg'] = f"'unpin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
+                            kwargs['pass_msg'] = "'unpin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
                                                  f"UnPinned Anomaly successfully for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.fault(**kwargs)
                             return 1
                         else:
-                            kwargs['pass_msg'] = f"'unpin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
+                            kwargs['pass_msg'] = "'unpin_individual_ap_for_location_in_dfs_recurrence_widget()' -> " \
                                                  f"Already Unpinned Anomaly for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
-                            self.utils.print_info(f"Closing Detailed view")
+                            self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.fault(**kwargs)
                             return 1
 
-        kwargs['fail_msg'] = f"'unpin_individual_ap_for_location_in_dfs_recurrence_widget()' -> Not found AP row " \
+        kwargs['fail_msg'] = "'unpin_individual_ap_for_location_in_dfs_recurrence_widget()' -> Not found AP row " \
                              f"{ap_name} with Location:{location_name}"
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.common_validation.fault(**kwargs)
@@ -2205,26 +2211,26 @@ class Copilot(CopilotWebElements):
 
         for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
             if location_name in row.text:
-                self.utils.print_info(f"Selecting Pin Button for the Location in Adverse Traffic Patterns Widget: "
+                self.utils.print_info("Selecting Pin Button for the Location in Adverse Traffic Patterns Widget: "
                                       f"{location_name}")
                 if not self.get_adverse_traffic_patterns_widget_location_already_pinned_status(row):
                     self.utils.print_info("Clicking Pin Button in the Location Name Matched Row")
                     self.auto_actions.click(self.get_adverse_traffic_patterns_widget_location_pin_button(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> Pinned " \
-                                         f"Anomaly successfully for the location in Adverse Traffic Patterns " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> Pinned " \
+                                         "Anomaly successfully for the location in Adverse Traffic Patterns " \
                                          f"Widget : {location_name}"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> Already " \
-                                         f"Pinned Anomaly for the location in Adverse Traffic Patterns Widget: " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> Already " \
+                                         "Pinned Anomaly for the location in Adverse Traffic Patterns Widget: " \
                                          f"{location_name}"
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'pin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> Not found Location " \
+        kwargs['fail_msg'] = "'pin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> Not found Location " \
                              f"row with name:{location_name} in Adverse Traffic Patterns Widget"
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.common_validation.fault(**kwargs)
@@ -2253,16 +2259,16 @@ class Copilot(CopilotWebElements):
 
         for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
             if location_name in row.text:
-                self.utils.print_info(f"Selecting UnPin Button for the Location in Adverse Traffic Patterns Widget: "
+                self.utils.print_info("Selecting UnPin Button for the Location in Adverse Traffic Patterns Widget: "
                                       f"{location_name}")
                 if self.get_adverse_traffic_patterns_widget_location_already_pinned_status(row):
                     self.utils.print_info("Clicking Unpin Button in the Location Name Matched Row")
                     self.auto_actions.click(self.get_adverse_traffic_patterns_widget_location_already_pinned_status(row))
                     sleep(5)
 
-                    kwargs['pass_msg'] = f"'pin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> " \
+                    kwargs['pass_msg'] = "'pin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> " \
                                          f"Successfully UnPinned Anomaly for the location : {location_name} " \
-                                         f"in Adverse Traffic Patterns Widget"
+                                         "in Adverse Traffic Patterns Widget"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
@@ -2271,7 +2277,7 @@ class Copilot(CopilotWebElements):
                     self.common_validation.passed(**kwargs)
                     return 1
 
-        kwargs['fail_msg'] = f"'unpin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> Not found Location " \
+        kwargs['fail_msg'] = "'unpin_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> Not found Location " \
                              f"row with name:{location_name}"
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         self.common_validation.fault(**kwargs)
@@ -2571,7 +2577,7 @@ class Copilot(CopilotWebElements):
                 if 'Unmute' in row.text:
                     self.utils.print_info("Location entry " + location_name + " already muted")
                     return 1
-                self.utils.print_info(f"Selecting More button from the Location in Adverse Traffic Patterns Widget: "
+                self.utils.print_info("Selecting More button from the Location in Adverse Traffic Patterns Widget: "
                                       f"{location_name}")
                 more_options_button = self.get_adverse_traffic_patterns_widget_location_more_button(row)
                 self.auto_actions.click(more_options_button)
@@ -2602,8 +2608,8 @@ class Copilot(CopilotWebElements):
                     self.common_validation.failed(**kwargs)
                     return -1
         # if code made it here then location was not found
-        kwargs['fail_msg'] = f"'mute_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> " \
-                             f"Unable to location : {location_name} " f"in Adverse Traffic Patterns Widget"
+        kwargs['fail_msg'] = "'mute_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> " \
+                             f"Unable to location : {location_name} " "in Adverse Traffic Patterns Widget"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -2637,7 +2643,7 @@ class Copilot(CopilotWebElements):
                 if 'Unmute' not in row.text:
                     self.utils.print_info("Location entry " + location_name + " already unmuted")
                     return 1
-                self.utils.print_info(f"Selecting Unmute button for the entry in the Adverse Traffic Patterns Widget: "
+                self.utils.print_info("Selecting Unmute button for the entry in the Adverse Traffic Patterns Widget: "
                                       f"{location_name}")
                 unmute_button = self.get_adverse_traffic_patterns_widget_location_unmute_button(row)
                 if unmute_button:
@@ -2651,8 +2657,8 @@ class Copilot(CopilotWebElements):
                     self.common_validation.failed(**kwargs)
                     return -1
         # if code made it here then location was not found
-        kwargs['fail_msg'] = f"'unmute_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> " \
-                             f"Unable to location : {location_name} " f"in Adverse Traffic Patterns Widget"
+        kwargs['fail_msg'] = "'unmute_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> " \
+                             f"Unable to location : {location_name} " "in Adverse Traffic Patterns Widget"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -2679,7 +2685,7 @@ class Copilot(CopilotWebElements):
 
         for row in self.get_adverse_traffic_patterns_widget_location_grid_rows():
             if location_name in row.text:
-                self.utils.print_info(f"Selecting More Button from the Location in Adverse Traffic Patterns Widget: "
+                self.utils.print_info("Selecting More Button from the Location in Adverse Traffic Patterns Widget: "
                                       f"{location_name}")
                 more_options_button = self.get_adverse_traffic_patterns_widget_location_more_button(row)
                 self.auto_actions.click(more_options_button)
@@ -2726,8 +2732,8 @@ class Copilot(CopilotWebElements):
                     self.common_validation.failed(**kwargs)
                     return -1
         # if code made it here then location was not found
-        kwargs['fail_msg'] = f"'dismiss_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> " \
-                             f"Unable to location : {location_name} " f"in Adverse Traffic Patterns Widget"
+        kwargs['fail_msg'] = "'dismiss_anomaly_for_location_in_adverse_traffic_patterns_widget()' -> " \
+                             f"Unable to location : {location_name} " "in Adverse Traffic Patterns Widget"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -2928,7 +2934,7 @@ class Copilot(CopilotWebElements):
             self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
                                   f"for the ap {ap_name}")
             kwargs['pass_msg'] = "successfully liked the Wi-Fi capacity widget location"
-            self.utils.print_info(f"Closing Detailed view")
+            self.utils.print_info("Closing Detailed view")
             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
             self.screen.save_screen_shot()
 
@@ -2936,12 +2942,12 @@ class Copilot(CopilotWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info(f"Unable to click like button for the Wi-Fi capacity widget location "
+            self.utils.print_info("Unable to click like button for the Wi-Fi capacity widget location "
                                   f"{location_name} with ap {ap_name}")
             self.utils.print_info(f"successfully liked the Wi-Fi capacity widget location {location_name} "
                                   f"for the ap {ap_name}")
             kwargs['fail_msg'] = "Unable to click like button for the Wi-Fi capacity widget location"
-            self.utils.print_info(f"Closing Detailed view")
+            self.utils.print_info("Closing Detailed view")
             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -3102,28 +3108,28 @@ class Copilot(CopilotWebElements):
                                      f"for the ap {ap_name}"
                 self.common_validation.passed(**kwargs)
 
-                self.utils.print_info(f"Closing Detailed view")
+                self.utils.print_info("Closing Detailed view")
                 self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                 self.screen.save_screen_shot()
 
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
                 return 1
             else:
-                self.utils.print_info(f"Unable to Click Dislike button Icon")
+                self.utils.print_info("Unable to Click Dislike button Icon")
                 kwargs['fail_msg'] = "Unable to Click Dislike button Icon"
                 self.common_validation.failed(**kwargs)
                 self.utils.switch_to_default(CloudDriver().cloud_driver)
-                self.utils.print_info(f"Closing Detailed view")
+                self.utils.print_info("Closing Detailed view")
                 self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                 self.screen.save_screen_shot()
                 return -1
         else:
-            self.utils.print_info(f"Unable to click Dislike button for the Wi-Fi capacity widget location "
+            self.utils.print_info("Unable to click Dislike button for the Wi-Fi capacity widget location "
                                   f"{location_name} with ap {ap_name}")
-            kwargs['fail_msg'] = f"Unable to click Dislike button for the Wi-Fi capacity widget location " \
+            kwargs['fail_msg'] = "Unable to click Dislike button for the Wi-Fi capacity widget location " \
                                  f"{location_name} with ap {ap_name}"
             self.common_validation.failed(**kwargs)
-            self.utils.print_info(f"Closing Detailed view")
+            self.utils.print_info("Closing Detailed view")
             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
             self.screen.save_screen_shot()
             self.utils.switch_to_default(CloudDriver().cloud_driver)

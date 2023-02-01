@@ -66,7 +66,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
                 self.utils.print_info(f"{column_name} column: Clicking the 'Sort Ascending' menu option.")
                 ret_val = 1
             else:
-                self.utils.print_info(f"Did not find the 'Sort Ascending' menu option.")
+                self.utils.print_info("Did not find the 'Sort Ascending' menu option.")
         else:
             self.utils.print_info(f"Did not find the {column_name} column")
 
@@ -92,7 +92,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
                 self.utils.print_info(f"{column_name} column: Clicking the 'Sort Descending' menu option.")
                 ret_val = 1
             else:
-                self.utils.print_info(f"Did not find the 'Sort Descending' menu option.")
+                self.utils.print_info("Did not find the 'Sort Descending' menu option.")
         else:
             self.utils.print_info(f"Did not find the {column_name} column")
 
@@ -119,7 +119,7 @@ class XIQSE_NetworkDiscovered(NetworkDiscoveredWebElements):
                 self.utils.print_info(f"{column_name} column: Clicking the 'Columns' menu option.")
                 ret_val = 1
             else:
-                self.utils.print_info(f"Did not find the 'Columns' menu option.")
+                self.utils.print_info("Did not find the 'Columns' menu option.")
         else:
             self.utils.print_info(f"Did not find the {column_name} column")
 
