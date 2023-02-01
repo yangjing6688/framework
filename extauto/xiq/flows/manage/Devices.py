@@ -237,107 +237,80 @@ class Devices:
             if status in self.get_ap_status(ap_mac):
                 return 1
 
-    def get_os_change(self, device_serial=None, device_name=None, device_mac=None):
-        self.voss = False
-        self.exos = False
+    def get_os_change(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         if device_mac:
-            search_result = self.search_exos_device(device_mac)
+            search_result = self.search_device(device_mac)
             if search_result != -1:
                 if self.select_device(device_mac):
                     self.utils.print_info("Click ACTION button")
                     self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
-                    if self.voss:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_exos)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
-
-                    if self.exos:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_voss)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
-
+                    self.auto_actions.click_reference(self.devices_web_elements.device_actions_change_os_button)
+                    self.screen.save_screen_shot()
+                    sleep(2)
+                    self.utils.print_info("Check for error message")
+                    device_error_message = self.devices_web_elements.get_os_change_error_message()
+                    self.utils.print_info("Error message: ", device_error_message.text)
+                    self.utils.print_info("Click confirmation Yes Button")
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+                    sleep(2)
+                    self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = f"Successfully Selected NOS change for device having MAC address {device_mac}"
+                    self.common_validation.passed(**kwargs)
+                    return 1
             else:
-                self.utils.print_info("Device with MAC is not EXOS or VOSS device")
-                return 1
+                kwargs['fail_msg'] = f"Device with device name is not EXOS or VOSS device"
+                self.common_validation.failed(**kwargs)
+                return -1
         if device_serial:
-            search_result = self.search_exos_device(device_serial)
+            search_result = self.search_device(device_serial)
             if search_result != -1:
                 if self.select_device(device_serial):
                     self.utils.print_info("Click ACTION button")
                     self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
-                    if self.voss:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_exos)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
-                    if self.exos:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_voss)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
+                    self.auto_actions.click_reference(self.devices_web_elements.device_actions_change_os_button)
+                    self.screen.save_screen_shot()
+                    sleep(3)
+                    self.utils.print_info("Check for error message")
+                    device_error_message = self.devices_web_elements.get_os_change_error_message()
+                    self.utils.print_info("Error message: ", device_error_message.text)
+                    self.utils.print_info("Click confirmation Yes Button")
+                    sleep(3)
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+                    sleep(2)
+                    self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = f"Successfully Selected NOS change for device having serial {device_serial} "
+                    self.common_validation.passed(**kwargs)
+                    return 1
             else:
-                self.utils.print_info("Device with serial is not EXOS or VOSS device")
-                return 1
+                kwargs['fail_msg'] = f"Device with device name is not EXOS or VOSS device"
+                self.common_validation.failed(**kwargs)
+                return -1
         if device_name:
-            search_result = self.search_exos_device(device_name)
+            search_result = self.search_device(device_name)
             if search_result != -1:
                 if self.select_device(device_name):
                     self.utils.print_info("Click ACTION button")
                     self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
-                    if self.voss:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_exos)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
-                    if self.exos:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_voss)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
+                    self.auto_actions.click_reference(self.devices_web_elements.device_actions_change_os_button)
+                    self.screen.save_screen_shot()
+                    sleep(2)
+                    self.utils.print_info("Check for error message")
+                    device_error_message = self.devices_web_elements.get_os_change_error_message()
+                    self.utils.print_info("Error message: ", device_error_message.text)
+                    self.utils.print_info("Click confirmation Yes Button")
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+                    sleep(2)
+                    self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = f"Successfully Selected NOS change for device named {device_name} "
+                    self.common_validation.passed(**kwargs)
+                    return 1
             else:
-                self.utils.print_info("Device with device name is not EXOS or VOSS device")
-                return 1
+                kwargs['fail_msg'] = f"Device with device name is not EXOS or VOSS device"
+                self.common_validation.failed(**kwargs)
+                return -1
 
     def search_exos_device(self, EXOS_VOSS_device):
         self.refresh_devices_page()

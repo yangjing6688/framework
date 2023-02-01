@@ -151,18 +151,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.device_action_button)
 
-    def get_os_change_exos(self):
-        """
-        :return: change os button
-        """
-        return self.weh.get_element(self.device_os_change_exos)
-
-    def get_os_change_voss(self):
-        """
-        :return: change os button
-        """
-        return self.weh.get_element(self.device_os_change_voss)
-
     def get_os_change_error_message(self):
         """
         :return error message
@@ -1361,3 +1349,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_global_settings_management_dialog_yes_button(self):
         return self.weh.get_element(self.global_settings_management_dialog_yes_button)
+
+    def device_actions_change_os_button(self):
+        """
+        :return: change os button
+        """
+        elements = self.weh.get_elements(self.device_actions_change_os)
+        for el in elements:
+            if el.is_displayed():
+                return el

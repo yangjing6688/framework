@@ -216,19 +216,7 @@ class DevicesWebElementsDefinitions:
 
     device_action_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-actions_normal-btn"]',
-            'wait_for': 2
-        }
-
-    device_os_change_exos = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-change-os-to-voss"]',
-            'wait_for': 2
-        }
-
-    device_os_change_voss = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-change-os-to-voss"]',
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 2
         }
 
@@ -1961,4 +1949,13 @@ class DevicesWebElementsDefinitions:
     global_settings_management_dialog_yes_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
+        }
+
+
+    device_actions_change_os = \
+        {
+            # The identifier differs depending on which type of device is selected (ap, switch, etc.),
+            # so need to get all partial matches and select the displayed element
+            'XPATH': '//a[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag,"-os-")]',
+            'wait_for': 2
         }
