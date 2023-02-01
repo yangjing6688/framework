@@ -70,7 +70,7 @@ class Devices:
         :return: 1 if on boarded else -1
         """
         self.navigator.navigate_to_devices()
-        if self.search_ap_serial(ap_serial) == 1:
+        if self.search_device(device_serial=ap_serial) == 1:
             self.utils.print_info(f"Ap with {ap_serial} serial number already onboarded")
             return 1
 
@@ -122,19 +122,16 @@ class Devices:
         if dialog_message:
             self.utils.print_info("Dialog Message: ", dialog_message)
             if "Device already onboarded" in dialog_message:
-                self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 kwargs['fail_msg'] = f"Error: {dialog_message}"
                 self.common_validation.failed(**kwargs)
                 return -1
             if "A stake record of the device was found in the redirector." in dialog_message:
-                self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
                 kwargs['fail_msg'] = f"Error: {dialog_message}"
                 self.common_validation.failed(**kwargs)
                 return -2
         else:
-            self.utils.print_info("No Errors while onboarding")
             kwargs['pass_msg'] = "No Errors while onboarding"
             self.common_validation.passed(**kwargs)
 
@@ -142,8 +139,7 @@ class Devices:
         self.utils.print_info("Device Serials Numbers: ", serials)
 
         for serial in serials:
-            if self.search_ap_serial(serial):
-                self.utils.print_info("Successfully Onboarded AP(s): ", serials)
+            if self.search_device(device_serial=serial) == 1:
                 kwargs['pass_msg'] = f"Successfully Onboarded AP(s): {serials}"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -511,144 +507,6 @@ class Devices:
                 return ap_row
 
         self.utils.print_info("Unable to find AP row in grid")
-        return -1
-
-    def search_ap(self, ap_serial=None, ap_name=None, ap_mac=None):
-        """
-        - Searches for the AP matching either one of serial, name or MAC
-        - Keyword Usage:
-        - ``Search AP  ap_serial=${AP_SERIAL}``
-        - ``Search AP  ap_name=${AP_NAME}``
-        - ``Search AP  ap_mac=${AP_MAC}``
-
-        :param ap_serial: AP Serial
-        :param ap_name: AP Name
-        :param ap_mac: AP MAC
-        :return: 1 if ap present in the grid else False
-        """
-        if ap_serial:
-            self.utils.print_info("Searching AP with Serial: ", ap_serial)
-            return self.search_ap_serial(ap_serial)
-        if ap_name:
-            self.utils.print_info("Searching AP with Name: ", ap_name)
-            return self.search_ap_name(ap_name)
-        if ap_mac:
-            self.utils.print_info("Searching AP with MAC: ", ap_mac)
-            return self.search_ap_mac(ap_mac)
-        return False
-
-    def search_ap_serial(self, ap_serial):
-        """
-        - Searches for AP matching AP's Serial Number
-        - Keyword Usage:
-        - ``Search AP Serial  ${AP_SERIAL}``
-
-        :param ap_serial: AP's Serial Number
-        :return: return 1 if AP found else False
-        """
-        self.refresh_devices_page()
-
-        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
-        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
-
-        if page_size_field and page_number_field.is_displayed():
-            self.utils.print_info("Searching Device Entry with AP Serial : ", ap_serial)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_serial)
-            self.screen.save_screen_shot()
-            sleep(5)
-
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                self.utils.print_info("row data: ", self.format_row(row.text))
-                if ap_serial in row.text:
-                    self.utils.print_info("Found AP Row: ", self.format_row(row.text))
-                    return 1
-            self.utils.print_info("Did not find AP")
-        else:
-            self.utils.print_info("No rows present")
-        return False
-
-    def search_ap_mac(self, ap_mac=None):
-        """
-        - Searches for AP matching AP's MAC
-        - Keyword Usage
-        - ``Search Ap Mac   ${AP_MAC}``
-
-        :param ap_mac: AP's MAC
-        :return: return 1 if AP found else -1
-        """
-        self.refresh_devices_page()
-
-        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
-        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
-
-        if page_size_field and page_number_field.is_displayed():
-            self.utils.print_info("Searching Device Entry with AP Mac : ", ap_mac)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_mac)
-            self.screen.save_screen_shot()
-            sleep(5)
-
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                if ap_mac in row.text:
-                    self.utils.print_info("Found AP Row: ", self.format_row(row.text))
-                    return 1
-            self.utils.print_info("Did not find AP")
-        else:
-            self.utils.print_info("No rows present")
-        return -1
-
-    def search_ap_name(self, ap_name):
-        """
-        - Searches for AP matching AP's Host NAME
-        - Keyword Usage:
-        - ``Search AP Name  ${AP_NAME}``
-
-        :param ap_name: AP's Name
-        :return: return 1 if AP found
-        """
-        self.refresh_devices_page()
-
-        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
-        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
-
-        if page_size_field and page_number_field.is_displayed():
-            self.utils.print_info("Searching Device Entry with AP Name : ", ap_name)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_name)
-            self.screen.save_screen_shot()
-            sleep(5)
-
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                if ap_name in row.text:
-                    self.utils.print_info("Found AP Row: ", self.format_row(row.text))
-                    return 1
-            self.utils.print_info("Did not find AP")
-        else:
-            self.utils.print_info("No rows present")
-        return -1
-
-    def search_ap_model(self, ap_model):
-        """
-        - Searches for AP matching AP's Model
-        - Keyword Usage:
-        - ``Search AP Model ${AP_MODEL}``
-
-        :param ap_model: AP's Name
-        :return: return 1 if AP found else -1
-        """
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                if ap_model in row.text:
-                    self.utils.print_info("Found AP Row with Model: ", ap_model)
-                    return 1
-            self.utils.print_info("Did not find AP")
-        else:
-            self.utils.print_info("No rows present")
         return -1
 
     def select_ap(self, ap_serial=None, ap_name=None, ap_mac=None):
@@ -1717,7 +1575,7 @@ class Devices:
         """
 
         self.utils.print_info("Editing AP: ", ap_serial)
-        search_result = self.search_ap(ap_serial=ap_serial)
+        search_result = self.search_device(device_serial=ap_serial)
 
         if search_result:
             if self.select_ap(ap_serial):
@@ -3977,7 +3835,7 @@ class Devices:
         """
         self.navigator.navigate_to_devices()
 
-        if self.search_ap_serial(device_serial) == 1:
+        if self.search_device(device_serial=device_serial) == 1:
             self.utils.print_info(f"Device with {device_serial} serial number already onboarded")
             return 1
 
@@ -4050,7 +3908,7 @@ class Devices:
         self.utils.print_info("Device Serials Numbers: ", serials)
 
         for serial in serials:
-            if self.search_ap_serial(serial):
+            if self.search_device(device_serial=serial) == 1:
                 self.utils.print_info("Successfully Onboarded Device(s): ", serials)
                 return 1
             else:
