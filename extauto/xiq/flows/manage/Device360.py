@@ -5476,8 +5476,27 @@ class Device360(Device360WebElements):
                 self.utils.print_info("'{}' profile was not found".format(name_s_cli))
                 self.utils.print_info("Creating one")
                 self.auto_actions.click_reference(self.get_device_360_supplemental_cli_new_profile)
-                sleep(5)
-                self.auto_actions.send_keys(self.get_device_360_supplemental_cli_profile_name(), name_s_cli)
+
+                input_element, _ = self.utils.wait_till(
+                    func=self.get_device_360_supplemental_cli_profile_name,
+                     delay=5, exp_func_resp=True, silent_failure=True
+                )
+
+                if not input_element:
+                    kwargs["fail_msg"] = "Failed to get the input element"
+                    self.common_validation.fault(**kwargs)
+                    return -1
+
+                res, _ = self.utils.wait_till(
+                    func=lambda: self.auto_actions.send_keys(input_element, name_s_cli),
+                    exp_func_resp=True, silent_failure=True, delay=5
+                )
+
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to sent the keys to the input element"
+                    self.common_validation.fault(**kwargs)
+                    return -1
+
                 sleep(3)
                 profile_commands_cli = self.get_device_360_supplemental_cli_profile_commands()
                 cli_command_list = cli_commands.split(",")
