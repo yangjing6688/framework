@@ -1,5 +1,5 @@
-from extauto.xiq.defs.NetworkPolicyWebElementDefinition import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.NetworkPolicyWebElementDefinition import NetworkPolicyWebElementDefinition
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):

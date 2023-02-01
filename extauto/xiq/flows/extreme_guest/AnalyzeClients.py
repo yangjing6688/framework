@@ -1,5 +1,5 @@
-from extauto.common.CloudDriver import CloudDriver
 from time import sleep
+
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions

@@ -1,13 +1,14 @@
 from time import sleep
+from robot.libraries.BuiltIn import BuiltIn
 
-from extauto.common.CloudDriver import CloudDriver
-from extauto.common.Cli import *
-from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-from extauto.common.WebElementHandler import *
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.Cli import Cli
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 
 from extauto.xiq.elements.ToolsElements import ToolsElements
-from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
@@ -138,7 +139,7 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.search_ap(ap_serial=serial):
+        if self.devices.search_device(device_serial=serial):
             if self.devices.select_ap(ap_serial=serial):
                 error = self.dialog_web_elements.get_tooltip_text()
                 self.utils.print_info("Possible Error : " + error)
@@ -286,7 +287,7 @@ class Tools:
 
         if self.devices.select_ap(serial_num):
             self.utils.print_info("clicking on ssh RUN button")
-            run_button = self.tools_elements.get_run_button()
+            _ = self.tools_elements.get_run_button()
             if not ssh_avail_button:
                 kwargs['fail_msg'] = "Unable to click on ssh availability"
                 self.common_validation.failed(**kwargs)
@@ -406,7 +407,7 @@ class Tools:
             ${host}    lock device  ${MAC_STA_IP}  ${MAC_STA_USERID}  ${MAC_STA_PASS}  ${SSID}
         """
         self.utils.print_info("Lock Device")
-        rc = self.cli.mac_wifi_connection(host, username, passwd, ssid, ssid_passwd, mode='fail', ntimes=11)
+        _ = self.cli.mac_wifi_connection(host, username, passwd, ssid, ssid_passwd, mode='fail', ntimes=11)
         return self.cli.get_mac_hostname(host, username, passwd)
 
     def verify_device_lock(self, host):
@@ -460,7 +461,7 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         # Verify the AP info
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
@@ -501,7 +502,7 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.device_diag_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify the device info
@@ -596,7 +597,7 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         # Verify if AP exists and selected
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
@@ -643,7 +644,7 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.client_info_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a vlan
@@ -686,7 +687,7 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.client_info_list)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
         assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a download
@@ -736,7 +737,7 @@ class Tools:
         """
         self.utils.print_info("wait_until_appears")
         while seconds > 0:
-            time.sleep(5)
+            sleep(5)
             if elements:
                 self.utils.print_info("get elements")
                 rows = self.web.get_elements(locator)
@@ -765,7 +766,7 @@ class Tools:
             self.wait_til_ap_change_status(ap_sn, ap_name, 180, "green")
         """
         while seconds > 0:
-            time.sleep(5)
+            sleep(5)
             cur_ap_status = self.devices.get_ap_status(ap_sn, ap_name)
             self.utils.print_info("Current Status : " + str(cur_ap_status) + ' and expected staus: ' + str(exp_status))
             if cur_ap_status == "green" and exp_status == "green":

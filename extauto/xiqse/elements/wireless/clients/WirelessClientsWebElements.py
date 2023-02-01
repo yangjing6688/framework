@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.wireless.clients.WirelessClientsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.wireless.clients.WirelessClientsWebElementsDefinitions import WirelessClientsWebElementsDefinitions
 
 
 class WirelessClientsWebElements(WirelessClientsWebElementsDefinitions):

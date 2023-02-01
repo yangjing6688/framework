@@ -487,7 +487,8 @@ class TrafficGenerationUdks():
             self.trafficPacketInspectionKeywords.capture_inspection_random_list(port_b, rx_packet_name_b,  5, **kwargs)
         else:
             print("You must define the packets to use this keyword")
-            
+
+
     def send_source_macs_on_port_from_traffic_generator(self, mac_add_list, tgen_port):
 
         '''
@@ -504,5 +505,4 @@ class TrafficGenerationUdks():
                                                     rate=100, unit='pps', sa_count=1,  max_wait=120)
         #self.Start_Capture(tgen_port)
 
-    
-   
+
