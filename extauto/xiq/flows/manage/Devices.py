@@ -1972,15 +1972,18 @@ class Devices:
                 self.screen.save_screen_shot()
 
         elif "EXOS" in device_make.upper():
-            self.utils.print_info("Selecting Switch Type/Device OS : EXOS")
-            try:
+            self.utils.print_info("Selecting Switch Type/Device OS : EXOS/Switch Engine")
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
+                self.utils.print_info("Selecting Switch Type : EXOS")
                 self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
-                sleep(2)
+                self.screen.save_screen_shot()
                 self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(),
                                                            "EXOS")
-            except Exception as e:
-                self.utils.print_debug("Exception: ", e)
+                self.screen.save_screen_shot()
+            if self.devices_web_elements.get_device_os_exos_radio().is_displayed():
+                self.utils.print_info("Selecting Device OS : Switch Engine")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_os_exos_radio)
+                self.screen.save_screen_shot()
 
         elif 'Dell' in device_make:
             self.utils.print_info("Entering Serial Number...")
