@@ -334,7 +334,8 @@ class GuestAccessNetwork(GuestAccessNetworkWebElements):
         num_clients = config_options.get('num_clients')
         mac_binding_num_per_ppsk = config_options.get('mac_binding_num_per_ppsk')
         mac_binding_number = config_options.get('mac_binding_number')
-        ppsk_server = config_options.get('ppsk_server')
+        # Commented on 1/18/23 because it is unused
+        # ppsk_server = config_options.get('ppsk_server')
         auth_db = config_options.get('auth_db')
         user_groups = config_options.get('user_groups')
 

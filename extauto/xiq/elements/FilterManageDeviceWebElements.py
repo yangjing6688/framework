@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from extauto.xiq.defs.FilterManageDeviceDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.FilterManageDeviceDefinitions import FilterManageDeviceDefinitions
 
 
 class FilterManageDeviceWebElements(FilterManageDeviceDefinitions):

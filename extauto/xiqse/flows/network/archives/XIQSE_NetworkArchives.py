@@ -210,11 +210,11 @@ class XIQSE_NetworkArchives(NetworkArchivesWebElements):
                     # Confirm the delete
                     yes_btn = self.error_web_elements.get_message_box_yes_button()
                     if yes_btn:
-                        self.utils.print_info(f"Clicking Yes button to confirm the delete")
+                        self.utils.print_info("Clicking Yes button to confirm the delete")
                         self.auto_actions.click(yes_btn)
                         ret_val = 1
                     else:
-                        self.utils.print_info(f"Unable to find Yes button to confirm the delete")
+                        self.utils.print_info("Unable to find Yes button to confirm the delete")
                 else:
                     self.utils.print_info(f"Unable to find Delete menu for archive '{name}'")
             else:

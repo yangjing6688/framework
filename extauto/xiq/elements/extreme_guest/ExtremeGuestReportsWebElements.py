@@ -1,5 +1,5 @@
 from extauto.xiq.defs.extreme_guest.ExtremeGuestReportsWebElementsDefs import ExtremeGuestReportsWebElementsDefs
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ExtremeGuestReportsWebElements(ExtremeGuestReportsWebElementsDefs):

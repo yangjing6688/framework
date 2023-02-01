@@ -1,11 +1,10 @@
 from pprint import pprint
-import time
 from extauto.xiq.xapi.XapiHelper import XapiHelper
 
 try:
     import extremecloudiq
     from extremecloudiq.rest import ApiException
-except:
+except Exception:
     pprint('WARNING: The library for ExtremecloudIQ cannot be loaded, please ensure this libaray is installed if you are trying to use the XAPI')
 
 

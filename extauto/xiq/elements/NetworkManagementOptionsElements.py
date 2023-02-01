@@ -1,4 +1,4 @@
-from extauto.xiq.defs.NetworkManagementOptionsDefinitions import *
+from extauto.xiq.defs.NetworkManagementOptionsDefinitions import NetworkManagementOptionsDefinitions
 from extauto.common.WebElementHandler import WebElementHandler
 
 

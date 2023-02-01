@@ -1,4 +1,4 @@
-from extauto.xiq.defs.ExpSettingsWebElementsDefinitions import *
+from extauto.xiq.defs.ExpSettingsWebElementsDefinitions import ExpSettingsWebElementsDefinitions
 from extauto.common.WebElementHandler import WebElementHandler
 
 
