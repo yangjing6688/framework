@@ -189,7 +189,7 @@ try:
     from extauto.xiq.flows.globalsettings.GlobalSetting import GlobalSetting
     from extauto.xiq.flows.globalsettings.PasswordReset import PasswordReset
     from extauto.xiq.flows.manage.AdvanceOnboarding import AdvanceOnboarding
-    from extauto.xiq.flows.manage.AdvanceOnboarding import Location
+    from extauto.xiq.flows.manage.Location import Location
     from extauto.xiq.flows.manage.AdvOnboard import AdvOnboard
     from extauto.xiq.flows.manage.Alarms import Alarms
     from extauto.xiq.flows.manage.Client import Client

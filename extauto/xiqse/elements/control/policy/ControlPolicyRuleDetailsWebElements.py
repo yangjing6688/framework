@@ -1,4 +1,4 @@
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 from xiqse.defs.control.policy.ControlPolicyRuleDetailsWebElementsDefinitions import ControlPolicyRuleDetailsWebElementsDefinitions
 
 

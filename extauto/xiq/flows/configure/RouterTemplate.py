@@ -9,7 +9,7 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 from extauto.common.CommonValidation import CommonValidation
 
-from extauto.xiq.elements.RouterTemplateWebElements import *
+from extauto.xiq.elements.RouterTemplateWebElements import RouterTemplateWebElements
 
 
 class RouterTemplate(RouterTemplateWebElements):

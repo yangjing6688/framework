@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.admin.backup_restore.AdminBackupRestoreWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.admin.backup_restore.AdminBackupRestoreWebElementsDefinitions import AdminBackupRestoreWebElementsDefinitions
 
 
 class AdminBackupRestoreWebElements(AdminBackupRestoreWebElementsDefinitions):
@@ -154,4 +154,3 @@ class AdminBackupRestoreWebElements(AdminBackupRestoreWebElementsDefinitions):
         :return: 'OK' button to close 'Connection to server lost' dialog
         """
         return self.weh.get_element(self.connection_to_server_lost_ok_button)
-

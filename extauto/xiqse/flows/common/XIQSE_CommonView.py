@@ -31,10 +31,10 @@ class XIQSE_CommonView(CommonViewWebElements):
                     self.utils.print_info(f"Waiting for refresh to complete: loop {count}")
                     load_mask = self.get_load_mask()
                     if load_mask:
-                        self.utils.print_info(f"Refresh still in progress...")
+                        self.utils.print_info("Refresh still in progress...")
                         sleep(retry_duration)
                     else:
-                        self.utils.print_info(f"Refresh has completed")
+                        self.utils.print_info("Refresh has completed")
                         return 1
                     count += 1
                 break

@@ -1,6 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.firmware.NetworkFirmwareWebElementsDefinitions import *
-import re
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.firmware.NetworkFirmwareWebElementsDefinitions import NetworkFirmwareWebElementsDefinitions
 
 
 class NetworkFirmwareWebElements(NetworkFirmwareWebElementsDefinitions):
