@@ -7493,15 +7493,15 @@ class Device360(Device360WebElements):
 
     def d360_save_port_configuration(self, **kwargs):
 
-        get_save_button = self.get_device_d360_save_port_configuration()
+        get_save_button = self.get_device360_configure_port_save_button()
         if get_save_button:
             self.auto_actions.click(get_save_button)
-            self.utils.print_info("save the port configuration ")
+            self.utils.print_info("Saved port configuration ")
             kwargs['pass_msg'] = "Port Configuration Saved"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "d360_save_port_configuration() -> Port Configuration Saved"
+            kwargs['fail_msg'] = "d360_save_port_configuration() failed-> Save button not found on the page!"
             self.common_validation.failed(**kwargs)
             return -1
 
