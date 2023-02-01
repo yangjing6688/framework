@@ -66,7 +66,7 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.select_ap(ap_serial=serial):
+        if self.devices.select_device(device_serial=serial):
             error = self.dialog_web_elements.get_tooltip_text()
             if error:
                 self.utils.print_info("Error: ", error)
@@ -140,7 +140,7 @@ class Tools:
             return -1
 
         if self.devices.search_device(device_serial=serial):
-            if self.devices.select_ap(ap_serial=serial):
+            if self.devices.select_device(device_serial=serial):
                 error = self.dialog_web_elements.get_tooltip_text()
                 self.utils.print_info("Possible Error : " + error)
                 if error:
@@ -284,8 +284,7 @@ class Tools:
         self.auto_actions.click(ssh_avail_button)
         sleep(5)
 
-
-        if self.devices.select_ap(serial_num):
+        if self.devices.select_device(device_serial=serial_num):
             self.utils.print_info("clicking on ssh RUN button")
             _ = self.tools_elements.get_run_button()
             if not ssh_avail_button:
@@ -462,7 +461,7 @@ class Tools:
 
         # Verify the AP info
         assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
             self.click_til_element_avail(self.tools_elements.get_device_info_btn())
@@ -503,7 +502,7 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify the device info
         if mode == "online":
@@ -598,7 +597,7 @@ class Tools:
 
         # Verify if AP exists and selected
         assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
             self.click_til_element_avail(self.tools_elements.get_device_diag_btn())
@@ -645,7 +644,7 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a vlan
         if mode == "online":  # device must be onboarded
@@ -688,7 +687,7 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a download
         if mode == "online":  # device must be onboarded

@@ -482,59 +482,6 @@ class Devices:
         self.utils.print_info("Unable to find AP row in grid")
         return -1
 
-    def select_ap(self, ap_serial=None, ap_name=None, ap_mac=None):
-        """
-        - Selects the AP row marching with AP's Serial Number
-        - Keyword USage:
-        - ``Select AP   ${AP_SERIAL}``
-
-        :param ap_serial: AP's Serial Number
-        :param ap_name: host name of the AP
-        :param ap_mac: ap Mac address
-        :return: return 1 if AP found and selected else -1
-        """
-        self.refresh_devices_page()
-
-        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
-        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
-
-        if page_size_field and page_number_field.is_displayed():
-            self.utils.print_info("Searching Device Entry with AP Serial : ", ap_serial)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_serial)
-            self.screen.save_screen_shot()
-            sleep(5)
-
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                if ap_serial:
-                    if str(ap_serial) in row.text:
-                        self.utils.print_info("Selecting Device with AP Serial: ", ap_serial)
-                        self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
-                        self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
-                        sleep(2)
-                        return 1
-
-                if ap_name:
-                    if str(ap_name) in row.text:
-                        self.utils.print_info("Selecting Device with AP Name: ", ap_name)
-                        self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
-                        self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
-                        sleep(2)
-                        return 1
-
-                if ap_mac:
-                    if str(ap_mac) in row.text:
-                        self.utils.print_info("Selecting Device with AP MAC: ", ap_mac)
-                        self.utils.print_debug("Found AP Row: ", self.format_row(row.text))
-                        self.auto_actions.click(self.devices_web_elements.get_ap_select_checkbox(row))
-                        sleep(2)
-                        return 1
-            self.utils.print_info("Did not find specified AP")
-        else:
-            self.utils.print_info("No rows present")
-        return False
-
     def clear_search_field(self):
         """
         - Clears the search field is necessary
@@ -1146,7 +1093,7 @@ class Devices:
         try_cnt = 0
         while not network_policy_assigned:
             self.utils.print_info("Select ap row for network policy assignment")
-            if not self.select_ap(ap_serial):
+            if not self.select_device(device_serial=ap_serial):
                 self.utils.print_info(f"AP {ap_serial} is not present in the grid")
                 return -1
             sleep(2)
@@ -1163,7 +1110,7 @@ class Devices:
                 self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
                 sleep(2)
         self.utils.print_info("Select ap row")
-        self.select_ap(ap_serial)
+        self.select_device(device_serial=ap_serial)
 
         self._update_network_policy(update_method)
         return self._check_update_network_policy_status(policy_name, ap_serial)
@@ -1245,7 +1192,7 @@ class Devices:
 
         self.refresh_devices_page()
 
-        if self.select_ap(ap_serial):
+        if self.select_device(device_serial=ap_serial):
             self.utils.print_info("Click on Actions button")
             self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
 
@@ -1551,7 +1498,7 @@ class Devices:
         search_result = self.search_device(device_serial=ap_serial)
 
         if search_result:
-            if self.select_ap(ap_serial):
+            if self.select_device(device_serial=ap_serial):
                 self.auto_actions.click_reference(self.devices_web_elements.get_edit_button)
                 sleep(5)
                 self.auto_actions.click_reference(self.devices_web_elements.get_ap_configure_button)
@@ -4728,7 +4675,7 @@ class Devices:
         """
         self.utils.print_info("Reverting Device to Template for device with serial: ", device_serial)
 
-        if self.select_ap(device_serial):
+        if self.select_device(device_serial=device_serial):
             self.utils.print_info("Selecting 'Actions' button")
             actions_btn = self.device_actions.get_device_actions_button()
             if actions_btn:
