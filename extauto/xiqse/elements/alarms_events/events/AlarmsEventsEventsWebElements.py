@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.alarms_events.events.AlarmsEventsEventsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.alarms_events.events.AlarmsEventsEventsWebElementsDefinitions import AlarmsEventsEventsWebElementsDefinitions
 
 
 class AlarmsEventsEventsWebElements(AlarmsEventsEventsWebElementsDefinitions):

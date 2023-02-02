@@ -197,12 +197,12 @@ class PpskClassification(object):
                 else:
                     self.utils.print_info(
                         "PPSK Classification rule %s not attached to user: %s" % (classification_rule, user_name))
-                    kwargs['fail_msg'] = f"verify_ppsk_classification_rule_to_user() failed. " \
+                    kwargs['fail_msg'] = "verify_ppsk_classification_rule_to_user() failed. " \
                                          f"PPSK Classification rule {classification_rule} not attached to user: {user_name}"
                     self.common_validation.fault(**kwargs)
                     return -1
 
-        kwargs['fail_msg'] = f"verify_ppsk_classification_rule_to_user() failed. " \
+        kwargs['fail_msg'] = "verify_ppsk_classification_rule_to_user() failed. " \
                              f"user: {user_name} not found in PPSK Classification Rule Table"
         self.common_validation.failed(**kwargs)
         return -1

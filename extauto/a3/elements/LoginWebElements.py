@@ -1,6 +1,7 @@
-from extauto.a3.defs.LoginWebElementsDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.a3.defs.LoginWebElementsDefinitions import LoginWebElementsDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 from selenium.common.exceptions import NoSuchElementException
 
 
@@ -64,7 +65,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_welcome_page_done_button(self):
@@ -121,7 +122,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_wips_popup_dialog_close_button(self):

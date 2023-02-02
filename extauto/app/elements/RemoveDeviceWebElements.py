@@ -1,6 +1,6 @@
-from extauto.app.defs.RemoveDeviceDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.app.defs.RemoveDeviceDefinitions import RemoveDeviceDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class RemoveDeviceWebElements(RemoveDeviceDefinitions):

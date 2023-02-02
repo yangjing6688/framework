@@ -211,7 +211,7 @@ class AdvOnboard(AdvOnboardWebElements):
         :param location_config:
         :return: True if assigned else False
         """
-        loc_node = location_config.get('loc_node')
+        # loc_node = location_config.get('loc_node')
         country_node = location_config.get('country_node')
         building_node = location_config.get('building_node')
         floor_node = location_config.get('floor_node')

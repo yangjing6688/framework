@@ -1,6 +1,6 @@
-from extauto.app.defs.DeviceHostnameDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.app.defs.DeviceHostnameDefinitions import DeviceHostnameDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DeviceHostnameWebElements(DeviceHostnameDefinitions):
@@ -29,5 +29,3 @@ class DeviceHostnameWebElements(DeviceHostnameDefinitions):
         hostname = self.weh.get_element(self.hostname_id)
         if hostname.is_displayed():
             return hostname.text
-
-

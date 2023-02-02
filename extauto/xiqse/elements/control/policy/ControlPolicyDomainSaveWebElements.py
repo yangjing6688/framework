@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.control.policy.ControlPolicyDomainSaveWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.control.policy.ControlPolicyDomainSaveWebElementsDefinitions import ControlPolicyDomainSaveWebElementsDefinitions
 
 
 class ControlPolicyDomainSaveWebElements(ControlPolicyDomainSaveWebElementsDefinitions):

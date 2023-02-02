@@ -4,7 +4,7 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSe
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
 from ExtremeAutomation.Keywords.NetworkElementKeywords.StaticKeywords.NetworkElementResetDeviceUtilsKeywords import NetworkElementResetDeviceUtilsKeywords
 import threading
-import pytest
+# import pytest
 
 # Documentation   These are Keywords that can be used for all EXOS platforms as needed.
 class PlatformLoadFirmware():
