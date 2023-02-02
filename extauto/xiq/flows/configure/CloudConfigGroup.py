@@ -298,7 +298,7 @@ class CloudConfigGroup(object):
 
         self.utils.print_info("Select ap row")
         for ap_serial in ap_serials:
-            if not self.device.select_ap(ap_serial):
+            if not self.device.select_device(device_serial=ap_serial):
                 kwargs['fail_msg'] = "add_cloud_config_group_from_manage() failed. " \
                                      f"AP {ap_serial} is not present in the grid"
                 self.common_validation.fault(**kwargs)

@@ -72,7 +72,7 @@ class Location:
         """
 
         self.navigator.navigate_to_devices()
-        if self.devices.select_ap(device_serial):
+        if self.devices.select_device(device_serial=device_serial):
             self.utils.print_info("Clicking on Actions Button")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
