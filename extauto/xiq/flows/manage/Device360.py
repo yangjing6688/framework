@@ -15365,7 +15365,7 @@ class Device360(Device360WebElements):
                 message = self.get_device360_diagnostics_bounce_port_message()
                 self.utils.wait_till(delay=1)
             else:
-                kwargs['fail_msg'] = f"Message not displayed"
+                kwargs['fail_msg'] = "Message not displayed"
                 return None
         temp_message = message
         while temp_message and (int(time.time()) - start_time) < max_wait:
