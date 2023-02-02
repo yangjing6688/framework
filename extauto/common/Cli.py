@@ -2369,7 +2369,6 @@ class Cli(object):
         cli_type_device_2 = dut2.cli_type
 
         if cli_type_device_1.lower() == 'exos' and cli_type_device_2.lower() == 'exos':
-            # check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')[0].cmd_obj._return_text
             output_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')
             check_image_version_1 = output_1[0].return_text
             image_version_regex = 'IMG:([ ]{1,}.{0,})'
@@ -2377,7 +2376,6 @@ class Cli(object):
             image_version_1_string = image_version_1.replace(self.utils.get_regexp_matches(image_version_1,
                                                                                                '([ ])')[0], '')
 
-            # check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show version | grep IMG')[0].cmd_obj._return_text
             output_2 = self.networkElementCliSend.send_cmd(device_2, 'show version | grep IMG')
             check_image_version_2 = output_2[0].return_text
             image_version_2 = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
@@ -2394,14 +2392,12 @@ class Cli(object):
                 return 'different'
 
         elif cli_type_device_1.lower() == 'voss' and cli_type_device_2.lower() == 'voss':
-            # check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
             output_descr_1 = self.networkElementCliSend.send_cmd(device_1, 'show sys-info | include SysDescr')
             check_image_version_1 = output_descr_1[0].return_text
             image_version_regex = '(\\d+[.]\\d+[.]\\d+[.]\\d+)'
             image_version_1_string = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
             print(f"OS version for clone device: {image_version_1_string}")
 
-            # check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
             output_descr_2 = self.networkElementCliSend.send_cmd(device_2, 'show sys-info | include SysDescr')
             check_image_version_2 = output_descr_2[0].return_text
             image_version_2_string = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
@@ -2542,44 +2538,37 @@ class Cli(object):
          dut2 (dict): the dut, e.g. tb.dut2
         :return: -1
         """
-        spawn_device_1 = self.open_spawn(dut1.ip, dut1.port, dut1.username,
-                                         dut1.password, dut1.cli_type)
-        spawn_device_2 = self.open_spawn(dut2.ip, dut2.port, dut2.username,
-                                         dut2.password, dut2.cli_type)
+
         cli_type_1 = dut1.cli_type
         cli_type_2 = dut2.cli_type
 
         if cli_type_1.lower() and cli_type_2.lower() == 'exos':
-            self.send_commands(spawn_device_1, "configure cli journal size 200")
-            cli_journal_1 = self.send_commands(spawn_device_1, "show cli journal | include hivemanager")
+            self.send_commands(dut1.name, "configure cli journal size 200")
+            cli_journal_1 = self.send_commands(dut1.name, "show cli journal | include hivemanager")
             commands_device_1 = self.get_cli_commands(cli_journal_1, cli_type=dut1.cli_type)
             print(commands_device_1)
-            self.send_commands(spawn_device_2, "configure cli journal size 200")
-            cli_journal_2 = self.send_commands(spawn_device_2, "show cli journal | include hivemanager")
+            self.send_commands(dut2.name, "configure cli journal size 200")
+            cli_journal_2 = self.send_commands(dut2.name, "show cli journal | include hivemanager")
             commands_device_2 = self.get_cli_commands(cli_journal_2, cli_type=dut2.cli_type)
             print(commands_device_2)
             a = set(commands_device_1)
             b = set(commands_device_2)
             if a == b:
                 print("Commands are the same")
-                self.close_spawn(spawn_device_1)
-                self.close_spawn(spawn_device_2)
                 kwargs['pass_msg'] = "check_clone_configuration() passed"
                 self.commonValidation.passed(**kwargs)
             else:
-                self.close_spawn(spawn_device_1)
-                self.close_spawn(spawn_device_2)
                 kwargs['fail_msg'] = "check_clone_configuration() failed. Commands are not the same "
                 self.commonValidation.failed(**kwargs)
 
         elif cli_type_1.lower() and cli_type_2.lower() == 'voss':
-            self.send_commands(spawn_device_1, "terminal more disable")
-            cli_journal_1 = self.send_commands(spawn_device_1,
+            self.send_commands(dut1.name, "terminal more disable")
+            cli_journal_1 = self.send_commands(dut1.name,
                                                        'show logging file detail | include "127.0.0.1 hivemanager"')
             commands_device_1 = self.get_cli_commands(cli_journal_1, cli_type=dut1.cli_type)
             print(commands_device_1)
-            self.send_commands(spawn_device_1, "terminal more disable")
-            cli_journal_2 = self.send_commands(spawn_device_2,
+            self.send_commands(dut1.name, "terminal more disable")
+            cli_journal_2 = self.send_commands(dut2.name,
                                                        'show logging file detail | include "127.0.0.1 hivemanager"')
             commands_device_2 = self.get_cli_commands(cli_journal_2, cli_type=dut2.cli_type)
             print(commands_device_2)
@@ -2587,20 +2576,12 @@ class Cli(object):
             b = set(commands_device_2)
             if a == b:
                 print("Commands are the same")
-                self.close_spawn(spawn_device_1)
-                self.close_spawn(spawn_device_2)
                 kwargs['pass_msg'] = "check_clone_configuration() passed."
                 self.commonValidation.passed(**kwargs)
             else:
-                self.close_spawn(spawn_device_1)
-                self.close_spawn(spawn_device_2)
                 kwargs['fail_msg'] = "check_clone_configuration() failed. Commands are not the same "
                 self.commonValidation.failed(**kwargs)
-        else:
-            self.close_spawn(spawn_device_1)
-            self.close_spawn(spawn_device_2)
-            kwargs['fail_msg'] = "check_clone_configuration() failed. No type OS found "
-            self.commonValidation.failed(**kwargs)
+
 
     def get_cli_commands(self, info: str, cli_type, **kwargs):
         """
