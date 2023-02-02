@@ -73,7 +73,7 @@ class DevicesActions:
         """
         self.utils.print_info("Clearing Device Audit Mismatch with serial: ", device_serial)
 
-        if self.devices.select_ap(device_serial):
+        if self.devices.select_device(device_serial=device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
