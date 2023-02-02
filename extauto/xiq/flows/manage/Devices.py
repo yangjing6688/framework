@@ -1905,31 +1905,32 @@ class Devices:
         # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
         elif "VOSS" in device_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS/Fabric Engine")
-            if self.switch_web_elements.get_switch_make_drop_down():
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
                 self.utils.print_info("Selecting Switch Type : VOSS")
                 self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
                 self.screen.save_screen_shot()
                 self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
                                                            , "VOSS")
                 self.screen.save_screen_shot()
-
-            if self.devices_web_elements.get_device_os_voss_radio():
-                self.utils.print_info("Selecting Device OS : Fabric Engine")
+            else:
+                self.utils.print_info(f"Select {device_make} Radio Button")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_os_voss_radio)
+                sleep(2)
                 self.screen.save_screen_shot()
 
         elif "EXOS" in device_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : EXOS/Switch Engine")
-            if self.switch_web_elements.get_switch_make_drop_down():
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
                 self.utils.print_info("Selecting Switch Type : EXOS")
                 self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
                 self.screen.save_screen_shot()
                 self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(),
                                                            "EXOS")
                 self.screen.save_screen_shot()
-            if self.devices_web_elements.get_device_os_exos_radio():
-                self.utils.print_info("Selecting Device OS : Switch Engine")
+            else:
+                self.utils.print_info(f"Select {device_make} Radio Button")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_os_exos_radio)
+                sleep(2)
                 self.screen.save_screen_shot()
 
         elif 'Dell' in device_make:
