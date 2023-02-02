@@ -7,16 +7,74 @@ class XapiHelper():
         self.common_validation = CommonValidation()
         self.builtin = BuiltIn()
 
+    def set_xapi_global_device(self, value, id):
+        """
+            This will set the data on the global level for the mapping of device (serial, name or mac) to xapi ID
+
+        :param value: The value for the type (device serial, device name, device mac)
+        :param id: The device XAPI ID
+        :return: None
+        """
+        configuration = self.builtin.get_variable_value('${XAPI_GLOBAL_DEVICE}')
+        if configuration == None:
+            # Create a new object
+            self.builtin.set_global_variable('${XAPI_GLOBAL_DEVICE}', {})
+            # Get the new object and continue
+            configuration = self.builtin.get_variable_value('${XAPI_GLOBAL_DEVICE}')
+
+        # Next add / replace the value
+        configuration.update({value:id})
+
+    def delete_xapi_global_device(self, value):
+        """
+            This will delete the data on the global level for the mapping of device (serial, name or mac) to xapi ID
+
+        :param value: The value for the type (device serial, device name, device mac)
+        :return: None
+        """
+        configuration = self.builtin.get_variable_value('${XAPI_GLOBAL_DEVICE}')
+        if configuration != None:
+            del configuration[value]
+
+    def get_xapi_global_device(self, value):
+        """
+           This will set the data on the global level for the mapping of device (serial, name or mac) to xapi ID
+
+        :param value: The value for the type (device serial, device name, device mac)
+        :return: The value if found or -1 if not found
+        """
+        id = -1
+        configuration = self.builtin.get_variable_value('${XAPI_GLOBAL_DEVICE}')
+        if configuration:
+            id = configuration.get(value, -1)
+        return id
+
     def set_xapi_configuration(self, value):
+        """
+            This function sets the global configuration for the XAPI
+
+        :param value: The configuration object
+        :return: None
+        """
         self.builtin.set_global_variable('${XAPI_CONFIGRATION}', value)
 
     def get_xapi_configuration(self):
+        """
+           This function sets the global configuration for the XAPI
+
+       :param value: The configuration object
+       :return: None
+       """
         configuration =  self.builtin.get_variable_value('${XAPI_CONFIGRATION}')
         if not configuration:
             raise Exception('The XAPI configuration was not set, please use the "login_user" method in the Login class with the kwarg XAPI_ENABLED set to True')
         return configuration
 
     def get_xapi_url(self):
+        """
+            Gets the xapi URL
+        :return: the xpai URL or throws an exception if it is not set
+        """
         xapi_url = self.builtin.get_variable_value("${XAPI_URL}")
         if not xapi_url:
             raise Exception('XAPI url was not set, please use the keyword "set_xapi_url" method in the XapiHelper class to set the XAPI URL')
@@ -24,9 +82,19 @@ class XapiHelper():
             return xapi_url
 
     def set_xapi_url(self, value):
+        """
+            Sets the XAPI URL globally
+        :param value: The xapi_url
+        :return: None
+        """
         self.builtin.set_global_variable("${XAPI_URL}", value)
 
     def is_xapi_enabled(self, **kwargs):
+        """
+            Checks to see if the XAPI_ENABLED is set globally or in the kwargs
+        :param kwargs: dict for kwargs
+        :return: True if the XAPI_ENABLED is set, False if it isn't set
+        """
         xapi_enabled_globally = self.builtin.get_variable_value("${XAPI_ENABLED}", False)
         xapi_enabled_kwargs = kwargs.get('XAPI_ENABLED', False)
         if xapi_enabled_globally or xapi_enabled_kwargs:
@@ -35,4 +103,9 @@ class XapiHelper():
             return False
 
     def set_xapi_enabled_value(self, value):
+        """
+            Sets the XAPI_ENABLED value globally
+        :param value: The XAPI_ENABLED value
+        :return: None
+        """
         self.builtin.set_global_variable("${XAPI_ENABLED}", value)

@@ -3000,6 +3000,11 @@ class Devices:
         - 'unknown' if device connection status is 'Unknown'
 
         """
+
+        # UI Support
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+
         device_row = ''
         device_keys = {}
         device_status = ''

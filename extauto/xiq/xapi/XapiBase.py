@@ -31,14 +31,26 @@ class XapiBase(object):
         else:
             return False
 
-    def valid_http_reponse(self, api_reponse):
+    def print_http_response(self, http_response):
+        """
+            Prints the http repsonse for the object that is passed in
+        :param http_response: http repsonse object
+        :return: None
+        """
+        try:
+            self.utils.print_info("http_response: " + json.dumps(json.loads(http_response.data), indent=4, separators=(',', ': ')))
+        except:
+            pass
+
+    def valid_http_response(self, api_response):
         """
             This method will valid the http response object make sure the return code is 200 or 201
-            :param api_reponse: The HTTPResponse object
+            :param api_response: The HTTPResponse object
             :return: True when the status is 200 or 201, throws exception otherwise
         """
-        if api_reponse.status != 200 and api_reponse.status != 201:
-            raise Exception(f'ERROR: valid_http_reponse -> HTTPResponse status returned failure: {api_reponse.status}')
+        self.print_http_response(api_response)
+        if api_response.status != 200 and api_response.status != 201:
+            raise Exception(f'ERROR: valid_http_response -> HTTPResponse status returned failure: {api_response.status}')
         return True
 
     def getAsyncLongRunningOperation(self, operation_id):
@@ -65,8 +77,8 @@ class XapiBase(object):
                 operation = api_instance.get_operation(operation_id)
                 operation_object = json.parse(operation)
 
-                while operation_object.metadata.status != 'COMPLETED':
-                    self.utils.print_info(f'Operation {operation_id} has not completed, sleep for 10 seconds and try again')
+                while operation_object.metadata.status != 'SUCCEEDED':
+                    self.utils.print_info(f'Operation {operation_id} has not completed [SUCCEEDED], sleep for 10 seconds and try again')
                     sleep(10)
                     operation = api_instance.get_operation(operation_id)
                     operation_object = json.parse(operation)

@@ -31,6 +31,8 @@ class XapiDevices(XapiBase):
         self.device_column_ui_to_xapi['COUNTRY'] = 'country_code'
         self.device_column_ui_to_xapi['OS'] = self.NOT_SUPPORTED
 
+
+
     #########################################################################
     # Keyword functions
     #########################################################################
@@ -112,9 +114,6 @@ class XapiDevices(XapiBase):
                     self.xapiHelper.common_validation.failed(**kwargs)
                     return 1
                 else:
-
-                    self.xapi_search_for_device(device_serial=device_serial)
-
                     kwargs['pass_msg'] = f"Device was found with serial: {device_serial}"
                     self.xapiHelper.common_validation.passed(**kwargs)
                     return 1
@@ -154,7 +153,7 @@ class XapiDevices(XapiBase):
             try:
                 # Get Devices
                 api_response = api_instance.get_device(id, _preload_content=False)
-                self.valid_http_reponse(api_response)
+                self.valid_http_response(api_response)
                 kwargs['pass_msg'] = 'Device was found'
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return api_response.data
@@ -191,7 +190,7 @@ class XapiDevices(XapiBase):
             api_instance = self.extremecloudiq.DeviceApi(api_client)
             try:
                 api_response = api_instance.reboot_device(id)
-                self.valid_http_reponse(api_response)
+                self.valid_http_response(api_response)
                 kwargs['pass_msg'] = 'Device reboot command was sent'
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return 1
@@ -214,9 +213,11 @@ class XapiDevices(XapiBase):
         if device_id != -1:
             kwargs['pass_msg'] = f"Found the device with serial:{device_serial}, name: {device_name} or MAC: {device_mac}"
             self.xapiHelper.common_validation.passed(**kwargs)
+            return 1
         else:
             kwargs['fail_msg'] = f"Failed to find the device with serial:{device_serial}, name: {device_name} or MAC: {device_mac}"
             self.xapiHelper.common_validation.failed(**kwargs)
+            return -1
 
 
     def xapi_wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
@@ -254,7 +255,7 @@ class XapiDevices(XapiBase):
                 while retry_value < retry_count:
                     # get Device information
                     api_response = api_instance.get_device(id, _preload_content=False)
-                    self.valid_http_reponse(api_response)
+                    self.valid_http_response(api_response)
                     data = json.loads(api_response.data)
                     if data.get('connected', False):
                         kwargs['pass_msg'] = "Device Connected Status Value is: True (Connected)"
@@ -310,7 +311,7 @@ class XapiDevices(XapiBase):
                 while retry_value < retry_count:
                     # get Device information
                     api_response = api_instance.get_device(id, _preload_content=False)
-                    self.valid_http_reponse(api_response)
+                    self.valid_http_response(api_response)
                     data = json.loads(api_response.data)
                     device_admin_state = data.get('device_admin_state', '')
                     if device_admin_state == 'MANAGED':
@@ -347,7 +348,7 @@ class XapiDevices(XapiBase):
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.xapiHelper.common_validation.fail(**kwargs)
             return -1
 
         # Get the configuration from the Global varibles
@@ -369,6 +370,9 @@ class XapiDevices(XapiBase):
                 # swagger doens't support the [LRO], so there is no way of knowning
                 # if this keyword was successful without creating a loop to check.
                 operation = api_instance.delete_device(id)
+
+                # delete this from the cache
+                self.xapiHelper.delete_xapi_global_device(device_serial)
 
                 count = 0
                 retries = 10
@@ -430,7 +434,7 @@ class XapiDevices(XapiBase):
             try:
                 # get Device information
                 api_response = api_instance.get_device(id, views=['full'], _preload_content=False)
-                self.valid_http_reponse(api_response)
+                self.valid_http_response(api_response)
                 json_data = json.loads(api_response.data)
                 for column in column_array:
                     json_column_name = self.device_column_ui_to_xapi.get(column)
@@ -470,8 +474,8 @@ class XapiDevices(XapiBase):
             # Create an instance of the API class
             api_instance = self.extremecloudiq.DeviceApi(api_client)
             try:
-                api_response = api_instance.list_devices(_preload_content=False)
-                self.valid_http_reponse(api_response)
+                api_response = api_instance.list_devices(limit = 100, _preload_content=False)
+                self.valid_http_response(api_response)
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return json.loads(api_response.data)
 
@@ -488,9 +492,30 @@ class XapiDevices(XapiBase):
            :param device_serial: The device serial number
            :param device_name: The device hostname
            :param device_mac: The device MAC address
+           :param device_mac: The device MAC address
+           :param skip_global_check: false by default, will skip the global device check
            :return: The device ID for success and -1 for failure
         """
         device_id = -1
+
+        # figure out the value being used to look for the device
+        search_type = None
+        if device_serial:
+            self.utils.print_info(f"XAPI - Searching for device based on serial {device_serial}")
+            search_type = device_serial
+        elif device_name:
+            self.utils.print_info(f"XAPI - Searching for device based on name {device_name}")
+            search_type = device_name
+        elif device_mac:
+            self.utils.print_info(f"XAPI - Searching for device based on mac {device_mac}")
+            search_type = device_mac
+
+        # get the global dict for the type
+        device_id = self.xapiHelper.get_xapi_global_device(search_type)
+        if device_id != -1:
+            self.utils.print_info(f"Found device ID: {device_id}")
+            return device_id
+
         # Get all of the devices
         device_api_data = self._xapi_list_devices(**kwargs)
         device_list = device_api_data['data']
@@ -501,13 +526,19 @@ class XapiDevices(XapiBase):
                 if device_serial:
                     if device['serial_number'] == device_serial:
                         device_id = device['id']
+                        self.utils.print_info(f"Setting global value for device [serial]: {device_serial}:{device_id}")
+                        self.xapiHelper.set_xapi_global_device(device_serial, device_id)
                         break
                 elif device_name:
                     if device['hostname'] == device_name:
                         device_id = device['id']
+                        self.utils.print_info(f"Setting global value for device [name]: {device_name}:{device_id}")
+                        self.xapiHelper.set_xapi_global_device(device_serial, device_id)
                         break
                 elif device_mac:
                     if device['mac_address'] == device_mac:
                         device_id = device['id']
+                        self.utils.print_info(f"Setting global value for device [mac]: {device_mac}:{device_id}")
+                        self.xapiHelper.set_xapi_global_device(device_serial, device_id)
                         break
         return device_id
