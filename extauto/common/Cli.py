@@ -2501,7 +2501,7 @@ class Cli(object):
 
     def configure_cli_table(self, dut1, dut2, **kwargs):
         """
-        - This keyword configures cli table
+        - This keyword configures the same cli journal size for both given switches(EXOS) or clears logging history(VOSS) in order to compare the output
         Args:
          dut1 (dict): the dut, e.g. tb.dut1
          dut2 (dict): the dut, e.g. tb.dut2
@@ -2532,22 +2532,20 @@ class Cli(object):
 
     def check_clone_configuration(self, dut1, dut2, **kwargs):
         """
-        - This keyword will check clone configuration
+        - This keyword will verify if the clone configuration was successful by checking if the last commands for both given switches are the same
         Args:
          dut1 (dict): the dut, e.g. tb.dut1
          dut2 (dict): the dut, e.g. tb.dut2
-        :return: -1
+        :return: a pass msg if the commands are the same/a fail msg if the commands are not the same
         """
 
         cli_type_1 = dut1.cli_type
         cli_type_2 = dut2.cli_type
 
         if cli_type_1.lower() and cli_type_2.lower() == 'exos':
-            self.send_commands(dut1.name, "configure cli journal size 200")
             cli_journal_1 = self.send_commands(dut1.name, "show cli journal | include hivemanager")
             commands_device_1 = self.get_cli_commands(cli_journal_1, cli_type=dut1.cli_type)
             print(commands_device_1)
-            self.send_commands(dut2.name, "configure cli journal size 200")
             cli_journal_2 = self.send_commands(dut2.name, "show cli journal | include hivemanager")
             commands_device_2 = self.get_cli_commands(cli_journal_2, cli_type=dut2.cli_type)
             print(commands_device_2)
@@ -2585,11 +2583,12 @@ class Cli(object):
 
     def get_cli_commands(self, info: str, cli_type, **kwargs):
         """
-        - This keyword will get cli commands
+        - This keyword will convert last commands from CLI string to a list
         Args:
-         info: str
-         cli_type
-        :return:
+         info: str : cli output
+         cli_type: ex. dut1.cli_type
+        Use : get_cli_commands(output, dut1.cli_type)
+        :return:  commands table list/ -1 if No type OS found
         """
         table, table_repl = [], []
         for entry in info.split("\n"):
@@ -2628,47 +2627,6 @@ class Cli(object):
             kwargs['fail_msg'] = "get_cli_commands() failed. No type OS found "
             self.commonValidation.failed(**kwargs)
             return -1
-
-    def check_iqagent_versions(self, dut1, dut2, **kwargs):
-        """
-        - This keyword will check iqagent versions
-        Args:
-         dut1 (dict): the dut, e.g. tb.dut1
-         dut2 (dict): the dut, e.g. tb.dut2
-        :return:
-        """
-        device_1 = dut1.name
-        device_2 = dut2.name
-        cli_type_device_1 = dut1.cli_type
-        cli_type_device_2 = dut2.cli_type
-
-        if cli_type_device_1.lower() and cli_type_device_2.lower() == 'exos':
-            check_iqagent_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show iqagent | grep Version')[0].cmd_obj._return_text
-            iqagent_version_regex = 'Version([ ]{1,}.{0,})'
-            iqagent_version_1 = self.utils.get_regexp_matches(check_iqagent_version_1, iqagent_version_regex, 1)[0]
-            iqagent_version_1_string = iqagent_version_1.replace(self.utils.get_regexp_matches(iqagent_version_1,
-                                                                                                   '([ ])')[0], '')
-
-            check_iqagent_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show iqagent | grep Version')[0].cmd_obj._return_text
-            iqagent_version_2 = self.utils.get_regexp_matches(check_iqagent_version_2, iqagent_version_regex, 1)[0]
-            iqagent_version_2_string = iqagent_version_2.replace(self.utils.get_regexp_matches(iqagent_version_2,
-                                                                                                   '([ ])')[0], '')
-            kwargs['pass_msg'] = "check_iqagent_versions() passed."
-            self.commonValidation.passed(**kwargs)
-            return [iqagent_version_1_string, iqagent_version_2_string]
-
-        elif cli_type_device_1.lower() and cli_type_device_2.lower() == 'voss':
-            check_iqagent_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show application iqagent | include "Agent Version"')[0].cmd_obj._return_text
-            iqagent_version_regex = '(\\d.{0,})'
-            iqagent_version_1_string = self.utils.get_regexp_matches(check_iqagent_version_1,
-                                                                         iqagent_version_regex, 1)[0]
-
-            check_iqagent_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show application iqagent | include "Agent Version"')[0].cmd_obj._return_text
-            iqagent_version_2_string = self.utils.get_regexp_matches(check_iqagent_version_2,
-                                                                         iqagent_version_regex, 1)[0]
-            kwargs['pass_msg'] = "check_iqagent_versions() passed."
-            self.commonValidation.passed(**kwargs)
-            return [iqagent_version_1_string, iqagent_version_2_string]
 
 
 if __name__ == '__main__':
