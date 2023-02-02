@@ -2830,6 +2830,12 @@ class Devices:
         :param device_mac: device MAC
         :return: 1 if device found else -1
         """
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_search_device(device_serial=device_serial,
+                                                       device_name=device_name,
+                                                       device_mac=device_mac,
+                                                       **kwargs)
+
 
         # navigate to devices page
         self.navigator.navigate_to_devices()

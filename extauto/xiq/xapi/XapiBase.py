@@ -1,4 +1,5 @@
 import time
+import json
 from extauto.xiq.xapi.XapiHelper import XapiHelper
 from extauto.common.Utils import Utils
 
@@ -39,4 +40,39 @@ class XapiBase(object):
         if api_reponse.status != 200 and api_reponse.status != 201:
             raise Exception(f'ERROR: valid_http_reponse -> HTTPResponse status returned failure: {api_reponse.status}')
         return True
+
+    def getAsyncLongRunningOperation(self, operation_id):
+        """
+            This method will poll the operation untit it has completed
+        :param operation_id: When calling keywords with the async_req=True, this will be the operation id that is returned
+        :return: The completed operation json
+        """
+
+        # Get the configuration from the Global varibles
+        configuration = self.xapiHelper.get_xapi_configuration()
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.OperationApi(api_client)
+
+            try:
+                # get operation status
+                operation = api_instance.get_operation(operation_id)
+                operation_object = json.parse(operation)
+
+                while operation_object.metadata.status != 'COMPLETED':
+                    self.utils.print_info(f'Operation {operation_id} has not completed, sleep for 10 seconds and try again')
+                    sleep(10)
+                    operation = api_instance.get_operation(operation_id)
+                    operation_object = json.parse(operation)
+                return 1
+            except Exception as e:
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->onboard_devices: {e}"
+                self.xapiHelper.common_validation.failed(**kwargs)
+                return -1
 

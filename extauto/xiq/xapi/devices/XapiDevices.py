@@ -7,6 +7,7 @@ class XapiDevices(XapiBase):
 
     def __init__(self):
         super().__init__()
+        # Supported UI to XAPI column selector
         self.NOT_SUPPORTED = 'not_supported'
         self.device_column_ui_to_xapi = {}
         self.device_column_ui_to_xapi['STATUS'] = 'connected'
@@ -30,34 +31,9 @@ class XapiDevices(XapiBase):
         self.device_column_ui_to_xapi['COUNTRY'] = 'country_code'
         self.device_column_ui_to_xapi['OS'] = self.NOT_SUPPORTED
 
-        # column_list = ['id',
-        #                'create_time',
-        #                'update_time',
-        #                'org_id',
-        #                'org_name',
-        #                'location_id',
-        #
-        #                'device_function',
-        #
-        #                'software_version',
-        #
-        #                'connected',
-        #                'last_connect_time',
-        #                'network_policy_name',
-        #                'network_policy_id',
-        #                'ntp_server_address',
-        #                'dns_server_address',
-        #                'subnet_mask',
-        #                'default_gateway',
-        #                'ipv6_address',
-        #                'ipv6_netmask',
-        #                'simulated',
-        #                'display_version',
-        #                'active_clients',
-        #
-        #                'description',
-        #                ]
-
+    #########################################################################
+    # Keyword functions
+    #########################################################################
 
     def xapi_onboard_device(self, device_dict, **kwargs):
         """
@@ -113,13 +89,35 @@ class XapiDevices(XapiBase):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.DeviceApi(api_client)
-
+            api_device = self.extremecloudiq.DeviceApi(api_client)
             try:
                 # Onboard Devices
-                returnCode = api_instance.onboard_devices(xiq_onboard_device_request)
-                self.xapiHelper.common_validation.passed(**kwargs)
-                return 1
+                # FIXME = This returns NONE, however the swagger returns a 202 and no payload.
+                #  The aysnc doens't appear to be working for this API function and the
+                # swagger doens't support the [LRO], so there is no way of knowning
+                # if this keyword was successful without creating a loop to check.
+                api_device.onboard_devices(xiq_onboard_device_request)
+
+                count = 0
+                retries = 10
+                device_found = self._xapi_search_for_device_id(device_serial=device_serial)
+                while device_found == -1:
+                    self.utils.print_info('Device was not found, sleep for 30 seconds')
+                    sleep(30)
+                    self.utils.print_info('Checking for device onboard completed')
+                    device_found = self._xapi_search_for_device_id(device_serial=device_serial)
+
+                if device_found == -1:
+                    kwargs['fail_msg'] = f"Device was not found with serial: {device_serial}"
+                    self.xapiHelper.common_validation.failed(**kwargs)
+                    return 1
+                else:
+
+                    self.xapi_search_for_device(device_serial=device_serial)
+
+                    kwargs['pass_msg'] = f"Device was found with serial: {device_serial}"
+                    self.xapiHelper.common_validation.passed(**kwargs)
+                    return 1
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"Exception when calling DeviceApi->onboard_devices: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
@@ -128,7 +126,7 @@ class XapiDevices(XapiBase):
 
     def xapi_search_for_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
-            This methods will search for a device with the serial, name or mac address that is passed in.
+            This function will search for a device with the serial, name or mac address that is passed in.
 
             :param device_serial: The device serial number
             :param device_name: The device hostname
@@ -156,6 +154,7 @@ class XapiDevices(XapiBase):
             try:
                 # Get Devices
                 api_response = api_instance.get_device(id, _preload_content=False)
+                self.valid_http_reponse(api_response)
                 kwargs['pass_msg'] = 'Device was found'
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return api_response.data
@@ -166,7 +165,7 @@ class XapiDevices(XapiBase):
 
     def xapi_reboot_device(self, device_serial=None, device_mac=None, **kwargs):
         """
-           This methods will reboot the device and will not sleep
+           This function will reboot the device and will not sleep
 
            :param device_serial: The device serial number
            :param device_mac: The device MAC address
@@ -192,6 +191,7 @@ class XapiDevices(XapiBase):
             api_instance = self.extremecloudiq.DeviceApi(api_client)
             try:
                 api_response = api_instance.reboot_device(id)
+                self.valid_http_reponse(api_response)
                 kwargs['pass_msg'] = 'Device reboot command was sent'
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return 1
@@ -200,70 +200,29 @@ class XapiDevices(XapiBase):
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
-
-    def _xapi_list_devices(self, **kwargs):
+    def xapi_search_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
-           This helper methods will get all of the devices
+        This function will search for the device based on the serial, name or mac
 
-           :return: An Array of devices (JSON)
+        :param device_serial: The device serial number
+        :param device_name: The device hostname
+        :param device_mac: The device mac address
+        :param kwargs:
+        :return: 1 if the device was found and -1 if the device wasn't found
         """
-        # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
-        api_response = None
+        device_id = self._xapi_search_for_device_id(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
+        if device_id != -1:
+            kwargs['pass_msg'] = f"Found the device with serial:{device_serial}, name: {device_name} or MAC: {device_mac}"
+            self.xapiHelper.common_validation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"Failed to find the device with serial:{device_serial}, name: {device_name} or MAC: {device_mac}"
+            self.xapiHelper.common_validation.failed(**kwargs)
 
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
-
-        # Enter a context with an instance of the API client
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.DeviceApi(api_client)
-            try:
-                api_response = api_instance.list_devices(_preload_content=False)
-                self.xapiHelper.common_validation.passed(**kwargs)
-                return json.loads(api_response.data)
-
-            except self.ApiException as e:
-                kwargs['fail_msg'] = f"Exception when calling DeviceApi->list_devices: {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
-                return -1
-
-    def _xapi_search_for_device_id(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
-        """
-           This helper methods will search for the device ID given the parameters that were passed in
-
-           :param device_serial: The device serial number
-           :param device_name: The device hostname
-           :param device_mac: The device MAC address
-           :return: The device ID for success and -1 for failure
-        """
-        device_id = -1
-        # Get all of the devices
-        device_api_data = self._xapi_list_devices(**kwargs)
-        device_list = device_api_data['data']
-
-        if len(device_list) != 0:
-            for device in device_list:
-                # Search for the device based on the parameters that were passed in
-                if device_serial:
-                    if device['serial_number'] == device_serial:
-                        device_id = device['id']
-                        break
-                elif device_name:
-                    if device['hostname'] == device_name:
-                        device_id = device['id']
-                        break
-                elif device_mac:
-                    if device['mac_address'] == device_mac:
-                        device_id = device['id']
-                        break
-        return device_id
 
     def xapi_wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
                                      **kwargs):
         """
-           This methods will search for the device and wait until the device is online
+           This function will search for the device and wait until the device is online
 
            :param device_serial: The device serial number
            :param device_mac: The device MAC address
@@ -295,6 +254,7 @@ class XapiDevices(XapiBase):
                 while retry_value < retry_count:
                     # get Device information
                     api_response = api_instance.get_device(id, _preload_content=False)
+                    self.valid_http_reponse(api_response)
                     data = json.loads(api_response.data)
                     if data.get('connected', False):
                         kwargs['pass_msg'] = "Device Connected Status Value is: True (Connected)"
@@ -318,7 +278,7 @@ class XapiDevices(XapiBase):
     def xapi_wait_until_device_managed(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
                                       **kwargs):
         """
-              This methods will search for the device and wait until the device is managed
+              This function will search for the device and wait until the device is managed
 
               :param device_serial: The device serial number
               :param device_mac: The device MAC address
@@ -350,6 +310,7 @@ class XapiDevices(XapiBase):
                 while retry_value < retry_count:
                     # get Device information
                     api_response = api_instance.get_device(id, _preload_content=False)
+                    self.valid_http_reponse(api_response)
                     data = json.loads(api_response.data)
                     device_admin_state = data.get('device_admin_state', '')
                     if device_admin_state == 'MANAGED':
@@ -374,7 +335,7 @@ class XapiDevices(XapiBase):
 
     def xapi_delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
-            This methods will delete the device
+            This function will delete the device
 
             :param device_serial: The device serial number
             :param device_mac: The device MAC address
@@ -402,8 +363,31 @@ class XapiDevices(XapiBase):
             # Create an instance of the API class
             api_instance = self.extremecloudiq.DeviceApi(api_client)
             try:
-                # get Device information
-                api_response = api_instance.delete_device(id)
+                # delete Device information
+                # FIXME = This returns NONE, however the swagger returns a 202 and no payload.
+                #  The aysnc doens't appear to be working for this API function and the
+                # swagger doens't support the [LRO], so there is no way of knowning
+                # if this keyword was successful without creating a loop to check.
+                operation = api_instance.delete_device(id)
+
+                count = 0
+                retries = 10
+                device_found = self._xapi_search_for_device_id(device_serial=device_serial)
+                while device_found == 1:
+                    self.utils.print_info('Device was found, sleep for 30 seconds')
+                    sleep(30)
+                    self.utils.print_info('Checking to make sure the device was deleted')
+                    device_found = self._xapi_search_for_device_id(device_serial=device_serial)
+
+                if device_found == -1:
+                    kwargs['pass_msg'] = f"Device was delete with serial: {device_serial}"
+                    self.xapiHelper.common_validation.passed(**kwargs)
+                    return 1
+                else:
+                    kwargs['fail_msg'] = f"Device was found with serial: {device_serial}"
+                    self.xapiHelper.common_validation.failed(**kwargs)
+                    return 1
+
                 kwargs['pass_msg'] = f"Device has been delete"
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return 1
@@ -461,3 +445,69 @@ class XapiDevices(XapiBase):
                 kwargs['fail_msg'] = f"Exception when calling DeviceApi->xapi_get_device_column_information: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
+
+
+    #########################################################################
+    # Helper functions
+    #########################################################################
+
+    def _xapi_list_devices(self, **kwargs):
+        """
+           This helper function will get all of the devices
+
+           :return: An Array of devices (JSON)
+        """
+        # Get the configuration from the Global varibles
+        configuration = self.xapiHelper.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.DeviceApi(api_client)
+            try:
+                api_response = api_instance.list_devices(_preload_content=False)
+                self.valid_http_reponse(api_response)
+                self.xapiHelper.common_validation.passed(**kwargs)
+                return json.loads(api_response.data)
+
+            except self.ApiException as e:
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->list_devices: {e}"
+                self.xapiHelper.common_validation.failed(**kwargs)
+                return -1
+
+    def _xapi_search_for_device_id(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+        """
+           This helper function will search for the device ID given the parameters that were passed in.
+           This ID is used in all of the XAPI keywords as the device ID
+
+           :param device_serial: The device serial number
+           :param device_name: The device hostname
+           :param device_mac: The device MAC address
+           :return: The device ID for success and -1 for failure
+        """
+        device_id = -1
+        # Get all of the devices
+        device_api_data = self._xapi_list_devices(**kwargs)
+        device_list = device_api_data['data']
+
+        if len(device_list) != 0:
+            for device in device_list:
+                # Search for the device based on the parameters that were passed in
+                if device_serial:
+                    if device['serial_number'] == device_serial:
+                        device_id = device['id']
+                        break
+                elif device_name:
+                    if device['hostname'] == device_name:
+                        device_id = device['id']
+                        break
+                elif device_mac:
+                    if device['mac_address'] == device_mac:
+                        device_id = device['id']
+                        break
+        return device_id
