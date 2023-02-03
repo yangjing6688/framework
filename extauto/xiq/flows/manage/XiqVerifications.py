@@ -298,8 +298,8 @@ class XiqVerifications:
             self.common_validation.passed(**kwargs)
             return 1
 
-        except:
-            kwargs["fail_msg"] = f"No '{event}' found in Events Tab"
+        except Exception as exc:
+            kwargs["fail_msg"] = f"No '{event}' found in Events Tab: {repr(exc)}"
             self.common_validation.failed(**kwargs)
             return -1
 
