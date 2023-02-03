@@ -15365,31 +15365,31 @@ class Device360(Device360WebElements):
                                                link_down="", remove_mac="", **kwargs):
         """
          - This keyword will change MAC locking state of a list of ports from Device level config
-         It assumes that MAC locking is already globaly enabled on a device template
+         It assumes that MAC locking is already globally enabled on a device template
          :param: mac_lock= OFF/ON, max_first_limit=1-600, disable_port=ON/OFF, link_down=clear macs/retain macs,
                 remove_mac=ON/OFF
         :return: -1 if error
         """
-        port_index = int(port)-1 #because the indexing starts from 0
+        port_index = int(port)-1
         self.utils.print_info("Navigate to MAC locking tab option from 'Port Configuration' menu.")
-        assert self.navigate_to_port_config_options('mac-locking') == 1 , "Failed to navigate to MAC Locking tab."
+        assert self.navigate_to_port_config_options('mac-locking') == 1, "Failed to navigate to MAC Locking tab."
         mac_locking_status = self.get_d360_monitor_mac_locking_on_off(port_index)
         if mac_lock and not mac_locking_status.is_selected() and mac_lock == "ON":
             AutoActions().click(mac_locking_status)
-            self.utils.print_info(f"Successfully set MAC Locking status to {mac_lock} for port {port}")
+            self.utils.print_info(f"Successfully set MAC Locking 'Status' to {mac_lock} for port {port}")
         elif mac_lock and mac_locking_status.is_selected() and mac_lock == "OFF":
             AutoActions().click(mac_locking_status)
-            self.utils.print_info(f"Successfully set MAC Locking status to {mac_lock} for port {port}")
+            self.utils.print_info(f"Successfully set MAC Locking 'Status' to {mac_lock} for port {port}")
         elif mac_lock and mac_locking_status.is_selected() and mac_lock == "ON":
-            kwargs['fail_msg'] = f"MAC locking status for port '{port}' is already set to '{mac_lock}'.Verify it was disabled first!"
+            kwargs['fail_msg'] = f"MAC locking 'Status' for port '{port}' is already set to '{mac_lock}'.Verify it was disabled first!"
             self.common_validation.passed(**kwargs)
             return -1
         elif mac_lock and not mac_locking_status.is_selected() and mac_lock == "OFF":
-            self.utils.print_info(f"MAC locking status for port '{port}' is set to default {mac_lock} state.")
+            self.utils.print_info(f"MAC locking 'Status' for port '{port}' is set to default {mac_lock} state.")
 
         max_first_arrival_box = self.get_d360_monitor_mac_locking_max_first_arrival_limit(port_index)
         if max_first_limit and max_first_arrival_box and max_first_limit == "600":
-            self.utils.print_info(f"Max first arrival for port '{port}' is set to default value of {max_first_limit}.")
+            self.utils.print_info(f"'Max first arrival' for port '{port}' is set to default value of {max_first_limit}.")
         elif max_first_limit:
             AutoActions().send_keys(max_first_arrival_box, max_first_limit)
             AutoActions().send_enter(max_first_arrival_box)
@@ -15397,8 +15397,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Error! Maximum limit of 600 has been exceeded.")
                 return self.get_mac_locking_exceed_limit_error().get_attribute("data-tooltip")
             else:
-                kwargs['pass_msg'] = f"Successfully set max arrival to {max_first_limit} for port {port}."
-                self.common_validation.passed(**kwargs)
+                self.utils.print_info(f"Successfully set 'Max arrival' to {max_first_limit} for port {port}.")
 
         disable_port_toggle = self.get_d360_mac_locking_disable_port(port_index)
         if disable_port_toggle and not disable_port_toggle.is_selected() and disable_port == "ON":
@@ -15416,8 +15415,22 @@ class Device360(Device360WebElements):
 
         link_down_action_dropdown = self.get_d360_mac_locking_link_down_action(port_index)
         if link_down:
-            print("To be developed if needed")
+            print(f"To be developed if needed {link_down_action_dropdown}")
 
         remove_mac_toggle = self.get_d360_mac_locking_remove_mac_toggle(port_index)
-        if remove_mac:
-            print("To be developed if needed")
+        if remove_mac and not remove_mac_toggle.is_selected() and remove_mac == "ON":
+            AutoActions().click(remove_mac_toggle)
+            self.utils.print_info(f"Successfully set MAC Locking 'Remove MAC' to {remove_mac} for port {port}")
+        elif remove_mac and remove_mac_toggle.is_selected() and remove_mac == "OFF":
+            AutoActions().click(remove_mac_toggle)
+            self.utils.print_info(f"Successfully set MAC Locking 'Remove MAC' to {remove_mac} for port {port}")
+        elif remove_mac and remove_mac_toggle.is_selected() and remove_mac == "ON":
+            kwargs['fail_msg'] = f"MAC locking 'Remove MAC' for port '{port}' is already set to '{remove_mac}'.Verify it was disabled first!"
+            self.common_validation.passed(**kwargs)
+            return -1
+        elif remove_mac and not remove_mac_toggle.is_selected() and remove_mac == "OFF":
+            self.utils.print_info(f"MAC locking 'Remove MAC' for port '{port}' is set to default {remove_mac} state.")
+
+        kwargs['pass_msg'] = "'configure_mac_locking_from_port_config()' sucessfully set up parameters for MAC locking in D360."
+        self.common_validation.passed(**kwargs)
+        return 1

@@ -2555,7 +2555,7 @@ class Cli(object):
         #self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
         self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
                                             max_wait=10, interval=2)
-        output = self.networkElementCliSend.send_cmd(dut.name, f'show mac-locking',
+        output = self.networkElementCliSend.send_cmd(dut.name, 'show mac-locking',
                                                      max_wait=10, interval=2)
         #self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
         p = re.compile(r'(^\d+)\s+(ena|dis)', re.M)
