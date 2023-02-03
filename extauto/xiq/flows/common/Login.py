@@ -110,7 +110,8 @@ class Login:
 
         Supported Modes:
             UI - default mode
-            XAPI - kwargs XAPI_ENABLED=True
+            XAPI - kwargs XAPI_ENABLED=True (Will support both XAPI and UI keywords in your test)
+                   kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
 
         :param username: login account username
         :param password: login account password
@@ -131,14 +132,14 @@ class Login:
         :return: 1 if login successful else -1
         """
 
-        if self.xapiHelper.is_xapi_enabled(**kwargs):
-            # new XAPI call
-            self.xapiLogin.login(username, password, **kwargs)
+        # new XAPI call to get and set the XAPI token
+        self.xapiLogin.login(username, password, **kwargs)
 
-            # Look for the XAPI_ONLY
-            xapi_only = kwargs.get('XAPI_ONLY', False)
-            if xapi_only:
-                return 1
+        # Look for the XAPI_ONLY and if set return
+        xapi_only = kwargs.get('XAPI_ONLY', False)
+        if xapi_only:
+            self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
+            return 1
 
         result = -1
         count = 0
