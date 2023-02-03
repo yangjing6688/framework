@@ -15308,12 +15308,12 @@ class Device360(Device360WebElements):
         vlan_list = []
 
         if option not in ["create", "delete"]:
-            kwarg["fail_msg"] = "Wrong option! Choose 'create' or 'delete'."
+            kwargs["fail_msg"] = "Wrong option! Choose 'create' or 'delete'."
             self.common_validation.failed(**kwargs)
             return -1
 
         if os.lower() not in ["exos", "voss"]:
-            kwarg["fail_msg"] = "Failed! OS not supported."
+            kwargs["fail_msg"] = "Failed! OS not supported."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -15372,6 +15372,6 @@ class Device360(Device360WebElements):
                 vlan_list_one_string = ",".join(vlan_list)
                 self.get_supplemental_cli(profile_scli, vlan_list_one_string)
 
-        kwargs["pass_msg"] = f"Successfully created the supplemental cli profile with the generated commands."
+        kwargs["pass_msg"] = "Successfully created the supplemental cli profile with the generated commands."
         self.common_validation.passed(**kwargs)
         return 1

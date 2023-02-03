@@ -1399,14 +1399,14 @@ class Cli(object):
         """
 
         if cli_type.lower() not in ["exos", "voss"]:
-            kwarg["fail_msg"] = "Failed! OS not supported."
+            kwargs["fail_msg"] = "Failed! OS not supported."
             self.commonValidation.failed(**kwargs)
             return -1
 
         spawn = self.__open_pxssh_spawn(ip, username, password, disable_strict_host_key_checking=disable_strict_host_key_checking, _port=port)
 
         if spawn == -1:
-            kwarg["fail_msg"] = "Failed to Open The Spawn to Device.So Exiting the Testcase"
+            kwargs["fail_msg"] = "Failed to Open The Spawn to Device.So Exiting the Testcase"
             self.commonValidation.fault(**kwargs)
             return -1
         

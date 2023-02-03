@@ -298,7 +298,7 @@ class XiqVerifications:
             self.common_validation.passed(**kwargs)
             return 1
 
-        except Exception as e:
+        except:
             kwargs["fail_msg"] = f"No '{event}' found in Events Tab"
             self.common_validation.failed(**kwargs)
             return -1
@@ -323,7 +323,7 @@ class XiqVerifications:
         """
 
         if os.lower() not in ["exos", "voss"]:
-            kwarg["fail_msg"] = "Failed! OS not supported."
+            kwargs["fail_msg"] = "Failed! OS not supported."
             self.common_validation.failed(**kwargs)
             return -1
 
