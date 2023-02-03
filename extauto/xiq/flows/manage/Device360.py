@@ -15280,7 +15280,6 @@ class Device360(Device360WebElements):
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     self.navigator.navigate_to_devices()
                     self.dev.refresh_devices_page()
-                    sleep(20)
                     self.navigator.navigate_to_device360_page_with_mac(dut.mac)
                     self.navigator.navigate_to_port_configuration_d360()
                     self.select_stack_unit(slot)
@@ -15290,7 +15289,6 @@ class Device360(Device360WebElements):
                 
                 self.navigator.navigate_to_devices()
                 self.dev.refresh_devices_page()
-                sleep(20)
                 self.navigator.navigate_to_device360_page_with_mac(dut.mac)
                 self.navigator.navigate_to_port_configuration_d360()
                 self.device360_configure_ports_trunk_vlan(
