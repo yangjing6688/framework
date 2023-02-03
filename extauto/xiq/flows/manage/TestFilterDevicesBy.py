@@ -17,10 +17,12 @@ class TestFilterDevicesBy():
         self.screen = Screen()
     def check_filter_device_by_network_policy_is_correct(self):
         """ Verification of the filtering of the devices by network policy
-                  prequist: Require at least two onboard devices with with two different wireless networks
+                  pre-conditions: Require at least two onboard devices with with two different wireless network policys
                   usage of test case:
-                  Test1: Filter Device By network policy
-                  filter device by policy
+                  ${CHECK_RESULT}=        check filter device by network policy is correct
+                  Should Be Equal As Integers    ${CHECK_RESULT}        1
+                  Test1: Filter Device By network policy,for example,device1 is assigned policy1,device2 is assigned policy2
+                  filter device1 by policy1 and filter device2 by policy2
         """
         sn_list, policy_list = self.FilterManageDevices.check_available_devices()
         if sn_list == -1: return -1, policy_list
@@ -31,17 +33,25 @@ class TestFilterDevicesBy():
         self.utils.print_info(" ----- Filter the policy  " + str(policy_list[0]) + " ----- ")
         status, error = self.filter_policy(str(policy_list[0]))
         if status == -1:
-            self.utils.print_info(error)
+            kwargs['fail_msg'] = error
+            self.common_validation.failed(**kwargs)
             return -1
         status, error = self.filter_policy(str(policy_list[1]))
         if status == -1:
-            self.utils.print_info(error)
+            kwargs['fail_msg'] = error
+            self.common_validation.failed(**kwargs)
             return -1
         self.FilterManageDevices.clear_all_filters()
         return str(1)
 
     def filter_policy(self,policy):
         """  Check the filter network policy result:device list and return the result
+             parameter:policy is the name of network-policy
+             result:
+                   -1 means filter device by the network-policy failed,the error message need to be returned as well.
+                   1 means filter device by the network-policy successfully,if it's successful,the error message should be none
+             example:
+             status, error = self.filter_policy(policyName)
         """
         self.FilterManageDevices.select_filter_by(self.filter_element.get_policy_filter(policy), filter_name='policy')
         self.apply_filter(self.filter_element.get_applied_filter_btn())
@@ -49,23 +59,27 @@ class TestFilterDevicesBy():
         self.utils.print_info(
             " **** The result after the filter *** " + str(actual_sn_list) + " " + str(actual_policy_list))
         if not actual_sn_list or not actual_policy_list or len(actual_sn_list) != 1 or len(actual_sn_list) != 1:
+            kwargs['fail_msg'] = "The device list does not match with the filter "
+            self.common_validation.failed(**kwargs)
             return -1, "The device list does not match with the filter " + policy
 
         if policy != actual_policy_list[0]:
+            kwargs['fail_msg'] = "The device list does not match with the filter "
+            self.common_validation.failed(**kwargs)
             return -1, "The device list does not match with the filter " + policy
-        #self.select_filter_by(self.filter_element.get_policy_filter(policy), filter_name='policy', reset=False)
         self.FilterManageDevices.select_filter_by(self.filter_element.get_policy_filter(policy), filter_name='policy', reset=True)
         self.apply_filter(self.filter_element.get_applied_filter_btn())
 
-        return str(1), None
+        return 1, None
 
     def apply_filter(self,locator):
         """  Click the ""APPLY FILTERS button to make the filter effective""
         """
         self.utils.print_info("----- Apply the filter-----")
-        #self.auto_actions.click_reference(locator)
         element = self.web.get_element(locator)
-        if not element: assert True == False, "Not able to find the button 'APPLY FILTERS'" + str(
-            locator)
+        if not element:
+            kwargs['fail_msg'] = "Not able to find the button 'APPLY FILTERS'"
+            self.common_validation.failed(**kwargs)
+            assert True == False, "Not able to find the button 'APPLY FILTERS'" + str(locator)
         self.utils.print_info(" Click the 'APPLY FILTERS' button")
         self.auto_actions.click(element)
