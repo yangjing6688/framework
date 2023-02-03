@@ -10,6 +10,16 @@ class DeviceTemplateWebElementDefinitions:
             'XPATH': "//div[@data-automation-tag='automation-tab-switch-settings']",
         }
 
+    policy_sr_dell_switching_tab = \
+        {
+            'XPATH': "//div[@data-automation-tag='automation-tab-sr-dell-switching']",
+        }
+
+    policy_sr_dell_switch_templates_tab = \
+        {
+            'XPATH': "//li[@data-automation-tag='automation-sider-list-switchtemplates']",
+        }
+
     policy_switch_templates_tab = \
         {
             'XPATH': "//li[@data-automation-tag='policy-switching-templates']",
