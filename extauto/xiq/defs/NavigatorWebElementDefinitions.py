@@ -1341,3 +1341,11 @@ class NavigatorWebElementDefinitions:
         {
         "XPATH": '//a[@data-size="100"]'
         }
+
+    unknown_tooltip_error = {
+        'XPATH': '//*[contains(@class,"ui-tipbox-error")]'
+    }
+
+    unknown_error_tooltip_close_icon = {
+        'XPATH': '//*[contains(@class,"ui-tipbox-close")]'
+    }
