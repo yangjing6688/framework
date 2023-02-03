@@ -1,5 +1,5 @@
-from extauto.xiq.defs.WirelessNetworksDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.WirelessNetworksDefinitions import WirelessNetworksDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class WirelessWebElements(WirelessNetworksDefinitions):

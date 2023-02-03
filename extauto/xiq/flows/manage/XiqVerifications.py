@@ -3,7 +3,6 @@ import string
 import random
 
 from collections import defaultdict
-from extauto.common.Utils import Utils
 from extauto.common.Cli import Cli
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
@@ -20,7 +19,7 @@ from extauto.xiq.flows.manage.Tools import Tools
 
 
 class XiqVerifications:
-    
+
     def __init__(self):
         self.auto_actions = AutoActions()
         self.utils = Utils()
@@ -58,7 +57,7 @@ class XiqVerifications:
             port_order_in_asic (int, optional): the order in asic of the port we want to verify. Defaults to None.
             ports (List[str], optional): a list of ports to be verified. Defaults to None.
             slot (str, optional): the slot of the stack to be verified. Defaults to None.
-        
+
         Returns: None; The function will raise an error if the verification failed.
 
         """
@@ -84,7 +83,7 @@ class XiqVerifications:
         self.switch_template.set_stp(enable=True)
         self.switch_template.choose_stp_mode(mode=stp_mode)
         self.switch_template.go_to_port_configuration()
-        
+
         if slot:
             required_slot = template_switch + "-" + slot
             self.switch_template.navigate_to_slot_template(required_slot)
@@ -107,21 +106,21 @@ class XiqVerifications:
                         self.device360.verify_path_cost_field_is_editable()
                         self.device360.configure_stp_settings_tab_in_honeycomb(
                             stp_enabled=True,
-                            edge_port=True, 
+                            edge_port=True,
                             bpdu_protection="Disabled",
                             path_cost=port_type_config["path_cost"]
                         )
                         self.device360.go_to_last_page()
 
                         expected_summary = {
-                            'STP': 'Enabled', 
-                            'Edge Port': 'Enabled', 
-                            'BPDU Protection': 'Disabled', 
+                            'STP': 'Enabled',
+                            'Edge Port': 'Enabled',
+                            'BPDU Protection': 'Disabled',
                             'Path Cost': str(port_type_config["path_cost"])
                             }
                         self.utils.print_info(
                             f"Expected summary: {expected_summary}")
-                        
+
                         summary = self.device360.get_stp_settings_summary()
                         self.utils.print_info(f"Found summary: {summary}")
 
@@ -129,17 +128,17 @@ class XiqVerifications:
                             "Verify that the configured fields"
                             " appear correctly in the summary tab"
                         )
-                        
+
                         assert all(expected_summary[k] == summary[k] for k in expected_summary), \
-                            f"Not all the values of the summary are the expected ones. " \
+                            "Not all the values of the summary are the expected ones. " \
                             f"Expected summary: {expected_summary}\nFound summary: {summary}"
                         self.utils.print_info("Successfully verified the summary")
-                    
+
                     finally:
                         self.device360.save_port_type_config()
-            
+
             finally:
-                
+
                 self.utils.wait_till(timeout=5)
                 self.switch_template.switch_template_save()
                 self.utils.wait_till(timeout=10)
@@ -151,28 +150,28 @@ class XiqVerifications:
                     template_switch, network_policy, port,
                     port_type_config["path_cost"], slot=slot
                 )
-            
+
             if verify_delta_cli:
                 commands = []
                 if onboarded_switch.cli_type.upper() == "EXOS":
-                    
+
                     for port, port_type_config in port_config.items():
                         commands.append(
                             f"configure stpd s0 ports cost {port_type_config['path_cost']} {port}")
-                        
+
                 elif onboarded_switch.cli_type.upper() == "VOSS":
                     commands.extend(
-                        [   
+                        [
                             "enable",
                             "configure terminal"
                         ]
                     )
-                    
+
                     for port, port_type_config in port_config.items():
                         commands.extend(
                             [
                                 f"interface gigabitEthernet {port}",
-                                f"spanning-tree {stp_mode} cost {port_type_config['path_cost']}"                                
+                                f"spanning-tree {stp_mode} cost {port_type_config['path_cost']}"
                             ]
                         )
 
@@ -189,8 +188,8 @@ class XiqVerifications:
                                 f"interface {port}",
                                 f"spanning-tree cost {port_type_config['path_cost']}"
                             ]
-                        )                        
-                
+                        )
+
                 self.device_config.verify_delta_cli_commands(
                     onboarded_switch, commands=commands)
 
@@ -210,44 +209,44 @@ class XiqVerifications:
                 )
 
         finally:
-            
+
             if revert_configuration:
                 try:
                     self.utils.print_info(
-                        f"Go to the port configuration of"
+                        "Go to the port configuration of"
                         f" '{template_switch} 'template"
                     )
                     self.switch_template.select_sw_template(
                         network_policy, template_switch)
                     self.switch_template.go_to_port_configuration()
-                    
+
                     if slot:
                         required_slot = template_switch + "-" + slot
                         self.switch_template.navigate_to_slot_template(required_slot)
-            
+
                     self.switch_template.click_on_port_details_tab()
-                            
+
                     if revert_mode == "revert_template":
                         self.switch_template.revert_port_configuration_template_level(
                             "Auto-sense Port" if onboarded_switch.cli_type.upper() == "VOSS" else "Access Port")
                     elif revert_mode == "edit_honeycomb_with_empty_path_cost":
-                        
+
                         for port, port_type_config in port_config.items():
                             _, summary = self.device360.edit_stp_settings_in_honeycomb_port_editor(
                                 port,
                                 port_type_name=port_type_config["port_type_name"],
                                 path_cost=""
                             )
-                            
+
                             assert summary["Path Cost"] == "", "Failed to edit the Path Cost"
                             self.utils.print_info("Successfully edited the Path Cost")
-                        
+
                 finally:
-                    
+
                     self.utils.wait_till(timeout=5)
                     self.switch_template.switch_template_save()
                     self.utils.wait_till(timeout=10)
-                    
+
                     self.utils.print_info(
                         "Saved the port type configuration, "
                         "now push the changes to the dut")
@@ -256,7 +255,7 @@ class XiqVerifications:
                         policy_name=network_policy,
                         dut=onboarded_switch
                     )
-                    
+
                     for port in port_config:
                         self.cli.verify_path_cost_on_device(
                             onboarded_switch,

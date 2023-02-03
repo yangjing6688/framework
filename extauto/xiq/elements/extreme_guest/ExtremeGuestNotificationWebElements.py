@@ -1,5 +1,5 @@
 from extauto.xiq.defs.extreme_guest.ExtremeGuestNotificationWebElementsDefs import ExtremeGuestNotificationWebElementsDefs
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ExtremeGuestNotificationWebElements(ExtremeGuestNotificationWebElementsDefs):

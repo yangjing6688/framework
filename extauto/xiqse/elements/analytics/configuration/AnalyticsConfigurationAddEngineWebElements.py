@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.analytics.configuration.AnalyticsConfigurationAddEngineWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.analytics.configuration.AnalyticsConfigurationAddEngineWebElementsDefinitions import AnalyticsConfigurationAddEngineWebElementsDefinitions
 
 
 class AnalyticsConfigurationAddEngineWebElements(AnalyticsConfigurationAddEngineWebElementsDefinitions):
@@ -29,7 +29,7 @@ class AnalyticsConfigurationAddEngineWebElements(AnalyticsConfigurationAddEngine
         :return: Add Engine dialog OK button
         """
         return self.weh.get_element(self.add_engine_ok_button)
-    
+
     def get_add_engine_cancel_button(self):
         """
         :return: Add Engine dialog Cancel button

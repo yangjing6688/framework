@@ -42,7 +42,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the System Name field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the System Name field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -65,7 +65,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Contact field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Contact field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -88,7 +88,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Location field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Location field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -131,7 +131,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Unable to find the Administration Profile dropdown in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Administration Profile dropdown in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -154,7 +154,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Replacement Serial Number field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Replacement Serial Number field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -269,7 +269,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
                 self.utils.print_info("WebView URL field is disabled - check the state of the Use Default WebView URL checkbox")
                 self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f"Unable to find the WebView URL field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the WebView URL field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -316,7 +316,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Unable to find the Default Site dropdown in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Default Site dropdown in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -361,7 +361,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Unable to find the Poll Group dropdown in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Poll Group dropdown in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -407,7 +407,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Unable to find the Poll Type dropdown in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Poll Type dropdown in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -430,7 +430,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the SNMP Timeout field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the SNMP Timeout field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -453,7 +453,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the SNMP Retries field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the SNMP Retries field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -509,7 +509,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Unable to find the Topology Layer dropdown in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Topology Layer dropdown in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -556,7 +556,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field_trigger)
         else:
-            self.utils.print_info(f"Unable to find the Collection Mode dropdown in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Collection Mode dropdown in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -579,7 +579,7 @@ class XIQSE_NetworkCommonConfigureDeviceDevice(NetworkCommonConfigureDeviceDevic
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Collection Interval field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Collection Interval field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val

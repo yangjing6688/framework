@@ -1,7 +1,7 @@
-from a3.defs.NavigatorWebElementDefinitions import *
-from common.AutoActions import *
-from common.WebElementHandler import *
-from time import sleep
+from a3.defs.NavigatorWebElementDefinitions import NavigatorWebElementDefinitions
+from common.AutoActions import AutoActions
+from common.Utils import Utils
+from common.WebElementHandler import WebElementHandler
 
 
 class NavigatorWebElements(NavigatorWebElementDefinitions):

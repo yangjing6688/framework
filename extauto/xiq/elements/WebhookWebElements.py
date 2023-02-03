@@ -1,5 +1,5 @@
-from extauto.xiq.defs.WebhookDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.WebhookDefs import WebhookDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class WebhookWebElements(WebhookDefs):

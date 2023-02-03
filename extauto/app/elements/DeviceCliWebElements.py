@@ -1,6 +1,6 @@
-from extauto.app.defs.DeviceCliDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.app.defs.DeviceCliDefinitions import DeviceCliDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DeviceCliWebElements(DeviceCliDefinitions):
@@ -27,9 +27,5 @@ class DeviceCliWebElements(DeviceCliDefinitions):
                 return cli_cmd.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"
-
-
-
-

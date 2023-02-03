@@ -157,7 +157,7 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_ml_insight_network_scorecard(self):
         return self.weh.get_element(self.ml_insight_networkScorecard)
-    
+
     def get_ml_insight_retail(self):
         return self.weh.get_element(self.ml_insight_retail)
 
@@ -386,7 +386,7 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_device_actions_advanced_cli_router_access(self):
         return self.weh.get_element(self.device_actions_advanced_cli_router_access())
-   
+
     def get_global_settings_audit_logs_slider(self):
         return self.weh.get_element(self.global_settings_audit_logs_slider)
 
@@ -704,7 +704,7 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
                         return el
             # Nothing was found
             return None
-        except:
+        except Exception:
             # An error occured
             return None
 

@@ -1,4 +1,5 @@
-from extauto.common.CloudDriver import CloudDriver
+from time import sleep
+
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -6,7 +7,6 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestLandingWebElements import ExtremeGuestLandingWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
 from extauto.common.CommonValidation import CommonValidation
-from time import sleep
 
 
 

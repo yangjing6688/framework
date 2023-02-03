@@ -1,6 +1,7 @@
-from xiqse.defs.control.dashboard.ControlDashboardWebElementsDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from xiqse.defs.control.dashboard.ControlDashboardWebElementsDefinitions import ControlDashboardWebElementsDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 
 class ControlDashboardWebElements(ControlDashboardWebElementsDefinitions):
     def __init__(self):

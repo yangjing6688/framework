@@ -1,7 +1,6 @@
-from extauto.app.defs.NewDeviceOnboardDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
-from selenium.common.exceptions import NoSuchElementException
+from extauto.app.defs.NewDeviceOnboardDefinitions import NewDeviceOnboardDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):
@@ -88,7 +87,7 @@ class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):
                 return model_number.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"
 
     def get_ap_serial_no(self):
@@ -98,7 +97,7 @@ class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):
                 return serial_number.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"
 
     def get_next_option(self):
@@ -219,7 +218,7 @@ class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):
                 return location.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"
 
     def get_dloc(self):
@@ -232,7 +231,7 @@ class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):
                 return building.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"
 
     def get_floor_info(self):
@@ -242,7 +241,7 @@ class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):
                 return floor.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"
 
     def get_dpolicy(self):
@@ -252,7 +251,7 @@ class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):
                 return policy.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"
 
     def get_device_home_backward(self):
@@ -265,7 +264,7 @@ class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):
                 return policy.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"
 
     def get_device_hlocation(self):
@@ -275,5 +274,5 @@ class NewDeviceOnboardWebElements(NewDeviceOnboardDefinitions):
                 return location.text
             else:
                 return "None"
-        except Exception as e:
+        except Exception:
             return "None"

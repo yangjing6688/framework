@@ -1,8 +1,8 @@
 import re
-from time import sleep
+
+from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DeviceCliAccessElements import DeviceCliAccessElements
 
@@ -85,7 +85,7 @@ class DeviceCliAccess(DeviceCliAccessElements):
 
         self.utils.print_info("Check the output on second device cli output field")
         if self.get_cli_cmd_output_field():
-            self.utils.print_info(f"second device output field:")
+            self.utils.print_info("second device output field:")
             self.utils.print_info(self.get_cli_cmd_output_field().text)
             self.utils.print_info("first device output appearing on second device output field")
             return -1

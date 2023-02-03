@@ -1,5 +1,5 @@
-from extauto.xiq.defs.AccntMgmtWebElementsDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.AccntMgmtWebElementsDefs import AccntMgmtWebElementsDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class AccntMgmtWebElements(AccntMgmtWebElementsDefs):
@@ -103,5 +103,3 @@ class AccntMgmtWebElements(AccntMgmtWebElementsDefs):
     def get_credential_distribution_groups_member_of(self):
         parent = self.weh.get_element(self.credential_distribution_groups_member_of_parent)
         return self.weh.get_element(self.credential_distribution_groups_member_of, parent=parent)
-
-
