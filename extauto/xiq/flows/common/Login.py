@@ -355,7 +355,7 @@ class Login:
                 self.utils.print_info("Found Unknown Tooltip Error After Login.So Closing the Error Message!!")
                 self.screen.save_screen_shot()
                 self.auto_actions.click_reference(self.self.nav_web_elements.get_unknown_error_tooltip_close_icon)
-        except Exception as e:
+        except Exception:
             pass
 
         if check_warning_msg:
