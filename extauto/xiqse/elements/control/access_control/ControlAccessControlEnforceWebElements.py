@@ -1,6 +1,7 @@
-from xiqse.defs.control.access_control.ControlAccessControlEnforceWebElementsDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from xiqse.defs.control.access_control.ControlAccessControlEnforceWebElementsDefinitions import ControlAccessControlEnforceWebElementsDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 
 class ControlAccessControlEnforceWebElements(ControlAccessControlEnforceWebElementsDefinitions):
     def __init__(self):
@@ -19,6 +20,3 @@ class ControlAccessControlEnforceWebElements(ControlAccessControlEnforceWebEleme
         :return: Menu pick from NAC enforce
         """
         return self.weh.get_template_element(self.nacenforce_combo_menu, element_name=menu_item)
-
-
-

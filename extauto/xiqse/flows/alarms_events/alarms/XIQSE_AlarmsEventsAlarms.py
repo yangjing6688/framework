@@ -30,11 +30,11 @@ class XIQSE_AlarmsEventsAlarms(AlarmsEventsAlarmsWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "true":
-                self.utils.print_info(f"Clicking Search button")
+                self.utils.print_info("Clicking Search button")
                 self.auto_actions.click(search_btn)
                 sleep(2)
             else:
-                self.utils.print_info(f"Search field already open")
+                self.utils.print_info("Search field already open")
             ret_val = 1
         else:
             self.utils.print_info("Unable to find the Search button")
@@ -82,11 +82,11 @@ class XIQSE_AlarmsEventsAlarms(AlarmsEventsAlarmsWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Search button to perform the search")
+                self.utils.print_info("Clicking Search button to perform the search")
                 self.auto_actions.click(search_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Search button to perform the search")
@@ -108,11 +108,11 @@ class XIQSE_AlarmsEventsAlarms(AlarmsEventsAlarmsWebElements):
         search_text = self.get_search_text_field()
         if clear_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Clear button")
+                self.utils.print_info("Clicking Clear button")
                 self.auto_actions.click(clear_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Clear button")
@@ -135,10 +135,10 @@ class XIQSE_AlarmsEventsAlarms(AlarmsEventsAlarmsWebElements):
             self.utils.print_info(f"Waiting for search to complete: loop {count}")
             load_mask = self.view_el.get_load_mask()
             if load_mask:
-                self.utils.print_info(f"Search still in progress...")
+                self.utils.print_info("Search still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Search has completed")
+                self.utils.print_info("Search has completed")
                 return 1
             count += 1
 

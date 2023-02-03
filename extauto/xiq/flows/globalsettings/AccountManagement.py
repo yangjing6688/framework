@@ -86,7 +86,8 @@ class AccountManagement(AccntMgmtWebElements):
         name = accnt_config.get('name')
         timeout = accnt_config.get('timeout')
         role = accnt_config.get('role')
-        location = accnt_config.get('location')
+        # Commented on 1/18/23 because it is unused
+        # location = accnt_config.get('location')
         organization = accnt_config.get('organization')
 
         self.utils.print_info("Navigating to the account Management page..")
@@ -135,13 +136,13 @@ class AccountManagement(AccntMgmtWebElements):
         if role == "GuestManagement" or role == "Administrator":
             self.utils.print_info(f'Cannot select location for :{role} role')
         if role != "GuestManagement" and role != "Administrator":
-            self.utils.print_info(f'selecting the location check box')
+            self.utils.print_info('selecting the location check box')
             self.auto_actions.click_reference(self.get_Rbac_Assign_Location_checkbox)
 
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.utils.print_info(f'Clicking Account Management save button')
+        self.utils.print_info('Clicking Account Management save button')
         self.auto_actions.click_reference(self.get_account_mgmt_save_button)
         sleep(5)
         tool_tip_text = tool_tip.tool_tip_text
@@ -151,7 +152,7 @@ class AccountManagement(AccntMgmtWebElements):
                 kwargs['fail_msg'] = f"'create_role_based_account()' -> {text}"
                 self.common_validation.failed(**kwargs)
                 return -1
-        kwargs['pass_msg'] = f"'create_role_based_account()' -> Successfully create role based account"
+        kwargs['pass_msg'] = "'create_role_based_account()' -> Successfully create role based account"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -198,7 +199,7 @@ class AccountManagement(AccntMgmtWebElements):
         sleep(2)
 
         if row := self.search_guest_accounts():
-            self.utils.print_info(f"Deleting Guest account")
+            self.utils.print_info("Deleting Guest account")
             for row_guest in row:
                 self.auto_actions.click(self.get_account_mgmt_grid_row_check_box(row_guest))
             sleep(2)
@@ -228,7 +229,7 @@ class AccountManagement(AccntMgmtWebElements):
         sleep(2)
 
         if row := self.search_guest_account(email_addr):
-            self.utils.print_info(f"Deleting  account")
+            self.utils.print_info("Deleting  account")
             self.auto_actions.click(self.get_account_mgmt_grid_row_check_box(row))
             sleep(2)
             self.utils.print_info("click on delete button")
@@ -530,8 +531,8 @@ class AccountManagement(AccntMgmtWebElements):
             return -4
 
         if "The Member Group cannot be saved because the name " + member_of + " already exists.":
-            kwargs['fail_msg'] = f"'create_credential_distribution_groups()' -> The Member Group cannot be saved " \
-                                 f"because the name " + member_of + " already exists."
+            kwargs['fail_msg'] = "'create_credential_distribution_groups()' -> The Member Group cannot be saved " \
+                                 "because the name " + member_of + " already exists."
             self.common_validation.failed(**kwargs)
             return -5
 

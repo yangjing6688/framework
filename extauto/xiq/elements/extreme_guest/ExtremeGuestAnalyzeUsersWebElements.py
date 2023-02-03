@@ -1,6 +1,5 @@
-from sys import builtin_module_names
 from extauto.xiq.defs.extreme_guest.ExtremeGuestAnalyzeUsersWebElementsDefs import ExtremeGuestAnalyzeUsersWebElementsDefs
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ExtremeGuestAnalyzeUsersWebElements(ExtremeGuestAnalyzeUsersWebElementsDefs):

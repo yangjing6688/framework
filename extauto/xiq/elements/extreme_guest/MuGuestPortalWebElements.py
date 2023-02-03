@@ -1,10 +1,13 @@
-from xiq.defs.extreme_guest.MuGuestPortalWebElementsDefs import MuGuestPortalWebElementsDefs
+from time import sleep
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from extauto.common.WebElementHandler import *
-from extauto.common.Screen import *
-from time import sleep
+
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
+from xiq.defs.extreme_guest.MuGuestPortalWebElementsDefs import MuGuestPortalWebElementsDefs
 
 
 class MuGuestPortalWebElements(MuGuestPortalWebElementsDefs):

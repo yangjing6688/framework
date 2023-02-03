@@ -1,5 +1,3 @@
-import json
-import requests
 from time import sleep
 import common.CloudDriver
 from common.Utils import Utils
@@ -55,4 +53,3 @@ class A3Inventory(A3InventoryWebElements):
         a3_page_title = self.driver.title
         self.utils.print_info("Page Title is : ", a3_page_title)
         return a3_page_title
-

@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.admin.licenses.AdminLicensesWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.admin.licenses.AdminLicensesWebElementsDefinitions import AdminLicensesWebElementsDefinitions
 
 
 class AdminLicensesWebElements(AdminLicensesWebElementsDefinitions):
