@@ -2543,30 +2543,27 @@ class Cli(object):
 
     def show_maclocking_on_the_ports_in_cli(self, dut, **kwargs):
         """
-         - This keyword will return a list of pairs(port number and mac locking state for each port)
+         - This keyword will return a list of pairs(port number and mac locking state for each port) for EXOS devices.
+        :param: dut: device to be tested
         :return: a list of pairs(port number and mac locking state for each port)
         :return: -1 if error
         """
-        if dut.cli_type.upper() == "VOSS":
+        if dut.cli_type.upper() != "EXOS":
             kwargs["fail_msg"] = "'show_maclocking_on_the_ports_in_cli()' failed. Wrong cli_type"
             self.commonValidation.failed(**kwargs)
 
-        for attempts in range(3):
-            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
-            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
-                                 max_wait=10, interval=2)
-            output = self.networkElementCliSend.send_cmd(dut.name, f'show mac-locking',
-                                          max_wait=10, interval=2)
-            self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
-            p = re.compile(r'(^\d+)\s+(ena|dis)', re.M)
-            match_port_mac_locking_state = re.findall(p, output[0].return_text)
-            self.utils.print_info(f"{match_port_mac_locking_state}")
-            kwargs["pass_msg"] = "'show_maclocking_on_the_ports_in_cli()' passed. Collected CLI MAC info."
-            self.commonValidation.passed(**kwargs)
-            return match_port_mac_locking_state
-        kwargs["fail_msg"] = "'show_maclocking_on_the_ports_in_cli()' failed. Something went wrong."
-        self.commonValidation.failed(**kwargs)
-        return -1
+        #self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+        self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                            max_wait=10, interval=2)
+        output = self.networkElementCliSend.send_cmd(dut.name, f'show mac-locking',
+                                                     max_wait=10, interval=2)
+        #self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
+        p = re.compile(r'(^\d+)\s+(ena|dis)', re.M)
+        match_port_mac_locking_state = re.findall(p, output[0].return_text)
+        self.utils.print_info(f"{match_port_mac_locking_state}")
+        kwargs["pass_msg"] = "'show_maclocking_on_the_ports_in_cli()' passed. Collected CLI MAC info."
+        self.commonValidation.passed(**kwargs)
+        return match_port_mac_locking_state
 
 
 if __name__ == '__main__':

@@ -15244,7 +15244,6 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return False
             for port in ports:
-                #AutoActions().click(self.get_device360_lacp_label(port=master_port))
                 AutoActions().click(self.get_device360_aggregate_available_port(port=port))
                 AutoActions().click(self.get_device360_aggregate_add_button())
             AutoActions().click(self.get_device360_lag_save_button())
@@ -15252,24 +15251,6 @@ class Device360(Device360WebElements):
             kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
             self.common_validation.passed(**kwargs)
             return 1
-
-    def set_pagination_to_100(self):
-        """
-        - This keyword will set pagination to 100(D360 window)
-        It Assumes That Already Navigated to D360
-        """
-        current_pagination_size = self.get_device360_ports_table_current_pagination_size()
-        if current_pagination_size.text != '100':
-            print("pagination size is not set to 100")
-
-            paginations = self.dev360.get_device360_ports_table_pagination_sizes()
-            assert paginations, "Failed to find the paginations for Device 360 tabular ports view"
-            [pagination] = [pg for pg in paginations if pg.text == '100']
-            AutoActions().click(pagination)
-            # AutoActions().click(self.get_d360_overview_scroll())
-            # AutoActions().scroll_bottom()
-        else:
-            print("pagination size is already set to 100")
 
     def check_overview_row_table_by_port(self, port_name, **kwargs):
         """
@@ -15283,7 +15264,7 @@ class Device360(Device360WebElements):
         :return: a string with the status of speed
                 -1 if the status port was not found
         """
-        self.set_pagination_to_100()
+        self.select_pagination_size("100")
         rows_items = self.get_d360_monitor_items_rows()
         self.utils.print_info(len(self.get_d360_monitor_items_rows()))
         if rows_items:
@@ -15435,4 +15416,8 @@ class Device360(Device360WebElements):
 
         link_down_action_dropdown = self.get_d360_mac_locking_link_down_action(port_index)
         if link_down:
-            print("To be developed")
+            print("To be developed if needed")
+
+        remove_mac_toggle = self.get_d360_mac_locking_remove_mac_toggle(port_index)
+        if remove_mac:
+            print("To be developed if needed")

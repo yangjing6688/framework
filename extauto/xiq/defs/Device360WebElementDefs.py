@@ -3921,3 +3921,8 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    d360_mac_locking_remove_mac_toggle = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-remove-aged-macs"]',
+            'wait_for': 5
+        }

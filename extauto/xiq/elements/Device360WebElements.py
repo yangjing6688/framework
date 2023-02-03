@@ -2274,3 +2274,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_wait_for_port_config_to_load(self):
         return self.weh.get_element(self.wait_for_port_config_to_load)
+
+    def get_d360_mac_locking_remove_mac_toggle(self, port_number):
+        return self.weh.get_template_element(self.d360_mac_locking_remove_mac_toggle, port_number=port_number)
