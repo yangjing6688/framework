@@ -509,7 +509,7 @@ class SwitchTemplate(object):
         - If it is not there add to the sw_template
         - This function is working only for stack
         - Keyword Usage
-        - ``  ${MODEL_UNITS} ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
+        - ``  Add Sw Stack Template    ${MODEL_UNITS} ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}  ${CLI_TYPE}``
         - e.g. Add Sw Stack Template                           5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS
            ...                             bgd2        EXOS-5520-Series-Stack          politicamea      True
         :param model_units: a string will all units e.g 5520-24T,5520-24X,5520-48T
@@ -777,10 +777,13 @@ class SwitchTemplate(object):
     def delete_stack_units_device_template(self, nw_policy, sw_template_name, cli_type, **kwargs):
         """
         This function deletes the unit's template from a policy
+        - Keyword Usage
+        - ``  Delete Stack Units Device Template    ${NW_POLICY}  ${SW_TEMPLATE_NAME}  ${CLI_TYPE}``
 
         :param nw_policy: Policy name
         :param sw_template_name: template name
-        :return:
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
+        :return: 1 if Switch Stack Template Deleted Successfully else -1
         """
         self.utils.print_info("Navigate to devices")
         self.navigator.navigate_to_devices()
@@ -2401,8 +2404,12 @@ class SwitchTemplate(object):
     def nav_to_template_tab(self, nw_policy, cli_type, **kwargs):
         """
         This keyword navigate to template tab from policy
+        - Keyword Usage
+          - ``Nav To Template Tab  ${NW_POLICY}  ${CLI_TYPE}``
 
         :param nw_policy: name of policy
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
+
         :return: 1 if navigated with success; else -1
         """
 
@@ -2555,6 +2562,9 @@ class SwitchTemplate(object):
     def select_or_create_port_type(self, nw_policy, sw_template, cli_type, switch_profile, **kwargs):
         """
         - Assume that already on the Switch Template
+        - Keyword Usage
+          - ``select_or_create_port_type  ${NW_POLICY}  ${SW_TEMPLATE}  ${CLI_TYPE}  ${SWITCH_PROFILE}``
+
             :return: Returns 1 if successfully navigates to the Port Configuration Tab
                      Else returns -1
         """
@@ -2700,6 +2710,10 @@ class SwitchTemplate(object):
     def create_new_switch_template(self, wireless_network_conf, cli_type, **kwargs):
         """
         - Assume that the network policy has already been selected
+        - Keyword Usage
+          - ``select_or_create_port_type  ${NW_POLICY_DIC}  ${CLI_TYPE}``
+
+        ${NW_POLICY}
             :param wireless_network_conf: Dictionary contains information needed to configure templates
             :param cli_type: Device CLI Type e.g., VOSS,EXOS
             :return: Returns 1 if configuration is successful

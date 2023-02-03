@@ -36,7 +36,7 @@ class XiqVerifications:
         self.cli = Cli()
 
     def verify_path_cost_at_template_level(
-        self, onboarded_switch, path_cost, template_switch,
+        self, onboarded_switch, cli_type, path_cost, template_switch,
         network_policy, default_path_cost="", revert_mode="revert_template",
         port_type="access", verify_delta_cli=False, stp_mode="mstp",
         revert_configuration=True, port_order_in_asic=None, ports=None, slot=None):
@@ -45,6 +45,7 @@ class XiqVerifications:
 
         Args:
             onboarded_switch (dict): the switch - e.g. tb.dut1
+            cli_type (str): switch CLI type- e.g. VOSS, EXOS
             path_cost (int): the path cost value
             template_switch (str): the name of the switch template
             network_policy (str): the name of the network policy
@@ -79,7 +80,7 @@ class XiqVerifications:
         self.utils.print_info(
             f"Go to the port configuration of '{template_switch}' template")
         self.switch_template.select_sw_template(
-            network_policy, template_switch)
+            network_policy, template_switch, cli_type)
         self.switch_template.set_stp(enable=True)
         self.switch_template.choose_stp_mode(mode=stp_mode)
         self.switch_template.go_to_port_configuration()
@@ -217,7 +218,7 @@ class XiqVerifications:
                         f" '{template_switch} 'template"
                     )
                     self.switch_template.select_sw_template(
-                        network_policy, template_switch)
+                        network_policy, template_switch, cli_type)
                     self.switch_template.go_to_port_configuration()
 
                     if slot:
