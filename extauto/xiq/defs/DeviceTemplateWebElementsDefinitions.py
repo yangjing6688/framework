@@ -1,8 +1,18 @@
 class DeviceTemplateWebElementDefinitions:
     device_template_tab = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='switchSettings']",
+            'XPATH': "//*[@data-automation-tag='automation-sider-list-aptemplate']",
             'wait_for': 5
+        }
+
+    policy_switching_tab = \
+        {
+            'XPATH': "//div[@data-automation-tag='automation-tab-switch-settings']",
+        }
+
+    policy_switch_templates_tab = \
+        {
+            'XPATH': "//li[@data-automation-tag='policy-switching-templates']",
         }
 
     device_template_ap_template_tab = \
@@ -374,6 +384,24 @@ class DeviceTemplateWebElementDefinitions:
         {
             'XPATH': '//div[@data-dojo-attach-point="configwizardNav"]//li[@class="wiz-item wiz-item-2"]',
             'wait_for': 10
+        }
+
+    select_sr_dell_tab = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tab-sr-dell-switching"]',
+            'wait_for': 5
+        }
+
+    select_wireless_tab = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tab-wireless-networks"]',
+            'wait_for': 5
+        }
+
+    select_ap_template_tab = \
+        {
+            'XPATH': '//li[@data-automation-tag="automation-sider-list-aptemplate"]',
+            'wait_for': 5
         }
 
     select_ap_template = \

@@ -45,17 +45,13 @@ class SwitchTemplate(object):
     def check_sw_template(self, sw_template):
         """
         - Check the Switch template in the Switch template Grid
-        - Assumes That Already in Network Policy Edit Page
+        - Assumes That Already in Switch template Grid Page
         - Keyword Usage
         - ``Check SW Template  ${SWITCH_TEMPLATE_NAME}``
 
         :param sw_template: Switch Template Name ie SR2024P,X440-G2-24p-10G4 etc
         :return: True if Switch Template Found on Grid else False
         """
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
-
         sw_template_rows_elements = self.sw_template_web_elements.get_sw_template_rows()
         if not sw_template_rows_elements:
             return False
@@ -115,17 +111,15 @@ class SwitchTemplate(object):
 
         self.utils.print_info("Navigating Network Policies")
         self.navigator.navigate_configure_network_policies()
-        sleep(1)
-
         self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
 
-        sleep(2)
+        self.utils.print_info("Click on Switching tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        tab = self.device_template_web_elements.get_policy_switch_templates_tab()
         if tab.is_displayed():
             self.utils.print_info("Click on Switch Templates tab")
             self.auto_actions.click(tab)
@@ -230,15 +224,11 @@ class SwitchTemplate(object):
 
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
-        if tab.is_displayed():
-            self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click(tab)
-            sleep(2)
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
         row = self.get_sw_template_row(sw_template)
         self.auto_actions.click(row)
@@ -265,15 +255,11 @@ class SwitchTemplate(object):
         self.nw_policy.select_network_policy_in_card_view(nw_policy)
         sleep(2)
 
-        self.utils.print_info("Click on Device Templates tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
-        if tab.is_displayed():
-            self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click(tab)
-            sleep(2)
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
         if self.check_sw_template(sw_template_name):
             kwargs['pass_msg'] = "Template Already present in the template grid"
@@ -530,11 +516,11 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-        sleep(2)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_debug("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = "add_5520_sw_stack_template() failed. " \
@@ -778,10 +764,11 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-        sleep(2)
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
         sel_btn = self.sw_template_web_elements.get_sw_template_select_button()
         sleep(2)
@@ -891,13 +878,13 @@ class SwitchTemplate(object):
 
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
 
-        self.utils.print_info("Click on switch Template tab")
-        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_tab_button)
-        sleep(2)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
         rows = self.sw_template_web_elements.get_sw_template_rows()
         if not rows:
             self.utils.print_info("Switch templates not exists in switch device template page")
@@ -1217,14 +1204,13 @@ class SwitchTemplate(object):
         sleep(1)
         self.nw_policy.select_network_policy_in_card_view(network_policy_name)
         sleep(2)
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
-        if tab.is_displayed():
-            self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click(tab)
-            sleep(2)
+
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
         if self.check_sw_template(device_model):
             kwargs['pass_msg'] = "Template Already present in the template grid"
             self.common_validation.passed(**kwargs)
@@ -1423,14 +1409,12 @@ class SwitchTemplate(object):
         sleep(1)
         self.nw_policy.select_network_policy_in_card_view(network_policy_name)
         sleep(2)
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
-        if tab.is_displayed():
-            self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click(tab)
-            sleep(2)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
         if self.check_sw_template(device_model):
             kwargs['pass_msg'] = "Template Already present in the template grid"
             self.common_validation.passed(**kwargs)
@@ -1577,14 +1561,13 @@ class SwitchTemplate(object):
         sleep(1)
         self.nw_policy.select_network_policy_in_card_view(network_policy_name)
         sleep(2)
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
-        if tab.is_displayed():
-            self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click(tab)
-            sleep(2)
+
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
         if self.check_sw_template(device_model):
             kwargs['pass_msg'] = "Template Already present in the template grid"
             self.common_validation.passed(**kwargs)
@@ -2034,15 +2017,11 @@ class SwitchTemplate(object):
 
         sleep(2)
 
-        self.utils.print_debug("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
-        if tab.is_displayed():
-            self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click(tab)
-            sleep(2)
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = "add_5520_sw_template() failed. " \
@@ -2118,8 +2097,12 @@ class SwitchTemplate(object):
             kwargs['fail_msg'] = f"Policy: {nw_policy} has not been found."
             self.common_validation.failed(**kwargs)
             return -1
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
         self.utils.print_info("Searching the template: ", sw_template_name)
         sw_templates_rows = self.sw_template_web_elements.get_sw_template_rows()
         if sw_templates_rows:
@@ -2243,6 +2226,12 @@ class SwitchTemplate(object):
         :return: 1 if template has been created; else -1
         """
 
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = "add_sw_template_from_policy_tab() failed. " \
                                  f"Template with name {sw_template_name} already present in the template grid"
@@ -2318,13 +2307,11 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-        self.utils.print_debug("Click on Device Template tab button")
-        self.auto_actions.click(self.device_template_web_elements.get_add_device_template_menu())
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
-        if tab.is_displayed():
-            self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click(tab)
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
         kwargs['pass_msg'] = "Navigated with success"
         self.common_validation.passed(**kwargs)
@@ -2464,15 +2451,12 @@ class SwitchTemplate(object):
         self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
         self.utils.wait_till(self.device_template_web_elements.get_add_device_template_menu)
 
-        self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_tab_button)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
-        if tab.is_displayed():
-            self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_tab_button)
-            self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
 
         h_link = self.get_sw_template_row_hyperlink(sw_template)
         self.auto_actions.click(h_link)
@@ -2595,12 +2579,11 @@ class SwitchTemplate(object):
         device_model = wireless_network_conf.get('device_model')
         switch_template_name = wireless_network_conf.get('switch_template_name')
 
-        self.utils.print_info("Click on  Device Templates tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        self.utils.wait_till(self.sw_template_web_elements.get_sw_template_tab_button)
+        self.utils.print_info("Click on Switching tab button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on  Switch Templates tab")
-        self.auto_actions.click(self.sw_template_web_elements.get_sw_template_tab_button())
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
         self.utils.print_info("Click on Select button/drop down")
         select_button = self.sw_template_web_elements.get_device_switch_select_button()

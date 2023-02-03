@@ -19,6 +19,7 @@ from extauto.xiq.flows.manage.DeviceConfig import DeviceConfig
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
+from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
 import random
@@ -41,6 +42,7 @@ class Device360(Device360WebElements):
         self.wireless_web_elements = WirelessWebElements()
         self.device_template_web_elements = DeviceTemplateWebElements()
         self.sw_template_web_elements = SwitchTemplateWebElements()
+        self.nav_web_elements = NavigatorWebElements()
         self.common_validation = CommonValidation()
         self.tools = Tools()
         self.networkElementCliSend = NetworkElementCliSend()
@@ -344,6 +346,13 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_tab)
         sleep(3)
         self.screen.save_screen_shot()
+
+        unknown_error = self.nav_web_elements.get_unknown_tooltip_error()
+        if unknown_error is not None and unknown_error.is_displayed():
+            self.utils.print_info("Found Unknown Tooltip Error in Device360-->SSH Page.So Closing the Error Message")
+            self.screen.save_screen_shot()
+            self.auto_actions.click_reference(self.self.nav_web_elements.get_unknown_error_tooltip_close_icon)
+
         self.utils.print_info("Clicking Device 360 SSH CLI Run Time: ", run_time)
         if run_time == 5:
             self.auto_actions.click_reference(self.get_device360_configure_ssh_cli_5min_radio)

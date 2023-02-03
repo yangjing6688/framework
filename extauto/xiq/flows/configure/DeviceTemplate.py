@@ -685,8 +685,12 @@ class DeviceTemplate(object):
         self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_save_button)
         sleep(3)
 
-        self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
+        self.utils.print_info("Click on Wireless tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_wireless_tab)
+        sleep(5)
+
+        self.utils.print_info("Click on AP Template tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_template_tab)
         sleep(5)
 
         self.utils.print_info("Click on AP Template add button")
@@ -792,12 +796,8 @@ class DeviceTemplate(object):
         self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_save_button)
         sleep(3)
 
-        self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
-        sleep(5)
-
-        self.utils.print_info("Click on Switch Template tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_select_switch_template)
+        self.utils.print_info("Click on SR/Dell Switching tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_sr_dell_tab)
         sleep(5)
 
         self.utils.print_info("Click on Switch Template add button")
@@ -895,8 +895,13 @@ class DeviceTemplate(object):
 
         self.screen.save_screen_shot()
 
-        self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
+        self.utils.print_info("Click on Wireless tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_wireless_tab)
+
+        self.utils.print_info("Click on AP Template tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_template_tab)
+
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Click on AP Template add button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_add_button)
