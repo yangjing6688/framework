@@ -710,3 +710,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_100_devices_per_page(self):
         return self.weh.get_element(self.no_100_devices_per_page)
+
+    def get_unknown_tooltip_error(self):
+        return self.weh.get_element(self.unknown_tooltip_error)
+
+    def get_unknown_error_tooltip_close_icon(self):
+        return self.weh.get_element(self.unknown_error_tooltip_close_icon)
