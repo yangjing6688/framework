@@ -15271,7 +15271,7 @@ class Device360(Device360WebElements):
 
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
         
         if dut.cli_type.upper() == "EXOS":

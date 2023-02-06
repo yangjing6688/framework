@@ -2645,7 +2645,7 @@ class Cli(object):
 
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
-            self.commonValidation.failed(**kwargs)
+            self.commonValidation.fault(**kwargs)
             return -1
 
         if dut.cli_type.upper() == "EXOS":
@@ -2658,13 +2658,13 @@ class Cli(object):
 
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     for port in ports.split(','):
-                        if str(slot) + ':' + port not in output:
+                        if not re.search(rf"^{slot}:{port}\s+", output):
                             ports_not_found.append(str(slot) + ':' + port)
                         else:
                             self.utils.print_info("Found the port: " + str(slot) + ':' + port)
             else:
                 for port in ports.split(','):
-                    if port + ' ' not in output:
+                    if not re.search(rf"^{port}\s+", output):
                         ports_not_found.append(port)
                     else:
                         self.utils.print_info("Found the port: " + port)

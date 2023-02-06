@@ -281,7 +281,7 @@ class XiqVerifications:
         Args:
             dut (dict): the dut, e.g. tb.dut1
             ports (str): the ports that will be verified - e.g. '1,3,5,10'
-            vlan_rnd (str): trunk vlan id values - e.g.  '400-500'
+            vlan_rng (str): trunk vlan id values - e.g.  '400-500'
 
         Returns:
             int: 1 if the function call has succeeded else -1
@@ -291,14 +291,14 @@ class XiqVerifications:
 
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
         
         delta_configs = self.device_config.get_device_config_audit_delta(dut.mac)
 
         if delta_configs == -1:
             kwargs["fail_msg"] = "Failed to get the delta cli output"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         if dut.cli_type.upper() == "EXOS":
@@ -309,15 +309,15 @@ class XiqVerifications:
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     for port in ports.split(','):
                         for vlan in range(int(vlan_rng.split('-')[0]), int(vlan_rng.split('-')[1]) + 1):
-                            if 'configure vlan ' + str(vlan) + ' add port ' + str(slot) + ':' + str(port) + ' tagged' + \
-                                                                                        ' #y' not in delta_configs:
-                                not_found.append('configure vlan ' + str(vlan) + ' add port ' + str(slot) + ':' +
-                                                str(port) + ' tagged' + ' #y')
+                            temp = f"configure vlan {vlan} add port {slot}:{port} tagged #y"
+                            if temp not in delta_configs:
+                                not_found.append(temp)
             else:
                 for port in ports.split(','):
                     for vlan in range(int(vlan_rng.split('-')[0]), int(vlan_rng.split('-')[1])+1):
-                        if 'configure vlan ' + str(vlan) + ' add port ' + str(port) + ' tagged' + ' #y'not in delta_configs:
-                            not_found.append('configure vlan ' + str(vlan) + ' add port ' + str(port) + ' tagged' + ' #y')
+                        temp = f"configure vlan {vlan} add port {port} tagged #y"
+                        if temp not in delta_configs:
+                            not_found.append(temp)
             
             if not_found:
                 self.utils.print_info("Did not find the following add port commands:\n")
@@ -348,14 +348,14 @@ class XiqVerifications:
 
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
         
         delta_configs = self.device_config.get_device_config_audit_delta(dut.mac)
 
         if delta_configs == -1:
             kwargs["fail_msg"] = "Failed to get the delta cli output"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         if dut.cli_type.upper() == "EXOS":  
@@ -366,14 +366,15 @@ class XiqVerifications:
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     for port in ports.split(','):
                         for vlan in range(int(vlan_range.split('-')[0]), int(vlan_range.split('-')[1]) + 1):
-                            if 'configure vlan ' + str(vlan) + ' delete port ' + str(slot) + ':' + str(port) not in delta_configs:
-                                not_found.append('configure vlan ' + str(vlan) + ' delete port ' + str(slot) + ':' +
-                                                str(port))
+                            temp = f"configure vlan {vlan} delete port {slot}:{port}"
+                            if temp not in delta_configs:
+                                not_found.append(temp)
             else:
                 for port in ports.split(','):
                     for vlan in range(int(vlan_range.split('-')[0]), int(vlan_range.split('-')[1])+1):
-                        if 'configure vlan ' + str(vlan) + ' delete port ' + str(port) not in delta_configs:
-                            not_found.append('configure vlan ' + str(vlan) + ' delete port ' + str(port))
+                        temp = f"configure vlan {vlan} delete port {port}"
+                        if temp not in delta_configs:
+                            not_found.append(temp)
             
             if not_found:
                 self.utils.print_info("Did not find the following delete port commands: ")
@@ -406,7 +407,7 @@ class XiqVerifications:
 
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         configuration_list = []
@@ -505,81 +506,8 @@ class XiqVerifications:
         self.common_validation.passed(**kwargs)
         return configuration_list
 
-    def check_devices_config_after_individual_add_port_push(self, dut, vlan_range, ports, policy_name, **kwargs):
-        """ Method that retrieves the vlan configuration the switch using the method 'get_device_vlan_configuration' and verifies if the vlan add commands were used.
-        Currently this method supports only switches with cli_type - exos.
-
-        Args:
-            dut (dict): the dut, e.g. tb.dut1
-            vlan_range (str): trunk vlan id values - e.g.  '400-500'
-            ports (str): the ports that will be verified - e.g. '1,3,5,10'
-            policy_name (str): the network policy assigned to the dut
-
-        Returns:
-            int: 1 if the function call has succeeded else -1
-        """
-
-        supported_devices = ["EXOS"]
-
-        if dut.cli_type.upper() not in supported_devices:
-            kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
-            self.common_validation.failed(**kwargs)
-            return -1
-
-        configuration_list = self.get_device_vlan_configuration(dut, ports, policy_name)
-        flag = True
-
-        if dut.cli_type.upper() == "EXOS":
-
-            for configuration in configuration_list:
-                
-                vlans_not_found = []
-                vlan_list_config = self.utils.get_regexp_matches(configuration, "(\d\d\d\d)", 1)
-                
-                for vlan in range(int(vlan_range.split('-')[0]), int(vlan_range.split('-')[1]) + 1):
-
-                    if vlan < 10:
-                        if '000' + str(vlan) not in vlan_list_config:
-                            vlans_not_found.append(str(vlan))
-                    elif vlan >= 10 and vlan < 100:
-                        if '00' + str(vlan) not in vlan_list_config:
-                            vlans_not_found.append(str(vlan))
-                    elif vlan >= 100 and vlan < 1000:
-                        if '0' + str(vlan) not in vlan_list_config:
-                            vlans_not_found.append(str(vlan))
-                    elif vlan >= 1000:
-                        if str(vlan) not in vlan_list_config:
-                            vlans_not_found.append(str(vlan))
-
-                if vlans_not_found:
-                    flag = False
-                    self.utils.print_info("Vlans not found. The vlan range was: " + vlan_range)
-                    self.utils.print_info('The port is currently configured as follows: ')
-                    self.utils.print_info(configuration)
-                    self.utils.print_info("The following vlans are missing:")
-                    vlans_not_found_string = ''
-                    
-                    for vlan in vlans_not_found:
-                        vlans_not_found_string = vlans_not_found_string + vlan + ', '
-                    
-                    self.utils.print_info(vlans_not_found_string[:-1])
-                    self.utils.print_info(3 * '\n')
-
-                else:
-                    self.utils.print_info("The add port commands for this port have been pushed succesfully!")
-                    self.utils.print_info(configuration)
-        
-        if not flag:
-            kwargs["fail_msg"] = "Failed to find the correct vlan configuration on the switch"
-            self.common_validation.failed(**kwargs)
-            return -1
-
-        kwargs["pass_msg"] = "Successfully found the correct vlan configuration on the switch"
-        self.common_validation.passed(**kwargs)
-        return 1
-
-    def check_devices_config_after_individual_delete_port_push(self, dut, ports, vlan_range, policy_name, **kwargs):
-        """ Method that retrieves the vlan configuration the switch using the method 'get_device_vlan_configuration' and verifies if the vlan delete commands were used.
+    def check_devices_config_after_individual_add_delete_port_push(self, dut, ports, vlan_range, policy_name, op="add", **kwargs):
+        """ Method that retrieves the vlan configuration the switch using the method 'get_device_vlan_configuration' and verifies if the vlan add|delete commands were used.
         
         Currently this method supports only switches with cli_type - exos.
 
@@ -588,7 +516,7 @@ class XiqVerifications:
             vlan_range (str): trunk vlan id values - e.g.  '400-500'
             ports (str): the ports that will be verified - e.g. '1,3,5,10'
             policy_name (str): the network policy assigned to the dut
-
+            op (str): 'add' or 'delete'
         Returns:
             int: 1 if the function call has succeeded else -1
         """
@@ -597,7 +525,7 @@ class XiqVerifications:
 
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         configuration_list = self.get_device_vlan_configuration(dut, ports, policy_name)
@@ -623,7 +551,7 @@ class XiqVerifications:
                     if str(vlan) in vlan_list_config:
                         vlans_found.append(str(vlan))
 
-            if vlans_found:
+            if op == "delete" and vlans_found:
 
                 flag = False
                 self.utils.print_info("Vlans found. The vlan range was: " + vlan_range)
@@ -637,8 +565,17 @@ class XiqVerifications:
                 
                 self.utils.print_info(vlans_found_string[:-1])
                 self.utils.print_info(3 * '\n')
-            else:
-                self.utils.print_info("The delete port commands for this port have been pushed succesfully!")
+
+            elif op == "add" and not vlans_found:
+                
+                flag = False
+                self.utils.print_info("Vlans not found. The vlan range was: " + vlan_range)
+                self.utils.print_info('The port is currently configured as follows: ')
+                self.utils.print_info(configuration)
+                self.utils.print_info(3 * '\n')
+
+            if flag:
+                self.utils.print_info(f"The {op} port commands for this port have been pushed succesfully!")
                 self.utils.print_info("The port is currently configured as follows: ")
                 self.utils.print_info(configuration)
         
@@ -671,7 +608,7 @@ class XiqVerifications:
 
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         template_exos = {'name': [trunk_port_type_name, trunk_port_type_name],
