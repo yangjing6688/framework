@@ -12539,7 +12539,7 @@ class Devices:
                 widget_loading = self.devices_web_elements.loading_bar()
                 try:
                     if widget_loading.is_displayed():
-                        self.utils.print_info(f"Please wait.. Restarting PSE in progress")
+                        self.utils.print_info("Please wait.. Restarting PSE in progress")
                 except AttributeError:
                     return 1
             self.utils.wait_till(func=_widget_loading, timeout=100, delay=5, exp_func_resp=1)
