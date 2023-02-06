@@ -12502,10 +12502,7 @@ class Devices:
         """
         - This method restarts the PSE profile
         - Selecting the Switch Engine device -> Utilities -> Restart PSE
-        - Keyword Usage : #Later will write this
-        :param serial_number: device Serial
-        :param device_mac: device MAC address
-        :param cli_type: device os EXOS/VOSS
+        :param dut: DUT Device
         :return: 1 if the PSE reset have been completed else -1
         """
 
