@@ -26,11 +26,9 @@ from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager imp
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from time import sleep
 from datetime import datetime, timedelta
-
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementLacpGenKeywords import \
     NetworkElementLacpGenKeywords
-
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementMltGenKeywords import \
     NetworkElementMltGenKeywords
 from itertools import islice
