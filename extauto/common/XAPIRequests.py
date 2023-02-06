@@ -89,7 +89,7 @@ class RestRequest:
 
         try:
             response = requests.request("GET", url, headers=headers, data=data_raw)
-            get_response = json.dumps(json.loads(response.text), indent=4, sort_keys=True)
+            json.dumps(json.loads(response.text), indent=4, sort_keys=True)
             self.utils.print_info("Response Code: ", response)
             self.utils.print_info("Response Info: ", response.text)
 

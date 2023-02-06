@@ -3,7 +3,7 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.MLInsightsWebElements import MLInsightsWebElements
-from extauto.xiq.elements.DialogWebElements import *
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.common.CommonValidation import CommonValidation
 
 
@@ -51,7 +51,7 @@ class MLInsights:
         organization = kwargs.get('organization')
         street_addr = kwargs.get('street_addr')
         city = kwargs.get('city')
-        country = kwargs.get('country')
+        # country = kwargs.get('country')
 
         # import sys, pdb
         # pdb.Pdb(stdout=sys.__stdout__).set_trace()

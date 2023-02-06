@@ -1,4 +1,4 @@
-from xiq.defs.PrivateClientGroupsDefinitions import *
+from xiq.defs.PrivateClientGroupsDefinitions import PrivateClientGroupsDefinitions
 from common.WebElementHandler import WebElementHandler
 
 

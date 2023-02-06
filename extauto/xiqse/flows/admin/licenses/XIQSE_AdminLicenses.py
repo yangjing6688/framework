@@ -84,10 +84,10 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
             self.utils.print_info(f"Waiting for Licenses table refresh to complete: loop {count}")
             load_mask = self.view_el.get_load_mask()
             if load_mask:
-                self.utils.print_info(f"Refresh of Licenses table still in progress...")
+                self.utils.print_info("Refresh of Licenses table still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Refresh of Licenses table has completed")
+                self.utils.print_info("Refresh of Licenses table has completed")
                 return 1
             count += 1
 

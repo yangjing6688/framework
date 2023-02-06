@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.admin.device_types.AdminDeviceTypesWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.admin.device_types.AdminDeviceTypesWebElementsDefinitions import AdminDeviceTypesWebElementsDefinitions
 
 
 class AdminDeviceTypesWebElements(AdminDeviceTypesWebElementsDefinitions):

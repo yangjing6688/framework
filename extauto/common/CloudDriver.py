@@ -1,7 +1,7 @@
 import sauceclient
 from datetime import datetime
 from selenium import webdriver
-from selenium.common.exceptions import *
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -26,7 +26,8 @@ class CloudDriver():
         self.__initialized = True
 
     def close_browser(self):
-        self.cloud_driver.quit()
+        if self.cloud_driver:
+            self.cloud_driver.quit()
         self.__initialized = False
 
     def start_browser(self, url="default", program="default", incognito_mode="False"):
@@ -56,8 +57,9 @@ class CloudDriver():
         element_identify_value_id = "password"
         element_identify_value_css = ".eguest-username"
         element_identify_value_xpath = "//*[@class='success_text']"
-        element_value = ".btn"
-        element_locator = "name"
+        # Commented on 1/18/23 because they are unused
+        # element_value = ".btn"
+        # element_locator = "name"
         element_identify = "name"
         element_identify_value_name = "username"
 
@@ -243,7 +245,7 @@ class CloudDriver():
 
                 if mode == "remote":
                     try:
-                        utils.print_info(f"Redirecting to Remote WebDriver at http://", str(webdriver_ip), ":",
+                        utils.print_info(f"Redirecting to Remote WebDriver at http://{str(webdriver_ip)}:",
                                          str(webdriver_port), "/wd/hub")
                         host_url = "http://" + str(webdriver_ip) + ":" + str(webdriver_port) + "/wd/hub"
                         cloud_driver = webdriver.Remote(host_url, webdriver.DesiredCapabilities.CHROME)
@@ -408,8 +410,9 @@ class CloudDriver():
         element_identify_value_name = "username"
         element_identify_value_id = "password"
         element_identify_value_css = ".eguest-username"
-        element_value = ".btn"
-        element_locator = "name"
+        # Commented on 1/18/23 because they are unused
+        # element_value = ".btn"
+        # element_locator = "name"
         element_identify = "name"
         element_identify_value_name = "username"
         element_identify_value_xpath = "//app-auth-failure"
@@ -564,5 +567,5 @@ class CloudDriver():
 
     def refresh_page(self):
         utils = Utils()
-        utils.print_info(f"Refreshing page")
+        utils.print_info("Refreshing page")
         self.cloud_driver.refresh()

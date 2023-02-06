@@ -1,6 +1,6 @@
-from a3.defs.LicenseManagementDefs import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from a3.defs.LicenseManagementDefs import LicenseManagementDefs
+from common.AutoActions import AutoActions
+from common.WebElementHandler import WebElementHandler
 
 
 class LicenseManagementElements(LicenseManagementDefs):

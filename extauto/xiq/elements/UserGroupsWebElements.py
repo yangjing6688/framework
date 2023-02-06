@@ -1,4 +1,4 @@
-from extauto.xiq.defs.UserGroupsWebElementsDefinitions import *
+from extauto.xiq.defs.UserGroupsWebElementsDefinitions import UserGroupsWebElementsDefinitions
 from extauto.common.WebElementHandler import WebElementHandler
 
 
@@ -156,7 +156,7 @@ class UserGroupsWebElements(UserGroupsWebElementsDefinitions):
     def get_user_group_text_field_form_error(self):
         return self.weh.get_elements(self.user_group_text_field_form_error)
 
-    def get_paze_size_element(self, page_size='50'):
+    def get_page_size_element(self, page_size='50'):
         els = self.weh.get_elements(self.page_size_element)
         if not els:
             return None
@@ -235,10 +235,9 @@ class UserGroupsWebElements(UserGroupsWebElementsDefinitions):
 
     def get_wireless_usr_profile_select_wind_cancel_button(self):
         return self.weh.get_element(self.wireless_usr_profile_select_wind_cancel_button)
-    
+
     def get_usr_group_select_all_checkbox(self):
         return self.weh.get_element(self.usr_group_select_all_checkbox)
 
     def get_ssid_user_group_item(self):
         return self.weh.get_element(self.ssid_user_group_item)
-    
