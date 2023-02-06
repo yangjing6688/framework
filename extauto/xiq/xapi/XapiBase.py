@@ -53,11 +53,15 @@ class XapiBase(object):
             raise Exception(f'ERROR: valid_http_response -> HTTPResponse status returned failure: {api_response.status}')
         return True
 
-    def getAsyncLongRunningOperation(self, operation_id):
+    def getLongRunningOperationId(self, response):
+        id = response.headers['Location'].split('/')[-1]
+        return id
+
+    def getAsyncLongRunningOperation(self, operation_id, **kwargs):
         """
             This method will poll the operation untit it has completed
         :param operation_id: When calling keywords with the async_req=True, this will be the operation id that is returned
-        :return: The completed operation json
+        :return: The completed operation json, or None for an error
         """
 
         # Get the configuration from the Global varibles
@@ -74,17 +78,14 @@ class XapiBase(object):
 
             try:
                 # get operation status
-                operation = api_instance.get_operation(operation_id)
-                operation_object = json.parse(operation)
-
+                operation_object = api_instance.get_operation(operation_id)
                 while operation_object.metadata.status != 'SUCCEEDED':
                     self.utils.print_info(f'Operation {operation_id} has not completed [SUCCEEDED], sleep for 10 seconds and try again')
                     sleep(10)
-                    operation = api_instance.get_operation(operation_id)
-                    operation_object = json.parse(operation)
-                return 1
+                    operation_object = api_instance.get_operation(operation_id)
+                return operation_object.response
             except Exception as e:
                 kwargs['fail_msg'] = f"Exception when calling DeviceApi->onboard_devices: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
-                return -1
+                return None
 

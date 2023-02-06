@@ -98,7 +98,8 @@ class XapiDevices(XapiBase):
                 #  The aysnc doens't appear to be working for this API function and the
                 # swagger doens't support the [LRO], so there is no way of knowning
                 # if this keyword was successful without creating a loop to check.
-                api_device.onboard_devices(xiq_onboard_device_request, async_req=True)
+                api_device.onboard_devices(xiq_onboard_device_request)
+                api_device.get_device()
 
                 count = 0
                 retries = 10
@@ -450,14 +451,9 @@ class XapiDevices(XapiBase):
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
 
-
-    #########################################################################
-    # Helper functions
-    #########################################################################
-
-    def _xapi_list_devices(self, **kwargs):
+    def xapi_list_devices(self, **kwargs):
         """
-           This helper function will get all of the devices
+           This function will get all of the devices
 
            :return: An Array of devices (JSON)
         """
@@ -474,7 +470,7 @@ class XapiDevices(XapiBase):
             # Create an instance of the API class
             api_instance = self.extremecloudiq.DeviceApi(api_client)
             try:
-                api_response = api_instance.list_devices(limit = 100, _preload_content=False)
+                api_response = api_instance.list_devices(limit=100, _preload_content=False)
                 self.valid_http_response(api_response)
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return json.loads(api_response.data)
@@ -483,6 +479,62 @@ class XapiDevices(XapiBase):
                 kwargs['fail_msg'] = f"Exception when calling DeviceApi->list_devices: {e}"
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
+
+    def xapi_get_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+        """
+           This helper function will get the device given the parmeters that are passed in for
+           device_serial, device_name or device_mac
+
+           :param: device_serial - The device serial
+           :param: device_name - The device name
+           :param: device_mac - The device mac
+           :return: The device JSON or -1 if an error occured
+        """
+        # Get the configuration from the Global varibles
+        configuration = self.xapiHelper.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.DeviceApi(api_client)
+            try:
+                api_response = None
+                if device_serial:
+                    api_response = api_instance.list_devices(sns=[device_serial], _async=True, _preload_content=False)
+                elif device_name:
+                    api_response = api_instance.list_devices(hostnames=[device_name], _async=True, _preload_content=False)
+                elif device_mac:
+                    api_response = api_instance.list_devices(mac_addresses=[device_mac], _async=True, _preload_content=False)
+                if api_response:
+                    operation_id = self.getLongRunningOperationId(api_response)
+                    returnValue = self.getAsyncLongRunningOperation(operation_id)
+                    if returnValue:
+                        kwargs['pass_msg'] = f"xapi_get_device returned: {returnValue}"
+                        self.xapiHelper.common_validation.passed(**kwargs)
+                        return returnValue
+                    else:
+                        kwargs['fail_msg'] = f"xapi_get_device returned: {returnValue}"
+                        self.xapiHelper.common_validation.fail(**kwargs)
+                        return -1
+
+                else:
+                    kwargs['fail_msg'] = f"xapi_get_device , api_response is None are  missing serial: {device_serial}, name:{device_name} and Mac {device_mac}"
+                    self.xapiHelper.common_validation.fault(**kwargs)
+                    return -1
+
+            except Exception as e:
+                kwargs['fail_msg'] = f"Exception when calling DeviceApi->list_devices: {e}"
+                self.xapiHelper.common_validation.failed(**kwargs)
+                return -1
+
+    #########################################################################
+    # Helper functions
+    #########################################################################
 
     def _xapi_search_for_device_id(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
@@ -517,7 +569,7 @@ class XapiDevices(XapiBase):
             return device_id
 
         # Get all of the devices
-        device_api_data = self._xapi_list_devices(**kwargs)
+        device_api_data = self.xapi_get_device( device_serial=device_serial, device_name=device_name, device_mac=device_mac, **kwargs)
         device_list = device_api_data['data']
 
         if len(device_list) != 0:
