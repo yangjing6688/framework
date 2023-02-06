@@ -1,10 +1,10 @@
-extauto.xiqse.flows.control.access\_control package
+XIQSE Flows Control Access Control Keywords
 ===================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.control.access\_control.XIQSE\_AccessControlAddRemove module
+XIQSE\_AccessControlAddRemove module
 --------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.access_control.XIQSE_AccessControlAddRemove
@@ -12,7 +12,7 @@ extauto.xiqse.flows.control.access\_control.XIQSE\_AccessControlAddRemove module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.access\_control.XIQSE\_AccessControlCommon module
+XIQSE\_AccessControlCommon module
 -----------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.access_control.XIQSE_AccessControlCommon
@@ -20,7 +20,7 @@ extauto.xiqse.flows.control.access\_control.XIQSE\_AccessControlCommon module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.access\_control.XIQSE\_AccessControlEnforce module
+XIQSE\_AccessControlEnforce module
 ------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.access_control.XIQSE_AccessControlEnforce
@@ -28,7 +28,7 @@ extauto.xiqse.flows.control.access\_control.XIQSE\_AccessControlEnforce module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.access\_control.XIQSE\_AccessControlPanel module
+XIQSE\_AccessControlPanel module
 ----------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.access_control.XIQSE_AccessControlPanel
@@ -36,7 +36,7 @@ extauto.xiqse.flows.control.access\_control.XIQSE\_AccessControlPanel module
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.control.access\_control.XIQSE\_AccessControlTree module
+XIQSE\_AccessControlTree module
 ---------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.control.access_control.XIQSE_AccessControlTree

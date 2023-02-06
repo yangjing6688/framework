@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.devices.site.ztp\_device\_defaults package
+XIQSE Flows Network Devices Site ZTP Device Defaults Keywords
 ======================================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.devices.site.ztp\_device\_defaults.XIQSE\_NetworkDevicesSiteZtpDeviceDefaults module
+XIQSE\_NetworkDevicesSiteZtpDeviceDefaults module
 ----------------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.devices.site.ztp_device_defaults.XIQSE_NetworkDevicesSiteZtpDeviceDefaults

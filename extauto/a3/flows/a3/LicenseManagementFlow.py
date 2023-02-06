@@ -1,12 +1,10 @@
-from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import *
-from a3.elements.LicenseManagementElements import LicenseManagementElements
-from a3.elements.GlobalSettingWebElements import *
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
 from selenium import webdriver
+
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
+from a3.elements.LicenseManagementElements import LicenseManagementElements
+from xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.common.CommonValidation import CommonValidation
 
 class LicenseManagementFlow(LicenseManagementElements):

@@ -322,7 +322,9 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
+        # Commented on 1/18/23 because variable is unused
+        # output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
+        BuiltIn().get_variable_value("${OUTPUT DIR}")
 
         print("*HTML* <a href=" + file_name + "> <img src=" + file_name
               + " width=\"600px\" style=\"border:5px solid red\"></a>")
@@ -779,7 +781,7 @@ class Utils:
         time_info["minutes"] = minutes
         time_info["seconds"] = seconds
 
-        self.print_debug(f"**** Milliseconds Converted To Days/Hours/Minutes/Seconds ****")
+        self.print_debug("**** Milliseconds Converted To Days/Hours/Minutes/Seconds ****")
         for key, value in time_info.items():
             self.print_info(f"{key}: {value}")
 
@@ -1115,3 +1117,30 @@ class Utils:
         :return: True if file exist else False
         """
         return os.path.isfile(file_name)
+
+
+    def get_suite_resource_path(self, suite_file):
+        """
+        Get current test suite resource path.
+        param suite_file: the full path of robot file, get via robot ${SUITE SOURCE}
+        return: the Resource path
+        example:
+          suite_file is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/TestCases/xapi_UploadFloorPlan_XIQ5401.robot
+          suite resource path is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/Resources
+        """
+
+        suite_resource_path = '/'.join(suite_file.split('/')[:-2]) + '/Resources'
+        return suite_resource_path
+
+    def get_feature_path(self, suite_file):
+        """
+        Get current test feature path.
+        param suite_file: the full path of robot file, get via robot ${SUITE SOURCE}
+        return: the feature full path
+        example:
+          suite_file is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/TestCases/xapi_UploadFloorPlan_XIQ5401.robot
+          feature path is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location
+        """
+
+        feature_path = '/'.join(suite_file.split('/')[:-2])
+        return feature_path

@@ -1,7 +1,6 @@
 from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.common.WebElementHandler import *
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.DeviceUtilitiesWebElements import DeviceUtilitiesWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
@@ -20,6 +19,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device utilities loading window is open
         - Keyword Usage:
         - ``Verify Device Tool Loading Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking loading dialog is open")
@@ -40,6 +40,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device client information tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Client Information Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Client Information dialog is open")
@@ -55,6 +56,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to wait until the device client information tool window is open
         - Keyword Usage:
         - ``Wait Until Device Tool Client Information Is Open    retry_duration=5    retry_count=20``
+
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if is displayed else -1
@@ -78,6 +80,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the client information tool window
         - Keyword Usage:
         - ``Close Device Tool Client Information``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Client Information dialog")
@@ -96,6 +99,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device get tech data tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Get Tech Data Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Get Tech Data dialog is open")
@@ -111,6 +115,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to wait until the device get tech data tool window is open
         - Keyword Usage:
         - ``Wait Until Device Tool Get Tech Data Is Open    retry_duration=10    retry_count=30``
+
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if is displayed else -1
@@ -134,6 +139,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the get tech data tool window
         - Keyword Usage:
         - ``Close Device Tool Get Tech Data``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Get Tech Data dialog")
@@ -152,6 +158,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the confirm message window is open
         - Keyword Usage:
         - ``Verify Confirm Message Dialog Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Confirm Message dialog is open")
@@ -172,6 +179,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to reject the request to continue to get tech data
         - Keyword Usage:
         - ``Reject Device Tool Get Tech Data``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Clinking 'No' to Get Tech Data")
@@ -190,6 +198,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to accept the request to continue to get tech data
         - Keyword Usage:
         - ``Accept Device Tool Get Tech Data``
+
         :return: 1 if Get Tech Data window is displayed else -1
         """
         self.utils.print_info("Clinking 'Yes' to Get Tech Data")
@@ -213,6 +222,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device neighbor info tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Neighbor Info Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Neighbor Info dialog is open")
@@ -228,6 +238,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to wait until the device neighbor info tool window is open
         - Keyword Usage:
         - ``Wait Until Device Tool Neighbor Info Is Open    retry_duration=10    retry_count=30``
+
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if is displayed else -1
@@ -251,6 +262,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device neighbor info tool window
         - Keyword Usage:
         - ``Close Device Tool Neighbor Info``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Neighbor Info dialog")
@@ -269,6 +281,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device locate device tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Locate Device Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Locate Device dialog is open")
@@ -284,6 +297,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to wait until the device locate device tool window is open
         - Keyword Usage:
         - ``Wait Until Device Tool Locate Device Is Open    retry_duration=10    retry_count=30``
+
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if is displayed else -1
@@ -307,6 +321,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close locate device tool window
         - Keyword Usage:
         - ``Close Device Tool Locate Device``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Locate Device dialog")
@@ -325,6 +340,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device Packet Capture tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Packet Capture Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Packet Capture dialog is open")
@@ -340,6 +356,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to wait until the device packet capture tool window is open
         - Keyword Usage:
         - ``Wait Until Device Tool Packet Capture Is Open    retry_duration=10    retry_count=30``
+
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if is displayed else -1
@@ -363,6 +380,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device Packet Capture tool window
         - Keyword Usage:
         - ``Close Device Tool Packet Capture``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Packet Capture dialog")
@@ -381,6 +399,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device CLI tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Cli Is Open``
+
         :return: 1 if is displayed else -1
         """
         if self.get_show_cli_view() is not None and self.get_show_cli_view().is_displayed():
@@ -395,6 +414,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to wait until the device cli tool window is open
         - Keyword Usage:
         - ``Wait Until Device Tool Cli Is Open    retry_duration=10    retry_count=30``
+
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if is displayed else -1
@@ -418,6 +438,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device CLI tool window
         - Keyword Usage:
         - ``Close Device Tool Cli``
+
         :return: 1 if is not displayed else -1
         """
         self.auto_actions.click_reference(self.get_show_cli_dialog_close_button)
@@ -435,6 +456,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show log tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Log Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show Log dialog is open")
@@ -445,6 +467,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show log tool window
         - Keyword Usage:
         - ``Close Device Tool Show Log``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show Log dialog")
@@ -455,6 +478,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show MAC Table tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Mac Table Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show MAC Table dialog is open")
@@ -465,6 +489,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show MAC Table tool window
         - Keyword Usage:
         - ``Close Device Tool Show Mac Table``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show MAC Table dialog")
@@ -475,6 +500,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show version tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Version Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show Version dialog is open")
@@ -485,6 +511,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show version tool window
         - Keyword Usage:
         - ``Close Device Tool Show Version``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show Version dialog")
@@ -495,6 +522,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show Running Config tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Running Config Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show Running Config dialog is open")
@@ -505,6 +533,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show Running Config tool window
         - Keyword Usage:
         - ``Close Device Tool Show Running Config``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show Running Config dialog")
@@ -515,6 +544,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show Startup Config tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Startup Config Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show Startup Config dialog is open")
@@ -525,6 +555,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show Startup Config tool window
         - Keyword Usage:
         - ``Close Device Tool Show Startup Config``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show Startup Config dialog")
@@ -535,6 +566,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show IP Routes tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Ip Routes Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show IP Routes dialog is open")
@@ -545,6 +577,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show IP Routes tool window
         - Keyword Usage:
         - ``Close Device Tool Show Ip Routes``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show IP Routes dialog")
@@ -555,6 +588,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show MAC Routes tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Mac Routes Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show MAC Routes dialog is open")
@@ -565,6 +599,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show MAC Routes tool window
         - Keyword Usage:
         - ``Close Device Tool Show Mac Routes``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show MAC Routes dialog")
@@ -575,6 +610,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show ARP Cache tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Arp Cache Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show ARP Cache dialog is open")
@@ -585,6 +621,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show ARP Cache tool window
         - Keyword Usage:
         - ``Close Device Tool Show Arp Cache``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show ARP Cache dialog")
@@ -595,6 +632,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show Roaming Cache tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Roaming Cache Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show Roaming Cache dialog is open")
@@ -605,6 +643,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to wait until the device show roaming cache tool window is open
         - Keyword Usage:
         - ``Wait Until Device Tool Show Roaming Cache Is Open``
+
         :return: 1 if is displayed else -1
         """
         return self.wait_until_device_tool_cli_is_open()
@@ -614,6 +653,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show Roaming Cache tool window
         - Keyword Usage:
         - ``Close Device Tool Show Roaming Cache``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show Roaming Cache dialog")
@@ -624,6 +664,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show DNXP Neighbors tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Dnxp Neighbors Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show DNXP Neighbors dialog is open")
@@ -634,6 +675,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show DNXP Neighbors tool window
         - Keyword Usage:
         - ``Close Device Tool Show Dnxp Neighbors``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show DNXP Neighbors dialog")
@@ -644,6 +686,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show DNXP Cache tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Dnxp Cache Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show DNXP Cache dialog is open")
@@ -654,6 +697,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show DNXP Cache tool window
         - Keyword Usage:
         - ``Close Device Tool Show Dnxp Cache``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show DNXP Cache dialog")
@@ -664,6 +708,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show AMRP Tunnel tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Amrp Tunnel Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show AMRP Tunnel dialog is open")
@@ -674,6 +719,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show AMRP Tunnel tool window
         - Keyword Usage:
         - ``Close Device Tool Show Amrp Tunnel``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show AMRP Tunnel dialog")
@@ -684,6 +730,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show GRE Tunnel tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Gre Tunnel Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show GRE Tunnel dialog is open")
@@ -694,6 +741,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show GRE Tunnel tool window
         - Keyword Usage:
         - ``Close Device Tool Show Gre Tunnel``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show GRE Tunnel dialog")
@@ -704,6 +752,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show IKE Event tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Ike Event Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show IKE Event dialog is open")
@@ -714,6 +763,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show IKE Event tool window
         - Keyword Usage:
         - ``Close Device Tool Show Ike Event``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show IKE Event dialog")
@@ -724,6 +774,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show IKE SA tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Ike Sa Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show IKE SA dialog is open")
@@ -734,6 +785,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show IKE SA tool window
         - Keyword Usage:
         - ``Close Device Tool Show Ike Sa``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show IKE SA dialog")
@@ -744,6 +796,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show IPsec SA tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Ipsec Sa Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that IPsec SA dialog is open")
@@ -754,6 +807,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show IPsec SA tool window
         - Keyword Usage:
         - ``Close Device Tool Show Ipsec Sa``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show IPsec SA dialog")
@@ -764,6 +818,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show IPsec Tunnel tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Ipsec Tunnel Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that IPsec Tunnel dialog is open")
@@ -774,6 +829,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show IPsec Tunnel tool window
         - Keyword Usage:
         - ``Close Device Tool Show Ipsec Tunnel``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show IPsec Tunnel dialog")
@@ -784,6 +840,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show VPN Tunnel tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Vpn Tunnel Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show VPN Tunnel dialog is open")
@@ -794,6 +851,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show VPN Tunnel tool window
         - Keyword Usage:
         - ``Close Device Tool Show Vpn Tunnel``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show VPN Tunnel dialog")
@@ -804,6 +862,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show CPU tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Cpu Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show CPU dialog is open")
@@ -814,6 +873,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show CPU tool window
         - Keyword Usage:
         - ``Close Device Tool Show Cpu``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show CPU dialog")
@@ -824,6 +884,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show memory tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Memory Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show Memory dialog is open")
@@ -834,6 +895,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show memory tool window
         - Keyword Usage:
         - ``Close Device Tool Show Memory``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show Memory dialog")
@@ -844,6 +906,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device show PSE tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Show Pse Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Show PSE dialog is open")
@@ -854,6 +917,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device show PSE tool window
         - Keyword Usage:
         - ``Close Device Tool Show Pse``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Show PSE dialog")
@@ -864,6 +928,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device ping tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Ping Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Ping dialog is open")
@@ -879,6 +944,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to wait until the device ping tool window is open
         - Keyword Usage:
         - ``Wait Until Device Tool Ping Is Open    retry_duration=10    retry_count=30``
+
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if is displayed else -1
@@ -902,6 +968,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device ping tool window
         - Keyword Usage:
         - ``Close Device Tool Ping``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Ping dialog")
@@ -920,6 +987,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the device VLAN Probe tool window is open
         - Keyword Usage:
         - ``Verify Device Tool Vlan Probe Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that VLAN Probe dialog is open")
@@ -935,6 +1003,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to wait until the device VLAN Probe tool window is open
         - Keyword Usage:
         - ``Wait Until Device Tool Vlan Probe Is Open    retry_duration=10    retry_count=30``
+
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if is displayed else -1
@@ -958,6 +1027,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the device VLAN Probe tool window
         - Keyword Usage:
         - ``Close Device Tool Vlan Probe``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing VLAN Probe dialog")
@@ -976,6 +1046,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to verify the select stack member window is open
         - Keyword Usage:
         - ``Verify Select Stack Member Is Open``
+
         :return: 1 if is displayed else -1
         """
         self.utils.print_info("Checking that Select Stack Member dialog is open")
@@ -996,6 +1067,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword is used to close the select stack member window
         - Keyword Usage:
         - ``Close Select Stack Member``
+
         :return: 1 if is not displayed else -1
         """
         self.utils.print_info("Closing Select Stack Member dialog")
@@ -1014,6 +1086,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic ping option is available
         - Keyword Usage:
         - ``Is Device Tool Ping Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_ping_menu_item().is_displayed():
@@ -1026,6 +1099,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show log option is available
         - Keyword Usage:
         - ``Is Device Tool Show Log Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_log_menu_item().is_displayed():
@@ -1038,6 +1112,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show version option is available
         - Keyword Usage:
         - ``Is Device Tool Show Version Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_version_menu_item().is_displayed():
@@ -1050,6 +1125,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show running config option is available
         - Keyword Usage:
         - ``Is Device Tool Show Running Config Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_running_config_menu_item().is_displayed():
@@ -1062,6 +1138,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show startup config option is available
         - Keyword Usage:
         - ``Is Device Tool Show Startup Config Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_startup_config_menu_item().is_displayed():
@@ -1074,6 +1151,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show ip routes option is available
         - Keyword Usage:
         - ``Is Device Tool Show Ip Routes Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_ip_routes_menu_item().is_displayed():
@@ -1086,6 +1164,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show mac routes option is available
         - Keyword Usage:
         - ``Is Device Tool Show Mac Routes Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_mac_routes_menu_item().is_displayed():
@@ -1098,6 +1177,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show arp cache option is available
         - Keyword Usage:
         - ``Is Device Tool Show Arp Cache Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_arp_cache_menu_item().is_displayed():
@@ -1110,6 +1190,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show roaming cache option is available
         - Keyword Usage:
         - ``Is Device Tool Show Roaming Cache Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_roaming_cache_menu_item().is_displayed():
@@ -1122,6 +1203,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show dnxp neighbors option is available
         - Keyword Usage:
         - ``Is Device Tool Show Dnxp Neighbors Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_dnxp_neighbors_menu_item().is_displayed():
@@ -1134,6 +1216,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show dnxp cache option is available
         - Keyword Usage:
         - ``Is Device Tool Show Dnxp Cache Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_dnxp_cache_menu_item().is_displayed():
@@ -1146,6 +1229,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show amrp tunnel option is available
         - Keyword Usage:
         - ``Is Device Tool Show Amrp Tunnel Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_amrp_tunnel_menu_item().is_displayed():
@@ -1158,6 +1242,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show gre tunnel option is available
         - Keyword Usage:
         - ``Is Device Tool Show Gre Tunnel Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_gre_tunnel_menu_item().is_displayed():
@@ -1170,6 +1255,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show ike event option is available
         - Keyword Usage:
         - ``Is Device Tool Show Ike Event Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_ike_event_menu_item().is_displayed():
@@ -1182,6 +1268,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show ike sa option is available
         - Keyword Usage:
         - ``Is Device Tool Show Ike Sa Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_ike_sa_menu_item().is_displayed():
@@ -1194,6 +1281,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show ipsec sa option is available
         - Keyword Usage:
         - ``Is Device Tool Show Ipsec Sa Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_ipsec_sa_menu_item().is_displayed():
@@ -1206,6 +1294,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show ipsec tunnel option is available
         - Keyword Usage:
         - ``Is Device Tool Show Ipsec Tunnel Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_ipsec_tunnel_menu_item().is_displayed():
@@ -1218,6 +1307,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show cpu option is available
         - Keyword Usage:
         - ``Is Device Tool Show Cpu Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_cpu_menu_item().is_displayed():
@@ -1230,6 +1320,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show memory option is available
         - Keyword Usage:
         - ``Is Device Tool Show Memory Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_memory_menu_item().is_displayed():
@@ -1242,6 +1333,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show mac table option is available
         - Keyword Usage:
         - ``Is Device Tool Show Mac Table Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_mac_table_menu_item().is_displayed():
@@ -1254,6 +1346,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the diagnostic show pse option is available
         - Keyword Usage:
         - ``Is Device Tool Show Pse Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_diagnostics_show_pse_menu_item().is_displayed():
@@ -1266,6 +1359,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the spectrum intelligence option is available
         - Keyword Usage:
         - ``Is Device Spectrum Intelligence Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_spectrum_intelligence_menu_item().is_displayed():
@@ -1278,6 +1372,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the status advanced channel selection protocol option is available
         - Keyword Usage:
         - ``Is Device Status Advanced Channel Selection Protocol Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_status_advanced_channel_selection_protocol_menu_item().is_displayed():
@@ -1290,6 +1385,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the status interface option is available
         - Keyword Usage:
         - ``Is Device Status Interface Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_status_interface_menu_item().is_displayed():
@@ -1302,6 +1398,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the status wifi status summary option is available
         - Keyword Usage:
         - ``Is Device Status Wifi Status Summary Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_utilities_status_wifi_status_summary().is_displayed():
@@ -1314,6 +1411,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the tool client information option is available
         - Keyword Usage:
         - ``Is Device Tool Client Information Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_tools_client_information_menu_item().is_displayed():
@@ -1326,6 +1424,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the tool get tech data option is available
         - Keyword Usage:
         - ``Is Device Tool Get Tech Data Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_tools_get_tech_menu_item().is_displayed():
@@ -1338,6 +1437,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the tool locate device option is available
         - Keyword Usage:
         - ``Is Device Tool Locate Device Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_tools_locate_device_menu_item().is_displayed():
@@ -1350,6 +1450,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the tool layer neighbor info option is available
         - Keyword Usage:
         - ``Is Device Tool Layer Neighbor Info Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_tools_layer_neighbor_info_menu_item().is_displayed():
@@ -1362,6 +1463,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the tool packet capture option is available
         - Keyword Usage:
         - ``Is Device Tool Packet Capture Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_tools_packet_capture_menu_item().is_displayed():
@@ -1374,6 +1476,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the tool vlan probe option is available
         - Keyword Usage:
         - ``Is Device Tool Vlan Probe Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_device_tools_vlan_probe_menu_item().is_displayed():
@@ -1386,6 +1489,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         - This keyword checks if the reset device to default option is available
         - Keyword Usage:
         - ``Is Reset Device To Default Available``
+
         :return: 1 if is displayed else -1
         """
         if self.navigator.get_reset_device_to_default_menu_item() and self.navigator.get_reset_device_to_default_menu_item().is_displayed():

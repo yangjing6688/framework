@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.analytics.configuration.AnalyticsConfigurationEnforceEngineWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.analytics.configuration.AnalyticsConfigurationEnforceEngineWebElementsDefinitions import AnalyticsConfigurationEnforceEngineWebElementsDefinitions
 
 
 class AnalyticsConfigurationEnforceEngineWebElements(AnalyticsConfigurationEnforceEngineWebElementsDefinitions):
@@ -11,7 +11,7 @@ class AnalyticsConfigurationEnforceEngineWebElements(AnalyticsConfigurationEnfor
         :return: Enforce Engine dialog Yes button
         """
         return self.weh.get_element(self.enforce_engine_yes_button)
-    
+
     def get_enforce_engine_no_button(self):
         """
         :return: Enforce Engine dialog No button

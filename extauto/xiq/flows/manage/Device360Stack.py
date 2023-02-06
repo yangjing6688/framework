@@ -1,14 +1,11 @@
 import re
 from time import sleep
 from extauto.common.AutoActions import AutoActions
-import subprocess
 from extauto.common.Cli import Cli
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.xiq.flows.manage.Location import *
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 
@@ -170,7 +167,7 @@ class Device360Stack(Device360WebElements):
             self.utils.print_info("Could not determine value for Memory Usage")
             device360_info["memory_usage"] = ""
 
-        self.utils.print_info(f"****************** Device360 Left Side Bar Information ************************")
+        self.utils.print_info("****************** Device360 Left Side Bar Information ************************")
         for key, value in device360_info.items():
             self.utils.print_info(f"{key}: {value}")
 
@@ -382,7 +379,7 @@ class Device360Stack(Device360WebElements):
             self.utils.print_info("Could not determine value for Stack Member Status")
             device360_info["stack_mem_status"] = ""
 
-        self.utils.print_info(f"****************** Device360 Top Bar Information ************************")
+        self.utils.print_info("****************** Device360 Top Bar Information ************************")
         for key, value in device360_info.items():
             self.utils.print_info(f"{key}: {value}")
 
@@ -528,7 +525,7 @@ class Device360Stack(Device360WebElements):
         else:
             device360_info["stack_mgmt_status"] = ""
 
-        self.utils.print_info(f"****************** Stack System Information ************************")
+        self.utils.print_info("****************** Stack System Information ************************")
         for key, value in device360_info.items():
             self.utils.print_info(f"{key}:{value}")
 
@@ -616,7 +613,7 @@ class Device360Stack(Device360WebElements):
             device360_info["port_mode"] = ""
             device360_info["port_speed"] = ""
 
-        self.utils.print_info(f"****************** Stack Port Table Information ************************")
+        self.utils.print_info("****************** Stack Port Table Information ************************")
         for key, value in device360_info.items():
             self.utils.print_info(f"{key}:{value}")
 
@@ -703,7 +700,7 @@ class Device360Stack(Device360WebElements):
                             "port_speed"] = self.dev360.get_device360_switch_port_table_port_speed(
                             row).text
 
-                        self.utils.print_info( f"************** Switch Port Table Information ********************")
+                        self.utils.print_info( "************** Switch Port Table Information ********************")
                         for key, value in switch_stack_device360_info.items():
                             self.utils.print_info(f"{key}:{value}")
 

@@ -1,15 +1,15 @@
 from time import sleep
 
-from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 from extauto.xiq.flows.common.Navigator import Navigator
-from extauto.xiq.flows.manage.Client import *
-from extauto.xiq.flows.manage.Devices import *
+from extauto.xiq.flows.manage.Client import Client
+from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
-from extauto.xiq.elements.DeviceActions import *
-from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
-from extauto.xiq.elements.MLInsightsPlanWebElements import *
-from extauto.xiq.elements.Device360WebElements import *
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.elements.MLInsightsPlanWebElements import MLInsightsPlanWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
 
 class Location:
@@ -72,7 +72,7 @@ class Location:
         """
 
         self.navigator.navigate_to_devices()
-        if self.devices.select_ap(device_serial):
+        if self.devices.select_device(device_serial=device_serial):
             self.utils.print_info("Clicking on Actions Button")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)

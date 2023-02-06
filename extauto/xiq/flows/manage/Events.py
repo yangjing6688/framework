@@ -1,9 +1,10 @@
-from time import sleep
 import datetime
+
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-from extauto.xiq.elements.EventsWebElements import *
-from extauto.xiq.flows.manage.Devices import *
+from extauto.common.Utils import Utils
+from extauto.xiq.elements.EventsWebElements import EventsWebElements
+from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
 
 class Events:
@@ -19,6 +20,7 @@ class Events:
     def _get_events_grid_content(self):
         """
         - This keyword gets Events Page grid contents.
+
         :return: grid contents
         """
         self.utils.print_info("Getting Events grid content...")
@@ -28,10 +30,11 @@ class Events:
     def verify_events_grid_details(self, mac=None, events_details=None, nav=0):
         """
         - This keyword checks if Events page grid contains the list of strings(events_details) provided as argument and it also checks for MAC.
-        -Flow: Manage --> Events --> Checks for events details and MAC.
+        - Flow: Manage --> Events --> Checks for events details and MAC.
         - Keyword Usage:
         - ``Verify Events Grid Details    mac=${MAC}       events_details=Client Connect Down,Connection Change    nav=1``
         - ``Verify Events Grid Details    events_details=Client Connect Down,Connection Change``
+
         :param mac: MAC of the device
         :param events_details: details to be checked, it needs to be provided in the above format(comma separated format).
         :param nav: Navigates to Events Page if nav=1
@@ -63,10 +66,11 @@ class Events:
     def verify_events_pagination(self, events_details, nav=0):
         """
         - This keyword verfies pagination by checking the events details on page 2 of Events Page.
-        -Flow: Manage --> Events --> Checks for pagination.
+        - Flow: Manage --> Events --> Checks for pagination.
         - Keyword Usage:
         - ``Verify Events Pagination    events_details=Client Connect Down,Connection Change    nav=1``
         - ``Verify Events Pagination    events_details=Client Connect Down,Connection Change``
+
         :param events_details: details to be checked, it needs to be provided in the above format(comma separated format).
         :param nav: Navigates to Events Page if nav=1
         :return: 1 if success else -1
@@ -84,9 +88,10 @@ class Events:
     def check_events_download(self):
         """
         - This keyword checks if download works on Events Page.
-        -Flow: Manage --> Events --> Checks for Download.
+        - Flow: Manage --> Events --> Checks for Download.
         - Keyword Usage:
         - ``Check Events Download``
+
         :return: 1 if success else -1
         """
         try:

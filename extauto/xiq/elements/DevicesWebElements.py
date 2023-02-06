@@ -1,6 +1,6 @@
 import time
-from extauto.xiq.defs.DevicesWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.DevicesWebElementsDefinitions import DevicesWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DevicesWebElements(DevicesWebElementsDefinitions):
@@ -87,6 +87,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return el.get_attribute("class")
         else:
             return None
+
+    def get_device_config_audit_button(self, row):
+        return self.weh.get_element(self.device_config_audit, row)
 
     def get_device_conn_status_after_ten_min(self, row):
         return self.weh.get_element(self.device_conn_status_after_ten_min, row)
@@ -1150,7 +1153,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return el
         else:
             return None
- 
+
     def get_sfdc_username(self):
         return self.weh.get_element(self.sfdc_username)
 
@@ -1213,7 +1216,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_sort_time_stamp(self):
         return self.weh.get_element(self.sort_time_stamp)
-      
+
     def get_field_description_more_button(self, row):
         el = self.weh.get_element(self.field_description_more_button, row)
         if el:
@@ -1237,7 +1240,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_all_devices_progress_status(self):
         return self.weh.get_elements(self.manage_devices_progress_status)
-    
+
     def get_device_page_size_100(self):
         return self.weh.get_element(self.device_page_size_100)
 
@@ -1352,3 +1355,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         for cell in cells:
             if field in cell.get_attribute("class"):
                 return cell
+
+    def get_global_settings_management_dialog(self):
+        return self.weh.get_element(self.global_settings_management_dialog)
+
+    def get_global_settings_management_dialog_yes_button(self):
+        return self.weh.get_element(self.global_settings_management_dialog_yes_button)

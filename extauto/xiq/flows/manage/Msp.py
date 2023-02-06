@@ -1,5 +1,5 @@
 from time import sleep
-import datetime
+
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
@@ -27,7 +27,7 @@ class Msp(MspWebElements):
         :param organization_name: Organization Name
         :return: 1 if Mentioned organization Name is Selected Successfully else -1
         """
-        self.utils.print_info(f"Clicking View All Organization")
+        self.utils.print_info("Clicking View All Organization")
         self.auto_actions.click_reference(self.get_view_organization_button)
         self.screen.save_screen_shot()
 
@@ -84,7 +84,7 @@ class Msp(MspWebElements):
         """
 
         self.navigator.navigate_to_devices()
-        self.utils.print_info(f"Clicking View All Organization")
+        self.utils.print_info("Clicking View All Organization")
         self.auto_actions.click_reference(self.get_view_organization_button)
         self.screen.save_screen_shot()
 

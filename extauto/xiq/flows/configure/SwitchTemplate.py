@@ -1,3 +1,4 @@
+import re
 from time import sleep
 
 from extauto.common.Utils import Utils
@@ -20,7 +21,6 @@ from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.flows.configure.CommonObjects import CommonObjects
-import re
 
 
 class SwitchTemplate(object):
@@ -81,11 +81,11 @@ class SwitchTemplate(object):
         self.navigator.navigate_to_switch_templates()
 
         def _wait_pagination():
-            return self.common_objects.cobj_web_elements.get_paze_size_element(page_size='100')
+            return self.common_objects.cobj_web_elements.get_page_size_element(page_size='100')
 
         self.utils.wait_till(_wait_pagination, timeout=30, delay=2, msg='Waiting pagination')
         self.utils.print_info("Click on full page view for switch template")
-        page_size_el = self.common_objects.cobj_web_elements.get_paze_size_element(page_size='100')
+        page_size_el = self.common_objects.cobj_web_elements.get_page_size_element(page_size='100')
         if page_size_el:
             self.utils.print_info("  -- clicking page size element 100 for switch template")
             self.auto_actions.click(page_size_el)
@@ -537,7 +537,7 @@ class SwitchTemplate(object):
         sleep(2)
 
         if self.check_sw_template(sw_template_name):
-            kwargs['fail_msg'] = f"add_5520_sw_stack_template() failed. " \
+            kwargs['fail_msg'] = "add_5520_sw_stack_template() failed. " \
                                  f"Template with name {sw_template_name} already present in the template grid"
             self.common_validation.failed(**kwargs)
             return -1
@@ -710,7 +710,7 @@ class SwitchTemplate(object):
                 if name == add_stack_items[index].text:
                     self.utils.print_info(f" Stack unit name is correct :  {add_stack_items[index].text} ")
                 else:
-                    kwargs['fail_msg'] = f"check_added_sw_stack_template_units() failed. " \
+                    kwargs['fail_msg'] = "check_added_sw_stack_template_units() failed. " \
                                          f"Stack unit name is not correct: {add_stack_items[index].text} ;"
                     self.common_validation.fault(**kwargs)
                     return -1
@@ -1186,12 +1186,12 @@ class SwitchTemplate(object):
                         self.common_validation.fault(**kwargs)
                         return -1
             # if code made it  here not match was found
-            kwargs['fail_msg'] = f"config_vlan_in_template() failed. " \
+            kwargs['fail_msg'] = "config_vlan_in_template() failed. " \
                                  f"Match for port {port_string} NOT found"
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['fail_msg'] = f"config_vlan_in_template() failed. Unable to gather port detail information and rows"
+            kwargs['fail_msg'] = "config_vlan_in_template() failed. Unable to gather port detail information and rows"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2045,7 +2045,7 @@ class SwitchTemplate(object):
             sleep(2)
 
         if self.check_sw_template(sw_template_name):
-            kwargs['fail_msg'] = f"add_5520_sw_template() failed. " \
+            kwargs['fail_msg'] = "add_5520_sw_template() failed. " \
                                  f"Template with name {sw_template_name} already present in the template gri"
             self.common_validation.failed(**kwargs)
             return -1
@@ -2148,7 +2148,6 @@ class SwitchTemplate(object):
 
                         confirmation_message = self.utils.wait_till(check_for_confirmation, is_logging_enabled=True)[0]
                         if confirmation_message:
-                            rc = 1
                             kwargs['pass_msg'] = "Template was successfully removed from policy."
                             self.common_validation.passed(**kwargs)
                         else:
@@ -2163,7 +2162,7 @@ class SwitchTemplate(object):
                         return -1
             if not found:
                 kwargs['pass_msg'] = f"The template {sw_template_name} is not present here, it may have been " \
-                                     f"already deleted or it wasn't created."
+                                     "already deleted or it wasn't created."
                 self.common_validation.passed(**kwargs)
                 return 1
         else:
@@ -2245,7 +2244,7 @@ class SwitchTemplate(object):
         """
 
         if self.check_sw_template(sw_template_name):
-            kwargs['fail_msg'] = f"add_sw_template_from_policy_tab() failed. " \
+            kwargs['fail_msg'] = "add_sw_template_from_policy_tab() failed. " \
                                  f"Template with name {sw_template_name} already present in the template grid"
             self.common_validation.failed(**kwargs)
             return -1
@@ -2435,9 +2434,10 @@ class SwitchTemplate(object):
 
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
-        # sleep(5)
-        self.utils.wait_till(self.np_web_elements.get_network_policy_card_items)
-        policy_cards = self.np_web_elements.get_network_policy_card_items()
+
+        policy_cards, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_network_policy_card_items, delay=6)
+
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
@@ -2712,9 +2712,9 @@ class SwitchTemplate(object):
             :return: Returns 1 if configuration is successful
                      Else Returns -1
         """
-
-        device_model = wireless_network_conf.get('device_model')
-        switch_template_name = wireless_network_conf.get('switch_template_name')
+        # Commented on 1/18/23 because it is unused
+        # device_model = wireless_network_conf.get('device_model')
+        # switch_template_name = wireless_network_conf.get('switch_template_name')
 
         # spanning tree
         spanning_dictionary = wireless_network_conf.get('stp_config')
@@ -2961,7 +2961,9 @@ class SwitchTemplate(object):
                      Else returns -1
         """
 
-        port_type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
+        # Commented on 1/18/23 because it is unused
+        # port_type_name_field = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
+        self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_name()
 
         port_type_dictionary = (switch_profile.get('port_details')).get('port_type')
         if not port_type_dictionary:
@@ -3211,9 +3213,11 @@ class SwitchTemplate(object):
         sc_broadcast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_broadcast()
         sc_unicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_unicast()
         sc_multicast_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_multicast()
-        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
-        sc_rate_limit_type_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
-        sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+        # Commented on 1/18/23 because variable is unused
+        # sc_rate_limit_type_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
+        # sc_threshold_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
+        self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_type()
+        self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_threshold()
         sc_rate_limit_value_element = self.sw_template_web_elements.get_sw_template_port_details_port_type_editor_sc_rate_limit_value()
 
         if broadcast_value:
@@ -3464,7 +3468,7 @@ class SwitchTemplate(object):
 
         if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
                                             "unresponsive after configuration update.":
-            kwargs["fail_msg"] = f"check_text_enable_auto_revert_option() failed." \
+            kwargs["fail_msg"] = "check_text_enable_auto_revert_option() failed." \
                                  f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3493,7 +3497,7 @@ class SwitchTemplate(object):
 
         if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
                                             "unresponsive after configuration update.":
-            kwargs["fail_msg"] = f"set_enable_auto_revert_option() failed. " \
+            kwargs["fail_msg"] = "set_enable_auto_revert_option() failed. " \
                                  f"The Enable Auto Revert button name is not the correct one: {enable_auto_revert_message}!"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3837,7 +3841,7 @@ class SwitchTemplate(object):
         row = [r for r in rows if re.search(f"^{port}\n", r.text)]
 
         if not row:
-            kwargs["fail_msg"] = f"get_stp_port_configuration_row() failed. " \
+            kwargs["fail_msg"] = "get_stp_port_configuration_row() failed. " \
                                  f"Failed to find the row port for port='{port}'"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3894,12 +3898,12 @@ class SwitchTemplate(object):
         )
 
         if not cost_element:
-            kwargs["fail_msg"] = f"get_path_cost_value_from_stp_port_configuration_row() failed. " \
-                                 f"Failed to get path cost element"
+            kwargs["fail_msg"] = "get_path_cost_value_from_stp_port_configuration_row() failed. " \
+                                 "Failed to get path cost element"
             self.common_validation.failed(**kwargs)
             return -1
 
-        kwargs["pass_msg"] = f"Successfully got the path cost element"
+        kwargs["pass_msg"] = "Successfully got the path cost element"
         self.common_validation.passed(**kwargs)
 
         return cost_element.get_attribute("value")
@@ -3934,7 +3938,7 @@ class SwitchTemplate(object):
             port)
 
         if str(found_path_cost_value) != str(path_cost):
-            kwargs["fail_msg"] = f"verify_path_cost_in_port_configuration_stp_tab() failed.In XIQ port configuration: " \
+            kwargs["fail_msg"] = "verify_path_cost_in_port_configuration_stp_tab() failed.In XIQ port configuration: " \
                                  f"Expected path cost for port='{port}' is {path_cost} " \
                                  f"but found '{found_path_cost_value}'"
             self.common_validation.failed(**kwargs)
@@ -3961,11 +3965,11 @@ class SwitchTemplate(object):
         )
 
         if not button:
-            kwargs["fail_msg"] = f"set_stp() failed. Failed to get stp button element"
+            kwargs["fail_msg"] = "set_stp() failed. Failed to get stp button element"
             self.common_validation.fault(**kwargs)
             return -1
 
-        self.utils.print_info(f"Successfully got the stp button element")
+        self.utils.print_info("Successfully got the stp button element")
 
         if (not button.is_selected() and enable) or (
             button.is_selected() and not enable):
@@ -3976,11 +3980,11 @@ class SwitchTemplate(object):
             )
 
             if res != 1:
-                kwargs["fail_msg"] = f"set_stp() failed. Failed to click stp button element"
+                kwargs["fail_msg"] = "set_stp() failed. Failed to click stp button element"
                 self.common_validation.fault(**kwargs)
                 return -1
 
-            kwargs["pass_msg"] = f"Successfully clicked the stp button element"
+            kwargs["pass_msg"] = "Successfully clicked the stp button element"
             self.common_validation.passed(**kwargs)
 
         return 1
@@ -4048,3 +4052,138 @@ class SwitchTemplate(object):
         if not self.nw_policy:
             self.nw_policy = extauto.xiq.flows.configure.NetworkPolicy.NetworkPolicy()
 
+
+    def create_modify_lag_in_template(self, main_lag_port, ports, device='', **kwargs):
+
+        """
+        This keyword is used to create or verify and existing LAG port for stacks. It first verify if LAG was created and
+         add a new port to it. Assuming navigation to port configuration is done.
+        :param device: type of EXOS device stack or standalone
+        :param main_lag_port: Master port
+        :param ports: other ports
+        """
+
+        if device == 'stack':
+            lag_text = main_lag_port + " LAG"
+            self.utils.wait_till(timeout=5)
+            AutoActions().scroll_down()
+            AutoActions().scroll_bottom()
+            lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+            is_lag_found = False
+            if lag_link is not None:
+                lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+                if lag_link.text == lag_text:
+                    is_lag_found = True
+                    self.utils.print_info(f"LAG {main_lag_port} found on the page.")
+            if not is_lag_found:
+                self.utils.print_info("LAG not created. Creating LAG.")
+                AutoActions().click(self.sw_template_web_elements.get_aggr_ports_across_stack_button())
+                AutoActions().click(self.sw_template_web_elements.get_lacp_toggle_button())
+                AutoActions().click(self.sw_template_web_elements.get_available_slot(main_lag_port[0]))
+                sleep(3)
+                AutoActions().click(self.sw_template_web_elements.get_available_port(port=main_lag_port))
+                AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                for port in ports:
+                    AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
+                    AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+                AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
+                kwargs["pass_msg"] = f"Successfully created lag {main_lag_port}"
+                self.common_validation.passed(**kwargs)
+            else:
+                self.utils.print_info(f"Add port {ports} to lag group {main_lag_port}")
+                AutoActions().move_to_element(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
+                AutoActions().click(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
+                sleep(3)
+                for port in ports:
+                    AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
+                    AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                    selected_port = self.sw_template_web_elements.get_selected_port(port=port)
+                    if selected_port is None:
+                        kwargs["fail_msg"] = f"Failed to add port {ports} to lag {main_lag_port}"
+                        self.common_validation.failed(**kwargs)
+                AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+                AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
+                kwargs["pass_msg"] = f"Successfully add {ports} to lag {main_lag_port}"
+                self.common_validation.passed(**kwargs)
+        elif device == 'standalone':
+            lag_text = main_lag_port + " LAG"
+            self.utils.wait_till(timeout=5)
+            AutoActions().scroll_down()
+            AutoActions().scroll_bottom()
+            lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+            is_lag_found = False
+            if lag_link is not None:
+                lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+                if lag_link.text == lag_text:
+                    is_lag_found = True
+                    self.utils.print_info(f"LAG {main_lag_port} found on the page.")
+            if not is_lag_found:
+                self.utils.print_info("LAG not created. Creating LAG.")
+                AutoActions().click(self.sw_template_web_elements.get_aggr_ports_standalone_button())
+                AutoActions().click(self.sw_template_web_elements.get_lacp_toggle_button())
+                sleep(3)
+                AutoActions().click(self.sw_template_web_elements.get_available_port(port=main_lag_port))
+                AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                for port in ports:
+                    AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
+                    AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+                AutoActions().click(self.sw_template_web_elements.save_device_template())
+                kwargs["pass_msg"] = f"Successfully created lag {main_lag_port}"
+                self.common_validation.passed(**kwargs)
+            else:
+                self.utils.print_info(f"Add port {ports} to lag group {main_lag_port}")
+                AutoActions().move_to_element(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
+                AutoActions().click(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
+                sleep(3)
+                for port in ports:
+                    AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
+                    AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                    selected_port = self.sw_template_web_elements.get_selected_port(port=port)
+                    if selected_port is None:
+                        kwargs["fail_msg"] = f"Failed to add port {ports} to lag {main_lag_port}"
+                        self.common_validation.failed(**kwargs)
+                AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+                AutoActions().click(self.sw_template_web_elements.save_device_template())
+                kwargs["pass_msg"] = f"Successfully add {ports} to lag {main_lag_port}"
+                self.common_validation.passed(**kwargs)
+
+    def remove_lag_in_template(self, main_lag_port, ports, device='', **kwargs):
+
+        """
+        This keyword is used to remove ports from LAG
+        :param main_lag_port: Master port
+        :param ports: list with all ports that need to be removed
+        """
+        lag_text = main_lag_port + " LAG"
+        self.utils.wait_till(timeout=5)
+        AutoActions().scroll_down()
+        AutoActions().scroll_bottom()
+        lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+        is_lag_found = False
+        if lag_link is not None:
+            lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
+            if lag_link.text == lag_text:
+                is_lag_found = True
+                self.utils.print_info(f"LAG {main_lag_port} found on the page.")
+                AutoActions().click(lag_link)
+        if not is_lag_found:
+            kwargs["fail_msg"] = f"{lag_text} wasn't found"
+            self.common_validation.failed(**kwargs)
+        for port in ports:
+            if not self.sw_template_web_elements.get_selected_port(port=port).is_selected():
+                AutoActions().click(self.sw_template_web_elements.get_selected_port(port=port))
+            AutoActions().click(self.sw_template_web_elements.get_lag_remove_port_button())
+            sleep(2)
+        AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+        sleep(2)
+        if device == 'stack':
+            AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
+        elif device == 'standalone':
+            AutoActions().click(self.sw_template_web_elements.save_device_template())
+        else:
+            kwargs["fail_msg"] = "Please specify a device type."
+            self.common_validation.failed(**kwargs)
+        kwargs["pass_msg"] = f"Successfully removed {ports} from lag {main_lag_port}"
+        self.common_validation.passed(**kwargs)

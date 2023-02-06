@@ -1,5 +1,4 @@
 import re
-import datetime
 from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -116,7 +115,7 @@ class GlobalSetting(GlobalSettingWebElements):
                         self.screen.save_screen_shot()
                     else:
                         auth_logs_dict[label] = cell.text
-            self.utils.print_info(f"******************Authentication log details************************")
+            self.utils.print_info("******************Authentication log details************************")
             for key, value in auth_logs_dict.items():
                 self.utils.print_info(f"{key}:{value}")
         else:
@@ -142,7 +141,7 @@ class GlobalSetting(GlobalSettingWebElements):
                             self.screen.save_screen_shot()
                         else:
                             auth_logs_dict[label] = cell.text
-                self.utils.print_info(f"******************Authentication log details************************")
+                self.utils.print_info("******************Authentication log details************************")
                 for key, value in auth_logs_dict.items():
                     self.utils.print_info(f"{key}:{value}")
 
@@ -257,7 +256,7 @@ class GlobalSetting(GlobalSettingWebElements):
 
         self.utils.print_info("Click Add button")
         self.auto_actions.click_reference(self.get_global_settings_account_organizations_save_button)
-        kwargs['pass_msg'] = f"'create_organization()' -> Successfully created organization"
+        kwargs['pass_msg'] = "'create_organization()' -> Successfully created organization"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -294,12 +293,12 @@ class GlobalSetting(GlobalSettingWebElements):
                 if not cell:
                     pass
                 if organization_name in cell.text:
-                    self.utils.print_info(f"'search_organization_name()' -> organization name found in the page")
+                    self.utils.print_info("'search_organization_name()' -> organization name found in the page")
                     return 1
                 else:
-                    self.utils.print_info(f"'search_organization_name()' -> organization name not found in the page")
+                    self.utils.print_info("'search_organization_name()' -> organization name not found in the page")
                     return -1
-        self.utils.print_info(f"'search_organization_name()' -> Organization not found on Grid")
+        self.utils.print_info("'search_organization_name()' -> Organization not found on Grid")
         return -1
 
     def enable_account_hiq(self, **kwargs):
@@ -331,17 +330,17 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("Tooltip Text After enabling HIQ:", tool_tp_text)
 
             if "The process has been started. You will be logged out momentarily." in tool_tp_text:
-                kwargs['pass_msg'] = f"'enable_account_hiq()' -> Automatic Logout Happening on Account " \
-                                     f"after enabling HIQ"
+                kwargs['pass_msg'] = "'enable_account_hiq()' -> Automatic Logout Happening on Account " \
+                                     "after enabling HIQ"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"'enable_account_hiq()' -> Automatic Logout Not Happening on Account " \
-                                     f"after enabling HIQ"
+                kwargs['fail_msg'] = "'enable_account_hiq()' -> Automatic Logout Not Happening on Account " \
+                                     "after enabling HIQ"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['pass_msg'] = f"'enable_account_hiq()' -> HIQ Feature Already Enabled in the Account"
+            kwargs['pass_msg'] = "'enable_account_hiq()' -> HIQ Feature Already Enabled in the Account"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -394,7 +393,7 @@ class GlobalSetting(GlobalSettingWebElements):
                     else:
                         acct_logs_dict[label] = cell.text
 
-            self.utils.print_info(f"******************accounting log details************************")
+            self.utils.print_info("******************accounting log details************************")
             for key, value in acct_logs_dict.items():
                 self.utils.print_info(f"{key}:{value}")
 
@@ -434,12 +433,12 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("Saving the changes...")
             self.auto_actions.click_reference(self.get_device_management_settings_save_button)
             sleep(5)
-            kwargs['pass_msg'] = f"'change_device_password()' -> XIQ Account Password Changed Successfully"
+            kwargs['pass_msg'] = "'change_device_password()' -> XIQ Account Password Changed Successfully"
             self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = f"'change_device_password()' -> unsuccessfully Changed XIQ Account Language  "
+            kwargs['fail_msg'] = "'change_device_password()' -> unsuccessfully Changed XIQ Account Language  "
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -466,7 +465,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Click on the apply button")
         self.auto_actions.click_reference(self.get_account_language_apply_button)
         sleep(10)
-        kwargs['pass_msg'] = f"'change_xiq_account_language()' -> XIQ Account Language Changed Successfully"
+        kwargs['pass_msg'] = "'change_xiq_account_language()' -> XIQ Account Language Changed Successfully"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -494,7 +493,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Click the apply button")
         self.auto_actions.click_reference(self.get_account_time_zone_apply_button)
         sleep(10)
-        kwargs['pass_msg'] = f"'change_xiq_account_time_zone()' -> XIQ Account Time Zone Changed Successfully"
+        kwargs['pass_msg'] = "'change_xiq_account_time_zone()' -> XIQ Account Time Zone Changed Successfully"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -522,7 +521,7 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("SSH Availability Button already enabled...")
             sleep(2)
             self.screen.save_screen_shot()
-        kwargs['pass_msg'] = f"'enable_ssh_availability()' -> Successfully enabling ssh"
+        kwargs['pass_msg'] = "'enable_ssh_availability()' -> Successfully enabling ssh"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -550,7 +549,7 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("SSH Availability Button already disabled...")
             sleep(2)
             self.screen.save_screen_shot()
-        kwargs['pass_msg'] = f"'disable_ssh_availability()' -> Successfully disabling ssh"
+        kwargs['pass_msg'] = "'disable_ssh_availability()' -> Successfully disabling ssh"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -745,14 +744,14 @@ class GlobalSetting(GlobalSettingWebElements):
                     self.utils.print_debug("label : ", label)
                     self.utils.print_debug("cell.text : ", cell.text)
                     audit_logs_dict[label] = cell.text
-            self.utils.print_info(f"******************Audit log details************************")
+            self.utils.print_info("******************Audit log details************************")
             for key, value in audit_logs_dict.items():
                 self.utils.print_info(f"{key}:{value}")
-            kwargs['pass_msg'] = f"'get_audit_logs_details()' -> Successfully search string found in logs"
+            kwargs['pass_msg'] = "'get_audit_logs_details()' -> Successfully search string found in logs"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'get_audit_logs_details()' -> Audit logs not Found for given search strings"
+            kwargs['fail_msg'] = "'get_audit_logs_details()' -> Audit logs not Found for given search strings"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -845,7 +844,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Click on the apply button")
         self.auto_actions.click_reference(self.get_industry_apply_button)
         sleep(10)
-        kwargs['pass_msg'] = f"'set_vertical()' -> Successfully Resetting VIQ data"
+        kwargs['pass_msg'] = "'set_vertical()' -> Successfully Resetting VIQ data"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -961,7 +960,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Navigating to the global settings--->Account details")
         self.navigate.navigate_to_account_details_page()
 
-        self.utils.print_info(f"Getting Opt-out of Copilot beta status")
+        self.utils.print_info("Getting Opt-out of Copilot beta status")
 
         self.auto_actions.move_to_element(self.get_opt_out_copilot_beta_status())
         self.screen.save_screen_shot()

@@ -8,7 +8,7 @@ class NetworkPolicyWebElementDefinition:
 
     card_view = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-config-card']",
+            'XPATH': "//span[@data-automation-tag='automation-config-card']",
             'wait_for': 5
         }
 
@@ -346,13 +346,19 @@ class NetworkPolicyWebElementDefinition:
 
     perform_update_policy_button = \
         {
-            'XPATH': '//div/a[@data-dojo-attach-point="uploadBtn"]',
+            'XPATH': '//button[@data-dojo-attach-point="upload"]',
             'wait_for': 2
         }
 
     perform_after_select_update_policy_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="upload"]',
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-btn"]',
+            'wait_for': 2
+        }
+
+    yes_after_perform_update_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-notification-yes-btn"]',
             'wait_for': 2
         }
 
@@ -727,6 +733,12 @@ class NetworkPolicyWebElementDefinition:
         {
             'XPATH': '//*[@data-automation-tag="automation-dialog-link"]',
             
+        }
+
+    device_templates_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tab-switch-settings"]',
+            'wait_for': 5
         }
 
     nw_policy_port_types_view_all_pages = \

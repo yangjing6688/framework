@@ -1,6 +1,6 @@
-from a3.defs.RealmsWebElementDefs import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from a3.defs.RealmsWebElementDefs import RealmsWebElementDefs
+from common.AutoActions import AutoActions
+from common.WebElementHandler import WebElementHandler
 
 
 class RealmsWebElements(RealmsWebElementDefs):
@@ -10,6 +10,3 @@ class RealmsWebElements(RealmsWebElementDefs):
 
     def get_realms_ui(self):
         return self.weh.get_element(self.realm_ui)
-
-
-

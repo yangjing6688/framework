@@ -5,7 +5,6 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.EspAlertWebElements import EspAlertWebElements
-import re
 import json
 
 
@@ -21,7 +20,6 @@ class EspAlert(EspAlertWebElements):
         - This can be used in Alert Policy page
         - Keyword Usage
         - ``Create Alert Policy Dynamic  ${policy}  ${when}``
-        :return: returns 1 if successfully show configred policies and not configured policies tab else -1
         - policy attribute
         -   policy_type: event/metric
         -   source_parent:
@@ -29,6 +27,8 @@ class EspAlert(EspAlertWebElements):
         -   trigger_type: immediate
         -   threshold_operator: GE(>=)/GT(>)/LE(<=)/LT(<)/EQ(=)/NE(!=)
         -   threshold_input:
+
+        :return: returns 1 if successfully show configred policies and not configured policies tab else -1
         """
         sleep(2)
         self.utils.print_info("Click on <Add New Policy> button")
@@ -59,6 +59,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and check configured policies and not configured policies tab
         - Keyword Usage
         - ``Go To Policy And Check Tab  ${configred_title}  ${not_configured_title}``
+
         :return: returns 1 if successfully show configred policies and not configured policies tab else -1
         """
         sleep(3)
@@ -86,6 +87,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and check create alert policy works
         - Keyword Usage
         - ``Create Alert Policy  ${policy_type}  ${source_parent}  ${source}  ${trigger_type}  ${when}  ${threshold_operator}  ${threshold_input}``
+
         :return: returns 1 if successfully create alert policy else -1
         """
         sleep(2)
@@ -117,6 +119,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and find alert policy in configured grid
         - Keyword Usage
         - ``Find When In Configured Grid  ${when}``
+
         :return: returns 1 if successfully matched else -1
         """
         sleep(1)
@@ -134,6 +137,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and delete alert policy in configured grid
         - Keyword Usage
         - ``Delete Alert Policy  ${when}``
+
         :return: returns 1 if successfully delete alert policy else -1
         """
         sleep(2)
@@ -152,6 +156,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and search in unconfigured grid
         - Keyword Usage
         - ``Search In Unconfigure Grid  ${event_search_input}  ${metric_search_input}``
+
         :return: returns 1 if successfully search else -1
         """
         sleep(2)
@@ -178,6 +183,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and find event/metric in unconfigured grid
         - Keyword Usage
         - ``Find Desc In Unconfigured Grid  ${when}``
+
         :return: returns 1 if successfully matched else -1
         """
         sleep(1)
@@ -191,6 +197,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and check create alert policy by unconfigure event/metric works
         - Keyword Usage
         - ``Create Alert Policy By Unconfigured Grid  ${policy_type}  ${when}  ${trigger_type}  ${threshold_operator}  ${threshold_input}``
+
         :return: returns 1 if successfully create alert policy else -1
         """
         sleep(2)
@@ -234,6 +241,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and check edit alert policy works
         - Keyword Usage
         - ``Edit Alert Policy  ${when}  ${severity}  ${desc}``
+
         :return: returns 1 if successfully edit alert policy else -1
         """
         sleep(2)
@@ -262,6 +270,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and check disable alert policy works
         - Keyword Usage
         - ``Toggle Alert Policy Status  ${when}``
+
         :return: returns 1 if successfully disable alert policy else -1
         """
         sleep(2)
@@ -289,6 +298,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and check subscribe alert policy works
         - Keyword Usage
         - ``Subscribe Alert Policy  ${when}``
+
         :return: returns 1 if successfully subscribe alert policy else -1
         """
         sleep(2)
@@ -324,6 +334,7 @@ class EspAlert(EspAlertWebElements):
         - Go to policy page and check alert detail exist
         - Keyword Usage
         - ``Check Alert Detail  ${summary}``
+
         :return: returns 1 if successfully check alert detail exist else -1
         """
         detail_rows = self.get_detail_grid_rows()

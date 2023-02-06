@@ -1,4 +1,7 @@
-from extauto.common.AutoActions import *
+from time import sleep
+
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
 from extauto.xiq.elements.ExpSettingsWebElements import ExpSettingsWebElements
 
 

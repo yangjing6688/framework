@@ -1,10 +1,10 @@
-extauto.xiqse.flows.network.common.configure\_device package
+XIQSE Flows Network Common Configure Device Keywords
 ============================================================
 
 Submodules
 ----------
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceActions module
+XIQSE\_NetworkCommonConfigureDeviceActions module
 ------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceActions
@@ -12,7 +12,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceAnnotations module
+XIQSE\_NetworkCommonConfigureDeviceAnnotations module
 ----------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceAnnotations
@@ -20,7 +20,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceClipAddresses module
+XIQSE\_NetworkCommonConfigureDeviceClipAddresses module
 ------------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceClipAddresses
@@ -28,7 +28,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceDevice module
+XIQSE\_NetworkCommonConfigureDeviceDevice module
 -----------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceDevice
@@ -36,7 +36,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceImportSiteConfig module
+XIQSE\_NetworkCommonConfigureDeviceImportSiteConfig module
 ---------------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceImportSiteConfig
@@ -44,7 +44,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceLags module
+XIQSE\_NetworkCommonConfigureDeviceLags module
 ---------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceLags
@@ -52,7 +52,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDevicePorts module
+XIQSE\_NetworkCommonConfigureDevicePorts module
 ----------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDevicePorts
@@ -60,7 +60,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceServices module
+XIQSE\_NetworkCommonConfigureDeviceServices module
 -------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceServices
@@ -68,7 +68,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceTopology module
+XIQSE\_NetworkCommonConfigureDeviceTopology module
 -------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceTopology
@@ -76,7 +76,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceVendorProfile module
+XIQSE\_NetworkCommonConfigureDeviceVendorProfile module
 ------------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceVendorProfile
@@ -84,7 +84,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceVlan module
+XIQSE\_NetworkCommonConfigureDeviceVlan module
 ---------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceVlan
@@ -92,7 +92,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceVrf module
+XIQSE\_NetworkCommonConfigureDeviceVrf module
 --------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceVrf
@@ -100,7 +100,7 @@ extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigu
    :undoc-members:
    :show-inheritance:
 
-extauto.xiqse.flows.network.common.configure\_device.XIQSE\_NetworkCommonConfigureDeviceZtpPlus module
+XIQSE\_NetworkCommonConfigureDeviceZtpPlus module
 ------------------------------------------------------------------------------------------------------
 
 .. automodule:: extauto.xiqse.flows.network.common.configure_device.XIQSE_NetworkCommonConfigureDeviceZtpPlus
