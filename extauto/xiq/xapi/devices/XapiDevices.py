@@ -99,7 +99,6 @@ class XapiDevices(XapiBase):
                 # swagger doens't support the [LRO], so there is no way of knowning
                 # if this keyword was successful without creating a loop to check.
                 api_device.onboard_devices(xiq_onboard_device_request)
-                api_device.get_device()
 
                 count = 0
                 retries = 10
