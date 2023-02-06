@@ -95,9 +95,11 @@ class XapiHelper():
         :param kwargs: dict for kwargs
         :return: True if the XAPI_ENABLED is set, False if it isn't set
         """
+        # old way 'access_token'
+        old_access_token_kwargs = kwargs.get('access_token', False)
         xapi_enabled_globally = self.builtin.get_variable_value("${XAPI_ENABLED}", False)
         xapi_enabled_kwargs = kwargs.get('XAPI_ENABLED', False)
-        if xapi_enabled_globally or xapi_enabled_kwargs:
+        if xapi_enabled_globally or xapi_enabled_kwargs or old_access_token_kwargs:
             return True
         else:
             return False

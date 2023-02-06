@@ -2687,6 +2687,7 @@ class Devices:
         :param device_serial: device serial number
         :param device_name: name of the device
         :param device_mac: mac address of the device
+        :param kwargs: keyword arguments XAPI_ENABLED
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
         if self.xapiHelper.is_xapi_enabled():
@@ -2828,6 +2829,7 @@ class Devices:
         :param device_serial: device Serial
         :param device_name: device Name
         :param device_mac: device MAC
+        :param kwargs: keyword arguments XAPI_ENABLED
         :return: 1 if device found else -1
         """
         if self.xapiHelper.is_xapi_enabled():
@@ -4291,13 +4293,13 @@ class Devices:
         - Keyword Usage:
         - ``Wait Until Device Online       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
         - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
-        - ``Wait Until Device Online       device_serial=${DEVICE_SERIAL}    access_token=${ACCESS_TOKEN}``
+        - ``Wait Until Device Online       device_serial=${DEVICE_SERIAL}   ``
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
         :param retry_duration: duration between each retry
         :param retry_count: retry count
-        :param kwargs: keyword arguments ie access_token etc
+        :param kwargs: keyword arguments XAPI_ENABLED
         :return: 1 if device connected within time else -1
         """
         if self.xapiHelper.is_xapi_enabled():
@@ -5693,6 +5695,7 @@ class Devices:
         :param device_serial: device serial number to check the device 'managed' state
         :param retry_duration: duration between each retry
         :param retry_count: retry count
+        :param kwargs: keyword arguments XAPI_ENABLED
         :return: 1 if MANAGED column contains 'Managed' within the specified time, else -1
         """
 
