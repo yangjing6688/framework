@@ -62,7 +62,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
                             self.screen.save_screen_shot()
                         else:
                             client360_details[label] = cell.text
-                self.utils.print_info(f"******************Real Client details************************")
+                self.utils.print_info("******************Real Client details************************")
                 for key, value in client360_details.items():
                     self.utils.print_info(f"{key}:{value}")
 
@@ -116,7 +116,7 @@ class MLInsightClient360(MLInsightsClients360WebElements):
                     self.auto_actions.click_reference(self.client_360_close_current_connection_status)
                     return client360_status
         else:
-            kwargs['fail_msg'] = f"'get_client360_current_connection_status()' -> Device not found in the " \
+            kwargs['fail_msg'] = "'get_client360_current_connection_status()' -> Device not found in the " \
                                  f"grid with: {search_string}"
             self.common_validation.fault(**kwargs)
             return -1

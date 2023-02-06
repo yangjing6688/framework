@@ -172,7 +172,7 @@ class MuCaptivePortal(MuCPWebElement):
         if "CNN International - Breaking News, US News, World News and Video" in page_title:
             return 1
         else:
-            kwargs['fail_msg'] = f"'check_successful_page_title()' -> 'CNN International - Breaking News, US News," \
+            kwargs['fail_msg'] = "'check_successful_page_title()' -> 'CNN International - Breaking News, US News," \
                                  f" World News and Video' not in - {page_title}"
             self.common_validation.failed(**kwargs)
             return -1
@@ -494,7 +494,7 @@ class MuCaptivePortal(MuCPWebElement):
             msg = self.get_pin_text_area().text
             self.utils.print_info(msg)
         if "PIN is not valid. Please request a new one" in msg:
-            kwargs['fail_msg'] = f"'enter_cloud_pin()' -> 'PIN is not valid. Please request a new one'" \
+            kwargs['fail_msg'] = "'enter_cloud_pin()' -> 'PIN is not valid. Please request a new one'" \
                                  f" is in message: {msg}"
             self.common_validation.failed(**kwargs)
             return -1

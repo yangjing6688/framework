@@ -548,11 +548,10 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         - ``XIQSE SET EVENT SEARCH SCOPE AND SAVE   false``
         :param value: true to enable the extended scoping and false to disable
         """
-        ret_val = 1
         xiqse_version = self.builtin.get_variable_value("${XIQSE_OS_VERSION}")
         parts = xiqse_version.split(".")
         majorMinor = parts[0] + "." + parts[1]
-        floatVersion = float(majorMinor);
+        floatVersion = float(majorMinor)
 
         if (floatVersion < 22.9):
             self.utils.print_info(f"Skipping Event Search Scope - supported in version '{floatVersion}'")

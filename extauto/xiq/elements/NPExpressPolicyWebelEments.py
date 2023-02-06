@@ -1,5 +1,5 @@
-from extauto.xiq.defs.NPExpressPolicySetupDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.NPExpressPolicySetupDefinitions import NPExpressPolicySetupDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class NPExpressPolicyWebElements(NPExpressPolicySetupDefinitions):

@@ -38,7 +38,7 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         if serial_number_field:
             readonly = self.com_field.xiqse_is_field_readonly(serial_number_field)
             if readonly:
-                self.utils.print_info(f"The Serial Number field is readonly.")
+                self.utils.print_info("The Serial Number field is readonly.")
                 serial_number_value = serial_number_field.get_attribute("value")
                 if serial_number_value:
                     if serial_number_value.lower() == serial_number.lower():
@@ -49,13 +49,13 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                         ret_val = -1
                         return ret_val
                 else:
-                    self.utils.print_info(f"Could not obtain the Serial Number field value in ZTP+ Device Settings.")
+                    self.utils.print_info("Could not obtain the Serial Number field value in ZTP+ Device Settings.")
                     ret_val = -1
             else:
-                self.utils.print_info(f"The Serial Number field should be readonly.")
+                self.utils.print_info("The Serial Number field should be readonly.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the IP Address / Subnet field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the IP Address / Subnet field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -78,7 +78,7 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         self.utils.print_debug(f"This is the provided Use Discovered value: {use_discovered}")
         the_field = self.get_use_discovered_dropdown()
         if the_field:
-            self.utils.print_info(f"Clicking the Use Discovered drop down to expand the choices")
+            self.utils.print_info("Clicking the Use Discovered drop down to expand the choices")
             self.auto_actions.click(the_field)
 
             # Obtain the dropdown items
@@ -103,7 +103,7 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 # Click the dropdown again to close it
                 self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Could not find the Use Discovered field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the Use Discovered field in ZTP+ Device Settings")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -124,12 +124,12 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         if ip_address_field:
             disabled = self.com_field.xiqse_is_field_disabled(ip_address_field)
             if disabled:
-                self.utils.print_info(f"The IP Address / Subnet field is disabled.")
+                self.utils.print_info("The IP Address / Subnet field is disabled.")
             else:
                 self.auto_actions.send_keys(ip_address_field, ip_address)
                 sleep(2)
         else:
-            self.utils.print_info(f"Could not find the IP Address / Subnet field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the IP Address / Subnet field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -149,12 +149,12 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         if gateway_address_field:
             disabled = self.com_field.xiqse_is_field_disabled(gateway_address_field)
             if disabled:
-                self.utils.print_info(f"The Gateway Address field is disabled.")
+                self.utils.print_info("The Gateway Address field is disabled.")
             else:
                 self.auto_actions.send_keys(gateway_address_field, gateway_address)
                 sleep(2)
         else:
-            self.utils.print_info(f"Could not find the Gateway Address field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the Gateway Address field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -178,10 +178,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         if the_field:
             disabled = self.com_field.xiqse_is_field_disabled(the_field)
             if disabled:
-                self.utils.print_info(f"The Management Interface field is disabled.")
+                self.utils.print_info("The Management Interface field is disabled.")
                 ret_val = 1
             else:
-                self.utils.print_info(f"Clicking the Management Interface drop down to expand the choices")
+                self.utils.print_info("Clicking the Management Interface drop down to expand the choices")
                 self.auto_actions.click(the_field)
 
                 # Obtain the dropdown items
@@ -207,7 +207,7 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                     # Click the dropdown again to close it
                     self.auto_actions.click(the_field)
         else:
-            self.utils.print_info(f"Could not find the Management Interface field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the Management Interface field in ZTP+ Device Settings")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -235,10 +235,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Basic Management 'CLI Recovery Mode Only' checkbox.")
+                self.utils.print_info("Invalid value provided for the Basic Management 'CLI Recovery Mode Only' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Basic Management 'CLI Recovery Mode Only' checkbox field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the Basic Management 'CLI Recovery Mode Only' checkbox field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -258,12 +258,12 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         if domain_name_field:
             disabled = self.com_field.xiqse_is_field_disabled(domain_name_field)
             if disabled:
-                self.utils.print_info(f"The Domain Name field is disabled.")
+                self.utils.print_info("The Domain Name field is disabled.")
             else:
                 self.auto_actions.send_keys(domain_name_field, domain_name)
                 sleep(2)
         else:
-            self.utils.print_info(f"Could not find the Domain Name field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the Domain Name field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -283,12 +283,12 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         if dns_server_field:
             disabled = self.com_field.xiqse_is_field_disabled(dns_server_field)
             if disabled:
-                self.utils.print_info(f"The DNS Server field is disabled.")
+                self.utils.print_info("The DNS Server field is disabled.")
             else:
                 self.auto_actions.send_keys(dns_server_field, dns_server)
                 sleep(2)
         else:
-            self.utils.print_info(f"Could not find the DNS Server field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the DNS Server field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -308,12 +308,12 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         if dns_server_two_field:
             disabled = self.com_field.xiqse_is_field_disabled(dns_server_two_field)
             if disabled:
-                self.utils.print_info(f"The DNS Server 2 field is disabled.")
+                self.utils.print_info("The DNS Server 2 field is disabled.")
             else:
                 self.auto_actions.send_keys(dns_server_two_field, dns_server)
                 sleep(2)
         else:
-            self.utils.print_info(f"Could not find the DNS Server 2 field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the DNS Server 2 field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -333,12 +333,12 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         if dns_server_three_field:
             disabled = self.com_field.xiqse_is_field_disabled(dns_server_three_field)
             if disabled:
-                self.utils.print_info(f"The DNS Server 3 field is disabled.")
+                self.utils.print_info("The DNS Server 3 field is disabled.")
             else:
                 self.auto_actions.send_keys(dns_server_three_field, dns_server)
                 sleep(2)
         else:
-            self.utils.print_info(f"Could not find the DNS Server 3 field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the DNS Server 3 field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -358,12 +358,12 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
         if dns_search_suffix_field:
             disabled = self.com_field.xiqse_is_field_disabled(dns_search_suffix_field)
             if disabled:
-                self.utils.print_info(f"The DNS Search Suffix field is disabled.")
+                self.utils.print_info("The DNS Search Suffix field is disabled.")
             else:
                 self.auto_actions.send_keys(dns_search_suffix_field, dns_search_suffix)
                 sleep(2)
         else:
-            self.utils.print_info(f"Could not find the DNS Search Suffix field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the DNS Search Suffix field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -384,7 +384,7 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
             self.auto_actions.send_keys(ntp_server_field, ntp_server)
             sleep(2)
         else:
-            self.utils.print_info(f"Could not find the NTP Server field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the NTP Server field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -405,7 +405,7 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
             self.auto_actions.send_keys(ntp_server_two_field, ntp_server)
             sleep(2)
         else:
-            self.utils.print_info(f"Could not find the NTP Server 2 field in ZTP+ Device Settings")
+            self.utils.print_info("Could not find the NTP Server 2 field in ZTP+ Device Settings")
             ret_val = -1
 
         return ret_val
@@ -437,10 +437,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'Telnet' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'Telnet' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'Telnet' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'Telnet' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -468,10 +468,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'SSH' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'SSH' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'SSH' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'SSH' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -499,10 +499,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'HTTP' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'HTTP' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'HTTP' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'HTTP' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -530,10 +530,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'HTTPS' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'HTTPS' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'HTTPS' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'HTTPS' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -561,10 +561,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'FTP' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'FTP' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'FTP' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'FTP' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -592,10 +592,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'SNMP' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'SNMP' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'SNMP' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'SNMP' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -623,10 +623,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'LACP' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'LACP' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'LACP' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'LACP' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -654,10 +654,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'LLDP' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'LLDP' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'LLDP' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'LLDP' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -685,10 +685,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'MVRP' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'MVRP' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'MVRP' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'MVRP' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -716,10 +716,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'MSTP' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'MSTP' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'MSTP' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'MSTP' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -747,10 +747,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'POE' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'POE' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'POE' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'POE' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val
@@ -778,10 +778,10 @@ class XIQSE_NetworkCommonConfigureDeviceZtpPlus(NetworkCommonConfigureDeviceZtpP
                 self.auto_actions.disable_check_box(checkbox)
                 sleep(2)
             else:
-                self.utils.print_info(f"Invalid value provided for the Device Protocols 'VXLAN' checkbox.")
+                self.utils.print_info("Invalid value provided for the Device Protocols 'VXLAN' checkbox.")
                 ret_val = -1
         else:
-            self.utils.print_info(f"Could not find the Device Protocols 'VXLAN' checkbox in ZTP+ Device Defaults")
+            self.utils.print_info("Could not find the Device Protocols 'VXLAN' checkbox in ZTP+ Device Defaults")
             ret_val = -1
 
         return ret_val

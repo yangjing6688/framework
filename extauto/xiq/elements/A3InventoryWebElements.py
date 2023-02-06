@@ -1,5 +1,5 @@
-from extauto.xiq.defs.A3InventoryWebElementsDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.A3InventoryWebElementsDefs import A3InventoryWebElementsDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class A3InventoryWebElements(A3InventoryWebElementsDefs):
@@ -83,7 +83,3 @@ class A3InventoryWebElements(A3InventoryWebElementsDefs):
 
     def get_a3_unlink_page_text(self):
         return self.weh.get_element(self.a3_unlink_page_text)
-
-
-
-

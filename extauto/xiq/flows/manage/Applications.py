@@ -1,5 +1,4 @@
 from time import sleep
-from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions

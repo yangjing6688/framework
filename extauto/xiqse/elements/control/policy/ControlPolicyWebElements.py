@@ -1,6 +1,7 @@
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 from xiqse.defs.control.policy.ControlPolicyWebElementsDefinitions import ControlPolicyWebElementsDefinitions
-from string import Template
+
+
 class ControlPolicyWebElements(ControlPolicyWebElementsDefinitions):
 
     def __init__(self):

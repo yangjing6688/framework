@@ -3,10 +3,11 @@ from robot.libraries.BuiltIn import BuiltIn
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import ElementClickInterceptedException
-from selenium.common.exceptions import ElementNotVisibleException
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import (
+    ElementClickInterceptedException,
+    StaleElementReferenceException,
+    ElementNotInteractableException
+)
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.CloudDriver import CloudDriver
@@ -246,7 +247,7 @@ class AutoActions:
         try:
             select_by[by](item)
             return True
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Selecting item:{} not present in available options".format(item))
             return False
 
@@ -334,7 +335,7 @@ class AutoActions:
             actions.drag_and_drop(source_el, target_el).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("drag and drop failed...")
             return -1
 
@@ -351,7 +352,7 @@ class AutoActions:
             actions.click_and_hold(source_el).move_by_offset(offset_value, 0).release().perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Click and Hold element failed...")
             return -1
 
@@ -368,7 +369,7 @@ class AutoActions:
             actions.click(start_row).key_down(Keys.SHIFT).click(end_row).key_up(Keys.SHIFT).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Select table range failed")
             return -1
 
@@ -409,7 +410,7 @@ class AutoActions:
                 actions.context_click(source_el).perform()
                 sleep(2)
                 return 1
-            except:
+            except Exception:
                 self.utils.print_info("Right click element failed")
                 return -1
 
@@ -425,7 +426,7 @@ class AutoActions:
             actions.double_click(source_el).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Double click element failed")
             return -1
 
@@ -441,7 +442,7 @@ class AutoActions:
             actions.key_down(Keys.SHIFT).click(source_el).key_up(Keys.SHIFT).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Shift+click element failed")
             return -1
 

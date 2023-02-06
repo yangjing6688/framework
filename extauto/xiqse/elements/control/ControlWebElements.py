@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.control.ControlWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.control.ControlWebElementsDefinitions import ControlWebElementsDefinitions
 
 
 class ControlWebElements(ControlWebElementsDefinitions):
@@ -62,7 +62,7 @@ class ControlWebElements(ControlWebElementsDefinitions):
             'wait_for': 10}
 
         else:
-            self.utils.print_info(f"Unable to find Title")
+            self.utils.print_info("Unable to find Title")
             self.utils.print_info(title)
             return 0
 

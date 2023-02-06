@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from extauto.xiq.defs.AdvOnboardDefs import *
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.AdvOnboardDefs import AdvOnboardDefs
 
 
 class AdvOnboardWebElements(AdvOnboardDefs):
@@ -272,4 +272,3 @@ class AdvOnboardWebElements(AdvOnboardDefs):
 
     def get_adv_onboard_form_error(self):
         return self.weh.get_elements(self.adv_onboard_form_error)
-

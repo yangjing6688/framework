@@ -96,7 +96,7 @@ class XIQSE_NetworkCommonConfigureDevice(NetworkCommonConfigureDeviceWebElements
 
         save_check = 1
         while save_check < 10:
-            self.utils.print_debug(f"Save button check - loop save_check")
+            self.utils.print_debug("Save button check - loop save_check")
             save_btn = self.get_save_button()
             if save_btn:
                 if save_btn.is_displayed() and save_btn.is_enabled():
