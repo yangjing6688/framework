@@ -44,7 +44,7 @@ class Debugging(object):
                               ", port = " + str(port) + ")")
 
         for command in commands:
-            cli_output = self.cli.send_commands(device_spawn, command)
+            self.cli.send_commands(device_spawn, command)
 
         kwargs['pass_msg'] = "Commands successfully sent to device"
         self.common_validation.passed(**kwargs)

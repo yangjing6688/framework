@@ -52,10 +52,10 @@ class XIQSE_NetworkDevicesDevicesFirmwareSelection(NetworkDevicesDevicesFirmware
             self.utils.print_info(f"Waiting for Image Refresh to complete: loop {count}")
             load_mask = self.view_el.get_refresh_load_mask()
             if load_mask:
-                self.utils.print_info(f"Refresh still in progress")
+                self.utils.print_info("Refresh still in progress")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Refresh has completed")
+                self.utils.print_info("Refresh has completed")
                 return 1
             count +=1
 

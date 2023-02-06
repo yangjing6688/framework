@@ -1,5 +1,5 @@
 from extauto.xiq.defs.WipsWebElementsDefinitions import WipsWebElementDefinitions
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class WipsWebElements(WipsWebElementDefinitions):
@@ -608,5 +608,3 @@ class WipsWebElements(WipsWebElementDefinitions):
         :return:
         """
         return self.weh.get_element(self.wips_secondary_server_port_textfield)
-
-

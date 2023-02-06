@@ -1,32 +1,44 @@
 import re
-import time
 import shlex
-import pexpect
+# import pexpect
 import paramiko
 import subprocess
 import uuid
 from platform import system
-from netmiko import ConnectHandler
-from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementLacpGenKeywords import \
-    NetworkElementLacpGenKeywords
-from extauto.xiq.configs.device_commands import *
+from time import sleep, time
+
 from robot.libraries.BuiltIn import BuiltIn
-from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
-from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
-from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
+
+from extauto.common.CommonValidation import CommonValidation
+from extauto.common.Utils import Utils
+from extauto.xiq.configs.device_commands import (
+    AP_CAPWAP_OFF,
+    AP_CAPWAP_ON,
+    MAC_GET_WIFI_INTERFACE_NAME,
+    MAC_TURN_ON_OFF_WIFI_INTERFACE,
+    MAC_SCAN_FOR_LIST_WIFI,
+    MAC_CONNECT_TO_WIFI,
+    MAC_CHECK_WIFI_CONNECTION,
+    MAC_IPV4_ADDRESS_FILTER,
+    IFCONFIG
+)
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from time import sleep
 from datetime import datetime, timedelta
 
+from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementLacpGenKeywords import \
+    NetworkElementLacpGenKeywords
+
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementMltGenKeywords import \
     NetworkElementMltGenKeywords
-
-from extauto.common.Utils import Utils
-from extauto.common.CommonValidation import CommonValidation
+from itertools import islice
+from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
+from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
+from ExtremeAutomation.Utilities.deprecated import deprecated
 
 if "Window" not in system():
-    from pexpect.pxssh import ExceptionPxssh
     from pexpect import pxssh
 
 
@@ -51,7 +63,6 @@ class Cli(object):
         - Closes a device spawn
         - Keyword Usage:
         - ``Close Spawn``
-
         :param spawn: device spawn
         :return: 1 if the connection is closed.  Note: an error will be raised if the connection fails to close
         """
@@ -88,7 +99,6 @@ class Cli(object):
         - Keyword Usage:
         -  ``Open Spawn     ${IP}   ${PORT}  ${USERNAME}  ${PASSWORD}   ${cli_type}``
         -  ``Open Spawn     ${IP}   ${PORT}  ${USERNAME}  ${PASSWORD}   ${cli_type}  pxssh=True``
-
         :param ip: Device IP address
         :param port: port number for spawn access
         :param username: User Name for spawn access
@@ -98,7 +108,7 @@ class Cli(object):
         :param disable_strict_host_key_checking: Used to enable or disable strict host key checking
         :return: Device Prompt
         """
-        self.utils.print_info(f"=================================")
+        self.utils.print_info("=================================")
         self.utils.print_info(f"IP: {ip}")
         self.utils.print_info(f"PORT: {port}")
         self.utils.print_info(f"Username: {username}")
@@ -110,7 +120,7 @@ class Cli(object):
             self.utils.print_info(f"pxssh prompt reset: {pxssh_prompt_reset}")
             self.utils.print_info(f"pxssh disable strict host key checking: {pxssh_disable_strict_host_key_checking}")
             self.utils.print_info(f"pxssh sync multiplier: {pxssh_sync_multiplier}")
-        self.utils.print_info(f"=================================")
+        self.utils.print_info("=================================")
 
         # Generate UUID
         device_uuid = str(uuid.uuid4()) + "_" + cli_type
@@ -139,7 +149,6 @@ class Cli(object):
         - Default timeout is 60 seconds
         - Keyword Usage:
         -  ``Send   ${SPAWN}        ${COMMAND}``
-
         :param spawn: Device Spawn to execute command
         :param line: CLI command to be execute
         :param expect_match: Expected Prompt Match
@@ -163,9 +172,7 @@ class Cli(object):
                                    received confirmation phrase.
         :return: CLI Command Output
         """
-
         # Speical prompts
-        prompt = "#"
         if platform == 'adsp':
             kwargs['prompt'] = "$"
             self.utils.print_info("Prompt set to $")
@@ -185,7 +192,7 @@ class Cli(object):
         self.utils.print_info(f"Sending command to device: {spawn}: {line}")
 
         if pxssh:
-            output = self.__send_pxssh(spawn, command, pxssh_timeout, pxssh_expected_output)
+            output = self.__send_pxssh(spawn, line, pxssh_timeout, pxssh_expected_output)
         else:
             result = self.networkElementCliSend.send_cmd(spawn, line, **kwargs)
             try:
@@ -202,7 +209,6 @@ class Cli(object):
         - Keyword Usage:
         -  ``Ping From     ${DESTINATION_IP}``
         -  ``Ping From     ${DESTINATION_IP}  count=10``
-
         :param destination: IP or host name
         :param count: Number of ping requests. Default is 3
         :return: returns 1 if 0 packet loss else -1
@@ -228,7 +234,6 @@ class Cli(object):
         - Keyword Usage:
         -  ``Ping From Spawn   ${SPAWN}  ${DESTINATION_IP}``
         -  ``Ping From Spawn   ${SPAWN}  ${DESTINATION_IP}   count=10``
-
         :param _spawn: spawn of DUT/host from where ping should start
         :param destination: IP or host name
         :param count: Number of ping requests. Default is 3
@@ -256,7 +261,6 @@ class Cli(object):
         -  ``Httping From   ${SPAWN}  ${DESTINATION_IP}``
         -  ``Httping From   ${SPAWN}  ${DESTINATION_IP}   count=10``
         -  ``Httping From   ${SPAWN}  ${DESTINATION_IP}   count=10   timeout=10``
-
         :param _spawn: spawn of DUT/host from where ping should start
         :param destination: IP or host name
         :param count: Number of ping requests. Default is 3
@@ -278,7 +282,6 @@ class Cli(object):
         - Sends multiple commands separated by a ","
         - Keyword Usage:
         -  ``Send Commands   ${SPAWN}  ${COMMAND_LIST}``
-
         :param spawn: spawn of DUT/host
         :param commands_list: list of DUT/Lunux commands separated by comma
         :return: output of the command
@@ -292,7 +295,7 @@ class Cli(object):
             self.utils.print_info("Sending command: ", command)
             command = command.strip()
             output1 = self.send(spawn, command)
-            time.sleep(2)
+            sleep(2)
             output_end += output1
 
         return output_end
@@ -302,7 +305,6 @@ class Cli(object):
         - Executes a shell command
         - Keyword Usage:
         -  ``Exec Shell Command  ${SHELL_COMMAND}``
-
         :param exec_shell_command: Any shell command
         :return: output of the command
         """
@@ -321,7 +323,6 @@ class Cli(object):
         - Keyword Usage:
         -  ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}``
         -  ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}   disable_strict_host_key_checking=True``
-
         :param host: IP or host name
         :param username: username of host
         :param password: password of host
@@ -344,7 +345,6 @@ class Cli(object):
         - Keyword Usage:
         -  ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}``
         -  ``Openpxssh Spawn  ${HOST_NAME}  ${USER_NAME}  ${PASSWORD}   disable_strict_host_key_checking=True``
-
         :param host: IP or host name
         :param username: username of host
         :param password: password of host
@@ -385,7 +385,6 @@ class Cli(object):
         - Closes a pxssh spawn
         - Keyword Usage:
         -  ``Close Pxssh Spawn  ${PXSSH_SPAWN}``
-
         :param pxssh_spawn: pxssh spawn to close
         :return: -1 in case of error else 1
         """
@@ -396,7 +395,6 @@ class Cli(object):
         - Closes a pxssh spawn
         - Keyword Usage:
         -  ``Close Pxssh Spawn  ${PXSSH_SPAWN}``
-
         :param pxssh_spawn: pxssh spawn to close
         :return: -1 in case of error else 1
         """
@@ -420,7 +418,6 @@ class Cli(object):
         - Keyword Usage:
         -  ``Send Pxssh  ${PXSSH_SPAWN}  ${COMMAND}``
         -  ``Send Pxssh  ${PXSSH_SPAWN}  ${COMMAND}  ${TIMEOUT}=10``
-
         :param pxssh_spawn: pxssh spawn
         :param command: command to send
         :param timeout: timeout to get the output
@@ -429,7 +426,7 @@ class Cli(object):
         """
 
         try:
-            aa = pxssh_spawn.sendline(command)
+            pxssh_spawn.sendline(command)
             if expected_output:
                 pxssh_spawn.expect(expected_output)
             else:
@@ -437,7 +434,7 @@ class Cli(object):
             self.utils.print_info("spawn.before: ", pxssh_spawn.before)
             self.utils.print_info("-----------------------------------")
             self.utils.print_info("spawn.after: ", pxssh_spawn.after)
-            time.sleep(1)
+            sleep(1)
             if expected_output:
                 return pxssh_spawn.after.decode("utf-8", errors="ignore")
             return pxssh_spawn.before.decode("utf-8", errors="ignore")
@@ -450,7 +447,6 @@ class Cli(object):
         - Creating ssh spawn object
         - Keyword Usage:
         -  ``Open Paramiko SSH Spawn   ${HOST}  ${USERNAME}  ${PASSWORD}``
-
         :param host: IP or host name of DUT
         :param username: username to access Spawn
         :param password: password to access Spawn
@@ -470,7 +466,6 @@ class Cli(object):
     def send_commands_with_comma(self, spawn, command):
         """
             Sends the full command without separating the ","
-
                 :param spawn: spawn of DUT/host
                 :param commands_list: list of DUT/Lunux command
                 :return: output of the command
@@ -486,7 +481,6 @@ class Cli(object):
         - Keyword Usage:
         -  ``Send Paramiko Cmd   ${SPAWN}  ${COMMAND}``
         -  ``Send Paramiko Cmd   ${SPAWN}  ${COMMAND}  timeout=${TIMEOUT_VALUE}``
-
         :param spawn: Paramiko spawn
         :param cmd: command to send
         :param timeout: command timeout
@@ -506,7 +500,6 @@ class Cli(object):
         - Closes paramiko spawn object
         - Keyword Usage:
         -  ``Close Paramiko Spawn   ${SPAWN}``
-
         :param spawn: paramiko spawn
         :return: returns -1 if there is any exception
         """
@@ -522,7 +515,6 @@ class Cli(object):
         - Get the throughput value from and to air
         - Keyword Usage:
         -  ``Get Thput Value   ${IP}    ${CLI_SPAWN}   ${SERVER_SPAWN}``
-
         :param ip: IP address
         :param cli_spawn: CLI Spawn
         :param server_spawn: Server Spawn
@@ -537,7 +529,7 @@ class Cli(object):
         _, stdout, _ = server_spawn.exec_command(srvr_cmd, timeout=200)
         cli_spawn.exec_command(cli_cmd, timeout=200)
 
-        time.sleep(60)
+        sleep(60)
         server_spawn.exec_command('TASKKILL /IM iperf.exe /F', timeout=200)
         server_spawn.exec_command('killall iperf', timeout=200)
 
@@ -551,7 +543,6 @@ class Cli(object):
         - Closing netmiko spawn object
         - Keyword Usage:
         -  ``Close Netmiko Spawn   ${SPAWN}``
-
         :param spawn: netmiko spawn
         :return: returns -1 if there is any exception
         """
@@ -567,7 +558,6 @@ class Cli(object):
         - This method returns the AP HiveOs version
         - Keyword Usage:
         -  ``Get AP Version``
-
         :param spawn: spawn to AP
         :return: returns the version if success else -1
         """
@@ -587,7 +577,6 @@ class Cli(object):
         - This method returns device interface ipv4 address based on cli type
         - Keyword Usage:
         - ``Get Device Interface IPv4 Addr    ${SPAWN}  ${CLI_TYPE}  ${Interface_name}``
-
         :param spawn: spawn to device
         :param cli_type: Currently this function just support AH-AP cli type, others cli types can be developed in the future
         :param device_interface: Such as mgt0, eth0
@@ -617,7 +606,6 @@ class Cli(object):
         - This Keyword will enable/disable capwap mode
         - Keyword Usage:
         -  ``Capwap AP On Off``
-
         :param ip: IP Address of AP
         :param usr: user name
         :param passwd: Password
@@ -640,7 +628,6 @@ class Cli(object):
         - Keyword Usage:
         -  ``mac_wifi_connection  ${IP}  ${USERNAME}  {PASSWORD}  ${SSID}``
         -  ``mac_wifi_connection  ${IP}  ${USERNAME}  {PASSWORD}  ${SSID}  ssid_pass=${SSID_PASSWORD}``
-
         :param ip: IP Address of MAC book
         :param usr: username of MAC book
         :param passwd: Password of MAC book
@@ -659,7 +646,7 @@ class Cli(object):
         cnt = -1
         for i in range(1, 6):
             self.utils.print_info(" ***** Number of attempts ", str(i))
-            time.sleep(30)
+            sleep(30)
             listSSIDs = str(self.send_paramiko_cmd(conn, MAC_SCAN_FOR_LIST_WIFI, 300))
             cnt = self.utils.check_match(listSSIDs, ssid)
             self.utils.print_info(f"The ssid match cnt is {cnt}.\n The searched ssid is {ssid}")
@@ -701,7 +688,6 @@ class Cli(object):
         - This keyword will get the Host Name of Mac book
         - Keyword Usage:
         -  ``Get MAC Hostname  ${IP}  ${USERNAME}  {PASSWORD}``
-
         :param ip: IP Address of MAC book
         :param userid:  username of MAC book
         :param passwd: Password of MAC book
@@ -717,7 +703,6 @@ class Cli(object):
         - This keyword will get the wifi ipv4 address of Mac book
         - Keyword Usage:
          - ``Get MAC Wifi IPv4 Addr    ${IP}    ${USERNAME}    {PASSWORD}``
-
         :param ip: IP Address of MAC book
         :param userid:  username of MAC book
         :param passwd: Password of MAC book
@@ -762,7 +747,6 @@ class Cli(object):
         - This keyword will clear the SSH key
         - Keyword Usage:
         -  ``clear ssh host key``
-
         :return: None
         """
 
@@ -782,7 +766,7 @@ class Cli(object):
     #     :return: 1 if Switch Rebooted Successfully else -1
     #     """
     #     spawn.sendline('reboot')
-    #     time.sleep(2)
+    #     sleep(2)
     #     try:
     #         spawn.expect(expected_output, timeout=30)
     #         spawn.sendline(option)
@@ -813,29 +797,29 @@ class Cli(object):
     #                       pexpect.EOF], timeout=200)
     #
     #     if i == 0:
-    #         time.sleep(2)
+    #         sleep(2)
     #         output = str(spawn.before) + str(spawn.after)
     #         self.utils.print_info("OUTPUT : ", output)
     #         spawn.sendline("yes")
-    #         time.sleep(5)
+    #         sleep(5)
     #
     #         j = spawn.expect(['Do you want to install image after downloading',
     #                           'y - yes, n - no',
     #                           pexpect.TIMEOUT,
     #                           pexpect.EOF], timeout=200)
     #         if j == 0 or j == 1:
-    #             time.sleep(2)
+    #             sleep(2)
     #             output = str(spawn.before) + str(spawn.after)
     #             self.utils.print_info("OUTPUT : ", output)
     #             spawn.sendline("yes")
-    #             time.sleep(5)
+    #             sleep(5)
     #
     #     if i == 1 or i == 2:
-    #         time.sleep(2)
+    #         sleep(2)
     #         output = str(spawn.before) + str(spawn.after)
     #         self.utils.print_info("OUTPUT : ", output)
     #         spawn.sendline("yes")
-    #         time.sleep(5)
+    #         sleep(5)
     #
     #     self.utils.print_info("Expecting prompt in : ", int(time_out))
     #     spawn.expect("#", timeout=int(time_out))
@@ -868,11 +852,11 @@ class Cli(object):
     #                       pexpect.EOF], timeout=30)
     #
     #     if i == 0:
-    #         time.sleep(2)
+    #         sleep(2)
     #         output = str(spawn.before) + str(spawn.after)
     #         self.utils.print_info("OUTPUT : ", output)
     #         spawn.sendline("yes")
-    #         time.sleep(5)
+    #         sleep(5)
     #
     #     try:
     #         spawn.expect("#", timeout=20)
@@ -890,7 +874,6 @@ class Cli(object):
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
         -  ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
-
         :param cli_type: Device Cli Type
         :param connection: The open connection
         :param server_name: Cloud Server Name to connect the device
@@ -911,17 +894,17 @@ class Cli(object):
 
         elif  NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, f'capwap client server name {server_name}')
-            self.send(connection, f'no capwap client enable')
-            self.send(connection, f'capwap client enable')
-            self.send(connection, f'save config')
+            self.send(connection, 'no capwap client enable')
+            self.send(connection, 'capwap client enable')
+            self.send(connection, 'save config')
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'capwap client server name {server_name}')
             self.send(connection, f'capwap client default-server-name {server_name}')
             self.send(connection, f'capwap client server backup name {server_name}')
-            self.send(connection, f'no capwap client enable')
-            self.send(connection, f'capwap client enable')
-            self.send(connection, f'save config')
+            self.send(connection, 'no capwap client enable')
+            self.send(connection, 'capwap client enable')
+            self.send(connection, 'save config')
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
             self.send(connection, f'configure iqagent server ipaddress {server_name}')
@@ -929,32 +912,32 @@ class Cli(object):
             self.send(connection, 'enable iqagent')
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(connection, f'enable')
-            self.send(connection, f'configure terminal')
-            self.send(connection, f'application')
-            self.send(connection, f'no iqagent enable')
+            self.send(connection, 'enable')
+            self.send(connection, 'configure terminal')
+            self.send(connection, 'application')
+            self.send(connection, 'no iqagent enable')
             self.send(connection, f'iqagent server {server_name}')
-            self.send(connection, f'iqagent enable')
-            self.send(connection, f'end')
+            self.send(connection, 'iqagent enable')
+            self.send(connection, 'end')
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
-            self.send(connection, f'en')
-            self.send(connection, f'self')
-            self.send(connection, f'virtual-controller')
-            self.send(connection, f'show adoption status')
-            self.send(connection, f'end')
-            self.send(connection, f'en')
-            self.send(connection, f'config')
+            self.send(connection, 'en')
+            self.send(connection, 'self')
+            self.send(connection, 'virtual-controller')
+            self.send(connection, 'show adoption status')
+            self.send(connection, 'end')
+            self.send(connection, 'en')
+            self.send(connection, 'config')
             # Delete the policy
-            self.send(connection, f'no nsight-policy xiq', ignore_cli_feedback=True)
-            self.send(connection, f'commit write memory')
+            self.send(connection, 'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(connection, 'commit write memory')
             # Create the new policy
-            self.send(connection, f'nsight-policy xiq')
+            self.send(connection, 'nsight-policy xiq')
             self.send(connection, f'server host {server_name} https enforce-verification poll-work-queue')
-            self.send(connection, f'commit write memory')
-            self.send(connection, f'rf-domain default')
-            self.send(connection, f'use nsight-policy xiq')
-            self.send(connection, f'commit write memory')
+            self.send(connection, 'commit write memory')
+            self.send(connection, 'rf-domain default')
+            self.send(connection, 'use nsight-policy xiq')
+            self.send(connection, 'commit write memory')
             # show run nsight-policy ECIQ
         return 1
 
@@ -963,7 +946,6 @@ class Cli(object):
         - This Keyword will configure necessary configuration in the Device to Connect to Cloud
         - Keyword Usage:
         -  ``Configure Device To Connect To Cloud   ${CLI_TYPE}   ${SERVER_NAME}  ${CONNECTION}``
-
         :param cli_type: Device Cli Type
         :param server_name: Cloud Server Name to connect the device
         :param connection: The open connection
@@ -981,10 +963,10 @@ class Cli(object):
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(retry_duration)
-                hm_status = self.send(connection, f'show hivemanager status | include Status')
-                hm_address = self.send(connection, f'show hivemanager address')
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
+                sleep(retry_duration)
+                hm_status = self.send(connection, 'show hivemanager status | include Status')
+                hm_address = self.send(connection, 'show hivemanager address')
 
                 if 'CONNECTED TO HIVEMANAGER' in hm_status and server_name in hm_address:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
@@ -993,9 +975,9 @@ class Cli(object):
         elif NetworkElementConstants.OS_AHXR in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                capwap_status = self.send(connection, f'show capwap client | include "RUN state"')
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
+                sleep(10)
+                capwap_status = self.send(connection, 'show capwap client | include "RUN state"')
                 capwap_server = self.send(connection, f'show capwap client | include "{server_name}"')
 
                 if 'Connected securely to the CAPWAP server' in capwap_status and server_name in capwap_server:
@@ -1005,9 +987,9 @@ class Cli(object):
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                output = self.send(connection, f'show capwap client | include "RUN state"')
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
+                sleep(10)
+                output = self.send(connection, 'show capwap client | include "RUN state"')
 
                 if 'Connected securely to the CAPWAP server' in output:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
@@ -1019,10 +1001,10 @@ class Cli(object):
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                output = self.send(connection, f'show iqagent | include "XIQ Address"')
-                output1 = self.send(connection, f'show iqagent | include "Status"')
+                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
+                sleep(10)
+                output = self.send(connection, 'show iqagent | include "XIQ Address"')
+                output1 = self.send(connection, 'show iqagent | include "Status"')
 
                 if server_name in output and 'CONNECTED TO XIQ' in output1:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
@@ -1034,11 +1016,11 @@ class Cli(object):
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
+                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
+                sleep(10)
 
-                output1 = self.send(connection, f'show application iqagent | include "Server Address"')
-                output2 = self.send(connection, f'show application iqagent status | include "Connection Status"')
+                output1 = self.send(connection, 'show application iqagent | include "Server Address"')
+                output2 = self.send(connection, 'show application iqagent status | include "Connection Status"')
 
                 if server_name in output1 and 'Connected' in output2:
                     self.utils.print_info(f"Device Successfully Connected to {server_name}")
@@ -1053,7 +1035,6 @@ class Cli(object):
         - This Keyword will downgrade iqagent
         - Keyword Usage:
         -  ``Downgrade Iqagent       ${CLI_TYPE}     ${CONNECTION}
-
        :param cli_type: Device Cli Type
        :param connection: The open connection
        :return: 1 commands successfully configured  else -1
@@ -1070,7 +1051,7 @@ class Cli(object):
                     break
                 except Exception as e:
                     self.utils.print_info(f"Unable to downgrade IQAgent {e}, waiting 30 seconds and trying again...")
-                    time.sleep(30)
+                    sleep(30)
                     count = count + 1
             return results
         else:
@@ -1082,21 +1063,20 @@ class Cli(object):
         - This Keyword will downgrade iqagent for VOSS devices
         - Keyword Usage:
         -  ``downgrade iqagent voss     ${CLI_TYPE}  ${CONNECTION}``
-
         :param cli_type: The cli type
         :param connection: The open connection
         :return:  1 if commands successfully configured else -1
         """
 
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(connection, f'enable')
-            self.send(connection, f'config t')
-            self.send(connection, f'application')
-            self.send(connection, f'show application iqagent | include "Agent Version"')
-            self.send(connection, f'no iqagent enable')
-            self.send(connection, f'software iqagent reinstall')
-            self.send(connection, f'iqagent enable')
-            self.send(connection, f'show application iqagent | include "Agent Version"')
+            self.send(connection, 'enable')
+            self.send(connection, 'config t')
+            self.send(connection, 'application')
+            self.send(connection, 'show application iqagent | include "Agent Version"')
+            self.send(connection, 'no iqagent enable')
+            self.send(connection, 'software iqagent reinstall')
+            self.send(connection, 'iqagent enable')
+            self.send(connection, 'show application iqagent | include "Agent Version"')
             return 1
         else:
             kwargs['fail_msg'] = "Failed to downgrade IQAgent "
@@ -1108,7 +1088,6 @@ class Cli(object):
         - This Keyword will downgrade iqagent for EXOS devices
         - Keyword Usage:
         -  ``downgrade iqagent exos    ${CLI_TYPE}  ${CONNECTION}``
-
         :param cli_type: The cli type
         :param connection: The open connection
         :return:  1 if commands successfully configured else -1
@@ -1117,20 +1096,20 @@ class Cli(object):
         returnCode = -1
         try:
             # Make sure the iqagent is enabled
-            self.send(connection, f'enable iqagent')
-            current_version = self.send(connection, f'show iqagent | include Version')
+            self.send(connection, 'enable iqagent')
+            current_version = self.send(connection, 'show iqagent | include Version')
             # Output:
             #   Version                             0.6.6
             #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
             current_version = current_version.replace("Version",'').split()[0]
-            base_version = self.send(connection, f'show process iqagent  | include Slot-1.iqagent')
+            base_version = self.send(connection, 'show process iqagent  | include Slot-1.iqagent')
             if 'iqagent' in base_version:
                 # Output:
                 #   Slot-1 iqagent          0.5.42.1    0    Ready        Tue Sep 20 13:02:14 2022  Vital
                 #   * Slot-1 Stack.12 #
                 base_version = base_version.replace("Slot-1 iqagent",'').split()[0]
             else:
-                base_version = self.send(connection, f'show process iqagent  | include iqagent')
+                base_version = self.send(connection, 'show process iqagent  | include iqagent')
                 # Output:
                 #   iqagent          0.6.6.1     0    Ready        Fri Sep  2 13:26:44 2022  Vital
                 #   * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
@@ -1141,7 +1120,7 @@ class Cli(object):
                 base_version = f'{parts[0]}.{parts[1]}.{parts[2]}'
 
             if current_version != base_version:
-                vr = self.send(connection, f'show iqagent | include Active.VR')
+                vr = self.send(connection, 'show iqagent | include Active.VR')
                 # Output:
                 # X465-48W.3 # show iqagent | include Active\ VR
                 # Active VR                           VR-Default
@@ -1149,8 +1128,8 @@ class Cli(object):
                 if len(vr)> 0 and vr != 'None':
                     vrString = f' vr {vr}'
                 else:
-                    vrString = f' vr vr-mgmt'
-                system_type = self.send(connection, f'show switch | include "System Type"')
+                    vrString = ' vr vr-mgmt'
+                system_type = self.send(connection, 'show switch | include "System Type"')
                 # Output:
                 # System Type:      5520-24T-SwitchEngine
                 # * (CIT_32.2.0.401) 5520-24T-SwitchEngine.3 # '
@@ -1186,14 +1165,14 @@ class Cli(object):
                     count = 0
 
                     # Sleep for 20 seconds to allow for the download to complete
-                    time.sleep(20)
+                    sleep(20)
 
                     new_version = ''
                     while 'Version' not in new_version:
                         if count == max_tries:
                             break
-                        time.sleep(1)
-                        new_version = self.send(connection, f'show iqagent | include Version')
+                        sleep(1)
+                        new_version = self.send(connection, 'show iqagent | include Version')
                         count = count + 1
                     try:
                         new_version = new_version.split()[1]
@@ -1202,7 +1181,7 @@ class Cli(object):
                         else:
                             self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed!")
                             kwargs['fail_msg'] = f"Downgrading iqagent {current_version} to base version {base_version} failed!"
-                    except:
+                    except Exception:
                         self.utils.print_error(f"Downgrading iqagent {current_version} to base version {base_version} failed! new_version: {new_version}")
                         kwargs['pass_msg'] = f"Downgrading iqagent {current_version} to base version {base_version} failed! new_version: {new_version}"
             else:
@@ -1227,12 +1206,12 @@ class Cli(object):
         #
 
         # if NetworkElementConstants.OS_EXOS in cli_type.upper():
-        #     self.send(_spawn, f'show iqagent | include Version')
+        #     self.send(_spawn, 'show iqagent | include Version')
         #     self.send(_spawn, url_image, \
         #               confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
         #               confirmation_args='yes')
-        #     time.sleep(10)
-        #     self.send(_spawn, f'show iqagent | include Version')
+        #     sleep(10)
+        #     self.send(_spawn, 'show iqagent | include Version')
         #     self.close_spawn(_spawn)
         #     return 1
         # else:
@@ -1244,109 +1223,108 @@ class Cli(object):
         - This Keyword Disconnect Device From Cloud
         - Keyword Usage:
         -  ``disconnect device from cloud  ${CLI_TYPE}  ${CONNECTION}``
-
         :param cli_type: The cli type
         :param connection: The open connection
         :param retry_count: Retry count to check device connection status with Cloud server
         :return: 1 id device successfully disconnected with cloud server else -1
         """
         if NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(connection, f'no capwap client server name')
-            self.send(connection, f'no capwap client enable')
-            self.send(connection, f'capwap client enable')
-            self.send(connection, f'save config')
+            self.send(connection, 'no capwap client server name')
+            self.send(connection, 'no capwap client enable')
+            self.send(connection, 'capwap client enable')
+            self.send(connection, 'save config')
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                hm_status = self.send(connection, f'show capwap client | include RUN')
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
+                sleep(10)
+                hm_status = self.send(connection, 'show capwap client | include RUN')
                 if 'RUN State' not in hm_status: # the RUN state will not be in the output, only the DISCOVERY state will be shown
-                    self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
+                    self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
+            self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
-            self.send(connection, f'no Hivemanager address ')
-            self.send(connection, f'Application stop hiveagent')
-            self.send(connection, f'Application start hiveagent')
+            self.send(connection, 'no Hivemanager address ')
+            self.send(connection, 'Application stop hiveagent')
+            self.send(connection, 'Application start hiveagent')
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                hm_status = self.send(connection, f'show hivemanager status | include Status')
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
+                sleep(10)
+                hm_status = self.send(connection, 'show hivemanager status | include Status')
                 if 'CONNECTED TO HIVEMANAGER' not in hm_status:
-                    self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
+                    self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
+            self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
-            self.send(connection, f'no capwap client server name')
-            self.send(connection, f'no capwap client default-server-name')
-            self.send(connection, f'no capwap client server backup name')
-            self.send(connection, f'no capwap client enable')
-            self.send(connection, f'save config')
+            self.send(connection, 'no capwap client server name')
+            self.send(connection, 'no capwap client default-server-name')
+            self.send(connection, 'no capwap client server backup name')
+            self.send(connection, 'no capwap client enable')
+            self.send(connection, 'save config')
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                output = self.send(connection, f'show capwap client | include "RUN state"')
+                self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
+                sleep(10)
+                output = self.send(connection, 'show capwap client | include "RUN state"')
 
                 if 'Connected securely to the CAPWAP server' not in output:
-                    self.utils.print_info(f"Device Successfully Disconnected from CAPWAP server")
+                    self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is not Disconnected Successfully With CAPWAP Server")
+            self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_EXOS in cli_type.upper():
-            self.send(connection, f'configure iqagent server ipaddress none')
-            self.send(connection, f'configure iqagent server vr none')
+            self.send(connection, 'configure iqagent server ipaddress none')
+            self.send(connection, 'configure iqagent server vr none')
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
-                output = self.send(connection, f'show iqagent | include "Status"')
+                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
+                sleep(10)
+                output = self.send(connection, 'show iqagent | include "Status"')
 
                 if 'CONNECTED TO XIQ' not in output:
-                    self.utils.print_info(f"Device Successfully Disconnected From Cloud server")
+                    self.utils.print_info("Device Successfully Disconnected From Cloud server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
+            self.builtin.fail(msg="Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_VOSS in cli_type.upper():
-            self.send(connection, f'enable')
-            self.send(connection, f'configure terminal')
-            self.send(connection, f'application')
-            self.send(connection, f'no iqagent enable')
-            self.send(connection, f'default iqagent server')
-            self.send(connection, f'end')
+            self.send(connection, 'enable')
+            self.send(connection, 'configure terminal')
+            self.send(connection, 'application')
+            self.send(connection, 'no iqagent enable')
+            self.send(connection, 'default iqagent server')
+            self.send(connection, 'end')
 
             count = 1
             while count <= retry_count:
-                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: ", count)
-                time.sleep(10)
+                self.utils.print_info(f"Verifying Server Connection Status On Device- Loop: {count}")
+                sleep(10)
 
-                output = self.send(connection, f'show application iqagent status | include "Connection Status"')
+                output = self.send(connection, 'show application iqagent status | include "Connection Status"')
 
                 if 'Disconnected' in output:
-                    self.utils.print_info(f"Device Successfully Disconnected from Cloud server")
+                    self.utils.print_info("Device Successfully Disconnected from Cloud server")
                     return 1
                 count += 1
 
-            self.builtin.fail(msg=f"Device is Not Disconnected Successfully From Cloud Server")
+            self.builtin.fail(msg="Device is Not Disconnected Successfully From Cloud Server")
 
         elif NetworkElementConstants.OS_WING in cli_type.upper():
             # These commands fail internally if there is a failure sending them
-            self.send(connection, f'en')
-            self.send(connection, f'config')
+            self.send(connection, 'en')
+            self.send(connection, 'config')
             # Delete the policy
-            self.send(connection, f'no nsight-policy xiq', ignore_cli_feedback=True)
-            self.send(connection, f'commit write memory')
+            self.send(connection, 'no nsight-policy xiq', ignore_cli_feedback=True)
+            self.send(connection, 'commit write memory')
             return 1
         return -1
 
@@ -1359,7 +1337,6 @@ class Cli(object):
         -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}``
         -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60``
         -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60  ${COUNT}=15``
-
         :param spawn: Device Spawn
         :param cmd: Command to Execute
         :param expected_output: Expected CLI Output
@@ -1375,7 +1352,7 @@ class Cli(object):
                 return 1
             else:
                 self.utils.print_info("Waiting for: ", retry_duration, " Seconds")
-                time.sleep(retry_duration)
+                sleep(retry_duration)
             count += 1
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
@@ -1386,7 +1363,6 @@ class Cli(object):
         - This Keyword enables debug mode for IQagent for VOSS/EXOS
         - Keyword Usage:
         -  ``Enable Debug Mode Iqagent   ${IP}  ${PORT}  ${USERNAME}  ${PASSWORD}  ${CLI_TYPE}``
-
         :param ip: IP Address of the Device
         :param port: Port
         :param username: username to access console
@@ -1420,7 +1396,6 @@ class Cli(object):
         - Default timeout is 90 seconds
         - Keyword Usage:
         -  ``Send line and_wait   ${SPAWN}   ${LINE}     ${COMMAND}``
-
         :param spawn: Device Spawn to execute command
         :param line: CLI command to be execute
         :param wait: Collect the information in a certain time
@@ -1431,7 +1406,7 @@ class Cli(object):
             self.utils.print_info("No information about spawn")
             return -1
         spawn.sendline(line)
-        time.sleep(wait)
+        sleep(wait)
         output2 = spawn.read_nonblocking(size=100000000)
         if isinstance(output2, bytes):
             return output2.decode()
@@ -1449,8 +1424,8 @@ class Cli(object):
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
         output = None
         if dut.cli_type.upper() == "EXOS":
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
-            output = self.networkElementCliSend.send_cmd(dut.name, f'show ports info', max_wait=10, interval=2)[
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports info', max_wait=10, interval=2)[
                 0].return_text
             output = re.findall(r"\r\n(\d+)\s+", output)
 
@@ -1477,7 +1452,7 @@ class Cli(object):
         """
         if dut.cli_type.upper() == "VOSS":
 
-            time.sleep(10)
+            sleep(10)
             self.networkElementCliSend.send_cmd(dut.name, 'enable',
                                  max_wait=10, interval=2)
             output = self.networkElementCliSend.send_cmd(dut.name, 'show int gig int | no-more',
@@ -1496,7 +1471,7 @@ class Cli(object):
 
         elif dut.cli_type.upper() == "EXOS":
 
-            time.sleep(10)
+            sleep(10)
             self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
                                  max_wait=10, interval=2)
             output = self.networkElementCliSend.send_cmd(dut.name, 'show ports info',
@@ -1557,7 +1532,7 @@ class Cli(object):
                 self.networkElementCliSend.send_cmd(dut.name, "no " + cmd_action, max_wait=10, interval=2)
 
         self.close_connection_with_error_handling(dut)
-        kwargs['pass_msg'] = f"set_lldp() keyword passed."
+        kwargs['pass_msg'] = "set_lldp() keyword passed."
         self.commonValidation.passed(**kwargs)
 
     def bounce_IQAgent(self, dut, xiq_ip_address=None, connect_to_dut=True, disconnect_from_dut=True, wait=True,
@@ -1592,11 +1567,11 @@ class Cli(object):
 
         if disconnect_from_dut:
             self.close_connection_with_error_handling(dut)
-            kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed."
+            kwargs['pass_msg'] = "bounce_IQAgent() keyword passed."
             self.commonValidation.passed(**kwargs)
         if wait and xiq is not None:
             xiq.xflowscommonDevices.wait_until_device_online(dut.serial)
-            kwargs['pass_msg'] = f"bounce_IQAgent() keyword passed. Successfully waited until device online."
+            kwargs['pass_msg'] = "bounce_IQAgent() keyword passed. Successfully waited until device online."
             self.commonValidation.passed(**kwargs)
 
     def get_the_number_of_ports_from_cli(self, dut, **kwargs):
@@ -1620,9 +1595,9 @@ class Cli(object):
             no_ports = int(no_ports)
 
         elif dut.cli_type.upper() == "EXOS":
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging',
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
                                                 max_wait=10)
-            output = self.networkElementCliSend.send_cmd(dut.name, f'show ports vlan',
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan',
                                                          max_wait=10)
             output = output[0].return_text
             match_port = re.findall(r'(\d+)\s+\w+', output)
@@ -1644,8 +1619,8 @@ class Cli(object):
         self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
 
         logger.info("Wait 120 seconds for the configuration of the ports to update on the dut")
-        start_time = time.time()
-        while time.time() - start_time < 120:
+        start_time = time()
+        while time() - start_time < 120:
 
             if onboarded_switch.cli_type.upper() == "EXOS":
                 try:
@@ -1655,7 +1630,7 @@ class Cli(object):
                         assert re.search(fr"\r\nVLAN_{str(vlan).zfill(4)}\s+{vlan}\s+", output)
                 except Exception as exc:
                     logger.info(f"Sleep 10s...\n{repr(exc)}")
-                    time.sleep(10)
+                    sleep(10)
                 else:
                     logger.info("Configuration successfully updated on the dut")
                     break
@@ -1670,7 +1645,7 @@ class Cli(object):
 
                 except Exception as exc:
                     logger.info(f"Sleep 10s...\n{repr(exc)}")
-                    time.sleep(10)
+                    sleep(10)
                 else:
                     logger.info("Configuration successfully updated on the dut")
                     break
@@ -1678,7 +1653,7 @@ class Cli(object):
             raise AssertionError("The configuration did not update on the dut after 120 seconds")
 
         self.close_connection_with_error_handling(onboarded_switch)
-        kwargs['pass_msg'] = f'verify_vlan_config_on_switch() keyword passed'
+        kwargs['pass_msg'] = 'verify_vlan_config_on_switch() keyword passed'
         self.commonValidation.passed(**kwargs)
 
     def no_channel_enable_on_all_ports(self, onboarded_switch, **kwargs):
@@ -1686,7 +1661,7 @@ class Cli(object):
          - This keyword sends 'no channelize enable' on all ports in CLI
         :return:
         """
-        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, f'show interface GigabitEthernet channelize',
+        output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show interface GigabitEthernet channelize',
                                       max_wait=10,
                                       interval=2)[0].return_text
         match_port = re.findall(r"(\d+)\/(\d+)\s+(false|true)\s+[a-zA-Z0-9]+", output)
@@ -1698,7 +1673,7 @@ class Cli(object):
                 self.networkElementCliSend.send_cmd(onboarded_switch.name, 'no channelize enable',
                                      confirmation_phrases='Do you wish to continue (y/n) ?',
                                      confirmation_args='y')
-        kwargs['pass_msg'] = f'no_channel_enable_on_all_ports() passed'
+        kwargs['pass_msg'] = 'no_channel_enable_on_all_ports() passed'
         self.commonValidation.passed(**kwargs)
 
     def get_device_port_status(self, networkElementCliSend=None, dut=None, **kwargs):
@@ -1711,7 +1686,7 @@ class Cli(object):
 
         # get the required information from the device CLI
         if dut.cli_type.upper() == 'VOSS':
-            time.sleep(10)
+            sleep(10)
             output = networkElementCliSend.send_cmd(
                 dut.name, 'show interfaces gigabitEthernet name | no-more', max_wait=10, interval=2)
             # get a list of all the ports from the device
@@ -1724,7 +1699,7 @@ class Cli(object):
             # get a dictionary with ports as the keys and their corresponding speeds as the values
             cli_ports_status = dict(zip(match_port, match_cli_port_status))
         elif dut.cli_type.upper() == 'EXOS':
-            time.sleep(10)
+            sleep(10)
             networkElementCliSend.send_cmd(dut.name, 'disable cli refresh', max_wait=10, interval=2)
             networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
             output = networkElementCliSend.send_cmd(dut.name, 'show ports', max_wait=10, interval=2)
@@ -1826,7 +1801,7 @@ class Cli(object):
         elif dut.cli_type.upper() == "VOSS":
             self.networkElementCliSend.send_cmd(
                 dut.name, f"clear-stats port {first_port},{second_port}", max_wait=10, interval=2)
-        kwargs['pass_msg'] = f'clear_counters() passed.'
+        kwargs['pass_msg'] = 'clear_counters() passed.'
         self.commonValidation.passed(**kwargs)
 
     def get_received_traffic_list_from_dut(self, dut, first_port, second_port, **kwargs):
@@ -1840,14 +1815,14 @@ class Cli(object):
         """
 
         if dut.cli_type.upper() == "VOSS":
-            time.sleep(10)
+            sleep(10)
 
             self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
             output = self.networkElementCliSend.send_cmd(
                 dut.name, f'show interfaces gigabitEthernet statistics {first_port},{second_port}', max_wait=10,
                 interval=2)
 
-            time.sleep(2)
+            sleep(2)
             print(output[0].return_text)
             p = re.compile(r'(^\d+\/\d+)\s+(\d+)', re.M)
             match_port = re.findall(p, output[0].return_text)
@@ -1861,7 +1836,7 @@ class Cli(object):
             print(f"received_traffic for port {second_port} is {match_port[1][1]} octets")
 
         elif dut.cli_type.upper() == "EXOS":
-            time.sleep(10)
+            sleep(10)
             self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
                                 max_wait=10, interval=2)
             output = self.networkElementCliSend.send_cmd(dut.name, f'show port {first_port},{second_port} statistics no-refresh',
@@ -1894,14 +1869,14 @@ class Cli(object):
         """
 
         if dut.cli_type.upper() == "VOSS":
-            time.sleep(10)
+            sleep(10)
 
             self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=10, interval=2)
             output = self.networkElementCliSend.send_cmd(
                 dut.name, f'show interfaces gigabitEthernet statistics {first_port},{second_port}', max_wait=10,
                 interval=2)
 
-            time.sleep(2)
+            sleep(2)
             print(output[0].return_text)
             p = re.compile(r'(^\d+\/\d+)\s+(\d+)\s+(\d+)', re.M)
             match_port = re.findall(p, output[0].return_text)
@@ -1917,7 +1892,7 @@ class Cli(object):
             print("list from dut is ", transmitted_traffic_list)
 
         elif dut.cli_type.upper() == "EXOS":
-            time.sleep(10)
+            sleep(10)
             self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
                                  max_wait=10, interval=2)
             output = self.networkElementCliSend.send_cmd(dut.name, f'show port {first_port},{second_port} statistics no-refresh',
@@ -1933,13 +1908,12 @@ class Cli(object):
 
             print(f"transmitted_traffic_list for port {first_port} is {match_port[0][3]} octets")
             print(f"transmitted_traffic_list for port {second_port} is {match_port[1][3]} octets")
-        kwargs['pass_msg'] = f'get_transmitted_traffic_list_from_dut() passed.'
+        kwargs['pass_msg'] = 'get_transmitted_traffic_list_from_dut() passed.'
         self.commonValidation.passed(**kwargs)
         return transmitted_traffic_list
 
     def close_connection_with_error_handling(self, dut):
         """Method that makes sure the connection to a dut is closed.
-
         Args:
             dut (dict): the dut, e.g. tb.dut1
         """
@@ -1950,7 +1924,6 @@ class Cli(object):
 
     def verify_path_cost_on_device(self, device, port, expected_path_cost, mode="mstp", retries=10, step=60, **kwargs):
         """Method that verifies the path cost on a specific port of a given device.
-
         Args:
             device (dict): the device, e.g. tb.dut1
             port (str): the port of the device
@@ -1958,7 +1931,6 @@ class Cli(object):
             mode (str, optional): the stp mode. Defaults to "mstp".
             retries (int, optional): the number of retries. Defaults to 10.
             step (int, optional): seconds to sleep between retries. Defaults to 60.
-
         Returns:
             int: 1 if the function call has succeeded else -1
         """
@@ -1973,8 +1945,8 @@ class Cli(object):
                     output = self.networkElementCliSend.send_cmd(
                         device.name, f'show spanning-tree mst port detailed 0 {port}', max_wait=10, interval=2)[
                         0].return_text
-                    path_cost_match = re.search(rf"\r\nPort Path Cost\.+\s+(\d+)", output)
-                    external_path_cost_match = re.search(rf"\r\nExternal Port Path Cost\.+\s+(\d+)", output)
+                    path_cost_match = re.search(r"\r\nPort Path Cost\.+\s+(\d+)", output)
+                    external_path_cost_match = re.search(r"\r\nExternal Port Path Cost\.+\s+(\d+)", output)
                     assert path_cost_match or external_path_cost_match
 
                     for path_cost_match in [path_cost_match, external_path_cost_match]:
@@ -1984,7 +1956,7 @@ class Cli(object):
                             assert int(expected_path_cost) == found_path_cost, \
                                 f"Found path cost for port='{port}' is {found_path_cost}" \
                                 f" but expected {expected_path_cost}"
-                        except:
+                        except Exception:
                             continue
                         else:
                             kwargs["pass_msg"] = f"Successfully found the path cost correctly set on port='{port}' to {expected_path_cost}"
@@ -1999,13 +1971,13 @@ class Cli(object):
                         output = self.networkElementCliSend.send_cmd(
                             device.name, f'show spanning-tree {mode} port config {port}', max_wait=10, interval=2)[
                             0].return_text
-                        path_cost_match = re.search(fr"\r\nCist Port cost\s+:\s*(\d+)\s*\r\n", output)
+                        path_cost_match = re.search(r"\r\nCist Port cost\s+:\s*(\d+)\s*\r\n", output)
 
                     elif NetworkElementConstants.OS_EXOS in device.cli_type.upper():
                         output = self.networkElementCliSend.send_cmd(
                             device.name, f'show stpd s0 ports {port} detail', max_wait=10, interval=2)[
                             0].return_text
-                        path_cost_match = re.search(fr"\tPath Cost:\s(\d+)\r\n", output)
+                        path_cost_match = re.search(r"\tPath Cost:\s(\d+)\r\n", output)
 
                     assert path_cost_match, f"Failed to match get the path cost of port='{port}' from dut {device.name}"
                     found_path_cost = int(path_cost_match.group(1))
@@ -2032,14 +2004,12 @@ class Cli(object):
     def verify_port_removed_from_vlan(self, dut, port, port_type, vlan=None, allowed_vlans="all", **kwargs):
         """Method that verifies if given port is removed from a specific vlan of a switch.
         Currently this method supports only devices with cli_type - exos (standalone and stack) or voss.
-
         Args:
             dut (dict): the dut, e.g. tb.dut1
             port (str): the port of the switch
             port_type (str): the port type
             vlan (str, optional): the vlan which is not expected to be found (this argument is used only when cli_type is voss). Defaults to None.
             allowed_vlans (str, optional): the allowed vlans (should be used when port_type is "trunk"). Defaults to "all".
-
         Returns:
             int: 1 if the function call has succeeded else -1
         """
@@ -2066,7 +2036,7 @@ class Cli(object):
                     if allowed_vlans != "all":
                         assert re.search(fr"\r\nVLAN_{allowed_vlans.zfill(4)}\s+{allowed_vlans}\s+", output)
                     else:
-                        assert re.search(fr"\r\nDefault\s+1\s", output)
+                        assert re.search(r"\r\nDefault\s+1\s", output)
 
             elif NetworkElementConstants.OS_VOSS in dut.cli_type.upper():
 
@@ -2077,7 +2047,7 @@ class Cli(object):
                 if allowed_vlans != "all":
                     assert re.search(fr"\r\n{allowed_vlans}\s+{port}\s+", output)
 
-        except Exception as exc:
+        except Exception:
             kwargs["fail_msg"] = "Failed to verify that given port is removed from any configured vlan"
             self.commonValidation.failed(**kwargs)
             return -1
@@ -2177,25 +2147,24 @@ class Cli(object):
         """
         This keyword gets stacking details from CLI (Mac add, Slot number and Role -for each unit).
         This keyword is implemented only for EXOS STACK.
-
         :param dut: The dut object of the device
         :return: a list of tuples
         """
         units_list = []
 
         if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
 
-            stacking_details_output = self.networkElementCliSend.send_cmd(dut.name, f'show stacking', max_wait=10, interval=2)
+            stacking_details_output = self.networkElementCliSend.send_cmd(dut.name, 'show stacking', max_wait=10, interval=2)
             p = re.compile(r"((?:[0-9a-fA-F]:?){12})\s+(\d)\s+[^\s]+\s+([^\s]+)", re.M)
             stacking_details = re.findall(p, stacking_details_output[0].return_text)
             units_list.append(stacking_details)
 
-            kwargs['pass_msg'] = f"Stacking details found"
+            kwargs['pass_msg'] = "Stacking details found"
             self.commonValidation.passed(**kwargs)
             return units_list
 
-        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        kwargs['fail_msg'] = "This method is implemented only for EXOS STACK."
         self.commonValidation.failed(**kwargs)
         return -1
 
@@ -2203,17 +2172,16 @@ class Cli(object):
         """
         - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
         This keyword is implemented only for EXOS STACK.
-
         :param dut: the dut object
         :return: a list of tuples
         """
         info_list = []
 
         if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
             ip_list_cli = []
             ip_list = []
-            ip_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Interface', max_wait=10, interval=2)
+            ip_output = self.networkElementCliSend.send_cmd(dut.name, 'show iqagent | include Interface', max_wait=10, interval=2)
             p = re.compile(r"(Source\sInterface)\s+(\d+.\d+.\d+.\d+)", re.M)
             ip_dut_list = re.findall(p, ip_output[0].return_text)
             ip_list.append(ip_dut_list)
@@ -2237,7 +2205,7 @@ class Cli(object):
 
             soft_version_list_cli = []
             soft_version_list = []
-            soft_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            soft_version_output = self.networkElementCliSend.send_cmd(dut.name, 'show version', max_wait=10, interval=2)
             p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+\s+.[^\s]+\W([^\s]+)", re.M)
             soft_version_dut_list = re.findall(p, soft_version_output[0].return_text)
             soft_version_list.append(soft_version_dut_list)
@@ -2248,7 +2216,7 @@ class Cli(object):
 
             type_list_cli = []
             type_list = []
-            type_output = self.networkElementCliSend.send_cmd(dut.name, f'show slot', max_wait=10, interval=2)
+            type_output = self.networkElementCliSend.send_cmd(dut.name, 'show slot', max_wait=10, interval=2)
             p = re.compile(r"(Slot-\d)\s{5}([^\s]+)", re.M)
             type_dut_list = re.findall(p, type_output[0].return_text)
             type_list.append(type_dut_list)
@@ -2259,7 +2227,7 @@ class Cli(object):
 
             serial_list_cli = []
             serial_list = []
-            serial_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
+            serial_output = self.networkElementCliSend.send_cmd(dut.name, 'show version', max_wait=10, interval=2)
             p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.([^\s]+)", re.M)
             serial_number_list = re.findall(p, serial_output[0].return_text)
             serial_list.append(serial_number_list)
@@ -2270,7 +2238,7 @@ class Cli(object):
 
             make_list_cli = []
             make_list = []
-            make_output =  self.networkElementCliSend.send_cmd(dut.name, f'show version | include Image', max_wait=10, interval=2)
+            make_output =  self.networkElementCliSend.send_cmd(dut.name, 'show version | include Image', max_wait=10, interval=2)
             p = re.compile(r"(Image\s+\W)\s+(.*)\sversion", re.M)
             make_dut_list = re.findall(p, make_output[0].return_text)
             make_list.append(make_dut_list)
@@ -2281,7 +2249,7 @@ class Cli(object):
 
             iqagent_version_cli = []
             iqagent_version_list = []
-            iqagent_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Version', max_wait=10,interval=2)
+            iqagent_version_output = self.networkElementCliSend.send_cmd(dut.name, 'show iqagent | include Version', max_wait=10,interval=2)
             p = re.compile(r"(Version)\s+([^\s]+)", re.M)
             iqagent_version_dut = re.findall(p, iqagent_version_output[0].return_text)
             iqagent_version_list.append(iqagent_version_dut)
@@ -2290,109 +2258,11 @@ class Cli(object):
                 iqagent_version_cli.append(unit_i_iqagent_version)
             info_list.append(iqagent_version_cli)
 
-            kwargs['pass_msg'] = f"Stacking details found"
+            kwargs['pass_msg'] = "Stacking details found"
             self.commonValidation.passed(**kwargs)
             return info_list
 
-        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
-        self.commonValidation.failed(**kwargs)
-        return -1
-
-    def get_info_from_stack(self, dut, **kwargs):
-        """
-        - This keyword gets dut details from CLI(ip, mac address, software version, model, serial, make, iqagent version)
-
-        :param dut: the dut object
-        :return: a list of tuples
-        """
-        info_list = []
-
-        if dut.cli_type.upper() == "EXOS":
-            self.networkElementCliSend.send_cmd(dut.name, f'disable cli paging', max_wait=10, interval=2)
-            ip_list_cli = []
-            ip_list = []
-            ip_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Interface', max_wait=10, interval=2)
-            p = re.compile(r"(Source\sInterface)\s+(\d+.\d+.\d+.\d+)", re.M)
-            ip_dut_list = re.findall(p, ip_output[0].return_text)
-            ip_list.append(ip_dut_list)
-            for i in range(0, len(ip_list[0])):
-                unit_i_ip = ip_list[0][i][1]
-                ip_list_cli.append(unit_i_ip)
-            info_list.append(ip_list_cli)
-
-            stacking_info_cli = self.get_stacking_details_cli(dut)
-            print(f"Stacking details cli: {stacking_info_cli}")
-            stacking_info_cli_list_of_tuples= stacking_info_cli[0]
-            sorted_by_second = sorted(stacking_info_cli_list_of_tuples, key=lambda tup: tup[1])
-            print(f"Stacking details cli sorted_by_second: {sorted_by_second}")
-            mac_add_list_cli = []
-            for i in range(0, len(sorted_by_second)):
-                unit_i_mac_address = sorted_by_second[i][0]
-                unit_i_mac_address_mapped = unit_i_mac_address.replace(':', '')
-                unit_i_mac_address_final_mapped = unit_i_mac_address_mapped.upper()
-                mac_add_list_cli.append(unit_i_mac_address_final_mapped)
-            info_list.append(mac_add_list_cli)
-
-            soft_version_list_cli = []
-            soft_version_list = []
-            soft_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
-            p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+.[^\s]+\s+.[^\s]+\W([^\s]+)", re.M)
-            soft_version_dut_list = re.findall(p, soft_version_output[0].return_text)
-            soft_version_list.append(soft_version_dut_list)
-            for i in range(0, len(soft_version_list[0])):
-                unit_i_soft_version = soft_version_list[0][i][1]
-                soft_version_list_cli.append(unit_i_soft_version)
-            info_list.append(soft_version_list_cli)
-
-            type_list_cli = []
-            type_list = []
-            type_output = self.networkElementCliSend.send_cmd(dut.name, f'show slot', max_wait=10, interval=2)
-            p = re.compile(r"(Slot-\d)\s{5}([^\s]+)", re.M)
-            type_dut_list = re.findall(p, type_output[0].return_text)
-            type_list.append(type_dut_list)
-            for i in range(0, len(type_list[0])):
-                unit_i_type = type_list[0][i][1]
-                type_list_cli.append(unit_i_type)
-            info_list.append(type_list_cli)
-
-            serial_list_cli = []
-            serial_list = []
-            serial_output = self.networkElementCliSend.send_cmd(dut.name, f'show version', max_wait=10, interval=2)
-            p = re.compile(r"(Slot-\d)\s+\W.[^\s]+.([^\s]+)", re.M)
-            serial_number_list = re.findall(p, serial_output[0].return_text)
-            serial_list.append(serial_number_list)
-            for i in range(0, len(serial_list[0])):
-                unit_i_serial_number = serial_list[0][i][1]
-                serial_list_cli.append(unit_i_serial_number)
-            info_list.append(serial_list_cli)
-
-            make_list_cli = []
-            make_list = []
-            make_output =  self.networkElementCliSend.send_cmd(dut.name, f'show version | include Image', max_wait=10, interval=2)
-            p = re.compile(r"(Image\s+\W)\s+(.*)\sversion", re.M)
-            make_dut_list = re.findall(p, make_output[0].return_text)
-            make_list.append(make_dut_list)
-            for i in range(0, len(make_list[0])):
-                unit_i_make = make_list[0][i][1]
-                make_list_cli.append(unit_i_make)
-            info_list.append(make_list_cli)
-
-            iqagent_version_cli = []
-            iqagent_version_list = []
-            iqagent_version_output = self.networkElementCliSend.send_cmd(dut.name, f'show iqagent | include Version', max_wait=10,interval=2)
-            p = re.compile(r"(Version)\s+([^\s]+)", re.M)
-            iqagent_version_dut = re.findall(p, iqagent_version_output[0].return_text)
-            iqagent_version_list.append(iqagent_version_dut)
-            for i in range(0, len(iqagent_version_list[0])):
-                unit_i_iqagent_version = iqagent_version_list[0][i][1]
-                iqagent_version_cli.append(unit_i_iqagent_version)
-            info_list.append(iqagent_version_cli)
-
-            kwargs['pass_msg'] = f"get_info_from_stack() passed"
-            self.commonValidation.passed(**kwargs)
-            return info_list
-
-        kwargs['fail_msg'] = f"This method is implemented only for EXOS STACK."
+        kwargs['fail_msg'] = "This method is implemented only for EXOS STACK."
         self.commonValidation.failed(**kwargs)
         return -1
 
@@ -2427,12 +2297,12 @@ class Cli(object):
                     return -1
             else:
                 print("Pattern not found, unable to get virtual router info!")
-                kwargs['fail_msg'] = f"Pattern not found, unable to get virtual router info!"
+                kwargs['fail_msg'] = "Pattern not found, unable to get virtual router info!"
                 self.commonValidation.failed(**kwargs)
                 return -1
         else:
             print("Device is not an EXOS/Switch Engine device, unable to get virtual router info!")
-            kwargs['fail_msg'] = f"Device is not an EXOS/Switch Engine device, unable to get virtual router info!"
+            kwargs['fail_msg'] = "Device is not an EXOS/Switch Engine device, unable to get virtual router info!"
             self.commonValidation.failed(**kwargs)
             return -1
 
@@ -2441,11 +2311,9 @@ class Cli(object):
            - Gets the device model name from CLI for an EXOS/VOSS device
            - Keyword Usage:
             - ``get_device_model_name(dut=dut, cli_type=dut.cli_type)``
-
            :param dut: device
            :param cli_type: the type of device : EXOS / VOSS
            :return system_type_string: a string with device model
-
         """
         if cli_type.lower() == 'exos':
             device_system_output = self.networkElementCliSend.send_cmd(dut.name, 'show system | include System')[0].cmd_obj._return_text
@@ -2495,12 +2363,10 @@ class Cli(object):
            - This keyword is used to check if 2 devices have the same os version or not
            - Keyword Usage:
             - ``check_os_versions(dut1=${DEVICE}, dut2=${DEVICE})``
-
            :param dut1: first device
            :param dut2: second device
            :return "same"/"different": a string that specifies if the devices have the same OS or different OS
                     or -1 if unable to check OS versions
-
         """
         device_1 = dut1.name
         device_2 = dut2.name
@@ -2508,13 +2374,15 @@ class Cli(object):
         cli_type_device_2 = dut2.cli_type
 
         if cli_type_device_1.lower() == 'exos' and cli_type_device_2.lower() == 'exos':
-            check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')[0].cmd_obj._return_text
+            output_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')
+            check_image_version_1 = output_1[0].return_text
             image_version_regex = 'IMG:([ ]{1,}.{0,})'
             image_version_1 = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
             image_version_1_string = image_version_1.replace(self.utils.get_regexp_matches(image_version_1,
                                                                                                '([ ])')[0], '')
 
-            check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show version | grep IMG')[0].cmd_obj._return_text
+            output_2 = self.networkElementCliSend.send_cmd(device_2, 'show version | grep IMG')
+            check_image_version_2 = output_2[0].return_text
             image_version_2 = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
             image_version_2_string = image_version_2.replace(self.utils.get_regexp_matches(image_version_2,
                                                                                                '([ ])')[0], '')
@@ -2529,12 +2397,14 @@ class Cli(object):
                 return 'different'
 
         elif cli_type_device_1.lower() == 'voss' and cli_type_device_2.lower() == 'voss':
-            check_image_version_1 = self.networkElementCliSend.send_cmd(device_1, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            output_descr_1 = self.networkElementCliSend.send_cmd(device_1, 'show sys-info | include SysDescr')
+            check_image_version_1 = output_descr_1[0].return_text
             image_version_regex = '(\\d+[.]\\d+[.]\\d+[.]\\d+)'
             image_version_1_string = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
             print(f"OS version for clone device: {image_version_1_string}")
 
-            check_image_version_2 = self.networkElementCliSend.send_cmd(device_2, 'show sys-info | include SysDescr')[0].cmd_obj._return_text
+            output_descr_2 = self.networkElementCliSend.send_cmd(device_2, 'show sys-info | include SysDescr')
+            check_image_version_2 = output_descr_2[0].return_text
             image_version_2_string = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
             print(f"OS version for replacement device: {image_version_2_string}")
 
@@ -2555,7 +2425,6 @@ class Cli(object):
                 :param device: device selected
                 :param iqagent_option: "enable" or "disable" option for iqagent
                 :return 1 if sucess or -1 if fails
-
         """
         device_1 = device.name
         cli_type_device_1 = device.cli_type
@@ -2694,8 +2563,138 @@ class Cli(object):
             self.commonValidation.failed(**kwargs)
             return -1
 
+    def configure_cli_table(self, dut1, dut2, **kwargs):
+        """
+        - This keyword configures the same cli journal size for both given switches(EXOS) or clears logging history(VOSS) in order to compare the output
+        Args:
+         dut1 (dict): the dut, e.g. tb.dut1
+         dut2 (dict): the dut, e.g. tb.dut2
+        :return: -1 if No type OS found
+        """
+        cli_type_1 = dut1.cli_type
+        cli_type_2 = dut2.cli_type
+        dut1 = dut1.name
+        dut2 = dut2.name
+
+        if cli_type_1.lower() and cli_type_2.lower() == 'exos':
+            self.networkElementCliSend.send_cmd(dut1, 'configure cli journal size 200', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut2, 'configure cli journal size 200', max_wait=10, interval=2)
+            kwargs['pass_msg'] = "configure_cli_table() passed"
+            self.commonValidation.passed(**kwargs)
+        elif cli_type_1.lower() and cli_type_2.lower() == 'voss':
+
+            self.send_commands(dut1, "configure terminal")
+            self.send_commands(dut1, "clear logging")
+            self.send_commands(dut2, "configure terminal")
+            self.send_commands(dut2, "clear logging")
+            kwargs['pass_msg'] = "configure_cli_table() passed"
+            self.commonValidation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = "configure_cli_table() failed. No type OS found"
+            self.commonValidation.failed(**kwargs)
+            return -1
+
+    def check_clone_configuration(self, dut1, dut2, **kwargs):
+        """
+        - This keyword will verify if the clone configuration was successful by checking if the last commands for both given switches are the same
+        Args:
+         dut1 (dict): the dut, e.g. tb.dut1
+         dut2 (dict): the dut, e.g. tb.dut2
+        :return: a pass msg if the commands are the same/a fail msg if the commands are not the same
+        """
+
+        cli_type_1 = dut1.cli_type
+        cli_type_2 = dut2.cli_type
+
+        if cli_type_1.lower() and cli_type_2.lower() == 'exos':
+            cli_journal_1 = self.send_commands(dut1.name, "show cli journal | include hivemanager")
+            commands_device_1 = self.get_cli_commands(cli_journal_1, cli_type=dut1.cli_type)
+            print(commands_device_1)
+            cli_journal_2 = self.send_commands(dut2.name, "show cli journal | include hivemanager")
+            commands_device_2 = self.get_cli_commands(cli_journal_2, cli_type=dut2.cli_type)
+            print(commands_device_2)
+            a = set(commands_device_1)
+            b = set(commands_device_2)
+            if a == b:
+                print("Commands are the same")
+                kwargs['pass_msg'] = "check_clone_configuration() passed"
+                self.commonValidation.passed(**kwargs)
+            else:
+                kwargs['fail_msg'] = "check_clone_configuration() failed. Commands are not the same "
+                self.commonValidation.failed(**kwargs)
+
+        elif cli_type_1.lower() and cli_type_2.lower() == 'voss':
+            self.send_commands(dut1.name, "terminal more disable")
+            cli_journal_1 = self.send_commands(dut1.name,
+                                                       'show logging file detail | include "127.0.0.1 hivemanager"')
+            commands_device_1 = self.get_cli_commands(cli_journal_1, cli_type=dut1.cli_type)
+            print(commands_device_1)
+            self.send_commands(dut1.name, "terminal more disable")
+            cli_journal_2 = self.send_commands(dut2.name,
+                                                       'show logging file detail | include "127.0.0.1 hivemanager"')
+            commands_device_2 = self.get_cli_commands(cli_journal_2, cli_type=dut2.cli_type)
+            print(commands_device_2)
+            a = set(commands_device_1)
+            b = set(commands_device_2)
+            if a == b:
+                print("Commands are the same")
+                kwargs['pass_msg'] = "check_clone_configuration() passed."
+                self.commonValidation.passed(**kwargs)
+            else:
+                kwargs['fail_msg'] = "check_clone_configuration() failed. Commands are not the same "
+                self.commonValidation.failed(**kwargs)
+
+
+    def get_cli_commands(self, info: str, cli_type, **kwargs):
+        """
+        - This keyword will convert last commands from CLI string to a list
+        Args:
+         info: str : cli output
+         cli_type: ex. dut1.cli_type
+        Use : get_cli_commands(output, dut1.cli_type)
+        :return:  commands table list/ -1 if No type OS found
+        """
+        table, table_repl = [], []
+        for entry in info.split("\n"):
+            if entry:
+                if entry[0].isdigit():
+                    aux = [i for i in entry.split(" ") if i]
+                    if cli_type.lower() == 'exos':
+                        table.append(' '.join(aux[4:]))
+                    elif cli_type.lower() == 'voss':
+                        table.append(' '.join(aux[14:]))
+        if cli_type.lower() == 'exos':
+            for element_table in table:
+                table_repl.append(element_table.replace('\r', ' '))
+            if 'exit ' in table_repl:
+                table_repl.remove('exit ')
+            else:
+                pass
+            n = 100
+            last_100_commands_table = list(list(islice(reversed(table_repl), 0, n)))
+            last_100_commands_table.reverse()
+            kwargs['pass_msg'] = "get_cli_commands() passed."
+            self.commonValidation.passed(**kwargs)
+            return last_100_commands_table
+        elif cli_type.lower() == 'voss':
+            for element_table in table:
+                table_repl.append(element_table.replace('\r', ' '))
+            for index in table_repl:
+                if 'end ' in table_repl:
+                    table_repl.remove('end ')
+                if 'logout ' in table_repl:
+                    table_repl.remove('logout ')
+            kwargs['pass_msg'] = "get_cli_commands() passed."
+            self.commonValidation.passed(**kwargs)
+            return table_repl
+        else:
+            kwargs['fail_msg'] = "get_cli_commands() failed. No type OS found "
+            self.commonValidation.failed(**kwargs)
+            return -1
+
+
 if __name__ == '__main__':
-    from pytest_testconfig import *
+    from pytest_testconfig import config
     config['${TEST_NAME}'] = 'bob'
     tCli = Cli()
     #sID = tCli.open_pxssh_spawn('10.69.61.101', 'extreme', 'extreme', 22, prompt_reset=False,
@@ -2714,7 +2713,6 @@ if __name__ == '__main__':
         -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}``
         -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60``
         -  ``Open Exos Switch Spawn   ${SPAWN}  ${COMMAND}  ${EXPECTED_OUTPUT}  ${RETRY_DURATION}=60  ${COUNT}=15``
-
         :param spawn: Device Spawn
         :param cmd: Command to Execute
         :param expected_output: Expected CLI Output
@@ -2744,8 +2742,9 @@ if __name__ == '__main__':
                 return 1
             else:
                 self.utils.print_info("Waiting for: ", retry_duration, " Seconds")
-                time.sleep(retry_duration)
+                sleep(retry_duration)
             count += 1
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
 
+        return -1

@@ -1,5 +1,5 @@
-from extauto.xiq.defs.DeviceUtilitiesWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.DeviceUtilitiesWebElementsDefinitions import DeviceUtilitiesWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DeviceUtilitiesWebElements(DeviceUtilitiesWebElementsDefinitions):

@@ -247,7 +247,7 @@ class XIQSE_CommonLogin():
             else:
                 self.utils.print_info("Could not find Account menu button")
         except Exception as e:
-            self.utils.print_info(f"Error: ", e)
+            self.utils.print_info(f"Error: {e}")
 
         if ret_val == -1:
             self.screen.save_screen_shot()
@@ -447,7 +447,7 @@ class XIQSE_CommonLogin():
             self.utils.print_info(f"xiqse_get_username: {xiqse_username} is logged into XIQSE")
             ret_val = xiqse_username
         else:
-            self.utils.print_info(f"xiqse_get_username: Could not obtain XIQSE username")
+            self.utils.print_info("xiqse_get_username: Could not obtain XIQSE username")
 
         return ret_val
 

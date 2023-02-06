@@ -87,10 +87,10 @@ class MacMuConnect(object):
         - Get the Wi-Fi Interface name
         :return:
         """
-        cmd = f"networksetup -listallhardwareports | grep -i -A 2 Wi-Fi"
+        cmd = "networksetup -listallhardwareports | grep -i -A 2 Wi-Fi"
         out = self._execute_commands(cmd)
         print(f"Wi-Fi Port:{out}")
-        if re.search(f'en0', str(out)):
+        if re.search('en0', str(out)):
             return 'en0'
         else:
             return "en1"
@@ -288,7 +288,7 @@ class MacMuConnect(object):
         :return: 1 if ping success else -1
         """
         cmd = 'ping ' + str(destination) + ' -c ' + str(count)
-        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
+        subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
 
     def kill_native_captive(self):
         """
