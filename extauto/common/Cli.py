@@ -2744,5 +2744,4 @@ if __name__ == '__main__':
             count += 1
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
-
-        return -1
+    
