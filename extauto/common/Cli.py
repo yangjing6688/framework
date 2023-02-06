@@ -23,8 +23,6 @@ from extauto.xiq.configs.device_commands import (
     IFCONFIG
 )
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
-from ExtremeAutomation.Utilities.deprecated import deprecated
-from time import sleep
 from datetime import datetime, timedelta
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementLacpGenKeywords import \
