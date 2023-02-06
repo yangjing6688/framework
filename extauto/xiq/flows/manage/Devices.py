@@ -12526,11 +12526,11 @@ class Devices:
                 self.common_validation.failed(**kwargs)
                 return -1
             self.utils.print_info("Selecting the Utilities Function")
-            self.auto_actions.click_reference(self.devices_web_elements.utilities_button())
+            self.auto_actions.click_reference(self.devices_web_elements.utilities_button)
             self.utils.print_info("Selecting RESTART PSE Function...")
-            self.auto_actions.click_reference(self.devices_web_elements.restart_pse())
+            self.auto_actions.click_reference(self.devices_web_elements.restart_pse)
             self.utils.print_info("Confirmation Pending..")
-            self.auto_actions.click_reference(self.devices_web_elements.pse_yes())
+            self.auto_actions.click_reference(self.devices_web_elements.pse_yes)
 
             def _widget_loading():
                 widget_loading = self.devices_web_elements.loading_bar()
@@ -12541,7 +12541,7 @@ class Devices:
                     return 1
             self.utils.wait_till(func=_widget_loading, timeout=100, delay=5, exp_func_resp=1)
 
-            closing_dialog = self.devices_web_elements.closing_window()
+            closing_dialog = self.devices_web_elements.closing_window
             if closing_dialog:
                 pse_reset_status = self.devices_web_elements.get_pse_reset_status()
                 if pse_reset_status:
