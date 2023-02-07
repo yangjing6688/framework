@@ -20,13 +20,13 @@ class XapiBase(object):
 
     def is_xapi_enabled(self, **kwargs):
         """
-            Checks to see if the XAPI_ENABLED variable is set in kwargs or globally
+            Checks to see if the XAPI_ENABLE variable is set in kwargs or globally
 
-            :param kwargs: Looks for XAPI_ENABLED in kwargs
-            :return: True if the XAPI_ENABLED is in kwargs or set globally, false otherwise
+            :param kwargs: Looks for XAPI_ENABLE in kwargs
+            :return: True if the XAPI_ENABLE is in kwargs or set globally, false otherwise
         """
         # Check to see if the user enabled XAPI via the kwargs or globally
-        if self.XapiHelper.common_validation.get_kwarg(kwargs, "XAPI_ENABLED", None) or self.xapiHelper.is_xapi_enabled():
+        if self.XapiHelper.common_validation.get_kwarg(kwargs, "XAPI_ENABLE", None) or self.xapiHelper.is_xapi_enabled():
             return True
         else:
             return False

@@ -90,3 +90,52 @@ class XapiLogin(XapiBase):
 
         self.xapiHelper.common_validation.failed(**kwargs)
         return -1
+
+    def xapi_capture_data_center_name(self, **kwargs):
+        """
+            Get the XIQ instance name
+        :param kwargs: kwargs
+        :return: XIQ instance name or 'Unknown' if there was an error
+        """
+        # get the xapi URL from the global variables
+        xapi_url = self.xapiHelper.get_xapi_url()
+
+        configuration = self.xapiHelper.get_xapi_configuration()
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.AccountApi(api_client)
+
+            try:
+                # get the data
+                api_response = api_instance.get_home_account()
+                self.utils.print_info(api_response.name)
+                return api_response.name
+            except self.ApiException as e:
+                self.utils.print_error("Exception when calling AuthenticationApi->login: %s\n" % e)
+        self.xapiHelper.common_validation.failed(**kwargs)
+        return 'Unknown'
+
+    # def xapi_capture_xiq_version(self, **kwargs):
+    #     """
+    #         Get the XIQ instance version
+    #     :param kwargs: kwargs
+    #     :return: XIQ instance version
+    #     """
+    #     # get the xapi URL from the global variables
+    #     xapi_url = self.xapiHelper.get_xapi_url()
+    #
+    #     configuration = self.xapiHelper.get_xapi_configuration()
+    #     with self.extremecloudiq.ApiClient(configuration) as api_client:
+    #         # Create an instance of the API class
+    #         api_instance = self.extremecloudiq.AccountApi(api_client)
+    #
+    #         try:
+    #             # get the data
+    #             api_response = api_instance.get_home_account()
+    #             self.utils.print_info(api_response)
+    #             return 1
+    #         except self.ApiException as e:
+    #             self.utils.print_error("Exception when calling AuthenticationApi->login: %s\n" % e)
+    #     self.xapiHelper.common_validation.failed(**kwargs)
+    #     return -1
+

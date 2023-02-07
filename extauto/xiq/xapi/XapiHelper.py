@@ -67,7 +67,7 @@ class XapiHelper():
        """
         configuration =  self.builtin.get_variable_value('${XAPI_CONFIGRATION}')
         if not configuration:
-            raise Exception('The XAPI configuration was not set, please use the "login_user" method in the Login class with the kwarg XAPI_ENABLED set to True')
+            raise Exception('The XAPI configuration was not set, please use the "login_user" method in the Login class with the kwarg XAPI_ENABLE set to True')
         return configuration
 
     def get_xapi_url(self):
@@ -75,11 +75,15 @@ class XapiHelper():
             Gets the xapi URL
         :return: the xpai URL or throws an exception if it is not set
         """
-        xapi_url = self.builtin.get_variable_value("${XAPI_URL}")
-        if not xapi_url:
-            raise Exception('XAPI url was not set, please use the keyword "set_xapi_url" method in the XapiHelper class to set the XAPI URL')
-        else:
-            return xapi_url
+        try:
+            xapi_url = self.builtin.get_variable_value("${XAPI_URL}")
+            if not xapi_url:
+                raise Exception('XAPI url was not set, please use the keyword "set_xapi_url" method in the XapiHelper class to set the XAPI URL')
+            else:
+                return xapi_url
+        except:
+            raise Exception(
+                'XAPI url was not set, please use the keyword "set_xapi_url" method in the XapiHelper class to set the XAPI URL')
 
     def set_xapi_url(self, value):
         """
@@ -91,14 +95,14 @@ class XapiHelper():
 
     def is_xapi_enabled(self, **kwargs):
         """
-            Checks to see if the XAPI_ENABLED is set globally or in the kwargs
+            Checks to see if the XAPI_ENABLE is set globally or in the kwargs
         :param kwargs: dict for kwargs
-        :return: True if the XAPI_ENABLED is set, False if it isn't set
+        :return: True if the XAPI_ENABLE is set, False if it isn't set
         """
         # old way 'access_token'
         old_access_token_kwargs = kwargs.get('access_token', False)
-        xapi_enabled_globally = self.builtin.get_variable_value("${XAPI_ENABLED}", False)
-        xapi_enabled_kwargs = kwargs.get('XAPI_ENABLED', False)
+        xapi_enabled_globally = self.builtin.get_variable_value("${XAPI_ENABLE}", False)
+        xapi_enabled_kwargs = kwargs.get('XAPI_ENABLE', False)
         if xapi_enabled_globally or xapi_enabled_kwargs or old_access_token_kwargs:
             return True
         else:
@@ -106,8 +110,8 @@ class XapiHelper():
 
     def set_xapi_enabled_value(self, value):
         """
-            Sets the XAPI_ENABLED value globally
-        :param value: The XAPI_ENABLED value
+            Sets the XAPI_ENABLE value globally
+        :param value: The XAPI_ENABLE value
         :return: None
         """
-        self.builtin.set_global_variable("${XAPI_ENABLED}", value)
+        self.builtin.set_global_variable("${XAPI_ENABLE}", value)

@@ -110,7 +110,7 @@ class Login:
 
         Supported Modes:
             UI - default mode
-            XAPI - kwargs XAPI_ENABLED=True (Will support both XAPI and UI keywords in your test)
+            XAPI - kwargs XAPI_ENABLE=True (Will support both XAPI and UI keywords in your test)
                    kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
 
         :param username: login account username
@@ -681,12 +681,17 @@ class Login:
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _capture_data_center_name(self):
+    def _capture_data_center_name(self, **kwargs):
         """
         - Get XIQ Data Center Name
 
+        :param kwargs: keyword arguments XAPI_ENABLE
         :return: data_center_name
         """
+
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiLogin.xapi_capture_data_center_name(**kwargs)
+
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)
@@ -705,12 +710,17 @@ class Login:
 
         return data_center_name
 
-    def _capture_xiq_version(self):
+    def _capture_xiq_version(self, **kwargs):
         """
         - Get XIQ Build version details
 
+        :param kwargs: keyword arguments XAPI_ENABLE
         :return: xiq_version
         """
+
+        # if self.xapiHelper.is_xapi_enabled():
+        #     return self.xapiLogin.xapi_capture_xiq_version(**kwargs)
+
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)
