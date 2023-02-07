@@ -519,7 +519,7 @@ class DeviceActionsDefs:
 
     warning_message_disconnected = \
         {
-            'XPATH': '//*[contains(text(), "disconnected or in the unmanaged state.")]',
+            'XPATH': '//div[@data-dojo-attach-point="clDisconnectedDiv"]',
             'wait_for': 2
         }
 
