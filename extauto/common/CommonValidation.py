@@ -31,7 +31,7 @@ class CommonValidation():
 
         # Get the message that will be printed
         default_fail_msg = "[IRV] A fault occurred while running the keyword"
-        fail_msg = self.get_kwarg(kwargs, "fail_msg", default_fail_msg)
+        fail_msg = kwargs.get('fail_msg', default_fail_msg)
 
         # Raise an error to cause the test to fail
         self._raise_error(fail_msg)
@@ -64,14 +64,14 @@ class CommonValidation():
             expect_failure = Same as 'expect_error'
         """
         test_result = False
-        ivr_flag = self.get_kwarg(kwargs, "IRV", True)
+        irv_flag = kwargs.get("IRV", True)
 
-        if ivr_flag:
+        if irv_flag:
             self.logger.info("Internal Result Verification [IRV] is: Enabled")
             default_fail_msg = "[IRV] The keyword failed expectations"
             default_pass_msg = "[IRV] The keyword passed expectations"
-            fail_msg = self.get_kwarg(kwargs, "fail_msg", default_fail_msg)
-            pass_msg = self.get_kwarg(kwargs, "pass_msg", default_pass_msg)
+            fail_msg = kwargs.get("fail_msg", default_fail_msg)
+            pass_msg = kwargs.get("pass_msg", default_pass_msg)
 
             # If the keyword is supported, check for the existence of kwargs that manipulate how keyword results
             # should be interpreted.
@@ -145,22 +145,6 @@ class CommonValidation():
         Returns a normalized boolean from the kwarg.
         """
         return self.string_to_boolean(kwargs.get(key, def_val))
-
-    def get_kwarg(self, kwargs, key, default=""):
-        """
-        Description: Get a key from the kwargs dictionary.  Return the default value if the key is not found.
-
-        :param kwargs: A dictionary passed into keywords that contains keys used to modify how the keyword shoudl run
-        :param key: The key in the 'kwargs' dictionary that the caller is trying to extract
-        :param default: The default value to be returned if the key is not found in the 'kwargs' dictionary
-        :return:  The value for the kwarg or the default value if the key is not present in the 'kwargs' dictionary
-        """
-        value = ''
-        if key in kwargs:
-            value = kwargs[key]
-        else:
-            value = default
-        return value
 
 
     def string_to_boolean(self, boolean_string, default=True):
