@@ -15314,7 +15314,7 @@ class Device360(Device360WebElements):
 
         if os.lower() not in ["exos", "voss"]:
             kwargs["fail_msg"] = "Failed! OS not supported."
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.navigator.navigate_to_device360_page_with_mac(device_mac=mac)

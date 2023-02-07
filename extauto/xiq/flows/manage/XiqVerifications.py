@@ -324,7 +324,7 @@ class XiqVerifications:
 
         if os.lower() not in ["exos", "voss"]:
             kwargs["fail_msg"] = "Failed! OS not supported."
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         percentage_list = []
