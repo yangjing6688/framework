@@ -218,17 +218,6 @@ class Utils:
         if "DEBUG" in BuiltIn().get_variable_value("${LOG_LEVEL}"):
             BuiltIn().log_to_console(line)
 
-    def has_number(self, input_string):
-        """
-        - check the input string has the digit on it
-        - Keyword Usage:
-        -  ``Has Number  ${INPUT_STRING}``
-
-        :param input_string:
-        :return: True if digit in input string else False
-        """
-        return any(char.isdigit() for char in input_string)
-
     def get_utc_time_difference(self, t1, t2):
         """
         - Get the time difference between t2 and t1
@@ -592,51 +581,6 @@ class Utils:
         seg = round(length / 2)
         net_first_half = network_policy[:seg]
         return net_first_half
-
-    def get_second_half_of_network_policy(self, net):
-        lenght = len(net)
-        seg = round(lenght / 2)
-        net_secondhalf = net[seg:]
-        return net_secondhalf
-
-    def get_last_6_digts_of_MAC(self, mac):
-        length = len(mac)
-        st = length - 6
-        remaining_mac = mac[st:]
-        return remaining_mac
-
-    def get_second_half_of_MAC(self, mac):
-        length = len(mac)
-        seg = round(length / 2)
-        mac_second_half = mac[seg:]
-        return mac_second_half
-
-    def convert_MAC_to_upper(self, mac):
-        upper_case = mac.upper()
-        return upper_case
-
-    def convert_MAC_to_lower(self, mac):
-        lower_case = mac.lower()
-        return lower_case
-
-    def convert_mac_to_random_case(self, mac):
-        random_case = ""
-        for i in mac:
-            if i.isalpha():
-                rand1 = random.randint(1, 2)
-                if rand1 == 1:
-                    random_case = random_case + i.lower()
-                else:
-                    random_case = random_case + i.upper()
-            else:
-                random_case = random_case + i
-        return random_case
-
-    def partial_ip(self, ip):
-        length = len(ip)
-        length -= 2
-        ip = ip[:length]
-        return ip
 
     def switch_to_default(self, driver):
         """
