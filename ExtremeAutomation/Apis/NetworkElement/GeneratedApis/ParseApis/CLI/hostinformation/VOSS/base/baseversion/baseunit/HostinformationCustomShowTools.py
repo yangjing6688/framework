@@ -38,7 +38,8 @@ class HostinformationCustomShowTools(HostinformationBaseCustomShowTools):
         return result, {"ret_prompt_name": prompt_name}
 
     def check_app_iqagent(self, output, args, **kwargs):
-        parse_result = self.pw.get_value_by_offset(output, "Agent Version", 5)
+        output = output.replace("\n", "\r\n")
+        parse_result = self.pw.get_value_by_offset(output, "Agent Version", 3)
 
         result = True if args["iqagent_version"] == parse_result else False
         return result, {"ret_iqagent_version": parse_result}
