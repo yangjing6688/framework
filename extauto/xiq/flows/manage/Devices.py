@@ -1905,7 +1905,7 @@ class Devices:
         # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
         elif "VOSS" in device_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS/Fabric Engine")
-            if self.switch_web_elements.get_switch_make_drop_down():
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
                 self.utils.print_info("Selecting Switch Type : VOSS")
                 self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
                 self.screen.save_screen_shot()
@@ -1913,21 +1913,25 @@ class Devices:
                                                            , "VOSS")
                 self.screen.save_screen_shot()
 
-            if self.devices_web_elements.get_device_os_voss_radio():
-                self.utils.print_info("Selecting Device OS : Fabric Engine")
+            else:
+                self.utils.print_info(f"Select {device_make} Radio Button")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_os_voss_radio)
-                self.screen.save_screen_shot()
-
-        elif "EXOS" in device_make.upper():
-            self.utils.print_info("Selecting Switch Type/Device OS : EXOS")
-            try:
-                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
                 sleep(2)
+                self.screen.save_screen_shot()
+        elif "EXOS" in device_make.upper():
+            self.utils.print_info("Selecting Switch Type/Device OS : EXOS/Switch Engine")
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
+                self.utils.print_info("Selecting Switch Type : EXOS")
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
+                self.screen.save_screen_shot()
                 self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(),
                                                            "EXOS")
-            except Exception as e:
-                self.utils.print_debug("Exception: ", e)
+                self.screen.save_screen_shot()
+            else:
+                self.utils.print_info(f"Select {device_make} Radio Button")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_os_exos_radio)
+                sleep(2)
+                self.screen.save_screen_shot()
 
         elif 'Dell' in device_make:
             self.utils.print_info("Entering Serial Number...")
@@ -9851,11 +9855,11 @@ class Devices:
 
                     self.utils.print_info("Click on version drop down")
                     self.auto_actions.click_reference(self.device_update.get_xiq_upgrade_to_specific_version_dropdown)
-                    sleep(5)
+                    sleep(2)
 
                     update_version_items = self.device_update.get_upgrade_to_specific_version_dropdown_list()
                     self.auto_actions.scroll_down()
-                    sleep(5)
+                    sleep(2)
 
                     avilableImagesList = []
                     if update_version_items:
@@ -11738,15 +11742,24 @@ class Devices:
 
             def _loading_clone():
                 loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
-                if loading_clone_configuration.is_displayed():
+                while loading_clone_configuration and "fn-hidden" not in loading_clone_configuration.get_attribute("class"):
                     print("Still loading configuration")
-                else:
-                    return 1
-
+                    sleep(2)
+                    loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
+                return 1
             self.utils.wait_till(_loading_clone, exp_func_resp=1)
 
+            def _warning_message():
+                warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
+                while warning_message_disconnected and "fn-hidden" in warning_message_disconnected.get_attribute("class"):
+                    print("Still in loading clone configuration window..Waiting for Perform Update window or Warning window.")
+                    warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
+                    sleep(2)
+                return 1
+            self.utils.wait_till(_warning_message, exp_func_resp=1)
+
             warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
-            if 'disconnected or in the unmanaged state.' not in warning_message_disconnected.text:
+            if not warning_message_disconnected:
                 self.utils.print_info("Performing Update")
                 self.utils.print_info("Select the network policy and configuration checkbox")
                 update_cb = self.devices_web_elements.get_devices_switch_update_network_policy()
