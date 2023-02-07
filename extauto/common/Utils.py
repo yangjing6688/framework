@@ -30,25 +30,6 @@ class Utils:
         self.print_log("Toast Message For ", conf_str, " : ", toast)
         return toast
 
-    def grep(self, output_buffer, search_str):
-        """
-        - greps the second variable in the first string
-        - Keyword Usage:
-        -  ``Grep   ${OUTPUT}     Version``
-
-        :param output_buffer: Buffer in which we grep for search_str
-        :param search_str: search string which will be looked inside output_buffer for a match
-        :return: returns 1 if finds a match else 0
-        """
-
-        self.print_log("Searching for : ", search_str, " in : ", output_buffer)
-        if search_str in output_buffer:
-            self.print_log("Found Match")
-            return 1
-        else:
-            self.print_log("No Match Found")
-            return 0
-
     def get_random_string(self, length="default"):
         """
         - Get the random string of specified length, default length is 10 characters
