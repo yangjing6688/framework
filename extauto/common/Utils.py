@@ -526,49 +526,6 @@ class Utils:
             t -= 1
         self.print_info(" count down:{} Minutes Completed".format(t))
 
-    def get_half_of(self, _time):
-        """
-        - This method accepts time in minutes divides by 2 and returns the value
-
-        :param _time: in minutes
-        :return:
-        """
-        half = (int(_time) * 60) / 2
-
-        self.print_info("Returning Half time: ", half, " seconds for: ", _time, " minutes")
-
-        return half
-
-    def split_string_into_3_parts(self, info):
-        """
-        - This keyword splits a string in to 3 equal parts
-
-        :param info: input string
-        :return: returns 3 strings by dividing the input string
-        """
-        self.print_info("Input String: ", info)
-
-        length = len(info)
-        seg1 = round(length/3)
-        part1 = info[:seg1]
-        seg2 = seg1*2
-        part2 = info[seg1:seg2]
-        part3 = info[seg2:]
-        return part1, part2, part3
-
-    def get_first_half_of_mac(self, mac):
-        """
-        - This keyword returns the first half of a MAC
-
-        :param mac: MAC
-        :return: returns first half of MAC
-        """
-        self.print_info("Input MAC: ", mac)
-        length = len(mac)
-        seg = round(length / 2)
-        mac_first_half = mac[:seg]
-        return mac_first_half
-
     def get_first_half_of_network_policy(self, network_policy):
         """
         - This keyword returns the first half of a Network Policy
