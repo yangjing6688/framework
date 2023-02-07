@@ -29,8 +29,9 @@ class DefaultTests():
             # Enable XAPI
             cls.cfg['${XAPI_ENABLE}'] = True
 
-            cls.job_suite_uuid = cls.cfg.get('jobSuite_uuid', None)
-            if cls.job_suite_uuid:
+
+            cls.job_suite_uuid = cls.cfg.get('job_suite_uuid', None)
+            if not cls.job_suite_uuid:
                 raise Exception('Missing the command line argument -DjobSuite_uuid=<uuid>')
 
             # Create the new object for the XIQ / XIQSE Libraries
@@ -51,7 +52,7 @@ class DefaultTests():
 
 
     """ Test Cases """
-    def test_get_xiq_version_name(self):
+    def test_get_xiq_version_name(self, command_line_args):
         '''[Documentation]  Test_Objective: Get the XIQ name and version '''
         data_center_name = self.xiq.login.get_data_center_name()
         xiq_version = self.xiq.login.get_xiq_version()
@@ -61,7 +62,7 @@ class DefaultTests():
         print(f"The XIQ Version found: {xiq_version}")
 
         # Here we need to call a keyword to update the database with the information above:
-        # user this cls.job_suite_uuid to get the UUID
+        # user this self.job_suite_uuid to get the UUID
 
 
 
