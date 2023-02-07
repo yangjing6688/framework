@@ -11,7 +11,7 @@ class TestFilterDevicesBy():
         self.web            = WebElementHandler()
         self.filter_element = FilterManageDeviceWebElements()
         self.FilterManageDevices = FilterManageDevices()
-    def check_filter_device_by_network_policy_is_correct(self):
+    def check_filter_device_by_network_policy_is_correct(self,**kwargs):
         """ Verification of the filtering of the devices by network policy
                   pre-conditions: Require at least two onboard devices with with two different wireless network policys
                   usage of test case:
@@ -41,7 +41,7 @@ class TestFilterDevicesBy():
         self.FilterManageDevices.clear_all_filters()
         return str(1)
 
-    def filter_policy(self,policy):
+    def filter_policy(self,policy,**kwargs):
         """  Check the filter network policy result:device list and return the result
              parameter:policy is the name of network-policy
              result:
@@ -69,7 +69,7 @@ class TestFilterDevicesBy():
 
         return 1, None
 
-    def apply_filter(self,locator):
+    def apply_filter(self,locator,**kwargs):
         """  Click the ""APPLY FILTERS button to make the filter effective""
         """
         self.utils.print_info("----- Apply the filter-----")
