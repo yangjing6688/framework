@@ -11748,17 +11748,17 @@ class Devices:
                     loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
                 return 1
             self.utils.wait_till(_loading_clone, exp_func_resp=1)
-
-            def _warning_message():
+            try:
                 warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
                 while warning_message_disconnected and "fn-hidden" in warning_message_disconnected.get_attribute("class"):
                     print("Still in loading clone configuration window..Waiting for Perform Update window or Warning window.")
                     warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
                     sleep(2)
-                return 1
-            self.utils.wait_till(_warning_message, exp_func_resp=1)
+                if "fn-hidden" not in warning_message_disconnected.get_attribute("class"):
+                    warning_message_disconnected = True
+            except:
+                warning_message_disconnected = False
 
-            warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
             if not warning_message_disconnected:
                 self.utils.print_info("Performing Update")
                 self.utils.print_info("Select the network policy and configuration checkbox")
