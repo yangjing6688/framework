@@ -1703,7 +1703,7 @@ class Devices:
 
         # Preventing an unnecessary click here fixes the problem seen in aiq2618
         # We are planning to rework logic
-        if self.search_device(device_serial=device_serial) == -1 or device_type.lower() == "simulated":
+        if self.search_device(device_serial=device_serial) == -1:
             self.utils.print_info("Clicking on ADD DEVICES button...")
             self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
