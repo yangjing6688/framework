@@ -1105,7 +1105,6 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         - XIQSE Set Syslog Delay Engine Start and Save   1
 
         :param value: Value to enter in the Syslog Delay Engine Start option field
-        :param units: time units to select for the Syslog Delay Engine STart option (min(s), hr(s))
         :return: 1 if action was successful, else -1
         """
         ret_val = -1
@@ -1177,7 +1176,7 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
 
     def xiqse_set_trap_delay_engine_start_and_save(self, value="15"):
         """
-        - This keyword sets the value of the Trap Delay Engine STart option (value and units) and saves the changes
+        - This keyword sets the value of the Trap Delay Engine Start option (value) and saves the changes
         - Keyword Usage
         - XIQSE Set Trap Delay Engine Start and Save   1
 
