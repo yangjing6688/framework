@@ -137,22 +137,6 @@ class Utils:
         else:
             return 1
 
-    def check_match(self, target_string, match):
-        """
-        - Check the match string in the target string
-        - Keyword Usage:
-        -  ``Check Match  ${TARGET_STRING}   ${MATHC}``
-
-        :param target_string:  target string
-        :param match: search string in the target string
-        :return: 1 if match string in target string else -1
-        """
-        self.print_log("Searching for : ", match, " in :", target_string)
-        if match in target_string:
-            return 1
-        else:
-            return -1
-
     def print_log(self, *words):
         """
         - prints the given list of words in to console and robot framework log.html file
