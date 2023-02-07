@@ -1,20 +1,16 @@
-from  extauto.xiq.flows.manage.FilterManageDevices import *
+from  extauto.xiq.flows.manage.FilterManageDevices import FilterManageDevices
+from extauto.common.Utils import Utils
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.elements.FilterManageDeviceWebElements import FilterManageDeviceWebElements
 
 class TestFilterDevicesBy():
     def __init__(self):
         self.utils          = Utils()
-        self.navigator      = Navigator()
         self.auto_actions   = AutoActions()
         self.web            = WebElementHandler()
         self.filter_element = FilterManageDeviceWebElements()
-        self.tools          = Tools()
-        self.device_actions = DeviceActions()
-        self.device         = Devices()
-        self.net_policy     = NetworkPolicy()
-        self.client_element = FilterManageClientWebElements()
-        self.netExpress     = ExpressNetworkPolicies()
         self.FilterManageDevices = FilterManageDevices()
-        self.screen = Screen()
     def check_filter_device_by_network_policy_is_correct(self):
         """ Verification of the filtering of the devices by network policy
                   pre-conditions: Require at least two onboard devices with with two different wireless network policys
@@ -23,6 +19,7 @@ class TestFilterDevicesBy():
                   Should Be Equal As Integers    ${CHECK_RESULT}        1
                   Test1: Filter Device By network policy,for example,device1 is assigned policy1,device2 is assigned policy2
                   filter device1 by policy1 and filter device2 by policy2
+                  Return valuesAer: "1" means filter successfully,"-1" means filter failed
         """
         sn_list, policy_list = self.FilterManageDevices.check_available_devices()
         if sn_list == -1: return -1, policy_list
@@ -59,14 +56,14 @@ class TestFilterDevicesBy():
         self.utils.print_info(
             " **** The result after the filter *** " + str(actual_sn_list) + " " + str(actual_policy_list))
         if not actual_sn_list or not actual_policy_list or len(actual_sn_list) != 1 or len(actual_sn_list) != 1:
-            kwargs['fail_msg'] = "The device list does not match with the filter "
+            kwargs['fail_msg'] = "The device list does not match with the filter " + policy
             self.common_validation.failed(**kwargs)
-            return -1, "The device list does not match with the filter " + policy
+            return -1, kwargs['fail_msg']
 
         if policy != actual_policy_list[0]:
-            kwargs['fail_msg'] = "The device list does not match with the filter "
+            kwargs['fail_msg'] = "The device list does not match with the filter " + policy
             self.common_validation.failed(**kwargs)
-            return -1, "The device list does not match with the filter " + policy
+            return -1, kwargs['fail_msg']
         self.FilterManageDevices.select_filter_by(self.filter_element.get_policy_filter(policy), filter_name='policy', reset=True)
         self.apply_filter(self.filter_element.get_applied_filter_btn())
 
@@ -78,8 +75,7 @@ class TestFilterDevicesBy():
         self.utils.print_info("----- Apply the filter-----")
         element = self.web.get_element(locator)
         if not element:
-            kwargs['fail_msg'] = "Not able to find the button 'APPLY FILTERS'"
+            kwargs['fail_msg'] = "Not able to find the button 'APPLY FILTERS'" + str(locator)
             self.common_validation.failed(**kwargs)
-            assert True == False, "Not able to find the button 'APPLY FILTERS'" + str(locator)
         self.utils.print_info(" Click the 'APPLY FILTERS' button")
         self.auto_actions.click(element)
