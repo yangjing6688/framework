@@ -11756,7 +11756,7 @@ class Devices:
                     sleep(2)
                 if "fn-hidden" not in warning_message_disconnected.get_attribute("class"):
                     warning_message_disconnected = True
-            except:
+            except Exception:
                 warning_message_disconnected = False
 
             if not warning_message_disconnected:
