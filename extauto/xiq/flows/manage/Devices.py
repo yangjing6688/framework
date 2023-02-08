@@ -12488,3 +12488,52 @@ class Devices:
         if return_value == 1:
             return_value = self.update_switch_policy_and_configuration(device_serial)
         return return_value
+
+    def get_device_latest_version(self, *device_dict, **kwargs):
+        """
+        - This method is used to get the device latest version
+        - device_dict - dictionary from .yaml testbed file (ex: ap1, netelem1}
+        - Keyword Usage:
+        - ``Get Device Latest Version   ${device1}``
+
+        :return: returned_version of the device
+        """
+        returned_version = -1
+        device_selected = False
+        device_dict = device_dict[0]
+        device_serial = device_dict.get("serial")
+        device_mac = device_dict.get("mac")
+
+        self.refresh_devices_page()
+        if self.select_device(device_mac=device_mac):
+            device_selected = 1
+        elif self.select_device(device_serial=device_serial):
+            device_selected = 1
+
+        if device_selected:
+            self.utils.print_info("Selecting Update Devices button")
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
+            sleep(5)
+
+            uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
+            if uptd:
+                if uptd.is_selected():
+                    self.utils.print_info("uncheck the update configuration checkbox")
+                    self.auto_actions.click(uptd)
+
+            self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
+            sleep(5)
+
+            self.utils.print_info("Selecting upgrade to latest version checkbox")
+            self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
+            sleep(2)
+
+            returned_version = self.device_update.get_latest_version()
+            self.utils.print_info("Device Latest Version: ", returned_version)
+            return returned_version
+
+        kwargs['fail_msg'] = f"get_device_latest_version() failed. Device using MAC: {device_mac} " \
+                             f"or serial number: {device_serial} was not found thus failed to get it"
+        self.common_validation.failed(**kwargs)
+        return returned_version
