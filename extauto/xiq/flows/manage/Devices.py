@@ -12510,11 +12510,6 @@ class Devices:
         :return: 1 if the PSE reset have been completed else -1
         """
 
-        if dut.cli_type.upper() in ["VOSS", "AH-FASTPATH"]:
-            kwargs['fail_msg'] = f"The function was not designed for {dut.cli_type} OS System"
-            self.common_validation.failed(**kwargs)
-            return -1
-
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
@@ -12556,9 +12551,12 @@ class Devices:
                 kwargs['pass_msg'] = "Window Closed"
                 self.common_validation.passed(**kwargs)
                 return 1
-
             else:
                 kwargs['fail_msg'] = "Something went wrong. User should check..."
                 self.common_validation.failed(**kwargs)
                 return -1
-            
+        else:
+            kwargs['fail_msg'] = f"The function was not designed for {dut.cli_type} OS System"
+            self.common_validation.fault(**kwargs)
+            return -1
+        

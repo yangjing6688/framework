@@ -2548,7 +2548,7 @@ class Cli(object):
                                 dut.password, dut.cli_type)
         if dut.cli_type.upper() in ["VOSS", "AH-FASTPATH"]:
             kwargs['fail_msg'] = f"This keyword (check_pse_restart_in_cli) is not supported for {dut.cli_type} devices"
-            self.commonValidation.failed(**kwargs)
+            self.commonValidation.fault(**kwargs)
             return -1
         elif dut.cli_type.upper() == "EXOS":
             self.send_commands(spawn, "disable cli paging")
@@ -2556,7 +2556,7 @@ class Cli(object):
             self.search_last_command_cli_journal(info=cli_journal, command="reset inline-power ports")
         else:
             kwargs['fail_msg'] = "Fail to find the CLI type"
-            self.commonValidation.failed(**kwargs)
+            self.commonValidation.fault(**kwargs)
             return -1
 
     def configure_cli_table(self, dut1, dut2, **kwargs):
@@ -2639,7 +2639,6 @@ class Cli(object):
             else:
                 kwargs['fail_msg'] = "check_clone_configuration() failed. Commands are not the same "
                 self.commonValidation.failed(**kwargs)
-
 
     def get_cli_commands(self, info: str, cli_type, **kwargs):
         """
