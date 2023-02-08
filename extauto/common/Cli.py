@@ -2604,6 +2604,8 @@ class Cli(object):
                 table_repl.append(element_table.replace('\r', ' '))
             if 'exit ' in table_repl:
                 table_repl.remove('exit ')
+            if '' in table_repl:
+                table_repl.remove('')
             else:
                 pass
             n = 100
