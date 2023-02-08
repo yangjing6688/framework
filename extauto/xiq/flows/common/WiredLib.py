@@ -70,7 +70,7 @@ class WiredLib():
                 if self.device360.compare_transmission_mode(cnt_str, state,"N/A") == 1:
                     pass
                 else:
-                    kwargs['fail_msg'] = "'check_transmission_mode_exos()' -> The status of transmission in XIQ and" \
+                    kwargs['fail_msg'] = "The status of transmission in XIQ and" \
                                          " CLI are different"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -81,7 +81,7 @@ class WiredLib():
                 if self.device360.compare_transmission_mode(cnt_str, state, operate_duplex_actual_str) == 1:
                     pass
                 else:
-                    kwargs['fail_msg'] = "'check_transmission_mode_exos()' -> The status of transmission in " \
+                    kwargs['fail_msg'] = "The status of transmission in " \
                                          "XIQ and CLI are different"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -89,7 +89,7 @@ class WiredLib():
                 if self.device360.compare_transmission_mode(cnt_str, state, operate_duplex_cfg_str) == 1:
                     pass
                 else:
-                    kwargs['fail_msg'] = "'check_transmission_mode_exos()' -> The status of transmission in" \
+                    kwargs['fail_msg'] = "The status of transmission in" \
                                          " XIQ and CLI are different"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -114,7 +114,7 @@ class WiredLib():
                 return 1
             else:
                 self.utils.print_info("Vlan {} not found in CLI".format(vlan))
-                kwargs['fail_msg'] = f"'check_vlan_cli()' -> Vlan {vlan} not found in CLI"
+                kwargs['fail_msg'] = f"Vlan {vlan} not found in CLI"
                 self.common_validation.failed(**kwargs)
                 return -1
         elif device_make.lower() == "voss":
@@ -127,11 +127,11 @@ class WiredLib():
                 return 1
             else:
                 self.utils.print_info("Vlan {} not found in CLI".format(vlan))
-                kwargs['fail_msg'] = f"'check_vlan_cli()' -> Vlan {vlan} not found in CLI"
+                kwargs['fail_msg'] = f"Vlan {vlan} not found in CLI"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("No device make found")
-            kwargs['fail_msg'] = "'check_vlan_cli()' -> No device make found"
+            kwargs['fail_msg'] = "No device make found"
             self.common_validation.fault(**kwargs)
             return -1

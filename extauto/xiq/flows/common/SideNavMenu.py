@@ -201,7 +201,7 @@ class SideNavMenu(NavigatorWebElements):
             return False
 
         except Exception as e:
-            kwargs['fail_msg'] = f"'is_nav_menu_item_visible()' -> {e}"
+            kwargs['fail_msg'] = f"{e}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -226,7 +226,7 @@ class SideNavMenu(NavigatorWebElements):
         """
 
         if self._is_nav_menu_item_visible(tag, **kwargs):
-            kwargs['fail_msg'] = "'verify_nav_menu_item_not_visible()' -> Nav Menu Item is Visible"
+            kwargs['fail_msg'] = "Nav Menu Item is Visible"
             self.common_validation.failed(**kwargs)
             return -1
         else:
@@ -389,7 +389,7 @@ class SideNavMenu(NavigatorWebElements):
         :return: 1 if not visible else -1
         """
         if self._is_nav_menu_item_enabled(tag, **kwargs):
-            kwargs['fail_msg'] = "'verify_nav_menu_item_not_visible()' -> Nav Menu Item is Enabled"
+            kwargs['fail_msg'] = "Nav Menu Item is Enabled"
             self.common_validation.failed(**kwargs)
             return -1
         else:
@@ -430,7 +430,7 @@ class SideNavMenu(NavigatorWebElements):
             if expected_class in self.get_a3_tab_img_class():
                 return 1
 
-        kwargs['fail_msg'] = "'has_main_nav_tab_the_expected_image()' -> The expected class of the specified main" \
+        kwargs['fail_msg'] = "The expected class of the specified main" \
                              " nav tab does not exists"
         self.common_validation.failed(**kwargs)
         return -1
@@ -447,6 +447,6 @@ class SideNavMenu(NavigatorWebElements):
         if expected_url in CloudDriver().cloud_driver.current_url:
             return 1
 
-        kwargs['fail_msg'] = "'is_the_expected_url()' -> The expected url of the specified main nav tab is not loaded"
+        kwargs['fail_msg'] = "The expected url of the specified main nav tab is not loaded"
         self.common_validation.failed(**kwargs)
         return -1

@@ -149,10 +149,10 @@ class AccountManagement(AccntMgmtWebElements):
         self.utils.print_info("Tooltip: ", tool_tip_text)
         for text in tool_tip_text:
             if "An admin account for" in text:
-                kwargs['fail_msg'] = f"'create_role_based_account()' -> {text}"
+                kwargs['fail_msg'] = f"{text}"
                 self.common_validation.failed(**kwargs)
                 return -1
-        kwargs['pass_msg'] = "'create_role_based_account()' -> Successfully create role based account"
+        kwargs['pass_msg'] = "Successfully create role based account"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -180,7 +180,7 @@ class AccountManagement(AccntMgmtWebElements):
             sleep(1)
             self.auto_actions.click_reference(self.get_account_mgmt_delete_conf_yes_button)
             sleep(2)
-            kwargs['pass_msg'] = "'delete_management_account()' -> Account found on grid and got deleted successfully"
+            kwargs['pass_msg'] = "Account found on grid and got deleted successfully"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -208,7 +208,7 @@ class AccountManagement(AccntMgmtWebElements):
             sleep(1)
             self.auto_actions.click_reference(self.get_account_mgmt_delete_conf_yes_button)
             sleep(2)
-            kwargs['pass_msg'] = "'delete_guest_management_accounts()' -> Account found on grid and got deleted " \
+            kwargs['pass_msg'] = "Account found on grid and got deleted " \
                                  "successfully"
             self.common_validation.passed(**kwargs)
             return 1
@@ -237,7 +237,7 @@ class AccountManagement(AccntMgmtWebElements):
             sleep(1)
             self.auto_actions.click_reference(self.get_account_mgmt_delete_conf_yes_button)
             sleep(2)
-            kwargs['pass_msg'] = "'delete_guest_management_account()' -> Account found on grid and got deleted " \
+            kwargs['pass_msg'] = "Account found on grid and got deleted " \
                                  "successfully"
             self.common_validation.passed(**kwargs)
             return 1
@@ -253,11 +253,11 @@ class AccountManagement(AccntMgmtWebElements):
         """
         self.utils.print_info("Navigating to the account Management page..")
         if self.navigator.navigate_to_account_mgmt() == 1:
-            kwargs['pass_msg'] = "'open_account_mgmt_page()' -> No issues in opening Account Management page"
+            kwargs['pass_msg'] = "No issues in opening Account Management page"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'open_account_mgmt_page()' -> Found issues in opening Account Management page"
+            kwargs['fail_msg'] = "Found issues in opening Account Management page"
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -273,11 +273,11 @@ class AccountManagement(AccntMgmtWebElements):
 
         self.utils.print_info("Navigating to the license Management page..")
         if self.navigator.navigate_to_license_mgmt() == 1:
-            kwargs['pass_msg'] = "'open_license_mgmt_page()' -> No issues in opening License Management page"
+            kwargs['pass_msg'] = "No issues in opening License Management page"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'open_license_mgmt_page()' -> Found issues in opening License Management page"
+            kwargs['fail_msg'] = "Found issues in opening License Management page"
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -297,11 +297,11 @@ class AccountManagement(AccntMgmtWebElements):
             self.utils.print_info("tooltip_text: ", tooltip_text)
             if tooltip_text:
                 if "Your account does not have permission to perform that action" in tooltip_text:
-                    kwargs['fail_msg'] = "'open_tools_page()' -> Found issues in opening Tools. Your account does " \
+                    kwargs['fail_msg'] = "Found issues in opening Tools. Your account does " \
                                          "not have permission to perform that action"
                     self.common_validation.failed(**kwargs)
                     return -2
-            kwargs['pass_msg'] = "'open_tools_page()' -> No issues in opening Tools"
+            kwargs['pass_msg'] = "No issues in opening Tools"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -315,11 +315,11 @@ class AccountManagement(AccntMgmtWebElements):
         """
         self.utils.print_info("Navigating to Dashboard page..")
         if self.navigator.navigate_to_dashboard_page() == 1:
-            kwargs['pass_msg'] = "'open_dashboard_page()' -> No issues in opening Dashboard"
+            kwargs['pass_msg'] = "No issues in opening Dashboard"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'open_dashboard_page()' -> Found issues in opening License Management page"
+            kwargs['fail_msg'] = "Found issues in opening License Management page"
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -333,13 +333,13 @@ class AccountManagement(AccntMgmtWebElements):
         """
         self.utils.print_info("Navigating to Dashboard page..")
         if self.navigator.navigate_to_dashboard_page() == 1:
-            kwargs['pass_msg'] = "'check_for_dashboard_page()' -> No issues in opening page"
+            kwargs['pass_msg'] = "No issues in opening page"
             self.common_validation.passed(**kwargs)
             return 1
         else:
             utils_ele = self.tools_elements.get_utilities_button()
             if utils_ele.is_displayed():
-                kwargs['fail_msg'] = "'check_for_dashboard_page()' -> Found issues in opening page"
+                kwargs['fail_msg'] = "Found issues in opening page"
                 self.common_validation.failed(**kwargs)
                 return -2
 
@@ -355,11 +355,11 @@ class AccountManagement(AccntMgmtWebElements):
 
         self.utils.print_info("Navigating to Guest Management page..")
         if self.navigator.navigate_to_credential_dist_groups() == 1:
-            kwargs['pass_msg'] = "'open_guest_mgmt_page()' -> No issues in opening Guest Management page"
+            kwargs['pass_msg'] = "No issues in opening Guest Management page"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'open_guest_mgmt_page()' -> Found issues in opening Guest Management page"
+            kwargs['fail_msg'] = "Found issues in opening Guest Management page"
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -375,18 +375,18 @@ class AccountManagement(AccntMgmtWebElements):
 
         self.utils.print_info("Navigating to Tools page..")
         if self.open_tools_page() == -2:
-            kwargs['fail_msg'] = "'check_packet_capture_option()' -> Unsuccessfuly navigate to tools page"
+            kwargs['fail_msg'] = "Unsuccessfuly navigate to tools page"
             self.common_validation.fault(**kwargs)
             return -2
         else:
             pkt_cap = self.get_packet_capture_button()
             if pkt_cap == 1:
-                kwargs['pass_msg'] = "'check_packet_capture_option()' -> No issues in opening Tools --> Packet " \
+                kwargs['pass_msg'] = "No issues in opening Tools --> Packet " \
                                      "Capture page"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "'check_packet_capture_option()' -> Found issues in opening Tools --> Packet " \
+                kwargs['fail_msg'] = "Found issues in opening Tools --> Packet " \
                                      "Capture page"
                 self.common_validation.failed(**kwargs)
                 return -2
@@ -402,11 +402,11 @@ class AccountManagement(AccntMgmtWebElements):
 
         self.utils.print_info("Checking for the error after config..")
         if self._check_config_error_msg() == 1:
-            kwargs['pass_msg'] = "'check_config_error()' -> no error message after saving the config"
+            kwargs['pass_msg'] = "no error message after saving the config"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'check_config_error()' -> Found error message after saving the config"
+            kwargs['fail_msg'] = "Found error message after saving the config"
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -416,11 +416,11 @@ class AccountManagement(AccntMgmtWebElements):
         sleep(2)
         if cdg_ele:
             self.auto_actions.click(cdg_ele)
-            kwargs['pass_msg'] = "'get_packet_capture_button()' -> Successfully Get packet capture"
+            kwargs['pass_msg'] = "Successfully Get packet capture"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'get_packet_capture_button()' -> Unsuccessfully Get packet capture"
+            kwargs['fail_msg'] = "Unsuccessfully Get packet capture"
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -429,11 +429,11 @@ class AccountManagement(AccntMgmtWebElements):
         cdg_ele = self.weh.get_element(self.config_error)
         sleep(2)
         if cdg_ele.is_displayed():
-            kwargs['fail_msg'] = "'_check_config_error_msg()' -> Got error..."
+            kwargs['fail_msg'] = "Got error..."
             self.common_validation.failed(**kwargs)
             return -2
         else:
-            kwargs['pass_msg'] = "'_check_config_error_msg()' -> No Errors"
+            kwargs['pass_msg'] = "No Errors"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -516,31 +516,31 @@ class AccountManagement(AccntMgmtWebElements):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info("Tooltip: ", tool_tp_text)
         if "User must be a member of a group." in tool_tp_text:
-            kwargs['fail_msg'] = "'create_credential_distribution_groups()' -> User must be a member of a group."
+            kwargs['fail_msg'] = "User must be a member of a group."
             self.common_validation.failed(**kwargs)
             return -2
 
         if "Select at least one user group." in tool_tp_text:
-            kwargs['fail_msg'] = "'create_credential_distribution_groups()' -> Select at least one user group."
+            kwargs['fail_msg'] = "Select at least one user group."
             self.common_validation.failed(**kwargs)
             return -3
 
         if "That group already exists." in tool_tp_text:
-            kwargs['fail_msg'] = "'create_credential_distribution_groups()' -> That group already exists."
+            kwargs['fail_msg'] = "That group already exists."
             self.common_validation.failed(**kwargs)
             return -4
 
         if "The Member Group cannot be saved because the name " + member_of + " already exists.":
-            kwargs['fail_msg'] = "'create_credential_distribution_groups()' -> The Member Group cannot be saved " \
+            kwargs['fail_msg'] = "The Member Group cannot be saved " \
                                  "because the name " + member_of + " already exists."
             self.common_validation.failed(**kwargs)
             return -5
 
         if "The Employee Group was saved successfully." in tool_tp_text:
-            kwargs['pass_msg'] = "'create_credential_distribution_groups()' ->The Employee Group was saved successfully."
+            kwargs['pass_msg'] = "The Employee Group was saved successfully."
             self.common_validation.passed(**kwargs)
             return 1
 
-        kwargs['fail_msg'] = "'create_credential_distribution_groups()' -> Failed to save the employee group."
+        kwargs['fail_msg'] = "Failed to save the employee group."
         self.common_validation.failed(**kwargs)
         return -1

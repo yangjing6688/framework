@@ -142,7 +142,7 @@ class NetworkPolicy(object):
         """
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
-            kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
+            kwargs['fail_msg'] = "Failed to navigate to network policies list page"
             self.common_validation.fault(**kwargs)
         sleep(2)
 
@@ -168,7 +168,7 @@ class NetworkPolicy(object):
 
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
-            kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
+            kwargs['fail_msg'] = "Failed to navigate to network policies list page"
             self.common_validation.fault(**kwargs)
             return -1
 

@@ -66,7 +66,7 @@ class GlobalSearch:
                 matched_val = search_match
 
         if expect_result == "None" and matched_val == "":
-            kwargs['fail_msg'] = "'global_search()' -> Variable 'expect_result' is None"
+            kwargs['fail_msg'] = "Variable 'expect_result' is None"
             self.common_validation.fault(**kwargs)
             return -2
 
@@ -74,7 +74,7 @@ class GlobalSearch:
             self.screen.save_screen_shot()
             sleep(2)
             self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
-            kwargs['fail_msg'] = "'global_search()' -> Value was not found"
+            kwargs['fail_msg'] = "Value was not found"
             self.common_validation.failed(**kwargs)
             return -1
         return matched_val

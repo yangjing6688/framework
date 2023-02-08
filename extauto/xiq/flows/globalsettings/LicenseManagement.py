@@ -38,11 +38,11 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         self.utils.print_info("Navigating to the License Management page..")
         if self.navigator.navigate_to_license_mgmt() == 1:
-            kwargs['pass_msg'] = "'open_license_management_page()' -> License Management page was opened"
+            kwargs['pass_msg'] = "License Management page was opened"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'open_license_management_page()' -> Failed to open License Management page"
+            kwargs['fail_msg'] = "Failed to open License Management page"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -78,11 +78,11 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         no_data_el = self.lic_mgt_web_elements.get_legacy_no_data()
         if no_data_el and no_data_el.is_displayed():
-            kwargs['pass_msg'] = "'is_legacy_table_empty()' -> Legacy Entitlements table is empty"
+            kwargs['pass_msg'] = "Legacy Entitlements table is empty"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'is_legacy_table_empty()' -> Legacy Entitlements table is not empty"
+            kwargs['fail_msg'] = "Legacy Entitlements table is not empty"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -96,11 +96,11 @@ class LicenseManagement(LicenseManagementWebElements):
         :return: 1 if Entitlements Table is not empty, else -1
         """
         if self.is_entitlements_table_empty() == 1:
-            kwargs['fail_msg'] = "'confirm_entitlements_table_contains_data()' -> Entitlements table does not contain data"
+            kwargs['fail_msg'] = "Entitlements table does not contain data"
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['pass_msg'] = "'confirm_entitlements_table_contains_data()' -> Entitlements table contains data"
+            kwargs['pass_msg'] = "Entitlements table contains data"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -114,12 +114,12 @@ class LicenseManagement(LicenseManagementWebElements):
         :return: 1 if Legacy Entitlements Table is not empty, else -1
         """
         if self.is_legacy_table_empty() == 1:
-            kwargs['fail_msg'] = "'confirm_legacy_table_contains_data()' -> Legacy Entitlements table does " \
+            kwargs['fail_msg'] = "Legacy Entitlements table does " \
                                  "not contain data"
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['pass_msg'] = "'confirm_legacy_table_contains_data()' -> Legacy Entitlements table contains data"
+            kwargs['pass_msg'] = "Legacy Entitlements table contains data"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -139,11 +139,11 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.utils.print_info(ek)
                 if re.search(ekey, ek):
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
-                    kwargs['pass_msg'] = "'verify_ek_in_legacy_ek_table()' -> Legacy EK exists in the legacy ek table."
+                    kwargs['pass_msg'] = "Legacy EK exists in the legacy ek table."
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['fail_msg'] = "'verify_ek_in_legacy_ek_table()' -> Legacy EK not found the the table."
+                    kwargs['fail_msg'] = "Legacy EK not found the the table."
                     self.common_validation.failed(**kwargs)
                     return -1
 
@@ -153,11 +153,11 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         cont_sales_btn = self.lic_mgt_web_elements.get_contact_sales_btn()
         if cont_sales_btn.is_displayed():
-            kwargs['pass_msg'] = "'verify_contact_sales_btn_dispalyed()' -> Contact Sales Button is displayed."
+            kwargs['pass_msg'] = "Contact Sales Button is displayed."
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'verify_contact_sales_btn_dispalyed()' -> Contact Sales Button is NOT displayed."
+            kwargs['fail_msg'] = "Contact Sales Button is NOT displayed."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -175,23 +175,23 @@ class LicenseManagement(LicenseManagementWebElements):
             if xiq_link_status.is_displayed():
                 self.utils.print_info(xiq_link_status.text)
             else:
-                kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> XIQ Successfully linked to a customer " \
+                kwargs['fail_msg'] = "XIQ Successfully linked to a customer " \
                                      "account msg is not displayed."
                 self.common_validation.failed(**kwargs)
                 return -2
             if extr_lic_portal_link.is_displayed():
                 self.utils.print_info("Extreme Licensing Portal link is dispalyed.")
             else:
-                kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> Extreme Licensing Portal link is not " \
+                kwargs['fail_msg'] = "Extreme Licensing Portal link is not " \
                                      "displayed."
                 self.common_validation.failed(**kwargs)
                 return -2
-            kwargs['pass_msg'] = "'verify_xiq_linked_to_extr_portal()' -> Successfully verify XIQ is linked to " \
+            kwargs['pass_msg'] = "Successfully verify XIQ is linked to " \
                                  "extreme portal"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> XIQ is not linked to Extreme Portal."
+            kwargs['fail_msg'] = "XIQ is not linked to Extreme Portal."
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -209,23 +209,23 @@ class LicenseManagement(LicenseManagementWebElements):
             if cust_partner_info.is_displayed():
                 self.utils.print_info("Tooltip Info to customers/partners is displayed.")
             else:
-                kwargs['fail_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> Tooltip Info to customers/partners" \
+                kwargs['fail_msg'] = "Tooltip Info to customers/partners" \
                                      " is not displayed."
                 self.common_validation.failed(**kwargs)
                 return -2
             if xiq_not_link_status.is_displayed():
                 self.utils.print_info("XIQ is not linked to extreme portal status is displayed.")
             else:
-                kwargs['fail_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> XIQ not linked status is not " \
+                kwargs['fail_msg'] = "XIQ not linked status is not " \
                                      "displayed."
                 self.common_validation.failed(**kwargs)
                 return -2
-            kwargs['pass_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> Successfully verify XIQ is not " \
+            kwargs['pass_msg'] = "Successfully verify XIQ is not " \
                                  "linked to extreme portal"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> Link XIQ to Extreme Portal button is " \
+            kwargs['fail_msg'] = "Link XIQ to Extreme Portal button is " \
                                  "not displayed."
             self.common_validation.fault(**kwargs)
             return -1
@@ -253,26 +253,26 @@ class LicenseManagement(LicenseManagementWebElements):
                     sleep(5)
                     unlink = self.verify_xiq_not_linked_to_extr_portal()
                     if unlink == 1:
-                        kwargs['pass_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink is successful..."
+                        kwargs['pass_msg'] = "Unlink is successful..."
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
-                        kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful..."
+                        kwargs['fail_msg'] = "Unlink NOT successful..."
                         self.common_validation.failed(**kwargs)
                         return -1
                 else:
                     self.utils.print_info("Unlink NOT successful...")
-                    kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful..."
+                    kwargs['fail_msg'] = "Unlink NOT successful..."
                     self.common_validation.failed(**kwargs)
                     return -1
             except Exception:
                 self.utils.print_info("Unlink NOT successful.")
-                kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful."
+                kwargs['fail_msg'] = "Unlink NOT successful."
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
             self.utils.print_info("Unlink button is not visible.")
-            kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink button is not visible."
+            kwargs['fail_msg'] = "Unlink button is not visible."
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -346,11 +346,11 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.utils.print_info("Redirected to SFDC for oauth...")
             except Exception:
                 self.utils.print_info("No confirmation dialog is shown.")
-            kwargs['pass_msg'] = "initiate_link_xiq_to_extr_portal_from_lic_mgt -> Successfully linking"
+            kwargs['pass_msg'] = "Successfully linking"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "initiate_link_xiq_to_extr_portal_from_lic_mgt -> Link to Extreme Portal button is " \
+            kwargs['fail_msg'] = "Link to Extreme Portal button is " \
                                  "not displayed."
             self.common_validation.fault(**kwargs)
             return -1
@@ -630,7 +630,7 @@ class LicenseManagement(LicenseManagementWebElements):
             if available_count == int(expected_available) and \
                activated_count == int(expected_activated) and \
                total_count == int(expected_total):
-                kwargs['pass_msg'] = "wait_until_entitlement_counts_for_feature_matches -> " \
+                kwargs['pass_msg'] = "" \
                                      f"Counts for {feature} are at the expected values:\n"  \
                                      f"  Available: {expected_available}\n" \
                                      f"  Activated: {expected_activated}\n" \
@@ -651,7 +651,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = f"wait_until_entitlement_counts_for_feature_matches -> Counts for {feature} are not at " \
+        kwargs['fail_msg'] = f"Counts for {feature} are not at " \
                              "expected values. Please check."
         self.common_validation.failed(**kwargs)
         return -1
@@ -689,7 +689,7 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the total count for the specified feature
             total_count = self.get_entitlement_total_count_for_feature(feature)
             if total_count == int(expected):
-                kwargs['pass_msg'] = "wait_until_entitlement_total_count_for_feature_matches -> Total count for " \
+                kwargs['pass_msg'] = "Total count for " \
                                      f"{feature} is at expected value {expected}"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -699,7 +699,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = "wait_until_entitlement_total_count_for_feature_matches -> Total count for " \
+        kwargs['fail_msg'] = "Total count for " \
                              f"{feature} is {total_count}, not expected value {expected}. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
@@ -738,7 +738,7 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the available count for the specified feature
             available_count = self.get_entitlement_available_count_for_feature(feature)
             if available_count == int(expected):
-                kwargs['pass_msg'] = "wait_until_entitlement_available_count_for_feature_matches -> available " \
+                kwargs['pass_msg'] = "available " \
                                      f"count for {feature} is at expected value {expected}"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -748,7 +748,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = "wait_until_entitlement_available_count_for_feature_matches -> Available count for " \
+        kwargs['fail_msg'] = "Available count for " \
                              f"{feature} is {available_count}, not expected value {expected}. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
@@ -787,7 +787,7 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the activated count for the specified feature
             activated_count = self.get_entitlement_activated_count_for_feature(feature)
             if activated_count == int(expected):
-                kwargs['pass_msg'] = "wait_until_entitlement_activated_count_for_feature_matches -> Activated count " \
+                kwargs['pass_msg'] = "Activated count " \
                                      f"for {feature} is at expected value {expected}"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -797,7 +797,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = "wait_until_entitlement_activated_count_for_feature_matches -> Activated count for" \
+        kwargs['fail_msg'] = "Activated count for" \
                              f" {feature} is {activated_count}, not expected value {expected}. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
@@ -829,7 +829,7 @@ class LicenseManagement(LicenseManagementWebElements):
 
             # Check if the Entitlements table is empty yet
             if self.is_entitlements_table_empty() == 1:
-                kwargs['pass_msg'] = "wait_until_entitlements_table_empty -> Entitlements table is empty"
+                kwargs['pass_msg'] = "Entitlements table is empty"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
@@ -837,7 +837,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = "wait_until_entitlements_table_empty -> Entitlements table did not become" \
+        kwargs['fail_msg'] = "Entitlements table did not become" \
                              " empty within specified time. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)

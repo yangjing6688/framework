@@ -64,7 +64,7 @@ class Reports(object):
                 sleep(2)
                 return 1
 
-        kwargs['fail_msg'] = "'_select_extreme_guest_manage_page_user_row_cell()' -> Unable to get row"
+        kwargs['fail_msg'] = "Unable to get row"
         self.common_validation.fault(**kwargs)
         return 0
 
@@ -209,7 +209,7 @@ class Reports(object):
                     self.utils.print_info("Run successful")
                     return 1
 
-        kwargs['fail_msg'] = "'_add_edit_manage_guest_report()' -> Unable to create/edit report"
+        kwargs['fail_msg'] = "Unable to create/edit report"
         self.common_validation.fault(**kwargs)
         return 0
 
@@ -304,7 +304,7 @@ class Reports(object):
                 self.utils.print_info("Unable to select location")
         else:
             self.utils.print_info("Cannot select location - location not specified")
-            kwargs['fail_msg'] = "'select_scope_for_add_manage_report_page()' -> Cannot select location - location not" \
+            kwargs['fail_msg'] = "Cannot select location - location not" \
                                  " specified"
             self.common_validation.fault(**kwargs)
 

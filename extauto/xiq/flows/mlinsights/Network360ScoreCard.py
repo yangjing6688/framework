@@ -38,13 +38,13 @@ class Network360ScoreCard:
             self.utils.print_info("Clicking on ML Insights Score Card button")
             self.auto_actions.click_reference(self.ml_insights.get_n360_scorecard_button)
             sleep(3)
-            kwargs['pass_msg'] = "'goto_ml_insights_score_card()' -> Successfully Clicking on ML Insights Score " \
+            kwargs['pass_msg'] = "Successfully Clicking on ML Insights Score " \
                                  "Card button"
             self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'goto_ml_insights_score_card()' -> Unable to Navigate to MLInsights Score Card Page"
+            kwargs['fail_msg'] = "Unable to Navigate to MLInsights Score Card Page"
             self.common_validation.fault(**kwargs)
             return 0
 
@@ -180,6 +180,6 @@ class Network360ScoreCard:
             return device_health_list, client_health_list, network_health_list, wifi_health_list, service_health_list
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'score_card_details()' -> Unable to get MLInsights Score Card Details"
+            kwargs['fail_msg'] = "Unable to get MLInsights Score Card Details"
             self.common_validation.fault(**kwargs)
             return -1

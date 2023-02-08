@@ -48,17 +48,17 @@ class Communications(CommunicationsWebElements):
 
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'validate_communications_page()' -> Unable to get Communications page header. " \
+            kwargs['fail_msg'] = "Unable to get Communications page header. " \
                                  "Please check"
             self.common_validation.fault(**kwargs)
             return -1
 
         if "ExtremeCloud IQ" or "NOTIFICATIONS" in comm_txt:
-            kwargs['pass_msg'] = "'validate_communications_page()' -> Communications page found."
+            kwargs['pass_msg'] = "Communications page found."
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'validate_communications_page()' -> Communications page is not displaying. " \
+            kwargs['fail_msg'] = "Communications page is not displaying. " \
                                  "Please check"
             self.common_validation.failed(**kwargs)
             return -2
@@ -88,17 +88,17 @@ class Communications(CommunicationsWebElements):
 
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'validate_notifications_page()' -> Unable to get Communications page header. " \
+            kwargs['fail_msg'] = "Unable to get Communications page header. " \
                                  "Please check"
             self.common_validation.fault(**kwargs)
             return -1
 
         if "NOTIFICATION" in notification_txt:
-            kwargs['pass_msg'] = "'validate_notifications_page()' -> Communications page found."
+            kwargs['pass_msg'] = "Communications page found."
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'validate_notifications_page()' -> Notification page is not displaying. Please check " \
+            kwargs['fail_msg'] = "Notification page is not displaying. Please check " \
                                  "Communications pages."
             self.common_validation.failed(**kwargs)
             return -2
@@ -126,17 +126,17 @@ class Communications(CommunicationsWebElements):
             sleep(2)
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'validate_preview_page()' -> Unable to get Communications page header. " \
+            kwargs['fail_msg'] = "Unable to get Communications page header. " \
                                  "Please check"
             self.common_validation.fault(**kwargs)
             return -1
 
         if "PREVIEW" in preview_txt:
-            kwargs['pass_msg'] = "'validate_preview_page()' -> Communications page found."
+            kwargs['pass_msg'] = "Communications page found."
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'validate_preview_page()' -> Notification page is not displaying. Please check " \
+            kwargs['fail_msg'] = "Notification page is not displaying. Please check " \
                                  "Communications pages."
             self.common_validation.failed(**kwargs)
             return -2
@@ -165,17 +165,17 @@ class Communications(CommunicationsWebElements):
             sleep(2)
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'validate_new_in_extremecloud_page()' -> Unable to get Communications page header. " \
+            kwargs['fail_msg'] = "Unable to get Communications page header. " \
                                  "Please check"
             self.common_validation.fault(**kwargs)
             return -1
 
         if "New In ExtremeCloud IQ" in new_comm_txt:
-            kwargs['pass_msg'] = "'validate_new_in_extremecloud_page()' -> Communications page found."
+            kwargs['pass_msg'] = "Communications page found."
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'validate_new_in_extremecloud_page()' -> New in XIQ page is not displaying. Please check " \
+            kwargs['fail_msg'] = "New in XIQ page is not displaying. Please check " \
                                  "Communications pages.."
             self.common_validation.failed(**kwargs)
             return -2

@@ -35,13 +35,13 @@ class SpecificSearch:
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "'ap_specific_search()' -> There is no specific information about AP in" \
+                kwargs['fail_msg'] = "There is no specific information about AP in" \
                                      " Devices page"
                 self.common_validation.failed(**kwargs)
                 return -1
         except Exception as e:
             self.utils.print_debug(e)
-            kwargs['fail_msg'] = f"'ap_specific_search()' -> {e}"
+            kwargs['fail_msg'] = f"{e}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -65,14 +65,14 @@ class SpecificSearch:
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"'application_specific_search()' -> Info message: '{info}' does not match the " \
+                kwargs['fail_msg'] = f"Info message: '{info}' does not match the " \
                                      f"result message: '{result}'"
                 self.common_validation.failed(**kwargs)
                 return -1
 
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = f"'application_specific_search()' -> Error message: '{e}'"
+            kwargs['fail_msg'] = f"Error message: '{e}'"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -92,12 +92,12 @@ class SpecificSearch:
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"'warning_search_close_window()' -> Info message: '{info}' does not match the" \
+                kwargs['fail_msg'] = f"Info message: '{info}' does not match the" \
                                      f" result message: '{result}'"
                 self.common_validation.failed(**kwargs)
                 return -1
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = f"'warning_search_close_window()' -> Error message: '{e}'"
+            kwargs['fail_msg'] = f"Error message: '{e}'"
             self.common_validation.fault(**kwargs)
             return -1
