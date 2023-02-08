@@ -15252,6 +15252,169 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return 1
 
+    def select_monitor_diagnostics_port_details(self, **kwargs):
+        """
+        - This keyword clicks the Port Details button on the Monitor ->Diagnostics tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details``
+        :return: 1 if Monitor> Diagnostics> Port Details was selected, else -1
+        """
+        self.auto_actions.click_reference(self.get_device360_port_details_button)
+
+    def select_diagnostics_port_details_table(self, **kwargs):
+        """
+        - This keyword clicks the Port Details table on the Monitor ->Diagnostics ->Port Details tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics ->Port Details tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button --> click Port Details table
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details table``
+        """
+        self.auto_actions.click_reference(self.get_device360_monitor_diagnostics_port_details_table)
+
+    def click_device360_diagnostics_select_all_button(self, unit, **kwargs):
+        """
+        - This keyword clicks the 'Select All Ports' button on the Port Diagnostics page in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
+        - Keyword Usage:
+        - ``Device360 Port Diagnostics Select All Ports``
+        :return: 1 if button was clicked, else -1
+        """
+        self.auto_actions.click_reference(lambda: self.get_device360_diagnostics_select_all_button(unit))
+
+    def click_device360_diagnostics_deselect_all_button(self, unit, **kwargs):
+        """
+        - This keyword clicks the 'Select All Ports' button on the Port Diagnostics page in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
+        - Keyword Usage:
+        - ``Device360 Port Diagnostics Select All Ports``
+        :return: 1 if button was clicked, else -1
+        """
+        self.auto_actions.click_reference(lambda: self.get_device360_diagnostics_deselect_all_button(unit))
+
+    def get_device360_diagnostics_all_port_table_rows(self):
+        """
+        - This keyword returnes the rows in the Port Details table.
+        It assumes the Device360 Window is open and on the Monitor> Diagnostics page.
+        """
+        scroll_element = self.auto_actions.click_reference(self.get_device360_diagnostics_ports_table_scroll)
+        if scroll_element:
+            for _ in range(10):
+                self.auto_actions.scroll_down()
+        return self.get_device360_monitor_diagnostics_port_details_table_rows()
+
+    def select_device360_diagnostics_actions_button(self, **kwargs):
+        """
+        - This keyword clicks the Port Details table on the Monitor ->Diagnostics ->Port Details tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics ->Port Details tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button --> click Port Details table
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details table``
+        """
+        self.auto_actions.click_reference(self.get_device360_diagnostics_port_details_actions_button)
+
+    def select_device360_diagnostics_bounce_port_button(self, **kwargs):
+        """
+        - This keyword clicks the Bounce Port button under Actions on  the Monitor ->Diagnostics ->Port Details tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics ->Port Details tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button --> click Port Details table --> Click Actions --> Click Bounce Port
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details table``
+        """
+        self.auto_actions.click_reference(self.get_device360_diagnostics_actions_bounce_port_button)
+
+    def select_device360_diagnostics_bounce_poe_button(self, **kwargs):
+        """
+        - This keyword clicks the Bounce Poe button under Actions on  the Monitor ->Diagnostics ->Port Details tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics ->Port Details tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button --> click Port Details table --> Click Actions --> Click Bounce Poe
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details table``
+        """
+        self.auto_actions.click_reference(self.get_device360_diagnostics_actions_bounce_poe_button)
+
+    def device360_diagnostics_click_on_port_icon(self, port_nr, **kwargs):
+        """
+        - This keyword clicks on port icon in the Device360 Diagnostics view based on the specified port.
+        - It is assumed that the Device360 window is open.
+        - Keyword Usage
+        - ``Device360 Diagnostics Click On Port Icon``
+        :port: Specifies the port value
+        :return: Displayed Port icon name in the Device360 view
+        """
+        self.auto_actions.click_reference(lambda: self.get_device360_diagnostics_wireframe_port(port_nr))
+
+    def select_device360_diagnostics_port_select_button(self, port_nr, **kwargs):
+        """
+        - This keyword selects ports in Port Details table on the Monitor ->Diagnostics ->Port Details tab in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics ->Port Details tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button --> Select port
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details table``
+        """
+        self.auto_actions.click_reference(lambda: self.get_device360_diagnostics_port_table_select_checkbox(port_nr))
+
+    def wait_for_device360_diagnostics_actions_message(self, max_wait = 60, **kwargs):
+        """
+        - This keyword waits for the success message generated when  Bounce Port, Bounce PoE or Clear Mac Locking
+        actions are issued on a list of ports.
+        - The list is updated as ports are enabled/bounced one by one so this function waits for the success message
+        to be generated for all ports
+        """
+        start_time = int(time.time())
+        message  = self.get_device360_diagnostics_bounce_port_message()
+
+        while message is None:
+            if (int(time.time()) - start_time) < max_wait:
+                message = self.get_device360_diagnostics_bounce_port_message()
+                self.utils.wait_till(delay=1)
+            else:
+                kwargs['fail_msg'] = "Message not displayed"
+                return None
+        temp_message = message
+        while temp_message and (int(time.time()) - start_time) < max_wait:
+            temp_message = self.get_device360_diagnostics_bounce_port_message()
+            if temp_message is None:
+                break
+            else:
+                message = temp_message
+                self.utils.wait_till(delay=1)
+        return message
+
+
+    def select_device360_diagnostics_stack_unit(self, slot, **kwargs):
+        """
+        - This keyword clicks the stack unit in the unit dropdown list on  the Monitor ->Diagnostics page in the Device360 dialog window.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics ->Port Details tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click  down arrow to select stack unit - > select unit
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details table``
+        """
+        actions_btn1 = self.auto_actions.click_reference(self.get_device360_diagnostics_current_unit)
+        if actions_btn1:
+            kwargs['pass_msg'] = "Clicked current unit to display Stack dropdown list"
+            self.auto_actions.click_reference(lambda: self.get_device360_diagnostics_dropdown_unit(slot))
+
+    def select_device360_diagnostics_actions_clear_mac_locking(self, **kwargs):
+        """
+        - This keyword clicks the Port Details table on the Monitor ->Diagnostics ->Port Details ->Actions -> Enable Mac Locking button.
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics ->Port Details tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button --> Select Port disabled by Mac Locking ->Click Enable MAC Locking button
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details table``
+        """
+        self.auto_actions.click_reference(self.get_device360_diagnostics_actions_clear_mac_locking)
+
+    def click_device360_diagnostics_actions_refresh_button(self, **kwargs):
+        """
+        - This keyword clicks the Refresh button on the Monitor ->Diagnostics ->Port Details page
+          It assumes the Device360 Window is open and on the Monitor->Diagnostics ->Port Details tab.
+        - Flow: Device 360 Window --> Monitor tab --> Diagnostics --> click Port Details button --> click Refresh page button
+        - Keyword Usage:
+         - ``Select Monitor Diagnostics Port Details table``
+        """
+        self.auto_actions.click_reference(self.get_device360_diagnostics_port_details_refresh_button)
     def check_overview_row_table_by_port(self, port_name, **kwargs):
         """
         Keyword to return the value of one of the columns in Overview status D360 main page for a given port.

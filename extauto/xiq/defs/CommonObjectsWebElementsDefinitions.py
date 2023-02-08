@@ -416,8 +416,7 @@ class CommonObjectsWebElementsDefinitions:
 
     page_size_element = \
         {
-            'CSS_SELECTOR': '.J-page-size.ui-page-size',
-            'wait_for': 2
+            'CSS_SELECTOR': '.J-page-size.ui-page-size'
         }
 
     next_page_element = \
