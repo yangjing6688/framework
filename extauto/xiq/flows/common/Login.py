@@ -128,7 +128,7 @@ class Login:
         :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
-        if self.common_validation.get_kwarg(kwargs, "XAPI_ENABLED", None):
+        if kwargs.get("XAPI_ENABLED"):
             # new XAPI call
             self.xapiLogin.login(username, password, **kwargs)
             # for now we only alow XAPI or UI testing
