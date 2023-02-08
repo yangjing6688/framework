@@ -3986,7 +3986,7 @@ class Devices:
         :return: 1 if device connected within time else -1
         """
 
-        access_token = self.common_validation.get_kwarg(kwargs, "access_token", False)
+        access_token = kwargs.get("access_token", False)
         if access_token:
             device_specific_url = f"/devices?sns={device_serial}"
             device_info = self.xapi.rest_api_get(device_specific_url)
