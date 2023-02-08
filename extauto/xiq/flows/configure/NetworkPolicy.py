@@ -1,9 +1,11 @@
-import selenium.common.exceptions
-
-from extauto.common.CloudDriver import CloudDriver
 from time import sleep
+import time
 import re
+
+import selenium.common.exceptions
 from robot.libraries.BuiltIn import BuiltIn
+
+# from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
@@ -163,7 +165,7 @@ class NetworkPolicy(object):
         :param cli_type: Device type of the DUT
         :return: 1 if network policy creation is success
         """
-        
+
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
@@ -180,7 +182,7 @@ class NetworkPolicy(object):
             return -1
 
         if self._search_network_policy_in_list_view(policy) == 1:
-            kwargs['fail_msg'] = f"create_network_policy() failed. " \
+            kwargs['fail_msg'] = "create_network_policy() failed. " \
                                            f"Network policy {policy} already exists in the network polices list"
             self.common_validation.failed(**kwargs)
             return -1
@@ -204,18 +206,18 @@ class NetworkPolicy(object):
 
         for tip_text in reversed(tool_tp_text):
             if "The Network Policy cannot be saved because" in tip_text:
-                kwargs['fail_msg'] = f"create_network_policy() failed." \
+                kwargs['fail_msg'] = "create_network_policy() failed." \
                                                f"The Network Policy cannot be saved because {tip_text}"
                 self.common_validation.fault(**kwargs)
                 return -1
             if "Your account does not have permission to perform that action" in tip_text:
-                kwargs['fail_msg'] = f"create_network_policy() failed." \
+                kwargs['fail_msg'] = "create_network_policy() failed." \
                                                f"Your account does not have permission to perform that action {tip_text}"
                 self.common_validation.fault(**kwargs)
                 return -1
 
             if "Unable to access data" in tip_text:
-                kwargs['fail_msg'] = f"create_network_policy() failed." \
+                kwargs['fail_msg'] = "create_network_policy() failed." \
                                                f"Not able to save the network policy {tip_text}"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -283,7 +285,7 @@ class NetworkPolicy(object):
         #    for a few moments.
         for chk in range(2):
             if chk == 2:
-                kwargs['fail_msg'] = f"delete_network_policy() failed. " \
+                kwargs['fail_msg'] = "delete_network_policy() failed. " \
                                      f"Unable to perform the delete for network policy {policy}!"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -568,7 +570,7 @@ class NetworkPolicy(object):
                 return -1
 
         if not self._select_device_row(devices):
-            kwargs['fail_msg'] = f"deploy_network_policy() failed. Device is not available in the deploy policy page"
+            kwargs['fail_msg'] = "deploy_network_policy() failed. Device is not available in the deploy policy page"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -714,7 +716,7 @@ class NetworkPolicy(object):
             self.utils.print_info(f"Current page: {current_page}")
             self.utils.print_info("Waiting for Network Policy rows to load...")
             self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
-            self.utils.print_info(f"Network Policy rows have been loaded. Searching for "
+            self.utils.print_info("Network Policy rows have been loaded. Searching for "
                                   f"Network Policy: {policy_name} ...")
 
             try:
@@ -758,7 +760,7 @@ class NetworkPolicy(object):
                     self.auto_actions.click_reference(self.np_web_elements.get_next_page_element)
                     current_page += 1
                 else:
-                    kwargs['fail_msg'] = f"navigate_to_np_edit_tab() failed. " \
+                    kwargs['fail_msg'] = "navigate_to_np_edit_tab() failed. " \
                                          f"This is the last page: {current_page}. Network policy was not found in " \
                                          f"all {current_page} pages. It was deleted or not created at all."
                     self.common_validation.failed(**kwargs)
@@ -1026,9 +1028,9 @@ class NetworkPolicy(object):
                 self.utils.print_info(f"Failed to go to Wireless Networks tab, try {try_cnt} times")
                 sleep(1)
                 if try_cnt == 10:
-                    kwargs['fail_msg'] = f"delete_all_ssid_in_policy() failed. " \
+                    kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. " \
                                          f"Max {try_cnt} times to switch to Wireless Networks tab, " \
-                                         f"but still failed, need figure out issue manually"
+                                         "but still failed, need figure out issue manually"
                     self.common_validation.fault(**kwargs)
                     return -1
         self.utils.print_info("Get all ssids in the policy")
@@ -1525,13 +1527,13 @@ class NetworkPolicy(object):
                 self.common_validation.passed(**kwargs)
                 return 1
             if "Your account does not have permission to perform that action" in tip_text:
-                kwargs['fail_msg'] = f"create_switching_routing_network_policy() failed. " \
+                kwargs['fail_msg'] = "create_switching_routing_network_policy() failed. " \
                                      f"Your account does not have permission to perform that action {tip_text}"
                 self.common_validation.fault(**kwargs)
                 return -1
 
             if "Unable to access data" in tip_text:
-                kwargs['fail_msg'] = f"create_switching_routing_network_policy() failed. " \
+                kwargs['fail_msg'] = "create_switching_routing_network_policy() failed. " \
                                      f"not able to save the network policy {tip_text}"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -1644,7 +1646,7 @@ class NetworkPolicy(object):
         self.utils.print_info(tool_tp_text)
         for tip_text in tool_tp_text:
             if "An unknown error has" in tip_text:
-                kwargs['fail_msg'] = f"deploy_stack_network_policy() failed. " \
+                kwargs['fail_msg'] = "deploy_stack_network_policy() failed. " \
                                      f"{tip_text} occurred while assigning nw policy"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -1668,13 +1670,13 @@ class NetworkPolicy(object):
             sleep(10)
             click_dropdown = self.devices_web_elements.get_devices_stack_update_policy_dropdown_btn()
             if click_dropdown:
-                self.utils.print_info(f" Click on dropdown ")
+                self.utils.print_info(" Click on dropdown ")
                 self.auto_actions.click(click_dropdown)
             else:
-                self.utils.print_info(f" Not able to find dropdown  ")
+                self.utils.print_info(" Not able to find dropdown  ")
             dropdown_items = self.devices_web_elements.get_devices_stack_update_policy_dropdown_items()
             if dropdown_items:
-                self.utils.print_info(f" The templates from dropdown are: ")
+                self.utils.print_info(" The templates from dropdown are: ")
                 for elem in dropdown_items:
                     self.utils.print_info(elem.text)
                 for el in dropdown_items:
@@ -1683,31 +1685,31 @@ class NetworkPolicy(object):
                         self.auto_actions.select_drop_down_options(dropdown_items, el.text)
                         break
                     else:
-                        self.utils.print_info(f" The template name was not found in dropdown")
+                        self.utils.print_info(" The template name was not found in dropdown")
             else:
-                self.utils.print_info(f" Not able to find dropdown items ")
+                self.utils.print_info(" Not able to find dropdown items ")
         else:
-            self.utils.print_info(f" The sw_template_name is None  ")
+            self.utils.print_info(" The sw_template_name is None  ")
 
         uptd = self.devices_web_elements.get_devices_switch_update_network_policy()
 
         if not uptd.is_selected():
-            self.utils.print_info(f"Click on the update configuration checkbox")
+            self.utils.print_info("Click on the update configuration checkbox")
             self.auto_actions.click(uptd)
 
         # Uncheck the firmware update checkbox if it is checked
         firmware_update = self.devices_web_elements.get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox()
         if not firmwareUpdate:
             if firmware_update.is_selected():
-                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is checked - Unchecking")
+                self.utils.print_info("Upgrade IQ engine and extreme network switch images checkbox is checked - Unchecking")
                 self.auto_actions.click(firmware_update)
             else:
-                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already unchecked")
+                self.utils.print_info("Upgrade IQ engine and extreme network switch images checkbox is already unchecked")
         else:
             if firmware_update.is_selected():
-                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is already checked")
+                self.utils.print_info("Upgrade IQ engine and extreme network switch images checkbox is already checked")
             else:
-                self.utils.print_info(f"Upgrade IQ engine and extreme network switch images checkbox is not checked - Checking")
+                self.utils.print_info("Upgrade IQ engine and extreme network switch images checkbox is not checked - Checking")
                 self.auto_actions.click(firmware_update)
 
         # Perform the update
@@ -2268,7 +2270,7 @@ class NetworkPolicy(object):
                                     self.common_validation.fault(**kwargs)
                                     return -1
                             else:
-                                kwargs['fail_msg'] = f"select_network_policy_management_option() failed. " \
+                                kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
                                                      f"Unable to select row {row.text}"
                                 self.common_validation.fault(**kwargs)
                                 return -1
@@ -2318,13 +2320,13 @@ class NetworkPolicy(object):
                         else:
                             db_loc = user_group_config.get('db_loc')
                             if not self.user_group.select_wireless_user_group(usr_group_name, db_loc, 'PPSK'):
-                                kwargs['fail_msg'] = f"add_user_group_to_network_policy_ssid() failed. " \
+                                kwargs['fail_msg'] = "add_user_group_to_network_policy_ssid() failed. " \
                                                            f"User group:{usr_group_name} not created !"
                                 self.common_validation.failed(**kwargs)
                                 return -1
                 else:
-                    kwargs['fail_msg'] = f"add_user_group_to_network_policy_ssid() failed. " \
-                                               f"No User Group item found in the SSID."
+                    kwargs['fail_msg'] = "add_user_group_to_network_policy_ssid() failed. " \
+                                               "No User Group item found in the SSID."
                     self.common_validation.failed(**kwargs)
                     return -1
 
@@ -2332,3 +2334,48 @@ class NetworkPolicy(object):
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1
+
+    def generate_policy_name(self):
+        """
+        - This Keyword will generate policy name
+        :return: random policy name
+        """
+        return f"test_policy_{str(time.time())[::-1][:5]}"
+
+
+    def open_network_policy_ssid_page(self, policy_name, ssid_name, **kwargs):
+        """
+        - This Keyword will Open Particular SSID name of the wireless network in the network policy
+        - Flow: Navigate to the network policy -- > click on network policy card view --> click on SSID
+        - Keyword Usage:
+        - ``Open Network Policy SSID Page   ${POLICY_NAME}   ${SSID_NAME}``
+
+        :param policy_name: Name of the network policy
+        :param ssid_name: name of the ssid already exist on that network policy
+        :return: 1 if mentioned SSID page opened successfully else -1
+        """
+        self.utils.print_info("Click on Network Policy card view button")
+        self.navigator.navigate_to_network_policies_card_view_page()
+
+        if self.select_network_policy_in_card_view(policy_name):
+            self.utils.print_info("Selecting SSID in Network Policy")
+            if self._select_ssid(ssid_name):
+                self.utils.wait_till(self.np_web_elements.get_network_policy_wireless_ssid_name_textfield, timeout=90, delay=5)
+                ssid_field= self.np_web_elements.get_network_policy_wireless_ssid_name_textfield()
+                ssid_name_1 = ssid_field.get_attribute("value")
+                self.utils.print_info(f"SSID Name in Network Policy Page is {ssid_name_1}")
+                if ssid_name_1 == ssid_name:
+                    kwargs['pass_msg'] = "SSID page Opened Successfully in network policy"
+                    self.screen.save_screen_shot()
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                else:
+                    kwargs['fail_msg'] = "SSID page Not Opened Successfully in network policy"
+                    self.screen.save_screen_shot()
+                    self.common_validation.failed(**kwargs)
+                    return -1
+        else:
+            kwargs['fail_msg'] = "Network Policy Card View Not Opened Successfully"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1

@@ -5,7 +5,6 @@ from extauto.common.AutoActions import AutoActions
 from xiqse.elements.common.CommonTableWebElements import CommonTableWebElements
 from xiqse.flows.common.XIQSE_CommonColumnFilters import XIQSE_CommonColumnFilters
 from xiqse.flows.common.XIQSE_CommonView import XIQSE_CommonView
-from selenium.common.exceptions import StaleElementReferenceException
 
 
 class XIQSE_CommonTable(CommonTableWebElements):
@@ -159,11 +158,11 @@ class XIQSE_CommonTable(CommonTableWebElements):
         if self.xiqse_table_open_column_header_menu(anchor_col) == 1:
             column_menu = self.get_table_sort_ascending_menu()
             if column_menu:
-                self.utils.print_info(f"Clicking the 'Sort Ascending' menu option.")
+                self.utils.print_info("Clicking the 'Sort Ascending' menu option.")
                 self.auto_actions.click(column_menu)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Did not find the 'Sort Ascending' menu option.")
+                self.utils.print_info("Did not find the 'Sort Ascending' menu option.")
         else:
             self.utils.print_info(f"Could not find the {anchor_col} column")
 
@@ -187,11 +186,11 @@ class XIQSE_CommonTable(CommonTableWebElements):
         if self.xiqse_table_open_column_header_menu(anchor_col) == 1:
             column_menu = self.get_table_sort_descending_menu()
             if column_menu:
-                self.utils.print_info(f"Clicking the 'Sort Descending' menu option.")
+                self.utils.print_info("Clicking the 'Sort Descending' menu option.")
                 self.auto_actions.click(column_menu)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Did not find the 'Sort Descending' menu option.")
+                self.utils.print_info("Did not find the 'Sort Descending' menu option.")
         else:
             self.utils.print_info(f"Could not find the {anchor_col} column")
 

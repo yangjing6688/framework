@@ -1,8 +1,11 @@
-from common.AutoActions import *
+from time import sleep
+
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
 from a3.elements.ConnProfileWebElements import ConnProfileWebElements
-from a3.elements.GlobalSettingWebElements import *
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
 
 
 class ConnProfileWebElementsFlow(ConnProfileWebElements):
@@ -144,14 +147,14 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
         """
         if self.auto_actions.click_reference(self.get_radius_audit_log_ui) == 1:
             sleep(2)
-            self.utils.print_info(f"select the table")
+            self.utils.print_info("select the table")
             tab = self.weh.get_element(self.get_table)
             sleep(2)
-            self.utils.print_info(f"select the table1")
+            self.utils.print_info("select the table1")
             table = self.setting.get_audit_logs_grid_rows()
-            self.utils.print_info(f"select the table2")
+            self.utils.print_info("select the table2")
             ele_selected = tab.is_displayed
-            self.utils.print_info(f"print status", ele_selected)
+            self.utils.print_info("print status", ele_selected)
             sleep(5)
             if ele_selected:
                 for rows in table:
@@ -159,8 +162,8 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
                         if mac in row \
                             and auth_status in row \
                                 and user_name in row:
-                            self.utils.print_info(f"Found the Expected Row Text", row)
-                            self.utils.print_info(f"clicked on the selected row")
+                            self.utils.print_info("Found the Expected Row Text", row)
+                            self.utils.print_info("clicked on the selected row")
                             sleep(5)
                             rows.click()
                             break
@@ -170,11 +173,11 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
             radius_open_info = self.weh.get_element(self.rad_open_info)
             sleep(5)
             if radius_ent_info:
-                self.utils.print_info(f"Enterprise Authentication done successfully")
+                self.utils.print_info("Enterprise Authentication done successfully")
             elif radius_open_info:
-                self.utils.print_info(f"Open Network Authentication done successfully")
+                self.utils.print_info("Open Network Authentication done successfully")
             else:
-                self.utils.print_info(f" Not Authenticated")
+                self.utils.print_info(" Not Authenticated")
                 return -1
             sleep(5)
         return 1
@@ -191,7 +194,7 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
         """
         if self.auto_actions.click_reference(self.get_clients_search_ui) == 1:
             sleep(5)
-            self.utils.print_info(f"select the table")
+            self.utils.print_info("select the table")
             sleep(10)
             table = self.setting.get_clients_search_rows()
             for rows in table:
@@ -199,8 +202,8 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
                     if mac in row \
                         and client_status in row \
                             and owner in row:
-                        self.utils.print_info(f"Found the Expected Row Text", row)
-                        self.utils.print_info(f"clicked on the selected row")
+                        self.utils.print_info("Found the Expected Row Text", row)
+                        self.utils.print_info("clicked on the selected row")
                         sleep(5)
                         rows.click()
                         break
@@ -209,13 +212,12 @@ class ConnProfileWebElementsFlow(ConnProfileWebElements):
             client_ent = self.weh.get_element(self.client_ent_info)
             client_open = self.weh.get_element(self.client_open_info)
             if client_ent:
-                self.utils.print_info(f"Enterprise Authentication done successfully")
+                self.utils.print_info("Enterprise Authentication done successfully")
             elif client_open:
-                self.utils.print_info(f"Open Network Authentication done successfully")
+                self.utils.print_info("Open Network Authentication done successfully")
             else:
-                self.utils.print_info(f" Not Authenticated")
+                self.utils.print_info(" Not Authenticated")
                 return -1
             sleep(5)
 
         return 1
-

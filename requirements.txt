@@ -1,5 +1,4 @@
 # ------------------   From Wireless  ----------------------
-#Pillow==7.0.0
 Flask==1.1.1
 image==1.5.28
 netmiko==3.0.0
@@ -9,10 +8,7 @@ robotframework==4.1.1
 robotframework-pabot==2.1.0
 sauceclient==1.0.0
 selenium==3.141.0
-typing-extensions==4.1.1\
-# Commented - 11/22/22 - peter sadej
-# This requirement isn't referenced anywhere in the framework and causes issues when pip installing this requirements file
-# cupshelpers==1.0
+typing-extensions==4.1.1
 # ----------------- From Wireless End ---------------------
 urllib3==1.23
 pyvmomi==6.7.1
@@ -29,5 +25,4 @@ textfsm==0.4.1
 PyMySQL==1.0.2
 wheel==0.36.2
 ansi2html==1.8.0
-PyAutoGUI==0.9.42; platform_system == "Windows"
-https://github.com/jacexh/pyautoit/archive/master.zip; platform_system == "Windows"
+extremecloudiq-api==22.6.4.1

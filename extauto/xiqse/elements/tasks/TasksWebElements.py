@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.tasks.TasksWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.tasks.TasksWebElementsDefinitions import TasksWebElementsDefinitions
 
 
 class TasksWebElements(TasksWebElementsDefinitions):

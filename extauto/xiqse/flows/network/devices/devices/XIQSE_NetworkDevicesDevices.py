@@ -635,7 +635,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.xiqse_devices_clear_search()
             return 1
 
-        self.utils.print_info(f"Device does not exist. Please check.")
+        self.utils.print_info("Device does not exist. Please check.")
         self.screen.save_screen_shot()
         self.xiqse_devices_clear_search()
         return -1
@@ -676,7 +676,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.xiqse_devices_clear_search()
             return 1
 
-        self.utils.print_info(f"Device is still present. Please check.")
+        self.utils.print_info("Device is still present. Please check.")
         self.screen.save_screen_shot()
         self.xiqse_devices_clear_search()
         return -1
@@ -698,7 +698,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Up Status Check - Loop: ", count)
+            self.utils.print_info(f"Device Up Status Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -729,7 +729,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device status failed to go up. Please check.")
+            self.utils.print_info("Device status failed to go up. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -749,7 +749,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Down Status Check - Loop: ", count)
+            self.utils.print_info(f"Device Down Status Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -779,7 +779,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             # Increment retry counter
             count += 1
 
-        self.utils.print_info(f"Device status failed to go down. Please check.")
+        self.utils.print_info("Device status failed to go down. Please check.")
         self.screen.save_screen_shot()
 
         return -1
@@ -800,7 +800,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Archived Check - Loop: ", count)
+            self.utils.print_info(f"Device Archived Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -826,7 +826,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not become archived within allocated time. Please check.")
+            self.utils.print_info("Device did not become archived within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -847,7 +847,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Archived Check - Loop: ", count)
+            self.utils.print_info(f"Device Archived Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -873,7 +873,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device is still archived after allocated time. Please check.")
+            self.utils.print_info("Device is still archived after allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -895,7 +895,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device XIQ Onboarded Check - Loop: ", count)
+            self.utils.print_info(f"Device XIQ Onboarded Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -921,7 +921,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not onboard to XIQ within allocated time. Please check.")
+            self.utils.print_info("Device did not onboard to XIQ within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -946,7 +946,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Count Check - Loop: ", count)
+            self.utils.print_info(f"Device Count Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -1003,7 +1003,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Serial Number Check - Loop: ", count)
+            self.utils.print_info(f"Device Serial Number Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -1029,7 +1029,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not obtain a serial number within allocated time. Please check.")
+            self.utils.print_info("Device did not obtain a serial number within allocated time. Please check.")
 
         return ret_val
 
@@ -1050,7 +1050,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Base MAC Check - Loop: ", count)
+            self.utils.print_info(f"Device Base MAC Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -1076,7 +1076,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not obtain a base MAC within allocated time. Please check.")
+            self.utils.print_info("Device did not obtain a base MAC within allocated time. Please check.")
 
         return ret_val
 
@@ -1096,7 +1096,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Upgraded Check - Loop: ", count)
+            self.utils.print_info(f"Device Upgraded Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -1123,7 +1123,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not show upgraded version within allocated time. Please check.")
+            self.utils.print_info("Device did not show upgraded version within allocated time. Please check.")
 
         return ret_val
 
@@ -1143,7 +1143,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Profile Check - Loop: ", count)
+            self.utils.print_info(f"Device Profile Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -1710,7 +1710,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
 
-        self.utils.print_info(f"****************** DEVICE ROW VALUES ************************")
+        self.utils.print_info("****************** DEVICE ROW VALUES ************************")
         for key, value in device_detail_dict.items():
             self.utils.print_info(f"{key}:{value}")
 
@@ -2110,11 +2110,11 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "true":
-                self.utils.print_info(f"Clicking Search button")
+                self.utils.print_info("Clicking Search button")
                 self.auto_actions.click(search_btn)
                 sleep(2)
             else:
-                self.utils.print_info(f"Search field already open")
+                self.utils.print_info("Search field already open")
             ret_val = 1
         else:
             self.utils.print_info("Unable to find the Search button")
@@ -2162,11 +2162,11 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Search button to perform the search")
+                self.utils.print_info("Clicking Search button to perform the search")
                 self.auto_actions.click(search_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Search button to perform the search")
@@ -2188,11 +2188,11 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         search_text = self.get_search_text_field()
         if clear_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Clear button")
+                self.utils.print_info("Clicking Clear button")
                 self.auto_actions.click(clear_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Clear button")
@@ -2215,10 +2215,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.utils.print_info(f"Waiting for search to complete: loop {count}")
             load_mask = self.view_el.get_load_mask()
             if load_mask:
-                self.utils.print_info(f"Search still in progress...")
+                self.utils.print_info("Search still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Search has completed")
+                self.utils.print_info("Search has completed")
                 return 1
             count += 1
 
@@ -2406,7 +2406,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
-    def xiqse_get_device_license(self, device_ip):
+    def xiqse_get_device_license(self, device_ip, retry_duration=30, retry_count=10):
         """
         - This keyword is used to get the device license for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
@@ -2418,26 +2418,36 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         ret_val = ""
 
-        device_row = self.xiqse_get_device_row(device_ip)
-        if device_row:
-            the_col = self.get_device_column_by_name("License")
-            col_id = self.view_el.get_column_id(the_col)
-            self.utils.print_debug(f"Column ID: {col_id}")
-            if col_id != -1:
-                col_val = self.get_device_column_value(col_id, device_row)
-                if col_val:
-                    status_value = col_val.text
-                    self.utils.print_info(f"Returning Device License {status_value} for device {device_ip}")
-                    ret_val = status_value
+        count = 1
+        while count <= retry_count:
+            device_row = self.xiqse_get_device_row(device_ip)
+            if device_row:
+                the_col = self.get_device_column_by_name("License")
+                col_id = self.view_el.get_column_id(the_col)
+                self.utils.print_debug(f"Column ID: {col_id}")
+                if col_id != -1:
+                    col_val = self.get_device_column_value(col_id, device_row)
+                    if col_val:
+                        status_value = col_val.text
+                        self.utils.print_info(f"Returning Device License {status_value} for device {device_ip}")
+                        ret_val = status_value
+                    else:
+                        self.utils.print_info(f"Unable to determine device license for device {device_ip}")
                 else:
-                    self.utils.print_info(f"Unable to determine device license for device {device_ip}")
+                    self.utils.print_info("Unable to find column ID for License column")
             else:
-                self.utils.print_info("Unable to find column ID for License column")
-        else:
-            self.utils.print_info(f"Unable to find row for device with IP {device_ip}")
+                self.utils.print_info(f"Unable to find row for device with IP {device_ip}")
 
-        self.utils.print_info(f"Returning device license {ret_val} for device {device_ip}")
-        self.screen.save_screen_shot()
+            # License allocation is still ongoing if in pending
+            if ret_val.lower() != 'pending':
+                self.utils.print_info(f"Returning device license {ret_val} for device {device_ip}")
+                self.screen.save_screen_shot()
+                break;
+
+            self.utils.print_info(f"Device license {ret_val} for device {device_ip} is not determined, attempt {count}")
+            # Increment retry counter
+            count += 1
+            sleep(retry_duration);
 
         return ret_val
 
@@ -2457,7 +2467,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+            self.utils.print_info(f"Device Stats Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -2483,7 +2493,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not update to collecting historical statistics within allocated time. Please check.")
+            self.utils.print_info("Device did not update to collecting historical statistics within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -2504,7 +2514,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+            self.utils.print_info(f"Device Stats Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -2530,7 +2540,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not update to collecting threshold alarms statistics within allocated time. Please check.")
+            self.utils.print_info("Device did not update to collecting threshold alarms statistics within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -2551,7 +2561,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+            self.utils.print_info(f"Device Stats Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -2577,7 +2587,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not update to not collecting device statistics within allocated time. Please check.")
+            self.utils.print_info("Device did not update to not collecting device statistics within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val

@@ -1,6 +1,6 @@
-from a3.defs.ToolsWebElementsDefs import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from a3.defs.ToolsWebElementsDefs import ToolsWebElementsDefs
+from common.AutoActions import AutoActions
+from common.WebElementHandler import WebElementHandler
 
 
 class ToolsWebElements(ToolsWebElementsDefs):
@@ -23,7 +23,3 @@ class ToolsWebElements(ToolsWebElementsDefs):
 
     def get_log_ui(self):
         return self.weh.get_element(self.log_ui)
-
-
-
-

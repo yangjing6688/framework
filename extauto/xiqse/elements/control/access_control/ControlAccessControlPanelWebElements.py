@@ -1,6 +1,7 @@
-from xiqse.defs.control.access_control.ControlAccessControlPanelWebElementsDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from xiqse.defs.control.access_control.ControlAccessControlPanelWebElementsDefinitions import ControlAccessControlPanelWebElementsDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 
 class ControlAccessControlPanelWebElements(ControlAccessControlPanelWebElementsDefinitions):
     def __init__(self):
@@ -37,6 +38,3 @@ class ControlAccessControlPanelWebElements(ControlAccessControlPanelWebElementsD
         :return: Using IP address (name), select a row in the right grid
         """
         return self.weh.get_template_element(self.row_grid_by_ip, element_name=ipaddr)
-
-
-

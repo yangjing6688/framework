@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.analytics.configuration.AnalyticsConfigurationDeleteEngineWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.analytics.configuration.AnalyticsConfigurationDeleteEngineWebElementsDefinitions import AnalyticsConfigurationDeleteEngineWebElementsDefinitions
 
 
 class AnalyticsConfigurationDeleteEngineWebElements(AnalyticsConfigurationDeleteEngineWebElementsDefinitions):
@@ -11,7 +11,7 @@ class AnalyticsConfigurationDeleteEngineWebElements(AnalyticsConfigurationDelete
         :return: Delete Engine dialog Yes button
         """
         return self.weh.get_element(self.delete_engine_yes_button)
-    
+
     def get_delete_engine_no_button(self):
         """
         :return: Delete Engine dialog No button
