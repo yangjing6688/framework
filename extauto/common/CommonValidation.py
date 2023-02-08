@@ -35,14 +35,15 @@ class CommonValidation():
 
         if irv_flag:
             self.logger.info("Internal Result Verification [IRV] is: Enabled")
-            default_fail_msg = "[IRV] The keyword failed expectations"
-            default_pass_msg = "[IRV] The keyword passed expectations"
-            fail_msg = kwargs.get("fail_msg", default_fail_msg)
-            pass_msg = kwargs.get("pass_msg", default_pass_msg)
+            fail_msg = kwargs.get("fail_msg", "The keyword failed expectations")
+            pass_msg = kwargs.get("pass_msg", "The keyword passed expectations")
             calling_function = kwargs.get("calling_function", "")
             if calling_function:
-                fail_msg = f"{calling_function}() -> {fail_msg}"
-                pass_msg = f"{calling_function}() -> {pass_msg}"
+                fail_msg = f"[IRV] {calling_function}() -> {fail_msg}"
+                pass_msg = f"[IRV] {calling_function}() -> {pass_msg}"
+            else:
+                fail_msg = f"[IRV] {fail_msg}"
+                pass_msg = f"[IRV] {pass_msg}"
 
             # If the keyword is supported, check for the existence of kwargs that manipulate how keyword results
             # should be interpreted.
@@ -185,9 +186,9 @@ class CommonValidation():
         calling_function = currentframe().f_back.f_code.co_name
 
         # Get the message that will be printed
-        default_fail_msg = "[IRV] A fault occurred while running the keyword"
+        default_fail_msg = "A fault occurred while running the keyword"
         fail_msg = kwargs.get('fail_msg', default_fail_msg)
-        fail_msg = f"{calling_function}() -> {fail_msg}"
+        fail_msg = f"[IRV] {calling_function}() -> {fail_msg}"
 
         # Added screen capture in case of errors or problems
         self.screen.save_screen_shot()
