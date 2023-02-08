@@ -12504,6 +12504,8 @@ class Devices:
         device_serial = device_dict.get("serial")
         device_mac = device_dict.get("mac")
 
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
         self.refresh_devices_page()
         if self.select_device(device_mac=device_mac):
             device_selected = 1
