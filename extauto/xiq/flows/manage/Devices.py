@@ -12516,10 +12516,12 @@ class Devices:
 
         if dut.cli_type.upper() in ["EXOS", "SWITCH ENGINE"]:
             self.utils.print_info("Select the device")
-            if dut.mac:
-                self.select_device(dut.mac)
-            else:
-                kwargs['fail_msg'] = "Unable to select device because device_mac was not provided"
+            if dut.platform.lower() == "stack":
+                self.select_device(device_mac=dut.mac)
+            elif dut.platform.lower() != "stack":
+                self.select_device(device_serial=dut.serial)
+            elif dut is None:
+                kwargs['fail_msg'] = "Unable to select device because device_serial or device_mac was not provided"
                 self.common_validation.failed(**kwargs)
                 return -1
             self.utils.print_info("Selecting the Utilities Function")
