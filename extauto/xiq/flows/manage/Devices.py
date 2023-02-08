@@ -12533,6 +12533,7 @@ class Devices:
 
             returned_version = self.device_update.get_latest_version()
             self.utils.print_info("Device Latest Version: ", returned_version)
+            self.auto_actions.click_reference(self.device_update.get_update_close_button)
             return returned_version
 
         kwargs['fail_msg'] = f"get_device_latest_version() failed. Device using MAC: {device_mac} " \
