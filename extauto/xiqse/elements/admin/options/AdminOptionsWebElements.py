@@ -167,3 +167,27 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
         :return: Status Polling Group 2 Interval field on the Administration> Options page
         """
         return self.weh.get_element(self.status_polling_group_2_interval_value)
+
+    def get_syslog_option(self):
+        """
+        :return: Syslog option in the tree on the Administration> Options page
+        """
+        return self.weh.get_element(self.syslog_option)
+
+    def get_syslog_delay_engine_start_value(self):
+        """
+        :return: Syslog Delay Engine Start element in Admin-Options-Syslog
+        """
+        return self.weh.get_element(self.syslog_delay_engine_start_value)
+
+    def get_trap_option(self):
+        """
+        :return: Trap option in the tree on the Administration> Options page
+        """
+        return self.weh.get_element(self.trap_option)
+
+    def get_trap_delay_engine_start_value(self):
+        """
+        :return: Trap Delay Engine Start element in Admin-Options-Syslog
+        """
+        return self.weh.get_element(self.trap_delay_engine_start_value)
