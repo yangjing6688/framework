@@ -3873,6 +3873,12 @@ class Device360WebElementDefs:
 
         }
 
+    d360_config_events = \
+        {
+            'XPATH': '//ul[@data-dojo-attach-point="hcPills"]/li[@data-automation-tag="automation-pills-configuration"]',
+            'wait_for': 5
+        }
+
     device360_port_details_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-port-diagnostics-port-details"]',
@@ -4033,11 +4039,6 @@ class Device360WebElementDefs:
     device360_diagnostics_select_all_button = \
         {
             "XPATH": '(//div[@class="device-diagnostics"]//button[@data-dojo-attach-point="selectAllButton"])[$index]',
-            'wait_for': 5
-        }
-    d360_config_events = \
-        {
-            'XPATH': '//ul[@data-dojo-attach-point="hcPills"]/li[@data-automation-tag="automation-pills-configuration"]',
             'wait_for': 5
         }
 
