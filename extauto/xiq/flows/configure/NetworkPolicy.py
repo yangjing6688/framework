@@ -2341,3 +2341,41 @@ class NetworkPolicy(object):
         :return: random policy name
         """
         return f"test_policy_{str(time.time())[::-1][:5]}"
+
+
+    def open_network_policy_ssid_page(self, policy_name, ssid_name, **kwargs):
+        """
+        - This Keyword will Open Particular SSID name of the wireless network in the network policy
+        - Flow: Navigate to the network policy -- > click on network policy card view --> click on SSID
+        - Keyword Usage:
+        - ``Open Network Policy SSID Page   ${POLICY_NAME}   ${SSID_NAME}``
+
+        :param policy_name: Name of the network policy
+        :param ssid_name: name of the ssid already exist on that network policy
+        :return: 1 if mentioned SSID page opened successfully else -1
+        """
+        self.utils.print_info("Click on Network Policy card view button")
+        self.navigator.navigate_to_network_policies_card_view_page()
+
+        if self.select_network_policy_in_card_view(policy_name):
+            self.utils.print_info("Selecting SSID in Network Policy")
+            if self._select_ssid(ssid_name):
+                self.utils.wait_till(self.np_web_elements.get_network_policy_wireless_ssid_name_textfield, timeout=90, delay=5)
+                ssid_field= self.np_web_elements.get_network_policy_wireless_ssid_name_textfield()
+                ssid_name_1 = ssid_field.get_attribute("value")
+                self.utils.print_info(f"SSID Name in Network Policy Page is {ssid_name_1}")
+                if ssid_name_1 == ssid_name:
+                    kwargs['pass_msg'] = "SSID page Opened Successfully in network policy"
+                    self.screen.save_screen_shot()
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                else:
+                    kwargs['fail_msg'] = "SSID page Not Opened Successfully in network policy"
+                    self.screen.save_screen_shot()
+                    self.common_validation.failed(**kwargs)
+                    return -1
+        else:
+            kwargs['fail_msg'] = "Network Policy Card View Not Opened Successfully"
+            self.screen.save_screen_shot()
+            self.common_validation.failed(**kwargs)
+            return -1
