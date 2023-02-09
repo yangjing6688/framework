@@ -2406,7 +2406,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
-    def xiqse_get_device_license(self, device_ip):
+    def xiqse_get_device_license(self, device_ip, retry_duration=30, retry_count=10):
         """
         - This keyword is used to get the device license for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
@@ -2418,26 +2418,36 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         ret_val = ""
 
-        device_row = self.xiqse_get_device_row(device_ip)
-        if device_row:
-            the_col = self.get_device_column_by_name("License")
-            col_id = self.view_el.get_column_id(the_col)
-            self.utils.print_debug(f"Column ID: {col_id}")
-            if col_id != -1:
-                col_val = self.get_device_column_value(col_id, device_row)
-                if col_val:
-                    status_value = col_val.text
-                    self.utils.print_info(f"Returning Device License {status_value} for device {device_ip}")
-                    ret_val = status_value
+        count = 1
+        while count <= retry_count:
+            device_row = self.xiqse_get_device_row(device_ip)
+            if device_row:
+                the_col = self.get_device_column_by_name("License")
+                col_id = self.view_el.get_column_id(the_col)
+                self.utils.print_debug(f"Column ID: {col_id}")
+                if col_id != -1:
+                    col_val = self.get_device_column_value(col_id, device_row)
+                    if col_val:
+                        status_value = col_val.text
+                        self.utils.print_info(f"Returning Device License {status_value} for device {device_ip}")
+                        ret_val = status_value
+                    else:
+                        self.utils.print_info(f"Unable to determine device license for device {device_ip}")
                 else:
-                    self.utils.print_info(f"Unable to determine device license for device {device_ip}")
+                    self.utils.print_info("Unable to find column ID for License column")
             else:
-                self.utils.print_info("Unable to find column ID for License column")
-        else:
-            self.utils.print_info(f"Unable to find row for device with IP {device_ip}")
+                self.utils.print_info(f"Unable to find row for device with IP {device_ip}")
 
-        self.utils.print_info(f"Returning device license {ret_val} for device {device_ip}")
-        self.screen.save_screen_shot()
+            # License allocation is still ongoing if in pending
+            if ret_val.lower() != 'pending':
+                self.utils.print_info(f"Returning device license {ret_val} for device {device_ip}")
+                self.screen.save_screen_shot()
+                break;
+
+            self.utils.print_info(f"Device license {ret_val} for device {device_ip} is not determined, attempt {count}")
+            # Increment retry counter
+            count += 1
+            sleep(retry_duration);
 
         return ret_val
 
