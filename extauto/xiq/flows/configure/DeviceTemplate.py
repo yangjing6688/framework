@@ -42,11 +42,9 @@ class DeviceTemplate(object):
         """
         self.utils.print_info("Click on Wireless tab")
         self.auto_actions.click_reference(self.device_template_web_elements.get_select_wireless_tab)
-        sleep(5)
 
         self.utils.print_info("Click on AP Template tab")
         self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_template_tab)
-        sleep(5)
 
         ap_template_rows_elements = self.device_template_web_elements.get_ap_template_rows()
         if not ap_template_rows_elements:
