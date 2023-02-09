@@ -52,7 +52,7 @@ class DefaultTests():
 
 
     """ Test Cases """
-    def test_get_xiq_version_name(self, command_line_args):
+    def test_get_xiq_version_name(self):
         '''[Documentation]  Test_Objective: Get the XIQ name and version '''
         data_center_name = self.xiq.login.get_data_center_name()
         xiq_version = self.xiq.login.get_xiq_version()
