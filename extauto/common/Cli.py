@@ -2606,8 +2606,6 @@ class Cli(object):
                 table_repl.remove('exit ')
             if '' in table_repl:
                 table_repl.remove('')
-            else:
-                pass
             n = 100
             last_100_commands_table = list(list(islice(reversed(table_repl), 0, n)))
             last_100_commands_table.reverse()
