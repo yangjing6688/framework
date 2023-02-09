@@ -675,7 +675,6 @@ class Devices:
         else:
             self.utils.print_info("Can not get network policy")
 
-
     def check_device_reboot_message(self, device_serial, config_update_option, reboot_message):
         """
         - check device reboot status
@@ -1343,8 +1342,6 @@ class Devices:
         self.common_validation.passed(**kwargs)
         return 1
 
-
-
     def upgrade_device(self, *device_dict, version=None, action="upgrade", activate_time=60, **kwargs):
         """
         - This method will update the software image the device is using
@@ -1605,7 +1602,6 @@ class Devices:
         csv_location = device_dict.get("csv_location")
         device_os = device_dict.get("os")
 
-
         # Arguments for device_type == "Simulated"
         device_model = device_dict.get("model")
         device_count = device_dict.get("simulated_count")
@@ -1675,8 +1671,7 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            # Modified the "get_device_serial_numbers" call to use os_persona until the bug XIQ-11770 is solved.
-            list_initial_serial_dt = self.get_device_serial_numbers(os_persona)
+            list_initial_serial_dt = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
@@ -1795,8 +1790,7 @@ class Devices:
 
         elif "digital twin" in device_type.lower():
             self.refresh_devices_page()
-            # Modified the "get_device_serial_numbers" call to use os_persona until the bug XIQ-11770 is solved.
-            list_final_dt_serial = self.get_device_serial_numbers(os_persona)
+            list_final_dt_serial = self.get_device_serial_numbers(device_model)
             dt_global_variable = "${" + name + ".serial}"
             for i in list_final_dt_serial:
                 if i not in list_initial_serial_dt:
@@ -1831,7 +1825,7 @@ class Devices:
         :return:  1 if validate success
         :return: -1 for error : one or more arguments are missing
         """
-        support_onboard_device_types = ["real","simulated","digital twin"]
+        support_onboard_device_types = ["real", "simulated", "digital twin"]
 
         if device_type is None or device_type.lower() not in support_onboard_device_types:
             kwargs['fail_msg'] = f"The onboarding device type '[{device_type}]' is not not a supported type." \
@@ -3078,7 +3072,7 @@ class Devices:
 
         self.utils.print_info("Refresh the devices page")
         self.utils.wait_till(self.refresh_devices_page)
-        self.utils.print_info('Getting device Updated Status using ', *[x for x in {device_serial, device_name,device_mac} if x is not None])
+        self.utils.print_info('Getting device Updated Status using ', *[x for x in {device_serial, device_name, device_mac} if x is not None])
         if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
             device_row = self.get_device_row(device_serial=device_serial)
@@ -4547,7 +4541,6 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the Update Device button
         self.close_last_refreshed_tooltip()
 
-
         update_button = self.devices_web_elements.get_update_device_button()
         if update_button:
             self.utils.print_info("Click on device update button")
@@ -5075,7 +5068,6 @@ class Devices:
         - Keyword Usage:
         - `Select All Devices`
 
-        :param None
         :return: returns 1 if the Select All checkbox was clicked; else, -1
         """
         if self.get_device_count() == 0:
@@ -5447,7 +5439,6 @@ class Devices:
 
         self.utils.print_info(f"MANAGED column for device {device_serial} does not contain expected value 'Managed'")
         return -1
-
 
     def wait_until_device_data_present(self, device_serial, col, retry_duration=30, retry_count=10):
         """
@@ -6958,10 +6949,10 @@ class Devices:
             onboard a device with a CSV and this should whol keyword should be removed.
             """
             # Check the banner error
-            #sleep(3)
-            #tool_tp_text_after = tool_tip.tool_tip_text.copy()
-            #self.utils.print_info(tool_tp_text_after)
-            #for item_after in tool_tp_text_after:
+            # sleep(3)
+            # tool_tp_text_after = tool_tip.tool_tip_text.copy()
+            # self.utils.print_info(tool_tp_text_after)
+            # for item_after in tool_tp_text_after:
             #    if item_after in tool_tp_text_before:
             #        pass
             #    else:
@@ -7768,7 +7759,7 @@ class Devices:
         """
         pattern1 = "(\\w+)."
         rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
-        spawn = self.cli.open_pxssh_spawn(ip_dest_ssh,user_dest_ssh, pass_dest_ssh)
+        spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         if spawn == -1:
             return -1
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
@@ -7780,7 +7771,7 @@ class Devices:
         if not "ahqa_id_rsa" in output_cmd_ls:
             # self.robot_built_in.skip('No ssh certificate exist on jump station')
             return -1
-        output_cmd = self.cli.send_pxssh(spawn ,"ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc[0]))
+        output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc[0]))
         self.utils.print_info(output_cmd)
         output_cmd1 = self.cli.send_pxssh(spawn, "sudo su -")
         output_cmd2 = self.cli.send_pxssh(spawn, "psqlconfigdb_1")
@@ -9475,7 +9466,7 @@ class Devices:
             self.utils.print_info("Device Updated Status : ", device_updated_status)
             initial_updated_status = device_updated_status
             if re.search(r'\d+-\d+-\d+', device_updated_status):
-                initial_timestamp = int(datetime.timestamp(datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
+                initial_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
             os_version = self.get_device_row_values(device_mac, 'OS VERSION')
             nos_version = str(os_version['OS VERSION'])
             sleep(10)
@@ -9499,7 +9490,7 @@ class Devices:
 
                 # Unchecking the Update Network Policy and Configuration checkbox if it is already checked
                 config_download_checkbox = self.device_update.get_config_download_options_checkbox()
-                if config_download_checkbox.is_selected(): # Is selected method will return bool True or False depending upon the selection of the checkbox
+                if config_download_checkbox.is_selected():  # Is selected method will return bool True or False depending upon the selection of the checkbox
                     self.utils.print_info("Update Network Policy and Configuration checkbox is checked - Unchecking")
                     self.auto_actions.click(config_download_checkbox)
                 else:
@@ -11139,6 +11130,9 @@ class Devices:
         :return: True if visible, False if hidden, fail otherwise
         """
         ret_val = -1
+        # Wait until 'loading' mask is cleared
+        self.wait_until_devices_load_mask_cleared(retry_duration=1, retry_count=180)
+
         self.utils.print_info("Clicking on ADD button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
@@ -12030,7 +12024,6 @@ class Devices:
             self.common_validation.failed(**kwargs)
             return -1
 
-
     def revert_device_to_template_but_donot_update(self, device_mac):
         """
         - Assumes already navigated to Manage --> Devices
@@ -12058,7 +12051,7 @@ class Devices:
             if revert_menu:
                 self.auto_actions.click(revert_menu)
                 # sleep(4)
-                self.utils.wait_till(delay=2,timeout=4)
+                self.utils.wait_till(delay=2, timeout=4)
             else:
                 self.utils.print_info("Could not click 'Revert Device to Template' menu item")
                 return -1
@@ -12067,21 +12060,21 @@ class Devices:
             save_btn = self.dialogue_web_elements.get_confirm_yes_button()
             if save_btn:
                 self.auto_actions.click(save_btn)
-                self.utils.wait_till(delay=2,timeout=4)
+                self.utils.wait_till(delay=2, timeout=4)
             else:
                 self.utils.print_info("Could not click 'Save' button")
                 return -1
             self.utils.print_info("Clicking 'cancel' button")
             cancel_btn = self.devices_web_elements.get_more_row_description_close()
 
-
-            self.utils.print_info("Cancel Button==> ",cancel_btn)
+            self.utils.print_info("Cancel Button==> ", cancel_btn)
             if type(cancel_btn) != list:
                 if cancel_btn:
                     self.auto_actions.click(cancel_btn)
                     # sleep(3)
+
                     def check_revert_box_available():
-                        return not bool(self.self.dialogue_web_elements.get_confirm_yes_button())
+                        return not bool(self.dialogue_web_elements.get_confirm_yes_button())
 
                     self.utils.wait_till(check_revert_box_available, timeout=3, delay=1,
                                          is_logging_enabled=True)
@@ -12092,8 +12085,8 @@ class Devices:
                 for eachbutton in cancel_btn:
                     try:
                         if eachbutton.is_enabled() and eachbutton.is_displayed():
-                            eachbuttonclick =  self.auto_actions.click(eachbutton)
-                            self.utils.print_info("Trying to click the button ",eachbuttonclick)
+                            eachbuttonclick = self.auto_actions.click(eachbutton)
+                            self.utils.print_info("Trying to click the button ", eachbuttonclick)
                             if eachbuttonclick:
                                 return 1
                     except Exception:
@@ -12149,7 +12142,6 @@ class Devices:
         self.common_validation.passed(**kwargs)
         return 1
 
-
     def update_and_wait_device(self, policy_name, dut, wait=True, **kwargs):
         """Method that updates the switch and then wait for the update to finish.
 
@@ -12202,7 +12194,7 @@ class Devices:
         - Keyword Usage:
           - ``Deploy Switch Network Policy With Complete Update   ${POLICY_NAME}    ${DEVICE_MAC}``
         :param policy_name: Name of the policy
-        :param devices: Device serial number
+        :param device_serial: Device serial number
         :return: 1 if success else -1
         """
         return_value = self.assign_network_policy_to_a_device(device_serial, policy_name)
