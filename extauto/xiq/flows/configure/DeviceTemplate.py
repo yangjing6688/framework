@@ -40,9 +40,11 @@ class DeviceTemplate(object):
         :param ap_template: Ap Template Name ie AP630,AP410C
         :return: True if AP Template Found on Grid else False
         """
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.utils.print_info("Click on Wireless tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_wireless_tab)
+
+        self.utils.print_info("Click on AP Template tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_template_tab)
 
         ap_template_rows_elements = self.device_template_web_elements.get_ap_template_rows()
         if not ap_template_rows_elements:
