@@ -2831,8 +2831,13 @@ class DeviceConfig(DeviceConfigElements):
                 self.utils.print_info("Locating audit content...")
 
                 def check_audit_config_content():
-                    if self.get_config_audit_content():
-                        return bool(self.get_config_audit_content().text)
+                    audit_content = self.get_config_audit_content()
+                    if audit_content:
+                        if bool(self.get_config_audit_content().text):
+                            self.utils.print_info("audit content is text")
+                        else:
+                            self.utils.print_info("audit content is empty ")
+                        return True
                     else:
                         return False
                 self.utils.wait_till(check_audit_config_content, is_logging_enabled=True, timeout=30, delay=10)
