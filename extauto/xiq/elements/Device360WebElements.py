@@ -2257,3 +2257,165 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_stack_slot_sfp_ports(self):
         return self.weh.get_elements(self.device360_stack_slot_sfp_ports)
 
+    def get_device360_port_details_button(self):
+        return self.weh.get_element(self.device360_port_details_button)
+
+    def get_device360_diagnostics_port(self, port):
+        """
+        :param port: -voss: x/y (Ex: 1/2)
+                     -exos: x (Ex: 1)
+                     -stack: slot:port (Ex: 1:2)
+                     -management: mgmt
+                     -console: console
+        """
+        return self.weh.get_template_element(self.device360_diagnostics_select_port, index=port)
+
+    def get_device360_monitor_diagnostics_port_details_table(self):
+        return self.weh.get_element(self.device360_monitor_diagnostics_port_details_table)
+
+    def get_device360_monitor_diagnostics_port_details_table_empty(self):
+        return self.weh.get_element(self.device360_monitor_diagnostics_port_details_table_empty)
+
+    def get_device360_monitor_diagnostics_port_details_table_rows(self):
+        return self.weh.get_elements(self.device360_monitor_diagnostics_port_details_table_rows)
+
+    def get_device360_monitor_diagnostics_select_all_ports_button(self):
+        """
+        :return: 'Select All Ports' button of the Port Diagnostics page in the device360 view
+        """
+        return self.weh.get_element(self.device360_monitor_diagnostics_select_all_ports_button)
+
+    def get_device360_diagnostics_ports_table_scroll(self):
+        return self.weh.get_element(self.device360_diagnostics_ports_table_scroll)
+
+    def get_device360_diagnostics_select_all_ports_button(self):
+        """
+        :return: 'Select All Ports' button of the Port Diagnostics page in the device360 view
+        """
+        return self.weh.get_element(self.device360_diagnostics_select_all_ports_button)
+
+    def get_device360_diagnostics_port_details_actions_button(self):
+        """
+        :return: 'Actions' button of the Port Diagnostics page in the device360 view
+        """
+        return self.weh.get_element(self.device360_diagnostics_port_details_actions_button)
+
+    def get_device360_diagnostics_actions_bounce_port_button(self):
+        """
+        :return: 'Bounce Port' button under Diagnostics -> Port Details page in the device360 view
+        """
+        return self.weh.get_element(self.device360_diagnostics_actions_bounce_port_button)
+
+    def get_device360_diagnostics_port_details_select_button(self):
+        """
+        :return: 'Select' button of the Port Details table in Device360 -> Monitor ->Diagnostics page
+        """
+        return self.weh.get_element(self.device360_diagnostics_port_details_select_button)
+
+    def get_device360_diagnostics_actions_bounce_poe_button(self):
+        """
+        :return: 'Bounce Port' button under Diagnostics -> Port Details page in the device360 view
+        """
+        return self.weh.get_element(self.device360_diagnostics_actions_bounce_poe_button)
+
+    def get_device360_diagnostics_wireframe_ports(self):
+        """
+		:return: Switch frame ports under Diagnostics  in the device360 view
+		"""
+        return self.weh.get_element(self.device360_diagnostics_wireframe_ports)
+
+    def get_device360_diagnostics_bounce_port_message(self):
+        """
+		:return: Success message after bouncing ports
+		"""
+        return self.weh.get_element(self.device360_diagnostics_bounce_port_message)
+
+    def get_device360_diagnostics_ah_icon(self, index):
+        """
+		:return: Monitor -> Diagnostics wireframe port icon
+		"""
+        return self.weh.get_template_element(self.device360_diagnostics_ah_icons, index=index)
+
+    def get_device360_diagnostics_wireframe_port(self, index):
+        """
+		:return: Monitor -> Diagnostics wireframe port object
+		"""
+        return self.weh.get_template_element(self.device360_diagnostics_wireframe_port, index=index)
+
+    def get_device360_diagnostics_port_table_select_checkbox(self, index):
+        """
+		:return: Monitor -> Diagnostics Port Details table  checkbox for port object
+		"""
+        return self.weh.get_template_element(self.device360_diagnostics_port_table_select_checkbox, index=index)
+
+    def get_device360_diagnostics_current_unit(self):
+        """
+		:return: Monitor -> Diagnostics unit selector for stack
+		"""
+        return self.weh.get_element(self.device360_diagnostics_current_unit)
+
+    def get_device360_diagnostics_dropdown_unit(self, index):
+        """
+		:return: Monitor -> Diagnostics dropdown for stack units
+		"""
+        return self.weh.get_template_element(self.device360_diagnostics_dropdown_unit, index=index)
+
+    def get_device360_diagnostics_error_message(self):
+        """
+		:return: Monitor -> Diagnostics dropdown for stack units
+		"""
+        return self.weh.get_element(self.device360_diagnostics_error_message)
+
+    def get_device360_diagnostics_actions_clear_mac_locking(self):
+        """
+		:return: Monitor -> Diagnostics -> Port Details -> Actions -> Clear Mac Locking
+		"""
+        return self.weh.get_element(self.device360_diagnostics_actions_clear_mac_locking)
+
+    def get_device360_diagnostics_port_details_port_status(self, index):
+        """
+		:return: Monitor -> Diagnostics -> Port Details -> Port Status column
+		"""
+        return self.weh.get_template_element(self.device360_diagnostics_port_details_port_status, index=index)
+
+    def get_device360_diagnostics_port_details_refresh_button(self):
+        """
+		:return: Monitor -> Diagnostics -> Refresh button
+		"""
+        return self.weh.get_element(self.device360_diagnostics_port_details_refresh_button)
+
+    def get_device360_diagnostics_actions_enable_port_button(self):
+        """
+		:return: Monitor -> Diagnostics ->Port Details -> Actions - Enable Port
+		"""
+        return self.weh.get_element(self.device360_diagnostics_actions_enable_port_button)
+
+    def get_device360_diagnostics_bounce_port_error_message(self):
+        """
+		:return: Monitor -> Diagnostics ->Port Details -> Actions - Error message for action on Disconnected port
+		"""
+        return self.weh.get_element(self.device360_diagnostics_bounce_port_error_message)
+
+    def get_device360_diagnostics_port_details_port_name(self, index):
+        """
+		:return: Monitor -> Diagnostics -> Port Details -> Port Status column
+		"""
+        return self.weh.get_template_element(self.device360_diagnostics_port_details_port_name, index=index)
+
+    def get_device360_diagnostics_deselect_all_button(self, index):
+        """
+		:return: Monitor -> Diagnostics -> Deselect all button
+		"""
+        return self.weh.get_template_element(self.device360_diagnostics_deselect_all_button, index=index)
+
+    def get_device360_diagnostics_select_all_button(self, index):
+        """
+    	:return: Monitor -> Diagnostics -> Deselect all button
+    	"""
+        return self.weh.get_template_element(self.device360_diagnostics_select_all_button, index=index)
+
+    def get_device360_diagnostics_port_details_actions_button_disabled(self):
+        """
+    	:return: Monitor -> Diagnostics -> Deselect all button
+    	"""
+        return self.weh.get_element(self.device360_diagnostics_port_details_actions_button_disabled)
