@@ -140,3 +140,8 @@ hostinformation:
                 - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.2.','i','']
                 - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.2.','i','']
                 - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.2.','i','']
+    show_system_software_version:
+        uuid: d8dc0a12-021d-4f17-947d-f275443dca07
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show sys software | include Version',userPrompt,'None','None','None',[],[]]

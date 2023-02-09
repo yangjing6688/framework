@@ -57,3 +57,6 @@ class HostinformationConstants(ApiConstants):
         self.SHOW_SYSTEM_NAME = {"constant": "show_system_name",
                                  "tags": ["COMMAND_CLI", "COMMAND_SNMP"],
                                  "link": self.link.show_system_name}
+        self.SHOW_SYSTEM_SOFTWARE_VERSION = {"constant": "show_system_software_version",
+                                             "tags": ["COMMAND_CLI"],
+                                             "link": self.link.show_system_software_version}

@@ -184,3 +184,19 @@ class NetworkElementHostinformationGenKeywords(NetworkElementKeywordBaseClass):
                                            "Host system id is {system_id}.",
                                            "Host system id is NOT {system_id}!",
                                            **kwargs)
+
+    def hostinformation_verify_host_nos_version(self, device_name, nos_version='', **kwargs):
+        """
+        Keyword Arguments:
+        [device_name] - The device the keyword will run against.
+        [nos_version]   - The device
+
+        Verifies the value of the host system identifier.
+        """
+        args = {"nos_version": nos_version}
+
+        return self.execute_verify_keyword(device_name, args, self.cmd_const.SHOW_SYSTEM_SOFTWARE_VERSION,
+                                           self.parse_const.CHECK_VERSION, True,
+                                           "Host NOS version is {nos_version}.",
+                                           "Host NOS version is NOT {nos_version}!",
+                                           **kwargs)
