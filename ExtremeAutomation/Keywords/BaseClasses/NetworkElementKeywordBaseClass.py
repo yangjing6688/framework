@@ -3,7 +3,6 @@ import re
 import time
 import logging
 import inspect
-import uuid
 import subprocess
 from datetime import datetime
 from ExtremeAutomation.Library.Utils.StatsUtils import MicroserviceInterface
@@ -267,7 +266,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
 
     def _keyword_cleanup(self, kw_results, ret_vals=None):
         keyword_failed = False
-        
+
         # error_information = ""
 
         # Iterate over each result in the keyword result list and log it.
@@ -435,24 +434,24 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                 dev.error_checker.add_error_to_ignore_list(err)
 
 
-    
+
     @staticmethod
     def _parse_microservice_input(**kwargs):
 
         """
         This static method expects kwargs to contain the following objects:
 
-            cmd_obj 
-            dev_obj 
-        
+            cmd_obj
+            dev_obj
+
         Data is managed in the 'econ-stats' microservice as follows:
 
-        #1. First, add the testfile name and repo info into the 'testFiles' 
+        #1. First, add the testfile name and repo info into the 'testFiles'
             table. If the testfile entry already exists, we retrieve and
             re-use that entry's UUID.
-            If it's a new testfile entry, we generate a new UUID and use that 
+            If it's a new testfile entry, we generate a new UUID and use that
             gong forward.
-    
+
         #2  Next, add data into the 'keywordTiming' table. The data is defined
             in the postThis dictionary below. (includes the testfile UUID from
             the first step (tfUuid))
@@ -464,19 +463,19 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
         callingfunction_name = inspect.currentframe().f_back.f_code.co_name
         logger.info("[+] Entering function   : %s()", this_function_name)
         logger.info("[+] Called from function: %s()", callingfunction_name)
-   
+
         cmd_obj = kwargs.get("cmd_obj", False)
         dev_obj = kwargs.get("dev_obj", False)
-  
+
         assert cmd_obj is not False and dev_obj is not False
- 
+
         statsObj  = MicroserviceInterface()
         startTime = datetime.fromtimestamp(cmd_obj.start_time).strftime("%Y-%m-%d %H:%M:%S.%f")
         endTime   = datetime.fromtimestamp(cmd_obj.end_time).strftime("%Y-%m-%d %H:%M:%S.%f")
         end       = datetime.strptime(endTime,"%Y-%m-%d %H:%M:%S.%f")
         start     = datetime.strptime(startTime,"%Y-%m-%d %H:%M:%S.%f")
 
-        # Informational/logging only ... the stats microservice 
+        # Informational/logging only ... the stats microservice
         # calculates elapsed time, so no need to post
         #
         elapsedTime = end - start
@@ -484,13 +483,13 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
         # Step #1:
         #
         logger.info(" [+] Step #1: Update testFiles table data")
-        
-        # If we have a problem running the git command, set a default value. 
-        # This is for information logging only, so it's not worth failing over. 
+
+        # If we have a problem running the git command, set a default value.
+        # This is for information logging only, so it's not worth failing over.
         #
         try:
             gitRepo   = os.path.basename(subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).decode().strip())
-        except:
+        except Exception:
              gitRepo = 'extreme_automation_tests'
 
         tfileName = re.split(r':', os.getenv('PYTEST_CURRENT_TEST'))[0]
@@ -509,7 +508,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
         #
         logger.info(" [+] Step #2: Update keywordTiming table data")
 
-        postThis = { 
+        postThis = {
                 "startTime":str(startTime),
                 "endTime":str(endTime),
                 "os":dev_obj._oper_sys,
@@ -518,7 +517,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
                 "keywordUuid":cmd_obj.uuid,
                 "testCaseUuid":str(tfUuid)
                    }
-         
+
         status = statsObj.postStats(postThis)
 
         logger.info(" [+] Start Time    : %s", startTime)
