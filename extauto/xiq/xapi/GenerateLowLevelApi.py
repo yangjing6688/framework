@@ -12,11 +12,13 @@ class parseXAPI:
         self.directory = directory
         self.python_types = ['int', 'string', 'bool']
 
-    def show_info(self, functionNode, xapi_class_name):
+    def process_info(self, functionNode, xapi_class_name):
         """
+            Process the AST function and gather the data to write the framework functions
 
-        :param functionNode:
-        :return:
+        :param functionNode: the function ast object
+        :param xapi_class_name: the class name
+        :return: File contents for the new function
         """
         print("Function name:", functionNode.name)
         if functionNode.name != '__init__':
@@ -32,6 +34,7 @@ class parseXAPI:
                 file_contents = file_contents.replace('{XAPI_API_FUNCTION}', functionNode.name)
             return file_contents
 
+            # In the Future we may need to do something with this
             # parsed_doc_string = parse(doc_string)
             # print("Args:")
             # for param in parsed_doc_string.params:
@@ -44,6 +47,7 @@ class parseXAPI:
 
     def parseFiles(self):
         """"
+            Based on the directory passed into the class we can generate the new files based on parsing the XAPI SDK api files
         """
         for filename in os.listdir(self.directory):
             file_and_directory = os.path.join(self.directory, filename)
