@@ -648,7 +648,6 @@ class Devices:
         else:
             self.utils.print_info("Can not get network policy")
 
-
     def check_device_reboot_message(self, device_serial, config_update_option, reboot_message):
         """
         - check device reboot status
@@ -1316,8 +1315,6 @@ class Devices:
         self.common_validation.passed(**kwargs)
         return 1
 
-
-
     def upgrade_device(self, *device_dict, version=None, action="upgrade", activate_time=60, **kwargs):
         """
         - This method will update the software image the device is using
@@ -1578,7 +1575,6 @@ class Devices:
         csv_location = device_dict.get("csv_location")
         device_os = device_dict.get("os")
 
-
         # Arguments for device_type == "Simulated"
         device_model = device_dict.get("model")
         device_count = device_dict.get("simulated_count")
@@ -1648,8 +1644,7 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            # Modified the "get_device_serial_numbers" call to use os_persona until the bug XIQ-11770 is solved.
-            list_initial_serial_dt = self.get_device_serial_numbers(os_persona)
+            list_initial_serial_dt = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
@@ -1676,7 +1671,14 @@ class Devices:
 
         # Preventing an unnecessary click here fixes the problem seen in aiq2618
         # We are planning to rework logic
-        if self.search_device(device_serial=device_serial) == -1:
+        if device_type.lower() != "simulated":
+            if self.search_device(device_serial=device_serial) == -1:
+                self.utils.print_info("Clicking on ADD DEVICES button...")
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
+
+                self.screen.save_screen_shot()
+                sleep(2)
+        else:
             self.utils.print_info("Clicking on ADD DEVICES button...")
             self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
@@ -1768,8 +1770,7 @@ class Devices:
 
         elif "digital twin" in device_type.lower():
             self.refresh_devices_page()
-            # Modified the "get_device_serial_numbers" call to use os_persona until the bug XIQ-11770 is solved.
-            list_final_dt_serial = self.get_device_serial_numbers(os_persona)
+            list_final_dt_serial = self.get_device_serial_numbers(device_model)
             dt_global_variable = "${" + name + ".serial}"
             for i in list_final_dt_serial:
                 if i not in list_initial_serial_dt:
@@ -1804,7 +1805,7 @@ class Devices:
         :return:  1 if validate success
         :return: -1 for error : one or more arguments are missing
         """
-        support_onboard_device_types = ["real","simulated","digital twin"]
+        support_onboard_device_types = ["real", "simulated", "digital twin"]
 
         if device_type is None or device_type.lower() not in support_onboard_device_types:
             kwargs['fail_msg'] = f"The onboarding device type '[{device_type}]' is not not a supported type." \
@@ -3051,7 +3052,7 @@ class Devices:
 
         self.utils.print_info("Refresh the devices page")
         self.utils.wait_till(self.refresh_devices_page)
-        self.utils.print_info('Getting device Updated Status using ', *[x for x in {device_serial, device_name,device_mac} if x is not None])
+        self.utils.print_info('Getting device Updated Status using ', *[x for x in {device_serial, device_name, device_mac} if x is not None])
         if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
             device_row = self.get_device_row(device_serial=device_serial)
@@ -3959,7 +3960,7 @@ class Devices:
         :return: 1 if device connected within time else -1
         """
 
-        access_token = self.common_validation.get_kwarg(kwargs, "access_token", False)
+        access_token = kwargs.get("access_token", False)
         if access_token:
             device_specific_url = f"/devices?sns={device_serial}"
             device_info = self.xapi.rest_api_get(device_specific_url)
@@ -4523,7 +4524,6 @@ class Devices:
         # Handle the case where a tooltip / popup is covering the Update Device button
         self.close_last_refreshed_tooltip()
 
-
         update_button = self.devices_web_elements.get_update_device_button()
         if update_button:
             self.utils.print_info("Click on device update button")
@@ -5051,7 +5051,6 @@ class Devices:
         - Keyword Usage:
         - `Select All Devices`
 
-        :param None
         :return: returns 1 if the Select All checkbox was clicked; else, -1
         """
         if self.get_device_count() == 0:
@@ -5424,7 +5423,6 @@ class Devices:
         kwargs['fail_msg'] = f"MANAGED column for device {device_serial} does not contain expected value 'Managed'"
         self.common_validation.failed(**kwargs)
         return -1
-
 
     def wait_until_device_data_present(self, device_serial, col, retry_duration=30, retry_count=10):
         """
@@ -6935,10 +6933,10 @@ class Devices:
             onboard a device with a CSV and this should whol keyword should be removed.
             """
             # Check the banner error
-            #sleep(3)
-            #tool_tp_text_after = tool_tip.tool_tip_text.copy()
-            #self.utils.print_info(tool_tp_text_after)
-            #for item_after in tool_tp_text_after:
+            # sleep(3)
+            # tool_tp_text_after = tool_tip.tool_tip_text.copy()
+            # self.utils.print_info(tool_tp_text_after)
+            # for item_after in tool_tp_text_after:
             #    if item_after in tool_tp_text_before:
             #        pass
             #    else:
@@ -6948,275 +6946,6 @@ class Devices:
             #            self.utils.print_info(" Below error message is displayed after press ADD button")
             #            self.utils.print_info(item_after)
             #            return item_after
-        else:
-            self.utils.print_info("'Add Devices' button not found or the button is not active")
-            return -1
-        return 1
-
-    @deprecated("Please use onboard_device_quick(...)")
-    def quick_onboarding_locally_manual(self, device_sn, device_make):
-        '''
-        This keyword on boards your devices locally by using new onboarding flow
-        Can on boards an Universal APs, Exos Switch, Exos Stack and Voss devices
-        using Quick onboarding flow.
-        - Keyword Usage:
-        - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
-
-        :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
-        :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message will be returned ; else -1
-        '''
-        self.navigator.navigate_to_devices()
-        add_button = self.devices_web_elements.get_add_button()
-        if add_button:
-            self.utils.print_info("Click on '+' button")
-            self.auto_actions.click(add_button)
-        else:
-            self.utils.print_info("'+' button not found")
-            return -1
-        quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
-        if quick_add_devices_button:
-            self.utils.print_info("Click on 'Quick Add Devices'")
-            self.auto_actions.move_to_element(quick_add_devices_button)
-        else:
-            self.utils.print_info("'Quick Add Devices' button not found")
-            return -1
-        deploy_locally = self.devices_web_elements.get_deploy_locally()
-        if deploy_locally:
-            self.utils.print_info("Click on 'Deploy your devices locally'")
-            self.auto_actions.click(deploy_locally)
-        else:
-            self.utils.print_info("'Deploy your devices locally' button not found")
-            return -1
-        sleep(3)
-        tool_tp_text_before_insert_sn = tool_tip.tool_tip_text.copy()
-        self.utils.print_info(tool_tp_text_before_insert_sn)
-        insert_sn = self.devices_web_elements.get_insert_sn()
-        if insert_sn:
-            self.utils.print_info("Insert serial number: {}".format(device_sn))
-            self.auto_actions.send_keys(insert_sn, device_sn)
-            sleep(7)
-            # Check the banner error
-            tool_tp_text_after_insert_sn = tool_tip.tool_tip_text.copy()
-            self.utils.print_info(tool_tp_text_after_insert_sn)
-            for item_after_sn in tool_tp_text_after_insert_sn:
-                if item_after_sn in tool_tp_text_before_insert_sn:
-                    pass
-                else:
-                    self.utils.print_info(" Below error message is displayed after insert SN")
-                    self.utils.print_info(item_after_sn)
-                    return item_after_sn
-        else:
-            self.utils.print_info("'Serial number' box not found")
-            return -1
-        if 'voss' in device_make.lower():
-            if self.devices_web_elements.get_device_make_list():
-                self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
-                self.utils.print_info("'VOSS' found in 'Device Make' list")
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_voss)
-                sleep(2)
-            else:
-                if self.devices_web_elements.get_device_auto_detection_voss():
-                    self.utils.print_info("'VOSS' autodetection is working")
-                    self.utils.print_info("Selecting 'VOSS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_voss)
-                else:
-                    self.utils.print_info("Button 'VOSS' not found")
-                    return -1
-        elif 'exos' in device_make.lower():
-            if self.devices_web_elements.get_device_make_list():
-                self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
-                self.utils.print_info("'EXOS' found in 'Device Make' list")
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_exos)
-                sleep(2)
-            else:
-                if self.devices_web_elements.get_device_auto_detection_exos():
-                    self.utils.print_info("'EXOS' autodetection is working ")
-                    self.utils.print_info("Selecting 'EXOS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_exos)
-                else:
-                    self.utils.print_info("Button 'EXOS' not found")
-                    return -1
-        elif 'universal_ap' in device_make.lower():
-            if self.devices_web_elements.get_device_auto_detection_cloudIqEngineRadio():
-                self.utils.print_info("'cloudIqEngine' autodetection is working ")
-            else:
-                self.utils.print_info("'cloudIqEngine' autodetection is not working ")
-                return -1
-        else:
-            self.utils.print_info("'Device make' list not found")
-            return -1
-        tool_tp_text_before = tool_tip.tool_tip_text.copy()
-        self.utils.print_info(tool_tp_text_before)
-        if self.devices_web_elements.get_add_devices_button():
-            self.utils.print_info("Click on Add Devices")
-            self.auto_actions.click_reference(self.devices_web_elements.get_add_devices_button)
-            # Check the already onboarded error
-            if self.devices_web_elements.get_quick_onboard_failure_panel():
-                self.utils.print_info("{} already onboarded ".format(device_sn))
-                return -1
-            else:
-                pass
-            # Check the banner error
-            sleep(3)
-            tool_tp_text_after = tool_tip.tool_tip_text.copy()
-            self.utils.print_info(tool_tp_text_after)
-            for item_after in tool_tp_text_after:
-                if item_after in tool_tp_text_before:
-                    pass
-                else:
-                    if 'successfully' in item_after:
-                        pass
-                    else:
-                        self.utils.print_info(" Below error message is displayed after press ADD button")
-                        self.utils.print_info(item_after)
-                        return item_after
-            # Check the SN field error
-            sn_error = self.devices_web_elements.get_sn_error_message()
-            if sn_error:
-                self.utils.print_info(sn_error)
-                return sn_error
-            else:
-                self.utils.print_info("No SN error")
-        else:
-            self.utils.print_info("'Add Devices' button not found or the button is not active")
-            return -1
-        return 1
-
-    @deprecated("Please use onboard_device_quick(...)")
-    def quick_onboarding_locally_csv(self, device_make, csv_location):
-        """
-        This keyword on boards your devices locally by using new onboarding flow
-        Can on boards an Wing device, Exos Switch, Exos Stack and Voss devices
-        using Quick onboarding flow.
-        - Keyword Usage:
-        - quick_onboarding_cloud_csv          voss      ${DUT_LOCATION}   ${DUT_CSV_FILE}
-
-        :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
-        :param csv_location: csv file path
-        e.g. ${DUT_CSV_FILE}             /automation/xiq/cw_automation/testsuites/xiq/topologies/${TESTBED}/MultipleVossDevices.csv
-        :return: 1 if successfully onboarded; if any error occurs on banner the text of error message will be returned ; else -1
-
-        """
-        self.navigator.navigate_to_devices()
-        add_button = self.devices_web_elements.get_add_button()
-        if add_button:
-            self.utils.print_info("Click on '+' button")
-            self.auto_actions.click(add_button)
-        else:
-            self.utils.print_info("'+' button not found")
-            return -1
-        quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
-        if quick_add_devices_button:
-            self.utils.print_info("Click on 'Quick Add Devices'")
-            self.auto_actions.move_to_element(quick_add_devices_button)
-        else:
-            self.utils.print_info("'Quick Add Devices' button not found")
-            return -1
-        deploy_locally = self.devices_web_elements.get_deploy_locally()
-        if deploy_locally:
-            self.utils.print_info("Click on 'Deploy your devices locally'")
-            self.auto_actions.click(deploy_locally)
-        else:
-            self.utils.print_info("'Deploy your devices locally' button not found")
-            return -1
-        if self.devices_web_elements.get_select_csv():
-            self.utils.print_info("Select CSV")
-            self.auto_actions.click_reference(self.devices_web_elements.get_select_csv)
-        else:
-            self.utils.print_info("CSV checkbox was not found")
-            return -1
-        sleep(3)
-
-        if 'voss' in device_make.lower():
-            if self.devices_web_elements.get_device_make_list():
-                self.utils.print_info("Selecting 'VOSS' from the 'Device Make' drop down...")
-                self.utils.print_info("'VOSS' found in 'Device Make' list")
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_voss)
-                sleep(2)
-            else:
-                if self.devices_web_elements.get_device_auto_detection_voss():
-                    self.utils.print_info("Selecting 'VOSS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_voss)
-                else:
-                    self.utils.print_info("Button 'VOSS' not found")
-                    return -1
-        elif 'exos' in device_make.lower():
-            if self.devices_web_elements.get_device_make_list():
-                self.utils.print_info("Selecting 'EXOS' from the 'Device Make' drop down...")
-                self.utils.print_info("'EXOS' found in 'Device Make' list")
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_exos)
-                sleep(2)
-            else:
-                if self.devices_web_elements.get_device_auto_detection_exos():
-                    self.utils.print_info("Selecting 'VOSS' from the 'Device OS' checkbox...")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_exos)
-                else:
-                    self.utils.print_info("Button 'EXOS' not found")
-                    return -1
-        elif 'wing' in device_make.lower():
-            if self.devices_web_elements.get_device_auto_detection_wingRadio():
-                self.utils.print_info("Selecting 'WING' from the 'Device OS' checkbox...")
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_list)
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_wingRadio)
-            else:
-                self.utils.print_info("Button 'WING' not found")
-                return -1
-        else:
-            self.utils.print_info("'Device make' list not found")
-            return -1
-
-        if csv_location:
-            upload_button = self.devices_web_elements.get_device_csv_upload_button()
-            if upload_button:
-                self.utils.print_info("Specifying CSV file '" + csv_location)
-                self.auto_actions.send_keys(upload_button, csv_location)
-            else:
-                self.utils.print_info(">>> CSV file could not be specified - upload button not located")
-                self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-                return -1
-        else:
-            self.utils.print_info(">>> CSV file was not specified")
-            self.utils.print_info(">>> Clicking Cancel and exiting - device NOT on-boarded")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-            return -1
-
-        tool_tp_text_before = tool_tip.tool_tip_text.copy()
-        self.utils.print_info(tool_tp_text_before)
-        if self.devices_web_elements.get_add_devices_button():
-            self.utils.print_info("Click on Add Devices")
-            self.auto_actions.click_reference(self.devices_web_elements.get_add_devices_button)
-            # Check the already onboarded error
-            if self.devices_web_elements.get_quick_onboard_failure_panel():
-                self.utils.print_info("Device(s) already onboarded ")
-                return -1
-            else:
-                pass
-            # Check the banner error
-            sleep(3)
-            tool_tp_text_after = tool_tip.tool_tip_text.copy()
-            self.utils.print_info(tool_tp_text_after)
-            for item_after in tool_tp_text_after:
-                if item_after in tool_tp_text_before:
-                    pass
-                else:
-                    if 'successfully' in item_after:
-                        pass
-                    else:
-                        self.utils.print_info(" Below error message is displayed after press ADD button")
-                        self.utils.print_info(item_after)
-                        return item_after
-            # Check the SN field error
-            sn_error = self.devices_web_elements.get_sn_error_message()
-            if sn_error:
-                self.utils.print_info(sn_error)
-                return sn_error
-            else:
-                self.utils.print_info("No SN error")
         else:
             self.utils.print_info("'Add Devices' button not found or the button is not active")
             return -1
@@ -8014,7 +7743,7 @@ class Devices:
         """
         pattern1 = "(\\w+)."
         rdc = self.utils.get_regexp_matches(sw_connection_host, pattern1, 1)
-        spawn = self.cli.open_pxssh_spawn(ip_dest_ssh,user_dest_ssh, pass_dest_ssh)
+        spawn = self.cli.open_pxssh_spawn(ip_dest_ssh, user_dest_ssh, pass_dest_ssh)
         if spawn == -1:
             return -1
         output_cmd_cd = self.cli.send_pxssh(spawn, "cd .ssh")
@@ -8026,7 +7755,7 @@ class Devices:
         if not "ahqa_id_rsa" in output_cmd_ls:
             # self.robot_built_in.skip('No ssh certificate exist on jump station')
             return -1
-        output_cmd = self.cli.send_pxssh(spawn ,"ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc[0]))
+        output_cmd = self.cli.send_pxssh(spawn, "ssh -i .ssh/ahqa_id_rsa ahqa@{}-console.qa.xcloudiq.com".format(rdc[0]))
         self.utils.print_info(output_cmd)
         output_cmd1 = self.cli.send_pxssh(spawn, "sudo su -")
         output_cmd2 = self.cli.send_pxssh(spawn, "psqlconfigdb_1")
@@ -9721,7 +9450,7 @@ class Devices:
             self.utils.print_info("Device Updated Status : ", device_updated_status)
             initial_updated_status = device_updated_status
             if re.search(r'\d+-\d+-\d+', device_updated_status):
-                initial_timestamp = int(datetime.timestamp(datetime.strptime(device_updated_status,"%Y-%m-%d %H:%M:%S")))
+                initial_timestamp = int(datetime.timestamp(datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
             os_version = self.get_device_row_values(device_mac, 'OS VERSION')
             nos_version = str(os_version['OS VERSION'])
             sleep(10)
@@ -9745,7 +9474,7 @@ class Devices:
 
                 # Unchecking the Update Network Policy and Configuration checkbox if it is already checked
                 config_download_checkbox = self.device_update.get_config_download_options_checkbox()
-                if config_download_checkbox.is_selected(): # Is selected method will return bool True or False depending upon the selection of the checkbox
+                if config_download_checkbox.is_selected():  # Is selected method will return bool True or False depending upon the selection of the checkbox
                     self.utils.print_info("Update Network Policy and Configuration checkbox is checked - Unchecking")
                     self.auto_actions.click(config_download_checkbox)
                 else:
@@ -10624,29 +10353,6 @@ class Devices:
                 return -1
         return -1
 
-    @deprecated("Please use onboard_device_quick(...)")
-    def onboarding_stack_per_unit(self, serial_numbers_list, device_os, location):
-        """
-        This functions onboard serials one by one
-
-        :param serial_numbers_list: list of SNs
-        :param device_os: device os
-        :param location: location
-        :return: 1 if all SN was onboarded; else -1
-        """
-
-        for serial_number in serial_numbers_list:
-            self.utils.print_info("Onboarding the serial: {}".format(serial_number))
-
-            check_onboarding_success = self.quick_onboarding_cloud_manual(serial_number, device_os, location)
-            if check_onboarding_success == 1:
-                self.utils.print_info("The serial: {} was successfully onboarded.".format(serial_number))
-            else:
-                self.utils.print_info("Could not onboard the serial number {}".format(serial_number))
-                self.screen.save_screen_shot()
-                return -1
-        return 1
-
     def change_device_onboarding_date_for_each_stack_member(self, ip_dest_ssh, user_dest_ssh, pass_dest_ssh, days,
                                                             serial_number, owner_id, sw_connection_host):
         """
@@ -11408,6 +11114,9 @@ class Devices:
         :return: True if visible, False if hidden, fail otherwise
         """
         ret_val = -1
+        # Wait until 'loading' mask is cleared
+        self.wait_until_devices_load_mask_cleared(retry_duration=1, retry_count=180)
+
         self.utils.print_info("Clicking on ADD button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
@@ -11725,17 +11434,17 @@ class Devices:
                     loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
                 return 1
             self.utils.wait_till(_loading_clone, exp_func_resp=1)
-
-            def _warning_message():
+            try:
                 warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
                 while warning_message_disconnected and "fn-hidden" in warning_message_disconnected.get_attribute("class"):
                     print("Still in loading clone configuration window..Waiting for Perform Update window or Warning window.")
                     warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
                     sleep(2)
-                return 1
-            self.utils.wait_till(_warning_message, exp_func_resp=1)
+                if "fn-hidden" not in warning_message_disconnected.get_attribute("class"):
+                    warning_message_disconnected = True
+            except Exception:
+                warning_message_disconnected = False
 
-            warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
             if not warning_message_disconnected:
                 self.utils.print_info("Performing Update")
                 self.utils.print_info("Select the network policy and configuration checkbox")
@@ -12299,7 +12008,6 @@ class Devices:
             self.common_validation.failed(**kwargs)
             return -1
 
-
     def revert_device_to_template_but_donot_update(self, device_mac):
         """
         - Assumes already navigated to Manage --> Devices
@@ -12327,7 +12035,7 @@ class Devices:
             if revert_menu:
                 self.auto_actions.click(revert_menu)
                 # sleep(4)
-                self.utils.wait_till(delay=2,timeout=4)
+                self.utils.wait_till(delay=2, timeout=4)
             else:
                 self.utils.print_info("Could not click 'Revert Device to Template' menu item")
                 return -1
@@ -12336,21 +12044,21 @@ class Devices:
             save_btn = self.dialogue_web_elements.get_confirm_yes_button()
             if save_btn:
                 self.auto_actions.click(save_btn)
-                self.utils.wait_till(delay=2,timeout=4)
+                self.utils.wait_till(delay=2, timeout=4)
             else:
                 self.utils.print_info("Could not click 'Save' button")
                 return -1
             self.utils.print_info("Clicking 'cancel' button")
             cancel_btn = self.devices_web_elements.get_more_row_description_close()
 
-
-            self.utils.print_info("Cancel Button==> ",cancel_btn)
+            self.utils.print_info("Cancel Button==> ", cancel_btn)
             if type(cancel_btn) != list:
                 if cancel_btn:
                     self.auto_actions.click(cancel_btn)
                     # sleep(3)
+
                     def check_revert_box_available():
-                        return not bool(self.self.dialogue_web_elements.get_confirm_yes_button())
+                        return not bool(self.dialogue_web_elements.get_confirm_yes_button())
 
                     self.utils.wait_till(check_revert_box_available, timeout=3, delay=1,
                                          is_logging_enabled=True)
@@ -12361,8 +12069,8 @@ class Devices:
                 for eachbutton in cancel_btn:
                     try:
                         if eachbutton.is_enabled() and eachbutton.is_displayed():
-                            eachbuttonclick =  self.auto_actions.click(eachbutton)
-                            self.utils.print_info("Trying to click the button ",eachbuttonclick)
+                            eachbuttonclick = self.auto_actions.click(eachbutton)
+                            self.utils.print_info("Trying to click the button ", eachbuttonclick)
                             if eachbuttonclick:
                                 return 1
                     except Exception:
@@ -12418,7 +12126,6 @@ class Devices:
         self.common_validation.passed(**kwargs)
         return 1
 
-
     def update_and_wait_device(self, policy_name, dut, wait=True, **kwargs):
         """Method that updates the switch and then wait for the update to finish.
 
@@ -12471,7 +12178,7 @@ class Devices:
         - Keyword Usage:
           - ``Deploy Switch Network Policy With Complete Update   ${POLICY_NAME}    ${DEVICE_MAC}``
         :param policy_name: Name of the policy
-        :param devices: Device serial number
+        :param device_serial: Device serial number
         :return: 1 if success else -1
         """
         return_value = self.assign_network_policy_to_a_device(device_serial, policy_name)
