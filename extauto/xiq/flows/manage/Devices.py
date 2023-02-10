@@ -1698,7 +1698,14 @@ class Devices:
 
         # Preventing an unnecessary click here fixes the problem seen in aiq2618
         # We are planning to rework logic
-        if self.search_device(device_serial=device_serial) == -1:
+        if device_type.lower() != "simulated":
+            if self.search_device(device_serial=device_serial) == -1:
+                self.utils.print_info("Clicking on ADD DEVICES button...")
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
+
+                self.screen.save_screen_shot()
+                sleep(2)
+        else:
             self.utils.print_info("Clicking on ADD DEVICES button...")
             self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
@@ -9466,7 +9473,7 @@ class Devices:
             self.utils.print_info("Device Updated Status : ", device_updated_status)
             initial_updated_status = device_updated_status
             if re.search(r'\d+-\d+-\d+', device_updated_status):
-                initial_timestamp = int(dt.datetime.timestamp(dt.datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
+                initial_timestamp = int(datetime.timestamp(datetime.strptime(device_updated_status, "%Y-%m-%d %H:%M:%S")))
             os_version = self.get_device_row_values(device_mac, 'OS VERSION')
             nos_version = str(os_version['OS VERSION'])
             sleep(10)
@@ -11450,17 +11457,17 @@ class Devices:
                     loading_clone_configuration = self.device_actions.get_loading_clone_configuration()
                 return 1
             self.utils.wait_till(_loading_clone, exp_func_resp=1)
-
-            def _warning_message():
+            try:
                 warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
                 while warning_message_disconnected and "fn-hidden" in warning_message_disconnected.get_attribute("class"):
                     print("Still in loading clone configuration window..Waiting for Perform Update window or Warning window.")
                     warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
                     sleep(2)
-                return 1
-            self.utils.wait_till(_warning_message, exp_func_resp=1)
+                if "fn-hidden" not in warning_message_disconnected.get_attribute("class"):
+                    warning_message_disconnected = True
+            except Exception:
+                warning_message_disconnected = False
 
-            warning_message_disconnected = self.device_actions.get_warning_message_disconnected()
             if not warning_message_disconnected:
                 self.utils.print_info("Performing Update")
                 self.utils.print_info("Select the network policy and configuration checkbox")
