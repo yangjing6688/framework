@@ -558,3 +558,6 @@ class CopilotWebElements(CopilotWebElementsDefinitions):
 
     def get_wireless_client_experience_widget_ssid_grid_rows_from_widget(self, widget):
         return self.weh.get_elements(self.wirless_client_experience_widget_ssid_grid_rows, widget)
+
+    def get_wireless_clientexp_perfromance_index(self):
+        return self.weh.get_element(self.wireless_clientexp_performance_index)
