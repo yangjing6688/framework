@@ -259,7 +259,7 @@ class Devices:
                     self.common_validation.passed(**kwargs)
                     return 1
             else:
-                kwargs['fail_msg'] = f"Device with device name is not EXOS or VOSS device"
+                kwargs['fail_msg'] = f"Device with device mac {device_mac} is not EXOS or VOSS device"
                 self.common_validation.failed(**kwargs)
                 return -1
         if device_serial:
@@ -284,7 +284,7 @@ class Devices:
                     self.common_validation.passed(**kwargs)
                     return 1
             else:
-                kwargs['fail_msg'] = f"Device with device name is not EXOS or VOSS device"
+                kwargs['fail_msg'] = f"Device with device serial {device_serial} is not EXOS or VOSS device"
                 self.common_validation.failed(**kwargs)
                 return -1
         if device_name:
@@ -308,7 +308,7 @@ class Devices:
                     self.common_validation.passed(**kwargs)
                     return 1
             else:
-                kwargs['fail_msg'] = f"Device with device name is not EXOS or VOSS device"
+                kwargs['fail_msg'] = f"Device with device name {device_name} is not EXOS or VOSS device"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -4117,7 +4117,7 @@ class Devices:
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
 
-        kwargs['fail_msg'] = f"Device failed to go OFFLINE. Please check."
+        kwargs['fail_msg'] = "Device failed to go OFFLINE. Please check."
         self.common_validation.failed(**kwargs)
         self.screen.save_screen_shot()
         sleep(2)
