@@ -2690,7 +2690,7 @@ class NetworkPolicy(object):
         ):
             try:
                 summary[row_name] = self.dev360.get_select_element_port_type_summary(row_value).text
-            except selenium.common.exceptions.StaleElementReferenceException as e:
+            except selenium.common.exceptions.StaleElementReferenceException:
                 summary[row_name] = ""
 
         if save:
