@@ -12236,14 +12236,8 @@ class Devices:
                 self.utils.print_info("uncheck the update configuration checkbox")
                 self.auto_actions.click(found_element_upnp)
 
-            found_element_up_iqengine = None
-            for tries in range(10):
-                found_element_up_iqengine = self.device_update.get_upgrade_iq_engine_checkbox()
-                if found_element_up_iqengine:
-                    break
-                sleep(1)
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            self.auto_actions.click_reference(found_element_up_iqengine)
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
 
             self.utils.print_info("Selecting upgrade to latest version checkbox")
             self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
