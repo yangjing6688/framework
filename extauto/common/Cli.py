@@ -644,7 +644,7 @@ class Cli(object):
             self.utils.print_info(" ***** Number of attempts ", str(i))
             sleep(30)
             listSSIDs = str(self.send_paramiko_cmd(conn, MAC_SCAN_FOR_LIST_WIFI, 300))
-            cnt = self.utils.check_match(listSSIDs, ssid)
+            cnt = 1 if ssid in listSSIDs else -1
             self.utils.print_info(f"The ssid match cnt is {cnt}.\n The searched ssid is {ssid}")
             if cnt == 1:
                 self.utils.print_info('ssid ' + ssid + ' is found')
@@ -660,10 +660,10 @@ class Cli(object):
             while not cn1:
                 rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
                 self.utils.print_info("RC is ---------" + str(rc))
-                if self.utils.check_match(rc, 'Failed to join') == 1: return -1,  " Fail to Join "
-                if self.utils.check_match(rc, 'not find network') == 1: return -1,  " Could not find network " + str(ssid)
-                if self.utils.check_match(rc, 'Exception') == 1: return -1,  " Fail with an Exception"
-                if self.utils.check_match(rc, 'Error') == 1: return -1,  " There is an Error "
+                if 'Failed to join' in rc: return -1,  " Fail to Join "
+                if 'not find network' in rc: return -1,  " Could not find network " + str(ssid)
+                if 'Exception' in rc: return -1,  " Fail with an Exception"
+                if 'Error' in rc: return -1,  " There is an Error "
                 check_wifi_connection = self.send_paramiko_cmd(conn, MAC_CHECK_WIFI_CONNECTION + wifi_port, 10)
                 self.utils.print_info(f"WiFi Network status: {check_wifi_connection}")
                 if ssid in check_wifi_connection:
@@ -2663,8 +2663,8 @@ class Cli(object):
                 table_repl.append(element_table.replace('\r', ' '))
             if 'exit ' in table_repl:
                 table_repl.remove('exit ')
-            else:
-                pass
+            if '' in table_repl:
+                table_repl.remove('')
             n = 100
             last_100_commands_table = list(list(islice(reversed(table_repl), 0, n)))
             last_100_commands_table.reverse()
