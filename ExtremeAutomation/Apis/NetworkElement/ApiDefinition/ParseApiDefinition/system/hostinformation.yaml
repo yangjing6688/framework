@@ -52,6 +52,11 @@ hostinformation:
                 - [EXOS,base,baseversion,baseunit]
                 - [EOS,base,baseversion,baseunit]
                 - [VOSS,base,baseversion,baseunit]
+    check_app_iqagent:
+        uuid: e7a067cd-19f1-4a31-a549-8b6dc96e8658
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
     check_version:
         uuid: 1202869b-436e-4928-908b-8d07a68128ec
         apis:
