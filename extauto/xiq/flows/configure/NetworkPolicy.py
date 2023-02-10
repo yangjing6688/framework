@@ -499,8 +499,7 @@ class NetworkPolicy(object):
                 return 1
         return -1
 
-    def _select_device_row(self, search_
-    ):
+    def _select_device_row(self, search_string):
         """
         - Select the row of device in the deploy policy page
 
@@ -2827,7 +2826,7 @@ class NetworkPolicy(object):
         rows = self.np_web_elements.get_port_types_rows()
         sleep(5)
         if not rows:
-            self.utils.print_info(f"Port type rows are not available in the Port Types Section")
+            self.utils.print_info("Port type rows are not available in the Port Types Section")
         for row in rows:
             print(row.text)
             if search_string in row.text:
@@ -2886,7 +2885,7 @@ class NetworkPolicy(object):
             self.common_validation.fault(**kwargs)
             return -1
 
-        self.utils.print_info(f"****************** DEVICE ROW VALUES ************************")
+        self.utils.print_info("****************** DEVICE ROW VALUES ************************")
         for key, value in port_type_detail_dict.items():
             self.utils.print_info(f"{key}:{value}")
             kwargs['pass_msg'] = f"{key}:{value}"
