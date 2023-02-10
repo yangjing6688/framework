@@ -1,6 +1,7 @@
-from extauto.xiq.defs.SwitchWebElementsDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.SwitchWebElementsDefinitions import SwitchWebElementsDefinitions
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class SwitchWebElements(SwitchWebElementsDefinitions):

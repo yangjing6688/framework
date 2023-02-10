@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.admin.profiles.snmp_credentials.AdminProfilesSNMPCredentialsDeleteCredWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.admin.profiles.snmp_credentials.AdminProfilesSNMPCredentialsDeleteCredWebElementsDefinitions import AdminProfilesSNMPCredentialsDeleteCredWebElementsDefinitions
 
 
 class AdminProfilesSNMPCredentialsDeleteCredWebElements(AdminProfilesSNMPCredentialsDeleteCredWebElementsDefinitions):

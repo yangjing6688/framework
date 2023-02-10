@@ -77,7 +77,7 @@ class XIQSE_ControlPolicyRuleCreate(ControlPolicyRuleCreateWebElements):
             # without this delay, the next action (e.g. "Save Domain") may not get initiated successfully.
             sleep(1)
         else:
-            self.utils.print_info(f"Unable to find 'Name' input field in Create Rule window")
+            self.utils.print_info("Unable to find 'Name' input field in Create Rule window")
             self.screen.save_screen_shot()
         return ret_val
 
@@ -85,10 +85,10 @@ class XIQSE_ControlPolicyRuleCreate(ControlPolicyRuleCreateWebElements):
         ret_val = -1
         ok_bttn = self.get_ok_button()
         if ok_bttn:
-            self.utils.print_info(f"Clicking the 'OK' button in Create Rule window")
+            self.utils.print_info("Clicking the 'OK' button in Create Rule window")
             self.auto_actions.click(ok_bttn)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to locate the 'OK' button in Create Rule window")
+            self.utils.print_info("Unable to locate the 'OK' button in Create Rule window")
             self.screen.save_screen_shot()
         return ret_val

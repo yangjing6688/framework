@@ -1,5 +1,5 @@
-from extauto.xiq.defs.CommunicationsWebElementDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.CommunicationsWebElementDefs import CommunicationsWebElementDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class CommunicationsWebElements(CommunicationsWebElementDefs):

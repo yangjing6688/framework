@@ -1,14 +1,15 @@
 from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
-from common.AutoActions import *
-from a3.elements.A3WebElements import A3WebElements
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+from common.Utils import Utils
+from common.Screen import Screen
+from common.AutoActions import AutoActions
+from a3.elements.A3WebElements import A3WebElements
+from a3.elements.NavigatorWebElements import NavigatorWebElements
+from xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.common.CommonValidation import CommonValidation
 
 
@@ -19,7 +20,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
-        self.a3_web_elements = WebElements()
+        self.a3_web_elements = A3WebElements()
         self.common_validation = CommonValidation()
 
     def navigate_to_manage_tab(self):
@@ -1372,6 +1373,3 @@ class Navigator(NavigatorWebElements):
             self.utils.print_info("Unable to navigate to Active Directory")
             self.screen.save_screen_shot()
             return -1
-
-
-

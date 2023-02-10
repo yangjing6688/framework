@@ -1,7 +1,6 @@
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 from xiqse.flows.common.XIQSE_CommonTable import XIQSE_CommonTable
-from xiqse.defs.network.devices.devices.NetworkDevicesDevicesRestartDeviceWebElementsDefinitions import *
-import re
+from xiqse.defs.network.devices.devices.NetworkDevicesDevicesRestartDeviceWebElementsDefinitions import NetworkDevicesDevicesRestartDeviceWebElementsDefinitions
 
 
 class NetworkDevicesDevicesRestartDeviceWebElements(NetworkDevicesDevicesRestartDeviceWebElementsDefinitions):
@@ -33,4 +32,3 @@ class NetworkDevicesDevicesRestartDeviceWebElements(NetworkDevicesDevicesRestart
         :return: closes restart device dialog
         """
         return self.weh.get_element(self.restart_devices_close_button)
-

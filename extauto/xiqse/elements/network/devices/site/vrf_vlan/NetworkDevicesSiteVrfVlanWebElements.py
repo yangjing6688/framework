@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.devices.site.vrf_vlan.NetworkDevicesSiteVrfVlanWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.devices.site.vrf_vlan.NetworkDevicesSiteVrfVlanWebElementsDefinitions import NetworkDevicesSiteVrfVlanWebElementsDefinitions
 
 
 class NetworkDevicesSiteVrfVlanWebElements(NetworkDevicesSiteVrfVlanWebElementsDefinitions):

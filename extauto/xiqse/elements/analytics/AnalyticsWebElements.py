@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.analytics.AnalyticsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.analytics.AnalyticsWebElementsDefinitions import AnalyticsWebElementsDefinitions
 
 
 class AnalyticsWebElements(AnalyticsWebElementsDefinitions):

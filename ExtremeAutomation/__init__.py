@@ -45,7 +45,7 @@ if ("pytest" in sys.modules and "pytest.collect" in sys.modules) or os.getenv('P
             try:
                 roboWhackList.append(key)
                 continue
-            except:
+            except Exception:
                 continue
     patt2 = 'robot.api.*|robot.pars.*'
     for robmod in roboWhackList:

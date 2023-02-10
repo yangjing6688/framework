@@ -276,7 +276,7 @@ class PytestItems():
                         except:
                             dbonly = {'category': qCat, 'repoPath': 'NA', 'nodeCount': 'NA', 'numCases': 'NA'}
                             self.foundMods.update({post['TestModule'] : dbonly})
-                            pass
+
                 for mm in self.modlist:
                     if qCat != self.foundMods[mm]['category']:
                         continue
