@@ -184,3 +184,19 @@ class NetworkElementHostinformationGenKeywords(NetworkElementKeywordBaseClass):
                                            "Host system id is {system_id}.",
                                            "Host system id is NOT {system_id}!",
                                            **kwargs)
+
+    def hostinformation_verify_iqagent_version(self, device_name, iqagent_version, **kwargs):
+        """
+        Keyword Arguments:
+        [device_name] - The device the keyword will run against.
+        [iqagent_version] - The iqagent version to be compared with
+
+        Verifies the value of the iqagent_version.
+        """
+        args = {"iqagent_version": iqagent_version}
+
+        return self.execute_verify_keyword(device_name, args, self.cmd_const.SHOW_APP_IQAGENT,
+                                           self.parse_const.CHECK_APP_IQAGENT, True,
+                                           "Iqagent is {iqagent_version}.",
+                                           "Iqagent is NOT {iqagent_version}!",
+                                           **kwargs)
