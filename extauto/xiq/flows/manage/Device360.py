@@ -5233,20 +5233,20 @@ class Device360(Device360WebElements):
         flag_device_selected = False
         if device_mac:
             self.utils.print_info("Deleting device: ", device_mac)
-            search_result = self.dev.search_device(device_mac=device_mac)
+            search_result = self.dev.search_device(device_mac=device_mac, ignore_failure=True)
 
             if search_result != -1:
-                if self.dev.select_device(device_mac=device_mac):
+                if self.dev.select_device(device_mac=device_mac, ignore_failure=True):
                     sleep(2)
                     self.utils.print_info("Selected the device with MAC ", device_mac)
                     flag_device_selected = True
 
         elif device_serial:
             self.utils.print_info("Finding device with serial ", device_mac)
-            search_result = self.dev.search_device(device_serial=device_serial)
+            search_result = self.dev.search_device(device_serial=device_serial, ignore_failure=True)
 
             if search_result != -1:
-                if self.dev.select_device(device_serial=device_serial):
+                if self.dev.select_device(device_serial=device_serial, ignore_failure=True):
                     sleep(2)
                     self.utils.print_info("Selected the device with serial ", device_serial)
                     flag_device_selected = True
@@ -5267,7 +5267,6 @@ class Device360(Device360WebElements):
             self.utils.print_info("Clicking on Actions button")
             self.auto_actions.click(actions)
         else:
-            self.utils.print_info("Actions button not found")
             kwargs['fail_msg'] = "test_device_cli() -> Actions button not found"
             self.common_validation.fault(**kwargs)
             return -1
@@ -5280,7 +5279,6 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Hovering on Advanced")
                     self.auto_actions.move_to_element(el)
                 else:
-                    self.utils.print_info("Advanced button not found")
                     kwargs['fail_msg'] = "test_device_cli() -> Advanced button not found"
                     self.common_validation.fault(**kwargs)
                     return -1
@@ -5294,7 +5292,6 @@ class Device360(Device360WebElements):
             self.utils.print_info("Clicking on Device CLI")
             self.auto_actions.click(cli)
         else:
-            self.utils.print_info("Device CLI button not found")
             kwargs['fail_msg'] = "test_device_cli() -> Device CLI button not found"
             self.common_validation.fault(**kwargs)
             return -1
@@ -5311,7 +5308,6 @@ class Device360(Device360WebElements):
                     self.auto_actions.click_reference(self.dev360.get_cli_apply)
                     sleep(delay)
                 else:
-                    self.utils.print_info("'Send command' field not found")
                     kwargs['fail_msg'] = "test_device_cli() -> 'Send command' field not found"
                     self.common_validation.fault(**kwargs)
                     return -1
@@ -5355,7 +5351,6 @@ class Device360(Device360WebElements):
                 self.auto_actions.click_reference(self.dev360.get_cli_apply)
                 sleep(delay)
             else:
-                self.utils.print_info("Web CLI input field not found")
                 kwargs['fail_msg'] = "test_device_cli() -> Web CLI input field not found"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -5373,7 +5368,6 @@ class Device360(Device360WebElements):
                             self.utils.print_info("close button was found ")
                             self.auto_actions.click(x_button)
                         else:
-                            self.utils.print_info("close button not found")
                             kwargs['fail_msg'] = "test_device_cli() -> close button not found"
                             self.common_validation.fault(**kwargs)
                             return -1

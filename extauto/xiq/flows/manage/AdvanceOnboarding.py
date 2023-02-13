@@ -269,7 +269,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         # ret_value = -1
         while max_retries != count:
             for serial in serials:
-                if self.devices.search_device(device_serial=serial) == 1:
+                if self.devices.search_device(device_serial=serial, ignore_failure=True) == 1:
                     kwargs['pass_msg'] = f"Found the device for Serial: {device_serial}"
                     self.commonValidation.passed(**kwargs)
                     return 1
