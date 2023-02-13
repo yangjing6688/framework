@@ -63,12 +63,14 @@ class Msp(MspWebElements):
                         self.auto_actions.click_reference(self.get_view_organization_close_button)
                         self.screen.save_screen_shot()
 
-                        kwargs['pass_msg'] = f"Given Organization Name {organization_name} Selected Sucessfully on MSP Account"
+                        kwargs['pass_msg'] = f"Given Organization Name {organization_name} Selected Sucessfully " \
+                                             f"on MSP Account"
                         self.common_validation.passed(**kwargs)
                         return 1
 
         else:
-            kwargs['fail_msg'] = f"Given Organization Name {organization_name} Row Not Found and Not Selected Sucessfully on MSP Account"
+            kwargs['fail_msg'] = f"Given Organization Name {organization_name} Row Not Found and Not Selected " \
+                                 f"Sucessfully on MSP Account"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -120,11 +122,13 @@ class Msp(MspWebElements):
                         self.auto_actions.click_reference(self.get_view_organization_close_button)
                         self.screen.save_screen_shot()
 
-                        kwargs['pass_msg'] = f"Given Organization Name {organization_name} UnSelected Sucessfully on MSP Account"
+                        kwargs['pass_msg'] = f"Given Organization Name {organization_name} UnSelected Sucessfully " \
+                                             f"on MSP Account"
                         self.common_validation.passed(**kwargs)
                         return 1
 
         else:
-            kwargs['fail_msg'] = f"Given Organization Name {organization_name} Row Not Found and Not UnSelected Sucessfully on MSP Account"
+            kwargs['fail_msg'] = f"Given Organization Name {organization_name} Row Not Found and Not UnSelected " \
+                                 f"Sucessfully on MSP Account"
             self.common_validation.failed(**kwargs)
             return -1
