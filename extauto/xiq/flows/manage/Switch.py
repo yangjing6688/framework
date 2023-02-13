@@ -4,6 +4,7 @@ from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
+from extauto.common.CommonValidation import CommonValidation
 
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
@@ -27,6 +28,7 @@ class Switch(SwitchWebElements):
         self.dialogue_web_elements = DialogWebElements()
         self.login_web_elements = LoginWebElements()
         self.devices = Devices()
+        self.common_validation = CommonValidation()
 
     @deprecated("Please use onboard_device_quick(...)")
     def onboard_switch(self, switch_serial, switch_make="default", device_os="default", location=None, switch_type="Real", entry_type="Manual"):
@@ -129,7 +131,7 @@ class Switch(SwitchWebElements):
 
 
 
-    def select_switch(self, sw_serial):
+    def select_switch(self, sw_serial, **kwargs):
         """
         - This keyword Select Aerohive Switch based on Switch Serial Number From Devices Grid
         - Flow  Manage--> Devices--> Select Aerohive SWitch
@@ -145,7 +147,11 @@ class Switch(SwitchWebElements):
                 self.utils.print_info("Found Switch Row: ", row.text)
                 self.auto_actions.click_reference(self.get_switch_name)
                 sleep(2)
+                kwargs['pass_msg'] = "Aerohive Switch selected Successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
+        kwargs['fail_msg'] = "Aerohive Switch selected unsuccessfully"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def get_switch_port_details(self, sw_serial, port_number):
