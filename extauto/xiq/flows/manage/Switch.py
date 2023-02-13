@@ -47,13 +47,11 @@ class Switch(SwitchWebElements):
         :return: 1 if Switch OnBoarding is Successful without Error Message
         """
 
-
-        if self.devices.search_device(device_serial=switch_serial) == 1:
+        if self.devices.search_device(device_serial=switch_serial, ignore_failure=True) == 1:
             self.utils.print_info(f"Switch with {switch_serial} serial number already onboarded")
             return 1
         else:
             self.utils.print_info(f"Onboarding Switch with serial number '{switch_serial}'")
-
 
         self.utils.print_info("Clicking on ADD button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
@@ -115,14 +113,14 @@ class Switch(SwitchWebElements):
         if "," in switch_serial:
             switch_serial_list = switch_serial.split(",")
             for serial in switch_serial_list:
-                if self.devices.search_device(device_serial=serial):
+                if self.devices.search_device(device_serial=serial, ignore_failure=True) == 1:
                     self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {serial}")
                 else:
                     self.utils.print_error(f"Switch with serial no. {serial} is not successfully onboarded...")
                     return -1
             return 1
         else:
-            if self.devices.search_device(device_serial=switch_serial):
+            if self.devices.search_device(device_serial=switch_serial, ignore_failure=True) == 1:
                 self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {switch_serial}")
                 return 1
             else:
