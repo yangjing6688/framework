@@ -123,6 +123,6 @@ class ClientMode:
             elif disconnect == 20:
                 break
         self.screen.save_screen_shot()
-        kwargs['fail_msg'] = f"{wifi_status}"
+        kwargs['fail_msg'] = f"Status: disconnected -> {wifi_status}"
         self.common_validation.failed(**kwargs)
         return [-1, wifi_status]
