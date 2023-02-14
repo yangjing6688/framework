@@ -412,17 +412,14 @@ class CloudConfigGroup(object):
                     self.common_validation.failed(expect_error=True)
                     return -3
 
-
             if not self.search_ccg_group_from_common_object(policy):
                 kwargs['fail_msg'] = "create_bulk_cloud_config_group() failed. Didn't find CCG group"
                 self.common_validation.failed(**kwargs)
                 return -1
 
-
         kwargs['pass_msg'] = "Created bulk Cloud Config Group"
         self.common_validation.passed(**kwargs)
         return 1
-
 
     def edit_cloud_config_group(self, policy, option="add", *ap_serials, **kwargs):
         """
