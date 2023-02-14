@@ -2419,3 +2419,6 @@ class Device360WebElements(Device360WebElementDefs):
     	:return: Monitor -> Diagnostics -> Deselect all button
     	"""
         return self.weh.get_element(self.device360_diagnostics_port_details_actions_button_disabled)
+
+    def get_device360_lag_popup_spinner(self):
+        return self.weh.get_element(self.device360_lag_popup_spinner)

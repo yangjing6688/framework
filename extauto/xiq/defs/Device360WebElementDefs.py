@@ -4042,3 +4042,9 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_lag_popup_spinner = \
+        {
+            'CSS_SELECTOR': '.lag-view .grid-mark',
+            'wait_for': 5
+        }
+
