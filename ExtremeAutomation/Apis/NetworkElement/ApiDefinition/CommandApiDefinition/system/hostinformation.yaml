@@ -145,3 +145,8 @@ hostinformation:
         apis:
             CLI:
                 - [VOSS,base,baseversion,baseunit,'show application iqagent',userPrompt,'None','None','None',[],[]]
+    show_system_software_version:
+        uuid: d8dc0a12-021d-4f17-947d-f275443dca07
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show sys software | include Version',userPrompt,'None','None','None',[],[]]
