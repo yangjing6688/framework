@@ -23,6 +23,9 @@ class HostinformationBaseCustomShowTools(BaseShowApi):
     def check_app_iqagent(self, *func_args, **kwargs):
         return self.cmd_obj_constants.METHOD_NOT_SUPPORTED, None
 
+    def check_version(self, *func_args, **kwargs):
+        return self.cmd_obj_constants.METHOD_NOT_SUPPORTED, None
+
     def base_function(self, *args, **kwargs):
         return self.cmd_obj_constants.METHOD_NOT_SUPPORTED, None
 
