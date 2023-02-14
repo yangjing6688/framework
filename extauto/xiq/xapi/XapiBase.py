@@ -49,7 +49,10 @@ class XapiBase(object):
             :return: True when the status is 200 or 201, throws exception otherwise
         """
         self.print_http_response(api_response)
-        if api_response.status != 200 and api_response.status != 201:
+        if not api_response:
+            raise Exception(
+                f'ERROR: valid_http_response -> HTTPResponse is None')
+        elif api_response.status != 200 and api_response.status != 201:
             raise Exception(f'ERROR: valid_http_response -> HTTPResponse status returned failure: {api_response.status}')
         return True
 

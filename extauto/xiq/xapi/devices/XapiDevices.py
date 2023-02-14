@@ -1,12 +1,14 @@
 import time
 from time import sleep
 import json
+from extauto.xiq.xapi.base.XapiBaseDeviceApi import XapiBaseDeviceApi
 from extauto.xiq.xapi.XapiBase import XapiBase
 
 class XapiDevices(XapiBase):
 
     def __init__(self):
         super().__init__()
+        self.xapiBaseDeviceApi = XapiBaseDeviceApi()
         # Supported UI to XAPI column selector
         self.NOT_SUPPORTED = 'not_supported'
         self.device_column_ui_to_xapi = {}
@@ -138,29 +140,7 @@ class XapiDevices(XapiBase):
             self.xapiHelper.common_validation.fault(**kwargs)
             return -1
 
-        # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
-        api_response = None
-
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
-
-        # Enter a context with an instance of the API client
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.DeviceApi(api_client)
-            try:
-                # Get Devices
-                api_response = api_instance.get_device(id, _preload_content=False)
-                self.valid_http_response(api_response)
-                kwargs['pass_msg'] = 'Device was found'
-                self.xapiHelper.common_validation.passed(**kwargs)
-                return api_response.data
-            except self.ApiException as e:
-                kwargs['fail_msg'] = f'Exception when calling DeviceApi->get_device: {e}'
-                self.xapiHelper.common_validation.failed(**kwargs)
-                return -1
+        return self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
 
     def xapi_reboot_device(self, device_serial=None, device_mac=None, **kwargs):
         """
@@ -176,28 +156,7 @@ class XapiDevices(XapiBase):
             self.xapiHelper.common_validation.fault(**kwargs)
             return -1
 
-        # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
-        api_response = None
-
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
-
-        # Enter a context with an instance of the API client
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.DeviceApi(api_client)
-            try:
-                api_response = api_instance.reboot_device(id)
-                self.valid_http_response(api_response)
-                kwargs['pass_msg'] = 'Device reboot command was sent'
-                self.xapiHelper.common_validation.passed(**kwargs)
-                return 1
-            except self.ApiException as e:
-                kwargs['fail_msg'] = f"Exception when calling DeviceApi->reboot_device: {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
-                return -1
+        return self.xapiBaseDeviceApi.xapi_base_reboot_device(id=id)
 
     def xapi_search_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
@@ -239,42 +198,26 @@ class XapiDevices(XapiBase):
             self.xapiHelper.common_validation.fault(**kwargs)
             return -1
 
-        # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
-        api_response = None
+        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+        while retry_value < retry_count:
+            # get Device information
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            self.valid_http_response(api_response)
+            data = json.loads(api_response.data)
+            if data.get('connected', False):
+                kwargs['pass_msg'] = "Device Connected Status Value is: True (Connected)"
+                self.xapiHelper.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.utils.print_info(
+                    f"Device Connected Status Value is: False (Not Connected), sleeping {retry_duration} seconds")
+                sleep(retry_duration)
+                retry_value += 1
 
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
-
-        # Enter a context with an instance of the API client
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.DeviceApi(api_client)
-            try:
-                while retry_value < retry_count:
-                    # get Device information
-                    api_response = api_instance.get_device(id, _preload_content=False)
-                    self.valid_http_response(api_response)
-                    data = json.loads(api_response.data)
-                    if data.get('connected', False):
-                        kwargs['pass_msg'] = "Device Connected Status Value is: True (Connected)"
-                        self.xapiHelper.common_validation.passed(**kwargs)
-                        return 1
-                    else:
-                        self.utils.print_info(f"Device Connected Status Value is: False (Not Connected), sleeping {retry_duration} seconds")
-                        sleep(retry_duration)
-                        retry_value += 1
-
-            except self.ApiException as e:
-                kwargs['fail_msg'] = f"Exception when calling DeviceApi->xapi_wait_until_device_online: {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
-                return -1
-
-            # In the case that nothing is found
-            kwargs['fail_msg'] = 'Device was not found'
-            self.xapiHelper.common_validation.failed(**kwargs)
-            return -1
+        # In the case that nothing is found
+        kwargs['fail_msg'] = 'Device was not found'
+        self.xapiHelper.common_validation.failed(**kwargs)
+        return -1
 
     def xapi_wait_until_device_managed(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
                                       **kwargs):
@@ -295,44 +238,27 @@ class XapiDevices(XapiBase):
             self.xapiHelper.common_validation.fault(**kwargs)
             return -1
 
-        # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
-        api_response = None
+        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+        while retry_value < retry_count:
+            # get Device information
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            self.valid_http_response(api_response)
+            data = json.loads(api_response.data)
+            device_admin_state = data.get('device_admin_state', '')
+            if device_admin_state == 'MANAGED':
+                kwargs['pass_msg'] = f"Device admin state Value is: {device_admin_state}"
+                self.xapiHelper.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.utils.print_info(
+                    f"Device Connected Status Value is: {device_admin_state}, sleeping {retry_duration} seconds")
+                sleep(retry_duration)
+                retry_value += 1
 
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
-
-        # Enter a context with an instance of the API client
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.DeviceApi(api_client)
-            try:
-                while retry_value < retry_count:
-                    # get Device information
-                    api_response = api_instance.get_device(id, _preload_content=False)
-                    self.valid_http_response(api_response)
-                    data = json.loads(api_response.data)
-                    device_admin_state = data.get('device_admin_state', '')
-                    if device_admin_state == 'MANAGED':
-                        kwargs['pass_msg'] = f"Device admin state Value is: {device_admin_state}"
-                        self.xapiHelper.common_validation.passed(**kwargs)
-                        return 1
-                    else:
-                        self.utils.print_info(
-                            f"Device Connected Status Value is: {device_admin_state}, sleeping {retry_duration} seconds")
-                        sleep(retry_duration)
-                        retry_value += 1
-
-            except self.ApiException as e:
-                kwargs['fail_msg'] = f"Exception when calling DeviceApi->get_device: {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
-                return -1
-
-            # In the case that nothing is found
-            kwargs['fail_msg'] = 'Device did not get to Managed state'
-            self.xapiHelper.common_validation.failed(**kwargs)
-            return -1
+        # In the case that nothing is found
+        kwargs['fail_msg'] = 'Device did not get to Managed state'
+        self.xapiHelper.common_validation.failed(**kwargs)
+        return -1
 
     def xapi_delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
@@ -351,59 +277,42 @@ class XapiDevices(XapiBase):
             self.xapiHelper.common_validation.fail(**kwargs)
             return -1
 
-        # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
-        api_response = None
+        try:
+            self.xapiBaseDeviceApi.xapi_base_delete_device(id=id)
 
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
+            # delete this from the cache
+            self.xapiHelper.delete_xapi_global_device(device_serial)
 
-        # Enter a context with an instance of the API client
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.DeviceApi(api_client)
-            try:
-                # delete Device information
-                # FIXME = This returns NONE, however the swagger returns a 202 and no payload.
-                #  The aysnc doens't appear to be working for this API function and the
-                # swagger doens't support the [LRO], so there is no way of knowning
-                # if this keyword was successful without creating a loop to check.
-                operation = api_instance.delete_device(id)
-
-                # delete this from the cache
-                self.xapiHelper.delete_xapi_global_device(device_serial)
-
-                count = 0
-                retries = 10
+            count = 0
+            retries = 10
+            device_found = self._xapi_search_for_device_id(device_serial=device_serial)
+            while device_found == 1:
+                self.utils.print_info('Device was found, sleep for 30 seconds')
+                sleep(30)
+                self.utils.print_info('Checking to make sure the device was deleted')
                 device_found = self._xapi_search_for_device_id(device_serial=device_serial)
-                while device_found == 1:
-                    self.utils.print_info('Device was found, sleep for 30 seconds')
-                    sleep(30)
-                    self.utils.print_info('Checking to make sure the device was deleted')
-                    device_found = self._xapi_search_for_device_id(device_serial=device_serial)
 
-                if device_found == -1:
-                    kwargs['pass_msg'] = f"Device was delete with serial: {device_serial}"
-                    self.xapiHelper.common_validation.passed(**kwargs)
-                    return 1
-                else:
-                    kwargs['fail_msg'] = f"Device was found with serial: {device_serial}"
-                    self.xapiHelper.common_validation.failed(**kwargs)
-                    return 1
-
-                kwargs['pass_msg'] = f"Device has been delete"
+            if device_found == -1:
+                kwargs['pass_msg'] = f"Device was delete with serial: {device_serial}"
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return 1
-
-            except self.ApiException as e:
-                kwargs['fail_msg'] = f"Exception when calling DeviceApi->delete_device: {e}"
+            else:
+                kwargs['fail_msg'] = f"Device was found with serial: {device_serial}"
                 self.xapiHelper.common_validation.failed(**kwargs)
-                return -1
+                return 1
 
-            # In the case that nothing is found
+            kwargs['pass_msg'] = f"Device has been delete"
+            self.xapiHelper.common_validation.passed(**kwargs)
+            return 1
+
+        except self.ApiException as e:
+            kwargs['fail_msg'] = f"Exception when calling DeviceApi->delete_device: {e}"
             self.xapiHelper.common_validation.failed(**kwargs)
             return -1
+
+        # In the case that nothing is found
+        self.xapiHelper.common_validation.failed(**kwargs)
+        return -1
 
     def xapi_get_device_column_information(self, device_serial, column_array, **kwargs):
         """
