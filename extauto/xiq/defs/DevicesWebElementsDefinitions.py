@@ -1962,3 +1962,39 @@ class DevicesWebElementsDefinitions:
         {
             'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
         }
+
+    utilities_path = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-utilities-button"]',
+            'wait_for': 5
+        }
+
+    restart_pse_path = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-utilities-restart-pse"]',
+            'wait_for': 5
+        }
+
+    pse_yes_path = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 5
+        }
+
+    loading_bar_path = \
+        {
+            'XPATH': '//img[@class="widget-loading-image"]',
+            'wait_for': 5
+        }
+
+    closing_window_path = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }
+
+    pse_reset_status = \
+        {
+            'XPATH': '//div[contains(text(),"PSE reset has been completed.")]',
+            'wait_for': 5
+        }
