@@ -1322,7 +1322,7 @@ class Device360WebElementDefs:
 
     d360Event_search_textbox = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="eventSearchInput"]',
+            'XPATH': '//input[@data-dojo-attach-point="eventSearchInput"]',
             'wait_for': 3
         }
 
@@ -3879,6 +3879,12 @@ class Device360WebElementDefs:
 
         }
 
+    d360_config_events = \
+        {
+            'XPATH': '//ul[@data-dojo-attach-point="hcPills"]/li[@data-automation-tag="automation-pills-configuration"]',
+            'wait_for': 5
+        }
+
     device360_port_details_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-port-diagnostics-port-details"]',
@@ -4089,3 +4095,5 @@ class Device360WebElementDefs:
             'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-remove-aged-macs"]',
             'wait_for': 5
         }
+
+

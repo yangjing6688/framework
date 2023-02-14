@@ -3428,7 +3428,7 @@ class Device360(Device360WebElements):
         """
         i = 0
         cont_rows_match = 0
-        self.d360Event_search(event_str)
+        self.d360Event_search(event_str, **kwargs)
         events_table = self.dev360.get_device360_events_grid()
         if events_table:
             event_rows = self.dev360.get_device360_events_grid_rows(events_table)
@@ -3505,8 +3505,13 @@ class Device360(Device360WebElements):
         This keyword inserts info into event search text box. No button for search is present, the search will be done
         automatically after the text was inserted
         :param search_value:
+        :param **kwargs: pass in the events of type configuration which are in another tab
         :return: 1 if the text was entered into search box and -1 if search text box was not found
         """
+        event_type = kwargs.get("event_type", "")
+        if event_type == "config":
+            self.utils.print_info("Clicking on 'Configurations Events' tab!")
+            self.auto_actions.click(self.dev360.get_d360_config_events())
         search_box = self.dev360.get_d360Event_search_textbox()
         if search_box:
             self.utils.print_info("Entering info to search : ", search_value)
@@ -5228,20 +5233,20 @@ class Device360(Device360WebElements):
         flag_device_selected = False
         if device_mac:
             self.utils.print_info("Deleting device: ", device_mac)
-            search_result = self.dev.search_device(device_mac=device_mac)
+            search_result = self.dev.search_device(device_mac=device_mac, ignore_failure=True)
 
             if search_result != -1:
-                if self.dev.select_device(device_mac=device_mac):
+                if self.dev.select_device(device_mac=device_mac, ignore_failure=True):
                     sleep(2)
                     self.utils.print_info("Selected the device with MAC ", device_mac)
                     flag_device_selected = True
 
         elif device_serial:
             self.utils.print_info("Finding device with serial ", device_mac)
-            search_result = self.dev.search_device(device_serial=device_serial)
+            search_result = self.dev.search_device(device_serial=device_serial, ignore_failure=True)
 
             if search_result != -1:
-                if self.dev.select_device(device_serial=device_serial):
+                if self.dev.select_device(device_serial=device_serial, ignore_failure=True):
                     sleep(2)
                     self.utils.print_info("Selected the device with serial ", device_serial)
                     flag_device_selected = True
@@ -5262,7 +5267,6 @@ class Device360(Device360WebElements):
             self.utils.print_info("Clicking on Actions button")
             self.auto_actions.click(actions)
         else:
-            self.utils.print_info("Actions button not found")
             kwargs['fail_msg'] = "test_device_cli() -> Actions button not found"
             self.common_validation.fault(**kwargs)
             return -1
@@ -5275,7 +5279,6 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Hovering on Advanced")
                     self.auto_actions.move_to_element(el)
                 else:
-                    self.utils.print_info("Advanced button not found")
                     kwargs['fail_msg'] = "test_device_cli() -> Advanced button not found"
                     self.common_validation.fault(**kwargs)
                     return -1
@@ -5289,7 +5292,6 @@ class Device360(Device360WebElements):
             self.utils.print_info("Clicking on Device CLI")
             self.auto_actions.click(cli)
         else:
-            self.utils.print_info("Device CLI button not found")
             kwargs['fail_msg'] = "test_device_cli() -> Device CLI button not found"
             self.common_validation.fault(**kwargs)
             return -1
@@ -5306,7 +5308,6 @@ class Device360(Device360WebElements):
                     self.auto_actions.click_reference(self.dev360.get_cli_apply)
                     sleep(delay)
                 else:
-                    self.utils.print_info("'Send command' field not found")
                     kwargs['fail_msg'] = "test_device_cli() -> 'Send command' field not found"
                     self.common_validation.fault(**kwargs)
                     return -1
@@ -5350,7 +5351,6 @@ class Device360(Device360WebElements):
                 self.auto_actions.click_reference(self.dev360.get_cli_apply)
                 sleep(delay)
             else:
-                self.utils.print_info("Web CLI input field not found")
                 kwargs['fail_msg'] = "test_device_cli() -> Web CLI input field not found"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -5368,7 +5368,6 @@ class Device360(Device360WebElements):
                             self.utils.print_info("close button was found ")
                             self.auto_actions.click(x_button)
                         else:
-                            self.utils.print_info("close button not found")
                             kwargs['fail_msg'] = "test_device_cli() -> close button not found"
                             self.common_validation.fault(**kwargs)
                             return -1
@@ -9477,7 +9476,7 @@ class Device360(Device360WebElements):
         sleep(3)
 
         count = -1
-        if self.device360_search_event_and_confirm_event_description_contains(event) != -1:
+        if self.device360_search_event_and_confirm_event_description_contains(event, **kwargs) != -1:
             count = 1
 
         if close_360_window:
@@ -15415,6 +15414,53 @@ class Device360(Device360WebElements):
          - ``Select Monitor Diagnostics Port Details table``
         """
         self.auto_actions.click_reference(self.get_device360_diagnostics_port_details_refresh_button)
+    def configure_vlan_range_d360(self, dut, port_numbers, vlan_range, **kwargs):
+        """Method that configures given ports as trunk port with specific trunk vlan id.
+
+        Currently this method supports only switches with cli_type - exos.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            ports (str): the ports that will be configured - e.g. '1,3,5,10'
+            vlan_range (str): trunk vlan id values - e.g.  '400-500'
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+
+        """
+        supported_devices = ["EXOS"]
+
+        if dut.cli_type.upper() not in supported_devices:
+            kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        if dut.cli_type.upper() == "EXOS":
+            if dut.platform.upper() == 'STACK':
+
+                for slot in range(1, len(dut.serial.split(',')) + 1):
+                    self.navigator.navigate_to_devices()
+                    self.dev.refresh_devices_page()
+                    self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+                    self.navigator.navigate_to_port_configuration_d360()
+                    self.select_stack_unit(slot)
+                    self.device360_configure_ports_trunk_stack(
+                        port_numbers=port_numbers, trunk_native_vlan="1", trunk_vlan_id=vlan_range, slot=slot)
+            else:
+
+                self.navigator.navigate_to_devices()
+                self.dev.refresh_devices_page()
+                self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+                self.navigator.navigate_to_port_configuration_d360()
+                self.device360_configure_ports_trunk_vlan(
+                    port_numbers=port_numbers, trunk_native_vlan="1", trunk_vlan_id=vlan_range)
+
+        self.dev.refresh_devices_page()
+
+        kwargs["pass_msg"] = "Successfully configured the ports"
+        self.common_validation.passed(**kwargs)
+        return 1
+
     def check_overview_row_table_by_port(self, port_name, **kwargs):
         """
         Keyword to return the value of one of the columns in Overview status D360 main page for a given port.

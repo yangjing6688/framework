@@ -643,7 +643,7 @@ class Cli(object):
             self.utils.print_info(" ***** Number of attempts ", str(i))
             sleep(30)
             listSSIDs = str(self.send_paramiko_cmd(conn, MAC_SCAN_FOR_LIST_WIFI, 300))
-            cnt = self.utils.check_match(listSSIDs, ssid)
+            cnt = 1 if ssid in listSSIDs else -1
             self.utils.print_info(f"The ssid match cnt is {cnt}.\n The searched ssid is {ssid}")
             if cnt == 1:
                 self.utils.print_info('ssid ' + ssid + ' is found')
@@ -659,10 +659,10 @@ class Cli(object):
             while not cn1:
                 rc = self.send_paramiko_cmd(conn, MAC_CONNECT_TO_WIFI + wifi_port + ' ' + ssid + ' ' + ssid_pass, 30)
                 self.utils.print_info("RC is ---------" + str(rc))
-                if self.utils.check_match(rc, 'Failed to join') == 1: return -1,  " Fail to Join "
-                if self.utils.check_match(rc, 'not find network') == 1: return -1,  " Could not find network " + str(ssid)
-                if self.utils.check_match(rc, 'Exception') == 1: return -1,  " Fail with an Exception"
-                if self.utils.check_match(rc, 'Error') == 1: return -1,  " There is an Error "
+                if 'Failed to join' in rc: return -1,  " Fail to Join "
+                if 'not find network' in rc: return -1,  " Could not find network " + str(ssid)
+                if 'Exception' in rc: return -1,  " Fail with an Exception"
+                if 'Error' in rc: return -1,  " There is an Error "
                 check_wifi_connection = self.send_paramiko_cmd(conn, MAC_CHECK_WIFI_CONNECTION + wifi_port, 10)
                 self.utils.print_info(f"WiFi Network status: {check_wifi_connection}")
                 if ssid in check_wifi_connection:
@@ -2604,8 +2604,8 @@ class Cli(object):
                 table_repl.append(element_table.replace('\r', ' '))
             if 'exit ' in table_repl:
                 table_repl.remove('exit ')
-            else:
-                pass
+            if '' in table_repl:
+                table_repl.remove('')
             n = 100
             last_100_commands_table = list(list(islice(reversed(table_repl), 0, n)))
             last_100_commands_table.reverse()
@@ -2627,6 +2627,61 @@ class Cli(object):
             kwargs['fail_msg'] = "get_cli_commands() failed. No type OS found "
             self.commonValidation.failed(**kwargs)
             return -1
+
+    def check_ports_existence(self, dut, ports, **kwargs):
+        """ Method that verifies if given ports are found on the device.
+
+        Currently this method supports only switches with cli_type - exos.
+
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            ports (str): the ports that will be verified - e.g. '1,3,5,10'
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+
+        supported_devices = ["EXOS"]
+
+        if dut.cli_type.upper() not in supported_devices:
+            kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
+            self.commonValidation.fault(**kwargs)
+            return -1
+
+        if dut.cli_type.upper() == "EXOS":
+
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan')[0].cmd_obj._return_text
+
+            ports_not_found = []
+
+            if dut.platform.upper() == 'STACK':
+
+                for slot in range(1, len(dut.serial.split(',')) + 1):
+                    for port in ports.split(','):
+                        if not re.search(rf"^{slot}:{port}\s+", output):
+                            ports_not_found.append(str(slot) + ':' + port)
+                        else:
+                            self.utils.print_info("Found the port: " + str(slot) + ':' + port)
+            else:
+                for port in ports.split(','):
+                    if not re.search(rf"^{port}\s+", output):
+                        ports_not_found.append(port)
+                    else:
+                        self.utils.print_info("Found the port: " + port)
+
+            if ports_not_found:
+                self.utils.print_info('The following ports were not found: ')
+
+                for port_not_found in ports_not_found:
+                    self.utils.print_info(port_not_found)
+
+                kwargs["fail_msg"] = f"Did not find these ports on the device: {ports_not_found}"
+                self.commonValidation.failed(**kwargs)
+                return -1
+
+        kwargs["pass_msg"] = "Successfully found all the ports on the device"
+        self.commonValidation.passed(**kwargs)
+        return 1
 
     def show_maclocking_on_the_ports_in_cli(self, dut, **kwargs):
         """
