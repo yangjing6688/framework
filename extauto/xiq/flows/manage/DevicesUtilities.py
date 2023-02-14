@@ -1,10 +1,10 @@
 from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.common.WebElementHandler import *
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.DeviceUtilitiesWebElements import DeviceUtilitiesWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class DevicesUtilities(DeviceUtilitiesWebElements):
@@ -14,8 +14,9 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.navigator = NavigatorWebElements()
+        self.common_validation = CommonValidation()
 
-    def verify_device_tool_loading_is_open(self):
+    def verify_device_tool_loading_is_open(self, **kwargs):
         """
         - This keyword is used to verify the device utilities loading window is open
         - Keyword Usage:
@@ -25,18 +26,20 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking loading dialog is open")
         if self.get_manager_view() is None:
-            self.utils.print_info("Loading dialog is not open")
+            kwargs['fail_msg'] = "Loading dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
         if self.get_manager_view().is_displayed():
-            self.screen.save_screen_shot()
+            kwargs['pass_msg'] = "Successfully to get manager view"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Loading dialog is not displayed")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Loading dialog is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def verify_device_tool_client_information_is_open(self):
+    def verify_device_tool_client_information_is_open(self, **kwargs):
         """
         - This keyword is used to verify the device client information tool window is open
         - Keyword Usage:
@@ -46,13 +49,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking that Client Information dialog is open")
         if self.get_client_info_view() is not None and self.get_client_info_view().is_displayed():
+            kwargs['pass_msg'] = "Successfully Client Information dialog is open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Client Information dialog is not open")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Client Information dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def wait_until_device_tool_client_information_is_open(self, retry_duration=5, retry_count=20):
+    def wait_until_device_tool_client_information_is_open(self, retry_duration=5, retry_count=20, **kwargs):
         """
         - This keyword is used to wait until the device client information tool window is open
         - Keyword Usage:
@@ -66,17 +71,19 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         while count <= retry_count:
             self.utils.print_info(f"Checking that Client Information dialog is open: loop {count}")
             if self.verify_device_tool_client_information_is_open() == 1:
+                kwargs['pass_msg'] = f"Successfully Client Information dialog is openL loop {count}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Client Information is not loaded yet. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.screen.save_screen_shot()
-        self.utils.print_info("Client Information dialog did not open")
+        kwargs['fail_msg'] = "Client Information dialog did not open"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def close_device_tool_client_information(self):
+    def close_device_tool_client_information(self, **kwargs):
         """
         - This keyword is used to close the client information tool window
         - Keyword Usage:
@@ -89,13 +96,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         sleep(2)
 
         if self.verify_device_tool_client_information_is_open() == 1:
-            self.utils.print_info("Could not close Client Information dialog")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Could not close Client Information dialog"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "Close Client information dialog with success"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def verify_device_tool_get_tech_data_is_open(self):
+    def verify_device_tool_get_tech_data_is_open(self, **kwargs):
         """
         - This keyword is used to verify the device get tech data tool window is open
         - Keyword Usage:
@@ -105,13 +114,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking that Get Tech Data dialog is open")
         if self.get_tech_data_view() is not None and self.get_tech_data_view().is_displayed():
+            kwargs['pass_msg'] = "Successfully get tech data dialog is open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Get Tech Data dialog is not open")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Get Tech Data dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def wait_until_device_tool_get_tech_data_is_open(self, retry_duration=5, retry_count=20):
+    def wait_until_device_tool_get_tech_data_is_open(self, retry_duration=5, retry_count=20, **kwargs):
         """
         - This keyword is used to wait until the device get tech data tool window is open
         - Keyword Usage:
@@ -125,17 +136,19 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         while count <= retry_count:
             self.utils.print_info(f"Checking that Get Tech Data dialog is open: loop {count}")
             if self.verify_device_tool_get_tech_data_is_open() == 1:
+                kwargs['pass_msg'] = "Successfully get tech dialog is open"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Get Tech Data is not loaded yet. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.screen.save_screen_shot()
-        self.utils.print_info("Get Tech Data dialog did not open")
+        kwargs['fail_msg'] = "Get Tech Data dialog is not open"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def close_device_tool_get_tech_data(self):
+    def close_device_tool_get_tech_data(self, **kwargs):
         """
         - This keyword is used to close the get tech data tool window
         - Keyword Usage:
@@ -148,13 +161,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         sleep(2)
 
         if self.verify_device_tool_get_tech_data_is_open() == 1:
-            self.utils.print_info("Could not close Get Tech Data dialog")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Could not close Get Tech Data dialog"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "Close get tech data dialog with success"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def verify_confirm_message_dialog_is_open(self):
+    def verify_confirm_message_dialog_is_open(self, **kwargs):
         """
         - This keyword is used to verify the confirm message window is open
         - Keyword Usage:
@@ -164,18 +179,20 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking that Confirm Message dialog is open")
         if self.get_confirm_message_view() is None:
-            self.utils.print_info("Confirm Message dialog is not open")
+            kwargs['fail_msg'] = "Confirm Message dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
         if self.get_confirm_message_view().is_displayed():
-            self.screen.save_screen_shot()
+            kwargs['pass_msg'] = "Confirm Message dialog is open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Confirm Message dialog is not displayed")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Confirm Message dialog is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def reject_device_tool_get_tech_data(self):
+    def reject_device_tool_get_tech_data(self, **kwargs):
         """
         - This keyword is used to reject the request to continue to get tech data
         - Keyword Usage:
@@ -188,13 +205,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         sleep(2)
 
         if self.verify_confirm_message_dialog_is_open() == 1:
-            self.utils.print_info("Could not close Confirm Message dialog")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Could not close Confirm Message dialog"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "Confirm Message dialog"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def accept_device_tool_get_tech_data(self):
+    def accept_device_tool_get_tech_data(self, **kwargs):
         """
         - This keyword is used to accept the request to continue to get tech data
         - Keyword Usage:
@@ -208,17 +227,21 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         if self.verify_confirm_message_dialog_is_open() == 1:
             self.utils.print_info("The Verify Message Dialog did not close when 'Yes' was clicked")
+            kwargs['fail_msg'] = "The Verify Message Dialog did not close when 'Yes' was clicked"
+            self.common_validation.failed(**kwargs)
             return -1
 
         if self.verify_device_tool_loading_is_open() == 1:
             self.screen.save_screen_shot()
+            kwargs['pass_msg'] = "The Verify Message Dialog  close when 'Yes' was clicked"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Get Tech Data is not loading")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Get Tech Data is not loading"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def verify_device_tool_neighbor_info_is_open(self):
+    def verify_device_tool_neighbor_info_is_open(self, **kwargs):
         """
         - This keyword is used to verify the device neighbor info tool window is open
         - Keyword Usage:
@@ -228,13 +251,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking that Neighbor Info dialog is open")
         if self.get_neighbor_info_view() is not None and self.get_neighbor_info_view().is_displayed():
+            kwargs['pass_msg'] = "Neighbor Info dialog is open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Neighbor Info dialog is not open")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Neighbor Info dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def wait_until_device_tool_neighbor_info_is_open(self, retry_duration=5, retry_count=20):
+    def wait_until_device_tool_neighbor_info_is_open(self, retry_duration=5, retry_count=20, **kwargs):
         """
         - This keyword is used to wait until the device neighbor info tool window is open
         - Keyword Usage:
@@ -248,17 +273,19 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         while count <= retry_count:
             self.utils.print_info(f"Checking that Neighbor Info dialog is open: loop {count}")
             if self.verify_device_tool_neighbor_info_is_open() == 1:
+                kwargs['pass_msg'] = "Neighbor Info dialog is open"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Neighbor Info is not loaded yet. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.screen.save_screen_shot()
-        self.utils.print_info("Neighbor Info dialog did not open")
+        kwargs['fail_msg'] = "Neighbor Info dialog is not open"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def close_device_tool_neighbor_info(self):
+    def close_device_tool_neighbor_info(self, **kwargs):
         """
         - This keyword is used to close the device neighbor info tool window
         - Keyword Usage:
@@ -271,13 +298,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         sleep(2)
 
         if self.verify_device_tool_neighbor_info_is_open() == 1:
-            self.utils.print_info("Could not close Neighbor Info dialog")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Could not close Neighbor Info dialog"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "Successfully close Neighbor Info dialog"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def verify_device_tool_locate_device_is_open(self):
+    def verify_device_tool_locate_device_is_open(self, **kwargs):
         """
         - This keyword is used to verify the device locate device tool window is open
         - Keyword Usage:
@@ -287,13 +316,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking that Locate Device dialog is open")
         if self.get_locate_device_view() is not None and self.get_locate_device_view().is_displayed():
+            kwargs['pass_msg'] = "Successfully Locate Device dialog is open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Locate Device dialog is not open")
-            self.screen.save_screen_shot()
+            kwargs['pass_msg'] = "Locate Device dialog is not open"
+            self.common_validation.passed(**kwargs)
             return -1
 
-    def wait_until_device_tool_locate_device_is_open(self, retry_duration=5, retry_count=20):
+    def wait_until_device_tool_locate_device_is_open(self, retry_duration=5, retry_count=20, **kwargs):
         """
         - This keyword is used to wait until the device locate device tool window is open
         - Keyword Usage:
@@ -307,17 +338,19 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         while count <= retry_count:
             self.utils.print_info(f"Checking that Locate Device dialog is open: loop {count}")
             if self.verify_device_tool_locate_device_is_open() == 1:
+                kwargs['pass_msg'] = "Locate Device dialog is open"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Locate Device is not loaded yet. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.screen.save_screen_shot()
-        self.utils.print_info("Locate Device did not open")
+        kwargs['fail_msg'] = "Locate Device did not open"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def close_device_tool_locate_device(self):
+    def close_device_tool_locate_device(self, **kwargs):
         """
         - This keyword is used to close locate device tool window
         - Keyword Usage:
@@ -330,13 +363,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         sleep(2)
 
         if self.verify_device_tool_locate_device_is_open() == 1:
-            self.utils.print_info("Could not close Locate Device dialog")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Could not close Locate Device dialog"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "Successfully close locate device dialog"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def verify_device_tool_packet_capture_is_open(self):
+    def verify_device_tool_packet_capture_is_open(self, **kwargs):
         """
         - This keyword is used to verify the device Packet Capture tool window is open
         - Keyword Usage:
@@ -346,13 +381,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking that Packet Capture dialog is open")
         if self.get_packet_capture_view() is not None and self.get_packet_capture_view().is_displayed():
+            kwargs['pass_msg'] = "Packet Capture dialog is open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Packet Capture dialog is not open")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Packet Capture dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def wait_until_device_tool_packet_capture_is_open(self, retry_duration=5, retry_count=20):
+    def wait_until_device_tool_packet_capture_is_open(self, retry_duration=5, retry_count=20, **kwargs):
         """
         - This keyword is used to wait until the device packet capture tool window is open
         - Keyword Usage:
@@ -366,17 +403,19 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         while count <= retry_count:
             self.utils.print_info(f"Checking that Packet Capture dialog is open: loop {count}")
             if self.verify_device_tool_packet_capture_is_open() == 1:
+                kwargs['pass_msg'] = "Packet Capture dialog is open"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Packet Capture is not loaded yet. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.screen.save_screen_shot()
-        self.utils.print_info("Packet Capture did not open")
+        kwargs['fail_msg'] = "Packet Capture dialog is not open"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def close_device_tool_packet_capture(self):
+    def close_device_tool_packet_capture(self, **kwargs):
         """
         - This keyword is used to close the device Packet Capture tool window
         - Keyword Usage:
@@ -389,13 +428,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         sleep(2)
 
         if self.verify_device_tool_packet_capture_is_open() == 1:
-            self.utils.print_info("Could not close Packet Capture dialog")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Could not close Packet Capture dialog"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "successfully close packet capture dialog"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def verify_device_tool_cli_is_open(self):
+    def verify_device_tool_cli_is_open(self, **kwargs):
         """
         - This keyword is used to verify the device CLI tool window is open
         - Keyword Usage:
@@ -404,13 +445,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         :return: 1 if is displayed else -1
         """
         if self.get_show_cli_view() is not None and self.get_show_cli_view().is_displayed():
+            kwargs['pass_msg'] = "CLI dialog is open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("CLI dialog is not open")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "CLI dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def wait_until_device_tool_cli_is_open(self, retry_duration=5, retry_count=20):
+    def wait_until_device_tool_cli_is_open(self, retry_duration=5, retry_count=20, **kwargs):
         """
         - This keyword is used to wait until the device cli tool window is open
         - Keyword Usage:
@@ -424,17 +467,19 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         while count <= retry_count:
             self.utils.print_info(f"Checking that CLI dialog is open: loop {count}")
             if self.verify_device_tool_cli_is_open() == 1:
+                kwargs['pass_msg'] = "CLI dialog is open"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"CLI is not loaded yet. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.screen.save_screen_shot()
-        self.utils.print_info("CLI did not open")
+        kwargs['fail_msg'] = "CLI dialog is not open"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def close_device_tool_cli(self):
+    def close_device_tool_cli(self, **kwargs):
         """
         - This keyword is used to close the device CLI tool window
         - Keyword Usage:
@@ -446,10 +491,12 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         sleep(2)
 
         if self.verify_device_tool_cli_is_open() == 1:
-            self.utils.print_info("Could not close CLI dialog")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "could not CLI dialog"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "CLI dialog is close"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def verify_device_tool_show_log_is_open(self):
@@ -924,7 +971,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.utils.print_info("Closing Show PSE dialog")
         return self.close_device_tool_cli()
 
-    def verify_device_tool_ping_is_open(self):
+    def verify_device_tool_ping_is_open(self, **kwargs):
         """
         - This keyword is used to verify the device ping tool window is open
         - Keyword Usage:
@@ -934,13 +981,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking that Ping dialog is open")
         if self.get_show_ping_view() is not None and self.get_show_ping_view().is_displayed():
+            kwargs['pass_msg'] = "Ping dialog is open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Ping dialog is not open")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Ping dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def wait_until_device_tool_ping_is_open(self, retry_duration=5, retry_count=20):
+    def wait_until_device_tool_ping_is_open(self, retry_duration=5, retry_count=20, **kwargs):
         """
         - This keyword is used to wait until the device ping tool window is open
         - Keyword Usage:
@@ -954,17 +1003,19 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         while count <= retry_count:
             self.utils.print_info(f"Checking that Ping dialog is open: loop {count}")
             if self.verify_device_tool_ping_is_open() == 1:
+                kwargs['pass_msg'] = "Ping dialog is open"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Ping is not loaded yet. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.screen.save_screen_shot()
-        self.utils.print_info("Ping did not open")
+        kwargs['fail_msg'] = "Ping dialog is not open"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def close_device_tool_ping(self):
+    def close_device_tool_ping(self, **kwargs):
         """
         - This keyword is used to close the device ping tool window
         - Keyword Usage:
@@ -979,11 +1030,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         if self.verify_device_tool_ping_is_open() == 1:
             self.utils.print_info("Could not close Ping dialog")
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Ping dialog is not close"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "Ping dialog is close"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def verify_device_tool_vlan_probe_is_open(self):
+    def verify_device_tool_vlan_probe_is_open(self, **kwargs):
         """
         - This keyword is used to verify the device VLAN Probe tool window is open
         - Keyword Usage:
@@ -993,13 +1048,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking that VLAN Probe dialog is open")
         if self.get_vlan_probe_view() is not None and self.get_vlan_probe_view().is_displayed():
+            kwargs['pass_msg'] = "VLAN Probe dialog is open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("VLAN Probe dialog is not open")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "VLAN Probe dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def wait_until_device_tool_vlan_probe_is_open(self, retry_duration=5, retry_count=20):
+    def wait_until_device_tool_vlan_probe_is_open(self, retry_duration=5, retry_count=20, **kwargs):
         """
         - This keyword is used to wait until the device VLAN Probe tool window is open
         - Keyword Usage:
@@ -1013,17 +1070,19 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         while count <= retry_count:
             self.utils.print_info(f"Checking that VLAN Probe dialog is open: loop {count}")
             if self.verify_device_tool_vlan_probe_is_open() == 1:
+                kwargs['fail_msg'] = "VLAN Probe dialog is open"
+                self.common_validation.failed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"VLAN Probe is not loaded yet. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        self.screen.save_screen_shot()
-        self.utils.print_info("VLAN Probe did not open")
+        kwargs['fail_msg'] = "VLAN Probe  did not open"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def close_device_tool_vlan_probe(self):
+    def close_device_tool_vlan_probe(self, **kwargs):
         """
         - This keyword is used to close the device VLAN Probe tool window
         - Keyword Usage:
@@ -1036,13 +1095,15 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         sleep(2)
 
         if self.verify_device_tool_vlan_probe_is_open() == 1:
-            self.utils.print_info("Could not close VLAN Probe dialog")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "VLAN Probe dialog could not close"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "VLAN Probe dialog is close"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def verify_select_stack_member_is_open(self):
+    def verify_select_stack_member_is_open(self, **kwargs):
         """
         - This keyword is used to verify the select stack member window is open
         - Keyword Usage:
@@ -1052,18 +1113,21 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         """
         self.utils.print_info("Checking that Select Stack Member dialog is open")
         if self.get_select_stack_member_view() is None:
-            self.utils.print_info("Select Stack Member dialog is not open")
+            kwargs['fail_msg'] = "Select Stack Member dialog is not open"
+            self.common_validation.failed(**kwargs)
             return -1
 
         if self.get_select_stack_member_view().is_displayed():
             self.screen.save_screen_shot()
+            kwargs['pass_msg'] = "Select Stack Member dialog is not open"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Select Stack Member dialog is not displayed")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Select Stack Member dialog is not displayed"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def close_select_stack_member(self):
+    def close_select_stack_member(self, **kwargs):
         """
         - This keyword is used to close the select stack member window
         - Keyword Usage:
@@ -1076,10 +1140,12 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         sleep(2)
 
         if self.verify_select_stack_member_is_open() == 1:
-            self.utils.print_info("Could not close Select Stack Member dialog")
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Select Stack Member dialog could not open"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
+            kwargs['pass_msg'] = "Select Stack Member dialog could open"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def is_device_tool_ping_available(self):

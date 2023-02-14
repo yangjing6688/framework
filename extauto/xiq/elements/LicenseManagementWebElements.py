@@ -1,6 +1,7 @@
-from extauto.xiq.defs.LicenseManagementWebElementsDefs import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.LicenseManagementWebElementsDefs import LicenseManagementWebElementsDefs
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class LicenseManagementWebElements(LicenseManagementWebElementsDefs):
@@ -178,7 +179,3 @@ class LicenseManagementWebElements(LicenseManagementWebElementsDefs):
 
     def get_account_successfully_linked(self):
         return self.weh.get_element(self.account_successfully_linked)
-
-
-
-

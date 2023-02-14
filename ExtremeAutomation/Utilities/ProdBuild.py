@@ -198,9 +198,9 @@ class BuildProd:
         browser_build_date = build_date if build_date is not None else None
 
         # Server Settings for authentication and URL
-        browser_url = "https://tracker.extremenetworks.com:8001";
-        browser_user = "tracker";  ################PUT YOUR (GENERIC) USER NAME HERE
-        browser_password = "tracker";  ################PUT YOUR (GENERIC) PASSWORD HERE
+        browser_url = "https://tracker.extremenetworks.com:8001"
+        browser_user = "tracker";  ################ PUT YOUR (GENERIC) USER NAME HERE
+        browser_password = "tracker";  ################ PUT YOUR (GENERIC) PASSWORD HERE
 
         # Test Tracker Access
         test_access = self.test_tracker_access(browser_url, browser_user, browser_password)

@@ -1,6 +1,6 @@
-from a3.defs.ConnProfileWebElementDefs import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from a3.defs.ConnProfileWebElementDefs import ConnProfileWebElementDefs
+from common.AutoActions import AutoActions
+from common.WebElementHandler import WebElementHandler
 
 
 class ConnProfileWebElements(ConnProfileWebElementDefs):
@@ -36,6 +36,3 @@ class ConnProfileWebElements(ConnProfileWebElementDefs):
             return grid_rows
         else:
             return False
-
-
-

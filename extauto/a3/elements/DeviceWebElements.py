@@ -1,6 +1,6 @@
-from a3.defs.DeviceWebElementDefs import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from a3.defs.DeviceWebElementDefs import DeviceWebElementDefs
+from common.AutoActions import AutoActions
+from common.WebElementHandler import WebElementHandler
 
 
 class DeviceWebElements(DeviceWebElementDefs):
@@ -10,6 +10,3 @@ class DeviceWebElements(DeviceWebElementDefs):
 
     def select_device_ui(self):
         return self.weh.get_element(self.device_ui)
-
-
-

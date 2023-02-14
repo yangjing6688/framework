@@ -1,9 +1,11 @@
-from time import sleep
 import datetime
+
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-from extauto.xiq.elements.EventsWebElements import *
-from extauto.xiq.flows.manage.Devices import *
+from extauto.common.Utils import Utils
+from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.elements.EventsWebElements import EventsWebElements
+from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
 
 class Events:
@@ -15,6 +17,7 @@ class Events:
         self.utils = Utils()
         self.devices = Devices()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
 
     def _get_events_grid_content(self):
         """
@@ -26,7 +29,7 @@ class Events:
         grid_content = self.EventsWebElements.get_events_content_grid()
         return grid_content
 
-    def verify_events_grid_details(self, mac=None, events_details=None, nav=0):
+    def verify_events_grid_details(self, mac=None, events_details=None, nav=0, **kwargs):
         """
         - This keyword checks if Events page grid contains the list of strings(events_details) provided as argument and it also checks for MAC.
         - Flow: Manage --> Events --> Checks for events details and MAC.
@@ -55,11 +58,15 @@ class Events:
                         self.utils.print_info("Event details and time match")
                         if mac:
                             if mac in row.text:
-                                self.utils.print_info("Events grid details verified")
+                                kwargs['pass_msg'] = "Events grid details verified"
+                                self.common_validation.passed(**kwargs)
                                 return 1
                         else:
-                            self.utils.print_info("Events grid details verified")
+                            kwargs['pass_msg'] = "Events grid details verified"
+                            self.common_validation.passed(**kwargs)
                             return 1
+        kwargs['fail_msg'] = "unsuccessfully verify events grid details"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def verify_events_pagination(self, events_details, nav=0):
@@ -84,7 +91,7 @@ class Events:
         self.utils.print_info("Pagination verified.")
         return res
 
-    def check_events_download(self):
+    def check_events_download(self, **kwargs):
         """
         - This keyword checks if download works on Events Page.
         - Flow: Manage --> Events --> Checks for Download.
@@ -98,9 +105,13 @@ class Events:
             download_btn = self.EventsWebElements.get_events_download_button()
             if download_btn.is_displayed() and download_btn.is_enabled():
                 self.auto_actions.click_reference(self.EventsWebElements.get_events_download_button)
-                self.utils.print_info("Events Download verified.")
+                kwargs['pass_msg'] = "Events Download verified."
+                self.common_validation.passed(**kwargs)
                 return 1
+            kwargs['fail_msg'] = "Events Download not verified."
+            self.common_validation.failed(**kwargs)
             return -1
         except Exception as e:
-            self.utils.print_info("Unable to verify Events Download", e)
+            kwargs['fail_msg'] = f"Unable to verify Events Download {e}"
+            self.common_validation.fault(**kwargs)
             return -1

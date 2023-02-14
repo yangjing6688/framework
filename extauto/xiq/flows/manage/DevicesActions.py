@@ -33,7 +33,7 @@ class DevicesActions:
         self.robot_built_in = BuiltIn()
         self.common_validation = CommonValidation()
 
-    def is_actions_button_enabled(self):
+    def is_actions_button_enabled(self, **kwargs):
         """
         - This keyword checks if the 'Actions' button is enabled within Manage > Devices view.
         - It is assumed that the Manage > Device view is open.
@@ -49,19 +49,19 @@ class DevicesActions:
             btn_state = actions_btn.get_attribute("class")
             self.utils.print_debug(f"'Actions' button Class value: {btn_state}")
             if "btn-disabled" in btn_state:
-                self.utils.print_info("The 'Actions' button is disabled.")
-                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "The 'Actions' button is disabled."
+                self.common_validation.failed(**kwargs)
                 ret_val = False
             else:
-                self.utils.print_info("The 'Actions' button is enabled.")
-                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = "The 'Actions' button is enabled."
+                self.common_validation.passed(**kwargs)
                 ret_val = True
         else:
             self.utils.print_info("Could not find the 'Actions' button.")
 
         return ret_val
 
-    def clear_audit_mismatch_on_device(self, device_serial):
+    def clear_audit_mismatch_on_device(self, device_serial, **kwargs):
         """
         - Assumes that already navigated to Manage --> Devices
         - This method Clear Audit Mismatch for the device matching the serial(s)
@@ -73,7 +73,7 @@ class DevicesActions:
         """
         self.utils.print_info("Clearing Device Audit Mismatch with serial: ", device_serial)
 
-        if self.devices.select_ap(device_serial):
+        if self.devices.select_device(device_serial=device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
@@ -81,10 +81,12 @@ class DevicesActions:
             self.utils.print_info("Selecting Clear Audit Mismatch menu item")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_clear_audit_mismatch_menu)
             sleep(2)
-
+            kwargs['pass_msg'] = "Successfully Selecting Clear Audit Mismatch menu item"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to Clear Audit Mismatch On Device ")
+            kwargs['fail_msg'] = "Unable to Clear Audit Mismatch On Device "
+            self.common_validation.failed(**kwargs)
             return -1
 
     def reset_devices_to_default(self, **kwargs):
@@ -239,7 +241,7 @@ class DevicesActions:
                     self.utils.print_info("success_list ", success_list)
         return failed_list, success_list
 
-    def select_device_utilities(self, *device_list):
+    def select_device_utilities(self, *device_list, **kwargs):
         """
         - This Keyword selects device utilities
         - Select the device row based on the passed device serial --> clicks on Utilities
@@ -253,7 +255,8 @@ class DevicesActions:
         select = False
         for device in device_list:
             if self.devices.select_device(device_serial=device):
-                self.utils.print_info(f"Selected device {device}")
+                kwargs['pass_msg'] = f"Selected device {device}"
+                self.common_validation.passed(**kwargs)
                 select = True
             else:
                 self.utils.print_info(f"Unable to select device {device}")
@@ -262,8 +265,12 @@ class DevicesActions:
             self.utils.print_info("Clicking on Utilities")
             self.auto_actions.click_reference(self.device_actions.get_device_utilities)
             sleep(2)
+            kwargs['pass_msg'] = "Successfully clicking on Utilities"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "UnSuccessfully clicking on Utilities"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def is_actions_relaunch_digital_twin_visible(self):
@@ -297,7 +304,7 @@ class DevicesActions:
         self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         return -1
 
-    def actions_relaunch_digital_twin(self, confirm="yes"):
+    def actions_relaunch_digital_twin(self, confirm="yes", **kwargs):
         """
         - This keyword clicks on the ACTIONS > Relaunch Digital Twin
         - It is assumed that the Manage > Device window is open and a Digital Twin device is selected.
@@ -315,9 +322,10 @@ class DevicesActions:
             hidden = relaunch_link.get_attribute("class")
             self.utils.print_info(f"'Relaunch Digital Twin' menu item Class value: {hidden}")
             if "fn-hidden" in hidden:
-                self.utils.print_info("The 'Relaunch Digital Twin' link is not displayed.")
+                kwargs['fail_msg'] = "The Relaunch Digital Twin link is not displayed."
                 self.utils.print_info("Closing Actions menu")
                 self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
+                self.common_validation.failed(**kwargs)
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Relaunch Digital Twin' link.")
@@ -329,11 +337,16 @@ class DevicesActions:
                     self.screen.save_screen_shot()
                     banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
                     if banner_text_error:
-                        self.utils.print_info(banner_text_error.text)
+                        kwargs['fail_msg'] = f"{banner_text_error.text}"
+                        self.common_validation.failed(**kwargs)
                         return -1
+                    kwargs['pass_msg'] = "Successfully Confirming the relaunch."
+                    self.common_validation.passed(**kwargs)
                     return 1
                 else:
                     self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_cancel_button)
+                    kwargs['pass_msg'] = "Confirm cancel button"
+                    self.common_validation.passed(**kwargs)
                     return 1
         else:
             self.utils.print_info("Could not find the 'Actions > Relaunch Digital Twin' link.")
@@ -371,7 +384,7 @@ class DevicesActions:
         self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         return -1
 
-    def actions_shutdown_digital_twin(self, confirm="yes"):
+    def actions_shutdown_digital_twin(self, confirm="yes", **kwargs):
         """
         - This keyword clicks on the ACTIONS > Shutdown Digital Twin
         - It is assumed that the Manage > Device window is open and a Digital Twin device is selected.
@@ -389,9 +402,10 @@ class DevicesActions:
             hidden = shutdown_link.get_attribute("class")
             self.utils.print_info(f"'Shutdown Digital Twin' menu item Class value: {hidden}")
             if "fn-hidden" in hidden:
-                self.utils.print_info("The 'Shutdown Digital Twin' link is not displayed.")
+                kwargs['fail_msg'] = "actions_shutdown_digital_twin() -> The 'Shutdown Digital Twin' link is not displayed."
                 self.utils.print_info("Closing Actions menu")
                 self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
+                self.common_validation.failed(**kwargs)
                 return -1
             else:
                 self.utils.print_info("Clicking the 'Shutdown Digital Twin' link.")
@@ -403,11 +417,16 @@ class DevicesActions:
                     self.screen.save_screen_shot()
                     banner_text_error = self.devices_web_elements.get_ui_banner_error_message()
                     if banner_text_error:
-                        self.utils.print_info(banner_text_error.text)
+                        kwargs['fail_msg'] = f"{banner_text_error.tex}"
+                        self.common_validation.failed(**kwargs)
                         return -1
+                    kwargs['pass_msg'] = "Successfully Confirming the shutdown."
+                    self.common_validation.passed(**kwargs)
                     return 1
                 else:
                     self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_cancel_button)
+                    kwargs['pass_msg'] = "Confirming the shutdown"
+                    self.common_validation.passed(**kwargs)
                     return 1
         else:
             self.utils.print_info("Could not find the 'Actions > Shutdown Digital Twin' link.")

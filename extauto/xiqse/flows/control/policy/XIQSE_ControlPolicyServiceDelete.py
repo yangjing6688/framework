@@ -51,7 +51,7 @@ class XIQSE_ControlPolicyServiceDelete(ControlPolicyServiceDeleteWebElements):
         ret_val = -1
         del_menu = self.get_delete_service_menu()
         if del_menu:
-            self.utils.print_info(f"Selecting 'Delete' menu option from the popup menu of a service")
+            self.utils.print_info("Selecting 'Delete' menu option from the popup menu of a service")
             self.auto_actions.click(del_menu)
             # check for the "Confirm Delete" window
             confirm_win = self.get_confirm_window()
@@ -59,7 +59,7 @@ class XIQSE_ControlPolicyServiceDelete(ControlPolicyServiceDeleteWebElements):
                 self._click_yes_button()
                 ret_val = 1
         else:
-            self.utils.print_info(f"Unable to locate 'Delete' menu option from the popup menu on a service")
+            self.utils.print_info("Unable to locate 'Delete' menu option from the popup menu on a service")
             self.screen.save_screen_shot()
         return ret_val
 
@@ -67,10 +67,10 @@ class XIQSE_ControlPolicyServiceDelete(ControlPolicyServiceDeleteWebElements):
         ret_val = -1
         yes_bttn = self.get_yes_button()
         if yes_bttn:
-            self.utils.print_info(f"Clicking the 'Yes' button in Confirm Delete dialog")
+            self.utils.print_info("Clicking the 'Yes' button in Confirm Delete dialog")
             self.auto_actions.click(yes_bttn)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to locate the 'Yes' button in Confirm Delete dialog")
+            self.utils.print_info("Unable to locate the 'Yes' button in Confirm Delete dialog")
             self.screen.save_screen_shot()
         return ret_val

@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.connect.configuration.ConnectConfigWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.connect.configuration.ConnectConfigWebElementsDefinitions import ConnectConfigWebElementsDefinitions
 
 
 class ConnectConfigWebElements(ConnectConfigWebElementsDefinitions):
