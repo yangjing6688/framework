@@ -1717,13 +1717,16 @@ class Devices:
 
         # Preventing an unnecessary click here fixes the problem seen in aiq2618
         # We are planning to rework logic
-        if device_type.lower() != "simulated":
+        if device_type.lower() == "real":
             if self.search_device(device_serial=device_serial, ignore_failure=True) == -1:
                 self.utils.print_info("Clicking on ADD DEVICES button...")
                 self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
                 self.screen.save_screen_shot()
                 sleep(2)
+            else:  # Search Device found matching Serial Number, cancel "Add Device"
+                self.utils.print_info("Click the Quick Add Devices > Cancel button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
         else:
             self.utils.print_info("Clicking on ADD DEVICES button...")
             self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
