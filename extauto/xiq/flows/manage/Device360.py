@@ -15415,3 +15415,49 @@ class Device360(Device360WebElements):
          - ``Select Monitor Diagnostics Port Details table``
         """
         self.auto_actions.click_reference(self.get_device360_diagnostics_port_details_refresh_button)
+    def configure_vlan_range_d360(self, dut, port_numbers, vlan_range, **kwargs):
+        """Method that configures given ports as trunk port with specific trunk vlan id.
+
+        Currently this method supports only switches with cli_type - exos.
+        
+        Args:
+            dut (dict): the dut, e.g. tb.dut1
+            ports (str): the ports that will be configured - e.g. '1,3,5,10'
+            vlan_range (str): trunk vlan id values - e.g.  '400-500'
+
+        Returns:
+            int: 1 if the function call has succeeded else -1
+
+        """
+        supported_devices = ["EXOS"]
+
+        if dut.cli_type.upper() not in supported_devices:
+            kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
+            self.common_validation.fault(**kwargs)
+            return -1
+        
+        if dut.cli_type.upper() == "EXOS":
+            if dut.platform.upper() == 'STACK':
+
+                for slot in range(1, len(dut.serial.split(',')) + 1):
+                    self.navigator.navigate_to_devices()
+                    self.dev.refresh_devices_page()
+                    self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+                    self.navigator.navigate_to_port_configuration_d360()
+                    self.select_stack_unit(slot)
+                    self.device360_configure_ports_trunk_stack(
+                        port_numbers=port_numbers, trunk_native_vlan="1", trunk_vlan_id=vlan_range, slot=slot)
+            else:
+                
+                self.navigator.navigate_to_devices()
+                self.dev.refresh_devices_page()
+                self.navigator.navigate_to_device360_page_with_mac(dut.mac)
+                self.navigator.navigate_to_port_configuration_d360()
+                self.device360_configure_ports_trunk_vlan(
+                    port_numbers=port_numbers, trunk_native_vlan="1", trunk_vlan_id=vlan_range)
+        
+        self.dev.refresh_devices_page()
+
+        kwargs["pass_msg"] = "Successfully configured the ports"
+        self.common_validation.passed(**kwargs)
+        return 1
