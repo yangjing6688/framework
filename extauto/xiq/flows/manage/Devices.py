@@ -12472,3 +12472,60 @@ class Devices:
         if return_value == 1:
             return_value = self.update_switch_policy_and_configuration(device_serial)
         return return_value
+
+    def get_device_latest_version(self, dut, **kwargs):
+        """
+        - This method is used to get the device latest version
+        - dut - dut from .yaml testbed file (ex: ap1, netelem1}
+        - Keyword Usage:
+        - ``Get Device Latest Version   ${device1}``
+
+        :return: returned_version of the device
+        """
+        latest_version = -1
+        device_selected = False
+
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+        self.refresh_devices_page()
+        if self.select_device(device_mac=dut.mac):
+            device_selected = True
+        elif self.select_device(device_serial=dut.serial):
+            device_selected = True
+
+        if device_selected:
+            self.utils.print_info("Selecting Update Devices button")
+            self.auto_actions.click_reference(self.device_update.get_update_devices_button)
+
+            found_element_upnp = None
+            for tries in range(10):
+                found_element_upnp = self.devices_web_elements.get_devices_switch_update_network_policy()
+                if found_element_upnp:
+                    break
+                sleep(1)
+            if found_element_upnp.is_selected():
+                self.utils.print_info("uncheck the update configuration checkbox")
+                self.auto_actions.click(found_element_upnp)
+
+            self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
+
+            self.utils.print_info("Selecting upgrade to latest version checkbox")
+            self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
+
+            found_element_latest_version = None
+            for tries in range(10):
+                found_element_latest_version = self.device_update.get_latest_version()
+                if found_element_latest_version:
+                    break
+                sleep(1)
+
+            latest_version = found_element_latest_version
+            self.utils.print_info("Device Latest Version: ", latest_version)
+            self.auto_actions.click_reference(self.device_update.get_update_close_button)
+            return latest_version
+
+        kwargs['fail_msg'] = f"get_device_latest_version() failed. Device using MAC: {dut.mac} " \
+                             f"or serial number: {dut.serial} was not found thus failed to get it"
+        self.common_validation.failed(**kwargs)
+        return latest_version
