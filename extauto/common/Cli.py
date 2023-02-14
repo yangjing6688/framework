@@ -2691,19 +2691,16 @@ class Cli(object):
         :return: -1 if error
         """
         if dut.cli_type.upper() != "EXOS":
-            kwargs["fail_msg"] = "'show_maclocking_on_the_ports_in_cli()' failed. Wrong cli_type"
-            self.commonValidation.failed(**kwargs)
-
-        #self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+            kwargs["fail_msg"] = "Wrong cli_type"
+            self.commonValidation.fault(**kwargs)
         self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
                                             max_wait=10, interval=2)
         output = self.networkElementCliSend.send_cmd(dut.name, 'show mac-locking',
                                                      max_wait=10, interval=2)
-        #self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
         p = re.compile(r'(^\d+)\s+(ena|dis)', re.M)
         match_port_mac_locking_state = re.findall(p, output[0].return_text)
         self.utils.print_info(f"{match_port_mac_locking_state}")
-        kwargs["pass_msg"] = "'show_maclocking_on_the_ports_in_cli()' passed. Collected CLI MAC info."
+        kwargs["pass_msg"] = "Collected CLI MAC info."
         self.commonValidation.passed(**kwargs)
         return match_port_mac_locking_state
 
