@@ -1,5 +1,6 @@
 from pytest_testconfig import config, load_yaml
 from ExtremeAutomation.Imports.pytestConfigHelper import PytestConfigHelper
+from ExtremeAutomation.Library.Utils.TestVersionUtils import JobsSuitesVersions
 from pytest import mark
 from pytest import fixture
 import pytest
@@ -11,9 +12,14 @@ from pprint import pprint
 from ExtremeAutomation.Imports.pytestExecutionHelper import PytestExecutionHelper
 from ExtremeAutomation.Imports.XiqLibrary import XiqLibrary
 from ExtremeAutomation.Imports.XiqLibraryHelper import XiqLibraryHelper
+from robot.libraries.BuiltIn import BuiltIn
+from extauto.common.Utils import Utils
+
 
 @mark.testbed_none
 class DefaultTests():
+
+    default_type = 'XIQ'
 
     @classmethod
     def setup_class(cls):
@@ -32,7 +38,7 @@ class DefaultTests():
 
             cls.job_suite_uuid = cls.cfg.get('job_suite_uuid', None)
             if not cls.job_suite_uuid:
-                raise Exception('Missing the command line argument -DjobSuite_uuid=<uuid>')
+                raise Exception('Missing the command line argument --job_suite_uuid=<uuid>')
 
             # Create the new object for the XIQ / XIQSE Libraries
             cls.xiq = XiqLibrary()
@@ -56,14 +62,26 @@ class DefaultTests():
         '''[Documentation]  Test_Objective: Get the XIQ name and version '''
         data_center_name = self.xiq.login.get_data_center_name()
         xiq_version = self.xiq.login.get_xiq_version()
+
         # XAPI Keyword
         print(f"The Data Center Name found: {data_center_name}")
+
         # No XAPI keyword support for this one
         print(f"The XIQ Version found: {xiq_version}")
 
         # Here we need to call a keyword to update the database with the information above:
         # user this self.job_suite_uuid to get the UUID
-
+        print("The job_suite_uuid is: ", self.job_suite_uuid)
+        print("The Type is:", self.default_type)
+        print("Storing data ::JobsSuitesVersions() ...")
+        post_data = {
+            "name": data_center_name,
+            "version": xiq_version,
+            "type": self.default_type,
+            "jobsSuites_uuid": self.job_suite_uuid
+        }
+        cls = JobsSuitesVersions()
+        print(cls.post(**post_data))
 
 
     # Future for test beds
