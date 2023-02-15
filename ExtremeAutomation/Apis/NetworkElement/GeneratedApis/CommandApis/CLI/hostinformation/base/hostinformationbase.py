@@ -38,3 +38,6 @@ class HostinformationBase(CliBaseApi):
 
     def show_app_iqagent(self, *args, **kwargs):
         return self.base_function()
+
+    def show_system_software_version(self, *args, **kwargs):
+        return self.base_function()
