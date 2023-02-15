@@ -1637,19 +1637,6 @@ class Devices:
                                                       **kwargs) == -1:
             return -1
 
-        # Fix for aiq2618, prevents unnecessary clicks
-        # We are planning to rework logic
-        if 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
-            self.utils.print_info("Onboarding: ", device_make)
-            return_value = self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
-            if return_value == 1:
-                kwargs['pass_msg'] = f"Successfully Onboarded a stack of exos Device(s) with serial numbers {device_serial}"
-                self.common_validation.passed(**kwargs)
-            else:
-                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {device_serial}"
-                self.common_validation.failed(**kwargs)
-            return return_value
-
         self.utils.print_info("Onboarding: ", device_make)
         self.navigator.navigate_to_devices()
 
@@ -1717,22 +1704,28 @@ class Devices:
 
         # Preventing an unnecessary click here fixes the problem seen in aiq2618
         # We are planning to rework logic
-        if device_type.lower() == "real":
-            if self.search_device(device_serial=device_serial, ignore_failure=True) == -1:
-                self.utils.print_info("Clicking on ADD DEVICES button...")
-                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
+        #if device_type.lower() == "real":
+        #    if self.search_device(device_serial=device_serial, ignore_failure=True) == -1:
+        #        self.utils.print_info("Clicking on ADD DEVICES button...")
+        #        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
-                self.screen.save_screen_shot()
-                sleep(2)
-            else:  # Search Device found matching Serial Number, cancel "Add Device"
-                self.utils.print_info("Click the Quick Add Devices > Cancel button")
-                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-        else:
-            self.utils.print_info("Clicking on ADD DEVICES button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
+        #        self.screen.save_screen_shot()
+        #        sleep(2)
+        #    else:  # Search Device found matching Serial Number, cancel "Add Device"
+        #        self.utils.print_info("Click the Quick Add Devices > Cancel button")
+        #        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
+        #else:
+        #    self.utils.print_info("Clicking on ADD DEVICES button...")
+        #    self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
-            self.screen.save_screen_shot()
-            sleep(2)
+        #    self.screen.save_screen_shot()
+        #    sleep(2)
+
+        self.utils.print_info("Clicking on ADD DEVICES button...")
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
+
+        self.screen.save_screen_shot()
+        sleep(2)
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
@@ -1973,6 +1966,7 @@ class Devices:
                 self.screen.save_screen_shot()
 
         elif 'Dell' in device_make:
+            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
 
@@ -1984,6 +1978,7 @@ class Devices:
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
 
         elif 'Universal Appliance' in device_make:
+            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
             _errors = self.check_negative_combinations()
@@ -1991,15 +1986,26 @@ class Devices:
                 return _errors
 
         elif 'XMC' in device_make.upper():
+            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
 
-        elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
-            return self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make,
-                                         location=location)
+        elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper() or 'WING' in device_make_upper():
+            self.utils.print_info("Selecting Device Make Controller")
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_drop_down)
+            sleep(2)
+
+            self.utils.print_info("Selecting Device Make: ", device_make)
+            self.auto_actions.select_drop_down_options(
+            self.devices_web_elements.get_device_make_drop_down_options(), "CONTROLLERS")
+            self.auto_actions.send_keys(self.devices_web_elements.get_wing_devices_mac_text_area(), device_mac)
+
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
 
         if 'DUAL BOOT' in device_make.upper():
             return self._onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
