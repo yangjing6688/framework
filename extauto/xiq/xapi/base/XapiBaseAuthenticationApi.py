@@ -57,28 +57,8 @@ class XapiBaseAuthenticationApi(XapiBase):
             api_instance = self.extremecloudiq.AuthenticationApi(api_client)
             try:
                 api_response = api_instance.login(**kwargs)
-                # If the _async is True, we will use the Long Runnning Operation methods
-                if kwargs.get('_async', False):
-                    # Get the ID
-                    operation_id = self.getLongRunningOperationId(api_response)
-                    # Query the ID until completed
-                    returnValue = self.getAsyncLongRunningOperation(operation_id)
-                    if returnValue:
-                        kwargs['pass_msg'] = f"returned: {returnValue}"
-                        self.xapiHelper.common_validation.passed(**kwargs)
-                        return returnValue
-                    else:
-                        kwargs['fail_msg'] = f"getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
-                        return -1
-                else:
-                    # Make sure this isn't a async call because the thread will be returned and the
-                    # api_response is not None
-                    if not kwargs.get('async_req', False) and api_response:
-                        # Non async call, check the http return
-                        self.valid_http_response(api_response)
-                    self.xapiHelper.common_validation.passed(**kwargs)
-                    return api_response
+                self.xapiHelper.common_validation.passed(**kwargs)
+                return api_response
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"

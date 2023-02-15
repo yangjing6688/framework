@@ -1,7 +1,16 @@
 import time
 from extauto.xiq.xapi.XapiBase import XapiBase
+from extauto.xiq.xapi.base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
+from extauto.xiq.xapi.base.XapiBaseAuthenticationApi import XapiBaseAuthenticationApi
+from extauto.xiq.xapi.base.XapiBaseAccountApi import XapiBaseAccountApi
 
 class XapiLogin(XapiBase):
+
+    def __init__(self):
+        super().__init__()
+        self.xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
+        self.xapiBaseAuthenticationApi = XapiBaseAuthenticationApi()
+        self.xapiBaseAccountApi = XapiBaseAccountApi()
 
     def login(self, username, password, **kwargs):
         """
@@ -12,84 +21,63 @@ class XapiLogin(XapiBase):
            :param password - The password for the XIQ instance
            :return: 1 if success or -1 if failure
        """
-        return_code = -1
-
-        # get the xapi URL from the global variables
-        xapi_url = self.xapiHelper.get_xapi_url()
-
         # Login information
+        xapi_url = self.xapiHelper.get_xapi_url()
         configuration = self.extremecloudiq.Configuration(
             host=xapi_url,
             username=username,
             password=password
         )
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.AuthenticationApi(api_client)
+        # Set the base configuration
+        self.xapiHelper.set_xapi_configuration(configuration)
 
-            xiq_login_request = {"username": username,
-                                 "password": password}
+        xiq_login_request = {"username": username,
+                             "password": password}
 
-            try:
-                # User login with username and password
-                api_response = api_instance.login(xiq_login_request)
-                self.utils.print_info(api_response)
-                configuration.access_token = api_response.access_token
-                self.xapiHelper.set_xapi_configuration(configuration)
-            except self.ApiException as e:
-                self.utils.print_info("Exception when calling AuthenticationApi->login: %s\n" % e)
-                self.xapiHelper.common_validation.failed(**kwargs)
-                return -1
+        returnValue = self.xapiBaseAuthenticationApi.xapi_base_login(xiq_login_request=xiq_login_request)
+        if returnValue != -1:
+            configuration.access_token = api_response.access_token
+            # Set the configuration with the token
+            self.xapiHelper.set_xapi_configuration(configuration)
+        else:
+            kwargs['fail_msg'] = "Error when calling AuthenticationApi->login"
+            self.xapiHelper.common_validation.failed(**kwargs)
+            return -1
 
         # Get the new configuration Object and generate a new token
-        configuration = self.xapiHelper.get_xapi_configuration()
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.AuthorizationApi(api_client)
-            xiq_generate_api_token_request = {"description": "Token for Automation Test",
-                                              "expire_time": None, "permissions": []}
-            try:
-                # Generate new API token
-                api_response = api_instance.generate_api_token(xiq_generate_api_token_request)
-                self.utils.print_info(api_response)
-                configuration.access_token = api_response.access_token
-                self.xapiHelper.set_xapi_configuration(configuration)
-                self.xapiHelper.common_validation.passed(**kwargs)
-                return 1
-            except self.ApiException as e:
-                self.utils.print_error("Exception when calling AuthorizationApi->generate_api_token: %s\n" % e)
+        xiq_generate_api_token_request = {"description": "Token for Automation Test",
+                                          "expire_time": None, "permissions": []}
+        auth = self.xapiBaseAuthorizationApi.xapi_base_generate_api_token(xiq_generate_api_token_request)
+        if auth != -1:
+            configuration.access_token = api_response.access_token
+            # Set the configuration with the new token
+            self.xapiHelper.set_xapi_configuration(configuration)
+            kwargs['pass_msg'] = 'User was logged in and token was generated'
+            self.xapiHelper.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = 'Token was not generated'
+            self.xapiHelper.common_validation.failed(**kwargs)
+            return -1
 
-        self.xapiHelper.common_validation.failed(**kwargs)
-        return -1
+
 
     def logout(self,  **kwargs):
         """
            - logout of the XIQ instance and return
            :return: 1 if success or -1 if failure
         """
-        return_code = -1
-
-        # get the xapi URL from the global variables
-        xapi_url = self.xapiHelper.get_xapi_url()
-
-        configuration = self.xapiHelper.get_xapi_configuration()
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.AuthenticationApi(api_client)
-
-            try:
-                # logout
-                api_response = api_instance.logout()
-                self.utils.print_info(api_response)
-                configuration.access_token = None
-                self.xapiHelper.set_xapi_configuration(configuration)
-                self.xapiHelper.common_validation.passed(**kwargs)
-                return 1
-            except self.ApiException as e:
-                self.utils.print_error("Exception when calling AuthenticationApi->login: %s\n" % e)
-
-        self.xapiHelper.common_validation.failed(**kwargs)
-        return -1
+        auth = self.xapiBaseAuthenticationApi.xapi_base_logout()
+        if auth != -1:
+            configuration.access_token = None
+            self.xapiHelper.set_xapi_configuration(configuration)
+            kwargs['pass_msg'] = 'User was logged out'
+            self.xapiHelper.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['pass_msg'] = 'Failed to log out user'
+            self.xapiHelper.common_validation.failed(**kwargs)
+            return -1
 
     def xapi_capture_data_center_name(self, **kwargs):
         """
@@ -97,23 +85,14 @@ class XapiLogin(XapiBase):
         :param kwargs: kwargs
         :return: XIQ instance name or 'Unknown' if there was an error
         """
-        # get the xapi URL from the global variables
-        xapi_url = self.xapiHelper.get_xapi_url()
-
-        configuration = self.xapiHelper.get_xapi_configuration()
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.AccountApi(api_client)
-
-            try:
-                # get the data
-                api_response = api_instance.get_home_account()
-                self.utils.print_info(api_response.name)
-                return api_response.name
-            except self.ApiException as e:
-                self.utils.print_error("Exception when calling AuthenticationApi->login: %s\n" % e)
-        self.xapiHelper.common_validation.failed(**kwargs)
-        return 'Unknown'
+        api_response = self.xapiBaseAccountApi.xapi_base_get_home_account()
+        if api_responce != -1:
+            kwargs['pass_msg'] = f'Got data center name: {api_response.name}'
+            self.xapiHelper.common_validation.passed(**kwargs)
+            return api_response.name
+        else:
+            kwargs['pass_msg'] = f'Failed to get data center name'
+            self.xapiHelper.common_validation.failed(**kwargs)
 
     # def xapi_capture_xiq_version(self, **kwargs):
     #     """

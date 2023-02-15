@@ -48,7 +48,10 @@ class parseXAPI:
             doc_string = '"""\n' + self.tab + self.tab + doc_string.replace('\n', '\n' + self.tab + self.tab) + '\n'+ self.tab + self.tab + '"""\n'
 
             # Read in the function definition file
-            with open('base_generated_function_definition.txt') as file:
+            file_name = 'base_generated_function_definition.txt'
+            if functionNode.name == 'login' and xapi_class_name == 'AuthenticationApi':
+                file_name = 'base_login_function_definition.txt'
+            with open(file_name) as file:
                 file_contents = file.read()
                 file_contents = file_contents.replace('{FUNCTION_NAME}', 'xapi_base_' + functionNode.name)
                 file_contents = file_contents.replace('{COMMMENT_HEADER}', doc_string )

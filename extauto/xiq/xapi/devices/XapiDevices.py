@@ -4,6 +4,7 @@ import json
 from extauto.xiq.xapi.base.XapiBaseDeviceApi import XapiBaseDeviceApi
 from extauto.xiq.xapi.XapiBase import XapiBase
 
+
 class XapiDevices(XapiBase):
 
     def __init__(self):
