@@ -2540,15 +2540,29 @@ class Devices:
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def search_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def search_device(self, device_serial=None, device_name=None, device_mac=None, select_device=False, **kwargs):
         """
-        - Searches for the device matching either one of serial, name or MAC
+        - Searches for the device using serial, name, MAC and selects it if desired
 
-        :param device_serial: device Serial
-        :param device_name: device Name
-        :param device_mac: device MAC
+        :param device_serial: serial number of the device
+        :param device_name: name of the device
+        :param device_mac: MAC of the device
+        :param select_device: True - to select the device, default set to False
+
         :return: 1 if device found else -1
         """
+
+        device_keys = {}
+        if device_mac:
+            device_keys['device_mac'] = device_mac
+        if device_serial:
+            device_keys['device_serial'] = device_serial
+        if device_name:
+            device_keys['device_name'] = device_name
+        if len(device_keys.keys()) == 0:
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: device_serial, device_name, or device_mac!"
+            self.common_validation.fault(**kwargs)
+            return -1
 
         # navigate to devices page
         self.navigator.navigate_to_devices()
@@ -2559,14 +2573,6 @@ class Devices:
         if pageOne != None:
             self.utils.print_info("Clicking on Page 1 in devices page.")
             self.auto_actions.click(pageOne)
-
-        if not device_serial and device_mac and device_name:
-            kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
-            self.common_validation.fault(**kwargs)
-            return -1
-        else:
-            self.utils.print_info("Searching for the device matching either one of serial, name or MAC!")
-            self.utils.print_info(f"device_serial:  '{device_serial}' , device_name: '{device_name}', device_mac: '{device_mac}'")
 
         device_page_numbers = self.devices_web_elements.get_page_numbers()
         if device_page_numbers.text:
@@ -2582,24 +2588,18 @@ class Devices:
                 rows = self.devices_web_elements.get_grid_rows()
                 if rows:
                     self.utils.print_debug(f"Searching {len(rows)} rows")
-                    for row in rows:
-                        self.utils.print_info("row data: ", self.format_row(row.text))
-                        if device_serial:
-                            if device_serial in row.text:
-                                kwargs['pass_msg'] = f"Found device with serial number: {device_serial}"
+                    for key, value in device_keys.items():
+                        self.utils.print_info(f"Searching for the device using {key} : {value}")
+                        for row in rows:
+                            self.utils.print_info("row data: ", self.format_row(row.text))
+                            if value in row.text:
+                                kwargs['pass_msg'] = f"Found device with {key}: {value}"
+                                if select_device:
+                                    self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                                    self.screen.save_screen_shot()
+                                    kwargs['pass_msg'] = f"Found and selected device with {key}: {value}"
                                 self.common_validation.passed(**kwargs)
                                 return 1
-                        elif device_mac:
-                            if device_mac in row.text:
-                                kwargs['pass_msg'] = f"Found device with MAC: {device_mac}"
-                                self.common_validation.passed(**kwargs)
-                                return 1
-                        elif device_name:
-                            if device_name in row.text:
-                                kwargs['pass_msg'] = f"Found device with name: {device_name}"
-                                self.common_validation.passed(**kwargs)
-                                return 1
-
                 else:
                     self.utils.print_debug(f"No rows returned for page #{page_num}")
                 page_len = page_len - 1
@@ -2609,18 +2609,10 @@ class Devices:
                     self.auto_actions.click_reference(self.devices_web_elements.get_grid_rows_next)
                     sleep(5)
 
-            if device_serial:
-                kwargs['fail_msg'] = f"Did not find device row with serial {device_serial}"
-                self.common_validation.failed(**kwargs)
-                return -1
-            if device_name:
-                kwargs['fail_msg'] = f"Did not find device row with name {device_name}"
-                self.common_validation.failed(**kwargs)
-                return -1
-            if device_mac:
-                kwargs['fail_msg'] = f"Did not find device row with mac {device_mac}"
-                self.common_validation.failed(**kwargs)
-                return -1
+            kwargs['fail_msg'] = f"Did not find device row with {device_keys}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
         except StaleElementReferenceException:
             self.utils.print_info(f"Handling StaleElementReferenceException - loop {page_len}")
 
