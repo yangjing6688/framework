@@ -1700,7 +1700,7 @@ class Devices:
                 self.auto_actions.select_drop_down_options(
                     self.devices_web_elements.get_device_make_drop_down_options(), device_make)
 
-        if location and device_type.lower() != "digital twin":
+        if location and self.devices_web_elements.get_location_button().is_displayed():
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
             self.screen.save_screen_shot()
@@ -1895,40 +1895,53 @@ class Devices:
                 return -1
         return 1
 
-    def set_onboard_values_for_real(self, device_serial, device_make, entry_type, device_os, service_tag, device_mac,
-                                    location):
+    def set_onboard_values_for_real(self, device_serial, device_make, entry_type, device_os, service_tag, device_mac, location):
         """
         This method is create for onboard device with device_type == Real
         """
 
         self.auto_actions.click_reference(self.devices_web_elements.get_device_type_real_radio_button)
 
+        if entry_type:
+            if 'Manual' in entry_type:
+                self.utils.print_info("Selecting Entry Type : Manual")
+                self.auto_actions.click_reference(self.devices_web_elements.get_entry_type_manual_radio_button)
+
         self.utils.print_info("Entering Serial Number...", device_serial)
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
         sleep(5)
 
+        # Depending of the serial number enter the user will see 2 options
+        # 1 - Drop Down menu
+        # 2 - radio buttons one for 'Cloud IQ Engine' and one for 'WING'
+        # Check to see if the drop-down-menu is present if it is use else click on one of the radio buttons
         if 'Extreme - Aerohive' in device_make:
-            if entry_type:
-                if 'Manual' in entry_type:
-                    self.auto_actions.click_reference(self.devices_web_elements.get_entry_type_manual_radio_button)
-
-            self.utils.print_info("Entering Serial Number...")
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
-
-            if self.devices_web_elements.get_device_os_radio():
-                self.utils.print_info("Verify Cloud IQ Engine Device OS Radio Button Status")
-                device_os = self.devices_web_elements.get_device_os_radio().text
-                self.utils.print_info("Device OS: ", device_os)
-                if 'Cloud IQ Engine' in device_os:
-                    self.utils.print_info("Device OS matched")
-                else:
-                    self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_os_radio)
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
+                self.utils.print_info("Selecting Device Type : Extreme - Aerohive")
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
+                                                           , "Extreme - Aerohive")
+                self.screen.save_screen_shot()
+            else:
+                if self.devices_web_elements.get_device_os_radio():
+                    self.utils.print_info("Verify Cloud IQ Engine Device OS Radio Button Status")
+                    device_os = self.devices_web_elements.get_device_os_radio().text
+                    self.utils.print_info("Device OS: ", device_os)
+                    if 'Cloud IQ Engine' in device_os:
+                        self.utils.print_info("Device OS matched")
+                    else:
+                        self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
+                        self.auto_actions.click_reference(self.devices_web_elements.get_device_os_radio)
+                    self.screen.save_screen_shot()
 
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
-        # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
+
+        # Depending of the serial number enter the user will see 2 options
+        # 1 - Drop Down menu
+        # 2 - radio buttons one for SwitchEngine and one for FabricEngine
+        # Check to see if the drop-down-menu is present if it is use else click on one of the radio buttons
         elif "VOSS" in device_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS/Fabric Engine")
             if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
@@ -1991,15 +2004,6 @@ class Devices:
         if 'DUAL BOOT' in device_make.upper():
             return self._onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
 
-        if device_make:
-            sleep(5)
-            self.utils.print_info("Verifying Device Make...")
-            ui_device_make = self.devices_web_elements.get_device_make_dropdownoption().text
-            self.utils.print_info("Device Make from UI: ", ui_device_make)
-            if device_make in ui_device_make:
-                self.utils.print_info("Device Make matched")
-            else:
-                self.utils.print_info("Device Make NOT matched")
         return 1
 
     def set_onboard_values_for_simulated(self, device_model, device_count):
