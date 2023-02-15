@@ -47,10 +47,6 @@ class XapiBaseAuthenticationApi(XapiBase):
         configuration = self.xapiHelper.get_xapi_configuration()
         api_response = None
 
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
-
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class

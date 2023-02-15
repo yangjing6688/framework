@@ -34,8 +34,8 @@ class XapiLogin(XapiBase):
         xiq_login_request = {"username": username,
                              "password": password}
 
-        returnValue = self.xapiBaseAuthenticationApi.xapi_base_login(xiq_login_request=xiq_login_request)
-        if returnValue != -1:
+        api_response = self.xapiBaseAuthenticationApi.xapi_base_login(xiq_login_request=xiq_login_request)
+        if api_response != -1:
             configuration.access_token = api_response.access_token
             # Set the configuration with the token
             self.xapiHelper.set_xapi_configuration(configuration)
@@ -47,8 +47,8 @@ class XapiLogin(XapiBase):
         # Get the new configuration Object and generate a new token
         xiq_generate_api_token_request = {"description": "Token for Automation Test",
                                           "expire_time": None, "permissions": []}
-        auth = self.xapiBaseAuthorizationApi.xapi_base_generate_api_token(xiq_generate_api_token_request)
-        if auth != -1:
+        api_response = self.xapiBaseAuthorizationApi.xapi_base_generate_api_token(xiq_generate_api_token_request=xiq_generate_api_token_request)
+        if api_response != -1:
             configuration.access_token = api_response.access_token
             # Set the configuration with the new token
             self.xapiHelper.set_xapi_configuration(configuration)

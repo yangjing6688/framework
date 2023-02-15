@@ -47,7 +47,7 @@ class parseXAPI:
 
             doc_string = '"""\n' + self.tab + self.tab + doc_string.replace('\n', '\n' + self.tab + self.tab) + '\n'+ self.tab + self.tab + '"""\n'
 
-            # Read in the function definition file
+            # Read in the function definition file the login file is di
             file_name = 'base_generated_function_definition.txt'
             if functionNode.name == 'login' and xapi_class_name == 'AuthenticationApi':
                 file_name = 'base_login_function_definition.txt'

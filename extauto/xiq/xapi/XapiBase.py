@@ -1,5 +1,6 @@
 import time
 import json
+from typing import cast
 from extauto.xiq.xapi.XapiHelper import XapiHelper
 from extauto.common.Utils import Utils
 
@@ -52,8 +53,10 @@ class XapiBase(object):
         if not api_response:
             raise Exception(
                 f'ERROR: valid_http_response -> HTTPResponse is None')
-        elif api_response.status != 200 and api_response.status != 201:
-            raise Exception(f'ERROR: valid_http_response -> HTTPResponse status returned failure: {api_response.status}')
+        # Make sure we have a status to check
+        elif 'status' in api_response.__dict__.keys():
+            if api_response.status != 200 and api_response.status != 201:
+                raise Exception(f'ERROR: valid_http_response -> HTTPResponse status returned failure: {api_response.status}')
         return True
 
     def getLongRunningOperationId(self, response):
