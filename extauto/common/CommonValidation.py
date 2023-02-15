@@ -1,3 +1,5 @@
+from inspect import currentframe
+
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.Logging import Logging
@@ -14,42 +16,6 @@ class CommonValidation():
         self.utils = Utils()
         self.screen = Screen()
 
-    def fault(self, **kwargs):
-        """
-        Description: This method is used to raise an error and fail a test unconditionally.  This method should be
-           called whenever there is an error in a keyword that cannot be worked around.  For example if as part of
-           a keyword implementation we need to navigate to a page but were unable to navigate.
-
-           A keyword fault differs from a failure in that the fault means the keyword was unable perform an action that
-           is required to be performed before the ultimate keyword does its job.  For example:  For a "login user"
-           keyword a fault would occur if the test could not enter the login credentials.  It would be considered a
-           failure if the test could enter the credentials but was unable to log in.
-
-        :param kwargs: A dictionary that contains the message to print when raising an error due to a keyword fault
-        :return: This method does not return because it will raise an error causing the test to fail.
-        """
-
-        # Get the message that will be printed
-        default_fail_msg = "[IRV] A fault occurred while running the keyword"
-        fail_msg = self.get_kwarg(kwargs, "fail_msg", default_fail_msg)
-
-        # Raise an error to cause the test to fail
-        self._raise_error(fail_msg)
-    def _raise_error(self, fail_msg):
-        """
-        Description:  The method raises an error causing the test to fail.  It also prints a failure message
-            and captures a screenshot.
-
-        :param fail_msg: The message to print to the test log before raising an error
-        :return: This method causes an error and does not return
-        """
-        # Print the error message
-        # Added screen capture in case of errors or problems
-        self.screen.save_screen_shot()
-
-        # Raise an exception for pytest and robot
-        raise Exception(fail_msg)
-
     def validate(self, value, expectedValue, **kwargs):
         """
         Description: Validate the input values for framework
@@ -62,16 +28,22 @@ class CommonValidation():
             ignore_failure = Same as 'ignore_cli_feedback'
             expect_error = verifies that a failure was returned by the keyword
             expect_failure = Same as 'expect_error'
+            calling_function = The name of the function that called IRV
         """
         test_result = False
-        ivr_flag = self.get_kwarg(kwargs, "IRV", True)
+        irv_flag = kwargs.get("IRV", True)
 
-        if ivr_flag:
+        if irv_flag:
             self.logger.info("Internal Result Verification [IRV] is: Enabled")
-            default_fail_msg = "[IRV] The keyword failed expectations"
-            default_pass_msg = "[IRV] The keyword passed expectations"
-            fail_msg = self.get_kwarg(kwargs, "fail_msg", default_fail_msg)
-            pass_msg = self.get_kwarg(kwargs, "pass_msg", default_pass_msg)
+            fail_msg = kwargs.get("fail_msg", "The keyword failed expectations")
+            pass_msg = kwargs.get("pass_msg", "The keyword passed expectations")
+            calling_function = kwargs.get("calling_function", "")
+            if calling_function:
+                fail_msg = f"[IRV] {calling_function}() -> {fail_msg}"
+                pass_msg = f"[IRV] {calling_function}() -> {pass_msg}"
+            else:
+                fail_msg = f"[IRV] {fail_msg}"
+                pass_msg = f"[IRV] {pass_msg}"
 
             # If the keyword is supported, check for the existence of kwargs that manipulate how keyword results
             # should be interpreted.
@@ -133,7 +105,10 @@ class CommonValidation():
             if test_result:
                 self.utils.print_info(pass_msg)
             else:
-                self._raise_error(fail_msg)
+                self.screen.save_screen_shot()
+
+                # Raise an exception for pytest and robot to cause the test to fail
+                raise Exception(fail_msg)
         else:
             test_result = True
 
@@ -145,22 +120,6 @@ class CommonValidation():
         Returns a normalized boolean from the kwarg.
         """
         return self.string_to_boolean(kwargs.get(key, def_val))
-
-    def get_kwarg(self, kwargs, key, default=""):
-        """
-        Description: Get a key from the kwargs dictionary.  Return the default value if the key is not found.
-
-        :param kwargs: A dictionary passed into keywords that contains keys used to modify how the keyword shoudl run
-        :param key: The key in the 'kwargs' dictionary that the caller is trying to extract
-        :param default: The default value to be returned if the key is not found in the 'kwargs' dictionary
-        :return:  The value for the kwarg or the default value if the key is not present in the 'kwargs' dictionary
-        """
-        value = ''
-        if key in kwargs:
-            value = kwargs[key]
-        else:
-            value = default
-        return value
 
 
     def string_to_boolean(self, boolean_string, default=True):
@@ -194,6 +153,8 @@ class CommonValidation():
         a failure is expected (determined by kwargs) then an error will be raised
 
         """
+        # Get calling function name
+        kwargs['calling_function'] = currentframe().f_back.f_code.co_name
         return self.validate(1, 1, **kwargs)
 
     def failed(self, **kwargs):
@@ -202,4 +163,35 @@ class CommonValidation():
         a failure is not expected
 
         """
+        # Get calling function name
+        kwargs['calling_function'] = currentframe().f_back.f_code.co_name
         return self.validate(-1, 1, **kwargs)
+
+    def fault(self, **kwargs):
+        """
+        Description: This method is used to raise an error and fail a test unconditionally.  This method should be
+           called whenever there is an error in a keyword that cannot be worked around.  For example if as part of
+           a keyword implementation we need to navigate to a page but were unable to navigate.
+
+           A keyword fault differs from a failure in that the fault means the keyword was unable perform an action that
+           is required to be performed before the ultimate keyword does its job.  For example:  For a "login user"
+           keyword a fault would occur if the test could not enter the login credentials.  It would be considered a
+           failure if the test could enter the credentials but was unable to log in.
+
+        :param kwargs: A dictionary that contains the message to print when raising an error due to a keyword fault
+        :return: This method does not return because it will raise an error causing the test to fail.
+        """
+
+        # Get calling function name
+        calling_function = currentframe().f_back.f_code.co_name
+
+        # Get the message that will be printed
+        default_fail_msg = "A fault occurred while running the keyword"
+        fail_msg = kwargs.get('fail_msg', default_fail_msg)
+        fail_msg = f"[IRV] {calling_function}() -> {fail_msg}"
+
+        # Added screen capture in case of errors or problems
+        self.screen.save_screen_shot()
+
+        # Raise an exception for pytest and robot to cause the test to fail
+        raise Exception(fail_msg)
