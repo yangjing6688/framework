@@ -3412,7 +3412,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("The dut have {} unit/units".format(len(list)))
         return len(list)
 
-    def device360_search_event_and_confirm_event_description_contains(self, event_str, after_time=None, **kwargs):
+    def device360_search_event_and_confirm_event_description_contains(self, event_str, after_time=None, configuration_event=False, **kwargs):
         """
         - This keyword search event and then confirms that specified event text is present in the description field of the event, after the
           specified time. If no time is specified, it just confirms the event is present.
@@ -3421,11 +3421,28 @@ class Device360(Device360WebElements):
         - Keyword Usage:
         - ``Device360 Search Event And Confirm Event Description Contains  ${EVENT}  ${AFTER_TIME}``
         - ``Device360 Search Event And Confirm Event Description Contains  ${EVENT}``
-        :param  event_str:      String to look for in the event description
-        :param  after_time:     Indicates at which point in time to start searching for the existence of the event
-                                (if not specified, it just checks for the existence of the event in general)
+        :param  event_str:           String to look for in the event description
+        :param  after_time:          Indicates at which point in time to start searching for the existence of the event
+                                     (if not specified, it just checks for the existence of the event in general)
+        :param configuration_event:  If this parameter is True then the search happens in the Configuration Events tab
         :return: 1 if only one log (row in table) is found; If more logs (rows) are found it will be return the number of them; else -1
         """
+
+        if configuration_event:
+
+            configuration_events_button = self.dev360.get_configuration_events_button()
+            if not configuration_events_button:
+                kwargs["fail_msg"] = "Did not find the configuration_events_button."
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully found the configuration_events_button.")
+
+            if self.auto_actions.click(configuration_events_button) != 1:
+                kwargs["fail_msg"] = "Failed to click the configuration_events_button."
+                self.common_validation.fault(**kwargs)
+
+            self.utils.print_info("Successfully clicked the configuration_events_button.")
+
         i = 0
         cont_rows_match = 0
         self.d360Event_search(event_str, **kwargs)
@@ -5458,7 +5475,27 @@ class Device360(Device360WebElements):
                 self.utils.print_info("'{}' profile was not found".format(name_s_cli))
                 self.utils.print_info("Creating one")
                 self.auto_actions.click_reference(self.get_device_360_supplemental_cli_new_profile)
-                self.auto_actions.send_keys(self.get_device_360_supplemental_cli_profile_name(), name_s_cli)
+
+                input_element, _ = self.utils.wait_till(
+                    func=self.get_device_360_supplemental_cli_profile_name,
+                     delay=5, exp_func_resp=True, silent_failure=True
+                )
+
+                if not input_element:
+                    kwargs["fail_msg"] = "Failed to get the input element"
+                    self.common_validation.fault(**kwargs)
+                    return -1
+
+                res, _ = self.utils.wait_till(
+                    func=lambda: self.auto_actions.send_keys(input_element, name_s_cli),
+                    exp_func_resp=True, silent_failure=True, delay=5
+                )
+
+                if res != 1:
+                    kwargs["fail_msg"] = "Failed to sent the keys to the input element"
+                    self.common_validation.fault(**kwargs)
+                    return -1
+
                 sleep(3)
                 profile_commands_cli = self.get_device_360_supplemental_cli_profile_commands()
                 cli_command_list = cli_commands.split(",")
@@ -15419,7 +15456,7 @@ class Device360(Device360WebElements):
         """Method that configures given ports as trunk port with specific trunk vlan id.
 
         Currently this method supports only switches with cli_type - exos.
-        
+
         Args:
             dut (dict): the dut, e.g. tb.dut1
             ports (str): the ports that will be configured - e.g. '1,3,5,10'
@@ -15435,7 +15472,7 @@ class Device360(Device360WebElements):
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
             self.common_validation.fault(**kwargs)
             return -1
-        
+
         if dut.cli_type.upper() == "EXOS":
             if dut.platform.upper() == 'STACK':
 
@@ -15448,16 +15485,102 @@ class Device360(Device360WebElements):
                     self.device360_configure_ports_trunk_stack(
                         port_numbers=port_numbers, trunk_native_vlan="1", trunk_vlan_id=vlan_range, slot=slot)
             else:
-                
+
                 self.navigator.navigate_to_devices()
                 self.dev.refresh_devices_page()
                 self.navigator.navigate_to_device360_page_with_mac(dut.mac)
                 self.navigator.navigate_to_port_configuration_d360()
                 self.device360_configure_ports_trunk_vlan(
                     port_numbers=port_numbers, trunk_native_vlan="1", trunk_vlan_id=vlan_range)
-        
+
         self.dev.refresh_devices_page()
 
         kwargs["pass_msg"] = "Successfully configured the ports"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+
+    def get_supplemental_cli_vlan(self, mac, os, vlan_min, vlan_max, option="create", profile_scli="default_profile", **kwargs):
+        """Method that generates the create/delete VLAN cli commands and use them in a given supplemental cli profile object.
+        Currently this method supports only os EXOS/VOSS.
+
+        Args:
+            mac (dict): the mac of the device
+            os (str): the os of the device
+            vlan_min (int): lower bound of the vlan range
+            vlan_max (int): upper bound of the vlan range
+            option (str): "create"|"delete"
+            profile_scli (str): the name of the scli profile
+        Returns:
+            int: 1 if the function call has succeeded else -1
+        """
+        vlan_list = []
+
+        if option not in ["create", "delete"]:
+            kwargs["fail_msg"] = "Wrong option! Choose 'create' or 'delete'."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        if os.lower() not in ["exos", "voss"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        self.navigator.navigate_to_device360_page_with_mac(device_mac=mac)
+
+        if os.lower() == "voss":
+
+            vlan_list.append("configure terminal")
+
+            if option == "create":
+
+                self.utils.print_info(f"Creating {vlan_min}-{vlan_max} vlans")
+                for vlan in range(vlan_min, vlan_max + 1):
+                    vlan_commands = f"vlan create {vlan} type port-mstprstp 0"
+                    vlan_list.append(vlan_commands)
+                i = 10
+                for show in range(10):
+                    show = "show running-config | no-more"
+                    vlan_list.insert(i, show)
+                    i += 10
+                vlan_list_one_string = ",".join(vlan_list)
+                self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+
+            elif option == "delete":
+
+                self.utils.print_info(f"Deleting {vlan_min}-{vlan_max} vlans")
+                for vlan in range(vlan_min, vlan_max + 1):
+                    vlan_commands = f"vlan delete {vlan}"
+                    vlan_list.append(vlan_commands)
+                vlan_list_one_string = ",".join(vlan_list)
+                self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+
+        elif os.lower() == "exos":
+
+            if option.lower() == "create":
+
+                self.utils.print_info(f"Creating {vlan_min}-{vlan_max} vlans")
+                vlan_commands_1 = f"create vlan {vlan_min}-{int(vlan_max / 4)}"
+                vlan_commands_2 = f"create vlan {int(vlan_max / 4 + 1)}-{int(vlan_max / 2)}"
+                vlan_commands_3 = f"create vlan {int(vlan_max / 2 + 1)}-{vlan_max}"
+                vlan_list.append(vlan_commands_1)
+                vlan_list.append(vlan_commands_2)
+                vlan_list.append(vlan_commands_3)
+                vlan_list_one_string = ",".join(vlan_list)
+                self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+
+            elif option.lower() == "delete":
+
+                self.utils.print_info(f"Deleting {vlan_min}-{vlan_max} vlans")
+                vlan_commands_1 = f"delete vlan {vlan_min}-{int(vlan_max / 4)}"
+                vlan_commands_2 = f"delete vlan {int(vlan_max / 4 + 1)}-{int(vlan_max / 2)}"
+                vlan_commands_3 = f"delete vlan {int(vlan_max / 2 + 1)}-{vlan_max}"
+                vlan_list.append(vlan_commands_1)
+                vlan_list.append(vlan_commands_2)
+                vlan_list.append(vlan_commands_3)
+                vlan_list_one_string = ",".join(vlan_list)
+                self.get_supplemental_cli(profile_scli, vlan_list_one_string)
+
+        kwargs["pass_msg"] = "Successfully created the supplemental cli profile with the generated commands."
         self.common_validation.passed(**kwargs)
         return 1
