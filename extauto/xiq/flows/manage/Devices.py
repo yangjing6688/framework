@@ -1620,7 +1620,7 @@ class Devices:
 
         # Arguments for device_type == "Simulated"
         device_model = device_dict.get("model")
-        device_count = device_dict.get("simulated_count")
+        device_count = device_dict.get("simulated_count", 1)
 
         # Arguments for device_type == "Digital Twin"
         os_version = device_dict.get("digital_twin_version")
@@ -10738,7 +10738,7 @@ class Devices:
             device_row = self.get_device_row(device_mac)
 
         if device_row:
-            sleep(5)
+            sleep(10)
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             if re.search(r'\d+-\d+-\d+\s\d+:\d+:\d+', device_updated_status):
                 device_updated_status_replace_100 = re.sub(r'\d+-\d+-\d+\s\d+:\d+:\d+', "100", device_updated_status)
