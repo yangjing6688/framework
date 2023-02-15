@@ -1620,7 +1620,7 @@ class Devices:
 
         # Arguments for device_type == "Simulated"
         device_model = device_dict.get("model")
-        device_count = device_dict.get("simulated_count")
+        device_count = device_dict.get("simulated_count", 1)
 
         # Arguments for device_type == "Digital Twin"
         os_version = device_dict.get("digital_twin_version")
