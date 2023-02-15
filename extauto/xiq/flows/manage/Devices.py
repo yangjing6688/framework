@@ -1993,7 +1993,7 @@ class Devices:
             if _errors != 1:
                 return _errors
 
-        elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper() or 'WING' in device_make_upper():
+        elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper() or 'WING' in device_make.upper():
             self.utils.print_info("Selecting Device Make Controller")
             self.auto_actions.click_reference(self.devices_web_elements.get_device_make_drop_down)
             sleep(2)
