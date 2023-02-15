@@ -23,6 +23,7 @@ from extauto.xiq.configs.device_commands import (
     IFCONFIG
 )
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
+from datetime import datetime, timedelta
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementLacpGenKeywords import \
     NetworkElementLacpGenKeywords
@@ -2499,6 +2500,65 @@ class Cli(object):
             self.commonValidation.failed(**kwargs)
             return False
 
+    def search_last_command_cli_journal(self, info: str, command, **kwargs):
+        """
+           - This keyword is used to check if the command presented as last command in "show cli-journal"
+           - Keyword Usage:
+            - ``search_last_command_cli_journal(info=${INFO}, command=${COMMAND})``
+
+        :param info: CLI output as string
+        :param command: CLI command to be found
+        :return: 1 if the command was found as last command else fails
+        """
+        table = []
+        for entry in info[4:].split("\n"):
+            if entry:
+                if entry[0].isdigit():
+                    aux = [i for i in entry.split(" ") if i]
+                    table.append([' '.join(aux[:2]), aux[2], aux[3], ' '.join(aux[4:])])
+
+        now = datetime.now()
+        log_time = (now - timedelta(days=1))
+        flag = False
+        for row in reversed(table):
+            if log_time < datetime.strptime(row[0], '%m/%d/%Y %H:%M:%S.%f') and command in row[-1]:
+                print(row)
+                flag = True
+                break
+            else:
+                print(row)
+                flag = False
+        if flag:
+            kwargs['pass_msg'] = f"'{command}' found as last command in cli journal"
+            self.commonValidation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"'{command}' didn't find as last command cli journal"
+            self.commonValidation.failed(**kwargs)
+
+    def check_pse_restart_in_cli(self, dut, **kwargs):
+        """
+           - This keyword is used to check if the command "reset inline-power ports" was executed in "show cli-journal"
+           - Keyword Usage:
+            - ``check_pse_restart_in_cli(dut=${DEVICE})``
+
+        :param dut: device to test
+        :return: -1 if fails
+        """
+        spawn = self.open_spawn(dut.ip, dut.port, dut.username,
+                                dut.password, dut.cli_type)
+        if dut.cli_type.upper() in ["VOSS", "AH-FASTPATH"]:
+            kwargs['fail_msg'] = f"This keyword (check_pse_restart_in_cli) is not supported for {dut.cli_type} devices"
+            self.commonValidation.fault(**kwargs)
+            return -1
+        elif dut.cli_type.upper() == "EXOS":
+            self.send_commands(spawn, "disable cli paging")
+            cli_journal = self.send_commands(spawn, "show cli  journal | grep reset")
+            self.search_last_command_cli_journal(info=cli_journal, command="reset inline-power ports")
+        else:
+            kwargs['fail_msg'] = "Fail to find the CLI type"
+            self.commonValidation.fault(**kwargs)
+            return -1
+
     def configure_cli_table(self, dut1, dut2, **kwargs):
         """
         - This keyword configures the same cli journal size for both given switches(EXOS) or clears logging history(VOSS) in order to compare the output
@@ -2579,7 +2639,6 @@ class Cli(object):
             else:
                 kwargs['fail_msg'] = "check_clone_configuration() failed. Commands are not the same "
                 self.commonValidation.failed(**kwargs)
-
 
     def get_cli_commands(self, info: str, cli_type, **kwargs):
         """
