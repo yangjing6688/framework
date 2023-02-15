@@ -3726,6 +3726,7 @@ class Navigator(NavigatorWebElements):
                     if self.auto_actions.click(page_size_element) == 1:
                         kwargs['pass_msg'] = f" Clicked on page size of {page_size_element.text}"
                         self.common_validation.passed(**kwargs)
+                        sleep (10)
                         return 1
                     else:
                         if counter == 5:
