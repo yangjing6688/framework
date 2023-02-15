@@ -1700,7 +1700,7 @@ class Devices:
                 self.auto_actions.select_drop_down_options(
                     self.devices_web_elements.get_device_make_drop_down_options(), device_make)
 
-        if location and device_type.lower() != "digital twin":
+        if location and self.devices_web_elements.get_location_button().is_displayed():
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
             self.screen.save_screen_shot()
