@@ -1717,13 +1717,16 @@ class Devices:
 
         # Preventing an unnecessary click here fixes the problem seen in aiq2618
         # We are planning to rework logic
-        if device_type.lower() != "simulated":
+        if device_type.lower() == "real":
             if self.search_device(device_serial=device_serial, ignore_failure=True) == -1:
                 self.utils.print_info("Clicking on ADD DEVICES button...")
                 self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
                 self.screen.save_screen_shot()
                 sleep(2)
+            else:  # Search Device found matching Serial Number, cancel "Add Device"
+                self.utils.print_info("Click the Quick Add Devices > Cancel button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
         else:
             self.utils.print_info("Clicking on ADD DEVICES button...")
             self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
@@ -12480,6 +12483,14 @@ class Devices:
             return_value = self.update_switch_policy_and_configuration(device_serial)
         return return_value
 
+    def restart_pse_function(self, dut, **kwargs):
+        """
+        - This method restarts the PSE profile
+        - Selecting the Switch Engine device -> Utilities -> Restart PSE
+        :param dut: DUT Device
+        :return: 1 if the PSE reset have been completed else -1
+        """
+
     def get_device_latest_version(self, dut, **kwargs):
         """
         - This method is used to get the device latest version
@@ -12495,6 +12506,53 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
+
+        if dut.cli_type.upper() in ["EXOS", "SWITCH ENGINE"]:
+            self.utils.print_info("Select the device")
+            if dut.platform.lower() == "stack":
+                self.select_device(device_mac=dut.mac)
+            elif dut.platform.lower() != "stack":
+                self.select_device(device_serial=dut.serial)
+            elif dut is None:
+                kwargs['fail_msg'] = "Unable to select device because device_serial or device_mac was not provided"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.utils.print_info("Selecting the Utilities Function")
+            self.auto_actions.click_reference(self.devices_web_elements.utilities_button)
+            self.utils.print_info("Selecting RESTART PSE Function...")
+            self.auto_actions.click_reference(self.devices_web_elements.restart_pse)
+            self.utils.print_info("Confirmation Pending..")
+            self.auto_actions.click_reference(self.devices_web_elements.pse_yes)
+
+            def _widget_loading():
+                widget_loading = self.devices_web_elements.loading_bar()
+                try:
+                    if widget_loading.is_displayed():
+                        self.utils.print_info("Please wait.. Restarting PSE in progress")
+                except AttributeError:
+                    return 1
+            self.utils.wait_till(func=_widget_loading, timeout=100, delay=5, exp_func_resp=1)
+
+            closing_dialog = self.devices_web_elements.closing_window
+            if closing_dialog:
+                pse_reset_status = self.devices_web_elements.get_pse_reset_status()
+                if pse_reset_status:
+                    kwargs['pass_msg'] = "PSE reset has been completed."
+                    self.common_validation.passed(**kwargs)
+                self.utils.print_info("Closing PSE Window..")
+                self.auto_actions.click_reference(closing_dialog)
+                kwargs['pass_msg'] = "Window Closed"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = "Something went wrong. User should check..."
+                self.common_validation.failed(**kwargs)
+                return -1
+        else:
+            kwargs['fail_msg'] = f"The function was not designed for {dut.cli_type} OS System"
+            self.common_validation.fault(**kwargs)
+            return -1
+        
         if self.select_device(device_mac=dut.mac):
             device_selected = True
         elif self.select_device(device_serial=dut.serial):
@@ -12536,3 +12594,4 @@ class Devices:
                              f"or serial number: {dut.serial} was not found thus failed to get it"
         self.common_validation.failed(**kwargs)
         return latest_version
+
