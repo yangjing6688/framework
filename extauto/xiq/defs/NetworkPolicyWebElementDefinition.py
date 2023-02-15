@@ -346,7 +346,7 @@ class NetworkPolicyWebElementDefinition:
 
     perform_update_policy_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="upload"]',
+            'XPATH': '//div/a[@data-dojo-attach-point="uploadBtn"]',
             'wait_for': 2
         }
 
