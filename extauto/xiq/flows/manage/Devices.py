@@ -1620,7 +1620,7 @@ class Devices:
 
         # Arguments for device_type == "Simulated"
         device_model = device_dict.get("model")
-        device_count = device_dict.get("simulated_count")
+        device_count = device_dict.get("simulated_count", 1)
 
         # Arguments for device_type == "Digital Twin"
         os_version = device_dict.get("digital_twin_version")
@@ -1639,16 +1639,16 @@ class Devices:
 
         # Fix for aiq2618, prevents unnecessary clicks
         # We are planning to rework logic
-        if 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
-            self.utils.print_info("Onboarding: ", device_make)
-            return_value = self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
-            if return_value == 1:
-                kwargs['pass_msg'] = f"Successfully Onboarded a stack of exos Device(s) with serial numbers {device_serial}"
-                self.common_validation.passed(**kwargs)
-            else:
-                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {device_serial}"
-                self.common_validation.failed(**kwargs)
-            return return_value
+        #if 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
+        #    self.utils.print_info("Onboarding: ", device_make)
+        #    return_value = self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
+        #    if return_value == 1:
+        #        kwargs['pass_msg'] = f"Successfully Onboarded a stack of exos Device(s) with serial numbers {device_serial}"
+        #        self.common_validation.passed(**kwargs)
+        #    else:
+        #        kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {device_serial}"
+        #        self.common_validation.failed(**kwargs)
+        #    return return_value
 
         self.utils.print_info("Onboarding: ", device_make)
         self.navigator.navigate_to_devices()
