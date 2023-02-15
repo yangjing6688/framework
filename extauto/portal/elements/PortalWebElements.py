@@ -1,6 +1,5 @@
 from extauto.portal.defs.PortalWebElementsDefinitions import PortalWebElementsDefinitions
 from extauto.common.WebElementHandler import WebElementHandler
-from selenium.common.exceptions import NoSuchElementException
 
 
 class PortalWebElements(PortalWebElementsDefinitions):

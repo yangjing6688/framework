@@ -70,6 +70,8 @@ class LoginPortal:
 
         :param username: login account username
         :param password: login account password
+        :param url: login url
+        :param max_retries: the max retry times
         :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
