@@ -1,5 +1,5 @@
 from time import sleep
-import datetime
+
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
@@ -27,7 +27,7 @@ class Msp(MspWebElements):
         :param organization_name: Organization Name
         :return: 1 if Mentioned organization Name is Selected Successfully else -1
         """
-        self.utils.print_info(f"Clicking View All Organization")
+        self.utils.print_info("Clicking View All Organization")
         self.auto_actions.click_reference(self.get_view_organization_button)
         self.screen.save_screen_shot()
 
@@ -63,12 +63,14 @@ class Msp(MspWebElements):
                         self.auto_actions.click_reference(self.get_view_organization_close_button)
                         self.screen.save_screen_shot()
 
-                        kwargs['pass_msg'] = f"Given Organization Name {organization_name} Selected Sucessfully on MSP Account"
+                        kwargs['pass_msg'] = f"Given Organization Name {organization_name} Selected Sucessfully " \
+                                             f"on MSP Account"
                         self.common_validation.passed(**kwargs)
                         return 1
 
         else:
-            kwargs['fail_msg'] = f"Given Organization Name {organization_name} Row Not Found and Not Selected Sucessfully on MSP Account"
+            kwargs['fail_msg'] = f"Given Organization Name {organization_name} Row Not Found and Not Selected " \
+                                 f"Sucessfully on MSP Account"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -84,7 +86,7 @@ class Msp(MspWebElements):
         """
 
         self.navigator.navigate_to_devices()
-        self.utils.print_info(f"Clicking View All Organization")
+        self.utils.print_info("Clicking View All Organization")
         self.auto_actions.click_reference(self.get_view_organization_button)
         self.screen.save_screen_shot()
 
@@ -120,11 +122,13 @@ class Msp(MspWebElements):
                         self.auto_actions.click_reference(self.get_view_organization_close_button)
                         self.screen.save_screen_shot()
 
-                        kwargs['pass_msg'] = f"Given Organization Name {organization_name} UnSelected Sucessfully on MSP Account"
+                        kwargs['pass_msg'] = f"Given Organization Name {organization_name} UnSelected Sucessfully " \
+                                             f"on MSP Account"
                         self.common_validation.passed(**kwargs)
                         return 1
 
         else:
-            kwargs['fail_msg'] = f"Given Organization Name {organization_name} Row Not Found and Not UnSelected Sucessfully on MSP Account"
+            kwargs['fail_msg'] = f"Given Organization Name {organization_name} Row Not Found and Not UnSelected " \
+                                 f"Sucessfully on MSP Account"
             self.common_validation.failed(**kwargs)
             return -1

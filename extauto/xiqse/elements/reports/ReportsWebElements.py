@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.reports.ReportsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.reports.ReportsWebElementsDefinitions import ReportsWebElementsDefinitions
 
 
 class ReportsWebElements(ReportsWebElementsDefinitions):

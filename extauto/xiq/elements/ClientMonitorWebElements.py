@@ -1,5 +1,5 @@
-from extauto.xiq.defs.ClientMonitorWebElementsDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.ClientMonitorWebElementsDefs import ClientMonitorWebElementsDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ClientMonitorWebElements(ClientMonitorWebElementsDefs):

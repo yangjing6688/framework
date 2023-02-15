@@ -548,11 +548,10 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
         - ``XIQSE SET EVENT SEARCH SCOPE AND SAVE   false``
         :param value: true to enable the extended scoping and false to disable
         """
-        ret_val = 1
         xiqse_version = self.builtin.get_variable_value("${XIQSE_OS_VERSION}")
         parts = xiqse_version.split(".")
         majorMinor = parts[0] + "." + parts[1]
-        floatVersion = float(majorMinor);
+        floatVersion = float(majorMinor)
 
         if (floatVersion < 22.9):
             self.utils.print_info(f"Skipping Event Search Scope - supported in version '{floatVersion}'")
@@ -1095,6 +1094,158 @@ class XIQSE_AdminOptions(AdminOptionsWebElements):
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to navigate to Administration> Options tab")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_syslog_delay_engine_start_and_save(self, value="15"):
+        """
+        - This keyword sets the value of the Syslog Delay Engine STart option (value and units) and saves the changes
+        - Keyword Usage
+        - XIQSE Set Syslog Delay Engine Start and Save   1
+
+        :param value: Value to enter in the Syslog Delay Engine Start option field
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+        if self.xiqse_nav.xiqse_navigate_to_admin_options_tab():
+            if self.xiqse_select_syslog_option():
+                # Set Syslog Delay Engine Start value
+                value_set = self.xiqse_set_syslog_delay_engine_start_value(value)
+                sleep(2)
+
+                # Save Changes
+                save_result = self.xiqse_save_options()
+
+                if value_set == -1 or save_result == -1:
+                    self.utils.print_info("Action was not successful")
+                    ret_val = -1
+                else:
+                    self.utils.print_info("Action was successful")
+                    ret_val = 1
+            else:
+                self.utils.print_info("Unable to find the Syslog Delay Engine Start option in the tree")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to navigate to Administration> Options tab")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_select_syslog_option(self):
+        """
+        - This keyword selects the Syslog option in the options tree.
+        - Keyword Usage
+        - ``XIQSE Select Syslog Option``
+        :return:  1 if selection was made, else -1
+        """
+        ret_val = -1
+        sleep(2)
+        tree_option = self.get_syslog_option()
+        if tree_option:
+            self.utils.print_info("Selecting the Syslog option in the tree")
+            self.auto_actions.click(tree_option)
+            ret_val = 1
+        else:
+            self.utils.print_info("Unable to find the Syslog option in the tree")
+            self.screen.save_screen_shot()
+        return ret_val
+
+    def xiqse_set_syslog_delay_engine_start_value(self, value="15"):
+        """
+        - This keyword sets the Timeout value for the Syslog Delay Engine Start option.
+        - It is assumed the view is already navigated to the Syslog Delay Engine Start option on the Administration> Options tab.
+        - Keyword Usage
+        - ``XIQSE Set Syslog Delay Engine Start Value  15``
+
+        :param value: Value to enter in the Syslog Delay Engine Start option field
+        :return: 1 if value was set, else -1
+        """
+        ret_val = -1
+        set_option = self.get_syslog_delay_engine_start_value()
+        if set_option:
+            self.utils.print_info(f"Setting the Syslog Delay Engine Start value to {value}")
+            self.auto_actions.send_keys(set_option, value)
+            ret_val = 1
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to find the Syslog Delay Engine Start value field")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_set_trap_delay_engine_start_and_save(self, value="15"):
+        """
+        - This keyword sets the value of the Trap Delay Engine Start option (value) and saves the changes
+        - Keyword Usage
+        - XIQSE Set Trap Delay Engine Start and Save   1
+
+        :param value: Value to enter in the Trap Delay Engine Start option field
+        :return: 1 if action was successful, else -1
+        """
+        ret_val = -1
+        if self.xiqse_nav.xiqse_navigate_to_admin_options_tab():
+            if self.xiqse_select_trap_option():
+                # Set Trap Delay Engine Start value
+                value_set = self.xiqse_set_trap_delay_engine_start_value(value)
+                sleep(2)
+
+                # Save Changes
+                save_result = self.xiqse_save_options()
+
+                if value_set == -1 or save_result == -1:
+                    self.utils.print_info("Action was not successful")
+                    ret_val = -1
+                else:
+                    self.utils.print_info("Action was successful")
+                    ret_val = 1
+            else:
+                self.utils.print_info("Unable to find the Trap Delay Engine Start option in the tree")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to navigate to Administration> Options tab")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_select_trap_option(self):
+        """
+        - This keyword selects the Trap option in the options tree.
+        - Keyword Usage
+        - ``XIQSE Select Trap Option``
+        :return:  1 if selection was made, else -1
+        """
+        ret_val = -1
+        sleep(2)
+        tree_option = self.get_trap_option()
+        if tree_option:
+            self.utils.print_info("Selecting the Trap option in the tree")
+            self.auto_actions.click(tree_option)
+            ret_val = 1
+        else:
+            self.utils.print_info("Unable to find the Trap option in the tree")
+            self.screen.save_screen_shot()
+        return ret_val
+
+    def xiqse_set_trap_delay_engine_start_value(self, value="15"):
+        """
+        - This keyword sets the Timeout value for the Trap Delay Engine Start option.
+        - It is assumed the view is already navigated to the Trap Delay Engine Start option on the Administration> Options tab.
+        - Keyword Usage
+        - ``XIQSE Set Trap Delay Engine Start Value  15``
+
+        :param value: Value to enter in the Trap Delay Engine Start option field
+        :return: 1 if value was set, else -1
+        """
+        ret_val = -1
+        set_option = self.get_trap_delay_engine_start_value()
+        if set_option:
+            self.utils.print_info(f"Setting the Trap Delay Engine Start value to {value}")
+            self.auto_actions.send_keys(set_option, value)
+            ret_val = 1
+            sleep(2)
+        else:
+            self.utils.print_info("Unable to find the Trap Delay Engine Start value field")
             self.screen.save_screen_shot()
 
         return ret_val

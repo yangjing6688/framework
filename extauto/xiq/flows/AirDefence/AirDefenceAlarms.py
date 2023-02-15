@@ -513,7 +513,7 @@ class AirDefenceAlarms(AdspWebElements):
                         else:
                             self.screen.save_screen_shot()
                             sleep(2)
-                            kwargs['fail_msg'] = f"rbac_user_wips_profile_click_status() failed." \
+                            kwargs['fail_msg'] = "rbac_user_wips_profile_click_status() failed." \
                                                  f"Click Button is Enabled for the wips policy {row.text}"
                             self.common_validation.failed(**kwargs)
                             return -1

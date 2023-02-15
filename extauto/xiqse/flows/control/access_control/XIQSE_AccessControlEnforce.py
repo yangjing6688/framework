@@ -3,8 +3,6 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from xiqse.elements.control.access_control.ControlAccessControlEnforceWebElements import ControlAccessControlEnforceWebElements
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
 
 class XIQSE_AccessControlEnforce(ControlAccessControlEnforceWebElements):
 
@@ -25,12 +23,12 @@ class XIQSE_AccessControlEnforce(ControlAccessControlEnforceWebElements):
         ret_val = -1
         enforce_menu = self.ac_enforce_els.select_enforce_combo("Enforce")
         if enforce_menu:
-            self.utils.print_info(f"Selecting Enforce dropdown in Console ...")
+            self.utils.print_info("Selecting Enforce dropdown in Console ...")
             self.auto_actions.click(enforce_menu)
             ret_val = 1
             sleep(2)
         else:
-            self.utils.print_info(f"Unable to select dropdown menu ")
+            self.utils.print_info("Unable to select dropdown menu ")
             self.screen.save_screen_shot()
 
         return ret_val

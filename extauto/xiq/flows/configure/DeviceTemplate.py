@@ -538,9 +538,10 @@ class DeviceTemplate(object):
         :param wifi_interface_config: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
         :return: 1 if AP Template Configured Successfully else -1
         """
-        wifi0_config = wifi_interface_config['wifi0_configuration']
-        wifi1_config = wifi_interface_config['wifi1_configuration']
-        wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
+        # Commented on 1/18/23 because it is unused
+        # wifi0_config = wifi_interface_config['wifi0_configuration']
+        # wifi1_config = wifi_interface_config['wifi1_configuration']
+        # wifi2_config = wifi_interface_config.get('wifi2_configuration', 'None')
 
         sleep(5)
 
@@ -582,7 +583,7 @@ class DeviceTemplate(object):
             self.auto_actions.click_reference(self.device_template_web_elements.get_select_rule_in_templates_view_all_pages)
 
         if not self._select_rule_to_ap_template(classification_rule):
-            kwargs['fail_msg'] = f"add_classification_rule_to_ap_template() failed. " \
+            kwargs['fail_msg'] = "add_classification_rule_to_ap_template() failed. " \
                                  f"Rule {classification_rule} is not available in the list"
             self.common_validation.failed(**kwargs)
             return -1
@@ -609,7 +610,7 @@ class DeviceTemplate(object):
         self.navigator.navigate_to_network_policies_card_view_page()
 
         if self.network_policy.select_network_policy_in_card_view(policy_name) != 1:
-            kwargs['fail_msg'] = f"remove_ap_template_from_network_policy() failed. " \
+            kwargs['fail_msg'] = "remove_ap_template_from_network_policy() failed. " \
                                  f"Network Policy {policy_name} does not exist"
             self.common_validation.failed(**kwargs)
             return -1
@@ -936,7 +937,7 @@ class DeviceTemplate(object):
                     self.utils.print_info("Selected country: ", country_code)
                     self.screen.save_screen_shot()
         else:
-            self.utils.print_info(f" Not able to find auto provision country dropdown items ")
+            self.utils.print_info(" Not able to find auto provision country dropdown items ")
             self.screen.save_screen_shot()
 
         self.utils.print_info("Saving template ... ")

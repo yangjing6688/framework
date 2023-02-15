@@ -21,6 +21,7 @@ class XapiLogin(XapiBase):
            :param password - The password for the XIQ instance
            :return: 1 if success or -1 if failure
        """
+
         # Login information
         xapi_url = self.xapiHelper.get_xapi_url()
         configuration = self.extremecloudiq.Configuration(
