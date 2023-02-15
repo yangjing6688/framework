@@ -1358,3 +1358,29 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         for el in elements:
             if el.is_displayed():
                 return el
+
+    def utilities_button(self):
+        return self.weh.get_element(self.utilities_path)
+
+    def restart_pse(self):
+        return self.weh.get_element(self.restart_pse_path)
+
+    def pse_yes(self):
+        return self.weh.get_element(self.pse_yes_path)
+
+    def loading_bar(self):
+        elements = self.weh.get_elements(self.loading_bar_path)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def closing_window(self):
+        el = self.weh.get_element(self.closing_window_path)
+        if el.is_displayed():
+            return el
+
+    def get_pse_reset_status(self):
+        el = self.weh.get_element(self.pse_reset_status)
+        if el.is_displayed():
+            return el
+

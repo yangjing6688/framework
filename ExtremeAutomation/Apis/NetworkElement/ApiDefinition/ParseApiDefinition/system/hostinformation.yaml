@@ -57,3 +57,8 @@ hostinformation:
         apis:
             CLI:
                 - [VOSS,base,baseversion,baseunit]
+    check_version:
+        uuid: 1202869b-436e-4928-908b-8d07a68128ec
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit]
