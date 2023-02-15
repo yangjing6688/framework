@@ -1,13 +1,13 @@
-import time
 import json
-from typing import cast
+from time import sleep
+import pprint
 from extauto.xiq.xapi.XapiHelper import XapiHelper
 from extauto.common.Utils import Utils
 
 try:
     import extremecloudiq
     from extremecloudiq.rest import ApiException
-except:
+except Exception:
     pprint('WARNING: The library for ExtremecloudIQ cannot be loaded, please ensure this libaray is installed if you are trying to use the XAPI')
 
 
@@ -40,7 +40,7 @@ class XapiBase(object):
         """
         try:
             self.utils.print_info("http_response: " + json.dumps(json.loads(http_response.data), indent=4, separators=(',', ': ')))
-        except:
+        except Exception:
             pass
 
     def valid_http_response(self, api_response):
@@ -50,11 +50,13 @@ class XapiBase(object):
             :return: True when the status is 200 or 201, throws exception otherwise
         """
         self.print_http_response(api_response)
+        # if the api_response is None
         if not api_response:
             raise Exception(
-                f'ERROR: valid_http_response -> HTTPResponse is None')
+                'ERROR: valid_http_response -> HTTPResponse is None')
         # Make sure we have a status to check
         elif 'status' in api_response.__dict__.keys():
+            # we do, so check to make sure we got a 200 or 201
             if api_response.status != 200 and api_response.status != 201:
                 raise Exception(f'ERROR: valid_http_response -> HTTPResponse status returned failure: {api_response.status}')
         return True

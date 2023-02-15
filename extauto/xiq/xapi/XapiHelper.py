@@ -81,7 +81,7 @@ class XapiHelper():
                 raise Exception('XAPI url was not set, please use the keyword "set_xapi_url" method in the XapiHelper class to set the XAPI URL')
             else:
                 return xapi_url
-        except:
+        except Exception:
             raise Exception(
                 'XAPI url was not set, please use the keyword "set_xapi_url" method in the XapiHelper class to set the XAPI URL')
 

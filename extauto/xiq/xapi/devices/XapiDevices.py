@@ -1,4 +1,3 @@
-import time
 from time import sleep
 import json
 from extauto.xiq.xapi.base.XapiBaseDeviceApi import XapiBaseDeviceApi
@@ -56,7 +55,6 @@ class XapiDevices(XapiBase):
         service_tag = device_dict.get("service_tag", None)  # argument for Real device ---> Dell
         device_mac = device_dict.get("mac", None)           # argument for Real device ---> WING
 
-        json_payload = {}
         extreme_payload = None
         exos_payload = None
         voss_payload = None
@@ -85,7 +83,6 @@ class XapiDevices(XapiBase):
 
         # Get the configuration from the Global varibles
         configuration = self.xapiHelper.get_xapi_configuration()
-        api_response = None
 
         # Check that the access_token is in
         if configuration.access_token == None:
@@ -103,8 +100,6 @@ class XapiDevices(XapiBase):
                 # if this keyword was successful without creating a loop to check.
                 api_device.onboard_devices(xiq_onboard_device_request)
 
-                count = 0
-                retries = 10
                 device_found = self._xapi_search_for_device_id(device_serial=device_serial)
                 while device_found == -1:
                     self.utils.print_info('Device was not found, sleep for 30 seconds')
@@ -271,7 +266,6 @@ class XapiDevices(XapiBase):
 
             :return: The device ID for success and -1 for failure
        """
-        retry_value = 0
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
@@ -284,8 +278,6 @@ class XapiDevices(XapiBase):
             # delete this from the cache
             self.xapiHelper.delete_xapi_global_device(device_serial)
 
-            count = 0
-            retries = 10
             device_found = self._xapi_search_for_device_id(device_serial=device_serial)
             while device_found == 1:
                 self.utils.print_info('Device was found, sleep for 30 seconds')
@@ -302,7 +294,7 @@ class XapiDevices(XapiBase):
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return 1
 
-            kwargs['pass_msg'] = f"Device has been delete"
+            kwargs['pass_msg'] = "Device has been delete"
             self.xapiHelper.common_validation.passed(**kwargs)
             return 1
 
@@ -351,7 +343,7 @@ class XapiDevices(XapiBase):
                     if json_column_name != self.NOT_SUPPORTED:
                         column_data = json_data.get(json_column_name, 'value_not_found')
                         return_data[column.replace(' ',"_")] = column_data
-                kwargs['pass_msg'] = f"Device has been quereid"
+                kwargs['pass_msg'] = "Device has been quereid"
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return return_data
 

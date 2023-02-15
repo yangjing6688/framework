@@ -65,11 +65,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        kwargs['pass_msg'] = "returned: {returnValue}"
                         self.xapiHelper.common_validation.passed(**kwargs)
                         return returnValue
                     else:
-                        kwargs['fail_msg'] = f"getAsyncLongRunningOperation failed to return SUCCESS"
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
                         self.xapiHelper.common_validation.failed(**kwargs)
                         return -1
                 else:
@@ -143,11 +143,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        kwargs['pass_msg'] = "returned: {returnValue}"
                         self.xapiHelper.common_validation.passed(**kwargs)
                         return returnValue
                     else:
-                        kwargs['fail_msg'] = f"getAsyncLongRunningOperation failed to return SUCCESS"
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
                         self.xapiHelper.common_validation.failed(**kwargs)
                         return -1
                 else:
@@ -221,11 +221,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        kwargs['pass_msg'] = "returned: {returnValue}"
                         self.xapiHelper.common_validation.passed(**kwargs)
                         return returnValue
                     else:
-                        kwargs['fail_msg'] = f"getAsyncLongRunningOperation failed to return SUCCESS"
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
                         self.xapiHelper.common_validation.failed(**kwargs)
                         return -1
                 else:
@@ -300,11 +300,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        kwargs['pass_msg'] = "returned: {returnValue}"
                         self.xapiHelper.common_validation.passed(**kwargs)
                         return returnValue
                     else:
-                        kwargs['fail_msg'] = f"getAsyncLongRunningOperation failed to return SUCCESS"
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
                         self.xapiHelper.common_validation.failed(**kwargs)
                         return -1
                 else:
@@ -378,11 +378,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        kwargs['pass_msg'] = "returned: {returnValue}"
                         self.xapiHelper.common_validation.passed(**kwargs)
                         return returnValue
                     else:
-                        kwargs['fail_msg'] = f"getAsyncLongRunningOperation failed to return SUCCESS"
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
                         self.xapiHelper.common_validation.failed(**kwargs)
                         return -1
                 else:
@@ -458,11 +458,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        kwargs['pass_msg'] = "returned: {returnValue}"
                         self.xapiHelper.common_validation.passed(**kwargs)
                         return returnValue
                     else:
-                        kwargs['fail_msg'] = f"getAsyncLongRunningOperation failed to return SUCCESS"
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
                         self.xapiHelper.common_validation.failed(**kwargs)
                         return -1
                 else:
@@ -538,11 +538,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        kwargs['pass_msg'] = "returned: {returnValue}"
                         self.xapiHelper.common_validation.passed(**kwargs)
                         return returnValue
                     else:
-                        kwargs['fail_msg'] = f"getAsyncLongRunningOperation failed to return SUCCESS"
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
                         self.xapiHelper.common_validation.failed(**kwargs)
                         return -1
                 else:
@@ -617,11 +617,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        kwargs['pass_msg'] = "returned: {returnValue}"
                         self.xapiHelper.common_validation.passed(**kwargs)
                         return returnValue
                     else:
-                        kwargs['fail_msg'] = f"getAsyncLongRunningOperation failed to return SUCCESS"
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
                         self.xapiHelper.common_validation.failed(**kwargs)
                         return -1
                 else:

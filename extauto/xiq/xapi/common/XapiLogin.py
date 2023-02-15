@@ -1,4 +1,3 @@
-import time
 from extauto.xiq.xapi.XapiBase import XapiBase
 from extauto.xiq.xapi.base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
 from extauto.xiq.xapi.base.XapiBaseAuthenticationApi import XapiBaseAuthenticationApi
@@ -70,6 +69,7 @@ class XapiLogin(XapiBase):
         """
         auth = self.xapiBaseAuthenticationApi.xapi_base_logout()
         if auth != -1:
+            configuration = self.xapiHelper.get_xapi_configuration()
             configuration.access_token = None
             self.xapiHelper.set_xapi_configuration(configuration)
             kwargs['pass_msg'] = 'User was logged out'
@@ -87,12 +87,12 @@ class XapiLogin(XapiBase):
         :return: XIQ instance name or 'Unknown' if there was an error
         """
         api_response = self.xapiBaseAccountApi.xapi_base_get_home_account()
-        if api_responce != -1:
+        if api_response != -1:
             kwargs['pass_msg'] = f'Got data center name: {api_response.name}'
             self.xapiHelper.common_validation.passed(**kwargs)
             return api_response.name
         else:
-            kwargs['pass_msg'] = f'Failed to get data center name'
+            kwargs['pass_msg'] = 'Failed to get data center name'
             self.xapiHelper.common_validation.failed(**kwargs)
 
     # def xapi_capture_xiq_version(self, **kwargs):
