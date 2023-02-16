@@ -2419,3 +2419,5 @@ class Device360WebElements(Device360WebElementDefs):
     	:return: Monitor -> Diagnostics -> Deselect all button
     	"""
         return self.weh.get_element(self.device360_diagnostics_port_details_actions_button_disabled)
+    def get_configuration_events_button(self):
+        return self.weh.get_element(self.configuration_events_button)
