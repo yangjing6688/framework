@@ -422,7 +422,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         site_name_items = self.get_devices_wireless_devices_sites_dropdown_items()
         for el in site_name_items:
             if not el:
-                pass
+                continue
             if site_name.upper() in el.text.upper():
                 self.auto_actions.click(el)
                 break
@@ -445,10 +445,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 sleep(2)
                 self.auto_actions.send_keys(self.get_devices_wireless_devices_search_textfield(), client_mac)
                 sleep(2)
-
                 self.screen.save_screen_shot()
-                sleep(5)
-
                 self.utils.print_info("Checking Client Mac Entry Row in Grid")
                 row = self.get_grid_row()
                 if row:
@@ -460,12 +457,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     sleep(retry_duration)
                 count += 1
 
-        kwargs['fail_msg'] = "'get_client_information_in_extreme_location_devices_page()' -> Client mac failed to" \
-                             " display on Devices Page. Please check."
         self.common_validation.failed(**kwargs)
         return -1
 
-    def get_BSS_information_in_extreme_location_devices_page(self, SSID_NAME=None, site_name=None, retry_duration=30, retry_count=5, **kwargs):
+    def get_BSS_information_in_extreme_location_devices_page(self, ssid_name=None, site_name=None, retry_duration=30, retry_count=5, **kwargs):
         """
         - get client information in extreme location devices page
         - - Flow: Extreme Location--> More Insights--> Devices-->BSS Devices
@@ -504,12 +499,12 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.screen.save_screen_shot()
             sleep(2)
 
-            if SSID_NAME:
+            if ssid_name:
                 self.utils.print_info("Search grid based on Client Mac search filter")
-                self.utils.print_info("Entering search_string  ", SSID_NAME)
+                self.utils.print_info("Entering search_string  ", ssid_name)
                 self.screen.save_screen_shot()
                 sleep(2)
-                self.auto_actions.send_keys(self.get_devices_bss_search_textfield(), SSID_NAME)
+                self.auto_actions.send_keys(self.get_devices_bss_search_textfield(), ssid_name)
                 sleep(2)
 
                 self.screen.save_screen_shot()
@@ -521,13 +516,11 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     wireless_device_details = self._get_bss_details()
                     return wireless_device_details
                 if not row:
-                    self.utils.print_info(f"BSS Device Information For:{SSID_NAME} is not Found")
+                    self.utils.print_info(f"BSS Device Information For:{ssid_name} is not Found")
                     self.utils.print_info(f"Did not find client mac. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
                 count += 1
-
-        kwargs['fail_msg'] = "'get_client_information_in_extreme_location_devices_page()' -> Client mac failed to" \
-                             " display on Devices Page. Please check."
+                
         self.common_validation.failed(**kwargs)
         return -1
 
