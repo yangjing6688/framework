@@ -28,6 +28,7 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
+from ExtremeAutomation.Utilities.deprecated import unsupported
 
 
 class Devices:
@@ -340,36 +341,38 @@ class Devices:
                 self.utils.print_info("Device with device name is not EXOS or VOSS device")
                 return 1
 
+    @unsupported('This function is not supported')
     def search_exos_device(self, EXOS_VOSS_device, **kwargs):
-        self.refresh_devices_page()
-        self.screen.save_screen_shot()
-        sleep(2)
-        device_tag = False
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            self.utils.print_debug(f"Searching {len(rows)} rows")
-            for row in rows:
-                if EXOS_VOSS_device in row.text and 'VOSS' in row.text:
-                    self.utils.print_info("Found VOSS device: ", self.format_row(row.text))
-                    self.voss = True
-                    device_tag = True
-                    return 1
-                if EXOS_VOSS_device in row.text and 'EXOS' in row.text:
-                    self.utils.print_info("Found EXOS device: ", self.format_row(row.text))
-                    device_tag = True
-                    self.exos = True
-                    return 1
-        else:
-            self.utils.print_info("No rows present")
-
-        if device_tag == False:
-            kwargs['fail_msg'] = "Device is not EXOS or VOSS"
-            self.common_validation.failed(**kwargs)
-            return -1
-
-        kwargs['fail_msg'] = f"Did not find device row {EXOS_VOSS_device}"
-        self.common_validation.failed(**kwargs)
-        return -1
+        pass
+        # self.refresh_devices_page()
+        # self.screen.save_screen_shot()
+        # sleep(2)
+        # device_tag = False
+        # rows = self.devices_web_elements.get_grid_rows()
+        # if rows:
+        #     self.utils.print_debug(f"Searching {len(rows)} rows")
+        #     for row in rows:
+        #         if EXOS_VOSS_device in row.text and 'VOSS' in row.text:
+        #             self.utils.print_info("Found VOSS device: ", self.format_row(row.text))
+        #             self.voss = True
+        #             device_tag = True
+        #             return 1
+        #         if EXOS_VOSS_device in row.text and 'EXOS' in row.text:
+        #             self.utils.print_info("Found EXOS device: ", self.format_row(row.text))
+        #             device_tag = True
+        #             self.exos = True
+        #             return 1
+        # else:
+        #     self.utils.print_info("No rows present")
+        #
+        # if device_tag == False:
+        #     kwargs['fail_msg'] = "Device is not EXOS or VOSS"
+        #     self.common_validation.failed(**kwargs)
+        #     return -1
+        #
+        # kwargs['fail_msg'] = f"Did not find device row {EXOS_VOSS_device}"
+        # self.common_validation.failed(**kwargs)
+        # return -1
 
     def get_ap_row_with_search_option(self, ap_serial='default', ap_name='default', ap_mac='default'):
         """
@@ -2875,29 +2878,31 @@ class Devices:
                 stale_retry = stale_retry + 1
         return -1
 
+    @unsupported('This function is not supported')
     def search_device_model(self, device_model, **kwargs):
-        """
-        - Searches for Device matching Device's name in device grid
-        - Keyword Usage:
-        - ``Search Device Model  ${DEVICE_MODEL}``
-
-        :param device_model: Device's Name
-        :return: return 1 if Device found
-        """
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                if device_model in row.text:
-                    kwargs['pass_msg'] = f"Found Device Row with Model {device_model}"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-            self.utils.print_info(f"Did not find row with model {device_model}")
-        else:
-            self.utils.print_info("No rows present")
-
-        kwargs['fail_msg'] = "Didn't find the device in grid"
-        self.common_validation.failed(**kwargs)
-        return -1
+        pass
+        # """
+        # - Searches for Device matching Device's name in device grid
+        # - Keyword Usage:
+        # - ``Search Device Model  ${DEVICE_MODEL}``
+        #
+        # :param device_model: Device's Name
+        # :return: return 1 if Device found
+        # """
+        # rows = self.devices_web_elements.get_grid_rows()
+        # if rows:
+        #     for row in rows:
+        #         if device_model in row.text:
+        #             kwargs['pass_msg'] = f"Found Device Row with Model {device_model}"
+        #             self.common_validation.passed(**kwargs)
+        #             return 1
+        #     self.utils.print_info(f"Did not find row with model {device_model}")
+        # else:
+        #     self.utils.print_info("No rows present")
+        #
+        # kwargs['fail_msg'] = "Didn't find the device in grid"
+        # self.common_validation.failed(**kwargs)
+        # return -1
 
     def get_device_model_serial_numbers(self, device_model, device_type):
         rows = self.devices_web_elements.get_grid_rows()
