@@ -1693,7 +1693,7 @@ class Devices:
             self.screen.save_screen_shot()
             sleep(2)
 
-        if policy_name:
+        if policy_name and self.devices_web_elements.get_devices_quick_add_policy_drop_down().is_displayed():
             self.utils.print_info("Selecting policy '" + policy_name + "'")
             self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down)
             sleep(2)
