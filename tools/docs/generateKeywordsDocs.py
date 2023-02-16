@@ -32,6 +32,10 @@ new = 2 # open in a new tab, if possible
 
 # Remove all of the old files
 docs_rst_files_directory = 'source/docs'
+if not os.path.exists(docs_rst_files_directory):
+    print(f'creating directory: {docs_rst_files_directory}')
+    os.mkdir(docs_rst_files_directory)
+
 for rst_file in os.listdir(docs_rst_files_directory):
     print(f'Removing file: {os.path.join(docs_rst_files_directory, rst_file)}')
     os.remove(os.path.join(docs_rst_files_directory, rst_file))
