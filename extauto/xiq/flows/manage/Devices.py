@@ -2768,6 +2768,7 @@ class Devices:
 
                 # If we got a status then break out of the attempt loop
                 if device_status:
+                    self.utils.print_info(f"Got device status during attempt {attempt_count} of {attempt_max} attempts")
                     break
 
                 # If we get here then we were unable to get a status
@@ -2794,7 +2795,7 @@ class Devices:
                         self.common_validation.passed(**kwargs)
                         return 'green'
                     if "ui-icon-sprite-mismatch" in audit_config_status:
-                        kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
+                        kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mismatched"
                         self.common_validation.passed(**kwargs)
                         return "config audit mismatch"
                 else:
