@@ -1620,7 +1620,7 @@ class Devices:
 
         # Arguments for device_type == "Simulated"
         device_model = device_dict.get("model")
-        device_count = device_dict.get("simulated_count")
+        device_count = device_dict.get("simulated_count", 1)
 
         # Arguments for device_type == "Digital Twin"
         os_version = device_dict.get("digital_twin_version")
@@ -1700,7 +1700,7 @@ class Devices:
                 self.auto_actions.select_drop_down_options(
                     self.devices_web_elements.get_device_make_drop_down_options(), device_make)
 
-        if location and device_type.lower() != "digital twin":
+        if location and self.devices_web_elements.get_location_button().is_displayed():
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
             self.screen.save_screen_shot()
@@ -1717,13 +1717,16 @@ class Devices:
 
         # Preventing an unnecessary click here fixes the problem seen in aiq2618
         # We are planning to rework logic
-        if device_type.lower() != "simulated":
+        if device_type.lower() == "real":
             if self.search_device(device_serial=device_serial, ignore_failure=True) == -1:
                 self.utils.print_info("Clicking on ADD DEVICES button...")
                 self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
                 self.screen.save_screen_shot()
                 sleep(2)
+            else:  # Search Device found matching Serial Number, cancel "Add Device"
+                self.utils.print_info("Click the Quick Add Devices > Cancel button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
         else:
             self.utils.print_info("Clicking on ADD DEVICES button...")
             self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
@@ -1892,40 +1895,53 @@ class Devices:
                 return -1
         return 1
 
-    def set_onboard_values_for_real(self, device_serial, device_make, entry_type, device_os, service_tag, device_mac,
-                                    location):
+    def set_onboard_values_for_real(self, device_serial, device_make, entry_type, device_os, service_tag, device_mac, location):
         """
         This method is create for onboard device with device_type == Real
         """
 
         self.auto_actions.click_reference(self.devices_web_elements.get_device_type_real_radio_button)
 
+        if entry_type:
+            if 'Manual' in entry_type:
+                self.utils.print_info("Selecting Entry Type : Manual")
+                self.auto_actions.click_reference(self.devices_web_elements.get_entry_type_manual_radio_button)
+
         self.utils.print_info("Entering Serial Number...", device_serial)
         self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
         sleep(5)
 
+        # Depending of the serial number enter the user will see 2 options
+        # 1 - Drop Down menu
+        # 2 - radio buttons one for 'Cloud IQ Engine' and one for 'WING'
+        # Check to see if the drop-down-menu is present if it is use else click on one of the radio buttons
         if 'Extreme - Aerohive' in device_make:
-            if entry_type:
-                if 'Manual' in entry_type:
-                    self.auto_actions.click_reference(self.devices_web_elements.get_entry_type_manual_radio_button)
-
-            self.utils.print_info("Entering Serial Number...")
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
-
-            if self.devices_web_elements.get_device_os_radio():
-                self.utils.print_info("Verify Cloud IQ Engine Device OS Radio Button Status")
-                device_os = self.devices_web_elements.get_device_os_radio().text
-                self.utils.print_info("Device OS: ", device_os)
-                if 'Cloud IQ Engine' in device_os:
-                    self.utils.print_info("Device OS matched")
-                else:
-                    self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_device_os_radio)
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
+                self.utils.print_info("Selecting Device Type : Extreme - Aerohive")
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
+                                                           , "Extreme - Aerohive")
+                self.screen.save_screen_shot()
+            else:
+                if self.devices_web_elements.get_device_os_radio():
+                    self.utils.print_info("Verify Cloud IQ Engine Device OS Radio Button Status")
+                    device_os = self.devices_web_elements.get_device_os_radio().text
+                    self.utils.print_info("Device OS: ", device_os)
+                    if 'Cloud IQ Engine' in device_os:
+                        self.utils.print_info("Device OS matched")
+                    else:
+                        self.utils.print_info("Selecting Device OS: Cloud IQ Engine")
+                        self.auto_actions.click_reference(self.devices_web_elements.get_device_os_radio)
+                    self.screen.save_screen_shot()
 
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
-        # Select the 'Device Make' field value and enter the serial number depending on which device type is being added
+
+        # Depending of the serial number enter the user will see 2 options
+        # 1 - Drop Down menu
+        # 2 - radio buttons one for SwitchEngine and one for FabricEngine
+        # Check to see if the drop-down-menu is present if it is use else click on one of the radio buttons
         elif "VOSS" in device_make.upper():
             self.utils.print_info("Selecting Switch Type/Device OS : VOSS/Fabric Engine")
             if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
@@ -1988,15 +2004,6 @@ class Devices:
         if 'DUAL BOOT' in device_make.upper():
             return self._onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
 
-        if device_make:
-            sleep(5)
-            self.utils.print_info("Verifying Device Make...")
-            ui_device_make = self.devices_web_elements.get_device_make_dropdownoption().text
-            self.utils.print_info("Device Make from UI: ", ui_device_make)
-            if device_make in ui_device_make:
-                self.utils.print_info("Device Make matched")
-            else:
-                self.utils.print_info("Device Make NOT matched")
         return 1
 
     def set_onboard_values_for_simulated(self, device_model, device_count):
@@ -2537,15 +2544,29 @@ class Devices:
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def search_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def search_device(self, device_serial=None, device_name=None, device_mac=None, select_device=False, **kwargs):
         """
-        - Searches for the device matching either one of serial, name or MAC
+        - Searches for the device using serial, name, MAC and selects it if desired
 
-        :param device_serial: device Serial
-        :param device_name: device Name
-        :param device_mac: device MAC
+        :param device_serial: serial number of the device
+        :param device_name: name of the device
+        :param device_mac: MAC of the device
+        :param select_device: True - to select the device, default set to False
+
         :return: 1 if device found else -1
         """
+
+        device_keys = {}
+        if device_mac:
+            device_keys['device_mac'] = device_mac
+        if device_serial:
+            device_keys['device_serial'] = device_serial
+        if device_name:
+            device_keys['device_name'] = device_name
+        if len(device_keys.keys()) == 0:
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: device_serial, device_name, or device_mac!"
+            self.common_validation.fault(**kwargs)
+            return -1
 
         # navigate to devices page
         self.navigator.navigate_to_devices()
@@ -2556,14 +2577,6 @@ class Devices:
         if pageOne != None:
             self.utils.print_info("Clicking on Page 1 in devices page.")
             self.auto_actions.click(pageOne)
-
-        if not device_serial and device_mac and device_name:
-            kwargs['fail_msg'] = "No serial number/mac/name provided to search for!"
-            self.common_validation.fault(**kwargs)
-            return -1
-        else:
-            self.utils.print_info("Searching for the device matching either one of serial, name or MAC!")
-            self.utils.print_info(f"device_serial:  '{device_serial}' , device_name: '{device_name}', device_mac: '{device_mac}'")
 
         device_page_numbers = self.devices_web_elements.get_page_numbers()
         if device_page_numbers.text:
@@ -2579,24 +2592,18 @@ class Devices:
                 rows = self.devices_web_elements.get_grid_rows()
                 if rows:
                     self.utils.print_debug(f"Searching {len(rows)} rows")
-                    for row in rows:
-                        self.utils.print_info("row data: ", self.format_row(row.text))
-                        if device_serial:
-                            if device_serial in row.text:
-                                kwargs['pass_msg'] = f"Found device with serial number: {device_serial}"
+                    for key, value in device_keys.items():
+                        self.utils.print_info(f"Searching for the device using {key} : {value}")
+                        for row in rows:
+                            self.utils.print_info("row data: ", self.format_row(row.text))
+                            if value in row.text:
+                                kwargs['pass_msg'] = f"Found device with {key}: {value}"
+                                if select_device:
+                                    self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                                    self.screen.save_screen_shot()
+                                    kwargs['pass_msg'] = f"Found and selected device with {key}: {value}"
                                 self.common_validation.passed(**kwargs)
                                 return 1
-                        elif device_mac:
-                            if device_mac in row.text:
-                                kwargs['pass_msg'] = f"Found device with MAC: {device_mac}"
-                                self.common_validation.passed(**kwargs)
-                                return 1
-                        elif device_name:
-                            if device_name in row.text:
-                                kwargs['pass_msg'] = f"Found device with name: {device_name}"
-                                self.common_validation.passed(**kwargs)
-                                return 1
-
                 else:
                     self.utils.print_debug(f"No rows returned for page #{page_num}")
                 page_len = page_len - 1
@@ -2606,18 +2613,10 @@ class Devices:
                     self.auto_actions.click_reference(self.devices_web_elements.get_grid_rows_next)
                     sleep(5)
 
-            if device_serial:
-                kwargs['fail_msg'] = f"Did not find device row with serial {device_serial}"
-                self.common_validation.failed(**kwargs)
-                return -1
-            if device_name:
-                kwargs['fail_msg'] = f"Did not find device row with name {device_name}"
-                self.common_validation.failed(**kwargs)
-                return -1
-            if device_mac:
-                kwargs['fail_msg'] = f"Did not find device row with mac {device_mac}"
-                self.common_validation.failed(**kwargs)
-                return -1
+            kwargs['fail_msg'] = f"Did not find device row with {device_keys}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
         except StaleElementReferenceException:
             self.utils.print_info(f"Handling StaleElementReferenceException - loop {page_len}")
 
@@ -10147,6 +10146,13 @@ class Devices:
                 self.common_validation.passed(**kwargs)
                 complete = True
                 break
+            # add by @kunli.
+            # If 'device update failed', the update was done, don't need check update status until timeout.
+            elif "Device Update Failed" in str(update_status):
+                kwargs['fail_msg'] = "Device Update Failed "
+                self.common_validation.failed(**kwargs)
+                return -1
+
             sleep(15)
 
         if not complete:
@@ -10728,7 +10734,7 @@ class Devices:
             device_row = self.get_device_row(device_mac)
 
         if device_row:
-            sleep(5)
+            sleep(10)
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             if re.search(r'\d+-\d+-\d+\s\d+:\d+:\d+', device_updated_status):
                 device_updated_status_replace_100 = re.sub(r'\d+-\d+-\d+\s\d+:\d+:\d+', "100", device_updated_status)
@@ -12473,6 +12479,14 @@ class Devices:
             return_value = self.update_switch_policy_and_configuration(device_serial)
         return return_value
 
+    def restart_pse_function(self, dut, **kwargs):
+        """
+        - This method restarts the PSE profile
+        - Selecting the Switch Engine device -> Utilities -> Restart PSE
+        :param dut: DUT Device
+        :return: 1 if the PSE reset have been completed else -1
+        """
+
     def get_device_latest_version(self, dut, **kwargs):
         """
         - This method is used to get the device latest version
@@ -12488,6 +12502,53 @@ class Devices:
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
+
+        if dut.cli_type.upper() in ["EXOS", "SWITCH ENGINE"]:
+            self.utils.print_info("Select the device")
+            if dut.platform.lower() == "stack":
+                self.select_device(device_mac=dut.mac)
+            elif dut.platform.lower() != "stack":
+                self.select_device(device_serial=dut.serial)
+            elif dut is None:
+                kwargs['fail_msg'] = "Unable to select device because device_serial or device_mac was not provided"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.utils.print_info("Selecting the Utilities Function")
+            self.auto_actions.click_reference(self.devices_web_elements.utilities_button)
+            self.utils.print_info("Selecting RESTART PSE Function...")
+            self.auto_actions.click_reference(self.devices_web_elements.restart_pse)
+            self.utils.print_info("Confirmation Pending..")
+            self.auto_actions.click_reference(self.devices_web_elements.pse_yes)
+
+            def _widget_loading():
+                widget_loading = self.devices_web_elements.loading_bar()
+                try:
+                    if widget_loading.is_displayed():
+                        self.utils.print_info("Please wait.. Restarting PSE in progress")
+                except AttributeError:
+                    return 1
+            self.utils.wait_till(func=_widget_loading, timeout=100, delay=5, exp_func_resp=1)
+
+            closing_dialog = self.devices_web_elements.closing_window
+            if closing_dialog:
+                pse_reset_status = self.devices_web_elements.get_pse_reset_status()
+                if pse_reset_status:
+                    kwargs['pass_msg'] = "PSE reset has been completed."
+                    self.common_validation.passed(**kwargs)
+                self.utils.print_info("Closing PSE Window..")
+                self.auto_actions.click_reference(closing_dialog)
+                kwargs['pass_msg'] = "Window Closed"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = "Something went wrong. User should check..."
+                self.common_validation.failed(**kwargs)
+                return -1
+        else:
+            kwargs['fail_msg'] = f"The function was not designed for {dut.cli_type} OS System"
+            self.common_validation.fault(**kwargs)
+            return -1
+        
         if self.select_device(device_mac=dut.mac):
             device_selected = True
         elif self.select_device(device_serial=dut.serial):
@@ -12529,3 +12590,4 @@ class Devices:
                              f"or serial number: {dut.serial} was not found thus failed to get it"
         self.common_validation.failed(**kwargs)
         return latest_version
+

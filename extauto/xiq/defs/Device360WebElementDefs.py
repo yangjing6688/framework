@@ -2035,7 +2035,7 @@ class Device360WebElementDefs:
 
     device_360_supplemental_cli_new_profile = \
         {
-            'XPATH': '//*[@data-type="supplemental-cli-profile"]',
+            'XPATH': "//span[@ah-text-tip='Add']",
             'wait_for': 3
         }
 
@@ -4042,3 +4042,7 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    configuration_events_button = \
+    {
+        "XPATH": "//li[@data-automation-tag='automation-pills-configuration']"
+    }
