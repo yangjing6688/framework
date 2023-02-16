@@ -1,7 +1,7 @@
 import json
 from time import sleep
 import pprint
-from extauto.xiq.xapi.XapiHelper import XapiHelper
+from tools.xapi.XapiHelper import XapiHelper
 from extauto.common.Utils import Utils
 
 try:

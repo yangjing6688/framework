@@ -1,7 +1,7 @@
-from extauto.xiq.xapi.XapiBase import XapiBase
-from extauto.xiq.xapi.base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
-from extauto.xiq.xapi.base.XapiBaseAuthenticationApi import XapiBaseAuthenticationApi
-from extauto.xiq.xapi.base.XapiBaseAccountApi import XapiBaseAccountApi
+from tools.xapi.XapiBase import XapiBase
+from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
+from keywords.xapi_base.XapiBaseAuthenticationApi import XapiBaseAuthenticationApi
+from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
 
 class XapiLogin(XapiBase):
 

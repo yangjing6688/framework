@@ -11,9 +11,9 @@ class parseXAPI:
     """
 
     def __init__(self, directory):
+        self.base_generated_directory = 'keywords/xapi_base/'
         self.directory = directory
         self.python_types = ['int', 'string', 'bool']
-        self.output_file_directory = 'base'
         self.tab = '    '
 
     def process_info(self, functionNode, xapi_class_name):
@@ -29,9 +29,9 @@ class parseXAPI:
             doc_string = ast.get_docstring(functionNode)
 
             # Add in the Robot / Pytest Examples
-            robot_import = f'{self.tab}{self.tab}Library     extauto/xiq/xapi/base/XapiBase{xapi_class_name}.py\n\n'
+            robot_import = f'{self.tab}{self.tab}Library    ' + self.base_generated_directory + 'XapiBase{xapi_class_name}.py\n\n'
             robot_example = f'{self.tab}Robot:\n{robot_import}{self.tab}{self.tab}{functionNode.name.replace("_"," ")}{self.tab}**kwargs\n'
-            pytest_import = f'{self.tab}{self.tab}from extauto.xiq.xapi.base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}\n\n'
+            pytest_import = f'{self.tab}{self.tab}from ' + self.base_generated_directory.replace('/',".") +'XapiBase{xapi_class_name} import XapiBase{xapi_class_name}\n\n'
             pytest_class = f'{self.tab}{self.tab}xapiBase{xapi_class_name} = XapiBase{xapi_class_name}()\n'
             pytest_example = f'{self.tab}Pytest:\n{pytest_import}{pytest_class}{self.tab}{self.tab}xapiBase{xapi_class_name}.{functionNode.name}(**kwargs)\n\n'
 
@@ -48,10 +48,10 @@ class parseXAPI:
 
             doc_string = '"""\n' + self.tab + self.tab + doc_string.replace('\n', '\n' + self.tab + self.tab) + '\n'+ self.tab + self.tab + '"""\n'
 
-            # Read in the function definition file the login file is di
-            file_name = 'base_generated_function_definition.txt'
+            # Read in the function definition template
+            file_name = 'base_generated_function_template.txt'
             if functionNode.name == 'login' and xapi_class_name == 'AuthenticationApi':
-                file_name = 'base_login_function_definition.txt'
+                file_name = 'base_login_function_template.txt'
             with open(file_name) as file:
                 file_contents = file.read()
                 file_contents = file_contents.replace('{FUNCTION_NAME}', 'xapi_base_' + functionNode.name)
@@ -85,11 +85,11 @@ class parseXAPI:
                 classes = [n for n in node.body if isinstance(n, ast.ClassDef)]
                 for class_ in classes:
                     print("Class name:", class_.name)
-                    new_class_file = self.output_file_directory + "/XapiBase" + class_.name + ".py"
+                    new_class_file = "../../" + self.base_generated_directory + "XapiBase" + class_.name + ".py"
                     if os.path.exists(new_class_file):
                         os.remove(new_class_file)
                     class_file = open(new_class_file, "a")
-                    class_file.write('\nfrom extauto.xiq.xapi.XapiBase import XapiBase\n\n\nclass XapiBase' + class_.name +'(XapiBase):\n\n'+ self.tab + 'def __init__(self):\n' + self.tab + self.tab + 'super().__init__()\n\n')
+                    class_file.write('\nfrom tools.xapi.XapiBase import XapiBase\n\n\nclass XapiBase' + class_.name +'(XapiBase):\n\n'+ self.tab + 'def __init__(self):\n' + self.tab + self.tab + 'super().__init__()\n\n')
                     methods = [n for n in class_.body if isinstance(n, ast.FunctionDef)]
                     for method in methods:
                         function_contents = self.process_info(method, class_.name)
@@ -98,11 +98,11 @@ class parseXAPI:
                     class_file.close()
 
     def checkForErrors(self):
-        for filename in os.listdir(self.output_file_directory):
-            file_and_directory = os.path.join(self.output_file_directory, filename)
+        for filename in os.listdir("../../" + self.base_generated_directory):
+            file_and_directory = os.path.join(self.base_generated_directory, filename)
             if file_and_directory.endswith('.py') and file_and_directory != '__init__.py':
                 print(f'Open and comple file: {file_and_directory}')
-                with open(file_and_directory) as f:
+                with open("../../" + file_and_directory) as f:
                     source = f.read()
                     try:
                         ast.parse(source)

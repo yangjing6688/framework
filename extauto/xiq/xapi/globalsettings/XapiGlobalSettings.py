@@ -1,4 +1,4 @@
-from extauto.xiq.xapi.XapiBase import XapiBase
+from tools.xapi.XapiBase import XapiBase
 
 class XapiGlobalSettings(XapiBase):
 

@@ -24,7 +24,7 @@ import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
 import extauto.xiq.flows.globalsettings.GlobalSetting
-from  extauto.xiq.xapi.XapiHelper import XapiHelper
+from  tools.xapi.XapiHelper import XapiHelper
 
 
 

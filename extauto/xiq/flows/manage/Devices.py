@@ -29,7 +29,7 @@ from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from extauto.xiq.xapi.devices.XapiDevices import XapiDevices
-from extauto.xiq.xapi.XapiHelper import XapiHelper
+from tools.xapi.XapiHelper import XapiHelper
 
 
 class Devices:

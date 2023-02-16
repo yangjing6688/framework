@@ -1,7 +1,7 @@
 from time import sleep
 import json
-from extauto.xiq.xapi.base.XapiBaseDeviceApi import XapiBaseDeviceApi
-from extauto.xiq.xapi.XapiBase import XapiBase
+from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
+from tools.xapi.XapiBase import XapiBase
 
 
 class XapiDevices(XapiBase):
