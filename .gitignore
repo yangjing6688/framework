@@ -30,3 +30,8 @@ venv
 **log.html**
 **output.xml**
 **allure_output**
+
+tools/docs/build**
+tools/docs/source/_static
+tools/docs/source/_templates
+tools/docs/source/docs**
