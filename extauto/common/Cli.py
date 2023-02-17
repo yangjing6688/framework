@@ -1151,8 +1151,8 @@ class Cli(object):
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
                     url_image = f'http://engartifacts1.extremenetworks.com:8081/artifactory/xos-iqagent-local-release/xmods/{base_version}/{exos_device_type}-iqagent-{base_version}.xmod'
                     self.utils.print_info(f"Sending URL: {url_image}")
-                    self.send(connection, f'download url {url_image}{vrString}', \
-                              confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
+                    self.send(connection, f'download url {url_image}{vrString}',
+                              confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)',
                               confirmation_args='yes')
 
                     # Wait for the output to return downgraded version to a max of 60 seconds
