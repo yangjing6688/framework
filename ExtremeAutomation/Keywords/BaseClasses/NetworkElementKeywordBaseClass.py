@@ -490,7 +490,7 @@ class NetworkElementKeywordBaseClass(KeywordBaseClass):
         try:
             gitRepo   = os.path.basename(subprocess.check_output(["git", "rev-parse", "--show-toplevel"]).decode().strip())
         except Exception:
-             gitRepo = 'extreme_automation_tests'
+            gitRepo = 'extreme_automation_tests'
 
         tfileName = re.split(r':', os.getenv('PYTEST_CURRENT_TEST'))[0]
         tfileData = {

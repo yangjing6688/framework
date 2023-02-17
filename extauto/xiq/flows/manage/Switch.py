@@ -183,7 +183,7 @@ class Switch(SwitchWebElements):
         port_status = None
         port_details = self.get_switch_port_details(sw_serial, port_number)
         for value in port_details:
-           if "Port Status" in value:
-               port_status = value.split("Port Status")[-1]
-               break
+            if "Port Status" in value:
+                port_status = value.split("Port Status")[-1]
+                break
         return port_status

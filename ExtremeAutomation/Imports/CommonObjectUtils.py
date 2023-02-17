@@ -62,8 +62,8 @@ class CommonObjectUtils:
                 if not generic_capwap_url_check:
                     self.builtin.fail("Can't set the generic_capwap_url OBJECT in the variables.")
             except Exception:
-              # Let's not print an error here because the user may just want to create a generic device
-              pass
+                # Let's not print an error here because the user may just want to create a generic device
+                pass
 
             new_value_key = self.setExecutionVariable(new_name, str(set_to_index))
             self.builtin.set_global_variable(new_value_key, value)

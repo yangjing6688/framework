@@ -421,7 +421,7 @@ class SwitchTemplate(object):
                         if e.is_displayed():
                             self.auto_actions.send_keys(e, value)
                 else:
-                   self.auto_actions.send_keys(el, value)
+                    self.auto_actions.send_keys(el, value)
             elif (key == 'status'):
                 el = self.legacy_port_type_editor.get_status()
                 if (value == 'Disable'):
