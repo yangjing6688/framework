@@ -13,16 +13,19 @@ logger.setLevel(logging.DEBUG)
 class JobsSuitesVersions():
     """ Manage data inside the tbedmgr 'jobsSuitesVersions' table """ 
 
-    autoiq_test_url = 'https://autoiq-test.extremenetworks.com'
-    autoiq_prod_url = 'https://autoiq.extremenetworks.com'
-    test_url = 'http://vossbld-6.extremenetworks.com:8087'
-
-    base_url = test_url
-    test_version_url = base_url + '/tbedmgr/testsuites/storeversioninfo'
-    encoded_pat = os.getenv('PAT','DZBmYYT3MzE0DMAzNGUyNWE3Y2IzNjQxOQD5YjcyNzQ=')
-    base64_bytes = encoded_pat.encode("ascii")
+    # Retrieve the 'encoded' URL and PAT string from the ENV:
+    #
+    magic_key = os.getenv('MAGIC_KEY')
+    base64_bytes = magic_key.encode("ascii")
     string_bytes = base64.b64decode(base64_bytes)
-    decoded_pat = string_bytes.decode("ascii")
+    decoded_magic_key = string_bytes.decode("ascii")
+    decoded_pat,base_url = decoded_magic_key.split('#')
+
+    # TODO: Remove this: For local testing only
+    base_url = 'http://vossbld-6.extremenetworks.com:8087'
+
+    test_version_url = base_url + '/tbedmgr/testsuites/storeversioninfo'
+
     test_headers = {
             'Content-Type': 'application/json',
             'accept': 'application/json',

@@ -16,6 +16,7 @@ from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
 
 
+
 @mark.testbed_none
 class DefaultTests():
 
@@ -24,6 +25,7 @@ class DefaultTests():
     @classmethod
     def setup_class(cls):
         try:
+            print("ARGS:", sys.argv)
             cls.executionHelper = PytestExecutionHelper()
             # Create an instance of the helper class that will read in the test bed yaml file and provide basic methods and variable access.
             # The user can also get to the test bed yaml by using the config dictionary
@@ -35,21 +37,17 @@ class DefaultTests():
             # Enable XAPI
             cls.cfg['${XAPI_ENABLE}'] = True
 
-
             cls.job_suite_uuid = cls.cfg.get('job_suite_uuid', None)
             if not cls.job_suite_uuid:
                 raise Exception('Missing the command line argument --job_suite_uuid=<uuid>')
-
             # Create the new object for the XIQ / XIQSE Libraries
             cls.xiq = XiqLibrary()
             cls.xiq.login.login_user(cls.tb.config.tenant_username,
                                      cls.tb.config.tenant_password,
                                      url=cls.tb.config.test_url,
                                      IRV=True)
-
         except Exception as e:
             cls.executionHelper.setSetupFailure(True)
-
 
     @classmethod
     def teardown_class(cls):
@@ -60,6 +58,7 @@ class DefaultTests():
     """ Test Cases """
     def test_get_xiq_version_name(self):
         '''[Documentation]  Test_Objective: Get the XIQ name and version '''
+
         data_center_name = self.xiq.login.get_data_center_name()
         xiq_version = self.xiq.login.get_xiq_version()
 
@@ -69,17 +68,18 @@ class DefaultTests():
         # No XAPI keyword support for this one
         print(f"The XIQ Version found: {xiq_version}")
 
-        # Here we need to call a keyword to update the database with the information above:
-        # user this self.job_suite_uuid to get the UUID
+        # Here we need to call a keyword to update the database with 
+        # the information above:
+        #
         print("The job_suite_uuid is: ", self.job_suite_uuid)
         print("The Type is:", self.default_type)
-        print("Storing data ::JobsSuitesVersions() ...")
         post_data = {
             "name": data_center_name,
             "version": xiq_version,
             "type": self.default_type,
             "jobsSuites_uuid": self.job_suite_uuid
         }
+        print("Posting data: ", post_data)
         cls = JobsSuitesVersions()
         print(cls.post(**post_data))
 
