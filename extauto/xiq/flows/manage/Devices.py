@@ -2768,7 +2768,7 @@ class Devices:
                 attempt_count += 1
 
             # The config audit icon is the icon right next to the status icon
-            self.utils.print_info(f"Getting audit_config_status")
+            self.utils.print_info("Getting audit_config_status")
             audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
             self.screen.save_screen_shot()
             sleep(2)
