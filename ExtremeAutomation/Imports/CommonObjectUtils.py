@@ -38,7 +38,7 @@ class CommonObjectUtils:
             try:
                 get_value = self.setExecutionVariable(look_for_device_type,str(index))
                 value = self.builtin.get_variable_value(get_value)
-            except:
+            except Exception:
                 pass
         else:
             for generic_type in generic_device_types:
@@ -47,7 +47,7 @@ class CommonObjectUtils:
                     value = self.builtin.get_variable_value(get_value)
                     if value:
                         break
-                except:
+                except Exception:
                     pass
         if value:
             try:
@@ -61,7 +61,7 @@ class CommonObjectUtils:
                 generic_capwap_url_check = self.builtin.get_variable_value(self.setExecutionVariable("generic_capwap_url", ""))
                 if not generic_capwap_url_check:
                     self.builtin.fail("Can't set the generic_capwap_url OBJECT in the variables.")
-            except Exception as e:
+            except Exception:
               # Let's not print an error here because the user may just want to create a generic device
               pass
 
@@ -85,7 +85,6 @@ class CommonObjectUtils:
         running_pytest = False
         try:
             running_pytest = self.builtin.isRunningPytest()
-        except:
+        except Exception:
             pass
         return running_pytest
-

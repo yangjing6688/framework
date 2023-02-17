@@ -21,7 +21,7 @@ class PytestConfigHelper():
 
         try:
             self.lab = config['LAB']
-        except:
+        except Exception:
             self.lab = None
 
         # Tgen 1
@@ -34,7 +34,7 @@ class PytestConfigHelper():
             self.tgen_dut1_port_b = DotDict(config['tgen_ports']['netelem1']['port_b'])
             self.tgen_dut1_port_c = DotDict(config['tgen_ports']['netelem1']['port_c'])
             self.tgen_dut1_port_d = DotDict(config['tgen_ports']['netelem1']['port_d'])
-        except:
+        except Exception:
             pass
 
         #Tgen dut 2
@@ -44,7 +44,7 @@ class PytestConfigHelper():
             self.tgen_dut2_port_c = DotDict(config['tgen_ports']['netelem2']['port_c'])
             self.tgen_dut2_port_d = DotDict(config['tgen_ports']['netelem2']['port_d'])
             self.tgen_ports_dut2 = config['tgen_ports']['netelem2']
-        except:
+        except Exception:
             pass
 
         #Tgen dut 3
@@ -54,7 +54,7 @@ class PytestConfigHelper():
             self.tgen_dut3_port_c = DotDict(config['tgen_ports']['netelem3']['port_c'])
             self.tgen_dut3_port_d = DotDict(config['tgen_ports']['netelem3']['port_d'])
             self.tgen_ports_dut3 = config['tgen_ports']['netelem3']
-        except:
+        except Exception:
             pass
 
         #Tgen dut 4
@@ -64,7 +64,7 @@ class PytestConfigHelper():
             self.tgen_dut4_port_c = DotDict(config['tgen_ports']['netelem4']['port_c'])
             self.tgen_dut4_port_d = DotDict(config['tgen_ports']['netelem4']['port_d'])
             self.tgen_ports_dut4 = config['tgen_ports']['netelem4']
-        except:
+        except Exception:
             pass
 
         #Tgen dut 5
@@ -74,7 +74,7 @@ class PytestConfigHelper():
             self.tgen_dut5_port_c = DotDict(config['tgen_ports']['netelem5']['port_c'])
             self.tgen_dut5_port_d = DotDict(config['tgen_ports']['netelem5']['port_d'])
             self.tgen_ports_dut5 = config['tgen_ports']['netelem5']
-        except:
+        except Exception:
             pass
 
 
@@ -99,7 +99,7 @@ class PytestConfigHelper():
             self.dut1_location = config['netelem1']['location']
 
             self.dut_list.append('dut1')
-        except:
+        except Exception:
             pass
         # tgen ports
         try:
@@ -107,7 +107,7 @@ class PytestConfigHelper():
             self.dut1_tgen_port_b = DotDict(config['netelem1']['tgen']['port_b'])
             self.dut1_tgen_port_c = DotDict(config['netelem1']['tgen']['port_c'])
             self.dut1_tgen_port_d = DotDict(config['netelem1']['tgen']['port_d'])
-        except:
+        except Exception:
             pass
 
         try:
@@ -128,7 +128,7 @@ class PytestConfigHelper():
             self.dut1_isl_dut5_port_b = DotDict(config['netelem1']['isl']['port_n'])
             self.dut1_isl_dut5_port_c = DotDict(config['netelem1']['isl']['port_o'])
             self.dut1_isl_dut5_port_d = DotDict(config['netelem1']['isl']['port_p'])
-        except:
+        except Exception:
             pass
 
 
@@ -142,9 +142,9 @@ class PytestConfigHelper():
                     self.dut1_slot1_console_port = DotDict(config['netelem1']['stack']['slot1']['console_port'])
                     self.dut1_slot2_console_ip = DotDict(config['netelem1']['stack']['slot2']['console_ip'])
                     self.dut1_slot2_console_port = DotDict(config['netelem1']['stack']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
         try:
             if 'vpex' in config['netelem1']:
@@ -154,9 +154,9 @@ class PytestConfigHelper():
                     self.dut1_slot1_console_port = DotDict(config['netelem1']['vpex']['slot1']['console_port'])
                     self.dut1_slot2_console_ip = DotDict(config['netelem1']['vpex']['slot2']['console_ip'])
                     self.dut1_slot2_console_port = DotDict(config['netelem1']['vpex']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
 
         # DUT 2
@@ -176,7 +176,7 @@ class PytestConfigHelper():
             self.dut2_model = config['netelem2']['model']
             self.dut2_location = config['netelem2']['location']
             self.dut_list.append('dut2')
-        except:
+        except Exception:
             pass
 
         try:
@@ -186,7 +186,7 @@ class PytestConfigHelper():
             self.dut2_tgen_port_b = DotDict(config['netelem2']['tgen']['port_b'])
             self.dut2_tgen_port_c = DotDict(config['netelem2']['tgen']['port_c'])
             self.dut2_tgen_port_d = DotDict(config['netelem2']['tgen']['port_d'])
-        except:
+        except Exception:
             pass
 
         try:
@@ -207,7 +207,7 @@ class PytestConfigHelper():
             self.dut2_isl_dut5_port_b = DotDict(config['netelem2']['isl']['port_n'])
             self.dut2_isl_dut5_port_c = DotDict(config['netelem2']['isl']['port_o'])
             self.dut2_isl_dut5_port_d = DotDict(config['netelem2']['isl']['port_p'])
-        except:
+        except Exception:
             pass
         # dut2 topology
         self.dut2_topology = 'standalone'
@@ -219,9 +219,9 @@ class PytestConfigHelper():
                     self.dut2_slot1_console_port = DotDict(config['netelem2']['stack']['slot1']['console_port'])
                     self.dut2_slot2_console_ip = DotDict(config['netelem2']['stack']['slot2']['console_ip'])
                     self.dut2_slot2_console_port = DotDict(config['netelem2']['stack']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
         try:
             if 'vpex' in config['netelem2']:
@@ -231,9 +231,9 @@ class PytestConfigHelper():
                     self.dut2_slot1_console_port = DotDict(config['netelem2']['vpex']['slot1']['console_port'])
                     self.dut2_slot2_console_ip = DotDict(config['netelem2']['vpex']['slot2']['console_ip'])
                     self.dut2_slot2_console_port = DotDict(config['netelem2']['vpex']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
         # DUT 3
         try:
@@ -252,7 +252,7 @@ class PytestConfigHelper():
             self.dut3_model = config['netelem3']['model']
             self.dut3_location = config['netelem3']['location']
             self.dut_list.append('dut3')
-        except:
+        except Exception:
             pass
 
         try:
@@ -261,7 +261,7 @@ class PytestConfigHelper():
             self.dut3_tgen_port_b = DotDict(config['netelem3']['tgen']['port_b'])
             self.dut3_tgen_port_c = DotDict(config['netelem3']['tgen']['port_c'])
             self.dut3_tgen_port_d = DotDict(config['netelem3']['tgen']['port_d'])
-        except:
+        except Exception:
             pass
 
         try:
@@ -282,7 +282,7 @@ class PytestConfigHelper():
             self.dut3_isl_dut5_port_b = DotDict(config['netelem3']['isl']['port_n'])
             self.dut3_isl_dut5_port_c = DotDict(config['netelem3']['isl']['port_o'])
             self.dut3_isl_dut5_port_d = DotDict(config['netelem3']['isl']['port_p'])
-        except:
+        except Exception:
             pass
         # dut3 topology
         self.dut3_topology = 'standalone'
@@ -294,9 +294,9 @@ class PytestConfigHelper():
                     self.dut3_slot1_console_port = DotDict(config['netelem3']['stack']['slot1']['console_port'])
                     self.dut3_slot2_console_ip = DotDict(config['netelem3']['stack']['slot2']['console_ip'])
                     self.dut3_slot2_console_port = DotDict(config['netelem3']['stack']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
         try:
             if 'vpex' in config['netelem3']:
@@ -306,9 +306,9 @@ class PytestConfigHelper():
                     self.dut3_slot1_console_port = DotDict(config['netelem3']['vpex']['slot1']['console_port'])
                     self.dut3_slot2_console_ip = DotDict(config['netelem3']['vpex']['slot2']['console_ip'])
                     self.dut3_slot2_console_port = DotDict(config['netelem3']['vpex']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
         # DUT 4
         try:
@@ -327,7 +327,7 @@ class PytestConfigHelper():
             self.dut4_model = config['netelem4']['model']
             self.dut4_location = config['netelem4']['location']
             self.dut_list.append('dut4')
-        except:
+        except Exception:
             pass
 
         try:
@@ -336,7 +336,7 @@ class PytestConfigHelper():
             self.dut4_tgen_port_b = DotDict(config['netelem4']['tgen']['port_b'])
             self.dut4_tgen_port_c = DotDict(config['netelem4']['tgen']['port_c'])
             self.dut4_tgen_port_d = DotDict(config['netelem4']['tgen']['port_d'])
-        except:
+        except Exception:
             pass
 
         try:
@@ -357,7 +357,7 @@ class PytestConfigHelper():
             self.dut4_isl_dut5_port_b = DotDict(config['netelem4']['isl']['port_n'])
             self.dut4_isl_dut5_port_c = DotDict(config['netelem4']['isl']['port_o'])
             self.dut4_isl_dut5_port_d = DotDict(config['netelem4']['isl']['port_p'])
-        except:
+        except Exception:
             pass
         # dut4 topology
         self.dut4_topology = 'standalone'
@@ -369,9 +369,9 @@ class PytestConfigHelper():
                     self.dut4_slot1_console_port = DotDict(config['netelem4']['stack']['slot1']['console_port'])
                     self.dut4_slot2_console_ip = DotDict(config['netelem4']['stack']['slot2']['console_ip'])
                     self.dut4_slot2_console_port = DotDict(config['netelem4']['stack']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
         try:
             if 'vpex' in config['netelem4']:
@@ -381,9 +381,9 @@ class PytestConfigHelper():
                     self.dut4_slot1_console_port = DotDict(config['netelem4']['vpex']['slot1']['console_port'])
                     self.dut4_slot2_console_ip = DotDict(config['netelem4']['vpex']['slot2']['console_ip'])
                     self.dut4_slot2_console_port = DotDict(config['netelem4']['vpex']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
         # DUT 5
         try:
@@ -402,7 +402,7 @@ class PytestConfigHelper():
             self.dut5_model = config['netelem5']['model']
             self.dut5_location = config['netelem5']['location']
             self.dut_list.append('dut5')
-        except:
+        except Exception:
             pass
 
         try:
@@ -411,7 +411,7 @@ class PytestConfigHelper():
             self.dut5_tgen_port_b = DotDict(config['netelem5']['tgen']['port_b'])
             self.dut5_tgen_port_c = DotDict(config['netelem5']['tgen']['port_c'])
             self.dut5_tgen_port_d = DotDict(config['netelem5']['tgen']['port_d'])
-        except:
+        except Exception:
             pass
 
         try:
@@ -432,7 +432,7 @@ class PytestConfigHelper():
             self.dut5_isl_dut4_port_b = DotDict(config['netelem5']['isl']['port_n'])
             self.dut5_isl_dut4_port_c = DotDict(config['netelem5']['isl']['port_o'])
             self.dut5_isl_dut4_port_d = DotDict(config['netelem5']['isl']['port_p'])
-        except:
+        except Exception:
             pass
         # dut5 topology
         self.dut5_topology = 'standalone'
@@ -444,9 +444,9 @@ class PytestConfigHelper():
                     self.dut5_slot1_console_port = DotDict(config['netelem5']['stack']['slot1']['console_port'])
                     self.dut5_slot2_console_ip = DotDict(config['netelem5']['stack']['slot2']['console_ip'])
                     self.dut5_slot2_console_port = DotDict(config['netelem5']['stack']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
         try:
             if 'vpex' in config['netelem5']:
@@ -456,9 +456,9 @@ class PytestConfigHelper():
                     self.dut5_slot1_console_port = DotDict(config['netelem5']['vpex']['slot1']['console_port'])
                     self.dut5_slot2_console_ip = DotDict(config['netelem5']['vpex']['slot2']['console_ip'])
                     self.dut5_slot2_console_port = DotDict(config['netelem5']['vpex']['slot2']['console_port'])
-                except:
+                except Exception:
                     pass
-        except:
+        except Exception:
             pass
 
     def createTgenPort(self, tgenName, tgenPort):
@@ -466,7 +466,8 @@ class PytestConfigHelper():
 
     def locateCfg(self, cfgFile, search=[]):
         keyList = ['xiq', 'xiqse', 'econ', 'econxiq']
-        sites = ['RDU','SALEM','BANGALORE','CHENNAI','SJ']
+        # commented out becuase it was not used. psadej - Feb 8, 2023
+        # sites = ['RDU','SALEM','BANGALORE','CHENNAI','SJ']
         cfgDirs  = { 'xiq' : ['/testsuites/xiq/config/', '/testsuites/xiq/env/', '/testsuites/xiq/topologies/'],
                     'xiqse' : ['/testsuites/xiqse/config/', '/testsuites/xiqse/env/', '/testsuites/xiqse/topologies/'],
                     'econ' : ['/Environments/','/TestBeds/','/TestBeds/RDU/Prod/','/TestBeds/SALEM/Prod/',
@@ -575,7 +576,7 @@ def load_yaml2(config, yaml_file, encoding, roboIze=True):
     with codecs.open(os.path.expanduser(yaml_file), 'r', encoding) as f:
         parsed_config = yaml.safe_load(f.read())
         merge_map2(config, parsed_config, roboIze)
-        
+
 def roboIzeAllConfiguration(config):
     # For all variables
     p1 = '^\$\{'
@@ -585,6 +586,3 @@ def roboIzeAllConfiguration(config):
             # robotize keys that have not already be done.
             robotKey = '${' + key + '}'
             config[robotKey] = value
-    
-
-
