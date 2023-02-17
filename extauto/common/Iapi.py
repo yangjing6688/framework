@@ -727,7 +727,8 @@ class Iapi:
         returnflag = 0
         self.utils.print_info("Images present in XIQ ---- ",images_from_xiq)
         self.utils.print_info("Actual images expected are ---- ", image_actual)
-        replaceSpaces = lambda x: [each.replace(' ', '').lower() for each in x]
+        def replaceSpaces(x):
+            return [each.replace(' ', '').lower() for each in x]
 
         imagesfromxiq = replaceSpaces(images_from_xiq)
         imageExpected = replaceSpaces(image_actual)
