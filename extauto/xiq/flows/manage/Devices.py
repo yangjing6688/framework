@@ -2695,7 +2695,7 @@ class Devices:
         return False
 
     def _get_row(self, key, value):
-        device_row = ''
+        device_row = -1
         if key == "device_serial":
             device_row = self.get_device_row(device_serial=value)
         elif key == "device_mac":
@@ -2741,48 +2741,68 @@ class Devices:
         if len(device_keys.keys()) == 0:
             kwargs['fail_msg'] = "No valid args passed. Must be device_serial, device_name, device_mac!"
             self.common_validation.fault(**kwargs)
-            return -1
+            return "Unknown"
 
         if self.cobj_web_elements.get_page_size_element():
             self.auto_actions.click_reference(self.cobj_web_elements.get_page_size_element)
             self.screen.save_screen_shot()
             sleep(5)
 
+        # Refresh the devices table before printing contents and before searching for our row
+        self.refresh_devices_page()
+
         # Printing all the rows in the table for troubleshooting
+        self.utils.print_info("*** Print all rows in devices table: START ***")
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
                 self.utils.print_info("row data: ", self.format_row(row.text))
         else:
             self.utils.print_info("No rows present")
+        self.utils.print_info("*** Print all rows in devices table: END ***")
 
+        # Get the device status and the audit config status which are the two icon on the left of the row
+        device_status = None
+        audit_config_status
         for key, value in device_keys.items():
-            self.utils.print_info(f"Getting device status using {key} : {value}")
-            self.refresh_devices_page()
+            self.utils.print_info(f"Getting device row from devices table using {key} : {value}")
             device_row = self._get_row(key, value)
             device_row = copy.copy(device_row)
 
-            if device_row != -1:
-                device_status = ''
-                attempt_count = 1
-                while attempt_count <= 3:
-                    self.utils.print_info(f"Trying to get status from cell. Attempt {attempt_count} of 3 attempts")
-                    try:
-                        device_status = self.devices_web_elements.get_status_cell(device_row)
-                    except Exception:
-                        self.utils.print_info(
-                            "Getting status from cell failed with Exception.Attempting to get status again")
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                    if device_status:
-                        break
-                    attempt_count += 1
-                audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
+            # If we didn't find a row using the current key move on to the next key
+            if device_row == -1:
+                self.utils.print_info(f"Unable to get device row from devices table using {key} : {value}")
+                continue
+
+            # Attempt to get device status from the row we got from the devices table
+            attempt_count = 1
+            attempt_max   = 3
+            while attempt_count <= attempt_max:
+                self.utils.print_info(f"Trying to get device status from table cell. Attempt {attempt_count} of {attempt_max} attempts")
+                try:
+                    device_status = self.devices_web_elements.get_status_cell(device_row)
+                except Exception as err:
+                    self.utils.print_info(f"Getting status from cell failed with Exception: '{err}'")
+
+                # If we got a status then break out of the attempt loop
+                if device_status:
+                    self.utils.print_info(f"Got device status during attempt {attempt_count} of {attempt_max} attempts")
+                    break
+
+                # If we get here then we were unable to get a status
+                self.utils.print_info(f"Getting status from cell failed during attempt {attempt_count} of {attempt_max} attempts.  status = '{device_status}'")
                 self.screen.save_screen_shot()
-                sleep(2)
+                attempt_count += 1
+
+            # The config audit icon is the icon right next to the status icon
+            self.utils.print_info("Getting audit_config_status")
+            audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
+            self.screen.save_screen_shot()
+            sleep(2)
 
             if device_status:
                 self.utils.print_info(f"Device status is: {device_status}")
+                self.utils.print_info(f"Audit config status is: {audit_config_status}")
                 break
 
         if device_status:
@@ -2793,7 +2813,7 @@ class Devices:
                         self.common_validation.passed(**kwargs)
                         return 'green'
                     if "ui-icon-sprite-mismatch" in audit_config_status:
-                        kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
+                        kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mismatched"
                         self.common_validation.passed(**kwargs)
                         return "config audit mismatch"
                 else:
@@ -2827,12 +2847,12 @@ class Devices:
                 return 'unknown'
         else:
             kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
+            return "Unknown"
 
         kwargs['fail_msg'] = "Unable to obtain device status!"
-        self.common_validation.failed(**kwargs)
-        return -1
+        self.common_validation.fault(**kwargs)
+        return "Unknown"
 
     def verify_device_status(self, device_serial='default', device_name='default', device_mac='default',
                              status='default'):
@@ -2868,7 +2888,7 @@ class Devices:
         :param device_name: device Name
         :param device_mac: device MAC
 
-        :return: returns the row object
+        :return: returns the row object or -1 if unable to find row
         """
         self.utils.print_info('Getting device row...')
 
