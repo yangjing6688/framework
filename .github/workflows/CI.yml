@@ -136,7 +136,7 @@ jobs:
     - name: Python syntax checking in /extauto
       run: |
         printf '\n%s\n\n' "======== Running flake8 in /extauto ========"
-        python3 -m flake8 --config=setup.cfg $EXTAUTO_DIR
+        python3 -m flake8 --config=${SETUP_CFG} $EXTAUTO_DIR
 
     - name: Python syntax checking in /ExtremeAutomation
       run: |
