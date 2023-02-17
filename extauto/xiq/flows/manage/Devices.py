@@ -2764,7 +2764,7 @@ class Devices:
                 try:
                     device_status = self.devices_web_elements.get_status_cell(device_row)
                 except Exception as err:
-                    self.utils.print_info(f"Getting status from cell failed with Exception: {err}")
+                    self.utils.print_info(f"Getting status from cell failed with Exception: '{err}'")
 
                 # If we got a status then break out of the attempt loop
                 if device_status:
@@ -2772,7 +2772,7 @@ class Devices:
                     break
 
                 # If we get here then we were unable to get a status
-                self.utils.print_info(f"Getting status from cell failed during attempt {attempt_count} of {attempt_max} attempts.  status = '{device_status}")
+                self.utils.print_info(f"Getting status from cell failed during attempt {attempt_count} of {attempt_max} attempts.  status = '{device_status}'")
                 self.screen.save_screen_shot()
                 attempt_count += 1
 
