@@ -28,6 +28,7 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
+from ExtremeAutomation.Utilities.deprecated import unsupported
 
 
 class Devices:
@@ -340,36 +341,38 @@ class Devices:
                 self.utils.print_info("Device with device name is not EXOS or VOSS device")
                 return 1
 
+    @unsupported('This function is not supported')
     def search_exos_device(self, EXOS_VOSS_device, **kwargs):
-        self.refresh_devices_page()
-        self.screen.save_screen_shot()
-        sleep(2)
-        device_tag = False
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            self.utils.print_debug(f"Searching {len(rows)} rows")
-            for row in rows:
-                if EXOS_VOSS_device in row.text and 'VOSS' in row.text:
-                    self.utils.print_info("Found VOSS device: ", self.format_row(row.text))
-                    self.voss = True
-                    device_tag = True
-                    return 1
-                if EXOS_VOSS_device in row.text and 'EXOS' in row.text:
-                    self.utils.print_info("Found EXOS device: ", self.format_row(row.text))
-                    device_tag = True
-                    self.exos = True
-                    return 1
-        else:
-            self.utils.print_info("No rows present")
-
-        if device_tag == False:
-            kwargs['fail_msg'] = "Device is not EXOS or VOSS"
-            self.common_validation.failed(**kwargs)
-            return -1
-
-        kwargs['fail_msg'] = f"Did not find device row {EXOS_VOSS_device}"
-        self.common_validation.failed(**kwargs)
-        return -1
+        pass
+        # self.refresh_devices_page()
+        # self.screen.save_screen_shot()
+        # sleep(2)
+        # device_tag = False
+        # rows = self.devices_web_elements.get_grid_rows()
+        # if rows:
+        #     self.utils.print_debug(f"Searching {len(rows)} rows")
+        #     for row in rows:
+        #         if EXOS_VOSS_device in row.text and 'VOSS' in row.text:
+        #             self.utils.print_info("Found VOSS device: ", self.format_row(row.text))
+        #             self.voss = True
+        #             device_tag = True
+        #             return 1
+        #         if EXOS_VOSS_device in row.text and 'EXOS' in row.text:
+        #             self.utils.print_info("Found EXOS device: ", self.format_row(row.text))
+        #             device_tag = True
+        #             self.exos = True
+        #             return 1
+        # else:
+        #     self.utils.print_info("No rows present")
+        #
+        # if device_tag == False:
+        #     kwargs['fail_msg'] = "Device is not EXOS or VOSS"
+        #     self.common_validation.failed(**kwargs)
+        #     return -1
+        #
+        # kwargs['fail_msg'] = f"Did not find device row {EXOS_VOSS_device}"
+        # self.common_validation.failed(**kwargs)
+        # return -1
 
     def get_ap_row_with_search_option(self, ap_serial='default', ap_name='default', ap_mac='default'):
         """
@@ -1637,19 +1640,6 @@ class Devices:
                                                       **kwargs) == -1:
             return -1
 
-        # Fix for aiq2618, prevents unnecessary clicks
-        # We are planning to rework logic
-        if 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
-            self.utils.print_info("Onboarding: ", device_make)
-            return_value = self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
-            if return_value == 1:
-                kwargs['pass_msg'] = f"Successfully Onboarded a stack of exos Device(s) with serial numbers {device_serial}"
-                self.common_validation.passed(**kwargs)
-            else:
-                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {device_serial}"
-                self.common_validation.failed(**kwargs)
-            return return_value
-
         self.utils.print_info("Onboarding: ", device_make)
         self.navigator.navigate_to_devices()
 
@@ -1715,24 +1705,12 @@ class Devices:
                                                        get_devices_quick_add_policy_drop_down_items(), policy_name)
             sleep(2)
 
-        # Preventing an unnecessary click here fixes the problem seen in aiq2618
-        # We are planning to rework logic
-        if device_type.lower() == "real":
-            if self.search_device(device_serial=device_serial, ignore_failure=True) == -1:
-                self.utils.print_info("Clicking on ADD DEVICES button...")
-                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
-                self.screen.save_screen_shot()
-                sleep(2)
-            else:  # Search Device found matching Serial Number, cancel "Add Device"
-                self.utils.print_info("Click the Quick Add Devices > Cancel button")
-                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-        else:
-            self.utils.print_info("Clicking on ADD DEVICES button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
+        self.utils.print_info("Clicking on ADD DEVICES button...")
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
-            self.screen.save_screen_shot()
-            sleep(2)
+        self.screen.save_screen_shot()
+        sleep(2)
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
@@ -1973,6 +1951,7 @@ class Devices:
                 self.screen.save_screen_shot()
 
         elif 'Dell' in device_make:
+            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
 
@@ -1984,6 +1963,7 @@ class Devices:
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
 
         elif 'Universal Appliance' in device_make:
+            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
             _errors = self.check_negative_combinations()
@@ -1991,15 +1971,26 @@ class Devices:
                 return _errors
 
         elif 'XMC' in device_make.upper():
+            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
 
-        elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
-            return self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make,
-                                         location=location)
+        elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper() or 'WING' in device_make.upper():
+            self.utils.print_info("Selecting Device Make Controller")
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_drop_down)
+            sleep(2)
+
+            self.utils.print_info("Selecting Device Make: ", device_make)
+            self.auto_actions.select_drop_down_options(
+            self.devices_web_elements.get_device_make_drop_down_options(), "CONTROLLERS")
+            self.auto_actions.send_keys(self.devices_web_elements.get_wing_devices_mac_text_area(), device_mac)
+
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
 
         if 'DUAL BOOT' in device_make.upper():
             return self._onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
@@ -2887,29 +2878,31 @@ class Devices:
                 stale_retry = stale_retry + 1
         return -1
 
+    @unsupported('This function is not supported')
     def search_device_model(self, device_model, **kwargs):
-        """
-        - Searches for Device matching Device's name in device grid
-        - Keyword Usage:
-        - ``Search Device Model  ${DEVICE_MODEL}``
-
-        :param device_model: Device's Name
-        :return: return 1 if Device found
-        """
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                if device_model in row.text:
-                    kwargs['pass_msg'] = f"Found Device Row with Model {device_model}"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-            self.utils.print_info(f"Did not find row with model {device_model}")
-        else:
-            self.utils.print_info("No rows present")
-
-        kwargs['fail_msg'] = "Didn't find the device in grid"
-        self.common_validation.failed(**kwargs)
-        return -1
+        pass
+        # """
+        # - Searches for Device matching Device's name in device grid
+        # - Keyword Usage:
+        # - ``Search Device Model  ${DEVICE_MODEL}``
+        #
+        # :param device_model: Device's Name
+        # :return: return 1 if Device found
+        # """
+        # rows = self.devices_web_elements.get_grid_rows()
+        # if rows:
+        #     for row in rows:
+        #         if device_model in row.text:
+        #             kwargs['pass_msg'] = f"Found Device Row with Model {device_model}"
+        #             self.common_validation.passed(**kwargs)
+        #             return 1
+        #     self.utils.print_info(f"Did not find row with model {device_model}")
+        # else:
+        #     self.utils.print_info("No rows present")
+        #
+        # kwargs['fail_msg'] = "Didn't find the device in grid"
+        # self.common_validation.failed(**kwargs)
+        # return -1
 
     def get_device_model_serial_numbers(self, device_model, device_type):
         rows = self.devices_web_elements.get_grid_rows()
