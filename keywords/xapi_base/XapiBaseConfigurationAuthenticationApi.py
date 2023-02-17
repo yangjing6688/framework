@@ -19,11 +19,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create external radius server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.create_external_radius_server(**kwargs)
@@ -97,11 +97,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create internal radius server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.create_internal_radius_server(**kwargs)
@@ -175,11 +175,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create ldap server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.create_ldap_server(**kwargs)
@@ -253,11 +253,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create radius client object    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.create_radius_client_object(**kwargs)
@@ -331,11 +331,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create radius proxy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.create_radius_proxy(**kwargs)
@@ -409,11 +409,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete external radius server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.delete_external_radius_server(**kwargs)
@@ -487,11 +487,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete internal radius server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.delete_internal_radius_server(**kwargs)
@@ -565,11 +565,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete ldap server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.delete_ldap_server(**kwargs)
@@ -643,11 +643,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete radius client object    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.delete_radius_client_object(**kwargs)
@@ -721,11 +721,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete radius proxy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.delete_radius_proxy(**kwargs)
@@ -799,11 +799,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get external radius server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.get_external_radius_server(**kwargs)
@@ -877,11 +877,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get internal radius server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.get_internal_radius_server(**kwargs)
@@ -955,11 +955,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get ldap server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.get_ldap_server(**kwargs)
@@ -1033,11 +1033,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get radius client object    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.get_radius_client_object(**kwargs)
@@ -1111,11 +1111,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get radius proxy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.get_radius_proxy(**kwargs)
@@ -1189,11 +1189,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list active directory servers    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.list_active_directory_servers(**kwargs)
@@ -1268,11 +1268,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list captive web portals    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.list_captive_web_portals(**kwargs)
@@ -1347,11 +1347,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list external radius servers    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.list_external_radius_servers(**kwargs)
@@ -1426,11 +1426,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list internal radius devices    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.list_internal_radius_devices(**kwargs)
@@ -1505,11 +1505,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list internal radius servers    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.list_internal_radius_servers(**kwargs)
@@ -1584,11 +1584,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list ldap servers    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.list_ldap_servers(**kwargs)
@@ -1663,11 +1663,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list radius client objects    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.list_radius_client_objects(**kwargs)
@@ -1742,11 +1742,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list radius proxies    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.list_radius_proxies(**kwargs)
@@ -1821,11 +1821,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list radius proxy devices    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.list_radius_proxy_devices(**kwargs)
@@ -1900,11 +1900,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update external radius server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.update_external_radius_server(**kwargs)
@@ -1979,11 +1979,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update internal radius server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.update_internal_radius_server(**kwargs)
@@ -2058,11 +2058,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update ldap server    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.update_ldap_server(**kwargs)
@@ -2137,11 +2137,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update radius client object    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.update_radius_client_object(**kwargs)
@@ -2216,11 +2216,11 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update radius proxy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
                 xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
                 xapiBaseConfigurationAuthenticationApi.update_radius_proxy(**kwargs)

@@ -19,11 +19,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 attach cwp to ssid    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.attach_cwp_to_ssid(**kwargs)
@@ -98,11 +98,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 attach radius server group to ssid    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.attach_radius_server_group_to_ssid(**kwargs)
@@ -177,11 +177,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 attach user profile to ssid    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.attach_user_profile_to_ssid(**kwargs)
@@ -256,11 +256,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 change psk password    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.change_psk_password(**kwargs)
@@ -335,11 +335,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 create classification rule    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.create_classification_rule(**kwargs)
@@ -413,11 +413,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 create cloud config group    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.create_cloud_config_group(**kwargs)
@@ -491,11 +491,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 create mac oui profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.create_mac_oui_profile(**kwargs)
@@ -569,11 +569,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 create radio profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.create_radio_profile(**kwargs)
@@ -647,11 +647,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 create user profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.create_user_profile(**kwargs)
@@ -725,11 +725,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 delete classification rule    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.delete_classification_rule(**kwargs)
@@ -803,11 +803,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 delete cloud config group    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.delete_cloud_config_group(**kwargs)
@@ -881,11 +881,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 delete co user profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.delete_co_user_profile(**kwargs)
@@ -959,11 +959,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 delete radio profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.delete_radio_profile(**kwargs)
@@ -1037,11 +1037,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 delete rp mac oui profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.delete_rp_mac_oui_profile(**kwargs)
@@ -1115,11 +1115,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 disable ssid cwp    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.disable_ssid_cwp(**kwargs)
@@ -1193,11 +1193,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 enable ssid cwp    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.enable_ssid_cwp(**kwargs)
@@ -1272,11 +1272,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get classification rule    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_classification_rule(**kwargs)
@@ -1350,11 +1350,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get cloud config group    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_cloud_config_group(**kwargs)
@@ -1428,11 +1428,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get neighborhood analysis    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_neighborhood_analysis(**kwargs)
@@ -1506,11 +1506,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get radio profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_radio_profile(**kwargs)
@@ -1584,11 +1584,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get rp channel selection    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_rp_channel_selection(**kwargs)
@@ -1662,11 +1662,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get rp mac oui profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_rp_mac_oui_profile(**kwargs)
@@ -1740,11 +1740,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get rp miscellaneous settings    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_rp_miscellaneous_settings(**kwargs)
@@ -1818,11 +1818,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get rp radio usage optimization    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_rp_radio_usage_optimization(**kwargs)
@@ -1896,11 +1896,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get rp sensor scan settings    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_rp_sensor_scan_settings(**kwargs)
@@ -1974,11 +1974,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get rp wmm qos settings    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_rp_wmm_qos_settings(**kwargs)
@@ -2052,11 +2052,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 get user profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.get_user_profile(**kwargs)
@@ -2130,11 +2130,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 list classification rules    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.list_classification_rules(**kwargs)
@@ -2209,11 +2209,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 list cloud config groups    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.list_cloud_config_groups(**kwargs)
@@ -2288,11 +2288,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 list l3 address profiles    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.list_l3_address_profiles(**kwargs)
@@ -2366,11 +2366,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 list radio profiles    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.list_radio_profiles(**kwargs)
@@ -2445,11 +2445,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 list rp mac oui profiles    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.list_rp_mac_oui_profiles(**kwargs)
@@ -2524,11 +2524,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 list ssids    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.list_ssids(**kwargs)
@@ -2603,11 +2603,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 list user profiles    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.list_user_profiles(**kwargs)
@@ -2682,11 +2682,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 rename ssid    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.rename_ssid(**kwargs)
@@ -2761,11 +2761,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 set ssid mode dot1x    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.set_ssid_mode_dot1x(**kwargs)
@@ -2840,11 +2840,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 set ssid mode open    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.set_ssid_mode_open(**kwargs)
@@ -2918,11 +2918,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 set ssid mode ppsk    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.set_ssid_mode_ppsk(**kwargs)
@@ -2997,11 +2997,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 set ssid mode psk    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.set_ssid_mode_psk(**kwargs)
@@ -3076,11 +3076,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 set ssid mode wep    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.set_ssid_mode_wep(**kwargs)
@@ -3155,11 +3155,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update classification rule    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_classification_rule(**kwargs)
@@ -3234,11 +3234,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update cloud config group    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_cloud_config_group(**kwargs)
@@ -3313,11 +3313,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update co user profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_co_user_profile(**kwargs)
@@ -3392,11 +3392,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update neighborhood analysis    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_neighborhood_analysis(**kwargs)
@@ -3471,11 +3471,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update radio profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_radio_profile(**kwargs)
@@ -3550,11 +3550,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update rp channel selection    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_rp_channel_selection(**kwargs)
@@ -3629,11 +3629,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update rp mac oui profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_rp_mac_oui_profile(**kwargs)
@@ -3708,11 +3708,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update rp miscellaneous settings    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_rp_miscellaneous_settings(**kwargs)
@@ -3787,11 +3787,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update rp radio usage optimization    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_rp_radio_usage_optimization(**kwargs)
@@ -3866,11 +3866,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update rp sensor scan settings    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_rp_sensor_scan_settings(**kwargs)
@@ -3945,11 +3945,11 @@ class XapiBaseConfigurationPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationPolicyApi.py
         
                 update rp wmm qos settings    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
         
                 xapiBaseConfigurationPolicyApi = XapiBaseConfigurationPolicyApi()
                 xapiBaseConfigurationPolicyApi.update_rp_wmm_qos_settings(**kwargs)

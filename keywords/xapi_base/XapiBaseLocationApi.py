@@ -19,11 +19,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 create building    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.create_building(**kwargs)
@@ -97,11 +97,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 create floor    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.create_floor(**kwargs)
@@ -175,11 +175,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 create location    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.create_location(**kwargs)
@@ -253,11 +253,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 delete building    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.delete_building(**kwargs)
@@ -332,11 +332,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 delete floor    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.delete_floor(**kwargs)
@@ -410,11 +410,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 delete location    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.delete_location(**kwargs)
@@ -489,11 +489,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 get location tree    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.get_location_tree(**kwargs)
@@ -568,11 +568,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 update building    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.update_building(**kwargs)
@@ -647,11 +647,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 update floor    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.update_floor(**kwargs)
@@ -726,11 +726,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 update location    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.update_location(**kwargs)
@@ -805,11 +805,11 @@ class XapiBaseLocationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 upload floorplan    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
                 xapiBaseLocationApi = XapiBaseLocationApi()
                 xapiBaseLocationApi.upload_floorplan(**kwargs)

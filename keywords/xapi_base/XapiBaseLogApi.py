@@ -19,11 +19,11 @@ class XapiBaseLogApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list accounting logs    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
                 xapiBaseLogApi = XapiBaseLogApi()
                 xapiBaseLogApi.list_accounting_logs(**kwargs)
@@ -102,11 +102,11 @@ class XapiBaseLogApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list audit logs    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
                 xapiBaseLogApi = XapiBaseLogApi()
                 xapiBaseLogApi.list_audit_logs(**kwargs)
@@ -185,11 +185,11 @@ class XapiBaseLogApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list auth logs    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
                 xapiBaseLogApi = XapiBaseLogApi()
                 xapiBaseLogApi.list_auth_logs(**kwargs)
@@ -268,11 +268,11 @@ class XapiBaseLogApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list credential logs    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
                 xapiBaseLogApi = XapiBaseLogApi()
                 xapiBaseLogApi.list_credential_logs(**kwargs)
@@ -350,11 +350,11 @@ class XapiBaseLogApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list email logs    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
                 xapiBaseLogApi = XapiBaseLogApi()
                 xapiBaseLogApi.list_email_logs(**kwargs)
@@ -432,11 +432,11 @@ class XapiBaseLogApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list sms logs    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
                 xapiBaseLogApi = XapiBaseLogApi()
                 xapiBaseLogApi.list_sms_logs(**kwargs)

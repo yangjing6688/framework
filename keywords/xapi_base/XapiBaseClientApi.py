@@ -19,11 +19,11 @@ class XapiBaseClientApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseClientApi.py
         
                 get client    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
         
                 xapiBaseClientApi = XapiBaseClientApi()
                 xapiBaseClientApi.get_client(**kwargs)
@@ -99,11 +99,11 @@ class XapiBaseClientApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseClientApi.py
         
                 get client summary    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
         
                 xapiBaseClientApi = XapiBaseClientApi()
                 xapiBaseClientApi.get_client_summary(**kwargs)
@@ -181,11 +181,11 @@ class XapiBaseClientApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseClientApi.py
         
                 get client usage    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
         
                 xapiBaseClientApi = XapiBaseClientApi()
                 xapiBaseClientApi.get_client_usage(**kwargs)
@@ -261,11 +261,11 @@ class XapiBaseClientApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseClientApi.py
         
                 list active clients    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
         
                 xapiBaseClientApi = XapiBaseClientApi()
                 xapiBaseClientApi.list_active_clients(**kwargs)

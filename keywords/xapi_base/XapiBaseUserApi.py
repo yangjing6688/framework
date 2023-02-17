@@ -19,11 +19,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 create user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.create_user(**kwargs)
@@ -97,11 +97,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 delete user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.delete_user(**kwargs)
@@ -175,11 +175,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 get current user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.get_current_user(**kwargs)
@@ -252,11 +252,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 get external user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.get_external_user(**kwargs)
@@ -330,11 +330,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 get user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.get_user(**kwargs)
@@ -408,11 +408,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 grant external user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.grant_external_user(**kwargs)
@@ -486,11 +486,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 list external users    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.list_external_users(**kwargs)
@@ -565,11 +565,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 list users    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.list_users(**kwargs)
@@ -644,11 +644,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 revoke external user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.revoke_external_user(**kwargs)
@@ -722,11 +722,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 update external user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.update_external_user(**kwargs)
@@ -801,11 +801,11 @@ class XapiBaseUserApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseUserApi.py
         
                 update user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseUserApi import XapiBaseUserApi
         
                 xapiBaseUserApi = XapiBaseUserApi()
                 xapiBaseUserApi.update_user(**kwargs)

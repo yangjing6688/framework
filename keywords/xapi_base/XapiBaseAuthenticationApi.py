@@ -19,11 +19,11 @@ class XapiBaseAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAuthenticationApi.py
         
                 login    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAuthenticationApi import XapiBaseAuthenticationApi
         
                 xapiBaseAuthenticationApi = XapiBaseAuthenticationApi()
                 xapiBaseAuthenticationApi.login(**kwargs)
@@ -73,11 +73,11 @@ class XapiBaseAuthenticationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAuthenticationApi.py
         
                 logout    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAuthenticationApi import XapiBaseAuthenticationApi
         
                 xapiBaseAuthenticationApi = XapiBaseAuthenticationApi()
                 xapiBaseAuthenticationApi.logout(**kwargs)

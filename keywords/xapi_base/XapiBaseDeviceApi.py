@@ -19,11 +19,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign device location    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.assign_device_location(**kwargs)
@@ -98,11 +98,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign device network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.assign_device_network_policy(**kwargs)
@@ -177,11 +177,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign devices country code    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.assign_devices_country_code(**kwargs)
@@ -255,11 +255,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign devices location    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.assign_devices_location(**kwargs)
@@ -333,11 +333,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign devices network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.assign_devices_network_policy(**kwargs)
@@ -411,11 +411,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign devices radius proxy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.assign_devices_radius_proxy(**kwargs)
@@ -490,11 +490,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change device description    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.change_device_description(**kwargs)
@@ -569,11 +569,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change device level ssid status    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.change_device_level_ssid_status(**kwargs)
@@ -648,11 +648,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change device status to manage    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.change_device_status_to_manage(**kwargs)
@@ -726,11 +726,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change device status to unmanage    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.change_device_status_to_unmanage(**kwargs)
@@ -804,11 +804,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change devices os mode    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.change_devices_os_mode(**kwargs)
@@ -882,11 +882,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change hostname    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.change_hostname(**kwargs)
@@ -961,11 +961,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change status to manage    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.change_status_to_manage(**kwargs)
@@ -1039,11 +1039,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change status to unmanage    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.change_status_to_unmanage(**kwargs)
@@ -1117,11 +1117,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 delete device    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.delete_device(**kwargs)
@@ -1195,11 +1195,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 delete devices    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.delete_devices(**kwargs)
@@ -1273,11 +1273,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.get_device(**kwargs)
@@ -1353,11 +1353,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device cpu memory history    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.get_device_cpu_memory_history(**kwargs)
@@ -1434,11 +1434,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device level ssid status    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.get_device_level_ssid_status(**kwargs)
@@ -1512,11 +1512,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device location    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.get_device_location(**kwargs)
@@ -1590,11 +1590,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.get_device_network_policy(**kwargs)
@@ -1668,11 +1668,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device stats    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.get_device_stats(**kwargs)
@@ -1746,11 +1746,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 list device alarm    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.list_device_alarm(**kwargs)
@@ -1828,11 +1828,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 list devices    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.list_devices(**kwargs)
@@ -1919,11 +1919,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 list devices by network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.list_devices_by_network_policy(**kwargs)
@@ -1999,11 +1999,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 onboard devices    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.onboard_devices(**kwargs)
@@ -2077,11 +2077,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 override device level ssid    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.override_device_level_ssid(**kwargs)
@@ -2156,11 +2156,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 query devices location    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.query_devices_location(**kwargs)
@@ -2234,11 +2234,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 query devices network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.query_devices_network_policy(**kwargs)
@@ -2312,11 +2312,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 reboot device    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.reboot_device(**kwargs)
@@ -2390,11 +2390,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 reboot devices    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.reboot_devices(**kwargs)
@@ -2468,11 +2468,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 reset device    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.reset_device(**kwargs)
@@ -2547,11 +2547,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke device location    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.revoke_device_location(**kwargs)
@@ -2625,11 +2625,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke device network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.revoke_device_network_policy(**kwargs)
@@ -2703,11 +2703,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke devices location    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.revoke_devices_location(**kwargs)
@@ -2781,11 +2781,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke devices network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.revoke_devices_network_policy(**kwargs)
@@ -2859,11 +2859,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke devices radius proxy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.revoke_devices_radius_proxy(**kwargs)
@@ -2937,11 +2937,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 send cli to device    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.send_cli_to_device(**kwargs)
@@ -3016,11 +3016,11 @@ class XapiBaseDeviceApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 send cli to devices    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
                 xapiBaseDeviceApi = XapiBaseDeviceApi()
                 xapiBaseDeviceApi.send_cli_to_devices(**kwargs)

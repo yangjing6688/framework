@@ -19,11 +19,11 @@ class XapiBaseAccountApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 backup viq    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
                 xapiBaseAccountApi = XapiBaseAccountApi()
                 xapiBaseAccountApi.backup_viq(**kwargs)
@@ -96,11 +96,11 @@ class XapiBaseAccountApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 get default device password    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
                 xapiBaseAccountApi = XapiBaseAccountApi()
                 xapiBaseAccountApi.get_default_device_password(**kwargs)
@@ -173,11 +173,11 @@ class XapiBaseAccountApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 get home account    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
                 xapiBaseAccountApi = XapiBaseAccountApi()
                 xapiBaseAccountApi.get_home_account(**kwargs)
@@ -250,11 +250,11 @@ class XapiBaseAccountApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 get viq info    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
                 xapiBaseAccountApi = XapiBaseAccountApi()
                 xapiBaseAccountApi.get_viq_info(**kwargs)
@@ -327,11 +327,11 @@ class XapiBaseAccountApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 list external accounts    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
                 xapiBaseAccountApi = XapiBaseAccountApi()
                 xapiBaseAccountApi.list_external_accounts(**kwargs)
@@ -404,11 +404,11 @@ class XapiBaseAccountApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 switch account    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
                 xapiBaseAccountApi = XapiBaseAccountApi()
                 xapiBaseAccountApi.switch_account(**kwargs)
@@ -482,11 +482,11 @@ class XapiBaseAccountApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 update default device password    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
                 xapiBaseAccountApi = XapiBaseAccountApi()
                 xapiBaseAccountApi.update_default_device_password(**kwargs)

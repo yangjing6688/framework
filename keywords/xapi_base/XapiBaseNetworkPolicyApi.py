@@ -19,11 +19,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 add ssids to network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
                 xapiBaseNetworkPolicyApi = XapiBaseNetworkPolicyApi()
                 xapiBaseNetworkPolicyApi.add_ssids_to_network_policy(**kwargs)
@@ -98,11 +98,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 create network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
                 xapiBaseNetworkPolicyApi = XapiBaseNetworkPolicyApi()
                 xapiBaseNetworkPolicyApi.create_network_policy(**kwargs)
@@ -176,11 +176,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 delete network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
                 xapiBaseNetworkPolicyApi = XapiBaseNetworkPolicyApi()
                 xapiBaseNetworkPolicyApi.delete_network_policy(**kwargs)
@@ -254,11 +254,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 delete ssids from network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
                 xapiBaseNetworkPolicyApi = XapiBaseNetworkPolicyApi()
                 xapiBaseNetworkPolicyApi.delete_ssids_from_network_policy(**kwargs)
@@ -333,11 +333,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 get network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
                 xapiBaseNetworkPolicyApi = XapiBaseNetworkPolicyApi()
                 xapiBaseNetworkPolicyApi.get_network_policy(**kwargs)
@@ -411,11 +411,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 list network polices    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
                 xapiBaseNetworkPolicyApi = XapiBaseNetworkPolicyApi()
                 xapiBaseNetworkPolicyApi.list_network_polices(**kwargs)
@@ -491,11 +491,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 list ssids by network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
                 xapiBaseNetworkPolicyApi = XapiBaseNetworkPolicyApi()
                 xapiBaseNetworkPolicyApi.list_ssids_by_network_policy(**kwargs)
@@ -571,11 +571,11 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 update network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
                 xapiBaseNetworkPolicyApi = XapiBaseNetworkPolicyApi()
                 xapiBaseNetworkPolicyApi.update_network_policy(**kwargs)

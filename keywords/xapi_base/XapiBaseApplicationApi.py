@@ -19,11 +19,11 @@ class XapiBaseApplicationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseApplicationApi.py
         
                 list application top clients usage    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseApplicationApi import XapiBaseApplicationApi
         
                 xapiBaseApplicationApi = XapiBaseApplicationApi()
                 xapiBaseApplicationApi.list_application_top_clients_usage(**kwargs)
@@ -100,11 +100,11 @@ class XapiBaseApplicationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseApplicationApi.py
         
                 list applications    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseApplicationApi import XapiBaseApplicationApi
         
                 xapiBaseApplicationApi = XapiBaseApplicationApi()
                 xapiBaseApplicationApi.list_applications(**kwargs)
@@ -185,11 +185,11 @@ class XapiBaseApplicationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseApplicationApi.py
         
                 list top applications usage    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseApplicationApi import XapiBaseApplicationApi
         
                 xapiBaseApplicationApi = XapiBaseApplicationApi()
                 xapiBaseApplicationApi.list_top_applications_usage(**kwargs)

@@ -19,11 +19,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 create organization    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.create_organization(**kwargs)
@@ -97,11 +97,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 delete organization    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.delete_organization(**kwargs)
@@ -175,11 +175,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 get creating org id    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.get_creating_org_id(**kwargs)
@@ -252,11 +252,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 get hiq context    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.get_hiq_context(**kwargs)
@@ -329,11 +329,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 get hiq status    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.get_hiq_status(**kwargs)
@@ -406,11 +406,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 get reading org ids    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.get_reading_org_ids(**kwargs)
@@ -483,11 +483,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 list organizations    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.list_organizations(**kwargs)
@@ -560,11 +560,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 rename organization    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.rename_organization(**kwargs)
@@ -639,11 +639,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 set creating org id    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.set_creating_org_id(**kwargs)
@@ -717,11 +717,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 set hiq context    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.set_hiq_context(**kwargs)
@@ -795,11 +795,11 @@ class XapiBaseHIQApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 set reading org ids    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
                 xapiBaseHIQApi = XapiBaseHIQApi()
                 xapiBaseHIQApi.set_reading_org_ids(**kwargs)

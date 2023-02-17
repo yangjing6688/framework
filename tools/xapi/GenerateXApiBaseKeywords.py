@@ -29,9 +29,9 @@ class parseXAPI:
             doc_string = ast.get_docstring(functionNode)
 
             # Add in the Robot / Pytest Examples
-            robot_import = f'{self.tab}{self.tab}Library    ' + self.base_generated_directory + 'XapiBase{xapi_class_name}.py\n\n'
+            robot_import = f'{self.tab}{self.tab}Library    ' + self.base_generated_directory + f'XapiBase{xapi_class_name}.py\n\n'
             robot_example = f'{self.tab}Robot:\n{robot_import}{self.tab}{self.tab}{functionNode.name.replace("_"," ")}{self.tab}**kwargs\n'
-            pytest_import = f'{self.tab}{self.tab}from ' + self.base_generated_directory.replace('/',".") +'XapiBase{xapi_class_name} import XapiBase{xapi_class_name}\n\n'
+            pytest_import = f'{self.tab}{self.tab}from ' + self.base_generated_directory.replace('/',".") + f'XapiBase{xapi_class_name} import XapiBase{xapi_class_name}\n\n'
             pytest_class = f'{self.tab}{self.tab}xapiBase{xapi_class_name} = XapiBase{xapi_class_name}()\n'
             pytest_example = f'{self.tab}Pytest:\n{pytest_import}{pytest_class}{self.tab}{self.tab}xapiBase{xapi_class_name}.{functionNode.name}(**kwargs)\n\n'
 

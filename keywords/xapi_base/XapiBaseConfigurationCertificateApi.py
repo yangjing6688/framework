@@ -19,11 +19,11 @@ class XapiBaseConfigurationCertificateApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationCertificateApi.py
         
                 list certificates    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationCertificateApi import XapiBaseConfigurationCertificateApi
         
                 xapiBaseConfigurationCertificateApi = XapiBaseConfigurationCertificateApi()
                 xapiBaseConfigurationCertificateApi.list_certificates(**kwargs)

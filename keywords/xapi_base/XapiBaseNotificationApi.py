@@ -19,11 +19,11 @@ class XapiBaseNotificationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNotificationApi.py
         
                 create subscriptions    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNotificationApi import XapiBaseNotificationApi
         
                 xapiBaseNotificationApi = XapiBaseNotificationApi()
                 xapiBaseNotificationApi.create_subscriptions(**kwargs)
@@ -97,11 +97,11 @@ class XapiBaseNotificationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNotificationApi.py
         
                 delete subscription    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNotificationApi import XapiBaseNotificationApi
         
                 xapiBaseNotificationApi = XapiBaseNotificationApi()
                 xapiBaseNotificationApi.delete_subscription(**kwargs)
@@ -175,11 +175,11 @@ class XapiBaseNotificationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseNotificationApi.py
         
                 list    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseNotificationApi import XapiBaseNotificationApi
         
                 xapiBaseNotificationApi = XapiBaseNotificationApi()
                 xapiBaseNotificationApi.list(**kwargs)

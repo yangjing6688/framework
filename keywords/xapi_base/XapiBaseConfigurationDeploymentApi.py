@@ -19,11 +19,11 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationDeploymentApi.py
         
                 deploy config    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationDeploymentApi import XapiBaseConfigurationDeploymentApi
         
                 xapiBaseConfigurationDeploymentApi = XapiBaseConfigurationDeploymentApi()
                 xapiBaseConfigurationDeploymentApi.deploy_config(**kwargs)
@@ -97,11 +97,11 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationDeploymentApi.py
         
                 get deploy overview    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationDeploymentApi import XapiBaseConfigurationDeploymentApi
         
                 xapiBaseConfigurationDeploymentApi = XapiBaseConfigurationDeploymentApi()
                 xapiBaseConfigurationDeploymentApi.get_deploy_overview(**kwargs)
@@ -174,11 +174,11 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationDeploymentApi.py
         
                 get deploy status    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationDeploymentApi import XapiBaseConfigurationDeploymentApi
         
                 xapiBaseConfigurationDeploymentApi = XapiBaseConfigurationDeploymentApi()
                 xapiBaseConfigurationDeploymentApi.get_deploy_status(**kwargs)

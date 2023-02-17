@@ -19,11 +19,11 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 create vlan profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
                 xapiBaseConfigurationBasicApi = XapiBaseConfigurationBasicApi()
                 xapiBaseConfigurationBasicApi.create_vlan_profile(**kwargs)
@@ -97,11 +97,11 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 delete vlan profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
                 xapiBaseConfigurationBasicApi = XapiBaseConfigurationBasicApi()
                 xapiBaseConfigurationBasicApi.delete_vlan_profile(**kwargs)
@@ -175,11 +175,11 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 get vlan profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
                 xapiBaseConfigurationBasicApi = XapiBaseConfigurationBasicApi()
                 xapiBaseConfigurationBasicApi.get_vlan_profile(**kwargs)
@@ -253,11 +253,11 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 list vlan profiles    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
                 xapiBaseConfigurationBasicApi = XapiBaseConfigurationBasicApi()
                 xapiBaseConfigurationBasicApi.list_vlan_profiles(**kwargs)
@@ -332,11 +332,11 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 update vlan profile    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
                 xapiBaseConfigurationBasicApi = XapiBaseConfigurationBasicApi()
                 xapiBaseConfigurationBasicApi.update_vlan_profile(**kwargs)

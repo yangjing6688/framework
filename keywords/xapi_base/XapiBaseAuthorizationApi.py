@@ -19,11 +19,11 @@ class XapiBaseAuthorizationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
         
                 check permissions    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
         
                 xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
                 xapiBaseAuthorizationApi.check_permissions(**kwargs)
@@ -97,11 +97,11 @@ class XapiBaseAuthorizationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
         
                 generate api token    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
         
                 xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
                 xapiBaseAuthorizationApi.generate_api_token(**kwargs)
@@ -175,11 +175,11 @@ class XapiBaseAuthorizationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
         
                 get current api token info    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
         
                 xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
                 xapiBaseAuthorizationApi.get_current_api_token_info(**kwargs)
@@ -252,11 +252,11 @@ class XapiBaseAuthorizationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
         
                 list permissions    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
         
                 xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
                 xapiBaseAuthorizationApi.list_permissions(**kwargs)

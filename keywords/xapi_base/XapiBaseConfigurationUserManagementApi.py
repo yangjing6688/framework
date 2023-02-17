@@ -19,11 +19,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 add key based pcg users    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.add_key_based_pcg_users(**kwargs)
@@ -98,11 +98,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 assign ports    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.assign_ports(**kwargs)
@@ -177,11 +177,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 create end user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.create_end_user(**kwargs)
@@ -255,11 +255,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 create user group    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.create_user_group(**kwargs)
@@ -333,11 +333,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 delete key based pcg users    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.delete_key_based_pcg_users(**kwargs)
@@ -412,11 +412,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 delete pcg    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.delete_pcg(**kwargs)
@@ -491,11 +491,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 delete ssid user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.delete_ssid_user(**kwargs)
@@ -569,11 +569,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 delete user group    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.delete_user_group(**kwargs)
@@ -647,11 +647,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 email keys    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.email_keys(**kwargs)
@@ -726,11 +726,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 generate keys    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.generate_keys(**kwargs)
@@ -805,11 +805,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 get key based pcg users    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.get_key_based_pcg_users(**kwargs)
@@ -883,11 +883,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 get port assignments    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.get_port_assignments(**kwargs)
@@ -961,11 +961,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list email templates    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.list_email_templates(**kwargs)
@@ -1039,11 +1039,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list end users    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.list_end_users(**kwargs)
@@ -1120,11 +1120,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list key based private client groups    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.list_key_based_private_client_groups(**kwargs)
@@ -1197,11 +1197,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list sms templates    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.list_sms_templates(**kwargs)
@@ -1275,11 +1275,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list user groups    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.list_user_groups(**kwargs)
@@ -1356,11 +1356,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 onboard key based private client group    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.onboard_key_based_private_client_group(**kwargs)
@@ -1435,11 +1435,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 regenerate end user password    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.regenerate_end_user_password(**kwargs)
@@ -1513,11 +1513,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 setup key based private client group network policy    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.setup_key_based_private_client_group_network_policy(**kwargs)
@@ -1591,11 +1591,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 update end user    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.update_end_user(**kwargs)
@@ -1670,11 +1670,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 update key based pcg users    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.update_key_based_pcg_users(**kwargs)
@@ -1749,11 +1749,11 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 update user group    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
                 xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
                 xapiBaseConfigurationUserManagementApi.update_user_group(**kwargs)

@@ -19,11 +19,11 @@ class XapiBaseOperationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseOperationApi.py
         
                 cancel operation    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseOperationApi import XapiBaseOperationApi
         
                 xapiBaseOperationApi = XapiBaseOperationApi()
                 xapiBaseOperationApi.cancel_operation(**kwargs)
@@ -97,11 +97,11 @@ class XapiBaseOperationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseOperationApi.py
         
                 delete operation    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseOperationApi import XapiBaseOperationApi
         
                 xapiBaseOperationApi = XapiBaseOperationApi()
                 xapiBaseOperationApi.delete_operation(**kwargs)
@@ -175,11 +175,11 @@ class XapiBaseOperationApi(XapiBase):
         >>> result = thread.get()
         
             Robot:
-                Library    keywords/xapi_base/XapiBase{xapi_class_name}.py
+                Library    keywords/xapi_base/XapiBaseOperationApi.py
         
                 get operation    **kwargs
             Pytest:
-                from keywords.xapi_base.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}
+                from keywords.xapi_base.XapiBaseOperationApi import XapiBaseOperationApi
         
                 xapiBaseOperationApi = XapiBaseOperationApi()
                 xapiBaseOperationApi.get_operation(**kwargs)
