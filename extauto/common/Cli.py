@@ -582,7 +582,7 @@ class Cli(object):
             output = self.send(spawn, f'show interface {device_interface} | in "IP addr"')
             try:
                 self.utils.print_info(f"AP {device_interface} IPv4 info: ", output)
-                ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
+                ipv4_addr = re.search(r"((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
                 self.utils.print_info(f"{device_interface} IPv4 address is: {ipv4_addr}")
                 return ipv4_addr
             except Exception as e:
@@ -2272,7 +2272,7 @@ class Cli(object):
         if dut.cli_type.upper() == "EXOS":
             result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
             output = result[0].cmd_obj.return_text
-            pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
+            pattern = rf'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
             match = re.search(pattern, output)
 
             if match:

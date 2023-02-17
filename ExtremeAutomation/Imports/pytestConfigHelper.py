@@ -554,7 +554,7 @@ class PytestConfigHelper():
 
 def merge_map2(original, to_add, roboIze=True):
     """ Merges a new map of configuration recursively with an older one """
-    p1 = '^\$\{'
+    p1 = r'^\$\{'
     for k, v in to_add.items():
         if isinstance(v, dict) and k in original and isinstance(original[k],
                                                                 dict):
@@ -579,7 +579,7 @@ def load_yaml2(config, yaml_file, encoding, roboIze=True):
 
 def roboIzeAllConfiguration(config):
     # For all variables
-    p1 = '^\$\{'
+    p1 = r'^\$\{'
     forLoopDict = config.copy()
     for key, value in forLoopDict.items():
         if not re.match(p1, key):

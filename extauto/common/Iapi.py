@@ -650,7 +650,7 @@ class Iapi:
         if nos.lower() =="exos":
             dutdata = self.switchingAPI.switch_restconf(nos, dutip, ("openconfig-interfaces:interfaces/interface=%s"%(portnumber)), method="GET")
         elif nos.lower()=="voss":
-            slot_port = re.findall("(\d+)\/(\d+)",portnumber)
+            slot_port = re.findall(r"(\d+)\/(\d+)",portnumber)
             slot = slot_port[0][0]
             port = slot_port[0][1]
             dutdata = self.switchingAPI.switch_restconf(nos, dutip,

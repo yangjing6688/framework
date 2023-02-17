@@ -4200,7 +4200,7 @@ class Devices:
 
         count = 0
         self.utils.print_info("Checking to see if the device has completed the reboot action")
-        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
         while count < retry_count:
             reboot_message = self.get_device_details(device_serial, "UPDATED")
             if "Rebooting" in reboot_message:
@@ -4230,7 +4230,7 @@ class Devices:
 
         count = 0
         self.utils.print_info("Checking to see if the device has completed Discovering Country Code")
-        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
         while count < retry_count:
             reboot_message = self.get_device_details(device_serial, "UPDATED")
             if "Discovering" in reboot_message:
@@ -9898,7 +9898,7 @@ class Devices:
         complete = False
         n_time = 0
         kwargs = {}
-        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
 
         if IRV != None:
             kwargs["IRV"] = IRV
