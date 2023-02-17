@@ -5,6 +5,9 @@ from tempfile import mkstemp
 from shutil import move, copymode
 from os import fdopen, remove
 
+toc_title = dict(xapi_base='XAPI Base Keywords',)
+keyword_contents = dict(xapi_base='keywords.xapi\_base.',)
+
 def fileContainsPattern(file_path, pattern):
     with open(file_path, 'r') as file:
         # read all content of a file
@@ -56,7 +59,13 @@ for keyword_directory in os.listdir(base_directory):
         if not fileContainsPattern(toc_file, final_toc):
             print(f'Adding {final_toc} to TOC')
             replaceFileContents(toc_file, index_rst_toc, index_rst_toc  + "\n   " + final_toc)
-    os.system("sphinx-apidoc -o " + docs_rst_files_directory + " " + base_directory)
+        os.system("sphinx-apidoc -o " + docs_rst_files_directory + " " + base_directory)
+
+        # Replace the name for the
+        toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
+        keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
+        replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
+        replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
 
 # Generate the html
 print('Generating HTML')
