@@ -4455,6 +4455,9 @@ class Device360(Device360WebElements):
 
         port_name_el = self.dev360.get_device360_port_leftclick_interface_name()
         port_mode_el = self.dev360.get_device360_port_leftclick_port_mode()
+        while not port_mode_el.text == '':
+            sleep(2)
+            port_mode_el = self.dev360.get_device360_port_leftclick_port_mode()
         port_access_vlan_el = self.dev360.get_device360_port_leftclick_access_vlan()
         port_tagged_vlan_el = self.dev360.get_device360_port_leftclick_tagged_vlan()
         port_status_el = self.dev360.get_device360_port_leftclick_port_status()
@@ -11790,7 +11793,7 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def get_device360_port_table_rows(self, **kwargs):
+    def get_device360_port_table_rows_no_header(self, **kwargs):
         """
          - This keyword will get device360 port table rows - Monitor Overview Ports Table
          It Assumes That Already Navigated to Device360 Page
@@ -11886,13 +11889,11 @@ class Device360(Device360WebElements):
                         'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
                         'STP Port State', 'Port Speed']
         if dut.cli_type.upper() == 'EXOS':
-            matchers = ['Type', 'Link Aggregation', 'LAG Logical Port', 'Link Aggregation Status', 'Port Mode', 'Port Status',
+            matchers = ['Port Name', 'Type', 'Link Aggregation', 'LAG Logical Port', 'Link Aggregation Status', 'Port Mode', 'Port Status',
                         'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
-                        'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
-                        'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
-                        'STP Port State', 'Port Speed']
+                        'Traffic Sent', 'Port Errors','STP Port State','Power Used', 'Port Speed']
         if rows:
-            xiq.xflowscommonDevices.utils.print_debug(f"Searching {len(rows)} rows")
+            xiq.xflowscommonDevices.utils.print_info(f"Searching {len(rows)} rows")
             for row in rows:
                 xiq.xflowscommonDevices.utils.print_info(f"Port {port_no} details: ",
                                                          xiq.xflowscommonDevices.format_row(row.text))
