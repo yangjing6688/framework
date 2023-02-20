@@ -28,6 +28,7 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
+from ExtremeAutomation.Utilities.deprecated import unsupported
 
 
 class Devices:
@@ -171,72 +172,76 @@ class Devices:
             self.utils.print_info('No exit level defined')
             return 1
 
+    @unsupported('This function is not supported')
     def get_ap_status(self, ap_serial='default', ap_name='default', ap_mac='default', **kwargs):
-        """
-        - This keyword returns the AP's status by searching AP using serial, name or mac address
-        - Keyword Usage:
-        - ``Get Ap Status    ap_serial=${AP_SERIAL}``
-        - ``Get Ap Status    ap_name=${AP_NAME}``
-        - ``Get Ap Status    ap_mac=${AP_MAC}``
+        pass
+        # """
+        # - This keyword returns the AP's status by searching AP using serial, name or mac address
+        # - Keyword Usage:
+        # - ``Get Ap Status    ap_serial=${AP_SERIAL}``
+        # - ``Get Ap Status    ap_name=${AP_NAME}``
+        # - ``Get Ap Status    ap_mac=${AP_MAC}``
+        #
+        # :param ap_serial: AP Serial
+        # :param ap_name: AP Name ie AP Host name in GUI ex: AH-2aa840
+        # :param ap_mac: AP MAC
+        # :return: 'green' if the AP is online else return -1
+        # """
+        # ap_row = -1
+        # self.utils.print_info('Getting AP Status using')
+        # if ap_serial != 'default':
+        #     self.utils.print_info("Getting status of AP with serial: ", ap_serial)
+        #     ap_row = self.get_ap_row(ap_serial=ap_serial)
+        #
+        # if ap_name != 'default':
+        #     self.utils.print_info("Getting status2 of AP with name: ", ap_name)
+        #     ap_row = self.get_ap_row(ap_name=ap_name)
+        #
+        # if ap_mac != 'default':
+        #     self.utils.print_info("Getting status of AP with MAC: ", str(ap_mac).upper())
+        #     ap_row = self.get_ap_row(ap_mac=str(ap_mac).upper())
+        #
+        # if ap_row:
+        #     sleep(10)
+        #     ap_status = self.devices_web_elements.get_status_cell(ap_row)
+        #     self.utils.print_info("ap status " + ap_status)
+        #
+        #     if self.devices_web_elements.get_manage_device_search_clear_button().is_displayed():
+        #         self.utils.print_info("Clear search filter option")
+        #         self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_search_clear_button)
+        #         sleep(5)
+        #
+        #     if 'true' in ap_status:
+        #         kwargs['pass_msg'] = "AP Status: Connected"
+        #         self.common_validation.passed(**kwargs)
+        #         return 'green'
+        #
+        # kwargs['fail_msg'] = "AP not online"
+        # self.common_validation.failed(**kwargs)
+        # return -1
 
-        :param ap_serial: AP Serial
-        :param ap_name: AP Name ie AP Host name in GUI ex: AH-2aa840
-        :param ap_mac: AP MAC
-        :return: 'green' if the AP is online else return -1
-        """
-        ap_row = -1
-        self.utils.print_info('Getting AP Status using')
-        if ap_serial != 'default':
-            self.utils.print_info("Getting status of AP with serial: ", ap_serial)
-            ap_row = self.get_ap_row(ap_serial=ap_serial)
-
-        if ap_name != 'default':
-            self.utils.print_info("Getting status2 of AP with name: ", ap_name)
-            ap_row = self.get_ap_row(ap_name=ap_name)
-
-        if ap_mac != 'default':
-            self.utils.print_info("Getting status of AP with MAC: ", str(ap_mac).upper())
-            ap_row = self.get_ap_row(ap_mac=str(ap_mac).upper())
-
-        if ap_row:
-            sleep(10)
-            ap_status = self.devices_web_elements.get_status_cell(ap_row)
-            self.utils.print_info("ap status " + ap_status)
-
-            if self.devices_web_elements.get_manage_device_search_clear_button().is_displayed():
-                self.utils.print_info("Clear search filter option")
-                self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_search_clear_button)
-                sleep(5)
-
-            if 'true' in ap_status:
-                kwargs['pass_msg'] = "AP Status: Connected"
-                self.common_validation.passed(**kwargs)
-                return 'green'
-
-        kwargs['fail_msg'] = "AP not online"
-        self.common_validation.failed(**kwargs)
-        return -1
-
+    @unsupported('This function is not supported')
     def _verify_ap_status(self, ap_serial='default', ap_name='default', ap_mac='default', status='default'):
-        """
-        - This keyword returns 1 if AP status expected matches the status passed as argument
-
-        :param ap_serial: AP Serial
-        :param ap_name: AP Name
-        :param ap_mac: AP MAC
-        :param status: green, red, or amber as of now - may change in future
-
-        :return:
-        """
-        if ap_serial != 'default':
-            if status in self.get_ap_status(ap_serial=ap_serial):
-                return 1
-        if ap_name != 'default':
-            if status in self.get_ap_status(ap_name=ap_name):
-                return 1
-        if ap_mac != 'default':
-            if status in self.get_ap_status(ap_mac=ap_mac):
-                return 1
+        pass
+        # """
+        # - This keyword returns 1 if AP status expected matches the status passed as argument
+        #
+        # :param ap_serial: AP Serial
+        # :param ap_name: AP Name
+        # :param ap_mac: AP MAC
+        # :param status: green, red, or amber as of now - may change in future
+        #
+        # :return:
+        # """
+        # if ap_serial != 'default':
+        #     if status in self.get_ap_status(ap_serial=ap_serial):
+        #         return 1
+        # if ap_name != 'default':
+        #     if status in self.get_ap_status(ap_name=ap_name):
+        #         return 1
+        # if ap_mac != 'default':
+        #     if status in self.get_ap_status(ap_mac=ap_mac):
+        #         return 1
 
     def get_os_change(self, device_serial=None, device_name=None, device_mac=None):
         self.voss = False
@@ -340,176 +345,184 @@ class Devices:
                 self.utils.print_info("Device with device name is not EXOS or VOSS device")
                 return 1
 
+    @unsupported('This function is not supported')
     def search_exos_device(self, EXOS_VOSS_device, **kwargs):
-        self.refresh_devices_page()
-        self.screen.save_screen_shot()
-        sleep(2)
-        device_tag = False
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            self.utils.print_debug(f"Searching {len(rows)} rows")
-            for row in rows:
-                if EXOS_VOSS_device in row.text and 'VOSS' in row.text:
-                    self.utils.print_info("Found VOSS device: ", self.format_row(row.text))
-                    self.voss = True
-                    device_tag = True
-                    return 1
-                if EXOS_VOSS_device in row.text and 'EXOS' in row.text:
-                    self.utils.print_info("Found EXOS device: ", self.format_row(row.text))
-                    device_tag = True
-                    self.exos = True
-                    return 1
-        else:
-            self.utils.print_info("No rows present")
+        pass
+        # self.refresh_devices_page()
+        # self.screen.save_screen_shot()
+        # sleep(2)
+        # device_tag = False
+        # rows = self.devices_web_elements.get_grid_rows()
+        # if rows:
+        #     self.utils.print_debug(f"Searching {len(rows)} rows")
+        #     for row in rows:
+        #         if EXOS_VOSS_device in row.text and 'VOSS' in row.text:
+        #             self.utils.print_info("Found VOSS device: ", self.format_row(row.text))
+        #             self.voss = True
+        #             device_tag = True
+        #             return 1
+        #         if EXOS_VOSS_device in row.text and 'EXOS' in row.text:
+        #             self.utils.print_info("Found EXOS device: ", self.format_row(row.text))
+        #             device_tag = True
+        #             self.exos = True
+        #             return 1
+        # else:
+        #     self.utils.print_info("No rows present")
+        #
+        # if device_tag == False:
+        #     kwargs['fail_msg'] = "Device is not EXOS or VOSS"
+        #     self.common_validation.failed(**kwargs)
+        #     return -1
+        #
+        # kwargs['fail_msg'] = f"Did not find device row {EXOS_VOSS_device}"
+        # self.common_validation.failed(**kwargs)
+        # return -1
 
-        if device_tag == False:
-            kwargs['fail_msg'] = "Device is not EXOS or VOSS"
-            self.common_validation.failed(**kwargs)
-            return -1
-
-        kwargs['fail_msg'] = f"Did not find device row {EXOS_VOSS_device}"
-        self.common_validation.failed(**kwargs)
-        return -1
-
+    @unsupported('This function is not supported')
     def get_ap_row_with_search_option(self, ap_serial='default', ap_name='default', ap_mac='default'):
-        """
-        - Get the AP row object from the Devices grid
-        - Keyword Usage:
-        - ``Get AP Row With Search Option  ap_serial=${AP_SERIAL}``
-        - ``Get AP Row With Search Option  ap_name=${AP_NAME}``
-        - ``Get AP Row With Search Option  ap_mac=${AP_MAC}``
+        pass
+        # """
+        # - Get the AP row object from the Devices grid
+        # - Keyword Usage:
+        # - ``Get AP Row With Search Option  ap_serial=${AP_SERIAL}``
+        # - ``Get AP Row With Search Option  ap_name=${AP_NAME}``
+        # - ``Get AP Row With Search Option  ap_mac=${AP_MAC}``
+        #
+        # :param ap_serial: AP Serial
+        # :param ap_name: AP Name
+        # :param ap_mac: AP MAC
+        # :return: returns the row object
+        # """
+        # if ap_serial != 'default':
+        #     self.utils.print_info("Searching Device Entry with AP Serial : ", ap_serial)
+        #     self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_serial)
+        #     self.screen.save_screen_shot()
+        #     sleep(5)
+        #
+        # if ap_name != 'default':
+        #     self.utils.print_info("Searching Device Entry with AP Name : ", ap_name)
+        #     self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_name)
+        #     self.screen.save_screen_shot()
+        #     sleep(5)
+        #
+        # if ap_mac != 'default':
+        #     self.utils.print_info("Searching Device Entry with AP Mac : ", ap_mac)
+        #     self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_mac)
+        #     self.screen.save_screen_shot()
+        #     sleep(5)
+        #
+        # rows = self.devices_web_elements.get_grid_rows()
+        # if rows:
+        #     for row in rows:
+        #         if ap_serial != 'default':
+        #             if ap_serial in row.text:
+        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
+        #                 return row
+        #         if ap_name != 'default':
+        #             if ap_name in row.text:
+        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
+        #                 sleep(5)
+        #                 return row
+        #         if ap_mac != 'default':
+        #             if ap_mac in row.text:
+        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
+        #                 return row
+        # else:
+        #     self.utils.print_info("No rows present")
 
-        :param ap_serial: AP Serial
-        :param ap_name: AP Name
-        :param ap_mac: AP MAC
-        :return: returns the row object
-        """
-        if ap_serial != 'default':
-            self.utils.print_info("Searching Device Entry with AP Serial : ", ap_serial)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_serial)
-            self.screen.save_screen_shot()
-            sleep(5)
-
-        if ap_name != 'default':
-            self.utils.print_info("Searching Device Entry with AP Name : ", ap_name)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_name)
-            self.screen.save_screen_shot()
-            sleep(5)
-
-        if ap_mac != 'default':
-            self.utils.print_info("Searching Device Entry with AP Mac : ", ap_mac)
-            self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_mac)
-            self.screen.save_screen_shot()
-            sleep(5)
-
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                if ap_serial != 'default':
-                    if ap_serial in row.text:
-                        self.utils.print_info("Found AP row: ", self.format_row(row.text))
-                        return row
-                if ap_name != 'default':
-                    if ap_name in row.text:
-                        self.utils.print_info("Found AP row: ", self.format_row(row.text))
-                        sleep(5)
-                        return row
-                if ap_mac != 'default':
-                    if ap_mac in row.text:
-                        self.utils.print_info("Found AP row: ", self.format_row(row.text))
-                        return row
-        else:
-            self.utils.print_info("No rows present")
-
+    @unsupported('This function is not supported')
     def get_ap_row_without_search_option(self, ap_serial='default', ap_name='default', ap_mac='default'):
-        """
-        - Get the AP row object from the Devices grid
-        - Keyword Usage:
-        - ``Get AP Row Without Search Option  ap_serial=${AP_SERIAL}``
-        - ``Get AP Row Without Search Option  ap_name=${AP_NAME}``
-        - ``Get AP Row Without Search Option  ap_mac=${AP_MAC}``
+        pass
+        # """
+        # - Get the AP row object from the Devices grid
+        # - Keyword Usage:
+        # - ``Get AP Row Without Search Option  ap_serial=${AP_SERIAL}``
+        # - ``Get AP Row Without Search Option  ap_name=${AP_NAME}``
+        # - ``Get AP Row Without Search Option  ap_mac=${AP_MAC}``
+        #
+        # :param ap_serial: AP Serial
+        # :param ap_name: AP Name
+        # :param ap_mac: AP MAC
+        # :return: returns the row object
+        # """
+        #
+        # self.utils.print_info('Getting AP row on Devices Page...')
+        # rows = self.devices_web_elements.get_grid_rows()
+        # if rows:
+        #     for row in rows:
+        #         if ap_serial != 'default':
+        #             if ap_serial in row.text:
+        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
+        #                 return row
+        #         if ap_name != 'default':
+        #             if ap_name in row.text:
+        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
+        #                 return row
+        #         if ap_mac != 'default':
+        #             if str(ap_mac) in row.text:
+        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
+        #                 return row
+        # else:
+        #     self.utils.print_info("No rows present")
 
-        :param ap_serial: AP Serial
-        :param ap_name: AP Name
-        :param ap_mac: AP MAC
-        :return: returns the row object
-        """
-
-        self.utils.print_info('Getting AP row on Devices Page...')
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                if ap_serial != 'default':
-                    if ap_serial in row.text:
-                        self.utils.print_info("Found AP row: ", self.format_row(row.text))
-                        return row
-                if ap_name != 'default':
-                    if ap_name in row.text:
-                        self.utils.print_info("Found AP row: ", self.format_row(row.text))
-                        return row
-                if ap_mac != 'default':
-                    if str(ap_mac) in row.text:
-                        self.utils.print_info("Found AP row: ", self.format_row(row.text))
-                        return row
-        else:
-            self.utils.print_info("No rows present")
-
+    @unsupported('This function is not supported')
     def get_ap_row(self, ap_serial='default', ap_name='default', ap_mac='default'):
-        """
-        - Get the AP row object from the Devices grid
-        - Keyword Usage:
-        - ``Get AP Row  ap_serial=${AP_SERIAL}``
-        - ``Get AP Row  ap_name=${AP_NAME}``
-        - ``Get AP Row  ap_mac=${AP_MAC}``
-
-        :param ap_serial: AP Serial
-        :param ap_name: AP Name
-        :param ap_mac: AP MAC
-        :return: returns the row object
-        """
-
-        page_size_field_text = ""
-        page_number_field_text = ""
-        page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
-        if page_size_field:
-            page_size_field_text = (page_size_field.text).strip()
-        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
-        if page_number_field:
-            page_number_field_text = (page_number_field.text).strip()
-
-        if page_size_field_text and page_number_field_text:
-            self.utils.print_info('Getting AP row with Pagination Enabled on Devices Page...')
-            if ap_serial != 'default':
-                self.utils.print_info("Getting status of AP with serial: ", ap_serial)
-                ap_row = self.get_ap_row_with_search_option(ap_serial=ap_serial)
-                return ap_row
-
-            if ap_name != 'default':
-                self.utils.print_info("Getting status of AP with name: ", ap_name)
-                ap_row = self.get_ap_row_with_search_option(ap_name=ap_name)
-                return ap_row
-
-            if ap_mac != 'default':
-                self.utils.print_info("Getting status of AP with MAC: ", ap_mac)
-                ap_row = self.get_ap_row_with_search_option(ap_mac=ap_mac)
-                return ap_row
-        else:
-            self.utils.print_info('Getting AP row on Devices Page without Pagination Enabled...')
-            if ap_serial != 'default':
-                self.utils.print_info("Getting status of AP with serial: ", ap_serial)
-                ap_row = self.get_ap_row_without_search_option(ap_serial=ap_serial)
-                return ap_row
-
-            if ap_name != 'default':
-                self.utils.print_info("Getting status of AP with name: ", ap_name)
-                ap_row = self.get_ap_row_without_search_option(ap_name=ap_name)
-                return ap_row
-
-            if ap_mac != 'default':
-                self.utils.print_info("Getting status of AP with MAC: ", ap_mac)
-                ap_row = self.get_ap_row_without_search_option(ap_mac=ap_mac)
-                return ap_row
-        return -1
+        pass
+        # """
+        # - Get the AP row object from the Devices grid
+        # - Keyword Usage:
+        # - ``Get AP Row  ap_serial=${AP_SERIAL}``
+        # - ``Get AP Row  ap_name=${AP_NAME}``
+        # - ``Get AP Row  ap_mac=${AP_MAC}``
+        #
+        # :param ap_serial: AP Serial
+        # :param ap_name: AP Name
+        # :param ap_mac: AP MAC
+        # :return: returns the row object
+        # """
+        # 
+        # page_size_field_text = ""
+        # page_number_field_text = ""
+        # page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
+        # if page_size_field:
+        #     page_size_field_text = (page_size_field.text).strip()
+        # page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
+        # if page_number_field:
+        #     page_number_field_text = (page_number_field.text).strip()
+        #
+        # if page_size_field_text and page_number_field_text:
+        #     self.utils.print_info('Getting AP row with Pagination Enabled on Devices Page...')
+        #     if ap_serial != 'default':
+        #         self.utils.print_info("Getting status of AP with serial: ", ap_serial)
+        #         ap_row = self.get_ap_row_with_search_option(ap_serial=ap_serial)
+        #         return ap_row
+        #
+        #     if ap_name != 'default':
+        #         self.utils.print_info("Getting status of AP with name: ", ap_name)
+        #         ap_row = self.get_ap_row_with_search_option(ap_name=ap_name)
+        #         return ap_row
+        #
+        #     if ap_mac != 'default':
+        #         self.utils.print_info("Getting status of AP with MAC: ", ap_mac)
+        #         ap_row = self.get_ap_row_with_search_option(ap_mac=ap_mac)
+        #         return ap_row
+        # else:
+        #     self.utils.print_info('Getting AP row on Devices Page without Pagination Enabled...')
+        #     if ap_serial != 'default':
+        #         self.utils.print_info("Getting status of AP with serial: ", ap_serial)
+        #         ap_row = self.get_ap_row_without_search_option(ap_serial=ap_serial)
+        #         return ap_row
+        #
+        #     if ap_name != 'default':
+        #         self.utils.print_info("Getting status of AP with name: ", ap_name)
+        #         ap_row = self.get_ap_row_without_search_option(ap_name=ap_name)
+        #         return ap_row
+        #
+        #     if ap_mac != 'default':
+        #         self.utils.print_info("Getting status of AP with MAC: ", ap_mac)
+        #         ap_row = self.get_ap_row_without_search_option(ap_mac=ap_mac)
+        #         return ap_row
+        # return -1
 
     def clear_search_field(self):
         """
@@ -1637,19 +1650,6 @@ class Devices:
                                                       **kwargs) == -1:
             return -1
 
-        # Fix for aiq2618, prevents unnecessary clicks
-        # We are planning to rework logic
-        if 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
-            self.utils.print_info("Onboarding: ", device_make)
-            return_value = self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make, location=location)
-            if return_value == 1:
-                kwargs['pass_msg'] = f"Successfully Onboarded a stack of exos Device(s) with serial numbers {device_serial}"
-                self.common_validation.passed(**kwargs)
-            else:
-                kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {device_serial}"
-                self.common_validation.failed(**kwargs)
-            return return_value
-
         self.utils.print_info("Onboarding: ", device_make)
         self.navigator.navigate_to_devices()
 
@@ -1706,7 +1706,7 @@ class Devices:
             self.screen.save_screen_shot()
             sleep(2)
 
-        if policy_name:
+        if policy_name and self.devices_web_elements.get_devices_quick_add_policy_drop_down().is_displayed():
             self.utils.print_info("Selecting policy '" + policy_name + "'")
             self.auto_actions.click_reference(self.devices_web_elements.get_devices_quick_add_policy_drop_down)
             sleep(2)
@@ -1715,24 +1715,12 @@ class Devices:
                                                        get_devices_quick_add_policy_drop_down_items(), policy_name)
             sleep(2)
 
-        # Preventing an unnecessary click here fixes the problem seen in aiq2618
-        # We are planning to rework logic
-        if device_type.lower() == "real":
-            if self.search_device(device_serial=device_serial, ignore_failure=True) == -1:
-                self.utils.print_info("Clicking on ADD DEVICES button...")
-                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
-                self.screen.save_screen_shot()
-                sleep(2)
-            else:  # Search Device found matching Serial Number, cancel "Add Device"
-                self.utils.print_info("Click the Quick Add Devices > Cancel button")
-                self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
-        else:
-            self.utils.print_info("Clicking on ADD DEVICES button...")
-            self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
+        self.utils.print_info("Clicking on ADD DEVICES button...")
+        self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_button)
 
-            self.screen.save_screen_shot()
-            sleep(2)
+        self.screen.save_screen_shot()
+        sleep(2)
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
@@ -1973,6 +1961,7 @@ class Devices:
                 self.screen.save_screen_shot()
 
         elif 'Dell' in device_make:
+            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
 
@@ -1984,6 +1973,7 @@ class Devices:
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
 
         elif 'Universal Appliance' in device_make:
+            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
             _errors = self.check_negative_combinations()
@@ -1991,15 +1981,26 @@ class Devices:
                 return _errors
 
         elif 'XMC' in device_make.upper():
+            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
             self.utils.print_info("Entering Serial Number...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
 
-        elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
-            return self._onboard_wing_ap(device_serial=device_serial, device_mac=device_mac, device_make=device_make,
-                                         location=location)
+        elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper() or 'WING' in device_make.upper():
+            self.utils.print_info("Selecting Device Make Controller")
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_make_drop_down)
+            sleep(2)
+
+            self.utils.print_info("Selecting Device Make: ", device_make)
+            self.auto_actions.select_drop_down_options(
+            self.devices_web_elements.get_device_make_drop_down_options(), "CONTROLLERS")
+            self.auto_actions.send_keys(self.devices_web_elements.get_wing_devices_mac_text_area(), device_mac)
+
+            _errors = self.check_negative_combinations()
+            if _errors != 1:
+                return _errors
 
         if 'DUAL BOOT' in device_make.upper():
             return self._onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
@@ -2682,7 +2683,7 @@ class Devices:
         return False
 
     def _get_row(self, key, value):
-        device_row = ''
+        device_row = -1
         if key == "device_serial":
             device_row = self.get_device_row(device_serial=value)
         elif key == "device_mac":
@@ -2723,48 +2724,68 @@ class Devices:
         if len(device_keys.keys()) == 0:
             kwargs['fail_msg'] = "No valid args passed. Must be device_serial, device_name, device_mac!"
             self.common_validation.fault(**kwargs)
-            return -1
+            return "Unknown"
 
         if self.cobj_web_elements.get_page_size_element():
             self.auto_actions.click_reference(self.cobj_web_elements.get_page_size_element)
             self.screen.save_screen_shot()
             sleep(5)
 
+        # Refresh the devices table before printing contents and before searching for our row
+        self.refresh_devices_page()
+
         # Printing all the rows in the table for troubleshooting
+        self.utils.print_info("*** Print all rows in devices table: START ***")
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
                 self.utils.print_info("row data: ", self.format_row(row.text))
         else:
             self.utils.print_info("No rows present")
+        self.utils.print_info("*** Print all rows in devices table: END ***")
 
+        # Get the device status and the audit config status which are the two icon on the left of the row
+        device_status = None
+        audit_config_status
         for key, value in device_keys.items():
-            self.utils.print_info(f"Getting device status using {key} : {value}")
-            self.refresh_devices_page()
+            self.utils.print_info(f"Getting device row from devices table using {key} : {value}")
             device_row = self._get_row(key, value)
             device_row = copy.copy(device_row)
 
-            if device_row != -1:
-                device_status = ''
-                attempt_count = 1
-                while attempt_count <= 3:
-                    self.utils.print_info(f"Trying to get status from cell. Attempt {attempt_count} of 3 attempts")
-                    try:
-                        device_status = self.devices_web_elements.get_status_cell(device_row)
-                    except Exception:
-                        self.utils.print_info(
-                            "Getting status from cell failed with Exception.Attempting to get status again")
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                    if device_status:
-                        break
-                    attempt_count += 1
-                audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
+            # If we didn't find a row using the current key move on to the next key
+            if device_row == -1:
+                self.utils.print_info(f"Unable to get device row from devices table using {key} : {value}")
+                continue
+
+            # Attempt to get device status from the row we got from the devices table
+            attempt_count = 1
+            attempt_max   = 3
+            while attempt_count <= attempt_max:
+                self.utils.print_info(f"Trying to get device status from table cell. Attempt {attempt_count} of {attempt_max} attempts")
+                try:
+                    device_status = self.devices_web_elements.get_status_cell(device_row)
+                except Exception as err:
+                    self.utils.print_info(f"Getting status from cell failed with Exception: '{err}'")
+
+                # If we got a status then break out of the attempt loop
+                if device_status:
+                    self.utils.print_info(f"Got device status during attempt {attempt_count} of {attempt_max} attempts")
+                    break
+
+                # If we get here then we were unable to get a status
+                self.utils.print_info(f"Getting status from cell failed during attempt {attempt_count} of {attempt_max} attempts.  status = '{device_status}'")
                 self.screen.save_screen_shot()
-                sleep(2)
+                attempt_count += 1
+
+            # The config audit icon is the icon right next to the status icon
+            self.utils.print_info("Getting audit_config_status")
+            audit_config_status = self.devices_web_elements.get_device_config_audit(device_row)
+            self.screen.save_screen_shot()
+            sleep(2)
 
             if device_status:
                 self.utils.print_info(f"Device status is: {device_status}")
+                self.utils.print_info(f"Audit config status is: {audit_config_status}")
                 break
 
         if device_status:
@@ -2775,7 +2796,7 @@ class Devices:
                         self.common_validation.passed(**kwargs)
                         return 'green'
                     if "ui-icon-sprite-mismatch" in audit_config_status:
-                        kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mis matched"
+                        kwargs['pass_msg'] = "Device Status: Connected, configuration audit status mismatched"
                         self.common_validation.passed(**kwargs)
                         return "config audit mismatch"
                 else:
@@ -2809,12 +2830,12 @@ class Devices:
                 return 'unknown'
         else:
             kwargs['fail_msg'] = "Unable to obtain device status for the device row!"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.common_validation.fault(**kwargs)
+            return "Unknown"
 
         kwargs['fail_msg'] = "Unable to obtain device status!"
-        self.common_validation.failed(**kwargs)
-        return -1
+        self.common_validation.fault(**kwargs)
+        return "Unknown"
 
     def verify_device_status(self, device_serial='default', device_name='default', device_mac='default',
                              status='default'):
@@ -2850,7 +2871,7 @@ class Devices:
         :param device_name: device Name
         :param device_mac: device MAC
 
-        :return: returns the row object
+        :return: returns the row object or -1 if unable to find row
         """
         self.utils.print_info('Getting device row...')
 
@@ -2887,29 +2908,31 @@ class Devices:
                 stale_retry = stale_retry + 1
         return -1
 
+    @unsupported('This function is not supported')
     def search_device_model(self, device_model, **kwargs):
-        """
-        - Searches for Device matching Device's name in device grid
-        - Keyword Usage:
-        - ``Search Device Model  ${DEVICE_MODEL}``
-
-        :param device_model: Device's Name
-        :return: return 1 if Device found
-        """
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            for row in rows:
-                if device_model in row.text:
-                    kwargs['pass_msg'] = f"Found Device Row with Model {device_model}"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-            self.utils.print_info(f"Did not find row with model {device_model}")
-        else:
-            self.utils.print_info("No rows present")
-
-        kwargs['fail_msg'] = "Didn't find the device in grid"
-        self.common_validation.failed(**kwargs)
-        return -1
+        pass
+        # """
+        # - Searches for Device matching Device's name in device grid
+        # - Keyword Usage:
+        # - ``Search Device Model  ${DEVICE_MODEL}``
+        #
+        # :param device_model: Device's Name
+        # :return: return 1 if Device found
+        # """
+        # rows = self.devices_web_elements.get_grid_rows()
+        # if rows:
+        #     for row in rows:
+        #         if device_model in row.text:
+        #             kwargs['pass_msg'] = f"Found Device Row with Model {device_model}"
+        #             self.common_validation.passed(**kwargs)
+        #             return 1
+        #     self.utils.print_info(f"Did not find row with model {device_model}")
+        # else:
+        #     self.utils.print_info("No rows present")
+        #
+        # kwargs['fail_msg'] = "Didn't find the device in grid"
+        # self.common_validation.failed(**kwargs)
+        # return -1
 
     def get_device_model_serial_numbers(self, device_model, device_type):
         rows = self.devices_web_elements.get_grid_rows()
