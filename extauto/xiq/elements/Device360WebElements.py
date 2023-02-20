@@ -2253,6 +2253,9 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_multi_edit_port_count(self):
         return self.weh.get_elements(self.d360_multi_edit_port_count)
 
+    def get_d360_config_events(self):
+        return self.weh.get_element(self.d360_config_events)
+
     def get_device360_stack_slot_sfp_ports(self):
         return self.weh.get_elements(self.device360_stack_slot_sfp_ports)
 
@@ -2418,3 +2421,5 @@ class Device360WebElements(Device360WebElementDefs):
     	:return: Monitor -> Diagnostics -> Deselect all button
     	"""
         return self.weh.get_element(self.device360_diagnostics_port_details_actions_button_disabled)
+    def get_configuration_events_button(self):
+        return self.weh.get_element(self.configuration_events_button)
