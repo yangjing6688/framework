@@ -29,3 +29,11 @@ class HostServicesUdks():
                                                                              image_filename, **kwargs)
         self.networkElementFirmwareKeywords.select_firmware_on_network_element(netelem_list, **kwargs)
 
+    def Upgrade_VOSS_Network_Element(self, filename,  answer='y', max_wait=300, wait_before=20, wait_after=120,
+                                     **kwargs):
+        netelem_list = self.networkElementListUtils.create_list_of_network_element_names()
+        self.networkElementFirmwareKeywords.select_firmware_on_network_element(netelem_list, filename,
+                                                                               answer, **kwargs)
+        self.networkElementResetDeviceKeywords.reboot_network_element_now_and_wait(netelem_list, max_wait, wait_before,
+                                                                                   wait_after, **kwargs)
+        self.networkElementFirmwareKeywords.commit_firmware(netelem_list, **kwargs)
