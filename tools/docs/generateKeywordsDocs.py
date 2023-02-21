@@ -71,5 +71,5 @@ for keyword_directory in os.listdir(base_directory):
 print('Generating HTML')
 os.system("make html")
 
-url = "file:build/html/index.html"
+url = "file:../../docs/index.html"
 webbrowser.open(url,new=new)

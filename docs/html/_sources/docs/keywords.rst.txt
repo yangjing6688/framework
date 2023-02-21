@@ -1,0 +1,18 @@
+keywords package
+================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   keywords.xapi_base
+
+Module contents
+---------------
+
+.. automodule:: keywords
+   :members:
+   :undoc-members:
+   :show-inheritance:
