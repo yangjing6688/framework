@@ -118,7 +118,7 @@ class FilterManageDevices():
         sn_list, policy_list = self.get_column_values_from_device_page()
         self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
         if not sn_list or len(sn_list) == 0: return -1, "The device list is empty"
-        status =  self.device.get_ap_status(ap_sn)
+        status = self.device.get_device_status(device_serial=ap_sn)
 
         if status == 'green':
             self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
@@ -1145,7 +1145,9 @@ class FilterManageDevices():
 
     def expand_default_filters(self):
         self.utils.print_info(" Start --> Expand the default filters ")
-        self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
+        element = self.filter_element.device_state_connected_filter_chkbox
+        if not element:
+            self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
         self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
         self.expand_and_collapse_filters(self.filter_element.get_device_function_filter_link(), filter_type='device function')
         self.expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), filter_type='device user profile')

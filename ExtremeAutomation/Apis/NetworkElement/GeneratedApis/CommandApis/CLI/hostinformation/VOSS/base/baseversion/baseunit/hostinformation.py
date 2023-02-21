@@ -74,3 +74,17 @@ class Hostinformation(DeviceApi, HostinformationBase):
         prompt = "userPrompt"
 
         return self.create_cmd_obj(uuid, cmd, prompt=prompt)
+
+    def show_app_iqagent(self, arg_dictionary, **kwargs):
+        uuid = "d8dc0a12-021d-4f17-947d-f275443dca07"
+        cmd = "show application iqagent"
+        prompt = "userPrompt"
+
+        return self.create_cmd_obj(uuid, cmd, prompt=prompt)
+
+    def show_system_software_version(self, arg_dictionary, **kwargs):
+        uuid = "d8dc0a12-021d-4f17-947d-f275443dca07"
+        cmd = "show sys software | include Version"
+        prompt = "userPrompt"
+
+        return self.create_cmd_obj(uuid, cmd, prompt=prompt)

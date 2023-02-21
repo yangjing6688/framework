@@ -33,6 +33,9 @@ class HostinformationConstants(ApiConstants):
         self.SET_PROMPT = {"constant": "set_prompt",
                            "tags": ["COMMAND_CLI", "COMMAND_SNMP"],
                            "link": self.link.set_prompt}
+        self.SHOW_APP_IQAGENT = {"constant": "show_app_iqagent",
+                                 "tags": ["COMMAND_CLI"],
+                                 "link": self.link.show_app_iqagent}
         self.SHOW_HOST_CONTACT = {"constant": "show_host_contact",
                                   "tags": ["COMMAND_CLI", "COMMAND_SNMP"],
                                   "link": self.link.show_host_contact}
@@ -57,3 +60,6 @@ class HostinformationConstants(ApiConstants):
         self.SHOW_SYSTEM_NAME = {"constant": "show_system_name",
                                  "tags": ["COMMAND_CLI", "COMMAND_SNMP"],
                                  "link": self.link.show_system_name}
+        self.SHOW_SYSTEM_SOFTWARE_VERSION = {"constant": "show_system_software_version",
+                                             "tags": ["COMMAND_CLI"],
+                                             "link": self.link.show_system_software_version}
