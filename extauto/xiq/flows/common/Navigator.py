@@ -3766,7 +3766,6 @@ class Navigator(NavigatorWebElements):
             self.navigate_to_configure_tab()
             kwargs['pass_msg'] = " Successfully Clicked Configure Menu"
             self.common_validation.passed(**kwargs)
-            sleep(2)
 
         return self.navigate_to_network_policies_tab()
 
@@ -3802,10 +3801,8 @@ class Navigator(NavigatorWebElements):
             if self.get_subtab_head_img_nav():
                 self.utils.print_info("Selecting Network Policies Tab...")
                 self.auto_actions.click_reference(self.get_network_policies_sub_tab)
-                sleep(2)
                 network_policy_tab_display = True
             else:
-                sleep(2)
                 self.utils.print_info("Network Policy tab is NOT displayed, try to navigate to the tab again")
                 self.screen.save_screen_shot()
                 try_cnt += 1
