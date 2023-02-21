@@ -133,13 +133,11 @@ jobs:
     - name: Checkout local repo
       uses: actions/checkout@v3
 
-    - name: Python syntax checking in /extauto
+    - name: Python syntax checking
       run: |
         printf '\n%s\n\n' "======== Running flake8 in /extauto ========"
         python3 -m flake8 --config=${SETUP_CFG} $EXTAUTO_DIR
 
-    - name: Python syntax checking in /ExtremeAutomation
-      run: |
         printf '\n%s\n\n' "======== Running flake8 in /ExtremeAutomation/Imports ========"
         python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Imports
 
