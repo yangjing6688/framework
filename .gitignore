@@ -6,7 +6,6 @@
 /ExtremeAutomation/Users
 .idea
 _build
-_static
 _templates
 docfiles
 **/*.pyc
