@@ -101,5 +101,5 @@ os.system("make html")
 print('Completed')
 
 # Debugging the page
-url = "file:../../docs/html/index.html"
+url = "file:build/html/index.html"
 webbrowser.open(url,new=new)
