@@ -93,7 +93,7 @@ class ManageUsers():
         """
         - This keyword can be used in Create User Account page,it'll check the role's type that present in the page
         - Keyword Usage
-        - `` if self.get_role_type("MSP") == -1:
+        - `` if self.check_role_type("MSP") == -1:
             return -1``
         :param: user_type: - user_type=msp - will get the role of msp-admin item,if the item is not exist which means test is faile
                            - user_type=VIQ - will get the role of viq-admin item,if the item is not exist,check failed
@@ -134,8 +134,7 @@ class ManageUsers():
         """
             - This can be used in USERS page
             - Keyword Usage
-            - ``if self.check_users_list(username) != -1:
-                return 1``
+            - ``Delete User    ${MSP_USER}``
             :param: username - the created user's name
             :return: returns 1 if the created user is in USERS list of current page else -1
         """
