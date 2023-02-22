@@ -821,11 +821,11 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         if wifi_interface_name.upper() == "WIFI0":
-           radio_status = self._check_wifi0_radio_status()
-           self.utils.print_info("Close the device360 page dialog window")
-           self.auto_actions.click_reference(self.get_close_device360_dialog_window)
-           sleep(2)
-           return radio_status
+            radio_status = self._check_wifi0_radio_status()
+            self.utils.print_info("Close the device360 page dialog window")
+            self.auto_actions.click_reference(self.get_close_device360_dialog_window)
+            sleep(2)
+            return radio_status
 
         if wifi_interface_name.upper() == "WIFI1":
             radio_status = self._check_wifi1_radio_status()
