@@ -39,14 +39,55 @@ class XapiDevices(XapiBase):
     # Keyword functions
     #########################################################################
 
-    def xapi_onboard_device(self, device_dict, **kwargs):
+    def xapi_onboard_device_quick(self, device_dict, **kwargs):
         """
-            Onboard a device
+         - This keyword onboards: an aerohive device [AP or Switch], Exos Switch and Voss devices using Quick onboarding flow.
+         - Keyword Usage:
+         - ``Onboard Device Quick  ${ap1}``
+                 {ap1} - dictionary from .yaml file of the testbed ( 'ap1' is only an example )
+                 Example:
+                 {'name': 'bui-flo-1996',
+                 'connection_method': 'telnet',
+                 'ip': '10.16.171.71',
+                 'port': 22,
+                 'username': 'admin',
+                 'password': 'Aerohive123',
+                 'serial': '01301506171996',
+                 'type': 'Real',
+                 'entry_type': 'Manual',
+                 'csv_file_name': '',
+                 'os': 'Cloud IQ Engine',
+                 'service_tag': False,
+                 'model': 'AP130',
+                 'mac': '885BDD3E0280',
+                 'cli_type': 'AH-AP',
+                 'platform': 'aerohive',
+                 'template': 'AP130-default-template',
+                 'make': 'Extreme - Aerohive',
+                 'mgmt_vlan': 10,
+                 'country': 'United States',
+                 'location': 'Santa Jose, building_01, floor001',
+                 'power_strip':
+                     {'ip': None, '
+                     port': None,
+                     'username': None,
+                     'password': None,
+                     'plug':
+                         {'plug_a': None,
+                         'plug_b': None},
+                     'type': None},
+                 'extra': {'country': 'United Kingdom',
+                           'network_policy': 'Test_np',
+                           'ssid': 'AP130_01',
+                           'version': 6.5,
+                           'neighbour_serial': '06301908310556',
+                           'neighbour_mac': '7C95B1005700'}
+                 }
 
-            :param device_dict: The device object
-            :return: 1 for success and -1 for failure
-
-        """
+         :param policy_name: Name of policy that would be used when onboarding a device
+         :return:  1 if onboarding success
+         :return: -1 for errors
+         """
 
         # Create the JSON payload
         unknown_device_type = 'Unknown_device_type'

@@ -76,8 +76,7 @@ for keyword_directory in os.listdir(base_directory):
         # Adjust the name of the base files
         replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
         replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
-        replaceFileContents(keyword_file, 'Submodules', '')
-        replaceFileContents(keyword_file, 'Module contents', '')
+
 
         # adjust the name for the sub directory files
         keyword_file_base = keyword_file.replace('.rst', '')

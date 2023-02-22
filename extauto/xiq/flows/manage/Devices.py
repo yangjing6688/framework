@@ -28,7 +28,7 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
-from keywords.xapi.devices.XapiDevices import XapiDevices
+from extauto.xiq.xapi.devices.XapiDevices import XapiDevices
 from tools.xapi.XapiHelper import XapiHelper
 from ExtremeAutomation.Utilities.deprecated import unsupported
 
@@ -1646,7 +1646,7 @@ class Devices:
 
         # Execute the XAPI call and return the value
         if self.xapiHelper.is_xapi_enabled():
-            return self.xapiDevices.xapi_onboard_device(device_dict, **kwargs)
+            return self.xapiDevices.xapi_onboard_device_quick(device_dict, **kwargs)
 
         if "csv_location" in device_dict:
             return self.quick_onboarding_cloud_csv(device_make=device_dict.get("device_make"),

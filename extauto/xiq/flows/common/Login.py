@@ -13,7 +13,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.CommonValidation import CommonValidation
 
 import extauto.xiq.flows.common.ToolTipCapture
-from keywords.xapi.common.XapiLogin import XapiLogin
+from extauto.xiq.xapi.common.XapiLogin import XapiLogin
 
 from extauto.xiq.elements.LoginWebElements import LoginWebElements
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements

@@ -50,6 +50,7 @@ class parseXAPI:
 
             # Read in the function definition template
             file_name = 'base_generated_function_template.txt'
+            # FIXME -  Create lists at top of file
             if functionNode.name == 'login' and xapi_class_name == 'AuthenticationApi':
                 file_name = 'base_login_function_template.txt'
             with open(file_name) as file:
