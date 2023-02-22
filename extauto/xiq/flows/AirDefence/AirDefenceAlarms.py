@@ -547,9 +547,9 @@ class AirDefenceAlarms(AdspWebElements):
 #        return str(adsp_msg).strip()
         msg = "User role not supported"
         if msg == adsp_msg:
-             self.utils.print_info("Message matches")
+            self.utils.print_info("Message matches")
         else:
-             self.utils.print_info("Message does not match")
+            self.utils.print_info("Message does not match")
 
     def subscribe_adess_essentials(self):
         """

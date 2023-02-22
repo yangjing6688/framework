@@ -123,6 +123,7 @@ jobs:
       status: ${{ steps.set-output.outputs.status }}
     env:
       EXTAUTO_DIR: ./extauto
+      SETUP_CFG: ./setup.cfg
 
     steps:
     - name: Setup environment
@@ -134,8 +135,14 @@ jobs:
 
     - name: Python syntax checking
       run: |
-        printf '\n%s\n\n' "======== Running flake8 ========"
-        python3 -m flake8 --extend-ignore E101,E111,E114,E116,E117,E122,E124,E125,E127,E128,E129,E131,E201,E202,E203,E211,E221,E222,E225,E228,E231,E251,E261,E265,E266,E271,E272,E275,E301,E302,E303,E305,E306,E501,E502,E701,E703,E711,E712,E713,E731,W191,W291,W292,W293,W391,W605 --color=always --statistics $EXTAUTO_DIR
+        printf '\n%s\n\n' "======== Running flake8 in /extauto ========"
+        python3 -m flake8 --config=${SETUP_CFG} $EXTAUTO_DIR
+
+        printf '\n%s\n\n' "======== Running flake8 in /ExtremeAutomation/Imports ========"
+        python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Imports
+
+        printf '\n%s\n\n' "======== Running flake8 in /ExtremeAutomation/Keywords ========"
+        python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Keywords
 
     - name: Set job status output
       if: ${{ always() }}
