@@ -158,7 +158,7 @@ class MobAppLoginWebElements(MobAppWebElementsDefinition):
             return "No Message"
 
     def get_my_cloud_network(self):
-         return self.weh.get_element(self.my_cloud_network_id)
+        return self.weh.get_element(self.my_cloud_network_id)
 
     def get_external(self):
         return self.weh.get_element(self.external_networks_id)
@@ -170,7 +170,7 @@ class MobAppLoginWebElements(MobAppWebElementsDefinition):
         return self.weh.get_element(self.external_nw_search_field)
 
     def get_external_nw_table(self):
-         return self.weh.get_element(self.external_nw_table_id)
+        return self.weh.get_element(self.external_nw_table_id)
 
     def get_external_nw_row(self):
         nw = self.get_external_nw_table()

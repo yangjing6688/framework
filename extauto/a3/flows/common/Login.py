@@ -90,10 +90,10 @@ class Login:
             pass
 
         try:
-         self.utils.print_info("Version: ", self.driver.capabilities['version'])
+            self.utils.print_info("Version: ", self.driver.capabilities['version'])
         except Exception as e:
-         self.utils.print_debug(e)
-         self.utils.print_info("Version: ", self.driver.capabilities['browserVersion'])
+            self.utils.print_debug(e)
+            self.utils.print_info("Version: ", self.driver.capabilities['browserVersion'])
 
         self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
 
