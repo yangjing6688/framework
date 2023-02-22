@@ -11793,20 +11793,20 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def get_device360_port_table_rows_no_header(self, **kwargs):
-        """
-         - This keyword will get device360 port table rows - Monitor Overview Ports Table
-         It Assumes That Already Navigated to Device360 Page
-        """
-        table_rows = self.dev360.get_device360_port_table_rows()
-        assert table_rows, "Did not find the rows of the ports table"
-        table_rows[0].location_once_scrolled_into_view
-        kwargs['pass_msg'] = "Found the rows of the ports table"
-        self.common_validation.passed(**kwargs)
-        return [
-            row for row in table_rows if not
-            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
-        ]
+    # def get_device360_port_table_rows_no_header(self, **kwargs):
+    #     """
+    #      - This keyword will get device360 port table rows - Monitor Overview Ports Table
+    #      It Assumes That Already Navigated to Device360 Page
+    #     """
+    #     table_rows = self.dev360.get_device360_port_table_rows()
+    #     assert table_rows, "Did not find the rows of the ports table"
+    #     table_rows[0].location_once_scrolled_into_view
+    #     kwargs['pass_msg'] = "Found the rows of the ports table"
+    #     self.common_validation.passed(**kwargs)
+    #     return [
+    #         row for row in table_rows if not
+    #         any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
+    #     ]
 
     def device360_confirm_current_page_number(self, page_num_ref, **kwargs):
         """
@@ -14295,6 +14295,10 @@ class Device360(Device360WebElements):
 
         ports_table = self.dev360.get_device360_ports_table()
         [port_row] = [row for row in ports_table if row["PORT NAME"] == port]
+
+
+
+
         if dut.cli_type.upper() == 'VOSS':
             lacp_status = port_row["LACP STATUS"]
             logger.info(f"LACP status = {lacp_status}")

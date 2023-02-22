@@ -1837,7 +1837,13 @@ class Device360WebElements(Device360WebElementDefs):
             auto_actions.click(scroll_element)
             for _ in range(10):
                 auto_actions.scroll_down()
-        return self.get_d360_switch_ports_table_grid_rows()
+        table_rows = self.get_d360_switch_ports_table_grid_rows()
+        assert table_rows, "Did not find the rows of the ports table"
+        table_rows[0].location_once_scrolled_into_view
+        return [
+            row for row in table_rows if not
+            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
+        ]
 
     def get_device360_ports_table_pagination_sizes(self):
         return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
