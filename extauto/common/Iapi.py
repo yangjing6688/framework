@@ -650,7 +650,7 @@ class Iapi:
         if nos.lower() =="exos":
             dutdata = self.switchingAPI.switch_restconf(nos, dutip, ("openconfig-interfaces:interfaces/interface=%s"%(portnumber)), method="GET")
         elif nos.lower()=="voss":
-            slot_port = re.findall("(\d+)\/(\d+)",portnumber)
+            slot_port = re.findall(r"(\d+)\/(\d+)",portnumber)
             slot = slot_port[0][0]
             port = slot_port[0][1]
             dutdata = self.switchingAPI.switch_restconf(nos, dutip,
@@ -727,7 +727,8 @@ class Iapi:
         returnflag = 0
         self.utils.print_info("Images present in XIQ ---- ",images_from_xiq)
         self.utils.print_info("Actual images expected are ---- ", image_actual)
-        replaceSpaces = lambda x: [each.replace(' ', '').lower() for each in x]
+        def replaceSpaces(x):
+            return [each.replace(' ', '').lower() for each in x]
 
         imagesfromxiq = replaceSpaces(images_from_xiq)
         imageExpected = replaceSpaces(image_actual)

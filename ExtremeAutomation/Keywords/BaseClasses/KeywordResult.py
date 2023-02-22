@@ -11,9 +11,9 @@ class KeywordResult(object):
         self.cmd_obj = cmd_obj
         try:
             self.return_text = self.cmd_obj._return_text
-        except:
+        except Exception:
             self.return_text = ""
-            
+
         try:
             self.command = cmd_obj.command if cmd_obj.command else "N/A"
         except AttributeError:
@@ -31,7 +31,7 @@ class KeywordResult(object):
             if self.cmd_obj != None:
                 message = self.fail_string + self.cmd_obj.return_text
             else:
-                message = self.fail_string 
+                message = self.fail_string
             test_result = "Fail"
         kw_result = str("\n" + "Device Name: " + str(self.device_name) + "\n" +
                         "Command Sent: " + str(self.command) + "\n" +
