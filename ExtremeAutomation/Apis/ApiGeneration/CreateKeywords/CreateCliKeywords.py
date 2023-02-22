@@ -617,12 +617,13 @@ class CreateCliKeywords(object):
                             error_msg = "ERROR! Verify keyword has an invalid name and will be commented out: " + func_name
                             self.logger.log_error(error_msg + "\n")
                             comment = "# "
-                            func_lines = []
-                            func_lines.append(comment + " ERROR! Verify keyword has an invalid name and will be commented out. ")
-                            func_lines.append(comment + "The format must be <protocol>_verify_<name>. ")
-                            func_lines.append(comment + "Please uncomment this code and rename the function to be in the ")
-                            func_lines.append(comment +  "correct format. Then you can run the generator again.")
-                            func_lines.append(comment + file_lines[index])
+                            func_lines = [
+                                comment + " ERROR! Verify keyword has an invalid name and will be commented out. ",
+                                comment + "The format must be <protocol>_verify_<name>. ",
+                                comment + "Please uncomment this code and rename the function to be in the ",
+                                comment + "correct format. Then you can run the generator again. ",
+                                comment + file_lines[index]
+                            ]
                             index += 1
                             while index < len(file_lines) and \
                                     len(re.findall(function_regex, file_lines[index])) == 0 and \
