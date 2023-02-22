@@ -188,12 +188,12 @@ class CreateCliKeywords(object):
                         kw_file.write("\n".join(self.__create_helper_header()))
                         for helper_keyword in helper_keywords:
                             kw_file.write("\n")
-                            kw_file.write("\n".join(helper_keywords[helper_keyword]))          
+                            kw_file.write("\n".join(helper_keywords[helper_keyword]))
 
         # Move the generated Keywords from the temp directory in to the actual output directory.
         if os.path.exists(self.gen_temp_dir) and os.path.exists(self.keyword_path):
             copy_tree(self.gen_temp_dir, self.keyword_path)
-            
+
             #generate the imports
             self.logger.log_debug("Creating the imports")
             self.generate_imports()
@@ -331,7 +331,7 @@ class CreateCliKeywords(object):
                 function_list = function_list[:-1]
                 function_list.append(last_arg)
             function_list.append(self.__create_indent(2) + "}\n")
-            
+
         if list_value_in_args:
             function_list.append(self.__create_indent(2) + "return self.execute_keyword(device_name, args,\n" +
                                  self.__create_indent(9) + "self.cmd_const." + data_bean.interface_method.upper() +
@@ -404,7 +404,7 @@ class CreateCliKeywords(object):
                                         keyword_dict.setdefault(bean.interface_method, []).extend(args)
 
         return keyword_dict, os_agent_support
-          
+
     # +----------------+
     # | Helper Methods |
     # +----------------+
@@ -618,9 +618,9 @@ class CreateCliKeywords(object):
                             self.logger.log_error(error_msg + "\n")
                             comment = "# "
                             func_lines = []
-                            func_lines.append(comment + " ERROR! Verify keyword has an invalid name and will be commented out. ") 
+                            func_lines.append(comment + " ERROR! Verify keyword has an invalid name and will be commented out. ")
                             func_lines.append(comment + "The format must be <protocol>_verify_<name>. ")
-                            func_lines.append(comment + "Please uncomment this code and rename the function to be in the ") 
+                            func_lines.append(comment + "Please uncomment this code and rename the function to be in the ")
                             func_lines.append(comment +  "correct format. Then you can run the generator again.")
                             func_lines.append(comment + file_lines[index])
                             index += 1
@@ -763,65 +763,64 @@ class CreateCliKeywords(object):
         """
         file_name = "__init__.py"
         open(os.path.join(path, file_name), "w").close()
-        
-        
+
+
     def generate_imports(self):
         file_lines = []
-    
+
         keyword_files, static_keyword_files = self.get_keyword_files()
         for name in keyword_files:
             feature_name = name.replace('.py', '')
             new_import_line = f"from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.{feature_name} import {feature_name}"
-    
+
             file_lines.append(new_import_line)
-        
+
         for name in static_keyword_files:
             feature_name = name.replace('.py', '')
             new_import_line = f"from ExtremeAutomation.Keywords.NetworkElementKeywords.StaticKeywords.{feature_name} import {feature_name}"
-    
+
             file_lines.append(new_import_line)
-    
+
         file_lines.append("")
         file_lines.append("")
         file_lines.append("class LowLevelApis:")
         file_lines.append("    def __init__(self):")
-    
+
         for name in keyword_files:
             feature_name = name.replace('NetworkElement', '').replace('GenKeywords.py', '').lower()
             new_instance_line = f"        self.{feature_name} = {name.replace('.py', '')}()"
-    
+
             file_lines.append(new_instance_line)
-            
+
         for name in static_keyword_files:
             feature_name = name.replace('NetworkElement', '').replace('Keywords.py', '')
             feature_name = feature_name[0].lower() + feature_name[1:]
             new_instance_line = f"        self.{feature_name} = {name.replace('.py', '')}()"
-    
+
             file_lines.append(new_instance_line)
-    
+
         with open(os.path.join(self.keyword_import_path, "LowLevelApis.py"), "w") as file:
             file.write("\n".join(file_lines) + "\n")
-    
-    
+
+
     def get_keyword_files(self):
         keyword_files = set()
         static_keyword_files = set()
-    
+
         for dirpath, dirnames, filenames in os.walk(self.keyword_path):
             for filename in filenames:
                 if filename.startswith("NetworkElement") and filename.endswith(".py"):
                     keyword_files.add(filename)
-    
-    
+
+
         # Add in the static ones too
         for dirpath, dirnames, filenames in os.walk(self. keyword_path_static):
             for filename in filenames:
                 if filename.startswith("NetworkElement") and filename.endswith("UtilsKeywords.py"):
-                    static_keyword_files.add(filename)  
-        return keyword_files, static_keyword_files
+                    static_keyword_files.add(filename)
+        return sorted(keyword_files), sorted(static_keyword_files)
 
     def __add_to_mapping_file_methods_commands(self, mappingdir, method_command, feature):
         mappingfilename = os.path.join(mappingdir, feature + '.md')
         with open(mappingfilename, "a") as file_object:
             file_object.write(method_command + "\n")
-
