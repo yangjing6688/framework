@@ -8,7 +8,8 @@ jobs:
       - uses: actions/setup-python@v3
       - name: Execution Generation
         run: |
-          python tools/docs/generateKeywordsDocs.py
+          cd tools/docs
+          python generateKeywordsDocs.py
 #      - name: Sphinx build
 #        run: |
 #          sphinx-build tools/docs _build
