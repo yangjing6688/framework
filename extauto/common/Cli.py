@@ -583,7 +583,7 @@ class Cli(object):
             output = self.send(spawn, f'show interface {device_interface} | in "IP addr"')
             try:
                 self.utils.print_info(f"AP {device_interface} IPv4 info: ", output)
-                ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
+                ipv4_addr = re.search(r"((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
                 self.utils.print_info(f"{device_interface} IPv4 address is: {ipv4_addr}")
                 return ipv4_addr
             except Exception as e:
@@ -1152,8 +1152,8 @@ class Cli(object):
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
                     url_image = f'http://engartifacts1.extremenetworks.com:8081/artifactory/xos-iqagent-local-release/xmods/{base_version}/{exos_device_type}-iqagent-{base_version}.xmod'
                     self.utils.print_info(f"Sending URL: {url_image}")
-                    self.send(connection, f'download url {url_image}{vrString}', \
-                              confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
+                    self.send(connection, f'download url {url_image}{vrString}',
+                              confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)',
                               confirmation_args='yes')
 
                     # Wait for the output to return downgraded version to a max of 60 seconds
@@ -1353,8 +1353,7 @@ class Cli(object):
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
 
-
-    def enable_debug_mode_iqagent(self, ip, username, password, cli_type):
+    def enable_debug_mode_iqagent(self, ip, username, password, cli_type, port=22, disable_strict_host_key_checking=False, **kwargs):
         """
         - This Keyword enables debug mode for IQagent for VOSS/EXOS
         - Keyword Usage:
@@ -1364,27 +1363,34 @@ class Cli(object):
         :param username: username to access console
         :param password: Password to access console
         :param cli_type: device Platform example: exos,voss
-        :return: _spawn Device Prompt without '#'
+        :return: _spawn Device Prompt without '#' if function call is successful else -1
         """
-        _spawn = self.open_pxssh_spawn(ip,username,password)
 
-        if _spawn != -1:
-            if 'EXOS' in cli_type.upper():
-                self.send_pxssh(_spawn, 'disable cli paging')
-                self.send_pxssh(_spawn, 'debug iqagent show log hive-agent tail')
-                return _spawn
-            elif 'VOSS' in cli_type.upper():
-                self.send_pxssh(_spawn, 'enable')
-                self.send_pxssh(_spawn, 'configure terminal')
-                self.send_pxssh(_spawn, 'trace level 261 3')
-                self.send_pxssh(_spawn, 'trace screen enable')
-                return _spawn
-            else:
-                self.builtin.fail(msg="Device is not supported")
-                return -1
-        else:
-            self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
+        if cli_type.lower() not in ["exos", "voss"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.fault(**kwargs)
             return -1
+
+        spawn = self.__open_pxssh_spawn(ip, username, password, disable_strict_host_key_checking=disable_strict_host_key_checking, _port=port)
+
+        if spawn == -1:
+            kwargs["fail_msg"] = "Failed to Open The Spawn to Device.So Exiting the Testcase"
+            self.commonValidation.fault(**kwargs)
+            return -1
+        
+        if 'EXOS' in cli_type.upper():
+            self.send_pxssh(spawn, 'disable cli paging')
+            self.send_pxssh(spawn, 'debug iqagent show log hive-agent tail')
+
+        elif 'VOSS' in cli_type.upper():
+            self.send_pxssh(spawn, 'enable')
+            self.send_pxssh(spawn, 'configure terminal')
+            self.send_pxssh(spawn, 'trace level 261 3')
+            self.send_pxssh(spawn, 'trace screen enable')
+
+        kwargs["pass_msg"] = f"Successfully opened a spawn to '{ip}' and enabled iqagent debug mode."
+        self.commonValidation.passed(**kwargs)
+        return spawn
 
     def send_line_and_wait(self, spawn, line, wait=60):
         """
@@ -2273,7 +2279,7 @@ class Cli(object):
         if dut.cli_type.upper() == "EXOS":
             result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
             output = result[0].cmd_obj.return_text
-            pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
+            pattern = rf'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
             match = re.search(pattern, output)
 
             if match:
