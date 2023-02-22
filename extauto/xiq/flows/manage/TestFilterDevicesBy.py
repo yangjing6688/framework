@@ -103,7 +103,9 @@ class TestFilterDevicesBy():
         policy_ssid2 = str(policy_ssid2[policy_list[1]]).strip("['").split()[0]
         self.utils.print_info(" ssid list  " + str(policy_ssid1) + str(policy_ssid2))
         self.FilterManageDevices.clear_all_filters()
-        self.FilterManageDevices.expand_and_collapse_filters(self.filter_element.get_device_ssid_filter_link())
+        element = self.filter_element.get_device_ssid_filter_link()
+        if not element:
+            self.FilterManageDevices.expand_and_collapse_filters(self.filter_element.get_device_ssid_filter_link())
         status, error = self.filter_ssid(policy_ssid1, str(policy_list[0]))
         if status == -1:
             kwargs['fail_msg'] = error
