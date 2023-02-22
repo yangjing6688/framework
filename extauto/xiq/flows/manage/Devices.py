@@ -1703,12 +1703,6 @@ class Devices:
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
-        if device_type.lower() != "simulated":
-            if 'Extreme - Aerohive' in device_make:
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
-                self.auto_actions.select_drop_down_options(
-                    self.devices_web_elements.get_device_make_drop_down_options(), device_make)
-
         if location and self.devices_web_elements.get_location_button().is_displayed():
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
