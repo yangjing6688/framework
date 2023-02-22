@@ -28,7 +28,7 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
-from extauto.xiq.xapi.devices.XapiDevices import XapiDevices
+from keywords.xapi.devices.XapiDevices import XapiDevices
 from tools.xapi.XapiHelper import XapiHelper
 from ExtremeAutomation.Utilities.deprecated import unsupported
 

@@ -5,8 +5,10 @@ from tempfile import mkstemp
 from shutil import move, copymode
 from os import fdopen, remove
 
-toc_title = dict(xapi_base='XAPI Base Keywords',)
-keyword_contents = dict(xapi_base='keywords.xapi\_base.',)
+toc_title = dict(xapi_base='XAPI Base Keywords',
+                 xapi='XAPI to GUI Keywords')
+keyword_contents = dict(xapi_base='keywords.xapi\_base.')
+
 
 def fileContainsPattern(file_path, pattern):
     with open(file_path, 'r') as file:
@@ -17,13 +19,19 @@ def fileContainsPattern(file_path, pattern):
             return True
     return False
 
-def replaceFileContents(file_path, pattern, subst):
+def replaceFileContents(file_path, pattern, subst, must_contain=None):
     #Create temp file
     fh, abs_path = mkstemp()
     with fdopen(fh,'w') as new_file:
         with open(file_path) as old_file:
             for line in old_file:
-                new_file.write(line.replace(pattern, subst))
+                if must_contain:
+                    if must_contain in line:
+                        new_file.write(line.replace(pattern, subst))
+                    else:
+                        new_file.write(line)
+                else:
+                    new_file.write(line.replace(pattern, subst))
     #Copy the file permissions from the old file to the new file
     copymode(file_path, abs_path)
     #Remove original file
@@ -61,11 +69,31 @@ for keyword_directory in os.listdir(base_directory):
             replaceFileContents(toc_file, index_rst_toc, index_rst_toc  + "\n   " + final_toc)
         os.system("sphinx-apidoc -o " + docs_rst_files_directory + " " + base_directory)
 
-        # Replace the name for the
+        # Replace the name for the TOC
         toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
         keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
+
+        # Adjust the name of the base files
         replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
         replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
+        replaceFileContents(keyword_file, 'Submodules', '')
+        replaceFileContents(keyword_file, 'Module contents', '')
+
+        # adjust the name for the sub directory files
+        keyword_file_base = keyword_file.replace('.rst', '')
+        for root, dirs, files in os.walk(entire_directory):
+            for dir in dirs:
+                if '__' not in dir:
+                    file_name = keyword_file_base + '.' + dir + '.rst'
+                    toc_dir_replace_string = keyword_file_base + '.' + dir + ' package'
+                    if os.path.isfile(file_name):
+                        replaceFileContents(file_name,'keywords.' + keyword_directory + '.' + dir + '.', '', must_contain=' module')
+                        replaceFileContents(file_name, ' module', '')
+                        replaceFileContents(file_name, 'Submodules', '')
+                        replaceFileContents(file_name, 'Module contents', '')
+                        # replaceFileContents(file_name, toc_dir_replace_string, dir)
+
+
 
 # Generate the html
 print('Generating HTML')
@@ -73,5 +101,5 @@ os.system("make html")
 print('Completed')
 
 # Debugging the page
-# url = "file:../../docs/index.html"
-# webbrowser.open(url,new=new)
+url = "file:../../docs/html/index.html"
+webbrowser.open(url,new=new)

@@ -26,6 +26,7 @@ into the keyword.
    :caption: Table of Contents:
 
    docs/keywords.xapi_base
+   docs/keywords.xapi
 
 Indices and tables
 ==================
