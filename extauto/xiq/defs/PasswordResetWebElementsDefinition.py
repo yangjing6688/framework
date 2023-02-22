@@ -16,7 +16,7 @@ class PasswordResetWebElementsDefinition:
         }
     add_account = \
         {
-            'XPATH': '//*[@data-tip="Add"]',
+            'XPATH': "//*[@data-automation-tag='automation-account-list-add-btn']",
             'wait_for': 5
         }
     email_textbox = \
