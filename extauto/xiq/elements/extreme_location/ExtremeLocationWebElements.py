@@ -36,6 +36,15 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
     def get_devices_wireless_devices_sites_dropdown_button(self):
         return self.weh.get_element(self.extreme_location_devices_wireless_devices_sites_dropdown)
 
+    def get_bss_device_button(self):
+        return self.weh.get_element(self.bss_device_button)
+    
+    def get_devices_bss_devices_sites_dropdown_button(self):
+        return self.weh.get_element(self.devices_bss_devices_sites_dropdown_button)
+    
+    def get_devices_bss_search_textfield(self):
+        return self.weh.get_element(self.devices_bss_search_textfield)
+    
     def get_devices_wireless_devices_search_textfield(self):
         return self.weh.get_element(self.devices_wireless_devices_search_textfield)
 
@@ -47,7 +56,16 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
 
     def get_devices_wireless_devices_ip_address_textfield(self):
         return self.weh.get_element(self.devices_wireless_devices_ip_address_textfield)
-
+    
+    def get_devices_bss_devices_bss_textfield(self):
+        return self.weh.get_element(self.devices_bss_devices_bss_textfield)
+    
+    def get_devices_bss_devices_ssid_textfield(self):
+        return self.weh.get_element(self.devices_bss_devices_ssid_textfield)
+    
+    def get_devices_bss_devices_floor_name_textfield(self):
+        return self.weh.get_element(self.devices_bss_devices_floor_name_textfield)
+    
     def get_devices_wireless_devices_user_name_textfield(self):
         return self.weh.get_element(self.devices_wireless_devices_user_name_textfield)
 
