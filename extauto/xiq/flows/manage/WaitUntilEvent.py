@@ -116,7 +116,7 @@ class WaitUntilEvent:
         self.devices.navigator.navigate_to_manage_tab()
         self.devices.refresh_devices_page()
 
-        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
         complete = False
         while (not complete) and self.wait_until_event(wait_time, check_interval):
             update_status = self.devices.get_device_details(device_serial, 'UPDATED')

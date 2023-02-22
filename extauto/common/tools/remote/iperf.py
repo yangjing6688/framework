@@ -155,10 +155,10 @@ class MuIPerf(object):
         if self.puts:
             print('IPERF Client Started')
 
-        tffc = re.compile("sec[ ]+[0-9\.]+ [a-zA-Z]+[ ]+([0-9\.]+) ([a-zA-Z]+\/sec)$")
-        sndr = re.compile("sec[ ]+[0-9\.]+ [a-zA-Z]+[ ]+([0-9\.]+) ([a-zA-Z]+\/sec)[ ]+sender")
-        rcvr = re.compile("sec[ ]+[0-9\.]+ [a-zA-Z]+[ ]+([0-9\.]+) ([a-zA-Z]+\/sec)[ ]+receiver")
-        labRe = re.compile("Bytes.*")
+        tffc = re.compile(r"sec[ ]+[0-9\.]+ [a-zA-Z]+[ ]+([0-9\.]+) ([a-zA-Z]+\/sec)$")
+        sndr = re.compile(r"sec[ ]+[0-9\.]+ [a-zA-Z]+[ ]+([0-9\.]+) ([a-zA-Z]+\/sec)[ ]+sender")
+        rcvr = re.compile(r"sec[ ]+[0-9\.]+ [a-zA-Z]+[ ]+([0-9\.]+) ([a-zA-Z]+\/sec)[ ]+receiver")
+        labRe = re.compile(r"Bytes.*")
         for line in process.stdout:
             hitTffc = tffc.search(line.decode().strip())
             sndrOut = sndr.search(line.decode().strip())

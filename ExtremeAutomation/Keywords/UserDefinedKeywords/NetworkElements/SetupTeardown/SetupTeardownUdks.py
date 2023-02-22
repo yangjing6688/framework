@@ -10,8 +10,6 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.StaticKeywords.NetworkEle
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementHealthCheck import NetworkElementHealthCheck
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
 
-from pytest_testconfig import config
-from ExtremeAutomation.Imports.pytestConfigHelper import PytestConfigHelper
 
 class SetupTeardownUdks():
     def __init__(self) -> None:
@@ -23,7 +21,7 @@ class SetupTeardownUdks():
         self.trafficPortKeywords = TrafficPortKeywords()
         self.networkElementFileManagementKeywords = NetworkElementFileManagementUtilsKeywords()
         self.networkElementResetDeviceUtilsKeywords = NetworkElementResetDeviceUtilsKeywords()
-        self.endsystemConnectionManager = EndsystemConnectionManager();
+        self.endsystemConnectionManager = EndsystemConnectionManager()
 
     ########################################################
     ##############  Suite_Setup_Keywords  ##################
@@ -36,7 +34,7 @@ class SetupTeardownUdks():
         self.trafficPortKeywords.take_port_ownership(all_tgen_ports)
         try:
             self.Get_Base_Test_Suite_Platform_Values()
-        except:
+        except Exception:
             pass
         # if baseline is True:
             # self.Suite_Setup_Baseline()
@@ -75,4 +73,3 @@ class SetupTeardownUdks():
         self.nefw.save_running_firmware()
         # Gather sysType/model of all netelems
         self.nehc.store_device_model()
-
