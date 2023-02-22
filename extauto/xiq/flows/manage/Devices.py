@@ -480,7 +480,7 @@ class Devices:
         # :param ap_mac: AP MAC
         # :return: returns the row object
         # """
-        # 
+        #
         # page_size_field_text = ""
         # page_number_field_text = ""
         # page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
@@ -1693,12 +1693,6 @@ class Devices:
             list_initial_serial_dt = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
-
-        if device_type.lower() != "simulated":
-            if 'Extreme - Aerohive' in device_make:
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
-                self.auto_actions.select_drop_down_options(
-                    self.devices_web_elements.get_device_make_drop_down_options(), device_make)
 
         if location and self.devices_web_elements.get_location_button().is_displayed():
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
@@ -4273,7 +4267,7 @@ class Devices:
 
         count = 0
         self.utils.print_info("Checking to see if the device has completed the reboot action")
-        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
         while count < retry_count:
             reboot_message = self.get_device_details(device_serial, "UPDATED")
             if "Rebooting" in reboot_message:
@@ -4304,7 +4298,7 @@ class Devices:
 
         count = 0
         self.utils.print_info("Checking to see if the device has completed Discovering Country Code")
-        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
         while count < retry_count:
             reboot_message = self.get_device_details(device_serial, "UPDATED")
             if "Discovering" in reboot_message:
@@ -7100,7 +7094,7 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
         return 1
-      
+
     def get_device_template_status(self, device_mac='default', duration_retry=50, **kwargs):
         """
         - This keyword returns the device's connection status, audit log status
@@ -9696,7 +9690,7 @@ class Devices:
         :param updatefromD360Page= {false|true}                  # Update page will be launched from D360 if it is true
         :param retry_duration: will check for the firmware upgrade status as per these variable values
         :param retry_count: will check for the firmware upgrade status as per these variable values
-        
+
         - keyword Usage:
         - Select Version And Upgrade Device To Latest Version    ${DEVICE_MAC}
         - Select Version And Upgrade Device To Specific Version    ${DEVICE_MAC}   version=${VERSION}   updateTo=${"specific"}
@@ -10158,7 +10152,7 @@ class Devices:
 
         complete = False
         n_time = 0
-        date_regex = "(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
 
         while n_time <= int(wait_time_in_min * 4):
             n_time = n_time + 1
@@ -12326,7 +12320,7 @@ class Devices:
         - Keyword Usage:
         - ``Revert Device to Template  ${DEVICE_SERIAL}``
         :param device_mac: mac of the device to perform the action on
-        
+
         :return: 1 if action succeeds, else -1
         """
         self.utils.print_info("Reverting Device to Template for device with serial: ", device_mac)
@@ -12571,7 +12565,7 @@ class Devices:
             kwargs['fail_msg'] = f"The function was not designed for {dut.cli_type} OS System"
             self.common_validation.fault(**kwargs)
             return -1
-        
+
         if self.select_device(device_mac=dut.mac):
             device_selected = True
         elif self.select_device(device_serial=dut.serial):
@@ -12613,4 +12607,3 @@ class Devices:
                              f"or serial number: {dut.serial} was not found thus failed to get it"
         self.common_validation.failed(**kwargs)
         return latest_version
-
