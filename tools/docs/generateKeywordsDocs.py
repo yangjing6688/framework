@@ -70,6 +70,8 @@ for keyword_directory in os.listdir(base_directory):
 # Generate the html
 print('Generating HTML')
 os.system("make html")
+print('Completed')
 
-url = "file:../../docs/index.html"
-webbrowser.open(url,new=new)
+# Debugging the page
+# url = "file:../../docs/index.html"
+# webbrowser.open(url,new=new)
