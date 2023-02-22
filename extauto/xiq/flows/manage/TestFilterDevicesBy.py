@@ -98,11 +98,8 @@ class TestFilterDevicesBy():
         sn_list, policy_list = self.FilterManageDevices.check_available_devices()
         if sn_list == -1: return -1, policy_list
         policy_ssid1, ssid_name  = self.net_policy.get_all_ssids_in_policy(policy_list[0], new_ssid=False, special_char=True)
-        #policy_ssid1 = defaultdict(str)
         policy_ssid1 = str(policy_ssid1[policy_list[0]]).strip("['").split()[0]
-        print(policy_ssid1)
         policy_ssid2, ssid_name = self.net_policy.get_all_ssids_in_policy(policy_list[1], new_ssid=False, special_char=True)
-        #policy_ssid2 = defaultdict(str)
         policy_ssid2 = str(policy_ssid2[policy_list[1]]).strip("['").split()[0]
         self.utils.print_info(" ssid list  " + str(policy_ssid1) + str(policy_ssid2))
         self.FilterManageDevices.clear_all_filters()
@@ -146,4 +143,5 @@ class TestFilterDevicesBy():
             kwargs['fail_msg'] = error
             self.common_validation.failed(**kwargs)
             return -1, error
+        self.FilterManageDevices.clear_all_filters()
         return 1, None
