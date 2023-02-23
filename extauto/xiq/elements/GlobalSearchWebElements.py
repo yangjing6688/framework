@@ -68,3 +68,6 @@ class GlobalSearchWebElements(GlobalSearchWebElementsDefinitions):
 
     def get_tool_tip_error_close_button(self):
         return self.weh.get_element(self.tool_tip_error_close)
+
+    def get_search_clear_icon(self):
+        return self.weh.get_element(self.global_search_clear_icon)
