@@ -20,7 +20,7 @@ into the keyword.
 .. _named arguments: https://www.w3schools.com/python/gloss_python_function_keyword_arguments.asp
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
    :titlesonly:
    :name: mastertoc
    :caption: Table of Contents:
@@ -31,3 +31,4 @@ Indices and tables
 ==================
 
 * :ref:`search`
+
