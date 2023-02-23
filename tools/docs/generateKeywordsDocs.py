@@ -62,6 +62,7 @@ index_rst_toc = '   :caption: Table of Contents:\n'
 toc_base = 'docs/keywords.'
 base_directory = "../../keywords"
 toc_file = "source/index.rst"
+
 for keyword_directory in os.listdir(base_directory):
     if not keyword_directory.startswith("__") and \
        not keyword_directory.endswith("__"):
@@ -79,7 +80,6 @@ for keyword_directory in os.listdir(base_directory):
         keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
 
         # Adjust the name of the base files
-        replaceFileContents(keyword_file, 'Submodules\n', '')
         replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
         replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
 
@@ -102,9 +102,13 @@ for keyword_directory in os.listdir(base_directory):
 
 # Generate the html
 print('Generating HTML')
+
+# remove the base keywords file
+remove_file= "source/docs/keywords.rst"
+os.remove(remove_file)
 os.system("make html")
 print('Completed')
 
 # Debugging the page
 url = "file:../../docs/index.html"
-# webbrowser.open(url,new=new)
+webbrowser.open(url,new=new)
