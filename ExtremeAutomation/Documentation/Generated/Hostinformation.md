@@ -296,3 +296,21 @@ UUID: 2ff11f67-fb26-45a2-bfda-0afbd69fcae9
 
 		hostinformation_verify_host_system_id  device_name  system_id
 
+# API Function: hostinformation_verify_iqagent_version
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_verify_iqagent_version(device_name, iqagent_version)
+
+	Robot API Call: 
+
+		hostinformation_verify_iqagent_version  device_name  iqagent_version
+
+# API Function: hostinformation_verify_host_nos_version
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_verify_host_nos_version(device_name, nos_version)
+
+	Robot API Call: 
+
+		hostinformation_verify_host_nos_version  device_name  nos_version
+
