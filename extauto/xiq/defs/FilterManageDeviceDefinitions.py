@@ -31,7 +31,7 @@ class FilterManageDeviceDefinitions:
 
     device_policy_list = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-manage-device-list"]/descendant::td[contains(@class,"networkPolicyName")]/span',
+            'XPATH': '//div[@data-automation-tag="automation-manage-device-list"]/descendant::td[contains(@class,"networkPolicyName")]//a',
             'wait_for': 5
         }
 
@@ -44,6 +44,11 @@ class FilterManageDeviceDefinitions:
     list_del_index_filter = \
         {
             'XPATH': '//li[1]/span[@data-dojo-attach-point="closeBox"]',
+            'wait_for': 5
+        }
+    applied_filter_btn = \
+        {
+            'XPATH': '//span[contains(text(),"Apply Filters") and @data-dojo-attach-point="applyFilterBtn"]',
             'wait_for': 5
         }
     applied_filter_link = \
