@@ -42,7 +42,7 @@ class ManageUsers():
         element_status = self.web_element_controller.is_web_element_present(self.portal_web_elements.get_add_users_page_fullname_text())
         if not element_status:
             kwargs['fail_msg'] = "Not able to find the input 'Full Name' which means the create users page may not open"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
         if self.check_role_type("MSP") == -1:
             return -1
@@ -70,7 +70,8 @@ class ManageUsers():
             self.auto_actions.send_keys(self.portal_web_elements.get_users_page_name_filter_text(), username)
             sleep(2)
             if self.check_users_list(username) != -1:
-                self.utils.print_info(username+" is in USERS list page " + str(number))
+                kwargs['pass_msg'] = username+" is in USERS list page " + str(number)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.auto_actions.click_reference(self.portal_web_elements.get_users_page_nextpage_button)
@@ -82,7 +83,8 @@ class ManageUsers():
         self.auto_actions.send_keys(self.portal_web_elements.get_users_page_name_filter_text(), username)
         sleep(2)
         if self.check_users_list(username) != -1:
-            self.utils.print_info(username + " is in USERS list page " + str(number))
+            kwargs['pass_msg'] = username + " is in USERS list page " + str(number)
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = fail_msg
