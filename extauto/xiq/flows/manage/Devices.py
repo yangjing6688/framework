@@ -1962,7 +1962,7 @@ class Devices:
                                                            "DELL")
                 self.screen.save_screen_shot()
 
-            self.utils.print_info("Entering Service Tag...")
+            self.utils.print_info(f"Entering Service Tag {service_tag}")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
 
             # Please not the check_negative_combinations does throw an error if an invalid service tag is entered
