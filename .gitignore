@@ -31,3 +31,4 @@ venv
 
 tools/docs/source/_templates
 tools/docs/source/docs**
+tools/docs/build**
