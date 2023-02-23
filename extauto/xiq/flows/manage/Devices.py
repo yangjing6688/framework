@@ -1954,17 +1954,21 @@ class Devices:
                 sleep(2)
                 self.screen.save_screen_shot()
 
-        elif 'Dell' in device_make:
-            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
-            self.utils.print_info("Entering Serial Number...")
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+        elif 'DELL' in device_make.upper():
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
+                self.utils.print_info("Selecting Switch Type : DELL")
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(),
+                                                           "DELL")
+                self.screen.save_screen_shot()
+
+            self.utils.print_info("Entering Service Tag...")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
 
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
 
-            self.utils.print_info("Entering Service Tag...")
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
 
         elif 'Universal Appliance' in device_make:
             if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
