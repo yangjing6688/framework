@@ -23,6 +23,7 @@ from extauto.xiq.configs.device_commands import (
     IFCONFIG
 )
 from ExtremeAutomation.Keywords.EndsystemKeywords.EndsystemConnectionManager import EndsystemConnectionManager
+from datetime import datetime, timedelta
 from ExtremeAutomation.Keywords.NetworkElementKeywords.NetworkElementConnectionManager import NetworkElementConnectionManager
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementLacpGenKeywords import \
     NetworkElementLacpGenKeywords
@@ -582,7 +583,7 @@ class Cli(object):
             output = self.send(spawn, f'show interface {device_interface} | in "IP addr"')
             try:
                 self.utils.print_info(f"AP {device_interface} IPv4 info: ", output)
-                ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
+                ipv4_addr = re.search(r"((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
                 self.utils.print_info(f"{device_interface} IPv4 address is: {ipv4_addr}")
                 return ipv4_addr
             except Exception as e:
@@ -1151,8 +1152,8 @@ class Cli(object):
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
                     url_image = f'http://engartifacts1.extremenetworks.com:8081/artifactory/xos-iqagent-local-release/xmods/{base_version}/{exos_device_type}-iqagent-{base_version}.xmod'
                     self.utils.print_info(f"Sending URL: {url_image}")
-                    self.send(connection, f'download url {url_image}{vrString}', \
-                              confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
+                    self.send(connection, f'download url {url_image}{vrString}',
+                              confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)',
                               confirmation_args='yes')
 
                     # Wait for the output to return downgraded version to a max of 60 seconds
@@ -1352,8 +1353,7 @@ class Cli(object):
         self.utils.print_info("Unable to get the expected output. Please check.")
         return -1
 
-
-    def enable_debug_mode_iqagent(self, ip, username, password, cli_type):
+    def enable_debug_mode_iqagent(self, ip, username, password, cli_type, port=22, disable_strict_host_key_checking=False, **kwargs):
         """
         - This Keyword enables debug mode for IQagent for VOSS/EXOS
         - Keyword Usage:
@@ -1363,27 +1363,34 @@ class Cli(object):
         :param username: username to access console
         :param password: Password to access console
         :param cli_type: device Platform example: exos,voss
-        :return: _spawn Device Prompt without '#'
+        :return: _spawn Device Prompt without '#' if function call is successful else -1
         """
-        _spawn = self.open_pxssh_spawn(ip,username,password)
 
-        if _spawn != -1:
-            if 'EXOS' in cli_type.upper():
-                self.send_pxssh(_spawn, 'disable cli paging')
-                self.send_pxssh(_spawn, 'debug iqagent show log hive-agent tail')
-                return _spawn
-            elif 'VOSS' in cli_type.upper():
-                self.send_pxssh(_spawn, 'enable')
-                self.send_pxssh(_spawn, 'configure terminal')
-                self.send_pxssh(_spawn, 'trace level 261 3')
-                self.send_pxssh(_spawn, 'trace screen enable')
-                return _spawn
-            else:
-                self.builtin.fail(msg="Device is not supported")
-                return -1
-        else:
-            self.builtin.fail(msg="Failed to Open The Spawn to Device.So Exiting the Testcase")
+        if cli_type.lower() not in ["exos", "voss"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.fault(**kwargs)
             return -1
+
+        spawn = self.__open_pxssh_spawn(ip, username, password, disable_strict_host_key_checking=disable_strict_host_key_checking, _port=port)
+
+        if spawn == -1:
+            kwargs["fail_msg"] = "Failed to Open The Spawn to Device.So Exiting the Testcase"
+            self.commonValidation.fault(**kwargs)
+            return -1
+        
+        if 'EXOS' in cli_type.upper():
+            self.send_pxssh(spawn, 'disable cli paging')
+            self.send_pxssh(spawn, 'debug iqagent show log hive-agent tail')
+
+        elif 'VOSS' in cli_type.upper():
+            self.send_pxssh(spawn, 'enable')
+            self.send_pxssh(spawn, 'configure terminal')
+            self.send_pxssh(spawn, 'trace level 261 3')
+            self.send_pxssh(spawn, 'trace screen enable')
+
+        kwargs["pass_msg"] = f"Successfully opened a spawn to '{ip}' and enabled iqagent debug mode."
+        self.commonValidation.passed(**kwargs)
+        return spawn
 
     def send_line_and_wait(self, spawn, line, wait=60):
         """
@@ -2272,7 +2279,7 @@ class Cli(object):
         if dut.cli_type.upper() == "EXOS":
             result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
             output = result[0].cmd_obj.return_text
-            pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
+            pattern = rf'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
             match = re.search(pattern, output)
 
             if match:
@@ -2499,6 +2506,65 @@ class Cli(object):
             self.commonValidation.failed(**kwargs)
             return False
 
+    def search_last_command_cli_journal(self, info: str, command, **kwargs):
+        """
+           - This keyword is used to check if the command presented as last command in "show cli-journal"
+           - Keyword Usage:
+            - ``search_last_command_cli_journal(info=${INFO}, command=${COMMAND})``
+
+        :param info: CLI output as string
+        :param command: CLI command to be found
+        :return: 1 if the command was found as last command else fails
+        """
+        table = []
+        for entry in info[4:].split("\n"):
+            if entry:
+                if entry[0].isdigit():
+                    aux = [i for i in entry.split(" ") if i]
+                    table.append([' '.join(aux[:2]), aux[2], aux[3], ' '.join(aux[4:])])
+
+        now = datetime.now()
+        log_time = (now - timedelta(days=1))
+        flag = False
+        for row in reversed(table):
+            if log_time < datetime.strptime(row[0], '%m/%d/%Y %H:%M:%S.%f') and command in row[-1]:
+                print(row)
+                flag = True
+                break
+            else:
+                print(row)
+                flag = False
+        if flag:
+            kwargs['pass_msg'] = f"'{command}' found as last command in cli journal"
+            self.commonValidation.passed(**kwargs)
+        else:
+            kwargs['fail_msg'] = f"'{command}' didn't find as last command cli journal"
+            self.commonValidation.failed(**kwargs)
+
+    def check_pse_restart_in_cli(self, dut, **kwargs):
+        """
+           - This keyword is used to check if the command "reset inline-power ports" was executed in "show cli-journal"
+           - Keyword Usage:
+            - ``check_pse_restart_in_cli(dut=${DEVICE})``
+
+        :param dut: device to test
+        :return: -1 if fails
+        """
+        spawn = self.open_spawn(dut.ip, dut.port, dut.username,
+                                dut.password, dut.cli_type)
+        if dut.cli_type.upper() in ["VOSS", "AH-FASTPATH"]:
+            kwargs['fail_msg'] = f"This keyword (check_pse_restart_in_cli) is not supported for {dut.cli_type} devices"
+            self.commonValidation.fault(**kwargs)
+            return -1
+        elif dut.cli_type.upper() == "EXOS":
+            self.send_commands(spawn, "disable cli paging")
+            cli_journal = self.send_commands(spawn, "show cli  journal | grep reset")
+            self.search_last_command_cli_journal(info=cli_journal, command="reset inline-power ports")
+        else:
+            kwargs['fail_msg'] = "Fail to find the CLI type"
+            self.commonValidation.fault(**kwargs)
+            return -1
+
     def configure_cli_table(self, dut1, dut2, **kwargs):
         """
         - This keyword configures the same cli journal size for both given switches(EXOS) or clears logging history(VOSS) in order to compare the output
@@ -2579,7 +2645,6 @@ class Cli(object):
             else:
                 kwargs['fail_msg'] = "check_clone_configuration() failed. Commands are not the same "
                 self.commonValidation.failed(**kwargs)
-
 
     def get_cli_commands(self, info: str, cli_type, **kwargs):
         """

@@ -1,6 +1,7 @@
 
 import string
 import random
+import re
 
 from collections import defaultdict
 from extauto.common.Cli import Cli
@@ -275,7 +276,7 @@ class XiqVerifications:
 
     def check_add_vlan_range_commands_to_individual(self, dut, vlan_rng, ports, **kwargs):
         """ Method that verifies in the delta cli audit that certain add vlan commands appeared.
-        
+
         Currently this method supports only switches with cli_type - exos.
 
         Args:
@@ -286,14 +287,14 @@ class XiqVerifications:
         Returns:
             int: 1 if the function call has succeeded else -1
         """
-        
+
         supported_devices = ["EXOS"]
 
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
             self.common_validation.fault(**kwargs)
             return -1
-        
+
         delta_configs = self.device_config.get_device_config_audit_delta(dut.mac)
 
         if delta_configs == -1:
@@ -318,7 +319,7 @@ class XiqVerifications:
                         temp = f"configure vlan {vlan} add port {port} tagged #y"
                         if temp not in delta_configs:
                             not_found.append(temp)
-            
+
             if not_found:
                 self.utils.print_info("Did not find the following add port commands:\n")
                 for nf in not_found:
@@ -350,7 +351,7 @@ class XiqVerifications:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
             self.common_validation.fault(**kwargs)
             return -1
-        
+
         delta_configs = self.device_config.get_device_config_audit_delta(dut.mac)
 
         if delta_configs == -1:
@@ -358,7 +359,7 @@ class XiqVerifications:
             self.common_validation.fault(**kwargs)
             return -1
 
-        if dut.cli_type.upper() == "EXOS":  
+        if dut.cli_type.upper() == "EXOS":
 
             not_found = []
 
@@ -375,7 +376,7 @@ class XiqVerifications:
                         temp = f"configure vlan {vlan} delete port {port}"
                         if temp not in delta_configs:
                             not_found.append(temp)
-            
+
             if not_found:
                 self.utils.print_info("Did not find the following delete port commands: ")
                 for nf in not_found:
@@ -391,7 +392,7 @@ class XiqVerifications:
 
     def get_device_vlan_configuration(self, dut, ports, network_policy, **kwargs):
         """ Method that pushes the vlan configuration to the switch in XIQ and then returns the vlan configuration of each port from the switch.
-        
+
         Currently this method supports only switches with cli_type - exos.
 
         Args:
@@ -425,14 +426,14 @@ class XiqVerifications:
         self.utils.wait_till(_check_device_update_status, timeout=300, delay=5, msg='Checking update status')
 
         if dut.cli_type.upper() == "EXOS":
-           
+
             output = self.cli.networkElementCliSend.send_cmd(dut.name, 'show ports vlan ')[0].cmd_obj._return_text
-            
+
             if dut.platform.upper() == 'STACK':
 
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     for port in ports.split(','):
-                        
+
                         if str(slot) + ':' + port not in output:
                             kwargs["fail_msg"] = "Cannot find the port: " + str(slot) + ':' + port
                             self.common_validation.failed(**kwargs)
@@ -441,7 +442,7 @@ class XiqVerifications:
                         counter = 0
                         start_index = 0
                         stop_index = 0
-                        
+
                         for letter in output:
                             if counter + 3 == len(output):
                                 break
@@ -508,7 +509,7 @@ class XiqVerifications:
 
     def check_devices_config_after_individual_add_delete_port_push(self, dut, ports, vlan_range, policy_name, op="add", **kwargs):
         """ Method that retrieves the vlan configuration the switch using the method 'get_device_vlan_configuration' and verifies if the vlan add|delete commands were used.
-        
+
         Currently this method supports only switches with cli_type - exos.
 
         Args:
@@ -532,10 +533,10 @@ class XiqVerifications:
         flag = True
 
         for configuration in configuration_list:
-            
+
             vlans_found = []
-            vlan_list_config = self.utils.get_regexp_matches(configuration, "(\d\d\d\d)", 1)
-            
+            vlan_list_config = self.utils.get_regexp_matches(configuration, r"(\d\d\d\d)", 1)
+
             for vlan in range(int(vlan_range.split('-')[0]), int(vlan_range.split('-')[1]) + 1):
 
                 if vlan < 10:
@@ -559,15 +560,15 @@ class XiqVerifications:
                 self.utils.print_info(configuration)
                 self.utils.print_info("The following vlans are still present:")
                 vlans_found_string = ''
-                
+
                 for vlan in vlans_found:
                     vlans_found_string = vlans_found_string + vlan + ', '
-                
+
                 self.utils.print_info(vlans_found_string[:-1])
                 self.utils.print_info(3 * '\n')
 
             elif op == "add" and not vlans_found:
-                
+
                 flag = False
                 self.utils.print_info("Vlans not found. The vlan range was: " + vlan_range)
                 self.utils.print_info('The port is currently configured as follows: ')
@@ -578,7 +579,7 @@ class XiqVerifications:
                 self.utils.print_info(f"The {op} port commands for this port have been pushed succesfully!")
                 self.utils.print_info("The port is currently configured as follows: ")
                 self.utils.print_info(configuration)
-        
+
         if not flag:
             kwargs["fail_msg"] = "Failed to find the correct vlan configuration on the switch"
             self.common_validation.failed(**kwargs)
@@ -590,7 +591,7 @@ class XiqVerifications:
 
     def template_add_vlans(self, dut, port_numbers, vlan_range, trunk_port_type_name, network_policy_name, sw_template_name, **kwargs):
         """ Method that configures a new trunk port type at template level. It will also push the configuration to the switch.
-        
+
         Currently this method supports only switches with cli_type - exos.
 
         Args:
@@ -630,10 +631,10 @@ class XiqVerifications:
         self.switch_template.select_sw_template(network_policy_name, sw_template_name)
         self.switch_template.go_to_port_configuration()
         self.device360.create_new_port_type(template_exos, port_numbers.split(',')[0])
-        
+
         if dut.cli_type.upper() == "EXOS":
             if dut.platform.upper() == "STACK":
-                
+
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     def _check_sw_template_selection():
                         return self.switch_template.select_sw_template(network_policy_name, sw_template_name)
@@ -669,7 +670,233 @@ class XiqVerifications:
                 dut.mac)
 
         self.utils.wait_till(_check_device_update_status, timeout=300, delay=5, msg='Checking update status')
-        
+
         kwargs["pass_msg"] = "Successfully found all the ports"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def check_event(self, event, mac, configuration_event=False, **kwargs):
+        """ Method that goes to Device360 -> Events and looks for a given event.
+
+        Args:
+            event (str): the name of the event
+            mac (str): the mac of the device
+            configuration_event (bool): the method will click on the Configuration Events tab if this arg is True
+
+        Returns: 1 if successful else -1
+        """
+        self.navigator.navigate_to_device360_page_with_mac(device_mac=mac)
+        self.device360.device360_select_events_view()
+
+        try:
+            def _check_event():
+                self.device360.device360_refresh_page()
+                return self.device360.device360_search_event_and_confirm_event_description_contains(
+                    event_str=event, configuration_event=configuration_event)
+            self.utils.wait_till(_check_event, timeout=30, delay=1)
+
+            kwargs["pass_msg"] = "Successfully found the expected event."
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        except Exception as exc:
+            kwargs["fail_msg"] = f"No '{event}' found in Events Tab: {repr(exc)}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        finally:
+            close_dialog = self.device360.get_close_dialog()
+            self.auto_actions.click(close_dialog)
+
+    def wait_for_logs_after_scli_configuration_update(self, os, spawn, mac, **kwargs):
+        """ Method that waits for status logs after a SCLI configuration push in XIQ.
+        Also it waits for the status of the configuration update in XIQ.
+
+        Currently this method supports only OS EXOS/VOSS.
+
+        Args:
+            event (str): the OS of the device
+            spawn (pxssh): the spawn object
+            mac (str): the mac of the device
+            configuration_event (bool): the method will click on the Configuration Events tab if this arg is True
+
+        Returns: 1 if successful else -1
+        """
+
+        if os.lower() not in ["exos", "voss"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        percentage_list = []
+        percentage_list.append(21)
+        retry = 0
+
+        while retry <= 900:
+
+            output = self.cli.send_line_and_wait(spawn, "", 15)
+            self.utils.print_info(output)
+
+            if output:
+
+                if os.lower() == "voss":
+                    if 'Send 30 second in-progress report for cli command processing' in output:
+
+                        output_commands = re.search(r'Send 30 second in-progress report for cli command processing. Processing \d+ out of \d+ commands', output)
+                        output_commands_new = output_commands.group(0)
+                        digit = [int(d) for d in output_commands_new.split() if d.isdigit()]
+                        self.utils.print_info(" ", digit)
+
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+
+                        if "Device Update Failed" in percentage_list:
+                            kwargs["fail_msg"] = "Device Update Failed"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
+                                int(percentage_list[-1]) > int(percentage_list[-2])):
+                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
+
+                        elif int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+
+                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
+                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
+
+                        else:
+                            kwargs["fail_msg"] = "No update configuration info"
+                            self.common_validation.fault(**kwargs)
+
+                    elif 'SNMP INFO Save config successful' in output:
+
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+
+                        if int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+                        else:
+                            kwargs["fail_msg"] = "No Update configuration is done"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                    elif retry == 500:
+
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+
+                        if "Device Update Failed" in percentage_list:
+                            kwargs["fail_msg"] = "Device Update Failed"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
+                                int(percentage_list[-1]) > int(percentage_list[-2])):
+                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
+
+                        elif int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+
+                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
+                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
+
+                        else:
+                            kwargs["fail_msg"] = "No update configuration info"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                    else:
+                        self.utils.print_info("No 'Send 30 second in-progress report'")
+                        retry += 10
+
+                elif os.lower() == "exos":
+
+                    if '"commandsExec"' in output:
+
+                        output_commands_exec = re.search(r'"commandsExec":\s\d+', output)
+                        self.utils.print_info(output_commands_exec)
+                        output_commands_exec_new = output_commands_exec.group(0)
+                        digit_exec = [int(d) for d in output_commands_exec_new.split() if d.isdigit()]
+                        self.utils.print_info(" ", digit_exec)
+
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+
+                        if "Device Update Failed" in percentage_list:
+                            kwargs["fail_msg"] = "Device Update Failed"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
+                                int(percentage_list[-1]) > int(percentage_list[-2])):
+                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
+
+                        elif int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+
+                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
+                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
+
+                        else:
+                            kwargs["fail_msg"] = "No update configuration info"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                    elif retry == 500:
+
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+
+                        if "Device Update Failed" in percentage_list:
+                            kwargs["fail_msg"] = "Device Update Failed"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        elif (int(percentage_list[-1]) > 21 and int(percentage_list[-1]) < 100) and (
+                                int(percentage_list[-1]) > int(percentage_list[-2])):
+                            self.utils.print_info(f"Update status is increasing from {percentage_list[-2]}% to {percentage_list[-1]}%")
+
+                        elif int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+
+                        elif int(percentage_list[-1]) == int(percentage_list[-2]):
+                            self.utils.print_info(f"Still updating {percentage_list[-1]}%. No update status increasing")
+
+                        else:
+                            kwargs["fail_msg"] = "No update configuration info"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                    elif 'running config saved as startup config' in output:
+
+                        percentage = self.devices.get_device_updated_status_percentage(device_mac=mac)
+                        percentage_list.append(percentage)
+
+                        if int(percentage_list[-1]) == 100:
+                            self.utils.print_info("Update configuration is done")
+                            break
+                        else:
+                            kwargs["fail_msg"] = "No Update configuration is done"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+                    else:
+                        self.utils.print_info("No 'Send 30 second in-progress report'")
+                        retry += 10
+
+            elif retry == 900:
+                kwargs["fail_msg"] = "Timeout exceeded"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            else:
+                self.utils.print_info("No 'Send 30 second in-progress report'")
+
+        kwargs["pass_msg"] = "Successfully found the expected log"
         self.common_validation.passed(**kwargs)
         return 1

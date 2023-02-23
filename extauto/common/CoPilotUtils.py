@@ -110,7 +110,7 @@ class CoPilotUtils(Cli):
         try:
             self.utils.print_info("Sending Command: eval `ssh-agent -s`")
             op_eval_agents = self.cli.send_pxssh(self.local_host_spawn, 'eval `ssh-agent -s`')
-            agent_pid = re.search('Agent pid ([\d]+)', op_eval_agents).group(1)
+            agent_pid = re.search(r'Agent pid ([\d]+)', op_eval_agents).group(1)
             self.utils.print_info("Eval Command Output: ", op_eval_agents, " Agent PID: ", str(agent_pid))
             return agent_pid
         except Exception as e:
