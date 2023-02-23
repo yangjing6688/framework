@@ -36,6 +36,12 @@ class FilterManageDeviceWebElements(FilterManageDeviceDefinitions):
     def get_applied_filter_link(self):
         return self.weh.get_element(self.applied_filter_link)
 
+    def get_applied_filter_btn(self):
+        item = {}
+        item['XPATH'] = self.applied_filter_btn['XPATH']
+        item['wait_for'] = 5
+        return item
+
     def get_applied_clear_filter_link(self):
         return self.weh.get_element(self.applied_filter_clear_link)
 

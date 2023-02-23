@@ -103,8 +103,8 @@ class CommonObjects(object):
         self.utils.print_info("Clicking on delete button")
         delete_button = self.cobj_web_elements.get_common_objects_delete_button()
         if delete_button:
-           self.utils.print_info("Clicking on delete button")
-           self.auto_actions.click(delete_button)
+            self.utils.print_info("Clicking on delete button")
+            self.auto_actions.click(delete_button)
         self.screen.save_screen_shot()
         sleep(2)
 

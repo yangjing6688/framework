@@ -151,7 +151,7 @@ class WebElementHandler:
         """
         for el in elements:
             if el.is_displayed():
-              return el
+                return el
 
     def _substitute_template_args(self, key_val_template, kwargs):
         """
