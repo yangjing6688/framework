@@ -458,6 +458,12 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_common_object_wifi0_radio_profile_button(self):
         return self.weh.get_element(self.common_object_wifi0_radio_profile_button)
 
+    def get_common_object_wifi0_radio_operating_mode_combox(self):
+        return self.weh.get_element(self.common_object_wifi0_radio_operating_mode_combox)
+
+    def get_common_object_wifi0_radio_operating_mode_combox_list(self):
+        return self.weh.get_elements(self.common_object_wifi0_radio_operating_mode_combox_list)
+
     def get_common_object_wifi0_radio_profile_textbox(self):
         return self.weh.get_element(self.common_object_wifi0_radio_profile_textbox)
 

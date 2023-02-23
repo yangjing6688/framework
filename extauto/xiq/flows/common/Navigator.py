@@ -581,7 +581,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_configure_common_objects()
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on AAA server Settings...")
+        self.utils.print_info("Click on AD Server...")
         self.auto_actions.click_reference(self.get_common_object_authentication_ad_servers)
         sleep(5)
 
