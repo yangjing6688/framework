@@ -1842,7 +1842,7 @@ class Device360WebElements(Device360WebElementDefs):
         table_rows[0].location_once_scrolled_into_view
         return [
             row for row in table_rows if not
-            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
+            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS", "Type", "ACCES VLAN"])
         ]
 
     def get_device360_ports_table_pagination_sizes(self):
