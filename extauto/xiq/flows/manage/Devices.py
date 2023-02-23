@@ -1965,6 +1965,8 @@ class Devices:
             self.utils.print_info("Entering Service Tag...")
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
 
+            # Please not the check_negative_combinations does throw an error if an invalid service tag is entered
+            # If that is needed please update check_negative_combinations
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
