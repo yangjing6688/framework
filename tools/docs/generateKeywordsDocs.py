@@ -102,10 +102,6 @@ for keyword_directory in os.listdir(base_directory):
 
 # Generate the html
 print('Generating HTML')
-
-# remove the base keywords file
-remove_file= "source/docs/keywords.rst"
-os.remove(remove_file)
 os.system("make html")
 print('Completed')
 
