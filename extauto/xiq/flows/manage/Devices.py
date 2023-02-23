@@ -1694,12 +1694,6 @@ class Devices:
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
-        if device_type.lower() != "simulated":
-            if 'Extreme - Aerohive' in device_make:
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
-                self.auto_actions.select_drop_down_options(
-                    self.devices_web_elements.get_device_make_drop_down_options(), device_make)
-
         if location and self.devices_web_elements.get_location_button().is_displayed():
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
@@ -1973,9 +1967,12 @@ class Devices:
             self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
 
         elif 'Universal Appliance' in device_make:
-            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
-            self.utils.print_info("Entering Serial Number...")
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
+                self.utils.print_info("Selecting Device Type : Universal Appliance")
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
+                self.screen.save_screen_shot()
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
+                                                           , "Universal Appliance")
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
