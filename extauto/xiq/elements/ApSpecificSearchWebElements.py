@@ -1,5 +1,5 @@
-from extauto.xiq.defs.ApSpecificSearchWebElementsDefinition import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.ApSpecificSearchWebElementsDefinition import ApSpecificSearchWebElementsDefinition
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ApSpecificSearchWebElements(ApSpecificSearchWebElementsDefinition):

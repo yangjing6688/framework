@@ -1,7 +1,6 @@
-from extauto.app.defs.MobAppWebElementsDefinition import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
-from selenium.common.exceptions import NoSuchElementException
+from extauto.app.defs.MobAppWebElementsDefinition import MobAppWebElementsDefinition
+from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class MobAppLoginWebElements(MobAppWebElementsDefinition):
@@ -143,7 +142,7 @@ class MobAppLoginWebElements(MobAppWebElementsDefinition):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_account_blocked_message(self):
@@ -155,11 +154,11 @@ class MobAppLoginWebElements(MobAppWebElementsDefinition):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_my_cloud_network(self):
-         return self.weh.get_element(self.my_cloud_network_id)
+        return self.weh.get_element(self.my_cloud_network_id)
 
     def get_external(self):
         return self.weh.get_element(self.external_networks_id)
@@ -171,19 +170,8 @@ class MobAppLoginWebElements(MobAppWebElementsDefinition):
         return self.weh.get_element(self.external_nw_search_field)
 
     def get_external_nw_table(self):
-         return self.weh.get_element(self.external_nw_table_id)
+        return self.weh.get_element(self.external_nw_table_id)
 
     def get_external_nw_row(self):
         nw = self.get_external_nw_table()
         return self.weh.get_elements(self.external_nw_row_id, parent=nw)
-
-
-
-
-
-
-
-
-
-
-

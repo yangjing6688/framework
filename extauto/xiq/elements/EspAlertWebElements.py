@@ -1,5 +1,5 @@
-from extauto.xiq.defs.EspAlertDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.EspAlertDefs import EspAlertDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class EspAlertWebElements(EspAlertDefs):

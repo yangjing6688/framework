@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.devices.tree_panel.NetworkDevicesTreePanelDeviceTypeWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.devices.tree_panel.NetworkDevicesTreePanelDeviceTypeWebElementsDefinitions import NetworkDevicesTreePanelDeviceTypeWebElementsDefinitions
 
 
 class NetworkDevicesTreePanelDeviceTypeWebElements(NetworkDevicesTreePanelDeviceTypeWebElementsDefinitions):

@@ -33,14 +33,14 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
                     self.utils.print_info("Domain already exists")
                     return 1
 
-        self.utils.print_info(f"Click on the domain add button")
+        self.utils.print_info("Click on the domain add button")
         self.auto_actions.click_reference(self.get_approve_email_domain_list_add_button)
         sleep(2)
 
         self.utils.print_info(f"Enter the approve email domain:{domain}")
         self.auto_actions.send_keys(self.get_approve_email_domain_list_domain_name(), domain)
 
-        self.utils.print_info(f"Click on the domain list add button")
+        self.utils.print_info("Click on the domain list add button")
         self.auto_actions.click_reference(self.get_approve_email_domain_list_domain_add_button)
         return 1
 
@@ -277,8 +277,8 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         sleep(3)
 
         if self.get_cwp_error_message():
-           tool_tp_text = self.get_cwp_error_message().text
-           if "The authentication cache duration must not exceed 30 days" in tool_tp_text:
+            tool_tp_text = self.get_cwp_error_message().text
+            if "The authentication cache duration must not exceed 30 days" in tool_tp_text:
                 self.utils.print_info(f"{tool_tp_text}")
 
                 self.utils.print_info("Click CWP Cancel button")
@@ -370,7 +370,6 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         """
         wall_garden_profile = social_cwp_profile.get('wall_garden_profile')
         social_profile_web_obj = wall_garden_profile.get('web_objs')
-        social_profile_cli_obj = wall_garden_profile.get('cli_objs')
 
 
         self.utils.print_info("Click Walled Garden Add button")
@@ -490,7 +489,6 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         user_auth_on_captive_web_portal = cwp_config.get("user_auth_on_captive_web_portal")
         enable_self_reg = cwp_config.get("enable_self_reg")
         return_aerohive_ppsk = cwp_config.get("return_aerohive_private_psk")
-        enable_upa = cwp_config.get("enable_upa")
         auth_with_extcldiq_service = cwp_config.get("auth_with_extcldiq_service", "Disable")
 
         self.utils.print_info("Enable 'Enable Captive Web Portal' radio button")

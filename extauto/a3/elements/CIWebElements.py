@@ -1,6 +1,6 @@
-from a3.defs.CIWebElementsDefs import *
-from common.AutoActions import *
-from common.WebElementHandler import *
+from a3.defs.CIWebElementsDefs import CIWebElementsDefs
+from common.AutoActions import AutoActions
+from common.WebElementHandler import WebElementHandler
 
 
 class CIWebElements(CIWebElementsDefs):

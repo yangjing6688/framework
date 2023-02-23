@@ -7,7 +7,7 @@ from robot.libraries.BuiltIn import BuiltIn
 try:
     import allure
     from allure_commons.types import AttachmentType
-except:
+except Exception:
     pass
 
 
@@ -19,7 +19,7 @@ class Screen:
     def add_screen_shot_to_allure(self, file_name, driver):
         try:
             allure.attach(driver.get_screenshot_as_png(), name=file_name, attachment_type=AttachmentType.PNG)
-        except:
+        except Exception:
             pass
 
     def save_screen_shot(self, _driver=None):

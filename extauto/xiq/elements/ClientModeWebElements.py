@@ -1,5 +1,5 @@
-from extauto.xiq.defs.ClientModeDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.ClientModeDefinitions import ClientModeDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ClientModeWebElements(ClientModeDefinitions):

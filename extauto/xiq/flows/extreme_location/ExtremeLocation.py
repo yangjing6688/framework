@@ -1,12 +1,12 @@
 import re
 from time import sleep
+
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_location.ExtremeLocationWebElements import ExtremeLocationWebElements
-from selenium.common.exceptions import *
 from extauto.common.CommonValidation import CommonValidation
 
 
@@ -145,6 +145,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.utils.print_info("Entering the Ibeacon Name in search field: ", search_string)
         self.auto_actions.click(self.get_xloc_search_name_field())
         self.auto_actions.send_keys(self.get_xloc_search_name_field(), search_string)
+        search_string = ':'.join(search_string[i:i+2] for i in range(0,12,2))
         sleep(2)
         passed_value = self.get_common_object_grid_rows()
         pass1 = passed_value.text
@@ -421,7 +422,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         site_name_items = self.get_devices_wireless_devices_sites_dropdown_items()
         for el in site_name_items:
             if not el:
-                pass
+                continue
             if site_name.upper() in el.text.upper():
                 self.auto_actions.click(el)
                 break
@@ -431,7 +432,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         count = 1
 
         while count <= retry_count:
-            self.utils.print_info(f"Client Mac Searching Check - Loop: ", count)
+            self.utils.print_info(f"Client Mac Searching Check - Loop: {count}")
             self.utils.print_info(f"Time elapsed for searching {retry_duration} seconds")
             self.refresh_button_eloc_devices_page()
             self.screen.save_screen_shot()
@@ -444,10 +445,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 sleep(2)
                 self.auto_actions.send_keys(self.get_devices_wireless_devices_search_textfield(), client_mac)
                 sleep(2)
-
                 self.screen.save_screen_shot()
-                sleep(5)
-
                 self.utils.print_info("Checking Client Mac Entry Row in Grid")
                 row = self.get_grid_row()
                 if row:
@@ -459,8 +457,70 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     sleep(retry_duration)
                 count += 1
 
-        kwargs['fail_msg'] = "'get_client_information_in_extreme_location_devices_page()' -> Client mac failed to" \
-                             " display on Devices Page. Please check."
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def get_BSS_information_in_extreme_location_devices_page(self, ssid_name=None, site_name=None, retry_duration=30, retry_count=5, **kwargs):
+        """
+        - get client information in extreme location devices page
+        - - Flow: Extreme Location--> More Insights--> Devices-->BSS Devices
+        - Keyword Usage:
+        - ``Get Client Information In Extreme Location Devices Page    ${CLIENT_MAC}   ${SITE_NAME}``
+
+        :param ssid_name: ssid name address
+        :param site_name: Device Assigned Site Name
+        :return: client details dictionary if MAC entry found on Wireless Devices grid else -1
+        """
+        self.utils.print_info("Clicking BSS Device Menu")
+        self.auto_actions.click_reference(self.get_bss_device_button)
+        sleep(2)
+
+        self.utils.print_info("Clicking Site Name Drop Down Button")
+        self.auto_actions.click_reference(self.get_devices_bss_devices_sites_dropdown_button)
+        sleep(2)
+
+        self.utils.print_info("select the Site Name: ", site_name)
+        site_name_items = self.get_devices_wireless_devices_sites_dropdown_items()
+        for el in site_name_items:
+            if not el:
+                pass
+            if site_name.upper() in el.text.upper():
+                self.auto_actions.click(el)
+                break
+            print(el.text)
+        sleep(3)
+
+        count = 1
+
+        while count <= retry_count:
+            self.utils.print_info(f"Client Mac Searching Check - Loop: {count}")
+            self.utils.print_info(f"Time elapsed for searching {retry_duration} seconds")
+            self.refresh_button_eloc_devices_page()
+            self.screen.save_screen_shot()
+            sleep(2)
+
+            if ssid_name:
+                self.utils.print_info("Search grid based on Client Mac search filter")
+                self.utils.print_info("Entering search_string  ", ssid_name)
+                self.screen.save_screen_shot()
+                sleep(2)
+                self.auto_actions.send_keys(self.get_devices_bss_search_textfield(), ssid_name)
+                sleep(2)
+
+                self.screen.save_screen_shot()
+                sleep(5)
+
+                self.utils.print_info("Checking Client Mac Entry Row in Grid")
+                row = self.get_grid_row()
+                if row:
+                    wireless_device_details = self._get_bss_details()
+                    return wireless_device_details
+                if not row:
+                    self.utils.print_info(f"BSS Device Information For:{ssid_name} is not Found")
+                    self.utils.print_info(f"Did not find client mac. Waiting for {retry_duration} seconds...")
+                    sleep(retry_duration)
+                count += 1
+                
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -485,12 +545,29 @@ class ExtremeLocation(ExtremeLocationWebElements):
         wireless_device_info["site_enter_time"] = self.get_devices_wireless_devices_site_enter_time_textfield().text
         wireless_device_info["category_enter_time"] = self.get_devices_wireless_devices_category_enter_time_textfield().text
 
-        self.utils.print_info(f"******************Wireless device Grid Information************************")
+        self.utils.print_info("******************Wireless device Grid Information************************")
         for key, value in wireless_device_info.items():
             self.utils.print_info(f"{key}:{value}")
 
         return wireless_device_info
+    
+    def _get_bss_details(self):
+        """
+        - This keyword gets Client Information from Extreme Location Devices Page
+        - It Assumes That Already Navigated to Extreme Location Devices Page
+        - Flow : Devices Page
 
+        :return: dictionary of client Entry information
+        """
+
+        self.utils.print_info("Getting bss device Grid Information.")
+        bss_device_info = {}
+        bss_device_info["ssid"] = self.get_devices_bss_devices_ssid_textfield().text
+        self.utils.print_info("******************bss device Grid Information************************")
+        for key, value in bss_device_info.items():
+            self.utils.print_info(f"{key}:{value}")
+        return bss_device_info
+    
     def validate_client_entry_in_extreme_location_sites_page(self, site_name=None, floor_name=None, client_mac=None, retry_duration=30, retry_count=5, **kwargs):
         """
         - validate_client_entry_in_extreme_location_sites_page
@@ -551,7 +628,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         count = 1
 
         while count <= retry_count:
-            self.utils.print_info(f"Client Mac Searching Check - Loop: ", count)
+            self.utils.print_info(f"Client Mac Searching Check - Loop: {count}")
             self.utils.print_info(f"Time elapsed for searching {retry_duration} seconds")
             self.refresh_button_eloc_sites_page()
             self.screen.save_screen_shot()
@@ -1076,7 +1153,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         row = self.get_grid_row_assets()
         if not row:
             kwargs['fail_msg'] = f"'edit_wifi_asset_in_xloc()' -> Assets For:{asset_name} is not Found in the" \
-                                 f" Assets Grid"
+                                 " Assets Grid"
             self.common_validation.failed(**kwargs)
             return -1
         if row:
@@ -1282,10 +1359,9 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 kwargs['fail_msg'] = "'create_xloc_third_party_ibeacon()' -> configuration not saved sucessfully"
                 self.common_validation.fault(**kwargs)
                 return -1
-        except Exception as e:
+        except Exception:
             self.utils.print_info("configuration sucessfully saved")
             self.screen.save_screen_shot()
-            pass
 
         if self._search_common_object(ibeacon_mac_address):
             self.screen.save_screen_shot()
@@ -1390,7 +1466,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         else:
             self.utils.print_info("third party ibeacon is not avaliable")
             kwargs['fail_msg'] = f"'edit_Ibeacon_in_XLOC()' -> third party ibeacon {ibeacon_mac_address}" \
-                                 f" is avaliable"
+                                 " is avaliable"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1408,10 +1484,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
         try:
             if self._search_common_object(ibeacon_mac_address):
                 kwargs['fail_msg'] = f"'edit_Ibeacon_in_XLOC()' -> third party ibeacon {ibeacon_mac_address}" \
-                                     f" is avaliable"
+                                     " is avaliable"
                 self.common_validation.fault(**kwargs)
                 return -1
-        except:
+        except Exception:
             self.utils.print_info("third party ibeacon is not avaliable")
             self.screen.save_screen_shot()
             kwargs['pass_msg'] = "third party ibeacon is not avaliable"
@@ -1438,7 +1514,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         while True:
             try:
                 while count <= 5:
-                    self.utils.print_info(f"Ibeacon Online Status Check - Loop: ", count)
+                    self.utils.print_info(f"Ibeacon Online Status Check - Loop: {count}")
                     get_status_value  = self.get_common_object_grid_ap_status()
                     get_status_value = get_status_value.text
                     self.utils.print_info("",get_status_value)
@@ -1450,7 +1526,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                         return 1
                     elif get_status_value != "Online":
                         self.screen.save_screen_shot()
-                        self.utils.print_info(f"Refreshing Ibeacon")
+                        self.utils.print_info("Refreshing Ibeacon")
                         self.auto_actions.click_reference(self.get_xloc_third_party_beacon_refresh_button)
 
                         sleep(2)
@@ -1464,7 +1540,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                         sleep(retry_duration)
                     count += 1
                 break
-            except:
+            except Exception:
                 pass
         kwargs['fail_msg'] = "Ibeacon in Offline State"
         self.common_validation.failed(**kwargs)
@@ -1588,7 +1664,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
                     if re.search(r'x-item-disabled', edit_rule_rows[idx].get_attribute("class")):
                         self.utils.print_info("Edit option is disabled for rule : ", rule_type)
-                        kwargs['fail_msg'] = f"'update_ssid_in_device_rule()' -> Edit option is disabled for" \
+                        kwargs['fail_msg'] = "'update_ssid_in_device_rule()' -> Edit option is disabled for" \
                                              f" rule: {rule_type}"
                         self.common_validation.failed(**kwargs)
                         return -2
@@ -1666,7 +1742,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
                     if re.search(r'x-item-disabled', edit_rule_rows[idx].get_attribute("class")):
                         self.utils.print_info("Edit option is disabled for rule : ", rule_type)
-                        kwargs['fail_msg'] = f"'update_visitor_duration_for_device_rule()' -> Edit option is disabled" \
+                        kwargs['fail_msg'] = "'update_visitor_duration_for_device_rule()' -> Edit option is disabled" \
                                              f" for rule: {rule_type}"
                         self.common_validation.fault(**kwargs)
                         return -1

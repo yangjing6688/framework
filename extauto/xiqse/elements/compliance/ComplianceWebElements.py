@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.compliance.ComplianceWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.compliance.ComplianceWebElementsDefinitions import ComplianceWebElementsDefinitions
 
 
 class ComplianceWebElements(ComplianceWebElementsDefinitions):

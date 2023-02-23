@@ -1,5 +1,5 @@
-from extauto.xiq.defs.ToolsUtilitiesDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.ToolsUtilitiesDefs import ToolsUtilitiesDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ToolsElements(ToolsUtilitiesDefs):
@@ -231,4 +231,3 @@ class ToolsElements(ToolsUtilitiesDefs):
 
     def get_device_ping_close(self):
         return self.weh.get_element(self.device_ping_close)
-

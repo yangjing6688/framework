@@ -1,6 +1,6 @@
 import time
-from extauto.xiq.defs.DevicesWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.DevicesWebElementsDefinitions import DevicesWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DevicesWebElements(DevicesWebElementsDefinitions):
@@ -1153,7 +1153,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return el
         else:
             return None
- 
+
     def get_sfdc_username(self):
         return self.weh.get_element(self.sfdc_username)
 
@@ -1216,7 +1216,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_sort_time_stamp(self):
         return self.weh.get_element(self.sort_time_stamp)
-      
+
     def get_field_description_more_button(self, row):
         el = self.weh.get_element(self.field_description_more_button, row)
         if el:
@@ -1240,7 +1240,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_manage_all_devices_progress_status(self):
         return self.weh.get_elements(self.manage_devices_progress_status)
-    
+
     def get_device_page_size_100(self):
         return self.weh.get_element(self.device_page_size_100)
 
@@ -1361,3 +1361,28 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_global_settings_management_dialog_yes_button(self):
         return self.weh.get_element(self.global_settings_management_dialog_yes_button)
+
+    def utilities_button(self):
+        return self.weh.get_element(self.utilities_path)
+
+    def restart_pse(self):
+        return self.weh.get_element(self.restart_pse_path)
+
+    def pse_yes(self):
+        return self.weh.get_element(self.pse_yes_path)
+
+    def loading_bar(self):
+        elements = self.weh.get_elements(self.loading_bar_path)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def closing_window(self):
+        el = self.weh.get_element(self.closing_window_path)
+        if el.is_displayed():
+            return el
+
+    def get_pse_reset_status(self):
+        el = self.weh.get_element(self.pse_reset_status)
+        if el.is_displayed():
+            return el
