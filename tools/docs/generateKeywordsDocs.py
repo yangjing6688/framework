@@ -111,4 +111,4 @@ print('Completed')
 
 # Debugging the page
 url = "file:../../docs/index.html"
-webbrowser.open(url,new=new)
+# webbrowser.open(url,new=new)
