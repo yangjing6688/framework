@@ -96,21 +96,21 @@ class DeviceUpdate(DeviceUpdateDefs):
     def get_latest_version(self):
         try:
             label = self.weh.get_element(self.upgrade_to_latest_version_label).text
-            return re.search('\((.*)\)', label).group(1)
+            return re.search(r'\((.*)\)', label).group(1)
         except AttributeError:
             return -1
 
     def get_specific_version(self):
         try:
             label = self.weh.get_element(self.upgrade_to_specific_version_dropdown).text
-            return re.search('-(.*)\.img', label).group(1)
+            return re.search(r'-(.*)\.img', label).group(1)
         except AttributeError:
             return -1
 
     def get_exos_specific_version(self):
         try:
             label = self.weh.get_element(self.xiq_upgrade_to_specific_version_dropdown).text
-            return re.search('-(\d+\.\d+\.\d+\.\d+([\-A-Za-z\d]+)?)\.?([A-Za-z_\d]+)?\.xos', label).group(1)
+            return re.search(r'-(\d+\.\d+\.\d+\.\d+([\-A-Za-z\d]+)?)\.?([A-Za-z_\d]+)?\.xos', label).group(1)
         except AttributeError:
             return -1
 

@@ -24,6 +24,19 @@ class ExtremeLocationWebElementsDefs:
             'wait_for': 5
         }
 
+    bss_device_button = \
+        {
+            'XPATH': '(//*[text()="BSS Devices"])[1]',
+            'wait_for': 5
+        }
+    
+    devices_bss_devices_sites_dropdown_button = \
+    {
+        'XPATH': '//*[contains(@class, "xloc-bss-main-site-db")]'
+                 '//span[@class="select2-selection__arrow"]',
+            'wait_for': 5
+    }
+    
     extreme_location_devices_wireless_devices_sites_dropdown = \
         {
             'XPATH': '//*[contains(@class, "xloc-wireless-devices-main-site-db")]'
@@ -63,6 +76,32 @@ class ExtremeLocationWebElementsDefs:
             'wait_for': 5
         }
 
+    devices_bss_search_textfield = \
+        {
+            'XPATH': '//*[contains(@class, "xloc-bss-grid-search-txt")]'
+                     '//*[contains(@class, "x-form-field")]',
+            'wait_for': 5
+        }
+    
+    devices_bss_devices_bss_textfield = \
+        {
+            'XPATH': '(//tr[@class="  x-grid-row"]//td[contains(@class, "x-grid-cell")])[20]',
+            'wait_for': 5
+        }
+    
+    devices_bss_devices_ssid_textfield = \
+        {
+            'XPATH': '(//tr[@class="  x-grid-row"]//td[contains(@class, "x-grid-cell")])[12]',
+            'wait_for': 5
+        }
+    
+    devices_bss_devices_floor_name_textfield = \
+        {
+            'XPATH': '(//tr[@class="  x-grid-row"]//td[contains(@class, "x-grid-cell")])[22]',
+            'wait_for': 5
+        }
+    
+    
     devices_wireless_devices_search_textfield = \
         {
             'XPATH': '//*[contains(@class, "xloc-wireless-devices-grid-search-txt")]'

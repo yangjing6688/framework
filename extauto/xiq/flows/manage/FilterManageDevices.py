@@ -118,7 +118,7 @@ class FilterManageDevices():
         sn_list, policy_list = self.get_column_values_from_device_page()
         self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
         if not sn_list or len(sn_list) == 0: return -1, "The device list is empty"
-        status = self.device.get_ap_status(ap_sn, ignore_failure=True)
+        status = self.device.get_device_status(device_serial=ap_sn)
 
         if status == 'green':
             self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
@@ -336,17 +336,20 @@ class FilterManageDevices():
         cnt = 0
         for policy in policy_list:
             for ssid in policy_ssid[policy]:
-                 cnt = cnt + 1
-                 if cnt > 3: break
-                 self.utils.print_info(" ------ Filter the ssid ------ " + str(ssid) + ' in the policy ' + str(policy))
-                 ssid_element = self.filter_element.get_device_ssid_filter_checkbox(str(ssid))
-                 self.select_filter_by(ssid_element, filter_name='ssid')
-                 self.utils.print_info(" Validate the filter ")
-                 sn_list, policy_list = self.get_column_values_from_device_page()
-                 if not policy_list or len(policy_list) == 0: return -1, "The device list is empty with the ssid filter " + str(ssid)
-                 policy_list = list(dict.fromkeys(policy_list))
-                 if policy_list[0] != policy: return -1, " Policy does not match " + str(policy_list[0] + ' ' + str(policy))
-                 self.select_filter_by(ssid_element, filter_name='ssid', reset=True)
+                cnt = cnt + 1
+                if cnt > 3:
+                    break
+                self.utils.print_info(" ------ Filter the ssid ------ " + str(ssid) + ' in the policy ' + str(policy))
+                ssid_element = self.filter_element.get_device_ssid_filter_checkbox(str(ssid))
+                self.select_filter_by(ssid_element, filter_name='ssid')
+                self.utils.print_info(" Validate the filter ")
+                sn_list, policy_list = self.get_column_values_from_device_page()
+                if not policy_list or len(policy_list) == 0:
+                    return -1, "The device list is empty with the ssid filter " + str(ssid)
+                policy_list = list(dict.fromkeys(policy_list))
+                if policy_list[0] != policy:
+                    return -1, " Policy does not match " + str(policy_list[0] + ' ' + str(policy))
+                self.select_filter_by(ssid_element, filter_name='ssid', reset=True)
 
         return str(1), None
 
@@ -1142,7 +1145,9 @@ class FilterManageDevices():
 
     def expand_default_filters(self):
         self.utils.print_info(" Start --> Expand the default filters ")
-        self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
+        element = self.filter_element.device_state_connected_filter_chkbox
+        if not element:
+            self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
         self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
         self.expand_and_collapse_filters(self.filter_element.get_device_function_filter_link(), filter_type='device function')
         self.expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), filter_type='device user profile')
