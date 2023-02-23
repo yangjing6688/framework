@@ -73,7 +73,7 @@ for keyword_directory in os.listdir(base_directory):
         if not fileContainsPattern(toc_file, final_toc):
             print(f'Adding {final_toc} to TOC')
             replaceFileContents(toc_file, index_rst_toc, index_rst_toc  + "\n   " + final_toc)
-        os.system("sphinx-apidoc -T -o " + docs_rst_files_directory + " " + base_directory)
+        os.system("sphinx-apidoc -o " + docs_rst_files_directory + " " + base_directory)
 
         # Replace the name for the TOC
         toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
