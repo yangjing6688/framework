@@ -33,9 +33,9 @@ class DevicesActions:
         self.robot_built_in = BuiltIn()
         self.common_validation = CommonValidation()
 
-    def is_actions_button_enabled(self, **kwargs):
+    def _is_actions_button_enabled(self):
         """
-        - This keyword checks if the 'Actions' button is enabled within Manage > Devices view.
+        - This helper function checks if the 'Actions' button is enabled within Manage > Devices view.
         - It is assumed that the Manage > Device view is open.
         - Keyword Usage
         - ``Is Actions Button Enabled``
@@ -49,17 +49,36 @@ class DevicesActions:
             btn_state = actions_btn.get_attribute("class")
             self.utils.print_debug(f"'Actions' button Class value: {btn_state}")
             if "btn-disabled" in btn_state:
-                kwargs['fail_msg'] = "The 'Actions' button is disabled."
-                self.common_validation.failed(**kwargs)
+                self.utils.print_info("The 'Actions' button is disabled.")
+                self.screen.save_screen_shot()
                 ret_val = False
             else:
-                kwargs['pass_msg'] = "The 'Actions' button is enabled."
-                self.common_validation.passed(**kwargs)
+                self.utils.print_info("The 'Actions' button is enabled.")
+                self.screen.save_screen_shot()
                 ret_val = True
         else:
-            self.utils.print_info("Could not find the 'Actions' button.")
+            kwargs = {'fail_msg': "Could not find the 'Actions' button."}
+            self.common_validation.fault(**kwargs)
 
         return ret_val
+
+    def verify_actions_button_enable(self, **kwargs):
+        """
+        - This keyword checks if the 'Actions' button is enabled within Manage > Devices view.
+        - It is assumed that the Manage > Device view is open.
+        - Keyword Usage
+        - ``Verify Actions Button Enable``
+        :return: 1 if the button is enabled, -1 if the button is disabled
+        """
+
+        if self._is_actions_button_enabled():
+            kwargs['pass_msg'] = "Actions button is enable"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Actions button is disable"
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def clear_audit_mismatch_on_device(self, device_serial, **kwargs):
         """
@@ -273,9 +292,9 @@ class DevicesActions:
             self.common_validation.failed(**kwargs)
             return -1
 
-    def is_actions_relaunch_digital_twin_visible(self):
+    def _is_actions_relaunch_digital_twin_visible(self):
         """
-        - This keyword checks if the ACTIONS > Relaunch Digital Twin menu option is visible
+        - This helper function checks if the ACTIONS > Relaunch Digital Twin menu option is visible
         - It is assumed that the Manage > Device window is open and that a device is selected.
         - Keyword Usage
         - ``Is Actions Relaunch Digital Twin Visible``
@@ -302,7 +321,27 @@ class DevicesActions:
 
         self.utils.print_info("Closing Actions menu")
         self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
+        kwargs = {'fail_msg': "Could not find the 'Actions > Relaunch Digital Twin' link."}
+        self.common_validation.fault(**kwargs)
         return -1
+
+    def verify_actions_relaunch_digital_twin_visible(self, **kwargs):
+        """
+        - This keyword checks if the 'Actions' button is enabled within Manage > Devices view.
+        - It is assumed that the Manage > Device view is open.
+        - Keyword Usage
+        - ``Verify Actions Relaunch Digital Twin Visible``
+        :return: 1 if the button is visible, -1 if the button is hidden
+        """
+
+        if self._is_actions_relaunch_digital_twin_visible():
+            kwargs['pass_msg'] = "Actions relaunch digital twin is visible"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Actions relaunch digital twin is hidden"
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def actions_relaunch_digital_twin(self, confirm="yes", **kwargs):
         """
@@ -353,9 +392,9 @@ class DevicesActions:
 
         return -1
 
-    def is_actions_shutdown_digital_twin_visible(self):
+    def _is_actions_shutdown_digital_twin_visible(self):
         """
-        - This keyword checks if the ACTIONS > Shutdown Digital Twin menu option is visible
+        - This helper function checks if the ACTIONS > Shutdown Digital Twin menu option is visible
         - It is assumed that the Manage > Device window is open and that a device is selected.
         - Keyword Usage
         - ``Is Actions Shutdown Digital Twin Visible``
@@ -382,7 +421,27 @@ class DevicesActions:
 
         self.utils.print_info("Closing Actions menu")
         self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
+        kwargs = {'fail_msg': "Could not find the 'Actions > Shutdown Digital Twin' link."}
+        self.common_validation.fault(**kwargs)
         return -1
+
+    def verify_actions_shutdown_digital_twin_visible(self, **kwargs):
+        """
+        - This keyword checks if the 'Actions' button is enabled within Manage > Devices view.
+        - It is assumed that the Manage > Device view is open.
+        - Keyword Usage
+        - ``Verify Actions Shutdown Digital Twin Visible``
+        :return: 1 if the button is visible, -1 if the button is hidden
+        """
+
+        if self._is_actions_shutdown_digital_twin_visible():
+            kwargs['pass_msg'] = "Actions shutdown digital twin is visible"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Actions relaunch digital twin is hidden"
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def actions_shutdown_digital_twin(self, confirm="yes", **kwargs):
         """

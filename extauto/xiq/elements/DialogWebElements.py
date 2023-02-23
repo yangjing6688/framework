@@ -50,4 +50,4 @@ class DialogWebElements(DialogWebElementsDefinitions):
                 return element
 
     def get_confirm_yes_button_reboot(self):
-         return self.weh.get_elements(self.confirm_yes_button_reboot)
+        return self.weh.get_elements(self.confirm_yes_button_reboot)

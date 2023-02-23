@@ -68,7 +68,7 @@ Run Setup1 suite setup
 Run Setup1 suite teardown
 """
 import os
-import oyaml
+import yaml
 import shutil
 import argparse
 from robot.rebot import rebot
@@ -89,7 +89,7 @@ def parse_config_yaml(yaml_file_path):
     with its contents.
     """
     with open(yaml_file_path, "r") as yaml_file:
-        return oyaml.load(yaml_file)
+        return yaml.load(yaml_file)
 
 
 def create_robot_suite(yaml_data):
