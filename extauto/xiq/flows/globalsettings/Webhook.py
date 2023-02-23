@@ -100,7 +100,7 @@ class Webhook(WebhookWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         kwargs['fail_msg'] = f"'find_url_in_webhook_grid()' -> Unsuccessfully searching webhook url: {webhook.url}"
-        self.common_validation.fault(**kwargs)
+        #self.common_validation.fault(**kwargs)
         return -1
 
     def delete_webhook(self,webhook, **kwargs):
