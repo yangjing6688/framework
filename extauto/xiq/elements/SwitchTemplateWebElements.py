@@ -333,7 +333,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_elements(self.complete_stack_all_rows, parent=web_list)
 
     def get_aggr_ports_across_stack_button(self):
-        return self.weh.get_elements(self.aggr_ports_across_stack_button)
+        return self.weh.get_element(self.aggr_ports_across_stack_button)
 
     def get_aggr_ports_standalone_button(self):
         return self.weh.get_elements(self.aggr_ports_standalone_button)
@@ -552,7 +552,10 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.switch_temp_save_button_v2)
 
     def get_lag_span(self, lag):
-        return self.weh.get_template_element(self.lag_span, lag=lag)
+        elements = self.weh.get_template_elements(self.lag_span, lag=lag)
+        for el in elements:
+            if el.is_enabled():
+                return el
 
     def get_available_port(self, port):
         return self.weh.get_template_element(self.available_port, port=port)
