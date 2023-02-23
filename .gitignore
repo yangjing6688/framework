@@ -17,7 +17,6 @@ robot_atg_log
 MANIFEST
 launch.json
 settings.json
-/build
 .env
 .venv
 venv
@@ -30,7 +29,5 @@ venv
 **output.xml**
 **allure_output**
 
-tools/docs/build**
 tools/docs/source/_templates
 tools/docs/source/docs**
-docs/
