@@ -335,7 +335,7 @@ class XapiDevices(XapiBase):
 
         except self.ApiException as e:
             kwargs['fail_msg'] = f"Exception when calling DeviceApi->delete_device: {e}"
-            self.xapiHelper.common_validation.failed(**kwargs)
+            self.xapiHelper.common_validation.fault(**kwargs)
             return -1
 
         # In the case that nothing is found
@@ -381,7 +381,7 @@ class XapiDevices(XapiBase):
 
         except self.ApiException as e:
             kwargs['fail_msg'] = f"Exception when calling DeviceApi->xapi_get_device_column_information: {e}"
-            self.xapiHelper.common_validation.failed(**kwargs)
+            self.xapiHelper.common_validation.fault(**kwargs)
             return -1
 
     def xapi_list_devices(self, **kwargs):
