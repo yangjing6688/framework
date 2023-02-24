@@ -4193,7 +4193,9 @@ class SwitchTemplate(object):
          - This keyword will enable mac locking from Device Template(Device Configuration)
          It Assumes That Already Created a Network Policy with a Template
         :param: policy_name The name of the policy to use.
+        :param: template_name The name of the template from policy.
         :return: 1 if success , -1 if error
+        - Keyword Usage: global mac locking status change  ${NW_POLICY}  ${SW_TEMPLATE_NAME}
         """
         status = kwargs.get("status", "OFF")
         if self.select_sw_template(policy_name, template_name) != 1:

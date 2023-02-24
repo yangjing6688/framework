@@ -11992,7 +11992,7 @@ class Device360(Device360WebElements):
 
         [pagination] = [pg for pg in paginations if pg.text == '10']
         sleep(5)
-        AutoActions().click(pagination)
+        self.auto_actions.click(pagination)
         sleep(3)
 
         if dut.cli_type.upper() == "VOSS":
@@ -12007,7 +12007,7 @@ class Device360(Device360WebElements):
 
             [pagination] = [pg for pg in paginations if pg.text == '100']
             sleep(5)
-            AutoActions().click(pagination)
+            self.auto_actions.click(pagination)
             sleep(3)
 
             x = self.dev360.get_device360_ports_table()
@@ -12039,7 +12039,7 @@ class Device360(Device360WebElements):
 
             [pagination] = [pg for pg in paginations if pg.text == '100']
             sleep(5)
-            AutoActions().click(pagination)
+            self.auto_actions.click(pagination)
             sleep(3)
 
             x = self.dev360.get_device360_ports_table()
@@ -12076,7 +12076,7 @@ class Device360(Device360WebElements):
 
         [pagination] = [pg for pg in paginations if pg.text == '10']
         sleep(5)
-        AutoActions().click(pagination)
+        self.auto_actions.click(pagination)
         sleep(3)
 
         if dut.cli_type.upper() == "VOSS":
@@ -12091,7 +12091,7 @@ class Device360(Device360WebElements):
 
             [pagination] = [pg for pg in paginations if pg.text == '100']
             sleep(5)
-            AutoActions().click(pagination)
+            self.auto_actions.click(pagination)
             sleep(3)
 
             x = self.dev360.get_device360_ports_table()
@@ -12123,7 +12123,7 @@ class Device360(Device360WebElements):
 
             [pagination] = [pg for pg in paginations if pg.text == '100']
             sleep(5)
-            AutoActions().click(pagination)
+            self.auto_actions.click(pagination)
             sleep(3)
 
             x = self.dev360.get_device360_ports_table()
@@ -15280,10 +15280,10 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return False
             for port in ports:
-                AutoActions().click(self.get_device360_aggregate_available_port(port=port))
-                AutoActions().click(self.get_device360_aggregate_add_button())
-            AutoActions().click(self.get_device360_lag_save_button())
-            AutoActions().click(self.get_device360_save_port_config())
+                self.auto_actions.click(self.get_device360_aggregate_available_port(port=port))
+                self.auto_actions.click(self.get_device360_aggregate_add_button())
+            self.auto_actions.click(self.get_device360_lag_save_button())
+            self.auto_actions.click(self.get_device360_save_port_config())
             kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
             self.common_validation.passed(**kwargs)
             return 1
@@ -15586,14 +15586,15 @@ class Device360(Device360WebElements):
 
     def check_overview_row_table_by_port(self, port_name, **kwargs):
         """
-        Keyword to return the value of one of the columns in Overview status D360 main page for a given port.
-        :param **kwargs = column_name: "LLDP NEIGHBOR","LINK AGGREGATION","PORT STATUS","TRANSMISSION MODE", "PORT MODE",
+        Keyword to return the value of the cell from D360 Overview status main page for a given port.
+        :param kwargs = column name. Valid inputs are "LLDP NEIGHBOR","LINK AGGREGATION","PORT STATUS","TRANSMISSION MODE", "PORT MODE",
                         "ELRP ENABLED VLAN(S)","ACCESS VLAN","TAGGED VLAN(S)","MAC LOCKING","TRAFFIC RECEIEVED (RX)",
                         "TRAFFIC TRANSMITTED (TX)","POWER USED","PORT SPEED"
         :param port_name: a string with the specific port
         -Keyword Usage:
-                device360_speed_overview    1/1 or 1
-        :return: a string with the status of speed
+                check overview row table by port    "1/1" or "1" column_name="PORT STATUS"
+        :return: A string with the value of intersection of port name cell with the head of the table name. Eg: take the
+                 port status of port 5. It will return "Auto"
                 -1 if the status port was not found
         """
         self.select_pagination_size("100")
@@ -15601,7 +15602,7 @@ class Device360(Device360WebElements):
         self.utils.print_info(len(self.get_d360_monitor_items_rows()))
         if rows_items:
             port_row = self.device360_get_row_specified_port_name(rows_items, port_name)
-            AutoActions().click(port_row)
+            self.auto_actions.click(port_row)
             self.utils.print_info("Found row for port: ", port_row.text)
         else:
             self.utils.print_info("Port rows are not displayed. Check the tab")
@@ -15610,9 +15611,9 @@ class Device360(Device360WebElements):
             return -1
         column_to_check = kwargs.get("column_name", "")
         if column_to_check == "LLDP NEIGHBOR":
-                pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "LINK AGGREGATION":
-                pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "PORT STATUS":
             self.utils.print_info("Checking PORT STATUS")
             port_status = self.get_d360_port_status_overview(port_row)
@@ -15625,15 +15626,15 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
         elif column_to_check == "TRANSMISSION MODE":
-            pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "PORT MODE":
-            pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "ELRP ENABLED VLAN(S)":
-            pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "ACCESS VLAN":
-            pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "TAGGED VLAN(S)":
-            pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "MAC LOCKING":
             self.utils.print_info("Checking MAC LOCKING")
             mac_locking = self.get_d360_mac_locking_overview(port_row)
@@ -15646,11 +15647,11 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return -1
         elif column_to_check == "TRAFFIC RECEIVED (RX)":
-            pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "TRAFFIC TRANSMITTED (TX)":
-            pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "POWER USED":
-            pass
+            self.utils.print_info("For future development if needed.")
         elif column_to_check == "PORT SPEED":
             port_speed_row = self.get_d360_monitor_port_speed(port_row)
             if port_speed_row:
@@ -15668,9 +15669,10 @@ class Device360(Device360WebElements):
     def navigate_to_port_config_options(self, option, **kwargs):
         """
         This function selects one of the option of the port configuration menu. It assumes D360 is already opened.
-        :param option: Tab option to navigate to. Please chose one from: port-details, port-settings, stp, storm-control,
+        :param option: Tab option name to navigate to. Valid options are: port-details, port-settings, stp, storm-control,
                                                                         mac-locking, voice, pse(only for VOSS), elrp
-        :return:
+        :keyword usage navigate to port config options ${option}
+        :return: 1 if the navigation is succesfully.
         """
         option_tab_after_click = None
         self.utils.print_info("Navigate to port configuration.")
@@ -15682,7 +15684,7 @@ class Device360(Device360WebElements):
         self.utils.print_info(f"Selecting {option} tab.")
         option_tab = self.get_d360_port_config_option_tab(option)
         if option_tab:
-            AutoActions().click(option_tab)
+            self.auto_actions.click(option_tab)
             self.utils.print_info(f"Successfully clicked on {option}.")
             option_tab_after_click = self.get_d360_port_config_option_tab(option)
         else:
@@ -15707,14 +15709,14 @@ class Device360(Device360WebElements):
         assert self.navigate_to_port_config_options('mac-locking') == 1, "Failed to navigate to MAC Locking tab."
         mac_locking_status = self.get_d360_monitor_mac_locking_on_off(port_index)
         if mac_lock and not mac_locking_status.is_selected() and mac_lock == "ON":
-            AutoActions().click(mac_locking_status)
+            self.auto_actions.click(mac_locking_status)
             self.utils.print_info(f"Successfully set MAC Locking 'Status' to {mac_lock} for port {port}")
         elif mac_lock and mac_locking_status.is_selected() and mac_lock == "OFF":
-            AutoActions().click(mac_locking_status)
+            self.auto_actions.click(mac_locking_status)
             self.utils.print_info(f"Successfully set MAC Locking 'Status' to {mac_lock} for port {port}")
         elif mac_lock and mac_locking_status.is_selected() and mac_lock == "ON":
             kwargs['fail_msg'] = f"MAC locking 'Status' for port '{port}' is already set to '{mac_lock}'.Verify it was disabled first!"
-            self.common_validation.passed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         elif mac_lock and not mac_locking_status.is_selected() and mac_lock == "OFF":
             self.utils.print_info(f"MAC locking 'Status' for port '{port}' is set to default {mac_lock} state.")
@@ -15723,8 +15725,8 @@ class Device360(Device360WebElements):
         if max_first_limit and max_first_arrival_box and max_first_limit == "600":
             self.utils.print_info(f"'Max first arrival' for port '{port}' is set to default value of {max_first_limit}.")
         elif max_first_limit:
-            AutoActions().send_keys(max_first_arrival_box, max_first_limit)
-            AutoActions().send_enter(max_first_arrival_box)
+            self.auto_actions.send_keys(max_first_arrival_box, max_first_limit)
+            self.auto_actions.send_enter(max_first_arrival_box)
             if "form-error" in max_first_arrival_box.get_attribute("class"):
                 self.utils.print_info("Error! Maximum limit of 600 has been exceeded.")
                 return self.get_mac_locking_exceed_limit_error().get_attribute("data-tooltip")
@@ -15733,14 +15735,14 @@ class Device360(Device360WebElements):
 
         disable_port_toggle = self.get_d360_mac_locking_disable_port(port_index)
         if disable_port_toggle and not disable_port_toggle.is_selected() and disable_port == "ON":
-            AutoActions().click(disable_port_toggle)
+            self.auto_actions.click(disable_port_toggle)
             self.utils.print_info(f"Successfully set 'Disable Port' to {disable_port} for port {port}")
         elif disable_port_toggle and disable_port_toggle.is_selected() and disable_port == "OFF":
-            AutoActions().click(disable_port_toggle)
+            self.auto_actions.click(disable_port_toggle)
             self.utils.print_info(f"Successfully set 'Disable Port' to {disable_port} for port {port}")
         elif disable_port_toggle and disable_port_toggle.is_selected() and disable_port == "ON":
             kwargs['fail_msg'] = f"'Disable Port' for port '{port}' is already set to '{disable_port}'.Verify it was disabled first!"
-            self.common_validation.passed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         elif disable_port_toggle and not disable_port_toggle.is_selected() and disable_port == "OFF":
             self.utils.print_info(f"'Disable Port' for port '{port}' is set to default {disable_port} state.")
@@ -15751,18 +15753,18 @@ class Device360(Device360WebElements):
 
         remove_mac_toggle = self.get_d360_mac_locking_remove_mac_toggle(port_index)
         if remove_mac and not remove_mac_toggle.is_selected() and remove_mac == "ON":
-            AutoActions().click(remove_mac_toggle)
+            self.auto_actions.click(remove_mac_toggle)
             self.utils.print_info(f"Successfully set MAC Locking 'Remove MAC' to {remove_mac} for port {port}")
         elif remove_mac and remove_mac_toggle.is_selected() and remove_mac == "OFF":
-            AutoActions().click(remove_mac_toggle)
+            self.auto_actions.click(remove_mac_toggle)
             self.utils.print_info(f"Successfully set MAC Locking 'Remove MAC' to {remove_mac} for port {port}")
         elif remove_mac and remove_mac_toggle.is_selected() and remove_mac == "ON":
             kwargs['fail_msg'] = f"MAC locking 'Remove MAC' for port '{port}' is already set to '{remove_mac}'.Verify it was disabled first!"
-            self.common_validation.passed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
         elif remove_mac and not remove_mac_toggle.is_selected() and remove_mac == "OFF":
             self.utils.print_info(f"MAC locking 'Remove MAC' for port '{port}' is set to default {remove_mac} state.")
 
-        kwargs['pass_msg'] = "'configure_mac_locking_from_port_config()' sucessfully set up parameters for MAC locking in D360."
+        kwargs['pass_msg'] = "Successfully set up parameters for MAC locking in D360."
         self.common_validation.passed(**kwargs)
         return 1
