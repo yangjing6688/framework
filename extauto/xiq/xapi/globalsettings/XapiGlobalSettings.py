@@ -1,6 +1,11 @@
 from tools.xapi.XapiBase import XapiBase
+from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
 
 class XapiGlobalSettings(XapiBase):
+
+    def __init__(self):
+        super().__init__()
+        self.xapiBaseAccountApi = XapiBaseAccountApi()
 
     def get_viq_info(self, **kwargs):
         """
@@ -18,15 +23,11 @@ class XapiGlobalSettings(XapiBase):
         if configuration.access_token == None:
             raise "Error: access_token is None in the configuration"
 
-        # Enter a context with an instance of the API client
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.AccountApi(api_client)
-            api_response = None
-            try:
-                # Get VIQ Info
-                api_response = api_instance.get_viq_info()
-            except self.ApiException as e:
-                self.utils.print_error("Exception when calling AccountApi->get_viq_info: %s\n" % e)
-                raise e
+        try:
+            # Get VIQ Info
+            api_response = self.xapiBaseAccountApi.xapi_base_get_viq_info()
+
+        except self.ApiException as e:
+            self.utils.print_error("Exception when calling AccountApi->get_viq_info: %s\n" % e)
+            raise e
         return api_response

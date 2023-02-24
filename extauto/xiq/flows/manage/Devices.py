@@ -2574,8 +2574,6 @@ class Devices:
                                                        device_name=device_name,
                                                        device_mac=device_mac,
                                                        **kwargs)
-
-
         device_keys = {}
         if device_mac:
             device_keys['device_mac'] = device_mac
