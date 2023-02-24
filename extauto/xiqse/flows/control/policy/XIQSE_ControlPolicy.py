@@ -26,7 +26,6 @@ class XIQSE_ControlPolicy(ControlPolicyWebElements):
         if the_tab:
             self.utils.print_info(f"Selecting '{tab_name}' tab on Control->Policy page")
             self.auto_actions.click(the_tab)
-            ret_val = 1
             sleep(2)
         else:
             self.utils.print_info(f"Unable to select tab with name '{tab_name}' on Control->Policy page")
@@ -79,10 +78,10 @@ class XIQSE_ControlPolicy(ControlPolicyWebElements):
         ret_val = -1
         ok_bttn = self.get_cached_unsaved_changes_ok_button()
         if ok_bttn:
-            self.utils.print_info(f"Clicking the 'OK' button in Dismiss Cache window")
+            self.utils.print_info("Clicking the 'OK' button in Dismiss Cache window")
             self.auto_actions.click(ok_bttn)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to locate the 'OK' button in Dismiss Cache window")
+            self.utils.print_info("Unable to locate the 'OK' button in Dismiss Cache window")
             self.screen.save_screen_shot()
         return ret_val

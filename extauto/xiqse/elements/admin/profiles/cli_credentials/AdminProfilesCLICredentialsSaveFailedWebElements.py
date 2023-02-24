@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.admin.profiles.cli_credentials.AdminProfilesCLICredentialsSaveFailedWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.admin.profiles.cli_credentials.AdminProfilesCLICredentialsSaveFailedWebElementsDefinitions import AdminProfilesCLICredentialsSaveFailedWebElementsDefinitions
 
 
 class AdminProfilesCLICredentialsSaveFailedWebElements(AdminProfilesCLICredentialsSaveFailedWebElementsDefinitions):

@@ -190,3 +190,30 @@ class AdminOptionsWebElementsDefinitions:
             
         }
 
+    syslog_option = \
+        {
+            'DESC': 'Syslog',
+            'XPATH': '//td[contains(@class, "x-grid-cell-treecolumn")]//span[text()="Syslog"]',
+
+        }
+
+    syslog_delay_engine_start_value = \
+        {
+            'DESC': 'Syslog Engine Delay Start Value',
+            'XPATH': '//input[@name="SyslogEngineDelayStart"]',
+
+        }
+
+    trap_option = \
+        {
+            'DESC': 'Trap',
+            'XPATH': '//td[contains(@class, "x-grid-cell-treecolumn")]//span[text()="Trap"]',
+
+        }
+
+    trap_delay_engine_start_value = \
+        {
+            'DESC': 'Trap Engine Delay Start Value',
+            'XPATH': '//input[@name="TrapEngineDelayStart"]',
+
+        }

@@ -13,8 +13,8 @@ class Tshark:
         """
         :param spawn:
         :param wlan_int:
-		:param ch_num:
-		:param bssid:
+        :param ch_num:
+        :param bssid:
         :param count:
         :return:
         """

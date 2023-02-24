@@ -265,7 +265,7 @@ class LicenseManagement(LicenseManagementWebElements):
                     kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful..."
                     self.common_validation.failed(**kwargs)
                     return -1
-            except Exception as e:
+            except Exception:
                 self.utils.print_info("Unlink NOT successful.")
                 kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful."
                 self.common_validation.fault(**kwargs)
@@ -344,7 +344,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.auto_actions.click_reference(self.lic_mgt_web_elements.get_upgrade_continue_btn)
                 sleep(10)
                 self.utils.print_info("Redirected to SFDC for oauth...")
-            except Exception as e:
+            except Exception:
                 self.utils.print_info("No confirmation dialog is shown.")
             kwargs['pass_msg'] = "initiate_link_xiq_to_extr_portal_from_lic_mgt -> Successfully linking"
             self.common_validation.passed(**kwargs)
@@ -630,7 +630,7 @@ class LicenseManagement(LicenseManagementWebElements):
             if available_count == int(expected_available) and \
                activated_count == int(expected_activated) and \
                total_count == int(expected_total):
-                kwargs['pass_msg'] = f"wait_until_entitlement_counts_for_feature_matches -> " \
+                kwargs['pass_msg'] = "wait_until_entitlement_counts_for_feature_matches -> " \
                                      f"Counts for {feature} are at the expected values:\n"  \
                                      f"  Available: {expected_available}\n" \
                                      f"  Activated: {expected_activated}\n" \
@@ -639,11 +639,11 @@ class LicenseManagement(LicenseManagementWebElements):
                 return 1
             else:
                 self.utils.print_info(f"Counts for {feature} are not at expected values.\n"
-                                      f"Current values are:\n"
+                                      "Current values are:\n"
                                       f"  Available: {available_count}\n"
                                       f"  Activated: {activated_count}\n"
                                       f"  Total:     {total_count}\n"
-                                      f"Expected values are:\n"
+                                      "Expected values are:\n"
                                       f"  Available: {expected_available}\n"
                                       f"  Activated: {expected_activated}\n"
                                       f"  Total:     {expected_total}\n"
@@ -652,7 +652,7 @@ class LicenseManagement(LicenseManagementWebElements):
             count += 1
 
         kwargs['fail_msg'] = f"wait_until_entitlement_counts_for_feature_matches -> Counts for {feature} are not at " \
-                             f"expected values. Please check."
+                             "expected values. Please check."
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -689,7 +689,7 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the total count for the specified feature
             total_count = self.get_entitlement_total_count_for_feature(feature)
             if total_count == int(expected):
-                kwargs['pass_msg'] = f"wait_until_entitlement_total_count_for_feature_matches -> Total count for " \
+                kwargs['pass_msg'] = "wait_until_entitlement_total_count_for_feature_matches -> Total count for " \
                                      f"{feature} is at expected value {expected}"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -699,7 +699,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = f"wait_until_entitlement_total_count_for_feature_matches -> Total count for " \
+        kwargs['fail_msg'] = "wait_until_entitlement_total_count_for_feature_matches -> Total count for " \
                              f"{feature} is {total_count}, not expected value {expected}. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
@@ -738,7 +738,7 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the available count for the specified feature
             available_count = self.get_entitlement_available_count_for_feature(feature)
             if available_count == int(expected):
-                kwargs['pass_msg'] = f"wait_until_entitlement_available_count_for_feature_matches -> available " \
+                kwargs['pass_msg'] = "wait_until_entitlement_available_count_for_feature_matches -> available " \
                                      f"count for {feature} is at expected value {expected}"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -748,7 +748,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = f"wait_until_entitlement_available_count_for_feature_matches -> Available count for " \
+        kwargs['fail_msg'] = "wait_until_entitlement_available_count_for_feature_matches -> Available count for " \
                              f"{feature} is {available_count}, not expected value {expected}. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
@@ -787,7 +787,7 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the activated count for the specified feature
             activated_count = self.get_entitlement_activated_count_for_feature(feature)
             if activated_count == int(expected):
-                kwargs['pass_msg'] = f"wait_until_entitlement_activated_count_for_feature_matches -> Activated count " \
+                kwargs['pass_msg'] = "wait_until_entitlement_activated_count_for_feature_matches -> Activated count " \
                                      f"for {feature} is at expected value {expected}"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -797,7 +797,7 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = f"wait_until_entitlement_activated_count_for_feature_matches -> Activated count for" \
+        kwargs['fail_msg'] = "wait_until_entitlement_activated_count_for_feature_matches -> Activated count for" \
                              f" {feature} is {activated_count}, not expected value {expected}. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
@@ -817,7 +817,7 @@ class LicenseManagement(LicenseManagementWebElements):
         :return: 1 if Entitlements table is empty within time, else -1
         """
 
-        device_count = 0
+        # device_count = 0
         count = 1
 
         while count <= retry_count:
@@ -837,8 +837,8 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = f"wait_until_entitlements_table_empty -> Entitlements table did not become" \
-                             f" empty within specified time. Please check."
+        kwargs['fail_msg'] = "wait_until_entitlements_table_empty -> Entitlements table did not become" \
+                             " empty within specified time. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
         return -1

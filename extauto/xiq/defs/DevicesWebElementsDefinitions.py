@@ -58,8 +58,7 @@ class DevicesWebElementsDefinitions:
             # Moving this to .hive-status away from .hive-status-true because
             # it is causing test failures.  This webelement is pulled from
             # get_status_cell() which needs to get the status of the cell whether
-            # it's green or not.  I'm not sure why this is called devices_ap_status_green()
-            # a new function may need to be created or this one renamed.
+            # it's green or not.
             'CSS_SELECTOR': '.hive-status',
             'wait_for': 15
         }
@@ -1961,4 +1960,40 @@ class DevicesWebElementsDefinitions:
     global_settings_management_dialog_yes_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
+        }
+
+    utilities_path = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-utilities-button"]',
+            'wait_for': 5
+        }
+
+    restart_pse_path = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-utilities-restart-pse"]',
+            'wait_for': 5
+        }
+
+    pse_yes_path = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 5
+        }
+
+    loading_bar_path = \
+        {
+            'XPATH': '//img[@class="widget-loading-image"]',
+            'wait_for': 5
+        }
+
+    closing_window_path = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }
+
+    pse_reset_status = \
+        {
+            'XPATH': '//div[contains(text(),"PSE reset has been completed.")]',
+            'wait_for': 5
         }

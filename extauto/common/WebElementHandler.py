@@ -1,16 +1,16 @@
+import json
 import os
 from string import Template
 
-from extauto.common.CloudDriver import CloudDriver
-from string import Template
-from extauto.common.Utils import Utils
-from extauto.common.ImageHandler import ImageHandler
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.common.exceptions import *
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, ElementNotSelectableException, ElementNotInteractableException
 from robot.libraries.BuiltIn import BuiltIn
-import json
+
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.Utils import Utils
+from extauto.common.ImageHandler import ImageHandler
 
 
 class WebElementHandler:
@@ -85,7 +85,7 @@ class WebElementHandler:
                         try:
                             handles_list.append(WebDriverWait(_driver, _delay, ignored_exceptions=self.ignored_exceptions).until(
                                 ec.presence_of_all_elements_located((by, value)))[each_index])
-                        except Exception as e:
+                        except Exception:
                             self.utils.print_info("Unable to find element with Index: ", each_index)
                     self.utils.print_info("Handles List: ", handles_list)
                     if handles_list.length == 0:
@@ -98,7 +98,7 @@ class WebElementHandler:
                     return WebDriverWait(_driver, _delay, ignored_exceptions=self.ignored_exceptions).until(
                         ec.presence_of_all_elements_located((by, value)))[_index]
 
-            except Exception as e:
+            except Exception:
                 if 'True' in self.el_info:
                     self.utils.print_info("Unable to find the element handle with: ", key, ' -- ', value)
                     self.utils.print_info('Unable to find web element ', json.dumps(key_val))
@@ -151,7 +151,7 @@ class WebElementHandler:
         """
         for el in elements:
             if el.is_displayed():
-              return el
+                return el
 
     def _substitute_template_args(self, key_val_template, kwargs):
         """
@@ -177,7 +177,7 @@ class WebElementHandler:
                 {
                     'DESC': 'This finds a panel with title="${title}"',
                     'XPATH': '//div[contains(@id, "panel-title") and text()="${title}"]',
-                    
+
                 }
             self.weh.get_template_element(template_example, title="Devices")
             self.weh.get_template_element(template_example, title="Policy")
@@ -200,7 +200,7 @@ class WebElementHandler:
             {
                 'DESC': 'Drop down items for a list type dropdown (li)',
                 'XPATH': '//div[contains(@id, "${element_id}") and contains(@id, "-picker-listWrap")]/ul/li',
-                
+
             }
             You would then get the elements by passing in the element ID:
             self.weh.get_template_elements(list_dropdown_items, element_id="combo-id")

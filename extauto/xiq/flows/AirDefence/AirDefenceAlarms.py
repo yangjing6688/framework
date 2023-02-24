@@ -513,7 +513,7 @@ class AirDefenceAlarms(AdspWebElements):
                         else:
                             self.screen.save_screen_shot()
                             sleep(2)
-                            kwargs['fail_msg'] = f"rbac_user_wips_profile_click_status() failed." \
+                            kwargs['fail_msg'] = "rbac_user_wips_profile_click_status() failed." \
                                                  f"Click Button is Enabled for the wips policy {row.text}"
                             self.common_validation.failed(**kwargs)
                             return -1
@@ -547,9 +547,9 @@ class AirDefenceAlarms(AdspWebElements):
 #        return str(adsp_msg).strip()
         msg = "User role not supported"
         if msg == adsp_msg:
-             self.utils.print_info("Message matches")
+            self.utils.print_info("Message matches")
         else:
-             self.utils.print_info("Message does not match")
+            self.utils.print_info("Message does not match")
 
     def subscribe_adess_essentials(self):
         """

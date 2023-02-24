@@ -1,19 +1,15 @@
 from time import sleep
-from common.Utils import Utils
-from common.Screen import Screen
-from common.AutoActions import AutoActions
 
-from common.AutoActions import *
-from a3.elements.A3WebElements import A3WebElements
-from a3.elements.GlobalSettingWebElements import *
-from a3.defs.GlobalSettingWebElementDefinitions import GlobalSettingWebElementDefinitions
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
 from selenium.webdriver.common.by import By
-
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from common.Utils import Utils
+from common.Screen import Screen
+from common.AutoActions import AutoActions
+from a3.elements.A3WebElements import A3WebElements
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
+from xiq.flows.common.DeviceCommon import DeviceCommon
 
 
 class A3WebElementsflow(A3WebElements):
@@ -224,9 +220,3 @@ class A3WebElementsflow(A3WebElements):
             return 1
         else:
             return -1
-
-
-
-
-
-

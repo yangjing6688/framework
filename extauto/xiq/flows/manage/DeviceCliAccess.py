@@ -1,8 +1,9 @@
 import re
-from time import sleep
+
+from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DeviceCliAccessElements import DeviceCliAccessElements
 
@@ -14,8 +15,9 @@ class DeviceCliAccess(DeviceCliAccessElements):
         self.navigator = Navigator()
         self.screen = Screen()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
 
-    def send_cmd_on_device_advanced_cli(self, device_serial="", cmd="show version"):
+    def send_cmd_on_device_advanced_cli(self, device_serial="", cmd="show version", **kwargs):
         """
         - This keyword is used to execute the command on device advanced cli window
         - It will Return the executed command output in str format
@@ -33,7 +35,8 @@ class DeviceCliAccess(DeviceCliAccessElements):
 
         self.utils.print_info("Navigate to the device advanced cli window")
         if self.navigator.navigate_to_device_cli_access(device_serial) == -1:
-            self.utils.print_info("Navigation to advanced cli window failed")
+            kwargs['fail_msg'] = "Navigation to advanced cli window failed"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info(f"Send command {cmd} to cli input field")
@@ -47,6 +50,8 @@ class DeviceCliAccess(DeviceCliAccessElements):
             self.utils.print_info(self.get_cli_command_output_error_tool_tip().text)
             self.utils.print_info("closing the cli dialog window")
             self.auto_actions.click_reference(self.get_cli_dialog_window_close_button)
+            kwargs['fail_msg'] = "Failed to get cli command output error tooltip"
+            self.common_validation.failed(**kwargs)
             return -1
 
         cli_output = self.get_cli_cmd_output_field().text
@@ -57,7 +62,7 @@ class DeviceCliAccess(DeviceCliAccessElements):
         self.auto_actions.click_reference(self.get_cli_dialog_window_close_button)
         return cli_output
 
-    def check_cli_output_of_previous_ap_in_current_ap_cli_output(self, device_host_names='', cmd='show hw-info'):
+    def check_cli_output_of_previous_ap_in_current_ap_cli_output(self, device_host_names='', cmd='show hw-info', **kwargs):
         """
         - This keyword is used to validate the CFD-4322
         - To check The CLI Access output for the previous AP is displayed for the current AP if the Apply button is clicked too quickly
@@ -85,9 +90,10 @@ class DeviceCliAccess(DeviceCliAccessElements):
 
         self.utils.print_info("Check the output on second device cli output field")
         if self.get_cli_cmd_output_field():
-            self.utils.print_info(f"second device output field:")
+            self.utils.print_info("second device output field:")
             self.utils.print_info(self.get_cli_cmd_output_field().text)
-            self.utils.print_info("first device output appearing on second device output field")
+            kwargs['fail_msg'] = "first device output appearing on second device output field"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Select the first device")
@@ -97,13 +103,16 @@ class DeviceCliAccess(DeviceCliAccessElements):
         first_dev_cli_output = self.get_cli_cmd_output_field().text
 
         if first_dev_cli_output:
-            self.utils.print_info(f"first device cli output:{first_dev_cli_output}")
+            kwargs['pass_msg'] = f"first device cli output:{first_dev_cli_output}"
             self.utils.print_info("closing the cli dialog window")
             self.auto_actions.click_reference(self.get_cli_dialog_window_close_button)
+            self.common_validation.passed(**kwargs)
             return 1
+        kwargs['fail_msg'] = "Failed to check cli output of previous ap in current ap cli output"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def verify_command(self, ui_output="default", cli_output="default", cmd="default"):
+    def verify_command(self, ui_output="default", cli_output="default", cmd="default", **kwargs):
         """
         - This keyword  verifies whether UI output and CLI output match.
         - Keyword Usage:
@@ -143,15 +152,18 @@ class DeviceCliAccess(DeviceCliAccessElements):
                 self.utils.print_info("CLI output:  ", cli_output)
                 for ui_op in ui_output:
                     if ui_op not in cli_output:
-                        self.utils.print_info("UI and CLI output does not match")
+                        kwargs['fail_msg'] = "UI and CLI output does not match"
+                        self.common_validation.failed(**kwargs)
                         return -1
-                self.utils.print_info("UI and CLI output match")
+                kwargs['pass_msg'] = "UI and CLI output match"
+                self.common_validation.passed(**kwargs)
                 return 1
         except Exception as e:
-            self.utils.print_info("Unable to verify ", cmd, " exception: ", e)
+            kwargs['fail_msg'] = f"Unable to verify {cmd} exception: {e}"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def ap_operating_channel(self, cli_op):
+    def ap_operating_channel(self, cli_op, **kwargs):
         """
         - Verifing the Ap Operating channel
         - Keyword Usage:
@@ -169,5 +181,6 @@ class DeviceCliAccess(DeviceCliAccessElements):
             channel = str(cli_op.split("(")[0].split()[-1])
             self.utils.print_info("Ap Operating channel is ::  ", channel)
             return channel
-        self.utils.print_info("AP is not UP, please check the AP status ")
+        kwargs['fail_msg'] = "AP is not UP, please check the AP status"
+        self.common_validation.failed(**kwargs)
         return -1

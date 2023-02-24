@@ -1,14 +1,18 @@
-from extauto.xiq.elements.FilterManageDeviceWebElements import *
-from extauto.xiq.elements.FilterManageClientsWebElements import *
-from extauto.xiq.elements.DeviceActions import *
-from extauto.xiq.flows.manage.Devices import *
-from extauto.xiq.flows.manage.Tools import Tools
-from extauto.xiq.flows.configure.NetworkPolicy import *
-from extauto.xiq.flows.configure.WirelessNetworks import *
-from extauto.xiq.flows.configure.UserGroups import *
-from extauto.xiq.flows.configure.ExpressNetworkPolicies import *
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from time import sleep
+
+from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.elements.FilterManageDeviceWebElements import FilterManageDeviceWebElements
+from extauto.xiq.elements.FilterManageClientsWebElements import FilterManageClientWebElements
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.manage.Tools import Tools
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.configure.ExpressNetworkPolicies import ExpressNetworkPolicies
+from extauto.xiq.flows.common.Navigator import Navigator
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 
 
 class FilterManageDevices():
@@ -114,7 +118,7 @@ class FilterManageDevices():
         sn_list, policy_list = self.get_column_values_from_device_page()
         self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
         if not sn_list or len(sn_list) == 0: return -1, "The device list is empty"
-        status =  self.device.get_ap_status(ap_sn)
+        status = self.device.get_device_status(device_serial=ap_sn)
 
         if status == 'green':
             self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
@@ -253,7 +257,7 @@ class FilterManageDevices():
             filter device by software version
         """
         soft_lst = self.check_available_devices('firmware version')
-        if soft_lst == -1: return -1, error
+        if soft_lst == -1: return -1, "error"
         self.utils.print_info(" Bwfoew Available hardware models " + str(soft_lst))
         real_modeL_lst =  self.parse_string(soft_lst)
         self.utils.print_info(" Available hardware models" + str(real_modeL_lst))
@@ -332,17 +336,20 @@ class FilterManageDevices():
         cnt = 0
         for policy in policy_list:
             for ssid in policy_ssid[policy]:
-                 cnt = cnt + 1
-                 if cnt > 3: break
-                 self.utils.print_info(" ------ Filter the ssid ------ " + str(ssid) + ' in the policy ' + str(policy))
-                 ssid_element = self.filter_element.get_device_ssid_filter_checkbox(str(ssid))
-                 self.select_filter_by(ssid_element, filter_name='ssid')
-                 self.utils.print_info(" Validate the filter ")
-                 sn_list, policy_list = self.get_column_values_from_device_page()
-                 if not policy_list or len(policy_list) == 0: return -1, "The device list is empty with the ssid filter " + str(ssid)
-                 policy_list = list(dict.fromkeys(policy_list))
-                 if policy_list[0] != policy: return -1, " Policy does not match " + str(policy_list[0] + ' ' + str(policy))
-                 self.select_filter_by(ssid_element, filter_name='ssid', reset=True)
+                cnt = cnt + 1
+                if cnt > 3:
+                    break
+                self.utils.print_info(" ------ Filter the ssid ------ " + str(ssid) + ' in the policy ' + str(policy))
+                ssid_element = self.filter_element.get_device_ssid_filter_checkbox(str(ssid))
+                self.select_filter_by(ssid_element, filter_name='ssid')
+                self.utils.print_info(" Validate the filter ")
+                sn_list, policy_list = self.get_column_values_from_device_page()
+                if not policy_list or len(policy_list) == 0:
+                    return -1, "The device list is empty with the ssid filter " + str(ssid)
+                policy_list = list(dict.fromkeys(policy_list))
+                if policy_list[0] != policy:
+                    return -1, " Policy does not match " + str(policy_list[0] + ' ' + str(policy))
+                self.select_filter_by(ssid_element, filter_name='ssid', reset=True)
 
         return str(1), None
 
@@ -1101,7 +1108,7 @@ class FilterManageDevices():
             :return True
         """
         self.utils.print_info(" Start --> the action managed state " + str(ap))
-        self.device.select_ap(ap)
+        self.device.select_device(device_serial=ap)
         self.utils.print_info(" Click on the action button  ")
         self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         self.auto_actions.move_to_element(self.device_actions.get_device_actions_change_management_status())
@@ -1138,7 +1145,9 @@ class FilterManageDevices():
 
     def expand_default_filters(self):
         self.utils.print_info(" Start --> Expand the default filters ")
-        self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
+        element = self.filter_element.device_state_connected_filter_chkbox
+        if not element:
+            self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
         self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
         self.expand_and_collapse_filters(self.filter_element.get_device_function_filter_link(), filter_type='device function')
         self.expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), filter_type='device user profile')
