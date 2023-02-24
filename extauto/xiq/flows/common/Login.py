@@ -110,8 +110,7 @@ class Login:
 
         Supported Modes:
             UI - default mode
-            XAPI - kwargs XAPI_ENABLE=True (Will support both XAPI and UI keywords in your test)
-                   kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
+            XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
 
         :param username: login account username
         :param password: login account password
