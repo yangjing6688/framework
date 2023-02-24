@@ -25,10 +25,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.assign_device_location(id, xiq_device_location_assignment, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign device location    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -48,6 +53,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -77,7 +83,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -90,7 +96,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_assign_device_network_policy(self, **kwargs):
@@ -104,10 +110,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.assign_device_network_policy(id, network_policy_id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign device network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -127,6 +138,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -156,7 +168,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -169,7 +181,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_assign_devices_country_code(self, **kwargs):
@@ -183,10 +195,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.assign_devices_country_code(xiq_assign_devices_country_code_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign devices country code    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -205,6 +222,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -234,7 +252,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -247,7 +265,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_assign_devices_location(self, **kwargs):
@@ -261,10 +279,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.assign_devices_location(xiq_assign_devices_location_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign devices location    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -283,6 +306,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -312,7 +336,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -325,7 +349,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_assign_devices_network_policy(self, **kwargs):
@@ -339,10 +363,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.assign_devices_network_policy(xiq_assign_devices_network_policy_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign devices network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -361,6 +390,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -390,7 +420,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -403,7 +433,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_assign_devices_radius_proxy(self, **kwargs):
@@ -417,10 +447,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.assign_devices_radius_proxy(ids, radius_proxy_id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 assign devices radius proxy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -440,6 +475,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -469,7 +505,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -482,7 +518,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_change_device_description(self, **kwargs):
@@ -496,10 +532,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.change_device_description(id, body, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change device description    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -519,6 +560,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -548,7 +590,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -561,7 +603,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_change_device_level_ssid_status(self, **kwargs):
@@ -575,10 +617,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.change_device_level_ssid_status(id, xiq_update_device_level_ssid_status, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change device level ssid status    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -598,6 +645,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -627,7 +675,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -640,7 +688,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_change_device_status_to_manage(self, **kwargs):
@@ -654,10 +702,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.change_device_status_to_manage(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change device status to manage    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -676,6 +729,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -705,7 +759,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -718,7 +772,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_change_device_status_to_unmanage(self, **kwargs):
@@ -732,10 +786,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.change_device_status_to_unmanage(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change device status to unmanage    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -754,6 +813,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -783,7 +843,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -796,7 +856,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_change_devices_os_mode(self, **kwargs):
@@ -810,10 +870,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.change_devices_os_mode(xiq_change_devices_os_mode_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change devices os mode    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -832,6 +897,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -861,7 +927,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -874,7 +940,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_change_hostname(self, **kwargs):
@@ -888,10 +954,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.change_hostname(id, hostname, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change hostname    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -911,6 +982,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -940,7 +1012,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -953,7 +1025,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_change_status_to_manage(self, **kwargs):
@@ -967,10 +1039,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.change_status_to_manage(xiq_device_filter, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change status to manage    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -989,6 +1066,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1018,7 +1096,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1031,7 +1109,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_change_status_to_unmanage(self, **kwargs):
@@ -1045,10 +1123,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.change_status_to_unmanage(xiq_device_filter, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 change status to unmanage    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1067,6 +1150,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1096,7 +1180,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1109,7 +1193,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_device(self, **kwargs):
@@ -1123,10 +1207,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.delete_device(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 delete device    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1145,6 +1234,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1174,7 +1264,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1187,7 +1277,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_devices(self, **kwargs):
@@ -1201,10 +1291,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.delete_devices(xiq_device_filter, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 delete devices    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1223,6 +1318,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1252,7 +1348,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1265,7 +1361,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_device(self, **kwargs):
@@ -1279,10 +1375,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.get_device(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1303,6 +1404,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: XiqDevice
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1332,7 +1434,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1345,7 +1447,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_device_cpu_memory_history(self, **kwargs):
@@ -1359,10 +1461,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.get_device_cpu_memory_history(id, start_time, end_time, interval, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device cpu memory history    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1384,6 +1491,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: list[XiqDeviceCpuMemoryUsage]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1413,7 +1521,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1426,7 +1534,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_device_level_ssid_status(self, **kwargs):
@@ -1440,10 +1548,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.get_device_level_ssid_status(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device level ssid status    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1462,6 +1575,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: dict(str, XiqDeviceLevelSsidStatus)
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1491,7 +1605,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1504,7 +1618,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_device_location(self, **kwargs):
@@ -1518,10 +1632,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.get_device_location(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device location    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1540,6 +1659,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: XiqDeviceLocation
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1569,7 +1689,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1582,7 +1702,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_device_network_policy(self, **kwargs):
@@ -1596,10 +1716,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.get_device_network_policy(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1618,6 +1743,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: XiqNetworkPolicy
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1647,7 +1773,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1660,7 +1786,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_device_stats(self, **kwargs):
@@ -1674,10 +1800,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.get_device_stats(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 get device stats    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1696,6 +1827,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: XiqDeviceStats
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1725,7 +1857,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1738,7 +1870,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_device_alarm(self, **kwargs):
@@ -1752,10 +1884,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.list_device_alarm(id, start_time, end_time, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 list device alarm    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1778,6 +1915,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: PagedXiqDeviceAlarm
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1807,7 +1945,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1820,7 +1958,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_devices(self, **kwargs):
@@ -1834,10 +1972,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.list_devices(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 list devices    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1869,6 +2012,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: PagedXiqDevice
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1898,7 +2042,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1911,7 +2055,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_devices_by_network_policy(self, **kwargs):
@@ -1925,10 +2069,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.list_devices_by_network_policy(policy_id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 list devices by network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -1949,6 +2098,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: PagedXiqDevice
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1978,7 +2128,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1991,7 +2141,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_onboard_devices(self, **kwargs):
@@ -2005,10 +2155,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.onboard_devices(xiq_onboard_device_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 onboard devices    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2027,6 +2182,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2056,7 +2212,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2069,7 +2225,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_override_device_level_ssid(self, **kwargs):
@@ -2083,10 +2239,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.override_device_level_ssid(id, xiq_device_level_ssid, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 override device level ssid    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2106,6 +2267,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2135,7 +2297,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2148,7 +2310,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_query_devices_location(self, **kwargs):
@@ -2162,10 +2324,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.query_devices_location(xiq_device_filter, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 query devices location    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2184,6 +2351,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: dict(str, XiqDeviceLocation)
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2213,7 +2381,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2226,7 +2394,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_query_devices_network_policy(self, **kwargs):
@@ -2240,10 +2408,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.query_devices_network_policy(xiq_device_filter, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 query devices network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2262,6 +2435,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: dict(str, XiqNetworkPolicy)
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2291,7 +2465,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2304,7 +2478,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_reboot_device(self, **kwargs):
@@ -2318,10 +2492,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.reboot_device(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 reboot device    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2340,6 +2519,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2369,7 +2549,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2382,7 +2562,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_reboot_devices(self, **kwargs):
@@ -2396,10 +2576,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.reboot_devices(xiq_device_filter, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 reboot devices    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2418,6 +2603,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2447,7 +2633,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2460,7 +2646,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_reset_device(self, **kwargs):
@@ -2474,10 +2660,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.reset_device(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 reset device    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2497,6 +2688,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2526,7 +2718,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2539,7 +2731,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_revoke_device_location(self, **kwargs):
@@ -2553,10 +2745,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.revoke_device_location(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke device location    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2575,6 +2772,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2604,7 +2802,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2617,7 +2815,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_revoke_device_network_policy(self, **kwargs):
@@ -2631,10 +2829,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.revoke_device_network_policy(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke device network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2653,6 +2856,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2682,7 +2886,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2695,7 +2899,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_revoke_devices_location(self, **kwargs):
@@ -2709,10 +2913,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.revoke_devices_location(xiq_device_filter, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke devices location    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2731,6 +2940,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2760,7 +2970,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2773,7 +2983,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_revoke_devices_network_policy(self, **kwargs):
@@ -2787,10 +2997,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.revoke_devices_network_policy(xiq_device_filter, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke devices network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2809,6 +3024,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2838,7 +3054,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2851,7 +3067,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_revoke_devices_radius_proxy(self, **kwargs):
@@ -2865,10 +3081,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.revoke_devices_radius_proxy(ids, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 revoke devices radius proxy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2887,6 +3108,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2916,7 +3138,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2929,7 +3151,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_send_cli_to_device(self, **kwargs):
@@ -2943,10 +3165,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.send_cli_to_device(id, request_body, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 send cli to device    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -2966,6 +3193,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: XiqSendCliResponse
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2995,7 +3223,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -3008,7 +3236,7 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_send_cli_to_devices(self, **kwargs):
@@ -3022,10 +3250,15 @@ class XapiBaseDeviceApi(XapiBase):
         >>> thread = api.send_cli_to_devices(xiq_send_cli_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseDeviceApi.py
         
                 send cli to devices    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
         
@@ -3045,6 +3278,7 @@ class XapiBaseDeviceApi(XapiBase):
         :return: XiqSendCliResponse
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -3074,7 +3308,7 @@ class XapiBaseDeviceApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -3087,6 +3321,6 @@ class XapiBaseDeviceApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

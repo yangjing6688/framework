@@ -25,10 +25,15 @@ class XapiBaseAccountApi(XapiBase):
         >>> thread = api.backup_viq(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 backup viq    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
@@ -46,6 +51,7 @@ class XapiBaseAccountApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -75,7 +81,7 @@ class XapiBaseAccountApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -88,7 +94,7 @@ class XapiBaseAccountApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_default_device_password(self, **kwargs):
@@ -102,10 +108,15 @@ class XapiBaseAccountApi(XapiBase):
         >>> thread = api.get_default_device_password(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 get default device password    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
@@ -123,6 +134,7 @@ class XapiBaseAccountApi(XapiBase):
         :return: XiqDefaultDevicePassword
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -152,7 +164,7 @@ class XapiBaseAccountApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -165,7 +177,7 @@ class XapiBaseAccountApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_home_account(self, **kwargs):
@@ -179,10 +191,15 @@ class XapiBaseAccountApi(XapiBase):
         >>> thread = api.get_home_account(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 get home account    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
@@ -200,6 +217,7 @@ class XapiBaseAccountApi(XapiBase):
         :return: XiqAccount
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -229,7 +247,7 @@ class XapiBaseAccountApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -242,7 +260,7 @@ class XapiBaseAccountApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_viq_info(self, **kwargs):
@@ -256,10 +274,15 @@ class XapiBaseAccountApi(XapiBase):
         >>> thread = api.get_viq_info(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 get viq info    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
@@ -277,6 +300,7 @@ class XapiBaseAccountApi(XapiBase):
         :return: XiqViq
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -306,7 +330,7 @@ class XapiBaseAccountApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -319,7 +343,7 @@ class XapiBaseAccountApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_external_accounts(self, **kwargs):
@@ -333,10 +357,15 @@ class XapiBaseAccountApi(XapiBase):
         >>> thread = api.list_external_accounts(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 list external accounts    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
@@ -354,6 +383,7 @@ class XapiBaseAccountApi(XapiBase):
         :return: list[XiqExternalAccount]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -383,7 +413,7 @@ class XapiBaseAccountApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -396,7 +426,7 @@ class XapiBaseAccountApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_switch_account(self, **kwargs):
@@ -410,10 +440,15 @@ class XapiBaseAccountApi(XapiBase):
         >>> thread = api.switch_account(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 switch account    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
@@ -432,6 +467,7 @@ class XapiBaseAccountApi(XapiBase):
         :return: XiqLoginResponse
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -461,7 +497,7 @@ class XapiBaseAccountApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -474,7 +510,7 @@ class XapiBaseAccountApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_default_device_password(self, **kwargs):
@@ -488,10 +524,15 @@ class XapiBaseAccountApi(XapiBase):
         >>> thread = api.update_default_device_password(body, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAccountApi.py
         
                 update default device password    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
         
@@ -510,6 +551,7 @@ class XapiBaseAccountApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -539,7 +581,7 @@ class XapiBaseAccountApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -552,6 +594,6 @@ class XapiBaseAccountApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

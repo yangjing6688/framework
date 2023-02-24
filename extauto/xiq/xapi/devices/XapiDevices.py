@@ -101,7 +101,7 @@ class XapiDevices(XapiBase):
         voss_payload = None
         wing_payload = None
         dell_payload = None
-        if 'Extreme - Aerohive' in device_make:
+        if 'EXTREME - AEROHIVE' in device_make.upper():
             self.utils.print_info("Detected AP, creating payload")
             extreme_payload = self.extremecloudiq.XiqExtremeDevices(sns=[device_serial])
             xiq_onboard_device_request = self.extremecloudiq.XiqOnboardDeviceRequest(extreme=extreme_payload)
@@ -131,7 +131,7 @@ class XapiDevices(XapiBase):
 
         try:
             # Onboard Devices
-            # FIXME = This returns NONE, however the swagger returns a 202 and no payload.
+            #  This returns NONE, however the swagger returns a 202 and no payload.
             #  The aysnc doens't appear to be working for this API function and the
             # swagger doens't support the [LRO], so there is no way of knowning
             # if this keyword was successful without creating a loop to check.
@@ -161,7 +161,7 @@ class XapiDevices(XapiBase):
                 return 1
         except self.ApiException as e:
             kwargs['fail_msg'] = f"Exception when calling DeviceApi->onboard_devices: {e}"
-            self.xapiHelper.common_validation.failed(**kwargs)
+            self.xapiHelper.common_validation.fault(**kwargs)
             return -1
 
 
@@ -406,7 +406,7 @@ class XapiDevices(XapiBase):
 
         except self.ApiException as e:
             kwargs['fail_msg'] = f"Exception when calling DeviceApi->list_devices: {e}"
-            self.xapiHelper.common_validation.failed(**kwargs)
+            self.xapiHelper.common_validation.fault(**kwargs)
             return -1
 
 

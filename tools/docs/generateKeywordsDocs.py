@@ -83,7 +83,7 @@ for keyword_directory in os.listdir(base_directory):
         replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
         replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
 
-
+        # This may be needed in the future when we have multiple directory levels
         # adjust the name for the sub directory files
         # keyword_file_base = keyword_file.replace('.rst', '')
         # for root, dirs, files in os.walk(entire_directory):

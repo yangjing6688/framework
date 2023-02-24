@@ -25,10 +25,15 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> thread = api.add_ssids_to_network_policy(id, request_body, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 add ssids to network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
@@ -48,6 +53,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -77,7 +83,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -90,7 +96,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_create_network_policy(self, **kwargs):
@@ -104,10 +110,15 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> thread = api.create_network_policy(xiq_create_network_policy_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 create network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
@@ -126,6 +137,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         :return: XiqNetworkPolicy
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -155,7 +167,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -168,7 +180,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_network_policy(self, **kwargs):
@@ -182,10 +194,15 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> thread = api.delete_network_policy(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 delete network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
@@ -204,6 +221,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -233,7 +251,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -246,7 +264,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_ssids_from_network_policy(self, **kwargs):
@@ -260,10 +278,15 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> thread = api.delete_ssids_from_network_policy(id, request_body, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 delete ssids from network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
@@ -283,6 +306,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -312,7 +336,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -325,7 +349,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_network_policy(self, **kwargs):
@@ -339,10 +363,15 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> thread = api.get_network_policy(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 get network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
@@ -361,6 +390,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         :return: XiqNetworkPolicy
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -390,7 +420,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -403,7 +433,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_network_polices(self, **kwargs):
@@ -417,10 +447,15 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> thread = api.list_network_polices(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 list network polices    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
@@ -441,6 +476,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         :return: PagedXiqNetworkPolicy
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -470,7 +506,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -483,7 +519,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_ssids_by_network_policy(self, **kwargs):
@@ -497,10 +533,15 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> thread = api.list_ssids_by_network_policy(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 list ssids by network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
@@ -521,6 +562,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         :return: PagedXiqSsid
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -550,7 +592,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -563,7 +605,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_network_policy(self, **kwargs):
@@ -577,10 +619,15 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         >>> thread = api.update_network_policy(id, xiq_update_network_policy_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseNetworkPolicyApi.py
         
                 update network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
         
@@ -600,6 +647,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
         :return: XiqNetworkPolicy
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -629,7 +677,7 @@ class XapiBaseNetworkPolicyApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -642,6 +690,6 @@ class XapiBaseNetworkPolicyApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

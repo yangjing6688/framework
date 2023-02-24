@@ -25,10 +25,15 @@ class XapiBaseLogApi(XapiBase):
         >>> thread = api.list_accounting_logs(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list accounting logs    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
@@ -52,6 +57,7 @@ class XapiBaseLogApi(XapiBase):
         :return: PagedXiqAccountingLog
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -81,7 +87,7 @@ class XapiBaseLogApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -94,7 +100,7 @@ class XapiBaseLogApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_audit_logs(self, **kwargs):
@@ -108,10 +114,15 @@ class XapiBaseLogApi(XapiBase):
         >>> thread = api.list_audit_logs(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list audit logs    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
@@ -135,6 +146,7 @@ class XapiBaseLogApi(XapiBase):
         :return: PagedXiqAuditLog
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -164,7 +176,7 @@ class XapiBaseLogApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -177,7 +189,7 @@ class XapiBaseLogApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_auth_logs(self, **kwargs):
@@ -191,10 +203,15 @@ class XapiBaseLogApi(XapiBase):
         >>> thread = api.list_auth_logs(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list auth logs    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
@@ -218,6 +235,7 @@ class XapiBaseLogApi(XapiBase):
         :return: PagedXiqAuthLog
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -247,7 +265,7 @@ class XapiBaseLogApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -260,7 +278,7 @@ class XapiBaseLogApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_credential_logs(self, **kwargs):
@@ -274,10 +292,15 @@ class XapiBaseLogApi(XapiBase):
         >>> thread = api.list_credential_logs(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list credential logs    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
@@ -300,6 +323,7 @@ class XapiBaseLogApi(XapiBase):
         :return: PagedXiqCredentialLog
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -329,7 +353,7 @@ class XapiBaseLogApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -342,7 +366,7 @@ class XapiBaseLogApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_email_logs(self, **kwargs):
@@ -356,10 +380,15 @@ class XapiBaseLogApi(XapiBase):
         >>> thread = api.list_email_logs(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list email logs    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
@@ -382,6 +411,7 @@ class XapiBaseLogApi(XapiBase):
         :return: PagedXiqEmailLog
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -411,7 +441,7 @@ class XapiBaseLogApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -424,7 +454,7 @@ class XapiBaseLogApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_sms_logs(self, **kwargs):
@@ -438,10 +468,15 @@ class XapiBaseLogApi(XapiBase):
         >>> thread = api.list_sms_logs(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLogApi.py
         
                 list sms logs    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
         
@@ -464,6 +499,7 @@ class XapiBaseLogApi(XapiBase):
         :return: PagedXiqSmsLog
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -493,7 +529,7 @@ class XapiBaseLogApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -506,6 +542,6 @@ class XapiBaseLogApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

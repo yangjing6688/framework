@@ -25,10 +25,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.create_building(xiq_create_building_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 create building    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -47,6 +52,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: XiqBuilding
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -76,7 +82,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -89,7 +95,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_create_floor(self, **kwargs):
@@ -103,10 +109,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.create_floor(xiq_create_floor_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 create floor    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -125,6 +136,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: XiqFloor
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -154,7 +166,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -167,7 +179,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_create_location(self, **kwargs):
@@ -181,10 +193,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.create_location(xiq_create_location_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 create location    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -203,6 +220,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: XiqLocation
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -232,7 +250,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -245,7 +263,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_building(self, **kwargs):
@@ -259,10 +277,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.delete_building(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 delete building    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -282,6 +305,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -311,7 +335,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -324,7 +348,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_floor(self, **kwargs):
@@ -338,10 +362,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.delete_floor(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 delete floor    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -360,6 +389,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -389,7 +419,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -402,7 +432,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_location(self, **kwargs):
@@ -416,10 +446,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.delete_location(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 delete location    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -439,6 +474,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: str
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -468,7 +504,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -481,7 +517,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_location_tree(self, **kwargs):
@@ -495,10 +531,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.get_location_tree(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 get location tree    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -518,6 +559,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: list[XiqLocation]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -547,7 +589,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -560,7 +602,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_building(self, **kwargs):
@@ -574,10 +616,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.update_building(id, xiq_update_building_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 update building    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -597,6 +644,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: XiqBuilding
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -626,7 +674,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -639,7 +687,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_floor(self, **kwargs):
@@ -653,10 +701,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.update_floor(id, xiq_update_floor_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 update floor    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -676,6 +729,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: XiqFloor
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -705,7 +759,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -718,7 +772,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_location(self, **kwargs):
@@ -732,10 +786,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.update_location(id, xiq_update_location_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 update location    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -755,6 +814,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: XiqLocation
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -784,7 +844,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -797,7 +857,7 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_upload_floorplan(self, **kwargs):
@@ -811,10 +871,15 @@ class XapiBaseLocationApi(XapiBase):
         >>> thread = api.upload_floorplan(file, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseLocationApi.py
         
                 upload floorplan    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
         
@@ -833,6 +898,7 @@ class XapiBaseLocationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -862,7 +928,7 @@ class XapiBaseLocationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -875,6 +941,6 @@ class XapiBaseLocationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

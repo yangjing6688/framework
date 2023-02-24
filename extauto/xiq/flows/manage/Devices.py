@@ -1616,6 +1616,10 @@ class Devices:
                           'neighbour_mac': '7C95B1005700'}
                 }
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param policy_name: Name of policy that would be used when onboarding a device
         :return:  1 if onboarding success
         :return: -1 for errors
@@ -2425,6 +2429,10 @@ class Devices:
         - Keyword Usage:
         - ``Delete Device    device_serial=${DEVICE_SERIAL}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device serial number
         :param device_name: name of the device
         :param device_mac: mac address of the device
@@ -2564,6 +2572,10 @@ class Devices:
     def search_device(self, device_serial=None, device_name=None, device_mac=None, select_device=False, **kwargs):
         """
         - Searches for the device using serial, name, MAC and selects it if desired
+
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
         :param device_serial: serial number of the device
         :param device_name: name of the device
@@ -4003,6 +4015,10 @@ class Devices:
         - ``@{column_list}=    Create List    MGT IP ADDRESS    MAC``
         - ``get_device_column_information   ${DEVICE_SERIAL}  ${column_array}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device serial number to check the device connected status
         :param column_array: The device array of columns to get data for
         :return: object map of data columns to data, spaces are replaced with _
@@ -4074,6 +4090,10 @@ class Devices:
         - ``Wait Until Device Online       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
         - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
         - ``Wait Until Device Online       device_serial=${DEVICE_SERIAL}   ``
+
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
@@ -5480,6 +5500,10 @@ class Devices:
         - check the specified device MANAGED column for data
         - Keyword Usage:
         - ``Wait Until Device Managed  ${DEVICE_SERIAL}   retry_duration=10    retry_count=12``
+
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
         :param device_serial: device serial number to check the device 'managed' state
         :param retry_duration: duration between each retry

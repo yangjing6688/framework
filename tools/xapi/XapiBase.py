@@ -111,7 +111,6 @@ class XapiBase(object):
            :param device_serial: The device serial number
            :param device_name: The device hostname
            :param device_mac: The device MAC address
-           :param device_mac: The device MAC address
            :param skip_global_check: false by default, will skip the global device check
            :return: The device ID for success and -1 for failure
         """
@@ -157,7 +156,7 @@ class XapiBase(object):
                     if device['hostname'] == device_name:
                         device_id = device['id']
                         self.utils.print_info(f"Setting global value for device [name]: {device_name}:{device_id}")
-                        self.xapiHelper.set_xapi_global_device(device_serial, device_id)
+                        self.xapiHelper.set_xapi_global_device(device_name, device_id)
                         break
                 elif device_mac:
                     if device['mac_address'] == device_mac:
@@ -180,7 +179,7 @@ class XapiBase(object):
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_name=device_name, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac} or name: {device_name}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.xapiHelper.common_validation.failed(**kwargs)
             return -1
 
         return self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
@@ -223,5 +222,5 @@ class XapiBase(object):
 
         except Exception as e:
             kwargs['fail_msg'] = f"Exception when calling DeviceApi->list_devices: {e}"
-            self.xapiHelper.common_validation.failed(**kwargs)
+            self.xapiHelper.common_validation.fault(**kwargs)
             return -1

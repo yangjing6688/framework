@@ -25,10 +25,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.create_external_radius_server(xiq_create_external_radius_server_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create external radius server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -47,6 +52,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqExternalRadiusServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -76,7 +82,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -89,7 +95,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_create_internal_radius_server(self, **kwargs):
@@ -103,10 +109,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.create_internal_radius_server(xiq_create_internal_radius_server_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create internal radius server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -125,6 +136,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqInternalRadiusServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -154,7 +166,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -167,7 +179,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_create_ldap_server(self, **kwargs):
@@ -181,10 +193,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.create_ldap_server(xiq_create_ldap_server_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create ldap server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -203,6 +220,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqLdapServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -232,7 +250,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -245,7 +263,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_create_radius_client_object(self, **kwargs):
@@ -259,10 +277,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.create_radius_client_object(xiq_create_radius_client_object_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create radius client object    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -281,6 +304,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqRadiusClientObject
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -310,7 +334,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -323,7 +347,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_create_radius_proxy(self, **kwargs):
@@ -337,10 +361,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.create_radius_proxy(xiq_create_radius_proxy_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 create radius proxy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -359,6 +388,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqRadiusProxy
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -388,7 +418,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -401,7 +431,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_external_radius_server(self, **kwargs):
@@ -415,10 +445,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.delete_external_radius_server(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete external radius server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -437,6 +472,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -466,7 +502,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -479,7 +515,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_internal_radius_server(self, **kwargs):
@@ -493,10 +529,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.delete_internal_radius_server(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete internal radius server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -515,6 +556,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -544,7 +586,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -557,7 +599,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_ldap_server(self, **kwargs):
@@ -571,10 +613,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.delete_ldap_server(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete ldap server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -593,6 +640,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -622,7 +670,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -635,7 +683,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_radius_client_object(self, **kwargs):
@@ -649,10 +697,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.delete_radius_client_object(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete radius client object    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -671,6 +724,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -700,7 +754,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -713,7 +767,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_radius_proxy(self, **kwargs):
@@ -727,10 +781,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.delete_radius_proxy(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 delete radius proxy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -749,6 +808,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -778,7 +838,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -791,7 +851,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_external_radius_server(self, **kwargs):
@@ -805,10 +865,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.get_external_radius_server(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get external radius server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -827,6 +892,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqExternalRadiusServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -856,7 +922,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -869,7 +935,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_internal_radius_server(self, **kwargs):
@@ -883,10 +949,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.get_internal_radius_server(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get internal radius server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -905,6 +976,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqInternalRadiusServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -934,7 +1006,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -947,7 +1019,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_ldap_server(self, **kwargs):
@@ -961,10 +1033,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.get_ldap_server(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get ldap server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -983,6 +1060,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqLdapServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1012,7 +1090,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1025,7 +1103,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_radius_client_object(self, **kwargs):
@@ -1039,10 +1117,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.get_radius_client_object(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get radius client object    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1061,6 +1144,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqRadiusClientObject
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1090,7 +1174,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1103,7 +1187,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_radius_proxy(self, **kwargs):
@@ -1117,10 +1201,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.get_radius_proxy(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 get radius proxy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1139,6 +1228,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqRadiusProxy
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1168,7 +1258,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1181,7 +1271,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_active_directory_servers(self, **kwargs):
@@ -1195,10 +1285,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.list_active_directory_servers(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list active directory servers    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1218,6 +1313,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: PagedXiqActiveDirectoryServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1247,7 +1343,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1260,7 +1356,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_captive_web_portals(self, **kwargs):
@@ -1274,10 +1370,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.list_captive_web_portals(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list captive web portals    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1297,6 +1398,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: PagedXiqCwp
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1326,7 +1428,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1339,7 +1441,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_external_radius_servers(self, **kwargs):
@@ -1353,10 +1455,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.list_external_radius_servers(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list external radius servers    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1376,6 +1483,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: PagedXiqExternalRadiusServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1405,7 +1513,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1418,7 +1526,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_internal_radius_devices(self, **kwargs):
@@ -1432,10 +1540,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.list_internal_radius_devices(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list internal radius devices    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1455,6 +1568,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: PagedXiqInternalRadiusDevice
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1484,7 +1598,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1497,7 +1611,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_internal_radius_servers(self, **kwargs):
@@ -1511,10 +1625,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.list_internal_radius_servers(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list internal radius servers    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1534,6 +1653,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: PagedXiqInternalRadiusServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1563,7 +1683,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1576,7 +1696,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_ldap_servers(self, **kwargs):
@@ -1590,10 +1710,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.list_ldap_servers(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list ldap servers    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1613,6 +1738,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: PagedXiqLdapServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1642,7 +1768,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1655,7 +1781,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_radius_client_objects(self, **kwargs):
@@ -1669,10 +1795,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.list_radius_client_objects(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list radius client objects    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1692,6 +1823,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: PagedXiqRadiusClientObject
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1721,7 +1853,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1734,7 +1866,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_radius_proxies(self, **kwargs):
@@ -1748,10 +1880,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.list_radius_proxies(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list radius proxies    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1771,6 +1908,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: PagedXiqRadiusProxy
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1800,7 +1938,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1813,7 +1951,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_radius_proxy_devices(self, **kwargs):
@@ -1827,10 +1965,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.list_radius_proxy_devices(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 list radius proxy devices    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1850,6 +1993,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: PagedXiqInternalRadiusDevice
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1879,7 +2023,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1892,7 +2036,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_external_radius_server(self, **kwargs):
@@ -1906,10 +2050,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.update_external_radius_server(id, xiq_update_external_radius_server_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update external radius server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -1929,6 +2078,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1958,7 +2108,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1971,7 +2121,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_internal_radius_server(self, **kwargs):
@@ -1985,10 +2135,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.update_internal_radius_server(id, xiq_update_internal_radius_server_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update internal radius server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -2008,6 +2163,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqInternalRadiusServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2037,7 +2193,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2050,7 +2206,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_ldap_server(self, **kwargs):
@@ -2064,10 +2220,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.update_ldap_server(id, xiq_update_ldap_server_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update ldap server    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -2087,6 +2248,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqLdapServer
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2116,7 +2278,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2129,7 +2291,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_radius_client_object(self, **kwargs):
@@ -2143,10 +2305,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.update_radius_client_object(id, xiq_update_radius_client_object_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update radius client object    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -2166,6 +2333,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2195,7 +2363,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2208,7 +2376,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_radius_proxy(self, **kwargs):
@@ -2222,10 +2390,15 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         >>> thread = api.update_radius_proxy(id, xiq_update_radius_proxy_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
         
                 update radius proxy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
         
@@ -2245,6 +2418,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
         :return: XiqRadiusProxy
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -2274,7 +2448,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -2287,6 +2461,6 @@ class XapiBaseConfigurationAuthenticationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

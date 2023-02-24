@@ -25,10 +25,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.add_key_based_pcg_users(policy_id, xiq_create_key_based_pcg_users_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 add key based pcg users    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -48,6 +53,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -77,7 +83,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -90,7 +96,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_assign_ports(self, **kwargs):
@@ -104,10 +110,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.assign_ports(policy_id, xiq_pcg_assign_ports_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 assign ports    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -127,6 +138,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: XiqPcgAssignPortsResponse
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -156,7 +168,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -169,7 +181,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_create_end_user(self, **kwargs):
@@ -183,10 +195,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.create_end_user(xiq_create_end_user_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 create end user    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -205,6 +222,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: XiqEndUser
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -234,7 +252,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -247,7 +265,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_create_user_group(self, **kwargs):
@@ -261,10 +279,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.create_user_group(xiq_create_user_group_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 create user group    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -283,6 +306,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: XiqUserGroup
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -312,7 +336,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -325,7 +349,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_key_based_pcg_users(self, **kwargs):
@@ -339,10 +363,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.delete_key_based_pcg_users(policy_id, xiq_delete_key_based_pcg_users_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 delete key based pcg users    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -362,6 +391,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -391,7 +421,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -404,7 +434,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_pcg(self, **kwargs):
@@ -418,10 +448,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.delete_pcg(policy_id, ids, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 delete pcg    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -441,6 +476,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -470,7 +506,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -483,7 +519,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_ssid_user(self, **kwargs):
@@ -497,10 +533,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.delete_ssid_user(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 delete ssid user    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -519,6 +560,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -548,7 +590,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -561,7 +603,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_user_group(self, **kwargs):
@@ -575,10 +617,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.delete_user_group(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 delete user group    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -597,6 +644,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -626,7 +674,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -639,7 +687,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_email_keys(self, **kwargs):
@@ -653,10 +701,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.email_keys(policy_id, user_ids, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 email keys    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -676,6 +729,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -705,7 +759,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -718,7 +772,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_generate_keys(self, **kwargs):
@@ -732,10 +786,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.generate_keys(policy_id, user_ids, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 generate keys    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -755,6 +814,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -784,7 +844,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -797,7 +857,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_key_based_pcg_users(self, **kwargs):
@@ -811,10 +871,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.get_key_based_pcg_users(policy_id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 get key based pcg users    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -833,6 +898,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: list[XiqKeyBasedPcgUser]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -862,7 +928,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -875,7 +941,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_port_assignments(self, **kwargs):
@@ -889,10 +955,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.get_port_assignments(policy_id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 get port assignments    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -911,6 +982,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: XiqGetPortAssignmentDetailsResponse
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -940,7 +1012,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -953,7 +1025,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_email_templates(self, **kwargs):
@@ -967,10 +1039,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.list_email_templates(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list email templates    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -989,6 +1066,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: list[XiqEmailTemplate]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1018,7 +1096,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1031,7 +1109,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_end_users(self, **kwargs):
@@ -1045,10 +1123,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.list_end_users(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list end users    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1070,6 +1153,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: PagedXiqEndUser
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1099,7 +1183,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1112,7 +1196,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_key_based_private_client_groups(self, **kwargs):
@@ -1126,10 +1210,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.list_key_based_private_client_groups(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list key based private client groups    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1147,6 +1236,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: list[XiqKeyBasedPcg]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1176,7 +1266,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1189,7 +1279,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_sms_templates(self, **kwargs):
@@ -1203,10 +1293,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.list_sms_templates(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list sms templates    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1225,6 +1320,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: list[XiqSmsTemplate]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1254,7 +1350,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1267,7 +1363,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_user_groups(self, **kwargs):
@@ -1281,10 +1377,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.list_user_groups(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 list user groups    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1306,6 +1407,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: PagedXiqUserGroup
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1335,7 +1437,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1348,7 +1450,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_onboard_key_based_private_client_group(self, **kwargs):
@@ -1362,10 +1464,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.onboard_key_based_private_client_group(policy_id, xiq_onboard_key_based_pcg_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 onboard key based private client group    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1385,6 +1492,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1414,7 +1522,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1427,7 +1535,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_regenerate_end_user_password(self, **kwargs):
@@ -1441,10 +1549,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.regenerate_end_user_password(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 regenerate end user password    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1463,6 +1576,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: XiqRegenerateEndUserPasswordResponse
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1492,7 +1606,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1505,7 +1619,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_setup_key_based_private_client_group_network_policy(self, **kwargs):
@@ -1519,10 +1633,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.setup_key_based_private_client_group_network_policy(xiq_init_key_based_pcg_network_policy_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 setup key based private client group network policy    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1541,6 +1660,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1570,7 +1690,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1583,7 +1703,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_end_user(self, **kwargs):
@@ -1597,10 +1717,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.update_end_user(id, xiq_update_end_user_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 update end user    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1620,6 +1745,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: XiqEndUser
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1649,7 +1775,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1662,7 +1788,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_key_based_pcg_users(self, **kwargs):
@@ -1676,10 +1802,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.update_key_based_pcg_users(policy_id, xiq_update_key_based_pcg_users_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 update key based pcg users    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1699,6 +1830,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1728,7 +1860,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1741,7 +1873,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_user_group(self, **kwargs):
@@ -1755,10 +1887,15 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         >>> thread = api.update_user_group(id, xiq_update_user_group_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationUserManagementApi.py
         
                 update user group    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
         
@@ -1778,6 +1915,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
         :return: XiqUserGroup
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -1807,7 +1945,7 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -1820,6 +1958,6 @@ class XapiBaseConfigurationUserManagementApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

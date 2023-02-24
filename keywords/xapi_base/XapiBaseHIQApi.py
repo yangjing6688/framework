@@ -25,10 +25,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.create_organization(xiq_create_organization_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 create organization    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -47,6 +52,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: XiqOrganization
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -76,7 +82,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -89,7 +95,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_organization(self, **kwargs):
@@ -103,10 +109,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.delete_organization(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 delete organization    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -125,6 +136,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -154,7 +166,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -167,7 +179,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_creating_org_id(self, **kwargs):
@@ -181,10 +193,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.get_creating_org_id(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 get creating org id    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -202,6 +219,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: int
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -231,7 +249,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -244,7 +262,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_hiq_context(self, **kwargs):
@@ -258,10 +276,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.get_hiq_context(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 get hiq context    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -279,6 +302,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: XiqHiqContext
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -308,7 +332,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -321,7 +345,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_hiq_status(self, **kwargs):
@@ -335,10 +359,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.get_hiq_status(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 get hiq status    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -356,6 +385,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: XiqHiqStatus
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -385,7 +415,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -398,7 +428,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_reading_org_ids(self, **kwargs):
@@ -412,10 +442,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.get_reading_org_ids(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 get reading org ids    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -433,6 +468,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: list[int]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -462,7 +498,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -475,7 +511,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_organizations(self, **kwargs):
@@ -489,10 +525,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.list_organizations(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 list organizations    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -510,6 +551,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: list[XiqOrganization]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -539,7 +581,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -552,7 +594,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_rename_organization(self, **kwargs):
@@ -566,10 +608,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.rename_organization(id, body, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 rename organization    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -589,6 +636,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -618,7 +666,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -631,7 +679,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_set_creating_org_id(self, **kwargs):
@@ -645,10 +693,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.set_creating_org_id(body, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 set creating org id    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -667,6 +720,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -696,7 +750,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -709,7 +763,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_set_hiq_context(self, **kwargs):
@@ -723,10 +777,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.set_hiq_context(xiq_hiq_context, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 set hiq context    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -745,6 +804,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -774,7 +834,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -787,7 +847,7 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_set_reading_org_ids(self, **kwargs):
@@ -801,10 +861,15 @@ class XapiBaseHIQApi(XapiBase):
         >>> thread = api.set_reading_org_ids(request_body, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseHIQApi.py
         
                 set reading org ids    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseHIQApi import XapiBaseHIQApi
         
@@ -823,6 +888,7 @@ class XapiBaseHIQApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -852,7 +918,7 @@ class XapiBaseHIQApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -865,6 +931,6 @@ class XapiBaseHIQApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

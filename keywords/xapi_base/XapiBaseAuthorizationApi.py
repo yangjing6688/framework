@@ -25,10 +25,15 @@ class XapiBaseAuthorizationApi(XapiBase):
         >>> thread = api.check_permissions(xiq_check_permission_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
         
                 check permissions    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
         
@@ -47,6 +52,7 @@ class XapiBaseAuthorizationApi(XapiBase):
         :return: XiqCheckPermissionResponse
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -76,7 +82,7 @@ class XapiBaseAuthorizationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -89,7 +95,7 @@ class XapiBaseAuthorizationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_generate_api_token(self, **kwargs):
@@ -103,10 +109,15 @@ class XapiBaseAuthorizationApi(XapiBase):
         >>> thread = api.generate_api_token(xiq_generate_api_token_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
         
                 generate api token    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
         
@@ -125,6 +136,7 @@ class XapiBaseAuthorizationApi(XapiBase):
         :return: XiqGenerateApiTokenResponse
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -154,7 +166,7 @@ class XapiBaseAuthorizationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -167,7 +179,7 @@ class XapiBaseAuthorizationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_current_api_token_info(self, **kwargs):
@@ -181,10 +193,15 @@ class XapiBaseAuthorizationApi(XapiBase):
         >>> thread = api.get_current_api_token_info(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
         
                 get current api token info    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
         
@@ -202,6 +219,7 @@ class XapiBaseAuthorizationApi(XapiBase):
         :return: XiqApiTokenInfo
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -231,7 +249,7 @@ class XapiBaseAuthorizationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -244,7 +262,7 @@ class XapiBaseAuthorizationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_permissions(self, **kwargs):
@@ -258,10 +276,15 @@ class XapiBaseAuthorizationApi(XapiBase):
         >>> thread = api.list_permissions(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
         
                 list permissions    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
         
@@ -279,6 +302,7 @@ class XapiBaseAuthorizationApi(XapiBase):
         :return: str
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -308,7 +332,7 @@ class XapiBaseAuthorizationApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -321,6 +345,6 @@ class XapiBaseAuthorizationApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

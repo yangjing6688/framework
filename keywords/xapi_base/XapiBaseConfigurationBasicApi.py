@@ -25,10 +25,15 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> thread = api.create_vlan_profile(xiq_create_vlan_profile_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 create vlan profile    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
@@ -47,6 +52,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         :return: XiqVlanProfile
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -76,7 +82,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -89,7 +95,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_vlan_profile(self, **kwargs):
@@ -103,10 +109,15 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> thread = api.delete_vlan_profile(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 delete vlan profile    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
@@ -125,6 +136,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -154,7 +166,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -167,7 +179,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_vlan_profile(self, **kwargs):
@@ -181,10 +193,15 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> thread = api.get_vlan_profile(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 get vlan profile    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
@@ -203,6 +220,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         :return: XiqVlanProfile
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -232,7 +250,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -245,7 +263,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_vlan_profiles(self, **kwargs):
@@ -259,10 +277,15 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> thread = api.list_vlan_profiles(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 list vlan profiles    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
@@ -282,6 +305,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         :return: PagedXiqVlanProfile
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -311,7 +335,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -324,7 +348,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_update_vlan_profile(self, **kwargs):
@@ -338,10 +362,15 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         >>> thread = api.update_vlan_profile(id, xiq_update_vlan_profile_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationBasicApi.py
         
                 update vlan profile    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationBasicApi import XapiBaseConfigurationBasicApi
         
@@ -361,6 +390,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
         :return: XiqVlanProfile
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -390,7 +420,7 @@ class XapiBaseConfigurationBasicApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -403,6 +433,6 @@ class XapiBaseConfigurationBasicApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

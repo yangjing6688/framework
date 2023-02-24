@@ -25,10 +25,15 @@ class XapiBaseClientApi(XapiBase):
         >>> thread = api.get_client(id, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseClientApi.py
         
                 get client    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
         
@@ -49,6 +54,7 @@ class XapiBaseClientApi(XapiBase):
         :return: XiqClient
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -78,7 +84,7 @@ class XapiBaseClientApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -91,7 +97,7 @@ class XapiBaseClientApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_client_summary(self, **kwargs):
@@ -105,10 +111,15 @@ class XapiBaseClientApi(XapiBase):
         >>> thread = api.get_client_summary(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseClientApi.py
         
                 get client summary    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
         
@@ -131,6 +142,7 @@ class XapiBaseClientApi(XapiBase):
         :return: XiqClientSummary
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -160,7 +172,7 @@ class XapiBaseClientApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -173,7 +185,7 @@ class XapiBaseClientApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_client_usage(self, **kwargs):
@@ -187,10 +199,15 @@ class XapiBaseClientApi(XapiBase):
         >>> thread = api.get_client_usage(client_ids, start_time, end_time, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseClientApi.py
         
                 get client usage    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
         
@@ -211,6 +228,7 @@ class XapiBaseClientApi(XapiBase):
         :return: list[XiqClientUsage]
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -240,7 +258,7 @@ class XapiBaseClientApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -253,7 +271,7 @@ class XapiBaseClientApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_list_active_clients(self, **kwargs):
@@ -267,10 +285,15 @@ class XapiBaseClientApi(XapiBase):
         >>> thread = api.list_active_clients(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseClientApi.py
         
                 list active clients    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
         
@@ -297,6 +320,7 @@ class XapiBaseClientApi(XapiBase):
         :return: PagedXiqClient
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -326,7 +350,7 @@ class XapiBaseClientApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -339,6 +363,6 @@ class XapiBaseClientApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

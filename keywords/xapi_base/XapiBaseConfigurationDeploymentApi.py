@@ -25,10 +25,15 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
         >>> thread = api.deploy_config(xiq_deployment_request, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationDeploymentApi.py
         
                 deploy config    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationDeploymentApi import XapiBaseConfigurationDeploymentApi
         
@@ -47,6 +52,7 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
         :return: XiqDeploymentResponse
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -76,7 +82,7 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -89,7 +95,7 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_deploy_overview(self, **kwargs):
@@ -103,10 +109,15 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
         >>> thread = api.get_deploy_overview(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationDeploymentApi.py
         
                 get deploy overview    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationDeploymentApi import XapiBaseConfigurationDeploymentApi
         
@@ -124,6 +135,7 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
         :return: XiqDeploymentOverview
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -153,7 +165,7 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -166,7 +178,7 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_deploy_status(self, **kwargs):
@@ -180,10 +192,15 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
         >>> thread = api.get_deploy_status(device_ids, async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationDeploymentApi.py
         
                 get deploy status    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationDeploymentApi import XapiBaseConfigurationDeploymentApi
         
@@ -202,6 +219,7 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
         :return: dict(str, XiqDeploymentStatus)
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -231,7 +249,7 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -244,6 +262,6 @@ class XapiBaseConfigurationDeploymentApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 

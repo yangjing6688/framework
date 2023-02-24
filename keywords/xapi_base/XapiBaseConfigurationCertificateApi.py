@@ -25,10 +25,15 @@ class XapiBaseConfigurationCertificateApi(XapiBase):
         >>> thread = api.list_certificates(async_req=True)
         >>> result = thread.get()
         
+        **Note: The kwargs options are explained in the :param section below.
+        These can be placed in the kwargs dict as key / values pairs or 
+        passed into the function as key / value pairs as seprate arguments.
+        
             Robot:
                 Library    keywords/xapi_base/XapiBaseConfigurationCertificateApi.py
         
                 list certificates    **kwargs
+        
             Pytest:
                 from keywords.xapi_base.XapiBaseConfigurationCertificateApi import XapiBaseConfigurationCertificateApi
         
@@ -49,6 +54,7 @@ class XapiBaseConfigurationCertificateApi(XapiBase):
         :return: PagedXiqCertificate
                  If the method is called asynchronously,
                  returns the request thread.
+				-1 if there is a error (fault)
         """
 
 
@@ -78,7 +84,7 @@ class XapiBaseConfigurationCertificateApi(XapiBase):
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.failed(**kwargs)
+                        self.xapiHelper.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -91,6 +97,6 @@ class XapiBaseConfigurationCertificateApi(XapiBase):
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.xapiHelper.common_validation.fault(**kwargs)
                 return -1
 
