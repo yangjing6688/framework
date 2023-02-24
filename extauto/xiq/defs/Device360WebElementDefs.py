@@ -597,8 +597,8 @@ class Device360WebElementDefs:
 
     device360_configure_port_save_button = \
         {
-            #'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
-            'XPATH': '//button[@data-automation-tag="automation-port-config-save"] | //button[@data-automation-tag="automation-port-configuration-save-button"]',
+            'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
+            #'XPATH': '//button[@data-automation-tag="automation-port-config-save"] | //button[@data-automation-tag="automation-port-configuration-save-button" | //button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 

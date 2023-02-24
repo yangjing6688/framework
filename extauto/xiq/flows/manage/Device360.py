@@ -6478,7 +6478,6 @@ class Device360(Device360WebElements):
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
-
             def _check_that_port_type_is_closed():
                 if not self.get_close_port_type_box():
                     self.utils.print_info("Port type profile dialog has been closed")
@@ -6675,7 +6674,7 @@ class Device360(Device360WebElements):
                     self.utils.print_info(" The button close_port_type_box from policy  was found")
                     self.auto_actions.click(close_port_type_box)
                     self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
-                                         silent_failure=True, msg="Checking that create new port type profile has been"
+                                         silent_failure=True, msg="EDIT - Checking that create new port type profile has been"
                                                                   "dialog box has been closed...")
                 else:
                     self.utils.print_info(" The button close_port_type_box from policy was not found")
@@ -7438,6 +7437,7 @@ class Device360(Device360WebElements):
 
             get_pse_profile = self.get_select_element_port_type(element)
             if get_pse_profile:
+                print("Click - > Open dropbox")
                 self.auto_actions.click(get_pse_profile)
                 more_button_times_found = 0
                 while self.get_select_element_port_type('pse_more_button'):
