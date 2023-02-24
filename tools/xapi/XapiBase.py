@@ -162,7 +162,7 @@ class XapiBase(object):
                     if device['mac_address'] == device_mac:
                         device_id = device['id']
                         self.utils.print_info(f"Setting global value for device [mac]: {device_mac}:{device_id}")
-                        self.xapiHelper.set_xapi_global_device(device_serial, device_id)
+                        self.xapiHelper.set_xapi_global_device(device_mac, device_id)
                         break
         return device_id
 
