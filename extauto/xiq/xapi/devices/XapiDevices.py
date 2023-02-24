@@ -321,15 +321,15 @@ class XapiDevices(XapiBase):
                     break
 
             if device_found == -1:
-                kwargs['pass_msg'] = f"Device was delete with serial: {device_serial}"
+                kwargs['pass_msg'] = f"Device was deleted with serial: {device_serial}"
                 self.xapiHelper.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = f"Device was found with serial: {device_serial}"
                 self.xapiHelper.common_validation.failed(**kwargs)
-                return 1
+                return -1
 
-            kwargs['pass_msg'] = "Device has been delete"
+            kwargs['pass_msg'] = "Device has been deleted"
             self.xapiHelper.common_validation.passed(**kwargs)
             return 1
 
