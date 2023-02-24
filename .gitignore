@@ -19,6 +19,7 @@ launch.json
 settings.json
 .env
 .venv
+.wenv
 venv
 /libspecs/
 *.libspecs

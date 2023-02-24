@@ -20,10 +20,6 @@ class JobsSuitesVersions():
     string_bytes = base64.b64decode(base64_bytes)
     decoded_magic_key = string_bytes.decode("ascii")
     decoded_pat,base_url = decoded_magic_key.split('#')
-
-    # TODO: Remove this: For local testing only
-    base_url = 'http://vossbld-6.extremenetworks.com:8087'
-
     test_version_url = base_url + '/tbedmgr/testsuites/storeversioninfo'
 
     test_headers = {
