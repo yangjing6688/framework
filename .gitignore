@@ -21,6 +21,7 @@ settings.json
 /build
 .env
 .venv
+.wenv
 venv
 /libspecs/
 *.libspecs

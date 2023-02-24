@@ -535,7 +535,7 @@ class XiqVerifications:
         for configuration in configuration_list:
 
             vlans_found = []
-            vlan_list_config = self.utils.get_regexp_matches(configuration, "(\d\d\d\d)", 1)
+            vlan_list_config = self.utils.get_regexp_matches(configuration, r"(\d\d\d\d)", 1)
 
             for vlan in range(int(vlan_range.split('-')[0]), int(vlan_range.split('-')[1]) + 1):
 
