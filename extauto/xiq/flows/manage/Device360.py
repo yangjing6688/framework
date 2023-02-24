@@ -4455,9 +4455,9 @@ class Device360(Device360WebElements):
 
         port_name_el = self.dev360.get_device360_port_leftclick_interface_name()
         port_mode_el = self.dev360.get_device360_port_leftclick_port_mode()
-        while not port_mode_el.text == '':
-            sleep(2)
-            port_mode_el = self.dev360.get_device360_port_leftclick_port_mode()
+        # while not port_mode_el.text == '':
+        #     sleep(2)
+        #     port_mode_el = self.dev360.get_device360_port_leftclick_port_mode()
         port_access_vlan_el = self.dev360.get_device360_port_leftclick_access_vlan()
         port_tagged_vlan_el = self.dev360.get_device360_port_leftclick_tagged_vlan()
         port_status_el = self.dev360.get_device360_port_leftclick_port_status()
@@ -11883,15 +11883,13 @@ class Device360(Device360WebElements):
         """
         rows = xiq.xflowscommonDevices.devices_web_elements.get_port_details_info()
         if dut.cli_type.upper() == 'VOSS':
-            matchers = ['Type', 'LACP Status', 'Port Mode', 'Port Status',
+            matchers = ['Port Name', 'Type', 'LACP Status', 'Port Mode', 'Port Status',
                         'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
-                        'Traffic Sent', 'Unicast Pkts Received', 'Unicast Pkts Sent', 'Multicast Pkts Received',
-                        'Multicast Pkts Sent', 'Broadcast Pkts Received', 'Broadcast Pkts Sent', 'Port Errors',
-                        'STP Port State', 'Port Speed']
+                        'Traffic Sent', 'Port Errors', 'STP Port State', 'Port Speed']
         if dut.cli_type.upper() == 'EXOS':
             matchers = ['Port Name', 'Type', 'Link Aggregation', 'LAG Logical Port', 'Link Aggregation Status', 'Port Mode', 'Port Status',
                         'Transmission Mode', 'Access VLAN', 'Tagged VLAN(s)', 'LLDP Neighbor', 'Traffic Received',
-                        'Traffic Sent', 'Port Errors','STP Port State','Power Used', 'Port Speed']
+                        'Traffic Sent', 'Port Errors', 'STP Port State', 'Port Speed']
         if rows:
             xiq.xflowscommonDevices.utils.print_info(f"Searching {len(rows)} rows")
             for row in rows:
@@ -11901,6 +11899,7 @@ class Device360(Device360WebElements):
                     test = any(i in string for string in xiq.xflowscommonDevices.format_row(row.text))
                     if test == False:
                         # return -1
+                        print(f"Keyword failed -i: {i}")
                         kwargs['fail_msg'] = "'list_port_element()' failed."
                         self.common_validation.fault(**kwargs)
             kwargs['pass_msg'] = "Success"
