@@ -421,7 +421,7 @@ class SwitchTemplate(object):
                         if e.is_displayed():
                             self.auto_actions.send_keys(e, value)
                 else:
-                   self.auto_actions.send_keys(el, value)
+                    self.auto_actions.send_keys(el, value)
             elif (key == 'status'):
                 el = self.legacy_port_type_editor.get_status()
                 if (value == 'Disable'):
@@ -2366,7 +2366,7 @@ class SwitchTemplate(object):
             for eachslot in slots:
 
                 if "SwitchEngine" in eachslot:
-                    mat = re.match('(.*)(Engine)(\d+)(.*)', eachslot)
+                    mat = re.match(r'(.*)(Engine)(\d+)(.*)', eachslot)
                     model_md = mat.group(1) + ' ' + mat.group(2) + ' ' + mat.group(3) + mat.group(4).replace('_', '-')
                     sw_model = 'Switch Engine ' + mat.group(3).split('_')[0] + '-Series-Stack'
                 else:
@@ -2378,7 +2378,7 @@ class SwitchTemplate(object):
             model_units = ','.join(model_list)
             return sw_model,model_units
         elif "Engine" in model:
-            mat = re.match('(.*)(Engine)(.*)', model)
+            mat = re.match(r'(.*)(Engine)(.*)', model)
             sw_model = mat.group(1) + ' ' + mat.group(2) + ' ' + mat.group(3).replace('_', '-')
 
         elif "G2" in model:

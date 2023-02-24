@@ -349,22 +349,22 @@ class NetworkElementPoeGenKeywords(NetworkElementKeywordBaseClass):
         """
 
         """
-        following try blocks are added to avoid exceptions when the values inside the 
+        following try blocks are added to avoid exceptions when the values inside the
         block is not required for the current test execution
-        
+
         example: oid_index is not required when running exos cli test
         """
         try:
             oid_index = StringUtils().get_slot_from_port_string(
                     ports) + "." + SnmpUtils().get_port_index_from_name(device_name, ports)
 
-        except:
+        except Exception:
             oid_index = ''
 
         try:
             power_priority_value = SnmpUtils().poe_priority(power_priority)
 
-        except:
+        except Exception:
             power_priority_value = ''
 
         args = {"port": ports,
@@ -400,12 +400,12 @@ class NetworkElementPoeGenKeywords(NetworkElementKeywordBaseClass):
 
         try:
             oid_index = SnmpUtils().get_port_index_from_name(device_name, ports)
-        except:
+        except Exception:
             oid_index = ''
 
         try:
             detect_type_value  = SnmpUtils().poe_detect_type(detect_type)
-        except:
+        except Exception:
             detect_type_value = ''
 
         args = {"port": ports,
