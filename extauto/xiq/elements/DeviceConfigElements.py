@@ -467,6 +467,9 @@ class DeviceConfigElements(DeviceConfigDefs):
     def get_default_wireless_wifi1_radio_profile_drop_down(self):
         return self.weh.get_element(self.wireless_wifi1_default_radio_profile_drop_down)
 
+    def get_default_wireless_wifi0_radio_operating_mode_drop_down(self):
+        return self.weh.get_element(self.wireless_wifi0_default_radio_operating_mode_drop_down)
+
     def get_default_wireless_wifi0_radio_profile_drop_down(self):
         return self.weh.get_element(self.wireless_wifi0_default_radio_profile_drop_down)
 
