@@ -1918,6 +1918,7 @@ class CommonObjects(object):
             if wifi0_profile['radio_status'] == 'Off':
                 return wifi0_profile
         self.auto_actions.scroll_down()
+        sleep(3)
 
         if radio_operating_mode != 'None':
             wifi0_profile['operating_mode'] = self.cobj_web_elements.get_common_object_wifi0_radio_operating_mode_combox().text
