@@ -1747,6 +1747,16 @@ class Devices:
                 kwargs['fail_msg'] = "Fail Onboarded - License limit exceeded for managed device"
                 self.common_validation.failed(**kwargs)
                 return -1
+
+            elif "A stake record of the device was found in the redirector." in dialog_message:
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
+                self.utils.print_info("EXIT LEVEL: ",BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
+                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+
+                kwargs['fail_msg'] = "Fail Onboarded - A stake record of the device was found in the redirector."
+                self.common_validation.failed(**kwargs)
+                return -1
+
             else:
                 kwargs['fail_msg'] = f"Dialog Message: {dialog_message}"
                 self.common_validation.failed(**kwargs)
