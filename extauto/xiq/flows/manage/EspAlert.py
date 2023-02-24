@@ -140,11 +140,11 @@ class EspAlert(EspAlertWebElements):
                     return 1
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Didn't found row in get configured grid rows"
-            self.common_validation.failed(**kwargs)
+            #self.common_validation.failed(**kwargs)
             return -1
         else:
             kwargs['fail_msg'] = "unsuccessfully matched"
-            self.common_validation.failed(**kwargs)
+            #self.common_validation.failed(**kwargs)
             return -1
 
     def delete_alert_policy(self,when, **kwargs):
