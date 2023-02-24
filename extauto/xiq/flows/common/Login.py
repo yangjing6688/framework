@@ -717,6 +717,7 @@ class Login:
         :return: xiq_version
         """
 
+        # This isn't supported yet
         # if self.xapiHelper.is_xapi_enabled():
         #     return self.xapiLogin.xapi_capture_xiq_version(**kwargs)
 
