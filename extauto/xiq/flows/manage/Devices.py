@@ -26,7 +26,6 @@ from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
-from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from extauto.xiq.xapi.devices.XapiDevices import XapiDevices
 from tools.xapi.XapiHelper import XapiHelper
@@ -58,7 +57,6 @@ class Devices:
         self.web_element_ctrl = WebElementController()
         self.web_elements_handler = WebElementHandler()
         self.cloud_driver = CloudDriver()
-        self.xapi = Xapi() # Old XAPI, the new one below uses the customer exposed XAPI calls.
         self.xapiHelper = XapiHelper()
         self.xapiDevices = XapiDevices()
 
