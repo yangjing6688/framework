@@ -309,11 +309,16 @@ class XapiDevices(XapiBase):
             self.xapiHelper.delete_xapi_global_device(device_serial)
 
             device_found = self._xapi_search_for_device_id(device_serial=device_serial)
+            retries = 0
             while device_found == 1:
-                self.utils.print_info('Device was found, sleep for 30 seconds')
-                sleep(30)
-                self.utils.print_info('Checking to make sure the device was deleted')
-                device_found = self._xapi_search_for_device_id(device_serial=device_serial)
+                if retries > 120:
+                    retries = retries + 1
+                    self.utils.print_info('Device was found, sleep for 5 seconds')
+                    sleep(5)
+                    self.utils.print_info('Checking to make sure the device was deleted')
+                    device_found = self._xapi_search_for_device_id(device_serial=device_serial)
+                else:
+                    break
 
             if device_found == -1:
                 kwargs['pass_msg'] = f"Device was delete with serial: {device_serial}"
