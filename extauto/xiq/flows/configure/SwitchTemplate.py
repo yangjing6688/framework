@@ -430,7 +430,7 @@ class SwitchTemplate(object):
                         if e.is_displayed():
                             self.auto_actions.send_keys(e, value)
                 else:
-                   self.auto_actions.send_keys(el, value)
+                    self.auto_actions.send_keys(el, value)
             elif (key == 'status'):
                 el = self.legacy_port_type_editor.get_status()
                 if (value == 'Disable'):
@@ -2481,7 +2481,7 @@ class SwitchTemplate(object):
             for eachslot in slots:
 
                 if "SwitchEngine" in eachslot:
-                    mat = re.match('(.*)(Engine)(\d+)(.*)', eachslot)
+                    mat = re.match(r'(.*)(Engine)(\d+)(.*)', eachslot)
                     model_md = mat.group(1) + ' ' + mat.group(2) + ' ' + mat.group(3) + mat.group(4).replace('_', '-')
                     sw_model = 'Switch Engine ' + mat.group(3).split('_')[0] + '-Series-Stack'
                 else:
@@ -2493,7 +2493,7 @@ class SwitchTemplate(object):
             model_units = ','.join(model_list)
             return sw_model,model_units
         elif "Engine" in model:
-            mat = re.match('(.*)(Engine)(.*)', model)
+            mat = re.match(r'(.*)(Engine)(.*)', model)
             sw_model = mat.group(1) + ' ' + mat.group(2) + ' ' + mat.group(3).replace('_', '-')
 
         elif "G2" in model:
@@ -3505,7 +3505,7 @@ class SwitchTemplate(object):
             self.common_validation.fault(**kwargs)
             return -1
 
-        kwargs["pass_msg"] = "Successfully clicked the verify_upload_cfg_auto button"
+        kwargs["pass_msg"] = "Successfully found 'Upload configuration automatically' button."
         self.common_validation.passed(**kwargs)
 
         verify_upload_cfg_auto = verify_upload_cfg_auto.is_selected()
@@ -3533,14 +3533,14 @@ class SwitchTemplate(object):
         """
         enable_auto_revert = self.sw_template_web_elements.get_sw_template_auto_revert_enabled()
 
-        if not enable_auto_revert or not enable_auto_revert.is_displayed():
+        if not enable_auto_revert:
             kwargs["fail_msg"] = "verify_enable_auto_revert_option() failed. Enable Auto Revert button is not present!"
             self.common_validation.fault(**kwargs)
             return -1
-
+        status = enable_auto_revert.get_attribute("disabled")
         kwargs["pass_msg"] = "Enable Auto Revert button is present!"
         self.common_validation.passed(**kwargs)
-        return 1
+        return status
 
     def set_upload_config_auto_button(self, **kwargs):
         """
