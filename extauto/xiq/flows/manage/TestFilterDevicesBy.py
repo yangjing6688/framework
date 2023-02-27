@@ -94,7 +94,6 @@ class TestFilterDevicesBy():
                   filter device1 by ssid1 in policy1 and filter device2 by ssid2 in policy2
                   Return valuesAer: "1" means filter successfully,"-1" means filter failed
         """
-        from collections import defaultdict
         sn_list, policy_list = self.FilterManageDevices.check_available_devices()
         if sn_list == -1: return -1, policy_list
         policy_ssid1, ssid_name  = self.net_policy.get_all_ssids_in_policy(policy_list[0], new_ssid=False, special_char=True)
