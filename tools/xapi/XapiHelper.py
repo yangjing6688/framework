@@ -83,7 +83,7 @@ class XapiHelper():
             else:
                 return xapi_url
         except Exception:
-            print('XAPI url was not set, please make sure the xapi_url is set in the topo file')
+            raise Exception('XAPI url was not set, please make sure the xapi_url is set in the topo file')
             return None
 
     def set_xapi_url(self, value):
