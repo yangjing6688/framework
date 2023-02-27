@@ -2390,6 +2390,312 @@ class SwitchTemplate(object):
         return  sw_model,-1
 
 
+    def select_sw_template_device_config_forw_delay(self, nw_policy, sw_template, **kwargs):
+        """
+        - This Keyword will Select the Switch Template on Network Policy and change the forward delay time from device configuration
+        - Keyword Usage
+         - ``Select SW Template  ${NW_POLICY_NAME}  ${SW_TEMPLATE_NAME}``
+
+        :param nw_policy: Name of the Network Policy to select Switch Template
+        :param sw_template: Name of the sw_template
+        :return: 1 If successfully Selected Switch template
+        """
+
+        self._set_nw_policy_if_needed()
+
+        self.nw_policy.navigate_to_np_edit_tab(nw_policy)
+        sleep(5)
+        print("Click on Device Template tab button")
+        self.auto_actions.click_reference(
+            self.device_template_web_elements.get_add_device_template_menu)
+        sleep(2)
+
+        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        if tab.is_displayed():
+            print("Click on Switch Templates tab")
+            self.auto_actions.click_reference(tab)
+            sleep(2)
+
+        print("Switch Template: " + sw_template)
+        row = self.get_sw_template_row_hyperlink(sw_template)
+
+        self.auto_actions.click(row)
+        sleep(5)
+
+        self.auto_actions.click_reference(
+            self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down)
+        sleep(2)
+
+        container = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_container()
+        container_val = container.text[:2]
+        print(f"Default STP forward delay value in device template is {container_val}")
+
+        self.auto_actions.click_reference(
+            self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_item16)
+        container = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_container()
+        container_val = container.text[:2]
+        delay_container = container_val
+
+        sleep(3)
+        print("Get Template Save Button")
+        save_btns = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
+
+        rc = -1
+        for save_btn in save_btns:
+            if save_btn.is_displayed():
+                print("Click on the save template button")
+                self.auto_actions.click(save_btn)
+                sleep(10)
+                break;
+
+        sleep(3)
+        print("Click on network policy exit button")
+        self.auto_actions.click_reference(self.np_web_elements.get_np_exit_button)
+        sleep(2)
+
+        kwargs['pass_msg'] = f"select_sw_template_device_config_forw_delay() passed, delay container is: {delay_container}"
+        self.common_validation.passed(**kwargs)
+
+        return delay_container
+
+    def press_upload_config_and_upgr_firm_button(self, nw_policy, sw_template, **kwargs):
+        """
+        - This Keyword will Select the Switch Template on Network Policy and change the forward delay time from device configuration
+        - Keyword Usage
+         - ``Select SW Template  ${NW_POLICY_NAME}  ${SW_TEMPLATE_NAME}``
+
+        :param nw_policy: Name of the Network Policy to select Switch Template
+        :param sw_template: Name of the sw_template
+        :return: 1 If successfully Selected Switch template
+        """
+
+        self._set_nw_policy_if_needed()
+
+        self.nw_policy.navigate_to_np_edit_tab(nw_policy)
+        sleep(5)
+        print("Click on Device Template tab button")
+        self.auto_actions.click_reference(
+            self.device_template_web_elements.get_add_device_template_menu)
+        sleep(2)
+
+        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        if tab.is_displayed():
+            print("Click on Switch Templates tab")
+            self.auto_actions.click_reference(tab)
+            sleep(2)
+
+        print("Switch Template: " + sw_template)
+        row = self.get_sw_template_row_hyperlink(sw_template)
+
+        self.auto_actions.click(row)
+        sleep(5)
+
+        print(" Go to the advanced settings tab ")
+
+        ok = 1
+        if self.auto_actions.click_reference(
+                self.sw_template_web_elements.get_sw_template_adv_settings_tab) == -1:
+            print("Unable to click on Verify adanced settings button")
+            ok = 0
+        else:
+            print("Click on Verify adanced settings button")
+
+        if ok != 1:
+            kwargs['fail_msg'] = f"'press_upload_config_and_upgr_firm_button()' failed. Unable to click on Verify adanced settings button"
+            self.common_validation.failed(**kwargs)
+
+        self.auto_actions.click_reference(
+            self.sw_template_web_elements.get_sw_template_adv_settings_tab)
+
+        sleep(2)
+
+        print("Click on Upgrade device firmware upon device authentication button")
+        self.auto_actions.click_reference(
+            self.sw_template_web_elements.get_sw_template_adv_settings_upgrade_device_on_off_button)
+
+        print("Click on upload configuration button")
+        self.auto_actions.click_reference(
+            self.sw_template_web_elements.get_sw_template_adv_settings_upload_configuration_on_off_button)
+
+        sleep(3)
+
+        print("Get Template Save Button")
+        save_btns = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
+
+        rc = -1
+        for save_btn in save_btns:
+            if save_btn.is_displayed():
+                print("Click on the save template button")
+                self.auto_actions.click(save_btn)
+                sleep(10)
+
+                break;
+        sleep(3)
+        print("Click on network policy exit button")
+        self.auto_actions.click_reference(self.np_web_elements.get_np_exit_button)
+
+        sleep(2)
+
+        kwargs['pass_msg'] = f"'press_upload_config_and_upgr_firm_button()' successful"
+        self.common_validation.passed(**kwargs)
+        return 1
+
+    def get_latest_firmware_version_from_switch_template(self, sw_model):
+        '''
+        Return the latest image version present in create switch template option
+
+        :param sw_model: the model of the switch passed in the swith template format
+        :return: the latest image availabe in the create swith template advanced settings tab
+        '''
+        self.navigator.navigate_to_switch_templates()
+        add_button = self.device_template_web_elements.get_switch_template_add_button()
+        if not add_button:
+            kwargs["fail_msg"] = "Unable to locate add button"
+            self.common_validation.fault(**kwargs)
+            return -1
+        self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_add_button)
+
+        self.utils.print_info("Enter " + sw_model + " into filter text field")
+        device_switch_filter_text = self.device_template_web_elements.get_device_switch_template_menue_filter()
+        if not device_switch_filter_text:
+            kwargs["fail_msg"] = "Unable to locate filter text field"
+            self.common_validation.fault(**kwargs)
+            return -1
+        self.auto_actions.send_keys(device_switch_filter_text, sw_model)
+        sleep(4)
+
+        self.utils.print_info("Select " + sw_model + "from the model list")
+        device_switch_template_list = self.device_template_web_elements.get_switch_template_platform_from_drop_down()
+
+        for dev_sw_templ in device_switch_template_list:
+            self.auto_actions.click(dev_sw_templ)
+
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_tab)
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_upgrade_device_on_off_button)
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_upgr_firm_specific_button)
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_download_specific_firmware_drop_down_button)
+
+
+        # Get all the images from drop down list
+        specific_firmware_items = self.sw_template_web_elements.get_sw_template_adv_settings_download_specific_firmware_drop_down_items()
+        sleep(2)
+
+        arm_templ = re.compile(r"Switch\sEngine\s(5320|5420|5520)")
+        x_templ = re.compile(r"X4[3-6]0-G2")
+        lite_templ = re.compile(r"X435")
+        onie_templ = re.compile(r"(X465|Switch\sEngine\s5720)")
+
+        img_pattern = ""
+        if arm_templ.match(sw_model) is not None:
+            prefix = "_arm"
+        elif x_templ.match(sw_model) is not None:
+            prefix = "X"
+        elif lite_templ.match(sw_model) is not None:
+            prefix = "lite"
+        elif onie_templ.match(sw_model) is not None:
+            img_pattern = r"onie-.*\.x86_64.xos"
+        else:
+            kwargs['fail_msg'] = f"'select_specific_firmware_version()' failed. Switch model {sw_model} is invalidd"
+            self.common_validation.fault(**kwargs)
+
+        if img_pattern == "":
+            img_pattern = f"summit{prefix}" + r"-.*\.xos"
+
+        if specific_firmware_items is None:
+            kwargs['fail_msg'] = f"'select_specific_firmware_version()' failed. No images present in drop down list"
+            self.common_validation.fault(**kwargs)
+
+        latest_image_version = specific_firmware_items[-1].text
+
+        pattern = re.compile(img_pattern)
+        if pattern.match(latest_image_version) is None:
+            kwargs[
+                'fail_msg'] = f"'get_latest_firmware_version()' failed. Image {latest_image_version} doesn't correspond with current template"
+            self.common_validation.fault(**kwargs)
+
+        return latest_image_version
+
+    def select_specific_firmware_version(self, sw_model, current_image_version=None, select_current=False, **kwargs):
+        """
+        - Select a specific image from the Upgrade firmware menu in Switch Template advanced configuration tab and check that
+        all the present images are valid images for the give dut
+
+        :param select_current:
+        :param sw_model: the model of the switch. Eg
+        :param current_image_version: the current image version
+        :return: If the selection was successful
+        """
+        print("Click on upgrade to the specific device firmware version drop down")
+
+        # Expand on drop down list
+        self.auto_actions.click_reference(
+            self.sw_template_web_elements.get_sw_template_adv_settings_download_specific_firmware_drop_down_button)
+
+        # Get all the images from drop down list
+        specific_firmware_items = self.sw_template_web_elements.get_sw_template_adv_settings_download_specific_firmware_drop_down_items()
+        sleep(2)
+
+        arm_templ = re.compile(r"Switch\sEngine\s(5320|5420|5520)")
+        x_templ = re.compile(r"X4[3-6]0-G2")
+        lite_templ = re.compile(r"X435")
+        onie_templ = re.compile(r"(X465|Switch\sEngine\s5720)")
+        prefix = ""
+        img_pattern = ""
+        if arm_templ.match(sw_model) is not None:
+            prefix = "_arm"
+        elif x_templ.match(sw_model) is not None:
+            prefix = "X"
+        elif lite_templ.match(sw_model) is not None:
+            prefix = "lite"
+        elif onie_templ.match(sw_model) is not None:
+            img_pattern = r"onie-.*\.x86_64.xos"
+        else:
+            kwargs['fail_msg'] = f"'select_specific_firmware_version()' failed. Switch model {sw_model} is invalid."
+            self.common_validation.fault(**kwargs)
+
+        if img_pattern == "":
+            img_pattern = f"summit{prefix}" + r"-.*\.xos"
+
+        if specific_firmware_items is None:
+            kwargs['fail_msg'] = f"'select_specific_firmware_version()' failed. No images present in drop down list"
+            self.common_validation.fault(**kwargs)
+
+        this_image_version = ''
+        for item in specific_firmware_items:
+            # Verify if all images are exos valid
+            pattern = re.compile(img_pattern)
+
+            if pattern.match(item.text) is None:
+                kwargs['fail_msg'] = f"'select_specific_firmware_version()' failed. Image {item.text} doesn't correspond with current template"
+                self.common_validation.fault(**kwargs)
+
+            if current_image_version:
+                if select_current:
+                    if current_image_version in item.text:
+                        this_image_version = item
+                        print(f"Image {item.text} was selected")
+                        break
+                else:
+                    if current_image_version not in item.text:
+                        this_image_version = item
+                        print(f"Image {item.text} was selected")
+                        break
+
+        if current_image_version and this_image_version != '':
+            print("Selected image version is:" + str(this_image_version.text))
+            self.auto_actions.click(this_image_version)
+        elif len(specific_firmware_items) > 0:
+            self.auto_actions.click_reference(specific_firmware_items[0])
+        else:
+            kwargs[
+                'fail_msg'] = f"'select_specific_firmware_version()' failed. No images present in drop down liste"
+            self.common_validation.fault(**kwargs)
+
+        kwargs['pass_msg'] = f"Selected firmware version is: {this_image_version}"
+        self.common_validation.passed(**kwargs)
+
+        return True
+
     def create_switching_network(self, policy, switch_profile, **kwargs):
         """
         - Configure switching template options
@@ -4187,3 +4493,103 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
         kwargs["pass_msg"] = f"Successfully removed {ports} from lag {main_lag_port}"
         self.common_validation.passed(**kwargs)
+
+    def device_templ_advanced_settings(self, nw_policy, sw_template_name, sw_model='Default', upgrade_device_upon_auth=False,
+                                       current_image_version=False, upload_auto=False, select_current=False, **kwargs):
+        """
+        - Checks the given switch template present already in the switch Templates Grid
+        - If it is not there add to the sw_template
+
+        - Keyword Usage
+        - ``Add SW Template  ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
+
+        :param nw_policy: network policy
+        :param sw_model: Switch Model ie SR2348P
+        :param sw_template_name: Switch Template Name ie template_SR2348P
+        :param upgrade_device_upon_auth: if True Upgrade device upon authentication will be set to On
+        :param current_image_version: if present device firmware version upgrade will be done to a version that is
+                                     different to the one passed, if False, firmware will be the latest by default
+        :param upload_auto: if True, upload configuration automatically will be set to On
+        :param select_current: if True, the firmware upgrade version will be the current version of the dut
+        :return: 1 if Switch Template Configured Successfully else -1
+        """
+        self.navigator.navigate_to_switch_templates()
+        if self.select_adv_settings_tab(nw_policy, sw_template_name) == -1:
+            kwargs['fail_msg'] = "Unable to navigate to 'Advanced Settings'."
+            self.common_validation.fault(**kwargs)
+        if upgrade_device_upon_auth:
+            self.utils.print_info("Verify if the Upgrade device firmware upon device authentication button "
+                                  "is off by default")
+            if self.sw_template_web_elements.get_sw_template_adv_settings_upgrade_device_on_off_button().is_selected():
+                kwargs['fail_msg'] = "The 'Upgrade device firmware upon device authentication' button is not off by default."
+            self.utils.print_info("Click on Upgrade device firmware upon device authentication button")
+            self.auto_actions.click_reference(
+                self.sw_template_web_elements.get_sw_template_adv_settings_upgrade_device_on_off_button)
+
+            sleep(3)
+            if current_image_version:
+                if not self.sw_template_web_elements.get_sw_template_adv_settings_upgr_firm_specific_button():
+                    kwargs['fail_msg'] = "Unable to locate 'Upgrade firmware to the specific version button'"
+                    self.common_validation.fault(**kwargs)
+                else:
+                    self.utils.print_info("Click on Upgrade firmware to the specific version button")
+                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_upgr_firm_specific_button)
+
+                if not self.select_specific_firmware_version(sw_model, current_image_version, select_current):
+                    kwargs['fail_msg'] = "Selection of a specific firmware image failed"
+                    self.common_validation.fault(**kwargs)
+
+            else:
+                if not self.sw_template_web_elements.get_sw_template_adv_settings_upgr_firm_latest_button():
+                    kwargs['fail_msg'] = "Unable to locate 'Upgrade firmware to the latest version button'"
+                    self.common_validation.fault(**kwargs)
+                else:
+                    self.utils.print_info("Click on Upgrade firmware to the latest version button")
+                    self.auto_actions.click_reference(
+                        self.sw_template_web_elements.get_sw_template_adv_settings_upgr_firm_latest_button)
+
+        if upload_auto:
+            self.utils.print_info("Verify if the Upload Configuration button is off by default")
+            if not self.sw_template_web_elements.get_sw_template_adv_settings_upload_configuration_on_off_button():
+                kwargs['fail_msg'] = "Unable to locate 'Upload configuration automatically' button"
+                self.common_validation.fault(**kwargs)
+
+            elif self.sw_template_web_elements.get_sw_template_adv_settings_upload_configuration_on_off_button().is_selected():
+                kwargs['fail_msg'] = "The 'Upload Configuration' button is not off by default"
+                self.common_validation.fault(**kwargs)
+
+            else:
+                self.utils.print_info("Click on Upload configuration automatically button")
+                self.auto_actions.click_reference(
+                    self.sw_template_web_elements.get_sw_template_adv_settings_upload_configuration_on_off_button)
+
+        sleep(1)
+        self.utils.print_info("Get Template Save Button")
+        save_btns = self.sw_template_web_elements.get_sw_template_save_button()
+
+        rc = -1
+        for save_btn in save_btns:
+            if save_btn.is_displayed():
+                self.utils.print_info("Click on the save template button")
+                self.auto_actions.click(save_btn)
+                self.screen.save_screen_shot()
+                tool_tip_text = tool_tip.tool_tip_text
+                self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
+
+                def _is_sw_template_available():
+                    return self.get_sw_template_row(sw_template_name)
+
+                self.utils.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
+
+                self.screen.save_screen_shot()
+                rc = 1
+                break
+
+        self.utils.print_info("Click on network policy exit button")
+        self.auto_actions.click_reference(self.np_web_elements.get_np_exit_button)
+        sleep(2)
+
+        kwargs['pass_msg'] = f"add_sw_template() for '{sw_model}' successful "
+        self.common_validation.passed(**kwargs)
+
+        return rc

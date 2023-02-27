@@ -35,7 +35,7 @@ class DialogWebElementsDefinitions:
 
     confirm_yes_button = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='yesBtn']",
+            'XPATH': "//*[@data-automation-tag='automation-confirm-message-yes-button']",
             'wait_for': 5
         }
 
