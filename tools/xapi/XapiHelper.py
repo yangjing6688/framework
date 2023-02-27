@@ -73,17 +73,18 @@ class XapiHelper():
     def get_xapi_url(self):
         """
             Gets the xapi URL
-        :return: the xpai URL or throws an exception if it is not set
+        :return: the xpai URL or returns None if it is not set
         """
         try:
-            xapi_url = self.builtin.get_variable_value("${XAPI_URL}")
+            xapi_url = self.builtin.get_variable_value("${XAPI_URL}", default=None)
             if not xapi_url:
-                raise Exception('XAPI url was not set, please use the keyword "set_xapi_url" method in the XapiHelper class to set the XAPI URL')
+                print('XAPI url was not set, please use the keyword make sure the xapi_url is in the topo file')
+                return None
             else:
                 return xapi_url
         except Exception:
-            raise Exception(
-                'XAPI url was not set, please use the keyword "set_xapi_url" method in the XapiHelper class to set the XAPI URL')
+            print('XAPI url was not set, please use the keyword make sure the xapi_url is in the topo file')
+            return None
 
     def set_xapi_url(self, value):
         """
