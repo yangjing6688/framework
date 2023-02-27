@@ -601,3 +601,8 @@ def roboIzeAllConfiguration(config):
             # robotize keys that have not already be done.
             robotKey = '${' + key + '}'
             config[robotKey] = value
+
+            # upper version
+            robotKey = '${' + key.upper() + '}'
+            config[robotKey] = value
+
