@@ -1829,6 +1829,9 @@ class Device360WebElements(Device360WebElementDefs):
         return results
 
 
+    ### Commented on 1/18/23 because this is a duplicate of a function below.
+    ### The second function to be declared will be used. Thus, this function was commented
+    ### Uncommented on 2/27/23 because this function contains table scroll
     def get_device360_port_table_rows(self):
         scroll_element = self.get_device360_ports_table_scroll()
         if scroll_element:
@@ -1837,17 +1840,13 @@ class Device360WebElements(Device360WebElementDefs):
             auto_actions.click(scroll_element)
             for _ in range(10):
                 auto_actions.scroll_down()
-        table_rows = self.get_d360_switch_ports_table_grid_rows()
-        assert table_rows, "Did not find the rows of the ports table"
-        table_rows[0].location_once_scrolled_into_view
-        return [
-            row for row in table_rows if not
-            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
-        ]
+        return self.get_d360_switch_ports_table_grid_rows()
 
     def get_device360_ports_table_pagination_sizes(self):
         return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
 
+    ### Commented on 1/18/23 because this is a duplicate of a function below.
+    ### The second function to be declared will be used. Thus, this function was commented
     #
     # def get_device360_ports_table(self):
     #     header_row = self.get_device360_ports_description_table_row()
