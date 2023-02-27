@@ -11896,7 +11896,6 @@ class Device360(Device360WebElements):
                     test = any(i in string for string in xiq.xflowscommonDevices.format_row(row.text))
                     if test == False:
                         # return -1
-                        print(f"Keyword failed -i: {i}")
                         kwargs['fail_msg'] = "'list_port_element()' failed."
                         self.common_validation.fault(**kwargs)
             kwargs['pass_msg'] = "Success"
@@ -14291,9 +14290,6 @@ class Device360(Device360WebElements):
 
         ports_table = self.dev360.get_device360_ports_table()
         [port_row] = [row for row in ports_table if row["PORT NAME"] == port]
-
-
-
 
         if dut.cli_type.upper() == 'VOSS':
             lacp_status = port_row["LACP STATUS"]

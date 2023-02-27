@@ -1847,21 +1847,22 @@ class Device360WebElements(Device360WebElementDefs):
 
     ### Commented on 1/18/23 because this is a duplicate of a function below.
     ### The second function to be declared will be used. Thus, this function was commented
-    #
-    # def get_device360_ports_table(self):
-    #     header_row = self.get_device360_ports_description_table_row()
-    #     ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
-    #
-    #     table_rows = self.get_device360_port_table_rows()[1:]
-    #     results = []
-    #     for row in table_rows:
-    #         result = {}
-    #         tds = self.weh.get_elements(self.device360_ports_table_td_gridcell, parent=row)
-    #         for th, td in zip(ths, tds):
-    #             if th.text.strip():
-    #                 result[th.text.strip()] = td.text.strip()
-    #         results.append(result)
-    #     return results
+    ### Uncommented on 2/27/23 because this function doesn't count the table header
+
+    def get_device360_ports_table(self):
+        header_row = self.get_device360_ports_description_table_row()
+        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+
+        table_rows = self.get_device360_port_table_rows()[1:]
+        results = []
+        for row in table_rows:
+            result = {}
+            tds = self.weh.get_elements(self.device360_ports_table_td_gridcell, parent=row)
+            for th, td in zip(ths, tds):
+                if th.text.strip():
+                    result[th.text.strip()] = td.text.strip()
+            results.append(result)
+        return results
 
     def get_device360_ah_icon(self, index):
         return self.weh.get_template_element(self.device360_ah_icons, index=index)
@@ -1933,20 +1934,20 @@ class Device360WebElements(Device360WebElementDefs):
         return {th.text.strip(): th for th in ths if th.text.strip()}
 
     # There is a duplicate of this function above that was commented out on 1/18/23
-    def get_device360_ports_table(self):
-        header_row = self.get_device360_ports_description_table_row()
-        ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
-
-        table_rows = self.get_device360_port_table_rows()
-        results = []
-        for row in table_rows:
-            result = {}
-            tds = self.weh.get_elements(self.device360_ports_table_td_gridcell, parent=row)
-            for th, td in zip(ths, tds):
-                if th.text.strip():
-                    result[th.text.strip()] = td.text.strip()
-            results.append(result)
-        return results
+    # def get_device360_ports_table(self):
+    #     header_row = self.get_device360_ports_description_table_row()
+    #     ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
+    #
+    #     table_rows = self.get_device360_port_table_rows()
+    #     results = []
+    #     for row in table_rows:
+    #         result = {}
+    #         tds = self.weh.get_elements(self.device360_ports_table_td_gridcell, parent=row)
+    #         for th, td in zip(ths, tds):
+    #             if th.text.strip():
+    #                 result[th.text.strip()] = td.text.strip()
+    #         results.append(result)
+    #     return results
 
     def get_device360_pagination_page_buttons(self):
         return self.weh.get_elements(self.d360_pagination_page_button)
