@@ -334,7 +334,7 @@ class NavigatorWebElementDefinitions:
 
     common_object_authentication_ad_servers = \
         {
-            'XPATH': '//div//a[@data-automation-tag=automation-sider-list-ADServers]',
+            'XPATH': '//div//a[@data-automation-tag="automation-sider-list-ADServers"]',
             'wait_for': 3
         }
 
