@@ -1694,12 +1694,6 @@ class Devices:
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
                 return -1
 
-        if device_type.lower() != "simulated":
-            if 'Extreme - Aerohive' in device_make:
-                self.auto_actions.click_reference(self.devices_web_elements.get_device_make_dropdownoption)
-                self.auto_actions.select_drop_down_options(
-                    self.devices_web_elements.get_device_make_drop_down_options(), device_make)
-
         if location and self.devices_web_elements.get_location_button().is_displayed():
             self.auto_actions.click_reference(self.devices_web_elements.get_location_button)
             self._select_location(location)
@@ -1746,6 +1740,16 @@ class Devices:
                 kwargs['fail_msg'] = "Fail Onboarded - License limit exceeded for managed device"
                 self.common_validation.failed(**kwargs)
                 return -1
+
+            elif "A stake record of the device was found in the redirector." in dialog_message:
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
+                self.utils.print_info("EXIT LEVEL: ",BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
+                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
+
+                kwargs['fail_msg'] = "Fail Onboarded - A stake record of the device was found in the redirector."
+                self.common_validation.failed(**kwargs)
+                return -1
+
             else:
                 kwargs['fail_msg'] = f"Dialog Message: {dialog_message}"
                 self.common_validation.failed(**kwargs)
@@ -1960,22 +1964,31 @@ class Devices:
                 sleep(2)
                 self.screen.save_screen_shot()
 
-        elif 'Dell' in device_make:
-            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
-            self.utils.print_info("Entering Serial Number...")
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+        elif 'DELL' in device_make.upper():
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
+                self.utils.print_info("Selecting Switch Type : DELL")
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options(),
+                                                           "DELL")
+                self.screen.save_screen_shot()
 
+            self.utils.print_info(f"Entering Service Tag {service_tag}")
+            self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
+
+            # Please not the check_negative_combinations does throw an error if an invalid service tag is entered
+            # If that is needed please update check_negative_combinations
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
 
-            self.utils.print_info("Entering Service Tag...")
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_service_tag_textbox(), service_tag)
 
         elif 'Universal Appliance' in device_make:
-            # JPS - Feb 15th 2023 not sure why we are adding a serial number a second time
-            self.utils.print_info("Entering Serial Number...")
-            self.auto_actions.send_keys(self.devices_web_elements.get_devices_serial_text_area(), device_serial)
+            if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
+                self.utils.print_info("Selecting Device Type : Universal Appliance")
+                self.auto_actions.click_reference(self.switch_web_elements.get_switch_make_drop_down)
+                self.screen.save_screen_shot()
+                self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
+                                                           , "Universal Appliance")
             _errors = self.check_negative_combinations()
             if _errors != 1:
                 return _errors
