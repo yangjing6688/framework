@@ -24,5 +24,7 @@ PyMySQL==1.0.2
 wheel==0.36.2
 ansi2html==1.8.0
 extremecloudiq-api==22.6.4.1
+docstring-parser==0.15
 opencv-python
 beautifulsoup4
+
