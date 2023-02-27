@@ -67,7 +67,7 @@ class XapiHelper():
        """
         configuration =  self.builtin.get_variable_value('${XAPI_CONFIGRATION}')
         if not configuration:
-            raise Exception('The XAPI configuration was not set, please use the "login_user" method in the Login class with the kwarg XAPI_ENABLE set to True')
+            raise Exception('The XAPI configuration was not set, please use the "login_user" method in the Login class with the kwarg XAPI_ENABLE set to True. Also ensure that the xapi_url is set in the topo file.')
         return configuration
 
     def get_xapi_url(self):
@@ -78,12 +78,12 @@ class XapiHelper():
         try:
             xapi_url = self.builtin.get_variable_value("${XAPI_URL}", default=None)
             if not xapi_url:
-                print('XAPI url was not set, please use the keyword make sure the xapi_url is in the topo file')
+                print('XAPI url was not set, please make sure the xapi_url is set in the topo file')
                 return None
             else:
                 return xapi_url
         except Exception:
-            print('XAPI url was not set, please use the keyword make sure the xapi_url is in the topo file')
+            print('XAPI url was not set, please make sure the xapi_url is set in the topo file')
             return None
 
     def set_xapi_url(self, value):
