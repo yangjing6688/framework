@@ -15046,7 +15046,7 @@ class Device360(Device360WebElements):
                 ports[0])
         else:
             kwargs['fail_msg'] = "Please give a device type!"
-            self.common_validation.failed(**kwargs)
+            self.common_validation.fault(**kwargs)
             return False
         if click_checkbox_or_button:
             self.utils.print_info("Clicking on port checkbox")
