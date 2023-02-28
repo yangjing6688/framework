@@ -76,9 +76,10 @@ class XapiHelper():
         :return: the xpai URL or returns None if it is not set
         """
         try:
-            xapi_url = self.builtin.get_variable_value("${XAPI_URL}", default=None)
-            if not xapi_url:
-                print('XAPI url was not set, please make sure the xapi_url is set in the topo file')
+            # Set the default as an empty string and test for that below
+            xapi_url = self.builtin.get_variable_value("${XAPI_URL}", default='')
+            if xapi_url == '':
+                print('XAPI url was not set, please make sure the xapi_url is set in the topo file in order to use XAPI.')
                 return None
             else:
                 return xapi_url
