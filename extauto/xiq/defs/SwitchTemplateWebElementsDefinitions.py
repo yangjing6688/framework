@@ -672,7 +672,7 @@ class SwitchTemplateWebElementDefinitions:
 
     lag_span = \
         {
-            'CSS_SELECTOR': '.control-label.portInterface  [data-automation-tag="lag-edit-lag-${lag}"]',
+            'CSS_SELECTOR': '.link-type-agg-prime .control-label.portInterface  [data-automation-tag="lag-edit-lag-${lag}"]',
             'wait_for': 10
         }
 

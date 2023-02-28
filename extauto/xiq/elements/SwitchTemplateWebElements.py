@@ -553,9 +553,10 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_lag_span(self, lag):
         elements = self.weh.get_template_elements(self.lag_span, lag=lag)
-        for el in elements:
-            if el.is_enabled():
-                return el
+        if elements:
+            for el in elements:
+                if el.is_displayed():
+                    return el
 
     def get_available_port(self, port):
         return self.weh.get_template_element(self.available_port, port=port)
