@@ -36,12 +36,16 @@ class GlobalSearch:
 
         self.utils.print_info("Clicking on the search icon")
         self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Entering info to search : ", search_value)
         self.auto_actions.send_keys(self.global_web_elements.get_global_search_textbox(), search_value)
+        self.screen.save_screen_shot()
+
 
         self.utils.print_info("Clicking on search")
         self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
+        self.screen.save_screen_shot()
 
         search_matches = self.global_web_elements.get_global_search_result()
         self.screen.save_screen_shot()
@@ -55,14 +59,17 @@ class GlobalSearch:
             for search_match in search_matches:
                 val = search_match.text
                 self.utils.print_info("Global Search Value Found  in UI is : ", val)
+                self.screen.save_screen_shot()
 
                 if val == expect_result:
                     self.utils.print_info("Match found")
                     matched_val = search_match
+                    self.screen.save_screen_shot()
 
         if expect_result == "None" and matched_val == "":
             kwargs['fail_msg'] = "'global_search()' -> Variable 'expect_result' is None"
             self.common_validation.fault(**kwargs)
+            self.screen.save_screen_shot()
             return -2
 
         if matched_val == "":
@@ -70,6 +77,7 @@ class GlobalSearch:
             self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
             kwargs['fail_msg'] = "'global_search()' -> Value was not found"
             self.common_validation.failed(**kwargs)
+            self.screen.save_screen_shot()
             return -1
 
         #self.auto_actions.click_reference(self.global_web_elements.get_search_clear_icon)
