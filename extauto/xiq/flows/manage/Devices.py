@@ -26,9 +26,11 @@ from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
-from extauto.common.Xapi import Xapi
 from ExtremeAutomation.Utilities.deprecated import deprecated
+from extauto.xiq.xapi.devices.XapiDevices import XapiDevices
+from tools.xapi.XapiHelper import XapiHelper
 from ExtremeAutomation.Utilities.deprecated import unsupported
+
 
 
 class Devices:
@@ -55,7 +57,8 @@ class Devices:
         self.web_element_ctrl = WebElementController()
         self.web_elements_handler = WebElementHandler()
         self.cloud_driver = CloudDriver()
-        self.xapi = Xapi()
+        self.xapiHelper = XapiHelper()
+        self.xapiDevices = XapiDevices()
 
     @deprecated("Please use onboard_device_quick(...)")
     def _onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
@@ -1613,6 +1616,10 @@ class Devices:
                           'neighbour_mac': '7C95B1005700'}
                 }
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param policy_name: Name of policy that would be used when onboarding a device
         :return:  1 if onboarding success
         :return: -1 for errors
@@ -1638,6 +1645,10 @@ class Devices:
         # Arguments for device_type == "Digital Twin"
         os_version = device_dict.get("digital_twin_version")
         os_persona = device_dict.get("digital_twin_persona")
+
+        # Execute the XAPI call and return the value
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_onboard_device_quick(device_dict, **kwargs)
 
         if "csv_location" in device_dict:
             return self.quick_onboarding_cloud_csv(device_make=device_dict.get("device_make"),
@@ -2428,11 +2439,21 @@ class Devices:
         - Keyword Usage:
         - ``Delete Device    device_serial=${DEVICE_SERIAL}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device serial number
         :param device_name: name of the device
         :param device_mac: mac address of the device
+        :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_delete_device( device_serial=device_serial,
+                                                        device_name=device_name,
+                                                        device_mac=device_mac,
+                                                        **kwargs)
 
         num_device_params = 0
         search_device = None
@@ -2562,14 +2583,23 @@ class Devices:
         """
         - Searches for the device using serial, name, MAC and selects it if desired
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: serial number of the device
         :param device_name: name of the device
         :param device_mac: MAC of the device
         :param select_device: True - to select the device, default set to False
+        :param kwargs: keyword arguments XAPI_ENABLE
 
         :return: 1 if device found else -1
         """
-
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_search_device(device_serial=device_serial,
+                                                       device_name=device_name,
+                                                       device_mac=device_mac,
+                                                       **kwargs)
         device_keys = {}
         if device_mac:
             device_keys['device_mac'] = device_mac
@@ -2724,6 +2754,11 @@ class Devices:
         - 'unknown' if device connection status is 'Unknown'
 
         """
+
+        # UI Support
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+
         device_row = ''
         device_keys = {}
         device_status = ''
@@ -3990,10 +4025,17 @@ class Devices:
         - ``@{column_list}=    Create List    MGT IP ADDRESS    MAC``
         - ``get_device_column_information   ${DEVICE_SERIAL}  ${column_array}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device serial number to check the device connected status
         :param column_array: The device array of columns to get data for
         :return: object map of data columns to data, spaces are replaced with _
         """
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_get_device_column_information(device_serial, column_array)
+
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
@@ -4057,109 +4099,71 @@ class Devices:
         - Keyword Usage:
         - ``Wait Until Device Online       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
         - ``Wait Until Device Online       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
-        - ``Wait Until Device Online       device_serial=${DEVICE_SERIAL}    access_token=${ACCESS_TOKEN}``
+        - ``Wait Until Device Online       device_serial=${DEVICE_SERIAL}   ``
+
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
         :param retry_duration: duration between each retry
         :param retry_count: retry count
-        :param kwargs: keyword arguments ie access_token etc
+        :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if device connected within time else -1
         """
 
-        access_token = kwargs.get("access_token", False)
-        if access_token:
-            device_specific_url = f"/devices?sns={device_serial}"
-            device_info = self.xapi.rest_api_get(device_specific_url)
-            self.utils.print_info("Device Specific information is: ", device_info)
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_wait_until_device_online(device_serial=device_serial, device_mac=device_mac, retry_duration=retry_duration, retry_count=retry_count, **kwargs)
 
-            if device_info:
-                self.utils.print_info("Getting Device ID Information")
-                device_data_list = self.xapi.get_json_value(device_info, 'data')
-                device_id = self.xapi.get_json_value_from_list(device_data_list, 'id')
-                self.utils.print_info("Device ID is: ", device_id)
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
 
-                count = 1
-                stale_retry = 1
-                while stale_retry <= 10:
-                    try:
-                        while count <= retry_count:
-                            self.utils.print_info(f"Device Online Status Check - Loop: {count}")
-                            self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
+        count = 1
+        stale_retry = 1
+        while stale_retry <= 10:
+            try:
+                while count <= retry_count:
+                    self.utils.print_info(f"Device Online Status Check - Loop: {count}")
+                    self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
+                    self.refresh_devices_page()
 
-                            self.utils.print_info("Getting Device Connected Status Information")
-                            device_connected_status_url = f"/devices/{device_id}?fields=CONNECTED"
-                            device_connected_response = self.xapi.rest_api_get(device_connected_status_url)
-                            self.utils.print_info("Device Connected Status Response is: ", device_connected_response)
-                            device_connected_status = self.xapi.get_json_value(device_connected_response, 'connected')
-                            self.utils.print_info("Device Connected Status Value is: ", device_connected_status)
+                    device_row = None
+                    if device_serial:
+                        self.utils.print_info(f"Looking for Device by Serial: {device_serial}")
+                        device_row = self.get_device_row(device_serial=device_serial)
+                    elif device_mac:
+                        self.utils.print_info(f"Looking for Device by MAC: {device_mac}")
+                        device_row = self.get_device_row(device_mac=device_mac)
 
-                            if device_connected_status:
+                    if device_row and device_row != -1:
+                        status = self.devices_web_elements.get_status_cell(device_row)
+                        self.utils.print_info(f"Found Device status: {status}")
+                        if status is not None:
+                            if "hive-status-true" in status:
                                 kwargs['pass_msg'] = "Device status is connected!"
+                                self.common_validation.passed(**kwargs)
+                                return 1
+                            elif "local-managed-icon" in status:
+                                kwargs['pass_msg'] = "Device status is connected - locally managed"
                                 self.common_validation.passed(**kwargs)
                                 return 1
                             else:
                                 self.utils.print_info(
                                     f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
                                 sleep(retry_duration)
-                                count += 1
-                            break
-                    except StaleElementReferenceException:
-                        self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
-                        stale_retry = stale_retry + 1
+                    else:
+                        self.utils.print_info(f"Did not find device row. Waiting for {retry_duration} seconds...")
+                        sleep(retry_duration)
+                    count += 1
+                break
+            except StaleElementReferenceException:
+                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
+                stale_retry = stale_retry + 1
 
-            kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
-            self.common_validation.failed(**kwargs)
-            return -1
-        else:
-            self.utils.print_info("Navigate to Manage-->Devices")
-            self.navigator.navigate_to_devices()
-
-            count = 1
-            stale_retry = 1
-            while stale_retry <= 10:
-                try:
-                    while count <= retry_count:
-                        self.utils.print_info(f"Device Online Status Check - Loop: {count}")
-                        self.utils.print_info(f"Time elapsed for device connection {retry_duration} seconds")
-                        self.refresh_devices_page()
-
-                        device_row = None
-                        if device_serial:
-                            self.utils.print_info(f"Looking for Device by Serial: {device_serial}")
-                            device_row = self.get_device_row(device_serial=device_serial)
-                        elif device_mac:
-                            self.utils.print_info(f"Looking for Device by MAC: {device_mac}")
-                            device_row = self.get_device_row(device_mac=device_mac)
-
-                        if device_row and device_row != -1:
-                            status = self.devices_web_elements.get_status_cell(device_row)
-                            self.utils.print_info(f"Found Device status: {status}")
-                            if status is not None:
-                                if "hive-status-true" in status:
-                                    kwargs['pass_msg'] = "Device status is connected!"
-                                    self.common_validation.passed(**kwargs)
-                                    return 1
-                                elif "local-managed-icon" in status:
-                                    kwargs['pass_msg'] = "Device status is connected - locally managed"
-                                    self.common_validation.passed(**kwargs)
-                                    return 1
-                                else:
-                                    self.utils.print_info(
-                                        f"Device status is still Disconnected. Waiting for {retry_duration} seconds")
-                                    sleep(retry_duration)
-                        else:
-                            self.utils.print_info(f"Did not find device row. Waiting for {retry_duration} seconds...")
-                            sleep(retry_duration)
-                        count += 1
-                    break
-                except StaleElementReferenceException:
-                    self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
-                    stale_retry = stale_retry + 1
-
-            kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
-            self.common_validation.failed(**kwargs)
-            return -1
+        kwargs['fail_msg'] = "Device failed to come ONLINE. Please check."
+        self.common_validation.failed(**kwargs)
+        return -1
 
     def wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10,
                                   **kwargs):
@@ -5507,11 +5511,21 @@ class Devices:
         - Keyword Usage:
         - ``Wait Until Device Managed  ${DEVICE_SERIAL}   retry_duration=10    retry_count=12``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device serial number to check the device 'managed' state
         :param retry_duration: duration between each retry
         :param retry_count: retry count
+        :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if MANAGED column contains 'Managed' within the specified time, else -1
         """
+
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_wait_until_device_managed(device_serial=device_serial, retry_duration=retry_duration, retry_count=retry_count)
+
+        # UI Support
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
