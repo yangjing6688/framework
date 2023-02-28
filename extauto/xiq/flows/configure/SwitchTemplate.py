@@ -2521,7 +2521,6 @@ class SwitchTemplate(object):
         print("Get Template Save Button")
         save_btns = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
 
-        rc = -1
         for save_btn in save_btns:
             if save_btn.is_displayed():
                 print("Click on the save template button")
@@ -2601,7 +2600,7 @@ class SwitchTemplate(object):
             img_pattern = f"summit{prefix}" + r"-.*\.xos"
 
         if specific_firmware_items is None:
-            kwargs['fail_msg'] = f"'select_specific_firmware_version()' failed. No images present in drop down list"
+            kwargs['fail_msg'] = "'select_specific_firmware_version()' failed. No images present in drop down list"
             self.common_validation.fault(**kwargs)
 
         latest_image_version = specific_firmware_items[-1].text

@@ -12718,14 +12718,6 @@ class Devices:
             return_value = self.update_switch_policy_and_configuration(device_serial)
         return return_value
 
-    def restart_pse_function(self, dut, **kwargs):
-        """
-        - This method restarts the PSE profile
-        - Selecting the Switch Engine device -> Utilities -> Restart PSE
-        :param dut: DUT Device
-        :return: 1 if the PSE reset have been completed else -1
-        """
-
     def get_device_latest_version(self, dut, **kwargs):
         """
         - This method is used to get the device latest version
