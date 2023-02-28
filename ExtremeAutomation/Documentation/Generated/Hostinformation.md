@@ -251,6 +251,62 @@ UUID: 2ff11f67-fb26-45a2-bfda-0afbd69fcae9
 
 ## REST
 ## SNMP
+# API Function: disable_iqagent
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_disable_iqagent(device_name )
+
+	Robot API Call: 
+
+		hostinformation_disable_iqagent  device_name  
+
+UUID: 79c60845-a209-4a66-905c-8214679c2d23
+## CLI
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+
+		configure terminal || application || no iqagent enable || show application iqagent
+
+----------------------------------------------
+
+
+## REST
+## SNMP
+# API Function: enable_iqagent
+	Pytest API Call: 
+
+		self.defaultLibrary.apiLowLevelApis.hostinformation.hostinformation_enable_iqagent(device_name )
+
+	Robot API Call: 
+
+		hostinformation_enable_iqagent  device_name  
+
+UUID: 704c185e-7ca8-4601-a04f-f3c5454cb5ad
+## CLI
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`OS`: VOSS
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`agent`: CLI
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt`: userPrompt
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Prompt Arguments`: None
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Command`:
+
+		configure terminal || application || iqagent enable || show application iqagent
+
+----------------------------------------------
+
+
+## REST
+## SNMP
 # API Function: hostinformation_verify_system_prompt
 	Pytest API Call: 
 

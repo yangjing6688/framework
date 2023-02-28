@@ -93,12 +93,15 @@ class CloudConfigGroup(object):
         self.navigator.navigate_to_devices()
         sleep(5)
 
+        self.navigator.enable_page_size()
+
         for ap_serial in ap_serials:
-            self.utils.print_info("Select row for ap with serial",ap_serial)
-            if not self.device.select_device(ap_serial):
-                kwargs['fail_msg'] = f"assign_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.fault(**kwargs)
-                return -1
+            self.utils.print_info("Select row for ap with serial", ap_serial)
+            if ap_serial == ap_serials[0]:
+                self.device.select_device(device_serial=ap_serial, skip_navigation=True)
+            else:
+                self.device.select_device(device_serial=ap_serial, skip_refresh=True, skip_navigation=True)
+
         sleep(2)
 
         if not self._select_ccg_policy(policy_name, option):
@@ -110,10 +113,10 @@ class CloudConfigGroup(object):
         if option == "Continue":
             for ap_serial in ap_serials:
                 self.utils.print_info("Select row for ap with serial", ap_serial)
-                if not self.device.select_device(ap_serial):
-                    kwargs['fail_msg'] = f"assign_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                    self.common_validation.fault(**kwargs)
-                    return -1
+                if ap_serial == ap_serials[0]:
+                    self.device.select_device(device_serial=ap_serial)
+                else:
+                    self.device.select_device(device_serial=ap_serial, skip_refresh=True, skip_navigation=True)
                 sleep(2)
 
             sleep(2)
@@ -296,12 +299,14 @@ class CloudConfigGroup(object):
         self.navigator.navigate_to_devices()
         sleep(5)
 
+        self.navigator.enable_page_size()
+
         self.utils.print_info("Select ap row")
         for ap_serial in ap_serials:
-            if not self.device.select_device(device_serial=ap_serial):
-                kwargs['fail_msg'] = "add_cloud_config_group_from_manage() failed. " \
-                                     f"AP {ap_serial} is not present in the grid"
-                self.common_validation.fault(**kwargs)
+            if ap_serial == ap_serials[0]:
+                self.device.select_device(device_serial=ap_serial, skip_navigation=True)
+            else:
+                self.device.select_device(device_serial=ap_serial, skip_refresh=True, skip_navigation=True)
 
         sleep(2)
 
@@ -327,7 +332,6 @@ class CloudConfigGroup(object):
 
         self.utils.print_info("Enter the description:{}".format(description))
         self.auto_actions.send_keys(self.ccg_web_elements.get_ccg_description_manage_text(), description)
-
 
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
@@ -501,15 +505,14 @@ class CloudConfigGroup(object):
             self.common_validation.failed(**kwargs)
             return -1
 
+        self.navigator.enable_page_size()
+
         for ap_serial in ap_serials:
-            self.utils.print_info("Navigating to the Device Page")
             self.utils.print_info("Select row for ap with serial", ap_serial)
-            self.navigator.navigate_to_devices()
-            sleep(5)
-            if not self.device.select_device(ap_serial):
-                kwargs['fail_msg'] = f"edit_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
-                self.common_validation.fault(**kwargs)
-                return -1
+            if ap_serial == ap_serials[0]:
+                self.device.select_device(device_serial=ap_serial)
+            else:
+                self.device.select_device(device_serial=ap_serial, skip_refresh=True, skip_navigation=True)
             sleep(2)
 
         sleep(2)

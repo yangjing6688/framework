@@ -21,6 +21,12 @@ class HostinformationConstants(ApiConstants):
         self.CLEAR_PROMPT = {"constant": "clear_prompt",
                              "tags": ["COMMAND_CLI"],
                              "link": self.link.clear_prompt}
+        self.DISABLE_IQAGENT = {"constant": "disable_iqagent",
+                                "tags": ["COMMAND_CLI"],
+                                "link": self.link.disable_iqagent}
+        self.ENABLE_IQAGENT = {"constant": "enable_iqagent",
+                               "tags": ["COMMAND_CLI"],
+                               "link": self.link.enable_iqagent}
         self.SET_HOST_CONTACT = {"constant": "set_host_contact",
                                  "tags": ["COMMAND_CLI", "COMMAND_SNMP"],
                                  "link": self.link.set_host_contact}

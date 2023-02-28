@@ -271,14 +271,15 @@ class DevicesActions:
         :return: 1 if selecting Utilities is successful
         """
         self.navigator.navigate_to_devices()
+        self.navigator.enable_page_size()
         select = False
         for device in device_list:
-            if self.devices.select_device(device_serial=device):
-                kwargs['pass_msg'] = f"Selected device {device}"
-                self.common_validation.passed(**kwargs)
+            if device == device_list[0]:
+                self.devices.select_device(device_serial=device, skip_navigation=True)
                 select = True
             else:
-                self.utils.print_info(f"Unable to select device {device}")
+                self.devices.select_device(device_serial=device, skip_refresh=True, skip_navigation=True)
+                select = True
 
         if select:
             self.utils.print_info("Clicking on Utilities")
