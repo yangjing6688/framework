@@ -375,3 +375,153 @@ class RSWebElementsDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
             'wait_for': 1
         }
+
+    add_an_ad_server_btn = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="adCtn"]//*[@data-dojo-attach-point="actionLeft"]/span[1]',
+            'wait_for': 3
+        }
+
+    add_ad_server_name = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="stepArea"]//*[@data-dojo-attach-point="name"]',
+            'wait_for': 3
+        }
+
+    ad_server_domain = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="domain"]',
+            'wait_for': 3
+        }
+
+    ad_server_domain_manual_opt = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="dn-manual"]',
+            'wait_for': 3
+        }
+
+    add_ad_server_sel_btn = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="manualCfg"]//*[@data-automation-tag="automation-ip-object-select-btn"]',
+            'wait_for': 3
+        }
+
+    add_ad_server_dns_server_sel_btn = \
+        {
+            'XPATH': '//*[contains(text(),"DNS Server")]/../..//*[@data-automation-tag="automation-ip-object-select-btn"]',
+            'wait_for': 3
+        }
+
+    add_ad_server_dns_server_sel_items = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ipList"]//ul[@class="item-area"]/li',
+            'wait_for': 3
+        }
+
+    add_ad_server_ip_items = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ipList"]/div[1]//*[@class="item-area"]/li',
+            'wait_for': 3
+        }
+
+    add_ad_server_host_items = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ipList"]/div[2]//*[@class="item-area"]/li',
+            'wait_for': 3
+        }
+
+    add_ad_server_btn = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="manualCfg"]//*[@data-automation-tag="automation-ip-object-add-btn"]',
+            'wait_for': 3
+        }
+
+    add_ad_server_ip_or_host = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="ipTypeList"]/li',
+            'wait_for': 3
+        }
+
+    add_ad_server_host_name = \
+        {
+            'XPATH': '//input[@class="ip-object-field hostname-value"]',
+            'wait_for': 3
+        }
+
+    ad_server_basdn = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="basedn"]',
+            'wait_for': 3
+        }
+
+    ad_server_short_domain_name = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="shortDomain"]',
+            'wait_for': 3
+        }
+
+    ad_server_realm = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="realm"]',
+            'wait_for': 3
+        }
+
+    ad_server_enable_tls = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="enableTLS"]',
+            'wait_for': 3
+        }
+
+    ad_server_next_btn = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="nextButton"]',
+            'wait_for': 3
+        }
+
+    ad_server_done_btn = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="doneButton"]',
+            'wait_for': 3
+        }
+
+    add_server_update_device_and_retrieves_basedn_status= \
+        {
+            'XPATH': '//*[@id="ah/comp/configuration/radiusserver/ADStep2_0"]//*[@class="grid_5 column last"]',
+            'wait_for': 3
+        }
+
+    add_server_join_ad_status = \
+        {
+            'XPATH': '//*[@id="ah/comp/configuration/radiusserver/ADStep4_0"]//*[@class="grid_5 column last"]',
+            'wait_for': 3
+        }
+
+    add_server_validate_user_status = \
+        {
+            'XPATH': '//*[@ class="progress-percentage"]',
+            'wait_for': 3
+        }
+
+    ad_server_domain_admin_login = \
+        {
+            'XPATH': '//*[@id="ah/comp/configuration/radiusserver/ADStep3_0"]//*[@data-dojo-attach-point="domain"]',
+            'wait_for': 3
+        }
+
+    ad_server_domain_admin_psswd = \
+        {
+            'XPATH': '//*[@id="ah/comp/configuration/radiusserver/ADStep3_0"]//*[@data-automation-tag="undefined-pass"]',
+            'wait_for': 3
+        }
+
+    ad_server_domain_user_login = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="userDomain"]',
+            'wait_for': 3
+        }
+
+    ad_server_domain_user_psswd = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="userDomain"]/../../..//*[@data-automation-tag="undefined-pass"]',
+            'wait_for': 3
+        }

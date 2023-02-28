@@ -3840,24 +3840,7 @@ class SwitchTemplate(object):
         This function is used to save the current device template with a pop-up displayed
         :return: 1 - if the save was successful ; -1 - if not
         """
-        save_template_button = self.sw_template_web_elements.get_switch_temp_save_button()
-
-        if not save_template_button.is_displayed():
-            kwargs["fail_msg"] = "save_template_with_popup() failed. SAVE button is not displayed"
-            self.common_validation.fault(**kwargs)
-            return -1
-
-        kwargs["pass_msg"] = "Successfully found the SAVE button"
-        self.common_validation.passed(**kwargs)
-
-        self.utils.print_info("Click on SAVE button")
-        if self.auto_actions.click(save_template_button) != 1:
-            kwargs["fail_msg"] = "save_template_with_popup() failed.Failed to click the SAVE button"
-            self.common_validation.fault(**kwargs)
-            return -1
-
-        kwargs["pass_msg"] = "Successfully clicked the SAVE button"
-        self.common_validation.passed(**kwargs)
+        self.save_template()
 
         sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
 
