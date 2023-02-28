@@ -86,16 +86,19 @@ class TestFilterDevicesBy():
 
     def check_filter_device_by_SSID_is_correct(self,**kwargs):
         """ Verification of the filtering of the devices by SSID
-                  pre-conditions: Require at least two onboard devices with with two different wireless network policys
-                  usage of test case:
+                  Pre-Conditions: Require at least two onboard devices with with two different wireless network policies
+                  Keyword Usaage:
                   ${CHECK_RESULT}=        check filter device by SSID is correct
                   Should Be Equal As Integers    ${CHECK_RESULT}        1
                   Test1: Filter Device By SSID,for example,device1 is assigned policy1,device2 is assigned policy2
                   filter device1 by ssid1 in policy1 and filter device2 by ssid2 in policy2
-                  Return valuesAer: "1" means filter successfully,"-1" means filter failed
+                  Return: "1" means filter successfully,"-1" means filter failed
         """
         sn_list, policy_list = self.FilterManageDevices.check_available_devices()
-        if sn_list == -1: return -1, policy_list
+        if sn_list == -1:
+            kwargs['fail_msg'] = "The device list is empty"
+            self.common_validation.failed(**kwargs)
+            return -1, policy_list
         policy_ssid1, ssid_name  = self.net_policy.get_all_ssids_in_policy(policy_list[0], new_ssid=False, special_char=True)
         policy_ssid1 = str(policy_ssid1[policy_list[0]]).strip("['").split()[0]
         policy_ssid2, ssid_name = self.net_policy.get_all_ssids_in_policy(policy_list[1], new_ssid=False, special_char=True)
