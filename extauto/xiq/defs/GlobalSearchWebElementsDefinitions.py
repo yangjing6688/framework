@@ -108,3 +108,9 @@ class GlobalSearchWebElementsDefinitions:
             'XPATH': '//*[@data-dojo-attach-point="clearSearchIcon"]',
             'index': 1
         }
+
+    global_search_client_name = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="nameNode"]'
+        }
+

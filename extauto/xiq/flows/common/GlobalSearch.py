@@ -94,9 +94,14 @@ class GlobalSearch:
         :return: Client name, client MAC, client IP
         """
         self.utils.print_info("Clicking on  client Details")
-        self.auto_actions.click(search_result)
+        client_name = self.global_web_elements.get_global_search_client_name()
+        if client_name is not None and client_name.is_displayed():
+            self.auto_actions.click(client_name)
+        else:
+           self.auto_actions.click(search_result)
 
         self.utils.print_info("Getting client Details")
+        self.utils.wait_till(self.global_web_elements.get_client_title, is_logging_enabled=True, timeout=30, delay=10)
         client_name = self.global_web_elements.get_client_title().text
         client_mac = self.global_web_elements.get_client_mac().text
         client_ip = self.global_web_elements.get_client_ip().text
