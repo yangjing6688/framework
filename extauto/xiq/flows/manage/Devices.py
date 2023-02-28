@@ -1753,6 +1753,7 @@ class Devices:
         if check_process_count == 0:
             kwargs['fail_msg'] = "Adding device process never completed"
             self.common_validation.fault(**kwargs)
+            return -1
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
