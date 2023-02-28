@@ -166,9 +166,9 @@ class Navigator(NavigatorWebElements):
                     self.utils.print_info("Checking for Unknown Tooltip Error message In Devices Page..")
                     unknown_error = self.get_unknown_tooltip_error()
                     if unknown_error is not None and unknown_error.is_displayed():
-                       self.screen.save_screen_shot()
-                       self.utils.print_info("Found Unknown Tooltip Error In Devices Page.So Closing the Error Message")
-                       self.auto_actions.click_reference(self.get_unknown_error_tooltip_close_icon)
+                        self.screen.save_screen_shot()
+                        self.utils.print_info("Found Unknown Tooltip Error In Devices Page.So Closing the Error Message")
+                        self.auto_actions.click_reference(self.get_unknown_error_tooltip_close_icon)
                     return 1
                 else:
                     self.utils.print_info("Unable to navigate to Devices tab")

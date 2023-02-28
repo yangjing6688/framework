@@ -294,3 +294,9 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
 
     def get_policy_switch_templates_tab(self):
         return self.weh.get_element(self.policy_switch_templates_tab)
+
+    def get_policy_sr_dell_switching_tab(self):
+        return self.weh.get_element(self.policy_sr_dell_switching_tab )
+
+    def get_policy_sr_dell_switch_templates_tab(self):
+        return self.weh.get_element(self.policy_sr_dell_switch_templates_tab)

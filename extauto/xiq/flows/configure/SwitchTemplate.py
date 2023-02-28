@@ -15,6 +15,7 @@ from extauto.xiq.elements.SwitchTemplateWebElements import SwitchTemplateWebElem
 from extauto.xiq.elements.DeviceTemplateWebElements import DeviceTemplateWebElements
 from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
 from extauto.xiq.elements.SwTemplateLegacyPortTypeWebElements import SwTemplateLegacyPortTypeWebElements
+from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
 
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.AlarmsWebElements import AlarmsWebElements
@@ -61,16 +62,17 @@ class SwitchTemplate(object):
                 return True
         return False
 
-    def add_sw_template(self, nw_policy, sw_model, sw_template_name, **kwargs):
+    def add_sw_template(self, nw_policy, sw_model, sw_template_name, cli_type, **kwargs):
         """
         - Checks the given switch template present already in the switch Templates Grid
         - If it is not there add to the sw_template
         - Keyword Usage
-        - ``Add SW Template  ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
+        - ``Add SW Template  ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}  ${CLI_TYPE}``
 
         :param nw_policy: network policy
         :param sw_model: Switch Model ie SR2348P
         :param sw_template_name: Switch Template Name ie template_SR2348P
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
 
         :return: 1 if Switch Template Configured Successfully else -1
         """
@@ -113,17 +115,19 @@ class SwitchTemplate(object):
         self.navigator.navigate_configure_network_policies()
         self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
 
-        self.utils.print_info("Click on Switching tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
 
-        tab = self.device_template_web_elements.get_policy_switch_templates_tab()
-        if tab.is_displayed():
-            self.utils.print_info("Click on Switch Templates tab")
-            self.auto_actions.click(tab)
-            sleep(2)
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         add_btns = self.sw_template_web_elements.get_sw_template_add_button()
         sleep(2)
@@ -210,31 +214,41 @@ class SwitchTemplate(object):
                 if sw_template in cell.text:
                     return cell
 
-    def select_sw_template(self, nw_policy, sw_template):
+    def select_sw_template(self, nw_policy, sw_template, cli_type):
         """
         - This Keyword will Select the Switch Template on Network Policy
         - Keyword Usage
-        - ``Select SW Template  ${NW_POLICY_NAME}  ${SW_TEMPLATE_NAME}``
+        - ``Select SW Template  ${NW_POLICY_NAME}  ${SW_TEMPLATE_NAME}  ${CLI_TYPE}``
 
         :param nw_policy: Name of the Network Policy to select Switch Template
         :param sw_template: Name of the sw_template
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
         :return: 1 If successfully Selected Switch template
         """
         self._set_nw_policy_if_needed()
 
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         row = self.get_sw_template_row(sw_template)
         self.auto_actions.click(row)
         return 1
 
-    def assign_switch_template(self, nw_policy, sw_template_name, **kwargs):
+    def assign_switch_template(self, nw_policy, sw_template_name, cli_type, **kwargs):
         """
         - Checking the sw template present in the sw Templates Grid
         - If it is not there add to the sw_template
@@ -243,6 +257,7 @@ class SwitchTemplate(object):
 
         :param nw_policy: Name of policy to assign the switch template to
         :param sw_template_name: Name of the switch template to assign; e.g., SR_2348P-default-template
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
 
         :return: 1 if switch template was assigned successfully, else -1
         """
@@ -255,11 +270,19 @@ class SwitchTemplate(object):
         self.nw_policy.select_network_policy_in_card_view(nw_policy)
         sleep(2)
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         if self.check_sw_template(sw_template_name):
             kwargs['pass_msg'] = "Template Already present in the template grid"
@@ -480,13 +503,13 @@ class SwitchTemplate(object):
                     return 0
         return 1
 
-    def add_5520_sw_stack_template(self, model_units, nw_policy, sw_model, sw_template_name, save_template=True, **kwargs):
+    def add_5520_sw_stack_template(self, model_units, nw_policy, sw_model, sw_template_name, cli_type, save_template=True, **kwargs):
         """
         - Checks the given STACK switch template present already in the switch Templates Grid
         - If it is not there add to the sw_template
         - This function is working only for stack
         - Keyword Usage
-        - ``  ${MODEL_UNITS} ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}``
+        - ``  Add Sw Stack Template    ${MODEL_UNITS} ${NW_POLICY}  ${SW_MODEL}   ${SW_TEMPLATE_NAME}  ${CLI_TYPE}``
         - e.g. Add Sw Stack Template                           5520-24T-EXOS,5520-24X-EXOS,5520-48T-EXOS
            ...                             bgd2        EXOS-5520-Series-Stack          politicamea      True
         :param model_units: a string will all units e.g 5520-24T,5520-24X,5520-48T
@@ -494,6 +517,7 @@ class SwitchTemplate(object):
         :param sw_model: Switch Model  ie EXOS-5520-Series-Stack
         :param sw_template_name: Switch Template Name e.g mypolicy
         :param save_template: True - will save the template ; False - will not save the template (More configures can be added after)
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
 
         :return: 1 if Switch Template Configured Successfully else -1
         """
@@ -516,11 +540,19 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = "add_5520_sw_stack_template() failed. " \
@@ -742,13 +774,16 @@ class SwitchTemplate(object):
                 self.utils.print_info("Not found 'Save template' button ")
         return rc
 
-    def delete_stack_units_device_template(self, nw_policy, sw_template_name, **kwargs):
+    def delete_stack_units_device_template(self, nw_policy, sw_template_name, cli_type, **kwargs):
         """
         This function deletes the unit's template from a policy
+        - Keyword Usage
+        - ``  Delete Stack Units Device Template    ${NW_POLICY}  ${SW_TEMPLATE_NAME}  ${CLI_TYPE}``
 
         :param nw_policy: Policy name
         :param sw_template_name: template name
-        :return:
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
+        :return: 1 if Switch Stack Template Deleted Successfully else -1
         """
         self.utils.print_info("Navigate to devices")
         self.navigator.navigate_to_devices()
@@ -764,11 +799,19 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         sel_btn = self.sw_template_web_elements.get_sw_template_select_button()
         sleep(2)
@@ -862,12 +905,13 @@ class SwitchTemplate(object):
             self.utils.print_info(close_button)
         return 1
 
-    def delete_stack_switch_template(self, nw_policy, sw_template_name, **kwargs):
+    def delete_stack_switch_template(self, nw_policy, sw_template_name, cli_type, **kwargs):
         """
         This function is used to delete a template from a policy
 
-       :param nw_policy:
-       :param sw_template_name:
+       :param nw_policy: Network Policy Name
+       :param sw_template_name: Switch Template Name
+       :param cli_type: Device CLI Type e.g., VOSS,EXOS
        :return: 1 if template was deleted or template doesn't exist; else -1
         """
 
@@ -879,11 +923,19 @@ class SwitchTemplate(object):
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         rows = self.sw_template_web_elements.get_sw_template_rows()
         if not rows:
@@ -983,23 +1035,24 @@ class SwitchTemplate(object):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def create_vlan_in_template(self, policy_name, template_name, port, vlan, port_type_name,stp_disable='false'):
+    def create_vlan_in_template(self, policy_name, template_name, cli_type, port, vlan, port_type_name, stp_disable='false'):
         """
         - Create Vlan In Template
         - Keyword Usage:
         - ``Create Vlan In Template     ${policy_name}  ${template_name}  ${port}  ${vlan_number}``
         :param policy_name: Name of the policy
         :param template_name : Name of the template
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
         :param port : Number of the port
         :param vlan : Number of the vlan
         :param port_type_name : Name of the port type
         :return: 1 if vlan creation was successful
         """
-        self.select_sw_template(policy_name,  template_name)
+        self.select_sw_template(policy_name,  template_name, cli_type)
         self.go_to_port_configuration()
         return self.config_vlan_in_template(port, vlan, port_type_name,stp_disable)
 
-    def create_vlan_in_stacked_template(self, nw_policy, sw_template_name, slot, port, vlan, port_type_name,
+    def create_vlan_in_stacked_template(self, nw_policy, cli_type, sw_template_name, slot, port, vlan, port_type_name,
                                         stp_disable='false', **kwargs):
         """
         - Create Vlan In Stacked Template
@@ -1012,11 +1065,12 @@ class SwitchTemplate(object):
         :param port: Number of the port
         :param vlan : Number of the vlan
         :param port_type_name : Name of the port type
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
         :return: 1 if vlan creation was successful
         """
         slot_index = 1
         slot_found = False
-        self.select_sw_template(nw_policy, sw_template_name)
+        self.select_sw_template(nw_policy, sw_template_name, cli_type)
         self.go_to_port_configuration()
         sleep(5)
         self.utils.print_info("Gather the list of the devices in the stack")
@@ -1182,7 +1236,7 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def create_pse_profile(self, network_policy_name, device_template_name, device_model, port_type_name, pse_profile_name, power_limit, priority, power_mode, **kwargs):
+    def create_pse_profile(self, network_policy_name, device_template_name, cli_type, device_model, port_type_name, pse_profile_name, power_limit, priority, power_mode, **kwargs):
         """
         - This Function creates a new PSE Profile from Network Policy Device Template
         - Keyword Usage :     Create Pse Profile      ${NETWORK_POLICY_NAME}   ${DEVICE_TEMPLATE_NAME}  ${DEVICE_MODEL}    ${PORT_TYPE_NAME}   ${PSE_PROFILE_NAME}          ${POWER_LIMIT}             ${PRIORITY}             ${POWER_MODE}
@@ -1194,6 +1248,7 @@ class SwitchTemplate(object):
         :param POWER_LIMIT     ->  Float Value
         :param PRIORITY        -> Value chosen from the following options    low, high or critical     any other is not accepted by the function
         :param POWER_MODE      -> Value chosen from the following options  802.3af or 802.3at or 802.3bt     any other is not accepted by the function
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
         :return: 1 if the pse profile is created and saved else -1 ;
         """
         self._set_nw_policy_if_needed()
@@ -1205,11 +1260,19 @@ class SwitchTemplate(object):
         self.nw_policy.select_network_policy_in_card_view(network_policy_name)
         sleep(2)
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         if self.check_sw_template(device_model):
             kwargs['pass_msg'] = "Template Already present in the template grid"
@@ -1390,7 +1453,7 @@ class SwitchTemplate(object):
     def add_to_string(self, added_string, string):
         return added_string + " " + string[0:]
 
-    def poe_status_button(self, network_policy_name, device_template_name, device_model, port_type_name, poe_status, **kwargs):
+    def poe_status_button(self, network_policy_name, device_template_name, cli_type, device_model, port_type_name, poe_status, **kwargs):
         """
         - This Function modifies, turns off or on the POE Status
         - Keyword Usage : Poe Status Button           ${NETWORK_POLICY_NAME}   ${DEVICE_TEMPLATE_NAME}  ${DEVICE_MODEL}    ${PORT_TYPE_NAME}
@@ -1399,6 +1462,7 @@ class SwitchTemplate(object):
         :param DEVICE_MODEL     -> Device Model that should be found in the Template list
         :param PORT_TYPE_NAME   -> String, for Device Port Type
         :param POE_STATUS       -> String, could be "on", "On", "off" or "Off"
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
         :return: 1 if poe status is turned off else -1 ;
         """
         self._set_nw_policy_if_needed()
@@ -1409,11 +1473,21 @@ class SwitchTemplate(object):
         sleep(1)
         self.nw_policy.select_network_policy_in_card_view(network_policy_name)
         sleep(2)
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
+
 
         if self.check_sw_template(device_model):
             kwargs['pass_msg'] = "Template Already present in the template grid"
@@ -1542,7 +1616,7 @@ class SwitchTemplate(object):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def poe_toggle_using_existing_port_type(self, network_policy_name, device_template_name, device_model, existing_port_type_option, poe_status, **kwargs):
+    def poe_toggle_using_existing_port_type(self, network_policy_name, device_template_name, cli_type, device_model, existing_port_type_option, poe_status, **kwargs):
         """
         - This Function modifies, turns off or on the POE Status on existing port type
         - Keyword Usage : Poe Status Button           ${NETWORK_POLICY_NAME}   ${DEVICE_TEMPLATE_NAME}  ${DEVICE_MODEL}    ${PORT_TYPE_NAME}
@@ -1551,6 +1625,7 @@ class SwitchTemplate(object):
         :param DEVICE_MODEL     -> Device Model that should be found in the Template list
         :param PORT_TYPE_NAME   -> String, for Device Port Type
         :param POE_STATUS       -> String, could be "on", "On", "off" or "Off"
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
         :return: 1 if poe status is turned off else -1 ;
         """
         self._set_nw_policy_if_needed()
@@ -1562,11 +1637,19 @@ class SwitchTemplate(object):
         self.nw_policy.select_network_policy_in_card_view(network_policy_name)
         sleep(2)
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         if self.check_sw_template(device_model):
             kwargs['pass_msg'] = "Template Already present in the template grid"
@@ -1751,15 +1834,16 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def select_adv_settings_tab(self, network_policy_name, device_template_name, **kwargs):
+    def select_adv_settings_tab(self, network_policy_name, device_template_name, cli_type, **kwargs):
         """
         This function is used to select the Advanced Settings tab of a device template within a policy
         :param network_policy_name: name of policy
         :param device_template_name: name of template
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
         :return: 1 - if the navigation was successful ; -1 - if not
         """
         try:
-            self.select_sw_template(network_policy_name, device_template_name)
+            self.select_sw_template(network_policy_name, device_template_name, cli_type)
             if not self.sw_template_web_elements.get_sw_template_adv_settings_tab():
                 kwargs['fail_msg'] = "select_adv_settings_tab() failed. Advanced Settings tab is not displayed!"
                 self.common_validation.fault(**kwargs)
@@ -1816,7 +1900,7 @@ class SwitchTemplate(object):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def configure_oob_mgmt_int(self, nw_policy, sw_template_name, mgmtVlan="4092", **kwargs):
+    def configure_oob_mgmt_int(self, nw_policy, sw_template_name, cli_type, mgmtVlan="4092", **kwargs):
         """
         - Checks able to configure OOB Mgmt interface
         - This function is working only if switch template already created
@@ -1826,11 +1910,12 @@ class SwitchTemplate(object):
         :param nw_policy: network policy
         :param sw_template_name: Switch Template Name e.g mypolicy
         :param mgmtVlan: 4092 -vlan range need to be (1-4093)
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
 
         :return: 1 if Switch Template OOB mgmt interface Configured Successfully else -1
         """
 
-        self.select_sw_template(nw_policy, sw_template_name)
+        self.select_sw_template(nw_policy, sw_template_name, cli_type)
 
         mgmt_int = self.sw_template_web_elements.get_mgmt_toggle_check_box()
         if mgmt_int:
@@ -1984,7 +2069,7 @@ class SwitchTemplate(object):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def add_5520_sw_template(self, nw_policy, sw_model, sw_template_name, save_template=True, **kwargs):
+    def add_5520_sw_template(self, nw_policy, sw_model, sw_template_name, cli_type, save_template=True, **kwargs):
         """
         - Checks the given switch template present already in the switch Templates Grid
         - If it is not there add to the sw_template
@@ -1998,6 +2083,7 @@ class SwitchTemplate(object):
         :param sw_model: Switch Model  ie EXOS-5520-Series-Stack
         :param sw_template_name: Switch Template Name e.g mypolicy
         :param save_template: True - will save the template ; False - will not save the template (More configures can be added after)
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
 
         :return: 1 if Switch Template Configured Successfully else -1
         """
@@ -2017,11 +2103,19 @@ class SwitchTemplate(object):
 
         sleep(2)
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = "add_5520_sw_template() failed. " \
@@ -2079,12 +2173,13 @@ class SwitchTemplate(object):
             self.common_validation.passed(**kwargs)
             return 1
 
-    def delete_switch_template_from_policy(self, nw_policy, sw_template_name, **kwargs):
+    def delete_switch_template_from_policy(self, nw_policy, sw_template_name, cli_type, **kwargs):
         """
         - This keyword will delete the switch template from a newtwork policy
         - Flow: Network Policies -> Edit nw_policy -> Device Templates -> Select Template -> Delete Template
         :param nw_policy: The name of the network policy
         :param sw_template_name: The name of the template
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
         :return: Returns 1 if template is succesfully deleted,
                  Returns -1 if network policy not found
         """
@@ -2097,11 +2192,21 @@ class SwitchTemplate(object):
             kwargs['fail_msg'] = f"Policy: {nw_policy} has not been found."
             self.common_validation.failed(**kwargs)
             return -1
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
+
 
         self.utils.print_info("Searching the template: ", sw_template_name)
         sw_templates_rows = self.sw_template_web_elements.get_sw_template_rows()
@@ -2217,20 +2322,30 @@ class SwitchTemplate(object):
         self.common_validation.failed(**kwargs)
         return False
 
-    def add_sw_template_from_policy_tab(self, sw_model, sw_template_name, save_template=True, **kwargs):
+    def add_sw_template_from_policy_tab(self, sw_model, sw_template_name, cli_type, save_template=True, **kwargs):
         """
         This keyword add new template from policy tab
         :param sw_model: model of template
         :param sw_template_name: Name of template
         :param save_template: True is template will be save; else False
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
         :return: 1 if template has been created; else -1
         """
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
+
 
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = "add_sw_template_from_policy_tab() failed. " \
@@ -2286,11 +2401,15 @@ class SwitchTemplate(object):
             self.common_validation.passed(**kwargs)
             return 1
 
-    def nav_to_template_tab(self, nw_policy, **kwargs):
+    def nav_to_template_tab(self, nw_policy, cli_type, **kwargs):
         """
         This keyword navigate to template tab from policy
+        - Keyword Usage
+          - ``Nav To Template Tab  ${NW_POLICY}  ${CLI_TYPE}``
 
         :param nw_policy: name of policy
+        :param cli_type: Device CLI Type e.g., VOSS,EXOS
+
         :return: 1 if navigated with success; else -1
         """
 
@@ -2307,11 +2426,20 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
+
 
         kwargs['pass_msg'] = "Navigated with success"
         self.common_validation.passed(**kwargs)
@@ -2421,10 +2549,8 @@ class SwitchTemplate(object):
 
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
-
         policy_cards, _ = self.utils.wait_till(
             func=self.np_web_elements.get_network_policy_card_items, delay=6)
-
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
@@ -2433,9 +2559,12 @@ class SwitchTemplate(object):
                 return 1
         return -1
 
-    def select_or_create_port_type(self, nw_policy, sw_template, switch_profile, **kwargs):
+    def select_or_create_port_type(self, nw_policy, sw_template, cli_type, switch_profile, **kwargs):
         """
         - Assume that already on the Switch Template
+        - Keyword Usage
+          - ``select_or_create_port_type  ${NW_POLICY}  ${SW_TEMPLATE}  ${CLI_TYPE}  ${SWITCH_PROFILE}``
+
             :return: Returns 1 if successfully navigates to the Port Configuration Tab
                      Else returns -1
         """
@@ -2451,11 +2580,20 @@ class SwitchTemplate(object):
         self.select_network_policy_in_card_view_using_network_web_elements(nw_policy)
         self.utils.wait_till(self.device_template_web_elements.get_add_device_template_menu)
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
+
         self.utils.wait_till(self.sw_template_web_elements.get_sw_template_port_details_interface_all_rows)
 
         h_link = self.get_sw_template_row_hyperlink(sw_template)
@@ -2569,21 +2707,34 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def create_new_switch_template(self, wireless_network_conf, **kwargs):
+    def create_new_switch_template(self, wireless_network_conf, cli_type, **kwargs):
         """
         - Assume that the network policy has already been selected
+        - Keyword Usage
+          - ``select_or_create_port_type  ${NW_POLICY_DIC}  ${CLI_TYPE}``
+
+        ${NW_POLICY}
             :param wireless_network_conf: Dictionary contains information needed to configure templates
+            :param cli_type: Device CLI Type e.g., VOSS,EXOS
             :return: Returns 1 if configuration is successful
                      Else Returns -1
         """
         device_model = wireless_network_conf.get('device_model')
         switch_template_name = wireless_network_conf.get('switch_template_name')
 
-        self.utils.print_info("Click on Switching tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
+        if NetworkElementConstants.OS_EXOS in cli_type.upper() or NetworkElementConstants.OS_VOSS in cli_type.upper():
+            self.utils.print_info("Click on Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switching_tab)
 
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+            self.utils.print_info("Click on Switch Templates Menu Item")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+
+        elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
+            self.utils.print_info("Click on SR/Dell Switching tab")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switching_tab)
+
+            self.utils.print_info("Click on Switch Templates Menu Item from SR/Dell Switching Section")
+            self.auto_actions.click_reference(self.device_template_web_elements.get_policy_sr_dell_switch_templates_tab)
 
         self.utils.print_info("Click on Select button/drop down")
         select_button = self.sw_template_web_elements.get_device_switch_select_button()
@@ -3891,10 +4042,11 @@ class SwitchTemplate(object):
 
         return cost_element.get_attribute("value")
 
-    def verify_path_cost_in_port_configuration_stp_tab(self, template_switch, network_policy, port, path_cost, slot=None, **kwargs):
+    def verify_path_cost_in_port_configuration_stp_tab(self, cli_type, template_switch, network_policy, port, path_cost, slot=None, **kwargs):
         """Method that verifies the path cost of a given port.
 
         Args:
+            cli_type (str): Device CLI Type e.g., VOSS,EXOS
             template_switch (str): the name of the template switch
             network_policy (str): the name of the network policy
             port (str): the port of the switch
@@ -3907,8 +4059,7 @@ class SwitchTemplate(object):
         """
 
         self.utils.print_info(f"Go to the port configuration of {template_switch} template")
-        self.select_sw_template(
-            network_policy, template_switch)
+        self.select_sw_template(network_policy, template_switch, cli_type)
         self.go_to_port_configuration()
 
         if slot is not None:
