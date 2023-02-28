@@ -91,6 +91,7 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+
     ap_template_radio_usage_wifi1_backhaul_mesh_checkbox = \
         {
             'CSS_SELECTOR': '.radioUsage',
@@ -450,7 +451,7 @@ class DeviceTemplateWebElementDefinitions:
 
     device_switch_template_menue_filter = \
         {
-            'XPATH': "//*[@class='ui-menu-filter']"
+            'XPATH': "//*[@automation-tag='automation-switch-device-templates-menu-filter']"
         }
 
     switch_template_device_configuration_igmp_settings = \

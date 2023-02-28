@@ -744,7 +744,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_adv_settings_upgrade_device_on_off_button = \
         {
-            'XPATH': '//input[@data-dojo-attach-point="enableUploadAuthSwitchHac"]',
+            'XPATH': '//input[@data-dojo-attach-point="enableUploadAuthExos"]',
             'wait_for': 2
         }
 
