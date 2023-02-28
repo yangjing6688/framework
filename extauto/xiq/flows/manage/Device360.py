@@ -3514,7 +3514,7 @@ class Device360(Device360WebElements):
                 "Could not find Events table - make sure Device360 window is open to the Monitor> Alarms view")
         kwargs['fail_msg'] = "device360_search_event_and_confirm_event_description_contains() -> Could not find " \
                              "Events table - make sure Device360 window is open to the Monitor> Alarms view"
-        self.common_validation.fault(**kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def d360Event_search(self, search_value, **kwargs):
@@ -9512,9 +9512,7 @@ class Device360(Device360WebElements):
             return -1
         sleep(3)
 
-        count = -1
-        if self.device360_search_event_and_confirm_event_description_contains(event, **kwargs) != -1:
-            count = 1
+        count = self.device360_search_event_and_confirm_event_description_contains(event, **kwargs)
 
         if close_360_window:
             self.close_device360_window()
