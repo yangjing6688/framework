@@ -74,7 +74,7 @@ class Devices:
         :return: 1 if on boarded else -1
         """
         self.navigator.navigate_to_devices()
-        if self.search_device(device_serial=ap_serial, ignore_failure=True) == 1:
+        if self.search_device(device_serial=ap_serial, skip_navigation=True, ignore_failure=True) == 1:
             self.utils.print_info(f"Ap with {ap_serial} serial number already onboarded")
             return 1
 
@@ -1026,7 +1026,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Select Switch row")
-        if not self.select_device(serial):
+        if not self.select_device(serial, skip_refresh=True, skip_navigation=True):
             kwargs['fail_msg'] = f"Switch {serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -1057,7 +1057,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Select Switch row")
-        self.select_device(serial)
+        self.select_device(serial, skip_navigation=True)
         sleep(5)
 
         # Handle the case where a tooltip / popup is covering the Update Device button
@@ -1193,9 +1193,14 @@ class Devices:
         self.navigator.navigate_to_devices()
         sleep(5)
 
+        self.navigator.enable_page_size()
         self.utils.print_info("Selecting the device rows")
-        for ap_sr in ap_serial.split(','):
-            self.select_device(ap_sr)
+        ap_serial = ap_serial.split(',')
+        for ap_sr in ap_serial:
+            if ap_sr == ap_serial[0]:
+                self.select_device(ap_sr, skip_navigation=True)
+            else:
+                self.select_device(ap_sr, skip_refresh=True, skip_navigation=True)
 
         if not self._assign_network_policy(policy_name):
             kwargs['fail_msg'] = f"Can not assign network policy {policy_name}"
@@ -1203,8 +1208,11 @@ class Devices:
             return -1
 
         self.utils.print_info("Selecting the device rows")
-        for ap_sr in ap_serial.split(','):
-            self.select_device(ap_sr)
+        for ap_sr in ap_serial:
+            if ap_sr == ap_serial[0]:
+                self.select_device(ap_sr)
+            else:
+                self.select_device(ap_sr, skip_refresh=True, skip_navigation=True)
 
         self._update_network_policy(update_method)
         tool_tip_text = tool_tip.tool_tip_text
@@ -1247,7 +1255,7 @@ class Devices:
 
         self.refresh_devices_page()
 
-        if self.select_device(device_serial=ap_serial):
+        if self.select_device(device_serial=ap_serial,  skip_refresh=True, skip_navigation=True):
             self.utils.print_info("Click on Actions button")
             self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
 
@@ -1354,7 +1362,7 @@ class Devices:
 
         if device_serial:
             self.utils.print_info("Selecting Device with serial: ", device_serial)
-            self.select_device(device_serial)
+            self.select_device(device_serial=device_serial)
         elif device_mac:
             self.utils.print_info("Selecting Device with mac-address: ", device_mac)
             self.select_device(device_mac=device_mac)
@@ -1398,10 +1406,7 @@ class Devices:
         device_serial = device_dict.get("serial")
         device_mac = device_dict.get("mac")
 
-        self.refresh_devices_page()
-        if self.select_device(device_mac=device_mac, ignore_failure=True):
-            device_selected = 1
-        elif self.select_device(device_serial=device_serial, ignore_failure=True):
+        if self.select_device(device_mac=device_mac, device_serial=device_serial):
             device_selected = 1
 
         if device_selected:
@@ -2542,10 +2547,13 @@ class Devices:
         # Select all the specified devices
         self.utils.print_info("Deleting devices: ", device_list)
         for device_ in device_list:
-            if self.select_device(device_):
+            if device_ == device_list[0]:
+                self.select_device(device_)
                 self.utils.print_info(f"Selected device {device_}")
             else:
-                self.utils.print_info(f"Unable to select device {device_}")
+                self.select_device(device_, skip_refresh=True, skip_navigation=True)
+                self.utils.print_info(f"Selected device {device_}")
+
         sleep(2)
         # Now that all devices to delete are selected, perform the delete action
         self.utils.print_info("Click delete button")
@@ -2579,42 +2587,13 @@ class Devices:
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def search_device(self, device_serial=None, device_name=None, device_mac=None, select_device=False, **kwargs):
+    def _find_device_row(self, device_keys, **kwargs):
         """
-        - Searches for the device using serial, name, MAC and selects it if desired
-
-        Supported Modes:
-            UI - default mode
-            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
-
-        :param device_serial: serial number of the device
-        :param device_name: name of the device
-        :param device_mac: MAC of the device
-        :param select_device: True - to select the device, default set to False
-        :param kwargs: keyword arguments XAPI_ENABLE
-
-        :return: 1 if device found else -1
+        - This helper function searches for the device in all of the pages and returns its row
+        :param device_keys: dictionary of the device. Key-value pairs. E.g: serial: 01501707240150, mac: 885BDD4BE380
+        
+        :return: row if device found else False
         """
-        if self.xapiHelper.is_xapi_enabled():
-            return self.xapiDevices.xapi_search_device(device_serial=device_serial,
-                                                       device_name=device_name,
-                                                       device_mac=device_mac,
-                                                       **kwargs)
-        device_keys = {}
-        if device_mac:
-            device_keys['device_mac'] = device_mac
-        if device_serial:
-            device_keys['device_serial'] = device_serial
-        if device_name:
-            device_keys['device_name'] = device_name
-        if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: device_serial, device_name, or device_mac!"
-            self.common_validation.fault(**kwargs)
-            return -1
-
-        # navigate to devices page
-        self.navigator.navigate_to_devices()
-        self.refresh_devices_page()
 
         # reset the page number to 1
         pageOne = self.devices_web_elements.get_devices_page_number_one()
@@ -2641,13 +2620,8 @@ class Devices:
                         for row in rows:
                             self.utils.print_info("row data: ", self.format_row(row.text))
                             if value in row.text:
-                                kwargs['pass_msg'] = f"Found device with {key}: {value}"
-                                if select_device:
-                                    self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
-                                    self.screen.save_screen_shot()
-                                    kwargs['pass_msg'] = f"Found and selected device with {key}: {value}"
-                                self.common_validation.passed(**kwargs)
-                                return 1
+                                self.utils.print_info(f"Found device with {key}: {value}")
+                                return row
                 else:
                     self.utils.print_debug(f"No rows returned for page #{page_num}")
                 page_len = page_len - 1
@@ -2657,9 +2631,8 @@ class Devices:
                     self.auto_actions.click_reference(self.devices_web_elements.get_grid_rows_next)
                     sleep(5)
 
-            kwargs['fail_msg'] = f"Did not find device row with {device_keys}"
-            self.common_validation.failed(**kwargs)
-            return -1
+            self.utils.print_info(f"Did not find device row with {device_keys}")
+            return False
 
         except StaleElementReferenceException:
             self.utils.print_info(f"Handling StaleElementReferenceException - loop {page_len}")
@@ -2668,7 +2641,65 @@ class Devices:
         self.common_validation.fault(**kwargs)
         return -1
 
-    def select_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def search_device(self, device_serial=None, device_name=None, device_mac=None, select_device=False,
+                      skip_refresh=False, skip_navigation=False, **kwargs):
+        """
+        - Searches for the device using serial, name, MAC and selects it if desired
+        - Supported Modes:
+          - UI - default mode
+          - XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
+
+        :param device_serial: serial number of the device
+        :param device_name: name of the device
+        :param device_mac: MAC of the device
+        :param select_device: True - to select the device, default set to False
+        :param skip_refresh: True - to skip the refresh of the devices page, default set to False
+        :param skip_navigation: True - to skip the navigation to the devices page, default set to False
+        :param kwargs: keyword arguments XAPI_ENABLE
+
+        :return: 1 if device found else -1
+        """
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiDevices.xapi_search_device(device_serial=device_serial,
+                                                       device_name=device_name,
+                                                       device_mac=device_mac,
+                                                       **kwargs)
+        device_keys = {}
+        if device_mac:
+            device_keys['device_mac'] = device_mac
+        if device_serial:
+            device_keys['device_serial'] = device_serial
+        if device_name:
+            device_keys['device_name'] = device_name
+        if len(device_keys.keys()) == 0:
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: device_serial, " \
+                                 "device_name, or device_mac!"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        # navigate to devices page and refresh
+        if not skip_navigation:
+            self.navigator.navigate_to_devices()
+        if not skip_refresh:
+            self.refresh_devices_page()
+
+        row = self._find_device_row(device_keys)
+        if row:
+            kwargs['pass_msg'] = f"Device with {device_keys} was found!"
+            if select_device:
+                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = f"Device with {device_keys} was found and selected"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        kwargs['fail_msg'] = f"Did not find device row with {device_keys}"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def select_device(self, device_serial=None, device_name=None, device_mac=None,
+                      skip_refresh=False, skip_navigation=False, **kwargs):
         """
         - Selects the device matching device's Serial Number,Device Mac address and device mane
         - Keyword Usage:
@@ -2679,51 +2710,13 @@ class Devices:
         :param device_serial: device Serial
         :param device_name: device host name
         :param device_mac: device MAC address
-        :return: return 1 if device found else False
+        :param skip_refresh: True - to skip the refresh of the devices page, default set to False
+        :param skip_navigation: True - to skip the navigation to the devices page, default set to False
+
+        :return: return 1 if device found else -1
         """
-        self.utils.wait_till(self.devices_web_elements.get_grid_rows, timeout=20, delay=1, is_logging_enabled=True)
-        rows = self.devices_web_elements.get_grid_rows()
-        if rows:
-            if device_serial:
-                self.utils.print_info("Selecting Device with serial: ", device_serial)
-                for row in rows:
-                    self.utils.print_info("All rows: ", self.format_row(row.text))
-                    if device_serial in row.text:
-                        self.utils.print_info("Found device Row: ", self.format_row(row.text))
-                        check_box = self.devices_web_elements.get_device_select_checkbox(row)
-                        if check_box:
-                            self.auto_actions.click(check_box)
-                            self.utils.print_info("checkbox selected ")
-                            return 1
-                        else:
-                            self.utils.print_info("checkbox not found ")
-                        self.screen.save_screen_shot()
-
-            if device_name:
-                self.utils.print_info("Selecting Device with Name: ", device_name)
-                for row in rows:
-                    if device_name in row.text:
-                        self.utils.print_debug("Found device Row: ", self.format_row(row.text))
-                        self.auto_actions.click(self.devices_web_elements.get_device_select_checkbox(row))
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        return 1
-
-            if device_mac:
-                self.utils.print_info("Selecting Device with MAC: ", device_mac)
-                for row in rows:
-                    if device_mac in row.text:
-                        self.utils.print_debug("Found device Row: ", self.format_row(row.text))
-                        self.auto_actions.click(self.devices_web_elements.get_device_select_checkbox(row))
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        return 1
-        else:
-            self.utils.print_info("No rows present")
-
-        kwargs['fail_msg'] = "Did not find specified row to select the device"
-        self.common_validation.failed(**kwargs)
-        return False
+        return self.search_device(device_serial=device_serial, device_mac=device_mac, device_name=device_name,
+                                  select_device=True, skip_refresh=skip_refresh, skip_navigation=skip_navigation, **kwargs)
 
     def _get_row(self, key, value):
         device_row = -1
@@ -2911,7 +2904,7 @@ class Devices:
             if status in self.get_device_status(device_mac):
                 return 1
 
-    def get_device_row(self, device_serial='default', device_name='default', device_mac='default'):
+    def get_device_row(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - This keyword returns the row of matched device
 
@@ -2921,39 +2914,28 @@ class Devices:
 
         :return: returns the row object or -1 if unable to find row
         """
-        self.utils.print_info('Getting device row...')
+        device_keys = {}
+        if device_mac:
+            device_keys['device_mac'] = device_mac
+        if device_serial:
+            device_keys['device_serial'] = device_serial
+        if device_name:
+            device_keys['device_name'] = device_name
+        if len(device_keys.keys()) == 0:
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: device_serial, " \
+                                 "device_name, or device_mac!"
+            self.common_validation.fault(**kwargs)
+            return -1
 
-        stale_retry = 1
-        while stale_retry <= 10:
-            try:
-                rows = self.devices_web_elements.get_grid_rows()
-                if rows:
-                    self.utils.print_debug(f"Found {len(rows)} rows")
-                    for row in rows:
-                        self.utils.print_debug(f"Looking at row {self.format_row(row.text)}")
-                        if device_serial != 'default':
-                            self.utils.print_debug(f"Looking at Device Serial {device_serial}")
-                            if device_serial in row.text:
-                                self.utils.print_info("Found device row: ", self.format_row(row.text))
-                                return row
-                        if device_name != 'default':
-                            self.utils.print_debug(f"Looking at Device Name {device_name}")
-                            if device_name in row.text:
-                                self.utils.print_info("Found device row: ", self.format_row(row.text))
-                                return row
-                        if device_mac != 'default':
-                            self.utils.print_debug(f"Looking at Device MAC {device_mac}")
-                            if device_mac.upper() in row.text:
-                                self.utils.print_info("Found device row: ", self.format_row(row.text))
-                                return row
-                    # Device row not found in table so break out of the StaleElementException loop
-                    break
-                else:
-                    self.utils.print_debug("No device rows found in grid")
-                    break
-            except StaleElementReferenceException:
-                self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
-                stale_retry = stale_retry + 1
+        self.utils.print_info('Getting device row...')
+        row = self._find_device_row(device_keys)
+        if row:
+            kwargs['pass_msg'] = f"Found device row using {device_keys}"
+            self.common_validation.passed(**kwargs)
+            return row
+
+        kwargs['fail_msg'] = f"Didn't find the device with {device_keys} in the grid"
+        self.common_validation.failed(**kwargs)
         return -1
 
     @unsupported('This function is not supported')
@@ -3028,7 +3010,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Select Router row")
-        if not self.select_device(router_serial):
+        if not self.select_device(router_serial, skip_navigation=True):
             kwargs['fail_msg'] = f"Router {router_serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -3182,21 +3164,13 @@ class Devices:
         self.utils.print_info("Refresh the devices page")
         self.utils.wait_till(self.refresh_devices_page)
         self.utils.print_info('Getting device Updated Status using ', *[x for x in {device_serial, device_name, device_mac} if x is not None])
-        if device_serial:
-            self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
-            device_row = self.get_device_row(device_serial=device_serial)
 
-        if device_name:
-            self.utils.print_info("Getting Updated status of device with name: ", device_name)
-            device_row = self.get_device_row(device_name=device_name)
+        device_row = self.get_device_row(device_serial=device_serial, device_mac=device_mac, device_name=device_name)
 
-        if device_mac:
-            self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac=device_mac)
         # get a snap shot of the object at this instant, so values can't change or become undefined.
         device_row = copy.copy(device_row)
 
-        if device_row:
+        if device_row != -1:
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             self.utils.print_info("Device Updated Status is :", device_updated_status)
             if "Querying" in device_updated_status:
@@ -3641,7 +3615,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Select Device row")
-        if not self.select_device(device_serial):
+        if not self.select_device(device_serial, skip_navigation=True):
             kwargs['fail_msg'] = f"AP {device_serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -3900,7 +3874,7 @@ class Devices:
         """
         self.navigator.navigate_to_devices()
 
-        if self.search_device(device_serial=device_serial, ignore_failure=True) == 1:
+        if self.search_device(device_serial=device_serial, skip_navigation=True, ignore_failure=True) == 1:
             self.utils.print_info(f"Device with {device_serial} serial number already onboarded")
             return 1
 
@@ -4002,7 +3976,7 @@ class Devices:
         while True:
             self.utils.print_info(f"Time elapsed for device connection {retry_time} seconds")
             self.refresh_devices_page()
-            device_row = self.get_device_row(device_serial)
+            device_row = self.get_device_row(device_serial=device_serial)
             if "hive-status-true" in self.devices_web_elements.get_status_cell(device_row):
                 kwargs['pass_msg'] = "Device status is connected"
                 self.common_validation.passed(**kwargs)
@@ -4044,7 +4018,7 @@ class Devices:
 
         # Commented on 1/18/23 because variable is unused
         # device_row = self.get_device_row(device_serial)
-        self.get_device_row(device_serial)
+        self.get_device_row(device_serial=device_serial)
         for column in column_array:
             data = self.get_device_details(device_serial, column)
             return_array_data[column.replace(' ', "_")] = data
@@ -4366,7 +4340,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info(f"Select switch row with serial {serial}")
-        if not self.select_device(serial):
+        if not self.select_device(serial, skip_navigation=True):
             kwargs['fail_msg'] = f"Switch {serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -4415,7 +4389,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info(f"Select switch row with serial {serial}")
-        if not self.select_device(serial):
+        if not self.select_device(serial, skip_navigation=True):
             kwargs['fail_msg'] = f"Switch {serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -5665,13 +5639,13 @@ class Devices:
 
         if device_serial != 'default':
             self.utils.print_info(f"Getting status of device with serial {device_serial}")
-            device_row = self.get_device_row(device_serial)
+            device_row = self.get_device_row(device_serial=device_serial)
         elif device_name != 'default':
             self.utils.print_info(f"Getting status of device with name {device_name}")
-            device_row = self.get_device_row(device_name)
+            device_row = self.get_device_row(device_name=device_name)
         elif device_mac != 'default':
             self.utils.print_info(f"Getting status of device with MAC {device_mac}")
-            device_row = self.get_device_row(device_mac)
+            device_row = self.get_device_row(device_mac=device_mac)
         else:
             self.utils.print_info("Please specify a serial #, device name, or MAC address")
 
@@ -6021,7 +5995,7 @@ class Devices:
         self.utils.print_info('Getting device Updated Status using')
         if device_serial != 'default':
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
-            device_row = self.get_device_row(device_serial)
+            device_row = self.get_device_row(device_serial=device_serial)
 
         if device_row:
             count = 0
@@ -6031,7 +6005,7 @@ class Devices:
                 if re.search(r'\d+-\d+-\d+', device_updated_status):
                     break
                 elif device_updated_status == "Device Update Failed.":
-                    device_row = self.get_device_row(device_serial)
+                    device_row = self.get_device_row(device_serial=device_serial)
                     device_updated_status = self.device_update.get_device_update_form_error(device_row)
                     kwargs['fail_msg'] = "Device Update Failed"
                     self.common_validation.failed(**kwargs)
@@ -6061,7 +6035,7 @@ class Devices:
 
         if device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            device_row = self.get_device_row(device_mac=device_mac)
 
         if device_row:
             sleep(5)
@@ -6100,7 +6074,7 @@ class Devices:
 
         if device_mac != 'default':
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            device_row = self.get_device_row(device_mac=device_mac)
 
         if device_row:
             sleep(5)
@@ -6218,7 +6192,7 @@ class Devices:
         self.navigator.navigate_to_devices()
         sleep(5)
 
-        if not self.select_device(device_mac=device_mac):
+        if not self.select_device(device_mac=device_mac, skip_navigation=True):
             kwargs['fail_msg'] = f"Switch {device_mac} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -6352,13 +6326,13 @@ class Devices:
         while retry_count <= 300:
             self.refresh_devices_page()
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            device_row = self.get_device_row(device_mac=device_mac, ignore_failure=True)
             if device_row != -1:
                 self.utils.print_info("Found a raw with mac :", device_mac)
                 self.utils.print_info("Check if stack toggle icon is present")
                 stack_toggle = self.devices_web_elements.get_device_stack_toggle(device_row)
                 if stack_toggle:
-                    device_row = self.get_device_row(device_serial)
+                    device_row = self.get_device_row(device_serial, ignore_failure=True)
                     if device_row == -1:
                         if "ui-icon-stack" in stack_toggle.split(" "):
                             self.utils.print_info("The stack toogle icon is blue. Now check the connection status   ")
@@ -6400,7 +6374,7 @@ class Devices:
             else:
                 self.utils.print_info("No found a raw with mac :", device_mac)
                 self.utils.print_info("Search device with serial: ", device_serial)
-                device_row = self.get_device_row(device_serial)
+                device_row = self.get_device_row(device_serial, ignore_failure=True)
                 if device_row != -1:
                     self.utils.print_info("Found a raw with serial {}.The stack is not formed yet. "
                                           "Continue to check until duration_retry expired ".format(device_serial))
@@ -7151,7 +7125,7 @@ class Devices:
             self.refresh_devices_page()
             if device_mac != 'default':
                 self.utils.print_info("Getting status of Template with MAC: ", device_mac)
-                device_row = self.get_device_row(device_mac)
+                device_row = self.get_device_row(device_mac=device_mac)
 
             if device_row != -1:
                 self.utils.print_info("Found a raw with mac :", device_mac)
@@ -7252,7 +7226,7 @@ class Devices:
 
         self.refresh_devices_page()
         self.utils.print_info(f"Select switch row with serial {mac}")
-        if not self.select_device(mac):
+        if not self.select_device(device_mac=mac, skip_refresh=True, skip_navigation=True):
             kwargs['fail_msg'] = f"Switch {mac} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -7281,7 +7255,7 @@ class Devices:
         :return: 1 if remain in the Create auto Template ; -1 else
         """
 
-        if self.select_device(device_mac) == -1:
+        if self.select_device(device_mac=device_mac) == -1:
             kwargs['fail_msg'] = "Device raw was not selected"
             self.common_validation.fault(**kwargs)
             return -1
@@ -7600,7 +7574,7 @@ class Devices:
             if device_status == 'green' or device_status == 'config audit mismatch':
                 self.utils.print_info("Select the device")
                 if device_serial:
-                    self.select_device(device_serial)
+                    self.select_device(device_serial=device_serial)
             else:
                 kwargs['fail_msg'] = "Device is down"
                 self.common_validation.fault(**kwargs)
@@ -7611,7 +7585,7 @@ class Devices:
             if device_status == 'green' or device_status == 'config audit mismatch':
                 self.utils.print_info("Select the device")
                 if device_mac:
-                    self.select_device(device_mac)
+                    self.select_device(device_mac=device_mac)
                     sleep(10)
             else:
                 kwargs['fail_msg'] = "Device is down"
@@ -7641,9 +7615,9 @@ class Devices:
             self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_button)
             sleep(5)
             if device_serial:
-                self.select_device(device_serial)
+                self.select_device(device_serial=device_serial)
             if device_mac:
-                self.select_device(device_mac)
+                self.select_device(device_mac=device_mac)
         else:
             self.utils.print_info("Device has already a policy")
             pass
@@ -7713,9 +7687,9 @@ class Devices:
         :return: 1 if the information was found else -1
         """
         if device_serial:
-            self.select_device(device_serial)
+            self.select_device(device_serial=device_serial)
         if device_mac:
-            self.select_device(device_mac)
+            self.select_device(device_mac=device_mac)
         self.utils.print_info("Checking the update the status")
         sleep(5)
         status = self.devices_web_elements.get_status_update_failed_after_reboot()
@@ -7750,9 +7724,9 @@ class Devices:
         if device_status == 'green' or device_status == 'config audit mismatch':
             self.utils.print_info("Select the device")
             if device_serial:
-                self.select_device(device_serial)
+                self.select_device(device_serial=device_serial)
             if device_mac:
-                self.select_device(device_mac)
+                self.select_device(device_mac=device_mac)
         else:
             kwargs['fail_msg'] = "Device is down"
             self.common_validation.fault(**kwargs)
@@ -7778,7 +7752,7 @@ class Devices:
             self.utils.print_info("Click on network policy assign button")
             self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_button)
             sleep(5)
-            self.select_device(device_serial)
+            self.select_device(device_serial=device_serial)
         else:
             self.utils.print_info("Device has already a policy")
             pass
@@ -7864,9 +7838,9 @@ class Devices:
         if device_status == 'green' or device_status == 'config audit mismatch':
             self.utils.print_info("Select the device")
             if device_serial:
-                self.select_device(device_serial)
+                self.select_device(device_serial=device_serial)
             if device_mac:
-                self.select_device(device_mac)
+                self.select_device(device_mac=device_mac)
         else:
             kwargs['fail_msg'] = "Device is down"
             self.common_validation.fault(**kwargs)
@@ -7892,7 +7866,7 @@ class Devices:
             self.utils.print_info("Click on network policy assign button")
             self.auto_actions.click_reference(self.devices_web_elements.get_actions_network_policy_assign_button)
             sleep(5)
-            self.select_device(device_serial)
+            self.select_device(device_serial=device_serial)
         else:
             self.utils.print_info("Device has already a policy")
             pass
@@ -8203,12 +8177,18 @@ class Devices:
         """
 
         select_flag = False
-        for el in device_serial.split(','):
-            if self.select_device(el, ignore_failure=True):
+        device_serial = device_serial.split(',')
+
+        self.navigator.enable_page_size()
+        for el in device_serial:
+            if el == device_serial[0]:
+                self.select_device(el)
                 self.utils.print_info("Device with serial {} was selected".format(el))
                 select_flag = True
             else:
-                self.utils.print_info("Device with serial {} was not been selected".format(el))
+                self.select_device(device_serial=el, skip_refresh=True, skip_navigation=True)
+                self.utils.print_info("Device with serial {} was selected".format(el))
+                select_flag = True
 
         if select_flag:
             self.utils.print_info("Selecting Actions button")
@@ -8370,12 +8350,18 @@ class Devices:
         """
 
         select_flag = False
-        for el in device_serial.split(','):
-            if self.select_device(el):
+        device_serial = device_serial.split(',')
+
+        self.navigator.enable_page_size()
+        for el in device_serial:
+            if el == device_serial[0]:
+                self.select_device(el)
                 self.utils.print_info("Device with serial {} was selected".format(el))
                 select_flag = True
             else:
-                self.utils.print_info("Device with serial {} was not been selected".format(el))
+                self.select_device(el, skip_refresh=True, skip_navigation=True)
+                self.utils.print_info("Device with serial {} was selected".format(el))
+                select_flag = True
 
         if select_flag:
             self.utils.print_info("Selecting Actions button")
@@ -9748,7 +9734,7 @@ class Devices:
 
         if device_mac != 'default':
             self.utils.print_info("Getting Updated Status of Device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            device_row = self.get_device_row(device_mac=device_mac)
         else:
             kwargs['fail_msg'] = "Invalid device mac"
             self.common_validation.fault(**kwargs)
@@ -9768,7 +9754,7 @@ class Devices:
             return -1
 
         try:
-            if self.select_device(device_mac):
+            if self.select_device(device_mac=device_mac):
                 self.close_last_refreshed_tooltip()
                 self.utils.print_info("Closing the last refreshed tool tip")
 
@@ -10045,7 +10031,7 @@ class Devices:
             self.navigator.navigate_to_devices()
             self.refresh_devices_page()
 
-            device_row = self.get_device_row(device_mac)
+            device_row = self.get_device_row(device_mac=device_mac)
             device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
             self.utils.print_info("Device Updated Status : ", device_updated_status)
 
@@ -10066,7 +10052,7 @@ class Devices:
                     sleep(retry_duration)
                     count += retry_duration
                     self.refresh_devices_page()
-                    device_row = self.get_device_row(device_mac)
+                    device_row = self.get_device_row(device_mac=device_mac)
                     device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
                     self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
                     if ("Device Update Failed" in device_updated_status) or (count > 300):
@@ -10078,7 +10064,7 @@ class Devices:
                     sleep(retry_duration)
                     count += retry_duration
                     self.refresh_devices_page()
-                    device_row = self.get_device_row(device_mac)
+                    device_row = self.get_device_row(device_mac=device_mac)
                     device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
                     self.utils.print_info(f"Time elapsed for firmware update '{count}' seconds and status '{device_updated_status}'")
                     if ("Device Update Failed" in device_updated_status) or (count > retry_count):
@@ -10093,7 +10079,7 @@ class Devices:
                 self.utils.print_info("Initial Device Updated Status : ", initial_updated_status)
                 sleep(30)
                 self.refresh_devices_page()
-                device_row = self.get_device_row(device_mac)
+                device_row = self.get_device_row(device_mac=device_mac)
                 device_updated_status = self.devices_web_elements.get_updated_status_cell(device_row).text
                 self.utils.print_info("Current Device Updated Status : ", device_updated_status)
                 if re.search(r'\d+-\d+-\d+', device_updated_status) or (device_updated_status == "") or (device_updated_status == "Device Update Failed."):
@@ -10111,7 +10097,7 @@ class Devices:
                             return -1
                         elif ((device_updated_status == "Device Update Failed.") or (
                                 not re.search(r'\d+-\d+-\d+', device_updated_status))) and (count > 60):
-                            device_row = self.get_device_row(device_mac)
+                            device_row = self.get_device_row(device_mac=device_mac)
                             kwargs['fail_msg'] = f"Device Update Failed due to {device_updated_status}"
                             self.common_validation.failed(**kwargs)
                             return -1
@@ -10476,16 +10462,20 @@ class Devices:
         # manage_setting = 'MANAGE'
         # unmanage_setting = 'UNMANAGE'
         select_flag = False
+        self.navigator.enable_page_size()
         if device_serial:
             select_flag = False
-            for device in device_serial.split(','):
-                if self.select_device(device_serial=device):
+            device_serial = device_serial.split(',')
+            for device in device_serial:
+                if device == device_serial[0]:
+                    self.select_device(device_serial=device)
                     self.utils.print_info("Device with serial {} was selected".format(device))
                     select_flag = True
                 else:
-                    kwargs['fail_msg'] = f"Device with serial {device} has not been selected"
-                    self.common_validation.fault(**kwargs)
-                    return -1
+                    self.select_device(device_serial=device, skip_refresh=True, skip_navigation=True)
+                    self.utils.print_info("Device with serial {} was selected".format(device))
+                    select_flag = True
+
         elif device_mac:
             select_flag = False
             if self.select_device(device_mac=device_mac):
@@ -10722,12 +10712,18 @@ class Devices:
         :return: 1 when "Rebooting" status is displayed; else -1
         """
         select_flag = False
-        for el in device_serial.split(','):
-            if self.select_device(el, ignore_failure=True):
+        device_serial = device_serial.split(',')
+
+        self.navigator.enable_page_size()
+        for el in device_serial:
+            if el == device_serial[0]:
+                self.select_device(el)
                 self.utils.print_info("Device with serial {} was selected".format(el))
                 select_flag = True
             else:
-                self.utils.print_info("Device with serial {} was not been selected".format(el))
+                self.select_device(el, skip_refresh=True, skip_navigation=True)
+                self.utils.print_info("Device with serial {} was selected".format(el))
+                select_flag = True
 
         if select_flag:
             self.utils.print_info("Selecting Actions button")
@@ -10745,7 +10741,7 @@ class Devices:
             self.auto_actions.click(change_os_actions)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "hange OS not found"
+            kwargs['fail_msg'] = "Change OS not found"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -10773,15 +10769,15 @@ class Devices:
         self.utils.print_info('Getting device Updated Status using')
         if device_serial != 'default':
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
-            device_row = self.get_device_row(device_serial)
+            device_row = self.get_device_row(device_serial=device_serial)
 
         if device_name != 'default':
             self.utils.print_info("Getting Updated status of device with name: ", device_name)
-            device_row = self.get_device_row(device_name)
+            device_row = self.get_device_row(device_name=device_name)
 
         if device_mac != 'default':
             self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac)
+            device_row = self.get_device_row(device_mac=device_mac)
 
         if device_row:
             sleep(10)
@@ -11726,7 +11722,7 @@ class Devices:
         self.utils.wait_till(_navigate_to_devices)
         select_flag = False
         if device_serial:
-            self.select_device(device_serial)
+            self.select_device(device_serial, skip_navigation=True)
             select_flag = True
         else:
             kwargs['fail_msg'] = "Device is not there"
@@ -12292,9 +12288,9 @@ class Devices:
         :return: status if the information was found else -1
         """
         if device_serial:
-            self.select_device(device_serial)
+            self.select_device(device_serial=device_serial)
         if device_mac:
-            self.select_device(device_mac)
+            self.select_device(device_mac=device_mac)
         self.utils.print_info("Checking the update the status")
         sleep(5)
         status = self.devices_web_elements.get_status_update_failed_after_reboot()
@@ -12486,7 +12482,7 @@ class Devices:
 
         self.utils.print_info(f"Select switch row with serial {dut.mac}")
 
-        if self.select_device(dut.mac) != 1:
+        if self.select_device(device_mac=dut.mac) != 1:
             kwargs["fail_msg"] = f"Switch {dut.mac} is not present in the grid"
             self.common_validation.failed(**kwargs)
             return -1
