@@ -3733,7 +3733,7 @@ class Navigator(NavigatorWebElements):
         while try_again:
             try:
                 page_size_element = self.get_page_size()
-                if page_size_element != None:
+                if page_size_element is not None:
                     self.utils.print_info(f'Clicking on page size of {page_size_element.text}')
                     if self.auto_actions.click(page_size_element) == 1:
                         kwargs['pass_msg'] = f" Clicked on page size of {page_size_element.text}"
