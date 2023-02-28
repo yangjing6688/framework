@@ -12692,12 +12692,12 @@ class Devices:
             print(
                 f"\nINFO \t Time elapsed in the update column to reflect the firmware updating is '{count} seconds'\n")
             if ("Failed" in status_after) or ("failed" in status_after) or (count > max_wait):
-                kwargs["fail_msg"] = f"Device update failed"
+                kwargs["fail_msg"] = "Device update failed"
                 self.common_validation.fault(**kwargs)
 
         print(f"Status after: {status_after}")
         if status_before != status_after:
-            kwargs["pass_msg"] = f"Successfully changed the UPDATED status"
+            kwargs["pass_msg"] = "Successfully changed the UPDATED status"
             self.common_validation.passed(**kwargs)
         else:
             kwargs["fail_msg"] = f"Failed to change the status from {status_before}"
