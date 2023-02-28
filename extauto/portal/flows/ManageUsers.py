@@ -132,6 +132,83 @@ class ManageUsers():
             return -1
         return 1
 
+    def edit_user(self, username, oldemail, newemail, **kwargs):
+        """
+            - This can be used in USERS page
+            - Keyword Usage
+            - ``edit User    ${MSP_USER}      ${MSP_USER_EMAIL}        ${MSP_USER_EMAIL_1}``
+            :param: username - the user who will be edited
+            :param: oldemail - the email that filled when create the user
+            :param: newemail - the email that will be changed to
+            :return: returns 1 if the the user's email is edited successfully and displayed correctly on USERS page list,else -1
+        """
+        self.utils.print_info("Click on USERS menu")
+        self.auto_actions.click_reference(self.portal_web_elements.get_users_menu_item)
+        element_status = self.portal_web_elements.get_users_page_nextpage_button().is_enabled()
+        number = 1
+        while element_status:
+            self.utils.print_info("filter users with Name in page" + str(number))
+            sleep(1)
+            self.auto_actions.click_reference(self.portal_web_elements.get_users_page_name_filter_item)
+            self.utils.print_info("Start to edit user1...")
+            sleep(2)
+            self.auto_actions.send_keys(self.portal_web_elements.get_users_page_name_filter_text(), username)
+            sleep(2)
+            self.utils.print_info("Start to edit user2...")
+            if self.check_users_list(username) != -1:
+                self.utils.print_info(username + " is in USERS list page " + str(number))
+                self.utils.print_info("Click Edit button...")
+                element = self.web.get_element(self.portal_web_elements.get_users_page_displayName_item(username))
+                print(self.portal_web_elements.get_users_page_displayName_item(username))
+                print(element)
+                self.auto_actions.click(element)
+                sleep(1)
+                self.auto_actions.click_reference(self.portal_web_elements.get_edit_button_portal)
+                sleep(1)
+                if self.edit_user_email(oldemail,newemail) == -1:
+                    kwargs['fail_msg'] = "Edit user email failed!"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                elif self.check_edit_result_on_users_page(username,newemail) == -1:
+                    kwargs['fail_msg'] = "The new email on user page list is not correct"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                else:
+                    return 1
+            else:
+                self.auto_actions.click_reference(self.portal_web_elements.get_users_page_nextpage_button)
+                number = number + 1
+                element_status = self.portal_web_elements.get_users_page_nextpage_button().is_enabled()
+        self.utils.print_info("filter users with Name in page" + str(number))
+        self.auto_actions.click_reference(self.portal_web_elements.get_users_page_name_filter_item)
+        sleep(1)
+        self.auto_actions.send_keys(self.portal_web_elements.get_users_page_name_filter_text(), username)
+        sleep(2)
+        if self.check_users_list(username) != -1:
+            self.utils.print_info(username + " is in USERS list page " + str(number))
+            element = self.web.get_element(self.portal_web_elements.get_users_page_displayName_item(username))
+            self.auto_actions.click(element)
+            sleep(1)
+            self.utils.print_info("Click Edit button...")
+            self.auto_actions.click_reference(self.portal_web_elements.get_edit_button_portal)
+            sleep(1)
+            if self.edit_user_email(oldemail,newemail) == -1:
+                kwargs['fail_msg'] = "Edit user email failed!"
+                self.common_validation.failed(**kwargs)
+                return -1
+            elif self.check_edit_result_on_users_page(username, newemail) == -1:
+                kwargs['fail_msg'] = "The new email on user page list is not correct"
+                self.common_validation.failed(**kwargs)
+                return -1
+            else:
+                return 1
+        else:
+            kwargs['fail_msg'] = username + " is not in USERS list"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+
+
     def delete_user(self, username):
         """
             - This can be used in USERS page
@@ -140,6 +217,8 @@ class ManageUsers():
             :param: username - the created user's name
             :return: returns 1 if the created user is in USERS list of current page else -1
         """
+        self.utils.print_info("Click on USERS menu")
+        self.auto_actions.click_reference(self.portal_web_elements.get_users_menu_item)
         element_status = self.portal_web_elements.get_users_page_nextpage_button().is_enabled()
         number = 1
         while element_status:
@@ -184,6 +263,85 @@ class ManageUsers():
         else:
             self.utils.print_info(username + " is not in USERS list")
             return -1
+
+    def edit_user_email(self, oldemail, newemail, **kwargs):
+        """
+            - This can be used in USERS edit page.It's to change user's email from 'oldemail' to 'newemail'.
+            - Keyword Usage
+            - ``if self.edit_user_email(oldemail,newemail) != -1:
+            return 1``
+            :param: oldemail - the email that filled when create the user
+            :param: newemail - the email that will be changed to
+            :return: returns 1 if the user's email is edited successfully and displayed correctly on USERS page list,else -1
+        """
+        element = self.portal_web_elements.get_edit_users_page_email_text(oldemail)
+        element_status = self.web_element_controller.is_web_element_present(element)
+        if not element_status:
+            kwargs['fail_msg'] = " edit page open failed!"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.utils.print_info("Clicking old Email...")
+        element = self.web.get_element(self.portal_web_elements.get_edit_users_page_email_text(oldemail))
+        self.auto_actions.double_click(element)
+        sleep(2)
+        self.utils.print_info("Entering New Email...")
+        self.auto_actions.send_keys(self.portal_web_elements.get_edit_users_page_email_input(), newemail)
+        sleep(1)
+        self.auto_actions.click_reference(self.portal_web_elements.get_edit_users_page_edit_accept_button)
+        sleep(1)
+        element = self.portal_web_elements.get_edit_users_page_email_text(newemail)
+        element_status = self.web_element_controller.is_web_element_present(element)
+        if not element_status:
+            kwargs['fail_msg'] = " change email failed!"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.utils.print_info(" Email is edited successfully")
+        return 1
+
+    def check_edit_result_on_users_page(self, username, newemail,**kwargs):
+        """
+            - This can be used in USERS page.It's to check whether the new message is displayed correctly in the list。
+            - Keyword Usage
+            - ``if self.check_edit_result_on_users_page(username，newemail) != -1:
+            return 1``
+            :param: oldemail - the email that filled when create the user
+            :param: newemail - the email that will be changed to
+            :return: returns 1 if the email is not in the list,else -1
+        """
+        self.utils.print_info("Start to check the new email on users page...")
+        self.utils.print_info("Click on USERS menu")
+        self.auto_actions.click_reference(self.portal_web_elements.get_users_menu_item)
+        element_status = self.portal_web_elements.get_users_page_nextpage_button().is_enabled()
+        number = 1
+        while element_status:
+            self.utils.print_info("filter users with email in page" + str(number))
+            self.auto_actions.click_reference(self.portal_web_elements.get_users_page_email_filter_item)
+            sleep(1)
+            self.auto_actions.send_keys(self.portal_web_elements.get_users_page_name_filter_text(), newemail)
+            sleep(2)
+            if self.check_users_list(username) != -1:
+                kwargs['pass_msg'] = username + " is in USERS list page " + str(number)
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.auto_actions.click_reference(self.portal_web_elements.get_users_page_nextpage_button)
+                number = number + 1
+                element_status = self.portal_web_elements.get_users_page_nextpage_button().is_enabled()
+        self.utils.print_info("filter users with Name in page" + str(number))
+        self.auto_actions.click_reference(self.portal_web_elements.get_users_page_email_filter_item)
+        sleep(1)
+        self.auto_actions.send_keys(self.portal_web_elements.get_users_page_name_filter_text(), newemail)
+        sleep(2)
+        if self.check_users_list(username) != -1:
+            kwargs['pass_msg'] = username + " is in USERS list page " + str(number)
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = fail_msg
+            self.common_validation.failed(**kwargs)
+            return -1
+
+
 
 
 
