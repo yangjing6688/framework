@@ -1669,7 +1669,7 @@ class Devices:
         self.utils.print_info("Onboarding: ", device_make)
         self.navigator.navigate_to_devices()
 
-        self.utils.print_info("Clicking on ADD button...")
+        self.utils.print_info("Clicking on +/ADD button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
@@ -1677,7 +1677,7 @@ class Devices:
         while attempt_count > 0:
             if attempt_count != 3:
                 self.utils.print_info("Menu selection failed. Making another attempt...")
-                self.utils.print_info("Clicking on ADD button...")
+                self.utils.print_info("Clicking on +/ADD button...")
                 self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
                 self.utils.print_info("Selecting Quick Add Devices menu")
                 sleep(4)
@@ -1731,6 +1731,29 @@ class Devices:
 
         self.screen.save_screen_shot()
         sleep(2)
+
+        # Code taken from the ap_onboard code.
+        # This code was need because it took a longer to onboard an AP on an AIO
+        # Updated logic to use a whil loop with a timer so that if the process nerver finishes we will abort and throw an error
+        check_process_count = 90
+        retry_duration = 2
+        count = 1
+        while check_process_count > 0:
+            # If the quick add block is present, this inidcates the process is not done, then sleep a second and try again
+            self.utils.print_info(f"Checking to see if adding device process has completeed: loop {count}")
+            if self.devices_web_elements.get_devices_quick_add_block_show():
+                self.utils.print_info(f"Still in adding device process, Waiting for {retry_duration} seconds...")
+                sleep(retry_duration)
+            else:
+                kwargs['pass_msg'] = "Finish device adding process ..."
+                self.common_validation.passed(**kwargs)
+                break
+            check_process_count = check_process_count - 1
+            count = count + 1
+        if check_process_count == 0:
+            kwargs['fail_msg'] = "Adding device process never completed"
+            self.common_validation.fault(**kwargs)
+            return -1
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
@@ -2032,7 +2055,19 @@ class Devices:
                 return _errors
 
         if 'DUAL BOOT' in device_make.upper():
-            return self._onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
+            # The assumption here is this type of system can be either:
+            # - Cloud IQ Engine
+            # - Wing
+            # I have added logic if the OS type is WING we should enable the wing radio button*
+            # *As of Feb 24 2023, I can find a SERIAL Number that enables the wing radio button
+            # So this code is untested.
+            if 'Cloud IQ Engine' in device_os:
+                self.utils.print_info("Selecting Device Type : Cloud IQ Engine")
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_radio)
+            elif 'WING' in device_os.upper():
+                self.utils.print_info("Selecting Device Type : WING")
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_wing_radio)
+
 
         return 1
 
