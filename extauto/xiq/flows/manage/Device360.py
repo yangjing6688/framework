@@ -15606,7 +15606,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Found row for port: ", port_row.text)
         else:
             self.utils.print_info("Port rows are not displayed. Check the tab")
-            kwargs['fail_msg'] = "check_overview_row_table_by_port() -> Port rows are not displayed. Check the tab"
+            kwargs['fail_msg'] = "Port rows are not displayed. Check the tab"
             self.common_validation.failed(**kwargs)
             return -1
         column_to_check = kwargs.get("column_name", "")
@@ -15622,7 +15622,7 @@ class Device360(Device360WebElements):
                 return port_status.text
             else:
                 self.utils.print_info("'PORT STATUS' not found")
-                kwargs['fail_msg'] = "check_overview_row_table_by_port() -> 'PORT STATUS' not found"
+                kwargs['fail_msg'] = "'PORT STATUS' not found"
                 self.common_validation.failed(**kwargs)
                 return -1
         elif column_to_check == "TRANSMISSION MODE":
@@ -15643,7 +15643,7 @@ class Device360(Device360WebElements):
                 return mac_locking.text
             else:
                 self.utils.print_info("'PORT STATUS' not found")
-                kwargs['fail_msg'] = "check_overview_row_table_by_port() -> 'PORT STATUS' not found"
+                kwargs['fail_msg'] = "'PORT STATUS' not found"
                 self.common_validation.failed(**kwargs)
                 return -1
         elif column_to_check == "TRAFFIC RECEIVED (RX)":
@@ -15659,10 +15659,10 @@ class Device360(Device360WebElements):
                 return port_speed_row.text
             else:
                 self.utils.print_info("Port speed status not found")
-                kwargs['fail_msg'] = "device360_speed_overview() -> Port speed status not found"
+                kwargs['fail_msg'] = "Port speed status not found"
                 self.common_validation.failed(**kwargs)
                 return -1
-        kwargs['fail_msg'] = "device360_speed_overview() -> No valid input. Please check again."
+        kwargs['fail_msg'] = "No valid input. Please check again."
         self.common_validation.failed(**kwargs)
         return -1
 
