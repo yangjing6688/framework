@@ -1533,7 +1533,7 @@ class Devices:
                 return -1
             else:
                 # Wait until 'loading' mask is cleared
-                self.wait_until_devices_load_mask_cleared(retry_duration=1, retry_count=180)
+                self.navigator.wait_until_devices_load_spinner_cleared(retry_duration=1, retry_count=180)
                 kwargs['pass_msg'] = "Device page refreshed successfully"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -2533,7 +2533,7 @@ class Devices:
                         self.screen.save_screen_shot()
 
                         # Wait until 'loading' mask is cleared
-                        self.wait_until_devices_load_mask_cleared(retry_duration=1, retry_count=180)
+                        self.navigator.wait_until_devices_load_spinner_cleared(retry_duration=1, retry_count=180)
 
                         # Wait until the device is removed from the view
                         result = self.wait_until_device_removed(device_serial=device_serial, device_name=device_name,
@@ -5596,38 +5596,6 @@ class Devices:
             count += 1
 
         kwargs['fail_msg'] = f"{col} column for device {device_serial} still does not contain data. Please check."
-        self.common_validation.failed(**kwargs)
-        return -1
-
-    def wait_until_devices_load_mask_cleared(self, retry_duration=1, retry_count=180, **kwargs):
-        """
-        - This keyword waits until the Manage > Devices 'loading' mask is cleared.
-        - This keyword by default loops every 1 second for 180 times to check for the 'loading' mask.
-        - Flow:
-        - Assumes that the 'Manage --> Devices' view is already visible.
-        - check for the 'loading' mask
-        - Keyword Usage:
-        - ``Wait Until Devices Load Mask Cleared   retry_duration=1    retry_count=180``
-
-        :param retry_duration: duration between each retry
-        :param retry_count: retry count
-        :return: 1 if the 'loading' mask is cleared within the specified time, else -1
-        """
-        count = 1
-
-        while count <= retry_count:
-            self.utils.print_info(f"Checking for 'loading' mask: loop {count}")
-            load_mask = self.devices_web_elements.get_manage_devices_table_load_mask()
-            if load_mask:
-                self.utils.print_info(f"The 'loading' mask is still visible. Waiting for {retry_duration} seconds...")
-                sleep(retry_duration)
-            else:
-                kwargs['pass_msg'] = "The 'loading' mask is no longer visible"
-                self.common_validation.passed(**kwargs)
-                return 1
-            count += 1
-
-        kwargs['fail_msg'] = "The 'loading' mask is still visible in the Manage --> Devices view."
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -11504,13 +11472,14 @@ class Devices:
         """
         ret_val = -1
         # Wait until 'loading' mask is cleared
-        self.wait_until_devices_load_mask_cleared(retry_duration=1, retry_count=180)
+        self.navigator.wait_until_devices_load_spinner_cleared(retry_duration=1, retry_count=180)
 
         self.utils.print_info("Clicking on ADD button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
-        self.auto_actions.move_to_element(self.devices_web_elements.get_devices_quick_add_devices_menu_item())
+        web_element = self.devices_web_elements.get_devices_quick_add_devices_menu_item()
+        self.auto_actions.move_to_element(web_element)
 
         self.utils.print_info("Selecting Deploy your devices directly to the cloud")
         self.auto_actions.click_reference(self.devices_web_elements.get_deploy_devices_to_cloud_menu_item)
