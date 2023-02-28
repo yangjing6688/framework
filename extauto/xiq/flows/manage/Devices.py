@@ -12597,41 +12597,6 @@ class Devices:
             print(
                 f"\nINFO \t Time elapsed in the update column to reflect the firmware updating is '{count} seconds'\n")
 
-    def get_device_status_safe(self, dut, message):
-        """
-        - This keyword was made to debug an intermitent isssue that makes it seem like the device is disconected and makes
-        the test fail. This is a wrapper function for get_device_status.
-
-        :param dut: device under testing
-        :param message: message that check_device_status should return
-        :return:
-        - 'green' if device connected and config audit match
-        - 'config audit mismatch' if device connected and config audit mismatch
-        - 'disconnected' if device disconnected and unable to connect after 10 minutes
-        - 'unknown' if device connection status is 'Unknown'
-        """
-        # Formerly get_device_status_debug
-
-        failed = False
-
-        for repeat in range(10):
-            res = self.get_device_status(device_serial=dut.serial)
-
-            if res != message and not failed:
-                failed = True
-                print("Trying again")
-
-            else:
-                sleep(2)
-                return res
-
-            sleep(1)
-
-        log_issue(res, dut, message)
-        print("The issue persisted")
-
-        return res
-
     def update_and_wait_device(self, policy_name, dut, wait=True, **kwargs):
         """Method that updates the switch and then wait for the update to finish.
 

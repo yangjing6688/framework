@@ -2440,7 +2440,6 @@ class SwitchTemplate(object):
         print("Get Template Save Button")
         save_btns = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
 
-        rc = -1
         for save_btn in save_btns:
             if save_btn.is_displayed():
                 print("Click on the save template button")
@@ -2501,7 +2500,7 @@ class SwitchTemplate(object):
             print("Click on Verify adanced settings button")
 
         if ok != 1:
-            kwargs['fail_msg'] = f"'press_upload_config_and_upgr_firm_button()' failed. Unable to click on Verify adanced settings button"
+            kwargs['fail_msg'] = "'press_upload_config_and_upgr_firm_button()' failed. Unable to click on Verify adanced settings button"
             self.common_validation.failed(**kwargs)
 
         self.auto_actions.click_reference(
@@ -2536,11 +2535,11 @@ class SwitchTemplate(object):
 
         sleep(2)
 
-        kwargs['pass_msg'] = f"'press_upload_config_and_upgr_firm_button()' successful"
+        kwargs['pass_msg'] = "'press_upload_config_and_upgr_firm_button()' successful"
         self.common_validation.passed(**kwargs)
         return 1
 
-    def get_latest_firmware_version_from_switch_template(self, sw_model):
+    def get_latest_firmware_version_from_switch_template(self, sw_model, **kwargs):
         '''
         Return the latest image version present in create switch template option
 
@@ -2657,7 +2656,7 @@ class SwitchTemplate(object):
             img_pattern = f"summit{prefix}" + r"-.*\.xos"
 
         if specific_firmware_items is None:
-            kwargs['fail_msg'] = f"'select_specific_firmware_version()' failed. No images present in drop down list"
+            kwargs['fail_msg'] = "'select_specific_firmware_version()' failed. No images present in drop down list"
             self.common_validation.fault(**kwargs)
 
         this_image_version = ''
@@ -2688,7 +2687,7 @@ class SwitchTemplate(object):
             self.auto_actions.click_reference(specific_firmware_items[0])
         else:
             kwargs[
-                'fail_msg'] = f"'select_specific_firmware_version()' failed. No images present in drop down liste"
+                'fail_msg'] = "'select_specific_firmware_version()' failed. No images present in drop down liste"
             self.common_validation.fault(**kwargs)
 
         kwargs['pass_msg'] = f"Selected firmware version is: {this_image_version}"
