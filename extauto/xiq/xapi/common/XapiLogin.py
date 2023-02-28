@@ -23,47 +23,48 @@ class XapiLogin(XapiBase):
 
         # Login information
         xapi_url = self.xapiHelper.get_xapi_url()
-        configuration = self.extremecloudiq.Configuration(
-            host=xapi_url,
-            username=username,
-            password=password
-        )
-        # Set the base configuration
-        self.xapiHelper.set_xapi_configuration(configuration)
+        if xapi_url:
+            configuration = self.extremecloudiq.Configuration(
+                host=xapi_url,
+                username=username,
+                password=password
+            )
+            # Set the base configuration
+            self.xapiHelper.set_xapi_configuration(configuration)
 
-        xiq_login_request = {"username": username,
-                             "password": password}
+            xiq_login_request = {"username": username,
+                                 "password": password}
 
-        try:
-            api_response = self.xapiBaseAuthenticationApi.xapi_base_login(xiq_login_request=xiq_login_request)
-            if api_response != -1:
-                configuration.access_token = api_response.access_token
-                # Set the configuration with the token
-                self.xapiHelper.set_xapi_configuration(configuration)
-            else:
-                kwargs['fail_msg'] = "Error when calling AuthenticationApi->login"
-                self.xapiHelper.common_validation.failed(**kwargs)
-                return -1
+            try:
+                api_response = self.xapiBaseAuthenticationApi.xapi_base_login(xiq_login_request=xiq_login_request)
+                if api_response != -1:
+                    configuration.access_token = api_response.access_token
+                    # Set the configuration with the token
+                    self.xapiHelper.set_xapi_configuration(configuration)
+                else:
+                    kwargs['fail_msg'] = "Error when calling AuthenticationApi->login"
+                    self.xapiHelper.common_validation.failed(**kwargs)
+                    return -1
 
-            # Get the new configuration Object and generate a new token
-            xiq_generate_api_token_request = {"description": "Token for Automation Test",
-                                              "expire_time": None, "permissions": []}
-            api_response = self.xapiBaseAuthorizationApi.xapi_base_generate_api_token(xiq_generate_api_token_request=xiq_generate_api_token_request)
-            if api_response != -1:
-                configuration.access_token = api_response.access_token
-                # Set the configuration with the new token
-                self.xapiHelper.set_xapi_configuration(configuration)
-                kwargs['pass_msg'] = 'User was logged in and token was generated'
-                self.xapiHelper.common_validation.passed(**kwargs)
-                return 1
-            else:
+                # Get the new configuration Object and generate a new token
+                xiq_generate_api_token_request = {"description": "Token for Automation Test",
+                                                  "expire_time": None, "permissions": []}
+                api_response = self.xapiBaseAuthorizationApi.xapi_base_generate_api_token(xiq_generate_api_token_request=xiq_generate_api_token_request)
+                if api_response != -1:
+                    configuration.access_token = api_response.access_token
+                    # Set the configuration with the new token
+                    self.xapiHelper.set_xapi_configuration(configuration)
+                    kwargs['pass_msg'] = 'User was logged in and token was generated'
+                    self.xapiHelper.common_validation.passed(**kwargs)
+                    return 1
+                else:
+                    kwargs['fail_msg'] = 'Token was not generated'
+                    self.xapiHelper.common_validation.failed(**kwargs)
+                    return -1
+            except Exception:
                 kwargs['fail_msg'] = 'Token was not generated'
                 self.xapiHelper.common_validation.failed(**kwargs)
                 return -1
-        except Exception:
-            kwargs['fail_msg'] = 'Token was not generated'
-            self.xapiHelper.common_validation.failed(**kwargs)
-            return -1
 
 
     def logout(self,  **kwargs):
