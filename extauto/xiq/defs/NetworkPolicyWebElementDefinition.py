@@ -136,7 +136,7 @@ class NetworkPolicyWebElementDefinition:
             'wait_for': 5
         }
 
-    network_policy_card_item = {'CSS_SELECTOR': '.card-item-static', 'wait_for': 5}
+    network_policy_card_item = {'CSS_SELECTOR': '.card-item-static'}
 
     deploy_policy_tab = \
         {
