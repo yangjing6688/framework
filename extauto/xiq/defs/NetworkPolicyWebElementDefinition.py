@@ -9,7 +9,7 @@ class NetworkPolicyWebElementDefinition:
     card_view = \
         {
             'XPATH': "//span[@data-automation-tag='automation-config-card']",
-            'wait_for': 20
+            'wait_for': 30
         }
 
     np_grid_rows = \
