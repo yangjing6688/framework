@@ -8,7 +8,8 @@ class NetworkPolicyWebElementDefinition:
 
     card_view = \
         {
-            'XPATH': "//span[@data-automation-tag='automation-config-card']"
+            'XPATH': "//span[@data-automation-tag='automation-config-card']",
+            'wait_for': 20
         }
 
     np_grid_rows = \
