@@ -2523,8 +2523,7 @@ class Devices:
                                                device_mac=device_mac, ignore_failure=True)
 
             if search_result != -1:
-                if self.wait_for_device_to_finish_update(device_serial=device_serial, device_name=device_name,
-                                                         device_mac=device_mac):
+                if self.wait_until_device_update_done(device_serial=device_serial, device_mac=device_mac, device_name=device_name):
                     if self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac):
                         self.utils.print_info("Click delete button")
                         self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
@@ -10158,13 +10157,17 @@ class Devices:
                 sleep(30)
                 self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
-    def wait_until_device_update_done(self, device_serial=None, wait_time_in_min=15, **kwargs):
+    def wait_until_device_update_done(self, device_serial=None, device_mac=None, device_name=None, wait_time_in_min=15, **kwargs):
         """
         - This keyword checks if the expected device is done with updating
         - Keyword Usage:
         - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
+        - ``wait_until_device_update_done   device_mac=${AP_MAC}``
+        - ``wait_until_device_update_done   device_name=${AP_NAME}``
 
-        :param device_serial: Serial number of AP Ex:11301810220048
+        :param device_serial: serial number of the device. Example: "01301511060005"
+        :param device_mac: mac of the device. Example: 885BDD4BE380
+        :param device_name: name of the device. Example: bui-flo-0005
         :param wait_time_in_min: time to wait in min
         :return: 1 if done, -1 if not
         """
@@ -10174,12 +10177,21 @@ class Devices:
 
         complete = False
         n_time = 0
+        update_status = -1
         date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
 
         while n_time <= int(wait_time_in_min * 4):
             n_time = n_time + 1
-            update_status = self.get_device_details(device_serial, 'UPDATED')
-            self.utils.print_info("updated status...," + str(device_serial) + " " + str(update_status))
+            if device_serial:
+                update_status = self.get_device_details(device_serial, 'UPDATED')
+                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_serial: " + str(device_serial))
+            elif device_mac:
+                update_status = self.get_device_details(device_mac, 'UPDATED')
+                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_mac: " + str(device_mac))
+            elif device_name:
+                update_status = self.get_device_details(device_name, 'UPDATED')
+                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_name: " + str(device_name))
+
             if (update_status == '') or (re.match(date_regex, update_status)):
                 kwargs['pass_msg'] = "Device has finished updating "
                 self.common_validation.passed(**kwargs)
