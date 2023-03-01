@@ -74,7 +74,6 @@ class ManageUsers():
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info("check this test1..............")
                 self.auto_actions.click_reference(self.portal_web_elements.get_users_page_nextpage_button)
                 sleep(1)
                 number = number + 1
@@ -334,6 +333,7 @@ class ManageUsers():
         sleep(1)
         self.auto_actions.send_keys(self.portal_web_elements.get_users_page_name_filter_text(), newemail)
         sleep(2)
+        fail_msg = "The created user" + username + " is not in the users list"
         if self.check_users_list(username) != -1:
             kwargs['pass_msg'] = username + " is in USERS list page " + str(number)
             self.common_validation.passed(**kwargs)
