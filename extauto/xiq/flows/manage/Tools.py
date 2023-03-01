@@ -66,7 +66,7 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.select_device(device_serial=serial):
+        if self.devices.select_device(device_serial=serial, skip_navigation=True):
             error = self.dialog_web_elements.get_tooltip_text()
             if error:
                 self.utils.print_info("Error: ", error)
@@ -141,7 +141,7 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.search_device(device_serial=serial, ignore_failure=True) == 1:
+        if self.devices.search_device(device_serial=serial, skip_navigation=True, ignore_failure=True) == 1:
             if self.devices.select_device(device_serial=serial):
                 error = self.dialog_web_elements.get_tooltip_text()
                 self.utils.print_info("Possible Error : " + error)
