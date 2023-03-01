@@ -1669,7 +1669,7 @@ class Devices:
         self.utils.print_info("Onboarding: ", device_make)
         self.navigator.navigate_to_devices()
 
-        self.utils.print_info("Clicking on ADD button...")
+        self.utils.print_info("Clicking on +/ADD button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
 
         self.utils.print_info("Selecting Quick Add Devices menu")
@@ -1677,7 +1677,7 @@ class Devices:
         while attempt_count > 0:
             if attempt_count != 3:
                 self.utils.print_info("Menu selection failed. Making another attempt...")
-                self.utils.print_info("Clicking on ADD button...")
+                self.utils.print_info("Clicking on +/ADD button...")
                 self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
                 self.utils.print_info("Selecting Quick Add Devices menu")
                 sleep(4)
@@ -1731,6 +1731,29 @@ class Devices:
 
         self.screen.save_screen_shot()
         sleep(2)
+
+        # Code taken from the ap_onboard code.
+        # This code was need because it took a longer to onboard an AP on an AIO
+        # Updated logic to use a whil loop with a timer so that if the process nerver finishes we will abort and throw an error
+        check_process_count = 90
+        retry_duration = 2
+        count = 1
+        while check_process_count > 0:
+            # If the quick add block is present, this inidcates the process is not done, then sleep a second and try again
+            self.utils.print_info(f"Checking to see if adding device process has completeed: loop {count}")
+            if self.devices_web_elements.get_devices_quick_add_block_show():
+                self.utils.print_info(f"Still in adding device process, Waiting for {retry_duration} seconds...")
+                sleep(retry_duration)
+            else:
+                kwargs['pass_msg'] = "Finish device adding process ..."
+                self.common_validation.passed(**kwargs)
+                break
+            check_process_count = check_process_count - 1
+            count = count + 1
+        if check_process_count == 0:
+            kwargs['fail_msg'] = "Adding device process never completed"
+            self.common_validation.fault(**kwargs)
+            return -1
 
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
@@ -2032,7 +2055,19 @@ class Devices:
                 return _errors
 
         if 'DUAL BOOT' in device_make.upper():
-            return self._onboard_ap(device_serial, device_make=device_make, location=location, device_os=device_os)
+            # The assumption here is this type of system can be either:
+            # - Cloud IQ Engine
+            # - Wing
+            # I have added logic if the OS type is WING we should enable the wing radio button*
+            # *As of Feb 24 2023, I can find a SERIAL Number that enables the wing radio button
+            # So this code is untested.
+            if 'Cloud IQ Engine' in device_os:
+                self.utils.print_info("Selecting Device Type : Cloud IQ Engine")
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_radio)
+            elif 'WING' in device_os.upper():
+                self.utils.print_info("Selecting Device Type : WING")
+                self.auto_actions.click_reference(self.devices_web_elements.get_device_os_wing_radio)
+
 
         return 1
 
@@ -2488,8 +2523,7 @@ class Devices:
                                                device_mac=device_mac, ignore_failure=True)
 
             if search_result != -1:
-                if self.wait_for_device_to_finish_update(device_serial=device_serial, device_name=device_name,
-                                                         device_mac=device_mac):
+                if self.wait_until_device_update_done(device_serial=device_serial, device_mac=device_mac, device_name=device_name):
                     if self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac):
                         self.utils.print_info("Click delete button")
                         self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
@@ -10123,13 +10157,17 @@ class Devices:
                 sleep(30)
                 self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
-    def wait_until_device_update_done(self, device_serial=None, wait_time_in_min=15, **kwargs):
+    def wait_until_device_update_done(self, device_serial=None, device_mac=None, device_name=None, wait_time_in_min=15, **kwargs):
         """
         - This keyword checks if the expected device is done with updating
         - Keyword Usage:
         - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
+        - ``wait_until_device_update_done   device_mac=${AP_MAC}``
+        - ``wait_until_device_update_done   device_name=${AP_NAME}``
 
-        :param device_serial: Serial number of AP Ex:11301810220048
+        :param device_serial: serial number of the device. Example: "01301511060005"
+        :param device_mac: mac of the device. Example: 885BDD4BE380
+        :param device_name: name of the device. Example: bui-flo-0005
         :param wait_time_in_min: time to wait in min
         :return: 1 if done, -1 if not
         """
@@ -10139,12 +10177,21 @@ class Devices:
 
         complete = False
         n_time = 0
+        update_status = -1
         date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
 
         while n_time <= int(wait_time_in_min * 4):
             n_time = n_time + 1
-            update_status = self.get_device_details(device_serial, 'UPDATED')
-            self.utils.print_info("updated status...," + str(device_serial) + " " + str(update_status))
+            if device_serial:
+                update_status = self.get_device_details(device_serial, 'UPDATED')
+                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_serial: " + str(device_serial))
+            elif device_mac:
+                update_status = self.get_device_details(device_mac, 'UPDATED')
+                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_mac: " + str(device_mac))
+            elif device_name:
+                update_status = self.get_device_details(device_name, 'UPDATED')
+                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_name: " + str(device_name))
+
             if (update_status == '') or (re.match(date_regex, update_status)):
                 kwargs['pass_msg'] = "Device has finished updating "
                 self.common_validation.passed(**kwargs)
