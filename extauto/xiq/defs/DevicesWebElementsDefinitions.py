@@ -115,21 +115,19 @@ class DevicesWebElementsDefinitions:
 
     devices_quick_add_devices_menu_item = \
         {
-            'CSS_SELECTOR': '.ui-menu-item',
-            'wait_for': 1
+            'XPATH': '//a[@data-automation-tag="automation-device-list-menu-quick-add-devices"]',
+            'wait_for': 3
         }
 
     deploy_devices_to_cloud_menu_item = \
         {
-            'CSS_SELECTOR': '.ui-menu-item.quick-add-deploy-menu-item',
-            'index': 0,
-            'wait_for': 1
+            'XPATH': '//div[@data-automation-tag="automation-device-list-menu-quick-add-devices-cloud-onboard"]',
+            'wait_for': 3
         }
 
     deploy_devices_locally_menu_item = \
         {
-            'CSS_SELECTOR': '.ui-menu-item.quick-add-deploy-menu-item',
-            'index': 1,
+            'XPATH': '//div[@data-automation-tag="automation-device-list-menu-quick-add-devices-local-onboard"]',
             'wait_for': 1
         }
 
@@ -1813,13 +1811,6 @@ class DevicesWebElementsDefinitions:
     number_of_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContainer"]//div[@class="ui-grid-bottom-left fn-left"]/a',
-            'wait_for': 5
-        }
-
-    manage_devices_table_load_mask = \
-        {
-            'DESC': 'Manage > Devices "load" mask',
-            'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
             'wait_for': 5
         }
 
