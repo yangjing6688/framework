@@ -74,7 +74,9 @@ class ManageUsers():
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
+                self.utils.print_info("check this test1..............")
                 self.auto_actions.click_reference(self.portal_web_elements.get_users_page_nextpage_button)
+                sleep(1)
                 number = number + 1
                 element_status = self.portal_web_elements.get_users_page_nextpage_button().is_enabled()
         self.utils.print_info("filter users with Name in page" + str(number))
