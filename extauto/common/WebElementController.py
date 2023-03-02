@@ -33,17 +33,34 @@ class WebElementController:
         :return: 1 if the action was done, -1 is it was unable to complete it
         """
 
+        # Validate parameters
+        if not callable(action_method):
+            kwargs['fail_msg'] = "action_method is not a callable function"
+            self.common_validation.fault(**kwargs)
+        if not callable(get_web_element_method):
+            kwargs['fail_msg'] = "get_web_element_method is not a callable function"
+            self.common_validation.fault(**kwargs)
+        if not isinstance(retry_times, int):
+            kwargs['fail_msg'] = "retry_times is not an int"
+            self.common_validation.fault(**kwargs)
+
+        # Try to complete the requested action after getting the webelement retry_times times
         for retry_count in range(retry_times):
             web_element = get_web_element_method()
             try:
                 if self.is_web_element_present(web_element):
                     action_method(web_element)
                     return 1
+                else:
+                    method_name = get_web_element_method.__name___
+                    self.utils.print_info(f"web_element returned from: {method_name} is not present")
             except Exception as e:
                 self.utils.print_info(f"Exception on action for an element {e}")
-                self.utils.print_info(f"Retry the action on element {web_element} for {retry_count} times")
-                sleep(5)
 
-        kwargs['fail_msg'] = "FAIL - Unable to complete the action"
+            self.utils.print_info(f"Retry the action on element {web_element} for {retry_count} times")
+            sleep(5)
+
+        action_method_name = action_method.__name___
+        kwargs['fail_msg'] = f"FAIL - Unable to complete the action {action_method_name}"
         self.common_validation.fault(**kwargs)
         return -1

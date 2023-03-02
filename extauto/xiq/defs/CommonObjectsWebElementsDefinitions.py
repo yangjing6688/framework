@@ -606,6 +606,17 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+    common_object_wifi0_radio_operating_mode_combox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="dualGHzArea"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_radio_operating_mode_combox_list = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="dualGHzArea"]//*[@data-automation-tag="automation-chzn-results-ctn"]/li',
+            'wait_for': 3
+        }
 
     common_object_wifi0_radio_profile_textbox = \
         {

@@ -36,7 +36,7 @@ class BuiltIn(object):
             # Try pytest
             value = config[varname]
         except Exception as e:
-            if default:
+            if default != None:
                 value = default
             else:
                 raise e
