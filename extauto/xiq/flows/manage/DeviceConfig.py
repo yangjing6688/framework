@@ -3158,7 +3158,7 @@ class DeviceConfig(DeviceConfigElements):
         ap_selected = False
         while not ap_selected:
             try_cnt = 0
-            if self.devices.select_device(device_serial=ap_serial, ignore_failure=True):
+            if self.devices.select_device(device_serial=ap_serial, ignore_failure=True) == 1:
                 self.utils.print_info(f"Edit AP serial {ap_serial} to go AP page...")
                 self.auto_actions.click_reference(self.get_edit_button)
                 device_360_page = self.get_device_360_page()
