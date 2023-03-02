@@ -197,16 +197,17 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         for chk in range(2):
             try:
                 done_btn_exists = self.get_network_policy_dialog_done_button()
-                if done_btn_exists:
-                    if chk == 2:
-                        kwargs['fail_msg'] = "Unable to close Express popup"
-                        self.common_validation.fault(**kwargs)
-                        return -1
-                    sleep(2)
-                    self.auto_actions.click(done_btn)
-                    sleep(2)
-                else:
-                    break
+                if done_btn_exists is not None:
+                    if done_btn_exists.is_displayed():
+                        if chk == 2:
+                            kwargs['fail_msg'] = "Unable to close Express popup"
+                            self.common_validation.fault(**kwargs)
+                            return -1
+                        sleep(2)
+                        self.auto_actions.click(done_btn)
+                        sleep(2)
+                    else:
+                        break
             except Exception:
                 break
 

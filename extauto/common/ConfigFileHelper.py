@@ -25,7 +25,7 @@ if ROBOT:
             #BuiltIn().log_to_console(f"{self.variables}\n\n\n\n")
 
         def checkConfigRefresh(self):
-            if 0 and 'REFRESH_CONFIG' not in self.variables and ('netelem1' in self.variables or \
+            if 0 and 'REFRESH_CONFIG' not in self.variables and ('netelem1' in self.variables or
                                 ('ap1' in self.variables and 'name' in self.variables['ap1'])):
                 self.set_ap1_default()
                 return 1

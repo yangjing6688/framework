@@ -94,6 +94,42 @@ class NetworkElementHostinformationGenKeywords(NetworkElementKeywordBaseClass):
                                     self.cmd_const.CLEAR_PROMPT,
                                     **kwargs)
 
+    def hostinformation_disable_iqagent(self, device_name, admin_state, agent_op_state, **kwargs):
+        """
+        Description: Not provided in CSV.
+
+        Supported Agents and OS:
+            CLI: VOSS
+        """
+        args = {"admin_state": admin_state,
+                "agent_op_state": agent_op_state}
+
+        self.execute_keyword(device_name, args, self.cmd_const.DISABLE_IQAGENT, **kwargs)
+
+        return self.execute_verify_keyword(device_name, args, self.cmd_const.SHOW_APP_IQAGENT,
+                                           self.parse_const.CHECK_STATE_IQAGENT, True,
+                                           "IQAgent is disconnected.",
+                                           "IQAgent is NOT connected!",
+                                           **kwargs)
+
+    def hostinformation_enable_iqagent(self, device_name, admin_state, agent_op_state, **kwargs):
+        """
+        Description: Not provided in CSV.
+
+        Supported Agents and OS:
+            CLI: VOSS
+        """
+        args = {"admin_state": admin_state,
+                "agent_op_state": agent_op_state}
+
+        self.execute_keyword(device_name, args, self.cmd_const.ENABLE_IQAGENT, **kwargs)
+
+        return self.execute_verify_keyword(device_name, args, self.cmd_const.SHOW_APP_IQAGENT,
+                                           self.parse_const.CHECK_STATE_IQAGENT, True,
+                                           "IQAgent is connected.",
+                                           "IQAgent is NOT disconnected!",
+                                           **kwargs)
+
     # ##################################################################################################################
     #   Inspection Keywords   ##########################################################################################
     # ##################################################################################################################

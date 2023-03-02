@@ -66,7 +66,7 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.select_device(device_serial=serial):
+        if self.devices.select_device(device_serial=serial, skip_navigation=True):
             error = self.dialog_web_elements.get_tooltip_text()
             if error:
                 self.utils.print_info("Error: ", error)
@@ -141,7 +141,7 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.search_device(device_serial=serial, ignore_failure=True) == 1:
+        if self.devices.search_device(device_serial=serial, skip_navigation=True, ignore_failure=True) == 1:
             if self.devices.select_device(device_serial=serial):
                 error = self.dialog_web_elements.get_tooltip_text()
                 self.utils.print_info("Possible Error : " + error)
@@ -778,8 +778,8 @@ class Tools:
         """
         while seconds > 0:
             sleep(5)
-            cur_ap_status = self.devices.get_ap_status(ap_sn, ap_name)
-            self.utils.print_info("Current Status : " + str(cur_ap_status) + ' and expected staus: ' + str(exp_status))
+            cur_ap_status = self.devices.get_device_status(device_serial=ap_sn, device_name=ap_name)
+            self.utils.print_info("Current Status : " + str(cur_ap_status) + ' and expected status: ' + str(exp_status))
             if cur_ap_status == "green" and exp_status == "green":
                 kwargs['pass_msg'] = "AP is online"
                 self.common_validation.passed(**kwargs)

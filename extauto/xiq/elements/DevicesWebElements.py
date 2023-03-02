@@ -856,6 +856,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.device_service_tag_textbox)
 
     def get_devices_quick_add_devices_menu_item(self):
+        return self.weh.get_element(self.devices_quick_add_devices_menu_item)
+
+        # jefjones - removed for now
         menus = self.weh.get_elements(self.devices_add_devices_menu)
         for menu in menus:
             if menu.is_displayed():
@@ -1222,9 +1225,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_number_of_rows(self):
         return self.weh.get_elements(self.number_of_rows)
-
-    def get_manage_devices_table_load_mask(self):
-        return self.weh.get_element(self.manage_devices_table_load_mask)
 
     def get_manage_all_devices_progress_status(self):
         return self.weh.get_elements(self.manage_devices_progress_status)

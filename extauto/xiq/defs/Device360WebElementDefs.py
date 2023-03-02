@@ -598,7 +598,7 @@ class Device360WebElementDefs:
     device360_configure_port_save_button = \
         {
             # 'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
-            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"] | //button[@data-automation-tag="automation-port-configuration-save-button"]',
             'wait_for': 5
         }
 
@@ -2035,7 +2035,7 @@ class Device360WebElementDefs:
 
     device_360_supplemental_cli_new_profile = \
         {
-            'XPATH': '//*[@data-type="supplemental-cli-profile"]',
+            'XPATH': "//span[@ah-text-tip='Add']",
             'wait_for': 3
         }
 
@@ -2277,7 +2277,7 @@ class Device360WebElementDefs:
 
     select_element_port_type_description = \
         {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-description"]',
+            'XPATH': '//textarea[@data-automation-tag="port-type-editor-description"]',
             'wait_for': 5
         }
 
@@ -2733,7 +2733,7 @@ class Device360WebElementDefs:
 
     device_d360_save_port_configuration = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"] | //button[@data-automation-tag="automation-port-config-save"]',
             'wait_for': 5
         }
 
@@ -3310,8 +3310,8 @@ class Device360WebElementDefs:
 
     select_element_port_type_pse_profile_power_limit = \
         {
-	          'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
-	          'wait_for': 5
+              'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+              'wait_for': 5
         }
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
@@ -4042,3 +4042,7 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    configuration_events_button = \
+    {
+        "XPATH": "//li[@data-automation-tag='automation-pills-configuration']"
+    }
