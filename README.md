@@ -13,6 +13,8 @@ This repository is home to the AutoIQ Frameworks for UI and Switch Testing.
         - User-Interfaces (XIQ and XIQSE).
         - Traffic Generators
 
+The keyword library documenation can be found [here](https://turbo-barnacle-q4z692e.pages.github.io/html/index.html)
+
 Please refer to the extreme_automation_tests repository for [directions](https://github.com/extremenetworks/extreme_automation_tests) on how to setup and use this framework
 
 

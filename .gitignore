@@ -6,7 +6,6 @@
 /ExtremeAutomation/Users
 .idea
 _build
-_static
 _templates
 docfiles
 **/*.pyc
@@ -18,7 +17,6 @@ robot_atg_log
 MANIFEST
 launch.json
 settings.json
-/build
 .env
 .venv
 .wenv
@@ -31,3 +29,7 @@ venv
 **log.html**
 **output.xml**
 **allure_output**
+
+tools/docs/source/_templates
+tools/docs/source/docs**
+tools/docs/build**

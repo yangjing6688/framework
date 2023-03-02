@@ -3669,24 +3669,7 @@ class SwitchTemplate(object):
         This function is used to save the current device template with a pop-up displayed
         :return: 1 - if the save was successful ; -1 - if not
         """
-        save_template_button = self.sw_template_web_elements.get_switch_temp_save_button()
-
-        if not save_template_button.is_displayed():
-            kwargs["fail_msg"] = "save_template_with_popup() failed. SAVE button is not displayed"
-            self.common_validation.fault(**kwargs)
-            return -1
-
-        kwargs["pass_msg"] = "Successfully found the SAVE button"
-        self.common_validation.passed(**kwargs)
-
-        self.utils.print_info("Click on SAVE button")
-        if self.auto_actions.click(save_template_button) != 1:
-            kwargs["fail_msg"] = "save_template_with_popup() failed.Failed to click the SAVE button"
-            self.common_validation.fault(**kwargs)
-            return -1
-
-        kwargs["pass_msg"] = "Successfully clicked the SAVE button"
-        self.common_validation.passed(**kwargs)
+        self.save_template()
 
         sw_yes_button = self.sw_template_web_elements.get_sw_template_notification_yes_btn()
 
@@ -4186,7 +4169,6 @@ class SwitchTemplate(object):
         if not self.nw_policy:
             self.nw_policy = extauto.xiq.flows.configure.NetworkPolicy.NetworkPolicy()
 
-
     def create_modify_lag_in_template(self, main_lag_port, ports, device='', **kwargs):
 
         """
@@ -4200,8 +4182,8 @@ class SwitchTemplate(object):
         if device == 'stack':
             lag_text = main_lag_port + " LAG"
             self.utils.wait_till(timeout=5)
-            AutoActions().scroll_down()
-            AutoActions().scroll_bottom()
+            self.auto_actions.scroll_down()
+            self.auto_actions.scroll_bottom()
             lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
             is_lag_found = False
             if lag_link is not None:
@@ -4211,40 +4193,40 @@ class SwitchTemplate(object):
                     self.utils.print_info(f"LAG {main_lag_port} found on the page.")
             if not is_lag_found:
                 self.utils.print_info("LAG not created. Creating LAG.")
-                AutoActions().click(self.sw_template_web_elements.get_aggr_ports_across_stack_button())
-                AutoActions().click(self.sw_template_web_elements.get_lacp_toggle_button())
-                AutoActions().click(self.sw_template_web_elements.get_available_slot(main_lag_port[0]))
+                self.auto_actions.click(self.sw_template_web_elements.get_aggr_ports_across_stack_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_lacp_toggle_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_available_slot(main_lag_port[0]))
                 sleep(3)
-                AutoActions().click(self.sw_template_web_elements.get_available_port(port=main_lag_port))
-                AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_available_port(port=main_lag_port))
+                self.auto_actions.click(self.sw_template_web_elements.get_lag_add_port_button())
                 for port in ports:
-                    AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
-                    AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
-                AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
-                AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
+                    self.auto_actions.click(self.sw_template_web_elements.get_available_port(port=port))
+                    self.auto_actions.click(self.sw_template_web_elements.get_lag_add_port_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_switch_temp_save_button())
                 kwargs["pass_msg"] = f"Successfully created lag {main_lag_port}"
                 self.common_validation.passed(**kwargs)
             else:
                 self.utils.print_info(f"Add port {ports} to lag group {main_lag_port}")
-                AutoActions().move_to_element(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
-                AutoActions().click(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
+                self.auto_actions.move_to_element(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
+                self.auto_actions.click(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
                 sleep(3)
                 for port in ports:
-                    AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
-                    AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                    self.auto_actions.click(self.sw_template_web_elements.get_available_port(port=port))
+                    self.auto_actions.click(self.sw_template_web_elements.get_lag_add_port_button())
                     selected_port = self.sw_template_web_elements.get_selected_port(port=port)
                     if selected_port is None:
                         kwargs["fail_msg"] = f"Failed to add port {ports} to lag {main_lag_port}"
                         self.common_validation.failed(**kwargs)
-                AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
-                AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_switch_temp_save_button())
                 kwargs["pass_msg"] = f"Successfully add {ports} to lag {main_lag_port}"
                 self.common_validation.passed(**kwargs)
         elif device == 'standalone':
             lag_text = main_lag_port + " LAG"
             self.utils.wait_till(timeout=5)
-            AutoActions().scroll_down()
-            AutoActions().scroll_bottom()
+            self.auto_actions.scroll_down()
+            self.auto_actions.scroll_bottom()
             lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
             is_lag_found = False
             if lag_link is not None:
@@ -4254,32 +4236,32 @@ class SwitchTemplate(object):
                     self.utils.print_info(f"LAG {main_lag_port} found on the page.")
             if not is_lag_found:
                 self.utils.print_info("LAG not created. Creating LAG.")
-                AutoActions().click(self.sw_template_web_elements.get_aggr_ports_standalone_button())
-                AutoActions().click(self.sw_template_web_elements.get_lacp_toggle_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_aggr_ports_standalone_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_lacp_toggle_button())
                 sleep(3)
-                AutoActions().click(self.sw_template_web_elements.get_available_port(port=main_lag_port))
-                AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_available_port(port=main_lag_port))
+                self.auto_actions.click(self.sw_template_web_elements.get_lag_add_port_button())
                 for port in ports:
-                    AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
-                    AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
-                AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
-                AutoActions().click(self.sw_template_web_elements.save_device_template())
+                    self.auto_actions.click(self.sw_template_web_elements.get_available_port(port=port))
+                    self.auto_actions.click(self.sw_template_web_elements.get_lag_add_port_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
+                self.auto_actions.click(self.sw_template_web_elements.save_device_template())
                 kwargs["pass_msg"] = f"Successfully created lag {main_lag_port}"
                 self.common_validation.passed(**kwargs)
             else:
                 self.utils.print_info(f"Add port {ports} to lag group {main_lag_port}")
-                AutoActions().move_to_element(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
-                AutoActions().click(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
+                self.auto_actions.move_to_element(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
+                self.auto_actions.click(self.sw_template_web_elements.get_lag_span(lag=main_lag_port))
                 sleep(3)
                 for port in ports:
-                    AutoActions().click(self.sw_template_web_elements.get_available_port(port=port))
-                    AutoActions().click(self.sw_template_web_elements.get_lag_add_port_button())
+                    self.auto_actions.click(self.sw_template_web_elements.get_available_port(port=port))
+                    self.auto_actions.click(self.sw_template_web_elements.get_lag_add_port_button())
                     selected_port = self.sw_template_web_elements.get_selected_port(port=port)
                     if selected_port is None:
                         kwargs["fail_msg"] = f"Failed to add port {ports} to lag {main_lag_port}"
                         self.common_validation.failed(**kwargs)
-                AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
-                AutoActions().click(self.sw_template_web_elements.save_device_template())
+                self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
+                self.auto_actions.click(self.sw_template_web_elements.save_device_template())
                 kwargs["pass_msg"] = f"Successfully add {ports} to lag {main_lag_port}"
                 self.common_validation.passed(**kwargs)
 
@@ -4292,8 +4274,8 @@ class SwitchTemplate(object):
         """
         lag_text = main_lag_port + " LAG"
         self.utils.wait_till(timeout=5)
-        AutoActions().scroll_down()
-        AutoActions().scroll_bottom()
+        self.auto_actions.scroll_down()
+        self.auto_actions.scroll_bottom()
         lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
         is_lag_found = False
         if lag_link is not None:
@@ -4301,21 +4283,21 @@ class SwitchTemplate(object):
             if lag_link.text == lag_text:
                 is_lag_found = True
                 self.utils.print_info(f"LAG {main_lag_port} found on the page.")
-                AutoActions().click(lag_link)
+                self.auto_actions.click(lag_link)
         if not is_lag_found:
             kwargs["fail_msg"] = f"{lag_text} wasn't found"
             self.common_validation.failed(**kwargs)
         for port in ports:
             if not self.sw_template_web_elements.get_selected_port(port=port).is_selected():
-                AutoActions().click(self.sw_template_web_elements.get_selected_port(port=port))
-            AutoActions().click(self.sw_template_web_elements.get_lag_remove_port_button())
+                self.auto_actions.click(self.sw_template_web_elements.get_selected_port(port=port))
+            self.auto_actions.click(self.sw_template_web_elements.get_lag_remove_port_button())
             sleep(2)
-        AutoActions().click(self.sw_template_web_elements.get_save_port_type_button())
+        self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
         sleep(2)
         if device == 'stack':
-            AutoActions().click(self.sw_template_web_elements.get_switch_temp_save_button())
+            self.auto_actions.click(self.sw_template_web_elements.get_switch_temp_save_button())
         elif device == 'standalone':
-            AutoActions().click(self.sw_template_web_elements.save_device_template())
+            self.auto_actions.click(self.sw_template_web_elements.save_device_template())
         else:
             kwargs["fail_msg"] = "Please specify a device type."
             self.common_validation.failed(**kwargs)

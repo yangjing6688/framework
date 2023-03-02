@@ -949,6 +949,12 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    wireless_wifi0_default_radio_operating_mode_drop_down = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-interface-settings-operating-mode-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
     wireless_wifi0_default_radio_profile_drop_down = \
         {
             'XPATH': '//div[@data-dojo-attach-point="radioProfileChange24"]',
