@@ -10,6 +10,7 @@ from extauto.common.CommonValidation import CommonValidation
 
 from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.xiq.flows.configure.RadiusServer import RadiusServer
 from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from extauto.xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
@@ -26,6 +27,7 @@ class CommonObjects(object):
         self.navigator = Navigator()
         self.cobj_web_elements = CommonObjectsWebElements()
         self.cwp_web_elements = WirelessCWPWebElements()
+        self.radius_server = RadiusServer()
         self.wireless_web_elements = WirelessWebElements()
         self.network_management_options_elements = NetworkManagementOptionsElements()
         self.user_profile_web_elements = UserProfileWebElements()
@@ -434,6 +436,36 @@ class CommonObjects(object):
         self.common_validation.passed(**kwargs)
         return 1
 
+    def delete_radius_server_group(self, radius_group_name, **kwargs):
+        """
+        - Flow: Configure --> Common Objects --> Policy --> SSIDs --> Add(+)
+          --> select enterprise network --> Authenticate via RADIUS Server(Select)
+        - Delete Radius Server Group from grid
+        - Keyword Usage:
+        - ``Delete Radius Server Group    ${RADIUS_SERVER_GROUP_NAME}``
+
+        :param radius_group_name: Name of the radius group to delete
+        :return: 1 if deleted else -1
+        """
+        self.navigator.navigate_to_ssids()
+        self.screen.save_screen_shot()
+        sleep(2)
+        try:
+            self.utils.print_info("Click Add(+) SSID Button")
+            self.auto_actions.click_reference(self.cobj_web_elements.get_common_object_policy_add_ssid_button)
+            self.utils.print_info("Click SSID Authentication Enterprise Tab")
+            self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_authtype_enterprise)
+            self.utils.print_info("Delete Radius Server Group")
+            self.radius_server.delete_radius_server_group(radius_group_name)
+        except Exception as e:
+            kwargs['fail_msg'] = f"delete_radius_group() failed. Actual error is :- {e}"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        kwargs['pass_msg'] = "delete_radius_group() success"
+        self.common_validation.passed(**kwargs)
+        return 1
+
     def delete_ip_object_hostname(self, object_name, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Basic --> IP Objects / HostName
@@ -632,7 +664,7 @@ class CommonObjects(object):
         self.navigator.navigate_to_aaa_server_settings()
 
         if not self._search_common_object(aaa_profile_name):
-            kwargs['pass_msg'] = "AAA Profile Name doesn't exists in the list."
+            kwargs['pass_msg'] = "AAA Profile Name({}) doesn't exists in the list.".format(aaa_profile_name)
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -644,12 +676,46 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
 
         for value in tool_tp_text:
-            if "Deleted AAA server profile successfully" in value:
-                kwargs['pass_msg'] = "Deleted AAA server profile successfully"
+            if "AAA Server Profile was deleted successfully" in value:
+                kwargs['pass_msg'] = "AAA Server Profile was deleted successfully"
                 self.common_validation.passed(**kwargs)
                 return 1
 
         kwargs['fail_msg'] = "delete_aaa_server_profile() failed. Failed to delete AAA server profile."
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def delete_ad_server(self, ad_server_name, **kwargs):
+        """
+        - Flow: CONFIGURE-->COMMON OBJECTS-->AUTHENTICATION-->AD SERVERS
+        - Delete AD server profile from the grid
+        -Keyword Usage:
+        - ``Delete AD Server   ${AD_SERVER_NAME}``
+
+        :param ad_server_name: Name of AD server
+        :return: 1 if deleted else -1
+        """
+        self.utils.print_info("Navigate to AD Servers")
+        self.navigator.navigate_to_ad_servers()
+        if not self._search_common_object(ad_server_name):
+            kwargs['pass_msg'] = "AD Server Name({}) doesn't exists in the list.".format(ad_server_name)
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        self.utils.print_info("Select and delete AD Server row: ", ad_server_name)
+        self._select_delete_common_object(ad_server_name)
+
+        sleep(5)
+        tool_tp_text = tool_tip.tool_tip_text
+        self.utils.print_info(tool_tp_text)
+
+        for value in tool_tp_text:
+            if "Deleted Active Directory server successfully" in value:
+                kwargs['pass_msg'] = "Deleted AD server successfully"
+                self.common_validation.passed(**kwargs)
+                return 1
+
+        kwargs['fail_msg'] = "delete_ad_server() failed. Failed to delete AD server."
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -1833,6 +1899,7 @@ class CommonObjects(object):
         :return: wifi0_profile if Get WiFi0 Profile Successfully else None
         """
         radio_status_wifi0         = wifi0_profile.get('radio_status'      , 'None')   # radio_status=get or yes
+        radio_operating_mode       = wifi0_profile.get('operating_mode'    , 'None')
         radio_profile_wifi0        = wifi0_profile.get('radio_profile'     , 'None')
         client_mode_status_wifi0   = wifi0_profile.get('client_mode'       , 'None')
         client_access_status_wifi0 = wifi0_profile.get('client_access'     , 'None')
@@ -1850,6 +1917,11 @@ class CommonObjects(object):
             if wifi0_profile['radio_status'] == 'Off':
                 return wifi0_profile
         self.auto_actions.scroll_down()
+        sleep(3)
+
+        if radio_operating_mode != 'None':
+            wifi0_profile['operating_mode'] = self.cobj_web_elements.get_common_object_wifi0_radio_operating_mode_combox().text
+            self.utils.print_info("Get Radio Operating Mode status on WiFi0 Interface: ", wifi0_profile['operating_mode'])
 
         if radio_profile_wifi0 != 'None':
             wifi0_profile['radio_profile'] = self.cobj_web_elements.get_common_object_wifi0_radio_profile_textbox().text
@@ -2128,6 +2200,12 @@ class CommonObjects(object):
             if not self.cobj_web_elements.get_common_object_wifi0_radio_status_button().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_radio_status_button())
         self.auto_actions.scroll_down()
+
+        if '6g' in radio_profile_wifi0:
+            self.utils.print_info('Click on Operating Mode: 6 GHz')
+            self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_radio_operating_mode_combox())
+            self.auto_actions.select_drop_down_options(self.cobj_web_elements.
+                                                       get_common_object_wifi0_radio_operating_mode_combox_list(), '6 GHz')
 
         self.utils.print_info(f"select Radio Profile:{radio_profile_wifi0}")
         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_radio_profile_button())
