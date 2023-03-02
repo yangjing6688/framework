@@ -2444,3 +2444,5 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_d360_mac_locking_remove_mac_toggle(self, port_number):
         return self.weh.get_template_element(self.d360_mac_locking_remove_mac_toggle, port_number=port_number)
+    def get_device360_lag_popup_spinner(self):
+        return self.weh.get_element(self.device360_lag_popup_spinner)

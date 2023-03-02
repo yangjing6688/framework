@@ -394,7 +394,7 @@ class SwitchTemplateWebElementDefinitions:
 
     aggr_ports_across_stack_button = \
         {
-            'XPATH': '//*[@data-automation-tag="switch-template-aggregate-for-stack"]',
+            'XPATH': '//button[@data-automation-tag="switch-template-aggregate-for-stack"]',
             'wait_for': 5
         }
 
@@ -672,7 +672,7 @@ class SwitchTemplateWebElementDefinitions:
 
     lag_span = \
         {
-            'CSS_SELECTOR': '.link-type-agg.link-type-agg-prime [data-automation-tag="lag-edit-lag-${lag}"]',
+            'CSS_SELECTOR': '.link-type-agg-prime .control-label.portInterface  [data-automation-tag="lag-edit-lag-${lag}"]',
             'wait_for': 10
         }
 
@@ -696,7 +696,7 @@ class SwitchTemplateWebElementDefinitions:
 
     available_slot = \
         {
-            'XPATH': '//*[@data-automation-tag="lag-slots-available"]//option[@value="${slot}"]',
+            'XPATH': '//select[@data-automation-tag="lag-slots-available"]//option[@value="${slot}"]',
             'wait_for': 5
         }
 

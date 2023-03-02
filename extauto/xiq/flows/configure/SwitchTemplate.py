@@ -4157,14 +4157,14 @@ class SwitchTemplate(object):
         for port in ports:
             if not self.sw_template_web_elements.get_selected_port(port=port).is_selected():
                 self.auto_actions.click(self.sw_template_web_elements.get_selected_port(port=port))
-            self.auto_actions.click_reference(self.sw_template_web_elements.get_lag_remove_port_button)
+            self.auto_actions.click(self.sw_template_web_elements.get_lag_remove_port_button())
             sleep(2)
-        self.auto_actions.click_reference(self.sw_template_web_elements.get_save_port_type_button)
+        self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
         sleep(2)
         if device == 'stack':
-            self.auto_actions.click_reference(self.sw_template_web_elements.get_switch_temp_save_button)
+            self.auto_actions.click(self.sw_template_web_elements.get_switch_temp_save_button())
         elif device == 'standalone':
-            self.auto_actions.click_reference(self.sw_template_web_elements.save_device_template)
+            self.auto_actions.click(self.sw_template_web_elements.save_device_template())
         else:
             kwargs["fail_msg"] = "Please specify a device type."
             self.common_validation.failed(**kwargs)
