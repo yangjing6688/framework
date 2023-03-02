@@ -461,3 +461,58 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
     def get_next_page_element(self, page_size='50'):
         return self.weh.get_elements(self.next_page_element)
 
+    def get_switching_tab(self):
+        return self.weh.get_element(self.switching_tab)
+
+    def get_common_settings_voss(self):
+        return self.weh.get_element(self.common_settings_voss)
+
+    def get_voss_parameters_text(self):
+        elements = self.weh.get_elements(self.voss_parameters_text)
+        for el in elements:
+            if el.is_displayed():
+                return el.text
+
+    def get_port_types_section(self):
+        return self.weh.get_element(self.port_types_section)
+
+    def get_port_types_title_page(self):
+        return self.weh.get_element(self.port_types_title_page)
+
+    def get_add_new_port_type(self):
+        return self.weh.get_element(self.add_new_port_type)
+
+    def get_edit_port_type(self):
+        return self.weh.get_element(self.edit_port_type)
+
+    def get_delete_port_type(self):
+        return self.weh.get_element(self.delete_port_type)
+
+    def get_select_platform_voss(self):
+        return self.weh.get_element(self.select_platform_voss)
+
+    def get_select_platform_exos(self):
+        return self.weh.get_element(self.select_platform_exos)
+
+    def get_port_types_rows(self):
+        return self.weh.get_elements(self.port_types_rows)[1:]
+
+    def get_port_type_row_cells(self, row):
+        """
+        :return: device row cell elements
+        """
+        return self.weh.get_elements(self.port_type_row_cells, row)
+
+    def get_port_type_row_cell(self, row, field='field-name'):
+        """
+        Get the cell from the row
+        :param row: web element handler of the row
+        :param field: it is the cell name which we need to get the handler ex:field-selector, field-name,
+        field-description,
+        :return:
+        """
+        cells = self.weh.get_elements(self.port_type_row_cells, row)
+        for cell in cells:
+            if field in cell.get_attribute("class"):
+                return cell
+
