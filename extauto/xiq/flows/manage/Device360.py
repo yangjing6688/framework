@@ -15253,10 +15253,10 @@ class Device360(Device360WebElements):
                 self.common_validation.failed(**kwargs)
                 return False
             for port in ports:
-                AutoActions().click(self.get_device360_aggregate_available_port(port=port))
-                AutoActions().click(self.get_device360_aggregate_add_button())
-            AutoActions().click(self.get_device360_lag_save_button())
-            AutoActions().click(self.get_device360_save_port_config())
+                self.auto_actions.click(self.get_device360_aggregate_available_port(port=port))
+                self.auto_actions.click(self.get_device360_aggregate_add_button())
+            self.auto_actions.click(self.get_device360_lag_save_button())
+            self.auto_actions.click(self.get_device360_save_port_config())
             kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
             self.common_validation.passed(**kwargs)
             return 1
