@@ -2902,7 +2902,7 @@ class Device360WebElementDefs:
 
     device360_aggregate_available_port = \
         {
-            'XPATH': 'l',
+            'XPATH': '//select[@data-dojo-attach-point="portsAvailable"]/option[@data-automation-tag="lag-available-port-${port}"]',
             'wait_for': 5
         }
     device360_aggregate_selected_port = \
