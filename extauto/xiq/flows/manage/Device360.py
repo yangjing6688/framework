@@ -154,14 +154,14 @@ class Device360(Device360WebElements):
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sys_info = self.get_system_info()
                 return sys_info
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sys_info = self.get_system_info()
@@ -609,8 +609,8 @@ class Device360(Device360WebElements):
         :return: dictionary of Switch information
         """
         if device_mac:
-            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            self.utils.print_info("Checking Search Result with Device Mac: ", device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
@@ -619,8 +619,8 @@ class Device360(Device360WebElements):
                 return exos_info
 
         if device_name:
-            self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_name)
+            self.utils.print_info("Checking Search Result with Device Name : ", device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
@@ -3850,14 +3850,14 @@ class Device360(Device360WebElements):
 
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
@@ -3911,10 +3911,8 @@ class Device360(Device360WebElements):
                     self.screen.save_screen_shot()
                     return switch_device360_info
         except Exception:
-            self.utils.print_info("Unable to get Port Table Information")
-            self.screen.save_screen_shot()
             self.auto_actions.click_reference(self.dev360.get_close_dialog)
-            kwargs['fail_msg'] = "get_switch_device360_port_table_information() -> Unable to get Port Table Information"
+            kwargs['fail_msg'] = "Unable to get Port Table Information"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -4574,14 +4572,14 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
@@ -4661,8 +4659,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click_reference(self.get_close_dialog)
-            kwargs['fail_msg'] = "device360_configure_device_port_status() -> Port Configuration Page Content not " \
-                                 "available in the Page "
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page "
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -4685,14 +4682,14 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
@@ -4758,14 +4755,14 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click_reference(self.get_close_dialog)
-                kwargs['fail_msg'] = "device360_configure_port_access_vlan() -> Port Row Not Found"
+                kwargs['fail_msg'] = "Port Row Not Found"
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click_reference(self.get_close_dialog)
-            kwargs['fail_msg'] = "device360_configure_port_access_vlan() -> Port Configuration Page Content not available in the Page"
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -4789,14 +4786,14 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
@@ -4876,14 +4873,14 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click_reference(self.get_close_dialog)
-                kwargs['fail_msg'] = "device360_configure_port_trunk_vlan() -> Port Row Not Found"
+                kwargs['fail_msg'] = "Port Row Not Found"
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click_reference(self.get_close_dialog)
-            kwargs['fail_msg'] = "device360_configure_port_trunk_vlan() -> Port Configuration Page Content not available in the Page"
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -4909,14 +4906,14 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
@@ -4984,15 +4981,14 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Port Row Not Found")
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click_reference(self.get_close_dialog)
-                kwargs['fail_msg'] = "device360_configure_port_transmission_mode_and_speed() -> Port Row Not Found"
+                kwargs['fail_msg'] = "Port Row Not Found"
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click_reference(self.get_close_dialog)
-            kwargs['fail_msg'] = "device360_configure_port_transmission_mode_and_speed() -> Port Configuration Page " \
-                                 "Content not available in the Page "
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page "
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -5015,14 +5011,14 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
@@ -5128,14 +5124,14 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(10)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(10)
@@ -5164,13 +5160,13 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Tooltip content Not Found for WireFrame CPU Utilization")
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click_reference(self.get_close_dialog)
-                kwargs['fail_msg'] = "device360_get_voss_wireframe_cpu_utilization() -> Tooltip content Not Found for WireFrame CPU Utilization"
+                kwargs['fail_msg'] = "Tooltip content Not Found for WireFrame CPU Utilization"
                 self.common_validation.fault(**kwargs)
                 return -1
 
         self.utils.print_info("Close Dialogue Window")
         self.auto_actions.click_reference(self.get_close_dialog)
-        kwargs['fail_msg'] = "device360_get_voss_wireframe_cpu_utilization() -> One or more elements are missing"
+        kwargs['fail_msg'] = "One or more elements are missing"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -5189,14 +5185,14 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(10)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(10)
@@ -5225,14 +5221,13 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Tooltip content Not Found for WireFrame Memory Utilization")
                 self.utils.print_info("Close Dialogue Window")
                 self.auto_actions.click_reference(self.get_close_dialog)
-                kwargs['fail_msg'] = "device360_get_voss_wireframe_memory_utilization() -> Tooltip content Not Found " \
-                                     "for WireFrame Memory Utilization "
+                kwargs['fail_msg'] = "Tooltip content Not Found for WireFrame Memory Utilization "
                 self.common_validation.failed(**kwargs)
                 return -1
 
         self.utils.print_info("Close Dialogue Window")
         self.auto_actions.click_reference(self.get_close_dialog)
-        kwargs['fail_msg'] = "device360_get_voss_wireframe_memory_utilization() -> One or more elements are misssing"
+        kwargs['fail_msg'] = "One or more elements are missing"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -5262,7 +5257,7 @@ class Device360(Device360WebElements):
             search_result = self.dev.search_device(device_mac=device_mac, ignore_failure=True)
 
             if search_result != -1:
-                if self.dev.select_device(device_mac=device_mac, ignore_failure=True):
+                if self.dev.select_device(device_mac=device_mac, ignore_failure=True) == 1:
                     sleep(2)
                     self.utils.print_info("Selected the device with MAC ", device_mac)
                     flag_device_selected = True
@@ -5272,7 +5267,7 @@ class Device360(Device360WebElements):
             search_result = self.dev.search_device(device_serial=device_serial, ignore_failure=True)
 
             if search_result != -1:
-                if self.dev.select_device(device_serial=device_serial, ignore_failure=True):
+                if self.dev.select_device(device_serial=device_serial, ignore_failure=True) == 1:
                     sleep(2)
                     self.utils.print_info("Selected the device with serial ", device_serial)
                     flag_device_selected = True
@@ -5552,12 +5547,12 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
@@ -5584,7 +5579,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Power details not found")
             self.auto_actions.click_reference(self.get_close_dialog)
-            kwargs['fail_msg'] = "device360_power_details() -> Power details not found"
+            kwargs['fail_msg'] = "Power details not found"
             self.common_validation.failed(**kwargs)
             return -1
         return str(rez)
@@ -5604,13 +5599,13 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
         sleep(5)
@@ -5625,8 +5620,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Click on PSE settings for device")
             self.auto_actions.click(pse_settings_for_device_button)
         else:
-            self.utils.print_info("PSE settings for device button not found")
-            kwargs['fail_msg'] = "device360_configure_poe_threshold_value() -> PSE settings for device button not found"
+            kwargs['fail_msg'] = "PSE settings for device button not found"
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)
@@ -5641,8 +5635,7 @@ class Device360(Device360WebElements):
             self.screen.save_screen_shot()
             sleep(5)
         else:
-            self.utils.print_info("Value needs to be between 1 and 99.")
-            kwargs['fail_msg'] = "device360_configure_poe_threshold_value() -> Value needs to be between 1 and 99."
+            kwargs['fail_msg'] = "Value needs to be between 1 and 99."
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)
@@ -5652,8 +5645,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(save_threshold_poe)
             sleep(2)
         else:
-            self.utils.print_info("Save button not found")
-            kwargs['fail_msg'] = "device360_configure_poe_threshold_value() -> Save button not found"
+            kwargs['fail_msg'] = "Save button not found"
             self.common_validation.fault(**kwargs)
             return -1
         save_btn = self.get_device360_configure_port_save_button()
@@ -5662,8 +5654,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(save_btn)
             sleep(2)
         else:
-            self.utils.print_info("Could not click Save button")
-            kwargs['fail_msg'] = "device360_configure_poe_threshold_value() -> Could not click Save button"
+            kwargs['fail_msg'] = "Could not click Save button"
             self.common_validation.fault(**kwargs)
             return -1
         self.utils.print_info("Close Dialogue Window")
@@ -5827,33 +5818,27 @@ class Device360(Device360WebElements):
             try:
                 if device_mac:
                     self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-                    device_row = self.dev.get_device_row(device_mac)
+                    device_row = self.dev.get_device_row(device_mac=device_mac)
                     if device_row:
                         if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
-                            self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
-                            kwargs['fail_msg'] = "device360_click_clients() -> Device not found in the device row " \
-                                                 f"grid with mac:{device_mac} "
+                            kwargs['fail_msg'] = f"Device not found in the device row grid with mac: {device_mac}"
                             self.common_validation.fault(**kwargs)
                             return -1
                         sleep(8)
 
                 if device_serial:
                     self.utils.print_info("Checking Search Result with Device Name : ", device_serial)
-                    device_row = self.dev.get_device_row(device_serial)
+                    device_row = self.dev.get_device_row(device_serial=device_serial)
                     if device_row:
                         if self.navigator.navigate_to_device360_page_with_host_name(device_serial) == -1:
-                            self.utils.print_info(
-                                f"Device not found in the device row grid with device name :{device_serial}")
-                            kwargs['fail_msg'] = "device360_click_clients() -> Device not found in the device row " \
-                                                 f"grid with device name :{device_serial}"
+                            kwargs['fail_msg'] = f"Device not found in the device row grid with device name:{device_serial}"
                             self.common_validation.fault(**kwargs)
                             return -1
                         sleep(8)
                 sleep(5)
 
             except Exception:
-                self.utils.print_info("Not able to navigate to the page")
-                kwargs['fail_msg'] = "device360_click_clients() -> Not able to navigate to the page"
+                kwargs['fail_msg'] = "Not able to navigate to the page"
                 self.common_validation.fault(**kwargs)
                 return -1
             sleep(5)
@@ -6108,13 +6093,13 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
@@ -6132,8 +6117,7 @@ class Device360(Device360WebElements):
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.device360_select_alarms_view()
         else:
-            self.utils.print_info(f"No '{select_page}' page ")
-            kwargs['fail_msg'] = f"device360_confirm_column_picker_column_selected() -> No '{select_page}' page"
+            kwargs['fail_msg'] = f"No '{select_page}' page"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -6196,7 +6180,7 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.get_close_dialog)
 
         if ret_val == -1:
-            kwargs['fail_msg'] = f"device360_confirm_column_picker_column_selected() -> Unable to obtain status of the column {filter_}"
+            kwargs['fail_msg'] = f"Unable to obtain status of the column {filter_}"
             self.common_validation.failed(**kwargs)
         else:
             kwargs['pass_msg'] = "All columns are selected in column picker"
@@ -6218,14 +6202,14 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(10)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(10)
@@ -6242,8 +6226,7 @@ class Device360(Device360WebElements):
             self.utils.print_info(f"Selecting '{select_page}' page")
             self.device360_select_alarms_view()
         else:
-            self.utils.print_info(f"No '{select_page}' page ")
-            kwargs['fail_msg'] = f"device360_check_column_picker() -> No '{select_page}' page"
+            kwargs['fail_msg'] = f"No '{select_page}' page"
             self.common_validation.fault(**kwargs)
             return -1
         ret_val = 1
@@ -6302,7 +6285,7 @@ class Device360(Device360WebElements):
         self.auto_actions.click_reference(self.get_close_dialog)
 
         if ret_val == -1:
-            kwargs['fail_msg'] = f"device360_check_column_picker() -> Unable to obtain status of the column {filter_}"
+            kwargs['fail_msg'] = f"Unable to obtain status of the column {filter_}"
             self.common_validation.failed(**kwargs)
         else:
             kwargs['pass_msg'] = "Successfully selected the page and return the status of the column from the " \
@@ -7781,13 +7764,13 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
@@ -7837,7 +7820,7 @@ class Device360(Device360WebElements):
                     self.utils.print_info("Port Row Not Found")
                     self.utils.print_info("Close Dialogue Window")
                     self.auto_actions.click_reference(self.get_close_dialog)
-                    kwargs['fail_msg'] = "device360_configure_ports_access_vlan() -> Port Row was not found"
+                    kwargs['fail_msg'] = "Port Row was not found"
                     self.common_validation.failed(**kwargs)
                     return -1
             self.select_configure_tab()
@@ -7874,7 +7857,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Port Configuration Page Content not available in the Page")
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click_reference(self.get_close_dialog)
-            kwargs['fail_msg'] = "device360_configure_ports_access_vlan() -> Port Configuration Page Content not available in the Page"
+            kwargs['fail_msg'] = "Port Configuration Page Content not available in the Page"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -8023,13 +8006,13 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
         self.select_configure_tab()
@@ -8044,9 +8027,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Click on PSE settings for device")
             self.auto_actions.click(pse_settings_for_device_button)
         else:
-            self.utils.print_info("PSE settings for device button not found")
-            kwargs['fail_msg'] = "device360_configure_poe_threshold_value_stack() -> PSE settings for device button " \
-                                 "not found "
+            kwargs['fail_msg'] = "PSE settings for device button not found "
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)
@@ -8059,8 +8040,7 @@ class Device360(Device360WebElements):
             self.auto_actions.send_keys(edit_threshold_poe, threshold_value)
             self.screen.save_screen_shot()
         else:
-            self.utils.print_info("Value needs to be between 1 and 99.")
-            kwargs['fail_msg'] = "device360_configure_poe_threshold_value_stack() -> Value needs to be between 1 and 99"
+            kwargs['fail_msg'] = "Value needs to be between 1 and 99"
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)
@@ -8069,8 +8049,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Saving threshold {} % ".format(threshold_value))
             self.auto_actions.click(save_threshold_poe)
         else:
-            self.utils.print_info("Save button not found")
-            kwargs['fail_msg'] = "device360_configure_poe_threshold_value_stack() -> Save button not found"
+            kwargs['fail_msg'] = "Save button not found"
             self.common_validation.fault(**kwargs)
             return -1
         self.select_configure_tab()
@@ -8080,8 +8059,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Clicking 'Save Port Configuration' button'")
             self.auto_actions.click(save_btn)
         else:
-            self.utils.print_info("Could not click Save button")
-            kwargs['fail_msg'] = "device360_configure_poe_threshold_value_stack() -> Could not click Save button"
+            kwargs['fail_msg'] = "Could not click Save button"
             self.common_validation.fault(**kwargs)
             return -1
         self.utils.print_info("Close Dialogue Window")
@@ -8105,12 +8083,12 @@ class Device360(Device360WebElements):
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
         slot_index = 1
@@ -8133,13 +8111,11 @@ class Device360(Device360WebElements):
                     break
                 slot_index = slot_index + 1
             if not slot_found:
-                self.utils.print_info("Unable to locate the correct slot")
-                kwargs['fail_msg'] = "device360_power_details_stack() -> Unable to locate the correct slot"
+                kwargs['fail_msg'] = "Unable to locate the correct slot"
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Power details not found")
-            kwargs['fail_msg'] = "device360_power_details_stack() -> Power details not found"
+            kwargs['fail_msg'] = "Power details not found"
             self.common_validation.failed(**kwargs)
             return -1
         sleep(2)
@@ -8150,8 +8126,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click_reference(self.get_close_dialog)
         else:
-            self.utils.print_info("Power details not found")
-            kwargs['fail_msg'] = "device360_power_details_stack() -> Power details not found"
+            kwargs['fail_msg'] = "Power details not found"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -15054,14 +15029,14 @@ class Device360(Device360WebElements):
             click_checkbox_or_button = self.get_device360_port_settings_and_aggregation_interface_exos_standalone(
                 ports[0])
         else:
-            kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.Please give a device type!"
-            self.common_validation.failed(**kwargs)
+            kwargs['fail_msg'] = "Please give a device type!"
+            self.common_validation.fault(**kwargs)
             return False
         if click_checkbox_or_button:
             self.utils.print_info("Clicking on port checkbox")
             self.auto_actions.click(click_checkbox_or_button)
         else:
-            kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.Checkbox not found"
+            kwargs['fail_msg'] = "Checkbox not found"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -15072,14 +15047,14 @@ class Device360(Device360WebElements):
             self.auto_actions.click(aggregate_btn)
             sleep(5)
         else:
-            kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.'Aggregate Selected Ports' button not found"
+            kwargs['fail_msg'] = "'Aggregate Selected Ports' button not found"
             self.common_validation.failed(**kwargs)
             return False
 
         # Get cancel button reference
         cancel_button = self.get_device360_lag_cancel_button()
         if not cancel_button:
-            kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.Could not find cancel button"
+            kwargs['fail_msg'] = "Could not find cancel button"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -15093,7 +15068,7 @@ class Device360(Device360WebElements):
                         self.utils.print_info("Changing to other slot")
                         self.auto_actions.click(other_slot)
                     else:
-                        kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.Failed to change to other slot"
+                        kwargs['fail_msg'] = "Failed to change to other slot"
                         self.common_validation.failed(**kwargs)
                         self.auto_actions.click(cancel_button)
                         return False
@@ -15103,7 +15078,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Choosing next available port")
                 self.auto_actions.click(available_port)
             else:
-                self.utils.print_info("Ports are not available in this Slot. Skiping..")
+                self.utils.print_info("Ports are not available in this slot. Skipping..")
 
             # Add next port
             add_port_to_lacp = self.get_device360_aggregate_add_button()
@@ -15111,7 +15086,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Clicking on add port")
                 self.auto_actions.click(add_port_to_lacp)
             else:
-                kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.Add port not found"
+                kwargs['fail_msg'] = "Add port not found"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
@@ -15123,7 +15098,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Clicking LACP toggle")
                 self.auto_actions.click(lacp_switch)
             else:
-                kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.LACP toggle not found"
+                kwargs['fail_msg'] = "LACP toggle not found"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
@@ -15135,18 +15110,18 @@ class Device360(Device360WebElements):
             self.auto_actions.click(lag_save_button)
             sleep(10)
         else:
-            kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.Save button not found"
+            kwargs['fail_msg'] = "Save button not found"
             self.common_validation.failed(**kwargs)
             self.auto_actions.click(cancel_button)
             return False
 
         # Save port Config
+        self.utils.wait_till(func=self.get_device360_lag_popup_spinner, timeout=60, delay=1.5, exp_func_resp=False)
         self.utils.print_info("Clicking Save port config button")
-        #save_port_config = self.get_device360_save_port_config()
         if self.auto_actions.click_reference(self.get_device360_save_port_config) == 1:
             self.utils.print_info("Successfully clicked on Save Port Config")
         else:
-            kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.Save port config button not found"
+            kwargs['fail_msg'] = "Save port config button not found"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -15156,7 +15131,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return True
         else:
-            kwargs['fail_msg'] = "'device360_aggregate_ports()' failed.LAG link is not available"
+            kwargs['fail_msg'] = "LAG link is not available"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -15184,7 +15159,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return True
         else:
-            kwargs['fail_msg'] = "'device360_check_aggregated_ports_number()' failed.LAG number does not match."
+            kwargs['fail_msg'] = "LAG number does not match."
             self.common_validation.failed(**kwargs)
             return False
 
@@ -15201,7 +15176,7 @@ class Device360(Device360WebElements):
            """
         if device == "stack":
             if not self.device360_change_slot_view(master_port.split(":")[0]):
-                kwargs['fail_msg'] = "'device360_add_remove_lag_ports()' failed. Change slot failed."
+                kwargs['fail_msg'] = "Change slot failed."
                 self.common_validation.failed(**kwargs)
                 return False
         if action == 'remove':
@@ -15210,14 +15185,14 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Clicking on aggregated ports label")
                 self.auto_actions.click(aggregated_ports)
             else:
-                kwargs['fail_msg'] = "'device360_add_remove_lag_ports()' failed.Failed to find aggregated port."
+                kwargs['fail_msg'] = "Failed to find aggregated port."
                 self.common_validation.failed(**kwargs)
                 return False
 
             # Get cancel button reference
             cancel_button = self.get_device360_lag_cancel_button()
             if not cancel_button:
-                kwargs['fail_msg'] = "'device360_add_remove_lag_ports()' failed.Could not find cancel button."
+                kwargs['fail_msg'] = "Could not find cancel button."
                 self.common_validation.failed(**kwargs)
                 return False
 
@@ -15227,7 +15202,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(selected_port)
             else:
                 tt_msg = self.dev360.get_tooltip_content().text
-                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed due to error {tt_msg}"
+                kwargs['fail_msg'] = f"Failed due to error {tt_msg}"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
@@ -15242,7 +15217,7 @@ class Device360(Device360WebElements):
                 else:
                     tt_msg = self.dev360.get_tooltip_content().text
                     self.auto_actions.click(cancel_button)
-                    kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed due to error {tt_msg}."
+                    kwargs['fail_msg'] = f"Failed due to error {tt_msg}."
                     self.common_validation.failed(**kwargs)
                     return False
 
@@ -15251,29 +15226,27 @@ class Device360(Device360WebElements):
             if lag_save_button:
                 self.utils.print_info("Clicking Save button")
                 self.auto_actions.click(lag_save_button)
-                #sleep(5)
             else:
                 tt_msg = self.dev360.get_tooltip_content().text
-                kwargs['fail_msg'] = f"'device360_add_remove_lag_ports()' failed due to error {tt_msg}"
+                kwargs['fail_msg'] = f"Failed due to error {tt_msg}"
                 self.common_validation.failed(**kwargs)
                 self.auto_actions.click(cancel_button)
                 return False
 
             # Save port Config
-            save_port_config = self.get_device360_save_port_config()
-            if save_port_config:
-                self.utils.print_info("Clicking Save port config button")
-                self.auto_actions.click(save_port_config)
-                sleep(5)
+            self.utils.wait_till(func=self.get_device360_lag_popup_spinner, timeout=60, delay=1.5, exp_func_resp=False)
+            self.utils.print_info("Clicking Save port config button")
+            if self.auto_actions.click_reference(self.get_device360_save_port_config) == 1:
+                self.utils.print_info("Successfully clicked on Save Port Config")
             else:
-                kwargs['fail_msg'] = "'device360_add_remove_lag_ports()' failed.Save port config button not found."
+                kwargs['fail_msg'] = "Save port config button not found"
                 self.common_validation.failed(**kwargs)
                 return False
 
             # Check lacp not visible anymore in Device360
             if self.get_device360_lacp_label(port=ports[0]):
                 self.utils.print_info(f"LAG {master_port} is still there after trying to delete it.")
-                kwargs['fail_msg'] = "'device360_add_remove_lag_ports()' failed.Aggregation remove failed."
+                kwargs['fail_msg'] = "Remove LAG failed."
                 self.common_validation.failed(**kwargs)
                 return False
             kwargs['pass_msg'] = f"Ports {ports} were removed from LAG."
@@ -15285,15 +15258,14 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Clicking on aggregated ports label")
                 self.auto_actions.click(aggregated_ports)
             else:
-                kwargs['fail_msg'] = "'device360_add_remove_lag_ports()' failed.Failed to find aggregated port."
+                kwargs['fail_msg'] = "Failed to find aggregated port."
                 self.common_validation.failed(**kwargs)
                 return False
             for port in ports:
-                #AutoActions().click(self.get_device360_lacp_label(port=master_port))
-                AutoActions().click(self.get_device360_aggregate_available_port(port=port))
-                AutoActions().click(self.get_device360_aggregate_add_button())
-            AutoActions().click(self.get_device360_lag_save_button())
-            AutoActions().click(self.get_device360_save_port_config())
+                self.auto_actions.click(self.get_device360_aggregate_available_port(port=port))
+                self.auto_actions.click(self.get_device360_aggregate_add_button())
+            self.auto_actions.click(self.get_device360_lag_save_button())
+            self.auto_actions.click(self.get_device360_save_port_config())
             kwargs['pass_msg'] = f"Ports {ports} were added to LAG."
             self.common_validation.passed(**kwargs)
             return 1
