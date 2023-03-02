@@ -311,7 +311,7 @@ class XapiDevices(XapiBase):
             device_found = self._xapi_search_for_device_id(device_serial=device_serial)
             retries = 0
             while device_found == 1:
-                if retries > 120:
+                if retries < 120:
                     retries = retries + 1
                     self.utils.print_info('Device was found, sleep for 5 seconds')
                     sleep(5)
