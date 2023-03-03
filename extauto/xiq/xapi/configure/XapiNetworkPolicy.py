@@ -1,5 +1,3 @@
-from time import sleep
-import json
 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
 from tools.xapi.XapiHelper import XapiHelper
 
@@ -14,10 +12,9 @@ class XapiNetworkPolicy(XapiHelper):
     # Keyword functions
     #########################################################################
 
+    # We will revist this once create SSID is supported on XAPI
     def xapi_create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
-        """
-
-        """
+        pass
 
         # There is no type tyee passed in, so this method uses the NETWORK_ACCESS_AND_SWITCHING_AND_BR option for all.
         # Typs include the following:
@@ -28,27 +25,28 @@ class XapiNetworkPolicy(XapiHelper):
         # 'NETWORK_ACCESS_AND_SWITCHING'
         # 'SWITCHING'
         # 'NETWORK_ACCESS_AND_BRANCH_ROUTING'
-        xiq_create_network_policy_request = { "name": policy,
-                                              "description": '',
-                                              "type": "NETWORK_ACCESS_AND_SWITCHING_AND_BR"}
 
-        repsonse = self.xapiBaseNetworkPolicyApi.xapi_base_create_network_policy(xiq_create_network_policy_request=xiq_create_network_policy_request)
-        if repsonse == -1:
-            kwargs['fail_msg'] = 'Failed to create the network policy'
-            self.common_validation.failed(**kwargs)
-            return -1
-        else:
-            policy_id = repsonse.id
-
-            # Add the SSIDs
-            # This will be a new call to create the SSID
-
-            # Add the new SSID to the policy
-            # self.xapiBaseNetworkPolicyApi.xapi_base_add_ssids_to_network_policy()
-
-            kwargs['pass_msg'] = 'Created the network policy'
-            self.common_validation.passed(**kwargs)
-            return 1
+        # xiq_create_network_policy_request = { "name": policy,
+        #                                       "description": '',
+        #                                       "type": "NETWORK_ACCESS_AND_SWITCHING_AND_BR"}
+        #
+        # repsonse = self.xapiBaseNetworkPolicyApi.xapi_base_create_network_policy(xiq_create_network_policy_request=xiq_create_network_policy_request)
+        # if repsonse == -1:
+        #     kwargs['fail_msg'] = 'Failed to create the network policy'
+        #     self.common_validation.failed(**kwargs)
+        #     return -1
+        # else:
+        #     policy_id = repsonse.id
+        #
+        #     # Add the SSIDs
+        #     # This will be a new call to create the SSID
+        #
+        #     # Add the new SSID to the policy
+        #     # self.xapiBaseNetworkPolicyApi.xapi_base_add_ssids_to_network_policy()
+        #
+        #     kwargs['pass_msg'] = 'Created the network policy'
+        #     self.common_validation.passed(**kwargs)
+        #     return 1
 
     def xapi_delete_network_polices(self, *policies, exclude_list=[], **kwargs):
         """
@@ -63,7 +61,10 @@ class XapiNetworkPolicy(XapiHelper):
         # get the policy based on the name
         length_policy = len(policies)
         if length_policy == 0:
-            policy_list = self.xapiBaseNetworkPolicyApi.xapi_base_list_network_polices()
+            self.utils.print_warning('No policies were passed into this function to delete')
+            kwargs['pass_msg'] = f'Deleted the network policy -> {policies}'
+            self.common_validation.passed(**kwargs)
+            return 1
         else:
             successfuly_deleted = True
             # make sure we have data
@@ -77,7 +78,6 @@ class XapiNetworkPolicy(XapiHelper):
                             if repsonse and repsonse == -1:
                                 successfuly_deleted = False
                                 self.utils.print_error(f'Failed to delete the policy {policy}')
-
         if successfuly_deleted != -1:
             kwargs['pass_msg'] = f'Deleted the network policy -> {policies}'
             self.common_validation.passed(**kwargs)
