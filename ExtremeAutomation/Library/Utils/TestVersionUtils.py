@@ -20,7 +20,7 @@ class JobsSuitesVersions():
     string_bytes = base64.b64decode(base64_bytes)
     decoded_magic_key = string_bytes.decode("ascii")
     decoded_pat,base_url = decoded_magic_key.split('#')
-    test_version_url = base_url + '/tbedmgr/testsuites/storeversioninfo'
+    test_version_url = base_url + 'tbedmgr/testsuites/storeversioninfo'
 
     test_headers = {
             'Content-Type': 'application/json',

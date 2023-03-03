@@ -1148,11 +1148,9 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
             self.common_validation.passed(**kwargs)
             return 1
 
-    def is_device_tool_ping_available(self):
+    def _is_device_tool_ping_available(self):
         """
-        - This keyword checks if the diagnostic ping option is available
-        - Keyword Usage:
-        - ``Is Device Tool Ping Available``
+        - This helper checks if the diagnostic ping option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1161,11 +1159,27 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_log_available(self):
+    def verify_device_tool_ping_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show log option is available
+        - This keyword checks if the diagnostic ping option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Log Available``
+        - ``Verify Device Tool Ping Available``
+
+        :return: 1 if is available else -1 is not displayed
+        """
+
+        if self._is_device_tool_ping_available():
+            kwargs['pass_msg'] = "Diagnostic ping option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic ping option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_log_available(self):
+        """
+        - This helper checks if the diagnostic show log option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1174,11 +1188,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_version_available(self):
+    def verify_device_tool_show_log_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show version option is available
+        - This keyword checks if the diagnostic show log option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Version Available``
+        - ``Verify Device Tool Show Log Available``
+
+        :return: 1 if is available else -1 is not available
+        """
+        if self._is_device_tool_show_log_available():
+            kwargs['pass_msg'] = "Diagnostic show log option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show log option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_version_available(self):
+        """
+        - This helper checks if the diagnostic show version option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1187,11 +1216,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_running_config_available(self):
+    def verify_device_tool_show_version_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show running config option is available
+        - This keyword checks if the diagnostic show version option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Running Config Available``
+        - ``Verify Device Tool Show Version Available``
+
+        :return: 1 if is available else -1 is not available
+        """
+        if self._is_device_tool_show_version_available():
+            kwargs['pass_msg'] = "Diagnostic show version option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show version option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_running_config_available(self):
+        """
+        - This helper checks if the diagnostic show running config option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1200,11 +1244,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_startup_config_available(self):
+    def verify_device_tool_show_running_config_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show startup config option is available
+        - This keyword checks if the diagnostic show running config option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Startup Config Available``
+        - ``Verify Device Tool Show Running Config Available``
+
+        :return: 1 if is available else -1 is not available
+        """
+        if self._is_device_tool_show_running_config_available():
+            kwargs['pass_msg'] = "Diagnostic show running config option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show running config option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_startup_config_available(self):
+        """
+        - This helper checks if the diagnostic show startup config option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1213,11 +1272,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_ip_routes_available(self):
+    def verify_device_tool_show_startup_config_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show ip routes option is available
+        - This keyword checks if the diagnostic show startup config option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Ip Routes Available``
+        - ``Verify Device Tool Show Startup Config Available``
+
+        :return: 1 if is available else -1 is not available
+        """
+        if self._is_device_tool_show_startup_config_available():
+            kwargs['pass_msg'] = "Diagnostic show startup config option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show startup config option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_ip_routes_available(self):
+        """
+        - This helper checks if the diagnostic show ip routes option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1226,11 +1300,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_mac_routes_available(self):
+    def verify_device_tool_show_ip_routes_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show mac routes option is available
+        - This keyword checks if the diagnostic show ip routes option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Mac Routes Available``
+        - ``Verify Device Tool Show Ip Routes Available``
+
+        :return: 1 if is available else -1 is not available
+        """
+        if self._is_device_tool_show_ip_routes_available():
+            kwargs['pass_msg'] = "Diagnostic show ip routes option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show ip routes option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_mac_routes_available(self):
+        """
+        - This helper checks if the diagnostic show mac routes option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1239,11 +1328,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_arp_cache_available(self):
+    def verify_device_tool_show_mac_routes_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show arp cache option is available
+        - This keyword checks if the diagnostic show mac routes option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Arp Cache Available``
+        - ``Verify Device Tool Show Mac Routes Available``
+
+        :return: 1 if is available else -1 is not available
+        """
+        if self._is_device_tool_show_mac_routes_available():
+            kwargs['pass_msg'] = "Diagnostic show mac routes option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show mac routes option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_arp_cache_available(self):
+        """
+        - This helper checks if the diagnostic show arp cache option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1252,11 +1356,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_roaming_cache_available(self):
+    def verify_device_tool_show_arp_cache_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show roaming cache option is available
+        - This keyword checks if the diagnostic show arp cache option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Roaming Cache Available``
+        - ``Verify Device Tool Show Arp Cache Available``
+
+        :return:  1 if is available else -1 is not available
+        """
+        if self._is_device_tool_show_arp_cache_available():
+            kwargs['pass_msg'] = "Diagnostic show arp cache option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show arp cache option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_roaming_cache_available(self):
+        """
+        - This helper checks if the diagnostic show roaming cache option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1265,11 +1384,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_dnxp_neighbors_available(self):
+    def verify_device_tool_show_roaming_cache_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show dnxp neighbors option is available
+        - This keyword checks if the diagnostic show roaming cache option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Dnxp Neighbors Available``
+        - ``Verify Device Tool Show Roaming Cache Available``
+
+        :return: 1 if is available else -1 is not available
+        """
+        if self._is_device_tool_show_roaming_cache_available():
+            kwargs['pass_msg'] = "Diagnostic show roaming cache option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show roaming cache option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_dnxp_neighbors_available(self):
+        """
+        - This helper checks if the diagnostic show dnxp neighbors option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1278,11 +1412,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_dnxp_cache_available(self):
+    def verify_device_tool_show_dnxp_neighbors_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show dnxp cache option is available
+        - This keyword checks if the diagnostic show dnxp neighbors option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Dnxp Cache Available``
+        - ``Verify Device Tool Show Dnxp Neighbors Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_dnxp_neighbors_available():
+            kwargs['pass_msg'] = "Diagnostic show dnxp neighbors option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show dnxp neighbors option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_dnxp_cache_available(self):
+        """
+        - This helper checks if the diagnostic show dnxp cache option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1291,11 +1440,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_amrp_tunnel_available(self):
+    def verify_device_tool_show_dnxp_cache_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show amrp tunnel option is available
+        - This keyword checks if the diagnostic show dnxp cache option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Amrp Tunnel Available``
+        - ``Verify Device Tool Show Dnxp Cache Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_dnxp_cache_available():
+            kwargs['pass_msg'] = "Diagnostic show dnxp cache option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show dnxp cache option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_amrp_tunnel_available(self):
+        """
+        - This helper checks if the diagnostic show amrp tunnel option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1304,11 +1468,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_gre_tunnel_available(self):
+    def verify_device_tool_show_amrp_tunnel_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show gre tunnel option is available
+        - This keyword checks if the diagnostic show amrp tunnel option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Gre Tunnel Available``
+        - ``Verify Device Tool Show Amrp Tunnel Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_amrp_tunnel_available():
+            kwargs['pass_msg'] = "Diagnostic show amrp tunnel option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show amrp tunnel option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_gre_tunnel_available(self):
+        """
+        - This helper checks if the diagnostic show gre tunnel option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1317,11 +1496,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_ike_event_available(self):
+    def verify_device_tool_show_gre_tunnel_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show ike event option is available
+        - This keyword checks if the diagnostic show gre tunnel option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Ike Event Available``
+        - ``Verify Device Tool Show Gre Tunnel Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_gre_tunnel_available():
+            kwargs['pass_msg'] = "Diagnostic show gre tunnel option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show gre tunnel option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_ike_event_available(self):
+        """
+        - This helper checks if the diagnostic show ike event option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1330,11 +1524,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_ike_sa_available(self):
+    def verify_device_tool_show_ike_event_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show ike sa option is available
+        - This keyword checks if the diagnostic show ike event option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Ike Sa Available``
+        - ``Verify Device Tool Show Ike Event Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_ike_event_available():
+            kwargs['pass_msg'] = "Diagnostic show ike event option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show gre tunnel option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_ike_sa_available(self):
+        """
+        - This helper checks if the diagnostic show ike sa option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1343,11 +1552,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_ipsec_sa_available(self):
+    def verify_device_tool_show_ike_sa_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show ipsec sa option is available
+        - This keyword checks if the diagnostic show ike sa option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Ipsec Sa Available``
+        - ``Verify Device Tool Show Ike Sa Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_ike_sa_available():
+            kwargs['pass_msg'] = "Diagnostic show ike sa option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show ike sa option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_ipsec_sa_available(self):
+        """
+        - This helper checks if the diagnostic show ipsec sa option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1356,11 +1580,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_ipsec_tunnel_available(self):
+    def verify_device_tool_show_ipsec_sa_available(self, **kwargs):
+        """
+        - This keyword checks if the diagnostic show ipsec sa option is available
+        - Keyword Usage:
+        - ``Verify Device Tool Show Ipsec Sa Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_ipsec_sa_available():
+            kwargs['pass_msg'] = "Diagnostic show ipsec sa option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show ipsec sa option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_ipsec_tunnel_available(self):
         """
         - This keyword checks if the diagnostic show ipsec tunnel option is available
-        - Keyword Usage:
-        - ``Is Device Tool Show Ipsec Tunnel Available``
 
         :return: 1 if is displayed else -1
         """
@@ -1369,11 +1608,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_cpu_available(self):
+    def verify_device_tool_show_ipsec_tunnel_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show cpu option is available
+        - This keyword checks if the diagnostic show ipsec tunnel option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Cpu Available``
+        - ``Verify Device Tool Show Ipsec Tunnel Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_ipsec_tunnel_available():
+            kwargs['pass_msg'] = "Diagnostic show ipsec tunnel option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show ipsec tunnel option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_cpu_available(self):
+        """
+        - This helper checks if the diagnostic show cpu option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1382,11 +1636,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_memory_available(self):
+    def verify_device_tool_show_cpu_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show memory option is available
+        - This keyword checks if the diagnostic show cpu option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Memory Available``
+        - ``Verify Device Tool Show Cpu Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_cpu_available():
+            kwargs['pass_msg'] = "Diagnostic show cpu option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show cpu option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_memory_available(self):
+        """
+        - This helper checks if the diagnostic show memory option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1395,11 +1664,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_mac_table_available(self):
+    def verify_device_tool_show_memory_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show mac table option is available
+        - This keyword checks if the diagnostic show memory option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Mac Table Available``
+        - ``Verify Device Tool Show Memory Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_memory_available():
+            kwargs['pass_msg'] = "Diagnostic show memory option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show memory option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_mac_table_available(self):
+        """
+        - This helper checks if the diagnostic show mac table option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1408,11 +1692,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_show_pse_available(self):
+    def verify_device_tool_show_mac_table_available(self, **kwargs):
         """
-        - This keyword checks if the diagnostic show pse option is available
+        - This keyword checks if the diagnostic show mac table option is available
         - Keyword Usage:
-        - ``Is Device Tool Show Pse Available``
+        - ``Verify Device Tool Show Mac Table Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_mac_table_available():
+            kwargs['pass_msg'] = "Diagnostic show mac table option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show mac table option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_show_pse_available(self):
+        """
+        - This helper checks if the diagnostic show pse option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1421,11 +1720,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_spectrum_intelligence_available(self):
+    def verify_device_tool_show_pse_available(self, **kwargs):
         """
-        - This keyword checks if the spectrum intelligence option is available
+        - This keyword checks if the diagnostic show pse option is available
         - Keyword Usage:
-        - ``Is Device Spectrum Intelligence Available``
+        - ``Verify Device Tool Show Pse Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_show_pse_available():
+            kwargs['pass_msg'] = "Diagnostic show pse option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Diagnostic show pse option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_spectrum_intelligence_available(self):
+        """
+        - This helper checks if the spectrum intelligence option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1434,11 +1748,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_status_advanced_channel_selection_protocol_available(self):
+    def verify_device_spectrum_intelligence_available(self, **kwargs):
         """
-        - This keyword checks if the status advanced channel selection protocol option is available
+        - This keyword checks if the spectrum intelligence option is available
         - Keyword Usage:
-        - ``Is Device Status Advanced Channel Selection Protocol Available``
+        - ``Verify Device Spectrum Intelligence Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_spectrum_intelligence_available():
+            kwargs['pass_msg'] = "spectrum intelligence option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "spectrum intelligence option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_status_advanced_channel_selection_protocol_available(self):
+        """
+        - This helper checks if the status advanced channel selection protocol option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1447,11 +1776,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_status_interface_available(self):
+    def verify_device_status_advanced_channel_selection_protocol_available(self, **kwargs):
         """
-        - This keyword checks if the status interface option is available
+        - This keyword checks if the status advanced channel selection protocol option is available
         - Keyword Usage:
-        - ``Is Device Status Interface Available``
+        - ``Verify Device Status Advanced Channel Selection Protocol Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_status_advanced_channel_selection_protocol_available():
+            kwargs['pass_msg'] = "the status advanced channel selection protocol option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the status advanced channel selection protocol option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_status_interface_available(self):
+        """
+        - This helper checks if the status interface option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1460,11 +1804,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_status_wifi_status_summary_available(self):
+    def verify_device_status_interface_available(self, **kwargs):
         """
-        - This keyword checks if the status wifi status summary option is available
+        - This keyword checks if the status interface option is available
         - Keyword Usage:
-        - ``Is Device Status Wifi Status Summary Available``
+        - ``Verify Device Status Interface Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_status_interface_available():
+            kwargs['pass_msg'] = "the status interface option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the status interface option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_status_wifi_status_summary_available(self):
+        """
+        - This helper checks if the status wifi status summary option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1473,11 +1832,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_client_information_available(self):
+    def verify_device_status_wifi_status_summary_available(self, **kwargs):
         """
-        - This keyword checks if the tool client information option is available
+        - This keyword checks if the status wifi status summary option is available
         - Keyword Usage:
-        - ``Is Device Tool Client Information Available``
+        - ``Verify Device Status Wifi Status Summary Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_status_wifi_status_summary_available():
+            kwargs['pass_msg'] = "the status wifi status summary option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the status wifi status summary option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_client_information_available(self):
+        """
+        - This helper checks if the tool client information option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1486,11 +1860,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_get_tech_data_available(self):
+    def verify_device_tool_client_information_available(self, **kwargs):
         """
-        - This keyword checks if the tool get tech data option is available
+        - This keyword checks if the tool client information option is available
         - Keyword Usage:
-        - ``Is Device Tool Get Tech Data Available``
+        - ``Verify Device Tool Client Information Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_client_information_available():
+            kwargs['pass_msg'] = "the tool client information option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the tool client information option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_get_tech_data_available(self):
+        """
+        - This helper checks if the tool get tech data option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1499,11 +1888,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_locate_device_available(self):
+    def verify_device_tool_get_tech_data_available(self, **kwargs):
         """
-        - This keyword checks if the tool locate device option is available
+        - This keyword checks if the tool get tech data option is available
         - Keyword Usage:
-        - ``Is Device Tool Locate Device Available``
+        - ``verify Device Tool Get Tech Data Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_get_tech_data_available():
+            kwargs['pass_msg'] = "the tool get tech data option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the tool get tech data option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_locate_device_available(self):
+        """
+        - This helper checks if the tool locate device option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1512,11 +1916,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_layer_neighbor_info_available(self):
+    def verify_device_tool_locate_device_available(self, **kwargs):
         """
-        - This keyword checks if the tool layer neighbor info option is available
+        - This keyword checks if the tool locate device option is available
         - Keyword Usage:
-        - ``Is Device Tool Layer Neighbor Info Available``
+        - ``Verify Device Tool Locate Device Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_locate_device_available():
+            kwargs['pass_msg'] = "the tool locate device option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the tool locate device option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_layer_neighbor_info_available(self):
+        """
+        - This helper checks if the tool layer neighbor info option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1525,11 +1944,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_packet_capture_available(self):
+    def verify_device_tool_layer_neighbor_info_available(self, **kwargs):
         """
-        - This keyword checks if the tool packet capture option is available
+        - This keyword checks if the tool layer neighbor info option is available
         - Keyword Usage:
-        - ``Is Device Tool Packet Capture Available``
+        - ``Verify Device Tool Layer Neighbor Info Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_layer_neighbor_info_available():
+            kwargs['pass_msg'] = "the tool layer neighbor info option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the tool layer neighbor info option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_packet_capture_available(self):
+        """
+        - This helper checks if the tool packet capture option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1538,11 +1972,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_device_tool_vlan_probe_available(self):
+    def verify_device_tool_packet_capture_available(self, **kwargs):
         """
-        - This keyword checks if the tool vlan probe option is available
+        - This keyword checks if the tool packet capture option is available
         - Keyword Usage:
-        - ``Is Device Tool Vlan Probe Available``
+        - ``Verify Device Tool Packet Capture Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_packet_capture_available():
+            kwargs['pass_msg'] = "the tool packet capture option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the tool packet capture option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_device_tool_vlan_probe_available(self):
+        """
+        - This helper checks if the tool vlan probe option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1551,11 +2000,26 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         return -1
 
-    def is_reset_device_to_default_available(self):
+    def verify_device_tool_vlan_probe_available(self, **kwargs):
         """
-        - This keyword checks if the reset device to default option is available
+        - This keyword checks if the tool vlan probe option is available
         - Keyword Usage:
-        - ``Is Reset Device To Default Available``
+        - ``Is Device Tool Vlan Probe Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_device_tool_vlan_probe_available():
+            kwargs['pass_msg'] = "the tool vlan probe option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the tool vlan probe option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_reset_device_to_default_available(self):
+        """
+        - This helper checks if the reset device to default option is available
 
         :return: 1 if is displayed else -1
         """
@@ -1563,3 +2027,20 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
             return 1
 
         return -1
+
+    def verify_reset_device_to_default_available(self, **kwargs):
+        """
+        - This keyword checks if the reset device to default option is available
+        - Keyword Usage:
+        - ``Verify Reset Device To Default Available``
+
+        :return: 1  if is available else -1 is not available
+        """
+        if self._is_reset_device_to_default_available():
+            kwargs['pass_msg'] = "the reset device to default option is available"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "the reset device to default option is not available"
+            self.common_validation.failed(**kwargs)
+            return -1
