@@ -2768,7 +2768,6 @@ class Cli(object):
                                                       interval=2)
                 self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
                 print(output[0].return_text)
-                output_traffic = output[0].return_text
 
                 p = re.compile(r'(CfgBrForwardDelay:\s+)+(\d+)', re.M)
 
@@ -2809,7 +2808,6 @@ class Cli(object):
                                               interval=2)
                 self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
                 print(output[0].return_text)
-                output_traffic = output[0].return_text
 
                 p = re.compile(r'(CfgBrForwardDelay:\s+)+(\d+)', re.M)
 
