@@ -84,7 +84,6 @@ class XapiBaseNetworkPolicyApi(XapiHelper):
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
                         self.common_validation.fault(**kwargs)
-                        self.utils.print
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the

@@ -335,8 +335,8 @@ class NetworkPolicy(object):
         :return: 1 if deleted successfully else -1
         """
 
-        if self.xapiNetworkPolicy.is_xapi_enabled():
-            return self.xapiNetworkPolicy.xapi_delete_network_polices(policies, **kwargs)
+        # if self.xapiNetworkPolicy.is_xapi_enabled():
+        #    return self.xapiNetworkPolicy.xapi_delete_network_polices(policies, **kwargs)
 
 
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
