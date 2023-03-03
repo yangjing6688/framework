@@ -75,10 +75,10 @@ class XapiNetworkPolicy(XapiHelper):
                         policy_data = self.xapiBaseNetworkPolicyApi.xapi_base_list_network_polices(policy_names=[policy], limit=100)
                         if len(policy_data.data) != 0:
                             repsonse = self.xapiBaseNetworkPolicyApi.xapi_base_delete_network_policy(id=policy_data.data[0].id)
-                            if repsonse and repsonse == -1:
+                            if repsonse == -1:
                                 successfuly_deleted = False
                                 self.utils.print_error(f'Failed to delete the policy {policy}')
-        if successfuly_deleted != -1:
+        if successfuly_deleted:
             kwargs['pass_msg'] = f'Deleted the network policy -> {policies}'
             self.common_validation.passed(**kwargs)
             return 1
