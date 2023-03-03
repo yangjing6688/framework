@@ -72,7 +72,7 @@ class XapiNetworkPolicy(XapiHelper):
                 for policy in policies[0]:
                     # Make sure we shoudn't exclude this one
                     if policy not in exclude_list:
-                        policy_data = self.xapiBaseNetworkPolicyApi.xapi_base_list_network_polices(policy_names=[policy])
+                        policy_data = self.xapiBaseNetworkPolicyApi.xapi_base_list_network_polices(policy_names=[policy], limit=100)
                         if len(policy_data.data) != 0:
                             repsonse = self.xapiBaseNetworkPolicyApi.xapi_base_delete_network_policy(id=policy_data.data[0].id)
                             if repsonse and repsonse == -1:
