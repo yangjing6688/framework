@@ -3699,16 +3699,15 @@ class Navigator(NavigatorWebElements):
                     # Reset the not_visible_count since we've now seen the spinner
                     not_visible_count = 0
                     visible_count += 1
-                    self.utils.print_info(f"The 'loading' mask is still visible. Waiting for {retry_duration} seconds...")
+                    self.utils.print_info(f"The 'loading' mask is visible Count: {visible_count}")
                 else:
                     not_visible_count += 1
                     self.utils.print_info(f"The 'loading' mask is NOT visible Count: {not_visible_count}")
 
                 # The spinner may not have started by the time this function was called.  It's possible the spinner
-                # was visible and already disappeared it's also possible the spinner was not made visible yet and
-                # is expected to appear soon.  The best we can do is wait a specific amount of time for the spinner to
-                # show up then disappear, or wait for it to go away if we actually see it.
-                if not_visible_count >= not_visible_wait or (not_visible_count and visible_count):
+                # was visible and already disappeared, it's also possible the spinner was not made visible yet and
+                # is expected to appear soon.  We'll wait for the spinner to not be visible for {not_visible_wait} seconds
+                if not_visible_count >= not_visible_wait
                     kwargs['pass_msg'] = "The 'loading' mask is no longer visible"
                     self.common_validation.passed(**kwargs)
                     return 1
