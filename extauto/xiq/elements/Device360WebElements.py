@@ -2421,3 +2421,6 @@ class Device360WebElements(Device360WebElementDefs):
         return self.weh.get_element(self.device360_diagnostics_port_details_actions_button_disabled)
     def get_configuration_events_button(self):
         return self.weh.get_element(self.configuration_events_button)
+
+    def get_device360_lag_popup_spinner(self):
+        return self.weh.get_element(self.device360_lag_popup_spinner)

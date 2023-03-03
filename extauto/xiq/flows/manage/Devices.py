@@ -246,107 +246,80 @@ class Devices:
         #     if status in self.get_ap_status(ap_mac=ap_mac):
         #         return 1
 
-    def get_os_change(self, device_serial=None, device_name=None, device_mac=None):
-        self.voss = False
-        self.exos = False
+    def get_os_change(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         if device_mac:
-            search_result = self.search_exos_device(device_mac)
+            search_result = self.search_device(device_mac)
             if search_result != -1:
                 if self.select_device(device_mac):
                     self.utils.print_info("Click ACTION button")
                     self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
-                    if self.voss:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_exos)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
-
-                    if self.exos:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_voss)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
-
+                    self.auto_actions.click_reference(self.devices_web_elements.device_actions_change_os_button)
+                    self.screen.save_screen_shot()
+                    sleep(2)
+                    self.utils.print_info("Check for error message")
+                    device_error_message = self.devices_web_elements.get_os_change_error_message()
+                    self.utils.print_info("Error message: ", device_error_message.text)
+                    self.utils.print_info("Click confirmation Yes Button")
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+                    sleep(2)
+                    self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = f"Successfully Selected NOS change for device having MAC address {device_mac}"
+                    self.common_validation.passed(**kwargs)
+                    return 1
             else:
-                self.utils.print_info("Device with MAC is not EXOS or VOSS device")
-                return 1
+                kwargs['fail_msg'] = f"Device with device mac {device_mac} is not EXOS or VOSS device"
+                self.common_validation.failed(**kwargs)
+                return -1
         if device_serial:
-            search_result = self.search_exos_device(device_serial)
+            search_result = self.search_device(device_serial)
             if search_result != -1:
                 if self.select_device(device_serial):
                     self.utils.print_info("Click ACTION button")
                     self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
-                    if self.voss:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_exos)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
-                    if self.exos:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_voss)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
+                    self.auto_actions.click_reference(self.devices_web_elements.device_actions_change_os_button)
+                    self.screen.save_screen_shot()
+                    sleep(3)
+                    self.utils.print_info("Check for error message")
+                    device_error_message = self.devices_web_elements.get_os_change_error_message()
+                    self.utils.print_info("Error message: ", device_error_message.text)
+                    self.utils.print_info("Click confirmation Yes Button")
+                    sleep(3)
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+                    sleep(2)
+                    self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = f"Successfully Selected NOS change for device having serial {device_serial} "
+                    self.common_validation.passed(**kwargs)
+                    return 1
             else:
-                self.utils.print_info("Device with serial is not EXOS or VOSS device")
-                return 1
+                kwargs['fail_msg'] = f"Device with device serial {device_serial} is not EXOS or VOSS device"
+                self.common_validation.failed(**kwargs)
+                return -1
         if device_name:
-            search_result = self.search_exos_device(device_name)
+            search_result = self.search_device(device_name)
             if search_result != -1:
                 if self.select_device(device_name):
                     self.utils.print_info("Click ACTION button")
                     self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
-                    if self.voss:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_exos)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
-                    if self.exos:
-                        self.auto_actions.click_reference(self.devices_web_elements.get_os_change_voss)
-                        self.screen.save_screen_shot()
-                        sleep(2)
-                        self.utils.print_info("Check for error message")
-                        device_error_message = self.devices_web_elements.get_os_change_error_message()
-                        self.utils.print_info("Error message: ", device_error_message.text)
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        sleep(2)
-                        self.screen.save_screen_shot()
+                    self.auto_actions.click_reference(self.devices_web_elements.device_actions_change_os_button)
+                    self.screen.save_screen_shot()
+                    sleep(2)
+                    self.utils.print_info("Check for error message")
+                    device_error_message = self.devices_web_elements.get_os_change_error_message()
+                    self.utils.print_info("Error message: ", device_error_message.text)
+                    self.utils.print_info("Click confirmation Yes Button")
+                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+                    sleep(2)
+                    self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = f"Successfully Selected NOS change for device named {device_name} "
+                    self.common_validation.passed(**kwargs)
+                    return 1
             else:
-                self.utils.print_info("Device with device name is not EXOS or VOSS device")
-                return 1
+                kwargs['fail_msg'] = f"Device with device name {device_name} is not EXOS or VOSS device"
+                self.common_validation.failed(**kwargs)
+                return -1
 
     @unsupported('This function is not supported')
     def search_exos_device(self, EXOS_VOSS_device, **kwargs):
@@ -2523,8 +2496,7 @@ class Devices:
                                                device_mac=device_mac, ignore_failure=True)
 
             if search_result != -1:
-                if self.wait_for_device_to_finish_update(device_serial=device_serial, device_name=device_name,
-                                                         device_mac=device_mac):
+                if self.wait_until_device_update_done(device_serial=device_serial, device_mac=device_mac, device_name=device_name):
                     if self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac):
                         self.utils.print_info("Click delete button")
                         self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
@@ -4176,6 +4148,7 @@ class Devices:
 
     def wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10,
                                   **kwargs):
+
         """
         - This keyword waits until the device status in XIQ is "Disconnected" or "Unknown".
         - After Configuring the CAPWAP client server in device cli, check the device connected status
@@ -4242,6 +4215,8 @@ class Devices:
 
         kwargs['fail_msg'] = "Device failed to go OFFLINE. Please check."
         self.common_validation.failed(**kwargs)
+        self.screen.save_screen_shot()
+        sleep(2)
         return -1
 
     def update_device_delta_configuration(self, device_serial, update_method="Delta"):
@@ -4310,7 +4285,6 @@ class Devices:
                 self.common_validation.passed(**kwargs)
                 return 1
             count += 1
-
         kwargs['fail_msg'] = "Device didn't finish the reboot"
         self.common_validation.failed(**kwargs)
         return -1
@@ -10158,13 +10132,17 @@ class Devices:
                 sleep(30)
                 self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
-    def wait_until_device_update_done(self, device_serial=None, wait_time_in_min=15, **kwargs):
+    def wait_until_device_update_done(self, device_serial=None, device_mac=None, device_name=None, wait_time_in_min=15, **kwargs):
         """
         - This keyword checks if the expected device is done with updating
         - Keyword Usage:
         - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
+        - ``wait_until_device_update_done   device_mac=${AP_MAC}``
+        - ``wait_until_device_update_done   device_name=${AP_NAME}``
 
-        :param device_serial: Serial number of AP Ex:11301810220048
+        :param device_serial: serial number of the device. Example: "01301511060005"
+        :param device_mac: mac of the device. Example: 885BDD4BE380
+        :param device_name: name of the device. Example: bui-flo-0005
         :param wait_time_in_min: time to wait in min
         :return: 1 if done, -1 if not
         """
@@ -10174,12 +10152,21 @@ class Devices:
 
         complete = False
         n_time = 0
+        update_status = -1
         date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
 
         while n_time <= int(wait_time_in_min * 4):
             n_time = n_time + 1
-            update_status = self.get_device_details(device_serial, 'UPDATED')
-            self.utils.print_info("updated status...," + str(device_serial) + " " + str(update_status))
+            if device_serial:
+                update_status = self.get_device_details(device_serial, 'UPDATED')
+                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_serial: " + str(device_serial))
+            elif device_mac:
+                update_status = self.get_device_details(device_mac, 'UPDATED')
+                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_mac: " + str(device_mac))
+            elif device_name:
+                update_status = self.get_device_details(device_name, 'UPDATED')
+                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_name: " + str(device_name))
+
             if (update_status == '') or (re.match(date_regex, update_status)):
                 kwargs['pass_msg'] = "Device has finished updating "
                 self.common_validation.passed(**kwargs)
