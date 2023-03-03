@@ -131,14 +131,15 @@ class Login:
         :return: 1 if login successful else -1
         """
 
-        # new XAPI call to get and set the XAPI token
-        self.xapiLogin.login(username, password, **kwargs)
+        if self.xapiHelper.is_xapi_enabled():
+            # new XAPI call to get and set the XAPI token
+            self.xapiLogin.login(username, password, **kwargs)
 
-        # Look for the XAPI_ONLY and if set return
-        xapi_only = kwargs.get('XAPI_ONLY', False)
-        if xapi_only:
-            self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
-            return 1
+            # Look for the XAPI_ONLY and if set return
+            xapi_only = kwargs.get('XAPI_ONLY', False)
+            if xapi_only:
+                self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
+                return 1
 
         result = -1
         count = 0
