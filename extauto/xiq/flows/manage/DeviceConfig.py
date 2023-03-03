@@ -2948,6 +2948,7 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Get the Config content from Device Config Audit Delta View")
 
                     def check_device_config_audit_delta_view_content():
+                        self.screen.save_screen_shot()
                         return bool(self.get_device_config_audit_delta_view_content().text)
 
                     self.utils.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True,
