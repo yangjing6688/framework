@@ -409,4 +409,95 @@ class XapiDevices(XapiBase):
             self.xapiHelper.common_validation.fault(**kwargs)
             return -1
 
+    def xapi_get_device_admin_state(self, device_serial=None, device_mac=None, **kwargs):
+        """
+        This function is for get device admin state
+        :param device_serial: The device serial number
+        :param device_mac: The device MAC address
+        :return: Device admin state: MANAGE, UNMANAGE, NEW, STAGE...
+        """
+
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
+
+        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+        self.valid_http_response(api_response)
+        data = json.loads(api_response.data)
+        device_admin_state = data.get('device_admin_state', '')
+        return device_admin_state
+
+    def xapi_wait_until_device_unmanaged(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
+                                      **kwargs):
+        """
+              This function will search for the device and wait until the device is unmanaged
+
+              :param device_serial: The device serial number
+              :param device_mac: The device MAC address
+              :param retry_duration: The duration of the sleep in between the loops
+              :param retry_count: The number of loops
+
+              :return: 1 for success and -1 for failure
+           """
+        retry_value = 0
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
+
+        while retry_value < retry_count:
+            # get Device information
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            self.valid_http_response(api_response)
+            data = json.loads(api_response.data)
+            device_admin_state = data.get('device_admin_state', '')
+            if device_admin_state == 'UNMANAGED':
+                kwargs['pass_msg'] = f"Device admin state Value is: {device_admin_state}"
+                self.xapiHelper.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.utils.print_info(
+                    f"Device Connected Status Value is: {device_admin_state}, sleeping {retry_duration} seconds")
+                sleep(retry_duration)
+                retry_value += 1
+
+        # In the case that nothing is found
+        kwargs['fail_msg'] = 'Device did not get to unmanaged state'
+        self.xapiHelper.common_validation.failed(**kwargs)
+        return -1
+
+    def xapi_manage_device(self, device_serial=None, device_mac=None, **kwargs):
+        """
+           This function will change the device admin state to manage
+
+           :param device_serial: The device serial number
+           :param device_mac: The device MAC address
+           :return: 1 for success and -1 for failure
+        """
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
+
+        return self.xapiBaseDeviceApi.xapi_base_change_device_status_to_manage(id=id)
+
+    def xapi_unmanage_device(self, device_serial=None, device_mac=None, **kwargs):
+        """
+           This function will change the device admin state to unmanage
+
+           :param device_serial: The device serial number
+           :param device_mac: The device MAC address
+           :return: 1 for success and -1 for failure
+        """
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
+
+        return self.xapiBaseDeviceApi.xapi_base_change_device_status_to_unmanage(id=id)
 
