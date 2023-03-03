@@ -2546,7 +2546,8 @@ class Device360WebElementDefs:
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
         {
-            'XPATH': '//div[@class="column last"]//a[@class="chzn-single"]',
+            # 'XPATH': '//div[@class="column last"]//a[@class="chzn-single"]',
+            'XPATH': '//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'index': 0
         }
 
