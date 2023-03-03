@@ -27,6 +27,8 @@ from extauto.xiq.flows.configure.UserGroups import UserGroups
 from extauto.xiq.flows.configure.CommonObjects import CommonObjects
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 import extauto.xiq.flows.configure.SwitchTemplate
+from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
+
 
 
 class NetworkPolicy(object):
@@ -53,6 +55,7 @@ class NetworkPolicy(object):
         self.use_existing_policy = False
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.switch_template = extauto.xiq.flows.configure.SwitchTemplate.SwitchTemplate()
+        self.xapiNetworkPolicy = XapiNetworkPolicy()
 
     def select_network_policy_row(self, policy):
         """
@@ -166,6 +169,11 @@ class NetworkPolicy(object):
         :return: 1 if network policy creation is success
         """
 
+        # This code is currently disabled until the XAPI support SSID creation
+        # if self.xapiNetworkPolicy.xapiNetworkPolicy.is_xapi_enabled():
+        #    return self.xapiNetworkPolicy.xapi_create_network_policy(policy, wireless_profile, cli_type, **kwargs)
+
+        # UI code to add a new network policy
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
@@ -245,9 +253,19 @@ class NetworkPolicy(object):
         - Keyword Usage:
         - ``Delete Network Policy    ${POLICY_NAME}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param policy: Name of the policy to delete
         :return: 1 if deleted else -1
         """
+
+        if self.xapiNetworkPolicy.is_xapi_enabled():
+            policies = []
+            policies.append(policy)
+            return self.xapiNetworkPolicy.delete_network_polices(policies, **kwargs)
+
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "delete_network_policy() failed. Couldn't Navigate to policies list view page"
             self.common_validation.fault(**kwargs)
@@ -303,9 +321,17 @@ class NetworkPolicy(object):
         - Keyword Usage:
         - ``Delete Network Policies   ${POLICY1}   ${POLICY2}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param policies: list of network polices to delete
         :return: 1 if deleted successfully else -1
         """
+
+        if self.xapiNetworkPolicy.is_xapi_enabled():
+            return self.xapiNetworkPolicy.xapi_delete_network_polices(policies, **kwargs)
+
 
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
@@ -387,15 +413,23 @@ class NetworkPolicy(object):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def delete_all_network_policies(self, exclude_list=''):
+    def delete_all_network_policies(self, exclude_list='', **kwargs):
         """
         - Delete all network policies from the grid expect exclude_list policies
         - keyword Usage:
         - ``Delete All Network Policies  exclude_list=${POLICY1},${POLICY2)``
 
+         Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param exclude_list: list of policies to exclude from delete
         :return: 1 if deleted successfully else -1
         """
+
+        if self.xapiNetworkPolicy.is_xapi_enabled():
+            return self.xapiNetworkPolicy.xapi_delete_network_polices(exclude_list=exclude_list, **kwargs)
+
         exclude_list = exclude_list.split(",")
         np_list = self._get_network_policy_list()
         if np_list == -2:

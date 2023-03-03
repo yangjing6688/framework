@@ -6,10 +6,10 @@
 """
 
 
-from tools.xapi.XapiBase import XapiBase
+from tools.xapi.XapiHelper import XapiHelper
 
 
-class XapiBaseOperationApi(XapiBase):
+class XapiBaseOperationApi(XapiHelper):
 
     def __init__(self):
         super().__init__()
@@ -57,7 +57,7 @@ class XapiBaseOperationApi(XapiBase):
 
 
         # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
+        configuration = self.get_xapi_configuration()
         api_response = None
 
         # Check that the access_token is in
@@ -78,11 +78,11 @@ class XapiBaseOperationApi(XapiBase):
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
                         kwargs['pass_msg'] = "returned: {returnValue}"
-                        self.xapiHelper.common_validation.passed(**kwargs)
+                        self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.fault(**kwargs)
+                        self.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -90,12 +90,12 @@ class XapiBaseOperationApi(XapiBase):
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
                         self.valid_http_response(api_response)
-                    self.xapiHelper.common_validation.passed(**kwargs)
+                    self.common_validation.passed(**kwargs)
                     return api_response
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.fault(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_delete_operation(self, **kwargs):
@@ -141,7 +141,7 @@ class XapiBaseOperationApi(XapiBase):
 
 
         # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
+        configuration = self.get_xapi_configuration()
         api_response = None
 
         # Check that the access_token is in
@@ -162,11 +162,11 @@ class XapiBaseOperationApi(XapiBase):
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
                         kwargs['pass_msg'] = "returned: {returnValue}"
-                        self.xapiHelper.common_validation.passed(**kwargs)
+                        self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.fault(**kwargs)
+                        self.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -174,12 +174,12 @@ class XapiBaseOperationApi(XapiBase):
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
                         self.valid_http_response(api_response)
-                    self.xapiHelper.common_validation.passed(**kwargs)
+                    self.common_validation.passed(**kwargs)
                     return api_response
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.fault(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
     def xapi_base_get_operation(self, **kwargs):
@@ -225,7 +225,7 @@ class XapiBaseOperationApi(XapiBase):
 
 
         # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
+        configuration = self.get_xapi_configuration()
         api_response = None
 
         # Check that the access_token is in
@@ -246,11 +246,11 @@ class XapiBaseOperationApi(XapiBase):
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
                         kwargs['pass_msg'] = "returned: {returnValue}"
-                        self.xapiHelper.common_validation.passed(**kwargs)
+                        self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
                         kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.xapiHelper.common_validation.fault(**kwargs)
+                        self.common_validation.fault(**kwargs)
                         return -1
                 else:
                     # Make sure this isn't a async call because the thread will be returned and the
@@ -258,11 +258,11 @@ class XapiBaseOperationApi(XapiBase):
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
                         self.valid_http_response(api_response)
-                    self.xapiHelper.common_validation.passed(**kwargs)
+                    self.common_validation.passed(**kwargs)
                     return api_response
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.fault(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1
 
