@@ -151,11 +151,9 @@ class ManageUsers():
             self.utils.print_info("filter users with Name in page" + str(number))
             sleep(1)
             self.auto_actions.click_reference(self.portal_web_elements.get_users_page_name_filter_item)
-            self.utils.print_info("Start to edit user1...")
             sleep(2)
             self.auto_actions.send_keys(self.portal_web_elements.get_users_page_name_filter_text(), username)
             sleep(2)
-            self.utils.print_info("Start to edit user2...")
             if self.check_users_list(username) != -1:
                 self.utils.print_info(username + " is in USERS list page " + str(number))
                 self.utils.print_info("Click Edit button...")
@@ -175,6 +173,8 @@ class ManageUsers():
                     self.common_validation.failed(**kwargs)
                     return -1
                 else:
+                    kwargs['success_msg'] = "Email is edited successfully"
+                    self.common_validation.passed(**kwargs)
                     return 1
             else:
                 self.auto_actions.click_reference(self.portal_web_elements.get_users_page_nextpage_button)
@@ -202,6 +202,8 @@ class ManageUsers():
                 self.common_validation.failed(**kwargs)
                 return -1
             else:
+                kwargs['success_msg'] = "Email is edited successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
         else:
             kwargs['fail_msg'] = username + " is not in USERS list"
@@ -296,7 +298,6 @@ class ManageUsers():
             kwargs['fail_msg'] = " change email failed!"
             self.common_validation.failed(**kwargs)
             return -1
-        self.utils.print_info(" Email is edited successfully")
         return 1
 
     def check_edit_result_on_users_page(self, username, newemail,**kwargs):
