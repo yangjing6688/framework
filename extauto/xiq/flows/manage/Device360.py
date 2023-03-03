@@ -11264,8 +11264,10 @@ class Device360(Device360WebElements):
             'pse_profile_power_mode_dropdown')
         if get_pse_profile_power_mode_dropdown:
             self.auto_actions.click(get_pse_profile_power_mode_dropdown)
+            self.screen.save_screen_shot()
             get_pse_profile_power_mode_items = self.get_select_element_port_type(
                 "pse_profile_power_mode_items")
+            self.screen.save_screen_shot()
             if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items,
                                                           value['pse_profile_power_mode']):
                 self.utils.print_info(" Selected into dropdown value : ",
@@ -11295,13 +11297,19 @@ class Device360(Device360WebElements):
             self.auto_actions.click(get_pse_profile_priority_dropdown)
             get_pse_profile_priority_items = self.get_select_element_port_type(
                 "pse_profile_priority_items")
-            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
-                                                          value['pse_profile_priority']):
-                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+            if get_pse_profile_priority_items:
+                if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
+                                                              value['pse_profile_priority']):
+                    self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+                else:
+                    kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> Cannot select into dropdown"
+                    self.common_validation.fault(**kwargs)
+                    return -1
             else:
-                kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> Cannot select into dropdown"
+                kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> Cannot get items"
                 self.common_validation.fault(**kwargs)
                 return -1
+
         else:
             kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> Cannot select element port type"
             self.common_validation.fault(**kwargs)
