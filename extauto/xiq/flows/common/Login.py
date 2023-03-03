@@ -436,12 +436,22 @@ class Login:
         - Keyword Usage:
         - ``Logout User``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
+
         :return: 1 if logout success
         """
 
         if self.xapiLogin.is_xapi_enabled():
             # remove the token for xpapi
             self.xapiLogin.logout(**kwargs)
+
+            # Look for the XAPI_ONLY and if set return
+            xapi_only = kwargs.get('XAPI_ONLY', False)
+            if xapi_only:
+                self.utils.print_info("XAPI_ONLY detected in logout, XAPI ONLY TEST")
+                return 1
 
         # stop tool tip text capture thread
         self.utils.switch_to_default(CloudDriver().cloud_driver)
