@@ -11254,6 +11254,7 @@ class Device360(Device360WebElements):
         get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
         if get_pse_profile_name:
             self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
+            #self.auto_actions.click(get_pse_profile_name)
         else:
             self.utils.print_info("get_pse_profile_name not found ")
             kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> get_pse_profile_name not found"
@@ -11264,7 +11265,7 @@ class Device360(Device360WebElements):
             'pse_profile_power_mode_dropdown')
         if get_pse_profile_power_mode_dropdown:
             self.screen.save_screen_shot()
-            self.auto_actions.click(get_pse_profile_power_mode_dropdown)
+            self.auto_actions.click_reference(get_pse_profile_power_mode_dropdown)
             self.screen.save_screen_shot()
             get_pse_profile_power_mode_items = self.get_select_element_port_type(
                 "pse_profile_power_mode_items")
