@@ -97,7 +97,7 @@ class GlobalSearch:
         if client_name is not None and client_name.is_displayed():
             self.auto_actions.click(client_name)
         else:
-           self.auto_actions.click(search_result)
+            self.auto_actions.click(search_result)
 
         self.utils.print_info("Getting client Details")
         self.utils.wait_till(self.global_web_elements.get_client_title, is_logging_enabled=True, timeout=30, delay=10)
