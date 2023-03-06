@@ -11377,6 +11377,7 @@ class Device360(Device360WebElements):
                             select_button = self.get_device360_port_configuration_pse_profile_select_button(port_row)
                             if select_button:
                                 self.auto_actions.click(select_button)
+                                self.screen.save_screen_shot()
                             else:
                                 self.utils.print_info("select_button not found")
                                 kwargs['fail_msg'] = "device360_edit_select_or_add_new_pse_profile() -> select_button " \
@@ -11409,6 +11410,7 @@ class Device360(Device360WebElements):
                             select_button = self.get_device360_port_configuration_pse_profile_select_button(port_row)
                             if select_button:
                                 self.auto_actions.click(select_button)
+                                self.screen.save_screen_shot()
                             else:
                                 self.utils.print_info("select_button not found")
                                 kwargs['fail_msg'] = "device360_edit_select_or_add_new_pse_profile() -> select_button not found"
