@@ -3707,7 +3707,7 @@ class Navigator(NavigatorWebElements):
                 # The spinner may not have started by the time this function was called.  It's possible the spinner
                 # was visible and already disappeared, it's also possible the spinner was not made visible yet and
                 # is expected to appear soon.  We'll wait for the spinner to not be visible for {not_visible_wait} seconds
-                if not_visible_count >= not_visible_wait
+                if not_visible_count >= not_visible_wait:
                     kwargs['pass_msg'] = "The 'loading' mask is no longer visible"
                     self.common_validation.passed(**kwargs)
                     return 1
