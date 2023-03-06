@@ -83,6 +83,11 @@ class PortalWebElementsDefinitions:
             'wait_for': 3,
         }
 
+    users_page_email_filter_item = \
+        {
+            'XPATH': '//div[@colid="loginName"]//span[@class="ag-header-icon ag-header-cell-menu-button"]',
+            'wait_for': 3,
+        }
     users_page_name_filter_text = \
         {
             'XPATH': '//*[@id="filterText"]',
@@ -136,4 +141,31 @@ class PortalWebElementsDefinitions:
             'XPATH': '//a[contains(text(),"Yes")]',
             'wait_for': 3,
         }
+
+    edit_button_portal = \
+        {
+            'XPATH': '//button[contains(text(),"Edit")]',
+            'wait_for': 3,
+        }
+
+    edit_users_page_email_text = \
+        {
+            'XPATH': '//span[contains(text(),',
+            'wait_for': 3,
+        }
+
+
+    edit_users_page_email_input = \
+        {
+            'XPATH': '//span[@class="in-place-editor-active"]//input',
+            'wait_for': 3,
+        }
+
+    edit_users_page_edit_accept_button = \
+        {
+            'XPATH': '//span[@class="in-place-editor-active"]//span[@class="in-place-editor-button in-place-editor-button-accept"]',
+            'wait_for': 3,
+        }
+
+
 
