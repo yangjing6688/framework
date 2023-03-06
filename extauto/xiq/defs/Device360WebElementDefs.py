@@ -3328,7 +3328,7 @@ class Device360WebElementDefs:
 
     select_more_button_pse_profile = \
         {
-            'CSS_SELECTOR': '.J-ip-more'
+            'XPATH': '//div[@class="J-ip-more"]'
         }
 
     device360_configure_port_access_vlan_textfield_VOSS = \
