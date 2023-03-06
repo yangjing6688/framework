@@ -7438,7 +7438,7 @@ class Device360(Device360WebElements):
                                                       f"error detected {e} ; Retrying...")
                                 return False
 
-                        self.utils.wait_till(_check_stale_element_exception_more_button, is_logging_enabled=True
+                        self.utils.wait_till(_check_stale_element_exception_more_button, is_logging_enabled=True,
                                              msg="Waiting for StaleElementException to dissapear...")
                         self.utils.print_info("Clicking 'More' button...")
                         self.auto_actions.click(self.get_select_element_port_type('pse_more_button'))
