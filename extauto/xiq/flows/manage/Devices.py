@@ -1371,6 +1371,10 @@ class Devices:
         :param activate_time: activation time for Extreme Networks devices running images, by default set to 60 seconds
         :return: returned_version of the device, or -1 if it was unable to perform the upgrade
         """
+
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+
         returned_version = -1
         device_selected = False
         device_dict = device_dict[0]
@@ -2665,9 +2669,11 @@ class Devices:
 
         :return: 1 if device found else -1
         """
-        if self.xapiDevices.is_xapi_enabled():
+
+        # We need to skip this when we are selecting a device
+        if self.xapiDevices.is_xapi_enabled() and not select_device:
             return self.xapiDevices.xapi_search_device(device_serial=device_serial,
-                                                       device_name=device_name,
+                                                        device_name=device_name,
                                                        device_mac=device_mac,
                                                        **kwargs)
         device_keys = {}
