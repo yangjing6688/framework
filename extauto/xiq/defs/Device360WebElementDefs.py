@@ -1951,7 +1951,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_pse_profile_drop_down_options = \
         {
-            'CSS_SELECTOR': '.item-area li',
+            'XPATH': '//ul[@class="item-area"]/li[@class="J-ip-item"]',
             'wait_for': 5
         }
 

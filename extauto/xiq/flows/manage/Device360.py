@@ -11346,7 +11346,7 @@ class Device360(Device360WebElements):
             self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
                                  delay=5, silent_failure=False, msg="Waiting for port type profile to "
                                                                    "save...")
-
+            self.screen.save_screen_shot()
             kwargs['pass_msg'] = "Profile saved"
             self.common_validation.passed(**kwargs)
             return 1
