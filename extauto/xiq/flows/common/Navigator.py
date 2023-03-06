@@ -153,16 +153,15 @@ class Navigator(NavigatorWebElements):
                 self.utils.print_info("Manage page is present")
                 if self.auto_actions.click_reference(self.get_devices_nav) == 1:
                     self.utils.print_info("Clicking Devices Tab...")
-                    sleep(10)
+                    self.wait_until_devices_load_spinner_cleared()
                     self.enable_page_size(page_size='100')
                     kwargs['pass_msg'] = "Navigation Successful to Devices Sub tab on Monitor Tab"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
                     self.utils.print_info("Unable to navigate to Devices tab")
-                    self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "Unable to navigate to Devices tab"
-                    self.common_validation.failed(**kwargs)
+                    self.common_validation.fault(**kwargs)
                     return -1
             else:
                 kwargs['fail_msg'] = "Manage page is not present"
@@ -181,8 +180,8 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         self.navigate_to_device_utilities_tools()
 
-    ### Commented on 1/18/23 because this is a duplicate of a function below.
-    ### The second function to be declared will be used. Thus, this function was commented
+    # ## Commented on 1/18/23 because this is a duplicate of a function below.
+    # ## The second function to be declared will be used. Thus, this function was commented
     #
     # def navigate_configure_network_policies(self, **kwargs):
     #     """
@@ -204,8 +203,8 @@ class Navigator(NavigatorWebElements):
 
     #     return self.navigate_to_network_policies_tab()
 
-    ### Commented on 1/18/23 because this is a duplicate of a function below.
-    ### The second function to be declared will be used. Thus, this function was commented
+    # ## Commented on 1/18/23 because this is a duplicate of a function below.
+    # ## The second function to be declared will be used. Thus, this function was commented
     #
     # def navigate_to_network_policies_tab(self, **kwargs):
     #     """
@@ -545,7 +544,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_configure_common_objects()
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on AAA server Settings...")
+        self.utils.print_info("Click on AD Server...")
         self.auto_actions.click_reference(self.get_common_object_authentication_ad_servers)
         sleep(5)
 
@@ -3666,6 +3665,60 @@ class Navigator(NavigatorWebElements):
             self.common_validation.fault(**kwargs)
             return -1
 
+    def wait_until_devices_load_spinner_cleared(self, retry_duration=1, retry_count=180, **kwargs):
+        """
+        - This keyword waits until the Manage > Devices 'loading' mask is cleared.
+        - This keyword by default loops every 1 second for 180 times to check for the 'loading' mask.
+        - Flow:
+        -   Assumes that the 'Manage --> Devices' view is already visible.
+        -   Check for the 'loading' mask
+        - Keyword Usage:
+        - ``Wait Until Devices Load Mask Cleared   retry_duration=1    retry_count=180``
+
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if the 'loading' mask is cleared within the specified time, else -1
+        """
+        count = 1
+        not_visible_count = 0
+        not_visible_max   = 2
+
+        while count <= retry_count:
+            self.utils.print_info(f"Checking for 'loading' mask: loop {count}")
+            load_mask = self.get_table_load_spinner()
+
+            if not load_mask:
+                self.utils.print_info(f"Unable to get 'loading' mask: loop {count}")
+            else:
+                # Determine if the mask is visible
+                is_visible = load_mask.value_of_css_property("display") == "block"
+
+                # If the spinner is visible then we need to wait for it to no longer be visible
+                if is_visible:
+                    not_visible_count = 0
+                    self.utils.print_info(f"The 'loading' mask is still visible. Waiting for {retry_duration} seconds...")
+                else:
+                    not_visible_count += 1
+                    self.utils.print_info(f"The 'loading' mask is NOT visible Count: {not_visible_count} of {not_visible_max}")
+
+                # We want to make sure the spinner is not visible for two seconds because
+                # it can start out as not visible before this function is called.  In other words we might get to this
+                # function before the spinner starts.
+                if not_visible_count >= not_visible_max:
+                    kwargs['pass_msg'] = "The 'loading' mask is no longer visible"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+
+
+                # Sleep for ~one second then try again
+                count += 1
+                sleep(retry_duration)
+
+        # After trying {retry_count} times we the spinner never went away or we couldn't get it from selenium
+        kwargs['fail_msg'] = f"The 'loading' mask is either still visible or could not be obtained after {retry_count} tries"
+        self.common_validation.failed(**kwargs)
+        return -1
+
     def navigate_to_port_configuration_d360(self, **kwargs):
         """
         - Assumes that D360 poge is already open
@@ -3706,7 +3759,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def enable_page_size(self, page_size='50', **kwargs):
+    def enable_page_size(self, page_size=None, **kwargs):
         """
         - This keyword clicks the page size of that page
         - Flow Manage--> Common --> Navigator
@@ -3720,12 +3773,19 @@ class Navigator(NavigatorWebElements):
 
         while try_again:
             try:
-                page_size_element = self.get_page_size()
-                if page_size_element != None:
+                # The default for get_page_size is currently 100.  If user didn't
+                # specify a specific desired page size we'll used the default
+                # from get_page_size()
+                if page_size is None:
+                    page_size_element = self.get_page_size()
+                else:
+                    page_size_element = self.get_page_size(page_size)
+                if page_size_element is not None:
                     self.utils.print_info(f'Clicking on page size of {page_size_element.text}')
                     if self.auto_actions.click(page_size_element) == 1:
                         kwargs['pass_msg'] = f" Clicked on page size of {page_size_element.text}"
                         self.common_validation.passed(**kwargs)
+                        self.wait_until_devices_load_spinner_cleared()
                         return 1
                     else:
                         if counter == 5:
@@ -3737,6 +3797,8 @@ class Navigator(NavigatorWebElements):
                             self.auto_actions.scroll_down()
                             counter += 1
                 else:
+                    # If the element is not present then the table likely has less than 10 entries.  This should be
+                    # considered a success.
                     return 1
             except Exception as e:
                 self.utils.print_info(f"enable_device_page_size, got exception: {e}, with counter: {counter}")

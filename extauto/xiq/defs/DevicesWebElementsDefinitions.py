@@ -58,8 +58,7 @@ class DevicesWebElementsDefinitions:
             # Moving this to .hive-status away from .hive-status-true because
             # it is causing test failures.  This webelement is pulled from
             # get_status_cell() which needs to get the status of the cell whether
-            # it's green or not.  I'm not sure why this is called devices_ap_status_green()
-            # a new function may need to be created or this one renamed.
+            # it's green or not.
             'CSS_SELECTOR': '.hive-status',
             'wait_for': 15
         }
@@ -116,21 +115,19 @@ class DevicesWebElementsDefinitions:
 
     devices_quick_add_devices_menu_item = \
         {
-            'CSS_SELECTOR': '.ui-menu-item',
-            'wait_for': 1
+            'XPATH': '//a[@data-automation-tag="automation-device-list-menu-quick-add-devices"]',
+            'wait_for': 3
         }
 
     deploy_devices_to_cloud_menu_item = \
         {
-            'CSS_SELECTOR': '.ui-menu-item.quick-add-deploy-menu-item',
-            'index': 0,
-            'wait_for': 1
+            'XPATH': '//div[@data-automation-tag="automation-device-list-menu-quick-add-devices-cloud-onboard"]',
+            'wait_for': 3
         }
 
     deploy_devices_locally_menu_item = \
         {
-            'CSS_SELECTOR': '.ui-menu-item.quick-add-deploy-menu-item',
-            'index': 1,
+            'XPATH': '//div[@data-automation-tag="automation-device-list-menu-quick-add-devices-local-onboard"]',
             'wait_for': 1
         }
 
@@ -216,19 +213,7 @@ class DevicesWebElementsDefinitions:
 
     device_action_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-actions_normal-btn"]',
-            'wait_for': 2
-        }
-
-    device_os_change_exos = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-change-os-to-voss"]',
-            'wait_for': 2
-        }
-
-    device_os_change_voss = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-change-os-to-voss"]',
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-actions-button"]',
             'wait_for': 2
         }
 
@@ -1817,13 +1802,6 @@ class DevicesWebElementsDefinitions:
             'wait_for': 5
         }
 
-    manage_devices_table_load_mask = \
-        {
-            'DESC': 'Manage > Devices "load" mask',
-            'XPATH': '//div[@class="grid-mark" and @style="display: block;"]',
-            'wait_for': 5
-        }
-
     manage_devices_progress_status = \
         {
             'DESC': 'Manage > Devices "devices progress status',
@@ -1961,4 +1939,48 @@ class DevicesWebElementsDefinitions:
     global_settings_management_dialog_yes_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
+        }
+
+    device_actions_change_os = \
+        {
+            # The identifier differs depending on which type of device is selected (ap, switch, etc.),
+            # so need to get all partial matches and select the displayed element
+            'XPATH': '//a[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag,"-os-")]',
+            'wait_for': 2
+        }
+        
+    utilities_path = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-manage-device-utilities-button"]',
+            'wait_for': 5
+        }
+
+    restart_pse_path = \
+        {
+            'XPATH': '//a[@data-automation-tag="automation-manage-device-utilities-restart-pse"]',
+            'wait_for': 5
+        }
+
+    pse_yes_path = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 5
+        }
+
+    loading_bar_path = \
+        {
+            'XPATH': '//img[@class="widget-loading-image"]',
+            'wait_for': 5
+        }
+
+    closing_window_path = \
+        {
+            'XPATH': '//span[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }
+
+    pse_reset_status = \
+        {
+            'XPATH': '//div[contains(text(),"PSE reset has been completed.")]',
+            'wait_for': 5
         }

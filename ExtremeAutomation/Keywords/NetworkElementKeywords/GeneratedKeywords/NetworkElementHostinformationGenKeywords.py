@@ -94,6 +94,42 @@ class NetworkElementHostinformationGenKeywords(NetworkElementKeywordBaseClass):
                                     self.cmd_const.CLEAR_PROMPT,
                                     **kwargs)
 
+    def hostinformation_disable_iqagent(self, device_name, admin_state, agent_op_state, **kwargs):
+        """
+        Description: Not provided in CSV.
+
+        Supported Agents and OS:
+            CLI: VOSS
+        """
+        args = {"admin_state": admin_state,
+                "agent_op_state": agent_op_state}
+
+        self.execute_keyword(device_name, args, self.cmd_const.DISABLE_IQAGENT, **kwargs)
+
+        return self.execute_verify_keyword(device_name, args, self.cmd_const.SHOW_APP_IQAGENT,
+                                           self.parse_const.CHECK_STATE_IQAGENT, True,
+                                           "IQAgent is disconnected.",
+                                           "IQAgent is NOT connected!",
+                                           **kwargs)
+
+    def hostinformation_enable_iqagent(self, device_name, admin_state, agent_op_state, **kwargs):
+        """
+        Description: Not provided in CSV.
+
+        Supported Agents and OS:
+            CLI: VOSS
+        """
+        args = {"admin_state": admin_state,
+                "agent_op_state": agent_op_state}
+
+        self.execute_keyword(device_name, args, self.cmd_const.ENABLE_IQAGENT, **kwargs)
+
+        return self.execute_verify_keyword(device_name, args, self.cmd_const.SHOW_APP_IQAGENT,
+                                           self.parse_const.CHECK_STATE_IQAGENT, True,
+                                           "IQAgent is connected.",
+                                           "IQAgent is NOT disconnected!",
+                                           **kwargs)
+
     # ##################################################################################################################
     #   Inspection Keywords   ##########################################################################################
     # ##################################################################################################################
@@ -199,4 +235,20 @@ class NetworkElementHostinformationGenKeywords(NetworkElementKeywordBaseClass):
                                            self.parse_const.CHECK_APP_IQAGENT, True,
                                            "Iqagent is {iqagent_version}.",
                                            "Iqagent is NOT {iqagent_version}!",
+                                           **kwargs)
+
+    def hostinformation_verify_host_nos_version(self, device_name, nos_version='', **kwargs):
+        """
+        Keyword Arguments:
+        [device_name] - The device the keyword will run against.
+        [nos_version]   - The device
+
+        Verifies the value of the host system identifier.
+        """
+        args = {"nos_version": nos_version}
+
+        return self.execute_verify_keyword(device_name, args, self.cmd_const.SHOW_SYSTEM_SOFTWARE_VERSION,
+                                           self.parse_const.CHECK_VERSION, True,
+                                           "Host NOS version is {nos_version}.",
+                                           "Host NOS version is NOT {nos_version}!",
                                            **kwargs)

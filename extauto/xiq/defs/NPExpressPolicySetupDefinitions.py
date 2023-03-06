@@ -69,8 +69,7 @@ class NPExpressPolicySetupDefinitions:
 
     express_policy_create_dialog_done_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="closeDialog"]',
-            'wait_for': 2
+            'XPATH': '//button[@data-dojo-attach-point="closeDialog"]'
         }
 
     express_policy_cancel_button = \

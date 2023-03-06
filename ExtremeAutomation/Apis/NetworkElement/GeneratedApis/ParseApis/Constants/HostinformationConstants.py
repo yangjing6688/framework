@@ -36,3 +36,9 @@ class HostinformationConstants(ApiConstants):
         self.CHECK_PROMPT = {"constant": "check_prompt",
                              "tags": ["PARSE_CLI", "PARSE_SNMP"],
                              "link": self.link.check_prompt}
+        self.CHECK_STATE_IQAGENT = {"constant": "check_state_iqagent",
+                                    "tags": ["PARSE_CLI"],
+                                    "link": self.link.check_state_iqagent}
+        self.CHECK_VERSION = {"constant": "check_version",
+                              "tags": ["PARSE_CLI"],
+                              "link": self.link.check_version}

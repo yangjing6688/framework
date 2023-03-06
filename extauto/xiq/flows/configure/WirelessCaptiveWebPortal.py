@@ -277,8 +277,8 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         sleep(3)
 
         if self.get_cwp_error_message():
-           tool_tp_text = self.get_cwp_error_message().text
-           if "The authentication cache duration must not exceed 30 days" in tool_tp_text:
+            tool_tp_text = self.get_cwp_error_message().text
+            if "The authentication cache duration must not exceed 30 days" in tool_tp_text:
                 self.utils.print_info(f"{tool_tp_text}")
 
                 self.utils.print_info("Click CWP Cancel button")
