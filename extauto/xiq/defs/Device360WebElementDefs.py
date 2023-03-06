@@ -2819,7 +2819,7 @@ class Device360WebElementDefs:
 
     device360_port_settings_click_checkbox = \
         {
-            'XPATH': '//input[@data-automation-tag="automation-port-settings-port-check" and @value=${port}]',
+            'XPATH': '//input[contains(@data-automation-tag,"automation-port-settings-port-check") and @value=${port}]',
             'wait_for': 5
         }
 
@@ -2867,13 +2867,13 @@ class Device360WebElementDefs:
 
     device360_aggregate_remove_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="removeButton"]',
+            'XPATH': '//div/button[@data-dojo-attach-point="removeButton"]',
             'wait_for': 5
         }
 
     device360_aggregate_add_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="addButton"]',
+            'XPATH': '//div/button[@data-dojo-attach-point="addButton"]',
             'wait_for': 5
         }
 
@@ -2891,7 +2891,7 @@ class Device360WebElementDefs:
 
     device360_slot_from_dropdown = \
         {
-            'XPATH': '//*[starts-with(@data-automation-tag, "Unit_${unit}_-")]',
+            'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]//li[starts-with(@data-automation-tag, "Unit_${unit}_-")]',
             'wait_for': 5
         }
 
@@ -2903,12 +2903,12 @@ class Device360WebElementDefs:
 
     device360_aggregate_available_port = \
         {
-            'XPATH': '//*[@data-automation-tag="lag-available-port-${port}"]',
+            'XPATH': '//select[@data-dojo-attach-point="portsAvailable"]/option[@data-automation-tag="lag-available-port-${port}"]',
             'wait_for': 5
         }
     device360_aggregate_selected_port = \
         {
-            'XPATH': '//*[@data-automation-tag="lag-selected-port-${port}"]',
+            'XPATH': '//select[@data-dojo-attach-point="portsInAgg"]/option[@data-automation-tag="lag-selected-port-${port}"]',
             'wait_for': 5
         }
 
@@ -4047,3 +4047,9 @@ class Device360WebElementDefs:
     {
         "XPATH": "//li[@data-automation-tag='automation-pills-configuration']"
     }
+    device360_lag_popup_spinner = \
+        {
+            'CSS_SELECTOR': '.lag-view .grid-mark',
+            'wait_for': 5
+        }
+

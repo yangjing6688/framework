@@ -57,6 +57,9 @@ class PortalWebElements(PortalWebElementsDefinitions):
     def get_users_page_name_filter_item(self):
         return self.weh.get_element(self.users_page_name_filter_item)
 
+    def get_users_page_email_filter_item(self):
+        return self.weh.get_element(self.users_page_email_filter_item)
+
     def get_users_page_name_filter_text(self):
         return self.weh.get_element(self.users_page_name_filter_text)
 
@@ -89,4 +92,20 @@ class PortalWebElements(PortalWebElementsDefinitions):
 
     def get_delete_confirm_yes_item(self):
         return self.weh.get_element(self.delete_confirm_yes_item)
+
+    def get_edit_button_portal(self):
+        return self.weh.get_element(self.edit_button_portal)
+
+    def get_edit_users_page_email_text(self, email):
+        item = {}
+        item['XPATH'] = self.edit_users_page_email_text['XPATH'] + '"' + email + '"' + ')]'
+        item['wait_for'] = 3
+        return item
+
+    def get_edit_users_page_email_input(self):
+        return self.weh.get_element(self.edit_users_page_email_input)
+
+    def get_edit_users_page_edit_accept_button(self):
+        return self.weh.get_element(self.edit_users_page_edit_accept_button)
+
 

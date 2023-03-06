@@ -1759,6 +1759,7 @@ class DeviceConfig(DeviceConfigElements):
         :return: wifi0_profile if Get WiFi0 Profile Successfully else None
         """
         radio_status_wifi0 = wifi0_profile.get('radio_status', 'None')  # radio_status=get or yes
+        radio_operating_mode_wifi0 = wifi0_profile.get('operating_mode', 'None')
         radio_profile_wifi0 = wifi0_profile.get('radio_profile', 'None')
         client_mode_status_wifi0 = wifi0_profile.get('client_mode', 'None')
         client_access_status_wifi0 = wifi0_profile.get('client_access', 'None')
@@ -1776,6 +1777,10 @@ class DeviceConfig(DeviceConfigElements):
             if wifi0_profile['radio_status'] == 'Off':
                 return wifi0_profile
         self.auto_actions.scroll_down()
+
+        if radio_operating_mode_wifi0 != 'None':
+            wifi0_profile['operating_mode'] = self.get_default_wireless_wifi0_radio_operating_mode_drop_down().text
+            self.utils.print_info("Get Radio Profile status on WiFi0 Interface: ", wifi0_profile['operating_mode'])
 
         if radio_profile_wifi0 != 'None':
             wifi0_profile['radio_profile'] = self.get_default_wireless_wifi0_radio_profile_drop_down().text
@@ -3159,7 +3164,7 @@ class DeviceConfig(DeviceConfigElements):
         ap_selected = False
         while not ap_selected:
             try_cnt = 0
-            if self.devices.select_device(device_serial=ap_serial, ignore_failure=True):
+            if self.devices.select_device(device_serial=ap_serial, ignore_failure=True) == 1:
                 self.utils.print_info(f"Edit AP serial {ap_serial} to go AP page...")
                 self.auto_actions.click_reference(self.get_edit_button)
                 device_360_page = self.get_device_360_page()

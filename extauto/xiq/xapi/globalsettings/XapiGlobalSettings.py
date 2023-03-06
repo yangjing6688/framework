@@ -1,17 +1,11 @@
-from pprint import pprint
-from extauto.xiq.xapi.XapiHelper import XapiHelper
+from tools.xapi.XapiBase import XapiBase
+from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
 
-try:
-    import extremecloudiq
-    from extremecloudiq.rest import ApiException
-except Exception:
-    pprint('WARNING: The library for ExtremecloudIQ cannot be loaded, please ensure this libaray is installed if you are trying to use the XAPI')
-
-
-class XapiGlobalSettings:
+class XapiGlobalSettings(XapiBase):
 
     def __init__(self):
-        self.xapiHelper = XapiHelper()
+        super().__init__()
+        self.xapiBaseAccountApi = XapiBaseAccountApi()
 
     def get_viq_info(self, **kwargs):
         """
@@ -29,15 +23,11 @@ class XapiGlobalSettings:
         if configuration.access_token == None:
             raise "Error: access_token is None in the configuration"
 
-        # Enter a context with an instance of the API client
-        with extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = extremecloudiq.AccountApi(api_client)
-            try:
-                # Get VIQ Info
-                api_response = api_instance.get_viq_info()
-                pprint(api_response)
-            except ApiException as e:
-                print("Exception when calling AccountApi->get_viq_info: %s\n" % e)
-                raise e
+        try:
+            # Get VIQ Info
+            api_response = self.xapiBaseAccountApi.xapi_base_get_viq_info()
+
+        except self.ApiException as e:
+            self.utils.print_error("Exception when calling AccountApi->get_viq_info: %s\n" % e)
+            raise e
         return api_response
