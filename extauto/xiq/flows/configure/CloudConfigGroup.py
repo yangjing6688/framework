@@ -237,6 +237,8 @@ class CloudConfigGroup(object):
         self.utils.print_info("Enter the policy description:{}".format(description))
         self.auto_actions.send_keys(self.ccg_web_elements.get_ccg_description_text(), description)
 
+        self.screen.save_screen_shot()
+
         for ap_serial in ap_serials:
             if not self.select_ap_for_ccg(ap_serial):
                 kwargs['fail_msg'] = f"add_cloud_config_group() failed. AP {ap_serial} is not present in the grid"
@@ -248,6 +250,8 @@ class CloudConfigGroup(object):
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
         sleep(5)
+
+        self.screen.save_screen_shot()
 
         if self.ccg_web_elements.get_form_error_text():
             if "This field is required" in self.ccg_web_elements.get_form_error_text().text:
@@ -332,6 +336,8 @@ class CloudConfigGroup(object):
 
         self.utils.print_info("Enter the description:{}".format(description))
         self.auto_actions.send_keys(self.ccg_web_elements.get_ccg_description_manage_text(), description)
+
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
@@ -450,6 +456,8 @@ class CloudConfigGroup(object):
         self.navigator.navigate_to_cloud_config_groups()
         sleep(2)
 
+        self.screen.save_screen_shot()
+
         self.utils.print_info(f"Selecting CCG Group with name:{policy}")
         if not self.select_ccg_group_from_common_object(policy):
             kwargs['fail_msg'] = f"edit_cloud_config_group() failed. Not able to find CCG Group with name:{policy}"
@@ -481,10 +489,12 @@ class CloudConfigGroup(object):
         sleep(3)
         self.utils.print_info("Clicking on CCG Group Save Button")
         self.auto_actions.click_reference(self.ccg_web_elements.get_ccg_save_button)
+        self.screen.save_screen_shot()
         sleep(5)
 
         if self.search_ccg_group_from_common_object(policy):
             ccg_members = self.get_ccg_group_members(policy)
+            self.screen.save_screen_shot()
             self.utils.print_info("CCG Members :", ccg_members)
             if option == "add":
                 for ap_serial in ap_serials:
@@ -518,6 +528,7 @@ class CloudConfigGroup(object):
                 sleep(2)
 
             sleep(2)
+            self.screen.save_screen_shot()
             self.device._update_network_policy(update_method)
 
         kwargs['pass_msg'] = "Successfully Selected Cloud Config Group and Edited"
@@ -564,9 +575,10 @@ class CloudConfigGroup(object):
         if policy_select_flag:
             self.utils.print_info("Clicking on CCG Delete Button")
             self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_button_common_object)
-
+            self.screen.save_screen_shot()
             self.utils.print_info("Clicking CCG Yes Confirmation Button")
             self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_yes_confirmation_button)
+            self.screen.save_screen_shot()
             sleep(3)
             return 1
 
@@ -587,9 +599,13 @@ class CloudConfigGroup(object):
             return -1
         sleep(3)
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking on CCG Delete Button")
+
+        self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_button_common_object)
 
+        self.screen.save_screen_shot()
         self.utils.print_info("Clicking CCG Yes Confirmation Button")
         self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_yes_confirmation_button)
         sleep(3)
@@ -634,14 +650,18 @@ class CloudConfigGroup(object):
                 policy_select_flag = True
         sleep(2)
 
+        self.screen.save_screen_shot()
+
         if not policy_select_flag:
             kwargs['pass_msg'] = "CCG Doesnt exists.."
             self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Clicking on CCG Delete Button")
+            self.screen.save_screen_shot()
             self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_button_common_object)
 
+            self.screen.save_screen_shot()
             self.utils.print_info("Clicking CCG Yes Confirmation Button")
             self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_yes_confirmation_button)
             sleep(3)
