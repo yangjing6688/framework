@@ -2749,7 +2749,6 @@ class Cli(object):
         return 1
 
 
-
 if __name__ == '__main__':
     from pytest_testconfig import config
     config['${TEST_NAME}'] = 'bob'
