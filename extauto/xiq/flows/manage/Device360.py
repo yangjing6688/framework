@@ -11332,10 +11332,16 @@ class Device360(Device360WebElements):
                 return True
             else:
                 self.utils.print_info("PSE profile save button is still present. Retrying...")
+                get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
+                if get_pse_profile_save:
+                    self.auto_actions.click(get_pse_profile_save)
+                else:
+                    self.utils.print_info("get_pse_profile_save not found")
                 return False
 
         get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
         if get_pse_profile_save:
+
             self.auto_actions.click(get_pse_profile_save)
             self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
                                  delay=5, silent_failure=True, msg="Waiting for port type profile to "
