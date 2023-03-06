@@ -11388,6 +11388,7 @@ class Device360(Device360WebElements):
                             if self.auto_actions.select_drop_down_options(
                                     self.get_device360_port_configuration_pse_profile_select_options(), poe_profile):
                                 self.utils.print_info("Pse profile has been selected")
+                                self.screen.save_screen_shot()
                                 kwargs['pass_msg'] = "Pse profile has been selected"
                                 self.common_validation.passed(**kwargs)
                                 return 1
@@ -11419,6 +11420,7 @@ class Device360(Device360WebElements):
                             self.utils.print_info(f"Selecting POE Profile Option : {poe_profile}")
                             if self.auto_actions.select_drop_down_options(self.get_device360_port_configuration_pse_profile_select_options(), poe_profile):
                                 self.utils.print_info("Pse profile has been selected")
+                                self.screen.save_screen_shot()
                         sleep(5)
                         self.utils.print_info("clicking POE Profile EDIT Button")
                         edit_button = self.get_device360_port_configuration_pse_profile_edit_button(port_row)
