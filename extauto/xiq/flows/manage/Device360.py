@@ -7448,16 +7448,18 @@ class Device360(Device360WebElements):
                         def _check_stale_element_exception_more_button():
                             try:
                                 self.auto_actions.move_to_element(self.get_select_element_port_type('pse_more_button'))
+                                self.screen.save_screen_shot()
                                 return True
                             except StaleElementReferenceException as e:
                                 self.utils.print_info("Scrolling to 'More' button failed. Stale element exception "
                                                       f"error detected {e} ; Retrying...")
                                 return False
 
-                        self.utils.wait_till(_check_stale_element_exception_more_button,
+                        self.utils.wait_till(_check_stale_element_exception_more_button, is_logging_enabled=True
                                              msg="Waiting for StaleElementException to dissapear...")
                         self.utils.print_info("Clicking 'More' button...")
                         self.auto_actions.click(self.get_select_element_port_type('pse_more_button'))
+                        self.screen.save_screen_shot()
                     except ElementNotInteractableException as e:
                         self.utils.print_info(f"Element not interactable error: {e} ; Element is inactive! "
                                               "Breaking loop. \n\nNOTE: If 'More' button is visible and active, but "
