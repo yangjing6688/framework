@@ -127,28 +127,28 @@ class CreateApi(object):
         """
         This function creates the header for a constants file.
         """
-        header = list()
-
-        header.append('"""')
-        header.append("This class outlines all the constants for the " + feature + " API.")
-        header.append("")
-        header.append("Although the constants are a dictionary you do not need to pass a key to retrieve a constant.")
-        header.append("The super class handles that. Simply call <feature>Constants.<constant> and the string at ")
-        header.append("key \"constant\" will be returned.")
-        header.append("")
-        header.append("The tags are for generation purposes and can be ignored.")
-        header.append("The link key is useful in pycharm to navigate to the API referenced by the constant.")
-        header.append("")
-        header.append("Example...")
-        header.append(">> print(" + feature.capitalize() + "Constants().<SOME_CONSTANT>)")
-        header.append("some_constant")
-        header.append('"""')
-        header.append("from ExtremeAutomation.Library.Utils.Constants.ApiConstants import ApiConstants")
-        header.append("")
-        header.append("")
-        header.append("class " + feature.capitalize() + "Constants(ApiConstants):")
-        header.append(self.create_indent(1) + "def __init__(self):")
-        header.append(self.create_indent(2) + "super(" + feature.capitalize() + "Constants, self).__init__()")
+        header = [
+            '"""',
+            "This class outlines all the constants for the " + feature + " API.",
+            "",
+            "Although the constants are a dictionary you do not need to pass a key to retrieve a constant.",
+            "The super class handles that. Simply call <feature>Constants.<constant> and the string at ",
+            "key \"constant\" will be returned.",
+            "",
+            "The tags are for generation purposes and can be ignored.",
+            "The link key is useful in pycharm to navigate to the API referenced by the constant.",
+            "",
+            "Example...",
+            ">> print(" + feature.capitalize() + "Constants().<SOME_CONSTANT>)",
+            "some_constant",
+            '"""',
+            "from ExtremeAutomation.Library.Utils.Constants.ApiConstants import ApiConstants",
+            "",
+            "",
+            "class " + feature.capitalize() + "Constants(ApiConstants):",
+            self.create_indent(1) + "def __init__(self):",
+            self.create_indent(2) + "super(" + feature.capitalize() + "Constants, self).__init__()"
+        ]
 
         return header
 

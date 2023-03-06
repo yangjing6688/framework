@@ -151,18 +151,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.device_action_button)
 
-    def get_os_change_exos(self):
-        """
-        :return: change os button
-        """
-        return self.weh.get_element(self.device_os_change_exos)
-
-    def get_os_change_voss(self):
-        """
-        :return: change os button
-        """
-        return self.weh.get_element(self.device_os_change_voss)
-
     def get_os_change_error_message(self):
         """
         :return error message
@@ -868,6 +856,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.device_service_tag_textbox)
 
     def get_devices_quick_add_devices_menu_item(self):
+        return self.weh.get_element(self.devices_quick_add_devices_menu_item)
+
+        # jefjones - removed for now
         menus = self.weh.get_elements(self.devices_add_devices_menu)
         for menu in menus:
             if menu.is_displayed():
@@ -1235,9 +1226,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_number_of_rows(self):
         return self.weh.get_elements(self.number_of_rows)
 
-    def get_manage_devices_table_load_mask(self):
-        return self.weh.get_element(self.manage_devices_table_load_mask)
-
     def get_manage_all_devices_progress_status(self):
         return self.weh.get_elements(self.manage_devices_progress_status)
 
@@ -1361,3 +1349,38 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_global_settings_management_dialog_yes_button(self):
         return self.weh.get_element(self.global_settings_management_dialog_yes_button)
+
+    def device_actions_change_os_button(self):
+        """
+        :return: change os button
+        """
+        elements = self.weh.get_elements(self.device_actions_change_os)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def utilities_button(self):
+        return self.weh.get_element(self.utilities_path)
+
+    def restart_pse(self):
+        return self.weh.get_element(self.restart_pse_path)
+
+    def pse_yes(self):
+        return self.weh.get_element(self.pse_yes_path)
+
+    def loading_bar(self):
+        elements = self.weh.get_elements(self.loading_bar_path)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def closing_window(self):
+        el = self.weh.get_element(self.closing_window_path)
+        if el.is_displayed():
+            return el
+
+    def get_pse_reset_status(self):
+        el = self.weh.get_element(self.pse_reset_status)
+        if el.is_displayed():
+            return el
+

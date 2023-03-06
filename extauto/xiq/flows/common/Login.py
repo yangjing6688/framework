@@ -24,6 +24,7 @@ import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
 import extauto.xiq.flows.globalsettings.GlobalSetting
+from  tools.xapi.XapiHelper import XapiHelper
 
 
 
@@ -42,6 +43,7 @@ class Login:
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.xapiLogin = XapiLogin()
+        self.xapiHelper = XapiHelper()
 
     def _init(self, url="default", incognito_mode="False"):
         """
@@ -108,7 +110,7 @@ class Login:
 
         Supported Modes:
             UI - default mode
-            XAPI - kwargs XAPI_ENABLED=True
+            XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
 
         :param username: login account username
         :param password: login account password
@@ -128,12 +130,16 @@ class Login:
         :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
-        if self.common_validation.get_kwarg(kwargs, "XAPI_ENABLED", None):
-            # new XAPI call
-            self.xapiLogin.login(username, password, **kwargs)
-            # for now we only alow XAPI or UI testing
-            return
 
+        if self.xapiHelper.is_xapi_enabled():
+            # new XAPI call to get and set the XAPI token
+            self.xapiLogin.login(username, password, **kwargs)
+
+            # Look for the XAPI_ONLY and if set return
+            xapi_only = kwargs.get('XAPI_ONLY', False)
+            if xapi_only:
+                self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
+                return 1
 
         result = -1
         count = 0
@@ -675,12 +681,17 @@ class Login:
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _capture_data_center_name(self):
+    def _capture_data_center_name(self, **kwargs):
         """
         - Get XIQ Data Center Name
 
+        :param kwargs: keyword arguments XAPI_ENABLE
         :return: data_center_name
         """
+
+        if self.xapiHelper.is_xapi_enabled():
+            return self.xapiLogin.xapi_capture_data_center_name(**kwargs)
+
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)
@@ -699,12 +710,18 @@ class Login:
 
         return data_center_name
 
-    def _capture_xiq_version(self):
+    def _capture_xiq_version(self, **kwargs):
         """
         - Get XIQ Build version details
 
+        :param kwargs: keyword arguments XAPI_ENABLE
         :return: xiq_version
         """
+
+        # This isn't supported yet
+        # if self.xapiHelper.is_xapi_enabled():
+        #     return self.xapiLogin.xapi_capture_xiq_version(**kwargs)
+
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
         self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
         sleep(2)

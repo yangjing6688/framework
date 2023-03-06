@@ -140,3 +140,23 @@ hostinformation:
                 - [EXOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.2.','i','']
                 - [EOS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.2.','i','']
                 - [VOSS,base,baseversion,baseunit,getnext,'1.3.6.1.2.1.1.2.','i','']
+    show_app_iqagent:
+        uuid: d8dc0a12-021d-4f17-947d-f275443dca07
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show application iqagent',userPrompt,'None','None','None',[],[]]
+    show_system_software_version:
+        uuid: d8dc0a12-021d-4f17-947d-f275443dca07
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'show sys software | include Version',userPrompt,'None','None','None',[],[]]
+    disable_iqagent:
+        uuid: 79c60845-a209-4a66-905c-8214679c2d23
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'configure terminal || application || no iqagent enable || show application iqagent',userPrompt,'None','None','None',[],[]]
+    enable_iqagent:
+        uuid: 704c185e-7ca8-4601-a04f-f3c5454cb5ad
+        apis:
+            CLI:
+                - [VOSS,base,baseversion,baseunit,'configure terminal || application || iqagent enable || show application iqagent',userPrompt,'None','None','None',[],[]]

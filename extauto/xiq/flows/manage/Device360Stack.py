@@ -4,6 +4,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.Cli import Cli
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
@@ -21,6 +22,7 @@ class Device360Stack(Device360WebElements):
         self.navigator = Navigator()
         self.dev360 = Device360WebElements()
         self.devices_web_elements = DevicesWebElements()
+        self.common_validation = CommonValidation()
 
     def device360_get_title_stack_info(self):
         """
@@ -619,7 +621,7 @@ class Device360Stack(Device360WebElements):
 
         return device360_info
 
-    def get_switch_stack_device360_port_table_information(self, device_mac="", device_name="", port_number=""):
+    def get_switch_stack_device360_port_table_information(self, device_mac="", device_name="", port_number="", **kwargs):
         """
         - This keyword gets EXOS/VOSS Switch stack Port table information from device360 page
         - Flow : Manage --> Devices--> Select Device stack-->Device stack 360 Page
@@ -635,14 +637,14 @@ class Device360Stack(Device360WebElements):
 
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
@@ -725,8 +727,9 @@ class Device360Stack(Device360WebElements):
                     sleep(8)
 
             else:
-                self.utils.print_info("Unable to get Port Table Information")
+                kwargs['fail_msg'] = "Unable to get Port Table Information"
                 self.screen.save_screen_shot()
                 self.auto_actions.click_reference(self.dev360.get_close_dialog)
                 self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
                 return -1

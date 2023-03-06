@@ -598,7 +598,7 @@ class Device360WebElementDefs:
     device360_configure_port_save_button = \
         {
             # 'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
-            'XPATH': '//button[@data-automation-tag="automation-port-config-save"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"] | //button[@data-automation-tag="automation-port-configuration-save-button"]',
             'wait_for': 5
         }
 
@@ -1322,7 +1322,7 @@ class Device360WebElementDefs:
 
     d360Event_search_textbox = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="eventSearchInput"]',
+            'XPATH': '//input[@data-dojo-attach-point="eventSearchInput"]',
             'wait_for': 3
         }
 
@@ -2035,7 +2035,7 @@ class Device360WebElementDefs:
 
     device_360_supplemental_cli_new_profile = \
         {
-            'XPATH': '//*[@data-type="supplemental-cli-profile"]',
+            'XPATH': "//span[@ah-text-tip='Add']",
             'wait_for': 3
         }
 
@@ -2277,7 +2277,7 @@ class Device360WebElementDefs:
 
     select_element_port_type_description = \
         {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-description"]',
+            'XPATH': '//textarea[@data-automation-tag="port-type-editor-description"]',
             'wait_for': 5
         }
 
@@ -2733,7 +2733,7 @@ class Device360WebElementDefs:
 
     device_d360_save_port_configuration = \
         {
-            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-configuration-save-button"] | //button[@data-automation-tag="automation-port-config-save"]',
             'wait_for': 5
         }
 
@@ -2818,7 +2818,7 @@ class Device360WebElementDefs:
 
     device360_port_settings_click_checkbox = \
         {
-            'XPATH': '//input[@data-automation-tag="automation-port-settings-port-check" and @value=${port}]',
+            'XPATH': '//input[contains(@data-automation-tag,"automation-port-settings-port-check") and @value=${port}]',
             'wait_for': 5
         }
 
@@ -2866,13 +2866,13 @@ class Device360WebElementDefs:
 
     device360_aggregate_remove_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="removeButton"]',
+            'XPATH': '//div/button[@data-dojo-attach-point="removeButton"]',
             'wait_for': 5
         }
 
     device360_aggregate_add_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="addButton"]',
+            'XPATH': '//div/button[@data-dojo-attach-point="addButton"]',
             'wait_for': 5
         }
 
@@ -2890,7 +2890,7 @@ class Device360WebElementDefs:
 
     device360_slot_from_dropdown = \
         {
-            'XPATH': '//*[starts-with(@data-automation-tag, "Unit_${unit}_-")]',
+            'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]//li[starts-with(@data-automation-tag, "Unit_${unit}_-")]',
             'wait_for': 5
         }
 
@@ -2902,12 +2902,12 @@ class Device360WebElementDefs:
 
     device360_aggregate_available_port = \
         {
-            'XPATH': '//*[@data-automation-tag="lag-available-port-${port}"]',
+            'XPATH': '//select[@data-dojo-attach-point="portsAvailable"]/option[@data-automation-tag="lag-available-port-${port}"]',
             'wait_for': 5
         }
     device360_aggregate_selected_port = \
         {
-            'XPATH': '//*[@data-automation-tag="lag-selected-port-${port}"]',
+            'XPATH': '//select[@data-dojo-attach-point="portsInAgg"]/option[@data-automation-tag="lag-selected-port-${port}"]',
             'wait_for': 5
         }
 
@@ -3310,8 +3310,8 @@ class Device360WebElementDefs:
 
     select_element_port_type_pse_profile_power_limit = \
         {
-	          'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
-	          'wait_for': 5
+              'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//input[@data-dojo-attach-point="powerLimit"]',
+              'wait_for': 5
         }
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
@@ -3873,6 +3873,12 @@ class Device360WebElementDefs:
 
         }
 
+    d360_config_events = \
+        {
+            'XPATH': '//ul[@data-dojo-attach-point="hcPills"]/li[@data-automation-tag="automation-pills-configuration"]',
+            'wait_for': 5
+        }
+
     device360_port_details_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-port-diagnostics-port-details"]',
@@ -4035,3 +4041,14 @@ class Device360WebElementDefs:
             "XPATH": '(//div[@class="device-diagnostics"]//button[@data-dojo-attach-point="selectAllButton"])[$index]',
             'wait_for': 5
         }
+
+    configuration_events_button = \
+    {
+        "XPATH": "//li[@data-automation-tag='automation-pills-configuration']"
+    }
+    device360_lag_popup_spinner = \
+        {
+            'CSS_SELECTOR': '.lag-view .grid-mark',
+            'wait_for': 5
+        }
+
