@@ -425,7 +425,7 @@ class CloudConfigGroup(object):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def edit_cloud_config_group(self, policy, option="add", *ap_serials, **kwargs):
+    def edit_cloud_config_group(self, policy, option="add",  update_method=None, *ap_serials, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         - Select Cloud Config Group and Click on Edit
@@ -433,6 +433,7 @@ class CloudConfigGroup(object):
         - Keyword Usage
         - ``Edit Cloud Config Group      ${CCG_NAME}        ${Option}        ${AP_SERIAL}``
 
+        :param update_method:
         :param policy: Name of the CCG Group
         :param option: Whether to add new APs or remove AP from the CCG Group.
         :param ap_serials:[List] Single or multiple APs who are members of the Group
@@ -507,16 +508,18 @@ class CloudConfigGroup(object):
 
         self.navigator.enable_page_size()
 
-        for ap_serial in ap_serials:
-            self.utils.print_info("Select row for ap with serial", ap_serial)
-            if ap_serial == ap_serials[0]:
-                self.device.select_device(device_serial=ap_serial)
-            else:
-                self.device.select_device(device_serial=ap_serial, skip_refresh=True, skip_navigation=True)
-            sleep(2)
+        if update_method:
+            for ap_serial in ap_serials:
+                self.utils.print_info("Select row for ap with serial", ap_serial)
+                if ap_serial == ap_serials[0]:
+                    self.device.select_device(device_serial=ap_serial)
+                else:
+                    self.device.select_device(device_serial=ap_serial, skip_refresh=True, skip_navigation=True)
+                sleep(2)
 
-        sleep(2)
-        self.device._update_network_policy()
+            sleep(2)
+            self.device._update_network_policy(update_method)
+
         kwargs['pass_msg'] = "Successfully Selected Cloud Config Group and Edited"
         self.common_validation.passed(**kwargs)
         return 1
@@ -600,14 +603,14 @@ class CloudConfigGroup(object):
             self.common_validation.passed(**kwargs)
             return 1
 
-    def delete_cloud_config_groups(self, *policys):
+    def delete_cloud_config_groups(self, *policies, **kwargs):
         """
         - Flow: Configure --> Common Objects --> Policy --> Cloud Config Group
         - Select Cloud Config Group and Click on Delete
         - Keyword Usage
         - ``Delete Cloud Config Groups      ${CCG_NAMES}``
 
-        :param policys: Names of the CCG Group
+        :param policies: Names of the CCG Group
         :return: 1 if created else return -1
         """
 
@@ -620,8 +623,9 @@ class CloudConfigGroup(object):
                 self.auto_actions.click_reference(self.classification_rule_web_elements.view_all_pages)
                 sleep(2)
 
+        policy_search_flag = None
         policy_select_flag = None
-        for policy in policys:
+        for policy in policies:
             if not self._search_multiple_ccg_group_from_common_object(policy):
                 self.utils.print_info("CCG Group does not exist in the list")
                 continue
@@ -630,14 +634,31 @@ class CloudConfigGroup(object):
                 policy_select_flag = True
         sleep(2)
 
-        if policy_select_flag:
+        if not policy_select_flag:
+            kwargs['pass_msg'] = "CCG Doesnt exists.."
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
             self.utils.print_info("Clicking on CCG Delete Button")
             self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_button_common_object)
 
             self.utils.print_info("Clicking CCG Yes Confirmation Button")
             self.auto_actions.click_reference(self.ccg_web_elements.delete_ccg_yes_confirmation_button)
             sleep(3)
-            return 1
+
+            for policy in policies:
+                if self.search_ccg_group_from_common_object(policy, ignore_failure=True):
+                    policy_search_flag = True
+                    continue
+
+            if policy_search_flag:
+                kwargs['fail_msg'] = "delete_cloud_config_group() failed. CCG Still Not Deleted"
+                self.common_validation.failed(**kwargs)
+                return -1
+            else:
+                kwargs['pass_msg'] = "CCG Deleted successfully"
+                self.common_validation.passed(**kwargs)
+                return 1
 
     def select_ap_for_ccg(self, ap_serial, **kwargs):
         """
