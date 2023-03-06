@@ -11385,8 +11385,13 @@ class Device360(Device360WebElements):
                                 self.common_validation.fault(**kwargs)
                                 return -1
                             self.utils.print_info(f"Selecting POE Profile Option : {poe_profile}")
+                            items = self.get_device360_port_configuration_pse_profile_select_options()
+                            if items:
+                                self.auto_actions.move_to_element(items[-1])
+                                self.screen.save_screen_shot()
+
                             if self.auto_actions.select_drop_down_options(
-                                    self.get_device360_port_configuration_pse_profile_select_options(), poe_profile):
+                                    items, poe_profile):
                                 self.utils.print_info("Pse profile has been selected")
                                 self.screen.save_screen_shot()
                                 kwargs['pass_msg'] = "Pse profile has been selected"
