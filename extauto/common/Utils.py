@@ -3,7 +3,7 @@ import os
 import random
 import string
 from datetime import datetime, timedelta
-from extauto.common.Logging import Logging
+from ExtremeAutomation.Library.Logger.RobotLogger import Logging
 from robot.libraries.BuiltIn import BuiltIn
 from selenium.common.exceptions import NoSuchElementException
 from extauto.common.ConfigFileHelper import ConfigFileHelper
