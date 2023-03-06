@@ -714,3 +714,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_100_devices_per_page(self):
         return self.weh.get_element(self.no_100_devices_per_page)
+
+    def get_grid_loading_wheel(self):
+        return self.weh.get_elements(self.grid_loading_wheel)
+
+    def get_grid_spinner(self):
+        return self.weh.get_elements(self.grid_spinner)

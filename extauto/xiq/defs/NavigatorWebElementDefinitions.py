@@ -1351,3 +1351,15 @@ class NavigatorWebElementDefinitions:
         {
         "XPATH": '//a[@data-size="100"]'
         }
+
+    grid_loading_wheel = \
+        {
+            'XPATH': '//div[@class="grid-mark"]',
+            'wait_for': 5
+        }
+
+    grid_spinner = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="spinner"]',
+            'wait_for': 5
+        }
