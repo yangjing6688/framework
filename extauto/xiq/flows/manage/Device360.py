@@ -11344,7 +11344,7 @@ class Device360(Device360WebElements):
 
             self.auto_actions.click(get_pse_profile_save)
             self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
-                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
+                                 delay=5, silent_failure=False, msg="Waiting for port type profile to "
                                                                    "save...")
 
             kwargs['pass_msg'] = "Profile saved"
