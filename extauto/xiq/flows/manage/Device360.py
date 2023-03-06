@@ -11331,7 +11331,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("PSE profile save button not present anymore.")
                 return True
             else:
-                self.utils.print_info("PSE profile save button is still present. Retrying...")
+                self.utils.print_info("PSE profile save button is still present. Retrying to save...")
                 get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
                 if get_pse_profile_save:
                     self.auto_actions.click(get_pse_profile_save)
