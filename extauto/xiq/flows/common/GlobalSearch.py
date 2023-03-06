@@ -1,6 +1,5 @@
 from time import sleep
 import random
-import string
 
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
