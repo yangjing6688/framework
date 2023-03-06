@@ -283,32 +283,62 @@ class GlobalSearch:
         return mac_first_half
 
     def get_second_half_of_name(self, name):
+        """
+         - This keyword returns Second half of any Name
+         :param name: Name
+         :return: returns Second half of any Name
+         """
         length = len(name)
         seg = round(length / 2)
         net_second_half = name[seg:]
         return net_second_half
 
     def get_last_6_digts_of_mac(self, mac):
+        """
+         - This keyword returns Last 6 Octets half of Mac address
+         :param mac: Mac Address
+         :return: returns Last 6 Octets half of Mac address
+         """
         length = len(mac)
         st = length - 6
         remaining_mac = mac[st:]
         return remaining_mac
 
     def get_second_half_of_mac(self, mac):
+        """
+         - This keyword returns Second half of Mac address
+         :param mac: Mac Address
+         :return: returns Second half of Mac address
+         """
         length = len(mac)
         seg = round(length / 2)
         mac_second_half = mac[seg:]
         return mac_second_half
 
     def convert_mac_to_upper(self, mac):
+        """
+        - This keyword returns the Mac address to Upper Case
+        :param mac: Mac Address
+        :return: returns Mac address to Upper Case
+        """
         upper_case = mac.upper()
         return upper_case
 
     def convert_mac_to_lower(self, mac):
+        """
+        - This keyword returns the Mac address to Lower Case
+        :param mac: Mac Address
+        :return: returns Mac address to Lower Case
+        """
         lower_case = mac.lower()
         return lower_case
 
     def convert_mac_to_random_case(self, mac):
+        """
+        - This keyword returns the Random Case of Mac address
+        :param mac: Mac Address
+        :return: returns Random Case of Mac address
+        """
         random_case = ""
         for i in mac:
             if i.isalpha():
@@ -322,6 +352,11 @@ class GlobalSearch:
         return random_case
 
     def get_partial_ip(self, ip):
+        """
+        - This keyword returns the Partial Portion of IP address
+        :param ip: IP Address
+        :return: returns Partial Portion of IP address
+        """
         length = len(ip)
         length -= 2
         ip = ip[:length]
