@@ -326,3 +326,14 @@ class GlobalSearch:
         length -= 2
         ip = ip[:length]
         return ip
+
+    def get_first_half_of_name(self, name):
+        """
+        - This keyword returns the first half of a Name
+        :param name: name
+        :return: returns first half of Name
+        """
+        length = len(name)
+        seg = round(length / 2)
+        first_half = name[:seg]
+        return first_half
