@@ -56,7 +56,7 @@ class A3Inventory(A3InventoryWebElements):
                 headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + auth_result["token"]}
                 req = requests.post(url, headers=headers, data=json.dumps(ssh_cfg), verify=False)
                 if req.status_code != 200:
-                    kwargs['fail_msg'] = "failed.SSH configuration change failed: {req.status_code}"
+                    kwargs['fail_msg'] = "SSH configuration change failed: {req.status_code}"
                     self.common_validation.failed(**kwargs)
                     return -1
                 if ssh_cfg['enable'] == 'yes':
@@ -67,11 +67,11 @@ class A3Inventory(A3InventoryWebElements):
                     self.utils.print_info('SSH access has been disabled, existing ssh session is still working until '
                                           'it disconnect')
             else:
-                kwargs['fail_msg'] = "Failed Getting current SSH configuration failed: {req.status_code}"
+                kwargs['fail_msg'] = "Getting current SSH configuration failed: {req.status_code}"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = f" failed. Login to A3 failed: {req.status_code}"
+            kwargs['fail_msg'] = f"Login to A3 failed: {req.status_code}"
             self.common_validation.fault(**kwargs)
             return -1
 

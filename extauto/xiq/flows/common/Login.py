@@ -810,12 +810,12 @@ class Login:
         sleep(2)
 
         if switch_connection_host:
-            kwargs['pass_msg'] = f" Switch Connection Host Is: '{switch_connection_host} '"
+            kwargs['pass_msg'] = f"Switch Connection Host Is: '{switch_connection_host} '"
             self.common_validation.passed(**kwargs)
             return switch_connection_host
         else:
             kwargs[
-                'fail_msg'] = f"Switch Connection host info was no found:The following was " \
+                'fail_msg'] = f"Switch Connection host info was not found. The following was " \
                               f"found '{switch_connection_host}'"
             self.common_validation.failed(**kwargs)
 
@@ -1681,15 +1681,13 @@ class Login:
                 break
             elif check == -1:
                 if cnt == 2:
-                    self.utils.print_info("the users already existed")
-                    kwargs['fail_msg'] = "the users already existed"
+                    kwargs['fail_msg'] = "The users already existed"
                     self.common_validation.failed(**kwargs)
                     return -1
                 else:
-                    self.utils.print_info("the user already existed . Try again")
+                    self.utils.print_info("The user already existed. Try again")
             else:
                 if cnt == 2:
-                    self.utils.print_info("Error")
                     kwargs['fail_msg'] = "Error"
                     self.common_validation.fault(**kwargs)
                     return -1
@@ -1714,7 +1712,6 @@ class Login:
                 self.utils.print_info("Unable to find the add button.Try again:", cnt)
             sleep(20)
         if not found_page:
-            self.utils.print_info("ADD BUTTON NOT FOUND")
             kwargs['fail_msg'] = "ADD BUTTON NOT FOUND"
             self.common_validation.fault(**kwargs)
             return -1
@@ -1749,7 +1746,6 @@ class Login:
             self.utils.print_info("Inserting admin last name: " + admin_last_name)
             self.auto_actions.send_keys(last_name_field, admin_last_name)
         else:
-            self.utils.print_info("Unable to find admin last name field.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find admin last name field."
             self.common_validation.fault(**kwargs)
@@ -1762,7 +1758,6 @@ class Login:
             self.utils.print_info("Inserting admin email: " + user)
             self.auto_actions.send_keys(admin_email_field, user)
         else:
-            self.utils.print_info("Unable to find admin email field.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find admin email field."
             self.common_validation.fault(**kwargs)
@@ -1775,7 +1770,6 @@ class Login:
             self.utils.print_info("Inserting admin password: " + admin_password)
             self.auto_actions.send_keys(admin_password_field, admin_password)
         else:
-            self.utils.print_info("Unable to find admin password field.")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Unable to find admin password field."
             self.common_validation.fault(**kwargs)
@@ -1809,23 +1803,19 @@ class Login:
                     self.utils.print_info("Clicking on Cancel button...")
                     cancel_button = self.login_web_elements.get_cancel_button()
                     if cancel_button:
-                        self.utils.print_info("Found Cancel button!")
                         self.auto_actions.click(cancel_button)
                         kwargs['fail_msg'] = "Found Cancel button!"
                         self.common_validation.fault(**kwargs)
                         return -1
                     else:
-                        self.utils.print_info("Unable to find the cancel button.")
                         kwargs['fail_msg'] = "Unable to find the cancel button."
                         self.common_validation.fault(**kwargs)
                         return -1
             else:
-                self.utils.print_info("Unable to find dropdown options.")
                 kwargs['fail_msg'] = "Unable to find dropdown options."
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Unable to find the dropdown menu.")
             kwargs['fail_msg'] = "Unable to find the dropdown menu."
             self.common_validation.fault(**kwargs)
             return -1
@@ -1839,7 +1829,6 @@ class Login:
             self.screen.save_screen_shot()
             return user
         else:
-            self.utils.print_info("Unable to find submit button.")
             kwargs['fail_msg'] = "Unable to find submit button."
             self.common_validation.fault(**kwargs)
             return -1
