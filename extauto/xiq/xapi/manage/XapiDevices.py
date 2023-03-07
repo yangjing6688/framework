@@ -1,10 +1,9 @@
 from time import sleep
 import json
 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
-from tools.xapi.XapiBase import XapiBase
+from tools.xapi.XapiHelper import XapiHelper
 
-
-class XapiDevices(XapiBase):
+class XapiDevices(XapiHelper):
 
     def __init__(self):
         super().__init__()
@@ -103,27 +102,27 @@ class XapiDevices(XapiBase):
         dell_payload = None
         if 'EXTREME - AEROHIVE' in device_make.upper():
             self.utils.print_info("Detected AP, creating payload")
-            extreme_payload = self.extremecloudiq.XiqExtremeDevices(sns=[device_serial])
-            xiq_onboard_device_request = self.extremecloudiq.XiqOnboardDeviceRequest(extreme=extreme_payload)
+            extreme_payload = self.xapiBaseDeviceApi.extremecloudiq.XiqExtremeDevices(sns=[device_serial])
+            xiq_onboard_device_request = self.xapiBaseDeviceApi.extremecloudiq.XiqOnboardDeviceRequest(extreme=extreme_payload)
         elif "VOSS" in device_make.upper():
             self.utils.print_info("Detected VOSS, creating payload")
-            voss_payload = self.extremecloudiq.XiqVossDevices(sns=[device_serial])
-            xiq_onboard_device_request = self.extremecloudiq.XiqOnboardDeviceRequest(voss=voss_payload)
+            voss_payload = self.xapiBaseDeviceApi.extremecloudiq.XiqVossDevices(sns=[device_serial])
+            xiq_onboard_device_request = self.xapiBaseDeviceApi.extremecloudiq.XiqOnboardDeviceRequest(voss=voss_payload)
         elif "EXOS" in device_make.upper():
             self.utils.print_info("Detected EXOS, creating payload")
-            exos_payload = self.extremecloudiq.XiqExosDevices(sns=[device_serial])
-            xiq_onboard_device_request = self.extremecloudiq.XiqOnboardDeviceRequest(exos=exos_payload)
+            exos_payload = self.xapiBaseDeviceApi.extremecloudiq.XiqExosDevices(sns=[device_serial])
+            xiq_onboard_device_request = self.xapiBaseDeviceApi.extremecloudiq.XiqOnboardDeviceRequest(exos=exos_payload)
         elif 'DELL' in device_make.upper():
             self.utils.print_info("Detected Dell, creating payload")
-            dell_payload = self.extremecloudiq.XiqDellDevices(sn_to_st={device_serial : service_tag})
-            xiq_onboard_device_request = self.extremecloudiq.XiqOnboardDeviceRequest(dell=dell_payload)
+            dell_payload = self.xapiBaseDeviceApi.extremecloudiq.XiqDellDevices(sn_to_st={device_serial : service_tag})
+            xiq_onboard_device_request = self.xapiBaseDeviceApi.extremecloudiq.XiqOnboardDeviceRequest(dell=dell_payload)
         elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
             self.utils.print_info("Detected Wing, creating payload")
-            dell_payload = self.extremecloudiq.XiqWingDevices(sn_to_st={device_serial : device_mac})
-            xiq_onboard_device_request = self.extremecloudiq.XiqOnboardDeviceRequest(wing=wing_payload)
+            dell_payload = self.xapiBaseDeviceApi.extremecloudiq.XiqWingDevices(sn_to_st={device_serial : device_mac})
+            xiq_onboard_device_request = self.xapiBaseDeviceApi.extremecloudiq.XiqOnboardDeviceRequest(wing=wing_payload)
 
         # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
+        configuration = self.get_xapi_configuration()
 
         # Check that the access_token is in
         if configuration.access_token == None:
@@ -153,15 +152,15 @@ class XapiDevices(XapiBase):
 
             if device_found == -1:
                 kwargs['fail_msg'] = f"Device was not found with serial: {device_serial}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return 1
             else:
                 kwargs['pass_msg'] = f"Device was found with serial: {device_serial}"
-                self.xapiHelper.common_validation.passed(**kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
         except self.ApiException as e:
             kwargs['fail_msg'] = f"Exception when calling DeviceApi->onboard_devices: {e}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
 
@@ -178,7 +177,7 @@ class XapiDevices(XapiBase):
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         return self.xapiBaseDeviceApi.xapi_base_reboot_device(id=id)
@@ -197,11 +196,11 @@ class XapiDevices(XapiBase):
         device_id = self._xapi_search_for_device_id(device_serial=device_serial, device_name=device_name, device_mac=device_mac, **kwargs)
         if device_id != -1:
             kwargs['pass_msg'] = f"Found the device with serial:{device_serial}, name: {device_name} or MAC: {device_mac}"
-            self.xapiHelper.common_validation.passed(**kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             kwargs['fail_msg'] = f"Failed to find the device with serial:{device_serial}, name: {device_name} or MAC: {device_mac}"
-            self.xapiHelper.common_validation.failed(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
 
@@ -221,7 +220,7 @@ class XapiDevices(XapiBase):
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
@@ -232,7 +231,7 @@ class XapiDevices(XapiBase):
             data = json.loads(api_response.data)
             if data.get('connected', False):
                 kwargs['pass_msg'] = "Device Connected Status Value is: True (Connected)"
-                self.xapiHelper.common_validation.passed(**kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(
@@ -242,7 +241,7 @@ class XapiDevices(XapiBase):
 
         # In the case that nothing is found
         kwargs['fail_msg'] = 'Device was not found'
-        self.xapiHelper.common_validation.failed(**kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def xapi_wait_until_device_managed(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
@@ -261,7 +260,7 @@ class XapiDevices(XapiBase):
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
@@ -273,7 +272,7 @@ class XapiDevices(XapiBase):
             device_admin_state = data.get('device_admin_state', '')
             if device_admin_state == 'MANAGED':
                 kwargs['pass_msg'] = f"Device admin state Value is: {device_admin_state}"
-                self.xapiHelper.common_validation.passed(**kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(
@@ -283,7 +282,7 @@ class XapiDevices(XapiBase):
 
         # In the case that nothing is found
         kwargs['fail_msg'] = 'Device did not get to Managed state'
-        self.xapiHelper.common_validation.failed(**kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def xapi_delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
@@ -299,14 +298,14 @@ class XapiDevices(XapiBase):
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.xapiHelper.common_validation.fail(**kwargs)
+            self.common_validation.fail(**kwargs)
             return -1
 
         try:
             self.xapiBaseDeviceApi.xapi_base_delete_device(id=id)
 
             # delete this from the cache
-            self.xapiHelper.delete_xapi_global_device(device_serial)
+            self.xapiBaseDeviceApi.delete_xapi_global_device(device_serial)
 
             device_found = self._xapi_search_for_device_id(device_serial=device_serial)
             retries = 0
@@ -322,24 +321,24 @@ class XapiDevices(XapiBase):
 
             if device_found == -1:
                 kwargs['pass_msg'] = f"Device was deleted with serial: {device_serial}"
-                self.xapiHelper.common_validation.passed(**kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 kwargs['fail_msg'] = f"Device was found with serial: {device_serial}"
-                self.xapiHelper.common_validation.failed(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
 
             kwargs['pass_msg'] = "Device has been deleted"
-            self.xapiHelper.common_validation.passed(**kwargs)
+            self.common_validation.passed(**kwargs)
             return 1
 
         except self.ApiException as e:
             kwargs['fail_msg'] = f"Exception when calling DeviceApi->delete_device: {e}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         # In the case that nothing is found
-        self.xapiHelper.common_validation.failed(**kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def xapi_get_device_column_information(self, device_serial, column_array, **kwargs):
@@ -352,11 +351,11 @@ class XapiDevices(XapiBase):
         id = self._xapi_search_for_device_id(device_serial=device_serial, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
+        configuration = self.get_xapi_configuration()
         api_response = None
 
         # Check that the access_token is in
@@ -376,12 +375,12 @@ class XapiDevices(XapiBase):
                     column_data = json_data.get(json_column_name, 'value_not_found')
                     return_data[column.replace(' ',"_")] = column_data
             kwargs['pass_msg'] = "Device has been quereid"
-            self.xapiHelper.common_validation.passed(**kwargs)
+            self.common_validation.passed(**kwargs)
             return return_data
 
         except self.ApiException as e:
             kwargs['fail_msg'] = f"Exception when calling DeviceApi->xapi_get_device_column_information: {e}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
     def xapi_list_devices(self, **kwargs):
@@ -391,7 +390,7 @@ class XapiDevices(XapiBase):
            :return: An Array of devices (JSON)
         """
         # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
+        configuration = self.get_xapi_configuration()
         api_response = None
 
         # Check that the access_token is in
@@ -401,12 +400,12 @@ class XapiDevices(XapiBase):
         try:
             self.xapiBaseDeviceApi.xapi_base_list_devices(limit=100, _preload_content=False)
             self.valid_http_response(api_response)
-            self.xapiHelper.common_validation.passed(**kwargs)
+            self.common_validation.passed(**kwargs)
             return json.loads(api_response.data)
 
         except self.ApiException as e:
             kwargs['fail_msg'] = f"Exception when calling DeviceApi->list_devices: {e}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
 
