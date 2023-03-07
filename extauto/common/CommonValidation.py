@@ -96,9 +96,9 @@ class CommonValidation():
                 test_result = True
 
             elif expect_error and test_result:
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                self.logger.info("[IRV] IRV is configured to expect a failure and the keyword did not fail")
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.error("[IRV] IRV is configured to expect a failure and the keyword did not fail")
+                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 test_result = False
 
             # Print the output
