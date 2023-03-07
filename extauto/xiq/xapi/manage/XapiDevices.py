@@ -204,6 +204,47 @@ class XapiDevices(XapiHelper):
             return -1
 
 
+    def xapi_wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=5, retry_count=120,
+                                     **kwargs):
+        """
+           This function will search for the device and wait until the device is offline
+
+           :param device_serial: The device serial number
+           :param device_mac: The device MAC address
+           :param retry_duration: The duration of the sleep in between the loops
+           :param retry_count: The number of loops
+
+           :return: The device ID for success and -1 for failure
+        """
+        retry_value = 0
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+        while retry_value < retry_count:
+            # get Device information
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            self.valid_http_response(api_response)
+            data = json.loads(api_response.data)
+            device_connected_state = data.get('connected', '')
+            if device_connected_state == False:
+                kwargs['pass_msg'] = "Device Connected Status Value is: False (Not Connected)"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.utils.print_info(
+                    f"Device Connected Status Value is: True (Connected), sleeping {retry_duration} seconds")
+                sleep(retry_duration)
+                retry_value += 1
+
+        # In the case the device never goes offline
+        kwargs['fail_msg'] = 'Device did not go offline'
+        self.common_validation.failed(**kwargs)
+        return -1
+
     def xapi_wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=5, retry_count=120,
                                      **kwargs):
         """
@@ -240,7 +281,7 @@ class XapiDevices(XapiHelper):
                 retry_value += 1
 
         # In the case that nothing is found
-        kwargs['fail_msg'] = 'Device was not found'
+        kwargs['fail_msg'] = 'Device did not connect to the CLOUD'
         self.common_validation.failed(**kwargs)
         return -1
 
