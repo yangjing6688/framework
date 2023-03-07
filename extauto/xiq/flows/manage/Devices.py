@@ -2637,7 +2637,7 @@ class Devices:
                         retry = 0 # no exceptions on rows, set to retry to 0
                     except:
                         self.utils.print_info("Exception in row data (usually caused by XIQ device grid not finished), sleeping and retrying")
-                        sleep(10)
+                        sleep(1)
                         retry = retry - 1;
                 page_len = page_len - 1
 
