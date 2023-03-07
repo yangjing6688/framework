@@ -11322,7 +11322,7 @@ class Device360(Device360WebElements):
             self.auto_actions.click(get_pse_profile_save)
             # Check if error is displayed after save
             get_pse_profile_save_error = self.get_select_element_port_type("pse_profile_save_error")
-            if get_pse_profile_save:
+            if get_pse_profile_save_error:
 
                 self.utils.print_info("Below error is displayed after save profile:" , get_pse_profile_save_error)
                 kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> get_pse_profile_save not found"
