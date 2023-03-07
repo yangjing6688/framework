@@ -126,7 +126,12 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
         level_number = record.levelno
         formatted_message = self.format(record)
         colorized_message = _apply_html_coloring(formatted_message, colors_mapping.get(level_number))
-        self.log(level_number, colorized_message)
+
+        if level_number < logging.WARNING:  # WARN and ERROR already logged via log_to_file by Robot
+            self.log_to_file(level_number, colorized_message)
+            self.log_to_console(formatted_message)  # No support to customize colors
+        else:
+            self.log_to_file(level_number, formatted_message)  # Prevent html data to be printed to console
         return False
 
     def format(self, record):
@@ -137,8 +142,11 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
 
         return Formatter().format(record)
 
-    def log(self, level_number, message):
+    def log_to_file(self, level_number, message):
         self.Dispatch()[level_number](message)
+
+    def log_to_console(self, message):
+        robot_logger.console(message)
 
     class Dispatch(object):
         def __getitem__(self, level_number):
