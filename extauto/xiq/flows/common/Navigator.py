@@ -3931,7 +3931,7 @@ class Navigator(NavigatorWebElements):
                     if grid_mark.get_attribute("style") != "" and "none" not in grid_mark.get_attribute("style"):
                         self.utils.print_info(f"Grid is still loading. Retry: {retry}")
                         retry += 1
-                        sleep(1)
+                        sleep(2)
                     else:
                         self.utils.print_info("Grid is not loading anymore.")
                         grids_fully_loaded += 1
@@ -3945,19 +3945,20 @@ class Navigator(NavigatorWebElements):
         if grid_spinners:
             self.utils.print_info(f"Found {len(grid_spinners)} spinners on the page.")
             self.utils.print_info("Checking if spinner is still loading.")
-            while not load_spinner_complete or retry < 10:
+            while not load_spinner_complete and retry < 10:
                 spinner_fully_loaded = 0
                 for spinner in grid_spinners:
                     if "fn-hidden" not in spinner.get_attribute("class"):
                         self.utils.print_info(f"Spinner is still loading. Retry: {retry}")
                         retry += 1
-                        sleep(1)
+                        sleep(2)
                     else:
                         self.utils.print_info("Spinner is not loading anymore.")
                         spinner_fully_loaded += 1
                 if spinner_fully_loaded == len(grid_spinners):
                     load_spinner_complete = True
-                grid_spinners = self.get_grid_spinner()
+                else:
+                    grid_spinners = self.get_grid_spinner()
         else:
             self.utils.print_info("Spinner is not present on this page. No wait is needed.")
         kwargs['pass_msg'] = "Page finished loading."
