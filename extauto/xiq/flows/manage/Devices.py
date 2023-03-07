@@ -2619,18 +2619,26 @@ class Devices:
             while page_len:
                 page_num = num_pages - page_len + 1
                 self.utils.print_debug(f"Searching Page #{page_num} of {num_pages} pages")
-                rows = self.devices_web_elements.get_grid_rows()
-                if rows:
-                    self.utils.print_debug(f"Searching {len(rows)} rows")
-                    for key, value in device_keys.items():
-                        self.utils.print_info(f"Searching for the device using {key} : {value}")
-                        for row in rows:
-                            self.utils.print_info("row data: ", self.format_row(row.text))
-                            if value in row.text:
-                                self.utils.print_info(f"Found device with {key}: {value}")
-                                return row
-                else:
-                    self.utils.print_debug(f"No rows returned for page #{page_num}")
+                retry = 2
+                while retry > 0:
+                    try:
+                        rows = self.devices_web_elements.get_grid_rows()
+                        if rows:
+                            self.utils.print_debug(f"Searching {len(rows)} rows")
+                            for key, value in device_keys.items():
+                                self.utils.print_info(f"Searching for the device using {key} : {value}")
+                                for row in rows:
+                                    self.utils.print_info("row data: ", self.format_row(row.text))
+                                    if value in row.text:
+                                        self.utils.print_info(f"Found device with {key}: {value}")
+                                        return row
+                        else:
+                            self.utils.print_debug(f"No rows returned for page #{page_num}")
+                        retry = 0 # no exceptions on rows, set to retry to 0
+                    except:
+                        self.utils.print_info("Exception in row data (usually caused by XIQ device grid not finished), sleeping and retrying")
+                        sleep(10)
+                        retry = retry - 1;
                 page_len = page_len - 1
 
                 if page_len:
