@@ -238,21 +238,22 @@ class Network360Monitor:
         """
         try:
             sleep(5)
-            tracker_dict = dict()
-            tracker_dict["device_num"] = self.ml_insights_monitor.get_n360_monitor_device_number().text
-            tracker_dict["device_status"] = self.ml_insights_monitor.get_n360_monitor_device_status().text
-            tracker_dict["client_num"] = self.ml_insights_monitor.get_n360_monitor_client_number().text
-            tracker_dict["client_status"] = self.ml_insights_monitor.get_n360_monitor_client_status().text
-            tracker_dict["wifi_num"] = self.ml_insights_monitor.get_n360_monitor_wifi_number().text
-            tracker_dict["wifi_status"] = self.ml_insights_monitor.get_n360_monitor_wifi_status().text
-            tracker_dict["network_number"] = self.ml_insights_monitor.get_n360_monitor_network_number().text
-            tracker_dict["network_status"] = self.ml_insights_monitor.get_n360_monitor_network_status().text
-            tracker_dict["service_number"] = self.ml_insights_monitor.get_n360_monitor_service_number().text
-            tracker_dict["service_status"] = self.ml_insights_monitor.get_n360_monitor_service_status().text
-            tracker_dict["application_number"] = self.ml_insights_monitor.get_n360_monitor_app_number().text
-            tracker_dict["application_usage"] = self.ml_insights_monitor.get_n360_monitor_app_usage().text
-            tracker_dict["security_number"] = self.ml_insights_monitor.get_n360_monitor_security_number().text
-            tracker_dict["security_rogues"] = self.ml_insights_monitor.get_n360_monitor_security_total_rogues().text
+            tracker_dict = {
+                "device_num": self.ml_insights_monitor.get_n360_monitor_device_number().text,
+                "device_status": self.ml_insights_monitor.get_n360_monitor_device_status().text,
+                "client_num": self.ml_insights_monitor.get_n360_monitor_client_number().text,
+                "client_status": self.ml_insights_monitor.get_n360_monitor_client_status().text,
+                "wifi_num": self.ml_insights_monitor.get_n360_monitor_wifi_number().text,
+                "wifi_status": self.ml_insights_monitor.get_n360_monitor_wifi_status().text,
+                "network_number": self.ml_insights_monitor.get_n360_monitor_network_number().text,
+                "network_status": self.ml_insights_monitor.get_n360_monitor_network_status().text,
+                "service_number": self.ml_insights_monitor.get_n360_monitor_service_number().text,
+                "service_status": self.ml_insights_monitor.get_n360_monitor_service_status().text,
+                "application_number": self.ml_insights_monitor.get_n360_monitor_application_number().text,
+                "application_status": self.ml_insights_monitor.get_n360_monitor_application_status().text,
+                "security_number": self.ml_insights_monitor.get_n360_monitor_security_number().text,
+                "security_status": self.ml_insights_monitor.get_n360_monitor_security_status().text
+            }
 
             self.utils.print_info("Tracker details dictionary ", tracker_dict)
             return tracker_dict
@@ -279,7 +280,7 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
-                kwargs['fail_msg'] = "Unsuccessfully clicked on floor"
+                kwargs['fail_msg'] = "Unable to click on floor"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -311,8 +312,7 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
-                kwargs['fail_msg'] = "Unsuccessfully " \
-                                     "clicked on floor"
+                kwargs['fail_msg'] = "Unable to click on floor"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -383,7 +383,7 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
-                kwargs['fail_msg'] = "Unsuccessfully clicked on floor"
+                kwargs['fail_msg'] = "Unable to click on floor"
                 self.common_validation.failed(**kwargs)
                 return -1
 

@@ -52,7 +52,7 @@ class Webhook(WebhookWebElements):
             self.screen.save_screen_shot()
             return self.find_url_in_webhook_grid(webhook2)
         else:
-            kwargs['fail_msg'] = "Unsuccessufuly edit webhook"
+            kwargs['fail_msg'] = "Unable to edit webhook"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -99,7 +99,7 @@ class Webhook(WebhookWebElements):
                 kwargs['pass_msg'] = "Successfully searching webhook url"
                 self.common_validation.passed(**kwargs)
                 return 1
-        kwargs['fail_msg'] = f"Unsuccessfully searching webhook url: {webhook.url}"
+        kwargs['fail_msg'] = f"Unable to find webhook url: {webhook.url}"
         #self.common_validation.fault(**kwargs)
         return -1
 
@@ -123,7 +123,7 @@ class Webhook(WebhookWebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"Unsuccessfully delete webhook url: {webhook.url}"
+                kwargs['fail_msg'] = f"Unable to delete webhook url: {webhook.url}"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
