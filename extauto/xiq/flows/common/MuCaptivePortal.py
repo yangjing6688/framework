@@ -494,8 +494,7 @@ class MuCaptivePortal(MuCPWebElement):
             msg = self.get_pin_text_area().text
             self.utils.print_info(msg)
         if "PIN is not valid. Please request a new one" in msg:
-            kwargs['fail_msg'] = "'PIN is not valid. Please request a new one'" \
-                                 f" is in message: {msg}"
+            kwargs['fail_msg'] = f"'PIN is not valid. Please request a new one' is in message: {msg}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -554,7 +553,6 @@ class MuCaptivePortal(MuCPWebElement):
                 self.common_validation.passed(**kwargs)
                 return 1
         else:
-            kwargs['fail_msg'] = "Could not get the " \
-                                 "term and condition page text"
+            kwargs['fail_msg'] = "Could not get the term and condition page text"
             self.common_validation.failed(**kwargs)
             return -1

@@ -428,7 +428,6 @@ class ExtremeGuest(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("User Already Subscribed Extreme Guest Page")
             kwargs['fail_msg'] = "User Already Subscribed Extreme Guest Page"
             self.common_validation.failed(**kwargs)
             return -1

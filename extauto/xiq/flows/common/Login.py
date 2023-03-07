@@ -804,8 +804,8 @@ class Login:
             return switch_connection_host
         else:
             kwargs[
-                'fail_msg'] = "'get_switch_connection_host()' failed. Switch Connection host info was no found:" \
-                              f" The following was found '{switch_connection_host}'"
+                'fail_msg'] = f"Switch Connection host info was no found:The following was " \
+                              f"found '{switch_connection_host}'"
             self.common_validation.failed(**kwargs)
 
     def get_viq_id(self, **kwargs):
@@ -1304,8 +1304,7 @@ class Login:
 
         else:
             self.utils.print_info("Redirection to Extreme Portal ERROR. Linking is not successful.")
-            kwargs['fail_msg'] = "Redirection to Extreme Portal ERROR. " \
-                                 "Linking is not successful."
+            kwargs['fail_msg'] = "Redirection to Extreme Portal ERROR.Linking is not successful."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1488,7 +1487,8 @@ class Login:
             if check_error_shared_cuid:
                 self.utils.print_info("The below error was displayed when enter shared CUID:",
                                       check_error_shared_cuid.text)
-                kwargs['fail_msg'] = f"The below error was displayed when enter shared CUID: {check_error_shared_cuid.text}"
+                kwargs['fail_msg'] = f"The below error was displayed when enter shared " \
+                                     f"CUID: {check_error_shared_cuid.text}"
                 self.common_validation.fault(**kwargs)
                 return -1
             else:
@@ -1613,8 +1613,7 @@ class Login:
             if "This entitlement key has already been used by another system" in entitlement_error.text:
                 self.screen.save_screen_shot()
                 self.utils.print_info("This entitlement key has already been used by another system")
-                kwargs['fail_msg'] = "This entitlement key has already" \
-                                     " been used by another system"
+                kwargs['fail_msg'] = "This entitlement key has already been used by another system"
                 self.common_validation.fault(**kwargs)
                 return -1
         except Exception as e:

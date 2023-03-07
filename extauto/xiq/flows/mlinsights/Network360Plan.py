@@ -36,7 +36,6 @@ class Network360Plan:
         self.current_path.pop()
         self.custom_file_dir = os.path.join(os.sep,*self.current_path, "configs", "maps") + os.sep
 
-
     def search_floor_in_network360plan(self, floor_name='default', **kwargs):
         """
         - This keyword searches for the floor in Network360 Plan
@@ -158,7 +157,6 @@ class Network360Plan:
                 self.common_validation.failed(**kwargs)
                 return -1
 
-
     def import_map_in_network360plan(self, map_file_name, **kwargs):
         """
         - This keyword will Import Map file in Network360 Plan page
@@ -208,8 +206,7 @@ class Network360Plan:
             if tootip_already_exist:
                 if "already exists" in tootip_already_exist:
                     self.utils.print_info(f"{tootip_already_exist}")
-                    kwargs['pass_msg'] = "Map with Same Name Already Imported, " \
-                                         "So No need to Import Again"
+                    kwargs['pass_msg'] = "Map with Same Name Already Imported, So No need to Import Again"
 
                     self.utils.print_info("Click Close Button")
                     self.auto_actions.click_reference(self.n360_elements.get_tooltip_close_button)

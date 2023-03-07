@@ -56,8 +56,7 @@ class A3Inventory(A3InventoryWebElements):
                 headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + auth_result["token"]}
                 req = requests.post(url, headers=headers, data=json.dumps(ssh_cfg), verify=False)
                 if req.status_code != 200:
-                    kwargs['fail_msg'] = "enable_ssh_access_on_a3_node() failed. " \
-                                         f"SSH configuration change failed: {req.status_code}"
+                    kwargs['fail_msg'] = "failed.SSH configuration change failed: {req.status_code}"
                     self.common_validation.failed(**kwargs)
                     return -1
                 if ssh_cfg['enable'] == 'yes':
@@ -68,12 +67,11 @@ class A3Inventory(A3InventoryWebElements):
                     self.utils.print_info('SSH access has been disabled, existing ssh session is still working until '
                                           'it disconnect')
             else:
-                kwargs['fail_msg'] = "enable_ssh_access_on_a3_node() failed." \
-                                     f"Getting current SSH configuration failed: {req.status_code}"
+                kwargs['fail_msg'] = "Failed Getting current SSH configuration failed: {req.status_code}"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = f"enable_ssh_access_on_a3_node() failed. Login to A3 failed: {req.status_code}"
+            kwargs['fail_msg'] = f" failed. Login to A3 failed: {req.status_code}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -106,7 +104,7 @@ class A3Inventory(A3InventoryWebElements):
             return output
         except Exception as e:
             print(e)
-            kwargs['fail_msg'] = "link_a3_nodes_to_xiq(). Failed to execute the Curl command"
+            kwargs['fail_msg'] = "Failed to execute the Curl command"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -132,7 +130,7 @@ class A3Inventory(A3InventoryWebElements):
             return output
         except Exception as e:
             print(e)
-            kwargs['fail_msg'] = "unlink_a3_nodes_from_xiq() failed. Failed to execute the Curl command"
+            kwargs['fail_msg'] = "Failed to execute the Curl command"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -184,7 +182,7 @@ class A3Inventory(A3InventoryWebElements):
                     self.common_validation.failed(**kwargs)
                     return -1
         else:
-            kwargs['fail_msg'] = "search_a3_device() failed. Didn't find any rows"
+            kwargs['fail_msg'] = "Didn't find any rows"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -223,7 +221,7 @@ class A3Inventory(A3InventoryWebElements):
                     self.common_validation.passed(**kwargs)
                     return row
 
-        kwargs['fail_msg'] = "get_a3_node_row(). Unable to find A3 Node row in grid"
+        kwargs['fail_msg'] = "Unable to find A3 Node row in grid"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -246,7 +244,7 @@ class A3Inventory(A3InventoryWebElements):
                     self.common_validation.passed(**kwargs)
                     return row
 
-        kwargs['fail_msg'] = "get_a3_server_row(). Unable to find A3 Node row in grid"
+        kwargs['fail_msg'] = "Unable to find A3 Node row in grid"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -277,7 +275,7 @@ class A3Inventory(A3InventoryWebElements):
                 self.common_validation.passed(**kwargs)
                 return 'green'
 
-        kwargs['fail_msg'] = "get_a3_server_status() failed. A3 Node Status: Disconnected"
+        kwargs['fail_msg'] = "A3 Node Status: Disconnected"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -335,7 +333,7 @@ class A3Inventory(A3InventoryWebElements):
                 self.common_validation.passed(**kwargs)
                 return 'green'
 
-        kwargs['fail_msg'] = "get_a3_node_status() failed. A3 Node is NOT online!"
+        kwargs['fail_msg'] = "A3 Node is NOT online!"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -504,8 +502,7 @@ class A3Inventory(A3InventoryWebElements):
             return unlink_page_text
         else:
             if self.search_a3_device(a3_host_name, ignore_failure=True) == 1:
-                kwargs['fail_msg'] = "validate_a3_page_after_unlink() failed. " \
-                                     "A3 page still having the A3 cluster node entries"
+                kwargs['fail_msg'] = "A3 page still having the A3 cluster node entries"
                 self.common_validation.failed(**kwargs)
                 return -1
 

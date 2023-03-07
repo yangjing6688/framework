@@ -38,8 +38,7 @@ class Network360ScoreCard:
             self.utils.print_info("Clicking on ML Insights Score Card button")
             self.auto_actions.click_reference(self.ml_insights.get_n360_scorecard_button)
             sleep(3)
-            kwargs['pass_msg'] = "Successfully Clicking on ML Insights Score " \
-                                 "Card button"
+            kwargs['pass_msg'] = "Successfully Clicking on ML Insights Score Card button"
             self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:

@@ -330,13 +330,11 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("Tooltip Text After enabling HIQ:", tool_tp_text)
 
             if "The process has been started. You will be logged out momentarily." in tool_tp_text:
-                kwargs['pass_msg'] = "Automatic Logout Happening on Account " \
-                                     "after enabling HIQ"
+                kwargs['pass_msg'] = "Automatic Logout Happening on Account after enabling HIQ"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "Automatic Logout Not Happening on Account " \
-                                     "after enabling HIQ"
+                kwargs['fail_msg'] = "Automatic Logout Not Happening on Account after enabling HIQ"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
@@ -1044,8 +1042,7 @@ class GlobalSetting(GlobalSettingWebElements):
         else:
             self.utils.print_info("Device is not EXOS")
             pass
-        kwargs['pass_msg'] = "Successfully device management " \
-                             "settings for EXOS switches"
+        kwargs['pass_msg'] = "Successfully device management settings for EXOS switches"
         self.common_validation.passed(**kwargs)
         return 1
 

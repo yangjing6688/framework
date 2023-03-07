@@ -35,8 +35,7 @@ class SpecificSearch:
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "There is no specific information about AP in" \
-                                     " Devices page"
+                kwargs['fail_msg'] = "There is no specific information about AP in Devices page"
                 self.common_validation.failed(**kwargs)
                 return -1
         except Exception as e:
@@ -65,8 +64,7 @@ class SpecificSearch:
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"Info message: '{info}' does not match the " \
-                                     f"result message: '{result}'"
+                kwargs['fail_msg'] = f"Info message: '{info}' does not match the result message: '{result}'"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -92,8 +90,7 @@ class SpecificSearch:
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"Info message: '{info}' does not match the" \
-                                     f" result message: '{result}'"
+                kwargs['fail_msg'] = f"Info message: '{info}' does not match the result message: '{result}'"
                 self.common_validation.failed(**kwargs)
                 return -1
         except Exception as e:

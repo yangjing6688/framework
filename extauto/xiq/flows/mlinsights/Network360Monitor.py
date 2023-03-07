@@ -86,8 +86,7 @@ class Network360Monitor:
                             aps_on_floor.append(ap.text)
                         self.utils.print_info("APs on floor: ", aps_on_floor)
                     else:
-                        kwargs['fail_msg'] = "No APs found on floor: " \
-                                             f"{floor_name}"
+                        kwargs['fail_msg'] = f"No APs found on floor: {floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1
 
@@ -110,7 +109,6 @@ class Network360Monitor:
             kwargs['fail_msg'] = "No search matches found"
             self.common_validation.fault(**kwargs)
             return -1
-
 
     def get_clients_from_network360monitor_floor(self, floor_name='default', device_type='default', **kwargs):
         """
@@ -173,8 +171,7 @@ class Network360Monitor:
                             clients_on_floor.append(client_mac.text)
                         self.utils.print_info("Connected Clients on floor: ", clients_on_floor[1:])
                     else:
-                        kwargs['fail_msg'] = "No APs found on floor: " \
-                                             f"{floor_name}"
+                        kwargs['fail_msg'] = f"No APs found on floor: {floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1
 
@@ -230,8 +227,7 @@ class Network360Monitor:
             return 1
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "Unable to Navigate to MLInsights " \
-                                 "Monitor Page"
+            kwargs['fail_msg'] = "Unable to Navigate to MLInsights Monitor Page"
             self.common_validation.fault(**kwargs)
             return 0
 
@@ -262,8 +258,7 @@ class Network360Monitor:
             return tracker_dict
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "Unable to get MLInsights Monitor " \
-                                 "Tracker Details"
+            kwargs['fail_msg'] = "Unable to get MLInsights Monitor Tracker Details"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -388,8 +383,7 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
-                kwargs['fail_msg'] = "Unsuccessfully clicked " \
-                                     "on floor"
+                kwargs['fail_msg'] = "Unsuccessfully clicked on floor"
                 self.common_validation.failed(**kwargs)
                 return -1
 

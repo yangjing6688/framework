@@ -48,8 +48,7 @@ class Communications(CommunicationsWebElements):
 
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "Unable to get Communications page header. " \
-                                 "Please check"
+            kwargs['fail_msg'] = "Unable to get Communications page header. Please check"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -58,8 +57,7 @@ class Communications(CommunicationsWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "Communications page is not displaying. " \
-                                 "Please check"
+            kwargs['fail_msg'] = "Communications page is not displaying. Please check"
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -88,8 +86,7 @@ class Communications(CommunicationsWebElements):
 
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "Unable to get Communications page header. " \
-                                 "Please check"
+            kwargs['fail_msg'] = "Unable to get Communications page header. Please check"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -98,8 +95,7 @@ class Communications(CommunicationsWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "Notification page is not displaying. Please check " \
-                                 "Communications pages."
+            kwargs['fail_msg'] = "Notification page is not displaying. Please check Communications pages."
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -126,8 +122,7 @@ class Communications(CommunicationsWebElements):
             sleep(2)
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "Unable to get Communications page header. " \
-                                 "Please check"
+            kwargs['fail_msg'] = "Unable to get Communications page header. Please check"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -136,8 +131,7 @@ class Communications(CommunicationsWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "Notification page is not displaying. Please check " \
-                                 "Communications pages."
+            kwargs['fail_msg'] = "Notification page is not displaying. Please check Communications pages."
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -165,8 +159,7 @@ class Communications(CommunicationsWebElements):
             sleep(2)
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "Unable to get Communications page header. " \
-                                 "Please check"
+            kwargs['fail_msg'] = "Unable to get Communications page header. Please check"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -175,7 +168,6 @@ class Communications(CommunicationsWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "New in XIQ page is not displaying. Please check " \
-                                 "Communications pages.."
+            kwargs['fail_msg'] = "New in XIQ page is not displaying. Please check Communications pages.."
             self.common_validation.failed(**kwargs)
             return -2

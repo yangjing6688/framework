@@ -180,7 +180,6 @@ class Applications(object):
             self.commonValidation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to delete custom application")
             kwargs['fail_msg'] = "Unable to delete custom application"
             self.commonValidation.failed(**kwargs)
             return -1

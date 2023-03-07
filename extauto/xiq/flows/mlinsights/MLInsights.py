@@ -40,8 +40,7 @@ class MLInsights:
             if "Your account does not have permission to perform that action" in tooltip_text:
                 self.auto_actions.click_reference(self.mlinsights_web_elements.get_map_close_btn)
                 sleep(10)
-                kwargs['fail_msg'] = "Your account does not have permission to " \
-                                     "perform that action"
+                kwargs['fail_msg'] = "Your account does not have permission to perform that action"
                 self.common_validation.failed(**kwargs)
                 return -2
 

@@ -549,25 +549,21 @@ class AdvOnboard(AdvOnboardWebElements):
 
         self.utils.print_info("Adding the device")
         if not self._add_device(device_type, device_model, device_sn):
-            self.utils.print_info("Failed to add the device in adding device step")
             kwargs['fail_msg'] = "Failed to add the device in adding device step"
             self.commonValidation.failed(**kwargs)
             return -1
 
         if not self._assign_location(search_string, 'access points', location):
-            self.utils.print_info("Failed assign the location to device")
             kwargs['fail_msg'] = "Failed assign the location to device"
             self.commonValidation.failed(**kwargs)
             return -2
 
         if not self._assign_branch_id(branch_id):
-            self.utils.print_info("Failed assign the location to device")
             kwargs['fail_msg'] = "Failed assign the location to device"
             self.commonValidation.failed(**kwargs)
             return -3
 
         if not self._configure_network_steps(nw_policy, internal_ssid, guest_ssid):
-            self.utils.print_info("Failed to configure the network policy")
             kwargs['fail_msg'] = "Failed to configure the network policy"
             self.commonValidation.failed(**kwargs)
             return -4

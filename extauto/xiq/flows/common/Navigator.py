@@ -34,11 +34,8 @@ class Navigator(NavigatorWebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.screen.save_screen_shot()
-                self.utils.print_info(
-                    "Even though already click manage tab, but can NOT go to subtab nav, stop NOT go to next step")
-                kwargs['fail_msg'] = "Even though already click manage tab," \
-                                     " but can NOT go to subtab nav, stop NOT go to next step"
+                kwargs['fail_msg'] = "Even though already click manage tab, but can NOT go to subtab nav, " \
+                                     "stop NOT go to next step"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -159,7 +156,6 @@ class Navigator(NavigatorWebElements):
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    self.utils.print_info("Unable to navigate to Devices tab")
                     kwargs['fail_msg'] = "Unable to navigate to Devices tab"
                     self.common_validation.fault(**kwargs)
                     return -1
@@ -363,8 +359,7 @@ class Navigator(NavigatorWebElements):
         else:
             self.utils.print_info("Unable to navigate to the Configure Users sub tab")
             self.screen.save_screen_shot()
-            kwargs['fail_msg'] = "Unable to navigate to the " \
-                                 "Configure Users sub tab"
+            kwargs['fail_msg'] = "Unable to navigate to the Configure Users sub tab"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1053,9 +1048,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         device_serials_num = device_serials.split(',')
         if len(device_serials_num) == 1:
-            self.utils.print_info("This keyword works with multiple device,pass devices serial number with comma sep")
-            kwargs['fail_msg'] = "This keyword works with" \
-                                 " multiple device,pass devices serial number with comma sep"
+            kwargs['fail_msg'] = "This keyword works with multiple device,pass devices serial number with comma sep"
             self.common_validation.failed(**kwargs)
             return -1
         self.device_common.edit_devices(device_serials)
@@ -1158,9 +1151,7 @@ class Navigator(NavigatorWebElements):
                 self.auto_actions.click_reference(self.get_device_utilities_button)
                 sleep(2)
             else:
-                self.utils.print_info("Unable to click on Utilities Button due to being disabled")
-                kwargs['fail_msg'] = "Unable to click on Utilities Button" \
-                                     " due to being disabled"
+                kwargs['fail_msg'] = "Unable to click on Utilities Button due to being disabled"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -1169,9 +1160,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.move_to_element(self.get_device_utilities_status_menu_item())
             sleep(2)
         else:
-            self.utils.print_info("Unable to hover over Status Menu Item due to not being displayed")
-            kwargs['fail_msg'] = "Unable to hover over Status Menu " \
-                                 "Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to hover over Status Menu Item due to not being displayed"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -1224,7 +1213,7 @@ class Navigator(NavigatorWebElements):
         self.device_common.select_device_row(device_serial)
 
         if self.navigate_to_device_utilities_status() == -1:
-            kwargs['fail_msg'] = "'navigate_to_advance_channel_selection()'-> Unable to navigate to Utilities --> Status"
+            kwargs['fail_msg'] = "Unable to navigate to Utilities --> Status"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1996,7 +1985,7 @@ class Navigator(NavigatorWebElements):
             if self.get_manage_tab().is_displayed():
                 self.auto_actions.click_reference(self.get_manage_tab)
             else:
-                kwargs['fail_msg'] = "'navigate_manage_application()' - > Manage Tab is not displayed"
+                kwargs['fail_msg'] = "Manage Tab is not displayed"
                 self.common_validation.fault(**kwargs)
                 return -2
 
@@ -2007,7 +1996,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         except Exception:
-            kwargs['fail_msg'] = "'navigate_manage_application()' - > Unable to Navigate to  Manage--> Application"
+            kwargs['fail_msg'] = "Unable to Navigate to  Manage--> Application"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2037,7 +2026,6 @@ class Navigator(NavigatorWebElements):
             return 1
 
         except Exception as e:
-            self.utils.print_info("Unable to Navigate to Events ", e)
             kwargs['fail_msg'] = f"Unable to Navigate to Events: {e} "
             self.common_validation.failed(**kwargs)
             return -1
@@ -2131,8 +2119,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "Accounts Organization page is" \
-                                 " not displayed"
+            kwargs['fail_msg'] = "Accounts Organization page is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2538,8 +2525,7 @@ class Navigator(NavigatorWebElements):
                 self.auto_actions.click_reference(self.get_device_utilities_button)
                 sleep(2)
             else:
-                kwargs['fail_msg'] = "Unable to click on Utilities Button" \
-                                     " due to being disabled"
+                kwargs['fail_msg'] = "Unable to click on Utilities Button due to being disabled"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -2548,8 +2534,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.move_to_element(self.get_device_tools_menu_item())
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to hover over Tools Menu " \
-                                 "Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to hover over Tools Menu Item due to not being displayed"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2576,8 +2561,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_tools_client_information_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Client Information" \
-                                 " Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Client Information Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2603,8 +2587,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_tools_get_tech_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Get Tech Data Menu Item " \
-                                 "due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Get Tech Data Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2630,8 +2613,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_tools_locate_device_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Locate Device Menu " \
-                                 "Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Locate Device Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2658,8 +2640,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_tools_layer_neighbor_info_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on L2 Neighbor" \
-                                 " Info Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on L2 Neighbor Info Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2685,8 +2666,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_tools_packet_capture_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Packet Capture Menu " \
-                                 "Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Packet Capture Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2712,8 +2692,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_tools_vlan_probe_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on VLAN Probe Menu Item due to" \
-                                 " not being displayed"
+            kwargs['fail_msg'] = "Unable to click on VLAN Probe Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2744,8 +2723,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.move_to_element(self.get_device_diagnostics_menu_item())
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to hover over Diagnostics" \
-                                 " Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to hover over Diagnostics Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2771,8 +2749,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_ping_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show Ping Menu Item due " \
-                                 "to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show Ping Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2798,8 +2775,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_log_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show Log Menu Item due to " \
-                                 "not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show Log Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2826,8 +2802,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_mac_table_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show MAC Table Menu " \
-                                 "Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show MAC Table Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2854,8 +2829,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_version_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show Version Menu Item" \
-                                 " due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show Version Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2882,8 +2856,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_running_config_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show Running" \
-                                 " Config Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show Running Config Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2910,8 +2883,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_startup_config_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show Startup " \
-                                 "Config Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show Startup Config Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2937,8 +2909,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_ip_routes_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show IP Routes Menu" \
-                                 " Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show IP Routes Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2955,8 +2926,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device " \
-                                 "Utilities Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2965,8 +2935,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_mac_routes_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show MAC Routes Menu" \
-                                 " Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show MAC Routes Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2983,8 +2952,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device" \
-                                 " Utilities Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2993,8 +2961,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_arp_cache_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show ARP Cache Menu" \
-                                 " Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show ARP Cache Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3011,8 +2978,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device" \
-                                 " Utilities Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3021,8 +2987,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_roaming_cache_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show Roaming" \
-                                 " Cache Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show Roaming Cache Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3049,8 +3014,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_dnxp_neighbors_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show DNXP" \
-                                 " Neighbors Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show DNXP Neighbors Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3067,8 +3031,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device Utilities" \
-                                 " Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3077,8 +3040,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_dnxp_cache_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show DNXP Cache" \
-                                 " Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show DNXP Cache Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3095,8 +3057,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device" \
-                                 " Utilities Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3105,8 +3066,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_amrp_tunnel_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show AMRP Tunnel" \
-                                 " Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show AMRP Tunnel Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3123,8 +3083,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device" \
-                                 " Utilities Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3133,8 +3092,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_gre_tunnel_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show" \
-                                 " GRE Tunnel Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show GRE Tunnel Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3151,8 +3109,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device" \
-                                 " Utilities Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3161,8 +3118,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_ike_event_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show IKE Event Menu" \
-                                 " Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show IKE Event Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3179,8 +3135,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device Utilities" \
-                                 " Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3189,8 +3144,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_ike_sa_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show IKE SA Menu " \
-                                 "Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show IKE SA Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3207,8 +3161,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device Utilities " \
-                                 "Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3217,8 +3170,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_ipsec_sa_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show IPSec SA Menu" \
-                                 " Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show IPSec SA Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3245,8 +3197,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_ipsec_tunnel_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show IPSec Tunnel" \
-                                 " Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show IPSec Tunnel Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3263,8 +3214,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device Utilities" \
-                                 " Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3273,8 +3223,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_vpn_tunnel_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show VPN Tunnel" \
-                                 " Menu Item due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show VPN Tunnel Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3300,8 +3249,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_cpu_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show CPU Menu Item due" \
-                                 " to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show CPU Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3318,8 +3266,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         if self.navigate_to_device_utilities_diagnostics() == -1:
-            kwargs['fail_msg'] = "Unable to navigate to Device Utilities" \
-                                 " Diagnostics"
+            kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3328,8 +3275,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_memory_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show Memory Menu Item" \
-                                 " due to not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show Memory Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3355,8 +3301,7 @@ class Navigator(NavigatorWebElements):
             self.auto_actions.click_reference(self.get_device_diagnostics_show_pse_menu_item)
             sleep(2)
         else:
-            kwargs['fail_msg'] = "Unable to click on Show PSE Menu Item due to" \
-                                 " not being displayed"
+            kwargs['fail_msg'] = "Unable to click on Show PSE Menu Item due to not being displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3439,8 +3384,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "Unable to navigate to Client" \
-                                 " Monitor & Diagnosis Page"
+            kwargs['fail_msg'] = "Unable to navigate to Client Monitor & Diagnosis Page"
             self.common_validation.failed(**kwargs)
             return -2
 
@@ -3518,11 +3462,11 @@ class Navigator(NavigatorWebElements):
             else:
                 self.utils.print_info("Unable to navigate to Summary tab")
                 self.screen.save_screen_shot()
-                kwargs['fail_msg'] = "'navigate_to_manage_summary()'- > Unable to navigate to Summary tab"
+                kwargs['fail_msg'] = "Unable to navigate to Summary tab"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = "'navigate_to_manage_summary()'- > Unable to navigate to Manage tab"
+            kwargs['fail_msg'] = "Unable to navigate to Manage tab"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3568,13 +3512,11 @@ class Navigator(NavigatorWebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "Unable to navigate to Guest" \
-                                     " Essentials Users tab"
+                kwargs['fail_msg'] = "Unable to navigate to Guest Essentials Users tab"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = "Unable to navigate to " \
-                                 "Configure tab"
+            kwargs['fail_msg'] = "Unable to navigate to Configure tab"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3699,7 +3641,8 @@ class Navigator(NavigatorWebElements):
                     self.utils.print_info(f"The 'loading' mask is still visible. Waiting for {retry_duration} seconds...")
                 else:
                     not_visible_count += 1
-                    self.utils.print_info(f"The 'loading' mask is NOT visible Count: {not_visible_count} of {not_visible_max}")
+                    self.utils.print_info(f"The 'loading' mask is NOT visible Count: {not_visible_count} "
+                                          f"of {not_visible_max}")
 
                 # We want to make sure the spinner is not visible for two seconds because
                 # it can start out as not visible before this function is called.  In other words we might get to this
@@ -3715,7 +3658,8 @@ class Navigator(NavigatorWebElements):
                 sleep(retry_duration)
 
         # After trying {retry_count} times we the spinner never went away or we couldn't get it from selenium
-        kwargs['fail_msg'] = f"The 'loading' mask is either still visible or could not be obtained after {retry_count} tries"
+        kwargs['fail_msg'] = f"The 'loading' mask is either still visible or could not be " \
+                             f"obtained after {retry_count} tries"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -3750,8 +3694,7 @@ class Navigator(NavigatorWebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "Failed to find 'Port" \
-                                     " Configuration' button!"
+                kwargs['fail_msg'] = "Failed to find 'Port Configuration' button!"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
@@ -3803,8 +3746,7 @@ class Navigator(NavigatorWebElements):
             except Exception as e:
                 self.utils.print_info(f"enable_device_page_size, got exception: {e}, with counter: {counter}")
                 if counter == 5:
-                    kwargs['fail_msg'] = "Not able to click on page size with" \
-                                         f" exception: {e}, counter: {counter}"
+                    kwargs['fail_msg'] = f"Not able to click on page size with exception: {e}, counter: {counter}"
                     self.common_validation.fault(**kwargs)
                     return -1
                 else:
@@ -3871,7 +3813,7 @@ class Navigator(NavigatorWebElements):
                 self.screen.save_screen_shot()
                 try_cnt += 1
                 if try_cnt == 10:
-                    self.utils.print_info(f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
+                    self.utils.print_info(f"The MAX {try_cnt} times trying is reached, need figure out manually  why the Network Policy tab can NOT be displayed")
                     return False
         if network_policy_tab_display:
             kwargs['pass_msg'] = " Successfully Navigated to Network Policies Menu"

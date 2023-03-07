@@ -52,8 +52,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
             if self.get_social_wifi_all_login_success_page().is_displayed():
                 return 1
             else:
-                kwargs['fail_msg'] = "Could not connect with internet" \
-                                    " with social login type facebook"
+                kwargs['fail_msg'] = "Could not connect with internet with social login type facebook"
                 self.common_validation.failed(**kwargs)
                 return -1
         except Exception:
@@ -101,8 +100,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_social_wifi_all_login_success_page().is_displayed():
             return 1
         else:
-            kwargs['fail_msg'] = "Could not connect with internet" \
-                                 " with social login type Linkedin"
+            kwargs['fail_msg'] = "Could not connect with internet with social login type Linkedin"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -146,8 +144,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_social_wifi_all_login_success_page().is_displayed():
             return 1
         else:
-            kwargs['fail_msg'] = "Could not connect with internet" \
-                                 " via Google"
+            kwargs['fail_msg'] = "Could not connect with internet via Google"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -200,8 +197,7 @@ class MuGuestPortal(MuGuestPortalWebElements):
         if self.get_social_wifi_all_login_success_page().is_displayed():
             return 1
         else:
-            kwargs['fail_msg'] = "Could not connect with" \
-                                 " internet via Google"
+            kwargs['fail_msg'] = "Could not connect with internet via Google"
             self.common_validation.failed(**kwargs)
             return -1
 

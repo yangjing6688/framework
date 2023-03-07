@@ -70,8 +70,7 @@ class WiredLib():
                 if self.device360.compare_transmission_mode(cnt_str, state,"N/A") == 1:
                     pass
                 else:
-                    kwargs['fail_msg'] = "The status of transmission in XIQ and" \
-                                         " CLI are different"
+                    kwargs['fail_msg'] = "The status of transmission in XIQ and CLI are different"
                     self.common_validation.failed(**kwargs)
                     return -1
             elif operate_duplex_cfg_str == 'AUTO' and not operate_duplex_actual_str.replace(" ", "") == '':
@@ -81,16 +80,14 @@ class WiredLib():
                 if self.device360.compare_transmission_mode(cnt_str, state, operate_duplex_actual_str) == 1:
                     pass
                 else:
-                    kwargs['fail_msg'] = "The status of transmission in " \
-                                         "XIQ and CLI are different"
+                    kwargs['fail_msg'] = "The status of transmission in XIQ and CLI are different"
                     self.common_validation.failed(**kwargs)
                     return -1
             else:
                 if self.device360.compare_transmission_mode(cnt_str, state, operate_duplex_cfg_str) == 1:
                     pass
                 else:
-                    kwargs['fail_msg'] = "The status of transmission in" \
-                                         " XIQ and CLI are different"
+                    kwargs['fail_msg'] = "The status of transmission in XIQ and CLI are different"
                     self.common_validation.failed(**kwargs)
                     return -1
         return 1

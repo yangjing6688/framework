@@ -208,8 +208,7 @@ class AccountManagement(AccntMgmtWebElements):
             sleep(1)
             self.auto_actions.click_reference(self.get_account_mgmt_delete_conf_yes_button)
             sleep(2)
-            kwargs['pass_msg'] = "Account found on grid and got deleted " \
-                                 "successfully"
+            kwargs['pass_msg'] = "Account found on grid and got deleted successfully"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -297,8 +296,8 @@ class AccountManagement(AccntMgmtWebElements):
             self.utils.print_info("tooltip_text: ", tooltip_text)
             if tooltip_text:
                 if "Your account does not have permission to perform that action" in tooltip_text:
-                    kwargs['fail_msg'] = "Found issues in opening Tools. Your account does " \
-                                         "not have permission to perform that action"
+                    kwargs['fail_msg'] = "Found issues in opening Tools. Your account does not have permission to " \
+                                         "perform that action"
                     self.common_validation.failed(**kwargs)
                     return -2
             kwargs['pass_msg'] = "No issues in opening Tools"
@@ -375,19 +374,17 @@ class AccountManagement(AccntMgmtWebElements):
 
         self.utils.print_info("Navigating to Tools page..")
         if self.open_tools_page() == -2:
-            kwargs['fail_msg'] = "Unsuccessfuly navigate to tools page"
+            kwargs['fail_msg'] = "Unsuccessfully navigate to tools page"
             self.common_validation.fault(**kwargs)
             return -2
         else:
             pkt_cap = self.get_packet_capture_button()
             if pkt_cap == 1:
-                kwargs['pass_msg'] = "No issues in opening Tools --> Packet " \
-                                     "Capture page"
+                kwargs['pass_msg'] = "No issues in opening Tools --> Packet Capture page"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "Found issues in opening Tools --> Packet " \
-                                     "Capture page"
+                kwargs['fail_msg'] = "Found issues in opening Tools --> Packet Capture page"
                 self.common_validation.failed(**kwargs)
                 return -2
 

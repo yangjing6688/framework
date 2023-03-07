@@ -303,9 +303,7 @@ class Reports(object):
                 self.utils.print_info(e)
                 self.utils.print_info("Unable to select location")
         else:
-            self.utils.print_info("Cannot select location - location not specified")
-            kwargs['fail_msg'] = "Cannot select location - location not" \
-                                 " specified"
+            kwargs['fail_msg'] = "Cannot select location - location not specified"
             self.common_validation.fault(**kwargs)
 
         return ret_val

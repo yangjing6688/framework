@@ -667,9 +667,7 @@ class SplashTemplate(object):
                 self.utils.print_info(e)
                 self.utils.print_info("Unable to select location")
         else:
-            self.utils.print_info("Cannot select location - location not specified in User Template apply page Page")
-            kwargs['fail_msg'] = "Cannot select location -" \
-                                 " location not specified in User Template apply page Page"
+            kwargs['fail_msg'] = "Cannot select location - location not specified in User Template apply page Page"
             self.common_validation.fault(**kwargs)
 
         return ret_val

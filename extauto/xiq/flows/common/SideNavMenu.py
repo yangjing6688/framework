@@ -234,7 +234,6 @@ class SideNavMenu(NavigatorWebElements):
             self.common_validation.passed(**kwargs)
             return 1
 
-
     def _is_nav_menu_item_enabled(self, tag):
         """
         - This Keyword checks if the specified nav menu item is enabled
@@ -430,8 +429,7 @@ class SideNavMenu(NavigatorWebElements):
             if expected_class in self.get_a3_tab_img_class():
                 return 1
 
-        kwargs['fail_msg'] = "The expected class of the specified main" \
-                             " nav tab does not exists"
+        kwargs['fail_msg'] = "The expected class of the specified main nav tab does not exists"
         self.common_validation.failed(**kwargs)
         return -1
 

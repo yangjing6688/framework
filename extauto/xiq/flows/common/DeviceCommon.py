@@ -331,7 +331,7 @@ class DeviceCommon(DeviceCommonElements):
                 return 1
 
             else:
-                kwargs['fail_msg'] = "'goto_device360_with_client()'->Could not navigate to client page and click on client hyperlink"
+                kwargs['fail_msg'] = "Could not navigate to client page and click on client hyperlink"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -362,8 +362,7 @@ class DeviceCommon(DeviceCommonElements):
                 return 1
 
             else:
-                kwargs['fail_msg'] = "Could not navigate to D360 page and click on" \
-                                     " MAC hyperlink"
+                kwargs['fail_msg'] = "Could not navigate to D360 page and click on MAC hyperlink"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -394,13 +393,12 @@ class DeviceCommon(DeviceCommonElements):
                 return 1
 
             else:
-                kwargs['fail_msg'] = "Could not navigate to D360 page and click" \
-                                     " on host name hyperlink"
+                kwargs['fail_msg'] = "Could not navigate to D360 page and click on host name hyperlink"
                 self.common_validation.failed(**kwargs)
                 return -1
 
         else:
-            kwargs['fail_msg'] = "'goto_device360_with_hostname()'Row with passed device serial is missing"
+            kwargs['fail_msg'] = "Row with passed device serial is missing"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -428,8 +426,7 @@ class DeviceCommon(DeviceCommonElements):
                 self.common_validation.fail(**kwargs)
                 return -1
         self.utils.print_info(f"Select Device Checkbox is Checked with serial number:{device_serial}")
-        kwargs['fail_msg'] = "Select Device Checkbox is Checked with" \
-                             f" serial number:{device_serial}"
+        kwargs['fail_msg'] = f"Select Device Checkbox is Checked with serial number:{device_serial}"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -498,11 +495,9 @@ class DeviceCommon(DeviceCommonElements):
                 ret_val = current
                 self.screen.save_screen_shot()
             else:
-                self.utils.print_info("The Devices Per Page value could not be found.")
                 kwargs['fail_msg'] = "The Devices Per Page value could not be found."
                 self.common_validation.failed(**kwargs)
         else:
-            self.utils.print_info("The Devices Per Page field could not be found.")
             kwargs['fail_msg'] = "The Devices Per Page field could not be found."
             self.common_validation.fault(**kwargs)
 
@@ -528,8 +523,7 @@ class DeviceCommon(DeviceCommonElements):
             return 1
         else:
             self.utils.print_info(f"A Devices Per Page value of {device_count} is not supported.")
-            kwargs['fail_msg'] = f"A Devices Per Page value of {device_count} is" \
-                                 " not supported."
+            kwargs['fail_msg'] = f"A Devices Per Page value of {device_count} is not supported."
             self.common_validation.fault(**kwargs)
 
         return ret_val

@@ -249,9 +249,7 @@ class Onboarding(object):
                 self.utils.print_info(e)
                 self.utils.print_info("Unable to select location")
         else:
-            self.utils.print_info("Cannot select location - location not specified in Eguest Onboarding Add Rule Page")
-            kwargs['fail_msg'] = "Cannot select location - location" \
-                                 " not specified in Eguest Onboarding Add Rule Page"
+            kwargs['fail_msg'] = "Cannot select location - location not specified in Eguest Onboarding Add Rule Page"
             self.common_validation.fault(**kwargs)
 
         return ret_val

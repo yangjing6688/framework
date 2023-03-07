@@ -110,13 +110,10 @@ class ExtremeGuestUsers(object):
 
             except Exception as e:
                 self.utils.print_info(e)
-                self.utils.print_info("Unable to select location")
                 kwargs['fail_msg'] = "Unable to select location"
                 self.common_validation.fault(**kwargs)
         else:
-            self.utils.print_info("Cannot select location - location not specified in Create Bulk Users Page")
-            kwargs['fail_msg'] = "Cannot select location - " \
-                                 "location not specified in Create Bulk Users Page"
+            kwargs['fail_msg'] = "Cannot select location - location not specified in Create Bulk Users Page"
             self.common_validation.failed(**kwargs)
 
         return ret_val
@@ -167,8 +164,7 @@ class ExtremeGuestUsers(object):
             self.common_validation.passed(**kwargs)
             return 1
 
-        kwargs['fail_msg'] = "Unable to create Bulk Vouchers in" \
-                             " Eguest users Page"
+        kwargs['fail_msg'] = "Unable to create Bulk Vouchers in Eguest users Page"
         self.common_validation.failed(**kwargs)
         return -1
 
