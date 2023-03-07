@@ -1,4 +1,5 @@
 import re
+import os
 import random
 import string
 from datetime import datetime, timedelta
@@ -19,7 +20,7 @@ class Utils:
         """
         - Get the config value of a variable
         - Keyword Usage:
-         - ``Get Config Value   VARIABLE``
+        -  ``Get Config Value   VARIABLE``
 
         :param conf_str: Variable name
         :return: value of the variable
@@ -33,7 +34,7 @@ class Utils:
         """
         - greps the second variable in the first string
         - Keyword Usage:
-         - ``Grep   ${OUTPUT}     Version``
+        -  ``Grep   ${OUTPUT}     Version``
 
         :param output_buffer: Buffer in which we grep for search_str
         :param search_str: search string which will be looked inside output_buffer for a match
@@ -52,8 +53,8 @@ class Utils:
         """
         - Get the random string of specified length, default length is 10 characters
         - Keyword Usage:
-         - ``Get Random String``
-         - ``Get Random String   length=5``
+        -  ``Get Random String``
+        -  ``Get Random String   length=5``
 
         :param length: length of the character to generate
         :return: generated random string
@@ -66,7 +67,7 @@ class Utils:
         """
         - Get the random integer in specified upper and lower limit
         - Keyword Usage:
-         - ``Get Random Integer``
+        -  ``Get Random Integer``
 
         :param length:  len of integer
         :param lower_limit: lower limit to generate the integer
@@ -80,8 +81,8 @@ class Utils:
         - Get the random mac
         - By default it will generate mac in the format aa:bb:11:22:33:44
         - Keyword Usage:
-         - ``Get Random Mac``
-         - ``Get Random Mac   delimiter=:``
+        -  ``Get Random Mac``
+        -  ``Get Random Mac   delimiter=:``
 
         :param delimiter:  specify the delimiter ex  "-", ":"
         :return: generated mac
@@ -102,7 +103,7 @@ class Utils:
         """
         - Generate the random ip address
         - Keyword Usage:
-         - ``Get Random Ip``
+        -  ``Get Random Ip``
 
         :return: generated random ip address
         """
@@ -115,7 +116,7 @@ class Utils:
         """
         - embeds 3 png files in to robot framework output log.html file side by side
         - Keyword Usage:
-         - ``Look and Feel   Screen1.png     Screen2.png    Screen3.png``
+        -  ``Look and Feel   Screen1.png     Screen2.png    Screen3.png``
 
         :param first: screenshot or image 1
         :param second: screenshot or image 2
@@ -132,7 +133,7 @@ class Utils:
         """
         - decode given string to ascci
         - Keyword Usage:
-         - ``Decode To Ascii   ${STR}``
+        -  ``Decode To Ascii   ${STR}``
 
         :param _str: str to decode to ascci
         :return: decoded string
@@ -144,7 +145,7 @@ class Utils:
         """
         - check the special character in the given string
         - Keyword Usage:
-         - ``Special CHar Check   ${STR}``
+        -  ``Special CHar Check   ${STR}``
 
         :param _str: str to check the special character
         :return: 0 if special character exists else 1
@@ -159,7 +160,7 @@ class Utils:
         """
         - Check the match string in the target string
         - Keyword Usage:
-         - ``Check Match  ${TARGET_STRING}   ${MATHC}``
+        -  ``Check Match  ${TARGET_STRING}   ${MATHC}``
 
         :param target_string:  target string
         :param match: search string in the target string
@@ -256,7 +257,7 @@ class Utils:
         """
         - check the input string has the digit on it
         - Keyword Usage:
-         - ``Has Number  ${INPUT_STRING}``
+        -  ``Has Number  ${INPUT_STRING}``
 
         :param input_string:
         :return: True if digit in input string else False
@@ -267,7 +268,7 @@ class Utils:
         """
         - Get the time difference between t2 and t1
         - Keyword Usage:
-         - ``Get Utc Time Difference   ${TIME1}  ${TIME2}``
+        -  ``Get Utc Time Difference   ${TIME1}  ${TIME2}``
 
         :param t1: datetime.datetime object
         :param t2: datetime.datetime object
@@ -291,7 +292,7 @@ class Utils:
         """
         - Get the Current Time
         - Keyword Usage:
-         - ``Get Current Time``
+        -  ``Get Current Time``
 
         :return: current time
         """
@@ -302,7 +303,7 @@ class Utils:
         """
         - Get the Current Time in Sec
         - Keyword Usage:
-        - ``Get Current Time In Sec``
+        -  ``Get Current Time In Sec``
 
         :return: current time in sec
         """
@@ -343,7 +344,7 @@ class Utils:
         """
         - Gets the device time from the CLI output of a DUT
         - Keyword Usage:
-         - ``Get Device Time        ${CLI_OUTPUT}``
+        -  ``Get Device Time        ${CLI_OUTPUT}``
 
         :return: device time in hh:mm format
         """
@@ -358,7 +359,8 @@ class Utils:
         """
         - Gets the device date from the CLI output of a DUT
         - Keyword Usage:
-         - ``Get Device Date       ${CLI_OUTPUT}``
+        -  ``Get Device Date       ${CLI_OUTPUT}``
+
         :param output:
         :param separator: can be / or -
         :return: returns a date in mm/dd/yyyy or mm-dd-yyyy format
@@ -474,7 +476,7 @@ class Utils:
         """
         - Get last specified time delta
         - Example:
-         - if  t1='2020-05-19 03:57'  last_24_hour_time=''2020-05-18 03:57''
+        - if  t1='2020-05-19 03:57'  last_24_hour_time=''2020-05-18 03:57''
 
         :param t1: present time
         :param hour: time in hour to get the previous time
@@ -511,6 +513,7 @@ class Utils:
     def get_utc_iso_time_format(self):
         """
         - This keyword is used to get the time in ISO Format
+
         :return: ISO time now
         """
         datetime_utc = datetime.utcnow().isoformat()
@@ -521,8 +524,8 @@ class Utils:
         """
         - Get the utc time after the specified time delta in hour
         - Example:
-         - if utc time is:         utc_time        = 2020-04-24 03:12:04.905116
-         - utc time after delta    utc_after_10min = 2020-04-25 03:12:04.905116
+        -  if utc time is:         utc_time        = 2020-04-24 03:12:04.905116
+        -  utc time after delta    utc_after_10min = 2020-04-25 03:12:04.905116
 
         :param utc_time:
         :param hour:
@@ -537,8 +540,8 @@ class Utils:
         """
         - Get the utc time after the specified time delta in minutes
         - Example:
-         - if utc time :           utc_time        = 2020-04-24 03:12:04.905116
-         - utc time after delta    utc_after_10min = 2020-04-24 03:23:09.519271
+        -  if utc time :           utc_time        = 2020-04-24 03:12:04.905116
+        -  utc time after delta    utc_after_10min = 2020-04-24 03:23:09.519271
 
         :param utc_time:
         :param minutes:
@@ -583,6 +586,7 @@ class Utils:
     def split_string_into_3_parts(self, info):
         """
         - This keyword splits a string in to 3 equal parts
+
         :param info: input string
         :return: returns 3 strings by dividing the input string
         """
@@ -599,6 +603,7 @@ class Utils:
     def get_first_half_of_mac(self, mac):
         """
         - This keyword returns the first half of a MAC
+
         :param mac: MAC
         :return: returns first half of MAC
         """
@@ -611,6 +616,7 @@ class Utils:
     def get_first_half_of_network_policy(self, network_policy):
         """
         - This keyword returns the first half of a Network Policy
+
         :param network_policy: network_policy
         :return: returns first half of MAC
         """
@@ -667,7 +673,7 @@ class Utils:
 
     def switch_to_default(self, driver):
         """
-        -This keyword Will Switch to default frame
+        - This keyword Will Switch to default frame
         """
         self.print_info("<<<Switching to Default>>>")
         time.sleep(5)
@@ -680,7 +686,7 @@ class Utils:
 
     def switch_to_iframe(self, driver):
         """
-        -This keyword Will Switch to iframe
+        - This keyword Will Switch to iframe
         """
         self.print_info("*>>> Switching to IFrame <<<")
         try:
@@ -701,7 +707,7 @@ class Utils:
         """
         - This keyword is used to add days/hours/minutes/seconds to the date-time  which is passed as argument.
         -  Keyword Usage:
-         - `` Date Time Addition  date_time=2020-10-20 12:03:47    days=5     hours=13    minutes=4      seconds=2``
+        -  `` Date Time Addition  date_time=2020-10-20 12:03:47    days=5     hours=13    minutes=4      seconds=2``
 
         :param date_time: date and time should be of format : %Y-%m-%d %H:%M:%S
         :param days: Number of days to be added.
@@ -799,6 +805,7 @@ class Utils:
         """
         Take a port_range string of form '1-3,5,10,12-15' and return list of individual ports
         as shown here [1,2,3,5,10,12,13,14,15]
+
         :param port_range:
         :return:
         """
@@ -814,20 +821,27 @@ class Utils:
     def get_current_time_in_milliseconds(self):
         """
         - This keyword is used to get the current time in milliseconds.
-        -  Keyword Usage:
-        - `` Get Current Time In Milliseconds``
+        - Keyword Usage:
+        -  `` Get Current Time In Milliseconds``
+
         :return: time in milliseconds
         """
         timestamp = int(time.time())
         self.print_info("Current time in milliseconds: ", timestamp)
         return timestamp
 
+    def get_time_in_milliseconds(self, diff=0):
+        time_millies = int(round(time.time() * 1000) - diff)
+
+        return time_millies
+
     def convert_time_to_milliseconds(self, time_str):
         """
         - This keyword converts given time to milliseconds.
-        -  Keyword Usage:
-        - `` Convert Time To Milliseconds 12:03:47``
+        - Keyword Usage:
+        -  `` Convert Time To Milliseconds 12:03:47``
         -  In above case it returns value as 43427000
+
         :param time_str: time should be of format : %H:%M:%S
         :return: time in milliseconds
         """
@@ -839,8 +853,9 @@ class Utils:
     def get_time_difference_in_milliseconds(self, time1, time2):
         """
         - This keyword is used to get the time difference in milliseconds.
-        -  Keyword Usage:
-        - `` Get Time Difference In Milliseconds  1622696034870  24:03:47``
+        - Keyword Usage:
+        -  `` Get Time Difference In Milliseconds  1622696034870  24:03:47``
+
         :param time1: Timestamp in milliseconds
         :param time2: Time in format : %H:%M:%S and should be greater than 24 hours
         :return: time in milliseconds
@@ -855,6 +870,7 @@ class Utils:
     def get_current_date(self):
         """
         Get current date with %Y-%m-%d format
+
         :return: date
         """
         now = datetime.now()
@@ -865,6 +881,7 @@ class Utils:
     def convert_string_to_date(self, str, pattern="(\\d+)"):
         '''
         This function covets a string into a date
+
         :param str: The date as string
         :param pattern: A Regex which match the date
         :return:
@@ -1065,3 +1082,36 @@ class Utils:
             return int(group)
         except ValueError:
             return group
+
+    @staticmethod
+    def dut_model_edit(sw_model):
+        """
+        Function used to modify the model name from yaml file to accommodate the format used when creating a new template.
+        :return: Modified switch template model.
+        """
+        if ('SwitchEngine' in sw_model or 'FabricEngine' in sw_model) and sw_model.count('_') == 1:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)$', r'\1 \2 \3-\4', sw_model)
+        elif ('SwitchEngine' in sw_model or 'FabricEngine' in sw_model) and sw_model.count('_') == 2:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)_(\d*[A-Z]*)$',
+                          r'\1 \2 \3-\4-\5', sw_model)
+        elif ('SwitchEngine' in sw_model or 'FabricEngine' in sw_model) and sw_model.count('_') == 3:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)_(\d*[A-Z]*)_(\d*[A-Z]*)$',
+                          r'\1 \2 \3-\4-\5-\6', sw_model)
+        elif ('SwitchEngine' not in sw_model or 'FabricEngine' not in sw_model) and sw_model.count('_') == 1:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)$', r'\1 \2 \3-\4', sw_model)
+        elif ('SwitchEngine' not in sw_model or 'FabricEngine' not in sw_model) and sw_model.count('_') == 2:
+            return re.sub(r'(^[A-Z][a-z]*\d*)_(\d*[A-Z]*|\d*)_(\d*[A-Z]*|\d*)$', r'\1-\2-\3', sw_model)
+        elif ('SwitchEngine' in sw_model or 'FabricEngine' in sw_model) and sw_model.count('_') == 3:
+            return re.sub(r'(^[A-Z][a-z]*)([A-Z][a-z]*)(\d*[A-Z]|\d*)_(\d*[A-Z]*)_(\d*[A-Z]*)_(\d*[A-Z]*)$',
+                          r'\1 \2 \3-\4-\5-\6', sw_model)
+
+    def file_exists(self,file_name):
+        """
+          - This function will check whether mentioned file_name exists in the directory or not
+          - Keyword Usage:
+            `` File Exists  ${FILE_PATH}``
+
+        :param file_name:  File Name in Current Directory or File Path
+        :return: True if file exist else False
+        """
+        return os.path.isfile(file_name)

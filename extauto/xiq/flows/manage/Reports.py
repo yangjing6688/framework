@@ -20,7 +20,7 @@ class Reports(ReportsWebElements):
         - Flow: Manage --> Reports
         - Default summary report will generate the reports with default options
         - Keyword Usage:
-         - ``Get Default Network Summary Report  @{EMAIL_LIST}``
+        - ``Get Default Network Summary Report  @{EMAIL_LIST}``
 
         :param email_list: list of the emails to send the reports
         :return: 1
@@ -36,7 +36,7 @@ class Reports(ReportsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on report send button")
-        self.auto_actions.click(self.get_generate_report_button())
+        self.auto_actions.click_reference(self.get_generate_report_button)
         sleep(3)
 
         self.screen.save_screen_shot()

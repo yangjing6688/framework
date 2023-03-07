@@ -20,10 +20,10 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_openmanage_domains(self):
         """
-         - This keyword selects the "Open/Manage Domain(s)" and display its dropdown menu
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select openmanage domains
+        - This keyword selects the "Open/Manage Domain(s)" and display its dropdown menu
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select openmanage domains
 
         :return: 1 if action was successful, else -1
         """
@@ -42,11 +42,11 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_open_domain_menu(self):
         """
-         - This keyword selects the "Open Domain" menu. This will activate the secondary dropdown menu with a list
-         -   of policy domains that have already been created.
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select open domain menu
+        - This keyword selects the "Open Domain" menu. This will activate the secondary dropdown menu with a list
+        -   of policy domains that have already been created.
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select open domain menu
 
         :return: 1 if action was successful, else -1
         """
@@ -67,10 +67,10 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_lock_domain_menu(self):
         """
-         - This keyword selects the "Lock Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select lock domain menu
+        - This keyword selects the "Lock Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select lock domain menu
 
         :return: 1 if action was successful, else -1
         """
@@ -90,11 +90,11 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_save_domain_menu(self):
         """
-         - This keyword selects the "Save Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -    and starts the Save Domain action.
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select save domain menu
+        - This keyword selects the "Save Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -    and starts the Save Domain action.
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select save domain menu
 
         :return: 1 if action was successful, else -1
         """
@@ -115,11 +115,11 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_enforce_domain_menu(self):
         """
-         - This keyword selects the "Enforce Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -    and starts the Enforce Domain process.
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select enforce domain menu
+        - This keyword selects the "Enforce Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -    and starts the Enforce Domain process.
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select enforce domain menu
 
         :return: 1 if action was successful, else -1
         """
@@ -139,11 +139,11 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_enforce_preview_menu(self):
         """
-         - This keyword selects the "Enforce Preview" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -   and launches the Enforce Preview window
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select enforce preview menu
+        - This keyword selects the "Enforce Preview" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -   and launches the Enforce Preview window
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select enforce preview menu
 
         :return: 1 if action was successful, else -1
         """
@@ -163,11 +163,11 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_verify_domain_menu(self):
         """
-         - This keyword selects the "Verify Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -    and starts the Verify Domain action
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select verify domain menu
+        - This keyword selects the "Verify Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -    and starts the Verify Domain action
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select verify domain menu
 
         :return: 1 if action was successful, else -1
         """
@@ -187,11 +187,11 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_assign_devices_to_domain_menu(self):
         """
-         - This keyword selects the "Assign Device(s) to Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -    and launches the Assign Device(s) to Domain window.
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select assign devices to domain menu
+        - This keyword selects the "Assign Device(s) to Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -    and launches the Assign Device(s) to Domain window.
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select assign devices to domain menu
 
         :return: 1 if action was successful, else -1
         """
@@ -211,11 +211,11 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_create_domain_menu(self):
         """
-         - This keyword selects the "Create Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -    and launches the Create Domain window.
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select save domain menu
+        - This keyword selects the "Create Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -    and launches the Create Domain window.
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select save domain menu
 
         :return: 1 if action was successful, else -1
         """
@@ -237,11 +237,11 @@ class XIQSE_ControlPolicyDomainOpenManageMenu(ControlPolicyDomainOpenManageMenuW
 
     def xiqse_control_policy_select_delete_domain_menu(self):
         """
-         - This keyword selects the "Delete Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
-         -    and launches the Delete Domain window.
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse select save domain menu
+        - This keyword selects the "Delete Domain" menu option from the "Open/Manage Domain(s)" dropdown menu
+        -    and launches the Delete Domain window.
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse select save domain menu
 
         :return: 1 if action was successful, else -1
         """

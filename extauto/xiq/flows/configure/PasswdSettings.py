@@ -15,15 +15,15 @@ class PasswdSettings(PasswdSettingsWebElements):
         """
         - If password type is PPSK we have to mention the psk generation method
         - PSK Generation method takes below two values
-         - Password Only
-         - User String Password
+        - Password Only
+        - User String Password
 
         :param psk_gen_method:  PSK gen method
         :param concatenating_str: concatenate the user string to password
         :return: None
         """
         self.utils.print_info("PSK generation method:{}".format(psk_gen_method))
-        self.auto_actions.click(self.get_psk_generation_method_drop_down())
+        self.auto_actions.click_reference(self.get_psk_generation_method_drop_down)
         sleep(2)
 
         psk_gen_opts = self.get_psk_generation_method_options()
@@ -42,8 +42,8 @@ class PasswdSettings(PasswdSettingsWebElements):
         - This keyword is called along with user group creation
         - For standalone call, assumes that navigated to configure-->users-->user groups --> add user
         - Keyword Usage:
-         - ``Config Password Settings   &{PASSWORD_CONFIG}``
-         - for &{PASSWORD_CONFIG} creation refer user_groups_config.robot "Password Settings" section
+        - ``Config Password Settings   &{PASSWORD_CONFIG}``
+        - for &{PASSWORD_CONFIG} creation refer user_groups_config.robot "Password Settings" section
 
         :param passwd_config: password config parameters
         :return: 1 if configured else None
@@ -78,7 +78,7 @@ class PasswdSettings(PasswdSettingsWebElements):
             self.auto_actions.disable_check_box(self.get_special_character_check_box())
 
         self.utils.print_info("enforce the use of :{}".format(enforce_use_of))
-        self.auto_actions.click(self.get_enforce_use_of_drop_down())
+        self.auto_actions.click_reference(self.get_enforce_use_of_drop_down)
         sleep(2)
 
         enforce_opts = self.get_enforce_use_of_options()
@@ -88,7 +88,7 @@ class PasswdSettings(PasswdSettingsWebElements):
             self._config_psk_gen_method(psk_gen_method, concatenating_str)
 
         self.utils.print_info("Generate Password length:{}".format(gen_passwd_len))
-        self.auto_actions.click(self.get_generate_password_length_drop_down())
+        self.auto_actions.click_reference(self.get_generate_password_length_drop_down)
         sleep(2)
 
         gen_passwd_len_opts = self.get_generate_password_length_options()

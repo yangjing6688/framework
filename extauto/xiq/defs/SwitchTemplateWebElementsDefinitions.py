@@ -20,7 +20,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_name_textfield = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='tplName']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-name']",
             'wait_for': 5
         }
 
@@ -42,8 +42,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_enable_stp = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='stpMode-stp']",
-            'wait_for': 5
+            'XPATH': "//*[@data-dojo-attach-point='stpMode-stp']"
         }
 
     sw_template_enable_rstp = \
@@ -448,8 +447,8 @@ class SwitchTemplateWebElementDefinitions:
 
     priority_options = \
         {
-            'XPATH': '//*[@class="line clearfix priority"]//*[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 2
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-bridge-dropdown-chzn-arrow-down"]'
+
         }
 
     low_value_option = \
@@ -470,10 +469,14 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 2
         }
 
+    priority_items_select_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-bridge-dropdown-chzn-results-ctn"]'
+        }
+
     priority_items_select = \
         {
-            'XPATH': '//div[@class="pse-profileobject-form ui-dialog-content"]//ul[@class="chzn-results qa-chzn-results-priority"]//li[contains(@class,"active-result")]',
-            'wait_for': 2
+            'CSS_SELECTOR': '.active-result'
         }
 
     power_mode_items_select = \
@@ -677,6 +680,16 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 2
         }
 
+    sw_template_device_sett_forward_delay_drop_down_items_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-results-ctn"]'
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_items_all_items = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
     sw_template_device_sett_forward_delay_drop_down_item16 = \
         {
             'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-16"]',
@@ -781,4 +794,308 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_assign_existing_trunk_choice_second_dialog_box_save_button = \
         {
             'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]'
+        }
+
+    pse_error_message = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'index': 0,
+        }
+
+    sw_template_port_details_interface_all_rows = \
+        {
+            'CSS_SELECTOR': '.state-expanded.state-type-autoSense-port'
+        }
+
+    sw_template_port_details_row_interface_value = \
+        {
+            'CSS_SELECTOR': '.is-not-prime'
+        }
+
+    sw_template_port_details_row_combo = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-port-details-port-type']",
+            'wait_for': 5
+        }
+
+    sw_template_port_details_combo_list = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='containerNode,textDirNode']",
+            'wait_for': 5
+        }
+
+    sw_template_port_details_row_port_type_list = \
+        {
+            'CSS_SELECTOR': '.dijitReset.dijitMenuItem'
+        }
+
+    sw_template_port_details_port_type_editor_name = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-name']"
+        }
+
+    sw_template_port_details_port_type_editor_description = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-description']"
+        }
+
+    sw_template_port_details_port_type_editor_status = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-status']"
+        }
+
+    sw_template_port_details_port_type_editor_auto_sense_status = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-auto-sense-status']"
+        }
+
+    sw_template_port_details_port_type_editor_access = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-access']"
+        }
+
+    sw_template_port_details_port_type_editor_trunk = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-trunk']"
+        }
+
+    sw_template_port_details_port_type_editor_cancel = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-cancel']"
+        }
+
+    sw_template_port_details_port_type_editor_previous = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-prev']"
+        }
+
+    sw_template_port_details_port_type_editor_next = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-next']"
+        }
+
+    sw_template_port_details_port_type_editor_save = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-save']"
+        }
+
+    sw_template_port_details_port_type_editor_duplex_arrow = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-duplex-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_duplex_options_container = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-duplex-chzn-results-ctn']"
+        }
+
+    sw_template_port_details_port_type_editor_duplex_arrow_options = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+    sw_template_port_details_port_type_editor_speed_arrow = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-speed-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_speed_options_container = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-speed-chzn-results-ctn']"
+        }
+
+    sw_template_port_details_port_type_editor_speed_arrow_options = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+    sw_template_port_details_port_type_options = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+    sw_template_port_details_port_type_editor_client_reporting = \
+        {
+            'XPATH': '//*[@id="hcApp/deviceConfig/switchFeatures/porttypes/steps/PortTypesSettingsView_3"]/div[2]/div[2]/div[1]/span[2]/label/input'
+        }
+
+    sw_template_port_details_port_type_editor_cdp_receive = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-cdp']"
+        }
+
+    sw_template_port_details_port_type_editor_lldp_transmit = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-lldp-tx']"
+        }
+
+    sw_template_port_details_port_type_editor_lldp_receive = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-lldp-rx']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_broadcast = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-sc-broadcast']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_unicast = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-sc-unicast']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_multicast = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-sc-multicast']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_threshold = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-sc-threshold-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_rate_limit_type = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-sc-rate-limit-type-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_rate_limit_value = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-sc-rate-limit-value']"
+        }
+
+    sw_template_port_details_port_type_editor_port_name_and_usage_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-info']"
+        }
+
+    sw_template_port_details_port_type_editor_transmission_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-trans']"
+        }
+
+    sw_template_port_details_port_type_editor_storm_control_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-storm-control']"
+        }
+
+    sw_template_port_details_port_type_editor_summary_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-summary']"
+        }
+
+    sw_template_port_details_port_type_editor_vlan_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-vlan']"
+        }
+
+    sw_template_port_details_port_type_editor_stp_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-stp']"
+        }
+
+    device_switch_select_button = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-device-templates-reusable-btn']"
+        }
+
+    sw_template_table_rows = \
+        {
+            'CSS_SELECTOR': '.dojoxGridRow'
+        }
+
+    switch_template_device_configuration_igmp_settings = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-igmp-toggle']"
+        }
+
+    switch_template_device_configuration_igmp_immediate_leave = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-immediate-leave']"
+        }
+
+    switch_template_device_configuration_igmp_suppress_independent = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-suppress-independent']"
+        }
+
+    switch_template_device_configuration_mtu_1522 = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='ethMtu-min']"
+        }
+
+    switch_template_device_configuration_mtu_1950 = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='ethMtu-mid']"
+        }
+
+    switch_template_device_configuration_mtu_9600 = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='ethMtu-max']"
+        }
+
+    switch_template_device_configuration_pse_enable = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-pse-toggle']"
+        }
+
+    switch_template_device_configuration_pse_budget = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-pse-budget']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_stp_enable = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-stp-enable']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-stp-edge-port']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_bdu_protection = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-stp-bpdu-prot-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_priority = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-stp-priority-chzn-drop-ctn']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_path_cost = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-stp-path-cost']"
+        }
+
+    sw_template_port_details_port_type_editor_vlan_native_vlan = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-native-vlan-input']"
+        }
+
+    sw_template_port_details_port_type_editor_vlan_add_button = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-native-vlan-add-btn']"
+        }
+
+    sw_template_port_details_port_type_editor_vlan_allowed_vlans = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-allowed-vlans']"
+        }
+
+    sw_template_device_max_age_drop_down_items = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-age-dropdown-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_max_age_delay_items_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-age-dropdown-chzn-results-ctn"]'
+        }
+
+    sw_template_device_max_age_drop_down_all_items = \
+        {
+            'CSS_SELECTOR': '.active-result'
         }

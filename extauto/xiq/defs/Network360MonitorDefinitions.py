@@ -193,3 +193,63 @@ class Network360MonitorDefinitions:
             'CSS_SELECTOR': '[id="dgrid_18"] .dgrid-row-table tr th[class^="dgrid-cell dgrid-colum"][role="columnheader"]',
             'wait_for': 5
         }
+
+    n360_device_health_column_header_mac = \
+        {
+            'CSS_SELECTOR': '.dgrid-cell.dgrid-column-2.field-macAddress.w175.black3.dgrid-sortable',
+            'wait_for': 5
+        }
+    n360_device_health_column_header_hostname = \
+        {
+            'CSS_SELECTOR': '.dgrid-cell.dgrid-column-1.field-hostName.w175.black3.dgrid-sortable',
+            'wait_for': 5
+        }
+
+    n360_device_health_total_usage = \
+        {
+            'CSS_SELECTOR': '.fw200',
+            'wait_for': 5
+        }
+
+    n360_device_health_download_button = \
+        {
+            'XPATH': '//*[@data-tip="Download"]',
+            'wait_for': 5
+        }
+
+    n360_device_health_column_header = \
+        {
+            'CSS_SELECTOR': '.dgrid-row-table',
+            'index': 3,
+            'wait_for': 5
+        }
+
+    n360_monitor_port_device_health_usage_table_rows = \
+        {
+            "XPATH": "//div[@class='dgrid-content ui-widget-content']//div[@role='row']",
+            'wait_for': 5
+        }
+
+    n360_monitor_port_connection_speed_table_grid_rows = \
+        {
+            "XPATH": "//div[@data-automation-tag='switches-port-connection-speed-grid-containter']//*[@data-dojo-attach-point='gridContent']//*[@class='dgrid-row-table']",
+            'wait_for': 5
+        }
+
+    n360_monitor_port_connection_speed_table_td_gridcell = \
+        {
+            "XPATH": ".//tr//td[@role='gridcell']",
+            'wait_for': 5
+        }
+
+    n360_monitor_device_health_th_columns = \
+        {
+            'CSS_SELECTOR': '.dgrid-row-table',
+            'wait_for': 5
+
+            # "XPATH": "//*[@role='columnheader']",
+            # 'wait_for': 5
+        }
+
+
+

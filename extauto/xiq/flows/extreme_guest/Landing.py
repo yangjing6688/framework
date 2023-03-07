@@ -5,6 +5,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestLandingWebElements import ExtremeGuestLandingWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 from time import sleep
 
 
@@ -19,10 +20,11 @@ class Landing(object):
         self.auto_actions = AutoActions()
         self.landing_web_elem = ExtremeGuestLandingWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
-    def check_all_landing_page_widgets(self):
+    def check_all_landing_page_widgets(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Page and check all widgets
+        - This keyword Will Navigate to Extreme Guest Page and check all widgets
         - Flow: XIQ--> Extreme Guest
         - Keyword Usage:
             ''check all landing page widgets''
@@ -71,20 +73,24 @@ class Landing(object):
             all_displayed = False
 
         if all_displayed:
+            kwargs['pass_msg'] = "Successfully Navigated to Extreme Guest Page and check all widgets"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = f"'check_all_landing_page_widgets()' -> {all_displayed}"
+            self.common_validation.failed(**kwargs)
             return 0
 
-    def check_map_location_widget(self):
+    def check_map_location_widget(self, **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Page and check map widget marker
+        - This keyword Will Navigate to Extreme Guest Page and check map widget marker
         - Flow: XIQ--> Extreme Guest
         - Keyword Usage:
             ''Check Map Location Widget''
 
         :return: 1 if widget is displayed
         """
-        if self.auto_actions.click(self.landing_web_elem.get_extreme_guest_map_location_marker()):
+        if self.auto_actions.click_reference(self.landing_web_elem.get_extreme_guest_map_location_marker):
             print("Online Users Count: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_users_count().text)
             print("Total Users Count: ", self.landing_web_elem.get_extreme_guest_map_location_marker_total_users_count().text)
             print("Total Users Today: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_today('Total Users').text)
@@ -93,6 +99,11 @@ class Landing(object):
             print("New Users Yesterday: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_yesterday('New Users').text)
             print("Return Users Today: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_today('Return Users').text)
             print("Return Users Yesterday: ", self.landing_web_elem.get_extreme_guest_map_location_marker_online_table_rows_yesterday('Return Users').text)
-            self.screen.save_screen_shot()
+
+            kwargs['pass_msg'] = "Successfully Navigated to Extreme Guest Page and check map widget marker"
+            self.common_validation.passed(**kwargs)
             return 1
+
+        kwargs['fail_msg'] = "'check_map_location_widget()' -> Widget is not displayed"
+        self.common_validation.failed(**kwargs)
         return -1

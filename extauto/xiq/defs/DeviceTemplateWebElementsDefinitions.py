@@ -402,7 +402,7 @@ class DeviceTemplateWebElementDefinitions:
 
     ap_template_scli_enter_commands = \
         {
-            'XPATH': '//textarea[@data-dojo-attach-point="cli"]',
+            'XPATH': '//div[@id="ah/comp/configuration/commonObject/CLISupplementObject_1"]//textarea[@data-dojo-attach-point="cli"]',
             'wait_for': 5
         }
 
@@ -447,4 +447,20 @@ class DeviceTemplateWebElementDefinitions:
             'XPATH': '//div[@data-automation-tag="automation-country-code"]'
                      '//ul[@data-automation-tag="automation-chzn-results-ctn"]//li',
             'wait_for': 20
+        }
+
+    device_switch_template_menue_filter = \
+        {
+            'XPATH': "//*[@automation-tag='automation-switch-device-templates-menu-filter']"
+        }
+
+    switch_template_device_configuration_igmp_settings = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-igmp-toggle']"
+        }
+
+    device_ap_template_search_inputfield = \
+        {
+            'XPATH': '//input[@automation-tag="automation-wireless-device-templates-menu-filter"]',
+            'wait_for': 15
         }

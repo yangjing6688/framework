@@ -12,10 +12,10 @@ class XIQSE_NetworkDevicesTreePanelCreateSite(NetworkDevicesTreePanelCreateSiteW
 
     def xiqse_create_site_dialog_set_name(self, the_value):
         """
-         - This keyword sets the Name value in the Create Site dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Create Site Set Name  MySite``
+        - This keyword sets the Name value in the Create Site dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Create Site Set Name  MySite``
 
         :param the_value:  Name value to enter in the Create Site dialog
         :return: 1 if action was successful, else -1
@@ -35,10 +35,10 @@ class XIQSE_NetworkDevicesTreePanelCreateSite(NetworkDevicesTreePanelCreateSiteW
 
     def xiqse_create_site_dialog_click_ok(self):
         """
-         - This keyword clicks the OK button in the Create Site dialog.
-         - It is assumed the Create Site dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Create Site Click OK``
+        - This keyword clicks the OK button in the Create Site dialog.
+        - It is assumed the Create Site dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Create Site Click OK``
 
         :return: 1 if action was successful, else -1
         """
@@ -71,10 +71,10 @@ class XIQSE_NetworkDevicesTreePanelCreateSite(NetworkDevicesTreePanelCreateSiteW
 
     def xiqse_create_site_dialog_click_cancel(self):
         """
-         - This keyword clicks the Cancel button in the Create Site dialog.
-         - It is assumed the Create Site dialog is already open.
-         - Keyword Usage
-          - ``XIQSE Create Site Click Cancel``
+        - This keyword clicks the Cancel button in the Create Site dialog.
+        - It is assumed the Create Site dialog is already open.
+        - Keyword Usage
+        - ``XIQSE Create Site Click Cancel``
 
         :return: 1 if action was successful, else -1
         """

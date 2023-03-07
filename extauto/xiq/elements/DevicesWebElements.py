@@ -1010,8 +1010,8 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return None
 
-    def get_device_stack_template_click(self):
-        return self.weh.get_element(self.device_stack_template_click)
+    def get_device_stack_template_click(self,row):
+        return self.weh.get_element(self.device_stack_template_click, row)
 
     def get_create_template_click(self):
         return self.weh.get_element(self.create_template_click)
@@ -1337,3 +1337,14 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: Devices -> Device Row -> Device's 'Model' column -> Device model element
         """
         return self.weh.get_element(self.device_model, parent=device_row)
+
+    def get_device_serial_number(self, row, field='field-serialNumber'):
+        """
+        :param device_row: the device parent row
+        :param field: serial number field in attribute
+        :return: Devices -> Device Row -> serial # column
+        """
+        cells = self.weh.get_elements(self.devices_page_grid_cells, row)
+        for cell in cells:
+            if field in cell.get_attribute("class"):
+                return cell

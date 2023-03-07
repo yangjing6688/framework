@@ -203,6 +203,7 @@ try:
     from extauto.xiq.flows.manage.FilterManageDevices import FilterManageDevices
     from extauto.xiq.flows.manage.Reports import Reports
     from extauto.xiq.flows.manage.Switch import Switch
+    from extauto.xiq.flows.manage.XiqVerifications import XiqVerifications
     from extauto.xiq.flows.manage.Tools import Tools
     from extauto.xiq.flows.mlinsights.MLInsightClient360 import MLInsightClient360
     ## -- typo in lib ---from extauto.xiq.flows.mlinsights.MLInsights import MLInsights
@@ -219,6 +220,7 @@ try:
     from extauto.app.flows.DeviceName import DeviceName
     from extauto.app.flows.FlashLed import FlashLed
     from extauto.app.flows.RemoveDevice import RemoveDevice
+    from extauto.common.Debugging import Debugging
 
 
 
@@ -303,6 +305,8 @@ class XiqLibrary():
         self.xflowsmlinsightsMLInsightClient360 = MLInsightClient360()
         self.xflowsmlinsightsNetwork360Plan = Network360Plan()
         self.xflowsmlinsightsNetwork360Monitor = Network360Monitor()
+        self.xflowsmanageXiqVerifications = XiqVerifications()
+        self.xflowsDebuggging = Debugging()
 
 
     @deprecated("Please use self.xiq.login.login_user(...)")

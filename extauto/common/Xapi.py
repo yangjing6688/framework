@@ -218,6 +218,18 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
+        if result_code == 'response_map':            
+            httpCode = 200
+            if 'HTTP/2 200' in str(stderr):
+                httpCode = 200
+            elif 'HTTP/2 400' in str(stderr):
+                httpCode = 400
+            elif 'HTTP/2 500' in str(stderr):
+                httpCode = 500
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            return httpCode, stdout        
+
         if result_code:
             if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
                 return 1
@@ -240,7 +252,7 @@ class Xapi:
         url = base_url + path
 
         curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=@{file_path}' "
-
+        
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())
 
@@ -294,6 +306,8 @@ class Xapi:
 
         self.utils.print_info("URL Path : ", path)
         self.utils.print_info("PUT Data: ", put_data)
+        
+        self.utils.print_info("result_code: ", result_code)
 
         if access_token == "default":
             access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
@@ -304,7 +318,7 @@ class Xapi:
         if put_data == "default":
             curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
         else:
-            curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + put_data
+            curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'  -d '" + put_data + "'"
 
         # curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d "  + put_data
 
@@ -319,18 +333,20 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
-        if result_code == 'response_map':
+        if result_code == 'response_map':            
             httpCode = 200
-            if 'HTTP/1.1 200' in str(stderr):
+            if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
-            elif 'HTTP/1.1 400' in str(stderr):
+            elif 'HTTP/2 400' in str(stderr):
                 httpCode = 400
-            elif 'HTTP/1.1 500' in str(stderr):
+            elif 'HTTP/2 500' in str(stderr):
                 httpCode = 500
-            return {'httpCode': httpCode, 'response': stdout}
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            return httpCode, stdout
 
         if result_code:
-            if 'HTTP/1.1 200' in str(stderr):
+            if 'HTTP/2 200' in str(stderr):
                 return 1
         return stdout
 
@@ -399,15 +415,17 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
-        if result_code == 'response_map':
+        if result_code == 'response_map':            
             httpCode = 200
-            if 'HTTP/1.1 200' in str(stderr):
+            if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
-            elif 'HTTP/1.1 400' in str(stderr):
+            elif 'HTTP/2 400' in str(stderr):
                 httpCode = 400
-            elif 'HTTP/1.1 500' in str(stderr):
+            elif 'HTTP/2 500' in str(stderr):
                 httpCode = 500
-            return {'httpCode': httpCode, 'response': stdout}
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            return httpCode, stdout
 
         if result_code:
             if 'HTTP/1.1 200' in str(stderr):
@@ -444,15 +462,17 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
-        if result_code == 'response_map':
+        if result_code == 'response_map':            
             httpCode = 200
             if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
-            elif 'HTTP/1.1 400' in str(stderr):
+            elif 'HTTP/2 400' in str(stderr):
                 httpCode = 400
-            elif 'HTTP/1.1 500' in str(stderr):
+            elif 'HTTP/2 500' in str(stderr):
                 httpCode = 500
-            return {'httpCode': httpCode, 'response': stdout}
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            return httpCode, stdout
 
         if result_code:
             if 'HTTP/2 200' in str(stderr):
@@ -701,6 +721,7 @@ class Xapi:
     def get_index_id_from_list_json(self, json_data, index):
         """
          - This Keyword is used to get the specific id for the specified index of list json
+
          :param json_data:  the list of json data
          :param index: the index of list
          :return: returns id
@@ -791,10 +812,56 @@ class Xapi:
                 return -1
         return stdout
 
+ 
+    def rest_api_v3(self, path, operation="POST", data="default", access_token="default", return_output="default",
+                        result_code="default", role="default"):
+        """
+        - This Keyword is used to perform a rest-api operation and return the output or -1 based on 'result_code' 
+
+        :param path: API Endpoint path
+        :param operation: API Operation(GET/POST/DELETE/PUT/PATCH)
+        :return: returns output or -1
+        """
+
+        self.utils.print_info("Return Output :", return_output)
+        self.utils.print_info("Role : ", role)
+
+        self.utils.print_info("URL Path : ", path)
+        self.utils.print_info("Data: ", data)
+
+        if access_token == "default":
+            access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
+
+        base_url = BuiltIn().get_variable_value("${BASE_URL}")
+        url = base_url + path
+
+        if data == "default":
+            curl_cmd = f"curl -v --location --request {operation} '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
+        else:
+            curl_cmd = f"curl -v --location --request {operation} '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + data
+
+        self.utils.print_info("*****************************")
+        self.utils.print_info("Curl Command: ", curl_cmd.encode())
+
+        process = subprocess.Popen(curl_cmd, shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+
+        self.utils.print_info("stdout: ", stdout)
+        self.utils.print_info("stderr: ", stderr)
+
+        if result_code:
+            if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
+                return stdout
+            else:
+                return -1       
+
 
     def get_index_nw_policy_name_from_list_json(self, json_data, index):
         """
          - This Keyword is used to get the specific network policy name for the specified index of list json
+
          :param json_data:  the list of json data
          :param index: the index of list
          :return: returns id
@@ -805,6 +872,7 @@ class Xapi:
     def get_index_device_admin_state_from_list_json(self, json_data, index):
         """
         - This Keyword is used to get the specific device admin state for the specified index of list json
+
         :param json_data:  the list of json data
         :param index: the index of list
         :return: returns id
@@ -814,6 +882,7 @@ class Xapi:
     def get_index_connected_status_from_list_json(self, json_data, index):
         """
         - This Keyword is used to get the specific connected status of the device for the specified index of list json
+
         :param json_data:  the list of json data
         :param index: the index of list
         :return: returns id

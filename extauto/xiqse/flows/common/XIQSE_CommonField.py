@@ -16,7 +16,8 @@ class XIQSE_CommonField:
         - This keyword tests if the field is disabled.
         - It assumes the view is already open.
         - Keyword Usage
-            - ``XIQSE is Field Disabled  field``
+        -  ``XIQSE is Field Disabled  field``
+
         :param field_element: field
         :return: True if disabled else None
         """
@@ -31,7 +32,8 @@ class XIQSE_CommonField:
         - This keyword tests if the field is read only.
         - It assumes the view is already open.
         - Keyword Usage
-            - ``XIQSE is Field Readonly  field``
+        -  ``XIQSE is Field Readonly  field``
+
         :param field_element: field
         :return: True if readonly else None
         """
@@ -46,7 +48,8 @@ class XIQSE_CommonField:
         - This keyword uses the "data-qtip" attribute value to determine if the section is collapsed.
         - If the attribute value is "Expand", then the section is currently collapsed.
         - Keyword Usage
-            - ``XIQSE Is Panel Section Collapsed``
+        -  ``XIQSE Is Panel Section Collapsed``
+
         :param field_element: field
         :return: True if data-qtip="Expand", else None
         """

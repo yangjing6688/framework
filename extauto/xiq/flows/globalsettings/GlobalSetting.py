@@ -6,6 +6,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from robot.libraries.BuiltIn import BuiltIn
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
@@ -21,13 +22,14 @@ class GlobalSetting(GlobalSettingWebElements):
         self.navigate = Navigator()
         self.builtin = BuiltIn()
         self.devices_web_elements = DevicesWebElements()
+        self.common_validation = CommonValidation()
 
     def get_authentication_logs_row(self, search_string):
         """
         - Get the Authentication Logs from Global Settings Page
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Row   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Row   ${SEARCH_STRING}``
 
         :param search_string:  it should be anything which is searched on the row cell
                                example search_string be like user_name, auth_type,client etc
@@ -47,7 +49,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the Accounting Logs from Global Settings Page
         - Flow : User account image-->Global Settings--> Accounting Logs
         - Keyword Usage
-         - ``Get Accounting Logs Row   ${SEARCH_STRING}``
+        - ``Get Accounting Logs Row   ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
                               example search_string be like user_name, auth_type,client etc
@@ -68,7 +70,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Gets all authentication details from the row
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Details   ${SEARCH_STRING}    ${SEARCH_FILTER``
+        - ``Get Authentication Logs Details   ${SEARCH_STRING}    ${SEARCH_FILTER``
 
         :param search_filter:  filter string
         :param search_string:  row search string i.e client mac or user name
@@ -81,7 +83,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if close_icon := self.get_authentication_logs_unknown_error_close_icon():
             if close_icon.is_displayed():
                 self.utils.print_info("Click close icon")
-                self.auto_actions.click(self.get_authentication_logs_unknown_error_close_icon())
+                self.auto_actions.click_reference(self.get_authentication_logs_unknown_error_close_icon)
                 sleep(2)
 
         if search_filter:
@@ -95,7 +97,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if view_log := self.get_authentication_logs_view_all_pages_button():
             if view_log.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.get_authentication_logs_view_all_pages_button())
+                self.auto_actions.click_reference(self.get_authentication_logs_view_all_pages_button)
                 sleep(2)
 
         auth_logs_dict = {}
@@ -151,7 +153,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the username Field on authentication Logs grid
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Username   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Username   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs User Name Field Text
@@ -164,7 +166,7 @@ class GlobalSetting(GlobalSettingWebElements):
         """
         - Get the ssid Field on authentication Logs grid
         - Keyword Usage
-         - ``Get Authentication Logs SSID   ${SEARCH_STRING}``
+        - ``Get Authentication Logs SSID   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs SSID Field Text
@@ -178,7 +180,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the Authentication method Field on authentication Logs grid
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Auth Method   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Auth Method   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs Authentication Method Field Text
@@ -191,7 +193,7 @@ class GlobalSetting(GlobalSettingWebElements):
         """
         - Get the Client Details on authentication Logs grid
         - Keyword Usage
-         - ``Get Authentication Logs Client Detail   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Client Detail   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs callingStationId Field Text
@@ -205,7 +207,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the date Field on authentication Logs grid
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
-         - ``Get Authentication Logs Date   ${SEARCH_STRING}``
+        - ``Get Authentication Logs Date   ${SEARCH_STRING}``
 
         :param search_string: Row Search String i.e client mac or user name
         :return: Authentication Logs AuthDate Field Text
@@ -214,12 +216,12 @@ class GlobalSetting(GlobalSettingWebElements):
         if device_details:
             return device_details['authdate']
 
-    def create_organization(self, organization_name, colour_name):
+    def create_organization(self, organization_name, colour_name="Default", **kwargs):
         """
         - This Keyword Uses To Create Organization
         - Flow : User account image-->Global Settings--> Organization
         - Keyword Usage
-         - ``Create Organization   ${ORGANIZATION_NAME}  ${ORGANIZATION_COLOUR}``
+        - ``Create Organization   ${ORGANIZATION_NAME}  ${ORGANIZATION_COLOUR}``
 
         :param organization_name: Name of the Organization
         :param colour_name: Organization Colour
@@ -229,15 +231,18 @@ class GlobalSetting(GlobalSettingWebElements):
         self.navigate.navigate_to_accounts_organization_page()
 
         self.utils.print_info("Click Add button")
-        self.auto_actions.click(self.get_global_settings_account_organizations_add_button())
+        self.auto_actions.click_reference(self.get_global_settings_account_organizations_add_button)
+        self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Entering Organization name: ", organization_name)
         self.auto_actions.send_keys(self.get_global_settings_account_organization_name_inputfield(), organization_name)
+        self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click colour scroll down box")
-        self.auto_actions.click(self.get_organization_drop_down_button())
+        self.auto_actions.click_reference(self.get_organization_drop_down_button)
+        self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Select Colour for Organization")
@@ -246,26 +251,29 @@ class GlobalSetting(GlobalSettingWebElements):
             if colour_name.upper() in item.text.upper():
                 self.utils.print_info("Selecting Colour from drop down")
                 self.auto_actions.click(item)
+                self.screen.save_screen_shot()
                 sleep(2)
                 break
 
         self.utils.print_info("Click Add button")
-        self.auto_actions.click(self.get_global_settings_account_organizations_save_button())
-
+        self.auto_actions.click_reference(self.get_global_settings_account_organizations_save_button)
+        kwargs['pass_msg'] = f"'create_organization()' -> Successfully created organization"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def search_organization_name(self, organization_name):
+    def search_organization_name(self, organization_name, **kwargs):
         """
         - Search the Organization Name From Global Settings Page
         - Flow : User account image-->Global Settings--> Organization
         - Keyword Usage
-         - ``Search Organization Name   ${ORGANIZATION_NAME}``
+        - ``Search Organization Name   ${ORGANIZATION_NAME}``
 
         :param  organization_name: Name of the Organization
         :return: 1 If Organization found on Grid else -1
         """
         self.utils.print_info("Navigating to the global settings--->organization")
         self.navigate.navigate_to_accounts_organization_page()
+        self.screen.save_screen_shot()
 
         sleep(5)
         self.utils.print_info("Getting organization rows")
@@ -286,19 +294,20 @@ class GlobalSetting(GlobalSettingWebElements):
                 if not cell:
                     pass
                 if organization_name in cell.text:
-                    self.utils.print_info("organization name found in the page")
+                    self.utils.print_info(f"'search_organization_name()' -> organization name found in the page")
                     return 1
                 else:
+                    self.utils.print_info(f"'search_organization_name()' -> organization name not found in the page")
                     return -1
-
+        self.utils.print_info(f"'search_organization_name()' -> Organization not found on Grid")
         return -1
 
-    def enable_account_hiq(self):
+    def enable_account_hiq(self, **kwargs):
         """
         - Enable MSP Feature in the Account
         - Flow : User account image-->Global Settings--> Account Details--> Enable HIQ Button
         - Keyword Usage
-         - ``Enable Account HIQ``
+        - ``Enable Account HIQ``
 
         :return: 1 If HIQ Enabled Successfully in the Account else -1
         """
@@ -311,24 +320,29 @@ class GlobalSetting(GlobalSettingWebElements):
 
         if str(hiq_status) == "False":
             self.utils.print_info("Click Enabling HIQ button")
-            self.auto_actions.click(self.get_global_settings_account_enable_hiq_button())
+            self.auto_actions.click_reference(self.get_global_settings_account_enable_hiq_button)
             sleep(2)
 
             self.utils.print_info("Click Enabling HIQ confirm button")
-            self.auto_actions.click(self.get_global_settings_account_enable_hiq_confirm_button())
+            self.auto_actions.click_reference(self.get_global_settings_account_enable_hiq_confirm_button)
             sleep(2)
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info("Tooltip Text After enabling HIQ:", tool_tp_text)
 
             if "The process has been started. You will be logged out momentarily." in tool_tp_text:
-                self.utils.print_info("Automatic Logout Happening on Account after enabling HIQ")
+                kwargs['pass_msg'] = f"'enable_account_hiq()' -> Automatic Logout Happening on Account " \
+                                     f"after enabling HIQ"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info("Automatic Logout Not Happening on Account after enabling HIQ")
+                kwargs['fail_msg'] = f"'enable_account_hiq()' -> Automatic Logout Not Happening on Account " \
+                                     f"after enabling HIQ"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info("HIQ Feature Already Enabled in the Account")
+            kwargs['pass_msg'] = f"'enable_account_hiq()' -> HIQ Feature Already Enabled in the Account"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def get_accounting_logs_details(self, search_string, search_filter=None):
@@ -337,7 +351,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get accounts detailed logs from the row
         - Flow : User account image-->Global Settings--> Accounting Logs
         - Keyword Usage:
-         - ``Get Accounting Logs Details   ${SEARCH_STRING}   ${SEARCH_FILTER}``
+        - ``Get Accounting Logs Details   ${SEARCH_STRING}   ${SEARCH_FILTER}``
 
         :param search_filter: String to filter the accounting log rows
         :param search_string: String to search the row
@@ -350,7 +364,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if close_icon := self.get_authentication_logs_unknown_error_close_icon():
             if close_icon.is_displayed():
                 self.utils.print_info("Click close icon")
-                self.auto_actions.click(self.get_authentication_logs_unknown_error_close_icon())
+                self.auto_actions.click_reference(self.get_authentication_logs_unknown_error_close_icon)
                 sleep(2)
 
         if search_filter:
@@ -363,7 +377,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if view_log := self.get_authentication_logs_view_all_pages_button():
             if view_log.is_displayed():
                 self.utils.print_info("Click Full pages button")
-                self.auto_actions.click(self.get_authentication_logs_view_all_pages_button())
+                self.auto_actions.click_reference(self.get_authentication_logs_view_all_pages_button)
                 sleep(2)
 
         acct_logs_dict = {}
@@ -386,12 +400,12 @@ class GlobalSetting(GlobalSettingWebElements):
 
             return acct_logs_dict
 
-    def change_device_password(self, password):
+    def change_device_password(self, password, **kwargs):
         """
         - Change the Device Password String on Global Settings-->Device Management Page.
         - Flow : User account image-->Global Settings--> Device Management Settings
         - Keyword Usage:
-         - ``Change Device password   ${LANGUAGE}``
+        - ``Change Device password   ${LANGUAGE}``
 
         :param password: Password String
         :return: 1 if XIQ Account Language Changed Successfully else -1
@@ -401,7 +415,7 @@ class GlobalSetting(GlobalSettingWebElements):
             sleep(5)
 
             self.utils.print_info("Selecting Device Management Settings...")
-            self.auto_actions.click(self.get_device_management_settings_menu())
+            self.auto_actions.click_reference(self.get_device_management_settings_menu)
             sleep(5)
 
             self.utils.print_info("Entering password")
@@ -413,24 +427,28 @@ class GlobalSetting(GlobalSettingWebElements):
             sleep(1)
 
             self.utils.print_info("Clicking Show Password checkbox...")
-            self.auto_actions.click(self.get_device_management_settings_show_password_checkbox())
+            self.auto_actions.click_reference(self.get_device_management_settings_show_password_checkbox)
             sleep(1)
 
             self.screen.save_screen_shot()
             self.utils.print_info("Saving the changes...")
-            self.auto_actions.click(self.get_device_management_settings_save_button())
+            self.auto_actions.click_reference(self.get_device_management_settings_save_button)
             sleep(5)
+            kwargs['pass_msg'] = f"'change_device_password()' -> XIQ Account Password Changed Successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:
             self.utils.print_info(e)
+            kwargs['fail_msg'] = f"'change_device_password()' -> unsuccessfully Changed XIQ Account Language  "
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def change_xiq_account_language(self, language):
+    def change_xiq_account_language(self, language, **kwargs):
         """
         - Change the language of the account
         - Flow : User account image-->Global Settings--> Account Details--> Select Language-->Apply
         - Keyword Usage:
-         - ``Change Xiq Account Language   ${LANGUAGE}``
+        - ``Change Xiq Account Language   ${LANGUAGE}``
 
         :param language: Language Name ie English
         :return: 1 if XIQ Account Language Changed Successfully else -1
@@ -439,23 +457,25 @@ class GlobalSetting(GlobalSettingWebElements):
         self.navigate.navigate_to_account_details_page()
 
         self.utils.print_info("Click on the select language drop down")
-        self.auto_actions.click(self.get_account_select_language_drop_down())
+        self.auto_actions.click_reference(self.get_account_select_language_drop_down)
         sleep(2)
 
         self.utils.print_info("select the language")
         self.auto_actions.select_drop_down_options(self.get_account_select_language_drop_down_options(), language)
 
         self.utils.print_info("Click on the apply button")
-        self.auto_actions.click(self.get_account_language_apply_button())
+        self.auto_actions.click_reference(self.get_account_language_apply_button)
         sleep(10)
+        kwargs['pass_msg'] = f"'change_xiq_account_language()' -> XIQ Account Language Changed Successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def change_xiq_account_time_zone(self, time_zone="(GMT) UTC"):
+    def change_xiq_account_time_zone(self, time_zone="(GMT) UTC", **kwargs):
         """
         - Change the time zone of the account
         - Flow : User account image-->Global Settings--> Account Details--> Select Time Zone-->Apply
         - Keyword Usage:
-         - ``Change XIQ Account Time Zone   ${TIMEZONE}``
+        - ``Change XIQ Account Time Zone   ${TIMEZONE}``
 
         :param time_zone: Time zone to select e.g., UTC, EST5EDT, etc
         :return: 1 if XIQ Account Time Zone was changed successfully, else -1
@@ -464,7 +484,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.navigate.navigate_to_account_details_page()
 
         self.utils.print_info("Click on the Time Zone drop down")
-        self.auto_actions.click(self.get_account_time_zone_drop_down())
+        self.auto_actions.click_reference(self.get_account_time_zone_drop_down)
         sleep(2)
 
         self.utils.print_info("Select the time zone '" + time_zone + "'")
@@ -472,16 +492,19 @@ class GlobalSetting(GlobalSettingWebElements):
         self.auto_actions.select_drop_down_options(options, time_zone)
 
         self.utils.print_info("Click the apply button")
-        self.auto_actions.click(self.get_account_time_zone_apply_button())
+        self.auto_actions.click_reference(self.get_account_time_zone_apply_button)
         sleep(10)
+        kwargs['pass_msg'] = f"'change_xiq_account_time_zone()' -> XIQ Account Time Zone Changed Successfully"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def enable_ssh_availability(self):
+    def enable_ssh_availability(self, **kwargs):
         """
         - Enabling SSH availability in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Enable SSH Availability``
+        - ``Enable SSH Availability``
+
         :return: 1 after successfully enabling SSH
         """
 
@@ -492,22 +515,24 @@ class GlobalSetting(GlobalSettingWebElements):
         self.screen.save_screen_shot()
         if not self.get_ssh_availability_option_status().is_selected():
             self.utils.print_info("Enabling SSH Availability..")
-            self.auto_actions.click(self.get_ssh_availability_option_status())
+            self.auto_actions.click_reference(self.get_ssh_availability_option_status)
             sleep(1)
             self.screen.save_screen_shot()
         else:
             self.utils.print_info("SSH Availability Button already enabled...")
             sleep(2)
             self.screen.save_screen_shot()
-
+        kwargs['pass_msg'] = f"'enable_ssh_availability()' -> Successfully enabling ssh"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def disable_ssh_availability(self):
+    def disable_ssh_availability(self, **kwargs):
         """
         - Disabling SSH availability in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Disable SSH Availability``
+        - ``Disable SSH Availability``
+
         :return: 1 after successfully disabling SSH
         """
 
@@ -518,14 +543,15 @@ class GlobalSetting(GlobalSettingWebElements):
 
         if self.get_ssh_availability_option_status().is_selected():
             self.utils.print_info("Disabling SSH Availability..")
-            self.auto_actions.click(self.get_ssh_availability_option_status())
+            self.auto_actions.click_reference(self.get_ssh_availability_option_status)
             sleep(1)
             self.screen.save_screen_shot()
         else:
             self.utils.print_info("SSH Availability Button already disabled...")
             sleep(2)
             self.screen.save_screen_shot()
-
+        kwargs['pass_msg'] = f"'disable_ssh_availability()' -> Successfully disabling ssh"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def get_api_access_token_details(self, search_string):
@@ -534,7 +560,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Flow:
         - Global Settings --> API Token Management
         - Keyword Usage:
-         - ``Get API Access Token Details  ${SEARCH_STRING}``
+        - ``Get API Access Token Details  ${SEARCH_STRING}``
 
         :param search_string: Search string is the access token generated from the curl command
         :return: access token row detail dict
@@ -563,7 +589,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - This keyword is used to delete the all generated access tokens
         - Flow: Global Settings --> API Token Management --> Select all rows --> Delete
         - Keyword Usage:
-         - ``Delete Api Access Tokens```
+        - ``Delete Api Access Tokens```
 
         :return: None
         """
@@ -571,15 +597,15 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(20)  # this delay is required to load the API tokens rows
 
         self.utils.print_info("Select the all API Token rows")
-        self.auto_actions.click(self.get_api_access_tokens_select_check_box())
+        self.auto_actions.click_reference(self.get_api_access_tokens_select_check_box)
 
         sleep(2)
         self.utils.print_info("Click on API Access Tokens delete button")
-        self.auto_actions.click(self.get_api_access_tokens_delete_button())
+        self.auto_actions.click_reference(self.get_api_access_tokens_delete_button)
 
         sleep(2)
         self.utils.print_info("clicking on confirm Yes button")
-        self.auto_actions.click(self.get_api_access_tokens_delete_cnfm_button())
+        self.auto_actions.click_reference(self.get_api_access_tokens_delete_cnfm_button)
 
         sleep(2)
         self.screen.save_screen_shot()
@@ -589,7 +615,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - This Keyword will Backup the current VIQ Data
         - Flow : User account icon-->Global Settings--> VIQ Management ---> Backup Now
         - Keyword Usage:
-         - `` Backup VIQ Data ``
+        - `` Backup VIQ Data ``
+
         :return: 1 after successfully Backup the VIQ data else -1
         """
         self.navigate.navigate_to_viq_management_page()
@@ -599,15 +626,16 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Backup Now Button")
-        self.auto_actions.click(self.get_viq_backup_now_button())
+        self.auto_actions.click_reference(self.get_viq_backup_now_button)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Backup Confirm Button")
-        self.auto_actions.click(self.get_viq_backup_confirm_button())
+        self.auto_actions.click_reference(self.get_viq_backup_confirm_button)
         sleep(2)
+        self.screen.save_screen_shot()
 
         """
         x = datetime.datetime.now()
@@ -644,7 +672,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - This Keyword will Delete the VIQ Data
         - Flow : User account icon-->Global Settings--> VIQ Management ---> Reset VIQ
         - Keyword Usage:
-         - `` Reset VIQ ``
+        - `` Reset VIQ ``
+
         :return: 1 after successfully Resetting VIQ data else -1
         """
         self.navigate.navigate_to_viq_management_page()
@@ -654,15 +683,16 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Reset VIQ Button")
-        self.auto_actions.click(self.get_viq_delete_data_button())
+        self.auto_actions.click_reference(self.get_viq_delete_data_button)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Reset VIQ Confirm Button")
-        self.auto_actions.click(self.get_reset_viq_confirm_button())
+        self.auto_actions.click_reference(self.get_reset_viq_confirm_button)
         sleep(2)
+        self.screen.save_screen_shot()
 
         """
         self.screen.save_screen_shot()
@@ -682,12 +712,12 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Reset VIQ operation is successful")
         return 1
 
-    def get_audit_logs_details(self, category, search_string):
+    def get_audit_logs_details(self, category, search_string, **kwargs):
         """
         - Get the audit log rows based on category and search_string provided
         - Flow : User account image-->Global Settings--> Audit Logs
         - Keyword Usage
-         - ``Get Audit Logs Details   ${CATEGORY}    ${SEARCH_STRING}``
+        - ``Get Audit Logs Details   ${CATEGORY}    ${SEARCH_STRING}``
 
         :param category:  Category field(Eg: ADMIN, MONITORING)
         :param search_string:  Search string(Eg: Delete, Reset, Reboot)
@@ -698,7 +728,7 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(5)
         self.utils.print_info("Adding sleep for the audit logs to get updated")
         sleep(10)
-        self.auto_actions.click(self.get_audit_logs_view_all_pages_button())
+        self.auto_actions.click_reference(self.get_audit_logs_view_all_pages_button)
         sleep(5)
 
         audit_logs_dict = {}
@@ -718,14 +748,18 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info(f"******************Audit log details************************")
             for key, value in audit_logs_dict.items():
                 self.utils.print_info(f"{key}:{value}")
+            kwargs['pass_msg'] = f"'get_audit_logs_details()' -> Successfully search string found in logs"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Audit logs not Found for given search strings")
+            kwargs['fail_msg'] = f"'get_audit_logs_details()' -> Audit logs not Found for given search strings"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def _sort_audit_log_columns(self, field, direction):
         """
         - sort the audit log grid column to ascending or descending direction based on the field name
+
         :param field: column header field name
         :param direction: ascending or descending
         :return: True if sorted based on the direction else False
@@ -759,9 +793,10 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get the Audit log row with provided search arguments
         - Assumes that Already in Audit logs page
         - Keyword Usage
-         - ``Get Audit Logs Row    ${CATEGORY}       ${SEARCH_STRING}``
+        - ``Get Audit Logs Row    ${CATEGORY}       ${SEARCH_STRING}``
         - Example of Keyword Usage
-         - ``Get Audit Logs Row    MONITORING      Reset device ${AP1_NAME}``
+        - ``Get Audit Logs Row    MONITORING      Reset device ${AP1_NAME}``
+
         :param category: Category of Audit log, eg: ADMIN,CONFIG,MONITORING
         :param search_string:  it should be anything which is searched on the row cell
                                eg: Reset device ${AP1_NAME}, Added device, Deleted
@@ -785,19 +820,20 @@ class GlobalSetting(GlobalSettingWebElements):
                     return row
             return False
 
-    def set_vertical(self, industry_type):
+    def set_vertical(self, industry_type, **kwargs):
         """
         - This Keyword will set Industry type on xiq side
         - Flow : User account icon-->Global Settings--> Account Details ---> Industry
         - Keyword Usage:
-         - `` Reset VIQ ``
+        - `` Reset VIQ ``
+
         :return: 1 after successfully Resetting VIQ data else -1
         """
         self.utils.print_info("Navigating to the global settings--->Account details")
         self.navigate.navigate_to_account_details_page()
 
         self.utils.print_info("Click on the Industry drop down")
-        self.auto_actions.click(self.get_industry_drop_down_button())
+        self.auto_actions.click_reference(self.get_industry_drop_down_button)
         sleep(5)
         self.screen.save_screen_shot()
 
@@ -807,16 +843,19 @@ class GlobalSetting(GlobalSettingWebElements):
         self.screen.save_screen_shot()
 
         self.utils.print_info("Click on the apply button")
-        self.auto_actions.click(self.get_industry_apply_button())
+        self.auto_actions.click_reference(self.get_industry_apply_button)
         sleep(10)
+        kwargs['pass_msg'] = f"'set_vertical()' -> Successfully Resetting VIQ data"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def export_viq(self):
+    def export_viq(self, **kwargs):
         """
         - This Keyword will Export the current VIQ Data
         - Flow : User account icon-->Global Settings--> VIQ Management ---> Export VIQ
         - Keyword Usage:
-         - `` Export VIQ ``
+        - `` Export VIQ ``
+
         :return: 1 after successfully exporting the VIQ data else -1
         """
         self.utils.switch_to_default(self.auto_actions.driver)
@@ -828,7 +867,7 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Export VIQ Button")
-        self.auto_actions.click(self.get_viq_export_button())
+        self.auto_actions.click_reference(self.get_viq_export_button)
         sleep(5)
         self.utils.print_info("Switch to Export Now Tab")
         self.auto_actions.driver.switch_to.window(self.auto_actions.driver.window_handles[1])
@@ -838,15 +877,15 @@ class GlobalSetting(GlobalSettingWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking Export Now Button")
-        self.auto_actions.click(self.get_viq_export_now_button())
+        self.auto_actions.click_reference(self.get_viq_export_now_button())
         sleep(2)
 
         self.utils.print_info("Clicking Yes Button")
-        self.auto_actions.click(self.get_viq_export_yes_button())
+        self.auto_actions.click_reference(self.get_viq_export_yes_button)
         sleep(30)
 
         self.utils.print_info("Clicking OK")
-        self.auto_actions.click(self.get_viq_export_ok_button())
+        self.auto_actions.click_reference(self.get_viq_export_ok_button)
         sleep(20)
         self.utils.print_info("Switch to normal tab")
         self.auto_actions.driver.switch_to.window(self.auto_actions.driver.window_handles[0])
@@ -862,18 +901,20 @@ class GlobalSetting(GlobalSettingWebElements):
         export_viq_status_fail = self.get_export_status_textfield_fail().text
 
         if "Succeeded" in export_viq_status_success:
-            self.utils.print_info("VIQ Export Is :", export_viq_status_success)
+            kwargs['pass_msg'] = f"'export_viq()' -> VIQ Export Is : {export_viq_status_success}"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("VIQ Export Is :", export_viq_status_fail)
+            kwargs['fail_msg'] = f"'export_viq()' -> VIQ Export Is : {export_viq_status_fail}"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def set_opt_out_copilot_beta(self, option):
+    def set_opt_out_copilot_beta(self, option, **kwargs):
         """
         - Enable/Disable Opt out of Copilot BETA
         - Flow : User account image-->Global Settings--> Account Details--> Opt-out of copilot BETA
         - Keyword Usage
-         - ``Set Opt Out Copilot BETA     ${OPTION}``
+        - ``Set Opt Out Copilot BETA     ${OPTION}``
 
         :param option: option to enable/disable Opt out of Copilot BETA
         :return: 1 If setting opt_out of Copilot BETA is Successful
@@ -890,7 +931,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if option.lower() == "enable":
             if not self.get_opt_out_copilot_beta_status().is_selected():
                 self.utils.print_info("Enabling..")
-                self.auto_actions.click(self.get_opt_out_copilot_beta_status())
+                self.auto_actions.click_reference(self.get_opt_out_copilot_beta_status)
                 sleep(1)
                 self.screen.save_screen_shot()
             else:
@@ -901,9 +942,11 @@ class GlobalSetting(GlobalSettingWebElements):
                 self.utils.print_info("Option already disabled")
             else:
                 self.utils.print_info("Disabling...")
-                self.auto_actions.click(self.get_opt_out_copilot_beta_status())
+                self.auto_actions.click_reference(self.get_opt_out_copilot_beta_status)
                 sleep(1)
                 self.screen.save_screen_shot()
+        kwargs['pass_msg'] = "'set_opt_out_copilot_beta()' -> Successfully setting opt_out of Copilot BETA"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def get_opt_out_status_copilot_beta(self):
@@ -911,7 +954,7 @@ class GlobalSetting(GlobalSettingWebElements):
         - Get Opt out of Copilot beta status
         - Flow : User account image-->Global Settings--> Account Details--> Opt-out of Copilot BETA
         - Keyword Usage
-         - ``Get Opt Out Status Copilot BETA``
+        - ``Get Opt Out Status Copilot BETA``
 
         :return: Current status(Enable/Disable) of opt-out Copilot BETA
         """
@@ -929,12 +972,13 @@ class GlobalSetting(GlobalSettingWebElements):
         else:
             return "Enable"
 
-    def get_supplemental_cli_option(self, option):
+    def get_supplemental_cli_option(self, option, **kwargs):
         """
         - This Keyword will Enable/Disable Supplemental CLI in Global Settings
         - Flow : User account image-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Get supplemental cli option     ${OPTION}``
+        - ``Get supplemental cli option     ${OPTION}``
+
         :param option: Choose an option for supplemental CLI "enable"\"disable"
         :return: 1 If setting option Supplemental_cli is Successful
         """
@@ -945,7 +989,7 @@ class GlobalSetting(GlobalSettingWebElements):
         if option.lower() == "enable":
             if not self.get_supplemental_cli_option_status().is_selected():
                 self.utils.print_info("Enabling..")
-                self.auto_actions.click(self.get_supplemental_cli_option_status())
+                self.auto_actions.click_reference(self.get_supplemental_cli_option_status)
                 sleep(1)
             else:
                 self.utils.print_info("Option already enabled...")
@@ -954,18 +998,23 @@ class GlobalSetting(GlobalSettingWebElements):
                 self.utils.print_info("Option already disabled")
             else:
                 self.utils.print_info("Disabling...")
-                self.auto_actions.click(self.get_supplemental_cli_option_status())
+                self.auto_actions.click_reference(self.get_supplemental_cli_option_status)
                 sleep(1)
         else:
+            kwargs['fail_msg'] = "'get_supplemental_cli_option()' -> Failed setting option Supplemental_cli"
+            self.common_validation.failed(**kwargs)
             return -1
+        kwargs['pass_msg'] = "'get_supplemental_cli_option()' -> Successfully setting option Supplemental_cli"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def change_exos_device_management_settings(self, option, platform):
+    def change_exos_device_management_settings(self, option, platform, **kwargs):
         """
         - This Keyword will Enable/Disable device management settings for EXOS switches.
         - Flow : User account image-->Global Settings--> Device Management Settings
         - Keyword Usage
-         - ``Change exos device management settings     ${OPTION}   {DUT_PLATFORM}``
+        - ``Change exos device management settings     ${OPTION}   {DUT_PLATFORM}``
+
         :param option: Choose an option for Device management settings for EXOS switches:"enable"\"disable"
         :param platform: Choose the platform:  EXOS/VOSS
         :return: 1 If device management settings for EXOS switches is Successful
@@ -978,9 +1027,9 @@ class GlobalSetting(GlobalSettingWebElements):
             if option.lower() == "enable":
                 if not self.get_exos_device_management_settings_status().is_selected():
                     self.utils.print_info("Enabling..")
-                    self.auto_actions.click(self.get_exos_device_management_settings_status())
+                    self.auto_actions.click_reference(self.get_exos_device_management_settings_status)
                     self.utils.print_info("Saving option")
-                    self.auto_actions.click(self.get_exos_device_management_settings_save_button())
+                    self.auto_actions.click_reference(self.get_exos_device_management_settings_save_button)
                     sleep(1)
                 else:
                     self.utils.print_info("Option already enabled...")
@@ -989,32 +1038,35 @@ class GlobalSetting(GlobalSettingWebElements):
                     self.utils.print_info("Option already disabled")
                 else:
                     self.utils.print_info("Disabling...")
-                    self.auto_actions.click(self.get_exos_device_management_settings_status())
+                    self.auto_actions.click_reference(self.get_exos_device_management_settings_status)
                     self.utils.print_info("Saving option")
-                    self.auto_actions.click(self.get_exos_device_management_settings_save_button())
+                    self.auto_actions.click_reference(self.get_exos_device_management_settings_save_button)
                     sleep(1)
         else:
             self.utils.print_info("Device is not EXOS")
             pass
-
+        kwargs['pass_msg'] = "'change_exos_device_management_settings()' -> Successfully device management " \
+                             "settings for EXOS switches"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def check_audit_log(self, date_start, description, rows_number='20'):
-        '''
+    def check_audit_log(self, date_start, description, rows_number='20', **kwargs):
+        """
         This function checks if a log is present into audit log
 
         :param date_start: Starting date for search
         :param description: Expected log description
         :param rows_number: number of logs displayed into table
         :return: 1 if the log was found ; else -1
-        '''
+        """
 
         user_button = self.devices_web_elements.get_user_button()
         if user_button:
             self.utils.print_info("User button was found ")
             self.auto_actions.move_to_element(user_button)
         else:
-            self.utils.print_info("User button was not found ")
+            kwargs['fail_msg'] = "'check_audit_log()' -> User button was not found"
+            self.common_validation.failed(**kwargs)
             return -1
 
         global_settings = self.devices_web_elements.get_global_settings()
@@ -1022,7 +1074,8 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("global_settings was found ")
             self.auto_actions.click(global_settings)
         else:
-            self.utils.print_info("global_setting was not found ")
+            kwargs['fail_msg'] = "'check_audit_log()' -> global_setting was not found"
+            self.common_validation.failed(**kwargs)
             return -1
         sleep(5)
         audit_button = self.devices_web_elements.get_audit_button()
@@ -1030,7 +1083,8 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("audit_button was found ")
             self.auto_actions.click(audit_button)
         else:
-            self.utils.print_info("audit_button was not found ")
+            kwargs['fail_msg'] = "'check_audit_log()' -> audit_button was not found"
+            self.common_validation.failed(**kwargs)
             return -1
 
         number_of_rows = self.devices_web_elements.get_number_of_rows()
@@ -1045,7 +1099,8 @@ class GlobalSetting(GlobalSettingWebElements):
                 else:
                     pass
         else:
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'check_audit_log()' -> Failed extracting number of rows"
+            self.common_validation.failed(**kwargs)
             return -1
 
         sort_time_stamp1 = self.devices_web_elements.get_sort_time_stamp()
@@ -1103,8 +1158,11 @@ class GlobalSetting(GlobalSettingWebElements):
                                                 self.auto_actions.click(close_more)
                                                 self.screen.save_screen_shot()
                                             else:
-                                                self.screen.save_screen_shot()
+                                                kwargs['fail_msg'] = "'check_audit_log()' -> Failed clicking on close"
+                                                self.common_validation.failed(**kwargs)
                                                 return -1
+                                        kwargs['pass_msg'] = "'check_audit_log()' -> Successfully  clicking on  close button"
+                                        self.common_validation.passed(**kwargs)
                                         return 1
                                     else:
                                         pass
@@ -1119,40 +1177,45 @@ class GlobalSetting(GlobalSettingWebElements):
                                         self.auto_actions.click(close_more)
                                         self.screen.save_screen_shot()
                                     else:
-                                        self.screen.save_screen_shot()
+                                        kwargs['fail_msg'] = "'check_audit_log()' -> Failed clicking on close button"
+                                        self.common_validation.failed(**kwargs)
                                         return -1
                         else:
                             field_description = self.devices_web_elements.get_field_description(el)
                             if field_description:
                                 if description in field_description.text:
-                                    self.utils.print_info("Log was found in audit log ")
+                                    kwargs['pass_msg'] = "'check_audit_log()' -> Log was found in audit log"
+                                    self.common_validation.passed(**kwargs)
                                     return 1
                                 else:
                                     pass
                             else:
-                                self.utils.print_info("Field Description not found ")
-                                self.screen.save_screen_shot()
+                                kwargs['fail_msg'] = "'check_audit_log()' -> Field Description not found"
+                                self.common_validation.failed(**kwargs)
                                 return -1
                     else:
                         pass
                 else:
-                    self.utils.print_info("time_stamp was not found ")
-                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "'check_audit_log()' -> time_stamp was not found"
+                    self.common_validation.failed(**kwargs)
                     return -1
                 cnt = cnt + 1
         else:
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "'check_audit_log()' -> Failed determinate audit row"
+            self.common_validation.failed(**kwargs)
             return -1
-        self.utils.print_info("The log was not found . return -1")
+        kwargs['fail_msg'] = "'check_audit_log()' -> The log was not found . return -1"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def enable_copilot_feature_for_this_viq(self):
+    def enable_copilot_feature_for_this_viq(self, **kwargs):
         """
         - Enabling CoPilot Feature in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Enable CoPilot feature for this VIQ``
-        :return: 1 after successfully enabling CoPilot feature
+        - ``Enable CoPilot feature for this VIQ``
+
+        :return: 1 after successfully enabling CoPilot feature, else -1
         """
 
         self.navigate.navigate_to_viq_management_page()
@@ -1162,9 +1225,18 @@ class GlobalSetting(GlobalSettingWebElements):
         self.screen.save_screen_shot()
         if not self.get_enable_copilot_feature_option_status().is_selected():
             self.utils.print_info("Enabling CoPilot feature..")
-            self.auto_actions.click(self.get_enable_copilot_feature_option_status())
-            sleep(1)
+            self.auto_actions.click_reference(self.get_enable_copilot_feature_option_status)
+            sleep(2)
             self.screen.save_screen_shot()
+            if self.devices_web_elements.get_ui_banner_warning_message():
+                banner_warning_text = self.devices_web_elements.get_ui_banner_warning_message().text
+                if banner_warning_text:
+                    self.utils.print_info(f"Warning Message: {banner_warning_text}")
+                    self.auto_actions.click_reference(self.devices_web_elements.get_ui_banner_warning_close_button)
+                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = f"{banner_warning_text}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
         else:
             self.utils.print_info("Enable CoPilot feature for this VIQ button already enabled...")
             sleep(2)
@@ -1177,7 +1249,8 @@ class GlobalSetting(GlobalSettingWebElements):
         - Disabling CoPilot Feature in Global Settings Page
         - Flow : User account icon-->Global Settings--> VIQ Management
         - Keyword Usage
-         - ``Disable CoPilot feature for this VIQ``
+        - ``Disable CoPilot feature for this VIQ``
+
         :return: 1 after successfully disabling CoPilot feature
         """
 
@@ -1188,8 +1261,8 @@ class GlobalSetting(GlobalSettingWebElements):
         self.screen.save_screen_shot()
         if self.get_enable_copilot_feature_option_status().is_selected():
             self.utils.print_info("Disabling CoPilot feature..")
-            self.auto_actions.click(self.get_enable_copilot_feature_option_status())
-            sleep(1)
+            self.auto_actions.click_reference(self.get_enable_copilot_feature_option_status)
+            sleep(2)
             self.screen.save_screen_shot()
         else:
             self.utils.print_info("Enable CoPilot feature for this VIQ button already disabled...")

@@ -3,11 +3,10 @@ from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-
 from extauto.xiq.flows.manage.Devices import Devices
-
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.GlobalSearchWebElements import GlobalSearchWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class GlobalSearch:
@@ -15,18 +14,17 @@ class GlobalSearch:
         self.utils = Utils()
         self.screen = Screen()
         self.auto_actions = AutoActions()
-
         self.devices = Devices()
-
         self.global_web_elements = GlobalSearchWebElements()
         self.devices_web_elements = DevicesWebElements()
+        self.common_validation = CommonValidation()
 
-    def global_search(self, search_value, category, expect_result=""):
+    def global_search(self, search_value, category, expect_result="", **kwargs):
         """
         - This Keyword searches given search string info in global search
         - Flow : Click Global search Box--> Search String
         - Keyword Usage
-         - ``Global Search   ${AP_MAC}   ${AP_CATEGORY}   ${AP_NAME}``
+        - ``Global Search   ${AP_MAC}   ${AP_CATEGORY}   ${AP_NAME}``
 
         :param search_value: Info to be searched ie AP Mac Address
         :param category: Category of the information
@@ -35,7 +33,7 @@ class GlobalSearch:
         """
 
         self.utils.print_info("Clicking on the search icon")
-        self.auto_actions.click(self.global_web_elements.get_search_icon())
+        self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
 
         self.utils.print_info("Entering info to search : ", search_value)
         sleep(10)
@@ -43,7 +41,7 @@ class GlobalSearch:
         sleep(10)
 
         self.utils.print_info("Clicking on search")
-        self.auto_actions.click(self.global_web_elements.get_global_search_textbox())
+        self.auto_actions.click_reference(self.global_web_elements.get_global_search_textbox)
         sleep(10)
 
         self.utils.print_info("Search result :")
@@ -68,12 +66,16 @@ class GlobalSearch:
                 matched_val = search_match
 
         if expect_result == "None" and matched_val == "":
+            kwargs['fail_msg'] = f"'global_search()' -> Variable 'expect_result' is None"
+            self.common_validation.fault(**kwargs)
             return -2
 
         if matched_val == "":
             self.screen.save_screen_shot()
             sleep(2)
-            self.auto_actions.click(self.global_web_elements.get_search_icon())
+            self.auto_actions.click_reference(self.global_web_elements.get_search_icon)
+            kwargs['fail_msg'] = "'global_search()' -> Value was not found"
+            self.common_validation.failed(**kwargs)
             return -1
         return matched_val
 
@@ -82,7 +84,7 @@ class GlobalSearch:
         - Get client details ie Client Name ,Mac Address and Client IP address
         - Flow : Click Global search Box--> Search String
         - Keyword Usage
-         - ``Get Client Details      ${SEARCH_RESULT_STRING}``
+        - ``Get Client Details      ${SEARCH_RESULT_STRING}``
 
         :param search_result: Expected Client Information String displaying on Search Result
         :return: Client name, client MAC, client IP
@@ -101,7 +103,7 @@ class GlobalSearch:
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.global_web_elements.get_close_dialog())
+        self.auto_actions.click_reference(self.global_web_elements.get_close_dialog)
         return client_name, client_mac, client_ip
 
     def get_ap_details(self, search_result):
@@ -109,7 +111,7 @@ class GlobalSearch:
         - Get AP details ie AP Host Name ,Mac Address,IP address and Serial Number
         - Flow : Click Global search Box--> Search String
         - Keyword Usage
-         - ``Get AP Details      ${SEARCH_RESULT_STRING}``
+        - ``Get AP Details      ${SEARCH_RESULT_STRING}``
 
         :param search_result: Expected AP Information String displaying on Search Result
         :return: Host Name, AP serial number, AP MAC, AP IP
@@ -118,7 +120,7 @@ class GlobalSearch:
         self.auto_actions.click(search_result)
         sleep(5)
 
-        self.auto_actions.click(self.global_web_elements.get_system_info())
+        self.auto_actions.click_reference(self.global_web_elements.get_system_info)
         sleep(5)
 
         self.utils.print_info("Getting AP Details")
@@ -136,7 +138,7 @@ class GlobalSearch:
         sleep(2)
 
         self.utils.print_info("Closing ap Details Page")
-        self.auto_actions.click(self.global_web_elements.get_close_dialog())
+        self.auto_actions.click_reference(self.global_web_elements.get_close_dialog)
         return host_name, serial_number, ap_mac, ip
 
     def net_policy_details(self, search_result):
@@ -144,7 +146,7 @@ class GlobalSearch:
         - Get Network Policy details ie Network Policy Name and SSID
         - Flow : Click Global search Box--> Search String
         - Keyword Usage
-         - ``Net Policy Details      ${SEARCH_RESULT_STRING}``
+        - ``Net Policy Details      ${SEARCH_RESULT_STRING}``
 
         :param search_result: Expected Network Policy Information String displaying on Search Result
         :return: Network Policy name and SSID
@@ -161,7 +163,7 @@ class GlobalSearch:
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.global_web_elements.get_close_dialog())
+        self.auto_actions.click_reference(self.global_web_elements.get_close_dialog)
         return net_name, ssid
 
     def view_all_organizations(self):
@@ -169,20 +171,20 @@ class GlobalSearch:
         - This Keyword uses to view all the organizations Details in the Account
         - Flow : View Organization --> Select All Organization
         - Keyword Usage
-         - ``View All Organizations``
+        - ``View All Organizations``
 
         :return: 1 if Viewing All organization Details Successfully
         """
-        self.auto_actions.click(self.global_web_elements.get_view_organization_button())
+        self.auto_actions.click_reference(self.global_web_elements.get_view_organization_button)
         sleep(5)
 
         value = self.global_web_elements.get_select_all_organizations().text
         if value == "Select All":
-            self.auto_actions.click(self.global_web_elements.get_select_all_organizations())
+            self.auto_actions.click_reference(self.global_web_elements.get_select_all_organizations)
             sleep(5)
             self.screen.save_screen_shot()
             sleep(2)
-        self.auto_actions.click(self.global_web_elements.get_view_org_close_button())
+        self.auto_actions.click_reference(self.global_web_elements.get_view_org_close_button)
 
         return 1
 
@@ -190,7 +192,7 @@ class GlobalSearch:
         """
         - This Keyword uses to get application details Based on Search Results string
         - Keyword Usage
-         - ``Application Details  ${SEARCH_RESULT_STRING}``
+        - ``Application Details  ${SEARCH_RESULT_STRING}``
 
         :param search_result: Expected Application Information String displaying on Search Result
         :return: Application Name And Category
@@ -207,44 +209,14 @@ class GlobalSearch:
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.global_web_elements.get_close_dialog())
+        self.auto_actions.click_reference(self.global_web_elements.get_close_dialog)
         return app_name, app_cat
-
-    def sim_ap_name(self):
-        """
-        - This Keyword Uses to get AP name and if no AP is present then it onboards the AP and gets its name.
-        - Keyword Usage
-         - ``Sim AP Name``
-
-        :return: Access Point Name
-        """
-      
-        row_text = self.get_sim_ap()
-
-        if row_text != "":
-            res = row_text.split("\n")
-            ap_name = res[0]
-            self.utils.print_info("AP Name is : ", ap_name)
-            return ap_name
-        else:
-            self.utils.print_info("No  Device present.")
-            self.devices.onboard_simulated_device("AP460Cs")
-            
-            self.utils.print_info("Simulated Device Onboarded.")
-            sleep(5)
-
-            row_text = self.get_sim_ap()
-
-            res = row_text.split("\n")
-            ap_name = res[0]
-            self.utils.print_info("AP Name is : ", ap_name)
-            return ap_name
 
     def get_sim_ap(self):
         """
         - This Keyword Gets AP name in Row Text
         - Keyword Usage
-         - ``Get Sim AP``
+        - ``Get Sim AP``
         :return: Access Point Name
         """
         sleep(5)
@@ -257,37 +229,12 @@ class GlobalSearch:
                 break
         return row_text
 
-    def get_ap_name(self):
-        """
-        - This Keyword Gets AP name and if no AP is present then it onboards the AP and gets its name.
-        - Keyword Usage
-         - ``Get Ap Name``
-
-        :return: Access Point Name
-        """
-        row_text = self.get_ap_row()
-        if row_text != "":
-            res = row_text.split("\n")
-            ap_name = res[0]
-            self.utils.print_info("AP Name is : ", ap_name)
-            return ap_name
-        else:
-            self.utils.print_info("No  Device present.")
-            self.devices.onboard_simulated_device("AP460Cs")
-            self.utils.print_info("Simulated Device Onboarded.")
-            sleep(5)
-            row_text = self.get_ap_row()
-            res = row_text.split("\n")
-            ap_name = res[0]
-            self.utils.print_info("AP Name is : ", ap_name)
-            return ap_name
-
     def get_ap_row(self):
         """
         - This Keyword Gets AP name in Row Text
         - Assumes that Already Navigated to Manage--> Devices Page
         - Keyword Usage
-         - ``Get AP Row``
+        - ``Get AP Row``
 
         :return: ap device presented row information
         """

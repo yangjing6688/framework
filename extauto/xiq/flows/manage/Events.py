@@ -30,8 +30,8 @@ class Events:
         - This keyword checks if Events page grid contains the list of strings(events_details) provided as argument and it also checks for MAC.
         -Flow: Manage --> Events --> Checks for events details and MAC.
         - Keyword Usage:
-         - ``Verify Events Grid Details    mac=${MAC}       events_details=Client Connect Down,Connection Change    nav=1``
-         - ``Verify Events Grid Details    events_details=Client Connect Down,Connection Change``
+        - ``Verify Events Grid Details    mac=${MAC}       events_details=Client Connect Down,Connection Change    nav=1``
+        - ``Verify Events Grid Details    events_details=Client Connect Down,Connection Change``
         :param mac: MAC of the device
         :param events_details: details to be checked, it needs to be provided in the above format(comma separated format).
         :param nav: Navigates to Events Page if nav=1
@@ -65,8 +65,8 @@ class Events:
         - This keyword verfies pagination by checking the events details on page 2 of Events Page.
         -Flow: Manage --> Events --> Checks for pagination.
         - Keyword Usage:
-         - ``Verify Events Pagination    events_details=Client Connect Down,Connection Change    nav=1``
-         - ``Verify Events Pagination    events_details=Client Connect Down,Connection Change``
+        - ``Verify Events Pagination    events_details=Client Connect Down,Connection Change    nav=1``
+        - ``Verify Events Pagination    events_details=Client Connect Down,Connection Change``
         :param events_details: details to be checked, it needs to be provided in the above format(comma separated format).
         :param nav: Navigates to Events Page if nav=1
         :return: 1 if success else -1
@@ -86,14 +86,14 @@ class Events:
         - This keyword checks if download works on Events Page.
         -Flow: Manage --> Events --> Checks for Download.
         - Keyword Usage:
-         - ``Check Events Download``
+        - ``Check Events Download``
         :return: 1 if success else -1
         """
         try:
             self.utils.print_info("Clicking on download button.")
             download_btn = self.EventsWebElements.get_events_download_button()
             if download_btn.is_displayed() and download_btn.is_enabled():
-                self.auto_actions.click(self.EventsWebElements.get_events_download_button())
+                self.auto_actions.click_reference(self.EventsWebElements.get_events_download_button)
                 self.utils.print_info("Events Download verified.")
                 return 1
             return -1

@@ -27,7 +27,7 @@ class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
         """
         self.utils.print_info("Selecting Active Directory Domains from menu...")
 
-        if self.auto_actions.click(self.get_ad_domains()) == 1:
+        if self.auto_actions.click_reference(self.get_ad_domains) == 1:
             sleep(2)
             self.utils.print_info("Creating domain ")
             element = self.weh.get_element(self.domain_button)
@@ -76,7 +76,7 @@ class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
         """
         self.utils.print_info("Selecting Active Directory Domains from menu...")
 
-        if self.auto_actions.click(self.get_ad_domains()) == 1:
+        if self.auto_actions.click_reference(self.get_ad_domains) == 1:
             sleep(2)
             self.utils.print_info("Click Join Button ")
             element = self.weh.get_element(self.join_ad)

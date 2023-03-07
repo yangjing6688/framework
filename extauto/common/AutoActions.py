@@ -227,7 +227,8 @@ class AutoActions:
 
     def select_options(self, element, item, by='value'):
         """
-        Select the available options from drop down
+        - Select the available options from drop down
+
         :param element:
         :param by:
         :param item:
@@ -252,6 +253,7 @@ class AutoActions:
     def enable_check_box(self, element):
         """
         - Enable the check box
+
         :param element: check box locator element
         :return:None
         """
@@ -261,6 +263,7 @@ class AutoActions:
     def disable_check_box(self, element):
         """
         - Disable the check box
+
         :param element:  check box locator element
         :return: None
         """
@@ -269,7 +272,8 @@ class AutoActions:
 
     def select_radio_button(self, element):
         """
-        - select the radio button
+        - Select the radio button
+
         :param element: radio button element
         :return:None
         """
@@ -281,6 +285,7 @@ class AutoActions:
         - Select the item from the drop down options
         - loop over the options and compare the text with item to be selected.
         - if item text present in options select that item element
+
         :param options: list of options
         :param item: element to be select based on item string
         :return: True if selected else None
@@ -301,6 +306,7 @@ class AutoActions:
         - one of the options, the first found will be selected.
         - loop over the options and compare the text with item to be selected.
         - if item text present in options select that item element
+
         :param options: list of options
         :param item: element to be select based on item string using partial match
         :return: True if selected else None
@@ -369,7 +375,7 @@ class AutoActions:
     def enable_radio_button(self, element):
         """
         - This Keyword Uses to Enable Radio Button.
-        
+
         :param element:  Radio Button locator element
         :return: None
         """
@@ -379,13 +385,13 @@ class AutoActions:
     def disable_radio_button(self, element):
         """
         - This Keyword Uses to Disable Radio Button.
-        
+
         :param element:  Radio Button locator element
         :return: None
         """
         if element.is_selected():
             self.click(element)
-            
+
     def right_click(self, source_el):
         """
         - Right click (context click) the element

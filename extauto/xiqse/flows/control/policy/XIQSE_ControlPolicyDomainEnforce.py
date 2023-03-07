@@ -25,18 +25,18 @@ class XIQSE_ControlPolicyDomainEnforce(ControlPolicyDomainEnforceWebElements):
 
     def xiqse_control_policy_enforce_domain(self):
         """
-         - This keyword performs Enforce Domain action.
-         - It is assumed that:
-         -     the current view is Control>Policy,
-         -     the Enforce action is initiated by the user, from one of these places on Policy Mgr view:
-         -          * Open/Manage Domain(s) dropdown menu
-         -          * popup menu from a device
-         -          * dropdown menu from the lower-left corner
-         -     the device(s) is already added to the current policy domain,
-         - NOTE: On every automation run, Enforce Preview window is always launched during the Enforce, even though
+        - This keyword performs Enforce Domain action.
+        - It is assumed that:
+        -     the current view is Control>Policy,
+        -     the Enforce action is initiated by the user, from one of these places on Policy Mgr view:
+        -          * Open/Manage Domain(s) dropdown menu
+        -          * popup menu from a device
+        -          * dropdown menu from the lower-left corner
+        -     the device(s) is already added to the current policy domain,
+        - NOTE: On every automation run, Enforce Preview window is always launched during the Enforce, even though
                  I uncheck the "Show on Enforce" checkbox in the Enforce Preview window before the automation starts.
-         - Keyword Usage
-         -     xiqse control policy enforce domain
+        - Keyword Usage
+        -     xiqse control policy enforce domain
 
         :return: 1 if action was successful, else -1
         """
@@ -64,13 +64,13 @@ class XIQSE_ControlPolicyDomainEnforce(ControlPolicyDomainEnforceWebElements):
     def _not_empty_domain(self):
         ret_val = -1
         if self.get_enforce_domain_data_question():
-            self.auto_actions.click(self.get_enforce_domain_data_yes_button())
+            self.auto_actions.click_reference(self.get_enforce_domain_data_yes_button)
             self.utils.print_info("Domain has at least 1 device in it. Continue...")
             ret_val = 1
         else:
             self.utils.print_info("No Device(s) are found in Enforce Preview window. Cancel the Enforce action.")
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.enforce_preview.get_enforce_preview_cancel_button())
+            self.auto_actions.click_reference(self.enforce_preview.get_enforce_preview_cancel_button)
 
         return ret_val
 

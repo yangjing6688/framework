@@ -14,11 +14,11 @@ class AutoProvisioning:
         self.screen = Screen()
         self.common_validation = CommonValidation()
 
-    def auto_provision_basic_settings(self, policy_name, country_code=None, **auto_provision_profile):
+    def auto_provision_basic_settings(self, policy_name, auto_provision_profile, country_code=None, **kwargs):
         """
         - This keyword creates auto provision basic settings
         - Keyword Usage:
-         - ``Auto Provision Basic Settings    ${APP_POLICY_NAME}    ${AP_COUNTRY}    &{APP_CONFIG_DICTIONARY}``
+        - ``Auto Provision Basic Settings    ${APP_POLICY_NAME}    ${AP_COUNTRY}    &{APP_CONFIG_DICTIONARY}``
         :param policy_name: app policy name
         :param country_code: country code
         :param auto_provision_profile: policy_name, device_function, device_model, service_tags, ip sub networks,
@@ -41,24 +41,27 @@ class AutoProvisioning:
         self.utils.print_info("Selecting Device Function: ", device_function)
         ret_val = self.choose_auto_provision_device_function(device_function)
         if ret_val != 1:
-            auto_provision_profile['fail_msg'] = "Choose auto provision device function has failed"
-            self.common_validation.failed(**auto_provision_profile)
+            kwargs['fail_msg'] = "auto_provision_basic_settings() failed. " \
+                                                 "Choose auto provision device function has failed"
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(3)
 
         self.utils.print_info("Selecting Device Function: ", device_function)
         ret_val = self.choose_auto_provision_device_model(dev_model, device_function)
         if ret_val != 1:
-            auto_provision_profile['fail_msg'] = "Choose provision device model has failed"
-            self.common_validation.failed(**auto_provision_profile)
+            kwargs['fail_msg'] = "auto_provision_basic_settings() failed." \
+                                                 "Choose provision device model has failed"
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(3)
 
         self.utils.print_info("Selecting Network Policy: ", network_policy)
         ret_val = self.choose_auto_provision_network_policy(network_policy)
         if ret_val != 1:
-            auto_provision_profile['fail_msg'] = "Choose auto provision network policy has failed"
-            self.common_validation.failed(**auto_provision_profile)
+            kwargs['fail_msg'] = "auto_provision_basic_settings() failed." \
+                                                 "Choose auto provision network policy has failed"
+            self.common_validation.fault(**kwargs)
             return -1
         sleep(3)
 
@@ -69,24 +72,24 @@ class AutoProvisioning:
             # country_code = auto_provision_profile.get('country_code')
             if self.choose_auto_provision_country_code(country_code):
                 sleep(3)
-                auto_provision_profile['pass_msg'] = "auto provision basic settings completed"
-                self.common_validation.passed(**auto_provision_profile)
+                kwargs['pass_msg'] = "auto provision basic settings completed"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info("Unable to select country code for AP model")
-                auto_provision_profile['fail_msg'] = "Unable to select country code for AP model"
-                self.common_validation.failed(**auto_provision_profile)
+                kwargs['fail_msg'] = "auto_provision_basic_settings() failed." \
+                                                     "Unable to select country code for AP model"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
-            auto_provision_profile['pass_msg'] = "auto provision basic settings completed"
-            self.common_validation.passed(**auto_provision_profile)
+            kwargs['pass_msg'] = "auto provision basic settings completed"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def auto_provision_advanced_settings(self, **advance_setting):
         """
         - This keyword creates auto provision advanced settings
         - Keyword Usage:
-         - ``Auto Provision Advanced Settings   &{APP_CONFIG_DICTIONARY}``
+        - ``Auto Provision Advanced Settings   &{APP_CONFIG_DICTIONARY}``
         :param: upload_firmware,upload_configuration,reboot,Firmware_version
         :return: None
         """
@@ -101,20 +104,20 @@ class AutoProvisioning:
 
         if reboot == "Enable":
             self.utils.print_info("Enabling Reboot After Uploading")
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_enable_Reboot())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_enable_Reboot)
 
         if upload_firmware == "Enable":
             self.utils.print_info("Enabling Upload Device Firmware")
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_enable_upload_auth())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_enable_upload_auth)
             sleep(3)
             if firmware_version == "golden_version":
-                self.auto_actions.click(self.app_web_elements.get_auto_provisioning_Upload_Auth_golden_version())
+                self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_Upload_Auth_golden_version)
             else:
-                self.auto_actions.click(self.app_web_elements.get_auto_provisioning_Upload_Auth_latest_version())
+                self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_Upload_Auth_latest_version)
 
         if upload_configuration == "Enable":
             self.utils.print_info("Enabling Upload Configuration Automatically")
-            self.auto_actions.click(self.app_web_elements.get_auto_provisioning_enable_Upload_Auto())
+            self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_enable_Upload_Auto)
             sleep(3)
             self.screen.save_screen_shot()
 
@@ -122,7 +125,7 @@ class AutoProvisioning:
         """
         - This keyword adds auto provision device credentials if status is enabled on device_credential dictionary
         - Keyword Usage:
-         - ``Auto Provision Device Credential  &{DEVICE_CREDENTIAL_DICTIONARY}``
+        - ``Auto Provision Device Credential  &{DEVICE_CREDENTIAL_DICTIONARY}``
         :param: device credentials dict : device_credential,root_admin_name,root_admin_password,read_only_admin_name,
                 read_only_admin_password
         :return: None
@@ -149,7 +152,7 @@ class AutoProvisioning:
         """
         - This keyword creates auto provision CAPWAP configuration
         - Keyword Usage:
-         - ``Auto Provision capwap configurations &{CAPWAP_CONFIGURATION_DICTIONARY}``
+        - ``Auto Provision capwap configurations &{CAPWAP_CONFIGURATION_DICTIONARY}``
         :param: capwap_configuration: CAPWAP configuration values
         :return: None
         """
@@ -165,22 +168,22 @@ class AutoProvisioning:
             if primary_capwap == "default":
 
                 if primary_hostname == "default":
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_ip_addr())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_ip_addr)
                     sleep(3)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_ip_name(), primary_name)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_ip_IPaddr(), primary_ip_addr)
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_save_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_save_button)
                     sleep(2)
                 else:
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_hostname())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_hostname)
                     sleep(3)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_hostname_name(), primary_name)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_hostname_hostname(), primary_hostname)
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_save_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_save_button)
                     sleep(2)
             else:
                 self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_primary_server_input(), primary_capwap)
@@ -194,19 +197,19 @@ class AutoProvisioning:
 
                 if backup_hostname == "default":
 
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_ip_addr())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_ip_addr)
                     sleep(5)
                     self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_add_ip_name(), backup_name)
                     self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_add_ip_IPaddr(), backup_ip_addr)
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_save_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_save_button)
                     sleep(2)
                 else:
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_hostname())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_hostname)
                     sleep(5)
                     self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_add_hostname_name(), backup_name)
                     self.auto_actions.send_keys(
                         self.app_web_elements.get_app_capwap_add_hostname_hostname(), backup_hostname)
-                    self.auto_actions.click(self.app_web_elements.get_app_capwap_add_save_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_app_capwap_add_save_button)
                     sleep(2)
             else:
                 self.auto_actions.send_keys(self.app_web_elements.get_app_capwap_primary_server_input(), backup_capwap)
@@ -218,7 +221,7 @@ class AutoProvisioning:
         """
         - This keyword saves and enables auto provision profile
         - Keyword Usage:
-         - ``Save and Enable Auto Provision Policy   ${APP_POLICY_NAME}``
+        - ``Save and Enable Auto Provision Policy   ${APP_POLICY_NAME}``
         :param: policy_name : auto provision policy name
         :return: None
         """
@@ -235,7 +238,7 @@ class AutoProvisioning:
         """
         - Enables a auto provision policy
         - Keyword Usage:
-         - ``Auto Provision Enable Policy Row   ${APP_POLICY_NAME}``
+        - ``Auto Provision Enable Policy Row   ${APP_POLICY_NAME}``
         :param: auto provision policy name which is to be searched
         :return: None
         """
@@ -247,17 +250,17 @@ class AutoProvisioning:
                 self.screen.save_screen_shot()
                 return
 
-    def choose_auto_provision_network_policy(self, network_policy):
+    def choose_auto_provision_network_policy(self, network_policy, **kwargs):
         """
         - This keyword chooses auto provision network policy
         - Keyword Usage
-         - ``Choose Auto Provision Network Policy   ${NETWORK_POLICY_NAME}``
+        - ``Choose Auto Provision Network Policy   ${NETWORK_POLICY_NAME}``
         :param: network policy : Network Policy Name to be apply for autoprovision policy
-        :return: None
+        :return: 1 if network policy found, else -1
         """
         sleep(3)
         self.utils.print_info("Clicking on Network Policy")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_network_policy())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_network_policy)
         sleep(5)
         network_policy_list = []
         net_results = self.app_web_elements.get_auto_provisioning_network_policy_list()
@@ -265,28 +268,28 @@ class AutoProvisioning:
             val = net_result.text
             network_policy_list.append(val)
             if val == network_policy:
-                self.utils.print_info("Network Policy Match Found")
                 self.auto_actions.click(net_result)
                 self.screen.save_screen_shot()
+                kwargs['pass_msg'] = "Network Policy Match Found"
+                self.common_validation.passed(**kwargs)
                 return 1
 
-        self.utils.print_info(f" Not able to find Network Policy dropdown items for {network_policy} in list {*network_policy_list,}")
+        kwargs['fail_msg'] = f"choose_auto_provision_network_policy() failed. " \
+                             f"Not able to find Network Policy dropdown items for {network_policy} " \
+                             f"in list {*network_policy_list,}"
+        self.common_validation.failed(**kwargs)
         return -1
 
-
-
-
-    def verify_auto_provision_policy_update(self, serial, country_code='NA', **auto_provision_policy):
+    def verify_auto_provision_policy_update(self, serial, auto_provision_policy, country_code='NA', **kwargs):
         """
         - This keyword verifies if the device is updated with auto configuration policy
         - Keyword Usage
-         - ``verify auto provision_policy_update   ${NETWORK_POLICY_NAME}``
+        - ``verify auto provision_policy_update   ${NETWORK_POLICY_NAME}``
         :param: serial : serial number of device
         :param: auto_provision_policy: (Config Dict) device_function(AP or Switch), network_policy_name
         :return: 1 Auto Provision Policy Update Successful else -1
         """
         device_function = auto_provision_policy.get('device_function')
-        # country_code = auto_provision_policy.get('country_code')
         network_policy = auto_provision_policy.get('network_policy')
 
         self.devices.refresh_devices_page()
@@ -299,33 +302,34 @@ class AutoProvisioning:
         if "AP" in device_function:
             self.utils.print_info("Verifying device type AP")
             self.utils.print_info(f"Looking for {network_policy} in {row.text}")
-            # if network_policy in row.text and country_code in row.text:
             if network_policy in row.text:
-                auto_provision_policy['pass_msg'] = f"Found {network_policy} in {row.text}"
-                self.common_validation.passed(**auto_provision_policy)
+                kwargs['pass_msg'] = f"Found {network_policy} in {row.text}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                auto_provision_policy['fail_msg'] = f"Did not find {network_policy} in {row.text}"
-                self.common_validation.failed(**auto_provision_policy)
+                kwargs['fail_msg'] = f"verify_auto_provision_policy_update() failed. " \
+                                                    f"Did not find {network_policy} in {row.text}"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         if "Extreme Networks SR22xx / SR23xx Switches" in device_function:
             self.utils.print_info("Verifying device type Switch")
             self.utils.print_info(f"Looking for {network_policy} in {row.text}")
             if network_policy in row.text:
-                auto_provision_policy['pass_msg'] = f"Found {network_policy} in {row.text}"
-                self.common_validation.passed(**auto_provision_policy)
+                kwargs['pass_msg'] = f"Found {network_policy} in {row.text}"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                auto_provision_policy['fail_msg'] = f"Did not find {network_policy} in {row.text}"
-                self.common_validation.failed(**auto_provision_policy)
+                kwargs['fail_msg'] = f"verify_auto_provision_policy_update() failed." \
+                                                    f"Did not find {network_policy} in {row.text}"
+                self.common_validation.failed(**kwargs)
                 return -1
 
     def enter_auto_provision_policy_name(self, policy_name):
         """
         - This keyword uses to configure Auto Provisioning Policy Name
         - Keyword Usage
-         - ``Enter Auto Provision Policy Name   ${APP_NAME}``
+        - ``Enter Auto Provision Policy Name   ${APP_NAME}``
         :param: policy_name : Auto Provisioning Policy Name
         :return: None
         """
@@ -333,11 +337,11 @@ class AutoProvisioning:
         self.utils.print_info("Entering Name")
         self.auto_actions.send_keys(self.app_web_elements.get_auto_provisioning_name(), policy_name)
 
-    def choose_auto_provision_device_function(self, device_function):
+    def choose_auto_provision_device_function(self, device_function, **kwargs):
         """
         - This keyword chooses auto provision device function
         - Keyword Usage
-         - ``Choose Auto Provision Device Function   ${DEVICE_FUNCTION}``
+        - ``Choose Auto Provision Device Function   ${DEVICE_FUNCTION}``
         :param: device_function : device function to be selected
         :return: 1 if Device Function Selected Successfully else -1
         """
@@ -350,20 +354,23 @@ class AutoProvisioning:
             for result in results:
                 device_function_list.append(result.text)
                 if device_function in result.text:
-                    self.utils.print_info("Device Function Match Found")
                     self.auto_actions.click(result)
                     self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = "Device Function Match Found"
+                    self.common_validation.passed(**kwargs)
                     return 1
 
-        self.utils.print_info(f" Not able to find auto provision device function dropdown items for {device_function} in list {*device_function_list,}")
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = f"choose_auto_provision_device_function() failed." \
+                             f"Not able to find auto provision device function dropdown items for {device_function} " \
+                             f"in list {*device_function_list,}"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def choose_auto_provision_device_model(self, dev_model, device_function):
+    def choose_auto_provision_device_model(self, dev_model, device_function, **kwargs):
         """
         - This keyword chooses auto provision device model
         - Keyword Usage
-         - ``Choose Auto Provision Device Model   ${DEVICE_PLATFORM}   ${DEVICE_FUNCTION}``
+        - ``Choose Auto Provision Device Model   ${DEVICE_PLATFORM}   ${DEVICE_FUNCTION}``
         :param: device model : Device Platform
         :param: device function : Device Function Name ie AP,Switches
         :return:None
@@ -393,19 +400,23 @@ class AutoProvisioning:
                 val = result.text
                 device_model_list.append(val)
                 if val == dev_model:
-                    self.utils.print_info("Device Model Match Found")
                     self.auto_actions.click(result)
                     self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = "Device Model Match Found"
+                    self.common_validation.passed(**kwargs)
                     return 1
 
-        self.utils.print_info(f" Not able to find auto provision device model dropdown items for {dev_model} in list {*device_model_list,}")
+        kwargs['fail_msg'] = f"choose_auto_provision_device_model() failed. " \
+                             f"Not able to find auto provision device model dropdown items for {dev_model} " \
+                             f"in list {*device_model_list,}"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def choose_auto_provision_country_code(self, country_code):
+    def choose_auto_provision_country_code(self, country_code, **kwargs):
         """
         - This keyword chooses auto provision country
         - Keyword Usage
-         - ``Choose Auto Provision Country Code   ${COUNTRY_CODE}``
+        - ``Choose Auto Provision Country Code   ${COUNTRY_CODE}``
         :param: country_code : Country Code to Configure for Auto Provisioning Policy
         :return: 1 if Country Code Successfully configured else -1
         """
@@ -423,17 +434,22 @@ class AutoProvisioning:
                     self.auto_actions.click(country)
                     self.utils.print_info("Selected country: ", country_code)
                     self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = f"Successfully selected country: {country_code}"
+                    self.common_validation.passed(**kwargs)
                     return 1
 
-        self.utils.print_info(f"Not able to find auto provision country {country_code} dropdown items in the list {*countries_list,}")
         self.screen.save_screen_shot()
+        kwargs['fail_msg'] = f"choose_auto_provision_country_code() failed. " \
+                             f"Not able to find auto provision country {country_code} dropdown items " \
+                             f"in the list {*countries_list,}"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def delete_auto_provisioning_policy(self, policy_name):
+    def delete_auto_provisioning_policy(self, policy_name, **kwargs):
         """
         - Delete a Auto Provisioning Policy
         - Keyword Usage
-         - ``Delete Auto Provisioning Policy   ${APP_NAME}``
+        - ``Delete Auto Provisioning Policy   ${APP_NAME}``
         :param policy_name: Auto Provisioning policy Name
         :return: 1 if successfully deleted Auto Provisioning Policy else -1
         """
@@ -441,7 +457,7 @@ class AutoProvisioning:
         sleep(3)
 
         self.utils.print_info("Deleting Auto Provisioning Policy: ", policy_name)
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_button)
         sleep(2)
 
         if self.search_auto_provisioning_policy(policy_name) == 1:
@@ -452,22 +468,25 @@ class AutoProvisioning:
                     sleep(2)
 
                     self.utils.print_info("Clicking Delete button...")
-                    self.auto_actions.click(self.app_web_elements.get_auto_provisioning_delete_button())
+                    self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_delete_button)
                     sleep(2)
 
                     self.utils.print_info("Confirming delete")
-                    self.auto_actions.click(self.app_web_elements.get_auto_provisioning_alert_yes())
-                    self.utils.print_info("Deleted Auto Provisioning Policy: ", policy_name)
+                    self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_alert_yes)
+                    kwargs['pass_msg'] = f"Successfully deleted Auto Provisioning Policy: {policy_name}"
+                    self.common_validation.passed(**kwargs)
                     return 1
         else:
-            self.utils.print_info("Unable to delete Auto Provisioning Policy: ", policy_name)
+            kwargs['fail_msg'] = f"delete_auto_provisioning_policy() failed. " \
+                                 f"Unable to delete Auto Provisioning Policy: {policy_name}"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def delete_all_auto_provision_policies(self, **kwargs):
         """
         - Delete all Auto Provisioning Policies
         - Keyword Usage
-         - ``Delete All Auto Provision Policies``
+        - ``Delete All Auto Provision Policies``
         :return: 1 if successfully deleted All Auto Provisioning Policies else -1
         """
 
@@ -483,15 +502,15 @@ class AutoProvisioning:
         header = self.app_web_elements.get_auto_provisioning_grid_header()
         self.utils.print_info("Selecting all Policies")
 
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_select_all_check_box())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_select_all_check_box)
         sleep(2)
 
         self.utils.print_info("Clicking Delete button...")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_delete_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_delete_button)
         sleep(2)
 
         self.utils.print_info("Confirming delete")
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_alert_yes())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_alert_yes)
         sleep(5)
 
         new_count = self.get_auto_provision_policy_count()
@@ -500,15 +519,15 @@ class AutoProvisioning:
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "Unable to Deleted all the Policies"
+            kwargs['fail_msg'] = "delete_all_auto_provision_policies() failed. Unable to delete all the policies"
             self.common_validation.failed(**kwargs)
             return -1
 
-    def search_auto_provisioning_policy(self, policy_name):
+    def search_auto_provisioning_policy(self, policy_name, **kwargs):
         """
         - Search a Auto Provisioning Policy
         - Keyword Usage
-         - ``Search Auto Provisioning Policy   ${APP_NAME}``
+        - ``Search Auto Provisioning Policy   ${APP_NAME}``
         :param policy_name: Auto Provision Policy
         :return: 1 if Auto Provision Policy found On Grid else -1
         """
@@ -516,7 +535,7 @@ class AutoProvisioning:
         sleep(3)
 
         self.utils.print_info("Searching Auto Provisioning Policy: ", policy_name)
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_button)
         sleep(2)
         rows = self.app_web_elements.get_auto_provision_grid_rows()
         self.utils.print_info("Rows: ", rows)
@@ -524,26 +543,27 @@ class AutoProvisioning:
         if rows:
             for row in rows:
                 if policy_name in row.text:
-                    self.utils.print_info("Found Auto Provisioning Policy: ", policy_name)
                     self.screen.save_screen_shot()
+                    kwargs['pass_msg'] = f"Found Auto Provisioning Policy: {policy_name}"
+                    self.common_validation.passed(**kwargs)
                     return 1
 
-        self.utils.print_info("Unable to find Auto Provisioning Policy: ", policy_name)
-        self.screen.save_screen_shot()
-
+        kwargs['fail_msg'] = f"search_auto_provisioning_policy() failed. " \
+                             f"Unable to find Auto Provisioning Policy: {policy_name}"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def goto_auto_provisioning_policy(self):
         """
         - navigates to auto provisioning policy page
         - Keyword Usage
-         - ``Goto Auto Provisioning Policy``
+        - ``Goto Auto Provisioning Policy``
         :return: 1 if Navigate to Auto Provisioning Policy Successful else None
         """
         self.navigator.navigate_configure_common_objects()
         sleep(3)
 
-        self.auto_actions.click(self.app_web_elements.get_auto_provisioning_button())
+        self.auto_actions.click_reference(self.app_web_elements.get_auto_provisioning_button)
         sleep(2)
         return 1
 
@@ -551,7 +571,7 @@ class AutoProvisioning:
         """
         - Returns the count of auto provision policies
         - Keyword Usage
-         - ``Get Auto Provision Policy Count``
+        - ``Get Auto Provision Policy Count``
         :return: number of auto provision policies
         """
         rows = self.app_web_elements.get_auto_provision_grid_rows()
