@@ -3,7 +3,7 @@
         {COMMMENT_HEADER}
 
         # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
+        configuration = self.get_xapi_configuration()
         api_response = None
 
         # Enter a context with an instance of the API client
@@ -12,10 +12,10 @@
             api_instance = self.extremecloudiq.{XAPI_API_CLASS}(api_client)
             try:
                 api_response = api_instance.{XAPI_API_FUNCTION}(**kwargs)
-                self.xapiHelper.common_validation.passed(**kwargs)
+                self.common_validation.passed(**kwargs)
                 return api_response
 
             except self.ApiException as e:
                 kwargs['fail_msg'] = f"ApiException : {e}"
-                self.xapiHelper.common_validation.fault(**kwargs)
+                self.common_validation.fault(**kwargs)
                 return -1

@@ -24,8 +24,6 @@ import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
 import extauto.xiq.flows.globalsettings.GlobalSetting
-from  tools.xapi.XapiHelper import XapiHelper
-
 
 
 
@@ -43,7 +41,6 @@ class Login:
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.xapiLogin = XapiLogin()
-        self.xapiHelper = XapiHelper()
 
     def _init(self, url="default", incognito_mode="False"):
         """
@@ -131,7 +128,7 @@ class Login:
         :return: 1 if login successful else -1
         """
 
-        if self.xapiHelper.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled():
             # new XAPI call to get and set the XAPI token
             self.xapiLogin.login(username, password, **kwargs)
 
@@ -439,10 +436,24 @@ class Login:
         - Keyword Usage:
         - ``Logout User``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
+
         :return: 1 if logout success
         """
-        # stop tool tip text capture thread
 
+        if self.xapiLogin.is_xapi_enabled():
+            # remove the token for xpapi
+            self.xapiLogin.logout(**kwargs)
+
+            # Look for the XAPI_ONLY and if set return
+            xapi_only = kwargs.get('XAPI_ONLY', False)
+            if xapi_only:
+                self.utils.print_info("XAPI_ONLY detected in logout, XAPI ONLY TEST")
+                return 1
+
+        # stop tool tip text capture thread
         self.utils.switch_to_default(CloudDriver().cloud_driver)
         try:
             self.t1.do_run = False
@@ -689,7 +700,7 @@ class Login:
         :return: data_center_name
         """
 
-        if self.xapiHelper.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled():
             return self.xapiLogin.xapi_capture_data_center_name(**kwargs)
 
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
@@ -719,7 +730,7 @@ class Login:
         """
 
         # This isn't supported yet
-        # if self.xapiHelper.is_xapi_enabled():
+        # if self.xapiLogin.is_xapi_enabled():
         #     return self.xapiLogin.xapi_capture_xiq_version(**kwargs)
 
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
