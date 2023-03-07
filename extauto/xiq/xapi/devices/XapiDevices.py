@@ -417,6 +417,8 @@ class XapiDevices(XapiBase):
         :return: Device admin state: MANAGE, UNMANAGE, NEW, STAGE...
         """
 
+        valid_admin_state = ['NEW', 'UNMANAGED', 'MANAGED', 'STAGED']
+
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
@@ -427,7 +429,14 @@ class XapiDevices(XapiBase):
         self.valid_http_response(api_response)
         data = json.loads(api_response.data)
         device_admin_state = data.get('device_admin_state', '')
-        return device_admin_state
+        if device_admin_state in valid_admin_state:
+            kwargs['pass_msg'] = f"Device admin state Value is: {device_admin_state}"
+            self.xapiHelper.common_validation.passed(**kwargs)
+            return device_admin_state
+        else:
+            kwargs['fail_msg'] = f"Device admin state value is not in predefined list: {valid_admin_state}"
+            self.xapiHelper.common_validation.fault(**kwargs)
+            return -1
 
     def xapi_wait_until_device_unmanaged(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
                                       **kwargs):
