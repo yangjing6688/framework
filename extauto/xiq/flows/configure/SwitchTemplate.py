@@ -3415,7 +3415,7 @@ class SwitchTemplate(object):
 
         if enable_auto_revert_message != "Reboot and revert Extreme Networks switch configuration if IQAgent is " \
                                          "unresponsive after configuration update.":
-            kwargs["fail_msg"] = f"The Enable Auto Revert button name is not the correct " \
+            kwargs["fail_msg"] = "The Enable Auto Revert button name is not the correct " \
                                  f"one: {enable_auto_revert_message}!"
             self.common_validation.failed(**kwargs)
             return -1

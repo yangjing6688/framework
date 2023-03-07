@@ -418,8 +418,7 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_wifi_capacity_widget_location_detailed_view_close_button)
                             sleep(5)
-                            kwargs['pass_msg'] = "" \
-                                                 f"Pinned Anomaly successfully for the AP : {ap_name} in Location " \
+                            kwargs['pass_msg'] = f"Pinned Anomaly successfully for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.common_validation.passed(**kwargs)
                             return 1
@@ -1933,8 +1932,7 @@ class Copilot(CopilotWebElements):
 
                     for row1 in self.get_dfs_recurrence_widget_location_grid_rows():
                         if location_name in row1.text:
-                            kwargs['fail_msg'] = "" \
-                                                 f"Location name : {location_name} in DFS Recurrence Widget Not " \
+                            kwargs['fail_msg'] = f"Location name : {location_name} in DFS Recurrence Widget Not " \
                                                  "Dismissed Successfully"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.failed(**kwargs)
@@ -1991,15 +1989,13 @@ class Copilot(CopilotWebElements):
                             self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)
                             sleep(5)
-                            kwargs['pass_msg'] = "" \
-                                                 f"Pinned Anomaly successfully for the AP : {ap_name} in Location " \
+                            kwargs['pass_msg'] = f"Pinned Anomaly successfully for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.utils.switch_to_default(CloudDriver().cloud_driver)
                             self.common_validation.passed(**kwargs)
                             return 1
                         else:
-                            kwargs['pass_msg'] = "" \
-                                                 f"Already Pinned Anomaly for the AP : {ap_name} in Location " \
+                            kwargs['pass_msg'] = f"Already Pinned Anomaly for the AP : {ap_name} in Location " \
                                                  f"{location_name}"
                             self.utils.print_info("Closing Detailed view")
                             self.auto_actions.click_reference(self.get_dfs_recurrence_widget_location_detailed_view_close_button)

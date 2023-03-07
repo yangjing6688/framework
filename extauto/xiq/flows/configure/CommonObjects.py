@@ -180,7 +180,7 @@ class CommonObjects(object):
                 return 1
 
         if self._search_common_object(ssid_name):
-            kwargs['fail_msg'] = "Unsuccessfully deleted the SSID!"
+            kwargs['fail_msg'] = "Unable to delete the SSID!"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -255,7 +255,7 @@ class CommonObjects(object):
 
         for ssid in ssids:
             if self._search_common_object(ssid):
-                kwargs['fail_msg'] = "Unsuccessfully deleted SSIDs"
+                kwargs['fail_msg'] = "Unable to delete SSIDs"
                 self.common_validation.failed(**kwargs)
                 return -1
         kwargs['pass_msg'] = "Successfully deleted SSIDs"
@@ -805,7 +805,7 @@ class CommonObjects(object):
                 return 1
 
         if self._search_common_object(sub_network_name):
-            kwargs['fail_msg'] = "Unsuccessfully deleted the SUB NETWORK SPACE!"
+            kwargs['fail_msg'] = "Unable to delete the SUB NETWORK SPACE!"
             self.common_validation.failed(**kwargs)
             return -1
         else:
@@ -845,7 +845,7 @@ class CommonObjects(object):
                 return 1
 
         if self._search_common_object(vlan_name):
-            kwargs['fail_msg'] = "Unsuccessfully deleted the Vlan object"
+            kwargs['fail_msg'] = "Unable to delete the Vlan object"
             self.common_validation.failed(**kwargs)
             return -1
         else:
@@ -3165,7 +3165,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = " Unable to Delete Management options"
+            kwargs['fail_msg'] = "Unable to Delete Management options"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3214,7 +3214,7 @@ class CommonObjects(object):
                     self.common_validation.fault(**kwargs)
                     return -1
             else:
-                kwargs['fail_msg'] = "Unable to set  Name field for new Add Management Options Entry"
+                kwargs['fail_msg'] = "Unable to set Name field for new Add Management Options Entry"
                 self.common_validation.fault(**kwargs)
                 return -1
         else:

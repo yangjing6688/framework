@@ -651,8 +651,7 @@ class LicenseManagement(LicenseManagementWebElements):
             if available_count == int(expected_available) and \
                activated_count == int(expected_activated) and \
                total_count == int(expected_total):
-                kwargs['pass_msg'] = "" \
-                                     f"Counts for {feature} are at the expected values:\n"  \
+                kwargs['pass_msg'] = f"Counts for {feature} are at the expected values:\n"  \
                                      f"  Available: {expected_available}\n" \
                                      f"  Activated: {expected_activated}\n" \
                                      f"  Total:     {expected_total}"

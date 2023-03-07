@@ -581,7 +581,7 @@ class RouterTemplate(RouterTemplateWebElements):
                     return True
 
             if self.select_router_template_row(template_name, ignore_failure=True):
-                kwargs['fail_msg'] = "Unsuccessfully deleted the Router Template!"
+                kwargs['fail_msg'] = "Unable to delete the Router Template!"
                 self.common_validation.failed(**kwargs)
                 return False
             else:
@@ -590,7 +590,7 @@ class RouterTemplate(RouterTemplateWebElements):
                 return True
         else:
             self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
-            kwargs['pass_msg'] = f"default Router Template :{template_name} doesn't exist in the list"
+            kwargs['pass_msg'] = f"Default Router Template: {template_name} doesn't exist in the list"
             self.common_validation.passed(**kwargs)
             return True
 
