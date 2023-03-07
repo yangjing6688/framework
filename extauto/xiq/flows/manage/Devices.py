@@ -1324,10 +1324,19 @@ class Devices:
         - Keyword Usage:
         - ``Reboot Device  ${DEVICE_SERIAL}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device serial number
         :param device_mac: device mac address
         :return: None
         """
+
+        # Execute the XAPI call and return the value
+        if self.xapiDevices.is_xapi_enabled():
+            return self.xapiDevices.xapi_reboot_device(device_serial, device_mac, **kwargs)
+
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
