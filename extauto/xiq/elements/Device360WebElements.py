@@ -1510,6 +1510,8 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_pse_profile_description)
         elif element == "pse_profile_save":
             return self.weh.get_element(self.select_element_port_type_pse_profile_save)
+        elif element == "pse_profile_save_error":
+            return self.weh.get_element(self.select_element_port_type_pse_profile_save_error)
         elif element == "poe status":
             return self.weh.get_element(self.select_element_port_type_poe_status)
         elif element == "pse_profile_edit":

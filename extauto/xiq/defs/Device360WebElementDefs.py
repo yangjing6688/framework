@@ -2563,6 +2563,12 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    select_element_port_type_pse_profile_save_error = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//*[@data-dojo-attach-point="textEl"]',
+            'wait_for': 5
+        }
+
     select_element_port_type_poe_status = \
         {
             'XPATH': '//input[@data-automation-tag="port-type-editor-pse-enable"]',

@@ -11319,8 +11319,15 @@ class Device360(Device360WebElements):
 
         get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
         if get_pse_profile_save:
-
             self.auto_actions.click(get_pse_profile_save)
+            # Check if error is displayed after save
+            get_pse_profile_save_error = self.get_select_element_port_type("pse_profile_save_error")
+            if get_pse_profile_save:
+
+                self.utils.print_info("Below error is displayed after save profile:" , get_pse_profile_save_error)
+                kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> get_pse_profile_save not found"
+                self.common_validation.failed(**kwargs)
+                return -1
             self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
                                  delay=5, silent_failure=False, msg="Waiting for port type profile to "
                                                                    "save...")
@@ -11329,6 +11336,7 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
+
             self.utils.print_info("get_pse_profile_save not found ")
             kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> get_pse_profile_save not found"
             self.common_validation.failed(**kwargs)
