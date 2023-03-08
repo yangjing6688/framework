@@ -1400,10 +1400,10 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_tab_pse_settings)
         elif element == "summaryPage":
             return self.weh.get_element(self.select_element_port_type_tab_summary)
-        elif element == "elrdp":
-            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "ELRPSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_tab_elrp)
         elif element == "MACLOCKINGSettingsPage":
-            return self.weh.get_element(self.select_element_port_type_maclocking)
+            return self.weh.get_element(self.select_element_port_type_tab_maclocking)
         #page Port Name
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
@@ -1651,7 +1651,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_mac_locking_link_down_action_clear_summary)
         elif element == "link down retain":
             return self.weh.get_element(self.select_mac_locking_link_down_action_retain_summary)
-        elif element == "remove aged MACs":
+        elif element == "remove aged macs":
             return self.weh.get_element(self.select_mac_locking_remove_aged_macs_summary)
         elif element == "port_type_voice_lldp_advertisment_summary":
             return self.weh.get_element(self.select_element_port_type_voice_lldp_advertisment_summary)
@@ -2257,6 +2257,20 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_stack_slot_sfp_ports(self):
         return self.weh.get_elements(self.device360_stack_slot_sfp_ports)
 
+    def get_d360_port_status_overview(self, row):
+        return self.weh.get_element(self.d360_port_status_overview, row)
+
+    def get_d360_mac_locking_overview(self, row):
+        return self.weh.get_element(self.d360_mac_locking_overview, row)
+
+    def get_d360_port_config_option_tab(self, option):
+        return self.weh.get_template_element(self.d360_port_config_option_tab, option=option)
+
+    def get_mac_locking_exceed_limit_error(self):
+        return self.weh.get_element(self.mac_locking_exceed_limit_error)
+
+    def get_d360_mac_locking_disable_port(self, port_number):
+        return self.weh.get_template_element(self.d360_mac_locking_disable_port, port_number=port_number)
     def get_device360_port_details_button(self):
         return self.weh.get_element(self.device360_port_details_button)
 
@@ -2422,5 +2436,13 @@ class Device360WebElements(Device360WebElementDefs):
     def get_configuration_events_button(self):
         return self.weh.get_element(self.configuration_events_button)
 
+    def get_d360_mac_locking_link_down_action(self, port_number):
+        return self.weh.get_template_element(self.d360_mac_locking_link_down_action, port_number=port_number)
+
+    def get_wait_for_port_config_to_load(self):
+        return self.weh.get_element(self.wait_for_port_config_to_load)
+
+    def get_d360_mac_locking_remove_mac_toggle(self, port_number):
+        return self.weh.get_template_element(self.d360_mac_locking_remove_mac_toggle, port_number=port_number)
     def get_device360_lag_popup_spinner(self):
         return self.weh.get_element(self.device360_lag_popup_spinner)
