@@ -33,7 +33,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         router_template_rows_elements = self.get_router_template_rows()
         if not router_template_rows_elements:
-            kwargs['fail_msg'] = "check_router_template() - Router Template not Found"
+            kwargs['fail_msg'] = "Router Template not Found"
             self.common_validation.failed(**kwargs)
             return False
         for el in router_template_rows_elements:
@@ -42,7 +42,7 @@ class RouterTemplate(RouterTemplateWebElements):
                 self.common_validation.passed(**kwargs)
                 return True
 
-        kwargs['fail_msg'] = "check_router_template() - Router Template not Found"
+        kwargs['fail_msg'] = "Router Template not Found"
         self.common_validation.failed(**kwargs)
         return False
 
@@ -141,8 +141,7 @@ class RouterTemplate(RouterTemplateWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page ", tool_tip_text)
         if "Router template has been saved successfully." not in tool_tip_text:
-            kwargs['fail_msg'] = "add_router_template() failed." \
-                                 "Router template has not been saved successfully."
+            kwargs['fail_msg'] = "Router template has not been saved successfully."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -186,7 +185,7 @@ class RouterTemplate(RouterTemplateWebElements):
                 kwargs['pass_msg'] = "Router Interface selected correctly"
                 self.common_validation.passed(**kwargs)
                 return 1
-        kwargs['fail_msg'] = "select_interface_to_add_new_port_type() failed. Unable to select Router Interface"
+        kwargs['fail_msg'] = "Unable to select Router Interface"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -251,7 +250,7 @@ class RouterTemplate(RouterTemplateWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "configure_new_port_type() failed. Failed to save port type "
+            kwargs['fail_msg'] = "Failed to save port type "
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -529,7 +528,7 @@ class RouterTemplate(RouterTemplateWebElements):
             self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
             sleep(2)
 
-            kwargs['fail_msg'] = "select_router_template_row() - Default Router Template doesn't exist"
+            kwargs['fail_msg'] = "Default Router Template doesn't exist"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -582,7 +581,7 @@ class RouterTemplate(RouterTemplateWebElements):
                     return True
 
             if self.select_router_template_row(template_name, ignore_failure=True):
-                kwargs['fail_msg'] = "delete_router_template() failed. Unsuccessfully deleted the Router Template!"
+                kwargs['fail_msg'] = "Unable to delete the Router Template!"
                 self.common_validation.failed(**kwargs)
                 return False
             else:
@@ -591,7 +590,7 @@ class RouterTemplate(RouterTemplateWebElements):
                 return True
         else:
             self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
-            kwargs['pass_msg'] = f"default Router Template :{template_name} doesn't exist in the list"
+            kwargs['pass_msg'] = f"Default Router Template: {template_name} doesn't exist in the list"
             self.common_validation.passed(**kwargs)
             return True
 
