@@ -1,5 +1,5 @@
 import logging
-from ansi2html.style import SCHEME as ansi2html_color_scheme
+from ansi2html.style import SCHEME as ANSI2HTML_COLOR_SCHEME
 from functools import partial, partialmethod
 from robot.api import logger as robot_logger
 from robot.libraries.BuiltIn import BuiltIn
@@ -12,26 +12,26 @@ new_log_levels = {
     "STEP":
         {
             "log_level_value": 5,
-            "log_color": ansi2html_color_scheme.get("ansi2html")[6]
+            "log_color": ANSI2HTML_COLOR_SCHEME.get("ansi2html")[6]
         },
     "CLI":
         {
             "log_level_value": 6,
-            "log_color": ansi2html_color_scheme.get("ansi2html")[4]
+            "log_color": ANSI2HTML_COLOR_SCHEME.get("ansi2html")[4]
         },
     "TRACE":
         {
             "log_level_value": 7,
-            "log_color": ansi2html_color_scheme.get("ansi2html")[2]
+            "log_color": ANSI2HTML_COLOR_SCHEME.get("ansi2html")[2]
         }
 }
 
 colors_mapping = {
-    logging.INFO: ansi2html_color_scheme.get("ansi2html")[5],
-    logging.DEBUG: ansi2html_color_scheme.get("ansi2html")[2],
-    logging.WARNING: ansi2html_color_scheme.get("ansi2html")[3],
-    logging.CRITICAL: ansi2html_color_scheme.get("ansi2html")[1],
-    logging.ERROR: ansi2html_color_scheme.get("ansi2html")[1]
+    logging.INFO: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[5],
+    logging.DEBUG: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[2],
+    logging.WARNING: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[3],
+    logging.CRITICAL: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[1],
+    logging.ERROR: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[1]
 }
 
 method_mapping = {
