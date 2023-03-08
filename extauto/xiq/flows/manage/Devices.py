@@ -2646,7 +2646,7 @@ class Devices:
                         else:
                             self.utils.print_debug(f"No rows returned for page #{page_num}")
                         retry = 0 # no exceptions on rows, set to retry to 0
-                    except:
+                    except StaleElementReferenceException:
                         self.utils.print_info("Exception in row data (usually caused by XIQ device grid not finished), sleeping and retrying")
                         sleep(1)
                         retry = retry - 1;
